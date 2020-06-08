@@ -27,7 +27,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
@@ -2390,7 +2390,7 @@
       </trans-unit>
       <trans-unit id="planner.map" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/_map-page.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -2398,7 +2398,7 @@
       </trans-unit>
       <trans-unit id="planner.title" datatype="html">
         <source>Route planner</source>
-        <target>Route planner</target>
+        <target>Planificateur d&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-planner.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -2406,7 +2406,7 @@
       </trans-unit>
       <trans-unit id="planner.legend" datatype="html">
         <source>Legend</source>
-        <target>Legend</target>
+        <target>Légende</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -2414,7 +2414,7 @@
       </trans-unit>
       <trans-unit id="planner.appearance-options" datatype="html">
         <source>Map appearance options</source>
-        <target>Map appearance options</target>
+        <target>Options d&apos;apparence de la carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -2430,7 +2430,7 @@
       </trans-unit>
       <trans-unit id="planner.quality" datatype="html">
         <source>Node and route quality status</source>
-        <target>Node and route quality status</target>
+        <target>État de qualité du nœud et de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -2438,7 +2438,7 @@
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
         <source>Date last survey</source>
-        <target>Date last survey</target>
+        <target>Date de la dernière cartographie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -2446,7 +2446,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
         <source>Points of interest</source>
-        <target>Points of interest</target>
+        <target>Points d&apos;intérêt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -2454,7 +2454,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.enabled-disabled" datatype="html">
         <source>(Enabled/Disabled)</source>
-        <target>(Enabled/Disabled)</target>
+        <target>(activé / désactivé)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -2462,7 +2462,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.enabled" datatype="html">
         <source>Show points of interest on the map</source>
-        <target>Show points of interest on the map</target>
+        <target>Afficher les points d&apos;intérêt sur la carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2470,7 +2470,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.zoom-in" datatype="html">
         <source>Zoom in to see the icons on the map.</source>
-        <target>Zoom in to see the icons on the map.</target>
+        <target>Zoomez pour voir les icônes sur la carte.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -2478,7 +2478,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.reset" datatype="html">
         <source>Reset configuration to default</source>
-        <target>Reset configuration to default</target>
+        <target>Réinitialiser la configuration par défaut</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -2586,7 +2586,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.show-all" datatype="html">
         <source>Show all</source>
-        <target>Show all</target>
+        <target>Tout afficher</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -2594,7 +2594,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.hide-all" datatype="html">
         <source>Hide all</source>
-        <target>Hide all</target>
+        <target>Tout masquer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -2602,7 +2602,7 @@
       </trans-unit>
       <trans-unit id="planner.pois.default" datatype="html">
         <source>Default</source>
-        <target>Default</target>
+        <target>Par défaut</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -2624,7 +2624,7 @@
       </trans-unit>
       <trans-unit id="poi.atm" datatype="html">
         <source>Atm</source>
-        <target>Atm</target>
+        <target>AU M</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2632,7 +2632,7 @@
       </trans-unit>
       <trans-unit id="poi.bank" datatype="html">
         <source>Bank</source>
-        <target>Bank</target>
+        <target>Banque</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -2640,7 +2640,7 @@
       </trans-unit>
       <trans-unit id="poi.bench" datatype="html">
         <source>Bench</source>
-        <target>Bench</target>
+        <target>Banc</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -2648,7 +2648,7 @@
       </trans-unit>
       <trans-unit id="poi.cinema" datatype="html">
         <source>Cinema</source>
-        <target>Cinema</target>
+        <target>Cinéma</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">39</context>
@@ -2656,7 +2656,7 @@
       </trans-unit>
       <trans-unit id="poi.clinic" datatype="html">
         <source>Clinic</source>
-        <target>Clinic</target>
+        <target>Clinique</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -2664,7 +2664,7 @@
       </trans-unit>
       <trans-unit id="poi.embassy" datatype="html">
         <source>Embassy</source>
-        <target>Embassy</target>
+        <target>Ambassade</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -2672,7 +2672,7 @@
       </trans-unit>
       <trans-unit id="poi.fastfood" datatype="html">
         <source>Fast food</source>
-        <target>Fast food</target>
+        <target>Restauration rapide</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">55</context>
@@ -2680,7 +2680,7 @@
       </trans-unit>
       <trans-unit id="poi.firestation" datatype="html">
         <source>Firestation</source>
-        <target>Firestation</target>
+        <target>Pompiers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -2688,7 +2688,7 @@
       </trans-unit>
       <trans-unit id="poi.foodcourt" datatype="html">
         <source>Food court</source>
-        <target>Food court</target>
+        <target>Aire de restauration</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">57</context>
@@ -2696,7 +2696,7 @@
       </trans-unit>
       <trans-unit id="poi.fuel" datatype="html">
         <source>Fuel</source>
-        <target>Fuel</target>
+        <target>Carburant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -2704,7 +2704,7 @@
       </trans-unit>
       <trans-unit id="poi.hospital" datatype="html">
         <source>Hospital</source>
-        <target>Hospital</target>
+        <target>Hôpital</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -2712,7 +2712,7 @@
       </trans-unit>
       <trans-unit id="poi.library" datatype="html">
         <source>Library</source>
-        <target>Library</target>
+        <target>Bibliothèque</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">82</context>
@@ -2728,7 +2728,7 @@
       </trans-unit>
       <trans-unit id="poi.pharmacy" datatype="html">
         <source>Pharmacy</source>
-        <target>Pharmacy</target>
+        <target>Pharmacie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">95</context>
@@ -2744,7 +2744,7 @@
       </trans-unit>
       <trans-unit id="poi.postbox" datatype="html">
         <source>Post box</source>
-        <target>Post box</target>
+        <target>Boîte aux lettres</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">101</context>
@@ -2752,7 +2752,7 @@
       </trans-unit>
       <trans-unit id="poi.postoffice" datatype="html">
         <source>Post office</source>
-        <target>Post office</target>
+        <target>Bureau de poste</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">102</context>
@@ -2768,7 +2768,7 @@
       </trans-unit>
       <trans-unit id="poi.theatre" datatype="html">
         <source>Theatre</source>
-        <target>Theatre</target>
+        <target>Théâtre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">119</context>
@@ -2784,7 +2784,7 @@
       </trans-unit>
       <trans-unit id="poi.toilets" datatype="html">
         <source>Toilets</source>
-        <target>Toilets</target>
+        <target>Toilettes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">121</context>
@@ -2792,7 +2792,7 @@
       </trans-unit>
       <trans-unit id="poi.university" datatype="html">
         <source>University</source>
-        <target>University</target>
+        <target>Université</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">125</context>
@@ -2800,7 +2800,7 @@
       </trans-unit>
       <trans-unit id="poi.church" datatype="html">
         <source>Church</source>
-        <target>Church</target>
+        <target>Eglise</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -2808,7 +2808,7 @@
       </trans-unit>
       <trans-unit id="poi.mosque" datatype="html">
         <source>Mosque</source>
-        <target>Mosque</target>
+        <target>Mosquée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">86</context>
@@ -2824,7 +2824,7 @@
       </trans-unit>
       <trans-unit id="poi.cemetery" datatype="html">
         <source>Cemetery</source>
-        <target>Cemetery</target>
+        <target>Cimetière</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -2832,7 +2832,7 @@
       </trans-unit>
       <trans-unit id="poi.artwork" datatype="html">
         <source>Artwork</source>
-        <target>Artwork</target>
+        <target>Oeuvre d&apos;art</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -2856,7 +2856,7 @@
       </trans-unit>
       <trans-unit id="poi.gallery" datatype="html">
         <source>Gallery</source>
-        <target>Gallery</target>
+        <target>Galerie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">59</context>
@@ -2864,7 +2864,7 @@
       </trans-unit>
       <trans-unit id="poi.garden-centre" datatype="html">
         <source>Garden centre</source>
-        <target>Garden centre</target>
+        <target>Jardinerie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">60</context>
@@ -2872,7 +2872,7 @@
       </trans-unit>
       <trans-unit id="poi.heritage" datatype="html">
         <source>Heritage</source>
-        <target>Heritage</target>
+        <target>Patrimoine</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -2880,7 +2880,7 @@
       </trans-unit>
       <trans-unit id="poi.hindu-temple" datatype="html">
         <source>Hindu temple</source>
-        <target>Hindu temple</target>
+        <target>Temple hindou</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">69</context>
@@ -2896,7 +2896,7 @@
       </trans-unit>
       <trans-unit id="poi.castle" datatype="html">
         <source>Castle</source>
-        <target>Castle</target>
+        <target>Château</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -2912,7 +2912,7 @@
       </trans-unit>
       <trans-unit id="poi.information" datatype="html">
         <source>Information</source>
-        <target>Information</target>
+        <target>Informations</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">78</context>
@@ -2920,7 +2920,7 @@
       </trans-unit>
       <trans-unit id="poi.museum" datatype="html">
         <source>Museum</source>
-        <target>Museum</target>
+        <target>Musée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">88</context>
@@ -2928,7 +2928,7 @@
       </trans-unit>
       <trans-unit id="poi.musical-instrument" datatype="html">
         <source>Musical instrument</source>
-        <target>Musical instrument</target>
+        <target>Instrument de musique</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">89</context>
@@ -2936,7 +2936,7 @@
       </trans-unit>
       <trans-unit id="poi.musicschool" datatype="html">
         <source>Music school</source>
-        <target>Music school</target>
+        <target>École de musique</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">90</context>
@@ -2944,7 +2944,7 @@
       </trans-unit>
       <trans-unit id="poi.picnic" datatype="html">
         <source>Picnic</source>
-        <target>Picnic</target>
+        <target>Pique-nique</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">98</context>
@@ -2952,7 +2952,7 @@
       </trans-unit>
       <trans-unit id="poi.place-of-worship" datatype="html">
         <source>Place of worship</source>
-        <target>Place of worship</target>
+        <target>Lieu de culte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">99</context>
@@ -2960,7 +2960,7 @@
       </trans-unit>
       <trans-unit id="poi.viewpoint" datatype="html">
         <source>Viewpoint</source>
-        <target>Viewpoint</target>
+        <target>Point de vue</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">126</context>
@@ -2968,7 +2968,7 @@
       </trans-unit>
       <trans-unit id="poi.vineyard" datatype="html">
         <source>Vineyard</source>
-        <target>Vineyard</target>
+        <target>Vignoble</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">127</context>
@@ -2976,7 +2976,7 @@
       </trans-unit>
       <trans-unit id="poi.windmill" datatype="html">
         <source>Windmill</source>
-        <target>Windmill</target>
+        <target>Moulin à vent</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">130</context>
@@ -2984,7 +2984,7 @@
       </trans-unit>
       <trans-unit id="poi.watermill" datatype="html">
         <source>Watermill</source>
-        <target>Watermill</target>
+        <target>Moulin à eau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">129</context>
@@ -3000,7 +3000,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.none" datatype="html">
         <source>No details available</source>
-        <target>No details available</target>
+        <target>Aucun détail disponible</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -3024,7 +3024,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.email" datatype="html">
         <source>E-mail</source>
-        <target>E-mail</target>
+        <target>Courriel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -3040,7 +3040,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.wheelchair" datatype="html">
         <source>Wheelchair</source>
-        <target>Wheelchair</target>
+        <target>Fauteuil roulant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -3048,7 +3048,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.opengingHours" datatype="html">
         <source>Opening hours</source>
-        <target>Opening hours</target>
+        <target>Heures d&apos;ouverture</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">47</context>
@@ -3056,7 +3056,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.serviceHours" datatype="html">
         <source>Service times</source>
-        <target>Service times</target>
+        <target>Horaires de service</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -3088,7 +3088,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.website" datatype="html">
         <source>Website</source>
-        <target>Website</target>
+        <target>Site Web</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">74</context>
@@ -3112,7 +3112,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.molen-database" datatype="html">
         <source>Molen database</source>
-        <target>Molen database</target>
+        <target>Base de données moulin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">80</context>
@@ -3120,7 +3120,7 @@
       </trans-unit>
       <trans-unit id="poi.detail.hollandsche-molen-database" datatype="html">
         <source>Hollandsche Molen database</source>
-        <target>Hollandsche Molen database</target>
+        <target>Base de données Hollandsche Molen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">84</context>
@@ -3136,7 +3136,7 @@
       </trans-unit>
       <trans-unit id="planner.detailed" datatype="html">
         <source>Detailed</source>
-        <target>Detailed</target>
+        <target>Détaillé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -3160,7 +3160,7 @@
       </trans-unit>
       <trans-unit id="plan.head" datatype="html">
         <source>Head</source>
-        <target>Head</target>
+        <target>allez</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -3168,7 +3168,7 @@
       </trans-unit>
       <trans-unit id="plan.onto" datatype="html">
         <source>onto</source>
-        <target>onto</target>
+        <target>sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -3176,178 +3176,178 @@
       </trans-unit>
       <trans-unit id="plan.heading.north" datatype="html">
         <source>north</source>
-        <target>north</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.heading.north-east" datatype="html">
-        <source>north-east</source>
-        <target>north-east</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.heading.east" datatype="html">
-        <source>east</source>
-        <target>east</target>
+        <target>au nord</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.heading.south-east" datatype="html">
-        <source>south-east</source>
-        <target>south-east</target>
+      <trans-unit id="plan.heading.north-east" datatype="html">
+        <source>north-east</source>
+        <target>au nord-est</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.heading.south" datatype="html">
-        <source>south</source>
-        <target>south</target>
+      <trans-unit id="plan.heading.east" datatype="html">
+        <source>east</source>
+        <target>à l&apos;est</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.heading.south-west" datatype="html">
-        <source>south-west</source>
-        <target>south-west</target>
+      <trans-unit id="plan.heading.south-east" datatype="html">
+        <source>south-east</source>
+        <target>au sud-est</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.heading.west" datatype="html">
-        <source>west</source>
-        <target>west</target>
+      <trans-unit id="plan.heading.south" datatype="html">
+        <source>south</source>
+        <target>au sud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.heading.north-west" datatype="html">
-        <source>north-west</source>
-        <target>north-west</target>
+      <trans-unit id="plan.heading.south-west" datatype="html">
+        <source>south-west</source>
+        <target>au sud-ouest</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.continue" datatype="html">
-        <source>Continue</source>
-        <target>Continue</target>
+      <trans-unit id="plan.heading.west" datatype="html">
+        <source>west</source>
+        <target>à l&apos;ouest</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.heading.north-west" datatype="html">
+        <source>north-west</source>
+        <target>au nord-ouest</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.continue.street" datatype="html">
-        <source>Continue on</source>
-        <target>Continue on</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-slight-left" datatype="html">
-        <source>Slight left</source>
-        <target>Slight left</target>
+      <trans-unit id="plan.command.continue" datatype="html">
+        <source>Continue</source>
+        <target>Continuer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-slight-left.street" datatype="html">
-        <source>Slight left onto</source>
-        <target>Slight left onto</target>
+      <trans-unit id="plan.command.continue.street" datatype="html">
+        <source>Continue on</source>
+        <target>Continu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-slight-right" datatype="html">
-        <source>Slight right</source>
-        <target>Slight right</target>
+      <trans-unit id="plan.command.turn-slight-left" datatype="html">
+        <source>Slight left</source>
+        <target>Légèrement à gauche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-slight-right.street" datatype="html">
-        <source>Slight right onto</source>
-        <target>Slight right onto</target>
+      <trans-unit id="plan.command.turn-slight-left.street" datatype="html">
+        <source>Slight left onto</source>
+        <target>Légèrement à gauche sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-left" datatype="html">
-        <source>Turn left</source>
-        <target>Turn left</target>
+      <trans-unit id="plan.command.turn-slight-right" datatype="html">
+        <source>Slight right</source>
+        <target>Légèrement à droite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-left.street" datatype="html">
-        <source>Turn left onto</source>
-        <target>Turn left onto</target>
+      <trans-unit id="plan.command.turn-slight-right.street" datatype="html">
+        <source>Slight right onto</source>
+        <target>Prendre légèrement à droite sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-right" datatype="html">
-        <source>Turn right</source>
-        <target>Turn right</target>
+      <trans-unit id="plan.command.turn-left" datatype="html">
+        <source>Turn left</source>
+        <target>Tournez à gauche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-right.street" datatype="html">
-        <source>Turn right onto</source>
-        <target>Turn right onto</target>
+      <trans-unit id="plan.command.turn-left.street" datatype="html">
+        <source>Turn left onto</source>
+        <target>Tournez à gauche sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-left" datatype="html">
-        <source>Sharp left</source>
-        <target>Sharp left</target>
+      <trans-unit id="plan.command.turn-right" datatype="html">
+        <source>Turn right</source>
+        <target>Tournez à droite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-left.street" datatype="html">
-        <source>Sharp left onto</source>
-        <target>Sharp left onto</target>
+      <trans-unit id="plan.command.turn-right.street" datatype="html">
+        <source>Turn right onto</source>
+        <target>Tournez à droite sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-right" datatype="html">
-        <source>Sharp right</source>
-        <target>Sharp right</target>
+      <trans-unit id="plan.command.turn-sharp-left" datatype="html">
+        <source>Sharp left</source>
+        <target>Tourner complètement à gauche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-right.street" datatype="html">
-        <source>Sharp right onto</source>
-        <target>Sharp right onto</target>
+      <trans-unit id="plan.command.turn-sharp-left.street" datatype="html">
+        <source>Sharp left onto</source>
+        <target>Prendre complètement à gauche sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.command.turn-sharp-right" datatype="html">
+        <source>Sharp right</source>
+        <target>Fort à droite</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.command.turn-sharp-right.street" datatype="html">
+        <source>Sharp right onto</source>
+        <target>Prendre complètement à droite sur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
@@ -3588,7 +3588,7 @@
       </trans-unit>
       <trans-unit id="poi.bicycle-rental" datatype="html">
         <source>Bicycle rental</source>
-        <target>Bicycle rental</target>
+        <target>Location de vélos</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -3892,7 +3892,7 @@
       </trans-unit>
       <trans-unit id="poi.drinking-water" datatype="html">
         <source>Drinking water</source>
-        <target>Drinking water</target>
+        <target>Eau potable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -3900,7 +3900,7 @@
       </trans-unit>
       <trans-unit id="poi.ebike-charging" datatype="html">
         <source>Ebike charging</source>
-        <target>Ebike charging</target>
+        <target>Recharge Ebike</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">53</context>
@@ -3980,7 +3980,7 @@
       </trans-unit>
       <trans-unit id="poi.books-stationary" datatype="html">
         <source>Books/stationary</source>
-        <target>Books/stationary</target>
+        <target>Livres / papeterie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -4036,7 +4036,7 @@
       </trans-unit>
       <trans-unit id="poi.defibrillator" datatype="html">
         <source>Defibrillator</source>
-        <target>Defibrillator</target>
+        <target>Défibrillateur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">48</context>
@@ -5192,7 +5192,7 @@
       </trans-unit>
       <trans-unit id="poi.group.places-to-stay" datatype="html">
         <source>Places to stay</source>
-        <target>Places to stay</target>
+        <target>Lieux de séjour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -5216,7 +5216,7 @@
       </trans-unit>
       <trans-unit id="poi.group.shops" datatype="html">
         <source>Shops</source>
-        <target>Shops</target>
+        <target>Boutiques</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-shops.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -5252,7 +5252,7 @@
       </trans-unit>
       <trans-unit id="poi.group.hiking-biking" datatype="html">
         <source>Hiking/biking</source>
-        <target>Hiking/biking</target>
+        <target>Randonnée / vélo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -5264,7 +5264,7 @@
       </trans-unit>
       <trans-unit id="poi.group.landmarks" datatype="html">
         <source>Landmarks</source>
-        <target>Landmarks</target>
+        <target>Points de repère</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7964,7 +7964,7 @@
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">
         <source>Points of interest</source>
-        <target>Points of interest</target>
+        <target>Points d&apos;intérêt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi-menu.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -7972,7 +7972,7 @@
       </trans-unit>
       <trans-unit id="plan.unpaved" datatype="html">
         <source>Unpaved</source>
-        <target>Unpaved</target>
+        <target>Non pavé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-distance.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -8016,7 +8016,7 @@
       </trans-unit>
       <trans-unit id="planner.action.undo" datatype="html">
         <source>Undo</source>
-        <target>Undo</target>
+        <target>Annuler</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -8024,7 +8024,7 @@
       </trans-unit>
       <trans-unit id="planner.action.undo.title" datatype="html">
         <source>Undo the previous action</source>
-        <target>Undo the previous action</target>
+        <target>Annuler l&apos;action précédente</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -8032,7 +8032,7 @@
       </trans-unit>
       <trans-unit id="planner.action.redo" datatype="html">
         <source>Redo</source>
-        <target>Redo</target>
+        <target>Rétablir</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -8040,7 +8040,7 @@
       </trans-unit>
       <trans-unit id="planner.action.redo.title" datatype="html">
         <source>Redo the action that was previously undone</source>
-        <target>Redo the action that was previously undone</target>
+        <target>Rétablir l&apos;action précédemment annulée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -8048,7 +8048,7 @@
       </trans-unit>
       <trans-unit id="planner.action.reset" datatype="html">
         <source>Reset</source>
-        <target>Reset</target>
+        <target>Réinitialiser</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -8056,7 +8056,7 @@
       </trans-unit>
       <trans-unit id="planner.action.reset.title" datatype="html">
         <source>Wipe out current route plan and restart route planning from scratch</source>
-        <target>Wipe out current route plan and restart route planning from scratch</target>
+        <target>Effacez le plan d&apos;itinéraire actuel et redémarrez la planification d&apos;itinéraire à partir de zéro</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -8072,7 +8072,7 @@
       </trans-unit>
       <trans-unit id="planner.action.reverse.title" datatype="html">
         <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
-        <target>Reverse the route direction (startnode becomes endnode, and vice versa)</target>
+        <target>Inverser la direction de l&apos;itinéraire (le noeud de départ devient le noeud de fin, et vice versa).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">44</context>
@@ -8080,7 +8080,7 @@
       </trans-unit>
       <trans-unit id="planner.action.output" datatype="html">
         <source>Output</source>
-        <target>Output</target>
+        <target>Resultat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -8088,7 +8088,7 @@
       </trans-unit>
       <trans-unit id="planner.action.output.title" datatype="html">
         <source>Output planned route</source>
-        <target>Output planned route</target>
+        <target>Resultat  de l&apos;itinéraire planifié</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -8096,7 +8096,7 @@
       </trans-unit>
       <trans-unit id="plan.output.title" datatype="html">
         <source>Output</source>
-        <target>Output</target>
+        <target>résultat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -8112,7 +8112,7 @@
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
         <source>Node strip</source>
-        <target>Node strip</target>
+        <target>Bande de nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -8120,7 +8120,7 @@
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
         <source>Navigation instructions</source>
-        <target>Navigation instructions</target>
+        <target>Instructions de navigation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -8128,7 +8128,7 @@
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
         <source>GPX file</source>
-        <target>GPX file</target>
+        <target>Fichier GPX</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -8136,7 +8136,7 @@
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
         <source><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> or use magnifying glass to find the startnode of your route.</source>
-        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> or use magnifying glass to find the startnode of your route.</target>
+        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Effectuez un zoom avant<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> ou utilisez la loupe pour trouver le nœud de départ de votre itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8145,8 +8145,7 @@
       <trans-unit id="planner-tip.click-start-node" datatype="html">
         <source>Use zoom, pan or use magnifying glass to find and click the
         startnode of your route.</source>
-        <target>Use zoom, pan or use magnifying glass to find and click the
-        startnode of your route.</target>
+        <target>Utilisez le zoom, le panoramique ou la loupe pour rechercher et cliquer sur le nœud de départ de votre itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8154,7 +8153,7 @@
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
         <source><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> and click the endnode of your route.</source>
-        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> and click the endnode of your route.</target>
+        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoomez<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> et cliquez sur le noeud final de votre itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -8162,7 +8161,7 @@
       </trans-unit>
       <trans-unit id="planner-tip.click-end-node" datatype="html">
         <source>Click the endnode of your route.</source>
-        <target>Click the endnode of your route.</target>
+        <target>Cliquez sur le noeud final de votre itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -8170,7 +8169,7 @@
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
         <source>Extend or adapt your route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>read more<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Output when satisfied.</source>
-        <target>Extend or adapt your route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>read more<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Output when satisfied.</target>
+        <target>Prolongez ou adaptez votre itinéraire (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>en savoir plus<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Clicquez &quot;resultat&quot; une fois satisfait.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -8254,7 +8253,7 @@
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with compact node overview</source>
-        <target>Produce a route pdf file with compact node overview</target>
+        <target>Produire un fichier pdf d&apos;itinéraire avec une vue d&apos;ensemble des nœuds compacte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -8262,7 +8261,7 @@
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <target>Produire un fichier pdf d&apos;itinéraire avec des nœuds au format &apos;bande&apos;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -8270,7 +8269,7 @@
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
         <source>Produce a route pdf with navigation instructions</source>
-        <target>Produce a route pdf with navigation instructions</target>
+        <target>Produisez un itinéraire pdf avec des instructions de navigation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -8278,7 +8277,7 @@
       </trans-unit>
       <trans-unit id="plan.output.gpx.tooltip" datatype="html">
         <source>Produce a route file that can be used in a gps-device</source>
-        <target>Produce a route file that can be used in a gps-device</target>
+        <target>Produire un fichier d&apos;itinéraire qui peut être utilisé dans un périphérique gps</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -8286,7 +8285,7 @@
       </trans-unit>
       <trans-unit id="plan.output.clipboard" datatype="html">
         <source>Copy link to clipboard</source>
-        <target>Copy link to clipboard</target>
+        <target>Copier le lien dans le presse-papiers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -8294,7 +8293,7 @@
       </trans-unit>
       <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
         <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
-        <target>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</target>
+        <target>Copiez un lien vers cet itinéraire dans le presse-papiers (par exemple à conserver pour plus tard ou à coller dans un e-mail)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">47</context>
@@ -8317,19 +8316,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.nodes" datatype="html">
-        <source>nodes,</source>
-        <target>nodes,</target>
+        <source>nodes (quick)</source>
+        <target>nodes (quick)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.routes" datatype="html">
-        <source>routes</source>
-        <target>routes</target>
+        <source>routes relations (quick)</source>
+        <target>routes relations (quick)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.time-warning" datatype="html">
@@ -8337,7 +8336,7 @@
         <target>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="links.edit.tooltip" datatype="html">
@@ -8345,7 +8344,7 @@
         <target>Open in editor (like JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.ready" datatype="html">
@@ -8353,7 +8352,7 @@
         <target>Ready</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.error" datatype="html">
@@ -8361,7 +8360,7 @@
         <target>Error</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.timeout" datatype="html">
@@ -8369,7 +8368,7 @@
         <target>Timeout: editor not started, or editor remote control not enabled?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.cancel" datatype="html">
@@ -8377,7 +8376,119 @@
         <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.full-routes" datatype="html">
+        <source>routes with ways (takes more time)</source>
+        <target>routes with ways (takes more time)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.follow-colour" datatype="html">
+        <source>Follow colour</source>
+        <target>Follow colour</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.black" datatype="html">
+        <source>black</source>
+        <target>black</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.blue" datatype="html">
+        <source>blue</source>
+        <target>blue</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.brown" datatype="html">
+        <source>brown</source>
+        <target>brown</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.gray" datatype="html">
+        <source>gray</source>
+        <target>gray</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.green" datatype="html">
+        <source>green</source>
+        <target>green</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.grey" datatype="html">
+        <source>grey</source>
+        <target>grey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.orange" datatype="html">
+        <source>orange</source>
+        <target>orange</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.purple" datatype="html">
+        <source>purple</source>
+        <target>purple</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.red" datatype="html">
+        <source>red</source>
+        <target>red</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.violet" datatype="html">
+        <source>violet</source>
+        <target>violet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.white" datatype="html">
+        <source>white</source>
+        <target>white</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.colour.yellow" datatype="html">
+        <source>yellow</source>
+        <target>yellow</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
     </body>
