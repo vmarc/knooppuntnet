@@ -18,6 +18,21 @@ object RouteColoursTool {
 
 class RouteColoursTool(database: Database) {
 
+  private val knownColours = Seq(
+    "black",
+    "blue",
+    "brown",
+    "gray",
+    "green",
+    "grey",
+    "orange",
+    "purple",
+    "red",
+    "violet",
+    "white",
+    "yellow"
+  )
+
   private val routeRepository = new RouteRepositoryImpl(database)
 
   def report(): Unit = {
@@ -28,7 +43,12 @@ class RouteColoursTool(database: Database) {
       if ((index + 1) % 500 == 0) {
         println(s"${index + 1}/${routeIds.size}")
       }
-      routeRepository.routeWithId(routeId).toSeq.flatMap(_.tags("colour"))
+      val colourTagValues = routeRepository.routeWithId(routeId).toSeq.flatMap(_.tags("colour"))
+      val colours = colourTagValues.flatMap(value => value.split(";"))
+      if (colours.exists(colour => !knownColours.contains(colour))) {
+        println(s"$routeId " + colourTagValues.mkString("|"))
+      }
+      colours
     }
     val colourFrequencyMap = colours.groupBy(identity).view.mapValues(_.size)
     colourFrequencyMap.keys.foreach { colour =>
