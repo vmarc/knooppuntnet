@@ -1,7 +1,7 @@
 package kpn.core.tools.analysis
 
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.Couch
 import kpn.core.replicate.Oper
 import kpn.core.tools.config._
@@ -26,14 +26,14 @@ object ChangeSetInfoTool {
         try {
 
           val taskRepository = {
-            val taskDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Json.objectMapper, options.tasksDatabaseName))
+            val taskDatabase = new DatabaseImpl(DatabaseContextImpl(Couch.config, Json.objectMapper, options.tasksDatabaseName))
             new TaskRepositoryImpl(taskDatabase)
           }
 
           val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)
 
           val changeSetInfoRepository = {
-            val changeDatabase = new DatabaseImpl(DatabaseContext(Couch.config, Json.objectMapper, options.changeSetsDatabaseName))
+            val changeDatabase = new DatabaseImpl(DatabaseContextImpl(Couch.config, Json.objectMapper, options.changeSetsDatabaseName))
             new ChangeSetInfoRepositoryImpl(changeDatabase)
           }
 

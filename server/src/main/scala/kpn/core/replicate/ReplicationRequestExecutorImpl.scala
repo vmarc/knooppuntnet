@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream
 import java.util.zip.GZIPInputStream
 
 import kpn.api.common.ReplicationId
+import kpn.core.util.Log
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -17,6 +18,7 @@ import scala.io.Source
 class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
 
   private val URL = "https://planet.osm.org/replication/minute/"
+  private val log = Log(classOf[ReplicationRequestExecutorImpl])
 
   def requestChangesFile(replicationId: ReplicationId): Option[String] = {
 
@@ -32,7 +34,8 @@ class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
           val gis = new GZIPInputStream(new ByteArrayInputStream(response.getBody))
           val xml = Source.fromInputStream(gis).getLines().mkString("\n")
           Some(xml)
-        case _ =>
+        case httpStatus =>
+          log.warn(s"Unexpected http status code $httpStatus (will retry), url=$url")
           None
       }
     }
@@ -48,11 +51,18 @@ class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
     val headers = new HttpHeaders()
     headers.set(HttpHeaders.REFERER, "knooppuntnet.nl")
     val entity = new HttpEntity[String]("", headers)
-    val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-    response.getStatusCode match {
-      case HttpStatus.OK =>
-        Some(response.getBody)
-      case HttpStatus.NOT_FOUND =>
+    try {
+      val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
+      response.getStatusCode match {
+        case HttpStatus.OK =>
+          Some(response.getBody)
+        case httpStatus =>
+          log.warn(s"Unexpected http status code $httpStatus (will retry), url=$url")
+          None
+      }
+    }
+    catch {
+      case e: HttpClientErrorException.NotFound =>
         None
     }
   }

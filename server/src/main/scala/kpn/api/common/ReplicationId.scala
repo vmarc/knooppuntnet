@@ -18,8 +18,8 @@ object ReplicationId {
     this(level1, level2, level3)
   }
 
-  def range(begin: ReplicationId, end: ReplicationId): Stream[ReplicationId] = {
-    (begin.number to end.number).toStream.map { sequenceNumber =>
+  def range(begin: ReplicationId, end: ReplicationId): Seq[ReplicationId] = {
+    (begin.number to end.number).map { sequenceNumber =>
       ReplicationId(sequenceNumber)
     }
   }

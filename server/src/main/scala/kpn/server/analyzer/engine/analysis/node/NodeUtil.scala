@@ -1,7 +1,10 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.data.Node
+import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+
+import scala.collection.mutable.ListBuffer
 
 object NodeUtil {
   private val allDigits = """(\d*)""".r
@@ -37,14 +40,14 @@ class NodeUtil(networkType: NetworkType) {
     }
   }
 
-  def alternateNames(nodes: Seq[Node]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
+  def alternateNames(facts: ListBuffer[Fact], nodes: Seq[Node]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
     if (nodes.size < 2) {
       Map()
     }
     else {
       val suffixes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
       if (nodes.size > suffixes.length) {
-        throw new IllegalArgumentException(s"Number of nodes (${nodes.size}) exceeds the expected maximum number of nodes (${suffixes.length})")
+        facts.addOne(Fact.RouteAnalysisFailed)
       }
       nodes.zip(suffixes).map { case (node, letter) =>
         node.id -> (name(node) + "." + letter)

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.database.views.changes.ChangesDesign
@@ -47,7 +47,7 @@ object TestSupport extends Assertions {
 
       val databaseName = "unit-testdb-" + count.incrementAndGet()
 
-      val database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+      val database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
 
       if (database.exists) {
         database.delete()

@@ -6,7 +6,7 @@ import java.util.Properties
 
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.server.json.Json
 
 object Couch {
@@ -17,7 +17,7 @@ object Couch {
 
   def executeIn(host: String, databaseName: String)(action: Database => Unit): Unit = {
     val couchConfig = config.copy(host = host)
-    val database = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, databaseName))
+    val database = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, databaseName))
     action(database)
   }
 

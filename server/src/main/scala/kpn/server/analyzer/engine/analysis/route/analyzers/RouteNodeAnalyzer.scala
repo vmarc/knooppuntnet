@@ -34,7 +34,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val facts = ListBuffer[Fact]()
 
-    val routeNodeAnalysis = doAnalyze()
+    val routeNodeAnalysis = doAnalyze(facts)
 
     if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
       if (!routeNodeAnalysis.startNodes.exists(_.definedInWay) ||
@@ -47,10 +47,10 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       }
     }
 
-    context.copy(routeNodeAnalysis = Some(routeNodeAnalysis)).withFacts(facts.toSeq:_*)
+    context.copy(routeNodeAnalysis = Some(routeNodeAnalysis)).withFacts(facts.toSeq: _*)
   }
 
-  private def doAnalyze(): RouteNodeAnalysis = {
+  private def doAnalyze(facts: ListBuffer[Fact]): RouteNodeAnalysis = {
 
     val nodes = findNodes()
 
@@ -131,8 +131,8 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val endNodes = if (reversed) allEndNodes.reverse else allEndNodes
 
     val alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
-      nodeUtil.alternateNames(startNodes) ++
-        nodeUtil.alternateNames(endNodes)
+      nodeUtil.alternateNames(facts, startNodes) ++
+        nodeUtil.alternateNames(facts, endNodes)
     }
 
     val redundantNodes = nodeUtil.sortByName(nodes.toSet -- (startNodes ++ endNodes).toSet)

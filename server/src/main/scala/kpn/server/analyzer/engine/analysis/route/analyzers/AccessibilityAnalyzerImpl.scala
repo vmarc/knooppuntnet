@@ -13,6 +13,7 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
       case NetworkType.motorboat => motorboatAccessible(way)
       case NetworkType.canoe => canoeAccessible(way)
       case NetworkType.inlineSkating => inlineSkatesAccessible(way)
+      case _ => false
     }
   }
 

@@ -84,7 +84,7 @@ class PoiTileAnalyzerTool(
                 pois.foreach { poi =>
                   if (poiScopeAnalyzer.inScope(poi)) {
                     val poiDefinitions = findPoiDefinitions(poi)
-                    val layers = poiDefinitions.map(_.name).seq.distinct.sorted
+                    val layers = poiDefinitions.map(_.name).distinct.sorted
                     if (layers.nonEmpty) {
                       val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
                       poiRepository.save(poi.copy(layers = layers, tiles = tileNames))

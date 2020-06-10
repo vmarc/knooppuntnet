@@ -3,7 +3,7 @@ package kpn.server.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.CouchConfig
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -37,36 +37,36 @@ class CouchConfiguration(
 
   @Bean
   def analysisDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, analysisDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, analysisDatabaseName))
   }
 
   @Bean
   def changeDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changeDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, changeDatabaseName))
   }
 
   @Bean
   def changesetDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, changesetDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, changesetDatabaseName))
   }
 
   @Bean
   def poiDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, poiDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, poiDatabaseName))
   }
 
   @Bean
   def taskDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, taskDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, taskDatabaseName))
   }
 
   @Bean
   def backendActionsDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, backendActionsDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, backendActionsDatabaseName))
   }
 
   @Bean
   def frontendActionsDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, frontendActionsDatabaseName))
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, frontendActionsDatabaseName))
   }
 }

@@ -8,7 +8,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -65,8 +65,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val dirs: Dirs = Dirs()
 
   private val couchConfig = Couch.config
-  private val analysisDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.analysisDatabaseName))
-  private val changeDatabase = new DatabaseImpl(DatabaseContext(couchConfig, Json.objectMapper, options.changeDatabaseName))
+  private val analysisDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.analysisDatabaseName))
+  private val changeDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.changeDatabaseName))
 
   private val snapshotKnownElements = {
     val string = FileUtils.readFileToString(new File(AnalysisContext.networkTypeTaggingStartSnapshotFilename), "UTF-8")

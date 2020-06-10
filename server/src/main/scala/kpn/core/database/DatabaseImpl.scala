@@ -3,6 +3,7 @@ package kpn.core.database
 import kpn.core.database.doc.Doc
 import kpn.core.database.implementation.DatabaseBulkSave
 import kpn.core.database.implementation.DatabaseContext
+import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.database.implementation.DatabaseCreate
 import kpn.core.database.implementation.DatabaseDelete
 import kpn.core.database.implementation.DatabaseDeleteDocWithId

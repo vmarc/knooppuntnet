@@ -207,7 +207,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           val rawData = new Parser().parse(xml.head)
           val data = new DataBuilder(rawData).data
           data.nodes.get(nodeId) match {
-            case _ => log.error("Node not found")
+            case None => log.error("Node not found")
             case Some(node) =>
               val countries = config.countryAnalyzer.countries(node)
               val loadedNode = LoadedNode.from(countries.headOption, node.raw)

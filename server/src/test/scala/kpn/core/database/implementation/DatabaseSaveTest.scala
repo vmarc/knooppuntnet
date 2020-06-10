@@ -26,6 +26,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
 
       database.docWithId(doc._id, classOf[NodeDoc]) match {
         case Some(result) => result.node should equal(nodeInfo)
+        case None => fail()
       }
     })
   }
@@ -33,11 +34,11 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
   test("save - wrong password") {
     withEnvironment { (couchConfig, objectMapper) =>
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, databaseName))
+      val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
       database.create()
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val database: Database = new DatabaseImpl(DatabaseContext(invalidCouchConfig, objectMapper, databaseName))
+        val database: Database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
 
         try {
           val nodeInfo = newNodeInfo(123)
@@ -86,5 +87,4 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
       doc1.get._rev should not equal (doc2.get._rev)
     }
   }
-
 }

@@ -2,9 +2,12 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
+import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
+
+import scala.collection.mutable.ListBuffer
 
 class NodeUtilTest extends UnitTest with SharedTestObjects {
 
@@ -31,9 +34,10 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
   }
 
   test("alternateNames") {
-    util.alternateNames(Seq()) should equal(Map())
+    val facts = ListBuffer[Fact]()
+    util.alternateNames(facts, Seq()) should equal(Map())
     val nodes = Seq(node(1, "01"), node(2, "01"), node(3, "01"))
-    util.alternateNames(nodes) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
+    util.alternateNames(facts, nodes) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
   }
 
   test("alternateNames for more than 2 * 26 nodes") {
@@ -93,9 +97,9 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
       node(53, "01")
     )
 
-    intercept[Exception] {
-      util.alternateNames(nodes)
-    }.getMessage should equal("Number of nodes (53) exceeds the expected maximum number of nodes (52)")
+    val facts = ListBuffer[Fact]()
+    util.alternateNames(facts, nodes)
+    facts.head should equal(Fact.RouteAnalysisFailed)
   }
 
   private def node(name: String): Node = node(1, name)

@@ -16,7 +16,7 @@ class DatabaseExistsTest extends UnitTest {
 
   test("exists - database does not exist") {
     withEnvironment { (couchConfig, objectMapper) =>
-      val database: Database = new DatabaseImpl(DatabaseContext(couchConfig, objectMapper, "bla"))
+      val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "bla"))
       database.exists should equal(false)
     }
   }

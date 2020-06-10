@@ -152,6 +152,7 @@ class ReplicatorTool(
               insync = false
 
             case ReplicationResult(End, _, _, _) =>
+            case _ =>
           }
         }
         catch {

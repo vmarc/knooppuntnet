@@ -17,7 +17,7 @@ object NaturalSorting {
 
   private def compareSplittedStrings(a: Array[String], b: Array[String]): Int = {
     val l = Math.min(a.length, b.length)
-    (0 until l).prefixLength(i => a(i) equals b(i)) match {
+    (0 until l).segmentLength(i => a(i) equals b(i)) match {
       case i if i == l => Math.signum(b.length.toFloat - a.length.toFloat).toInt
       case i => (a(i), b(i)) match {
         case (INT(c), INT(d)) => Math.signum(c.toInt.toFloat - d.toInt.toFloat).toInt
