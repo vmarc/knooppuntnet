@@ -8010,7 +8010,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Compact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
@@ -8018,7 +8018,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Knooppuntenstrip</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
@@ -8026,7 +8026,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Navigatie instructies</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
@@ -8034,7 +8034,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>GPX bestand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
@@ -8080,7 +8080,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="geolocation-dialog.unavailable.title" datatype="html">
         <source>Unavailable</source>
-        <target>Unavailable</target>
+        <target>Niet beschikbaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8089,8 +8089,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
         <source>We cannot determine your location. Verify your settings to allow
         this application to access you location.</source>
-        <target>We cannot determine your location. Verify your settings to allow
-        this application to access you location.</target>
+        <target>Je locatie kan niet bepaald worden. Ga naar instellingen om deze app toegang te geven tot je locatie.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8106,7 +8105,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
         <source>We cannot determine your location.</source>
-        <target>We cannot determine your location.</target>
+        <target>Je locatie kan niet bepaald worden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8114,7 +8113,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
         <source>Permission denied</source>
-        <target>Permission denied</target>
+        <target>Niet toegestaan.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8123,8 +8122,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       <trans-unit id="geolocation-dialog.permission-denied.message" datatype="html">
         <source>We cannot determine your location. Knooppuntnet does not have the
         permission to access your location.</source>
-        <target>We cannot determine your location. Knooppuntnet does not have the
-        permission to access your location.</target>
+        <target>Je locatie kan niet bepaald worden. Knooppuntnet heeft geen toegang tot je locatie. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8132,7 +8130,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
         <source>Not supported</source>
-        <target>Not supported</target>
+        <target>Wordt niet ondersteund.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8140,7 +8138,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
         <source>We cannot determine your location. Your device does not seem to support this.</source>
-        <target>We cannot determine your location. Your device does not seem to support this.</target>
+        <target>Je locatie kan niet bepaald worden. Je toestel lijkt dit niet te ondersteunen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8148,7 +8146,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="geolocation-control.title" datatype="html">
         <source>position the map on your current location</source>
-        <target>position the map on your current location</target>
+        <target>schuif de kaart naar je huidige locatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-control.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8156,55 +8154,55 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with compact node overview</source>
-        <target>Produce a route pdf file with compact node overview</target>
+        <target>Maak voor de route een pdf-bestand met compact knooppuntenoverzicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <target>Maak een pdf-bestand met een knooppunten-strip</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
         <source>Produce a route pdf with navigation instructions</source>
-        <target>Produce a route pdf with navigation instructions</target>
+        <target>Maak een pdf-bestand met navigatie-aanwijzingen voor de route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx.tooltip" datatype="html">
         <source>Produce a route file that can be used in a gps-device</source>
-        <target>Produce a route file that can be used in a gps-device</target>
+        <target>Maak voor de route een bestand dat in een gps-apparaat kan worden geladen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.clipboard" datatype="html">
         <source>Copy link to clipboard</source>
-        <target>Copy link to clipboard</target>
+        <target>Kopieer link naar klembord</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
         <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
-        <target>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</target>
+        <target>Kopieer een link naar deze route naar het klembord, bijvoorbeeld voor gebruik in een mailbericht.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.edit" datatype="html">
         <source>Edit</source>
-        <target>Edit</target>
+        <target>In editor laden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -8212,7 +8210,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.title" datatype="html">
         <source>Edit</source>
-        <target>Edit</target>
+        <target>Laad in editor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -8220,7 +8218,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.nodes" datatype="html">
         <source>nodes (quick)</source>
-        <target>nodes (quick)</target>
+        <target>knopen (gaat snel)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8228,7 +8226,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.routes" datatype="html">
         <source>routes relations (quick)</source>
-        <target>routes relations (quick)</target>
+        <target>routerelaties (gaat snel)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -8236,7 +8234,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.time-warning" datatype="html">
         <source>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</source>
-        <target>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</target>
+        <target>Naar schatting kost het <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconden om alle knopen en relaties in de editor te laden. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -8244,7 +8242,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="links.edit.tooltip" datatype="html">
         <source>Open in editor (like JOSM)</source>
-        <target>Open in editor (like JOSM)</target>
+        <target>Open in een editor (bijvoorbeeld JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">55</context>
@@ -8252,7 +8250,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.ready" datatype="html">
         <source>Ready</source>
-        <target>Ready</target>
+        <target>Klaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -8260,7 +8258,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.error" datatype="html">
         <source>Error</source>
-        <target>Error</target>
+        <target>Fout</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -8268,7 +8266,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.timeout" datatype="html">
         <source>Timeout: editor not started, or editor remote control not enabled?</source>
-        <target>Timeout: editor not started, or editor remote control not enabled?</target>
+        <target>Timeout: editor niet gestart, of is &quot;Afstandsbediening&quot; niet geactiveerd?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -8276,7 +8274,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.cancel" datatype="html">
         <source><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></source>
-        <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
+        <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Afbreken<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">46</context>
@@ -8284,7 +8282,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="location-edit.full-routes" datatype="html">
         <source>routes with ways (takes more time)</source>
-        <target>routes with ways (takes more time)</target>
+        <target>routes inclusief wegen (kost meer tijd)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -8392,6 +8390,22 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.route-name" datatype="html">
+        <source>Route name</source>
+        <target>Route naam</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.route-name-placeholder" datatype="html">
+        <source>type route name</source>
+        <target>schrijf route naam</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
     </body>
