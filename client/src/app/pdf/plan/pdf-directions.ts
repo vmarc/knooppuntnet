@@ -17,7 +17,8 @@ export class PdfDirections {
 
   constructor(private instructions: List<PlanInstruction>,
               private iconService: BitmapIconService,
-              private plannerService: PlannerService) {
+              private plannerService: PlannerService,
+              private name: string) {
   }
 
   print(): void {
@@ -52,7 +53,7 @@ export class PdfDirections {
   }
 
   private printSideBar(): void {
-    new PdfSideBar(this.doc).print();
+    new PdfSideBar(this.doc, this.name).print();
   }
 
   private printPage(pageIndex: number, pageCount: number): void {

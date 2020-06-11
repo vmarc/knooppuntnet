@@ -1,6 +1,10 @@
+import {AfterViewInit} from "@angular/core";
+import {ElementRef} from "@angular/core";
+import {ViewChild} from "@angular/core";
 import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
+import {Util} from "../../components/shared/util";
 import {PdfService} from "../../pdf/pdf.service";
 import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {PlannerService} from "../planner.service";
@@ -16,6 +20,18 @@ import {PlanUtil} from "../planner/plan/plan-util";
         <span i18n="@@plan.output.title">Output</span>
       </div>
       <div mat-dialog-content class="dialog-content">
+
+        <mat-form-field>
+          <mat-label i18n="@@plan.output.route-name">Route name</mat-label>
+          <input
+            #routename
+            matInput
+            placeholder="type route name"
+            i18n-placeholder="@@plan.output.route-name-placeholder"
+            [value]="name"
+            (blur)="nameChanged($event)">
+        </mat-form-field>
+
         <button
           mat-stroked-button
           (click)="printDocument()"
@@ -71,6 +87,7 @@ import {PlanUtil} from "../planner/plan/plan-util";
     .dialog-content {
       display: flex;
       flex-direction: column;
+      width: 240px;
     }
 
     .dialog-content > button {
@@ -86,31 +103,55 @@ import {PlanUtil} from "../planner/plan/plan-util";
 
   `]
 })
-export class PlanOutputDialogComponent implements OnInit {
+export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
+  name = "";
   planUrl = "";
+  @ViewChild("routename") input: ElementRef;
 
   constructor(private pdfService: PdfService,
               private plannerService: PlannerService) {
   }
 
   ngOnInit(): void {
+    this.name = this.defaultName();
     this.planUrl = window.location.href + "#" + PlanUtil.toUrlString(this.plannerService.context.plan);
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => this.input.nativeElement.focus(), 250);
+  }
+
   printDocument(): void {
-    this.pdfService.printDocument(this.plannerService.context.plan, this.planUrl);
+    this.pdfService.printDocument(this.plannerService.context.plan, this.planUrl, this.routeName());
   }
 
   printStripDocument(): void {
-    this.pdfService.printStripDocument(this.plannerService.context.plan);
+    this.pdfService.printStripDocument(this.plannerService.context.plan, this.routeName());
   }
 
   printInstructions(): void {
-    this.pdfService.printInstructions(this.plannerService.context.plan);
+    this.pdfService.printInstructions(this.plannerService.context.plan, this.routeName());
   }
 
   gpx(): void {
-    new GpxWriter().write(this.plannerService.context.plan);
+    new GpxWriter().write(this.plannerService.context.plan, this.routeName());
+  }
+
+  nameChanged(event): void {
+    this.name = event.target.value;
+  }
+
+  private routeName(): string {
+    if (this.name.length > 0) {
+      return this.name;
+    }
+    return this.defaultName();
+  }
+
+  private defaultName(): string {
+    const source = this.plannerService.context.plan.source.nodeName;
+    const sink = this.plannerService.context.plan.sink.nodeName;
+    return Util.today() + " route " + source + " " + sink;
   }
 }

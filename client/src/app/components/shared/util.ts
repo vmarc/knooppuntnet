@@ -113,8 +113,18 @@ export class Util {
     return boundingExtent([southWest, northEast]);
   }
 
+  public static today(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    return yyyy + "-" + mm + "-" + dd;
+  }
+
   private static format(level: number): string {
     const integer = Math.floor(level);
     return (integer + 1000).toString().substr(1, 3);
   }
+
+
 }

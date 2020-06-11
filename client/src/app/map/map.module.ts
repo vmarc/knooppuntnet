@@ -8,6 +8,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatRadioModule} from "@angular/material/radio";
 import {QriousModule} from "angular-qrious";
@@ -89,7 +90,8 @@ import {PlanComponent} from "./sidebar/plan.component";
     MatAutocompleteModule,
     NetworkModule,
     ClipboardModule,
-    QriousModule
+    QriousModule,
+    MatInputModule
   ],
   declarations: [
     MapPageComponent,

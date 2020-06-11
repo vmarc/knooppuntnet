@@ -2,7 +2,7 @@ Summary of release 3.0.0 tasks
 
 Route planner
 - [ ] issue #91 missing links in network graph
-- [ ] issue #90 location edit
+- [x] issue #90 location edit
 - [ ] issue #89 via marker on route
 - [ ] issue #86 lower zoom level tiles with surface/surveydate info
 - [ ] issue #82 multiple markers on same node
@@ -15,7 +15,6 @@ Analysis client
 - [ ] location based analysis
 - [ ] location names in prefered language
 - [ ] location changes
-- [ ] 
 - [ ] user guide
 
 Client in general
@@ -28,14 +27,12 @@ Server
 - [ ] further complete installation of new server and migration from old server
 - [ ] realtime network and poi tile generation (batch lower zoom levels)
 - [ ] monitor servers
-- [ ] improve stability of database connections after move to Germany (retries)
+- [x] improve stability of database connections after move to Germany (retries)
 - [ ] database maintenance jobs (compaction)
 - [ ] automate background tile generation (+show update timestamp in ui)
 - [ ] investigate improved styling for background tiles?
 - [ ] improve route analysis performance (indexes vs hash)
 - [ ] configure nginx to forward old url's to new url's
-- [ ] 
-- [ ] 
 - [ ] Talk to owner of knotenpunktnetz.de?
 - [ ] further complete historical processing
 - [ ] Technical guide (English only)

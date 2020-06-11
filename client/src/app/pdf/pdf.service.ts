@@ -14,17 +14,17 @@ export class PdfService {
               private plannerService: PlannerService) {
   }
 
-  printDocument(plan: Plan, planUrl: string): void {
-    new PdfDocument(plan, planUrl).print();
+  printDocument(plan: Plan, planUrl: string, name: string): void {
+    new PdfDocument(plan, planUrl, name).print();
   }
 
-  printStripDocument(plan: Plan): void {
-    new PdfStripDocument(plan, this.iconService).print();
+  printStripDocument(plan: Plan, name: string): void {
+    new PdfStripDocument(plan, name, this.iconService).print();
   }
 
-  printInstructions(plan: Plan): void {
+  printInstructions(plan: Plan, name: string): void {
     const instructions = new DirectionsAnalyzer().analyze(plan);
-    new PdfDirections(instructions, this.iconService, this.plannerService).print();
+    new PdfDirections(instructions, this.iconService, this.plannerService, name).print();
   }
 
 }

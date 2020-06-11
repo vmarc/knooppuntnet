@@ -3,7 +3,7 @@ import {PdfPage} from "./pdf-page";
 
 export class PdfSideBar {
 
-  constructor(private doc: JsPdf) {
+  constructor(private doc: JsPdf, private name: string) {
   }
 
   print(): void {
@@ -23,8 +23,8 @@ export class PdfSideBar {
     this.doc.line(xRight, yTop, xRight, yBottom);
 
     this.doc.setFontSize(12);
-    const textWidth = this.doc.getTextWidth("knooppuntnet");
-    this.doc.text("knooppuntnet", xLeft + 5, yTop + 5 + textWidth, {angle: 90});
+    const textWidth = this.doc.getTextWidth(this.name);
+    this.doc.text(this.name, xLeft + 5, yTop + 5 + textWidth, {angle: 90});
     this.doc.text("knooppuntnet", xLeft + 5, yBottom - 5, {angle: 90});
 
     this.doc.setDrawColor(0);

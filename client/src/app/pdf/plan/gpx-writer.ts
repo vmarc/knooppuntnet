@@ -6,10 +6,10 @@ import {PlanNode} from "../../map/planner/plan/plan-node";
 
 export class GpxWriter {
 
-  write(plan: Plan): void {
-    const content = this.header().concat(this.body(plan)).concat(this.footer()).join("\n");
+  write(plan: Plan, name: string): void {
+    const content = this.header().concat(this.body(plan, name)).concat(this.footer()).join("\n");
     const blob = new Blob([content], {type: "application/gpx"});
-    const filename = "knooppuntnet.gpx";
+    const filename = name.replace(/ /g, "_") + ".gpx";
     saveAs(blob, filename);
   }
 
@@ -26,8 +26,8 @@ export class GpxWriter {
     ]);
   }
 
-  private body(plan: Plan): List<string> {
-    return this.wayPoints(plan).concat(this.tracks(plan));
+  private body(plan: Plan, name: string): List<string> {
+    return this.wayPoints(plan).concat(this.tracks(plan, name));
   }
 
   private wayPoints(plan: Plan): List<string> {
@@ -43,10 +43,11 @@ export class GpxWriter {
     ]);
   }
 
-  private tracks(plan: Plan): List<string> {
+  private tracks(plan: Plan, name: string): List<string> {
 
     const header = List([
       `  <trk>`,
+      `    <name><![CDATA[${name}]]></name>`,
       `    <trkseg>`
     ]);
 

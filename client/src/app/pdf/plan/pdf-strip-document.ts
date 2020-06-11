@@ -15,6 +15,7 @@ export class PdfStripDocument {
   private readonly model: PdfStripDocumentModel;
 
   constructor(plan: Plan,
+              private name: string,
               private iconService: BitmapIconService) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfStripDocumentModel(pdfPlan.nodes);
@@ -33,7 +34,7 @@ export class PdfStripDocument {
       if (pageIndex > 0) {
         this.doc.addPage();
       }
-      new PdfSideBar(this.doc).print();
+      new PdfSideBar(this.doc, this.name).print();
       new PdfFooter(this.doc).print(pageCount, pageIndex);
 
       this.drawLaneLine(this.model.xContentsLeftWithExtraMargin);

@@ -1,11 +1,11 @@
 import * as JsPdf from "jspdf";
 import * as QRious from "qrious";
 import {Plan} from "../../map/planner/plan/plan";
+import {PdfDocumentModel} from "./pdf-document-model";
+import {PdfFooter} from "./pdf-footer";
 import {PdfPage} from "./pdf-page";
 import {PdfPlanBuilder} from "./pdf-plan-builder";
 import {PdfSideBar} from "./pdf-side-bar";
-import {PdfFooter} from "./pdf-footer";
-import {PdfDocumentModel} from "./pdf-document-model";
 
 export class PdfDocument {
 
@@ -13,7 +13,7 @@ export class PdfDocument {
 
   private readonly doc = new JsPdf();
 
-  constructor(plan: Plan, private planUrl: string) {
+  constructor(plan: Plan, private planUrl: string, private name: string) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfDocumentModel(pdfPlan.nodes);
   }
@@ -21,7 +21,8 @@ export class PdfDocument {
   print(): void {
     this.drawGrid();
     this.drawQrCode();
-    this.doc.save("route.pdf");
+    const filename = this.name.replace(/ /g, "_") + ".pdf";
+    this.doc.save(filename);
   }
 
   private drawQrCode(): void {
@@ -49,7 +50,7 @@ export class PdfDocument {
       if (pageIndex > 0) {
         this.doc.addPage();
       }
-      new PdfSideBar(this.doc).print();
+      new PdfSideBar(this.doc, this.name).print();
       new PdfFooter(this.doc).print(pageCount, pageIndex);
 
       const rowCount = this.model.pageRowCount(pageIndex);
