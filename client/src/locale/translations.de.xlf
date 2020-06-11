@@ -7995,7 +7995,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="plan.output.title" datatype="html">
         <source>Output</source>
-        <target>Output</target>
+        <target>Ausgabe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -8003,39 +8003,39 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf" datatype="html">
         <source>Compact</source>
-        <target>Compact</target>
+        <target>Kompakt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
         <source>Node strip</source>
-        <target>Node strip</target>
+        <target>Knotenstreifen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
         <source>Navigation instructions</source>
-        <target>Navigation instructions</target>
+        <target>Navigationsanweisungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
         <source>GPX file</source>
-        <target>GPX file</target>
+        <target>GPX-Datei</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
         <source><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> or use magnifying glass to find the startnode of your route.</source>
-        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> or use magnifying glass to find the startnode of your route.</target>
+        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Vergrößern<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> oder verwenden Sie die Lupe, um den Startknoten Ihrer Route zu finden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8044,8 +8044,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <trans-unit id="planner-tip.click-start-node" datatype="html">
         <source>Use zoom, pan or use magnifying glass to find and click the
         startnode of your route.</source>
-        <target>Use zoom, pan or use magnifying glass to find and click the
-        startnode of your route.</target>
+        <target>Verwenden Sie Zoom, Schwenken oder Lupe, um den Startknoten Ihrer Route zu finden und darauf zu klicken.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8053,7 +8052,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
         <source><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> and click the endnode of your route.</source>
-        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoom in<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> and click the endnode of your route.</target>
+        <target><x ctype="x-b" equiv-text="&lt;b&gt;" id="START_BOLD_TEXT"/>Zoomen Sie hinein<x ctype="x-b" equiv-text="&lt;/b&gt;" id="CLOSE_BOLD_TEXT"/> und klicken Sie auf den Endknoten Ihrer Route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -8061,7 +8060,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner-tip.click-end-node" datatype="html">
         <source>Click the endnode of your route.</source>
-        <target>Click the endnode of your route.</target>
+        <target>Klicken Sie auf den Endknoten Ihrer Route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -8069,7 +8068,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
         <source>Extend or adapt your route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>read more<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Output when satisfied.</source>
-        <target>Extend or adapt your route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>read more<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Output when satisfied.</target>
+        <target>Erweitern oder passen Sie Ihre Route an (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>lesen Sie mehr<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Ausgabe bei Zufriedenheit.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -8077,7 +8076,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-dialog.unavailable.title" datatype="html">
         <source>Unavailable</source>
-        <target>Unavailable</target>
+        <target>Nicht verfügbar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8086,8 +8085,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
         <source>We cannot determine your location. Verify your settings to allow
         this application to access you location.</source>
-        <target>We cannot determine your location. Verify your settings to allow
-        this application to access you location.</target>
+        <target>Wir können Ihren Standort nicht bestimmen. Überprüfen Sie Ihre Einstellungen, damit diese Anwendung auf Ihren Standort zugreifen kann.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8095,7 +8093,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.title" datatype="html">
         <source>Timeout</source>
-        <target>Timeout</target>
+        <target>Zeitüberschreitung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8103,7 +8101,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
         <source>We cannot determine your location.</source>
-        <target>We cannot determine your location.</target>
+        <target>Wir können Ihren Standort nicht bestimmen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8111,7 +8109,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
         <source>Permission denied</source>
-        <target>Permission denied</target>
+        <target>Berechtigung verweigert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8120,8 +8118,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <trans-unit id="geolocation-dialog.permission-denied.message" datatype="html">
         <source>We cannot determine your location. Knooppuntnet does not have the
         permission to access your location.</source>
-        <target>We cannot determine your location. Knooppuntnet does not have the
-        permission to access your location.</target>
+        <target>Wir können Ihren Standort nicht bestimmen. Knooppuntnet hat keine Berechtigung, auf Ihren Standort zuzugreifen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8129,7 +8126,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
         <source>Not supported</source>
-        <target>Not supported</target>
+        <target>Nicht unterstützt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -8137,7 +8134,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
         <source>We cannot determine your location. Your device does not seem to support this.</source>
-        <target>We cannot determine your location. Your device does not seem to support this.</target>
+        <target>Wir können Ihren Standort nicht bestimmen. Ihr Gerät scheint dies nicht zu unterstützen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8145,7 +8142,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="geolocation-control.title" datatype="html">
         <source>position the map on your current location</source>
-        <target>position the map on your current location</target>
+        <target>Positionieren Sie die Karte an Ihrem aktuellen Standort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/geolocation/geolocation-control.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8153,55 +8150,55 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with compact node overview</source>
-        <target>Produce a route pdf file with compact node overview</target>
+        <target>Erstellen Sie eine Routen-PDF-Datei mit einer kompakten Knotenübersicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+        <target>Erstellen Sie eine Routen-PDF-Datei mit Knoten im &apos;Strip&apos;-Format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
         <source>Produce a route pdf with navigation instructions</source>
-        <target>Produce a route pdf with navigation instructions</target>
+        <target>Erstellen Sie ein Routen-PDF mit Navigationsanweisungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx.tooltip" datatype="html">
         <source>Produce a route file that can be used in a gps-device</source>
-        <target>Produce a route file that can be used in a gps-device</target>
+        <target>Erstellt eine Routendatei, die in einem GPS-Gerät verwendet werden kann</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.clipboard" datatype="html">
         <source>Copy link to clipboard</source>
-        <target>Copy link to clipboard</target>
+        <target>Link in Zwischenablage kopieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
         <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
-        <target>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</target>
+        <target>Kopieren Sie einen Link zu dieser Route in die Zwischenablage (z. B. um sie für später aufzubewahren oder in eine E-Mail einzufügen).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.edit" datatype="html">
         <source>Edit</source>
-        <target>Edit</target>
+        <target>Bearbeiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -8209,7 +8206,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.title" datatype="html">
         <source>Edit</source>
-        <target>Edit</target>
+        <target>Bearbeiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -8217,7 +8214,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.nodes" datatype="html">
         <source>nodes (quick)</source>
-        <target>nodes (quick)</target>
+        <target>Knoten (schnell)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8225,7 +8222,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.routes" datatype="html">
         <source>routes relations (quick)</source>
-        <target>routes relations (quick)</target>
+        <target>Route relationen (schnell)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -8233,7 +8230,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.time-warning" datatype="html">
         <source>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</source>
-        <target>We estimate that it will take perhaps about <x equiv-text="{{seconds}}" id="INTERPOLATION"/> seconds to load all nodes and routes in the editor.</target>
+        <target>Wir schätzen, dass das Laden aller Knoten und Routen im Editor etwa <x equiv-text="{{seconds}}" id="INTERPOLATION"/> Sekunden dauern wird.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -8241,7 +8238,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="links.edit.tooltip" datatype="html">
         <source>Open in editor (like JOSM)</source>
-        <target>Open in editor (like JOSM)</target>
+        <target>Im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">55</context>
@@ -8249,7 +8246,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.ready" datatype="html">
         <source>Ready</source>
-        <target>Ready</target>
+        <target>Fertig</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -8257,7 +8254,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.error" datatype="html">
         <source>Error</source>
-        <target>Error</target>
+        <target>Fehler</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -8265,7 +8262,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.timeout" datatype="html">
         <source>Timeout: editor not started, or editor remote control not enabled?</source>
-        <target>Timeout: editor not started, or editor remote control not enabled?</target>
+        <target>Timeout: JOSM nicht gestartet oder JOSM-Fernbedienung nicht aktiviert?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -8273,7 +8270,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.cancel" datatype="html">
         <source><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></source>
-        <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Cancel<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
+        <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Abbrechen<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">46</context>
@@ -8281,7 +8278,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-edit.full-routes" datatype="html">
         <source>routes with ways (takes more time)</source>
-        <target>routes with ways (takes more time)</target>
+        <target>Routen mit Wegen (dauert länger)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -8289,7 +8286,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="plan.follow-colour" datatype="html">
         <source>Follow colour</source>
-        <target>Follow colour</target>
+        <target>Folgen Sie der Farbe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -8297,7 +8294,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.black" datatype="html">
         <source>black</source>
-        <target>black</target>
+        <target>schwarz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -8305,7 +8302,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.blue" datatype="html">
         <source>blue</source>
-        <target>blue</target>
+        <target>blau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -8313,7 +8310,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.brown" datatype="html">
         <source>brown</source>
-        <target>brown</target>
+        <target>braun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -8321,7 +8318,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.gray" datatype="html">
         <source>gray</source>
-        <target>gray</target>
+        <target>grau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -8329,7 +8326,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.green" datatype="html">
         <source>green</source>
-        <target>green</target>
+        <target>grün</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">37</context>
@@ -8337,7 +8334,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.grey" datatype="html">
         <source>grey</source>
-        <target>grey</target>
+        <target>grau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -8353,7 +8350,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.purple" datatype="html">
         <source>purple</source>
-        <target>purple</target>
+        <target>lila</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -8361,7 +8358,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.red" datatype="html">
         <source>red</source>
-        <target>red</target>
+        <target>rot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">41</context>
@@ -8369,7 +8366,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.violet" datatype="html">
         <source>violet</source>
-        <target>violet</target>
+        <target>violett</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -8377,7 +8374,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.white" datatype="html">
         <source>white</source>
-        <target>white</target>
+        <target>weiß</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -8385,10 +8382,26 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route.colour.yellow" datatype="html">
         <source>yellow</source>
-        <target>yellow</target>
+        <target>gelb</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.route-name" datatype="html">
+        <source>Route name</source>
+        <target>Routenname</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plan.output.route-name-placeholder" datatype="html">
+        <source>type route name</source>
+        <target>Geben Sie den Routennamen ein</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
     </body>
