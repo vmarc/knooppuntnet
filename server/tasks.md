@@ -30,8 +30,8 @@ Server
 - [x] improve stability of database connections after move to Germany (retries)
 - [ ] database maintenance jobs (compaction)
 - [ ] automate background tile generation (+show update timestamp in ui)
-- [ ] investigate improved styling for background tiles?
-- [ ] improve route analysis performance (indexes vs hash)
+- [x] investigate improved styling for background tiles?
+- [x] improve route analysis performance (indexes vs hash)
 - [ ] configure nginx to forward old url's to new url's
 - [ ] Talk to owner of knotenpunktnetz.de?
 - [ ] further complete historical processing
@@ -43,6 +43,8 @@ Docs
 
 Post 3.0.0 release
 - [ ] further elaborate/finetune point of interest definitions
-- [ ] issue #83 Surface preference
-- [ ] issue #85 Elevation profile
+- [ ] issue #83 surface preference
+- [ ] issue #85 elevation profile
+- [ ] issue #95 ferry
+- [ ] cobblestone surface
 - [ ] improved strategy for update of routing graph
