@@ -45,11 +45,17 @@ class NetworkLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) ext
 
     private def load(xml: Elem): Option[LoadedNetwork] = {
       val rawData = new Parser().parse(xml.head).copy(timestamp = timestamp)
-      rawData.relationWithId(networkId) match {
-        case Some(rawRelation) => load(rawData, rawRelation)
-        case None =>
-          log.error(s"Raw data does not contain relation with id $networkId\n$xmlString")
-          None
+      if (rawData.isEmpty) {
+        log.error(s"Raw data does not contain relation with id $networkId")
+        None
+      }
+      else {
+        rawData.relationWithId(networkId) match {
+          case Some(rawRelation) => load(rawData, rawRelation)
+          case None =>
+            log.error(s"Raw data does not contain relation with id $networkId\n$xmlString")
+            None
+        }
       }
     }
 
@@ -96,4 +102,5 @@ class NetworkLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) ext
       xmlOption
     }
   }
+
 }

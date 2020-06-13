@@ -28,4 +28,7 @@ case class RawData(
   def wayWithId(id: Long): Option[RawWay] = ways.find(_.id == id)
 
   def relationWithId(id: Long): Option[RawRelation] = relations.find(_.id == id)
+
+  def isEmpty: Boolean = nodes.isEmpty && ways.isEmpty && relations.isEmpty
+
 }
