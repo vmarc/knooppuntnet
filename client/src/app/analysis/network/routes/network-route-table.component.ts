@@ -4,6 +4,7 @@ import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
+import {Observable} from "rxjs";
 import {BehaviorSubject} from "rxjs";
 import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
@@ -84,8 +85,8 @@ import {NetworkRoutesService} from "./network-routes.service";
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-      <tr mat-row *matRowDef="let route; columns: displayedColumns();"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></tr>
     </table>
   `,
   styles: [`
@@ -103,6 +104,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   itemsPerPage: number;
   dataSource: MatTableDataSource<NetworkRouteRow>;
+  displayedColumns$: Observable<Array<string>>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
@@ -111,6 +113,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   constructor(private pageWidthService: PageWidthService,
               private networkRoutesService: NetworkRoutesService,
               private browserStorageService: BrowserStorageService) {
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -130,7 +133,15 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     this.networkRoutesService.filterOptions$.next(FilterOptions.empty());
   }
 
-  displayedColumns() {
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
+
+  pageChanged(event: PageEvent): void {
+    this.browserStorageService.itemsPerPage = event.pageSize;
+  }
+
+  private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "analysis", "route", "distance", "role", "last-survey", "last-edit"];
     }
@@ -140,13 +151,5 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     }
 
     return ["nr", "analysis", "route"];
-  }
-
-  rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
-  }
-
-  pageChanged(event: PageEvent): void {
-    this.browserStorageService.itemsPerPage = event.pageSize;
   }
 }

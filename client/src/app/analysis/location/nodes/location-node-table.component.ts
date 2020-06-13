@@ -9,6 +9,8 @@ import {Component, OnInit} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {LocationNodeInfo} from "../../../kpn/api/common/location/location-node-info";
@@ -67,8 +69,8 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
-      <mat-row *matRowDef="let node; columns: displayedColumns();"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns$ | async"></mat-header-row>
+      <mat-row *matRowDef="let node; columns: displayedColumns$ | async;"></mat-row>
     </mat-table>
   `,
   styles: [`
@@ -116,14 +118,15 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Output() page = new EventEmitter<PageEvent>();
 
   itemsPerPage: number;
-
   dataSource: MatTableDataSource<LocationNodeInfo>;
+  displayedColumns$: Observable<Array<string>>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   constructor(private pageWidthService: PageWidthService,
               private browserStorageService: BrowserStorageService) {
     this.dataSource = new MatTableDataSource();
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -137,7 +140,11 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     }
   }
 
-  displayedColumns() {
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
+
+  private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "analysis", "node", "routes", "lastEdit"];
     }
@@ -147,9 +154,5 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     }
 
     return ["nr", "analysis", "node"];
-  }
-
-  rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
   }
 }

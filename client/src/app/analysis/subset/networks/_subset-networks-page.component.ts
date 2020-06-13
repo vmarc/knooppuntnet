@@ -41,20 +41,20 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
           and __{{page.routeCount | integer}}__ routes with an overall length of __{{page.km | integer}}__ km._
         </markdown>
 
-        <kpn-subset-network-list
-          *ngIf="!isLarge()"
-          [networks]="networks">
-        </kpn-subset-network-list>
-        <kpn-subset-network-table
-          *ngIf="isLarge()"
-          [networks]="networks">
-        </kpn-subset-network-table>
+        <ng-container *ngIf="large$ | async; then table else list"></ng-container>
+        <ng-template #table>
+          <kpn-subset-network-table [networks]="networks"></kpn-subset-network-table>
+        </ng-template>
+        <ng-template #list>
+          <kpn-subset-network-list [networks]="networks"></kpn-subset-network-list>
+        </ng-template>
       </div>
     </div>
   `
 })
 export class SubsetNetworksPageComponent implements OnInit {
 
+  large$: Observable<boolean>;
   subset$: Observable<Subset>;
   response$: Observable<ApiResponse<SubsetNetworksPage>>;
 
@@ -67,6 +67,7 @@ export class SubsetNetworksPageComponent implements OnInit {
               private pageWidthService: PageWidthService,
               private networkCacheService: NetworkCacheService,
               private subsetCacheService: SubsetCacheService) {
+    this.large$ = pageWidthService.current$.pipe(map(() => this.pageWidthService.isVeryLarge()));
   }
 
   ngOnInit(): void {
@@ -84,9 +85,4 @@ export class SubsetNetworksPageComponent implements OnInit {
       ))
     );
   }
-
-  isLarge(): boolean {
-    return this.pageWidthService.isLarge() || this.pageWidthService.isVeryLarge();
-  }
-
 }

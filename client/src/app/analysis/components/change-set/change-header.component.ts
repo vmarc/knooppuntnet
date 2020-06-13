@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {ChangeKey} from "../../../kpn/api/common/changes/details/change-key";
 
@@ -17,11 +19,11 @@ import {ChangeKey} from "../../../kpn/api/common/changes/details/change-key";
         [replicationNumber]="changeKey.replicationNumber"
         class="kpn-thick">
       </kpn-link-changeset>
-      <kpn-timestamp *ngIf="!isTimestampOnSeparateLine()" [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
+      <kpn-timestamp *ngIf="timestampOnSameLine$ | async" [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
       <kpn-icon-happy *ngIf="happy"></kpn-icon-happy>
       <kpn-icon-investigate *ngIf="investigate"></kpn-icon-investigate>
     </div>
-    <div *ngIf="isTimestampOnSeparateLine()">
+    <div *ngIf="timestampOnSeparateLine$ | async">
       <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin"></kpn-timestamp>
     </div>
 
@@ -44,10 +46,15 @@ export class ChangeHeaderComponent {
   @Input() investigate: boolean;
   @Input() comment: string;
 
+  timestampOnSameLine$: Observable<boolean>;
+  timestampOnSeparateLine$: Observable<boolean>;
+
   constructor(private pageWidthService: PageWidthService) {
+    this.timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(map(() => this.timestampOnSeparateLine()));
+    this.timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map(value => !value));
   }
 
-  isTimestampOnSeparateLine() {
+  private timestampOnSeparateLine() {
     return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall();
   }
 

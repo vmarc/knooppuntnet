@@ -4,6 +4,7 @@ import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
+import {Observable} from "rxjs";
 import {BehaviorSubject} from "rxjs";
 import {tap} from "rxjs/operators";
 import {delay} from "rxjs/operators";
@@ -94,9 +95,9 @@ import {NetworkNodesService} from "./network-nodes.service";
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="headerColumns1()"></tr>
-      <tr mat-header-row *matHeaderRowDef="headerColumns2()"></tr>
-      <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
+      <tr mat-header-row *matHeaderRowDef="headerColumns1$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="headerColumns2$ | async"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async"></tr>
 
     </table>
   `,
@@ -119,8 +120,11 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: List<NetworkInfoNode> = List();
 
-  dataSource: MatTableDataSource<NetworkInfoNode>;
   itemsPerPage: number;
+  dataSource: MatTableDataSource<NetworkInfoNode>;
+  headerColumns1$: Observable<Array<string>>;
+  headerColumns2$: Observable<Array<string>>;
+  displayedColumns$: Observable<Array<string>>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
@@ -129,6 +133,9 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   constructor(private pageWidthService: PageWidthService,
               private networkNodesService: NetworkNodesService,
               private browserStorageService: BrowserStorageService) {
+    this.headerColumns1$ = pageWidthService.current$.pipe(map(() => this.headerColumns1()));
+    this.headerColumns2$ = pageWidthService.current$.pipe(map(() => this.headerColumns2()));
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -148,7 +155,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     this.networkNodesService.filterOptions$.next(FilterOptions.empty());
   }
 
-  displayedColumns() {
+  private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "analysis", "node", "name", "routes-expected", "routes-actual", "last-survey", "last-edit"];
     }
@@ -160,7 +167,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     return ["nr", "analysis", "node"];
   }
 
-  headerColumns1() {
+  private headerColumns1() {
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "analysis", "node", "name", "routes", "last-survey", "last-edit"];
     }
@@ -172,11 +179,10 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     return ["nr", "analysis", "node"];
   }
 
-  headerColumns2() {
+  private headerColumns2() {
     if (this.pageWidthService.isVeryLarge() || this.pageWidthService.isLarge()) {
       return ["routes-expected", "routes-actual"];
     }
-
     return [];
   }
 

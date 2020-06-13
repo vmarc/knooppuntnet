@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
@@ -26,10 +27,13 @@ import {Statistics} from "../../../kpn/api/custom/statistics";
       <div class="situation-on">
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </div>
-
-      <kpn-overview-list *ngIf="!isVeryLarge()" [statistics]="stats"></kpn-overview-list>
-      <kpn-overview-table *ngIf="isVeryLarge()" [statistics]="stats"></kpn-overview-table>
-
+      <ng-content *ngIf="veryLarge$ | async; then table else list"></ng-content>
+      <ng-template #table>
+        <kpn-overview-table [statistics]="stats"></kpn-overview-table>
+      </ng-template>
+      <ng-template #list>
+        <kpn-overview-list [statistics]="stats"></kpn-overview-list>
+      </ng-template>
       <kpn-json [object]="response"></kpn-json>
     </div>
   `,
@@ -41,12 +45,14 @@ import {Statistics} from "../../../kpn/api/custom/statistics";
 })
 export class OverviewPageComponent implements OnInit {
 
+  veryLarge$: Observable<boolean>;
   response$: Observable<ApiResponse<Statistics>>;
   stats: Statistics;
 
   constructor(private appService: AppService,
               private pageService: PageService,
               private pageWidthService: PageWidthService) {
+    this.veryLarge$ = pageWidthService.current$.pipe(map(() => pageWidthService.isVeryLarge()));
   }
 
   ngOnInit(): void {
@@ -54,9 +60,5 @@ export class OverviewPageComponent implements OnInit {
     this.response$ = this.appService.overview().pipe(
       tap(response => this.stats = response.result)
     );
-  }
-
-  isVeryLarge(): boolean {
-    return this.pageWidthService.isVeryLarge();
   }
 }

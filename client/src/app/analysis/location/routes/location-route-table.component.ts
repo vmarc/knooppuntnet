@@ -9,6 +9,8 @@ import {Component, OnInit} from "@angular/core";
 import {PageEvent} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {List} from "immutable";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
 import {LocationRouteInfo} from "../../../kpn/api/common/location/location-route-info";
@@ -67,8 +69,8 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns()"></mat-header-row>
-      <mat-row *matRowDef="let route; columns: displayedColumns();"></mat-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns$ | async"></mat-header-row>
+      <mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></mat-row>
     </mat-table>
   `
 })
@@ -79,15 +81,16 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   @Input() routeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
 
-  dataSource: MatTableDataSource<LocationRouteInfo>;
-
   itemsPerPage: number;
+  dataSource: MatTableDataSource<LocationRouteInfo>;
+  displayedColumns$: Observable<Array<string>>;
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   constructor(private pageWidthService: PageWidthService,
               private browserStorageService: BrowserStorageService) {
     this.dataSource = new MatTableDataSource();
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -101,17 +104,17 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
     }
   }
 
-  displayedColumns() {
+  private displayedColumns() {
 
     if (this.pageWidthService.isVeryLarge()) {
       return ["nr", "route", "distance", "broken", "lastEdit"];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "route", "distance", "broken", "lastEdit"];
+      return ["nr", "route", "distance", "broken"];
     }
 
-    return ["nr", "route", "distance", "broken", "lastEdit"];
+    return ["nr", "route", "distance"];
   }
 
   rowNumber(index: number): number {
