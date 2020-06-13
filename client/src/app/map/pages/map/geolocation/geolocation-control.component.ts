@@ -48,7 +48,7 @@ import {GeolocationUnavailableDialogComponent} from "./geolocation-unavailable-d
       padding-top: 5px;
     }
 
-    ::ng-deep mat-icon svg {
+    .control ::ng-deep mat-icon svg {
       width: 18px;
       height: 18px;
     }
