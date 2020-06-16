@@ -1529,7 +1529,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-page.menu.changes" datatype="html">
         <source>Changes</source>
-        <target>Changes</target>
+        <target>Modifications</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -1597,7 +1597,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-page.menu.changes" datatype="html">
         <source>Changes</source>
-        <target>Changes</target>
+        <target>Modifications</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -4931,7 +4931,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.menu.changes" datatype="html">
         <source>Changes</source>
-        <target>Changes</target>
+        <target>Modifications</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/components/route-page-header.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -5367,7 +5367,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-changes.title" datatype="html">
         <source>Changes</source>
-        <target>Changes</target>
+        <target>Modifications</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6385,7 +6385,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.menu.changes" datatype="html">
         <source>Changes</source>
-        <target>Changes</target>
+        <target>Modifications</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/components/node-page-header.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -6979,7 +6979,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.title" datatype="html">
         <source>Changes</source>
-        <target>Changes</target>
+        <target>Modifications</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
           <context context-type="linenumber">5</context>
