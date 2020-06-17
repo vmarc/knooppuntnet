@@ -2201,7 +2201,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="login.title" datatype="html">
         <source>Login</source>
-        <target>Login</target>
+        <target>Connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -2210,8 +2210,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       <trans-unit id="login.note.1" datatype="html">
         <source>Login allows you to view extra information, such as changeset details, network history,
         route history and node history.</source>
-        <target>Login allows you to view extra information, such as changeset details, network history,
-        route history and node history.</target>
+        <target>Login vous permet d&apos;afficher des informations supplémentaires, telles que les détails de l&apos;ensemble de modifications, l&apos;historique du réseau, l&apos;historique de l&apos;itinéraire et l&apos;historique du nœud.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -2219,7 +2218,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="login.note.2" datatype="html">
         <source>This information is available to registered OpenStreetMap users only.</source>
-        <target>This information is available to registered OpenStreetMap users only.</target>
+        <target>Ces informations sont disponibles uniquement pour les utilisateurs enregistrés d&apos;OpenStreetMap.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -2230,10 +2229,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         if you are not logged in to OpenStreetMap yet) to the OpenStreetMap
         page &quot;Authorize access to your account&quot;. Click the button &quot;Grant access&quot;
         (leave the option &quot;read your user preferences&quot; checked).</source>
-        <target>After clicking the &quot;login&quot; button below, you will be directed (via the OpenStreetMap login page
-        if you are not logged in to OpenStreetMap yet) to the OpenStreetMap
-        page &quot;Authorize access to your account&quot;. Click the button &quot;Grant access&quot;
-        (leave the option &quot;read your user preferences&quot; checked).</target>
+        <target>Après avoir cliqué sur le bouton &quot;connexion&quot; ci-dessous, vous serez dirigé (via la page de connexion d&apos;OpenStreetMap si vous n&apos;êtes pas encore connecté à OpenStreetMap) vers la page d&apos;OpenStreetMap &quot;Autoriser l&apos;accès à votre compte&quot;. Cliquez sur le bouton &quot;Accorder l&apos;accès&quot; (laissez l&apos;option &quot;lire vos préférences utilisateur&quot; cochée).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -2243,9 +2239,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <source>The knooppuntnet application only reads your username from the user preferences to establish that
         you are a registered OpenStreetMap user. All other user preferences are ignored,
         and not stored in knooppuntnet.</source>
-        <target>The knooppuntnet application only reads your username from the user preferences to establish that
-        you are a registered OpenStreetMap user. All other user preferences are ignored,
-        and not stored in knooppuntnet.</target>
+        <target>L&apos;application knooppuntnet lit uniquement votre nom d&apos;utilisateur dans les préférences de l&apos;utilisateur pour établir que vous êtes un utilisateur OpenStreetMap enregistré. Toutes les autres préférences de l&apos;utilisateur sont ignorées et ne sont pas stockées dans knooppuntnet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -2254,8 +2248,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       <trans-unit id="login.note.5" datatype="html">
         <source>This login procedure uses OpenStreetMap security.
         Knooppuntnet does not have access to your password at any moment.</source>
-        <target>This login procedure uses OpenStreetMap security.
-        Knooppuntnet does not have access to your password at any moment.</target>
+        <target>Cette procédure de connexion utilise la sécurité OpenStreetMap. Knooppuntnet n&apos;a à aucun moment accès à votre mot de passe.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -2264,8 +2257,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       <trans-unit id="login.note.6" datatype="html">
         <source>You remain logged in (also after closing you browser), until you explicitly logout through the logout page.
         To login again after logout you will have to use the same login procedure again.</source>
-        <target>You remain logged in (also after closing you browser), until you explicitly logout through the logout page.
-        To login again after logout you will have to use the same login procedure again.</target>
+        <target>Vous restez connecté (même après avoir fermé votre navigateur), jusqu&apos;à ce que vous vous déconnectiez explicitement via la page de déconnexion. Pour vous reconnecter après la déconnexion, vous devrez à nouveau utiliser la même procédure de connexion.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -2273,7 +2265,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="login.submit" datatype="html">
         <source>Login</source>
-        <target>Login</target>
+        <target>Connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -2281,7 +2273,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="logout.title" datatype="html">
         <source>Logout</source>
-        <target>Logout</target>
+        <target>Déconnexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -2291,9 +2283,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <source>You are currently logged in as
           <x ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN-OSM-LINK-USER"/><x ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER"/>
           .</source>
-        <target>You are currently logged in as
-          <x ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN-OSM-LINK-USER"/><x ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER"/>
-          .</target>
+        <target>Vous êtes actuellement connecté en tant que <x ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN-OSM-LINK-USER"/><x ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -2301,7 +2291,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="logout.note.1" datatype="html">
         <source>This allows you to view extra information that is available to OpenStreetMap users only.</source>
-        <target>This allows you to view extra information that is available to OpenStreetMap users only.</target>
+        <target>Cela vous permet d&apos;afficher des informations supplémentaires qui sont disponibles uniquement pour les utilisateurs d&apos;OpenStreetMap.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -2327,7 +2317,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="logout.submit" datatype="html">
         <source>Logout</source>
-        <target>Logout</target>
+        <target>Déconnexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -2335,7 +2325,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="logout.not-logged-in" datatype="html">
         <source>You are not logged in.</source>
-        <target>You are not logged in.</target>
+        <target>Vous n&apos;êtes pas connecté.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -2345,9 +2335,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <source>You can <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>login<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> to view extra information that is available to
         <x ctype="x-kpn-osm-website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN-OSM-WEBSITE"/><x ctype="x-kpn-osm-website" equiv-text="&lt;/kpn-osm-website&gt;" id="CLOSE_TAG_KPN-OSM-WEBSITE"/>
         users only.</source>
-        <target>You can <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>login<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> to view extra information that is available to
-        <x ctype="x-kpn-osm-website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN-OSM-WEBSITE"/><x ctype="x-kpn-osm-website" equiv-text="&lt;/kpn-osm-website&gt;" id="CLOSE_TAG_KPN-OSM-WEBSITE"/>
-        users only.</target>
+        <target>Vous pouvez vous <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>login<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> pour afficher des informations supplémentaires disponibles uniquement pour les utilisateurs.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">39</context>
