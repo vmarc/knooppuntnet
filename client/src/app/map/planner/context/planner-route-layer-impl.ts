@@ -8,6 +8,7 @@ import VectorSource from "ol/source/Vector";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import {Marker} from "../../../components/ol/domain/marker";
+import {Layers} from "../../../components/ol/layers/layers";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
@@ -29,6 +30,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
   private source = new VectorSource();
 
   private layer = new VectorLayer({
+    zIndex: Layers.zIndexPlannerRouteLayer,
     source: this.source
   });
 

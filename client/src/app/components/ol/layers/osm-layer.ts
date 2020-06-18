@@ -4,6 +4,7 @@ import {Layer} from "ol/layer";
 import {toLonLat} from "ol/proj";
 import {I18nService} from "../../../i18n/i18n.service";
 import {OsmLibertyStyle} from "../style/osm-liberty-style";
+import {Layers} from "./layers";
 import {MapLayer} from "./map-layer";
 
 export class OsmLayer {
@@ -29,7 +30,7 @@ export class OsmLayer {
     });
 
     const layer = new Layer({
-      zIndex: 99,
+      zIndex: Layers.zIndexOsmLayer,
       render: function (frameState) {
         const canvas = mbMap.getCanvas();
         const viewState = frameState.viewState;

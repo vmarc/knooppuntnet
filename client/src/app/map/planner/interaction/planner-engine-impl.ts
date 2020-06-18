@@ -1,5 +1,11 @@
 import {List} from "immutable";
+import {Feature} from "ol";
 import {Coordinate} from "ol/coordinate";
+import {Point} from "ol/geom";
+import {LineString} from "ol/geom";
+import GeometryLayout from "ol/geom/GeometryLayout";
+import GeometryType from "ol/geom/GeometryType";
+import RenderFeature from "ol/render/Feature";
 import {NodeClick} from "../../../components/ol/domain/node-click";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
 import {PoiId} from "../../../components/ol/domain/poi-id";
@@ -138,10 +144,32 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingNode()) {
       const networkNodeFeature = this.findNetworkNode(features);
       if (networkNodeFeature != null) { // snap to node position
+        const point = new Point(networkNodeFeature.node.coordinate);
+        const feature = new Feature(point);
+        this.context.highlightLayer.highlightFeature(feature);
         this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.oldNode.featureId, networkNodeFeature.node.coordinate);
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
         return true;
       }
+
+      const routeFeature = this.findRoute(features);
+      if (routeFeature != null) {
+        if (routeFeature.feature instanceof RenderFeature) {
+          const renderFeature = routeFeature.feature as RenderFeature;
+          const geometryType = renderFeature.getType();
+          if (geometryType === GeometryType.LINE_STRING) {
+            const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
+            const lineString = new LineString(coordinates, GeometryLayout.XY);
+            const feature = new Feature(lineString);
+            this.context.highlightLayer.highlightFeature(feature);
+          } else {
+            console.log("OTHER GEOMETRY TYPE " + geometryType);
+          }
+        }
+      } else {
+        this.context.highlightLayer.reset();
+      }
+
       this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.oldNode.featureId, coordinate);
       this.context.elasticBand.updatePosition(coordinate);
       return true;
@@ -150,9 +178,15 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingLeg()) {
       const networkNodeFeature = this.findNetworkNode(features);
       if (networkNodeFeature != null) { // snap to node position
+
+        // TODO highlight node
+
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
         return true;
       }
+
+      // TODO deselect any selected node
+
       this.context.elasticBand.updatePosition(coordinate);
       return true;
     }
@@ -161,6 +195,8 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean): boolean {
+
+    this.context.highlightLayer.reset();
 
     if (this.isViaFlagClicked(singleClick)) {
       this.viaFlagClicked();

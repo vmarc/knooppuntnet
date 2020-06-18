@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {List} from "immutable";
 import {Map as ImmutableMap} from "immutable";
+import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import {ReplaySubject} from "rxjs";
@@ -10,6 +11,7 @@ import {tap} from "rxjs/operators";
 import {filter} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
+import {GpxLayer} from "../../../components/ol/layers/gpx-layer";
 import {MapLayer} from "../../../components/ol/layers/map-layer";
 import {MapLayerChange} from "../../../components/ol/layers/map-layer-change";
 import {MapLayers} from "../../../components/ol/layers/map-layers";
@@ -18,6 +20,7 @@ import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
 import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {MainMapStyle} from "../../../components/ol/style/main-map-style";
+import {I18nService} from "../../../i18n/i18n.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 
@@ -26,6 +29,7 @@ export class PlannerLayerService {
 
   standardLayers: List<MapLayer>;
   mapLayers$: Observable<MapLayers>;
+  gpxVectorLayer: VectorLayer;
   private _mapLayers$ = new ReplaySubject<MapLayers>();
   private networkLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;

@@ -6,13 +6,13 @@ import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-sta
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
+import {FlagFeature} from "../features/flag-feature";
+import {LegFeature} from "../features/leg-feature";
 import {MapFeature} from "../features/map-feature";
+import {NetworkNodeFeature} from "../features/network-node-feature";
 import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlannerEngineImpl} from "./planner-engine-impl";
-import {NetworkNodeFeature} from "../features/network-node-feature";
-import {FlagFeature} from "../features/flag-feature";
-import {LegFeature} from "../features/leg-feature";
 
 describe("PlannerEngine", () => {
 
@@ -142,7 +142,7 @@ describe("PlannerEngine", () => {
 
       // arrange
       const setup = new PlannerTestSetup();
-      const engine = new PlannerEngineImpl(setup.context);
+      const engine = new PlannerEngineImpl(setup.context,);
 
       const plan = setup.createPlanWithStartPointOnly();
 

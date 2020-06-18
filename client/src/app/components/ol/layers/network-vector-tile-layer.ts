@@ -6,6 +6,7 @@ import {createXYZ} from "ol/tilegrid";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {ZoomLevel} from "../domain/zoom-level";
 import {NodeMapStyle} from "../style/node-map-style";
+import {Layers} from "./layers";
 import {MapLayer} from "./map-layer";
 
 export class NetworkVectorTileLayer {
@@ -45,6 +46,7 @@ export class NetworkVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
+      zIndex: Layers.zIndexNetworkLayer,
       source: source,
       renderMode: "image"
     });

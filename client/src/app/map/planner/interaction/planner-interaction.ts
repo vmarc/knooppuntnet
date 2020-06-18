@@ -71,6 +71,14 @@ export class PlannerInteraction {
         const coordinate: Coordinate = [extent[0], extent[1]];
         return new PoiFeature(poiId, layerType, layer, coordinate);
       }
+
+      if (layer.endsWith("route")) {
+        const segmentId = feature.get("id");
+        const routeName = feature.get("name");
+        const dashIndex = segmentId.indexOf("-");
+        const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
+        return new RouteFeature(+routeId, routeName, feature);
+      }
     }
 
     // we are not interested in the feature for planner purposes
@@ -91,7 +99,7 @@ export class PlannerInteraction {
         const routeName = feature.get("name");
         const dashIndex = segmentId.indexOf("-");
         const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
-        return new RouteFeature(+routeId, routeName);
+        return new RouteFeature(+routeId, routeName, feature);
       }
     }
 

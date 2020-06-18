@@ -9,6 +9,7 @@ import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
+import {PlannerHighlightLayer} from "./planner-highlight-layer";
 import {PlannerLegRepository} from "./planner-leg-repository";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
@@ -32,6 +33,7 @@ export class PlannerContext {
   constructor(readonly routeLayer: PlannerRouteLayer,
               readonly cursor: PlannerCursor,
               readonly elasticBand: PlannerElasticBand,
+              readonly highlightLayer: PlannerHighlightLayer,
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {

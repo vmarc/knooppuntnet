@@ -13,11 +13,11 @@ import {SurveyDateValues} from "./survey-date-values";
 @Injectable()
 export class MapService {
 
-  highlightedRouteId: string;
-  highlightedNodeId: string;
   selectedRouteId: string;
   selectedNodeId: string;
 
+  highlightedNodeId$: Observable<string>;
+  highlightedRouteId$: Observable<string>;
   networkType$: Observable<NetworkType>;
   mapMode$: Observable<MapMode>;
   surveyDateInfo$: Observable<SurveyDateValues>;
@@ -26,6 +26,8 @@ export class MapService {
   nodeClicked$: Observable<NodeClick>;
   routeClicked$: Observable<RouteClick>;
 
+  private _highlightedNodeId$ = new BehaviorSubject<string>(null);
+  private _highlightedRouteId$ = new BehaviorSubject<string>(null);
   private _networkType$ = new BehaviorSubject<NetworkType | null>(null);
   private _mapMode$ = new BehaviorSubject<MapMode>(MapMode.surface);
   private _surveyDateInfo$ = new BehaviorSubject<SurveyDateValues>(null);
@@ -39,12 +41,34 @@ export class MapService {
       map(response => SurveyDateValues.from(response.result))
     ).subscribe(surveyDateValues => this._surveyDateInfo$.next(surveyDateValues));
 
+    this.highlightedNodeId$ = this._highlightedNodeId$;
+    this.highlightedRouteId$ = this._highlightedRouteId$;
     this.networkType$ = this._networkType$.asObservable();
     this.mapMode$ = this._mapMode$.asObservable();
     this.popupType$ = this._popupType$.asObservable();
     this.poiClicked$ = this._poiClicked$.asObservable();
     this.nodeClicked$ = this._nodeClicked$.asObservable();
     this.routeClicked$ = this._routeClicked$.asObservable();
+  }
+
+  get highlightedNodeId(): string {
+    return this._highlightedNodeId$.value;
+  }
+
+  get highlightedRouteId(): string {
+    return this._highlightedRouteId$.value;
+  }
+
+  nextHighlightedNodeId(value: string): void {
+    if (this._highlightedNodeId$.value !== value) {
+      this._highlightedNodeId$.next(value);
+    }
+  }
+
+  nextHighlightedRouteId(value: string): void {
+    if (this._highlightedRouteId$.value !== value) {
+      this._highlightedRouteId$.next(value);
+    }
   }
 
   networkType(): NetworkType {
