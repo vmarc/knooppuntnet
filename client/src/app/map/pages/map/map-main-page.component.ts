@@ -59,10 +59,7 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
       background-color: white;
       overflow: hidden;
     }
-  `],
-  providers: [
-    PlannerLayerService
-  ]
+  `]
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -202,9 +199,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
+    const layers = this.plannerLayerService.standardLayers.map(ml => ml.layer).toArray();
+
     this.map = new Map({
       target: "main-map",
-      layers: this.plannerLayerService.standardLayers.map(ml => ml.layer).toArray(),
+      layers: layers,
       overlays: [this.overlay],
       controls: MapControls.build(),
       view: new View({

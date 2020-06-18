@@ -43,6 +43,7 @@ import {I18nService} from "./i18n.service";
       <span id="@@map.layer.deleted" i18n="@@map.layer.deleted">Deleted</span>
 
       <span id="@@map.layer.osm" i18n="@@map.layer.osm">OpenStreetMap</span>
+      <span id="@@map.layer.gpx" i18n="@@map.layer.gpx">Your GPX trace</span>
       <span id="@@map.layer.tile-names" i18n="@@map.layer.tile-names">Tilenames</span>
       <span id="@@map.layer.other-routes" i18n="@@map.layer.other-routes">Other routes</span>
       <span id="@@map.layer.node" i18n="@@map.layer.node">Node</span>

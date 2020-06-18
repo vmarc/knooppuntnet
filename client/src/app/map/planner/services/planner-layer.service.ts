@@ -29,10 +29,10 @@ export class PlannerLayerService {
   private _mapLayers$ = new ReplaySubject<MapLayers>();
   private networkLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
-
   private osmLayer: MapLayer;
   private tileNameLayer: MapLayer;
   private poiLayer: MapLayer;
+  private gpxLayer: MapLayer;
   private bitmapLayers: ImmutableMap<NetworkType, MapLayer>;
   private vectorLayers: ImmutableMap<NetworkType, MapLayer>;
   private allLayers: List<MapLayer>;
@@ -41,7 +41,8 @@ export class PlannerLayerService {
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
               private mapService: MapService,
-              private mapZoomService: MapZoomService) {
+              private mapZoomService: MapZoomService,
+              private i18nService: I18nService) {
 
     this.mapLayers$ = this._mapLayers$.asObservable();
 
@@ -60,12 +61,18 @@ export class PlannerLayerService {
     this.osmLayer = this.mapLayerService.osmLayer("main-map");
     this.tileNameLayer = this.mapLayerService.tileNameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
+
+    this.gpxVectorLayer = new GpxLayer().build();
+    const gpxLayerName = this.i18nService.translation("@@map.layer.gpx");
+    this.gpxVectorLayer.set("name", gpxLayerName);
+    this.gpxLayer = new MapLayer("gpx-layer", this.gpxVectorLayer);
+
     this.bitmapLayers = this.buildBitmapLayers();
     this.vectorLayers = this.buildVectorLayers();
 
-    this.standardLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer]);
+    this.standardLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer, this.gpxLayer]);
 
-    this.allLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer])
+    this.allLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer, this.gpxLayer])
       .concat(this.bitmapLayers.values())
       .concat(this.vectorLayers.values());
   }

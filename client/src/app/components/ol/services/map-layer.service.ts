@@ -107,5 +107,4 @@ export class MapLayerService {
   poiTileLayer(): VectorTileLayer {
     return new PoiTileLayer().build();
   }
-
 }
