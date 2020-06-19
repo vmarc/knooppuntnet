@@ -142,11 +142,11 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (this.isDraggingNode()) {
+
       const networkNodeFeature = this.findNetworkNode(features);
-      if (networkNodeFeature != null) { // snap to node position
-        const point = new Point(networkNodeFeature.node.coordinate);
-        const feature = new Feature(point);
-        this.context.highlightLayer.highlightFeature(feature);
+      if (networkNodeFeature != null) {
+        this.highlightNode(networkNodeFeature.node);
+        // snap to node position
         this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.oldNode.featureId, networkNodeFeature.node.coordinate);
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
         return true;
@@ -154,18 +154,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       const routeFeature = this.findRoute(features);
       if (routeFeature != null) {
-        if (routeFeature.feature instanceof RenderFeature) {
-          const renderFeature = routeFeature.feature as RenderFeature;
-          const geometryType = renderFeature.getType();
-          if (geometryType === GeometryType.LINE_STRING) {
-            const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
-            const lineString = new LineString(coordinates, GeometryLayout.XY);
-            const feature = new Feature(lineString);
-            this.context.highlightLayer.highlightFeature(feature);
-          } else {
-            console.log("OTHER GEOMETRY TYPE " + geometryType);
-          }
-        }
+        this.highlightRoute(routeFeature);
       } else {
         this.context.highlightLayer.reset();
       }
@@ -176,16 +165,21 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     if (this.isDraggingLeg()) {
+
       const networkNodeFeature = this.findNetworkNode(features);
-      if (networkNodeFeature != null) { // snap to node position
-
-        // TODO highlight node
-
+      if (networkNodeFeature != null) {
+        this.highlightNode(networkNodeFeature.node);
+        // snap to node position
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
         return true;
       }
 
-      // TODO deselect any selected node
+      const routeFeature = this.findRoute(features);
+      if (routeFeature != null) {
+        this.highlightRoute(routeFeature);
+      } else {
+        this.context.highlightLayer.reset();
+      }
 
       this.context.elasticBand.updatePosition(coordinate);
       return true;
@@ -199,7 +193,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.context.highlightLayer.reset();
 
     if (this.isViaFlagClicked(singleClick)) {
-      this.viaFlagClicked();
+      this.removeViaPoint();
       this.dragCancel();
       return true;
     }
@@ -210,9 +204,19 @@ export class PlannerEngineImpl implements PlannerEngine {
       const networkNode = this.findNetworkNode(features);
       if (networkNode != null) {
         if (this.isDraggingLeg()) {
-          this.endDragLeg(networkNode.node);
+          this.dropLegOnNode(networkNode.node);
         } else if (this.isDraggingNode()) {
-          this.endDragNode(networkNode.node);
+          this.dropNodeOnNode(networkNode.node);
+        }
+        return true;
+      }
+
+      const routeFeature = this.findRoute(features);
+      if (routeFeature != null) {
+        if (this.isDraggingLeg()) {
+          this.dropLegOnRoute(routeFeature);
+        } else if (this.isDraggingNode()) {
+          this.dropNodeOnRoute(routeFeature);
         }
         return true;
       }
@@ -228,7 +232,28 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  private viaFlagClicked(): void {
+  private highlightNode(node: PlanNode): void {
+    const point = new Point(node.coordinate);
+    const feature = new Feature(point);
+    this.context.highlightLayer.highlightFeature(feature);
+  }
+
+  private highlightRoute(routeFeature: RouteFeature): void {
+    if (routeFeature.feature instanceof RenderFeature) {
+      const renderFeature = routeFeature.feature as RenderFeature;
+      const geometryType = renderFeature.getType();
+      if (geometryType === GeometryType.LINE_STRING) {
+        const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
+        const lineString = new LineString(coordinates, GeometryLayout.XY);
+        const feature = new Feature(lineString);
+        this.context.highlightLayer.highlightFeature(feature);
+      } else {
+        console.log("OTHER GEOMETRY TYPE " + geometryType);
+      }
+    }
+  }
+
+  private removeViaPoint(): void {
 
     const legs = this.context.plan.legs;
     const nextLegIndex = legs.findIndex(leg => leg.source.featureId === this.nodeDrag.oldNode.featureId);
@@ -296,7 +321,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       && this.nodeDrag.oldNode.featureId !== this.context.plan.source.featureId;
   }
 
-  private endDragLeg(connection: PlanNode): void {
+  private dropLegOnNode(connection: PlanNode): void {
     if (this.legDrag !== null) {
       const oldLeg = this.context.legs.getById(this.legDrag.oldLegId);
       if (oldLeg) {
@@ -309,7 +334,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
   }
 
-  private endDragNode(newNode: PlanNode): void {
+  private dropNodeOnNode(newNode: PlanNode): void {
 
     if (this.nodeDrag.flagType === PlanFlagType.Start) {
       if (this.context.plan.legs.isEmpty()) {
@@ -350,6 +375,35 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     this.nodeDrag = null;
+  }
+
+  private dropLegOnRoute(routeFeature: RouteFeature) {
+    console.log("drop leg on routeFeature id=" + routeFeature.feature.get("id"));
+  }
+
+  private dropNodeOnRoute(routeFeature) {
+    console.log("drop node on routeFeature id=" + routeFeature.feature.get("id"));
+
+    if (this.nodeDrag.flagType === PlanFlagType.Via) {
+      const legs = this.context.plan.legs;
+      const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
+
+      const oldLeg1 = legs.get(nextLegIndex - 1);
+      const oldLeg2 = legs.get(nextLegIndex);
+
+      // TODO continue here
+      // const newLeg1: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
+      // const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
+      //
+      // const command = new PlannerCommandMoveViaPoint(
+      //   nextLegIndex,
+      //   oldLeg1.featureId,
+      //   oldLeg2.featureId,
+      //   newLeg1.featureId,
+      //   newLeg2.featureId
+      // );
+      // this.context.execute(command);
+    }
   }
 
   private dragCancel(): void {

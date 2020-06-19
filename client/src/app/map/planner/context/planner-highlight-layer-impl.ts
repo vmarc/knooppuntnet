@@ -1,3 +1,4 @@
+import {FeatureLike} from "ol/Feature";
 import Feature from "ol/Feature";
 import GeometryType from "ol/geom/GeometryType";
 import VectorLayer from "ol/layer/Vector";
@@ -13,21 +14,13 @@ import {PlannerHighlightLayer} from "./planner-highlight-layer";
 
 export class PlannerHighlightLayerImpl implements PlannerHighlightLayer {
 
-  private readonly yellow = "rgba(255, 255, 0, 0.8)";
   private readonly largeMinZoomLevel = 13;
-  private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(12);
-  private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(22);
-  private readonly largeRouteSelectedStyle = new Style({
-    stroke: new Stroke({
-      color: this.yellow,
-      width: 18
-    })
-  });
-
+  private readonly yellow = "rgba(255, 255, 0, 0.8)";
+  private readonly routeStyle = this.buildRouteStyle();
+  private readonly smallNodeStyle = this.buildNodeStyle(12);
+  private readonly largeNodeStyle = this.buildNodeStyle(22);
 
   private map: Map;
-
-  private highlightedFeature: Feature = null;
 
   private source = new VectorSource({
     features: []
@@ -38,9 +31,6 @@ export class PlannerHighlightLayerImpl implements PlannerHighlightLayer {
     source: this.source
   });
 
-  constructor() {
-  }
-
   addToMap(map: Map) {
     this.map = map;
     this.layer.setStyle(this.styleFunction());
@@ -49,46 +39,42 @@ export class PlannerHighlightLayerImpl implements PlannerHighlightLayer {
   }
 
   public styleFunction(): StyleFunction {
-    return (feature, resolution) => {
-      const zoom = this.map.getView().getZoom();
-      const large = zoom >= this.largeMinZoomLevel;
+    return (feature: FeatureLike) => {
       if (feature.getGeometry().getType() === GeometryType.POINT) {
-        if (large) {
-          return this.largeNodeSelectedStyle;
-        }
-        return this.smallNodeSelectedStyle;
+        const zoom = this.map.getView().getZoom();
+        return zoom >= this.largeMinZoomLevel ? this.largeNodeStyle : this.smallNodeStyle;
       }
-      if (large) {
-        return this.largeRouteSelectedStyle;
-      }
-      return this.largeRouteSelectedStyle;
+      return this.routeStyle;
     };
   }
 
   highlightFeature(feature: Feature): void {
-    if (feature !== this.highlightedFeature && this.highlightedFeature !== null) {
-      this.source.removeFeature(this.highlightedFeature);
-    }
-    this.highlightedFeature = feature;
+    this.source.clear();
     this.source.addFeature(feature);
     this.layer.changed();
   }
 
   reset(): void {
-    if (this.highlightedFeature !== null) {
-      this.source.removeFeature(this.highlightedFeature);
-      this.highlightedFeature = null;
-    }
+    this.source.clear();
     this.layer.changed();
   }
 
-  private nodeSelectedStyle(radius: number): Style {
+  private buildNodeStyle(radius: number): Style {
     return new Style({
       image: new Circle({
         radius: radius,
         fill: new Fill({
           color: this.yellow
         })
+      })
+    });
+  }
+
+  private buildRouteStyle(): Style {
+    return new Style({
+      stroke: new Stroke({
+        color: this.yellow,
+        width: 18
       })
     });
   }
