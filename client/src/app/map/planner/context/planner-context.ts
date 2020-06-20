@@ -7,6 +7,7 @@ import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
+import {ViaRoute} from "../plan/via-route";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerHighlightLayer} from "./planner-highlight-layer";
@@ -109,9 +110,9 @@ export class PlannerContext {
 
   buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
 
-    const cachedLeg = this.legs.get(source.nodeId, sink.nodeId);
+    const cachedLeg = this.legs.get(source.nodeId, sink.nodeId, null);
     if (cachedLeg) {
-      const planLeg = new PlanLeg(legId, source, sink, cachedLeg.meters, cachedLeg.routes);
+      const planLeg = new PlanLeg(legId, source, sink, null, cachedLeg.meters, cachedLeg.routes);
       this.legs.add(planLeg);
       return planLeg;
     }
@@ -123,7 +124,28 @@ export class PlannerContext {
       }
     });
 
-    const leg = new PlanLeg(legId, source, sink, 0, List());
+    const leg = new PlanLeg(legId, source, sink, null, 0, List());
+    this.legs.add(leg);
+    return leg;
+  }
+
+  buildLegViaRoute(legId: string, source: PlanNode, sink: PlanNode, viaRoute: ViaRoute): PlanLeg {
+
+    const cachedLeg = this.legs.get(source.nodeId, sink.nodeId, viaRoute);
+    if (cachedLeg) {
+      const planLeg = new PlanLeg(legId, source, sink, viaRoute, cachedLeg.meters, cachedLeg.routes);
+      this.legs.add(planLeg);
+      return planLeg;
+    }
+
+    this.legRepository.planLegViaRoute(this.networkType.name, legId, source, sink, viaRoute).subscribe(planLeg => {
+      if (planLeg) {
+        this.legs.add(planLeg);
+        this.updatePlanLeg(planLeg);
+      }
+    });
+
+    const leg = new PlanLeg(legId, source, sink, viaRoute,0, List());
     this.legs.add(leg);
     return leg;
   }

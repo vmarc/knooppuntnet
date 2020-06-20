@@ -56,7 +56,12 @@ class PlannerFacadeImpl(
   }
 
   override def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg] = {
-    api.execute(user, "leg", s"${params.legId}, ${params.sourceNodeId}, ${params.sinkNodeId}") {
+    val baseArgs = s"${params.legId}, ${params.sourceNodeId}, ${params.sinkNodeId}"
+    val args = params.viaRoute match {
+      case Some(viaRoute) => s"$baseArgs, via route ${viaRoute.routeId}, ${viaRoute.pathId}"
+      case None => baseArgs
+    }
+    api.execute(user, "leg", args) {
       val leg = legBuilder.build(params)
       ApiResponse(None, 1, leg)
     }

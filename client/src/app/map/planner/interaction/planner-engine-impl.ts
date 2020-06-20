@@ -16,6 +16,7 @@ import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-p
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
+import {PlannerCommandMoveViaPointToViaRoute} from "../commands/planner-command-move-via-point-to-via-route";
 import {PlannerCommandRemoveViaPoint} from "../commands/planner-command-remove-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
@@ -30,6 +31,7 @@ import {RouteFeature} from "../features/route-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
+import {ViaRoute} from "../plan/via-route";
 import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
 import {PlannerDragLeg} from "./planner-drag-leg";
@@ -214,9 +216,9 @@ export class PlannerEngineImpl implements PlannerEngine {
       const routeFeature = this.findRoute(features);
       if (routeFeature != null) {
         if (this.isDraggingLeg()) {
-          this.dropLegOnRoute(routeFeature);
+          this.dropLegOnRoute(routeFeature, coordinate);
         } else if (this.isDraggingNode()) {
-          this.dropNodeOnRoute(routeFeature);
+          this.dropNodeOnRoute(routeFeature, coordinate);
         }
         return true;
       }
@@ -377,11 +379,12 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.nodeDrag = null;
   }
 
-  private dropLegOnRoute(routeFeature: RouteFeature) {
+  private dropLegOnRoute(routeFeature: RouteFeature, coordinate: Coordinate) {
     console.log("drop leg on routeFeature id=" + routeFeature.feature.get("id"));
   }
 
-  private dropNodeOnRoute(routeFeature) {
+  private dropNodeOnRoute(routeFeature, coordinate: Coordinate) {
+
     console.log("drop node on routeFeature id=" + routeFeature.feature.get("id"));
 
     if (this.nodeDrag.flagType === PlanFlagType.Via) {
@@ -391,18 +394,22 @@ export class PlannerEngineImpl implements PlannerEngine {
       const oldLeg1 = legs.get(nextLegIndex - 1);
       const oldLeg2 = legs.get(nextLegIndex);
 
-      // TODO continue here
-      // const newLeg1: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
-      // const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
-      //
-      // const command = new PlannerCommandMoveViaPoint(
-      //   nextLegIndex,
-      //   oldLeg1.featureId,
-      //   oldLeg2.featureId,
-      //   newLeg1.featureId,
-      //   newLeg2.featureId
-      // );
-      // this.context.execute(command);
+      const routeFeatureId = routeFeature.feature.get("id");
+      const idParts = routeFeatureId.split("-");
+      const viaRoute = new ViaRoute(idParts[0], idParts[1]);
+
+      const newLeg: PlanLeg = this.context.buildLegViaRoute(FeatureId.next(), oldLeg1.source, oldLeg2.sink, viaRoute);
+
+      const command = new PlannerCommandMoveViaPointToViaRoute(
+        nextLegIndex,
+        oldLeg1.featureId,
+        oldLeg2.featureId,
+        newLeg.featureId,
+        viaRoute,
+        coordinate
+      );
+
+      this.context.execute(command);
     }
   }
 

@@ -134,10 +134,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
                   );
                 }
 
-                legs[i] = new PlanLeg(
+                legs[i] = new PlanLeg(  // TODO should add to new collection instead of mutating existing array!
                   legs[i].featureId,
                   legs[i - 1].sink,
                   legs[i].sink,
+                  null, // TODO PLANNER
                   legs[i].meters,
                   newRoutes
                 );

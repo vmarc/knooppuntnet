@@ -17,7 +17,7 @@ export class PlanLegBuilder {
   static toPlanLeg(source: PlanNode, sink: PlanNode, routeLeg: RouteLeg): PlanLeg {
     const routes = routeLeg.routes.map(routeLegRoute => this.toPlanRoute(routeLegRoute));
     const meters = routes.map(f => f.meters).reduce((sum, current) => sum + current, 0);
-    return new PlanLeg(routeLeg.legId, source, sink, meters, routes);
+    return new PlanLeg(routeLeg.legId, source, sink, null /* TODO PLANNER */, meters, routes);
   }
 
   static toPlanLeg2(routeLeg: RouteLeg): PlanLeg {
@@ -26,7 +26,7 @@ export class PlanLegBuilder {
     const lastRoute: PlanRoute = routes.last();
     const sink = lastRoute.sink;
     const meters = routes.map(f => f.meters).reduce((sum, current) => sum + current, 0);
-    return new PlanLeg(routeLeg.legId, source, sink, meters, routes);
+    return new PlanLeg(routeLeg.legId, source, sink, null /* TODO PLANNER */, meters, routes);
   }
 
   private static toPlanRoute(route: RouteLegRoute): PlanRoute {
