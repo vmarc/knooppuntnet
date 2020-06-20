@@ -8,13 +8,13 @@ import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
 import kpn.api.common.location.LocationChangesParameters
+import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
-import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
@@ -48,6 +48,9 @@ import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
+import kpn.server.api.analysis.pages.leg.LegBuildParams
+import kpn.server.api.analysis.pages.leg.LegViaRoute
+import kpn.server.api.analysis.pages.leg.ViaRoute
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -272,7 +275,39 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable sourceNodeId: String,
     @PathVariable sinkNodeId: String
   ): ApiResponse[RouteLeg] = {
-    analysisFacade.leg(user(), NetworkType.withName(networkType).get, legId, sourceNodeId, sinkNodeId)
+    val params = LegBuildParams(
+      NetworkType.withName(networkType).get,
+      legId,
+      sourceNodeId.toLong,
+      sinkNodeId.toLong,
+      None
+    )
+    analysisFacade.leg(user(), params)
+  }
+
+
+  @GetMapping(value = Array("/json-api/leg-via-route/{networkType}/{legId}/{sourceNodeId}/{sinkNodeId}/{routeId}/{pathId}"))
+  def legViaRoute(
+    @PathVariable networkType: String,
+    @PathVariable legId: String,
+    @PathVariable sourceNodeId: String,
+    @PathVariable sinkNodeId: String,
+    @PathVariable routeId: String,
+    @PathVariable pathId: String
+  ): ApiResponse[RouteLeg] = {
+    val params = LegBuildParams(
+      NetworkType.withName(networkType).get,
+      legId,
+      sourceNodeId.toLong,
+      sinkNodeId.toLong,
+      Some(
+        ViaRoute(
+          routeId.toLong,
+          pathId.toLong
+        )
+      )
+    )
+    analysisFacade.leg(user(), params)
   }
 
   @GetMapping(value = Array("/json-api/survey-date-info"))

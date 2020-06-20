@@ -7,13 +7,13 @@ import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
 import kpn.api.common.location.LocationChangesParameters
+import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
-import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
@@ -47,6 +47,7 @@ import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
 import kpn.server.analyzer.engine.poi.PoiRef
+import kpn.server.api.analysis.pages.leg.LegBuildParams
 
 trait AnalysisFacade {
 
@@ -105,7 +106,7 @@ trait AnalysisFacade {
 
   def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage]
 
-  def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg]
+  def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg]
 
   def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 

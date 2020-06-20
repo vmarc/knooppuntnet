@@ -7,13 +7,13 @@ import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
 import kpn.api.common.location.LocationChangesParameters
+import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
-import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationsPage
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetailsPage
@@ -53,15 +53,16 @@ import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
-import kpn.server.api.analysis.pages.LegBuilder
 import kpn.server.api.analysis.pages.LocationsPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
+import kpn.server.api.analysis.pages.leg.LegBuildParams
+import kpn.server.api.analysis.pages.leg.LegBuilder
 import kpn.server.api.analysis.pages.location.LocationChangesPageBuilder
+import kpn.server.api.analysis.pages.location.LocationEditPageBuilder
 import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
 import kpn.server.api.analysis.pages.location.LocationMapPageBuilder
 import kpn.server.api.analysis.pages.location.LocationNodesPageBuilder
 import kpn.server.api.analysis.pages.location.LocationRoutesPageBuilder
-import kpn.server.api.analysis.pages.location.LocationEditPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkChangesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkDetailsPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkFactsPageBuilder
@@ -337,9 +338,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def leg(user: Option[String], networkType: NetworkType, legId: String, sourceNodeId: String, sinkNodeId: String): ApiResponse[RouteLeg] = {
-    api.execute(user, "leg", s"$legId, $sourceNodeId, $sinkNodeId") {
-      val leg = legBuilder.build(networkType, legId, sourceNodeId, sinkNodeId)
+  override def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg] = {
+    api.execute(user, "leg", s"${params.legId}, ${params.sourceNodeId}, ${params.sinkNodeId}") {
+      val leg = legBuilder.build(params)
       ApiResponse(None, 1, leg)
     }
   }

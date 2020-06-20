@@ -25,6 +25,25 @@ case class RouteMap(
 
   def paths: Seq[TrackPath] = forwardPath.toSeq ++ backwardPath.toSeq ++ startTentaclePaths ++ endTentaclePaths
 
+  def nodeWithId(nodeId: Long): Option[RouteNetworkNodeInfo] = {
+    startNodes.find(_.id == nodeId) match {
+      case Some(node) => Some(node)
+      case None =>
+        endNodes.find(_.id == nodeId) match {
+          case Some(node) => Some(node)
+          case None =>
+            startTentacleNodes.find(_.id == nodeId) match {
+              case Some(node) => Some(node)
+              case None =>
+                endTentacleNodes.find(_.id == nodeId) match {
+                  case Some(node) => Some(node)
+                  case None => None
+                }
+            }
+        }
+    }
+  }
+
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("bounds", bounds).
     field("forwardPath", forwardPath).
