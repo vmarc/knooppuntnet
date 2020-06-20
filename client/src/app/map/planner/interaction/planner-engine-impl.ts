@@ -10,6 +10,7 @@ import {NodeClick} from "../../../components/ol/domain/node-click";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
 import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
+import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
@@ -22,16 +23,13 @@ import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
 import {FeatureId} from "../features/feature-id";
 import {FlagFeature} from "../features/flag-feature";
-import {LegFeature} from "../features/leg-feature";
 import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
-import {NodeFeature} from "../features/node-feature";
-import {PoiFeature} from "../features/poi-feature";
 import {RouteFeature} from "../features/route-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
-import {ViaRoute} from "../plan/via-route";
+import {Features} from "./features";
 import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
 import {PlannerDragLeg} from "./planner-drag-leg";
@@ -52,39 +50,39 @@ export class PlannerEngineImpl implements PlannerEngine {
       return false;
     }
 
-    const flag = this.findFlag(features);
+    const flag = Features.findFlag(features);
     if (flag != null) {
       if (this.flagDragStarted(flag, coordinate)) {
         return true;
       }
     }
 
-    const networkNode = this.findNetworkNode(features);
+    const networkNode = Features.findNetworkNode(features);
     if (networkNode != null) {
       this.nodeSelected(networkNode);
       return true;
     }
 
-    const leg = this.findLeg(features);
+    const leg = Features.findLeg(features);
     if (leg != null) {
       if (this.legDragStarted(leg.id, coordinate)) {
         return true;
       }
     }
 
-    const node = this.findNode(features);
+    const node = Features.findNode(features);
     if (node != null) {
       this.context.overlay.nodeClicked(new NodeClick(coordinate, node));
       return true;
     }
 
-    const route = this.findRoute(features);
+    const route = Features.findRoute(features);
     if (route != null) {
       this.context.overlay.routeClicked(new RouteClick(coordinate, route));
       return true;
     }
 
-    const poiFeature = this.findPoi(features);
+    const poiFeature = Features.findPoi(features);
     if (poiFeature != null) {
       this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
       return true;
@@ -100,37 +98,37 @@ export class PlannerEngineImpl implements PlannerEngine {
       return false;
     }
 
-    const flagFeature = this.findFlag(features);
+    const flagFeature = Features.findFlag(features);
     if (!!flagFeature) {
       this.context.cursor.setStyleGrab();
       return true;
     }
 
-    const networkNodeFeature = this.findNetworkNode(features);
+    const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
       this.context.cursor.setStylePointer();
       return true;
     }
 
-    const leg = this.findLeg(features);
+    const leg = Features.findLeg(features);
     if (leg != null) {
       this.context.cursor.setStyleGrabbing();
       return true;
     }
 
-    const poiFeature = this.findPoi(features);
+    const poiFeature = Features.findPoi(features);
     if (poiFeature != null) {
       this.context.cursor.setStylePointer();
       return true;
     }
 
-    const node = this.findNode(features);
+    const node = Features.findNode(features);
     if (node != null) {
       this.context.cursor.setStylePointer();
       return true;
     }
 
-    const route = this.findRoute(features);
+    const route = Features.findRoute(features);
     if (route != null) {
       this.context.cursor.setStylePointer();
       return true;
@@ -145,7 +143,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingNode()) {
 
-      const networkNodeFeature = this.findNetworkNode(features);
+      const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         this.highlightNode(networkNodeFeature.node);
         // snap to node position
@@ -154,7 +152,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         return true;
       }
 
-      const routeFeature = this.findRoute(features);
+      const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
         this.highlightRoute(routeFeature);
       } else {
@@ -168,7 +166,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingLeg()) {
 
-      const networkNodeFeature = this.findNetworkNode(features);
+      const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         this.highlightNode(networkNodeFeature.node);
         // snap to node position
@@ -176,7 +174,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         return true;
       }
 
-      const routeFeature = this.findRoute(features);
+      const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
         this.highlightRoute(routeFeature);
       } else {
@@ -203,7 +201,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       this.context.cursor.setStyleDefault();
       this.context.elasticBand.setInvisible();
-      const networkNode = this.findNetworkNode(features);
+      const networkNode = Features.findNetworkNode(features);
       if (networkNode != null) {
         if (this.isDraggingLeg()) {
           this.dropLegOnNode(networkNode.node);
@@ -213,7 +211,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         return true;
       }
 
-      const routeFeature = this.findRoute(features);
+      const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
         if (this.isDraggingLeg()) {
           this.dropLegOnRoute(routeFeature, coordinate);
@@ -263,7 +261,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
-    const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink);
+    const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink, null);
 
     const command = new PlannerCommandRemoveViaPoint(
       nextLegIndex - 1,
@@ -280,7 +278,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.context.execute(command);
     } else {
       const source: PlanNode = this.context.plan.sink;
-      const leg = this.context.buildLeg(FeatureId.next(), source, networkNode.node);
+      const leg = this.context.buildLeg(FeatureId.next(), source, networkNode.node, null);
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
     }
@@ -327,8 +325,8 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.legDrag !== null) {
       const oldLeg = this.context.legs.getById(this.legDrag.oldLegId);
       if (oldLeg) {
-        const newLeg1 = this.context.buildLeg(FeatureId.next(), oldLeg.source, connection);
-        const newLeg2 = this.context.buildLeg(FeatureId.next(), connection, oldLeg.sink);
+        const newLeg1 = this.context.buildLeg(FeatureId.next(), oldLeg.source, connection, null);
+        const newLeg2 = this.context.buildLeg(FeatureId.next(), connection, oldLeg.sink, null);
         const command = new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
         this.context.execute(command);
       }
@@ -344,14 +342,14 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.execute(command);
       } else {
         const oldFirstLeg: PlanLeg = this.context.plan.legs.first();
-        const newFirstLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldFirstLeg.sink);
+        const newFirstLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldFirstLeg.sink, null);
         const command = new PlannerCommandMoveFirstLegSource(oldFirstLeg.featureId, newFirstLeg.featureId);
         this.context.execute(command);
       }
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
       if (this.nodeDrag.oldNode.featureId === oldLastLeg.sink.featureId) {
-        const newLastLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLastLeg.source, newNode);
+        const newLastLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLastLeg.source, newNode, null);
         const command = new PlannerCommandMoveEndPoint(oldLastLeg.featureId, newLastLeg.featureId);
         this.context.execute(command);
       } else {
@@ -362,8 +360,8 @@ export class PlannerEngineImpl implements PlannerEngine {
         const oldLeg1 = legs.get(nextLegIndex - 1);
         const oldLeg2 = legs.get(nextLegIndex);
 
-        const newLeg1: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
-        const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
+        const newLeg1: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, newNode, null);
+        const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink, null);
 
         const command = new PlannerCommandMoveViaPoint(
           nextLegIndex,
@@ -385,8 +383,6 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private dropNodeOnRoute(routeFeature, coordinate: Coordinate) {
 
-    console.log("drop node on routeFeature id=" + routeFeature.feature.get("id"));
-
     if (this.nodeDrag.flagType === PlanFlagType.Via) {
       const legs = this.context.plan.legs;
       const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
@@ -398,7 +394,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const idParts = routeFeatureId.split("-");
       const viaRoute = new ViaRoute(idParts[0], idParts[1]);
 
-      const newLeg: PlanLeg = this.context.buildLegViaRoute(FeatureId.next(), oldLeg1.source, oldLeg2.sink, viaRoute);
+      const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink, viaRoute);
 
       const command = new PlannerCommandMoveViaPointToViaRoute(
         nextLegIndex,
@@ -423,54 +419,6 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.context.elasticBand.setInvisible();
       this.nodeDrag = null;
     }
-  }
-
-  private findFlag(features: List<MapFeature>): FlagFeature {
-    const flagFeatures = features.filter(f => f instanceof FlagFeature);
-    if (flagFeatures.isEmpty()) {
-      return null;
-    }
-    return flagFeatures.get(0) as FlagFeature; // TODO find the closest
-  }
-
-  private findNetworkNode(features: List<MapFeature>): NetworkNodeFeature {
-    const nodes = features.filter(f => f instanceof NetworkNodeFeature);
-    if (nodes.isEmpty()) {
-      return null;
-    }
-    return nodes.get(0) as NetworkNodeFeature; // TODO find the closest
-  }
-
-  private findLeg(features: List<MapFeature>): LegFeature {
-    const legs = features.filter(f => f instanceof LegFeature);
-    if (legs.isEmpty()) {
-      return null;
-    }
-    return legs.get(0) as LegFeature; // TODO find the closest
-  }
-
-  private findPoi(features: List<MapFeature>): PoiFeature {
-    const pois = features.filter(f => f instanceof PoiFeature);
-    if (pois.isEmpty()) {
-      return null;
-    }
-    return pois.get(0) as PoiFeature; // TODO find the closest
-  }
-
-  private findNode(features: List<MapFeature>): NodeFeature {
-    const nodes = features.filter(f => f instanceof NodeFeature);
-    if (nodes.isEmpty()) {
-      return null;
-    }
-    return nodes.get(0) as NodeFeature; // TODO find the closest
-  }
-
-  private findRoute(features: List<MapFeature>): RouteFeature {
-    const routes = features.filter(f => f instanceof RouteFeature);
-    if (routes.isEmpty()) {
-      return null;
-    }
-    return routes.get(0) as RouteFeature; // TODO find the closest
   }
 
 }

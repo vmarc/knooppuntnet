@@ -22,6 +22,7 @@ import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
+import {LegBuildParams} from "../../../kpn/api/common/planner/leg-build-params";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -111,7 +112,14 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
             }
 
             const legObservables = legNodeIdss.map(legNodeIds => {
-              return this.appService.routeLeg(networkType.name, FeatureId.next(), legNodeIds.sourceNodeId, legNodeIds.sinkNodeId).pipe(
+              const params = new LegBuildParams(
+                networkType.name,
+                FeatureId.next(),
+                +legNodeIds.sourceNodeId,
+                +legNodeIds.sinkNodeId,
+                null // TODO PLANNER --> via-route if applicable
+              );
+              return this.appService.routeLeg(params).pipe(
                 map(response => PlanLegBuilder.toPlanLeg2(response.result))
               );
             }).toArray();

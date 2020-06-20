@@ -3,12 +3,15 @@ package kpn.server.api.planner.leg
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
+import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.planner.RouteLegFragment
 import kpn.api.common.planner.RouteLegNode
 import kpn.api.common.planner.RouteLegRoute
 import kpn.api.common.planner.RouteLegSegment
+import kpn.api.common.planner.ViaRoute
 import kpn.api.common.route.RouteInfo
+import kpn.api.custom.NetworkType
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.util.Log
@@ -25,10 +28,19 @@ class LegBuilderImpl(
   private val log = Log(classOf[LegBuilderImpl])
 
   override def build(params: LegBuildParams): Option[RouteLeg] = {
-    graphRepository.graph(params.networkType) match {
+    NetworkType.withName(params.networkType) match {
+      case Some(networkType) => build(params, networkType)
+      case None =>
+        log.error("Unknown network type " + params.networkType)
+        None
+    }
+  }
+
+  private def build(params: LegBuildParams, networkType: NetworkType): Option[RouteLeg] = {
+    graphRepository.graph(networkType) match {
       case Some(graph) => buildLeg(params, graph)
       case None =>
-        log.error("Could not find graph for network type " + params.networkType.name)
+        log.error("Could not find graph for network type " + networkType.name)
         None
     }
   }
@@ -102,7 +114,7 @@ class LegBuilderImpl(
     graph.findPath(params.sourceNodeId, params.sinkNodeId) match {
       case Some(graphPath) => Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
       case None =>
-        log.error(s"Could not find ${params.networkType.name} path between ${params.sourceNodeId} and ${params.sinkNodeId}")
+        log.error(s"Could not find ${params.networkType} path between ${params.sourceNodeId} and ${params.sinkNodeId}")
         None
     }
   }

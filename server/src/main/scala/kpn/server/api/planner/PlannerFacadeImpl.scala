@@ -2,6 +2,7 @@ package kpn.server.api.planner
 
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
+import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
@@ -14,7 +15,6 @@ import kpn.server.api.Api
 import kpn.server.api.analysis.pages.PoiPageBuilder
 import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
-import kpn.server.api.planner.leg.LegBuildParams
 import kpn.server.api.planner.leg.LegBuilder
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component

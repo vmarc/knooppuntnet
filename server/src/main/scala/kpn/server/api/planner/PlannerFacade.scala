@@ -2,13 +2,13 @@ package kpn.server.api.planner
 
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
+import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.poi.PoiRef
-import kpn.server.api.planner.leg.LegBuildParams
 
 trait PlannerFacade {
 

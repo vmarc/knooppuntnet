@@ -27,6 +27,7 @@ import {MapNodeDetail} from "./kpn/api/common/node/map-node-detail";
 import {NodeChangesPage} from "./kpn/api/common/node/node-changes-page";
 import {NodeDetailsPage} from "./kpn/api/common/node/node-details-page";
 import {NodeMapPage} from "./kpn/api/common/node/node-map-page";
+import {LegBuildParams} from "./kpn/api/common/planner/leg-build-params";
 import {RouteLeg} from "./kpn/api/common/planner/route-leg";
 import {PoiPage} from "./kpn/api/common/poi-page";
 import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
@@ -52,7 +53,6 @@ import {LocationKey} from "./kpn/api/custom/location-key";
 import {NetworkType} from "./kpn/api/custom/network-type";
 import {Statistics} from "./kpn/api/custom/statistics";
 import {Subset} from "./kpn/api/custom/subset";
-import {ViaRoute} from "./map/planner/plan/via-route";
 import {BrowserStorageService} from "./services/browser-storage.service";
 
 @Injectable()
@@ -254,16 +254,9 @@ export class AppService {
     );
   }
 
-  public routeLeg(networkType: string, legId: string, sourceNodeId: string, sinkNodeId: string): Observable<ApiResponse<RouteLeg>> {
-    const url = `/json-api/leg/${networkType}/${legId}/${sourceNodeId}/${sinkNodeId}`;
-    return this.http.get(url).pipe(
-      map(response => ApiResponse.fromJSON(response, RouteLeg.fromJSON))
-    );
-  }
-
-  public routeLegViaRoute(networkType: string, legId: string, sourceNodeId: string, sinkNodeId: string, viaRoute: ViaRoute): Observable<ApiResponse<RouteLeg>> {
-    const url = `/json-api/leg-via-route/${networkType}/${legId}/${sourceNodeId}/${sinkNodeId}/${viaRoute.routeId}/${viaRoute.pathId}`;
-    return this.http.get(url).pipe(
+  public routeLeg(legBuildParams: LegBuildParams): Observable<ApiResponse<RouteLeg>> {
+    const url = `/json-api/leg`;
+    return this.http.post(url, legBuildParams).pipe(
       map(response => ApiResponse.fromJSON(response, RouteLeg.fromJSON))
     );
   }

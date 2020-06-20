@@ -1,12 +1,9 @@
 import {Observable} from "rxjs";
+import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
+import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
-import {ViaRoute} from "../plan/via-route";
 
 export interface PlannerLegRepository {
-
-  planLeg(networkType: string, legId: string, source: PlanNode, sink: PlanNode): Observable<PlanLeg>;
-
-  planLegViaRoute(networkType: string, legId: string, source: PlanNode, sink: PlanNode, viaRoute: ViaRoute): Observable<PlanLeg>;
-
+  planLeg(networkType: NetworkType, legId: string, source: PlanNode, sink: PlanNode, viaRoute: ViaRoute): Observable<PlanLeg>;
 }

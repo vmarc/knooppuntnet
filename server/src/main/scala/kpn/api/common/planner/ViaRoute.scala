@@ -1,4 +1,4 @@
-package kpn.server.api.planner.leg
+package kpn.api.common.planner
 
 case class ViaRoute(
   routeId: Long,

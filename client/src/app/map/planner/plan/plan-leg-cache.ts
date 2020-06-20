@@ -1,6 +1,6 @@
 import {Map} from "immutable";
+import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
 import {PlanLeg} from "./plan-leg";
-import {ViaRoute} from "./via-route";
 
 export class PlanLegCache {
 
@@ -12,12 +12,7 @@ export class PlanLegCache {
 
   get(sourceNodeId: string, sinkNodeId: string, viaRoute: ViaRoute): PlanLeg {
     return this.legs.find(leg => {
-      return leg.source.nodeId === sourceNodeId && leg.sink.nodeId === sinkNodeId
-        && (
-          viaRoute === null
-          ||
-          viaRoute !== null && leg.viaRoute.routeId === viaRoute.routeId && leg.viaRoute.pathId === viaRoute.pathId
-        );
+      return leg.source.nodeId === sourceNodeId && leg.sink.nodeId === sinkNodeId && this.legViaRoute(leg, viaRoute);
     });
   }
 
@@ -25,4 +20,10 @@ export class PlanLegCache {
     return this.legs.get(legId);
   }
 
+  private legViaRoute(leg: PlanLeg, viaRoute: ViaRoute): boolean {
+    if (viaRoute === null) {
+      return leg.viaRoute === null;
+    }
+    return leg.viaRoute.routeId === viaRoute.routeId && leg.viaRoute.pathId === viaRoute.pathId;
+  }
 }
