@@ -1,7 +1,6 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
-import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -21,12 +20,9 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkMapPage
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
-import kpn.api.common.planner.RouteLeg
-import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -37,7 +33,6 @@ import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
-import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -48,15 +43,10 @@ import kpn.api.custom.Subset
 import kpn.core.app.stats.StatisticsBuilder
 import kpn.core.common.TimestampLocal
 import kpn.core.gpx.GpxFile
-import kpn.core.poi.PoiConfiguration
-import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
 import kpn.server.api.analysis.pages.LocationsPageBuilder
-import kpn.server.api.analysis.pages.PoiPageBuilder
-import kpn.server.api.analysis.pages.leg.LegBuildParams
-import kpn.server.api.analysis.pages.leg.LegBuilder
 import kpn.server.api.analysis.pages.location.LocationChangesPageBuilder
 import kpn.server.api.analysis.pages.location.LocationEditPageBuilder
 import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
@@ -69,9 +59,7 @@ import kpn.server.api.analysis.pages.network.NetworkFactsPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkMapPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkNodesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkRoutesPageBuilder
-import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.node.NodePageBuilder
-import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
 import kpn.server.api.analysis.pages.route.RoutePageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
@@ -109,10 +97,6 @@ class AnalysisFacadeImpl(
   changesPageBuilder: ChangesPageBuilder,
   changeSetPageBuilder: ChangeSetPageBuilder,
   networkChangesPageBuilder: NetworkChangesPageBuilder,
-  poiPageBuilder: PoiPageBuilder,
-  legBuilder: LegBuilder,
-  mapNodeDetailBuilder: MapNodeDetailBuilder,
-  mapRouteDetailBuilder: MapRouteDetailBuilder,
   locationsPageBuilder: LocationsPageBuilder,
   locationEditPageBuilder: LocationEditPageBuilder,
   locationNodesPageBuilder: LocationNodesPageBuilder,
@@ -264,32 +248,6 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def mapNodeDetail(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail] = {
-    val args = s"${networkType.name}, $nodeId"
-    execute(user, "map-node-detail", args) {
-      mapNodeDetailBuilder.build(user, networkType, nodeId)
-    }
-  }
-
-  override def mapRouteDetail(user: Option[String], routeId: Long): ApiResponse[MapRouteDetail] = {
-    execute(user, "map-route-detail", routeId.toString) {
-      mapRouteDetailBuilder.build(user, routeId)
-    }
-  }
-
-  override def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration] = {
-    api.execute(user, "poiConfiguration", "") {
-      ApiResponse(None, 1, Some(PoiConfiguration.instance.toClient))
-    }
-  }
-
-  override def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage] = {
-    api.execute(user, "poi", s"${poiRef.elementType}, ${poiRef.elementId}") {
-      val poiPage = poiPageBuilder.build(poiRef)
-      ApiResponse(None, 1, poiPage) // analysis timestamp not needed here
-    }
-  }
-
   override def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
     execute(user, "location", networkType.name) {
       locationsPageBuilder.build(networkType, country)
@@ -335,13 +293,6 @@ class AnalysisFacadeImpl(
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     execute(user, "location-edit", args) {
       locationEditPageBuilder.build(locationKey)
-    }
-  }
-
-  override def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg] = {
-    api.execute(user, "leg", s"${params.legId}, ${params.sourceNodeId}, ${params.sinkNodeId}") {
-      val leg = legBuilder.build(params)
-      ApiResponse(None, 1, leg)
     }
   }
 

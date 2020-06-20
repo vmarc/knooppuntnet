@@ -1,7 +1,6 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
-import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.ChangeSetPage
@@ -22,12 +21,9 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkMapPage
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
-import kpn.api.common.planner.RouteLeg
-import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -38,7 +34,6 @@ import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
-import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -46,11 +41,7 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
-import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
-import kpn.server.api.analysis.pages.leg.LegBuildParams
-import kpn.server.api.analysis.pages.leg.LegViaRoute
-import kpn.server.api.analysis.pages.leg.ViaRoute
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -236,78 +227,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[ChangeSetPage] = {
     val replicationId = ReplicationId(replicationNumber)
     analysisFacade.changeSet(user(), changeSetId, Some(replicationId))
-  }
-
-  @GetMapping(value = Array("/json-api/node-detail/{nodeId}/{networkType}"))
-  def mapNodeDetail(
-    @PathVariable networkType: String,
-    @PathVariable nodeId: Long
-  ): ApiResponse[MapNodeDetail] = {
-    val networkTypeValue = NetworkType.withName(networkType).get
-    analysisFacade.mapNodeDetail(user(), networkTypeValue, nodeId)
-  }
-
-  @GetMapping(value = Array("/json-api/route-detail/{routeId}"))
-  def mapRouteDetail(
-    @PathVariable routeId: Long
-  ): ApiResponse[MapRouteDetail] = {
-    analysisFacade.mapRouteDetail(user(), routeId)
-  }
-
-  @GetMapping(value = Array("/json-api/poi-configuration"))
-  def poiConfiguration(
-  ): ApiResponse[ClientPoiConfiguration] = {
-    analysisFacade.poiConfiguration(user())
-  }
-
-  @GetMapping(value = Array("/json-api/poi/{elementType}/{elementId}"))
-  def poi(
-    @PathVariable elementType: String,
-    @PathVariable elementId: Long
-  ): ApiResponse[PoiPage] = {
-    analysisFacade.poi(user(), PoiRef(elementType, elementId))
-  }
-
-  @GetMapping(value = Array("/json-api/leg/{networkType}/{legId}/{sourceNodeId}/{sinkNodeId}"))
-  def leg(
-    @PathVariable networkType: String,
-    @PathVariable legId: String,
-    @PathVariable sourceNodeId: String,
-    @PathVariable sinkNodeId: String
-  ): ApiResponse[RouteLeg] = {
-    val params = LegBuildParams(
-      NetworkType.withName(networkType).get,
-      legId,
-      sourceNodeId.toLong,
-      sinkNodeId.toLong,
-      None
-    )
-    analysisFacade.leg(user(), params)
-  }
-
-
-  @GetMapping(value = Array("/json-api/leg-via-route/{networkType}/{legId}/{sourceNodeId}/{sinkNodeId}/{routeId}/{pathId}"))
-  def legViaRoute(
-    @PathVariable networkType: String,
-    @PathVariable legId: String,
-    @PathVariable sourceNodeId: String,
-    @PathVariable sinkNodeId: String,
-    @PathVariable routeId: String,
-    @PathVariable pathId: String
-  ): ApiResponse[RouteLeg] = {
-    val params = LegBuildParams(
-      NetworkType.withName(networkType).get,
-      legId,
-      sourceNodeId.toLong,
-      sinkNodeId.toLong,
-      Some(
-        ViaRoute(
-          routeId.toLong,
-          pathId.toLong
-        )
-      )
-    )
-    analysisFacade.leg(user(), params)
   }
 
   @GetMapping(value = Array("/json-api/survey-date-info"))

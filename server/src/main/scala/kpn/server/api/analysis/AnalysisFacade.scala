@@ -1,7 +1,6 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
-import kpn.api.common.PoiPage
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -21,12 +20,9 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkMapPage
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
-import kpn.api.common.planner.RouteLeg
-import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -37,7 +33,6 @@ import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
-import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -46,8 +41,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
-import kpn.server.analyzer.engine.poi.PoiRef
-import kpn.server.api.analysis.pages.leg.LegBuildParams
 
 trait AnalysisFacade {
 
@@ -97,16 +90,6 @@ trait AnalysisFacade {
   def changeSet(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
 
   def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage]
-
-  def mapNodeDetail(user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail]
-
-  def mapRouteDetail(user: Option[String], routeId: Long): ApiResponse[MapRouteDetail]
-
-  def poiConfiguration(user: Option[String]): ApiResponse[ClientPoiConfiguration]
-
-  def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage]
-
-  def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg]
 
   def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 

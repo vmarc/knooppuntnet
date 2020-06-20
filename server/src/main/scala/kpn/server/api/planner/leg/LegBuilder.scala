@@ -1,4 +1,4 @@
-package kpn.server.api.analysis.pages.leg
+package kpn.server.api.planner.leg
 
 import kpn.api.common.planner.RouteLeg
 

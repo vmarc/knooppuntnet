@@ -1,4 +1,4 @@
-package kpn.server.api.analysis.pages.leg
+package kpn.server.api.planner.leg
 
 case class ViaRoute(
   routeId: Long,
