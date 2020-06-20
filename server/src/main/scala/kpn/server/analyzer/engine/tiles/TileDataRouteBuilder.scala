@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackSegment
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Fact
@@ -37,52 +39,11 @@ class TileDataRouteBuilder(z: Int) {
       case Failure(_) => None
     }
 
-
-
-    // TODO MAP add some logic here to eliminate double ways (e.g. ways that are both part of forward and backward)
-    val segments = routeInfo.analysis.map.unusedSegments ++
-      routeInfo.analysis.map.forwardPath.toSeq.flatMap(_.segments) ++
-      routeInfo.analysis.map.backwardPath.toSeq.flatMap(_.segments) ++
-      routeInfo.analysis.map.startTentaclePaths.flatMap(_.segments) ++
-      routeInfo.analysis.map.endTentaclePaths.flatMap(_.segments)
-
-    val tileRouteSegments = segments.flatMap { segment =>
-
-      val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
-        val lat = trackPoint.lat.toDouble
-        val lon = trackPoint.lon.toDouble
-        new Coordinate(lon, lat)
-      }
-
-      if (coordinates.size < 2) {
-        None
-      }
-      else {
-        if (z < ZoomLevel.vectorTileMinZoom) {
-          val lineString = geomFactory.createLineString(coordinates.toArray)
-          val simplifiedLineString: LineString = DouglasPeuckerSimplifier.simplify(lineString, distanceTolerance).asInstanceOf[LineString]
-          val simplifiedCoordinates = simplifiedLineString.getCoordinates.toSeq
-
-          val lines = simplifiedCoordinates.sliding(2).flatMap { case Seq(c1, c2) =>
-            val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
-
-            // TODO MAP should check if line is within clipbounds of tile - return none if outside clipBounds
-
-            if (line.length > 0.00000001) Some(line) else None
-          }.toSeq
-
-          Some(TileRouteSegment(segment.surface, lines))
-        }
-        else {
-          val lines = coordinates.sliding(2).flatMap { case Seq(c1, c2) =>
-            // TODO MAP should make sure that empty lines are eliminated long before this point !!!
-            val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
-            if (line.length > 0.00000001) Some(line) else None
-          }.toSeq
-          Some(TileRouteSegment(segment.surface, lines))
-        }
-      }
-    }
+    // TODO MAP add some logic here to eliminate double ways (e.g. ways that are both part of forward and backward) ??
+    val tileRouteSegments = routeInfo.analysis.map.forwardPath.toSeq.flatMap(toTileRouteSegments) ++
+      routeInfo.analysis.map.backwardPath.toSeq.flatMap(toTileRouteSegments) ++
+      routeInfo.analysis.map.startTentaclePaths.flatMap(toTileRouteSegments) ++
+      routeInfo.analysis.map.endTentaclePaths.flatMap(toTileRouteSegments)
 
     if (tileRouteSegments.isEmpty) {
       None
@@ -103,6 +64,47 @@ class TileDataRouteBuilder(z: Int) {
       }
 
       Some(TileDataRoute(routeInfo.id, routeInfo.summary.name, layer, surveyDate, tileRouteSegments))
+    }
+  }
+
+  private def toTileRouteSegments(trackPath: TrackPath): Seq[TileRouteSegment] = {
+    trackPath.segments.flatMap(segment => toTileRouteSegment(trackPath.pathId, segment))
+  }
+
+  private def toTileRouteSegment(pathId: Long, trackSegment: TrackSegment): Option[TileRouteSegment] = {
+    val coordinates = (trackSegment.source +: trackSegment.fragments.map(_.trackPoint)).map { trackPoint =>
+      val lat = trackPoint.lat.toDouble
+      val lon = trackPoint.lon.toDouble
+      new Coordinate(lon, lat)
+    }
+
+    if (coordinates.size < 2) {
+      None
+    }
+    else {
+      if (z < ZoomLevel.vectorTileMinZoom) {
+        val lineString = geomFactory.createLineString(coordinates.toArray)
+        val simplifiedLineString: LineString = DouglasPeuckerSimplifier.simplify(lineString, distanceTolerance).asInstanceOf[LineString]
+        val simplifiedCoordinates = simplifiedLineString.getCoordinates.toSeq
+
+        val lines = simplifiedCoordinates.sliding(2).flatMap { case Seq(c1, c2) =>
+          val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
+
+          // TODO MAP should check if line is within clipbounds of tile - return none if outside clipBounds
+
+          if (line.length > 0.00000001) Some(line) else None
+        }.toSeq
+
+        Some(TileRouteSegment(pathId, trackSegment.surface, lines))
+      }
+      else {
+        val lines = coordinates.sliding(2).flatMap { case Seq(c1, c2) =>
+          // TODO MAP should make sure that empty lines are eliminated long before this point !!!
+          val line = Line(Point(c1.x, c1.y), Point(c2.x, c2.y))
+          if (line.length > 0.00000001) Some(line) else None
+        }.toSeq
+        Some(TileRouteSegment(pathId, trackSegment.surface, lines))
+      }
     }
   }
 }

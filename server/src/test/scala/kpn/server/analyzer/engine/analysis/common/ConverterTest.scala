@@ -38,9 +38,11 @@ class ConverterTest extends UnitTest {
 
   private def buildTrackPath(segments: Seq[TrackSegment]): TrackPath = {
     TrackPath(
+      pathId = 0,
       startNodeId = 1,
       endNodeId = 2,
       meters = 0,
+      oneWay = true,
       segments = segments
     )
   }

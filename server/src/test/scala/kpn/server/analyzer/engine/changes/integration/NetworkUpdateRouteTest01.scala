@@ -142,10 +142,12 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
                 forwardPath = Some(
                   TrackPath(
-                    1001,
-                    1002,
-                    0,
-                    Seq(
+                    pathId = 1,
+                    startNodeId = 1001,
+                    endNodeId = 1002,
+                    meters = 0,
+                    oneWay = true,
+                    segments = Seq(
                       TrackSegment(
                         "paved",
                         TrackPoint("0", "0"),
@@ -160,10 +162,12 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 ),
                 backwardPath = Some(
                   TrackPath(
-                    1002,
-                    1001,
-                    0,
-                    Seq(
+                    pathId = 2,
+                    startNodeId = 1002,
+                    endNodeId = 1001,
+                    meters = 0,
+                    oneWay = true,
+                    segments = Seq(
                       TrackSegment(
                         "paved",
                         TrackPoint("0", "0"),

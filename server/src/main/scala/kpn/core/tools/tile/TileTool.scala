@@ -43,7 +43,7 @@ object TileTool {
             new TilesBuilder(tileBuilder, tileFileRepository, nodeTileAnalyzer, routeTileAnalyzer)
           }
 
-          Couch.executeIn(options.analysisDatabaseName) { analysisDatabase =>
+          Couch.executeIn(options.analysisDatabaseHost, options.analysisDatabaseName) { analysisDatabase =>
 
             new DatabaseIndexer(analysisDatabase, null, null, null, null).index(true)
 

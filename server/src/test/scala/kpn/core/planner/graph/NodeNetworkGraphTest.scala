@@ -13,10 +13,10 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
     //     \___3__/
     //
 
-    val leg12 = TrackPathKey(12, "forward", 1)
-    val leg14 = TrackPathKey(14, "forward", 1)
-    val leg13 = TrackPathKey(13, "forward", 1)
-    val leg34 = TrackPathKey(34, "forward", 1)
+    val leg12 = TrackPathKey(12, 1)
+    val leg14 = TrackPathKey(14, 1)
+    val leg13 = TrackPathKey(13, 1)
+    val leg34 = TrackPathKey(34, 1)
 
     val graph = new NodeNetworkGraphImpl()
     graph.add(GraphEdge(1, 2, 2, leg12))
@@ -35,7 +35,7 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
 
   test("sink node not in graph") {
     val graph = new NodeNetworkGraphImpl()
-    graph.add(GraphEdge(1, 2, 1, TrackPathKey(12, "forward", 1)))
+    graph.add(GraphEdge(1, 2, 1, TrackPathKey(12, 1)))
     graph.findPath(1, 4) should equal(None)
   }
 

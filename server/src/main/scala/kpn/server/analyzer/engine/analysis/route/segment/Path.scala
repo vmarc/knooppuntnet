@@ -12,6 +12,7 @@ case class Path(
   startNodeId: Long,
   endNodeId: Long,
   segments: Seq[Segment] = Seq.empty,
+  oneWay: Boolean = true,
   broken: Boolean = false
 ) {
 

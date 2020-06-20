@@ -34,8 +34,7 @@ object GraphEdgesView extends View {
         meters = row.value(2),
         pathKey = TrackPathKey(
           routeId = key.long(1),
-          pathType = key.string(2),
-          pathIndex = key.long(3)
+          pathId = key.long(2)
         )
       )
     }

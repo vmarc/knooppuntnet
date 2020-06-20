@@ -49,14 +49,14 @@ class VectorTileBuilder() extends TileBuilder {
         val userData: ListMap[String, String] = tileRoute.surveyDate match {
           case Some(surveyDate) =>
             ListMap(
-              "id" -> (tileRoute.routeId.toString + "-" + index),
+              "id" -> (tileRoute.routeId.toString + "-" + segment.pathId),
               "name" -> tileRoute.routeName,
               "surface" -> segment.surface,
               "survey" -> surveyDate.yyyymm
             )
           case None =>
             ListMap(
-              "id" -> (tileRoute.routeId.toString + "-" + index),
+              "id" -> (tileRoute.routeId.toString + "-" + segment.pathId),
               "name" -> tileRoute.routeName,
               "surface" -> segment.surface
             )

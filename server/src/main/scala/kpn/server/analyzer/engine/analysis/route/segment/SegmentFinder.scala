@@ -4,7 +4,9 @@ import kpn.api.common.data.Node
 import kpn.api.custom.NetworkType
 import kpn.core.common.Timer
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.api.common.route.Both
 
 class SegmentFinderAbort() extends RuntimeException
 
@@ -193,8 +195,12 @@ class SegmentFinder(
       val start: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node.id == startNodeId)
       val end: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node.id == endNodeId)
       val segments = PavedUnpavedSplitter.split(segmentFragments)
-      Some(Path(start, end, startNodeId, endNodeId, segments, broken))
+      Some(Path(start, end, startNodeId, endNodeId, segments, oneWay(segments), broken))
     }
+  }
+
+  private def oneWay(segments: Seq[Segment]): Boolean = {
+    segments.exists(_.fragments.exists(fragment => new OneWayAnalyzer(fragment.fragment.way).direction != Both))
   }
 
   private def debug(indent: Int, message: String): Unit = {

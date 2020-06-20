@@ -55,13 +55,15 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       }
     }
 
+    val pathIdIterator = (1L to 10000L).iterator
+
     RouteMap(
       bounds,
-      forwardPath = structure.forwardPath.map(toTrackPath),
-      backwardPath = structure.backwardPath.map(toTrackPath),
+      forwardPath = structure.forwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = true)),
+      backwardPath = structure.backwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = true)),
       unusedSegments = structure.unusedSegments.map(toTrackSegment),
-      startTentaclePaths = structure.startTentaclePaths.map(toTrackPath),
-      endTentaclePaths = structure.endTentaclePaths.map(toTrackPath),
+      startTentaclePaths = structure.startTentaclePaths.map(path => toTrackPath(pathIdIterator, path)),
+      endTentaclePaths = structure.endTentaclePaths.map(path => toTrackPath(pathIdIterator, path)),
       forwardBreakPoint = forwardBreakPoint,
       backwardBreakPoint = backwardBreakPoint,
       startNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.isEmpty) Seq() else Seq(routeNodeAnalysis.startNodes.head)),
@@ -73,9 +75,9 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
     )
   }
 
-  private def toTrackPath(path: Path): TrackPath = {
+  private def toTrackPath(pathIdIterator: Iterator[Long], path: Path, oneWay: Boolean = false): TrackPath = {
     val trackSegments = path.segments.map(toTrackSegment)
-    TrackPath(path.startNodeId, path.endNodeId, path.meters, trackSegments)
+    TrackPath(pathIdIterator.next(), path.startNodeId, path.endNodeId, path.meters, path.oneWay || oneWay, trackSegments)
   }
 
   private def toTrackSegment(segment: Segment): TrackSegment = {

@@ -1,10 +1,9 @@
-var emitPath = function (networkType, routeId, pathType, pathIndex, path) {
+var emitPath = function (networkType, routeId, path) {
   if (path) {
     var key = [
       networkType,
       routeId,
-      pathType,
-      pathIndex
+      path.pathId
     ];
     var value = [
       path.startNodeId,
@@ -12,13 +11,27 @@ var emitPath = function (networkType, routeId, pathType, pathIndex, path) {
       path.meters
     ];
     emit(key, value);
+
+    if (!path.oneWay) {
+      var backwardKey = [
+        networkType,
+        routeId,
+        - path.pathId
+      ];
+      var backwardValue = [
+        path.endNodeId,
+        path.startNodeId,
+        path.meters
+      ];
+      emit(backwardKey, backwardValue);
+    }
   }
 };
 
-var emitPaths = function (networkType, routeId, pathType, paths) {
+var emitPaths = function (networkType, routeId, paths) {
   if (paths) {
     for (i = 0; i < paths.length; i++) {
-      emitPath(networkType, routeId, pathType, i + 1, paths[i]);
+      emitPath(networkType, routeId, paths[i]);
     }
   }
 };
@@ -29,8 +42,8 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var routeId = doc.route.summary.id;
   var routeMap = doc.route.analysis.map;
 
-  emitPath(networkType, routeId, "forward", 1, routeMap.forwardPath);
-  emitPath(networkType, routeId, "backward", 1, routeMap.backwardPath);
-  emitPaths(networkType, routeId, "start", routeMap.startTentaclePaths);
-  emitPaths(networkType, routeId, "end", routeMap.endTentaclePaths);
+  emitPath(networkType, routeId, routeMap.forwardPath);
+  emitPath(networkType, routeId, routeMap.backwardPath);
+  emitPaths(networkType, routeId, routeMap.startTentaclePaths);
+  emitPaths(networkType, routeId, routeMap.endTentaclePaths);
 }
