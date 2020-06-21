@@ -118,4 +118,5 @@ describe("PlannerCommandAddLeg", () => {
     setup.routeLayer.expectFlagCount(0);
     setup.routeLayer.expectRouteLegCount(0);
   });
+
 });

@@ -78,4 +78,5 @@ describe("PlannerCommandRemoveViaPoint", () => {
     expect(setup.context.plan.legs.get(1).sink.nodeId).toEqual("1003");
     expect(setup.context.plan.legs.get(1).viaRoute).toEqual(null);
   });
+
 });

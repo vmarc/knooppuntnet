@@ -5,8 +5,7 @@ import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
-  constructor(private readonly indexleg1: number,
-              private readonly oldLegId1: string,
+  constructor(private readonly oldLegId1: string,
               private readonly oldLegId2: string,
               private readonly newLegId1: string,
               private readonly newLegId2: string) {
@@ -34,9 +33,17 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     context.routeLayer.addRouteLeg(toLeg1);
     context.routeLayer.addRouteLeg(toLeg2);
 
-    const newLegs1 = context.plan.legs.update(this.indexleg1 - 1, () => toLeg1);
-    const newLegs2 = newLegs1.update(this.indexleg1, () => toLeg2);
-    const newPlan = Plan.create(context.plan.source, newLegs2);
+    const newLegs = context.plan.legs.map(leg => {
+      if (leg.featureId === fromLeg1.featureId) {
+        return toLeg1;
+      }
+      if (leg.featureId === fromLeg2.featureId) {
+        return toLeg2;
+      }
+      return leg;
+    });
+
+    const newPlan = Plan.create(context.plan.source, newLegs);
     context.updatePlan(newPlan);
   }
 

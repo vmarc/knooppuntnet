@@ -19,4 +19,3 @@ class PathMatcherTest extends UnitTest {
   }
 
 }
-

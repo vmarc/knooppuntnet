@@ -30,7 +30,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     const plan = Plan.create(node1, List([oldLeg1, oldLeg2]));
     setup.context.updatePlan(plan);
 
-    const command = new PlannerCommandMoveViaPoint(1, oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);
+    const command = new PlannerCommandMoveViaPoint(oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);

@@ -47,10 +47,10 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     context.routeLayer.addRouteLeg(oldLeg2);
     context.routeLayer.removeRouteLeg(newLeg.featureId);
 
-    const index = context.plan.legs.findIndex(leg => leg.featureId === newLeg.featureId);
-    if (index >= 0) {
-      const newLegs1 = context.plan.legs.update(index, () => oldLeg1);
-      const newLegs2 = newLegs1.insert(index + 1, oldLeg2);
+    const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg.featureId);
+    if (legIndex > -1) {
+      const newLegs1 = context.plan.legs.update(legIndex, () => oldLeg1);
+      const newLegs2 = newLegs1.insert(legIndex + 1, oldLeg2);
       const newPlan = Plan.create(context.plan.source, newLegs2);
       context.updatePlan(newPlan);
     }
@@ -59,4 +59,5 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
   private flagFeatureId(): string {
     return this.viaRoute.routeId + "-" + this.viaRoute.pathId;
   }
+
 }

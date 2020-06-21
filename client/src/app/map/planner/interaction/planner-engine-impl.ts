@@ -354,7 +354,6 @@ export class PlannerEngineImpl implements PlannerEngine {
 
         const legs = this.context.plan.legs;
         const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
-
         const oldLeg1 = legs.get(nextLegIndex - 1);
         const oldLeg2 = legs.get(nextLegIndex);
 
@@ -362,7 +361,6 @@ export class PlannerEngineImpl implements PlannerEngine {
         const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink, null);
 
         const command = new PlannerCommandMoveViaPoint(
-          nextLegIndex,
           oldLeg1.featureId,
           oldLeg2.featureId,
           newLeg1.featureId,
