@@ -12,6 +12,7 @@ import {PlanSegment} from "../plan/plan-segment";
 import {PlannerContext} from "./planner-context";
 import {PlannerCursorMock} from "./planner-cursor-mock";
 import {PlannerElasticBandMock} from "./planner-elastic-band-mock";
+import {PlannerHighlightLayerMock} from "./planner-highlight-layer-mock";
 import {PlannerLegRepositoryMock} from "./planner-leg-repository-mock";
 import {PlannerRouteLayerMock} from "./planner-route-layer-mock";
 
@@ -20,6 +21,7 @@ export class PlannerTestSetup {
   readonly routeLayer = new PlannerRouteLayerMock();
   readonly cursor = new PlannerCursorMock();
   readonly elasticBand = new PlannerElasticBandMock();
+  readonly highlightLayer = new PlannerHighlightLayerMock();
   readonly legRepository = new PlannerLegRepositoryMock();
   readonly legs = new PlanLegCache();
 
@@ -27,6 +29,7 @@ export class PlannerTestSetup {
     this.routeLayer,
     this.cursor,
     this.elasticBand,
+    this.highlightLayer,
     this.legRepository,
     this.legs,
     null
@@ -45,7 +48,7 @@ export class PlannerTestSetup {
     const fragment = new PlanFragment(0, 0, -1, sink.coordinate, sink.latLon);
     const segment = new PlanSegment(0, "", null, List([fragment]));
     const route = new PlanRoute(source, sink, 0, List([segment]), List());
-    const leg = new PlanLeg(FeatureId.next(), source, sink, 0, List([route]));
+    const leg = new PlanLeg(FeatureId.next(), source, sink, null, 0, List([route]));
     this.legRepository.add(leg);
     this.legs.add(leg);
     return leg;

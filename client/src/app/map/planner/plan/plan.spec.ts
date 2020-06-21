@@ -18,8 +18,8 @@ describe("Plan", () => {
     const route2 = new PlanRoute(null, null, 2000, List(), List());
     const route3 = new PlanRoute(null, null, 4000, List(), List());
 
-    const leg1 = new PlanLeg("1", null, null, 3000, List([route1, route2]));
-    const leg2 = new PlanLeg("2", null, null, 4000, List([route3]));
+    const leg1 = new PlanLeg("1", null, null, null, 3000, List([route1, route2]));
+    const leg2 = new PlanLeg("2", null, null, null, 4000, List([route3]));
 
     const plan = Plan.create(null, List([leg1, leg2]));
 

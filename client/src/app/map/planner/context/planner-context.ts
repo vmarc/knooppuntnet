@@ -8,6 +8,7 @@ import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
+import {PrintPlan} from "../plan/print-plan";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerHighlightLayer} from "./planner-highlight-layer";
@@ -23,13 +24,13 @@ export class NetworkTypeData {
 
 export class PlannerContext {
 
-  private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
+  plan$: Observable<Plan>;
+  networkType$: Observable<NetworkType>;
 
-  private _networkType$ = new BehaviorSubject<NetworkType>(null);
-  networkType$: Observable<NetworkType> = this._networkType$.asObservable();
-  private _plan$ = new BehaviorSubject<Plan>(Plan.empty());
-  plan$: Observable<Plan> = this._plan$.asObservable();
-  private _commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
+  private _plan$: BehaviorSubject<Plan>;
+  private _networkType$: BehaviorSubject<NetworkType>;
+  private _commandStack$: BehaviorSubject<PlannerCommandStack>;
+  private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
 
   constructor(readonly routeLayer: PlannerRouteLayer,
               readonly cursor: PlannerCursor,
@@ -38,6 +39,11 @@ export class PlannerContext {
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {
+    this._plan$ = new BehaviorSubject<Plan>(Plan.empty());
+    this.plan$ = this._plan$.asObservable();
+    this._networkType$ = new BehaviorSubject<NetworkType>(null);
+    this.networkType$ = this._networkType$.asObservable();
+    this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
   }
 
   get networkType(): NetworkType {
@@ -90,6 +96,9 @@ export class PlannerContext {
 
   updatePlan(plan: Plan) {
     this._plan$.next(plan);
+
+    console.log(JSON.stringify(PrintPlan.from(plan), null, 2));
+
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
