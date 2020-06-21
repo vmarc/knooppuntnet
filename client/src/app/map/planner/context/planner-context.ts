@@ -102,12 +102,7 @@ export class PlannerContext {
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
-    const newLegs = this.plan.legs.map(leg => {
-      if (leg.featureId === newLeg.featureId) {
-        return newLeg;
-      }
-      return leg;
-    });
+    const newLegs = this.plan.legs.map(leg => leg.featureId === newLeg.featureId ? newLeg : leg);
     const newPlan = Plan.create(this.plan.source, newLegs);
     this.updatePlan(newPlan);
     this.routeLayer.addRouteLeg(newLeg);

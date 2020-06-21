@@ -47,7 +47,6 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     expect(setup.context.plan.legs.get(1).viaRoute).toEqual(null);
 
     const command = new PlannerCommandMoveViaPointToViaRoute(
-      0,
       oldLeg1.featureId,
       oldLeg2.featureId,
       newLeg.featureId,

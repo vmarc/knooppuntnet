@@ -6,6 +6,7 @@ import {RouteLegFragment} from "../../../kpn/api/common/planner/route-leg-fragme
 import {RouteLegNode} from "../../../kpn/api/common/planner/route-leg-node";
 import {RouteLegRoute} from "../../../kpn/api/common/planner/route-leg-route";
 import {RouteLegSegment} from "../../../kpn/api/common/planner/route-leg-segment";
+import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
 import {PlanFragment} from "./plan-fragment";
 import {PlanLeg} from "./plan-leg";
 import {PlanNode} from "./plan-node";
@@ -14,19 +15,19 @@ import {PlanSegment} from "./plan-segment";
 
 export class PlanLegBuilder {
 
-  static toPlanLeg(source: PlanNode, sink: PlanNode, routeLeg: RouteLeg): PlanLeg {
+  static toPlanLeg(source: PlanNode, sink: PlanNode, routeLeg: RouteLeg, viaRoute: ViaRoute): PlanLeg {
     const routes = routeLeg.routes.map(routeLegRoute => this.toPlanRoute(routeLegRoute));
     const meters = routes.map(f => f.meters).reduce((sum, current) => sum + current, 0);
-    return new PlanLeg(routeLeg.legId, source, sink, null /* TODO PLANNER */, meters, routes);
+    return new PlanLeg(routeLeg.legId, source, sink, viaRoute, meters, routes);
   }
 
-  static toPlanLeg2(routeLeg: RouteLeg): PlanLeg {
+  static toPlanLeg2(routeLeg: RouteLeg, viaRoute: ViaRoute): PlanLeg {
     const routes = routeLeg.routes.map(routeLegRoute => this.toPlanRoute(routeLegRoute));
     const source = routes.get(0).source;
     const lastRoute: PlanRoute = routes.last();
     const sink = lastRoute.sink;
     const meters = routes.map(f => f.meters).reduce((sum, current) => sum + current, 0);
-    return new PlanLeg(routeLeg.legId, source, sink, null /* TODO PLANNER */, meters, routes);
+    return new PlanLeg(routeLeg.legId, source, sink, viaRoute, meters, routes);
   }
 
   private static toPlanRoute(route: RouteLegRoute): PlanRoute {

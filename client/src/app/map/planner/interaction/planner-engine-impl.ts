@@ -257,14 +257,12 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const legs = this.context.plan.legs;
     const nextLegIndex = legs.findIndex(leg => leg.source.featureId === this.nodeDrag.oldNode.featureId);
-
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
     const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink, null);
 
     const command = new PlannerCommandRemoveViaPoint(
-      nextLegIndex - 1,
       oldLeg1.featureId,
       oldLeg2.featureId,
       newLeg.featureId
@@ -385,8 +383,8 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.nodeDrag.flagType === PlanFlagType.Via) {
       const legs = this.context.plan.legs;
-      const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
 
+      const nextLegIndex = legs.findIndex(leg => leg.source.featureId === this.nodeDrag.oldNode.featureId);
       const oldLeg1 = legs.get(nextLegIndex - 1);
       const oldLeg2 = legs.get(nextLegIndex);
 
@@ -397,7 +395,6 @@ export class PlannerEngineImpl implements PlannerEngine {
       const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink, viaRoute);
 
       const command = new PlannerCommandMoveViaPointToViaRoute(
-        nextLegIndex,
         oldLeg1.featureId,
         oldLeg2.featureId,
         newLeg.featureId,

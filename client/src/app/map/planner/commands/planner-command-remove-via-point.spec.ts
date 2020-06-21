@@ -39,11 +39,13 @@ describe("PlannerCommandRemoveViaPoint", () => {
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
     expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).viaRoute).toEqual(null);
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
     expect(setup.context.plan.legs.get(1).source.nodeId).toEqual("1002");
     expect(setup.context.plan.legs.get(1).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(1).viaRoute).toEqual(null);
 
-    const command = new PlannerCommandRemoveViaPoint(0, oldLeg1.featureId, oldLeg2.featureId, newLeg.featureId);
+    const command = new PlannerCommandRemoveViaPoint(oldLeg1.featureId, oldLeg2.featureId, newLeg.featureId);
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(2);
@@ -55,6 +57,7 @@ describe("PlannerCommandRemoveViaPoint", () => {
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
     expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(0).viaRoute).toEqual(null);
 
     command.undo(setup.context);
 
@@ -69,8 +72,10 @@ describe("PlannerCommandRemoveViaPoint", () => {
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
     expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).viaRoute).toEqual(null);
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
     expect(setup.context.plan.legs.get(1).source.nodeId).toEqual("1002");
     expect(setup.context.plan.legs.get(1).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(1).viaRoute).toEqual(null);
   });
 });

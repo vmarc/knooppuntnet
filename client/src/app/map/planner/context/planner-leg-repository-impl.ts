@@ -23,7 +23,7 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
       viaRoute
     );
     return this.appService.routeLeg(params).pipe(
-      map(response => PlanLegBuilder.toPlanLeg(source, sink, response.result))
+      map(response => PlanLegBuilder.toPlanLeg(source, sink, response.result, viaRoute))
     );
   }
 }
