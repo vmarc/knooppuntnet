@@ -1,9 +1,9 @@
 import {List} from "immutable";
+import {FlagFeature} from "../features/flag-feature";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
-import {FlagFeature} from "../features/flag-feature";
 
 describe("PlannerNodeDragAnalyzer", () => {
 
@@ -12,9 +12,9 @@ describe("PlannerNodeDragAnalyzer", () => {
   const node3 = PlanNode.withCoordinate("1003", "03", [3, 0]);
   const node4 = PlanNode.withCoordinate("1004", "03", [4, 0]);
 
-  const leg12 = new PlanLeg("12", node1, node2, null, 0, List());
-  const leg23 = new PlanLeg("23", node2, node3, null, 0, List());
-  const leg34 = new PlanLeg("34", node3, node4, null, 0, List());
+  const leg12 = new PlanLeg("12", node1, node2, 0, List());
+  const leg23 = new PlanLeg("23", node2, node3, 0, List());
+  const leg34 = new PlanLeg("34", node3, node4, 0, List());
 
   it("start start-point drag", () => {
 

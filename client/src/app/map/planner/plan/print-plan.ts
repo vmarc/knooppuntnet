@@ -1,5 +1,4 @@
 import {List} from "immutable";
-import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
 import {Plan} from "./plan";
 import {PlanLeg} from "./plan-leg";
 import {PlanNode} from "./plan-node";
@@ -22,16 +21,14 @@ class PrintPlanLeg {
 
   constructor(readonly featureId: string,
               readonly source: PrintPlanNode,
-              readonly sink: PrintPlanNode,
-              readonly viaRoute: ViaRoute) {
+              readonly sink: PrintPlanNode) {
   }
 
   static from(leg: PlanLeg): PrintPlanLeg {
     return new PrintPlanLeg(
       leg.featureId,
       PrintPlanNode.from(leg.source),
-      PrintPlanNode.from(leg.sink),
-      leg.viaRoute
+      PrintPlanNode.from(leg.sink)
     );
   }
 }

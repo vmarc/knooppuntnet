@@ -1,6 +1,6 @@
 package kpn.api.common.planner
 
-case class ViaRoute(
+case class LegEndRoute(
   routeId: Long,
   pathId: Long
 )

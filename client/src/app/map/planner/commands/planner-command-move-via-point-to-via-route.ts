@@ -1,6 +1,5 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
-import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
 import {PlannerContext} from "../context/planner-context";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
@@ -13,7 +12,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
   constructor(private readonly oldLegId1: string,
               private readonly oldLegId2: string,
               private readonly newLegId: string,
-              private readonly viaRoute: ViaRoute,
+              // private readonly viaRoute: ViaRoute,
               private readonly coordinate: Coordinate) {
   }
 
@@ -57,7 +56,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
   }
 
   private flagFeatureId(): string {
-    return this.viaRoute.routeId + "-" + this.viaRoute.pathId;
+    return ""; // this.viaRoute.routeId + "-" + this.viaRoute.pathId;
   }
 
 }

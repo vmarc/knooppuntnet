@@ -4,12 +4,12 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
+import kpn.api.common.planner.LegEnd
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.planner.RouteLegFragment
 import kpn.api.common.planner.RouteLegNode
 import kpn.api.common.planner.RouteLegRoute
 import kpn.api.common.planner.RouteLegSegment
-import kpn.api.common.planner.ViaRoute
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.core.planner.graph.GraphPath
@@ -18,6 +18,8 @@ import kpn.core.util.Log
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
+
+case class Alternative(sourceNodeId: Long, sinkNodeId: Long)
 
 @Component
 class LegBuilderImpl(
@@ -46,77 +48,59 @@ class LegBuilderImpl(
   }
 
   private def buildLeg(params: LegBuildParams, graph: NodeNetworkGraph): Option[RouteLeg] = {
-    params.viaRoute match {
-      case Some(viaRoute) => buildLegViaRoute(params, graph, viaRoute)
-      case None => buildLegBetweenNodes(params, graph)
-    }
-  }
 
-  private def buildLegViaRoute(params: LegBuildParams, graph: NodeNetworkGraph, viaRoute: ViaRoute): Option[RouteLeg] = {
-    routeRepository.routeWithId(viaRoute.routeId) match {
-      case Some(routeInfo) => buildLegViaRoute(params, graph, viaRoute, routeInfo)
-      case None =>
-        log.error(s"via-route ${viaRoute.routeId} not found")
-        None
-    }
-  }
+    val routeIds = params.routeIds
+    val routeInfos = routeIds.flatMap { routeId =>
+      routeRepository.routeWithId(routeId) match {
+        case Some(routeInfo) => Some(routeInfo.id -> routeInfo)
+        case None =>
+          log.error(s"via-route ${routeId} not found")
+          None
+      }
+    }.toMap
 
-  private def buildLegViaRoute(params: LegBuildParams, graph: NodeNetworkGraph, viaRoute: ViaRoute, routeInfo: RouteInfo): Option[RouteLeg] = {
-    routeInfo.analysis.map.paths.find(_.pathId == viaRoute.pathId) match {
-      case Some(trackPath) => buildLegRoute(params, graph, routeInfo, trackPath)
-      case None =>
-        log.error(s"via-route ${viaRoute.routeId} path ${viaRoute.pathId} not found")
-        None
-    }
-  }
-
-  private def buildLegRoute(params: LegBuildParams, graph: NodeNetworkGraph, routeInfo: RouteInfo, trackPath: TrackPath): Option[RouteLeg] = {
-
-    val routeLeg1 = routeLegAlternative(params, graph, routeInfo, trackPath, trackPath.startNodeId, trackPath.endNodeId)
-    val routeLeg2 = if (!trackPath.oneWay) {
-      routeLegAlternative(params, graph, routeInfo, trackPath, trackPath.endNodeId, trackPath.startNodeId)
-    }
-    else {
+    if (routeIds.size != routeInfos.size) {
+      log.error(s"building leg aborted")
       None
     }
-    val alternatives = Seq(routeLeg1, routeLeg2).flatten
-
-    if (alternatives.nonEmpty) {
-      Some(alternatives.minBy(routeLeg => routeLeg.meters))
-    }
     else {
-      None
-    }
-  }
-
-  private def routeLegAlternative(params: LegBuildParams, graph: NodeNetworkGraph, routeInfo: RouteInfo, trackPath: TrackPath, nodeId1: Long, nodeId2: Long): Option[RouteLeg] = {
-    graph.findPath(params.sourceNodeId, nodeId1) match {
-      case None => None
-      case Some(path1) =>
-        graph.findPath(nodeId2, params.sinkNodeId) match {
-          case Some(path2) => yyy(params, routeInfo, trackPath, path1, path2)
+      val sourceNodeIds = legEndNodes(routeInfos, params.source)
+      val sinkNodeIds = legEndNodes(routeInfos, params.sink)
+      val alternatives = for (x <- sourceNodeIds; y <- sinkNodeIds) yield Alternative(x, y)
+      val routeLegAlternatives: Seq[RouteLeg] = alternatives.flatMap { alternative =>
+        graph.findPath(alternative.sourceNodeId, alternative.sinkNodeId) match {
+          case Some(graphPath) => Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
           case None => None
         }
-    }
-  }
+      }
 
-  private def yyy(params: LegBuildParams, routeInfo: RouteInfo, trackPath: TrackPath, path1: GraphPath, path2: GraphPath): Option[RouteLeg] = {
-    val colour = routeInfo.tags("colour")
-    trackPathToRouteLegRoute(routeInfo, trackPath, colour) match {
-      case None => None // TODO add error log message
-      case Some(connection) =>
-        val routes = graphPathToRouteLegRoutes(path1) ++ Seq(connection) ++ graphPathToRouteLegRoutes(path2)
-        Some(RouteLeg(params.legId, routes))
-    }
-  }
-
-  private def buildLegBetweenNodes(params: LegBuildParams, graph: NodeNetworkGraph): Option[RouteLeg] = {
-    graph.findPath(params.sourceNodeId, params.sinkNodeId) match {
-      case Some(graphPath) => Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
-      case None =>
-        log.error(s"Could not find ${params.networkType} path between ${params.sourceNodeId} and ${params.sinkNodeId}")
+      if (routeLegAlternatives.nonEmpty) {
+        Some(routeLegAlternatives.minBy(routeLeg => routeLeg.meters))
+      }
+      else {
         None
+      }
     }
+  }
+
+  private def legEndNodes(routeInfos: Map[Long, RouteInfo], legEnd: LegEnd): Seq[Long] = {
+    legEnd.node.toSeq.map(_.nodeId) ++
+      legEnd.route.toSeq.flatMap(legEndRoute => {
+        routeInfos.get(legEndRoute.routeId) match {
+          case None => Seq() // Internal error ?
+          case Some(routeInfo) =>
+            routeInfo.analysis.map.paths.find(_.pathId == legEndRoute.pathId) match {
+              case Some(trackPath) =>
+                Seq(
+                  trackPath.startNodeId,
+                  trackPath.endNodeId
+                )
+              case None =>
+                log.error(s"via-route ${legEndRoute.routeId} path ${legEndRoute.pathId} not found")
+                Seq()
+            }
+        }
+      })
   }
 
   private def graphPathToRouteLegRoutes(graphPath: GraphPath): Seq[RouteLegRoute] = {

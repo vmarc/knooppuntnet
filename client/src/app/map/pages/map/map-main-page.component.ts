@@ -23,7 +23,8 @@ import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-laye
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
 import {LegBuildParams} from "../../../kpn/api/common/planner/leg-build-params";
-import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
+import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
+import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
@@ -113,16 +114,14 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
             }
 
             const legObservables = legNodeIdss.map(legNodeIds => {
-              const viaRoute: ViaRoute = null;  // TODO PLANNER --> via-route if applicable
               const params = new LegBuildParams(
                 networkType.name,
                 FeatureId.next(),
-                +legNodeIds.sourceNodeId,
-                +legNodeIds.sinkNodeId,
-                viaRoute
+                new LegEnd(new LegEndNode(+legNodeIds.sourceNodeId), null),
+                new LegEnd(new LegEndNode(+legNodeIds.sinkNodeId), null)
               );
               return this.appService.routeLeg(params).pipe(
-                map(response => PlanLegBuilder.toPlanLeg2(response.result, viaRoute))
+                map(response => PlanLegBuilder.toPlanLeg2(response.result))
               );
             }).toArray();
 
@@ -148,7 +147,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
                   legs[i].featureId,
                   legs[i - 1].sink,
                   legs[i].sink,
-                  null, // TODO PLANNER
                   legs[i].meters,
                   newRoutes
                 );

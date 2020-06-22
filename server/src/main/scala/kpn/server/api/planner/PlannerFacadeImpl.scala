@@ -3,6 +3,7 @@ package kpn.server.api.planner
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
+import kpn.api.common.planner.LegEnd
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
@@ -56,14 +57,21 @@ class PlannerFacadeImpl(
   }
 
   override def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg] = {
-    val baseArgs = s"${params.legId}, ${params.sourceNodeId}, ${params.sinkNodeId}"
-    val args = params.viaRoute match {
-      case Some(viaRoute) => s"$baseArgs, via route ${viaRoute.routeId}, ${viaRoute.pathId}"
-      case None => baseArgs
-    }
+    val args = s"${params.legId}: ${legEndString(params.source)} to ${legEndString(params.sink)}"
     api.execute(user, "leg", args) {
       val leg = legBuilder.build(params)
       ApiResponse(None, 1, leg)
+    }
+  }
+
+  private def legEndString(legEnd: LegEnd): String = {
+    legEnd.node match {
+      case Some(node) => s"node(${node.nodeId})"
+      case None =>
+        legEnd.route match {
+          case Some(route) => s"route(${route.routeId}-${route.pathId})"
+          case None => ""
+        }
     }
   }
 

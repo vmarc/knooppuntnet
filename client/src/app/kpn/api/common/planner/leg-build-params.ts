@@ -1,14 +1,13 @@
 // this class is generated, please do not modify
 
-import {ViaRoute} from "./via-route";
+import {LegEnd} from "./leg-end";
 
 export class LegBuildParams {
 
   constructor(readonly networkType: string,
               readonly legId: string,
-              readonly sourceNodeId: number,
-              readonly sinkNodeId: number,
-              readonly viaRoute: ViaRoute) {
+              readonly source: LegEnd,
+              readonly sink: LegEnd) {
   }
 
   public static fromJSON(jsonObject: any): LegBuildParams {
@@ -18,9 +17,8 @@ export class LegBuildParams {
     return new LegBuildParams(
       jsonObject.networkType,
       jsonObject.legId,
-      jsonObject.sourceNodeId,
-      jsonObject.sinkNodeId,
-      ViaRoute.fromJSON(jsonObject.viaRoute)
+      LegEnd.fromJSON(jsonObject.source),
+      LegEnd.fromJSON(jsonObject.sink)
     );
   }
 }

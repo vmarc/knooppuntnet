@@ -1,11 +1,12 @@
 package kpn.api.common.planner
 
-import kpn.api.custom.NetworkType
-
 case class LegBuildParams(
   networkType: String,
   legId: String,
-  sourceNodeId: Long,
-  sinkNodeId: Long,
-  viaRoute: Option[ViaRoute]
-)
+  source: LegEnd,
+  sink: LegEnd
+) {
+
+  def routeIds: Seq[Long] = (source.route.toSeq.map(_.routeId) ++ sink.route.toSeq.map(_.routeId)).distinct
+
+}

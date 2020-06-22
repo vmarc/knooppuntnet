@@ -1,6 +1,5 @@
 import {List} from "immutable";
 import {BehaviorSubject, Observable} from "rxjs";
-import {ViaRoute} from "../../../kpn/api/common/planner/via-route";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
@@ -112,23 +111,23 @@ export class PlannerContext {
     this.overlay.setPosition(undefined, 0);
   }
 
-  buildLeg(legId: string, source: PlanNode, sink: PlanNode, viaRoute: ViaRoute): PlanLeg {
+  buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
 
-    const cachedLeg = this.legs.get(source.nodeId, sink.nodeId, viaRoute);
+    const cachedLeg = this.legs.get(source.nodeId, sink.nodeId);
     if (cachedLeg) {
-      const planLeg = new PlanLeg(legId, source, sink, viaRoute, cachedLeg.meters, cachedLeg.routes);
+      const planLeg = new PlanLeg(legId, source, sink, cachedLeg.meters, cachedLeg.routes);
       this.legs.add(planLeg);
       return planLeg;
     }
 
-    this.legRepository.planLeg(this.networkType, legId, source, sink, viaRoute).subscribe(planLeg => {
+    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
       if (planLeg) {
         this.legs.add(planLeg);
         this.updatePlanLeg(planLeg);
       }
     });
 
-    const leg = new PlanLeg(legId, source, sink, viaRoute, 0, List());
+    const leg = new PlanLeg(legId, source, sink, 0, List());
     this.legs.add(leg);
     return leg;
   }

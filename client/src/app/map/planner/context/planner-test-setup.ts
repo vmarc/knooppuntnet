@@ -48,7 +48,7 @@ export class PlannerTestSetup {
     const fragment = new PlanFragment(0, 0, -1, sink.coordinate, sink.latLon);
     const segment = new PlanSegment(0, "", null, List([fragment]));
     const route = new PlanRoute(source, sink, 0, List([segment]), List());
-    const leg = new PlanLeg(FeatureId.next(), source, sink, null, 0, List([route]));
+    const leg = new PlanLeg(FeatureId.next(), source, sink, 0, List([route]));
     this.legRepository.add(leg);
     this.legs.add(leg);
     return leg;
