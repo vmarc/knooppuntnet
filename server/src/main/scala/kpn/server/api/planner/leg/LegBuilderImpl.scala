@@ -65,7 +65,7 @@ class LegBuilderImpl(
     }
     else {
       val sourceNodeIds = legEndNodes(routeInfos, params.source)
-      val sinkNodeIds = legEndNodes(routeInfos, params.sink)
+      val sinkNodeIds = legEndNodes(routeInfos, params.sink).filterNot(sourceNodeIds.contains)
       val alternatives = for (x <- sourceNodeIds; y <- sinkNodeIds) yield Alternative(x, y)
       val routeLegAlternatives: Seq[RouteLeg] = alternatives.flatMap { alternative =>
         graph.findPath(alternative.sourceNodeId, alternative.sinkNodeId) match {
@@ -75,7 +75,9 @@ class LegBuilderImpl(
       }
 
       if (routeLegAlternatives.nonEmpty) {
-        Some(routeLegAlternatives.minBy(routeLeg => routeLeg.meters))
+        val allNodeIds = (sourceNodeIds ++ sinkNodeIds).toSet
+        val alts = routeLegAlternatives.filter(leg => (allNodeIds -- leg.allNodeIds).isEmpty)
+        Some(alts.minBy(routeLeg => routeLeg.meters))
       }
       else {
         None

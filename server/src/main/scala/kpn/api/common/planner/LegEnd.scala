@@ -1,5 +1,7 @@
 package kpn.api.common.planner
 
+import kpn.api.common.common.ToStringBuilder
+
 object LegEnd {
 
   def node(nodeId: Long): LegEnd = {
@@ -7,7 +9,11 @@ object LegEnd {
   }
 
   def route(routeId: Long, pathId: Long): LegEnd = {
-    LegEnd(None, Some(LegEndRoute(routeId, pathId)))
+    route(LegEndRoute(routeId, pathId))
+  }
+
+  def route(legEndRoute: LegEndRoute): LegEnd = {
+    LegEnd(None, Some(legEndRoute))
   }
 
 }
@@ -15,4 +21,11 @@ object LegEnd {
 case class LegEnd(
   node: Option[LegEndNode],
   route: Option[LegEndRoute]
-)
+) {
+
+  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("node", node).
+    field("route", route).
+    build
+
+}

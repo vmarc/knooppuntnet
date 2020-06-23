@@ -1,5 +1,11 @@
 package kpn.api.common.planner
 
-case class LegEndNode(
-  nodeId: Long
-)
+import kpn.api.common.common.ToStringBuilder
+
+case class LegEndNode(nodeId: Long) {
+
+  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("nodeId", nodeId).
+    build
+
+}

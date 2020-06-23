@@ -8,16 +8,20 @@ import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
+import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.planner.RouteLegFragment
 import kpn.api.common.planner.RouteLegNode
 import kpn.api.common.planner.RouteLegRoute
 import kpn.api.common.planner.RouteLegSegment
+import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMap
+import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
+import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.GraphPathSegment
-import kpn.core.planner.graph.NodeNetworkGraph
+import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.UnitTest
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
@@ -25,60 +29,137 @@ import org.scalamock.scalatest.MockFactory
 
 class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
-  test("node to node") {
+  private val node1 = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
+  private val node2 = newRouteNetworkNodeInfo(id = 1002L, name = "02", lat = "2", lon = "2")
+  private val node3 = newRouteNetworkNodeInfo(id = 1003L, name = "03", lat = "3", lon = "3")
+  private val node4 = newRouteNetworkNodeInfo(id = 1004L, name = "04", lat = "4", lon = "4")
 
-    val graphPath1 = GraphPath(
-      1001,
-      Seq(
-        GraphPathSegment(
-          sinkNodeId = 1002,
-          pathKey = TrackPathKey(10, 1)
+  private val legEndRoute1 = LegEndRoute(11L, 1L)
+  private val legEndRoute2 = LegEndRoute(12L, 1L)
+  private val legEndRoute3 = LegEndRoute(13L, 1L)
+  private val legEndRoute4 = LegEndRoute(14L, 1L)
+
+  test("node1 to node4") {
+
+    val graphRepository = buildGraphRepository()
+    val routeRepository = buildRouteRepository()
+    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
+
+    val params = LegBuildParams(
+      networkType = NetworkType.hiking.name,
+      legId = "leg1",
+      source = LegEnd.node(node1.id),
+      sink = LegEnd.node(node4.id)
+    )
+
+    legBuilder.build(params) should equal(
+      Some(
+        RouteLeg(
+          legId = "leg1",
+          routes = Seq(
+            toRouteLegRoute(node1, node2),
+            toRouteLegRoute(node2, node3),
+            toRouteLegRoute(node3, node4)
+          )
         )
       )
     )
+  }
 
-    val graph = stub[NodeNetworkGraph]
-    (graph.findPath _).when(1001, 1002).returns(Some(graphPath1))
+  test("node1 to route3") {
+
+    val graphRepository = buildGraphRepository()
+    val routeRepository = buildRouteRepository()
+    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
+
+    val params = LegBuildParams(
+      networkType = NetworkType.hiking.name,
+      legId = "leg1",
+      source = LegEnd.node(node1.id),
+      sink = LegEnd.route(legEndRoute3)
+    )
+
+    legBuilder.build(params) should equal(
+      Some(
+        RouteLeg(
+          legId = "leg1",
+          routes = Seq(
+            toRouteLegRoute(node1, node2),
+            toRouteLegRoute(node2, node3),
+            toRouteLegRoute(node3, node4)
+          )
+        )
+      )
+    )
+  }
+
+  private def buildGraphRepository(): GraphRepository = {
+
+    val graph = new NodeNetworkGraphImpl()
+    graph.add(GraphEdge(node1.id, node2.id, 1, TrackPathKey(legEndRoute1.routeId, legEndRoute1.pathId)))
+    graph.add(GraphEdge(node2.id, node3.id, 2, TrackPathKey(legEndRoute2.routeId, legEndRoute2.pathId)))
+    graph.add(GraphEdge(node3.id, node4.id, 5, TrackPathKey(legEndRoute3.routeId, legEndRoute3.pathId)))
+    graph.add(GraphEdge(node1.id, node3.id, 4, TrackPathKey(legEndRoute4.routeId, legEndRoute4.pathId)))
 
     val graphRepository: GraphRepository = stub[GraphRepository]
     (graphRepository.graph _).when(NetworkType.hiking).returns(Some(graph))
 
-    val routeInfo = newRouteInfo(
+    graphRepository
+  }
+
+  private def buildRouteRepository(): RouteRepository = {
+    val routeRepository = stub[RouteRepository]
+    (routeRepository.routeWithId _).when(legEndRoute1.routeId).returns(Some(routeInfo(legEndRoute1, node1, node2)))
+    (routeRepository.routeWithId _).when(legEndRoute2.routeId).returns(Some(routeInfo(legEndRoute2, node2, node3)))
+    (routeRepository.routeWithId _).when(legEndRoute3.routeId).returns(Some(routeInfo(legEndRoute3, node3, node4)))
+    (routeRepository.routeWithId _).when(legEndRoute4.routeId).returns(Some(routeInfo(legEndRoute4, node1, node3)))
+    routeRepository
+  }
+
+  private def toRouteLegNode(node: RouteNetworkNodeInfo): RouteLegNode = {
+    RouteLegNode(
+      nodeId = node.id.toString,
+      nodeName = node.name,
+      lat = node.lat,
+      lon = node.lon
+    )
+  }
+
+  private def graphPath1(): GraphPath = {
+    GraphPath(
+      node1.id,
+      Seq(
+        GraphPathSegment(
+          sinkNodeId = node2.id,
+          pathKey = TrackPathKey(legEndRoute1.routeId, legEndRoute1.pathId)
+        )
+      )
+    )
+  }
+
+  private def routeInfo(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteInfo = {
+    newRouteInfo(
       summary = newRouteSummary(
-        id = 10
+        id = legEndRoute.routeId
       ),
       analysis = newRouteInfoAnalysis(
         map = RouteMap(
-          startNodes = Seq(
-            newRouteNetworkNodeInfo(
-              id = 1001,
-              name = "01",
-              lat = "1",
-              lon = "1"
-            )
-          ),
-          endNodes = Seq(
-            newRouteNetworkNodeInfo(
-              id = 1002,
-              name = "02",
-              lat = "2",
-              lon = "2"
-            )
-          ),
+          startNodes = Seq(startNode),
+          endNodes = Seq(endNode),
           forwardPath = Some(
             TrackPath(
-              pathId = 1,
-              startNodeId = 1001,
-              endNodeId = 1002,
+              pathId = legEndRoute.pathId,
+              startNodeId = startNode.id,
+              endNodeId = endNode.id,
               meters = 0,
               oneWay = false,
               segments = Seq(
                 TrackSegment(
                   surface = "unpaved",
-                  source = TrackPoint("1", "1"),
+                  source = TrackPoint(startNode.lat, startNode.lon),
                   fragments = Seq(
                     TrackSegmentFragment(
-                      trackPoint = TrackPoint("2", "2"),
+                      trackPoint = TrackPoint(endNode.lat, endNode.lon),
                       meters = 0,
                       orientation = 1,
                       streetIndex = None
@@ -91,59 +172,31 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         )
       )
     )
+  }
 
-    val routeRepository = stub[RouteRepository]
-    (routeRepository.routeWithId _).when(10).returns(Some(routeInfo))
+  private def toRouteLegRoute(startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteLegRoute = {
 
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
-
-    val params = new LegBuildParams(
-      networkType = NetworkType.hiking.name,
-      legId = "leg1",
-      source = LegEnd.node(1001),
-      sink = LegEnd.node(1002)
-    )
-
-    legBuilder.build(params) should equal(
-      Some(
-        RouteLeg(
-          legId = "leg1",
-          routes = Seq(
-            RouteLegRoute(
-              source = RouteLegNode(
-                nodeId = "1001",
-                nodeName = "01",
-                lat = "1",
-                lon = "1"
-              ),
-              sink = RouteLegNode(
-                nodeId = "1002",
-                nodeName = "02",
-                lat = "2",
-                lon = "2"
-              ),
+    RouteLegRoute(
+      source = toRouteLegNode(startNode),
+      sink = toRouteLegNode(endNode),
+      meters = 0,
+      segments = Seq(
+        RouteLegSegment(
+          meters = 0,
+          surface = "unpaved",
+          colour = None,
+          fragments = Seq(
+            RouteLegFragment(
+              lat = endNode.lat,
+              lon = endNode.lon,
               meters = 0,
-              segments = Seq(
-                RouteLegSegment(
-                  meters = 0,
-                  surface = "unpaved",
-                  colour = None,
-                  fragments = Seq(
-                    RouteLegFragment(
-                      lat = "2",
-                      lon = "2",
-                      meters = 0,
-                      orientation = 1,
-                      streetIndex = None
-                    )
-                  )
-                )
-              ),
-              streets = Seq()
+              orientation = 1,
+              streetIndex = None
             )
           )
         )
-      )
+      ),
+      streets = Seq()
     )
   }
 
