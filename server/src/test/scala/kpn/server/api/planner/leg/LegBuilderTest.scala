@@ -93,6 +93,33 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     )
   }
 
+  test("route1 to route3") {
+
+    val graphRepository = buildGraphRepository()
+    val routeRepository = buildRouteRepository()
+    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
+
+    val params = LegBuildParams(
+      networkType = NetworkType.hiking.name,
+      legId = "leg1",
+      source = LegEnd.route(legEndRoute1),
+      sink = LegEnd.route(legEndRoute3)
+    )
+
+    legBuilder.build(params) should equal(
+      Some(
+        RouteLeg(
+          legId = "leg1",
+          routes = Seq(
+            toRouteLegRoute(node1, node2),
+            toRouteLegRoute(node2, node3),
+            toRouteLegRoute(node3, node4)
+          )
+        )
+      )
+    )
+  }
+
   private def buildGraphRepository(): GraphRepository = {
 
     val graph = new NodeNetworkGraphImpl()
