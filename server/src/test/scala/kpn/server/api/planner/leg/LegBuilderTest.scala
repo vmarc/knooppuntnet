@@ -27,6 +27,13 @@ import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
+/*
+        1m          2m          5m
+  n1 ---r1--- n2 ---r2--- n3 ---r3--- n4
+   \                     /
+    ---------r4---------
+             4m
+ */
 class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   private val node1 = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
@@ -114,6 +121,56 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
             toRouteLegRoute(node1, node2),
             toRouteLegRoute(node2, node3),
             toRouteLegRoute(node3, node4)
+          )
+        )
+      )
+    )
+  }
+
+  test("node1 to route1") {
+
+    val graphRepository = buildGraphRepository()
+    val routeRepository = buildRouteRepository()
+    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
+
+    val params = LegBuildParams(
+      networkType = NetworkType.hiking.name,
+      legId = "leg1",
+      source = LegEnd.node(node1.id),
+      sink = LegEnd.route(legEndRoute1)
+    )
+
+    legBuilder.build(params) should equal(
+      Some(
+        RouteLeg(
+          legId = "leg1",
+          routes = Seq(
+            toRouteLegRoute(node1, node2)
+          )
+        )
+      )
+    )
+  }
+
+  test("node1 to route4") {
+
+    val graphRepository = buildGraphRepository()
+    val routeRepository = buildRouteRepository()
+    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
+
+    val params = LegBuildParams(
+      networkType = NetworkType.hiking.name,
+      legId = "leg1",
+      source = LegEnd.node(node1.id),
+      sink = LegEnd.route(legEndRoute4)
+    )
+
+    legBuilder.build(params) should equal(
+      Some(
+        RouteLeg(
+          legId = "leg1",
+          routes = Seq(
+            toRouteLegRoute(node1, node3)
           )
         )
       )
