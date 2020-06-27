@@ -13,6 +13,23 @@ object Util {
     }
   }
 
+  def humanReadableBytes(bytes: Long): String = {
+
+    val G = 1L << 30
+    val M = 1L << 20
+    val K = 1L << 10
+
+    if (bytes >= G) {
+      f"${bytes.toDouble / G}%.1fG"
+    } else if (bytes >= M) {
+      f"${bytes.toDouble / M}%.1fM"
+    } else if (bytes >= K) {
+      f"${bytes.toDouble / K}%.1fK"
+    } else {
+      bytes.toString
+    }
+  }
+
   def withoutSuccessiveDuplicates[A](objects: Seq[A]): Seq[A] = {
     recursiveWithoutSuccessiveDuplicates(List(), objects).reverse
   }

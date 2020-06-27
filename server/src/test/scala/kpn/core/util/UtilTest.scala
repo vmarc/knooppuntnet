@@ -15,4 +15,12 @@ class UtilTest extends UnitTest {
     Util.withoutSuccessiveDuplicates(Seq(1, 2)) should equal(Seq(1, 2))
     Util.withoutSuccessiveDuplicates(Seq(1, 1, 1, 2, 2, 3, 3, 4, 5, 5, 5)) should equal(Seq(1, 2, 3, 4, 5))
   }
+
+  test("humanReadableBytes") {
+    Util.humanReadableBytes(1000) should equal("1000")
+    Util.humanReadableBytes(1024) should equal("1.0K")
+    Util.humanReadableBytes((2 * 1024) + (1024 / 2)) should equal("2.5K")
+    Util.humanReadableBytes(1024 * 1024) should equal("1.0M")
+    Util.humanReadableBytes(1024 * 1024 * 1024) should equal("1.0G")
+  }
 }
