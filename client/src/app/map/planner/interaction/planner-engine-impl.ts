@@ -1,6 +1,7 @@
 import {List} from "immutable";
 import {Feature} from "ol";
 import {Coordinate} from "ol/coordinate";
+import {MultiLineString} from "ol/geom";
 import {Point} from "ol/geom";
 import {LineString} from "ol/geom";
 import GeometryLayout from "ol/geom/GeometryLayout";
@@ -92,6 +93,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (features.isEmpty()) {
+      this.context.highlightLayer.reset();
       this.context.cursor.setStyleDefault();
       return false;
     }
@@ -129,9 +131,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     const route = Features.findRoute(features);
     if (route != null) {
       this.context.cursor.setStylePointer();
+      this.highlightRoute(route);
       return true;
     }
 
+    this.context.highlightLayer.reset();
     this.context.cursor.setStyleDefault();
 
     return false;
@@ -248,6 +252,17 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (geometryType === GeometryType.LINE_STRING) {
         const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
         const lineString = new LineString(coordinates, GeometryLayout.XY);
+        const feature = new Feature(lineString);
+        this.context.highlightLayer.highlightFeature(feature);
+      } else if (geometryType === GeometryType.MULTI_LINE_STRING) {
+        const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
+        const ends: number[] = [];
+        renderFeature.getEnds().forEach(num => {
+          if (typeof num === "number") {
+            ends.push(num);
+          }
+        });
+        const lineString = new MultiLineString(coordinates, GeometryLayout.XY, ends);
         const feature = new Feature(lineString);
         this.context.highlightLayer.highlightFeature(feature);
       } else {

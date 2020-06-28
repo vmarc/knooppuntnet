@@ -143,7 +143,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
                   );
                 }
 
+                const legKey = PlanUtil.key(PlanUtil.legEndNode(+legs[i - 1].sink.nodeId), PlanUtil.legEndNode(+legs[i].sink.nodeId));
+
                 legs[i] = new PlanLeg(  // TODO should add to new collection instead of mutating existing array!
+                  legKey,
                   legs[i].featureId,
                   legs[i - 1].sink,
                   legs[i].sink,

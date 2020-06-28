@@ -17,10 +17,10 @@ describe("PlannerCommandMoveViaPoint", () => {
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
     const node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
 
-    const oldLeg1 = new PlanLeg("12", node1, node2, null, 0, List());
-    const oldLeg2 = new PlanLeg("23", node2, node3, null, 0, List());
-    const newLeg1 = new PlanLeg("14", node1, node4, null, 0, List());
-    const newLeg2 = new PlanLeg("43", node4, node3, null, 0, List());
+    const oldLeg1 = new PlanLeg("", "12", node1, node2, 0, List());
+    const oldLeg2 = new PlanLeg("", "23", node2, node3, 0, List());
+    const newLeg1 = new PlanLeg("", "14", node1, node4, 0, List());
+    const newLeg2 = new PlanLeg("", "43", node4, node3, 0, List());
 
     setup.legs.add(oldLeg1);
     setup.legs.add(oldLeg2);

@@ -1,4 +1,7 @@
 import {List} from "immutable";
+import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
+import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
+import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
 import {Plan} from "./plan";
 
 export class PlanUtil {
@@ -30,6 +33,28 @@ export class PlanUtil {
       }
       return unique;
     }, List<string>());
+  }
+
+  static key(source: LegEnd, sink: LegEnd): string {
+    return PlanUtil.legEndKey(source) + ">" + PlanUtil.legEndKey(sink);
+  }
+
+  static legEndNode(nodeId: number): LegEnd {
+    return new LegEnd(new LegEndNode(nodeId), null);
+  }
+
+  static legEndRoute(routeId: number, pathId: number): LegEnd {
+    return new LegEnd(null, new LegEndRoute(routeId, pathId));
+  }
+
+  static legEndKey(legEnd: LegEnd): string {
+    if (legEnd.node !== null) {
+      return legEnd.node.nodeId.toString();
+    }
+    if (legEnd.route !== null) {
+      return legEnd.route.routeId.toString() + "-" + legEnd.route.pathId.toString();
+    }
+    return "";
   }
 
 }

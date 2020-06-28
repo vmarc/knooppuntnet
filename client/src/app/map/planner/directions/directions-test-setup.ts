@@ -26,7 +26,7 @@ export class DirectionsTestSetup {
 
   private static toLeg(json): PlanLeg {
     const routeLeg = RouteLeg.fromJSON(json);
-    return PlanLegBuilder.toPlanLeg2(routeLeg, null);
+    return PlanLegBuilder.toPlanLeg2(routeLeg);
   }
 
 }

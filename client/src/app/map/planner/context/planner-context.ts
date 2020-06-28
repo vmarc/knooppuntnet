@@ -5,9 +5,10 @@ import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
+import {PlanLegBuilder} from "../plan/plan-leg-builder";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
-import {PrintPlan} from "../plan/print-plan";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerHighlightLayer} from "./planner-highlight-layer";
@@ -95,9 +96,6 @@ export class PlannerContext {
 
   updatePlan(plan: Plan) {
     this._plan$.next(plan);
-
-    console.log(JSON.stringify(PrintPlan.from(plan), null, 2));
-
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
@@ -113,21 +111,26 @@ export class PlannerContext {
 
   buildLeg(legId: string, source: PlanNode, sink: PlanNode): PlanLeg {
 
+    const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
     const cachedLeg = this.legs.get(source.nodeId, sink.nodeId);
     if (cachedLeg) {
-      const planLeg = new PlanLeg(legId, source, sink, cachedLeg.meters, cachedLeg.routes);
+      const planLeg = new PlanLeg(legKey, legId, source, sink, cachedLeg.meters, cachedLeg.routes);
       this.legs.add(planLeg);
       return planLeg;
     }
 
-    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
-      if (planLeg) {
+    const legEndSource = PlanUtil.legEndNode(+source.nodeId);
+    const legEndSink = PlanUtil.legEndNode(+sink.nodeId);
+
+    this.legRepository.planLeg(this.networkType, legId, legEndSource, legEndSink).subscribe(routeLeg => {
+      if (routeLeg) {
+        const planLeg = PlanLegBuilder.toPlanLeg(source, sink, routeLeg);
         this.legs.add(planLeg);
         this.updatePlanLeg(planLeg);
       }
     });
 
-    const leg = new PlanLeg(legId, source, sink, 0, List());
+    const leg = new PlanLeg(legKey, legId, source, sink, 0, List());
     this.legs.add(leg);
     return leg;
   }

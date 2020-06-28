@@ -16,8 +16,8 @@ describe("PlannerCommandMoveEndPoint", () => {
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
 
-    const oldLeg = new PlanLeg("12", node1, node2, 0, List());
-    const newLeg = new PlanLeg("13", node1, node3, 0, List());
+    const oldLeg = new PlanLeg("", "12", node1, node2, 0, List());
+    const newLeg = new PlanLeg("", "13", node1, node3, 0, List());
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);

@@ -9,6 +9,7 @@ import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanNode} from "../plan/plan-node";
 import {PlanRoute} from "../plan/plan-route";
 import {PlanSegment} from "../plan/plan-segment";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerContext} from "./planner-context";
 import {PlannerCursorMock} from "./planner-cursor-mock";
 import {PlannerElasticBandMock} from "./planner-elastic-band-mock";
@@ -48,7 +49,8 @@ export class PlannerTestSetup {
     const fragment = new PlanFragment(0, 0, -1, sink.coordinate, sink.latLon);
     const segment = new PlanSegment(0, "", null, List([fragment]));
     const route = new PlanRoute(source, sink, 0, List([segment]), List());
-    const leg = new PlanLeg(FeatureId.next(), source, sink, 0, List([route]));
+    const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
+    const leg = new PlanLeg(legKey, FeatureId.next(), source, sink, 0, List([route]));
     this.legRepository.add(leg);
     this.legs.add(leg);
     return leg;

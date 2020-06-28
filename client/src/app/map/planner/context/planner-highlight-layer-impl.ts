@@ -49,13 +49,13 @@ export class PlannerHighlightLayerImpl implements PlannerHighlightLayer {
   }
 
   highlightFeature(feature: Feature): void {
-    this.source.clear();
+    this.source.clear(true);
     this.source.addFeature(feature);
     this.layer.changed();
   }
 
   reset(): void {
-    this.source.clear();
+    this.source.clear(true);
     this.layer.changed();
   }
 
