@@ -9,6 +9,15 @@ case class RouteLegSegment(
   fragments: Seq[RouteLegFragment]
 ) {
 
+  def reverse: RouteLegSegment = {
+    RouteLegSegment(
+      meters,
+      surface,
+      colour,
+      fragments.reverse
+    )
+  }
+
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("meters", meters).
     field("surface", surface).

@@ -4,7 +4,6 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
-import kpn.api.common.planner.LegEnd
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.planner.RouteLegFragment
 import kpn.api.common.planner.RouteLegNode
@@ -76,26 +75,6 @@ class LegBuilderImpl(
     }
   }
 
-  private def legEndNodes(routeInfos: Map[Long, RouteInfo], legEnd: LegEnd): Seq[Long] = {
-    legEnd.node.toSeq.map(_.nodeId) ++
-      legEnd.route.toSeq.flatMap(legEndRoute => {
-        routeInfos.get(legEndRoute.routeId) match {
-          case None => Seq() // Internal error ?
-          case Some(routeInfo) =>
-            routeInfo.analysis.map.paths.find(_.pathId == legEndRoute.pathId) match {
-              case Some(trackPath) =>
-                Seq(
-                  trackPath.startNodeId,
-                  trackPath.endNodeId
-                )
-              case None =>
-                log.error(s"via-route ${legEndRoute.routeId} path ${legEndRoute.pathId} not found")
-                Seq()
-            }
-        }
-      })
-  }
-
   @scala.annotation.tailrec
   private def combineIdenticalPathSegments(segments: Seq[GraphPathSegment], result: Seq[GraphPathSegment]): Seq[GraphPathSegment] = {
     if (segments.isEmpty) {
@@ -124,10 +103,21 @@ class LegBuilderImpl(
       val routeId = graphPathSegment.pathKey.routeId
       routeRepository.routeWithId(routeId) match {
         case Some(route) =>
+          val pathId = Math.abs(graphPathSegment.pathKey.pathId)
           val colour = route.tags("colour")
-          route.analysis.map.paths.find(_.pathId == graphPathSegment.pathKey.pathId) match {
-            case Some(trackPath) => trackPathToRouteLegRoute(route, trackPath, colour)
+          route.analysis.map.paths.find(_.pathId == pathId) match {
             case None => None
+            case Some(trackPath) =>
+              trackPathToRouteLegRoute(route, trackPath, colour).map { routeLegRoute =>
+                if (graphPathSegment.pathKey.pathId < 0) {
+                  println("forward=\n" + routeLegRoute)
+                  println("reversed=\n" + routeLegRoute.reverse)
+                  routeLegRoute.reverse
+                }
+                else {
+                  routeLegRoute
+                }
+              }
           }
 
         case None =>
