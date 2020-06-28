@@ -50,7 +50,7 @@ export class PlannerTestSetup {
     const segment = new PlanSegment(0, "", null, List([fragment]));
     const route = new PlanRoute(source, sink, 0, List([segment]), List());
     const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
-    const leg = new PlanLeg(legKey, FeatureId.next(), source, sink, 0, List([route]));
+    const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, 0, List([route]));
     this.legRepository.add(leg);
     this.legs.add(leg);
     return leg;

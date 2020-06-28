@@ -14,7 +14,7 @@ describe("PlannerCommandAddLeg", () => {
 
     const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
-    const leg = new PlanLeg("", "12", node1, node2, 0, List());
+    const leg = new PlanLeg("12", "", node1, node2, 0, List());
 
     const addStartCommand = new PlannerCommandAddStartPoint(node1);
     setup.context.execute(addStartCommand);
@@ -50,9 +50,9 @@ describe("PlannerCommandAddLeg", () => {
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
     const node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
 
-    const leg1 = new PlanLeg("", "12", node1, node2, 0, List());
-    const leg2 = new PlanLeg("", "23", node2, node3, 0, List());
-    const leg3 = new PlanLeg("", "34", node3, node4, 0, List());
+    const leg1 = new PlanLeg("12", "", node1, node2, 0, List());
+    const leg2 = new PlanLeg("23", "", node2, node3, 0, List());
+    const leg3 = new PlanLeg("34", "", node3, node4, 0, List());
 
     const addStartCommand = new PlannerCommandAddStartPoint(node1);
     setup.context.execute(addStartCommand);

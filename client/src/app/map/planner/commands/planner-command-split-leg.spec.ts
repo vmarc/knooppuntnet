@@ -14,9 +14,9 @@ describe("PlannerCommandSplitLeg", () => {
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
 
-    const oldLeg = new PlanLeg("", "12", node1, node2, 0, List());
-    const newLeg1 = new PlanLeg("", "13", node1, node3, 0, List());
-    const newLeg2 = new PlanLeg("", "32", node3, node2, 0, List());
+    const oldLeg = new PlanLeg("12", "", node1, node2, 0, List());
+    const newLeg1 = new PlanLeg("13", "", node1, node3, 0, List());
+    const newLeg2 = new PlanLeg("32", "", node3, node2, 0, List());
 
     const setup = new PlannerTestSetup();
 

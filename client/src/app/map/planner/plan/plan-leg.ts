@@ -6,8 +6,8 @@ import {PlanRoute} from "./plan-route";
 
 export class PlanLeg {
 
-  constructor(readonly key: string,
-              readonly featureId: string,
+  constructor(readonly featureId: string,
+              readonly key: string,
               readonly source: PlanNode,
               readonly sink: PlanNode,
               readonly meters: number,

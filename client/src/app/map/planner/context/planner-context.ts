@@ -114,7 +114,7 @@ export class PlannerContext {
     const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
     const cachedLeg = this.legs.get(source.nodeId, sink.nodeId);
     if (cachedLeg) {
-      const planLeg = new PlanLeg(legKey, legId, source, sink, cachedLeg.meters, cachedLeg.routes);
+      const planLeg = new PlanLeg(legId, legKey, source, sink, cachedLeg.meters, cachedLeg.routes);
       this.legs.add(planLeg);
       return planLeg;
     }
@@ -130,7 +130,7 @@ export class PlannerContext {
       }
     });
 
-    const leg = new PlanLeg(legKey, legId, source, sink, 0, List());
+    const leg = new PlanLeg(legId, legKey, source, sink, 0, List());
     this.legs.add(leg);
     return leg;
   }
