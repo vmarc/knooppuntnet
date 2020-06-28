@@ -24,19 +24,30 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
     graph.add(GraphEdge(1, 3, 1, leg13))
     graph.add(GraphEdge(3, 4, 1, leg34))
 
-    val expected = GraphPath(1, Seq(GraphPathSegment(3, leg13), GraphPathSegment(4, leg34)))
-    graph.findPath(1, 4) should equal(Some(expected))
+    graph.findPath("1", "4") should equal(
+      Some(
+        GraphPath(
+          source = "1",
+          segments = Seq(
+            GraphPathSegment("13+1", leg13),
+            GraphPathSegment("3", leg13),
+            GraphPathSegment("34+1", leg34),
+            GraphPathSegment("4", leg34)
+          )
+        )
+      )
+    )
   }
 
   test("source node not in graph") {
     val graph = new NodeNetworkGraphImpl()
-    graph.findPath(1, 4) should equal(None)
+    graph.findPath("1", "4") should equal(None)
   }
 
   test("sink node not in graph") {
     val graph = new NodeNetworkGraphImpl()
     graph.add(GraphEdge(1, 2, 1, TrackPathKey(12, 1)))
-    graph.findPath(1, 4) should equal(None)
+    graph.findPath("1", "4") should equal(None)
   }
 
 }

@@ -1,5 +1,7 @@
 package kpn.core.util
 
+import java.lang.management.ManagementFactory
+
 import scala.annotation.tailrec
 
 object Util {
@@ -28,6 +30,12 @@ object Util {
     } else {
       bytes.toString
     }
+  }
+
+  def memoryUsed(): Long = {
+    System.gc()
+    val mbean = ManagementFactory.getMemoryMXBean
+    mbean.getHeapMemoryUsage.getUsed
   }
 
   def withoutSuccessiveDuplicates[A](objects: Seq[A]): Seq[A] = {

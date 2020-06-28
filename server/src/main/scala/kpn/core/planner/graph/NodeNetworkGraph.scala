@@ -4,6 +4,6 @@ trait NodeNetworkGraph {
 
   def add(edge: GraphEdge): Unit
 
-  def findPath(sourceNodeId: Long, sinkNodeId: Long): Option[GraphPath]
+  def findPath(source: String, sink: String): Option[GraphPath]
 
 }

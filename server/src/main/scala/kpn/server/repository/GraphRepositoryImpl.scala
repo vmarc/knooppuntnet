@@ -8,6 +8,7 @@ import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.Log
+import kpn.core.util.Util
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
@@ -45,12 +46,19 @@ class GraphRepositoryImpl(
   }
 
   private def buildGraph(networkType: NetworkType): NodeNetworkGraph = {
+
+    val memoryBefore = Util.memoryUsed()
+
     val graph = new NodeNetworkGraphImpl()
     val edges = log.elapsed {
       val result = readEdges(networkType)
       (s"Loaded ${networkType.name} ${result.size} edges", result)
     }
     edges.foreach(graph.add)
+
+    val memoryAfter = Util.memoryUsed()
+    log.info(s"Loaded ${networkType.name} memory: ${Util.humanReadableBytes(memoryAfter - memoryBefore)}")
+
     graph
   }
 

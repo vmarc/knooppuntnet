@@ -211,10 +211,10 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   private def graphPath1(): GraphPath = {
     GraphPath(
-      node1.id,
+      node1.id.toString,
       Seq(
         GraphPathSegment(
-          sinkNodeId = node2.id,
+          sink = node2.id.toString,
           pathKey = TrackPathKey(legEndRoute1.routeId, legEndRoute1.pathId)
         )
       )

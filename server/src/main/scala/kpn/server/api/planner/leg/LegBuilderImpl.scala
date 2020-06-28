@@ -54,7 +54,7 @@ class LegBuilderImpl(
       routeRepository.routeWithId(routeId) match {
         case Some(routeInfo) => Some(routeInfo.id -> routeInfo)
         case None =>
-          log.error(s"via-route ${routeId} not found")
+          log.error(s"via-route $routeId not found")
           None
       }
     }.toMap
@@ -68,7 +68,7 @@ class LegBuilderImpl(
       val sinkNodeIds = legEndNodes(routeInfos, params.sink).filterNot(sourceNodeIds.contains)
       val alternatives = for (x <- sourceNodeIds; y <- sinkNodeIds) yield Alternative(x, y)
       val routeLegAlternatives: Seq[RouteLeg] = alternatives.flatMap { alternative =>
-        graph.findPath(alternative.sourceNodeId, alternative.sinkNodeId) match {
+        graph.findPath(alternative.sourceNodeId.toString, alternative.sinkNodeId.toString) match {
           case Some(graphPath) => Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
           case None => None
         }

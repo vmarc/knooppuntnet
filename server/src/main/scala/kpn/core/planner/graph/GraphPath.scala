@@ -1,3 +1,12 @@
 package kpn.core.planner.graph
 
-case class GraphPath(sourceNodeId: Long, segments: Seq[GraphPathSegment])
+import kpn.api.common.common.ToStringBuilder
+
+case class GraphPath(source: String, segments: Seq[GraphPathSegment]) {
+
+  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("source", source).
+    field("segments", segments).
+    build
+
+}
