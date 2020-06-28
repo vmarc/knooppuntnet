@@ -7,10 +7,14 @@ case class ToStringBuilder(className: String, strings: Seq[String] = Seq.empty) 
       case string: String => s""""$string""""
       case _ => value
     }
-    val fieldString = s"$name = $valueString"
-    val splittedString = fieldString.split("\n").toSeq
-    val indentedStrings = splittedString.mkString("  ", "\n  ", "")
-    copy(strings = strings :+ indentedStrings)
+    value match {
+      case coll: Seq[Any] => collection(name, coll)
+      case _ =>
+        val fieldString = s"$name = $valueString"
+        val splittedString = fieldString.split("\n").toSeq
+        val indentedStrings = splittedString.mkString("  ", "\n  ", "")
+        copy(strings = strings :+ indentedStrings)
+    }
   }
 
   def fieldValue(name: String, value: Any): ToStringBuilder = {
@@ -22,13 +26,22 @@ case class ToStringBuilder(className: String, strings: Seq[String] = Seq.empty) 
 
   def optionalCollection(name: String, coll: Seq[Any]): ToStringBuilder = {
     if (coll.nonEmpty) {
+      collection(name, coll)
+    }
+    else {
+      this
+    }
+  }
+
+  private def collection(name: String, coll: Seq[Any]): ToStringBuilder = {
+    if (coll.isEmpty) {
+      fieldValue(name, s"Seq()")
+    }
+    else {
       val elementString = coll.map(_.toString).mkString(",\n")
       val splittedStrings = elementString.split("\n").toSeq
       val indentedStrings = splittedStrings.mkString("  ", "\n  ", "")
       fieldValue(name, s"Seq(\n$indentedStrings\n)")
-    }
-    else {
-      this
     }
   }
 

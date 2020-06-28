@@ -13,6 +13,7 @@ import kpn.api.common.planner.RouteLegSegment
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.core.planner.graph.GraphPath
+import kpn.core.planner.graph.GraphPathSegment
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.util.Log
 import kpn.server.repository.GraphRepository
@@ -64,23 +65,13 @@ class LegBuilderImpl(
       None
     }
     else {
-      val sourceNodeIds = legEndNodes(routeInfos, params.source)
-      val sinkNodeIds = legEndNodes(routeInfos, params.sink).filterNot(sourceNodeIds.contains)
-      val alternatives = for (x <- sourceNodeIds; y <- sinkNodeIds) yield Alternative(x, y)
-      val routeLegAlternatives: Seq[RouteLeg] = alternatives.flatMap { alternative =>
-        graph.findPath(alternative.sourceNodeId.toString, alternative.sinkNodeId.toString) match {
-          case Some(graphPath) => Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
-          case None => None
-        }
-      }
-
-      if (routeLegAlternatives.nonEmpty) {
-        val allNodeIds = (sourceNodeIds ++ sinkNodeIds).toSet
-        val alts = routeLegAlternatives.filter(leg => (allNodeIds -- leg.allNodeIds).isEmpty)
-        Some(alts.minBy(routeLeg => routeLeg.meters))
-      }
-      else {
-        None
+      val source = params.source.vertex
+      val sink = params.sink.vertex
+      graph.findPath(source, sink) match {
+        case Some(graphPath) =>
+          println(graphPath)
+          Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
+        case None => None
       }
     }
   }
@@ -105,8 +96,31 @@ class LegBuilderImpl(
       })
   }
 
+  @scala.annotation.tailrec
+  private def combineIdenticalPathSegments(segments: Seq[GraphPathSegment], result: Seq[GraphPathSegment]): Seq[GraphPathSegment] = {
+    if (segments.isEmpty) {
+      result
+    }
+    else if (segments.size == 1) {
+      result :+ segments.head
+    }
+    else {
+      val head = segments.head
+      val next = segments.tail.head
+      if (head.pathKey == next.pathKey) {
+        combineIdenticalPathSegments(segments.tail.tail, result :+ GraphPathSegment(next.sink, next.pathKey))
+      }
+      else {
+        combineIdenticalPathSegments(segments.tail, result :+ head)
+      }
+    }
+  }
+
   private def graphPathToRouteLegRoutes(graphPath: GraphPath): Seq[RouteLegRoute] = {
-    graphPath.segments.flatMap { graphPathSegment =>
+
+    val segments = combineIdenticalPathSegments(graphPath.segments, Seq())
+
+    segments.flatMap { graphPathSegment =>
       val routeId = graphPathSegment.pathKey.routeId
       routeRepository.routeWithId(routeId) match {
         case Some(route) =>

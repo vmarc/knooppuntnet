@@ -16,5 +16,4 @@ case class RouteLeg(
     field("routes", routes).
     build
 
-
 }
