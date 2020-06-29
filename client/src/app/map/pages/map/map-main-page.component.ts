@@ -1,14 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
-import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
 import View from "ol/View";
 import {Observable} from "rxjs";
 import {combineLatest} from "rxjs";
-import {delay, map} from "rxjs/operators";
+import {delay} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {NoRouteDialogComponent} from "../../../components/ol/components/no-route-dialog.component";
 import {MapGeocoder} from "../../../components/ol/domain/map-geocoder";
@@ -22,21 +21,12 @@ import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
-import {LegBuildParams} from "../../../kpn/api/common/planner/leg-build-params";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
-import {FeatureId} from "../../planner/features/feature-id";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {Plan} from "../../planner/plan/plan";
-import {PlanLeg} from "../../planner/plan/plan-leg";
-import {PlanLegBuilder} from "../../planner/plan/plan-leg-builder";
-import {PlanLegNodeIds} from "../../planner/plan/plan-leg-node-ids";
-import {PlanRoute} from "../../planner/plan/plan-route";
-import {PlanUtil} from "../../planner/plan/plan-util";
+import {PlanLoader} from "../../planner/plan/plan-loader";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
 @Component({
@@ -107,60 +97,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       combineLatest([this.plannerService.context.networkType$, this.activatedRoute.fragment])
         .subscribe(([networkType, fragment]) => {
           if (fragment) {
-            // TODO PLAN extract to separate class
-            const nodeIds = PlanUtil.toNodeIds(fragment); // TODO PLAN take via-routes into account
-            let legNodeIdss: List<PlanLegNodeIds> = List();
-            for (let i = 0; i < nodeIds.size - 1; i++) {
-              legNodeIdss = legNodeIdss.push(new PlanLegNodeIds(nodeIds.get(i), nodeIds.get(i + 1)));
-            }
-
-            const legObservables = legNodeIdss.map(legNodeIds => {
-              const params = new LegBuildParams(
-                networkType.name,
-                FeatureId.next(),
-                new LegEnd(new LegEndNode(+legNodeIds.sourceNodeId), null),
-                new LegEnd(new LegEndNode(+legNodeIds.sinkNodeId), null)
-              );
-              return this.appService.routeLeg(params).pipe(
-                map(response => PlanLegBuilder.toPlanLeg2(response.result))
-              );
-            }).toArray();
-
-            const legsObservable = combineLatest(legObservables);
-            legsObservable.subscribe(legs => {
-              for (let i = 1; i < legs.length; i++) {
-                let newRoutes: List<PlanRoute> = List();
-                for (let j = 0; j < legs[i].routes.size; j++) {
-                  const oldRoute = legs[i].routes.get(j);
-                  const newSource = j === 0 ? legs[i - 1].sinkNode : oldRoute.sourceNode;
-                  newRoutes = newRoutes.push(
-                    new PlanRoute(
-                      newSource,
-                      oldRoute.sinkNode,
-                      oldRoute.meters,
-                      oldRoute.segments,
-                      oldRoute.streets
-                    )
-                  );
-                }
-
-                const source = PlanUtil.legEndNode(+legs[i - 1].sinkNode.nodeId);
-                const sink = PlanUtil.legEndNode(+legs[i].sinkNode.nodeId);
-                const legKey = PlanUtil.key(source, sink);
-
-                legs[i] = new PlanLeg( // TODO should add to new collection instead of mutating existing array!
-                  legs[i].featureId,
-                  legKey,
-                  source,
-                  sink,
-                  legs[i - 1].sinkNode,
-                  legs[i].sinkNode,
-                  legs[i].meters,
-                  newRoutes
-                );
-              }
-              legs.forEach(leg => this.plannerService.context.legs.add(leg));
-              const plan = Plan.create(legs[0].sourceNode, List(legs));
+            new PlanLoader(this.appService).load(networkType, fragment).subscribe(plan => {
+              plan.legs.forEach(leg => this.plannerService.context.legs.add(leg));
               this.plannerService.context.routeLayer.addPlan(plan);
               this.plannerService.context.updatePlan(plan);
               this.zoomInToRoute();
