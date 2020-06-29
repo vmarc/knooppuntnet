@@ -4,6 +4,7 @@ import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveEndPoint} from "./planner-command-move-end-point";
 
 describe("PlannerCommandMoveEndPoint", () => {
@@ -16,8 +17,12 @@ describe("PlannerCommandMoveEndPoint", () => {
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
 
-    const oldLeg = new PlanLeg("12", "", node1, node2, 0, List());
-    const newLeg = new PlanLeg("13", "", node1, node3, 0, List());
+    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
+    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
+    const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
+
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
+    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, node1, node3, 0, List());
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
@@ -33,11 +38,11 @@ describe("PlannerCommandMoveEndPoint", () => {
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1001");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
 
     command.undo(setup.context);
 
@@ -46,11 +51,11 @@ describe("PlannerCommandMoveEndPoint", () => {
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1001");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
   });
 
 });

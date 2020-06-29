@@ -16,14 +16,14 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
-    context.routeLayer.addFlag(PlanFlag.fromViaNode(newLeg1.sink));
+    context.routeLayer.addFlag(PlanFlag.fromViaNode(newLeg1.sinkNode));
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === oldLeg.featureId);
     if (legIndex > -1) {
       context.routeLayer.removeRouteLeg(oldLeg.featureId);
       context.routeLayer.addRouteLeg(newLeg1);
       context.routeLayer.addRouteLeg(newLeg2);
       const newLegs = context.plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
-      const newPlan = Plan.create(context.plan.source, newLegs);
+      const newPlan = Plan.create(context.plan.sourceNode, newLegs);
       context.updatePlan(newPlan);
     }
   }
@@ -34,14 +34,14 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
-    context.routeLayer.removeFlag(newLeg1.sink.featureId); // remove connection node
+    context.routeLayer.removeFlag(newLeg1.sinkNode.featureId); // remove connection node
     context.routeLayer.removeRouteLeg(newLeg1.featureId);
     context.routeLayer.removeRouteLeg(newLeg2.featureId);
     context.routeLayer.addRouteLeg(oldLeg);
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg1.featureId);
     if (legIndex > -1) {
       const newLegs = context.plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, oldLeg);
-      const newPlan = Plan.create(context.plan.source, newLegs);
+      const newPlan = Plan.create(context.plan.sourceNode, newLegs);
       context.updatePlan(newPlan);
     }
   }

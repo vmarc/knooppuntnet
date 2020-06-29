@@ -4,6 +4,7 @@ import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveFirstLegSource} from "./planner-command-move-first-leg-source";
 
 describe("PlannerCommandMoveFirstLegSource", () => {
@@ -16,8 +17,12 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
 
-    const oldLeg = new PlanLeg("12", "", node1, node2, 0, List());
-    const newLeg = new PlanLeg("32", "", node3, node2, 0, List());
+    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
+    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
+    const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
+
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
+    const newLeg = new PlanLeg("32", "", legEnd3, legEnd2, node3, node2, 0, List());
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
@@ -28,14 +33,14 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     const command = new PlannerCommandMoveFirstLegSource("12", "32");
     setup.context.execute(command);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1003");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("32");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1003");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.source.featureId, [3, 3]);
+    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.sourceNode.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("32", newLeg);
 
@@ -46,11 +51,11 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1001");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
 
   });
 

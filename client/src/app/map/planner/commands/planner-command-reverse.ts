@@ -10,8 +10,8 @@ export class PlannerCommandReverse implements PlannerCommand {
 
   public do(context: PlannerContext) {
     this.oldPlan = context.plan;
-    const newLegs = this.oldPlan.legs.reverse().map(leg => context.buildLeg(FeatureId.next(), leg.sink, leg.source));
-    this.newPlan = Plan.create(newLegs.get(0).source, newLegs);
+    const newLegs = this.oldPlan.legs.reverse().map(leg => context.oldBuildLeg(FeatureId.next(), leg.sinkNode, leg.sourceNode));
+    this.newPlan = Plan.create(newLegs.get(0).sourceNode, newLegs);
     context.routeLayer.removePlan(this.oldPlan);
     context.routeLayer.addPlan(this.newPlan);
     context.updatePlan(this.newPlan);

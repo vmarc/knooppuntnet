@@ -83,7 +83,7 @@ export class PlanTipComponent implements OnInit {
 
   private determinePlanPhase(zoomLevel: number, plan: Plan): PlanPhase {
     let planPhase: PlanPhase;
-    if (plan.source === null) {
+    if (plan.sourceNode === null) {
       if (zoomLevel < ZoomLevel.vectorTileMinZoom) {
         planPhase = PlanPhase.zoomInClickStartNode;
       } else {

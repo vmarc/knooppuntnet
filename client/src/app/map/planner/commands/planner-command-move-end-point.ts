@@ -20,12 +20,12 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
   private update(context: PlannerContext, fromLegId: string, toLegId: string) {
     const fromLeg = context.legs.getById(fromLegId);
     const toLeg = context.legs.getById(toLegId);
-    context.routeLayer.removeFlag(fromLeg.sink.featureId);
-    context.routeLayer.addFlag(PlanFlag.fromEndNode(toLeg.sink));
+    context.routeLayer.removeFlag(fromLeg.sinkNode.featureId);
+    context.routeLayer.addFlag(PlanFlag.fromEndNode(toLeg.sinkNode));
     context.routeLayer.removeRouteLeg(fromLeg.featureId);
     context.routeLayer.addRouteLeg(toLeg);
     const newLegs = context.plan.legs.update(context.plan.legs.size - 1, () => toLeg);
-    const newPlan = Plan.create(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 

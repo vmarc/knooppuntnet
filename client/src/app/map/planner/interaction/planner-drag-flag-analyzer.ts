@@ -12,8 +12,8 @@ export class PlannerDragFlagAnalyzer {
   dragStarted(flag: FlagFeature): PlannerDragFlag {
 
     if (flag.flagType === PlanFlagType.Start) {
-      const anchor = this.plan.source.coordinate;
-      return new PlannerDragFlag(PlanFlagType.Start, null, anchor, anchor, this.plan.source);
+      const anchor = this.plan.sourceNode.coordinate;
+      return new PlannerDragFlag(PlanFlagType.Start, null, anchor, anchor, this.plan.sourceNode);
     }
 
     const legs = this.plan.legs;
@@ -22,21 +22,21 @@ export class PlannerDragFlagAnalyzer {
     }
 
     const lastLeg: PlanLeg = legs.last();
-    if (lastLeg.sink.featureId === flag.id) {
-      const anchor = lastLeg.sink.coordinate;
-      return new PlannerDragFlag(PlanFlagType.Via, lastLeg.featureId, anchor, anchor, lastLeg.sink);
+    if (lastLeg.sinkNode.featureId === flag.id) {
+      const anchor = lastLeg.sinkNode.coordinate;
+      return new PlannerDragFlag(PlanFlagType.Via, lastLeg.featureId, anchor, anchor, lastLeg.sinkNode);
     }
 
-    const legIndex = legs.findIndex(leg => leg.source.featureId === flag.id);
+    const legIndex = legs.findIndex(leg => leg.sourceNode.featureId === flag.id);
     if (legIndex > 0) {
       const previousLeg = legs.get(legIndex - 1);
       const nextLeg = legs.get(legIndex);
       return new PlannerDragFlag(
         PlanFlagType.Via,
         nextLeg.featureId,
-        previousLeg.source.coordinate,
-        nextLeg.sink.coordinate,
-        nextLeg.source
+        previousLeg.sourceNode.coordinate,
+        nextLeg.sinkNode.coordinate,
+        nextLeg.sourceNode
       );
     }
 

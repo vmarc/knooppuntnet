@@ -150,8 +150,8 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   private defaultName(): string {
-    const source = this.plannerService.context.plan.source.nodeName;
-    const sink = this.plannerService.context.plan.sink.nodeName;
+    const source = this.plannerService.context.plan.sourceNode.nodeName;
+    const sink = this.plannerService.context.plan.sinkNode.nodeName;
     return Util.today() + " route " + source + " " + sink;
   }
 }

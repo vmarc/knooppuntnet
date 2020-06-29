@@ -17,26 +17,26 @@ export abstract class PlannerRouteLayerBase implements PlannerRouteLayer {
   abstract removeRouteLeg(legId: string): void;
 
   removePlan(plan: Plan): void {
-    if (plan.source) {
-      this.removeFlag(plan.source.featureId);
+    if (plan.sourceNode) {
+      this.removeFlag(plan.sourceNode.featureId);
     }
     plan.legs.forEach(leg => {
       this.removeRouteLeg(leg.featureId);
-      this.removeFlag(leg.sink.featureId);
+      this.removeFlag(leg.sinkNode.featureId);
     });
   }
 
   addPlan(plan: Plan): void {
-    if (plan.source) {
-      this.addFlag(PlanFlag.fromStartNode(plan.source));
+    if (plan.sourceNode) {
+      this.addFlag(PlanFlag.fromStartNode(plan.sourceNode));
     }
     for (let i = 0; i < plan.legs.size; i++) {
       const leg = plan.legs.get(i);
       this.addRouteLeg(leg);
       if (i < plan.legs.size - 1) {
-        this.addFlag(PlanFlag.fromViaNode(leg.sink));
+        this.addFlag(PlanFlag.fromViaNode(leg.sinkNode));
       } else {
-        this.addFlag(PlanFlag.fromEndNode(leg.sink));
+        this.addFlag(PlanFlag.fromEndNode(leg.sinkNode));
       }
     }
   }

@@ -6,19 +6,19 @@ import {PlanSegment} from "./plan-segment";
 
 export class PlanRoute {
 
-  constructor(readonly source: PlanNode,
-              readonly sink: PlanNode,
+  constructor(readonly sourceNode: PlanNode,
+              readonly sinkNode: PlanNode,
               readonly meters: number,
               readonly segments: List<PlanSegment>,
               readonly streets: List<string>) {
   }
 
   latLons(): List<LatLonImpl> {
-    return List([this.source.latLon]).concat(this.segments.flatMap(segment => segment.fragments.map(fragment => fragment.latLon)));
+    return List([this.sourceNode.latLon]).concat(this.segments.flatMap(segment => segment.fragments.map(fragment => fragment.latLon)));
   }
 
   coordinates(): List<Coordinate> {
-    return List([this.source.coordinate]).concat(this.segments.flatMap(segment => segment.fragments.map(fragment => fragment.coordinate)));
+    return List([this.sourceNode.coordinate]).concat(this.segments.flatMap(segment => segment.fragments.map(fragment => fragment.coordinate)));
   }
 
 }

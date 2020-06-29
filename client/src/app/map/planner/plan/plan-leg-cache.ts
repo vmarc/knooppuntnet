@@ -9,10 +9,8 @@ export class PlanLegCache {
     this.legs = this.legs.set(leg.featureId, leg);
   }
 
-  get(sourceNodeId: string, sinkNodeId: string): PlanLeg {
-    return this.legs.find(leg => {
-      return leg.source.nodeId === sourceNodeId && leg.sink.nodeId === sinkNodeId; // && this.legViaRoute(leg, viaRoute);
-    });
+  get(legKey: string): PlanLeg {
+    return this.legs.find(leg => leg.key === legKey);
   }
 
   getById(legId: string): PlanLeg {

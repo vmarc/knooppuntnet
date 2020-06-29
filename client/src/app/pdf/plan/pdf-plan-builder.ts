@@ -19,12 +19,12 @@ export class PdfPlanBuilder {
 
     const nodes = Range(0, allRoutes.size + 1).map(nodeIndex => {
       if (nodeIndex === 0) {
-        return new PdfPlanNode(plan.source.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), "START");
+        return new PdfPlanNode(plan.sourceNode.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), "START");
       }
       const routeIndex = nodeIndex - 1;
 
       const route = allRoutes.get(routeIndex);
-      const nodeName = route.sink.nodeName;
+      const nodeName = route.sinkNode.nodeName;
       const cumulativeDistance = PdfPlanBuilder.distanceToString(cumulativeDistances.get(routeIndex));
       let distance = "END";
       if (routeIndex < allRoutes.size - 1) {

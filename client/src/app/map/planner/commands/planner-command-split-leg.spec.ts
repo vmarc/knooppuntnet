@@ -4,6 +4,7 @@ import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
 
 describe("PlannerCommandSplitLeg", () => {
@@ -14,9 +15,13 @@ describe("PlannerCommandSplitLeg", () => {
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
 
-    const oldLeg = new PlanLeg("12", "", node1, node2, 0, List());
-    const newLeg1 = new PlanLeg("13", "", node1, node3, 0, List());
-    const newLeg2 = new PlanLeg("32", "", node3, node2, 0, List());
+    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
+    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
+    const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
+
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
+    const newLeg1 = new PlanLeg("13", "", legEnd1, legEnd3, node1, node3, 0, List());
+    const newLeg2 = new PlanLeg("32", "", legEnd3, legEnd2, node3, node2, 0, List());
 
     const setup = new PlannerTestSetup();
 
@@ -41,13 +46,13 @@ describe("PlannerCommandSplitLeg", () => {
     setup.routeLayer.expectRouteLegExists("13", newLeg1);
     setup.routeLayer.expectRouteLegExists("32", newLeg2);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1001");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("32");
-    expect(setup.context.plan.legs.get(1).source.nodeId).toEqual("1003");
-    expect(setup.context.plan.legs.get(1).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1002");
 
   });
 

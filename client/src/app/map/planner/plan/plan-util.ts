@@ -8,17 +8,17 @@ export class PlanUtil {
 
   static toUrlString(plan: Plan): string {
 
-    let nodeIds: List<string> = List();
+    let legEnds: List<LegEnd> = List();
 
-    if (plan.source !== null) {
-      nodeIds = nodeIds.push(plan.source.nodeId);
+    if (plan.sourceNode !== null) {
+      legEnds = legEnds.push(PlanUtil.legEndNode(+plan.sourceNode.nodeId));
     }
 
     plan.legs.forEach(leg => {
-      nodeIds = nodeIds.push(leg.sink.nodeId);
+      legEnds = legEnds.push(leg.sink);
     });
 
-    return nodeIds.map(nodeId => (+nodeId).toString(36)).join("-");
+    return legEnds.map(legEnd => PlanUtil.encodedLegEndKey(legEnd)).join("-");
   }
 
   static toNodeIds(planUrlString: string): List<string> {
@@ -52,7 +52,17 @@ export class PlanUtil {
       return legEnd.node.nodeId.toString();
     }
     if (legEnd.route !== null) {
-      return legEnd.route.routeId.toString() + "-" + legEnd.route.pathId.toString();
+      return legEnd.route.routeId.toString() + "." + legEnd.route.pathId.toString();
+    }
+    return "";
+  }
+
+  static encodedLegEndKey(legEnd: LegEnd): string {
+    if (legEnd.node !== null) {
+      return legEnd.node.nodeId.toString(36);
+    }
+    if (legEnd.route !== null) {
+      return legEnd.route.routeId.toString(36) + "." + legEnd.route.pathId.toString(36);
     }
     return "";
   }

@@ -26,8 +26,8 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     const toLeg1 = context.legs.getById(toLegId1);
     const toLeg2 = context.legs.getById(toLegId2);
 
-    context.routeLayer.removeFlag(fromLeg1.sink.featureId);
-    context.routeLayer.addFlag(PlanFlag.fromViaNode(toLeg1.sink));
+    context.routeLayer.removeFlag(fromLeg1.sinkNode.featureId);
+    context.routeLayer.addFlag(PlanFlag.fromViaNode(toLeg1.sinkNode));
     context.routeLayer.removeRouteLeg(fromLeg1.featureId);
     context.routeLayer.removeRouteLeg(fromLeg2.featureId);
     context.routeLayer.addRouteLeg(toLeg1);
@@ -43,7 +43,7 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
       return leg;
     });
 
-    const newPlan = Plan.create(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 

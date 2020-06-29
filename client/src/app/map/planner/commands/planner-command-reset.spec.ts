@@ -3,6 +3,7 @@ import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
 import {PlannerCommandReset} from "./planner-command-reset";
@@ -16,8 +17,13 @@ describe("PlannerCommandReset", () => {
     const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
     const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
     const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
-    const leg1 = new PlanLeg("12", "", node1, node2, 0, List());
-    const leg2 = new PlanLeg("23", "", node2, node3, 0, List());
+
+    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
+    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
+    const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
+
+    const leg1 = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
+    const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, node2, node3, 0, List());
 
     setup.legs.add(leg1);
     setup.legs.add(leg2);
@@ -35,16 +41,16 @@ describe("PlannerCommandReset", () => {
 
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).source.nodeId).toEqual("1002");
-    expect(setup.context.plan.legs.get(1).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1003");
 
     const resetCommand = new PlannerCommandReset();
     setup.context.execute(resetCommand);
 
-    expect(setup.context.plan.source).toEqual(null);
+    expect(setup.context.plan.sourceNode).toEqual(null);
     expect(setup.context.plan.legs.size).toEqual(0);
 
     resetCommand.undo(setup.context);
@@ -58,11 +64,11 @@ describe("PlannerCommandReset", () => {
 
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).source.nodeId).toEqual("1002");
-    expect(setup.context.plan.legs.get(1).sink.nodeId).toEqual("1003");
+    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1003");
   });
 
 });

@@ -8,9 +8,9 @@ import {PlanRoute} from "../planner/plan/plan-route";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <div *ngIf="plan.source !== null" class="node user-selected">
+    <div *ngIf="plan.sourceNode !== null" class="node user-selected">
       <div class="text">
-        {{plan.source.nodeName}}
+        {{plan.sourceNode.nodeName}}
       </div>
     </div>
 
@@ -21,7 +21,7 @@ import {PlanRoute} from "../planner/plan/plan-route";
         </div>
         <div class="node">
           <div class="text">
-            {{leg.sink.nodeName}}
+            {{leg.sinkNode.nodeName}}
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@ import {PlanRoute} from "../planner/plan/plan-route";
         </div>
         <div class="node" [class.server-selected]="i < leg.routes.size - 1">
           <div class="text">
-            {{legRoute.sink.nodeName}}
+            {{legRoute.sinkNode.nodeName}}
           </div>
         </div>
       </div>

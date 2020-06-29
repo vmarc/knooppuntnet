@@ -133,7 +133,7 @@ export class PlanActionsComponent implements OnInit {
   }
 
   hasStartNode(plan: Plan): boolean {
-    return plan.source !== null;
+    return plan.sourceNode !== null;
   }
 
   hasRoute(plan: Plan): boolean {

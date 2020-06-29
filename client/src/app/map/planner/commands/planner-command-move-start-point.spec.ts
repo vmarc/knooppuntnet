@@ -23,17 +23,17 @@ describe("PlannerCommandMoveStartPoint", () => {
     const command = new PlannerCommandMoveStartPoint(node1, node2);
     setup.context.execute(command);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1002");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1002");
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.source.featureId, [2, 2]);
+    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.sourceNode.featureId, [2, 2]);
 
     command.undo(setup.context);
 
-    expect(setup.context.plan.source.nodeId).toEqual("1001");
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.source.featureId, [1, 1]);
+    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.sourceNode.featureId, [1, 1]);
 
   });
 

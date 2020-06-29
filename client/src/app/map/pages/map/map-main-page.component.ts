@@ -107,7 +107,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       combineLatest([this.plannerService.context.networkType$, this.activatedRoute.fragment])
         .subscribe(([networkType, fragment]) => {
           if (fragment) {
-            const nodeIds = PlanUtil.toNodeIds(fragment);
+            // TODO PLAN extract to separate class
+            const nodeIds = PlanUtil.toNodeIds(fragment); // TODO PLAN take via-routes into account
             let legNodeIdss: List<PlanLegNodeIds> = List();
             for (let i = 0; i < nodeIds.size - 1; i++) {
               legNodeIdss = legNodeIdss.push(new PlanLegNodeIds(nodeIds.get(i), nodeIds.get(i + 1)));
@@ -131,11 +132,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
                 let newRoutes: List<PlanRoute> = List();
                 for (let j = 0; j < legs[i].routes.size; j++) {
                   const oldRoute = legs[i].routes.get(j);
-                  const newSource = j === 0 ? legs[i - 1].sink : oldRoute.source;
+                  const newSource = j === 0 ? legs[i - 1].sinkNode : oldRoute.sourceNode;
                   newRoutes = newRoutes.push(
                     new PlanRoute(
                       newSource,
-                      oldRoute.sink,
+                      oldRoute.sinkNode,
                       oldRoute.meters,
                       oldRoute.segments,
                       oldRoute.streets
@@ -143,18 +144,23 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
                   );
                 }
 
-                const legKey = PlanUtil.key(PlanUtil.legEndNode(+legs[i - 1].sink.nodeId), PlanUtil.legEndNode(+legs[i].sink.nodeId));
+                const source = PlanUtil.legEndNode(+legs[i - 1].sinkNode.nodeId);
+                const sink = PlanUtil.legEndNode(+legs[i].sinkNode.nodeId);
+                const legKey = PlanUtil.key(source, sink);
 
                 legs[i] = new PlanLeg( // TODO should add to new collection instead of mutating existing array!
                   legs[i].featureId,
-                  legKey, legs[i - 1].sink,
-                  legs[i].sink,
+                  legKey,
+                  source,
+                  sink,
+                  legs[i - 1].sinkNode,
+                  legs[i].sinkNode,
                   legs[i].meters,
                   newRoutes
                 );
               }
               legs.forEach(leg => this.plannerService.context.legs.add(leg));
-              const plan = Plan.create(legs[0].source, List(legs));
+              const plan = Plan.create(legs[0].sourceNode, List(legs));
               this.plannerService.context.routeLayer.addPlan(plan);
               this.plannerService.context.updatePlan(plan);
               this.zoomInToRoute();

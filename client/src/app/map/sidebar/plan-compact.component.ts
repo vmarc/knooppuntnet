@@ -8,8 +8,8 @@ import {PlanRoute} from "../planner/plan/plan-route";
   selector: "kpn-plan-compact",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span *ngIf="plan.source !== null" class="node">
-      {{plan.source.nodeName}}
+    <span *ngIf="plan.sourceNode !== null" class="node">
+      {{plan.sourceNode.nodeName}}
     </span>
     <ng-container *ngFor="let leg of plan.legs">
       <ng-container *ngFor="let legRoute of leg.routes; let i = index">
@@ -17,7 +17,7 @@ import {PlanRoute} from "../planner/plan/plan-route";
           {{colours(legRoute)}}
         </span>
         <span class="node" [class.visited-node]="i < leg.routes.size - 1">
-          {{legRoute.sink.nodeName}}
+          {{legRoute.sinkNode.nodeName}}
         </span>
       </ng-container>
     </ng-container>

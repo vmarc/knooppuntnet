@@ -31,7 +31,7 @@ export class GpxWriter {
   }
 
   private wayPoints(plan: Plan): List<string> {
-    const nodes = List([plan.source]).concat(plan.legs.map(leg => leg.sink));
+    const nodes = List([plan.sourceNode]).concat(plan.legs.map(leg => leg.sinkNode));
     return nodes.flatMap(node => this.wayPoint(node));
   }
 
@@ -56,7 +56,7 @@ export class GpxWriter {
       `  </trk>`
     ]);
 
-    const latLons = List([plan.source.latLon]).concat(plan.legs.flatMap(leg => leg.latLons()));
+    const latLons = List([plan.sourceNode.latLon]).concat(plan.legs.flatMap(leg => leg.latLons()));
     const body = latLons.flatMap(latLon => this.trackPoint(latLon));
 
     return header.concat(body).concat(footer);

@@ -8,16 +8,16 @@ export class Plan {
 
   private static _empty: Plan = new Plan(null, List());
 
-  private constructor(readonly source: PlanNode,
+  private constructor(readonly sourceNode: PlanNode,
                       readonly legs: List<PlanLeg>) {
   }
 
-  get sink(): PlanNode {
+  get sinkNode(): PlanNode {
     const lastLeg = this.legs.last(null);
     if (lastLeg) {
-      return lastLeg.sink;
+      return lastLeg.sinkNode;
     }
-    return this.source;
+    return this.sourceNode;
   }
 
   static empty(): Plan {
@@ -47,10 +47,10 @@ export class Plan {
   }
 
   bounds(): Bounds {
-    if (this.source === null) {
+    if (this.sourceNode === null) {
       return null;
     }
-    const latLons: List<LatLonImpl> = List([this.source.latLon]).concat(this.legs.flatMap(leg => List([leg.source.latLon]).concat(leg.latLons())));
+    const latLons: List<LatLonImpl> = List([this.sourceNode.latLon]).concat(this.legs.flatMap(leg => List([leg.sourceNode.latLon]).concat(leg.latLons())));
     const lats = latLons.map(latLon => +latLon.latitude);
     const lons = latLons.map(latLon => +latLon.longitude);
     const minLat = lats.min();

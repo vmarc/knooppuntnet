@@ -27,8 +27,8 @@ class PrintPlanLeg {
   static from(leg: PlanLeg): PrintPlanLeg {
     return new PrintPlanLeg(
       leg.featureId,
-      PrintPlanNode.from(leg.source),
-      PrintPlanNode.from(leg.sink)
+      PrintPlanNode.from(leg.sourceNode),
+      PrintPlanNode.from(leg.sinkNode)
     );
   }
 }
@@ -41,7 +41,7 @@ export class PrintPlan {
 
   static from(plan: Plan): PrintPlan {
     return new PrintPlan(
-      PrintPlanNode.from(plan.source),
+      PrintPlanNode.from(plan.sourceNode),
       plan.legs.map(leg => PrintPlanLeg.from(leg))
     );
   }

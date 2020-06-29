@@ -22,19 +22,19 @@ export class PlannerInteraction {
   private interaction = new PointerInteraction({
     handleDownEvent: (evt: MapBrowserEvent) => {
       this.downEventTime = new Date().getTime();
-      return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
+      return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
     },
     handleMoveEvent: (evt: MapBrowserEvent) => {
-      return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate);
+      return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
     },
     handleDragEvent: (evt: MapBrowserEvent) => {
-      return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
+      return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
     },
     handleUpEvent: (evt: MapBrowserEvent) => {
       const upEventTime = new Date().getTime();
       const timeSinceUp = upEventTime - this.downEventTime;
       const singleClick = timeSinceUp < 800;
-      return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate, singleClick);
+      return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate, singleClick, platformModifierKeyOnly(evt));
     }
   });
 
@@ -77,7 +77,8 @@ export class PlannerInteraction {
         const routeName = feature.get("name");
         const dashIndex = segmentId.indexOf("-");
         const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
-        return new RouteFeature(+routeId, routeName, feature);
+        const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
+        return new RouteFeature(+routeId, +pathId, routeName, feature);
       }
     }
 
@@ -99,7 +100,8 @@ export class PlannerInteraction {
         const routeName = feature.get("name");
         const dashIndex = segmentId.indexOf("-");
         const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
-        return new RouteFeature(+routeId, routeName, feature);
+        const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
+        return new RouteFeature(+routeId, +pathId, routeName, feature);
       }
     }
 

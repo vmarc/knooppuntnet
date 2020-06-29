@@ -1,6 +1,7 @@
 import {List} from "immutable";
 import {Util} from "../../../components/shared/util";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
+import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {RouteLeg} from "../../../kpn/api/common/planner/route-leg";
 import {RouteLegFragment} from "../../../kpn/api/common/planner/route-leg-fragment";
 import {RouteLegNode} from "../../../kpn/api/common/planner/route-leg-node";
@@ -15,21 +16,26 @@ import {PlanUtil} from "./plan-util";
 
 export class PlanLegBuilder {
 
-  static toPlanLeg(source: PlanNode, sink: PlanNode, routeLeg: RouteLeg): PlanLeg {
+  static toPlanLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode, routeLeg: RouteLeg): PlanLeg {
     const routes = routeLeg.routes.map(routeLegRoute => this.toPlanRoute(routeLegRoute));
     const meters = routes.map(f => f.meters).reduce((sum, current) => sum + current, 0);
-    const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
-    return new PlanLeg(routeLeg.legId, legKey, source, sink, meters, routes);
+    const legKey = PlanUtil.key(source, sink);
+    return new PlanLeg(routeLeg.legId, legKey, source, sink, sourceNode, sinkNode, meters, routes);
   }
 
   static toPlanLeg2(routeLeg: RouteLeg): PlanLeg {
     const routes = routeLeg.routes.map(routeLegRoute => this.toPlanRoute(routeLegRoute));
-    const source = routes.get(0).source;
+    const sourceNode = routes.get(0).sourceNode;
     const lastRoute: PlanRoute = routes.last();
-    const sink = lastRoute.sink;
+    const sinkNode = lastRoute.sinkNode;
     const meters = routes.map(f => f.meters).reduce((sum, current) => sum + current, 0);
-    const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
-    return new PlanLeg(routeLeg.legId, legKey, source, sink, meters, routes);
+
+    // TODO PLAN further work out this temporary code
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink =  PlanUtil.legEndNode(+sinkNode.nodeId);
+
+    const legKey = PlanUtil.key(source, sink);
+    return new PlanLeg(routeLeg.legId, legKey, source, sink, sourceNode, sinkNode, meters, routes);
   }
 
   private static toPlanRoute(route: RouteLegRoute): PlanRoute {

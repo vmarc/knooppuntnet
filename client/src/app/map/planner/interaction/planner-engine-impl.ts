@@ -11,6 +11,8 @@ import {NodeClick} from "../../../components/ol/domain/node-click";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
 import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
+import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
+import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
@@ -28,6 +30,7 @@ import {RouteFeature} from "../features/route-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {Features} from "./features";
 import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
@@ -42,7 +45,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   constructor(private context: PlannerContext) {
   }
 
-  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
     if (features.isEmpty()) {
       this.context.closeOverlay();
@@ -75,10 +78,18 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
-    const route = Features.findRoute(features);
-    if (route != null) {
-      this.context.overlay.routeClicked(new RouteClick(coordinate, route));
-      return true;
+    if (modifierKeyOnly === true) {
+      const route = Features.findRoute(features);
+      if (route != null) {
+        this.context.overlay.routeClicked(new RouteClick(coordinate, route));
+        return true;
+      }
+    } else if (this.context.plan.sourceNode !== null) {
+      const route = Features.findRoute(features);
+      if (route != null) {
+        this.routeSelected(route);
+        return true;
+      }
     }
 
     const poiFeature = Features.findPoi(features);
@@ -90,7 +101,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
     if (features.isEmpty()) {
       this.context.highlightLayer.reset();
@@ -128,11 +139,13 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
-    const route = Features.findRoute(features);
-    if (route != null) {
-      this.context.cursor.setStylePointer();
-      this.highlightRoute(route);
-      return true;
+    if (this.context.plan.sourceNode !== null) { // no clicking routes when start node has not been selected yet
+      const route = Features.findRoute(features);
+      if (route != null) {
+        this.context.cursor.setStylePointer();
+        this.highlightRoute(route);
+        return true;
+      }
     }
 
     this.context.highlightLayer.reset();
@@ -141,7 +154,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
     console.log("handleDrageEvent");
 
@@ -195,7 +208,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean): boolean {
+  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean, modifierKeyOnly: boolean): boolean {
 
     this.context.highlightLayer.reset();
 
@@ -274,11 +287,11 @@ export class PlannerEngineImpl implements PlannerEngine {
   private removeViaPoint(): void {
 
     const legs = this.context.plan.legs;
-    const nextLegIndex = legs.findIndex(leg => leg.source.featureId === this.nodeDrag.oldNode.featureId);
+    const nextLegIndex = legs.findIndex(leg => leg.sourceNode.featureId === this.nodeDrag.oldNode.featureId);
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
-    const newLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, oldLeg2.sink);
+    const newLeg: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLeg1.sourceNode, oldLeg2.sinkNode);
 
     const command = new PlannerCommandRemoveViaPoint(
       oldLeg1.featureId,
@@ -289,22 +302,35 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
-    if (this.context.plan.source === null) {
+    if (this.context.plan.sourceNode === null) {
       const command = new PlannerCommandAddStartPoint(networkNode.node);
       this.context.execute(command);
     } else {
-      const source: PlanNode = this.context.plan.sink;
-      const leg = this.context.buildLeg(FeatureId.next(), source, networkNode.node);
+      const source: PlanNode = this.context.plan.sinkNode;
+      const leg = this.context.oldBuildLeg(FeatureId.next(), source, networkNode.node);
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
     }
   }
 
+  private routeSelected(route: RouteFeature): void {
+
+    // current sink is source for new leg
+    const sourceNode = this.context.plan.sinkNode;
+    const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
+
+    const sink: LegEnd = PlanUtil.legEndRoute(route.routeId, route.pathId);
+    const leg = this.context.buildLeg(FeatureId.next(), source, sink, sourceNode, PlanNode.create("0", "", new LatLonImpl("0", "0")));
+    const command = new PlannerCommandAddLeg(leg.featureId);
+    this.context.execute(command);
+  }
+
+
   private legDragStarted(legId: string, coordinate: Coordinate): boolean {
     const leg = this.context.legs.getById(legId);
     if (leg) {
-      const anchor1 = leg.source.coordinate;
-      const anchor2 = leg.sink.coordinate;
+      const anchor1 = leg.sourceNode.coordinate;
+      const anchor2 = leg.sinkNode.coordinate;
       this.legDrag = new PlannerDragLeg(legId, anchor1, anchor2);
       this.context.elasticBand.set(anchor1, anchor2, coordinate);
       return true;
@@ -333,16 +359,16 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private isViaFlagClicked(singleClick: boolean): boolean {
     return singleClick === true && this.nodeDrag !== null
-      && this.nodeDrag.oldNode.featureId !== this.context.plan.sink.featureId
-      && this.nodeDrag.oldNode.featureId !== this.context.plan.source.featureId;
+      && this.nodeDrag.oldNode.featureId !== this.context.plan.sinkNode.featureId
+      && this.nodeDrag.oldNode.featureId !== this.context.plan.sourceNode.featureId;
   }
 
   private dropLegOnNode(connection: PlanNode): void {
     if (this.legDrag !== null) {
       const oldLeg = this.context.legs.getById(this.legDrag.oldLegId);
       if (oldLeg) {
-        const newLeg1 = this.context.buildLeg(FeatureId.next(), oldLeg.source, connection);
-        const newLeg2 = this.context.buildLeg(FeatureId.next(), connection, oldLeg.sink);
+        const newLeg1 = this.context.oldBuildLeg(FeatureId.next(), oldLeg.sourceNode, connection);
+        const newLeg2 = this.context.oldBuildLeg(FeatureId.next(), connection, oldLeg.sinkNode);
         const command = new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
         this.context.execute(command);
       }
@@ -358,14 +384,14 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.execute(command);
       } else {
         const oldFirstLeg: PlanLeg = this.context.plan.legs.first();
-        const newFirstLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldFirstLeg.sink);
+        const newFirstLeg: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), newNode, oldFirstLeg.sinkNode);
         const command = new PlannerCommandMoveFirstLegSource(oldFirstLeg.featureId, newFirstLeg.featureId);
         this.context.execute(command);
       }
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
-      if (this.nodeDrag.oldNode.featureId === oldLastLeg.sink.featureId) {
-        const newLastLeg: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLastLeg.source, newNode);
+      if (this.nodeDrag.oldNode.featureId === oldLastLeg.sinkNode.featureId) {
+        const newLastLeg: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLastLeg.sourceNode, newNode);
         const command = new PlannerCommandMoveEndPoint(oldLastLeg.featureId, newLastLeg.featureId);
         this.context.execute(command);
       } else {
@@ -375,8 +401,8 @@ export class PlannerEngineImpl implements PlannerEngine {
         const oldLeg1 = legs.get(nextLegIndex - 1);
         const oldLeg2 = legs.get(nextLegIndex);
 
-        const newLeg1: PlanLeg = this.context.buildLeg(FeatureId.next(), oldLeg1.source, newNode);
-        const newLeg2: PlanLeg = this.context.buildLeg(FeatureId.next(), newNode, oldLeg2.sink);
+        const newLeg1: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLeg1.sourceNode, newNode);
+        const newLeg2: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), newNode, oldLeg2.sinkNode);
 
         const command = new PlannerCommandMoveViaPoint(
           oldLeg1.featureId,

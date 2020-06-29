@@ -11,8 +11,8 @@ export class DirectionsAnalyzer {
   private instructions: List<PlanInstruction> = List();
 
   analyze(plan: Plan): List<PlanInstruction> {
-    if (plan.source != null) {
-      this.addNodeInstruction(plan.source.nodeName);
+    if (plan.sourceNode != null) {
+      this.addNodeInstruction(plan.sourceNode.nodeName);
 
       plan.legs.forEach(leg => {
         leg.routes.forEach(route => {
@@ -63,7 +63,7 @@ export class DirectionsAnalyzer {
             });
           });
           this.pushInstruction();
-          this.addNodeInstruction(route.sink.nodeName);
+          this.addNodeInstruction(route.sinkNode.nodeName);
         });
       });
     }

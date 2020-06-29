@@ -5,7 +5,7 @@ import {FeatureId} from "../features/feature-id";
 
 export class PlanNode {
 
-  private constructor(readonly featureId: string,
+  constructor(readonly featureId: string,
                       readonly nodeId: string,
                       readonly nodeName: string,
                       readonly coordinate: Coordinate,

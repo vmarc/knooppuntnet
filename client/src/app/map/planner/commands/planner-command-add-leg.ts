@@ -11,12 +11,12 @@ export class PlannerCommandAddLeg implements PlannerCommand {
   public do(context: PlannerContext) {
     const leg = context.legs.getById(this.legId);
     const newLegs = context.plan.legs.push(leg);
-    const newPlan = Plan.create(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
     if (newLegs.size > 1) {
-      context.routeLayer.removeFlag(leg.source.featureId);
-      context.routeLayer.addFlag(PlanFlag.fromViaNode(leg.source));
+      context.routeLayer.removeFlag(leg.sourceNode.featureId);
+      context.routeLayer.addFlag(PlanFlag.fromViaNode(leg.sourceNode));
     }
-    context.routeLayer.addFlag(PlanFlag.fromEndNode(leg.sink));
+    context.routeLayer.addFlag(PlanFlag.fromEndNode(leg.sinkNode));
     context.routeLayer.addRouteLeg(leg);
     context.updatePlan(newPlan);
   }
@@ -24,13 +24,13 @@ export class PlannerCommandAddLeg implements PlannerCommand {
   public undo(context: PlannerContext) {
     const leg = context.legs.getById(this.legId);
     const newLegs = context.plan.legs.slice(0, -1);
-    const newPlan = Plan.create(context.plan.source, newLegs);
+    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
     context.routeLayer.removeRouteLeg(this.legId);
-    context.routeLayer.removeFlag(leg.sink.featureId);
+    context.routeLayer.removeFlag(leg.sinkNode.featureId);
     if (!newLegs.isEmpty()) {
-      context.routeLayer.removeFlag(leg.source.featureId);
-      context.routeLayer.addFlag(PlanFlag.fromEndNode(leg.source));
+      context.routeLayer.removeFlag(leg.sourceNode.featureId);
+      context.routeLayer.addFlag(PlanFlag.fromEndNode(leg.sourceNode));
     }
   }
 
