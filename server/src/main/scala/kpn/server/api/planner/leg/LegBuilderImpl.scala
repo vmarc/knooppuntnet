@@ -4,6 +4,7 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
+import kpn.api.common.planner.LegEnd
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.planner.RouteLegFragment
 import kpn.api.common.planner.RouteLegNode
@@ -19,8 +20,6 @@ import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
-case class Alternative(sourceNodeId: Long, sinkNodeId: Long)
-
 @Component
 class LegBuilderImpl(
   graphRepository: GraphRepository,
@@ -35,6 +34,61 @@ class LegBuilderImpl(
       case None =>
         log.error("Unknown network type " + params.networkType)
         None
+    }
+  }
+
+  override def load(networkType: NetworkType, planString: String, encoded: Boolean): Option[Seq[RouteLeg]] = {
+    graphRepository.graph(networkType) match {
+      case Some(graph) =>
+        val legs = loadRouteLegs(networkType, graph, planString, encoded)
+        if (legs.isEmpty) None else Some(legs)
+      case None =>
+        log.error("Could not find graph for network type " + networkType.name)
+        None
+    }
+  }
+
+  private def loadRouteLegs(networkType: NetworkType, graph: NodeNetworkGraph, planString: String, encoded: Boolean): Seq[RouteLeg] = {
+    val legEnds = LegEnd.fromPlanString(planString, encoded)
+    legEndsToRouteLegs(networkType, graph, 10001, legEnds, Seq())
+  }
+
+  @scala.annotation.tailrec
+  private def legEndsToRouteLegs(networkType: NetworkType, graph: NodeNetworkGraph, legId: Long, legEnds: Seq[LegEnd], legs: Seq[RouteLeg]): Seq[RouteLeg] = {
+    if (legEnds.isEmpty) {
+      legs
+    }
+    else {
+      if (legs.isEmpty) {
+        val source = legEnds.head
+        val sink = legEnds.tail.head
+        val params = LegBuildParams(
+          networkType.name,
+          legId.toString,
+          source,
+          sink
+        )
+
+        buildLeg(params, graph) match {
+          case Some(routeLeg) => legEndsToRouteLegs(networkType, graph, legId + 1, legEnds.tail.tail, legs :+ routeLeg)
+          case None => Seq()
+        }
+      }
+      else {
+        val source = LegEnd.node(legs.last.routes.last.sink.nodeId.toLong)
+        val sink = legEnds.head
+        val params = LegBuildParams(
+          networkType.name,
+          legId.toString,
+          source,
+          sink
+        )
+
+        buildLeg(params, graph) match {
+          case Some(routeLeg) => legEndsToRouteLegs(networkType, graph, legId + 1, legEnds.tail, legs :+ routeLeg)
+          case None => Seq()
+        }
+      }
     }
   }
 
@@ -67,9 +121,7 @@ class LegBuilderImpl(
       val source = params.source.vertex
       val sink = params.sink.vertex
       graph.findPath(source, sink) match {
-        case Some(graphPath) =>
-          println(graphPath)
-          Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
+        case Some(graphPath) => Some(RouteLeg(params.legId, graphPathToRouteLegRoutes(graphPath)))
         case None => None
       }
     }
@@ -110,8 +162,6 @@ class LegBuilderImpl(
             case Some(trackPath) =>
               trackPathToRouteLegRoute(route, trackPath, colour).map { routeLegRoute =>
                 if (graphPathSegment.pathKey.pathId < 0) {
-                  println("forward=\n" + routeLegRoute)
-                  println("reversed=\n" + routeLegRoute.reverse)
                   routeLegRoute.reverse
                 }
                 else {

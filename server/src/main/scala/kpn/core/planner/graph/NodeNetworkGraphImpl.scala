@@ -33,25 +33,31 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
     try {
       val path = dijkstraShortestPath.getPath(source, sink)
 
-      import scala.jdk.CollectionConverters._
-      val vertexList = path.getVertexList.asScala.toList
-      val edgeList = path.getEdgeList.asScala.toList
-
-      if (vertexList.head != source) {
-        logError(source, sink, s"Expected $source as first vertex, but found ${vertexList.head}")
-        None
-      }
-      else if ((vertexList.size - 1) != edgeList.size) {
-        logError(source, sink, s"vertexList.size (${vertexList.size}) - 1 does not match edgeList.size (${edgeList.size})")
+      if (path == null) {
+        logError(source, sink, "dijkstra")
         None
       }
       else {
-        val segments = vertexList.tail.zip(edgeList).map { case (vertex, pathKey) =>
-          val pathKeyParts = pathKey.split('+')
-          val key = TrackPathKey(pathKeyParts(0).toLong, pathKeyParts(1).toLong)
-          GraphPathSegment(vertex, key)
+        import scala.jdk.CollectionConverters._
+        val vertexList = path.getVertexList.asScala.toList
+        val edgeList = path.getEdgeList.asScala.toList
+
+        if (vertexList.head != source) {
+          logError(source, sink, s"Expected $source as first vertex, but found ${vertexList.head}")
+          None
         }
-        Some(GraphPath(source, segments))
+        else if ((vertexList.size - 1) != edgeList.size) {
+          logError(source, sink, s"vertexList.size (${vertexList.size}) - 1 does not match edgeList.size (${edgeList.size})")
+          None
+        }
+        else {
+          val segments = vertexList.tail.zip(edgeList).map { case (vertex, pathKey) =>
+            val pathKeyParts = pathKey.split('+')
+            val key = TrackPathKey(pathKeyParts(0).toLong, pathKeyParts(1).toLong)
+            GraphPathSegment(vertex, key)
+          }
+          Some(GraphPath(source, segments))
+        }
       }
     }
     catch {

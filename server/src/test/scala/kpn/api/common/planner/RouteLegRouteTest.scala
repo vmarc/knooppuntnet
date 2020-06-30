@@ -2,7 +2,7 @@ package kpn.api.common.planner
 
 import kpn.core.util.UnitTest
 
-class RouteLegRouteTest  extends UnitTest {
+class RouteLegRouteTest extends UnitTest {
 
   test("reverse") {
     val routeLegRoute = RouteLegRoute(

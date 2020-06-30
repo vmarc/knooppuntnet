@@ -3,6 +3,7 @@ package kpn.server.api.planner
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
+import kpn.api.common.planner.PlanParams
 import kpn.api.common.planner.RouteLeg
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
@@ -52,6 +53,11 @@ class PlannerController(plannerFacade: PlannerFacade) {
   @PostMapping(path = Array("/json-api/leg"), consumes = Array("application/json"))
   def leg(@RequestBody params: LegBuildParams): ApiResponse[RouteLeg] = {
     plannerFacade.leg(user(), params)
+  }
+
+  @PostMapping(path = Array("/json-api/plan"), consumes = Array("application/json"))
+  def plan(@RequestBody params: PlanParams): ApiResponse[Seq[RouteLeg]] = {
+    plannerFacade.plan(user(), NetworkType.withName(params.networkType).get, params.planString)
   }
 
   // TODO share with other controllers

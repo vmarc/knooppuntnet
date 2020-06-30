@@ -64,6 +64,14 @@ class PlannerFacadeImpl(
     }
   }
 
+  override def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Seq[RouteLeg]] = {
+    val args = s"${networkType.name}: ${planString}"
+    api.execute(user, "plan", args) {
+      val legs = legBuilder.load(networkType, planString)
+      ApiResponse(None, 1, legs)
+    }
+  }
+
   private def legEndString(legEnd: LegEnd): String = {
     legEnd.node match {
       case Some(node) => s"node(${node.nodeId})"

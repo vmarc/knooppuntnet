@@ -21,12 +21,14 @@ import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
+import {PlanParams} from "../../../kpn/api/common/planner/plan-params";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {PlanLoader} from "../../planner/plan/plan-loader";
+import {Plan} from "../../planner/plan/plan";
+import {PlanLegBuilder} from "../../planner/plan/plan-leg-builder";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
 @Component({
@@ -97,7 +99,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       combineLatest([this.plannerService.context.networkType$, this.activatedRoute.fragment])
         .subscribe(([networkType, fragment]) => {
           if (fragment) {
-            new PlanLoader(this.appService).load(networkType, fragment).subscribe(plan => {
+            const planParams = new PlanParams(networkType.name, fragment);
+            this.appService.plan(planParams).subscribe(response => {
+              const legs = response.result.map(routeLeg => PlanLegBuilder.toPlanLeg2(routeLeg));
+              const plan = Plan.create(legs.get(0).sourceNode, legs);
               plan.legs.forEach(leg => this.plannerService.context.legs.add(leg));
               this.plannerService.context.routeLayer.addPlan(plan);
               this.plannerService.context.updatePlan(plan);

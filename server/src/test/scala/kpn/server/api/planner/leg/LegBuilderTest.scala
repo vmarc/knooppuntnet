@@ -1,30 +1,11 @@
 package kpn.server.api.planner.leg
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.common.TrackPath
-import kpn.api.common.common.TrackPathKey
-import kpn.api.common.common.TrackPoint
-import kpn.api.common.common.TrackSegment
-import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
-import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.planner.RouteLeg
-import kpn.api.common.planner.RouteLegFragment
-import kpn.api.common.planner.RouteLegNode
-import kpn.api.common.planner.RouteLegRoute
-import kpn.api.common.planner.RouteLegSegment
-import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteMap
-import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
-import kpn.core.planner.graph.GraphEdge
-import kpn.core.planner.graph.GraphPath
-import kpn.core.planner.graph.GraphPathSegment
-import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.UnitTest
-import kpn.server.repository.GraphRepository
-import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
 /*
@@ -36,27 +17,16 @@ import org.scalamock.scalatest.MockFactory
  */
 class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
-  private val node1 = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
-  private val node2 = newRouteNetworkNodeInfo(id = 1002L, name = "02", lat = "2", lon = "2")
-  private val node3 = newRouteNetworkNodeInfo(id = 1003L, name = "03", lat = "3", lon = "3")
-  private val node4 = newRouteNetworkNodeInfo(id = 1004L, name = "04", lat = "4", lon = "4")
-
-  private val legEndRoute1 = LegEndRoute(11L, 1L)
-  private val legEndRoute2 = LegEndRoute(12L, 1L)
-  private val legEndRoute3 = LegEndRoute(13L, 1L)
-  private val legEndRoute4 = LegEndRoute(14L, 1L)
+  val data = new GraphTestData()
+  val legBuilder = new LegBuilderImpl(data.graphRepository, data.routeRepository)
 
   test("node1 to node4") {
-
-    val graphRepository = buildGraphRepository()
-    val routeRepository = buildRouteRepository()
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
 
     val params = LegBuildParams(
       networkType = NetworkType.hiking.name,
       legId = "leg1",
-      source = LegEnd.node(node1.id),
-      sink = LegEnd.node(node4.id)
+      source = LegEnd.node(data.node1.id),
+      sink = LegEnd.node(data.node4.id)
     )
 
     legBuilder.build(params) should equal(
@@ -64,9 +34,9 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         RouteLeg(
           legId = "leg1",
           routes = Seq(
-            toRouteLegRoute(node1, node2),
-            toRouteLegRoute(node2, node3),
-            toRouteLegRoute(node3, node4)
+            PlanUtil.toRouteLegRoute(data.node1, data.node2),
+            PlanUtil.toRouteLegRoute(data.node2, data.node3),
+            PlanUtil.toRouteLegRoute(data.node3, data.node4)
           )
         )
       )
@@ -75,15 +45,11 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("node1 to route3") {
 
-    val graphRepository = buildGraphRepository()
-    val routeRepository = buildRouteRepository()
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
-
     val params = LegBuildParams(
       networkType = NetworkType.hiking.name,
       legId = "leg1",
-      source = LegEnd.node(node1.id),
-      sink = LegEnd.route(legEndRoute3)
+      source = LegEnd.node(data.node1.id),
+      sink = LegEnd.route(data.legEndRoute3)
     )
 
     legBuilder.build(params) should equal(
@@ -91,9 +57,9 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         RouteLeg(
           legId = "leg1",
           routes = Seq(
-            toRouteLegRoute(node1, node2),
-            toRouteLegRoute(node2, node3),
-            toRouteLegRoute(node3, node4)
+            PlanUtil.toRouteLegRoute(data.node1, data.node2),
+            PlanUtil.toRouteLegRoute(data.node2, data.node3),
+            PlanUtil.toRouteLegRoute(data.node3, data.node4)
           )
         )
       )
@@ -102,15 +68,11 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("route1 to route3") {
 
-    val graphRepository = buildGraphRepository()
-    val routeRepository = buildRouteRepository()
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
-
     val params = LegBuildParams(
       networkType = NetworkType.hiking.name,
       legId = "leg1",
-      source = LegEnd.route(legEndRoute1),
-      sink = LegEnd.route(legEndRoute3)
+      source = LegEnd.route(data.legEndRoute1),
+      sink = LegEnd.route(data.legEndRoute3)
     )
 
     legBuilder.build(params) should equal(
@@ -118,9 +80,9 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         RouteLeg(
           legId = "leg1",
           routes = Seq(
-            toRouteLegRoute(node1, node2),
-            toRouteLegRoute(node2, node3),
-            toRouteLegRoute(node3, node4)
+            PlanUtil.toRouteLegRoute(data.node1, data.node2),
+            PlanUtil.toRouteLegRoute(data.node2, data.node3),
+            PlanUtil.toRouteLegRoute(data.node3, data.node4)
           )
         )
       )
@@ -129,15 +91,11 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("route4 to route3") {
 
-    val graphRepository = buildGraphRepository()
-    val routeRepository = buildRouteRepository()
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
-
     val params = LegBuildParams(
       networkType = NetworkType.hiking.name,
       legId = "leg1",
-      source = LegEnd.route(legEndRoute4),
-      sink = LegEnd.route(legEndRoute3)
+      source = LegEnd.route(data.legEndRoute4),
+      sink = LegEnd.route(data.legEndRoute3)
     )
 
     legBuilder.build(params) should equal(
@@ -145,8 +103,8 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         RouteLeg(
           legId = "leg1",
           routes = Seq(
-            toRouteLegRoute(node1, node3),
-            toRouteLegRoute(node3, node4)
+            PlanUtil.toRouteLegRoute(data.node1, data.node3),
+            PlanUtil.toRouteLegRoute(data.node3, data.node4)
           )
         )
       )
@@ -155,15 +113,11 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("node1 to route1") {
 
-    val graphRepository = buildGraphRepository()
-    val routeRepository = buildRouteRepository()
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
-
     val params = LegBuildParams(
       networkType = NetworkType.hiking.name,
       legId = "leg1",
-      source = LegEnd.node(node1.id),
-      sink = LegEnd.route(legEndRoute1)
+      source = LegEnd.node(data.node1.id),
+      sink = LegEnd.route(data.legEndRoute1)
     )
 
     legBuilder.build(params) should equal(
@@ -171,7 +125,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         RouteLeg(
           legId = "leg1",
           routes = Seq(
-            toRouteLegRoute(node1, node2)
+            PlanUtil.toRouteLegRoute(data.node1, data.node2)
           )
         )
       )
@@ -180,15 +134,11 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("node1 to route4") {
 
-    val graphRepository = buildGraphRepository()
-    val routeRepository = buildRouteRepository()
-    val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
-
     val params = LegBuildParams(
       networkType = NetworkType.hiking.name,
       legId = "leg1",
-      source = LegEnd.node(node1.id),
-      sink = LegEnd.route(legEndRoute4)
+      source = LegEnd.node(data.node1.id),
+      sink = LegEnd.route(data.legEndRoute4)
     )
 
     legBuilder.build(params) should equal(
@@ -196,118 +146,57 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
         RouteLeg(
           legId = "leg1",
           routes = Seq(
-            toRouteLegRoute(node1, node3)
+            PlanUtil.toRouteLegRoute(data.node1, data.node3)
           )
         )
       )
     )
   }
 
-  private def buildGraphRepository(): GraphRepository = {
+  test("load node1 > node2") {
 
-    val graph = new NodeNetworkGraphImpl()
-    graph.add(GraphEdge(node1.id, node2.id, 1, TrackPathKey(legEndRoute1.routeId, legEndRoute1.pathId)))
-    graph.add(GraphEdge(node2.id, node3.id, 2, TrackPathKey(legEndRoute2.routeId, legEndRoute2.pathId)))
-    graph.add(GraphEdge(node3.id, node4.id, 5, TrackPathKey(legEndRoute3.routeId, legEndRoute3.pathId)))
-    graph.add(GraphEdge(node1.id, node3.id, 4, TrackPathKey(legEndRoute4.routeId, legEndRoute4.pathId)))
-
-    val graphRepository: GraphRepository = stub[GraphRepository]
-    (graphRepository.graph _).when(NetworkType.hiking).returns(Some(graph))
-
-    graphRepository
-  }
-
-  private def buildRouteRepository(): RouteRepository = {
-    val routeRepository = stub[RouteRepository]
-    (routeRepository.routeWithId _).when(legEndRoute1.routeId).returns(Some(routeInfo(legEndRoute1, node1, node2)))
-    (routeRepository.routeWithId _).when(legEndRoute2.routeId).returns(Some(routeInfo(legEndRoute2, node2, node3)))
-    (routeRepository.routeWithId _).when(legEndRoute3.routeId).returns(Some(routeInfo(legEndRoute3, node3, node4)))
-    (routeRepository.routeWithId _).when(legEndRoute4.routeId).returns(Some(routeInfo(legEndRoute4, node1, node3)))
-    routeRepository
-  }
-
-  private def toRouteLegNode(node: RouteNetworkNodeInfo): RouteLegNode = {
-    RouteLegNode(
-      nodeId = node.id.toString,
-      nodeName = node.name,
-      lat = node.lat,
-      lon = node.lon
-    )
-  }
-
-  private def graphPath1(): GraphPath = {
-    GraphPath(
-      node1.id.toString,
+    legBuilder.load(NetworkType.hiking, "1001-1002", encoded = false) should equal(
       Seq(
-        GraphPathSegment(
-          sink = node2.id.toString,
-          pathKey = TrackPathKey(legEndRoute1.routeId, legEndRoute1.pathId)
-        )
-      )
-    )
-  }
-
-  private def routeInfo(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteInfo = {
-    newRouteInfo(
-      summary = newRouteSummary(
-        id = legEndRoute.routeId
-      ),
-      analysis = newRouteInfoAnalysis(
-        map = RouteMap(
-          startNodes = Seq(startNode),
-          endNodes = Seq(endNode),
-          forwardPath = Some(
-            TrackPath(
-              pathId = legEndRoute.pathId,
-              startNodeId = startNode.id,
-              endNodeId = endNode.id,
-              meters = 0,
-              oneWay = false,
-              segments = Seq(
-                TrackSegment(
-                  surface = "unpaved",
-                  source = TrackPoint(startNode.lat, startNode.lon),
-                  fragments = Seq(
-                    TrackSegmentFragment(
-                      trackPoint = TrackPoint(endNode.lat, endNode.lon),
-                      meters = 0,
-                      orientation = 1,
-                      streetIndex = None
-                    )
-                  )
-                )
-              )
-            )
+        RouteLeg(
+          legId = "10001",
+          routes = Seq(
+            PlanUtil.toRouteLegRoute(data.node1, data.node2)
           )
         )
       )
     )
   }
 
-  private def toRouteLegRoute(startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteLegRoute = {
+  test("load node1 > route4 > node4") {
 
-    RouteLegRoute(
-      source = toRouteLegNode(startNode),
-      sink = toRouteLegNode(endNode),
-      meters = 0,
-      segments = Seq(
-        RouteLegSegment(
-          meters = 0,
-          surface = "unpaved",
-          colour = None,
-          fragments = Seq(
-            RouteLegFragment(
-              lat = endNode.lat,
-              lon = endNode.lon,
-              meters = 0,
-              orientation = 1,
-              streetIndex = None
-            )
+    legBuilder.load(NetworkType.hiking, "1001-14.1-1004", encoded = false) should equal(
+      Seq(
+        RouteLeg(
+          legId = "10001",
+          routes = Seq(
+            PlanUtil.toRouteLegRoute(data.node1, data.node3)
+          )
+        ),
+        RouteLeg(
+          legId = "10002",
+          routes = Seq(
+            PlanUtil.toRouteLegRoute(data.node3, data.node4)
           )
         )
-      ),
-      streets = Seq()
+      )
     )
+  }
+
+  test("load empty plan") {
+    legBuilder.load(NetworkType.hiking, "", encoded = false) should equal(Seq())
+  }
+
+  test("load node1 > node3 > unknown-node") {
+    legBuilder.load(NetworkType.hiking, "1001-1003-9999", encoded = false) should equal(Seq())
+  }
+
+  test("load unknown-node > node1") {
+    legBuilder.load(NetworkType.hiking, "9999-1001", encoded = false) should equal(Seq())
   }
 
 }

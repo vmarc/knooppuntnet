@@ -22,4 +22,5 @@ trait PlannerFacade {
 
   def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg]
 
+  def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Seq[RouteLeg]]
 }
