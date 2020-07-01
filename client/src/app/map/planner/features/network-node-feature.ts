@@ -1,5 +1,6 @@
 import {Coordinate} from "ol/coordinate";
-import {PlanNode} from "../plan/plan-node";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {MapFeature} from "./map-feature";
 
 export class NetworkNodeFeature extends MapFeature {
@@ -9,7 +10,7 @@ export class NetworkNodeFeature extends MapFeature {
   }
 
   static create(nodeId: string, nodeName: string, coordinate: Coordinate) {
-    return new NetworkNodeFeature(PlanNode.withCoordinate(nodeId, nodeName, coordinate));
+    return new NetworkNodeFeature(PlanUtil.planNodeWithCoordinate(nodeId, nodeName, coordinate));
   }
 
 }

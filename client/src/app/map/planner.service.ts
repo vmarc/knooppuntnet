@@ -15,7 +15,7 @@ import {PlannerRouteLayerImpl} from "./planner/context/planner-route-layer-impl"
 import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanLegCache} from "./planner/plan/plan-leg-cache";
-import {PlanRoute} from "./planner/plan/plan-route";
+import {PlanRoute} from "../kpn/api/common/planner/plan-route";
 import {PlanUtil} from "./planner/plan/plan-util";
 
 @Injectable({

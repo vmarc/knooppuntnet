@@ -1,8 +1,9 @@
 import {saveAs} from "file-saver";
 import {List} from "immutable";
 import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
-import {Plan} from "../../map/planner/plan/plan";
-import {PlanNode} from "../../map/planner/plan/plan-node";
+import {Plan} from "../../kpn/api/common/planner/plan";
+import {PlanNode} from "../../kpn/api/common/planner/plan-node";
+import {PlanUtil} from "../../map/planner/plan/plan-util";
 
 export class GpxWriter {
 
@@ -56,9 +57,9 @@ export class GpxWriter {
       `  </trk>`
     ]);
 
-    const latLons = List([plan.sourceNode.latLon]).concat(plan.legs.flatMap(leg => leg.latLons()));
+    const latLons = List([plan.sourceNode.latLon])
+      .concat(plan.legs.flatMap(leg => leg.routes.flatMap(route => PlanUtil.planRouteLatLons(route))));
     const body = latLons.flatMap(latLon => this.trackPoint(latLon));
-
     return header.concat(body).concat(footer);
   }
 

@@ -1,6 +1,6 @@
 import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
@@ -43,7 +43,7 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
       return leg;
     });
 
-    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
+    const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 

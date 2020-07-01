@@ -1,8 +1,8 @@
-import {Plan} from "../plan/plan";
-import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlannerDragFlag} from "./planner-drag-flag";
+import {Plan} from "../../../kpn/api/common/planner/plan";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {FlagFeature} from "../features/flag-feature";
+import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlannerDragFlag} from "./planner-drag-flag";
 
 export class PlannerDragFlagAnalyzer {
 

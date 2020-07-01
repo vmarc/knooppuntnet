@@ -1,6 +1,6 @@
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
 
 describe("PlannerCommandAddStartPoint", () => {
@@ -8,7 +8,7 @@ describe("PlannerCommandAddStartPoint", () => {
   it("add start point - do and undo", () => {
 
     const setup = new PlannerTestSetup();
-    const node = PlanNode.withCoordinate("1001", "01", [1, 1]);
+    const node = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
     const command = new PlannerCommandAddStartPoint(node);
     setup.context.execute(command);

@@ -1,9 +1,7 @@
 import {List} from "immutable";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
-import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlanNode} from "../plan/plan-node";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveViaPoint} from "./planner-command-move-via-point";
 
@@ -13,15 +11,15 @@ describe("PlannerCommandMoveViaPoint", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
-    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
-    const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
-    const node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
+    const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
+    const node3 = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
+    const node4 = PlanUtil.planNodeWithCoordinate("1004", "04", [4, 4]);
 
     const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
-    const legEnd4 = PlanUtil.legEndNode(+node3.nodeId);
+    const legEnd4 = PlanUtil.legEndNode(+node4.nodeId);
 
     const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
     const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, node2, node3, 0, List());
@@ -33,7 +31,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     setup.legs.add(newLeg1);
     setup.legs.add(newLeg2);
 
-    const plan = Plan.create(node1, List([oldLeg1, oldLeg2]));
+    const plan = PlanUtil.plan(node1, List([oldLeg1, oldLeg2]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveViaPoint(oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);

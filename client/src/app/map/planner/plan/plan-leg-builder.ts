@@ -7,11 +7,11 @@ import {RouteLegFragment} from "../../../kpn/api/common/planner/route-leg-fragme
 import {RouteLegNode} from "../../../kpn/api/common/planner/route-leg-node";
 import {RouteLegRoute} from "../../../kpn/api/common/planner/route-leg-route";
 import {RouteLegSegment} from "../../../kpn/api/common/planner/route-leg-segment";
-import {PlanFragment} from "./plan-fragment";
-import {PlanLeg} from "./plan-leg";
-import {PlanNode} from "./plan-node";
-import {PlanRoute} from "./plan-route";
-import {PlanSegment} from "./plan-segment";
+import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
+import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
+import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {PlanUtil} from "./plan-util";
 
 export class PlanLegBuilder {
@@ -66,7 +66,7 @@ export class PlanLegBuilder {
     const nodeId: string = routeLegNode.nodeId;
     const nodeName: string = routeLegNode.nodeName;
     const latLon = new LatLonImpl(routeLegNode.lat, routeLegNode.lon);
-    return PlanNode.create(nodeId, nodeName, latLon);
+    return PlanUtil.planNode(nodeId, nodeName, latLon);
   }
 
 }

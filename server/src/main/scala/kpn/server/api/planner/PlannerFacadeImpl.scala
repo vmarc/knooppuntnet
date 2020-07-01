@@ -17,7 +17,11 @@ import kpn.server.api.analysis.pages.PoiPageBuilder
 import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
 import kpn.server.api.planner.leg.LegBuilder
+import kpn.server.api.planner.leg.PlanUtil
 import kpn.server.repository.AnalysisRepository
+import org.geotools.geometry.jts.JTS
+import org.geotools.referencing.CRS
+import org.locationtech.jts.geom.Coordinate
 import org.springframework.stereotype.Component
 
 @Component
@@ -68,6 +72,18 @@ class PlannerFacadeImpl(
     val args = s"${networkType.name}: ${planString}"
     api.execute(user, "plan", args) {
       val legs = legBuilder.load(networkType, planString)
+
+
+      val sinks = legs match {
+        case None => Seq()
+        case Some(routeLegs) => routeLegs.flatMap(routeLeg => routeLeg.routes.map(rlr => rlr.sink))
+      }
+      sinks.foreach { sink =>
+        val coordinate = PlanUtil.toCoordinate(sink.lat.toDouble, sink.lon.toDouble)
+
+        println("node=" + sink.nodeName + ", coordinate " + coordinate[0] + ", " + coordinate[1] + ", lat=" + sink.lat + ", lon=" + sink.lon)
+      }
+
       ApiResponse(None, 1, legs)
     }
   }

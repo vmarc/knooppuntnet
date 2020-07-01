@@ -1,9 +1,9 @@
 import {Map} from "immutable";
 import {Coordinate} from "ol/coordinate";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {TestSupport} from "../../../util/test-support";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayerBase} from "./planner-route-layer-base";
 
 export class PlannerRouteLayerMock extends PlannerRouteLayerBase {

@@ -1,8 +1,8 @@
 import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlanNode} from "../plan/plan-node";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
 
@@ -12,9 +12,13 @@ describe("PlannerCommandAddLeg", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
-    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
-    const leg = new PlanLeg("12", "", node1, node2, 0, List());
+    const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
+
+    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
+    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
+
+    const leg = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
 
     const addStartCommand = new PlannerCommandAddStartPoint(node1);
     setup.context.execute(addStartCommand);
@@ -31,8 +35,8 @@ describe("PlannerCommandAddLeg", () => {
 
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).source.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sink.nodeId).toEqual("1002");
+    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
 
     command.undo(setup.context);
 
@@ -45,14 +49,19 @@ describe("PlannerCommandAddLeg", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
-    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
-    const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
-    const node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
+    const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
+    const node3 = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
+    const node4 = PlanUtil.planNodeWithCoordinate("1004", "04", [4, 4]);
 
-    const leg1 = new PlanLeg("12", "", node1, node2, 0, List());
-    const leg2 = new PlanLeg("23", "", node2, node3, 0, List());
-    const leg3 = new PlanLeg("34", "", node3, node4, 0, List());
+    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
+    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
+    const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
+    const legEnd4 = PlanUtil.legEndNode(+node4.nodeId);
+
+    const leg1 = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
+    const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, node2, node3, 0, List());
+    const leg3 = new PlanLeg("34", "", legEnd3, legEnd4, node3, node4, 0, List());
 
     const addStartCommand = new PlannerCommandAddStartPoint(node1);
     setup.context.execute(addStartCommand);

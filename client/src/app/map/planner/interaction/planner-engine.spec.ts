@@ -10,8 +10,8 @@ import {FlagFeature} from "../features/flag-feature";
 import {LegFeature} from "../features/leg-feature";
 import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
-import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerEngineImpl} from "./planner-engine-impl";
 
 describe("PlannerEngine", () => {
@@ -55,7 +55,7 @@ describe("PlannerEngine", () => {
       const node1 = NetworkNodeFeature.create("1001", "01", [1, 1]);
       const node2 = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
-      setup.context.updatePlan(Plan.create(node1.node, List()));
+      setup.context.updatePlan(PlanUtil.plan(node1.node, List()));
 
       const features: List<MapFeature> = List([node2]);
 
@@ -231,7 +231,7 @@ describe("PlannerEngine", () => {
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.sourceNode.nodeId).toEqual("1003");
       expect(newLeg.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectCoordinates(newLeg.coordinates(), [3, 3], [2, 2]);
+      TestSupport.expectCoordinates(newLeg, [3, 3], [2, 2]);
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [3, 3]);
@@ -302,7 +302,7 @@ describe("PlannerEngine", () => {
       const oldPlan = setup.createOneLegPlan();
       const newEndNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       setup.createLeg(setup.node1, setup.node3);
-      const oldEndNodeFeature = FlagFeature.via(oldPlan.sinkNode.featureId);
+      const oldEndNodeFeature = FlagFeature.via(PlanUtil.planSinkNode(oldPlan).featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldEndNodeFeature]), [2.1, 2.1], false);
@@ -312,7 +312,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [2.1, 2.1]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([2, 2]);
@@ -327,7 +327,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [2.5, 2.5]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [2.5, 2.5]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([2, 2]);
@@ -341,12 +341,12 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated3).toBeTruthy();
 
       const newPlan = setup.context.plan;
-      expect(newPlan.sinkNode.nodeId).toEqual("1003");
+      expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual("1003");
       expect(newPlan.legs.size).toEqual(1);
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.sourceNode.nodeId).toEqual("1001");
       expect(newLeg.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectCoordinates(newLeg.coordinates(), [1, 1], [3, 3]);
+      TestSupport.expectCoordinates(newLeg, [1, 1], [3, 3]);
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [1, 1]);
@@ -365,7 +365,7 @@ describe("PlannerEngine", () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const oldEndNodeFeature = FlagFeature.via(oldPlan.sinkNode.featureId);
+      const oldEndNodeFeature = FlagFeature.via(PlanUtil.planSinkNode(oldPlan).featureId);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldEndNodeFeature]), [2.1, 2.1], false);
@@ -375,7 +375,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [2.1, 2.1]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([2, 2]);
@@ -389,12 +389,12 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated3).toBeFalsy();
 
       const newPlan = setup.context.plan;
-      expect(newPlan.sinkNode.nodeId).toEqual("1002");
+      expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual("1002");
       expect(newPlan.legs.size).toEqual(1);
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.sourceNode.nodeId).toEqual("1001");
       expect(newLeg.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectCoordinates(newLeg.coordinates(), [1, 1], [2, 2]);
+      TestSupport.expectCoordinates(newLeg, [1, 1], [2, 2]);
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [1, 1]);
@@ -429,7 +429,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [3, 3]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [3, 3]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.id, [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
@@ -445,7 +445,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [3, 3]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [3, 3]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.id, [2.5, 2.5]);
 
       setup.elasticBand.expectVisible(true);
@@ -464,7 +464,7 @@ describe("PlannerEngine", () => {
       const newLeg1 = newPlan.legs.get(0);
       const newLeg2 = newPlan.legs.get(1);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      expect(newPlan.sinkNode.nodeId).toEqual("1003");
+      expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual("1003");
 
       expect(newLeg1.sourceNode.nodeId).toEqual("1001");
       expect(newLeg1.sinkNode.nodeId).toEqual("1004");
@@ -472,12 +472,12 @@ describe("PlannerEngine", () => {
       expect(newLeg2.sourceNode.nodeId).toEqual("1004");
       expect(newLeg2.sinkNode.nodeId).toEqual("1003");
 
-      TestSupport.expectCoordinates(newLeg1.coordinates(), [1, 1], [4, 4]);
-      TestSupport.expectCoordinates(newLeg2.coordinates(), [4, 4], [3, 3]);
+      TestSupport.expectCoordinates(newLeg1, [1, 1], [4, 4]);
+      TestSupport.expectCoordinates(newLeg2, [4, 4], [3, 3]);
 
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.sinkNode.featureId, [3, 3]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(newPlan).featureId, [3, 3]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.legs.get(0).sinkNode.featureId, [4, 4]);
 
       setup.elasticBand.expectVisible(false);
@@ -504,7 +504,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [3, 3]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [3, 3]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldViaNodeFeature.id, [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
@@ -523,7 +523,7 @@ describe("PlannerEngine", () => {
       const newLeg1 = newPlan.legs.get(0);
       const newLeg2 = newPlan.legs.get(1);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      expect(newPlan.sinkNode.nodeId).toEqual("1003");
+      expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual("1003");
 
       expect(newLeg1.sourceNode.nodeId).toEqual("1001");
       expect(newLeg1.sinkNode.nodeId).toEqual("1002");
@@ -531,12 +531,12 @@ describe("PlannerEngine", () => {
       expect(newLeg2.sourceNode.nodeId).toEqual("1002");
       expect(newLeg2.sinkNode.nodeId).toEqual("1003");
 
-      TestSupport.expectCoordinates(newLeg1.coordinates(), [1, 1], [2, 2]);
-      TestSupport.expectCoordinates(newLeg2.coordinates(), [2, 2], [3, 3]);
+      TestSupport.expectCoordinates(newLeg1, [1, 1], [2, 2]);
+      TestSupport.expectCoordinates(newLeg2, [2, 2], [3, 3]);
 
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.sinkNode.featureId, [3, 3]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(newPlan).featureId, [3, 3]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.legs.get(0).sinkNode.featureId, [2, 2]);
 
       setup.elasticBand.expectVisible(false);
@@ -568,7 +568,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [2, 2]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -583,7 +583,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [2, 2]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -601,7 +601,7 @@ describe("PlannerEngine", () => {
       const newLeg1 = newPlan.legs.get(0);
       const newLeg2 = newPlan.legs.get(1);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      expect(newPlan.sinkNode.nodeId).toEqual("1002");
+      expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual("1002");
 
       expect(newLeg1.sourceNode.nodeId).toEqual("1001");
       expect(newLeg1.sinkNode.nodeId).toEqual("1003");
@@ -609,12 +609,12 @@ describe("PlannerEngine", () => {
       expect(newLeg2.sourceNode.nodeId).toEqual("1003");
       expect(newLeg2.sinkNode.nodeId).toEqual("1002");
 
-      TestSupport.expectCoordinates(newLeg1.coordinates(), [1, 1], [3, 3]);
-      TestSupport.expectCoordinates(newLeg2.coordinates(), [3, 3], [2, 2]);
+      TestSupport.expectCoordinates(newLeg1, [1, 1], [3, 3]);
+      TestSupport.expectCoordinates(newLeg2, [3, 3], [2, 2]);
 
       setup.routeLayer.expectFlagCount(3);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.sinkNode.featureId, [2, 2]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(newPlan).featureId, [2, 2]);
       setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.legs.get(0).sinkNode.featureId, [3, 3]);
 
       setup.elasticBand.expectVisible(false);
@@ -642,7 +642,7 @@ describe("PlannerEngine", () => {
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, oldPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, oldPlan.sinkNode.featureId, [2, 2]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(oldPlan).featureId, [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -659,16 +659,16 @@ describe("PlannerEngine", () => {
       expect(newPlan.legs.size).toEqual(1);
       const newLeg = newPlan.legs.get(0);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      expect(newPlan.sinkNode.nodeId).toEqual("1002");
+      expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual("1002");
 
       expect(newLeg.sourceNode.nodeId).toEqual("1001");
       expect(newLeg.sinkNode.nodeId).toEqual("1002");
 
-      TestSupport.expectCoordinates(newLeg.coordinates(), [1, 1], [2, 2]);
+      TestSupport.expectCoordinates(newLeg, [1, 1], [2, 2]);
 
       setup.routeLayer.expectFlagCount(2);
       setup.routeLayer.expectFlagExists(PlanFlagType.Start, newPlan.sourceNode.featureId, [1, 1]);
-      setup.routeLayer.expectFlagExists(PlanFlagType.Via, newPlan.sinkNode.featureId, [2, 2]);
+      setup.routeLayer.expectFlagExists(PlanFlagType.Via, PlanUtil.planSinkNode(newPlan).featureId, [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 

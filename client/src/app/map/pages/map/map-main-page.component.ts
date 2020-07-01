@@ -27,8 +27,8 @@ import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {Plan} from "../../planner/plan/plan";
 import {PlanLegBuilder} from "../../planner/plan/plan-leg-builder";
+import {PlanUtil} from "../../planner/plan/plan-util";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
 @Component({
@@ -102,7 +102,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
             const planParams = new PlanParams(networkType.name, fragment);
             this.appService.plan(planParams).subscribe(response => {
               const legs = response.result.map(routeLeg => PlanLegBuilder.toPlanLeg2(routeLeg));
-              const plan = Plan.create(legs.get(0).sourceNode, legs);
+              const plan = PlanUtil.plan(legs.get(0).sourceNode, legs);
               plan.legs.forEach(leg => this.plannerService.context.legs.add(leg));
               this.plannerService.context.routeLayer.addPlan(plan);
               this.plannerService.context.updatePlan(plan);
@@ -127,7 +127,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.plannerService.context.plan.legs.isEmpty()) {
       this.dialog.open(NoRouteDialogComponent, {maxWidth: 600});
     } else {
-      const bounds = this.plannerService.context.plan.bounds();
+      const bounds = PlanUtil.planBounds(this.plannerService.context.plan);
       if (bounds !== null) {
         const extent = Util.toExtent(bounds, 0.1);
         this.map.getView().fit(extent);

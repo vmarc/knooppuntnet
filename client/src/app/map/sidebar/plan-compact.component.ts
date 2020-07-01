@@ -1,8 +1,8 @@
 import {Input} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
 import {PlannerService} from "../planner.service";
-import {Plan} from "../planner/plan/plan";
-import {PlanRoute} from "../planner/plan/plan-route";
+import {Plan} from "../../kpn/api/common/planner/plan";
+import {PlanRoute} from "../../kpn/api/common/planner/plan-route";
 
 @Component({
   selector: "kpn-plan-compact",

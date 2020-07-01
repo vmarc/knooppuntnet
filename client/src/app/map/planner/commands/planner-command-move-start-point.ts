@@ -1,8 +1,8 @@
 import {List} from "immutable";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveStartPoint implements PlannerCommand {
@@ -22,7 +22,7 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
   public update(context: PlannerContext, fromNode: PlanNode, toNode: PlanNode) {
     context.routeLayer.removeFlag(fromNode.featureId);
     context.routeLayer.addFlag(PlanFlag.fromStartNode(toNode));
-    const newPlan = Plan.create(toNode, List());
+    const newPlan = PlanUtil.plan(toNode, List());
     context.updatePlan(newPlan);
   }
 

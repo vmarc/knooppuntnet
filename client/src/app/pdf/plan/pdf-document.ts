@@ -1,6 +1,6 @@
 import * as JsPdf from "jspdf";
 import * as QRious from "qrious";
-import {Plan} from "../../map/planner/plan/plan";
+import {Plan} from "../../kpn/api/common/planner/plan";
 import {PdfDocumentModel} from "./pdf-document-model";
 import {PdfFooter} from "./pdf-footer";
 import {PdfPage} from "./pdf-page";

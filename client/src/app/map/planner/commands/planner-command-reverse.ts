@@ -1,6 +1,7 @@
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerContext} from "../context/planner-context";
 import {FeatureId} from "../features/feature-id";
-import {Plan} from "../plan/plan";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandReverse implements PlannerCommand {
@@ -11,7 +12,7 @@ export class PlannerCommandReverse implements PlannerCommand {
   public do(context: PlannerContext) {
     this.oldPlan = context.plan;
     const newLegs = this.oldPlan.legs.reverse().map(leg => context.oldBuildLeg(FeatureId.next(), leg.sinkNode, leg.sourceNode));
-    this.newPlan = Plan.create(newLegs.get(0).sourceNode, newLegs);
+    this.newPlan = PlanUtil.plan(newLegs.get(0).sourceNode, newLegs);
     context.routeLayer.removePlan(this.oldPlan);
     context.routeLayer.addPlan(this.newPlan);
     context.updatePlan(this.newPlan);

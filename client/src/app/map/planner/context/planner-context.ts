@@ -3,14 +3,14 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {Util} from "../../../components/shared/util";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
+import {Plan} from "../../../kpn/api/common/planner/plan";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegBuilder} from "../plan/plan-leg-builder";
 import {PlanLegCache} from "../plan/plan-leg-cache";
-import {PlanNode} from "../plan/plan-node";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
@@ -42,7 +42,7 @@ export class PlannerContext {
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {
-    this._plan$ = new BehaviorSubject<Plan>(Plan.empty());
+    this._plan$ = new BehaviorSubject<Plan>(PlanUtil.planEmpty());
     this.plan$ = this._plan$.asObservable();
     this._networkType$ = new BehaviorSubject<NetworkType>(null);
     this.networkType$ = this._networkType$.asObservable();
@@ -76,7 +76,7 @@ export class PlannerContext {
       this._plan$.next(existingData.plan);
       this._commandStack$.next(existingData.commandStack);
     } else {
-      this._plan$.next(Plan.empty());
+      this._plan$.next(PlanUtil.planEmpty());
       this._commandStack$.next(new PlannerCommandStack());
     }
     this._networkType$.next(networkType);
@@ -103,7 +103,7 @@ export class PlannerContext {
 
   updatePlanLeg(newLeg: PlanLeg) {
     const newLegs = this.plan.legs.map(leg => leg.featureId === newLeg.featureId ? newLeg : leg);
-    const newPlan = Plan.create(this.plan.sourceNode, newLegs);
+    const newPlan = PlanUtil.plan(this.plan.sourceNode, newLegs);
     this.updatePlan(newPlan);
     this.routeLayer.addRouteLeg(newLeg);
   }

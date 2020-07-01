@@ -1,7 +1,7 @@
 import {List} from "immutable";
-import {Plan} from "./plan";
-import {PlanLeg} from "./plan-leg";
-import {PlanNode} from "./plan-node";
+import {Plan} from "../../../kpn/api/common/planner/plan";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 
 class PrintPlanNode {
 

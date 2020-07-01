@@ -1,7 +1,7 @@
 import {Coordinate} from "ol/coordinate";
-import {Plan} from "../plan/plan";
+import {Plan} from "../../../kpn/api/common/planner/plan";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
 export abstract class PlannerRouteLayerBase implements PlannerRouteLayer {

@@ -1,14 +1,14 @@
 import {List} from "immutable";
+import {Plan} from "../../../kpn/api/common/planner/plan";
+import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
+import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
+import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FeatureId} from "../features/feature-id";
-import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFragment} from "../plan/plan-fragment";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
-import {PlanNode} from "../plan/plan-node";
-import {PlanRoute} from "../plan/plan-route";
-import {PlanSegment} from "../plan/plan-segment";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerContext} from "./planner-context";
 import {PlannerCursorMock} from "./planner-cursor-mock";
@@ -36,28 +36,30 @@ export class PlannerTestSetup {
     null
   );
 
-  readonly node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
-  readonly node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
-  readonly node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
-  readonly node4 = PlanNode.withCoordinate("1004", "04", [4, 4]);
+  readonly node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+  readonly node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
+  readonly node3 = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
+  readonly node4 = PlanUtil.planNodeWithCoordinate("1004", "04", [4, 4]);
 
   constructor() {
     this.context.nextNetworkType(NetworkType.hiking);
   }
 
-  createLeg(source: PlanNode, sink: PlanNode): PlanLeg {
-    const fragment = new PlanFragment(0, 0, -1, sink.coordinate, sink.latLon);
+  createLeg(sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
+    const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
     const segment = new PlanSegment(0, "", null, List([fragment]));
-    const route = new PlanRoute(source, sink, 0, List([segment]), List());
-    const legKey = PlanUtil.key(PlanUtil.legEndNode(+source.nodeId), PlanUtil.legEndNode(+sink.nodeId));
-    const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, 0, List([route]));
+    const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const legKey = PlanUtil.key(source, sink);
+    const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, sourceNode, sinkNode, 0, List([route]));
     this.legRepository.add(leg);
     this.legs.add(leg);
     return leg;
   }
 
   createPlanWithStartPointOnly(): Plan {
-    const plan = Plan.create(this.node1, List());
+    const plan = PlanUtil.plan(this.node1, List());
     this.context.updatePlan(plan);
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
     return plan;
@@ -66,7 +68,7 @@ export class PlannerTestSetup {
   createOneLegPlan(): Plan {
 
     const leg = this.createLeg(this.node1, this.node2);
-    const plan = Plan.create(this.node1, List([leg]));
+    const plan = PlanUtil.plan(this.node1, List([leg]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
@@ -80,7 +82,7 @@ export class PlannerTestSetup {
 
     const leg1 = this.createLeg(this.node1, this.node2);
     const leg2 = this.createLeg(this.node2, this.node3);
-    const plan = Plan.create(this.node1, List([leg1, leg2]));
+    const plan = PlanUtil.plan(this.node1, List([leg1, leg2]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));

@@ -1,9 +1,7 @@
 import {List} from "immutable";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
-import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlanNode} from "../plan/plan-node";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveFirstLegSource} from "./planner-command-move-first-leg-source";
 
@@ -13,9 +11,9 @@ describe("PlannerCommandMoveFirstLegSource", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
-    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
-    const node3 = PlanNode.withCoordinate("1003", "03", [3, 3]);
+    const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
+    const node3 = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
 
     const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
@@ -27,7 +25,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
 
-    const plan = Plan.create(node1, List([oldLeg]));
+    const plan = PlanUtil.plan(node1, List([oldLeg]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveFirstLegSource("12", "32");

@@ -8,11 +8,11 @@ import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FeatureId} from "../features/feature-id";
-import {Plan} from "./plan";
-import {PlanLeg} from "./plan-leg";
+import {Plan} from "../../../kpn/api/common/planner/plan";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanLegBuilder} from "./plan-leg-builder";
 import {PlanLegNodeIds} from "./plan-leg-node-ids";
-import {PlanRoute} from "./plan-route";
+import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {PlanUtil} from "./plan-util";
 
 /*
@@ -79,7 +79,7 @@ export class PlanLoader {
             newRoutes
           );
         }
-        return Plan.create(legs[0].sourceNode, List(legs));
+        return PlanUtil.plan(legs[0].sourceNode, List(legs));
       })
     );
   }

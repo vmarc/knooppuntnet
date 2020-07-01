@@ -1,6 +1,6 @@
 import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveEndPoint implements PlannerCommand {
@@ -25,7 +25,7 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
     context.routeLayer.removeRouteLeg(fromLeg.featureId);
     context.routeLayer.addRouteLeg(toLeg);
     const newLegs = context.plan.legs.update(context.plan.legs.size - 1, () => toLeg);
-    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
+    const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 

@@ -9,7 +9,7 @@ import {ZoomLevel} from "../../components/ol/domain/zoom-level";
 import {MapZoomService} from "../../components/ol/services/map-zoom.service";
 import {WarningDialogComponent} from "../../components/shared/dialog/warning-dialog.component";
 import {PlannerService} from "../planner.service";
-import {Plan} from "../planner/plan/plan";
+import {Plan} from "../../kpn/api/common/planner/plan";
 import {PlanPhase} from "../planner/plan/plan-phase";
 
 @Component({

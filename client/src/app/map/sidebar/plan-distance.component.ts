@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from "@angular/core";
-import {Plan} from "../planner/plan/plan";
+import {Plan} from "../../kpn/api/common/planner/plan";
+import {PlanUtil} from "../planner/plan/plan-util";
 
 @Component({
   selector: "kpn-plan-distance",
@@ -28,7 +29,7 @@ export class PlanDistanceComponent implements OnChanges {
   meters = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.meters = this.plan.meters();
+    this.meters = PlanUtil.planMeters(this.plan);
   }
 
   distance(): string {
@@ -40,7 +41,7 @@ export class PlanDistanceComponent implements OnChanges {
   }
 
   unpaved(): string {
-    return this.plan.unpavedPercentage();
+    return PlanUtil.planUnpavedPercentage(this.plan);
   }
 
 }

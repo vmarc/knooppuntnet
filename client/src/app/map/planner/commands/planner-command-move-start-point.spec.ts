@@ -1,9 +1,8 @@
 import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
-import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanNode} from "../plan/plan-node";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveStartPoint} from "./planner-command-move-start-point";
 
 describe("PlannerCommandMoveStartPoint", () => {
@@ -12,12 +11,12 @@ describe("PlannerCommandMoveStartPoint", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanNode.withCoordinate("1001", "01", [1, 1]);
-    const node2 = PlanNode.withCoordinate("1002", "02", [2, 2]);
+    const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
 
     setup.routeLayer.addFlag(PlanFlag.fromStartNode(node1));
 
-    const plan = Plan.create(node1, List());
+    const plan = PlanUtil.plan(node1, List());
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveStartPoint(node1, node2);

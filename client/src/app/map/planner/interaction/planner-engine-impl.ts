@@ -13,6 +13,8 @@ import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
@@ -28,8 +30,6 @@ import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
 import {RouteFeature} from "../features/route-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlanNode} from "../plan/plan-node";
 import {PlanUtil} from "../plan/plan-util";
 import {Features} from "./features";
 import {PlannerDragFlag} from "./planner-drag-flag";
@@ -306,7 +306,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const command = new PlannerCommandAddStartPoint(networkNode.node);
       this.context.execute(command);
     } else {
-      const source: PlanNode = this.context.plan.sinkNode;
+      const source: PlanNode = PlanUtil.planSinkNode(this.context.plan);
       const leg = this.context.oldBuildLeg(FeatureId.next(), source, networkNode.node);
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
@@ -316,11 +316,11 @@ export class PlannerEngineImpl implements PlannerEngine {
   private routeSelected(route: RouteFeature): void {
 
     // current sink is source for new leg
-    const sourceNode = this.context.plan.sinkNode;
+    const sourceNode = PlanUtil.planSinkNode(this.context.plan);
     const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
 
     const sink: LegEnd = PlanUtil.legEndRoute(route.routeId, route.pathId);
-    const leg = this.context.buildLeg(FeatureId.next(), source, sink, sourceNode, PlanNode.create("0", "", new LatLonImpl("0", "0")));
+    const leg = this.context.buildLeg(FeatureId.next(), source, sink, sourceNode, PlanUtil.planNode("0", "", new LatLonImpl("0", "0")));
     const command = new PlannerCommandAddLeg(leg.featureId);
     this.context.execute(command);
   }
@@ -359,7 +359,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private isViaFlagClicked(singleClick: boolean): boolean {
     return singleClick === true && this.nodeDrag !== null
-      && this.nodeDrag.oldNode.featureId !== this.context.plan.sinkNode.featureId
+      && this.nodeDrag.oldNode.featureId !== PlanUtil.planSinkNode(this.context.plan).featureId
       && this.nodeDrag.oldNode.featureId !== this.context.plan.sourceNode.featureId;
   }
 

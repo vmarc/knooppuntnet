@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {PlannerService} from "../planner.service";
-import {Plan} from "../planner/plan/plan";
+import {Plan} from "../../kpn/api/common/planner/plan";
 
 @Component({
   selector: "kpn-plan-result",

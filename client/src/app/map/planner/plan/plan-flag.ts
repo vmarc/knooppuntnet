@@ -1,6 +1,6 @@
 import {Coordinate} from "ol/coordinate";
 import {PlanFlagType} from "./plan-flag-type";
-import {PlanNode} from "./plan-node";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 
 export class PlanFlag {
 

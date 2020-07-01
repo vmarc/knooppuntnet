@@ -1,5 +1,6 @@
-import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
+import {PlanLeg} from "../kpn/api/common/planner/plan-leg";
+import {PlanUtil} from "../map/planner/plan/plan-util";
 
 export class TestSupport {
 
@@ -7,7 +8,8 @@ export class TestSupport {
     expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
   }
 
-  static expectCoordinates(actual: List<Coordinate>, ...expected: Array<Coordinate>): void {
+  static expectCoordinates(planLeg: PlanLeg, ...expected: Array<Coordinate>): void {
+    const actual = planLeg.routes.flatMap(route => PlanUtil.planRouteCoordinates(route));
     expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
   }
 

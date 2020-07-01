@@ -9,9 +9,10 @@ import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import {Marker} from "../../../components/ol/domain/marker";
 import {Layers} from "../../../components/ol/layers/layers";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerRouteLayerBase} from "./planner-route-layer-base";
 
 /*
@@ -68,7 +69,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
 
   addRouteLeg(leg: PlanLeg): void {
     this.removeRouteLeg(leg.featureId);
-    const feature = new Feature(new LineString(leg.coordinates().toArray()));
+    const feature = new Feature(new LineString(leg.routes.flatMap(route => PlanUtil.planRouteCoordinates(route)).toArray()));
     feature.setId(leg.featureId);
     feature.set("layer", "leg");
     feature.setStyle(this.legStyle);

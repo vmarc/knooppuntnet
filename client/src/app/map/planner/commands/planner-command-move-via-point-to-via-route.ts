@@ -1,10 +1,10 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
+import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
@@ -30,7 +30,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     const newLegs: List<PlanLeg> = context.plan.legs
       .map(leg => leg.featureId === oldLeg1.featureId ? newLeg : leg)
       .filter(leg => leg.featureId !== oldLeg2.featureId);
-    const newPlan = Plan.create(context.plan.sourceNode, newLegs);
+    const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -50,7 +50,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     if (legIndex > -1) {
       const newLegs1 = context.plan.legs.update(legIndex, () => oldLeg1);
       const newLegs2 = newLegs1.insert(legIndex + 1, oldLeg2);
-      const newPlan = Plan.create(context.plan.sourceNode, newLegs2);
+      const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs2);
       context.updatePlan(newPlan);
     }
   }
