@@ -45,7 +45,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   }
 
   private def listImports(): Seq[String] = {
-    if (classInfo.fields.exists(_.classType.isArray)) {
+    if (classInfo.fields.exists(field => field.classType.isArray && !field.classType.typeName.contains("Array"))) {
       Seq("""import {List} from "immutable";""")
     }
     else {
@@ -78,7 +78,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def writeConstructor(): Unit = {
     val fields = classInfo.fields.map { field =>
-      val typeName = field.classType.typeName.replaceAll("Array<", "List<")
+      val typeName = field.classType.typeName
       s"${field.name}: $typeName"
     }
     out.print(s"  constructor(")
@@ -108,11 +108,12 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
       else {
         field.classType.arrayType match {
           case Some(arrayClassType) =>
+            val collection = if (field.classType.typeName.startsWith("Array")) "Array" else "List"
             if (arrayClassType.primitive) {
-              s"      jsonObject.${field.name} ? List(jsonObject.${field.name}) : List()"
+              s"      jsonObject.${field.name} ? $collection(jsonObject.${field.name}) : $collection()"
             }
             else {
-              s"      jsonObject.${field.name} ? List(jsonObject.${field.name}.map((json: any) => ${arrayClassType.typeName}.fromJSON(json))) : List()"
+              s"      jsonObject.${field.name} ? $collection(jsonObject.${field.name}.map((json: any) => ${arrayClassType.typeName}.fromJSON(json))) : $collection()"
             }
           case _ =>
             s"      ${field.classType.typeName}.fromJSON(jsonObject.${field.name})"

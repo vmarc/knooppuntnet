@@ -1,4 +1,5 @@
-import {Coordinate} from "ol/coordinate";
+// this class is generated, please do not modify
+
 import {LatLonImpl} from "../lat-lon-impl";
 
 export class PlanFragment {
@@ -6,8 +7,20 @@ export class PlanFragment {
   constructor(readonly meters: number,
               readonly orientation: number,
               readonly streetIndex: number,
-              readonly coordinate: Coordinate,
+              readonly coordinate: Array<number>,
               readonly latLon: LatLonImpl) {
   }
 
+  public static fromJSON(jsonObject: any): PlanFragment {
+    if (!jsonObject) {
+      return undefined;
+    }
+    return new PlanFragment(
+      jsonObject.meters,
+      jsonObject.orientation,
+      jsonObject.streetIndex,
+      jsonObject.coordinate ? Array(jsonObject.coordinate) : Array(),
+      LatLonImpl.fromJSON(jsonObject.latLon)
+    );
+  }
 }

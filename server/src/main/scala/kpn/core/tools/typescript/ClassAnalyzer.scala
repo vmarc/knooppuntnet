@@ -20,6 +20,7 @@ class ClassAnalyzer {
   private val mapSignature: Regex = """Map\[([a-zA-Z0-9.]*),([a-zA-Z0-9.]*)\]""".r
   private val setSignature: Regex = """Set\[([a-zA-Z0-9.]*)\]""".r
   private val seqSignature: Regex = """Seq\[([a-zA-Z0-9.]*)\]""".r
+  private val arraySignature: Regex = """Array\[([a-zA-Z0-9.]*)\]""".r
   private val optionSignature: Regex = """^Option\[(.*)\]$""".r
 
   def analyze(caseClass: Type): ClassInfo = {
@@ -55,7 +56,7 @@ class ClassAnalyzer {
             fieldClassName
           }
 
-          if (withoutPackage == className) {
+          if (withoutPackage == className || withoutPackage.startsWith("Array")) {
             None
           }
           else {
@@ -107,7 +108,7 @@ class ClassAnalyzer {
       case setSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1)
         ClassType(
-          s"Array<${typescriptType1.typeName}>",
+          s"List<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1)
         )
 
@@ -115,6 +116,13 @@ class ClassAnalyzer {
         val typescriptType1 = fieldTypeToTypescript(type1)
         ClassType(
           s"List<${typescriptType1.typeName}>",
+          arrayType = Some(typescriptType1)
+        )
+
+      case arraySignature(type1) =>
+        val typescriptType1 = fieldTypeToTypescript(type1)
+        ClassType(
+          s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1)
         )
 

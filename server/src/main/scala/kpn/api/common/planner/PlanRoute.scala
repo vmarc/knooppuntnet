@@ -4,6 +4,6 @@ case class PlanRoute(
   sourceNode: PlanNode,
   sinkNode: PlanNode,
   meters: Long,
-  segments: List[PlanSegment],
-  streets: List[String]
+  segments: Seq[PlanSegment],
+  streets: Seq[String]
 )

@@ -8,5 +8,5 @@ case class PlanLeg(
   sourceNode: PlanNode,
   sinkNode: PlanNode,
   meters: Long,
-  routes: List[PlanRoute]
+  routes: Seq[PlanRoute]
 )

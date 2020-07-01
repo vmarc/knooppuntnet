@@ -80,8 +80,7 @@ class PlannerFacadeImpl(
       }
       sinks.foreach { sink =>
         val coordinate = PlanUtil.toCoordinate(sink.lat.toDouble, sink.lon.toDouble)
-
-        println("node=" + sink.nodeName + ", coordinate " + coordinate[0] + ", " + coordinate[1] + ", lat=" + sink.lat + ", lon=" + sink.lon)
+        println("node=" + sink.nodeName + ", coordinate " + coordinate(0) + ", " + coordinate(1) + ", lat=" + sink.lat + ", lon=" + sink.lon)
       }
 
       ApiResponse(None, 1, legs)
