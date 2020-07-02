@@ -1,3 +1,4 @@
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanUtil} from "../plan/plan-util";
@@ -22,11 +23,11 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
     const toLeg = context.legs.getById(toLegId);
     context.routeLayer.removeFlag(fromLeg.sourceNode.featureId);
     context.routeLayer.addFlag(PlanFlag.fromStartNode(toLeg.sourceNode));
-    context.routeLayer.removeRouteLeg(fromLeg.featureId);
-    context.routeLayer.addRouteLeg(toLeg);
+    context.routeLayer.removePlanLeg(fromLeg.featureId);
+    context.routeLayer.addPlanLeg(toLeg);
     const newSourceNode = toLeg.sourceNode;
     const newLegs = context.plan.legs.update(0, () => toLeg);
-    const newPlan = PlanUtil.plan(newSourceNode, newLegs);
+    const newPlan = new Plan(newSourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 

@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlagType} from "../plan/plan-flag-type";
@@ -25,7 +26,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
 
-    const plan = PlanUtil.plan(node1, List([oldLeg]));
+    const plan = new Plan(node1, List([oldLeg]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveEndPoint("12", "13");

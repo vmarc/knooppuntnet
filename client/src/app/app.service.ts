@@ -1,6 +1,5 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {List} from "immutable";
 import {MarkdownService} from "ngx-markdown";
 import {Observable} from "rxjs";
 import {timeout} from "rxjs/operators";
@@ -8,7 +7,6 @@ import {map} from "rxjs/operators";
 import {ChangesPage} from "./kpn/api/common/changes-page";
 import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
 import {ChangesParameters} from "./kpn/api/common/changes/filter/changes-parameters";
-import {Ref} from "./kpn/api/common/common/ref";
 import {LocationChangesPage} from "./kpn/api/common/location/location-changes-page";
 import {LocationChangesParameters} from "./kpn/api/common/location/location-changes-parameters";
 import {LocationEditPage} from "./kpn/api/common/location/location-edit-page";
@@ -30,8 +28,9 @@ import {NodeChangesPage} from "./kpn/api/common/node/node-changes-page";
 import {NodeDetailsPage} from "./kpn/api/common/node/node-details-page";
 import {NodeMapPage} from "./kpn/api/common/node/node-map-page";
 import {LegBuildParams} from "./kpn/api/common/planner/leg-build-params";
+import {Plan} from "./kpn/api/common/planner/plan";
+import {PlanLeg} from "./kpn/api/common/planner/plan-leg";
 import {PlanParams} from "./kpn/api/common/planner/plan-params";
-import {RouteLeg} from "./kpn/api/common/planner/route-leg";
 import {PoiPage} from "./kpn/api/common/poi-page";
 import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
 import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
@@ -257,21 +256,17 @@ export class AppService {
     );
   }
 
-  public routeLeg(legBuildParams: LegBuildParams): Observable<ApiResponse<RouteLeg>> {
+  public leg(legBuildParams: LegBuildParams): Observable<ApiResponse<PlanLeg>> {
     const url = `/json-api/leg`;
     return this.http.post(url, legBuildParams).pipe(
-      map(response => ApiResponse.fromJSON(response, RouteLeg.fromJSON))
+      map(response => ApiResponse.fromJSON(response, PlanLeg.fromJSON))
     );
   }
 
-  public plan(planParams: PlanParams): Observable<ApiResponse<List<RouteLeg>>> {
+  public plan(planParams: PlanParams): Observable<ApiResponse<Plan>> {
     const url = `/json-api/plan`;
     return this.http.post(url, planParams).pipe(
-      map(response => {
-        return ApiResponse.fromJSON(response, (s) => {
-          return s ? List(s.map((json: any) => RouteLeg.fromJSON(json))) : List();
-        });
-      })
+      map(response => ApiResponse.fromJSON(response, Plan.fromJSON))
     );
   }
 

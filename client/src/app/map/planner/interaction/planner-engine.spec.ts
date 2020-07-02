@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {TestSupport} from "../../../util/test-support";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
@@ -55,7 +56,7 @@ describe("PlannerEngine", () => {
       const node1 = NetworkNodeFeature.create("1001", "01", [1, 1]);
       const node2 = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
-      setup.context.updatePlan(PlanUtil.plan(node1.node, List()));
+      setup.context.updatePlan(new Plan(node1.node, List()));
 
       const features: List<MapFeature> = List([node2]);
 

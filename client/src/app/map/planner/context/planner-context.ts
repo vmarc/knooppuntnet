@@ -1,7 +1,5 @@
 import {List} from "immutable";
 import {BehaviorSubject, Observable} from "rxjs";
-import {Util} from "../../../components/shared/util";
-import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
@@ -9,7 +7,6 @@ import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
-import {PlanLegBuilder} from "../plan/plan-leg-builder";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCursor} from "./planner-cursor";
@@ -42,7 +39,7 @@ export class PlannerContext {
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {
-    this._plan$ = new BehaviorSubject<Plan>(PlanUtil.planEmpty());
+    this._plan$ = new BehaviorSubject<Plan>(PlanUtil.emptyPlan);
     this.plan$ = this._plan$.asObservable();
     this._networkType$ = new BehaviorSubject<NetworkType>(null);
     this.networkType$ = this._networkType$.asObservable();
@@ -76,7 +73,7 @@ export class PlannerContext {
       this._plan$.next(existingData.plan);
       this._commandStack$.next(existingData.commandStack);
     } else {
-      this._plan$.next(PlanUtil.planEmpty());
+      this._plan$.next(PlanUtil.emptyPlan);
       this._commandStack$.next(new PlannerCommandStack());
     }
     this._networkType$.next(networkType);
@@ -103,9 +100,9 @@ export class PlannerContext {
 
   updatePlanLeg(newLeg: PlanLeg) {
     const newLegs = this.plan.legs.map(leg => leg.featureId === newLeg.featureId ? newLeg : leg);
-    const newPlan = PlanUtil.plan(this.plan.sourceNode, newLegs);
+    const newPlan = new Plan(this.plan.sourceNode, newLegs);
     this.updatePlan(newPlan);
-    this.routeLayer.addRouteLeg(newLeg);
+    this.routeLayer.addPlanLeg(newLeg);
   }
 
   closeOverlay(): void {
@@ -125,9 +122,8 @@ export class PlannerContext {
       return planLeg;
     }
 
-    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(routeLeg => {
-      if (routeLeg) {
-        const planLeg = PlanLegBuilder.toPlanLeg(source, sink, sourceNode, sinkNode, routeLeg);
+    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
+      if (planLeg) {
         this.legs.add(planLeg);
         this.updatePlanLeg(planLeg);
       }
@@ -148,54 +144,26 @@ export class PlannerContext {
         legKey,
         cachedLeg.source,
         cachedLeg.sink,
-        cachedLeg.sourceNode,
-        cachedLeg.sinkNode,
+        cachedLeg.sourceNode, // TODO PLAN should have PlanNode with new featureId ?
+        cachedLeg.sinkNode, // TODO PLAN should have PlanNode with new featureId ?
         cachedLeg.meters,
-        cachedLeg.routes
+        cachedLeg.routes // TODO PLAN PlanNode's in routes should alse have new featureId ?
       );
       this.legs.add(planLeg);
       return planLeg;
     }
 
-    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(routeLeg => {
-      if (routeLeg) {
-
-        let newSourceNode = sourceNode;
-        if (source.route !== null) {
-          const sourceRouteLegNode = routeLeg.routes.first(null).source;
-          const newCoordinate = Util.toCoordinate(sourceRouteLegNode.lat, sourceRouteLegNode.lon);
-          newSourceNode = new PlanNode(
-            sourceNode.featureId,
-            sourceRouteLegNode.nodeId,
-            sourceRouteLegNode.nodeName,
-            newCoordinate,
-            new LatLonImpl(sourceRouteLegNode.lat, sourceRouteLegNode.lon)
-          );
-        }
-
-        let newSinkNode = sinkNode;
-        if (sink.route !== null) {
-          const sinkRouteLegNode = routeLeg.routes.last(null).sink;
-          const newCoordinate = Util.toCoordinate(sinkRouteLegNode.lat, sinkRouteLegNode.lon);
-          newSinkNode = new PlanNode(
-            sinkNode.featureId,
-            sinkRouteLegNode.nodeId,
-            sinkRouteLegNode.nodeName,
-            newCoordinate,
-            new LatLonImpl(sinkRouteLegNode.lat, sinkRouteLegNode.lon)
-          );
-        }
-
-        const planLeg = PlanLegBuilder.toPlanLeg(source, sink, newSourceNode, newSinkNode, routeLeg);
+    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
+      if (planLeg) {
         this.legs.add(planLeg);
         this.updatePlanLeg(planLeg);
-
-        if (source.route !== null) {
-          this.routeLayer.updateFlagCoordinate(sourceNode.featureId, newSourceNode.coordinate);
-        }
-        if (sink.route !== null) {
-          this.routeLayer.updateFlagCoordinate(sinkNode.featureId, newSinkNode.coordinate);
-        }
+        // TODO PLAN
+        // if (source.route !== null) {
+        //   this.routeLayer.updateFlagCoordinate(sourceNode.featureId, newSourceNode.coordinate);
+        // }
+        // if (sink.route !== null) {
+        //   this.routeLayer.updateFlagCoordinate(sinkNode.featureId, newSinkNode.coordinate);
+        // }
       }
     });
 

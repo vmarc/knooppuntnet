@@ -39,6 +39,8 @@ import {PlannerEngine} from "./planner-engine";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
+  private newInteractionToggle = false;
+
   private legDrag: PlannerDragLeg = null;
   private nodeDrag: PlannerDragFlag = null;
 
@@ -85,10 +87,12 @@ export class PlannerEngineImpl implements PlannerEngine {
         return true;
       }
     } else if (this.context.plan.sourceNode !== null) {
-      const route = Features.findRoute(features);
-      if (route != null) {
-        this.routeSelected(route);
-        return true;
+      if (this.newInteractionToggle) {
+        const route = Features.findRoute(features);
+        if (route != null) {
+          this.routeSelected(route);
+          return true;
+        }
       }
     }
 
@@ -140,11 +144,13 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     if (this.context.plan.sourceNode !== null) { // no clicking routes when start node has not been selected yet
-      const route = Features.findRoute(features);
-      if (route != null) {
-        this.context.cursor.setStylePointer();
-        this.highlightRoute(route);
-        return true;
+      if (this.newInteractionToggle) {
+        const route = Features.findRoute(features);
+        if (route != null) {
+          this.context.cursor.setStylePointer();
+          this.highlightRoute(route);
+          return true;
+        }
       }
     }
 
@@ -174,7 +180,9 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
-        this.highlightRoute(routeFeature);
+        if (this.newInteractionToggle) {
+          this.highlightRoute(routeFeature);
+        }
       } else {
         this.context.highlightLayer.reset();
       }

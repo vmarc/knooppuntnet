@@ -4,7 +4,8 @@ import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
-import kpn.api.common.planner.RouteLeg
+import kpn.api.common.planner.Plan
+import kpn.api.common.planner.PlanLeg
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
@@ -16,12 +17,8 @@ import kpn.server.api.Api
 import kpn.server.api.analysis.pages.PoiPageBuilder
 import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
-import kpn.server.api.planner.leg.LegBuilder
-import kpn.server.api.planner.leg.PlanUtil
+import kpn.server.api.planner.leg.PlanBuilder
 import kpn.server.repository.AnalysisRepository
-import org.geotools.geometry.jts.JTS
-import org.geotools.referencing.CRS
-import org.locationtech.jts.geom.Coordinate
 import org.springframework.stereotype.Component
 
 @Component
@@ -29,7 +26,7 @@ class PlannerFacadeImpl(
   api: Api,
   analysisRepository: AnalysisRepository,
   poiPageBuilder: PoiPageBuilder,
-  legBuilder: LegBuilder,
+  legBuilder: PlanBuilder,
   mapNodeDetailBuilder: MapNodeDetailBuilder,
   mapRouteDetailBuilder: MapRouteDetailBuilder
 ) extends PlannerFacade {
@@ -60,29 +57,18 @@ class PlannerFacadeImpl(
     }
   }
 
-  override def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg] = {
+  override def leg(user: Option[String], params: LegBuildParams): ApiResponse[PlanLeg] = {
     val args = s"${params.legId}: ${legEndString(params.source)} to ${legEndString(params.sink)}"
     api.execute(user, "leg", args) {
-      val leg = legBuilder.build(params)
+      val leg = legBuilder.leg(params)
       ApiResponse(None, 1, leg)
     }
   }
 
-  override def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Seq[RouteLeg]] = {
-    val args = s"${networkType.name}: ${planString}"
+  override def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Plan] = {
+    val args = s"${networkType.name}: $planString"
     api.execute(user, "plan", args) {
-      val legs = legBuilder.load(networkType, planString)
-
-
-      val sinks = legs match {
-        case None => Seq()
-        case Some(routeLegs) => routeLegs.flatMap(routeLeg => routeLeg.routes.map(rlr => rlr.sink))
-      }
-      sinks.foreach { sink =>
-        val coordinate = PlanUtil.toCoordinate(sink.lat.toDouble, sink.lon.toDouble)
-        println("node=" + sink.nodeName + ", coordinate " + coordinate(0) + ", " + coordinate(1) + ", lat=" + sink.lat + ", lon=" + sink.lon)
-      }
-
+      val legs = legBuilder.plan(networkType, planString)
       ApiResponse(None, 1, legs)
     }
   }

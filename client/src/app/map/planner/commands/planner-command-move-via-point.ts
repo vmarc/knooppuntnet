@@ -1,6 +1,6 @@
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
@@ -28,10 +28,10 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
     context.routeLayer.removeFlag(fromLeg1.sinkNode.featureId);
     context.routeLayer.addFlag(PlanFlag.fromViaNode(toLeg1.sinkNode));
-    context.routeLayer.removeRouteLeg(fromLeg1.featureId);
-    context.routeLayer.removeRouteLeg(fromLeg2.featureId);
-    context.routeLayer.addRouteLeg(toLeg1);
-    context.routeLayer.addRouteLeg(toLeg2);
+    context.routeLayer.removePlanLeg(fromLeg1.featureId);
+    context.routeLayer.removePlanLeg(fromLeg2.featureId);
+    context.routeLayer.addPlanLeg(toLeg1);
+    context.routeLayer.addPlanLeg(toLeg2);
 
     const newLegs = context.plan.legs.map(leg => {
       if (leg.featureId === fromLeg1.featureId) {
@@ -43,7 +43,7 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
       return leg;
     });
 
-    const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
+    const newPlan = new Plan(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 

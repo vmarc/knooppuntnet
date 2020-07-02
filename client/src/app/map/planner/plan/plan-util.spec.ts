@@ -1,5 +1,6 @@
 import {List} from "immutable";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {PlanUtil} from "./plan-util";
@@ -7,12 +8,12 @@ import {PlanUtil} from "./plan-util";
 describe("PlanUtil", () => {
 
   it("toUrlString - empty plan", () => {
-    expect(PlanUtil.toUrlString(PlanUtil.planEmpty())).toEqual("");
+    expect(PlanUtil.toUrlString(PlanUtil.emptyPlan)).toEqual("");
   });
 
   it("toUrlString - plan with source only", () => {
     const startNode = PlanUtil.planNode("10", "", new LatLonImpl("", ""));
-    const plan = PlanUtil.plan(startNode, List());
+    const plan = new Plan(startNode, List());
     expect(PlanUtil.toUrlString(plan)).toEqual("a");
   });
 
@@ -36,7 +37,7 @@ describe("PlanUtil", () => {
     const leg2 = new PlanLeg("", "", viaLegEnd1, viaLegEnd2, viaNode1, viaNode2, 0, List([route2]));
     const leg3 = new PlanLeg("", "", viaLegEnd2, endLegEnd, viaNode1, endNode, 0, List([route3]));
 
-    const plan = PlanUtil.plan(startNode, List([leg1, leg2, leg3]));
+    const plan = new Plan(startNode, List([leg1, leg2, leg3]));
 
     expect(PlanUtil.toUrlString(plan)).toEqual("a-b-c-d");
   });
@@ -57,8 +58,7 @@ describe("PlanUtil", () => {
   });
 
   it("total distance empty plan", () => {
-    const plan = PlanUtil.planEmpty();
-    expect(PlanUtil.planCumulativeKmLeg(plan, 0)).toEqual("0 km");
+    expect(PlanUtil.planCumulativeKmLeg(PlanUtil.emptyPlan, 0)).toEqual("0 km");
   });
 
   it("total distance", () => {
@@ -70,7 +70,7 @@ describe("PlanUtil", () => {
     const leg1 = new PlanLeg("1", "", null, null, null, null, 3000, List([route1, route2]));
     const leg2 = new PlanLeg("2", "", null, null, null, null, 4000, List([route3]));
 
-    const plan = PlanUtil.plan(null, List([leg1, leg2]));
+    const plan = new Plan(null, List([leg1, leg2]));
 
     expect(PlanUtil.planCumulativeKmLeg(plan, 0)).toEqual("3 km");
     expect(PlanUtil.planCumulativeKmLeg(plan, 1)).toEqual("7 km");

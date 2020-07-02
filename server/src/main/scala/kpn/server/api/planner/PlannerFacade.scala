@@ -3,7 +3,8 @@ package kpn.server.api.planner
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
-import kpn.api.common.planner.RouteLeg
+import kpn.api.common.planner.Plan
+import kpn.api.common.planner.PlanLeg
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
@@ -20,7 +21,7 @@ trait PlannerFacade {
 
   def poi(user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage]
 
-  def leg(user: Option[String], params: LegBuildParams): ApiResponse[RouteLeg]
+  def leg(user: Option[String], params: LegBuildParams): ApiResponse[PlanLeg]
 
-  def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Seq[RouteLeg]]
+  def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Plan]
 }

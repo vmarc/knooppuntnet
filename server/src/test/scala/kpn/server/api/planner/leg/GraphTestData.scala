@@ -17,6 +17,13 @@ import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
+/*
+        1m          2m          5m
+  n1 ---r1--- n2 ---r2--- n3 ---r3--- n4
+   \                     /
+    ---------r4---------
+             4m
+*/
 class GraphTestData extends SharedTestObjects with MockFactory {
 
   val node1: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")

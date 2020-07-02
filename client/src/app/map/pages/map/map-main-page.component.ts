@@ -26,8 +26,8 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PoiService} from "../../../services/poi.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
+import {PlannerCommandAddPlan} from "../../planner/commands/planner-command-add-plan";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {PlanLegBuilder} from "../../planner/plan/plan-leg-builder";
 import {PlanUtil} from "../../planner/plan/plan-util";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
@@ -101,11 +101,9 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
           if (fragment) {
             const planParams = new PlanParams(networkType.name, fragment);
             this.appService.plan(planParams).subscribe(response => {
-              const legs = response.result.map(routeLeg => PlanLegBuilder.toPlanLeg2(routeLeg));
-              const plan = PlanUtil.plan(legs.get(0).sourceNode, legs);
-              plan.legs.forEach(leg => this.plannerService.context.legs.add(leg));
-              this.plannerService.context.routeLayer.addPlan(plan);
-              this.plannerService.context.updatePlan(plan);
+              const plan = response.result;
+              const command = new PlannerCommandAddPlan(plan);
+              this.plannerService.context.execute(command);
               this.zoomInToRoute();
             });
           }

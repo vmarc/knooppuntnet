@@ -59,7 +59,7 @@ export class PlannerTestSetup {
   }
 
   createPlanWithStartPointOnly(): Plan {
-    const plan = PlanUtil.plan(this.node1, List());
+    const plan = new Plan(this.node1, List());
     this.context.updatePlan(plan);
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
     return plan;
@@ -68,12 +68,12 @@ export class PlannerTestSetup {
   createOneLegPlan(): Plan {
 
     const leg = this.createLeg(this.node1, this.node2);
-    const plan = PlanUtil.plan(this.node1, List([leg]));
+    const plan = new Plan(this.node1, List([leg]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
     this.routeLayer.addFlag(PlanFlag.fromViaNode(this.node2));
-    this.routeLayer.addRouteLeg(leg);
+    this.routeLayer.addPlanLeg(leg);
 
     return plan;
   }
@@ -82,14 +82,14 @@ export class PlannerTestSetup {
 
     const leg1 = this.createLeg(this.node1, this.node2);
     const leg2 = this.createLeg(this.node2, this.node3);
-    const plan = PlanUtil.plan(this.node1, List([leg1, leg2]));
+    const plan = new Plan(this.node1, List([leg1, leg2]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.fromStartNode(this.node1));
     this.routeLayer.addFlag(PlanFlag.fromViaNode(this.node2));
     this.routeLayer.addFlag(PlanFlag.fromViaNode(this.node3));
-    this.routeLayer.addRouteLeg(leg1);
-    this.routeLayer.addRouteLeg(leg2);
+    this.routeLayer.addPlanLeg(leg1);
+    this.routeLayer.addPlanLeg(leg2);
 
     return plan;
   }

@@ -1,13 +1,14 @@
 // this class is generated, please do not modify
 
 import {LatLonImpl} from "../lat-lon-impl";
+import {Coordinate} from "ol/coordinate";
 
 export class PlanNode {
 
   constructor(readonly featureId: string,
               readonly nodeId: string,
               readonly nodeName: string,
-              readonly coordinate: Array<number>,
+              readonly coordinate: Coordinate,
               readonly latLon: LatLonImpl) {
   }
 
@@ -19,7 +20,7 @@ export class PlanNode {
       jsonObject.featureId,
       jsonObject.nodeId,
       jsonObject.nodeName,
-      jsonObject.coordinate ? Array(jsonObject.coordinate) : Array(),
+      [jsonObject.coordinate.x, jsonObject.coordinate.y],
       LatLonImpl.fromJSON(jsonObject.latLon)
     );
   }

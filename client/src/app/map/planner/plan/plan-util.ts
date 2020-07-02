@@ -9,10 +9,12 @@ import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
 import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {FeatureId} from "../features/feature-id";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
+import {FeatureId} from "../features/feature-id";
 
 export class PlanUtil {
+
+  static readonly emptyPlan = new Plan(null, List());
 
   static toUrlString(plan: Plan): string {
 
@@ -75,7 +77,6 @@ export class PlanUtil {
     return "";
   }
 
-
   static planNode(nodeId: string, nodeName: string, latLon: LatLonImpl): PlanNode {
     const coordinate = Util.latLonToCoordinate(latLon);
     return new PlanNode(FeatureId.next(), nodeId, nodeName, coordinate, latLon);
@@ -86,17 +87,12 @@ export class PlanUtil {
     return new PlanNode(FeatureId.next(), nodeId, nodeName, coordinate, latLon);
   }
 
-
   static planSinkNode(plan: Plan): PlanNode {
     const lastLeg = plan.legs.last(null);
     if (lastLeg) {
       return lastLeg.sinkNode;
     }
     return plan.sourceNode;
-  }
-
-  static planEmpty(): Plan {
-    return new Plan(null, List());
   }
 
   static plan(source: PlanNode, legs: List<PlanLeg>): Plan {

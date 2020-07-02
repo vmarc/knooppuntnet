@@ -12,16 +12,16 @@ export abstract class PlannerRouteLayerBase implements PlannerRouteLayer {
 
   abstract updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
 
-  abstract addRouteLeg(leg: PlanLeg): void;
+  abstract addPlanLeg(leg: PlanLeg): void;
 
-  abstract removeRouteLeg(legId: string): void;
+  abstract removePlanLeg(legId: string): void;
 
   removePlan(plan: Plan): void {
     if (plan.sourceNode) {
       this.removeFlag(plan.sourceNode.featureId);
     }
     plan.legs.forEach(leg => {
-      this.removeRouteLeg(leg.featureId);
+      this.removePlanLeg(leg.featureId);
       this.removeFlag(leg.sinkNode.featureId);
     });
   }
@@ -32,7 +32,7 @@ export abstract class PlannerRouteLayerBase implements PlannerRouteLayer {
     }
     for (let i = 0; i < plan.legs.size; i++) {
       const leg = plan.legs.get(i);
-      this.addRouteLeg(leg);
+      this.addPlanLeg(leg);
       if (i < plan.legs.size - 1) {
         this.addFlag(PlanFlag.fromViaNode(leg.sinkNode));
       } else {

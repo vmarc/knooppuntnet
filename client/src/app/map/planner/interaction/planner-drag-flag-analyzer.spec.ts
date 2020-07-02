@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {FlagFeature} from "../features/flag-feature";
 import {PlanUtil} from "../plan/plan-util";
@@ -22,7 +23,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("start start-point drag", () => {
 
-    const plan = PlanUtil.plan(node1, List([leg12, leg23, leg34]));
+    const plan = new Plan(node1, List([leg12, leg23, leg34]));
     const flag = FlagFeature.start(node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
@@ -33,7 +34,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("start via-point 2 drag", () => {
 
-    const plan = PlanUtil.plan(node1, List([leg12, leg23, leg34]));
+    const plan = new Plan(node1, List([leg12, leg23, leg34]));
     const flag = FlagFeature.via(node2.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
@@ -44,7 +45,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("start via-point 3 drag", () => {
 
-    const plan = PlanUtil.plan(node1, List([leg12, leg23, leg34]));
+    const plan = new Plan(node1, List([leg12, leg23, leg34]));
     const flag = FlagFeature.via(node3.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 
@@ -54,7 +55,7 @@ describe("PlannerNodeDragAnalyzer", () => {
   });
 
   it("cannot initiate drag of via node on plan with no legs", () => {
-    const plan = PlanUtil.plan(node1, List());
+    const plan = new Plan(node1, List());
     const flag = FlagFeature.via(node1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
     expect(drag).toBeNull();
@@ -62,7 +63,7 @@ describe("PlannerNodeDragAnalyzer", () => {
 
   it("end-point", () => {
 
-    const plan = PlanUtil.plan(node1, List([leg12, leg23, leg34]));
+    const plan = new Plan(node1, List([leg12, leg23, leg34]));
     const flag = FlagFeature.via(node4.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
 

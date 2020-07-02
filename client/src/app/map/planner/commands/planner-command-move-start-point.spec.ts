@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
@@ -16,7 +17,7 @@ describe("PlannerCommandMoveStartPoint", () => {
 
     setup.routeLayer.addFlag(PlanFlag.fromStartNode(node1));
 
-    const plan = PlanUtil.plan(node1, List());
+    const plan = new Plan(node1, List());
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveStartPoint(node1, node2);

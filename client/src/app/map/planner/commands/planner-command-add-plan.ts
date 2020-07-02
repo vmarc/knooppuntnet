@@ -3,19 +3,19 @@ import {PlannerContext} from "../context/planner-context";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
-export class PlannerCommandReset implements PlannerCommand {
+export class PlannerCommandAddPlan implements PlannerCommand {
 
-  private oldPlan: Plan;
+  constructor(private plan: Plan) {
+  }
 
   public do(context: PlannerContext) {
-    this.oldPlan = context.plan;
-    context.routeLayer.removePlan(this.oldPlan);
-    context.updatePlan(PlanUtil.emptyPlan);
+    context.routeLayer.addPlan(this.plan);
+    context.updatePlan(this.plan);
   }
 
   public undo(context: PlannerContext) {
-    context.routeLayer.addPlan(this.oldPlan);
-    context.updatePlan(this.oldPlan);
+    context.routeLayer.removePlan(this.plan);
+    context.updatePlan(PlanUtil.emptyPlan);
   }
 
 }

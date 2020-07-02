@@ -2,7 +2,6 @@ import {List} from "immutable";
 import {Observable, of} from "rxjs";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
-import {RouteLeg} from "../../../kpn/api/common/planner/route-leg";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerLegRepository} from "./planner-leg-repository";
 
@@ -10,7 +9,7 @@ export class PlannerLegRepositoryMock implements PlannerLegRepository {
 
   private planLegs: List<PlanLeg> = List();
 
-  planLeg(networkType: NetworkType, legId: string, source: LegEnd, sink: LegEnd): Observable<RouteLeg> {
+  planLeg(networkType: NetworkType, legId: string, source: LegEnd, sink: LegEnd): Observable<PlanLeg> {
 
     // const legKey = "";
     //

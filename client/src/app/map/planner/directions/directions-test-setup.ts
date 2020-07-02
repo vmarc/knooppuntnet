@@ -1,9 +1,8 @@
 import {List} from "immutable";
-import {RouteLeg} from "../../../kpn/api/common/planner/route-leg";
 import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {RouteLeg} from "../../../kpn/api/common/planner/route-leg";
 import {PlanLegBuilder} from "../plan/plan-leg-builder";
-import {PlanUtil} from "../plan/plan-util";
 import {Directions1TestSetup} from "./directions-1-32-08-test-setup";
 import {Directions2TestSetup} from "./directions-2-08-93-test-setup";
 import {Directions3TestSetup} from "./directions-3-93-92-test-setup";
@@ -22,7 +21,7 @@ export class DirectionsTestSetup {
     const leg5 = this.toLeg(Directions5TestSetup.json_11_91());
     const leg6 = this.toLeg(Directions6TestSetup.json_91_34());
     const leg7 = this.toLeg(Directions7TestSetup.json_34_35());
-    return PlanUtil.plan(leg1.sourceNode, List([leg1, leg2, leg3, leg4, leg5, leg6, leg7]));
+    return new Plan(leg1.sourceNode, List([leg1, leg2, leg3, leg4, leg5, leg6, leg7]));
   }
 
   private static toLeg(json): PlanLeg {

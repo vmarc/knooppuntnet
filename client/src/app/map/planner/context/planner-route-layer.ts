@@ -11,9 +11,9 @@ export interface PlannerRouteLayer {
 
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
 
-  addRouteLeg(leg: PlanLeg): void;
+  addPlanLeg(leg: PlanLeg): void;
 
-  removeRouteLeg(legId: string): void;
+  removePlanLeg(legId: string): void;
 
   removePlan(plan: Plan): void;
 

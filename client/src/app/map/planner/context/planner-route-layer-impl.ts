@@ -67,8 +67,8 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
     }
   }
 
-  addRouteLeg(leg: PlanLeg): void {
-    this.removeRouteLeg(leg.featureId);
+  addPlanLeg(leg: PlanLeg): void {
+    this.removePlanLeg(leg.featureId);
     const feature = new Feature(new LineString(leg.routes.flatMap(route => PlanUtil.planRouteCoordinates(route)).toArray()));
     feature.setId(leg.featureId);
     feature.set("layer", "leg");
@@ -76,7 +76,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
     this.source.addFeature(feature);
   }
 
-  removeRouteLeg(legId: string): void {
+  removePlanLeg(legId: string): void {
     const feature = this.source.getFeatureById(legId);
     if (feature) {
       this.source.removeFeature(feature);

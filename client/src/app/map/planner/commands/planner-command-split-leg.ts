@@ -1,6 +1,6 @@
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
@@ -19,11 +19,11 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.routeLayer.addFlag(PlanFlag.fromViaNode(newLeg1.sinkNode));
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === oldLeg.featureId);
     if (legIndex > -1) {
-      context.routeLayer.removeRouteLeg(oldLeg.featureId);
-      context.routeLayer.addRouteLeg(newLeg1);
-      context.routeLayer.addRouteLeg(newLeg2);
+      context.routeLayer.removePlanLeg(oldLeg.featureId);
+      context.routeLayer.addPlanLeg(newLeg1);
+      context.routeLayer.addPlanLeg(newLeg2);
       const newLegs = context.plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
-      const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
+      const newPlan = new Plan(context.plan.sourceNode, newLegs);
       context.updatePlan(newPlan);
     }
   }
@@ -35,13 +35,13 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg2 = context.legs.getById(this.newLegId2);
 
     context.routeLayer.removeFlag(newLeg1.sinkNode.featureId); // remove connection node
-    context.routeLayer.removeRouteLeg(newLeg1.featureId);
-    context.routeLayer.removeRouteLeg(newLeg2.featureId);
-    context.routeLayer.addRouteLeg(oldLeg);
+    context.routeLayer.removePlanLeg(newLeg1.featureId);
+    context.routeLayer.removePlanLeg(newLeg2.featureId);
+    context.routeLayer.addPlanLeg(oldLeg);
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg1.featureId);
     if (legIndex > -1) {
       const newLegs = context.plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, oldLeg);
-      const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
+      const newPlan = new Plan(context.plan.sourceNode, newLegs);
       context.updatePlan(newPlan);
     }
   }

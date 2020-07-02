@@ -1,10 +1,10 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
@@ -23,14 +23,14 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
     context.routeLayer.removeFlag(oldLeg1.sinkNode.featureId);
     context.routeLayer.addFlag(new PlanFlag(PlanFlagType.Via, this.flagFeatureId(), this.coordinate));
-    context.routeLayer.removeRouteLeg(oldLeg1.featureId);
-    context.routeLayer.removeRouteLeg(oldLeg2.featureId);
-    context.routeLayer.addRouteLeg(newLeg);
+    context.routeLayer.removePlanLeg(oldLeg1.featureId);
+    context.routeLayer.removePlanLeg(oldLeg2.featureId);
+    context.routeLayer.addPlanLeg(newLeg);
 
     const newLegs: List<PlanLeg> = context.plan.legs
       .map(leg => leg.featureId === oldLeg1.featureId ? newLeg : leg)
       .filter(leg => leg.featureId !== oldLeg2.featureId);
-    const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs);
+    const newPlan = new Plan(context.plan.sourceNode, newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -42,15 +42,15 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
     context.routeLayer.removeFlag(this.flagFeatureId());
     context.routeLayer.addFlag(PlanFlag.fromViaNode(oldLeg1.sinkNode));
-    context.routeLayer.addRouteLeg(oldLeg1);
-    context.routeLayer.addRouteLeg(oldLeg2);
-    context.routeLayer.removeRouteLeg(newLeg.featureId);
+    context.routeLayer.addPlanLeg(oldLeg1);
+    context.routeLayer.addPlanLeg(oldLeg2);
+    context.routeLayer.removePlanLeg(newLeg.featureId);
 
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg.featureId);
     if (legIndex > -1) {
       const newLegs1 = context.plan.legs.update(legIndex, () => oldLeg1);
       const newLegs2 = newLegs1.insert(legIndex + 1, oldLeg2);
-      const newPlan = PlanUtil.plan(context.plan.sourceNode, newLegs2);
+      const newPlan = new Plan(context.plan.sourceNode, newLegs2);
       context.updatePlan(newPlan);
     }
   }

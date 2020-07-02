@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlagType} from "../plan/plan-flag-type";
@@ -27,8 +28,8 @@ describe("PlannerCommandSplitLeg", () => {
     setup.context.legs.add(newLeg1);
     setup.context.legs.add(newLeg2);
 
-    const plan = PlanUtil.plan(node1, List([oldLeg]));
-    setup.context.routeLayer.addRouteLeg(oldLeg);
+    const plan = new Plan(node1, List([oldLeg]));
+    setup.context.routeLayer.addPlanLeg(oldLeg);
     setup.context.updatePlan(plan);
 
     setup.routeLayer.expectRouteLegCount(1);

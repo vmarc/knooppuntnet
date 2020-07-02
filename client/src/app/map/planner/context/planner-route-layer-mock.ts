@@ -37,11 +37,11 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
     TestSupport.expectCoordinate(flag.coordinate, coordinate);
   }
 
-  addRouteLeg(leg: PlanLeg): void {
+  addPlanLeg(leg: PlanLeg): void {
     this.routeLegs = this.routeLegs.set(leg.featureId, leg);
   }
 
-  removeRouteLeg(legId: string): void {
+  removePlanLeg(legId: string): void {
     this.routeLegs = this.routeLegs.remove(legId);
   }
 

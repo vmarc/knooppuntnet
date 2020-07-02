@@ -1,13 +1,14 @@
 // this class is generated, please do not modify
 
 import {LatLonImpl} from "../lat-lon-impl";
+import {Coordinate} from "ol/coordinate";
 
 export class PlanFragment {
 
   constructor(readonly meters: number,
               readonly orientation: number,
               readonly streetIndex: number,
-              readonly coordinate: Array<number>,
+              readonly coordinate: Coordinate,
               readonly latLon: LatLonImpl) {
   }
 
@@ -19,7 +20,7 @@ export class PlanFragment {
       jsonObject.meters,
       jsonObject.orientation,
       jsonObject.streetIndex,
-      jsonObject.coordinate ? Array(jsonObject.coordinate) : Array(),
+      [jsonObject.coordinate.x, jsonObject.coordinate.y],
       LatLonImpl.fromJSON(jsonObject.latLon)
     );
   }

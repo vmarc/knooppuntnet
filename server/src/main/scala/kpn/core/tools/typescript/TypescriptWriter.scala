@@ -64,7 +64,12 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def dependencyImports(): Seq[String] = {
     classInfo.dependencies.map { dependency =>
-      s"""import {${dependency.className}} from "${dependency.fileName}";"""
+      if (dependency.className == "PlanCoordinate") {
+        """import {Coordinate} from "ol/coordinate";"""
+      }
+      else {
+        s"""import {${dependency.className}} from "${dependency.fileName}";"""
+      }
     }
   }
 
@@ -79,7 +84,12 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   private def writeConstructor(): Unit = {
     val fields = classInfo.fields.map { field =>
       val typeName = field.classType.typeName
-      s"${field.name}: $typeName"
+      if (typeName == "PlanCoordinate") {
+        s"${field.name}: Coordinate"
+      }
+      else {
+        s"${field.name}: $typeName"
+      }
     }
     out.print(s"  constructor(")
     if (fields.isEmpty) {
@@ -104,6 +114,9 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     val fields = classInfo.fields.map { field =>
       if (field.classType.primitive) {
         s"      jsonObject.${field.name}"
+      }
+      else if (field.classType.typeName == "PlanCoordinate") {
+        s"      [jsonObject.${field.name}.x, jsonObject.${field.name}.y]"
       }
       else {
         field.classType.arrayType match {
