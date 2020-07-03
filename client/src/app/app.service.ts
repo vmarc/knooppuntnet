@@ -28,8 +28,7 @@ import {NodeChangesPage} from "./kpn/api/common/node/node-changes-page";
 import {NodeDetailsPage} from "./kpn/api/common/node/node-details-page";
 import {NodeMapPage} from "./kpn/api/common/node/node-map-page";
 import {LegBuildParams} from "./kpn/api/common/planner/leg-build-params";
-import {Plan} from "./kpn/api/common/planner/plan";
-import {PlanLeg} from "./kpn/api/common/planner/plan-leg";
+import {PlanLegDetail} from "./kpn/api/common/planner/plan-leg-detail";
 import {PlanParams} from "./kpn/api/common/planner/plan-params";
 import {PoiPage} from "./kpn/api/common/poi-page";
 import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
@@ -256,17 +255,17 @@ export class AppService {
     );
   }
 
-  public leg(legBuildParams: LegBuildParams): Observable<ApiResponse<PlanLeg>> {
+  public leg(legBuildParams: LegBuildParams): Observable<ApiResponse<PlanLegDetail>> {
     const url = `/json-api/leg`;
     return this.http.post(url, legBuildParams).pipe(
-      map(response => ApiResponse.fromJSON(response, PlanLeg.fromJSON))
+      map(response => ApiResponse.fromJSON(response, PlanLegDetail.fromJSON))
     );
   }
 
-  public plan(planParams: PlanParams): Observable<ApiResponse<Plan>> {
+  public plan(planParams: PlanParams): Observable<ApiResponse<PlanLegDetail>> {
     const url = `/json-api/plan`;
     return this.http.post(url, planParams).pipe(
-      map(response => ApiResponse.fromJSON(response, Plan.fromJSON))
+      map(response => ApiResponse.fromJSON(response, PlanLegDetail.fromJSON))
     );
   }
 

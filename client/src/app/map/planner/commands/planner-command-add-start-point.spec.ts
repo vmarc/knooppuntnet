@@ -10,7 +10,7 @@ describe("PlannerCommandAddStartPoint", () => {
     const setup = new PlannerTestSetup();
     const node = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
-    const command = new PlannerCommandAddStartPoint(node);
+    const command = new PlannerCommandAddStartPoint("n1", node);
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);

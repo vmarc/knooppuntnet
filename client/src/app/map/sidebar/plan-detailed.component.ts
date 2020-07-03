@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 import {PlannerService} from "../planner.service";
-import {Plan} from "../../kpn/api/common/planner/plan";
+import {Plan} from "../planner/plan/plan";
 import {PlanRoute} from "../../kpn/api/common/planner/plan-route";
 
 @Component({

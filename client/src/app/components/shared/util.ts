@@ -126,5 +126,4 @@ export class Util {
     return (integer + 1000).toString().substr(1, 3);
   }
 
-
 }

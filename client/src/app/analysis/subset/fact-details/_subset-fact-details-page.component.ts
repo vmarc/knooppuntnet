@@ -140,6 +140,6 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   }
 
   private calculateRefCount(response: ApiResponse<SubsetFactDetailsPage>): number {
-    return response.result.networks.map(n => n.factRefs.size).reduce((sum, current) => sum + current);
+    return Util.sum(response.result.networks.map(n => n.factRefs.size));
   }
 }

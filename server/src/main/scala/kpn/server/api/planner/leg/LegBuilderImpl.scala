@@ -6,9 +6,8 @@ import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
-import kpn.api.common.planner.Plan
 import kpn.api.common.planner.PlanFragment
-import kpn.api.common.planner.PlanLeg
+import kpn.api.common.planner.PlanLegDetail
 import kpn.api.common.planner.PlanNode
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
@@ -23,15 +22,15 @@ import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class PlanBuilderImpl(
+class LegBuilderImpl(
   graphRepository: GraphRepository,
   routeRepository: RouteRepository
-) extends PlanBuilder {
+) extends LegBuilder {
 
-  private val log = Log(classOf[PlanBuilderImpl])
+  private val log = Log(classOf[LegBuilderImpl])
   private val featureId = new FeatureId()
 
-  override def leg(params: LegBuildParams): Option[PlanLeg] = {
+  override def leg(params: LegBuildParams): Option[PlanLegDetail] = {
     NetworkType.withName(params.networkType) match {
       case Some(networkType) => buildLeg(params, networkType)
       case None =>
@@ -40,18 +39,16 @@ class PlanBuilderImpl(
     }
   }
 
-  override def plan(networkType: NetworkType, planString: String, encoded: Boolean): Option[Plan] = {
+  override def plan(networkType: NetworkType, planString: String, encoded: Boolean): Option[PlanLegDetail] = {
     graphRepository.graph(networkType) match {
       case Some(graph) =>
-        val legs = loadPlanLegs(networkType, graph, planString, encoded)
-        if (legs.isEmpty) {
+        val planLegDetails = loadPlanLegs(networkType, graph, planString, encoded)
+        if (planLegDetails.isEmpty) {
           None
         }
         else {
-          val sourceNode = legs.head.sourceNode
-          val sinkNode = legs.last.sinkNode
-          val reducedPlan = new PlanReducer().reduce(Plan(sourceNode, legs))
-          Some(reducedPlan)
+          val allRoutes = planLegDetails.flatMap(_.routes)
+          Some(PlanLegDetail(allRoutes))
         }
 
       case None =>
@@ -60,13 +57,13 @@ class PlanBuilderImpl(
     }
   }
 
-  private def loadPlanLegs(networkType: NetworkType, graph: NodeNetworkGraph, planString: String, encoded: Boolean): Seq[PlanLeg] = {
+  private def loadPlanLegs(networkType: NetworkType, graph: NodeNetworkGraph, planString: String, encoded: Boolean): Seq[PlanLegDetail] = {
     val legEnds = LegEnd.fromPlanString(planString, encoded)
     legEndsToPlanLegs(networkType, graph, legEnds, Seq())
   }
 
   @scala.annotation.tailrec
-  private def legEndsToPlanLegs(networkType: NetworkType, graph: NodeNetworkGraph, legEnds: Seq[LegEnd], legs: Seq[PlanLeg]): Seq[PlanLeg] = {
+  private def legEndsToPlanLegs(networkType: NetworkType, graph: NodeNetworkGraph, legEnds: Seq[LegEnd], legs: Seq[PlanLegDetail]): Seq[PlanLegDetail] = {
     if (legEnds.isEmpty) {
       legs
     }
@@ -76,7 +73,6 @@ class PlanBuilderImpl(
         val sink = legEnds.tail.head
         val params = LegBuildParams(
           networkType.name,
-          featureId.next,
           source,
           sink
         )
@@ -91,7 +87,6 @@ class PlanBuilderImpl(
         val sink = legEnds.head
         val params = LegBuildParams(
           networkType.name,
-          featureId.next,
           source,
           sink
         )
@@ -104,7 +99,7 @@ class PlanBuilderImpl(
     }
   }
 
-  private def buildLeg(params: LegBuildParams, networkType: NetworkType): Option[PlanLeg] = {
+  private def buildLeg(params: LegBuildParams, networkType: NetworkType): Option[PlanLegDetail] = {
     graphRepository.graph(networkType) match {
       case Some(graph) => buildLeg(params, graph)
       case None =>
@@ -113,7 +108,7 @@ class PlanBuilderImpl(
     }
   }
 
-  private def buildLeg(params: LegBuildParams, graph: NodeNetworkGraph): Option[PlanLeg] = {
+  private def buildLeg(params: LegBuildParams, graph: NodeNetworkGraph): Option[PlanLegDetail] = {
 
     val routeIds = params.routeIds
     val routeInfos = routeIds.flatMap { routeId =>
@@ -136,19 +131,9 @@ class PlanBuilderImpl(
         case Some(graphPath) =>
 
           val planRoutes = graphPathToPlanRoutes(graphPath)
-          val sourceNode = planRoutes.head.sourceNode
-          val sinkNode = planRoutes.last.sinkNode
-          val key = PlanKey.leg(params.source, params.sink)
 
           Some(
-            PlanLeg(
-              params.legId,
-              key = key,
-              source = params.source,
-              sink = params.sink,
-              sourceNode = sourceNode,
-              sinkNode = sinkNode,
-              meters = 0,
+            PlanLegDetail(
               planRoutes
             )
           )

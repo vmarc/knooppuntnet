@@ -2,7 +2,6 @@ package kpn.api.common.planner
 
 case class LegBuildParams(
   networkType: String,
-  legId: String,
   source: LegEnd,
   sink: LegEnd
 ) {

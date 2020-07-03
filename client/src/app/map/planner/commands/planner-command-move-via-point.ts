@@ -1,4 +1,4 @@
-import {Plan} from "../../../kpn/api/common/planner/plan";
+import {Plan} from "../plan/plan";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
@@ -26,8 +26,8 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     const toLeg1 = context.legs.getById(toLegId1);
     const toLeg2 = context.legs.getById(toLegId2);
 
-    context.routeLayer.removeFlag(fromLeg1.sinkNode.featureId);
-    context.routeLayer.addFlag(PlanFlag.fromViaNode(toLeg1.sinkNode));
+    context.routeLayer.removeFlagWithFeatureId(fromLeg1.sinkNode.featureId);
+    context.routeLayer.addFlag(PlanFlag.oldVia(toLeg1.sinkNode));
     context.routeLayer.removePlanLeg(fromLeg1.featureId);
     context.routeLayer.removePlanLeg(fromLeg2.featureId);
     context.routeLayer.addPlanLeg(toLeg1);

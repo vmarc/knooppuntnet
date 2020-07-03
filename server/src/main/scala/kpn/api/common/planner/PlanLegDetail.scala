@@ -2,14 +2,12 @@ package kpn.api.common.planner
 
 import kpn.api.common.common.ToStringBuilder
 
-case class Plan(
-  sourceNode: PlanNode,
-  legs: Seq[PlanLeg]
+case class PlanLegDetail(  // TODO PLAN get ride of this class and use just routes collection instead ???
+  routes: Seq[PlanRoute]
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("sourceNode", sourceNode).
-    field("legs", legs).
+    field("routes", routes).
     build
 
 }

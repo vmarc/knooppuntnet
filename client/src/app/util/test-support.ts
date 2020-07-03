@@ -1,5 +1,5 @@
 import {Coordinate} from "ol/coordinate";
-import {PlanLeg} from "../kpn/api/common/planner/plan-leg";
+import {PlanLeg} from "../map/planner/plan/plan-leg";
 import {PlanUtil} from "../map/planner/plan/plan-util";
 
 export class TestSupport {

@@ -1,13 +1,17 @@
 import {Coordinate} from "ol/coordinate";
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {Plan} from "../plan/plan";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanFlag} from "../plan/plan-flag";
 
 export interface PlannerRouteLayer {
 
   addFlag(flag: PlanFlag): void;
 
-  removeFlag(featureId: string): void;
+  removeFlag(flag: PlanFlag): void;
+
+  removeFlagWithFeatureId(featureId: string): void;
+
+  updateFlag(flag: PlanFlag): void;
 
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
 

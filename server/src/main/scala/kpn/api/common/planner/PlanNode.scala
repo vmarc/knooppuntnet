@@ -4,11 +4,11 @@ import kpn.api.common.LatLonImpl
 import kpn.api.common.common.ToStringBuilder
 
 case class PlanNode(
-  featureId: String,
+  featureId: String,  // TODO PLAN has become obsolete ??? remove ???
   nodeId: String,
   nodeName: String,
   coordinate: PlanCoordinate,
-  latLon: LatLonImpl
+  latLon: LatLonImpl  // TODO PLAN has become obsolete? NO: used to create GPX on client ==> YES: zou lokaal terug van Coordinate berekend kunnen worden...
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).

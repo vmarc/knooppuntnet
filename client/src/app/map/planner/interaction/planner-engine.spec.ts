@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {Plan} from "../../../kpn/api/common/planner/plan";
+import {Plan} from "../plan/plan";
 import {TestSupport} from "../../../util/test-support";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";

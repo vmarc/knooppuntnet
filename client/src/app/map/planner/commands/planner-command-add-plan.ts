@@ -1,6 +1,5 @@
-import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerContext} from "../context/planner-context";
-import {PlanUtil} from "../plan/plan-util";
+import {Plan} from "../plan/plan";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandAddPlan implements PlannerCommand {
@@ -15,7 +14,7 @@ export class PlannerCommandAddPlan implements PlannerCommand {
 
   public undo(context: PlannerContext) {
     context.routeLayer.removePlan(this.plan);
-    context.updatePlan(PlanUtil.emptyPlan);
+    context.updatePlan(Plan.empty);
   }
 
 }

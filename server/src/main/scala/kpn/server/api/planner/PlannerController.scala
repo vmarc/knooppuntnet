@@ -3,8 +3,7 @@ package kpn.server.api.planner
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
-import kpn.api.common.planner.Plan
-import kpn.api.common.planner.PlanLeg
+import kpn.api.common.planner.PlanLegDetail
 import kpn.api.common.planner.PlanParams
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
@@ -52,12 +51,12 @@ class PlannerController(plannerFacade: PlannerFacade) {
   }
 
   @PostMapping(path = Array("/json-api/leg"), consumes = Array("application/json"))
-  def leg(@RequestBody params: LegBuildParams): ApiResponse[PlanLeg] = {
+  def leg(@RequestBody params: LegBuildParams): ApiResponse[PlanLegDetail] = {
     plannerFacade.leg(user(), params)
   }
 
   @PostMapping(path = Array("/json-api/plan"), consumes = Array("application/json"))
-  def plan(@RequestBody params: PlanParams): ApiResponse[Plan] = {
+  def plan(@RequestBody params: PlanParams): ApiResponse[PlanLegDetail] = {
     plannerFacade.plan(user(), NetworkType.withName(params.networkType).get, params.planString)
   }
 

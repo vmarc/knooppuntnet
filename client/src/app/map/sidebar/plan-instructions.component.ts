@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, SimpleChanges} from "@angular/core";
 import {List} from "immutable";
 import {DirectionsAnalyzer} from "../planner/directions/directions-analyzer";
-import {Plan} from "../../kpn/api/common/planner/plan";
+import {Plan} from "../planner/plan/plan";
 import {PlanInstruction} from "../planner/plan/plan-instruction";
 
 @Component({

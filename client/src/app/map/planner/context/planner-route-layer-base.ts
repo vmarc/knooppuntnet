@@ -1,14 +1,18 @@
 import {Coordinate} from "ol/coordinate";
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
 export abstract class PlannerRouteLayerBase implements PlannerRouteLayer {
 
   abstract addFlag(flag: PlanFlag): void;
 
-  abstract removeFlag(featureId: string): void;
+  abstract updateFlag(flag: PlanFlag): void;
+
+  abstract removeFlag(flag: PlanFlag): void;
+
+  abstract removeFlagWithFeatureId(featureId: string): void;
 
   abstract updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
 
@@ -18,25 +22,29 @@ export abstract class PlannerRouteLayerBase implements PlannerRouteLayer {
 
   removePlan(plan: Plan): void {
     if (plan.sourceNode) {
-      this.removeFlag(plan.sourceNode.featureId);
+      this.removeFlagWithFeatureId(plan.sourceNode.featureId);
     }
     plan.legs.forEach(leg => {
       this.removePlanLeg(leg.featureId);
-      this.removeFlag(leg.sinkNode.featureId);
+      this.removeFlagWithFeatureId(leg.sinkFlag.featureId);
+      if (leg.viaFlag !== null) {
+        this.removeFlagWithFeatureId(leg.viaFlag.featureId);
+      }
     });
   }
 
   addPlan(plan: Plan): void {
     if (plan.sourceNode) {
-      this.addFlag(PlanFlag.fromStartNode(plan.sourceNode));
+      this.addFlag(PlanFlag.oldStart(plan.sourceNode));
     }
     for (let i = 0; i < plan.legs.size; i++) {
       const leg = plan.legs.get(i);
       this.addPlanLeg(leg);
-      if (i < plan.legs.size - 1) {
-        this.addFlag(PlanFlag.fromViaNode(leg.sinkNode));
-      } else {
-        this.addFlag(PlanFlag.fromEndNode(leg.sinkNode));
+      if (leg.sinkFlag !== null) {
+        this.addFlag(leg.sinkFlag);
+      }
+      if (leg.viaFlag !== null) {
+        this.addFlag(leg.viaFlag);
       }
     }
   }

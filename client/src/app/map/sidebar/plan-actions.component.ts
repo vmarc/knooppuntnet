@@ -7,7 +7,7 @@ import {PageWidthService} from "../../components/shared/page-width.service";
 import {PlannerService} from "../planner.service";
 import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
 import {PlannerCommandReverse} from "../planner/commands/planner-command-reverse";
-import {Plan} from "../../kpn/api/common/planner/plan";
+import {Plan} from "../planner/plan/plan";
 import {PlanOutputDialogComponent} from "./plan-output-dialog.component";
 
 @Component({

@@ -1,5 +1,6 @@
 export enum PlanFlagType {
   Start,
   End,
-  Via
+  Via,
+  Invisble
 }

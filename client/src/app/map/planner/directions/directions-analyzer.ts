@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {Plan} from "../../../kpn/api/common/planner/plan";
+import {Plan} from "../plan/plan";
 import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
 import {PlanInstruction} from "../plan/plan-instruction";
 

@@ -4,8 +4,7 @@ import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
-import kpn.api.common.planner.Plan
-import kpn.api.common.planner.PlanLeg
+import kpn.api.common.planner.PlanLegDetail
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
@@ -17,7 +16,7 @@ import kpn.server.api.Api
 import kpn.server.api.analysis.pages.PoiPageBuilder
 import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
-import kpn.server.api.planner.leg.PlanBuilder
+import kpn.server.api.planner.leg.LegBuilder
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
 
@@ -26,7 +25,7 @@ class PlannerFacadeImpl(
   api: Api,
   analysisRepository: AnalysisRepository,
   poiPageBuilder: PoiPageBuilder,
-  legBuilder: PlanBuilder,
+  legBuilder: LegBuilder,
   mapNodeDetailBuilder: MapNodeDetailBuilder,
   mapRouteDetailBuilder: MapRouteDetailBuilder
 ) extends PlannerFacade {
@@ -57,15 +56,15 @@ class PlannerFacadeImpl(
     }
   }
 
-  override def leg(user: Option[String], params: LegBuildParams): ApiResponse[PlanLeg] = {
-    val args = s"${params.legId}: ${legEndString(params.source)} to ${legEndString(params.sink)}"
+  override def leg(user: Option[String], params: LegBuildParams): ApiResponse[PlanLegDetail] = {
+    val args = s"${legEndString(params.source)} to ${legEndString(params.sink)}"
     api.execute(user, "leg", args) {
       val leg = legBuilder.leg(params)
       ApiResponse(None, 1, leg)
     }
   }
 
-  override def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[Plan] = {
+  override def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[PlanLegDetail] = {
     val args = s"${networkType.name}: $planString"
     api.execute(user, "plan", args) {
       val legs = legBuilder.plan(networkType, planString)

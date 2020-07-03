@@ -1,5 +1,5 @@
 import {Map} from "immutable";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanLeg} from "./plan-leg";
 
 export class PlanLegCache {
 

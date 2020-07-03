@@ -13,7 +13,7 @@ import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
@@ -311,11 +311,18 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.sourceNode === null) {
-      const command = new PlannerCommandAddStartPoint(networkNode.node);
+      const command = new PlannerCommandAddStartPoint(FeatureId.next(), networkNode.node);
       this.context.execute(command);
     } else {
-      const source: PlanNode = PlanUtil.planSinkNode(this.context.plan);
-      const leg = this.context.oldBuildLeg(FeatureId.next(), source, networkNode.node);
+      const sourceNode: PlanNode = this.context.plan.sinkNode();
+      const sinkNode: PlanNode = networkNode.node;
+      const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+      const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+
+      // const leg = this.context.oldBuildLeg(FeatureId.next(), sourceNode, networkNode.node);
+
+      const leg = this.context.buildLeg(source, sink, sourceNode, sinkNode);
+
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
     }
@@ -328,11 +335,10 @@ export class PlannerEngineImpl implements PlannerEngine {
     const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
 
     const sink: LegEnd = PlanUtil.legEndRoute(route.routeId, route.pathId);
-    const leg = this.context.buildLeg(FeatureId.next(), source, sink, sourceNode, PlanUtil.planNode("0", "", new LatLonImpl("0", "0")));
+    const leg = this.context.buildLeg(source, sink, sourceNode, PlanUtil.planNode("0", "", new LatLonImpl("0", "0")));
     const command = new PlannerCommandAddLeg(leg.featureId);
     this.context.execute(command);
   }
-
 
   private legDragStarted(legId: string, coordinate: Coordinate): boolean {
     const leg = this.context.legs.getById(legId);
@@ -367,7 +373,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private isViaFlagClicked(singleClick: boolean): boolean {
     return singleClick === true && this.nodeDrag !== null
-      && this.nodeDrag.oldNode.featureId !== PlanUtil.planSinkNode(this.context.plan).featureId
+      && this.nodeDrag.oldNode.featureId !== this.context.plan.sinkNode().featureId
       && this.nodeDrag.oldNode.featureId !== this.context.plan.sourceNode.featureId;
   }
 

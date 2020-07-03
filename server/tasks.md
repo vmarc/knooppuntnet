@@ -28,7 +28,7 @@ Server
 - [ ] realtime network and poi tile generation (batch lower zoom levels)
 - [ ] monitor servers
 - [x] improve stability of database connections after move to Germany (retries)
-- [ ] database maintenance jobs (compaction)
+- [ ] database maintenance job (compact databases and database views) 
 - [ ] automate background tile generation (+show update timestamp in ui)
 - [x] investigate improved styling for background tiles?
 - [x] improve route analysis performance (indexes vs hash)

@@ -9,9 +9,9 @@ import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import {Marker} from "../../../components/ol/domain/marker";
 import {Layers} from "../../../components/ol/layers/layers";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerRouteLayerBase} from "./planner-route-layer-base";
 
@@ -40,23 +40,41 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
   }
 
   addFlag(flag: PlanFlag): void {
-    let markerColor = "blue";
-    if (flag.flagType === PlanFlagType.End) {
-      markerColor = "green";
-    } else if (flag.flagType === PlanFlagType.Via) {
-      markerColor = "orange";
+    if (flag !== null && flag.flagType !== PlanFlagType.Invisble) {
+      let markerColor = "blue";
+      if (flag.flagType === PlanFlagType.End) {
+        markerColor = "green";
+      } else if (flag.flagType === PlanFlagType.Via) {
+        markerColor = "orange";
+      }
+      const marker = Marker.create(markerColor, flag.coordinate);
+      marker.setId(flag.featureId);
+      marker.set("layer", "flag");
+      marker.set("flag-type", flag.flagType);
+      this.source.addFeature(marker);
     }
-    const marker = Marker.create(markerColor, flag.coordinate);
-    marker.setId(flag.featureId);
-    marker.set("layer", "flag");
-    marker.set("flag-type", flag.flagType);
-    this.source.addFeature(marker);
   }
 
-  removeFlag(featureId: string): void {
+  removeFlag(flag: PlanFlag): void {
+    if (flag !== null) {
+      const feature = this.source.getFeatureById(flag.featureId);
+      if (feature != null) {
+        this.source.removeFeature(feature);
+      }
+    }
+  }
+
+  removeFlagWithFeatureId(featureId: string): void {
     const feature = this.source.getFeatureById(featureId);
     if (feature != null) {
       this.source.removeFeature(feature);
+    }
+  }
+
+  updateFlag(flag: PlanFlag): void {
+    if (flag !== null) {
+      this.removeFlagWithFeatureId(flag.featureId);
+      this.addFlag(flag);
     }
   }
 

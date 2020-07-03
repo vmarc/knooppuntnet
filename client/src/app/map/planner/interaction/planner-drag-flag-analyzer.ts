@@ -1,5 +1,5 @@
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {Plan} from "../plan/plan";
+import {PlanLeg} from "../plan/plan-leg";
 import {FlagFeature} from "../features/flag-feature";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlannerDragFlag} from "./planner-drag-flag";

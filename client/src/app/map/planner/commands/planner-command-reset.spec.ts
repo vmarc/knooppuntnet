@@ -1,5 +1,6 @@
 import {List} from "immutable";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
+import {PlanFlag} from "../plan/plan-flag";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanUtil} from "../plan/plan-util";
@@ -21,13 +22,13 @@ describe("PlannerCommandReset", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const leg1 = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
-    const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, node2, node3, 0, List());
+    const leg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.oldVia(node2), null, List());
+    const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.oldVia(node3), null, List());
 
     setup.legs.add(leg1);
     setup.legs.add(leg2);
 
-    setup.context.execute(new PlannerCommandAddStartPoint(node1));
+    setup.context.execute(new PlannerCommandAddStartPoint("n1", node1));
     setup.context.execute(new PlannerCommandAddLeg(leg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
 

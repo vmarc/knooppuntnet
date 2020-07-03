@@ -1,7 +1,6 @@
-import {Plan} from "../../../kpn/api/common/planner/plan";
 import {PlannerContext} from "../context/planner-context";
+import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
@@ -21,8 +20,8 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
   public update(context: PlannerContext, fromLegId: string, toLegId: string) {
     const fromLeg = context.legs.getById(fromLegId);
     const toLeg = context.legs.getById(toLegId);
-    context.routeLayer.removeFlag(fromLeg.sourceNode.featureId);
-    context.routeLayer.addFlag(PlanFlag.fromStartNode(toLeg.sourceNode));
+    context.routeLayer.removeFlagWithFeatureId(fromLeg.sourceNode.featureId);
+    context.routeLayer.addFlag(PlanFlag.oldStart(toLeg.sourceNode));
     context.routeLayer.removePlanLeg(fromLeg.featureId);
     context.routeLayer.addPlanLeg(toLeg);
     const newSourceNode = toLeg.sourceNode;

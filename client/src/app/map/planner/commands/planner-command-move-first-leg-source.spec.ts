@@ -1,8 +1,9 @@
 import {List} from "immutable";
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
+import {Plan} from "../plan/plan";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveFirstLegSource} from "./planner-command-move-first-leg-source";
 
@@ -20,8 +21,8 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
-    const newLeg = new PlanLeg("32", "", legEnd3, legEnd2, node3, node2, 0, List());
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.oldVia(node2), null, List());
+    const newLeg = new PlanLeg("32", "", legEnd3, legEnd2, PlanFlag.oldVia(node2), null, List());
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);

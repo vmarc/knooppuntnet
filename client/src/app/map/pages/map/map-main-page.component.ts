@@ -28,7 +28,7 @@ import {Subscriptions} from "../../../util/Subscriptions";
 import {PlannerService} from "../../planner.service";
 import {PlannerCommandAddPlan} from "../../planner/commands/planner-command-add-plan";
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
-import {PlanUtil} from "../../planner/plan/plan-util";
+import {PlanBuilder} from "../../planner/plan/plan-builder";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
 
 @Component({
@@ -101,7 +101,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
           if (fragment) {
             const planParams = new PlanParams(networkType.name, fragment);
             this.appService.plan(planParams).subscribe(response => {
-              const plan = response.result;
+              const plan = PlanBuilder.build(response.result, fragment);
               const command = new PlannerCommandAddPlan(plan);
               this.plannerService.context.execute(command);
               this.zoomInToRoute();
@@ -125,7 +125,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.plannerService.context.plan.legs.isEmpty()) {
       this.dialog.open(NoRouteDialogComponent, {maxWidth: 600});
     } else {
-      const bounds = PlanUtil.planBounds(this.plannerService.context.plan);
+      const bounds = this.plannerService.context.plan.bounds();
       if (bounds !== null) {
         const extent = Util.toExtent(bounds, 0.1);
         this.map.getView().fit(extent);

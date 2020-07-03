@@ -1,4 +1,4 @@
-import {Plan} from "../../../kpn/api/common/planner/plan";
+import {Plan} from "../plan/plan";
 import {PlannerContext} from "../context/planner-context";
 import {FeatureId} from "../features/feature-id";
 import {PlannerCommand} from "./planner-command";

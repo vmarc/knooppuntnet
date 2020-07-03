@@ -1,8 +1,9 @@
 import {List} from "immutable";
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
+import {Plan} from "../plan/plan";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
 
@@ -18,9 +19,9 @@ describe("PlannerCommandSplitLeg", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, node1, node2, 0, List());
-    const newLeg1 = new PlanLeg("13", "", legEnd1, legEnd3, node1, node3, 0, List());
-    const newLeg2 = new PlanLeg("32", "", legEnd3, legEnd2, node3, node2, 0, List());
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.oldVia(node2), null, List());
+    const newLeg1 = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.oldVia(node3), null, List());
+    const newLeg2 = new PlanLeg("32", "", legEnd3, legEnd2, PlanFlag.oldVia(node2), null, List());
 
     const setup = new PlannerTestSetup();
 

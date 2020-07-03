@@ -1,12 +1,15 @@
 import {List} from "immutable";
 import {BehaviorSubject, Observable} from "rxjs";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
+import {FeatureId} from "../features/feature-id";
+import {Plan} from "../plan/plan";
+import {PlanFlag} from "../plan/plan-flag";
+import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCursor} from "./planner-cursor";
@@ -39,7 +42,7 @@ export class PlannerContext {
               readonly legRepository: PlannerLegRepository,
               readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {
-    this._plan$ = new BehaviorSubject<Plan>(PlanUtil.emptyPlan);
+    this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
     this.plan$ = this._plan$.asObservable();
     this._networkType$ = new BehaviorSubject<NetworkType>(null);
     this.networkType$ = this._networkType$.asObservable();
@@ -73,7 +76,7 @@ export class PlannerContext {
       this._plan$.next(existingData.plan);
       this._commandStack$.next(existingData.commandStack);
     } else {
-      this._plan$.next(PlanUtil.emptyPlan);
+      this._plan$.next(Plan.empty);
       this._commandStack$.next(new PlannerCommandStack());
     }
     this._networkType$.next(networkType);
@@ -111,52 +114,70 @@ export class PlannerContext {
 
   oldBuildLeg(legId: string, sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
 
-    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const legKey = PlanUtil.key(source, sink);
-
-    const cachedLeg = this.legs.get(legKey);
-    if (cachedLeg) {
-      const planLeg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, cachedLeg.meters, cachedLeg.routes);
-      this.legs.add(planLeg);
-      return planLeg;
-    }
-
-    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
-      if (planLeg) {
-        this.legs.add(planLeg);
-        this.updatePlanLeg(planLeg);
-      }
-    });
-
-    const leg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, 0, List());
-    this.legs.add(leg);
-    return leg;
+    // const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    // const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    // const legKey = PlanUtil.key(source, sink);
+    //
+    // const cachedLeg = this.legs.get(legKey);
+    // if (cachedLeg) {
+    //   const planLeg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, cachedLeg.meters, cachedLeg.routes);
+    //   this.legs.add(planLeg);
+    //   return planLeg;
+    // }
+    //
+    // this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
+    //   if (planLeg) {
+    //     this.legs.add(planLeg);
+    //     this.updatePlanLeg(planLeg);
+    //   }
+    // });
+    //
+    // const leg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, 0, List());
+    // this.legs.add(leg);
+    // return leg;
+    return null;
   }
 
-  buildLeg(legId: string, source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
+  buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
 
     const legKey = PlanUtil.key(source, sink);
-    const cachedLeg = this.legs.get(legKey);
-    if (cachedLeg) {
-      const planLeg = new PlanLeg(
-        legId,
-        legKey,
-        cachedLeg.source,
-        cachedLeg.sink,
-        cachedLeg.sourceNode, // TODO PLAN should have PlanNode with new featureId ?
-        cachedLeg.sinkNode, // TODO PLAN should have PlanNode with new featureId ?
-        cachedLeg.meters,
-        cachedLeg.routes // TODO PLAN PlanNode's in routes should alse have new featureId ?
-      );
-      this.legs.add(planLeg);
-      return planLeg;
+    // const cachedLeg = this.legs.get(legFeatureId);
+    // if (cachedLeg) {
+    //   const planLeg = new PlanLeg(
+    //     legFeatureId,
+    //     legKey,
+    //     cachedLeg.source,
+    //     cachedLeg.sink,
+    //     cachedLeg.sourceNode, // TODO PLAN should have PlanNode with new featureId ?
+    //     cachedLeg.sinkNode, // TODO PLAN should have PlanNode with new featureId ?
+    //     cachedLeg.meters,
+    //     cachedLeg.routes // TODO PLAN PlanNode's in routes should alse have new featureId ?
+    //   );
+    //   this.legs.add(planLeg);
+    //   return planLeg;
+    // }
+
+    const legFeatureId = FeatureId.next();
+
+    let sinkFlag: PlanFlag = null;
+    let viaFlag: PlanFlag = null;
+
+    if (sink.node !== null) {
+      sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), sinkNode.coordinate);
+    }
+    if (sink.route !== null) { // TODO PLAN still need a way to get sinkNode coordinate --> should be coordinate that was clicked
+      viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
+      sinkFlag = new PlanFlag(PlanFlagType.Invisble, FeatureId.next(), sinkNode.coordinate);
     }
 
-    this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
-      if (planLeg) {
-        this.legs.add(planLeg);
-        this.updatePlanLeg(planLeg);
+    const leg = new PlanLeg(legFeatureId, legKey, source, sink, sinkFlag, viaFlag, List());
+    this.legs.add(leg);
+
+    this.legRepository.planLeg(this.networkType, source, sink).subscribe(planLegDetail => {
+      if (planLegDetail) {
+        const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, sinkFlag, viaFlag, planLegDetail.routes);
+        this.legs.add(updatedLeg);
+        this.updatePlanLeg(updatedLeg);
         // TODO PLAN
         // if (source.route !== null) {
         //   this.routeLayer.updateFlagCoordinate(sourceNode.featureId, newSourceNode.coordinate);
@@ -167,8 +188,6 @@ export class PlannerContext {
       }
     });
 
-    const leg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, 0, List());
-    this.legs.add(leg);
     return leg;
   }
 }

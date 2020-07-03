@@ -1,9 +1,9 @@
 import {Map} from "immutable";
 import {Coordinate} from "ol/coordinate";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {TestSupport} from "../../../util/test-support";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlannerRouteLayerBase} from "./planner-route-layer-base";
 
 export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
@@ -12,10 +12,24 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
   private routeLegs: Map<string, PlanLeg> = Map();
 
   addFlag(flag: PlanFlag): void {
-    this.flags = this.flags.set(flag.featureId, flag);
+    if (flag !== null) {
+      this.flags = this.flags.set(flag.featureId, flag);
+    }
   }
 
-  removeFlag(featureId: string): void {
+  updateFlag(flag: PlanFlag): void {
+    if (flag !== null) {
+      this.flags = this.flags.set(flag.featureId, flag);
+    }
+  }
+
+  removeFlag(flag: PlanFlag): void {
+    if (flag !== null) {
+      this.flags = this.flags.remove(flag.featureId);
+    }
+  }
+
+  removeFlagWithFeatureId(featureId: string): void {
     this.flags = this.flags.remove(featureId);
   }
 

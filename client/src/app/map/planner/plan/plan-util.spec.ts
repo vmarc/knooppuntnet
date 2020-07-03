@@ -1,14 +1,14 @@
 import {List} from "immutable";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
-import {Plan} from "../../../kpn/api/common/planner/plan";
-import {PlanLeg} from "../../../kpn/api/common/planner/plan-leg";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
+import {Plan} from "./plan";
+import {PlanLeg} from "./plan-leg";
 import {PlanUtil} from "./plan-util";
 
 describe("PlanUtil", () => {
 
   it("toUrlString - empty plan", () => {
-    expect(PlanUtil.toUrlString(PlanUtil.emptyPlan)).toEqual("");
+    expect(PlanUtil.toUrlString(Plan.empty)).toEqual("");
   });
 
   it("toUrlString - plan with source only", () => {
@@ -33,9 +33,9 @@ describe("PlanUtil", () => {
     const viaLegEnd2 = PlanUtil.legEndNode(12);
     const endLegEnd = PlanUtil.legEndNode(13);
 
-    const leg1 = new PlanLeg("", "", startLegEnd, viaLegEnd1, startNode, viaNode1, 0, List([route1]));
-    const leg2 = new PlanLeg("", "", viaLegEnd1, viaLegEnd2, viaNode1, viaNode2, 0, List([route2]));
-    const leg3 = new PlanLeg("", "", viaLegEnd2, endLegEnd, viaNode1, endNode, 0, List([route3]));
+    const leg1 = new PlanLeg("", "", startLegEnd, viaLegEnd1, null, null, List([route1]));
+    const leg2 = new PlanLeg("", "", viaLegEnd1, viaLegEnd2, null, null, List([route2]));
+    const leg3 = new PlanLeg("", "", viaLegEnd2, endLegEnd, null, null, List([route3]));
 
     const plan = new Plan(startNode, List([leg1, leg2, leg3]));
 
@@ -58,7 +58,7 @@ describe("PlanUtil", () => {
   });
 
   it("total distance empty plan", () => {
-    expect(PlanUtil.planCumulativeKmLeg(PlanUtil.emptyPlan, 0)).toEqual("0 km");
+    expect(Plan.empty.cumulativeKmLeg(0)).toEqual("0 km");
   });
 
   it("total distance", () => {
@@ -67,13 +67,13 @@ describe("PlanUtil", () => {
     const route2 = new PlanRoute(null, null, 2000, List(), List());
     const route3 = new PlanRoute(null, null, 4000, List(), List());
 
-    const leg1 = new PlanLeg("1", "", null, null, null, null, 3000, List([route1, route2]));
-    const leg2 = new PlanLeg("2", "", null, null, null, null, 4000, List([route3]));
+    const leg1 = new PlanLeg("1", "", null, null, null, null, List([route1, route2]));
+    const leg2 = new PlanLeg("2", "", null, null, null, null, List([route3]));
 
     const plan = new Plan(null, List([leg1, leg2]));
 
-    expect(PlanUtil.planCumulativeKmLeg(plan, 0)).toEqual("3 km");
-    expect(PlanUtil.planCumulativeKmLeg(plan, 1)).toEqual("7 km");
+    expect(plan.cumulativeKmLeg(0)).toEqual("3 km");
+    expect(plan.cumulativeKmLeg(1)).toEqual("7 km");
 
   });
 
