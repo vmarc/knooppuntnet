@@ -12,8 +12,15 @@ export class PlannerDragFlagAnalyzer {
   dragStarted(flag: FlagFeature): PlannerDragFlag {
 
     if (flag.flagType === PlanFlagType.Start) {
-      const anchor = this.plan.sourceNode.coordinate;
-      return new PlannerDragFlag(PlanFlagType.Start, null, anchor, anchor, this.plan.sourceNode);
+      const sourceNode = this.plan.sourceNode;
+      const anchor = sourceNode.coordinate;
+      return new PlannerDragFlag(PlanFlagType.Start, null, anchor, anchor, sourceNode);
+    }
+
+    if (flag.flagType === PlanFlagType.End) {
+      const sinkNode = this.plan.sinkNode();
+      const anchor = sinkNode.coordinate;
+      return new PlannerDragFlag(PlanFlagType.End, null, anchor, anchor, sinkNode);
     }
 
     const legs = this.plan.legs;

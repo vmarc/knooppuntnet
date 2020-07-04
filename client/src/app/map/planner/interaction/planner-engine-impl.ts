@@ -312,18 +312,25 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.sourceNode === null) {
-      const sourceFlag = PlanFlag.start(FeatureId.next(), networkNode.node);
-      const command = new PlannerCommandAddStartPoint(networkNode.node, sourceFlag);
-      this.context.execute(command);
+      this.addStartPoint(networkNode.node);
     } else {
-      const sourceNode: PlanNode = this.context.plan.sinkNode();
-      const sinkNode: PlanNode = networkNode.node;
-      const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-      const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-      const leg = this.context.buildLeg(source, sink, sourceNode, sinkNode);
-      const command = new PlannerCommandAddLeg(leg.featureId);
-      this.context.execute(command);
+      this.addLeg(networkNode.node);
     }
+  }
+
+  private addStartPoint(planNode: PlanNode): void {
+    const sourceFlag = PlanFlag.start(FeatureId.next(), planNode);
+    const command = new PlannerCommandAddStartPoint(planNode, sourceFlag);
+    this.context.execute(command);
+  }
+
+  private addLeg(sinkNode: PlanNode): void {
+    const sourceNode: PlanNode = this.context.plan.sinkNode();
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const leg = this.context.buildLeg(source, sink, sourceNode, sinkNode);
+    const command = new PlannerCommandAddLeg(leg.featureId);
+    this.context.execute(command);
   }
 
   private routeSelected(route: RouteFeature): void {
@@ -389,37 +396,32 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private dropNodeOnNode(newNode: PlanNode): void {
-
     if (this.nodeDrag.flagType === PlanFlagType.Start) {
       if (this.context.plan.legs.isEmpty()) {
         this.moveStartPoint(newNode);
       } else {
         this.moveFirstLegSource(newNode);
       }
-    } else { // end node
+    } else if (this.nodeDrag.flagType === PlanFlagType.End) {
+      this.moveEndPoint(newNode);
+    } else {
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
-      if (this.nodeDrag.oldNode.featureId === oldLastLeg.sinkNode.featureId) {
-        const newLastLeg: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLastLeg.sourceNode, newNode);
-        const command = new PlannerCommandMoveEndPoint(oldLastLeg.featureId, newLastLeg.featureId);
-        this.context.execute(command);
-      } else {
 
-        const legs = this.context.plan.legs;
-        const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
-        const oldLeg1 = legs.get(nextLegIndex - 1);
-        const oldLeg2 = legs.get(nextLegIndex);
+      const legs = this.context.plan.legs;
+      const nextLegIndex = legs.findIndex(leg => leg.featureId === this.nodeDrag.legFeatureId);
+      const oldLeg1 = legs.get(nextLegIndex - 1);
+      const oldLeg2 = legs.get(nextLegIndex);
 
-        const newLeg1: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLeg1.sourceNode, newNode);
-        const newLeg2: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), newNode, oldLeg2.sinkNode);
+      const newLeg1: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLeg1.sourceNode, newNode);
+      const newLeg2: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), newNode, oldLeg2.sinkNode);
 
-        const command = new PlannerCommandMoveViaPoint(
-          oldLeg1.featureId,
-          oldLeg2.featureId,
-          newLeg1.featureId,
-          newLeg2.featureId
-        );
-        this.context.execute(command);
-      }
+      const command = new PlannerCommandMoveViaPoint(
+        oldLeg1.featureId,
+        oldLeg2.featureId,
+        newLeg1.featureId,
+        newLeg2.featureId
+      );
+      this.context.execute(command);
     }
 
     this.nodeDrag = null;
@@ -450,6 +452,16 @@ export class PlannerEngineImpl implements PlannerEngine {
       newSourceNode,
       newSourceFlag
     );
+    this.context.execute(command);
+  }
+
+  private moveEndPoint(sinkNode: PlanNode): void {
+    const oldLeg = this.context.plan.legs.get(-1, null);
+    const sourceNode = oldLeg.sourceNode;
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const newLeg = this.context.buildLeg(source, sink, sourceNode, sinkNode);
+    const command = new PlannerCommandMoveEndPoint(oldLeg.featureId, newLeg.featureId);
     this.context.execute(command);
   }
 

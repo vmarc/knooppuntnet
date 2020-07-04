@@ -1,5 +1,4 @@
 import {PlannerContext} from "../context/planner-context";
-import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveEndPoint implements PlannerCommand {
@@ -19,8 +18,8 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
   private update(context: PlannerContext, fromLegId: string, toLegId: string) {
     const fromLeg = context.legs.getById(fromLegId);
     const toLeg = context.legs.getById(toLegId);
-    context.routeLayer.removeFlagWithFeatureId(fromLeg.sinkNode.featureId);
-    context.routeLayer.addFlag(PlanFlag.oldEnd(toLeg.sinkNode));
+    context.routeLayer.removeFlag(fromLeg.sinkFlag);
+    context.routeLayer.addFlag(toLeg.sinkFlag);
     context.routeLayer.removePlanLeg(fromLeg.featureId);
     context.routeLayer.addPlanLeg(toLeg);
     const newLegs = context.plan.legs.update(context.plan.legs.size - 1, () => toLeg);
