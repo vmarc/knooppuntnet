@@ -59,67 +59,67 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
-    @PathVariable country: String,
-    @PathVariable networkType: String
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetNetworksPage] = {
-    val subset = Subset.ofName(country, networkType)
+    val subset = Subset.of(country, networkType)
     analysisFacade.subsetNetworks(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
   def subsetFacts(
-    @PathVariable country: String,
-    @PathVariable networkType: String
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetFactsPage] = {
-    val subset = Subset.ofName(country, networkType)
+    val subset = Subset.of(country, networkType)
     analysisFacade.subsetFacts(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
   def subsetFactDetails(
-    @PathVariable country: String,
-    @PathVariable networkType: String,
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType,
     @PathVariable fact: String
   ): ApiResponse[SubsetFactDetailsPage] = {
-    val subset = Subset.ofName(country, networkType).get // TODO improve
+    val subset = Subset.of(country, networkType).get // TODO improve
     val f = Fact.withName(fact).get // TODO improve
     analysisFacade.subsetFactDetails(user(), subset, f)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
   def subsetOrphanNodes(
-    @PathVariable country: String,
-    @PathVariable networkType: String
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetOrphanNodesPage] = {
-    val subset = Subset.ofName(country, networkType)
+    val subset = Subset.of(country, networkType)
     analysisFacade.subsetOrphanNodes(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
   def subsetOrphanRoutes(
-    @PathVariable country: String,
-    @PathVariable networkType: String
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetOrphanRoutesPage] = {
-    val subset = Subset.ofName(country, networkType)
+    val subset = Subset.of(country, networkType)
     analysisFacade.subsetOrphanRoutes(user(), subset.get)
   }
 
   @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
   def subsetMap(
-    @PathVariable country: String,
-    @PathVariable networkType: String
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetMapPage] = {
-    val subset = Subset.ofName(country, networkType)
+    val subset = Subset.of(country, networkType)
     analysisFacade.subsetMap(user(), subset.get)
   }
 
   @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
-    @PathVariable country: String,
-    @PathVariable networkType: String,
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
-    val p = parameters.copy(subset = Subset.ofName(country, networkType))
+    val p = parameters.copy(subset = Subset.of(country, networkType))
     analysisFacade.subsetChanges(user(), p)
   }
 
@@ -236,96 +236,72 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/json-api/locations/{networkType}/{country}"))
   def locations(
-    @PathVariable networkType: String,
-    @PathVariable country: String
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country
   ): ApiResponse[LocationsPage] = {
-    analysisFacade.locations(user(), NetworkType.withName(networkType).get, Country.withDomain(country).get)
+    analysisFacade.locations(user(), networkType, country)
   }
 
   @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/nodes"))
   def locationNodes(
-    @PathVariable networkType: String,
-    @PathVariable country: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
     @PathVariable location: String,
     @RequestBody parameters: LocationNodesParameters
   ): ApiResponse[LocationNodesPage] = {
-    val locationKey = LocationKey(
-      NetworkType.withName(networkType).get,
-      Country.withDomain(country).get,
-      location
-    )
+    val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationNodes(user(), locationKey, parameters)
   }
 
   @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/routes"))
   def locationRoutes(
-    @PathVariable networkType: String,
-    @PathVariable country: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
     @PathVariable location: String,
     @RequestBody parameters: LocationRoutesParameters
   ): ApiResponse[LocationRoutesPage] = {
-    val locationKey = LocationKey(
-      NetworkType.withName(networkType).get,
-      Country.withDomain(country).get,
-      location
-    )
+    val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationRoutes(user(), locationKey, parameters)
   }
 
   @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/facts"))
   def locationFacts(
-    @PathVariable networkType: String,
-    @PathVariable country: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationFactsPage] = {
-    val locationKey = LocationKey(
-      NetworkType.withName(networkType).get,
-      Country.withDomain(country).get,
-      location
-    )
+    val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationFacts(user(), locationKey)
   }
 
   @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/map"))
   def locationMap(
-    @PathVariable networkType: String,
-    @PathVariable country: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationMapPage] = {
-    val locationKey = LocationKey(
-      NetworkType.withName(networkType).get,
-      Country.withDomain(country).get,
-      location
-    )
+    val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationMap(user(), locationKey)
   }
 
   @PostMapping(value = Array("/json-api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at}/{location}/changes"))
   def locationChanges(
-    @PathVariable country: String,
-    @PathVariable networkType: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
     @PathVariable location: String,
     @RequestBody parameters: LocationChangesParameters
   ): ApiResponse[LocationChangesPage] = {
-    val locationKey = LocationKey(
-      NetworkType.withName(networkType).get,
-      Country.withDomain(country).get,
-      location
-    )
+    val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationChanges(user(), locationKey, parameters)
   }
 
   @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/edit"))
   def locationEdit(
-    @PathVariable networkType: String,
-    @PathVariable country: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationEditPage] = {
-    val locationKey = LocationKey(
-      NetworkType.withName(networkType).get,
-      Country.withDomain(country).get,
-      location
-    )
+    val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationEdit(user(), locationKey)
   }
 
