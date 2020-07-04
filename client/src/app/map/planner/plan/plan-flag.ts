@@ -45,4 +45,8 @@ export class PlanFlag {
     return new PlanFlag(PlanFlagType.Invisble, this.featureId, this.coordinate);
   }
 
+  withCoordinate(coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(this.flagType, this.featureId, coordinate);
+  }
+
 }

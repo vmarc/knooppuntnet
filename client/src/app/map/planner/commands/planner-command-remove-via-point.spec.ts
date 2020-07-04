@@ -1,7 +1,6 @@
 import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
@@ -35,9 +34,9 @@ describe("PlannerCommandRemoveViaPoint", () => {
     setup.context.execute(new PlannerCommandAddLeg(oldLeg2.featureId));
 
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node1.featureId, [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, node3.featureId, [3, 3]);
+    setup.routeLayer.expectStartFlagExists(node1.featureId, [1, 1]);
+    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectEndFlagExists(node3.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
 
@@ -53,8 +52,8 @@ describe("PlannerCommandRemoveViaPoint", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node1.featureId, [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, node3.featureId, [3, 3]);
+    setup.routeLayer.expectStartFlagExists(node1.featureId, [1, 1]);
+    setup.routeLayer.expectEndFlagExists(node3.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
     expect(setup.context.plan.legs.size).toEqual(1);
@@ -65,9 +64,9 @@ describe("PlannerCommandRemoveViaPoint", () => {
     command.undo(setup.context);
 
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node1.featureId, [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, node3.featureId, [3, 3]);
+    setup.routeLayer.expectStartFlagExists(node1.featureId, [1, 1]);
+    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectEndFlagExists(node3.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
 

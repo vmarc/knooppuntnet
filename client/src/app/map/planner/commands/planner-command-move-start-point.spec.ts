@@ -1,8 +1,7 @@
 import {List} from "immutable";
-import {Plan} from "../plan/plan";
 import {PlannerTestSetup} from "../context/planner-test-setup";
+import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveStartPoint} from "./planner-command-move-start-point";
 
@@ -26,14 +25,14 @@ describe("PlannerCommandMoveStartPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1002");
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.sourceNode.featureId, [2, 2]);
+    setup.routeLayer.expectStartFlagExists(setup.context.plan.sourceNode.featureId, [2, 2]);
 
     command.undo(setup.context);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, setup.context.plan.sourceNode.featureId, [1, 1]);
+    setup.routeLayer.expectStartFlagExists(setup.context.plan.sourceNode.featureId, [1, 1]);
 
   });
 

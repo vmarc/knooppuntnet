@@ -1,7 +1,7 @@
 import {List} from "immutable";
+import {TestSupport} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
@@ -30,14 +30,13 @@ describe("PlannerCommandAddLeg", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, "n2", [2, 2]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectEndFlagExists("n2", [2, 2]);
     setup.routeLayer.expectRouteLegExists("12", leg);
 
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("n2");
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.End);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
 
     command.undo(setup.context);
@@ -69,50 +68,47 @@ describe("PlannerCommandAddLeg", () => {
     setup.context.execute(addStartCommand);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
 
     setup.legs.add(leg1);
     const addLeg1Command = new PlannerCommandAddLeg(leg1.featureId);
     setup.context.execute(addLeg1Command);
     setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, "n2", [2, 2]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectEndFlagExists("n2", [2, 2]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
 
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("n2");
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.End);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
 
     setup.legs.add(leg2);
     const addLeg2Command = new PlannerCommandAddLeg(leg2.featureId);
     setup.context.execute(addLeg2Command);
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, "n2", [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, "n3", [3, 3]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectViaFlagExists("n2", [2, 2]);
+    setup.routeLayer.expectEndFlagExists("n3", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("n2");
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.Via);
+    TestSupport.expectViaFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sinkFlag.featureId).toEqual("n3");
-    expect(setup.context.plan.legs.get(1).sinkFlag.flagType).toEqual(PlanFlagType.End);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(1).sinkFlag, "n3", [3, 3]);
     expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
 
     setup.legs.add(leg3);
     const addLeg3Command = new PlannerCommandAddLeg(leg3.featureId);
     setup.context.execute(addLeg3Command);
     setup.routeLayer.expectFlagCount(4);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, "n2", [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, "n3", [3, 3]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, "n4", [4, 4]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectViaFlagExists("n2", [2, 2]);
+    setup.routeLayer.expectViaFlagExists("n3", [3, 3]);
+    setup.routeLayer.expectEndFlagExists("n4", [4, 4]);
     setup.routeLayer.expectRouteLegCount(3);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
@@ -120,53 +116,47 @@ describe("PlannerCommandAddLeg", () => {
 
     expect(setup.context.plan.legs.size).toEqual(3);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("n2");
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.Via);
+    TestSupport.expectViaFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sinkFlag.featureId).toEqual("n3");
-    expect(setup.context.plan.legs.get(1).sinkFlag.flagType).toEqual(PlanFlagType.Via);
+    TestSupport.expectViaFlag(setup.context.plan.legs.get(1).sinkFlag, "n3", [3, 3]);
     expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
     expect(setup.context.plan.legs.get(2).featureId).toEqual("34");
-    expect(setup.context.plan.legs.get(2).sinkFlag.featureId).toEqual("n4");
-    expect(setup.context.plan.legs.get(2).sinkFlag.flagType).toEqual(PlanFlagType.End);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(2).sinkFlag, "n4", [4, 4]);
     expect(setup.context.plan.legs.get(2).viaFlag).toEqual(null);
 
     addLeg3Command.undo(setup.context);
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, "n2", [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, "n3", [3, 3]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectViaFlagExists("n2", [2, 2]);
+    setup.routeLayer.expectEndFlagExists("n3", [3, 3]);
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("n2");
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.Via);
+    TestSupport.expectViaFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sinkFlag.featureId).toEqual("n3");
-    expect(setup.context.plan.legs.get(1).sinkFlag.flagType).toEqual(PlanFlagType.End);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(1).sinkFlag, "n3", [3, 3]);
     expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
 
     addLeg2Command.undo(setup.context);
     setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, "n2", [2, 2]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectEndFlagExists("n2", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg1);
 
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("n2");
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.End);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
 
     addLeg1Command.undo(setup.context);
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, "n1", [1, 1]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
     setup.routeLayer.expectRouteLegCount(0);
 
     expect(setup.context.plan.legs.size).toEqual(0);

@@ -1,7 +1,6 @@
 import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
@@ -33,9 +32,9 @@ describe("PlannerCommandReverse", () => {
     setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
 
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node1.featureId, [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, node3.featureId, [3, 3]);
+    setup.routeLayer.expectStartFlagExists(node1.featureId, [1, 1]);
+    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectEndFlagExists(node3.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
@@ -51,9 +50,9 @@ describe("PlannerCommandReverse", () => {
     setup.context.execute(reverseCommand);
 
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node3.featureId, [3, 3]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, node1.featureId, [1, 1]);
+    setup.routeLayer.expectStartFlagExists(node3.featureId, [3, 3]);
+    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectEndFlagExists(node1.featureId, [1, 1]);
 
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1003");
@@ -64,9 +63,9 @@ describe("PlannerCommandReverse", () => {
     reverseCommand.undo(setup.context);
 
     setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node1.featureId, [1, 1]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
-    setup.routeLayer.expectFlagExists(PlanFlagType.End, node3.featureId, [3, 3]);
+    setup.routeLayer.expectStartFlagExists(node1.featureId, [1, 1]);
+    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectEndFlagExists(node3.featureId, [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 

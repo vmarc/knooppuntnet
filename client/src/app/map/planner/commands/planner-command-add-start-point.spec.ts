@@ -15,7 +15,7 @@ describe("PlannerCommandAddStartPoint", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Start, node.featureId, [1, 1]);
+    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(0);

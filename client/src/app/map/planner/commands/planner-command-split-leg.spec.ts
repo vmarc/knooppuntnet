@@ -2,7 +2,6 @@ import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
@@ -40,7 +39,7 @@ describe("PlannerCommandSplitLeg", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node3.featureId, [3, 3]);
+    setup.routeLayer.expectViaFlagExists(node3.featureId, [3, 3]);
 
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("13", newLeg1);

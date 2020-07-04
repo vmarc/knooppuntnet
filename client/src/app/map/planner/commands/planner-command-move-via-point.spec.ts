@@ -2,7 +2,6 @@ import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandMoveViaPoint} from "./planner-command-move-via-point";
@@ -40,7 +39,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node4.featureId, [4, 4]);
+    setup.routeLayer.expectViaFlagExists(node4.featureId, [4, 4]);
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("14", newLeg1);
     setup.routeLayer.expectRouteLegExists("43", newLeg2);
@@ -57,7 +56,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     command.undo(setup.context);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectFlagExists(PlanFlagType.Via, node2.featureId, [2, 2]);
+    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);

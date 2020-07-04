@@ -44,6 +44,18 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
     expect(this.flags.size).toEqual(count);
   }
 
+  expectStartFlagExists(featureId: string, coordinate: Coordinate): void {
+    this.expectFlagExists(PlanFlagType.Start, featureId, coordinate);
+  }
+
+  expectViaFlagExists(featureId: string, coordinate: Coordinate): void {
+    this.expectFlagExists(PlanFlagType.Via, featureId, coordinate);
+  }
+
+  expectEndFlagExists(featureId: string, coordinate: Coordinate): void {
+    this.expectFlagExists(PlanFlagType.End, featureId, coordinate);
+  }
+
   expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate: Coordinate): void {
     const flag = this.flags.get(featureId);
     expect(flag.featureId).toEqual(featureId);

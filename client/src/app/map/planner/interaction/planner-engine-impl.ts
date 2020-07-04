@@ -13,8 +13,6 @@ import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {PlanFlag} from "../plan/plan-flag";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
@@ -30,7 +28,9 @@ import {FlagFeature} from "../features/flag-feature";
 import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
 import {RouteFeature} from "../features/route-feature";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {Features} from "./features";
 import {PlannerDragFlag} from "./planner-drag-flag";
@@ -392,24 +392,9 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.nodeDrag.flagType === PlanFlagType.Start) {
       if (this.context.plan.legs.isEmpty()) {
-        const command = new PlannerCommandMoveStartPoint(this.nodeDrag.oldNode, newNode);
-        this.context.execute(command);
+        this.moveStartPoint(newNode);
       } else {
-        const oldFirstLeg: PlanLeg = this.context.plan.legs.first();
-
-        const sourceNode = newNode;
-        const sinkNode: PlanNode = oldFirstLeg.sinkNode;
-        const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-        const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-
-        const newFirstLeg: PlanLeg = this.context.buildLeg(
-          source,
-          sink,
-          sourceNode,
-          sinkNode
-        );
-        const command = new PlannerCommandMoveFirstLegSource(oldFirstLeg.featureId, newFirstLeg.featureId);
-        this.context.execute(command);
+        this.moveFirstLegSource(newNode);
       }
     } else { // end node
       const oldLastLeg: PlanLeg = this.context.plan.legs.last();
@@ -440,6 +425,34 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.nodeDrag = null;
   }
 
+  private moveStartPoint(newSourceNode: PlanNode): void {
+    const command = new PlannerCommandMoveStartPoint(this.nodeDrag.oldNode, newSourceNode);
+    this.context.execute(command);
+  }
+
+  private moveFirstLegSource(newSourceNode: PlanNode): void {
+
+    const oldLeg: PlanLeg = this.context.plan.legs.get(0, null);
+    const oldSourceNode = this.context.plan.sourceNode;
+    const oldSourceFlag = this.context.plan.sourceFlag;
+
+    const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
+    const sinkNode = oldLeg.sinkNode;
+    const source = PlanUtil.legEndNode(+newSourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const newLeg = this.context.buildLeg(source, sink, newSourceNode, sinkNode);
+
+    const command = new PlannerCommandMoveFirstLegSource(
+      oldLeg.featureId,
+      oldSourceNode,
+      oldSourceFlag,
+      newLeg.featureId,
+      newSourceNode,
+      newSourceFlag
+    );
+    this.context.execute(command);
+  }
+
   private dropLegOnRoute(routeFeature: RouteFeature, coordinate: Coordinate) {
     console.log("drop leg on routeFeature id=" + routeFeature.feature.get("id"));
   }
@@ -447,6 +460,8 @@ export class PlannerEngineImpl implements PlannerEngine {
   private dropNodeOnRoute(routeFeature, coordinate: Coordinate) {
 
     if (this.nodeDrag.flagType === PlanFlagType.Via) {
+
+      // TODO PLAN continue
       // const legs = this.context.plan.legs;
       //
       // const nextLegIndex = legs.findIndex(leg => leg.source.featureId === this.nodeDrag.oldNode.featureId);

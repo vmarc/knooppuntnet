@@ -99,6 +99,9 @@ export class PlannerContext {
 
   updatePlan(plan: Plan) {
     this._plan$.next(plan);
+
+    console.log(["PLAN UPDATE", plan]);
+
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
