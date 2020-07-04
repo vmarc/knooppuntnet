@@ -1,6 +1,5 @@
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
 import {FlagFeature} from "../features/flag-feature";
+import {Plan} from "../plan/plan";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlannerDragFlag} from "./planner-drag-flag";
 
@@ -13,14 +12,16 @@ export class PlannerDragFlagAnalyzer {
 
     if (flag.flagType === PlanFlagType.Start) {
       const sourceNode = this.plan.sourceNode;
+      const sourceFlag = this.plan.sourceFlag;
       const anchor = sourceNode.coordinate;
-      return new PlannerDragFlag(PlanFlagType.Start, null, anchor, anchor, sourceNode);
+      return new PlannerDragFlag(sourceFlag, null, anchor, anchor, sourceNode);
     }
 
     if (flag.flagType === PlanFlagType.End) {
       const sinkNode = this.plan.sinkNode();
+      const sinkFlag = this.plan.sinkFlag();
       const anchor = sinkNode.coordinate;
-      return new PlannerDragFlag(PlanFlagType.End, null, anchor, anchor, sinkNode);
+      return new PlannerDragFlag(sinkFlag, null, anchor, anchor, sinkNode);
     }
 
     const legs = this.plan.legs;
@@ -28,18 +29,12 @@ export class PlannerDragFlagAnalyzer {
       return null;
     }
 
-    const lastLeg: PlanLeg = legs.last();
-    if (lastLeg.sinkNode.featureId === flag.id) {
-      const anchor = lastLeg.sinkNode.coordinate;
-      return new PlannerDragFlag(PlanFlagType.Via, lastLeg.featureId, anchor, anchor, lastLeg.sinkNode);
-    }
-
-    const legIndex = legs.findIndex(leg => leg.sourceNode.featureId === flag.id);
-    if (legIndex > 0) {
-      const previousLeg = legs.get(legIndex - 1);
-      const nextLeg = legs.get(legIndex);
+    const legIndex = legs.findIndex(leg => leg.sinkFlag.featureId === flag.id);
+    if (legIndex >= 0) {
+      const previousLeg = legs.get(legIndex);
+      const nextLeg = legs.get(legIndex + 1);
       return new PlannerDragFlag(
-        PlanFlagType.Via,
+        previousLeg.sinkFlag,
         nextLeg.featureId,
         previousLeg.sourceNode.coordinate,
         nextLeg.sinkNode.coordinate,

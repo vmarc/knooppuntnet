@@ -1,4 +1,5 @@
 import {List} from "immutable";
+import {TestSupport} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
@@ -20,8 +21,8 @@ describe("PlannerCommandMoveEndPoint", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List());
-    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.via("n3", node3), null, List());
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", node2), null, List());
+    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.end("n3", node3), null, List());
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
@@ -33,28 +34,26 @@ describe("PlannerCommandMoveEndPoint", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectEndFlagExists(node3.featureId, [3, 3]);
+    setup.routeLayer.expectEndFlagExists("n3", [3, 3]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n3", [3, 3]);
 
     command.undo(setup.context);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectEndFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectEndFlagExists("n2", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
   });
 
 });

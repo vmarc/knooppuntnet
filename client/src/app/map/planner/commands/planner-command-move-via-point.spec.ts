@@ -23,9 +23,9 @@ describe("PlannerCommandMoveViaPoint", () => {
     const legEnd4 = PlanUtil.legEndNode(+node4.nodeId);
 
     const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List());
-    const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.via("n3", node3), null, List());
+    const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.end("n3", node3), null, List());
     const newLeg1 = new PlanLeg("14", "", legEnd1, legEnd4, PlanFlag.via("n4", node4), null, List());
-    const newLeg2 = new PlanLeg("43", "", legEnd4, legEnd3, PlanFlag.via("n3", node3), null, List());
+    const newLeg2 = new PlanLeg("43", "", legEnd4, legEnd3, PlanFlag.end("n3", node3), null, List());
 
     setup.legs.add(oldLeg1);
     setup.legs.add(oldLeg2);
@@ -39,7 +39,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectViaFlagExists(node4.featureId, [4, 4]);
+    setup.routeLayer.expectViaFlagExists("n4", [4, 4]);
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("14", newLeg1);
     setup.routeLayer.expectRouteLegExists("43", newLeg2);
@@ -47,16 +47,12 @@ describe("PlannerCommandMoveViaPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("14");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1004");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("43");
-    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1004");
-    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1003");
 
     command.undo(setup.context);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectViaFlagExists(node2.featureId, [2, 2]);
+    setup.routeLayer.expectViaFlagExists("n2", [2, 2]);
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
@@ -64,11 +60,7 @@ describe("PlannerCommandMoveViaPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1002");
-    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1003");
 
   });
 

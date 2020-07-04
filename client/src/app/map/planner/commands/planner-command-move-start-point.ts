@@ -22,8 +22,7 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
 
   public update(context: PlannerContext, fromNode: PlanNode, toNode: PlanNode) {
     context.routeLayer.removeFlag(context.plan.sourceFlag);
-    const sourceFlagFeatureId = context.plan.sourceFlag === null ? FeatureId.next() : context.plan.sourceFlag.featureId;
-    const newFlag = PlanFlag.start(sourceFlagFeatureId, toNode);
+    const newFlag = PlanFlag.start(context.plan.sourceFlag.featureId, toNode);
     context.routeLayer.addFlag(newFlag);
     const newPlan = new Plan(toNode, newFlag, List());
     context.updatePlan(newPlan);

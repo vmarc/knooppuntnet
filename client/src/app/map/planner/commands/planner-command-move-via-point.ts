@@ -25,8 +25,8 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
     const toLeg1 = context.legs.getById(toLegId1);
     const toLeg2 = context.legs.getById(toLegId2);
 
-    context.routeLayer.removeFlagWithFeatureId(fromLeg1.sinkNode.featureId);
-    context.routeLayer.addFlag(PlanFlag.oldVia(toLeg1.sinkNode));
+    context.routeLayer.removeFlagWithFeatureId(fromLeg1.sinkFlag.featureId);
+    context.routeLayer.addFlag(toLeg1.sinkFlag);
     context.routeLayer.removePlanLeg(fromLeg1.featureId);
     context.routeLayer.removePlanLeg(fromLeg2.featureId);
     context.routeLayer.addPlanLeg(toLeg1);

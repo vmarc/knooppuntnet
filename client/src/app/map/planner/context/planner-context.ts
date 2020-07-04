@@ -151,7 +151,7 @@ export class PlannerContext {
     return null;
   }
 
-  buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
+  buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlagType: PlanFlagType): PlanLeg {
 
     const legKey = PlanUtil.key(source, sink);
     // const cachedLeg = this.legs.get(legFeatureId);
@@ -176,7 +176,7 @@ export class PlannerContext {
     let viaFlag: PlanFlag = null;
 
     if (sink.node !== null) {
-      sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), sinkNode.coordinate);
+      sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
     }
     if (sink.route !== null) { // TODO PLAN still need a way to get sinkNode coordinate --> should be coordinate that was clicked
       viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);

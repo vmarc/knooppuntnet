@@ -28,6 +28,14 @@ export class Plan {
     return this.sourceNode;
   }
 
+  sinkFlag(): PlanFlag {
+    const lastLeg = this.legs.last(null);
+    if (lastLeg) {
+      return lastLeg.sinkFlag;
+    }
+    return null;
+  }
+
   meters(): number {
     return Util.sum(this.legs.map(l => l.meters()));
   }
