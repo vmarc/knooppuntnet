@@ -1,4 +1,3 @@
-import {Plan} from "../plan/plan";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
@@ -23,7 +22,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
       context.routeLayer.addPlanLeg(newLeg1);
       context.routeLayer.addPlanLeg(newLeg2);
       const newLegs = context.plan.legs.remove(legIndex).push(newLeg1).push(newLeg2);
-      const newPlan = new Plan(context.plan.sourceNode, newLegs);
+      const newPlan = context.plan.withLegs(newLegs);
       context.updatePlan(newPlan);
     }
   }
@@ -41,7 +40,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg1.featureId);
     if (legIndex > -1) {
       const newLegs = context.plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, oldLeg);
-      const newPlan = new Plan(context.plan.sourceNode, newLegs);
+      const newPlan = context.plan.withLegs(newLegs);
       context.updatePlan(newPlan);
     }
   }

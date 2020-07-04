@@ -2,6 +2,7 @@ import {List} from "immutable";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {Plan} from "./plan";
+import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
 import {PlanUtil} from "./plan-util";
 
@@ -13,7 +14,8 @@ describe("PlanUtil", () => {
 
   it("toUrlString - plan with source only", () => {
     const startNode = PlanUtil.planNode("10", "", new LatLonImpl("", ""));
-    const plan = new Plan(startNode, List());
+    const startFlag = PlanFlag.start("n1", this.node1);
+    const plan = new Plan(startNode, startFlag, List());
     expect(PlanUtil.toUrlString(plan)).toEqual("a");
   });
 
@@ -37,7 +39,8 @@ describe("PlanUtil", () => {
     const leg2 = new PlanLeg("", "", viaLegEnd1, viaLegEnd2, null, null, List([route2]));
     const leg3 = new PlanLeg("", "", viaLegEnd2, endLegEnd, null, null, List([route3]));
 
-    const plan = new Plan(startNode, List([leg1, leg2, leg3]));
+    const startFlag = PlanFlag.start("n1", startNode);
+    const plan = new Plan(startNode, startFlag, List([leg1, leg2, leg3]));
 
     expect(PlanUtil.toUrlString(plan)).toEqual("a-b-c-d");
   });
@@ -70,7 +73,7 @@ describe("PlanUtil", () => {
     const leg1 = new PlanLeg("1", "", null, null, null, null, List([route1, route2]));
     const leg2 = new PlanLeg("2", "", null, null, null, null, List([route3]));
 
-    const plan = new Plan(null, List([leg1, leg2]));
+    const plan = new Plan(null, null, List([leg1, leg2]));
 
     expect(plan.cumulativeKmLeg(0)).toEqual("3 km");
     expect(plan.cumulativeKmLeg(1)).toEqual("7 km");

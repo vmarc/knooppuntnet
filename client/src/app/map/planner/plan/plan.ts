@@ -3,15 +3,21 @@ import {Util} from "../../../components/shared/util";
 import {Bounds} from "../../../kpn/api/common/bounds";
 import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
+import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
 import {PlanUtil} from "./plan-util";
 
 export class Plan {
 
-  static readonly empty = new Plan(null, List());
+  static readonly empty = new Plan(null, null, List());
 
   constructor(readonly sourceNode: PlanNode,
+              readonly sourceFlag: PlanFlag,
               readonly legs: List<PlanLeg>) {
+  }
+
+  withLegs(legs: List<PlanLeg>): Plan {
+    return new Plan(this.sourceNode, this.sourceFlag, legs);
   }
 
   sinkNode(): PlanNode {

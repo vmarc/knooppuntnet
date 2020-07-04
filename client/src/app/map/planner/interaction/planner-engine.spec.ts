@@ -11,6 +11,7 @@ import {FlagFeature} from "../features/flag-feature";
 import {LegFeature} from "../features/leg-feature";
 import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerEngineImpl} from "./planner-engine-impl";
@@ -56,7 +57,7 @@ describe("PlannerEngine", () => {
       const node1 = NetworkNodeFeature.create("1001", "01", [1, 1]);
       const node2 = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
-      setup.context.updatePlan(new Plan(node1.node, List()));
+      setup.context.updatePlan(new Plan(node1.node, PlanFlag.start("n1", this.node1), List()));
 
       const features: List<MapFeature> = List([node2]);
 

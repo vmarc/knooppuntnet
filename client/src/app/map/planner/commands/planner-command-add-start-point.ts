@@ -7,18 +7,18 @@ import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandAddStartPoint implements PlannerCommand {
 
-  constructor(private featureId: string, private node: PlanNode) {
+  constructor(private node: PlanNode, private sourceFlag: PlanFlag) {
   }
 
   public do(context: PlannerContext) {
-    const plan = new Plan(this.node, List());
-    context.routeLayer.addFlag(PlanFlag.start(this.featureId, this.node));
+    const plan = new Plan(this.node, this.sourceFlag, List());
+    context.routeLayer.addFlag(this.sourceFlag);
     context.updatePlan(plan);
   }
 
   public undo(context: PlannerContext) {
     context.updatePlan(Plan.empty);
-    context.routeLayer.removeFlagWithFeatureId(this.featureId);
+    context.routeLayer.removeFlag(this.sourceFlag);
   }
 
 }

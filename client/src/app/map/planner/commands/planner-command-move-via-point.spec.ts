@@ -23,17 +23,17 @@ describe("PlannerCommandMoveViaPoint", () => {
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
     const legEnd4 = PlanUtil.legEndNode(+node4.nodeId);
 
-    const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.oldVia(node2), null, List());
-    const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.oldVia(node3), null, List());
-    const newLeg1 = new PlanLeg("14", "", legEnd1, legEnd4, PlanFlag.oldVia(node4), null, List());
-    const newLeg2 = new PlanLeg("43", "", legEnd4, legEnd3, PlanFlag.oldVia(node3), null, List());
+    const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List());
+    const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.via("n3", node3), null, List());
+    const newLeg1 = new PlanLeg("14", "", legEnd1, legEnd4, PlanFlag.via("n4", node4), null, List());
+    const newLeg2 = new PlanLeg("43", "", legEnd4, legEnd3, PlanFlag.via("n3", node3), null, List());
 
     setup.legs.add(oldLeg1);
     setup.legs.add(oldLeg2);
     setup.legs.add(newLeg1);
     setup.legs.add(newLeg2);
 
-    const plan = new Plan(node1, List([oldLeg1, oldLeg2]));
+    const plan = new Plan(node1, PlanFlag.start("n1", node1), List([oldLeg1, oldLeg2]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveViaPoint(oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);

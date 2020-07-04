@@ -1,13 +1,13 @@
 import {List} from "immutable";
-import {Plan} from "../plan/plan";
 import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FeatureId} from "../features/feature-id";
+import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerContext} from "./planner-context";
@@ -59,7 +59,7 @@ export class PlannerTestSetup {
   }
 
   createPlanWithStartPointOnly(): Plan {
-    const plan = new Plan(this.node1, List());
+    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1), List());
     this.context.updatePlan(plan);
     this.routeLayer.addFlag(PlanFlag.oldStart(this.node1));
     return plan;
@@ -68,7 +68,7 @@ export class PlannerTestSetup {
   createOneLegPlan(): Plan {
 
     const leg = this.createLeg(this.node1, this.node2);
-    const plan = new Plan(this.node1, List([leg]));
+    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1), List([leg]));
     this.context.updatePlan(plan);
 
     this.routeLayer.addFlag(PlanFlag.oldStart(this.node1));
@@ -82,12 +82,12 @@ export class PlannerTestSetup {
 
     const leg1 = this.createLeg(this.node1, this.node2);
     const leg2 = this.createLeg(this.node2, this.node3);
-    const plan = new Plan(this.node1, List([leg1, leg2]));
+    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1), List([leg1, leg2]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.oldStart(this.node1));
-    this.routeLayer.addFlag(PlanFlag.oldVia(this.node2));
-    this.routeLayer.addFlag(PlanFlag.oldVia(this.node3));
+    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1));
+    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2));
+    this.routeLayer.addFlag(PlanFlag.via("n3", this.node3));
     this.routeLayer.addPlanLeg(leg1);
     this.routeLayer.addPlanLeg(leg2);
 

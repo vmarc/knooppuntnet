@@ -1,4 +1,3 @@
-import {Plan} from "../plan/plan";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
@@ -25,7 +24,7 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
     context.routeLayer.removePlanLeg(fromLeg.featureId);
     context.routeLayer.addPlanLeg(toLeg);
     const newLegs = context.plan.legs.update(context.plan.legs.size - 1, () => toLeg);
-    const newPlan = new Plan(context.plan.sourceNode, newLegs);
+    const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 

@@ -21,7 +21,7 @@ describe("PlannerCommandAddLeg", () => {
 
     const leg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", node2), null, List());
 
-    const addStartCommand = new PlannerCommandAddStartPoint("n1", node1);
+    const addStartCommand = new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", node1));
     setup.context.execute(addStartCommand);
 
     setup.legs.add(leg);
@@ -65,7 +65,7 @@ describe("PlannerCommandAddLeg", () => {
     const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.end("n3", node3), null, List());
     const leg3 = new PlanLeg("34", "", legEnd3, legEnd4, PlanFlag.end("n4", node4), null, List());
 
-    const addStartCommand = new PlannerCommandAddStartPoint("n1", node1);
+    const addStartCommand = new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", node1));
     setup.context.execute(addStartCommand);
 
     setup.routeLayer.expectFlagCount(1);

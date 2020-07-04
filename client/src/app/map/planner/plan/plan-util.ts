@@ -9,7 +9,6 @@ import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "./plan";
-import {PlanLeg} from "./plan-leg";
 
 export class PlanUtil {
 
@@ -90,10 +89,6 @@ export class PlanUtil {
       return lastLeg.sinkNode;
     }
     return plan.sourceNode;
-  }
-
-  static plan(source: PlanNode, legs: List<PlanLeg>): Plan {
-    return new Plan(source, legs);
   }
 
   static planRouteLatLons(planRoute: PlanRoute): List<LatLonImpl> {

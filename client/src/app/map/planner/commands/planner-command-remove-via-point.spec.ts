@@ -1,8 +1,8 @@
 import {List} from "immutable";
-import {PlanFlag} from "../plan/plan-flag";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerTestSetup} from "../context/planner-test-setup";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
@@ -22,15 +22,15 @@ describe("PlannerCommandRemoveViaPoint", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.oldVia(node2), null, List());
-    const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.oldVia(node3), null, List());
-    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.oldVia(node3), null, List());
+    const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List());
+    const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.via("n3", node3), null, List());
+    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.via("n3", node3), null, List());
 
     setup.legs.add(oldLeg1);
     setup.legs.add(oldLeg2);
     setup.legs.add(newLeg);
 
-    setup.context.execute(new PlannerCommandAddStartPoint("n1", node1));
+    setup.context.execute(new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", node1)));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg2.featureId));
 

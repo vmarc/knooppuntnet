@@ -1,5 +1,4 @@
 import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandAddLeg implements PlannerCommand {
@@ -26,7 +25,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     context.routeLayer.addFlag(leg.sinkFlag);
     context.routeLayer.addPlanLeg(leg);
 
-    const newPlan = new Plan(context.plan.sourceNode, newLegs);
+    const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -47,7 +46,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
       context.routeLayer.updateFlag(updatedLastLeg.sinkFlag);
     }
 
-    const newPlan = new Plan(context.plan.sourceNode, newLegs);
+    const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 

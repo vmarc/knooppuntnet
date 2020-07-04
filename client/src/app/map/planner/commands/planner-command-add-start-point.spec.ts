@@ -1,4 +1,5 @@
 import {PlannerTestSetup} from "../context/planner-test-setup";
+import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
@@ -10,7 +11,7 @@ describe("PlannerCommandAddStartPoint", () => {
     const setup = new PlannerTestSetup();
     const node = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
-    const command = new PlannerCommandAddStartPoint("n1", node);
+    const command = new PlannerCommandAddStartPoint(node, PlanFlag.start("n1", node));
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);

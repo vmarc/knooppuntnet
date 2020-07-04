@@ -1,8 +1,7 @@
 import {List} from "immutable";
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerContext} from "../context/planner-context";
 import {PlanFlag} from "../plan/plan-flag";
+import {PlanLeg} from "../plan/plan-leg";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandRemoveViaPoint implements PlannerCommand {
@@ -26,7 +25,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     const newLegs: List<PlanLeg> = context.plan.legs
       .map(leg => leg.featureId === oldLeg1.featureId ? newLeg : leg)
       .filter(leg => leg.featureId !== oldLeg2.featureId);
-    const newPlan = new Plan(context.plan.sourceNode, newLegs);
+    const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -45,7 +44,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     if (legIndex > -1) {
       const newLegs1 = context.plan.legs.update(legIndex, () => oldLeg1);
       const newLegs2 = newLegs1.insert(legIndex + 1, oldLeg2);
-      const newPlan = new Plan(context.plan.sourceNode, newLegs2);
+      const newPlan = context.plan.withLegs(newLegs2);
       context.updatePlan(newPlan);
     }
   }
