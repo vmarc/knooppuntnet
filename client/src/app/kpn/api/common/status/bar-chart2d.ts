@@ -7,6 +7,7 @@ export class BarChart2D {
 
   constructor(readonly xAxisLabel: string,
               readonly yAxisLabel: string,
+              readonly xAxisTicks: List<number>,
               readonly legendTitle: string,
               readonly data: List<BarChart2dValue>) {
   }
@@ -18,6 +19,7 @@ export class BarChart2D {
     return new BarChart2D(
       jsonObject.xAxisLabel,
       jsonObject.yAxisLabel,
+      jsonObject.xAxisTicks ? List(jsonObject.xAxisTicks) : List(),
       jsonObject.legendTitle,
       jsonObject.data ? List(jsonObject.data.map((json: any) => BarChart2dValue.fromJSON(json))) : List()
     );

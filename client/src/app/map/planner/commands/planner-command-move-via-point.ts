@@ -1,5 +1,4 @@
 import {PlannerContext} from "../context/planner-context";
-import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {

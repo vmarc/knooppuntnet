@@ -28,6 +28,7 @@ class StatusFacadeImpl(
       val used = backendActionsRepository.lastKnownValue("frontend-disk-space-used")
       val available = backendActionsRepository.lastKnownValue("frontend-disk-space-available")
       BarChart(
+        "day",
         Seq(
           NameValue("Used", Math.round(used.toDouble / 1024 / 1024)),
           NameValue("Free", Math.round(available.toDouble / 1024 / 1024)),
@@ -39,6 +40,7 @@ class StatusFacadeImpl(
       val used = backendActionsRepository.lastKnownValue("db-disk-space-used")
       val available = backendActionsRepository.lastKnownValue("db-disk-space-available")
       BarChart(
+        "day",
         Seq(
           NameValue("Used", Math.round(used.toDouble / 1024 / 1024)),
           NameValue("Free", Math.round(available.toDouble / 1024 / 1024)),
@@ -51,6 +53,7 @@ class StatusFacadeImpl(
       val available = backendActionsRepository.lastKnownValue("backend-disk-space-available")
       val overpass = backendActionsRepository.lastKnownValue("backend-disk-space-overpass")
       BarChart(
+        "day",
         Seq(
           NameValue("Overpass", Math.round(overpass.toDouble / 1024 / 1024)),
           NameValue("Used", Math.round((used - overpass).toDouble / 1024 / 1024)),
@@ -80,6 +83,7 @@ class StatusFacadeImpl(
     val analysisDelays = backendActionsRepository.query(parameters, "analysis-delay", average = true)
 
     val delay = BarChart2D(
+      parameters.period,
       "",
       "",
       "",
@@ -98,13 +102,13 @@ class StatusFacadeImpl(
       }
     )
 
-    val analysisDelay = BarChart(analysisDelays)
-    val updateDelay = BarChart(updateDelays)
-    val replicationDelay = BarChart(replicationDelays)
+    val analysisDelay = BarChart(parameters.period, analysisDelays)
+    val updateDelay = BarChart(parameters.period, updateDelays)
+    val replicationDelay = BarChart(parameters.period, replicationDelays)
 
-    val replicationBytes = BarChart(backendActionsRepository.query(parameters, "replication-bytes"))
-    val replicationElements = BarChart(backendActionsRepository.query(parameters, "replication-elements"))
-    val replicationChangeSets = BarChart(backendActionsRepository.query(parameters, "replication-changesets"))
+    val replicationBytes = BarChart(parameters.period, backendActionsRepository.query(parameters, "replication-bytes"))
+    val replicationElements = BarChart(parameters.period, backendActionsRepository.query(parameters, "replication-elements"))
+    val replicationChangeSets = BarChart(parameters.period, backendActionsRepository.query(parameters, "replication-changesets"))
 
     val periodTitle = parameters.period match {
       case "year" => parameters.year.toString
@@ -157,19 +161,19 @@ class StatusFacadeImpl(
 
   override def systemStatus(parameters: PeriodParameters): ApiResponse[SystemStatusPage] = {
 
-    val backendDiskSpaceUsed = BarChart(backendActionsRepository.query(parameters, "backend-disk-space-used", average = true))
-    val backendDiskSpaceAvailable = BarChart(backendActionsRepository.query(parameters, "backend-disk-space-available", average = true))
-    val backendDiskSpaceOverpass = BarChart(backendActionsRepository.query(parameters, "backend-disk-space-overpass", average = true))
+    val backendDiskSpaceUsed = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-disk-space-used", average = true))
+    val backendDiskSpaceAvailable = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-disk-space-available", average = true))
+    val backendDiskSpaceOverpass = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-disk-space-overpass", average = true))
 
-    val analysisDocCount = BarChart(backendActionsRepository.query(parameters, "backend-analysis-docs", average = true))
-    val analysisDiskSize = BarChart(backendActionsRepository.query(parameters, "backend-analysis-disk-size", average = true))
-    val analysisDiskSizeExternal = BarChart(backendActionsRepository.query(parameters, "backend-analysis-data-size-external", average = true))
-    val analysisDataSize = BarChart(backendActionsRepository.query(parameters, "backend-analysis-data-size", average = true))
+    val analysisDocCount = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-docs", average = true))
+    val analysisDiskSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-disk-size", average = true))
+    val analysisDiskSizeExternal = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-data-size-external", average = true))
+    val analysisDataSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-data-size", average = true))
 
-    val changesDocCount = BarChart(backendActionsRepository.query(parameters, "backend-changes-docs", average = true))
-    val changesDiskSize = BarChart(backendActionsRepository.query(parameters, "backend-changes-disk-size", average = true))
-    val changesDiskSizeExternal = BarChart(backendActionsRepository.query(parameters, "backend-changes-data-size-external", average = true))
-    val changesDataSize = BarChart(backendActionsRepository.query(parameters, "backend-changes-data-size", average = true))
+    val changesDocCount = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-docs", average = true))
+    val changesDiskSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-disk-size", average = true))
+    val changesDiskSizeExternal = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-data-size-external", average = true))
+    val changesDataSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-data-size", average = true))
 
     val periodTitle = parameters.period match {
       case "year" => parameters.year.toString

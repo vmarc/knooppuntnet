@@ -14,6 +14,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     if (lastLeg !== null) {
       const newSinkFlag = lastLeg.viaFlag === null ? lastLeg.sinkFlag.toVia() : lastLeg.sinkFlag.toInvisible();
       const updatedLastLeg = lastLeg.withSinkFlag(newSinkFlag);
+      context.legs.add(updatedLastLeg);
       newLegs = newLegs.set(newLegs.size - 1, updatedLastLeg);
       context.routeLayer.updateFlag(updatedLastLeg.sinkFlag);
     }
@@ -42,6 +43,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     const lastLeg = newLegs.last(null);
     if (lastLeg !== null) {
       const updatedLastLeg = lastLeg.withSinkFlag(lastLeg.sinkFlag.toEnd());
+      context.legs.add(updatedLastLeg);
       newLegs = newLegs.set(newLegs.size - 1, updatedLastLeg);
       context.routeLayer.updateFlag(updatedLastLeg.sinkFlag);
     }

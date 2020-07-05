@@ -5,7 +5,8 @@ import {NameValue} from "./name-value";
 
 export class BarChart {
 
-  constructor(readonly data: List<NameValue>) {
+  constructor(readonly xAxisTicks: List<number>,
+              readonly data: List<NameValue>) {
   }
 
   public static fromJSON(jsonObject: any): BarChart {
@@ -13,6 +14,7 @@ export class BarChart {
       return undefined;
     }
     return new BarChart(
+      jsonObject.xAxisTicks ? List(jsonObject.xAxisTicks) : List(),
       jsonObject.data ? List(jsonObject.data.map((json: any) => NameValue.fromJSON(json))) : List()
     );
   }
