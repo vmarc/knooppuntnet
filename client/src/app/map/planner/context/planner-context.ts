@@ -154,7 +154,7 @@ export class PlannerContext {
   buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlagType: PlanFlagType): PlanLeg {
 
     const legKey = PlanUtil.key(source, sink);
-    // const cachedLeg = this.legs.get(legFeatureId);
+    // const cachedLeg = this.legs.get(legKey);
     // if (cachedLeg) {
     //   const planLeg = new PlanLeg(
     //     legFeatureId,

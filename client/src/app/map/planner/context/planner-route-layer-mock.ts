@@ -63,6 +63,13 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
     TestSupport.expectCoordinate(flag.coordinate, coordinate);
   }
 
+  expectPlanFlagExists(planFlag: PlanFlag): void {
+    const flag = this.flags.get(planFlag.featureId);
+    expect(flag.featureId).toEqual(planFlag.featureId);
+    expect(flag.flagType).toEqual(planFlag.flagType);
+    TestSupport.expectCoordinate(flag.coordinate, planFlag.coordinate);
+  }
+
   addPlanLeg(leg: PlanLeg): void {
     this.routeLegs = this.routeLegs.set(leg.featureId, leg);
   }
