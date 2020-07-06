@@ -300,7 +300,14 @@ export class PlannerEngineImpl implements PlannerEngine {
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
-    const newLeg: PlanLeg = this.context.oldBuildLeg(FeatureId.next(), oldLeg1.sourceNode, oldLeg2.sinkNode);
+    const sourceNode: PlanNode = oldLeg1.sourceNode;
+    const sinkNode: PlanNode = oldLeg2.sinkNode;
+    const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink: LegEnd = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const isLastLeg = legs.get(-1).featureId === oldLeg2.featureId;
+    const sinkFlagType: PlanFlagType = isLastLeg ? PlanFlagType.End : PlanFlagType.Via;
+
+    const newLeg: PlanLeg = this.context.buildLeg(source, sink, sourceNode, sinkNode, sinkFlagType);
 
     const command = new PlannerCommandRemoveViaPoint(
       oldLeg1.featureId,
@@ -358,9 +365,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private flagDragStarted(flag: FlagFeature, coordinate: Coordinate): boolean {
-
-    console.log("flagDragStarted");
-
     this.nodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
     if (this.nodeDrag !== null) {
       this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.oldNode.featureId, coordinate);
@@ -388,8 +392,22 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.legDrag !== null) {
       const oldLeg = this.context.legs.getById(this.legDrag.oldLegId);
       if (oldLeg) {
-        const newLeg1 = this.context.oldBuildLeg(FeatureId.next(), oldLeg.sourceNode, connection);
-        const newLeg2 = this.context.oldBuildLeg(FeatureId.next(), connection, oldLeg.sinkNode);
+
+        const sourceNode1 = oldLeg.sourceNode;
+        const sinkNode1 = connection;
+        const source1 = PlanUtil.legEndNode(+sourceNode1.nodeId);
+        const sink1 = PlanUtil.legEndNode(+sinkNode1.nodeId);
+        const sinkFlagType1 = PlanFlagType.Via;
+        const newLeg1 = this.context.buildLeg(source1, sink1, sourceNode1, sinkNode1, sinkFlagType1);
+
+        const sourceNode2 = connection;
+        const sinkNode2 = oldLeg.sinkNode;
+        const source2 = PlanUtil.legEndNode(+sourceNode2.nodeId);
+        const sink2 = PlanUtil.legEndNode(+sinkNode2.nodeId);
+        const isLastLeg = oldLeg.sinkNode.featureId === this.context.plan.sinkNode().featureId;
+        const sinkFlagType2 = isLastLeg ? PlanFlagType.End : PlanFlagType.Via;
+        const newLeg2 = this.context.buildLeg(source2, sink2, sourceNode2, sinkNode2, sinkFlagType2);
+
         const command = new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
         this.context.execute(command);
       }
