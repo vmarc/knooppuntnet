@@ -29,17 +29,17 @@ describe("PlannerCommandReverse", () => {
     const fragment1 = new PlanFragment(0, 0, -1, node2.coordinate, node2.latLon);
     const segment1 = new PlanSegment(0, "", null, List([fragment1]));
     const route1 = new PlanRoute(node1, node2, 0, List([segment1]), List());
-    const leg1 = new PlanLeg("12", "1001-1002", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List([route1]));
+    const leg1 = new PlanLeg("12", "1001-1002", legEnd1, legEnd2, PlanFlag.via("n2", [2, 2]), null, List([route1]));
 
     const fragment2 = new PlanFragment(0, 0, -1, node3.coordinate, node3.latLon);
     const segment2 = new PlanSegment(0, "", null, List([fragment2]));
     const route2 = new PlanRoute(node2, node3, 0, List([segment2]), List());
-    const leg2 = new PlanLeg("23", "1002-1003", legEnd2, legEnd3, PlanFlag.end("n3", node3), null, List([route2]));
+    const leg2 = new PlanLeg("23", "1002-1003", legEnd2, legEnd3, PlanFlag.end("n3", [3, 3]), null, List([route2]));
 
     setup.legs.add(leg1);
     setup.legs.add(leg2);
 
-    setup.context.execute(new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", node1)));
+    setup.context.execute(new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", [1, 1])));
     setup.context.execute(new PlannerCommandAddLeg(leg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
 

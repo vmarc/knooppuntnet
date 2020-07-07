@@ -14,7 +14,7 @@ describe("PlannerCommandMoveStartPoint", () => {
     const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
     const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
 
-    const sourceFlag = PlanFlag.start("f", node1);
+    const sourceFlag = PlanFlag.start("f", [1, 1]);
 
     setup.routeLayer.addFlag(sourceFlag);
 

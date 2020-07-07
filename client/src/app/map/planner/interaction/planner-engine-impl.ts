@@ -300,14 +300,12 @@ export class PlannerEngineImpl implements PlannerEngine {
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
-    const sourceNode: PlanNode = oldLeg1.sourceNode;
-    const sinkNode: PlanNode = oldLeg2.sinkNode;
-    const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink: LegEnd = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const isLastLeg = legs.get(-1).featureId === oldLeg2.featureId;
-    const sinkFlagType: PlanFlagType = isLastLeg ? PlanFlagType.End : PlanFlagType.Via;
+    const sourceNode = oldLeg1.sourceNode;
+    const sinkNode = oldLeg2.sinkNode;
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
-    const newLeg: PlanLeg = this.context.buildLeg(source, sink, sourceNode, sinkNode, sinkFlagType);
+    const newLeg = this.context.buildLeg(source, sink, sourceNode, sinkNode, oldLeg2.sinkFlag.flagType);
 
     const command = new PlannerCommandRemoveViaPoint(
       oldLeg1.featureId,
@@ -326,7 +324,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private addStartPoint(planNode: PlanNode): void {
-    const sourceFlag = PlanFlag.start(FeatureId.next(), planNode);
+    const sourceFlag = PlanFlag.start(FeatureId.next(), planNode.coordinate);
     const command = new PlannerCommandAddStartPoint(planNode, sourceFlag);
     this.context.execute(command);
   }
@@ -444,10 +442,10 @@ export class PlannerEngineImpl implements PlannerEngine {
     const oldSourceFlag = this.context.plan.sourceFlag;
 
     const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
-    const sinkNode = oldLeg.sinkNode;
-    const source = PlanUtil.legEndNode(+newSourceNode.nodeId);
-    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const newLeg = this.context.buildLeg(source, sink, newSourceNode, sinkNode, oldLeg.sinkFlag.flagType);
+    const newSinkNode = oldLeg.sinkNode;
+    const newSource = PlanUtil.legEndNode(+newSourceNode.nodeId);
+    const newSink = PlanUtil.legEndNode(+newSinkNode.nodeId);
+    const newLeg = this.context.buildLeg(newSource, newSink, newSourceNode, newSinkNode, oldLeg.sinkFlag.flagType);
 
     const command = new PlannerCommandMoveFirstLegSource(
       oldLeg.featureId,

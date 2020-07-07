@@ -52,27 +52,27 @@ export class PlannerTestSetup {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const legKey = PlanUtil.key(source, sink);
-    const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, PlanFlag.oldEnd(sinkNode), null, List([route]));
+    const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, PlanFlag.end(FeatureId.next(), sinkNode.coordinate), null, List([route]));
     this.legRepository.add(leg);
     this.legs.add(leg);
     return leg;
   }
 
   createPlanWithStartPointOnly(): Plan {
-    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1), List());
+    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1.coordinate), List());
     this.context.updatePlan(plan);
-    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1));
+    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1.coordinate));
     return plan;
   }
 
   createOneLegPlan(): Plan {
 
     const leg = this.createLeg(this.node1, this.node2);
-    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1), List([leg]));
+    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1.coordinate), List([leg]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1));
-    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2));
+    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1.coordinate));
+    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2.coordinate));
     this.routeLayer.addPlanLeg(leg);
 
     return plan;
@@ -82,12 +82,12 @@ export class PlannerTestSetup {
 
     const leg1 = this.createLeg(this.node1, this.node2);
     const leg2 = this.createLeg(this.node2, this.node3);
-    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1), List([leg1, leg2]));
+    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1.coordinate), List([leg1, leg2]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1));
-    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2));
-    this.routeLayer.addFlag(PlanFlag.via("n3", this.node3));
+    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1.coordinate));
+    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2.coordinate));
+    this.routeLayer.addFlag(PlanFlag.via("n3", this.node3.coordinate));
     this.routeLayer.addPlanLeg(leg1);
     this.routeLayer.addPlanLeg(leg2);
 

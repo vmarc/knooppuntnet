@@ -23,7 +23,7 @@ export class DirectionsTestSetup {
     const leg6 = this.toLeg(Directions6TestSetup.json_91_34());
     const leg7 = this.toLeg(Directions7TestSetup.json_34_35());
     const sourceNode = leg1.sourceNode;
-    const sourceFlag = PlanFlag.start("s", sourceNode);
+    const sourceFlag = PlanFlag.start("s", sourceNode.coordinate);
     return new Plan(sourceNode, sourceFlag, List([leg1, leg2, leg3, leg4, leg5, leg6, leg7]));
   }
 

@@ -25,7 +25,7 @@ export class PlanReverser {
       );
     });
     const sourceNode = oldPlan.sinkNode();
-    const sourceFlag = PlanFlag.start(FeatureId.next(), sourceNode);
+    const sourceFlag = PlanFlag.start(FeatureId.next(), sourceNode.coordinate);
     const newPlan = new Plan(sourceNode, sourceFlag, newLegs);
     return new PlannerCommandReverse(oldPlan, newPlan);
   }

@@ -1,5 +1,4 @@
 import {Coordinate} from "ol/coordinate";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanFlagType} from "./plan-flag-type";
 
 export class PlanFlag {
@@ -9,28 +8,16 @@ export class PlanFlag {
               readonly coordinate: Coordinate) {
   }
 
-  static oldStart(node: PlanNode): PlanFlag {
-    return new PlanFlag(PlanFlagType.Start, node.featureId, node.coordinate);
+  static start(featureId: string, coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.Start, featureId, coordinate);
   }
 
-  static oldEnd(node: PlanNode): PlanFlag {
-    return new PlanFlag(PlanFlagType.End, node.featureId, node.coordinate);
+  static end(featureId: string, coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.End, featureId, coordinate);
   }
 
-  static oldVia(node: PlanNode): PlanFlag {
-    return new PlanFlag(PlanFlagType.Via, node.featureId, node.coordinate);
-  }
-
-  static start(featureId: string, node: PlanNode): PlanFlag {
-    return new PlanFlag(PlanFlagType.Start, featureId, node.coordinate);
-  }
-
-  static end(featureId: string, node: PlanNode): PlanFlag {
-    return new PlanFlag(PlanFlagType.End, featureId, node.coordinate);
-  }
-
-  static via(featureId: string, node: PlanNode): PlanFlag {
-    return new PlanFlag(PlanFlagType.Via, featureId, node.coordinate);
+  static via(featureId: string, coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.Via, featureId, coordinate);
   }
 
   toVia(): PlanFlag {
@@ -42,7 +29,7 @@ export class PlanFlag {
   }
 
   toInvisible(): PlanFlag {
-    return new PlanFlag(PlanFlagType.Invisble, this.featureId, this.coordinate);
+    return new PlanFlag(PlanFlagType.Invisible, this.featureId, this.coordinate);
   }
 
   withCoordinate(coordinate: Coordinate): PlanFlag {

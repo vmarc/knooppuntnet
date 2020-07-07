@@ -1,6 +1,5 @@
 import {List} from "immutable";
 import {PlannerContext} from "../context/planner-context";
-import {PlanFlag} from "../plan/plan-flag";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerCommand} from "./planner-command";
 
@@ -18,13 +17,15 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     const newLeg = context.legs.getById(this.newLegId);
 
     context.routeLayer.removeFlag(oldLeg1.sinkFlag);
+    context.routeLayer.removeFlag(oldLeg2.sinkFlag);
+    context.routeLayer.addFlag(newLeg.sinkFlag);
     context.routeLayer.removePlanLeg(oldLeg1.featureId);
     context.routeLayer.removePlanLeg(oldLeg2.featureId);
     context.routeLayer.addPlanLeg(newLeg);
 
     const newLegs: List<PlanLeg> = context.plan.legs
       .map(leg => leg.featureId === oldLeg1.featureId ? newLeg : leg)
-      .filter(leg => leg.featureId !== oldLeg2.featureId);
+      .filterNot(leg => leg.featureId === oldLeg2.featureId);
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
@@ -35,7 +36,9 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     const oldLeg2 = context.legs.getById(this.oldLegId2);
     const newLeg = context.legs.getById(this.newLegId);
 
+    context.routeLayer.removeFlag(newLeg.sinkFlag);
     context.routeLayer.addFlag(oldLeg1.sinkFlag);
+    context.routeLayer.addFlag(oldLeg2.sinkFlag);
     context.routeLayer.addPlanLeg(oldLeg1);
     context.routeLayer.addPlanLeg(oldLeg2);
     context.routeLayer.removePlanLeg(newLeg.featureId);

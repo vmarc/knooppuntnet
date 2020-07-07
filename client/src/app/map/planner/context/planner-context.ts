@@ -112,7 +112,7 @@ export class PlannerContext {
 
     if (newLeg.featureId === newLegs.get(0).featureId) {
       sourceNode = newLeg.sourceNode;
-      sourceFlag = PlanFlag.start(sourceFlag.featureId, newLeg.sourceNode);
+      sourceFlag = PlanFlag.start(sourceFlag.featureId, newLeg.sourceNode.coordinate);
       this.routeLayer.addFlag(sourceFlag);
     }
 
@@ -123,32 +123,6 @@ export class PlannerContext {
 
   closeOverlay(): void {
     this.overlay.setPosition(undefined, 0);
-  }
-
-  oldBuildLeg(legId: string, sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
-
-    // const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    // const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    // const legKey = PlanUtil.key(source, sink);
-    //
-    // const cachedLeg = this.legs.get(legKey);
-    // if (cachedLeg) {
-    //   const planLeg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, cachedLeg.meters, cachedLeg.routes);
-    //   this.legs.add(planLeg);
-    //   return planLeg;
-    // }
-    //
-    // this.legRepository.planLeg(this.networkType, legId, source, sink).subscribe(planLeg => {
-    //   if (planLeg) {
-    //     this.legs.add(planLeg);
-    //     this.updatePlanLeg(planLeg);
-    //   }
-    // });
-    //
-    // const leg = new PlanLeg(legId, legKey, source, sink, sourceNode, sinkNode, 0, List());
-    // this.legs.add(leg);
-    // return leg;
-    return null;
   }
 
   buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlagType: PlanFlagType): PlanLeg {
@@ -180,7 +154,7 @@ export class PlannerContext {
     }
     if (sink.route !== null) { // TODO PLAN still need a way to get sinkNode coordinate --> should be coordinate that was clicked
       viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
-      sinkFlag = new PlanFlag(PlanFlagType.Invisble, FeatureId.next(), sinkNode.coordinate);
+      sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), sinkNode.coordinate);
     }
 
     const leg = new PlanLeg(legFeatureId, legKey, source, sink, sinkFlag, viaFlag, List());

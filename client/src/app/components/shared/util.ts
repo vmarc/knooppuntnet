@@ -98,6 +98,9 @@ export class Util {
   }
 
   public static sum(list: List<number>): number {
+    if (list.isEmpty()) {
+      return 0;
+    }
     return list.reduce((prev, current) => prev + current);
   }
 

@@ -40,7 +40,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayerBase {
   }
 
   addFlag(flag: PlanFlag): void {
-    if (flag !== null && flag.flagType !== PlanFlagType.Invisble) {
+    if (flag !== null && flag.flagType !== PlanFlagType.Invisible) {
       let markerColor = "blue";
       if (flag.flagType === PlanFlagType.End) {
         markerColor = "green";

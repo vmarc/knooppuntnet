@@ -19,9 +19,9 @@ describe("PlannerCommandSplitLeg", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", node2), null, List());
-    const newLeg1 = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.via("n3", node3), null, List());
-    const newLeg2 = new PlanLeg("32", "", legEnd3, legEnd2, PlanFlag.end("n2", node2), null, List());
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", [2, 2]), null, List());
+    const newLeg1 = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.via("n3", [3, 3]), null, List());
+    const newLeg2 = new PlanLeg("32", "", legEnd3, legEnd2, PlanFlag.end("n2", [2, 2]), null, List());
 
     const setup = new PlannerTestSetup();
 
@@ -29,7 +29,7 @@ describe("PlannerCommandSplitLeg", () => {
     setup.context.legs.add(newLeg1);
     setup.context.legs.add(newLeg2);
 
-    const plan = new Plan(node1, PlanFlag.start("n1", node1), List([oldLeg]));
+    const plan = new Plan(node1, PlanFlag.start("n1", [1, 1]), List([oldLeg]));
     setup.context.routeLayer.addPlanLeg(oldLeg);
     setup.context.updatePlan(plan);
 

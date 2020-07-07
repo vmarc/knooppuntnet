@@ -5,10 +5,14 @@ import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
 import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
+import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
+import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "./plan";
+import {PlanFlag} from "./plan-flag";
+import {PlanLeg} from "./plan-leg";
 
 export class PlanUtil {
 
@@ -99,6 +103,18 @@ export class PlanUtil {
   static planRouteCoordinates(planRoute: PlanRoute): List<Coordinate> {
     return List([planRoute.sourceNode.coordinate])
       .concat(planRoute.segments.flatMap(segment => segment.fragments.map(fragment => fragment.coordinate)));
+  }
+
+  static singleRoutePlanLeg(featureId: string, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {
+
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const legKey = sourceNode.nodeId + "-" + sinkNode.nodeId;
+
+    const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
+    const segment = new PlanSegment(0, "", null, List([fragment]));
+    const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
+    return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
   }
 
 }

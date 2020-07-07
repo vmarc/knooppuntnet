@@ -21,13 +21,13 @@ describe("PlannerCommandMoveEndPoint", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", node2), null, List());
-    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.end("n3", node3), null, List());
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", [2, 2]), null, List());
+    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.end("n3", [3, 3]), null, List());
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
 
-    const plan = new Plan(node1, PlanFlag.start("n1", node1), List([oldLeg]));
+    const plan = new Plan(node1, PlanFlag.start("n1", [1, 1]), List([oldLeg]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveEndPoint("12", "13");

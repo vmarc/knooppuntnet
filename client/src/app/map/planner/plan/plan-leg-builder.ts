@@ -10,6 +10,7 @@ import {RouteLegFragment} from "../../../kpn/api/common/planner/route-leg-fragme
 import {RouteLegNode} from "../../../kpn/api/common/planner/route-leg-node";
 import {RouteLegRoute} from "../../../kpn/api/common/planner/route-leg-route";
 import {RouteLegSegment} from "../../../kpn/api/common/planner/route-leg-segment";
+import {FeatureId} from "../features/feature-id";
 import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
 import {PlanUtil} from "./plan-util";
@@ -27,7 +28,7 @@ export class PlanLegBuilder {
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
     const legKey = PlanUtil.key(source, sink);
-    return new PlanLeg(routeLeg.legId, legKey, source, sink, PlanFlag.oldEnd(sinkNode), null, routes);
+    return new PlanLeg(routeLeg.legId, legKey, source, sink, PlanFlag.end(FeatureId.next(), sinkNode.coordinate), null, routes);
   }
 
   private static toPlanRoute(route: RouteLegRoute): PlanRoute {

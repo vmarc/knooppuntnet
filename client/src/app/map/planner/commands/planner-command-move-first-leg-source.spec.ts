@@ -21,11 +21,13 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List());
-    const newLeg = new PlanLeg("32", "", legEnd3, legEnd2, PlanFlag.via("n2", node2), null, List());
+    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", [2, 2]), null, List());
+    const newLeg = new PlanLeg("32", "", legEnd3, legEnd2, PlanFlag.via("n2", [2, 2]), null, List());
 
-    const oldSourceFlag = PlanFlag.start("f", node1);
-    const newSourceFlag = PlanFlag.start("f", node3);
+
+
+    const oldSourceFlag = PlanFlag.start("f", [1, 1]);
+    const newSourceFlag = PlanFlag.start("f", [3, 3]);
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);

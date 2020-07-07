@@ -21,13 +21,13 @@ describe("PlannerCommandReset", () => {
     const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
     const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
 
-    const leg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", node2), null, List());
-    const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.end("n3", node3), null, List());
+    const leg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", [2, 2]), null, List());
+    const leg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.end("n3", [3, 3]), null, List());
 
     setup.legs.add(leg1);
     setup.legs.add(leg2);
 
-    setup.context.execute(new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", node1)));
+    setup.context.execute(new PlannerCommandAddStartPoint(node1, PlanFlag.start("n1", [1, 1])));
     setup.context.execute(new PlannerCommandAddLeg(leg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
 

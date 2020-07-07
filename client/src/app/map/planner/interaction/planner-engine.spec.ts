@@ -56,7 +56,7 @@ describe("PlannerEngine", () => {
       const node1 = NetworkNodeFeature.create("1001", "01", [1, 1]);
       const node2 = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
-      setup.context.updatePlan(new Plan(node1.node, PlanFlag.start("n1", this.node1), List()));
+      setup.context.updatePlan(new Plan(node1.node, PlanFlag.start("n1", [1, 1]), List()));
 
       const features: List<MapFeature> = List([node2]);
 
