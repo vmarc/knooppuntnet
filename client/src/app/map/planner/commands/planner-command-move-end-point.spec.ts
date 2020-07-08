@@ -3,57 +3,69 @@ import {TestSupport} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
+import {PlannerCommandAddPlan} from "./planner-command-add-plan";
 import {PlannerCommandMoveEndPoint} from "./planner-command-move-end-point";
 
 describe("PlannerCommandMoveEndPoint", () => {
 
-  it("move end point - do and undo", () => {
+  it("move end point - do, undo and redo", () => {
 
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
-    const node2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
-    const node3 = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
+    const startFlag = PlanFlag.start("startFlag", [1, 1]);
+    const oldSinkFlag = PlanFlag.end("oldSinkFlag", [2, 2]);
+    const newSinkFlag = PlanFlag.end("newSinkFlag", [3, 3]);
 
-    const legEnd1 = PlanUtil.legEndNode(+node1.nodeId);
-    const legEnd2 = PlanUtil.legEndNode(+node2.nodeId);
-    const legEnd3 = PlanUtil.legEndNode(+node3.nodeId);
-
-    const oldLeg = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.end("n2", [2, 2]), null, List());
-    const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.end("n3", [3, 3]), null, List());
+    const oldLeg = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, oldSinkFlag, null);
+    const newLeg = PlanUtil.singleRoutePlanLeg("13", setup.node1, setup.node3, newSinkFlag, null);
 
     setup.legs.add(oldLeg);
     setup.legs.add(newLeg);
 
-    const plan = new Plan(node1, PlanFlag.start("n1", [1, 1]), List([oldLeg]));
-    setup.context.updatePlan(plan);
+    const plan = new Plan(setup.node1, startFlag, List([oldLeg]));
+    setup.context.execute(new PlannerCommandAddPlan(plan));
 
     const command = new PlannerCommandMoveEndPoint("12", "13");
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectEndFlagExists("n3", [3, 3]);
+    setup.routeLayer.expectFlagCount(2);
+    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.routeLayer.expectEndFlagExists("newSinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n3", [3, 3]);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectEndFlagExists("n2", [2, 2]);
+    setup.routeLayer.expectFlagCount(2);
+    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.routeLayer.expectEndFlagExists("oldSinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "n2", [2, 2]);
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "oldSinkFlag", [2, 2]);
+
+    command.do(setup.context);
+
+    setup.routeLayer.expectFlagCount(2);
+    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.routeLayer.expectEndFlagExists("newSinkFlag", [3, 3]);
+    setup.routeLayer.expectRouteLegCount(1);
+    setup.routeLayer.expectRouteLegExists("13", newLeg);
+
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
+    expect(setup.context.plan.legs.size).toEqual(1);
+    expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
+    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
+
   });
 
 });

@@ -1,7 +1,6 @@
+import {TestSupport} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
 
 describe("PlannerCommandAddStartPoint", () => {
@@ -9,15 +8,17 @@ describe("PlannerCommandAddStartPoint", () => {
   it("add start point - do and undo", () => {
 
     const setup = new PlannerTestSetup();
-    const node = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
-    const command = new PlannerCommandAddStartPoint(node, PlanFlag.start("n1", [1, 1]));
+    const startFlag = PlanFlag.start("startFlag", setup.node1.coordinate);
+
+    const command = new PlannerCommandAddStartPoint(setup.node1, startFlag);
     setup.context.execute(command);
 
     setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectStartFlagExists("n1", [1, 1]);
+    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
+    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "startFlag", [1, 1]);
     expect(setup.context.plan.legs.size).toEqual(0);
 
     command.undo(setup.context);
@@ -25,6 +26,16 @@ describe("PlannerCommandAddStartPoint", () => {
     setup.routeLayer.expectFlagCount(0);
     expect(setup.context.plan.sourceNode).toEqual(null);
     expect(setup.context.plan.legs.size).toEqual(0);
+
+    command.do(setup.context);
+
+    setup.routeLayer.expectFlagCount(1);
+    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
+
+    expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
+    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "startFlag", [1, 1]);
+    expect(setup.context.plan.legs.size).toEqual(0);
+
   });
 
 });

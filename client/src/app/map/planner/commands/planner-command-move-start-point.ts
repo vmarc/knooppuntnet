@@ -1,9 +1,7 @@
 import {List} from "immutable";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerContext} from "../context/planner-context";
-import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
-import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveStartPoint implements PlannerCommand {

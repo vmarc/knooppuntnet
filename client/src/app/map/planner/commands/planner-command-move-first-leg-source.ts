@@ -55,7 +55,7 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
     context.routeLayer.updateFlag(toLeg.sinkFlag);
     context.routeLayer.removePlanLeg(fromLeg.featureId);
     context.routeLayer.addPlanLeg(toLeg);
-    const newLegs = context.plan.legs.update(0, () => toLeg);
+    const newLegs = context.plan.legs.map(leg => leg.featureId === fromLeg.featureId ? toLeg : leg);
     const newPlan = new Plan(toSourceNode, toSourceFlag, newLegs);
     context.updatePlan(newPlan);
   }
