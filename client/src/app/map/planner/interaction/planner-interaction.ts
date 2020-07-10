@@ -116,6 +116,20 @@ export class PlannerInteraction {
   private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
     const features = evt.map.getFeaturesAtPixel(evt.pixel);
     if (features) {
+      features.forEach(feature => {
+        const layer = feature.get("layer");
+        if (layer) {
+          if (layer.endsWith("route")) {
+            const segmentId = feature.get("id");
+            const routeName = feature.get("name");
+            const dashIndex = segmentId.indexOf("-");
+            const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
+            const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
+            console.log(`routeId=${routeId}, pathId=${pathId}, name=${routeName}`);
+          }
+        }
+      });
+
       return List(
         features.map(feature => {
           if (platformModifierKeyOnly(evt)) {

@@ -106,17 +106,7 @@ export class PlannerContext {
 
   updatePlanLeg(newLeg: PlanLeg) {
     const newLegs = this.plan.legs.map(leg => leg.featureId === newLeg.featureId ? newLeg : leg);
-
-    let sourceNode = this.plan.sourceNode;
-    let sourceFlag = this.plan.sourceFlag;
-
-    if (newLeg.featureId === newLegs.get(0).featureId) {
-      sourceNode = newLeg.sourceNode;
-      sourceFlag = PlanFlag.start(sourceFlag.featureId, newLeg.sourceNode.coordinate);
-      this.routeLayer.addFlag(sourceFlag);
-    }
-
-    const newPlan = new Plan(sourceNode, sourceFlag, newLegs);
+    const newPlan = new Plan(this.plan.sourceNode, this.plan.sourceFlag, newLegs);
     this.updatePlan(newPlan);
     this.routeLayer.addPlanLeg(newLeg);
   }
@@ -162,16 +152,15 @@ export class PlannerContext {
 
     this.legRepository.planLeg(this.networkType, source, sink).subscribe(planLegDetail => {
       if (planLegDetail) {
-        const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, sinkFlag, viaFlag, planLegDetail.routes);
+        let updatedSinkFlag = sinkFlag;
+        if (sink.route !== null) {
+          const newSinkNode = planLegDetail.routes.last(null).sinkNode;
+          updatedSinkFlag = PlanFlag.end(sinkFlag.featureId, newSinkNode.coordinate);
+          this.routeLayer.updateFlag(updatedSinkFlag);
+        }
+        const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, updatedSinkFlag, viaFlag, planLegDetail.routes);
         this.legs.add(updatedLeg);
         this.updatePlanLeg(updatedLeg);
-        // TODO PLAN
-        // if (source.route !== null) {
-        //   this.routeLayer.updateFlagCoordinate(sourceNode.featureId, newSourceNode.coordinate);
-        // }
-        // if (sink.route !== null) {
-        //   this.routeLayer.updateFlagCoordinate(sinkNode.featureId, newSinkNode.coordinate);
-        // }
       }
     });
 

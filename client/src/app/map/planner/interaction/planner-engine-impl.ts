@@ -40,7 +40,7 @@ import {PlannerEngine} from "./planner-engine";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
-  private newInteractionToggle = false;
+  private newInteractionToggle = true;
 
   private legDrag: PlannerDragLeg = null;
   private nodeDrag: PlannerDragFlag = null;
@@ -91,7 +91,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (this.newInteractionToggle) {
         const route = Features.findRoute(features);
         if (route != null) {
-          this.routeSelected(route);
+          this.routeSelected(route, coordinate);
           return true;
         }
       }
@@ -338,14 +338,16 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.context.execute(command);
   }
 
-  private routeSelected(route: RouteFeature): void {
+  private routeSelected(route: RouteFeature, coordinate: Coordinate): void {
 
     // current sink is source for new leg
     const sourceNode = PlanUtil.planSinkNode(this.context.plan);
     const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
 
     const sink: LegEnd = PlanUtil.legEndRoute(route.routeId, route.pathId);
-    const leg = this.context.buildLeg(source, sink, sourceNode, PlanUtil.planNode("0", "", new LatLonImpl("0", "0")), PlanFlagType.End);
+    const sinkNode =  PlanUtil.planNodeWithCoordinate("0", "", coordinate);
+    const leg = this.context.buildLeg(source, sink, sourceNode, sinkNode, PlanFlagType.End);
+
     const command = new PlannerCommandAddLeg(leg.featureId);
     this.context.execute(command);
   }
