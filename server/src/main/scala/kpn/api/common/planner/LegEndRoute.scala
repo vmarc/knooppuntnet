@@ -1,12 +1,12 @@
 package kpn.api.common.planner
 
 import kpn.api.common.common.ToStringBuilder
+import kpn.api.common.common.TrackPathKey
 
-case class LegEndRoute(routeId: Long, pathId: Long) {
+case class LegEndRoute(trackPathKeys: Seq[TrackPathKey]) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("routeId", routeId).
-    field("pathId", pathId).
+    field("trackPathKeys", trackPathKeys).
     build
 
 }

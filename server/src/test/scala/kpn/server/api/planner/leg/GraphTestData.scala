@@ -2,7 +2,6 @@ package kpn.server.api.planner.leg
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.TrackPath
-import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
@@ -31,18 +30,18 @@ class GraphTestData extends SharedTestObjects with MockFactory {
   val node3: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1003L, name = "03", lat = "3", lon = "3")
   val node4: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1004L, name = "04", lat = "4", lon = "4")
 
-  val legEndRoute1: LegEndRoute = LegEndRoute(11L, 1L)
-  val legEndRoute2: LegEndRoute = LegEndRoute(12L, 1L)
-  val legEndRoute3: LegEndRoute = LegEndRoute(13L, 1L)
-  val legEndRoute4: LegEndRoute = LegEndRoute(14L, 1L)
+  val legEndRoute1: LegEndRoute = legEndRoute(11L, 1L)
+  val legEndRoute2: LegEndRoute = legEndRoute(12L, 1L)
+  val legEndRoute3: LegEndRoute = legEndRoute(13L, 1L)
+  val legEndRoute4: LegEndRoute = legEndRoute(14L, 1L)
 
   val graphRepository: GraphRepository = {
 
     val graph = new NodeNetworkGraphImpl()
-    graph.add(GraphEdge(node1.id, node2.id, 1, TrackPathKey(legEndRoute1.routeId, legEndRoute1.pathId)))
-    graph.add(GraphEdge(node2.id, node3.id, 2, TrackPathKey(legEndRoute2.routeId, legEndRoute2.pathId)))
-    graph.add(GraphEdge(node3.id, node4.id, 5, TrackPathKey(legEndRoute3.routeId, legEndRoute3.pathId)))
-    graph.add(GraphEdge(node1.id, node3.id, 4, TrackPathKey(legEndRoute4.routeId, legEndRoute4.pathId)))
+    graph.add(GraphEdge(node1.id, node2.id, 1, legEndRoute1.trackPathKeys.head))
+    graph.add(GraphEdge(node2.id, node3.id, 2, legEndRoute2.trackPathKeys.head))
+    graph.add(GraphEdge(node3.id, node4.id, 5, legEndRoute3.trackPathKeys.head))
+    graph.add(GraphEdge(node1.id, node3.id, 4, legEndRoute4.trackPathKeys.head))
 
     val graphRepository: GraphRepository = stub[GraphRepository]
     (graphRepository.graph _).when(NetworkType.hiking).returns(Some(graph))
@@ -52,17 +51,17 @@ class GraphTestData extends SharedTestObjects with MockFactory {
 
   val routeRepository: RouteRepository = {
     val routeRepository = stub[RouteRepository]
-    (routeRepository.routeWithId _).when(legEndRoute1.routeId).returns(Some(routeInfo(legEndRoute1, node1, node2)))
-    (routeRepository.routeWithId _).when(legEndRoute2.routeId).returns(Some(routeInfo(legEndRoute2, node2, node3)))
-    (routeRepository.routeWithId _).when(legEndRoute3.routeId).returns(Some(routeInfo(legEndRoute3, node3, node4)))
-    (routeRepository.routeWithId _).when(legEndRoute4.routeId).returns(Some(routeInfo(legEndRoute4, node1, node3)))
+    (routeRepository.routeWithId _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute1, node1, node2)))
+    (routeRepository.routeWithId _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute2, node2, node3)))
+    (routeRepository.routeWithId _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute3, node3, node4)))
+    (routeRepository.routeWithId _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute4, node1, node3)))
     routeRepository
   }
 
   private def routeInfo(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteInfo = {
     newRouteInfo(
       summary = newRouteSummary(
-        id = legEndRoute.routeId
+        id = legEndRoute.trackPathKeys.head.routeId
       ),
       analysis = newRouteInfoAnalysis(
         map = RouteMap(
@@ -70,7 +69,7 @@ class GraphTestData extends SharedTestObjects with MockFactory {
           endNodes = Seq(endNode),
           forwardPath = Some(
             TrackPath(
-              pathId = legEndRoute.pathId,
+              pathId = legEndRoute.trackPathKeys.head.pathId,
               startNodeId = startNode.id,
               endNodeId = endNode.id,
               meters = 0,

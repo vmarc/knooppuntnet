@@ -1,5 +1,6 @@
 package kpn.api.common.planner
 
+import kpn.api.common.common.TrackPathKey
 import kpn.core.util.UnitTest
 
 class LegEndTest extends UnitTest {
@@ -31,7 +32,7 @@ class LegEndTest extends UnitTest {
     LegEnd.fromPlanString("a-b.1") should equal(
       Seq(
         LegEnd.node(10),
-        LegEnd.route(11, 1)
+        LegEnd.route(List(TrackPathKey(11, 1)))
       )
     )
   }
@@ -40,7 +41,7 @@ class LegEndTest extends UnitTest {
     LegEnd.fromPlanString("a-b.1-c") should equal(
       Seq(
         LegEnd.node(10),
-        LegEnd.route(11, 1),
+        LegEnd.route(List(TrackPathKey(11, 1))),
         LegEnd.node(12)
       )
     )
@@ -49,7 +50,7 @@ class LegEndTest extends UnitTest {
   test("route-node") {
     LegEnd.fromPlanString("a.1-b") should equal(
       Seq(
-        LegEnd.route(10, 1),
+        LegEnd.route(List(TrackPathKey(10, 1))),
         LegEnd.node(11)
       )
     )

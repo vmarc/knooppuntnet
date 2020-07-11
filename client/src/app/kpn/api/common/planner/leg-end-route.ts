@@ -1,9 +1,11 @@
 // this class is generated, please do not modify
 
+import {List} from "immutable";
+import {TrackPathKey} from "../common/track-path-key";
+
 export class LegEndRoute {
 
-  constructor(readonly routeId: number,
-              readonly pathId: number) {
+  constructor(readonly trackPathKeys: List<TrackPathKey>) {
   }
 
   public static fromJSON(jsonObject: any): LegEndRoute {
@@ -11,8 +13,7 @@ export class LegEndRoute {
       return undefined;
     }
     return new LegEndRoute(
-      jsonObject.routeId,
-      jsonObject.pathId
+      jsonObject.trackPathKeys ? List(jsonObject.trackPathKeys.map((json: any) => TrackPathKey.fromJSON(json))) : List()
     );
   }
 }

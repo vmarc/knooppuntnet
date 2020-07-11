@@ -16,7 +16,7 @@ var emitPath = function (networkType, routeId, path, oneWay) {
       var backwardKey = [
         networkType,
         routeId,
-        - path.pathId
+        100 + path.pathId
       ];
       var backwardValue = [
         path.endNodeId,

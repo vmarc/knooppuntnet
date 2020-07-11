@@ -56,4 +56,9 @@ export class Features {
     }
     return routes.get(0) as RouteFeature; // TODO find the closest
   }
+
+  static findRoutes(features: List<MapFeature>): List<RouteFeature> {
+    return features.filter(f => f instanceof RouteFeature).map(f => f as RouteFeature);
+  }
+
 }

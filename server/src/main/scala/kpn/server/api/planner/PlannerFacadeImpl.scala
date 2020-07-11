@@ -77,7 +77,7 @@ class PlannerFacadeImpl(
       case Some(node) => s"node(${node.nodeId})"
       case None =>
         legEnd.route match {
-          case Some(route) => s"route(${route.routeId}-${route.pathId})"
+          case Some(route) => s"route(${route.trackPathKeys.map(_.key).mkString("|")})"
           case None => ""
         }
     }

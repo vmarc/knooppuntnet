@@ -11,6 +11,7 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.data.Node
@@ -38,6 +39,7 @@ import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.common.network.NetworkInfoNode
 import kpn.api.common.network.NetworkInfoRoute
 import kpn.api.common.network.NetworkShape
+import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
@@ -830,5 +832,9 @@ trait SharedTestObjects extends MockFactory {
       tags,
       tiles
     )
+  }
+
+  def legEndRoute(routeId: Long, pathId: Long): LegEndRoute = {
+    LegEndRoute(List(TrackPathKey(routeId, pathId)))
   }
 }

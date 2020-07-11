@@ -10,6 +10,7 @@ import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {FeatureId} from "../features/feature-id";
+import {MapFeature} from "../features/map-feature";
 import {Plan} from "./plan";
 import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
@@ -53,8 +54,8 @@ export class PlanUtil {
     return new LegEnd(new LegEndNode(nodeId), null);
   }
 
-  static legEndRoute(routeId: number, pathId: number): LegEnd {
-    return new LegEnd(null, new LegEndRoute(routeId, pathId));
+  static legEndRoutes(routes: List<MapFeature>): LegEnd {
+    return null;
   }
 
   static legEndKey(legEnd: LegEnd): string {
@@ -62,7 +63,7 @@ export class PlanUtil {
       return legEnd.node.nodeId.toString();
     }
     if (legEnd.route !== null) {
-      return legEnd.route.routeId.toString() + "." + legEnd.route.pathId.toString();
+      return legEnd.route.trackPathKeys.map(trackPath => `${trackPath.routeId}.${trackPath.pathId}`).join("|");
     }
     return "";
   }
@@ -72,7 +73,11 @@ export class PlanUtil {
       return legEnd.node.nodeId.toString(36);
     }
     if (legEnd.route !== null) {
-      return legEnd.route.routeId.toString(36) + "." + legEnd.route.pathId.toString(36);
+      return legEnd.route.trackPathKeys.map(trackPath => {
+        const routeId = trackPath.routeId.toString(36);
+        const pathId = trackPath.pathId.toString(36);
+        return `${routeId}.${pathId}`;
+      }).join("|");
     }
     return "";
   }

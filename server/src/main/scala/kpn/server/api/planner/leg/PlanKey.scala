@@ -13,7 +13,7 @@ object PlanKey {
       case Some(legEndNode) => legEndNode.nodeId.toString
       case None =>
         legEnd.route match {
-          case Some(legEndRoute) => s"${legEndRoute.routeId}.${legEndRoute.pathId}"
+          case Some(legEndRoute) => legEndRoute.trackPathKeys.map(_.key).mkString("|")
           case None => ""
         }
     }

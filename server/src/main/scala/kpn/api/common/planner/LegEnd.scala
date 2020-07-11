@@ -1,6 +1,7 @@
 package kpn.api.common.planner
 
 import kpn.api.common.common.ToStringBuilder
+import kpn.api.common.common.TrackPathKey
 
 object LegEnd {
 
@@ -8,8 +9,8 @@ object LegEnd {
     LegEnd(Some(LegEndNode(nodeId)), None)
   }
 
-  def route(routeId: Long, pathId: Long): LegEnd = {
-    route(LegEndRoute(routeId, pathId))
+  def route(trackPathKeys: List[TrackPathKey]): LegEnd = {
+    route(LegEndRoute(trackPathKeys))
   }
 
   def route(legEndRoute: LegEndRoute): LegEnd = {
@@ -40,7 +41,7 @@ object LegEnd {
             case Array(routeIdFragment, pathIdFragment) =>
               val routeId = fragmentToLong(routeIdFragment)
               val pathId = fragmentToLong(pathIdFragment)
-              Some(LegEnd.route(routeId, pathId))
+              Some(LegEnd.route(List(TrackPathKey(routeId, pathId))))
             case _ => None
           }
         }
@@ -63,8 +64,10 @@ case class LegEnd(
       case Some(legEndNode) => legEndNode.nodeId.toString
       case None =>
         route match {
-          case Some(legEndRoute) => legEndRoute.routeId.toString + "+" + legEndRoute.pathId.toString
           case None => throw new IllegalStateException("LegEnd missing both node and route")
+          case Some(legEndRoute) =>
+            // TODO PLAN should return multiple verteces ?
+            legEndRoute.trackPathKeys.head.routeId.toString + "+" + legEndRoute.trackPathKeys.head.pathId.toString
         }
     }
   }
