@@ -59,15 +59,13 @@ case class LegEnd(
   route: Option[LegEndRoute]
 ) {
 
-  def vertex: String = {
+  def vertices: Seq[String] = {
     node match {
-      case Some(legEndNode) => legEndNode.nodeId.toString
+      case Some(legEndNode) => Seq(legEndNode.nodeId.toString)
       case None =>
         route match {
           case None => throw new IllegalStateException("LegEnd missing both node and route")
-          case Some(legEndRoute) =>
-            // TODO PLAN should return multiple verteces ?
-            legEndRoute.trackPathKeys.head.key
+          case Some(legEndRoute) => legEndRoute.trackPathKeys.map(_.key)
         }
     }
   }

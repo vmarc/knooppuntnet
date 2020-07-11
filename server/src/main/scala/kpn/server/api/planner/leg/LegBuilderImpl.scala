@@ -125,19 +125,27 @@ class LegBuilderImpl(
       None
     }
     else {
-      val source = params.source.vertex
-      val sink = params.sink.vertex
-      graph.findPath(source, sink) match {
-        case Some(graphPath) =>
+      val sources = params.source.vertices
+      val sinks = params.sink.vertices
 
-          val planRoutes = graphPathToPlanRoutes(graphPath)
-
-          Some(
-            PlanLegDetail(
-              planRoutes
+      val alternatives = for (source <- sources; sink <- sinks) yield {
+        graph.findPath(source, sink) match {
+          case Some(graphPath) =>
+            val planRoutes = graphPathToPlanRoutes(graphPath)
+            Some(
+              PlanLegDetail(
+                planRoutes
+              )
             )
-          )
-        case None => None
+          case None => None
+        }
+      }
+
+      if (alternatives.flatten.nonEmpty) {
+        Some(alternatives.flatten.minBy(_.meters))
+      }
+      else {
+        None
       }
     }
   }

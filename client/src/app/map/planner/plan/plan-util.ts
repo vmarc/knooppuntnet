@@ -10,7 +10,7 @@ import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {FeatureId} from "../features/feature-id";
-import {MapFeature} from "../features/map-feature";
+import {RouteFeature} from "../features/route-feature";
 import {Plan} from "./plan";
 import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
@@ -54,8 +54,9 @@ export class PlanUtil {
     return new LegEnd(new LegEndNode(nodeId), null);
   }
 
-  static legEndRoutes(routes: List<MapFeature>): LegEnd {
-    return null;
+  static legEndRoutes(routeFeatures: List<RouteFeature>): LegEnd {
+    const trackPathKeys = routeFeatures.map(routeFeature => routeFeature.toTrackPathKey());
+    return new LegEnd(null, new LegEndRoute(trackPathKeys));
   }
 
   static legEndKey(legEnd: LegEnd): string {

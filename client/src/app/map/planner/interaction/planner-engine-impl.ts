@@ -40,7 +40,7 @@ import {PlannerEngine} from "./planner-engine";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
-  private newInteractionToggle = false;
+  private newInteractionToggle = true;
 
   private legDrag: PlannerDragLeg = null;
   private nodeDrag: PlannerDragFlag = null;
@@ -163,13 +163,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
-    // console.log("handleDrageEvent");
-
     if (this.isDraggingNode()) {
-
-
-      // console.log("handleDrageEvent isDraggingNode is true");
-
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         this.highlightNode(networkNodeFeature.node);

@@ -6,6 +6,8 @@ case class PlanLegDetail(  // TODO PLAN get ride of this class and use just rout
   routes: Seq[PlanRoute]
 ) {
 
+  def meters: Long = routes.map(_.meters).sum
+
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("routes", routes).
     build
