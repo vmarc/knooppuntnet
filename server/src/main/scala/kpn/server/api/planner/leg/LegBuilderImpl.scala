@@ -170,13 +170,13 @@ class LegBuilderImpl(
       val routeId = graphPathSegment.pathKey.routeId
       routeRepository.routeWithId(routeId) match {
         case Some(route) =>
-          val pathId = Math.abs(graphPathSegment.pathKey.pathId)
+          val pathId = if (graphPathSegment.pathKey.pathId < 100) graphPathSegment.pathKey.pathId else graphPathSegment.pathKey.pathId - 100
           val colour = route.tags("colour")
           route.analysis.map.paths.find(_.pathId == pathId) match {
             case None => None
             case Some(trackPath) =>
               trackPathToPlanRoute(route, trackPath, colour).map { planRoute =>
-                if (graphPathSegment.pathKey.pathId < 0) {
+                if (graphPathSegment.pathKey.pathId > 100) {
                   planRoute.reverse
                 }
                 else {

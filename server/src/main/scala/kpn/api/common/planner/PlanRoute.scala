@@ -1,8 +1,6 @@
 package kpn.api.common.planner
 
-import kpn.api.common.LatLonImpl
 import kpn.api.common.common.ToStringBuilder
-import kpn.api.common.common.TrackPoint
 
 case class PlanRoute(
   sourceNode: PlanNode,
@@ -24,17 +22,20 @@ case class PlanRoute(
       )
     }
     else {
-      val trackPoints = (
-        Seq(TrackPoint(sourceNode.latLon.latitude, sourceNode.latLon.longitude))
-          ++ segments.flatMap(_.fragments).map(f => TrackPoint(f.latLon.latitude, f.latLon.longitude))
+      val fragmentCoordinates = (
+        Seq(PlanFragmentCoordinate(sourceNode.coordinate, sourceNode.latLon))
+          ++ segments.flatMap(_.fragments).map(f => PlanFragmentCoordinate(f.coordinate, f.latLon))
         ).reverse.drop(1)
 
-      val trackPointIterator = trackPoints.iterator
+      val fragmentCoordinateIterator = fragmentCoordinates.iterator
 
       val reversedSegments = segments.reverse.map { segment =>
         val reversedFragments = segment.fragments.reverse.map { fragment =>
-          val trackPoint = trackPointIterator.next()
-          fragment.copy(latLon = LatLonImpl(trackPoint.lat, trackPoint.lon))
+          val fragmentCoordinate = fragmentCoordinateIterator.next()
+          fragment.copy(
+            latLon = fragmentCoordinate.latLon,
+            coordinate = fragmentCoordinate.coordinate
+          )
         }
         segment.copy(fragments = reversedFragments)
       }

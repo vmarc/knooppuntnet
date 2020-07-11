@@ -57,7 +57,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
           GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2)),
-          GraphEdge(nodeId4, nodeId3, 200, TrackPathKey(routeId, -2))
+          GraphEdge(nodeId4, nodeId3, 200, TrackPathKey(routeId, 102))
         )
       )
     }
@@ -68,8 +68,8 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2.copy(oneWay = true)))) should equal(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
-          GraphEdge(nodeId2, nodeId1, 100, TrackPathKey(routeId, -1)),
-          GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2))
+          GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2)),
+          GraphEdge(nodeId2, nodeId1, 100, TrackPathKey(routeId, 101))
         )
       )
     }

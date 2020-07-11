@@ -153,7 +153,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
       Some(
         PlanLegDetail(
           routes = Seq(
-            planRoute(planNode("10002", 1), planNode("10003", 2)),
+            planRoute(planNode("10001", 1), planNode("10002", 2)),
           )
         )
       )

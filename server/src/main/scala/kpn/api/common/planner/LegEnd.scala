@@ -67,7 +67,7 @@ case class LegEnd(
           case None => throw new IllegalStateException("LegEnd missing both node and route")
           case Some(legEndRoute) =>
             // TODO PLAN should return multiple verteces ?
-            legEndRoute.trackPathKeys.head.routeId.toString + "+" + legEndRoute.trackPathKeys.head.pathId.toString
+            legEndRoute.trackPathKeys.head.key
         }
     }
   }

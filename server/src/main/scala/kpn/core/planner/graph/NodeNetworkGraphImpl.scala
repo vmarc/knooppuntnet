@@ -52,7 +52,7 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
         }
         else {
           val segments = vertexList.tail.zip(edgeList).map { case (vertex, pathKey) =>
-            val pathKeyParts = pathKey.split('+')
+            val pathKeyParts = pathKey.split(Array('.', '+'))
             val key = TrackPathKey(pathKeyParts(0).toLong, pathKeyParts(1).toLong)
             GraphPathSegment(vertex, key)
           }

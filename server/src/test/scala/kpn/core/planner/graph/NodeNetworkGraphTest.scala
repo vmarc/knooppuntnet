@@ -29,9 +29,9 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
         GraphPath(
           source = "1",
           segments = Seq(
-            GraphPathSegment("13+1", leg13),
+            GraphPathSegment("13.1", leg13),
             GraphPathSegment("3", leg13),
-            GraphPathSegment("34+1", leg34),
+            GraphPathSegment("34.1", leg34),
             GraphPathSegment("4", leg34)
           )
         )
