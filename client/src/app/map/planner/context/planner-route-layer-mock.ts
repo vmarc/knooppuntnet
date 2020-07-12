@@ -63,6 +63,10 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
     this.expectFlagExists(PlanFlagType.End, featureId, coordinate);
   }
 
+  expectInvisibleFlagExists(featureId: string, coordinate: Coordinate): void {
+    this.expectFlagExists(PlanFlagType.Invisible, featureId, coordinate);
+  }
+
   expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate: Coordinate): void {
     const flag = this.flags.get(featureId);
     if (!flag) {
@@ -121,7 +125,7 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
   expectRouteLegExists(legId: string, leg: PlanLeg): void {
     const routeLeg = this.routeLegs.get(legId);
     expect(routeLeg).toBeDefined();
-    expect(routeLeg).toEqual(leg);
+    expect(routeLeg.featureId).toEqual(leg.featureId);
   }
 
 }

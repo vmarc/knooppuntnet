@@ -27,6 +27,10 @@ export class TestSupport {
     TestSupport.expectFlag(planFlag, PlanFlagType.End, featureId, coordinate);
   }
 
+  static expectInvisibleFlag(planFlag: PlanFlag, featureId: string, coordinate) {
+    TestSupport.expectFlag(planFlag, PlanFlagType.Invisible, featureId, coordinate);
+  }
+
   static expectFlag(planFlag: PlanFlag, flagType: PlanFlagType, featureId: string, coordinate) {
     expect(planFlag.flagType).toEqual(flagType);
     expect(planFlag.featureId).toEqual(featureId);

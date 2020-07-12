@@ -11,7 +11,6 @@ import {NodeClick} from "../../../components/ol/domain/node-click";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
 import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
-import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
@@ -20,6 +19,7 @@ import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-p
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
+import {PlannerCommandRemoveRouteViaPoint} from "../commands/planner-command-remove-route-via-point";
 import {PlannerCommandRemoveViaPoint} from "../commands/planner-command-remove-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
@@ -36,6 +36,8 @@ import {Features} from "./features";
 import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
 import {PlannerDragLeg} from "./planner-drag-leg";
+import {PlannerDragViaRouteFlag} from "./planner-drag-via-route-flag";
+import {PlannerDragViaRouteFlagAnalyzer} from "./planner-drag-via-route-flag-analyzer";
 import {PlannerEngine} from "./planner-engine";
 
 export class PlannerEngineImpl implements PlannerEngine {
@@ -44,6 +46,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private legDrag: PlannerDragLeg = null;
   private nodeDrag: PlannerDragFlag = null;
+  private viaRouteDrag: PlannerDragViaRouteFlag = null;
 
   constructor(private context: PlannerContext) {
   }
@@ -221,6 +224,12 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
+    if (this.isViaRouteFlagClicked(singleClick)) {
+      this.removeRouteViaPoint();
+      this.dragCancel();
+      return true;
+    }
+
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       this.context.cursor.setStyleDefault();
       this.context.elasticBand.setInvisible();
@@ -309,6 +318,49 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.context.execute(command);
   }
 
+  private removeRouteViaPoint(): void {
+    const clickedLeg = this.context.plan.legs.find(leg => leg.featureId === this.viaRouteDrag.legFeatureId);
+    if (clickedLeg != null) {
+      if (clickedLeg.sinkFlag.flagType === PlanFlagType.End) {
+        this.removeEndLegRouteViaPoint(clickedLeg);
+      } else {
+        this.removeViaLegRouteViaPoint(clickedLeg);
+      }
+    }
+  }
+
+  private removeEndLegRouteViaPoint(oldLeg: PlanLeg): void {
+    const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
+    const newLeg = this.context.buildLeg(source, sink, oldLeg.sourceNode, oldLeg.sinkNode, oldLeg.sinkFlag.flagType);
+    const command = new PlannerCommandRemoveRouteViaPoint(oldLeg.featureId, newLeg.featureId);
+    this.context.execute(command);
+  }
+
+  private removeViaLegRouteViaPoint(oldLeg1: PlanLeg): void {
+
+    const oldLeg2 = this.context.plan.legs.find(leg => {
+      console.log("  leg.sourceNode.featureId=" + leg.sourceNode.nodeId + ", oldLeg1.sinkNode.featureId=" + oldLeg1.sinkNode.nodeId);
+      return leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId;
+    });
+
+    if (oldLeg2 != null) {
+      const sourceNode = oldLeg1.sourceNode;
+      const sinkNode = oldLeg2.sinkNode;
+      const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+      const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+
+      const newLeg = this.context.buildLeg(source, sink, sourceNode, sinkNode, oldLeg2.sinkFlag.flagType);
+
+      const command = new PlannerCommandRemoveViaPoint(
+        oldLeg1.featureId,
+        oldLeg2.featureId,
+        newLeg.featureId
+      );
+      this.context.execute(command);
+    }
+  }
+
   private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.sourceNode === null) {
       this.addStartPoint(networkNode.node);
@@ -339,7 +391,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
 
     const sink: LegEnd = PlanUtil.legEndRoutes(routes);
-    const sinkNode =  PlanUtil.planNodeWithCoordinate("0", "", coordinate);
+    const sinkNode = PlanUtil.planNodeWithCoordinate("0", "", coordinate);
     const leg = this.context.buildLeg(source, sink, sourceNode, sinkNode, PlanFlagType.End);
 
     const command = new PlannerCommandAddLeg(leg.featureId);
@@ -359,12 +411,21 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private flagDragStarted(flag: FlagFeature, coordinate: Coordinate): boolean {
+
     this.nodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
     if (this.nodeDrag !== null) {
       this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.oldNode.featureId, coordinate);
       this.context.elasticBand.set(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
     }
+
+    this.viaRouteDrag = new PlannerDragViaRouteFlagAnalyzer(this.context.plan).dragStarted(flag);
+    if (this.viaRouteDrag !== null) {
+      this.context.routeLayer.updateFlagCoordinate(this.viaRouteDrag.planFlag.featureId, coordinate);
+      this.context.elasticBand.set(this.viaRouteDrag.anchor1, this.viaRouteDrag.anchor2, coordinate);
+      return true;
+    }
+
     return false;
   }
 
@@ -376,10 +437,18 @@ export class PlannerEngineImpl implements PlannerEngine {
     return this.nodeDrag !== null;
   }
 
+  private isDraggingViaRouteFlag(): boolean {
+    return this.viaRouteDrag !== null;
+  }
+
   private isViaFlagClicked(singleClick: boolean): boolean {
     return singleClick === true && this.nodeDrag !== null
       && this.nodeDrag.oldNode.featureId !== this.context.plan.sinkNode().featureId
       && this.nodeDrag.oldNode.featureId !== this.context.plan.sourceNode.featureId;
+  }
+
+  private isViaRouteFlagClicked(singleClick: boolean): boolean {
+    return singleClick === true && this.viaRouteDrag !== null;
   }
 
   private dropLegOnNode(connection: PlanNode): void {
@@ -528,6 +597,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private dragCancel(): void {
+
     if (this.legDrag !== null) {
       this.context.elasticBand.setInvisible();
       this.legDrag = null;
@@ -536,6 +606,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.nodeDrag !== null) {
       this.context.elasticBand.setInvisible();
       this.nodeDrag = null;
+    }
+
+    if (this.viaRouteDrag !== null) {
+      this.context.elasticBand.setInvisible();
+      this.viaRouteDrag = null;
     }
   }
 
