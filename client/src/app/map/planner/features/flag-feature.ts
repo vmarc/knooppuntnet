@@ -16,4 +16,8 @@ export class FlagFeature extends MapFeature {
     return new FlagFeature(PlanFlagType.Via, id);
   }
 
+  static end(id: string): FlagFeature {
+    return new FlagFeature(PlanFlagType.End, id);
+  }
+
 }

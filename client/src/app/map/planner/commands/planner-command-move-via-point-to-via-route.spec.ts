@@ -18,10 +18,6 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     const oldSinkFlag2 = PlanFlag.via("oldSinkFlag2", [3, 3]);
     const newSinkFlag = PlanFlag.via("newSinkFlag", [3, 3]);
 
-    // const oldLeg1 = new PlanLeg("12", "", legEnd1, legEnd2, PlanFlag.via("n2", [2, 2]), null, List());
-    // const oldLeg2 = new PlanLeg("23", "", legEnd2, legEnd3, PlanFlag.via("n3", [3, 3]), null, List());
-    // const newLeg = new PlanLeg("13", "", legEnd1, legEnd3, PlanFlag.via("n3", [3, 3]), null, List());
-
     const oldLeg1 = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, oldSinkFlag1, null);
     const oldLeg2 = PlanUtil.singleRoutePlanLeg("23", setup.node1, setup.node2, oldSinkFlag2, null);
     const newLeg = PlanUtil.singleRoutePlanLeg("13", setup.node1, setup.node2, newSinkFlag, null);

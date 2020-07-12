@@ -59,20 +59,24 @@ export class PlannerTestSetup {
   }
 
   createPlanWithStartPointOnly(): Plan {
-    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1.coordinate), List());
+    const sourceFlag = PlanFlag.start("sourceFlag", this.node1.coordinate);
+    const plan = new Plan(this.node1, sourceFlag, List());
     this.context.updatePlan(plan);
-    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1.coordinate));
+    this.routeLayer.addFlag(sourceFlag);
     return plan;
   }
 
   createOneLegPlan(): Plan {
 
-    const leg = this.createLeg(this.node1, this.node2);
-    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1.coordinate), List([leg]));
+    const sourceFlag = PlanFlag.start("sourceFlag", this.node1.coordinate);
+    const sinkFlag = PlanFlag.end("sinkFlag", this.node2.coordinate);
+    const leg = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag, null);
+    this.context.legs.add(leg);
+    const plan = new Plan(this.node1, sourceFlag, List([leg]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1.coordinate));
-    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2.coordinate));
+    this.routeLayer.addFlag(sourceFlag);
+    this.routeLayer.addFlag(sinkFlag);
     this.routeLayer.addPlanLeg(leg);
 
     return plan;
@@ -80,14 +84,21 @@ export class PlannerTestSetup {
 
   createTwoLegPlan(): Plan {
 
-    const leg1 = this.createLeg(this.node1, this.node2);
-    const leg2 = this.createLeg(this.node2, this.node3);
-    const plan = new Plan(this.node1, PlanFlag.start("n1", this.node1.coordinate), List([leg1, leg2]));
+    const sourceFlag = PlanFlag.start("sourceFlag", this.node1.coordinate);
+    const sinkFlag1 = PlanFlag.via("sinkFlag1", this.node2.coordinate);
+    const sinkFlag2 = PlanFlag.end("sinkFlag2", this.node3.coordinate);
+
+    const leg1 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag1, null);
+    const leg2 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node2, this.node3, sinkFlag2, null);
+    this.context.legs.add(leg1);
+    this.context.legs.add(leg2);
+
+    const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(PlanFlag.start("n1", this.node1.coordinate));
-    this.routeLayer.addFlag(PlanFlag.via("n2", this.node2.coordinate));
-    this.routeLayer.addFlag(PlanFlag.via("n3", this.node3.coordinate));
+    this.routeLayer.addFlag(sourceFlag);
+    this.routeLayer.addFlag(sinkFlag1);
+    this.routeLayer.addFlag(sinkFlag2);
     this.routeLayer.addPlanLeg(leg1);
     this.routeLayer.addPlanLeg(leg2);
 

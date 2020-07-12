@@ -14,7 +14,7 @@ describe("PlanUtil", () => {
 
   it("toUrlString - plan with source only", () => {
     const startNode = PlanUtil.planNode("10", "", new LatLonImpl("", ""));
-    const startFlag = PlanFlag.start("n1", this.node1.coordinate);
+    const startFlag = PlanFlag.start("n1", [1, 1]);
     const plan = new Plan(startNode, startFlag, List());
     expect(PlanUtil.toUrlString(plan)).toEqual("a");
   });

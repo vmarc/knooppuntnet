@@ -414,7 +414,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     this.nodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
     if (this.nodeDrag !== null) {
-      this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.oldNode.featureId, coordinate);
+      this.context.routeLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, coordinate);
       this.context.elasticBand.set(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
     }

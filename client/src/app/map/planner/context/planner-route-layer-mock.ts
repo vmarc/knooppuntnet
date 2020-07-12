@@ -96,6 +96,32 @@ export class PlannerRouteLayerMock extends PlannerRouteLayerBase {
     TestSupport.expectCoordinate(flag.coordinate, coordinate);
   }
 
+  expectStartFlagCoordinateExists(coordinate: Coordinate): void {
+    this.expectFlagCoordinateExists(PlanFlagType.Start, coordinate);
+  }
+
+  expectViaFlagCoordinateExists(coordinate: Coordinate): void {
+    this.expectFlagCoordinateExists(PlanFlagType.Via, coordinate);
+  }
+
+  expectEndFlagCoordinateExists(coordinate: Coordinate): void {
+    this.expectFlagCoordinateExists(PlanFlagType.End, coordinate);
+  }
+
+  expectInvisibleCoordinateFlagExists(coordinate: Coordinate): void {
+    this.expectFlagCoordinateExists(PlanFlagType.Invisible, coordinate);
+  }
+
+  expectFlagCoordinateExists(flagType: PlanFlagType, coordinate: Coordinate): void {
+    const coordinateString = JSON.stringify(coordinate);
+    const result = this.flags.valueSeq().find(flag => {
+      return flag.flagType === flagType && JSON.stringify(flag.coordinate) === coordinateString;
+    });
+    if (!result) {
+      fail(`could not find flag with type ${flagType} and coordinate ${coordinate}`);
+    }
+  }
+
   expectPlanFlagExists(planFlag: PlanFlag): void {
     const flag = this.flags.get(planFlag.featureId);
     expect(flag.featureId).toEqual(planFlag.featureId);

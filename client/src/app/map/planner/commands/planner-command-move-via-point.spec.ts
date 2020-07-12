@@ -13,9 +13,9 @@ describe("PlannerCommandMoveViaPoint", () => {
     const setup = new PlannerTestSetup();
 
     const sourceFlag = PlanFlag.start("sourceFlag", [1, 1]);
-    const oldViaFlag = PlanFlag.via("oldSinkFlag1", [2, 2]);
-    const newViaFlag = PlanFlag.via("newSinkFlag1", [4, 4]);
-    const sinkFlag = PlanFlag.end("oldSinkFlag2", [3, 3]);
+    const oldViaFlag = PlanFlag.via("oldViaFlag", [2, 2]);
+    const newViaFlag = PlanFlag.via("newViaFlag", [4, 4]);
+    const sinkFlag = PlanFlag.end("sinkFlag", [3, 3]);
 
     const oldLeg1 = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, oldViaFlag, null);
     const oldLeg2 = PlanUtil.singleRoutePlanLeg("23", setup.node2, setup.node3, sinkFlag, null);
