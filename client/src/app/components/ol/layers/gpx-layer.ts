@@ -10,14 +10,12 @@ export class GpxLayer {
 
     const lineStyle = new Style({
       stroke: new Stroke({
-        color: "rgba(255, 0, 0, 0.3)",
-        lineDash: [1, 25],
+        color: "rgba(0, 0, 255, 0.3)",
         width: 15
       })
     });
 
     const style = {
-      // "Point": not rendered for now
       "LineString": lineStyle,
       "MultiLineString": lineStyle
     };

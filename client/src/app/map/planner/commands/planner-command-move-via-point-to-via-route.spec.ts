@@ -5,7 +5,7 @@ import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
 import {PlannerCommandMoveViaPointToViaRoute} from "./planner-command-move-via-point-to-via-route";
 
-describe("PlannerCommandMoveViaPointToViaRoute", () => {
+xdescribe("PlannerCommandMoveViaPointToViaRoute", () => {
 
   // TODO PLAN use LegEndRoute parameter instead
 
@@ -30,10 +30,10 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     setup.context.execute(new PlannerCommandAddLeg(oldLeg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg2.featureId));
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("oldSinkFlag1", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("oldSinkFlag2", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("oldSinkFlag1", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("oldSinkFlag2", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
 
@@ -54,10 +54,10 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     );
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("10-1", [5, 5]);
-    setup.routeLayer.expectEndFlagExists("TODO", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("10-1", [5, 5]);
+    setup.markerLayer.expectEndFlagExists("TODO", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
     expect(setup.context.plan.legs.size).toEqual(1);
@@ -67,10 +67,10 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("oldSinkFlag1", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("oldSinkFlag2", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("oldSinkFlag1", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("oldSinkFlag2", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
 

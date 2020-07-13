@@ -16,14 +16,14 @@ export class PlannerCommandAddLeg implements PlannerCommand {
       const updatedLastLeg = lastLeg.withSinkFlag(newSinkFlag);
       context.legs.add(updatedLastLeg);
       newLegs = newLegs.set(newLegs.size - 1, updatedLastLeg);
-      context.routeLayer.updateFlag(updatedLastLeg.sinkFlag);
+      context.markerLayer.updateFlag(updatedLastLeg.sinkFlag);
     }
 
     const leg = context.legs.getById(this.legId);
     newLegs = newLegs.push(leg);
 
-    context.routeLayer.addFlag(leg.viaFlag);
-    context.routeLayer.addFlag(leg.sinkFlag);
+    context.markerLayer.addFlag(leg.viaFlag);
+    context.markerLayer.addFlag(leg.sinkFlag);
     context.routeLayer.addPlanLeg(leg);
 
     const newPlan = context.plan.withLegs(newLegs);
@@ -35,8 +35,8 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     const leg = context.legs.getById(this.legId);
 
     context.routeLayer.removePlanLeg(this.legId);
-    context.routeLayer.removeFlag(leg.viaFlag);
-    context.routeLayer.removeFlag(leg.sinkFlag);
+    context.markerLayer.removeFlag(leg.viaFlag);
+    context.markerLayer.removeFlag(leg.sinkFlag);
 
     let newLegs = context.plan.legs.slice(0, -1);
 
@@ -45,7 +45,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
       const updatedLastLeg = lastLeg.withSinkFlag(lastLeg.sinkFlag.toEnd());
       context.legs.add(updatedLastLeg);
       newLegs = newLegs.set(newLegs.size - 1, updatedLastLeg);
-      context.routeLayer.updateFlag(updatedLastLeg.sinkFlag);
+      context.markerLayer.updateFlag(updatedLastLeg.sinkFlag);
     }
 
     const newPlan = context.plan.withLegs(newLegs);

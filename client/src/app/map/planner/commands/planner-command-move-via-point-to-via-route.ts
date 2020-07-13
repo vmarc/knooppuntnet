@@ -20,9 +20,9 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     const oldLeg2 = context.legs.getById(this.oldLegId2);
     const newLeg = context.legs.getById(this.newLegId);
 
-    context.routeLayer.removeFlagWithFeatureId(oldLeg1.sinkNode.featureId);
+    context.markerLayer.removeFlagWithFeatureId(oldLeg1.sinkNode.featureId);
     // TODO PLAN should create flag outside of this class
-    context.routeLayer.addFlag(new PlanFlag(PlanFlagType.Via, this.flagFeatureId(), this.coordinate));
+    context.markerLayer.addFlag(new PlanFlag(PlanFlagType.Via, this.flagFeatureId(), this.coordinate));
     context.routeLayer.removePlanLeg(oldLeg1.featureId);
     context.routeLayer.removePlanLeg(oldLeg2.featureId);
     context.routeLayer.addPlanLeg(newLeg);
@@ -40,8 +40,8 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     const oldLeg2 = context.legs.getById(this.oldLegId2);
     const newLeg = context.legs.getById(this.newLegId);
 
-    context.routeLayer.removeFlagWithFeatureId(this.flagFeatureId());
-    context.routeLayer.addFlag(oldLeg1.sinkFlag);
+    context.markerLayer.removeFlagWithFeatureId(this.flagFeatureId());
+    context.markerLayer.addFlag(oldLeg1.sinkFlag);
     context.routeLayer.addPlanLeg(oldLeg1);
     context.routeLayer.addPlanLeg(oldLeg2);
     context.routeLayer.removePlanLeg(newLeg.featureId);

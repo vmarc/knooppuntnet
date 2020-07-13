@@ -16,6 +16,7 @@ import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerHighlightLayer} from "./planner-highlight-layer";
 import {PlannerLegRepository} from "./planner-leg-repository";
+import {PlannerMarkerLayer} from "./planner-marker-layer";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
 
@@ -36,6 +37,7 @@ export class PlannerContext {
   private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
 
   constructor(readonly routeLayer: PlannerRouteLayer,
+              readonly markerLayer: PlannerMarkerLayer,
               readonly cursor: PlannerCursor,
               readonly elasticBand: PlannerElasticBand,
               readonly highlightLayer: PlannerHighlightLayer,
@@ -67,12 +69,14 @@ export class PlannerContext {
       const oldPlan = this._plan$.value;
       const oldCommandStack = this._commandStack$.value;
       this.routeLayer.removePlan(oldPlan);
+      this.markerLayer.removePlan(oldPlan);
       const data = new NetworkTypeData(oldPlan, oldCommandStack);
       this.networkTypeMap = this.networkTypeMap.set(oldNetworkType, data);
     }
     const existingData = this.networkTypeMap.get(networkType);
     if (existingData) {
       this.routeLayer.addPlan(existingData.plan);
+      this.markerLayer.addPlan(existingData.plan);
       this._plan$.next(existingData.plan);
       this._commandStack$.next(existingData.commandStack);
     } else {
@@ -99,9 +103,6 @@ export class PlannerContext {
 
   updatePlan(plan: Plan) {
     this._plan$.next(plan);
-
-    console.log(["PLAN UPDATE", plan]);
-
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
@@ -156,7 +157,7 @@ export class PlannerContext {
         if (sink.route !== null) {
           const newSinkNode = planLegDetail.routes.last(null).sinkNode;
           updatedSinkFlag = PlanFlag.end(sinkFlag.featureId, newSinkNode.coordinate);
-          this.routeLayer.updateFlag(updatedSinkFlag);
+          this.markerLayer.updateFlag(updatedSinkFlag);
         }
         const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, updatedSinkFlag, viaFlag, planLegDetail.routes);
         this.legs.add(updatedLeg);

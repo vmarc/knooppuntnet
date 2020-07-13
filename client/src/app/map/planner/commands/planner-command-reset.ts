@@ -9,11 +9,13 @@ export class PlannerCommandReset implements PlannerCommand {
   public do(context: PlannerContext) {
     this.oldPlan = context.plan;
     context.routeLayer.removePlan(this.oldPlan);
+    context.markerLayer.removePlan(this.oldPlan);
     context.updatePlan(Plan.empty);
   }
 
   public undo(context: PlannerContext) {
     context.routeLayer.addPlan(this.oldPlan);
+    context.markerLayer.addPlan(this.oldPlan);
     context.updatePlan(this.oldPlan);
   }
 

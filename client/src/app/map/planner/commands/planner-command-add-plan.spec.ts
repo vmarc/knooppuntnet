@@ -24,9 +24,9 @@ describe("PlannerCommandAddPlan", () => {
     const command = new PlannerCommandAddPlan(plan);
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg);
 
@@ -37,15 +37,15 @@ describe("PlannerCommandAddPlan", () => {
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(0);
+    setup.markerLayer.expectFlagCount(0);
     setup.routeLayer.expectRouteLegCount(0);
     expect(setup.context.plan.legs.size).toEqual(0);
 
     command.do(setup.context);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg);
 

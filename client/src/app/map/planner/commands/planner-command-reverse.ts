@@ -10,11 +10,13 @@ export class PlannerCommandReverse implements PlannerCommand {
 
   public do(context: PlannerContext) {
     context.routeLayer.removePlan(this.oldPlan);
+    context.markerLayer.removePlan(this.oldPlan);
     this.updatePlan(context, this.newPlan);
   }
 
   public undo(context: PlannerContext) {
     context.routeLayer.removePlan(this.newPlan);
+    context.markerLayer.removePlan(this.newPlan);
     this.updatePlan(context, this.oldPlan);
   }
 
@@ -31,6 +33,7 @@ export class PlannerCommandReverse implements PlannerCommand {
       })
     );
     context.routeLayer.addPlan(updatedPlan);
+    context.markerLayer.addPlan(updatedPlan);
     context.updatePlan(updatedPlan);
   }
 

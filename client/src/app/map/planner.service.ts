@@ -10,6 +10,7 @@ import {PlannerCursorImpl} from "./planner/context/planner-cursor-impl";
 import {PlannerElasticBandImpl} from "./planner/context/planner-elastic-band-impl";
 import {PlannerHighlightLayerImpl} from "./planner/context/planner-highlight-layer-impl";
 import {PlannerLegRepositoryImpl} from "./planner/context/planner-leg-repository-impl";
+import {PlannerMarkerLayerImpl} from "./planner/context/planner-marker-layer-impl";
 import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
 import {PlannerRouteLayerImpl} from "./planner/context/planner-route-layer-impl";
 import {PlannerEngine} from "./planner/interaction/planner-engine";
@@ -27,6 +28,7 @@ export class PlannerService {
   resultMode$ = new BehaviorSubject<string>("compact");
   private translations: TranslationMap<string, string> = null;
   private routeLayer = new PlannerRouteLayerImpl();
+  private markerLayer = new PlannerMarkerLayerImpl();
   private cursor = new PlannerCursorImpl();
   private elasticBand = new PlannerElasticBandImpl();
   private highlightLayer = new PlannerHighlightLayerImpl();
@@ -35,6 +37,7 @@ export class PlannerService {
   private overlay = new PlannerOverlayImpl(this.mapService);
   context: PlannerContext = new PlannerContext(
     this.routeLayer,
+    this.markerLayer,
     this.cursor,
     this.elasticBand,
     this.highlightLayer,
@@ -51,6 +54,7 @@ export class PlannerService {
   init(map: Map): void {
     this.cursor.addToMap(map);
     this.routeLayer.addToMap(map);
+    this.markerLayer.addToMap(map);
     this.elasticBand.addToMap(map);
     this.highlightLayer.addToMap(map);
     this.overlay.addToMap(map);

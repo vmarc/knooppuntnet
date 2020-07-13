@@ -29,9 +29,9 @@ describe("PlannerCommandMoveEndPoint", () => {
     const command = new PlannerCommandMoveEndPoint("12", "13");
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("newSinkFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("newSinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 
@@ -42,9 +42,9 @@ describe("PlannerCommandMoveEndPoint", () => {
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("oldSinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("oldSinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
@@ -55,9 +55,9 @@ describe("PlannerCommandMoveEndPoint", () => {
 
     command.do(setup.context);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("newSinkFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("newSinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("13", newLeg);
 

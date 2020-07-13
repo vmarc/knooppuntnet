@@ -24,10 +24,10 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg.featureId));
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("viaFlag", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("viaFlag", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13-1", oldLeg);
 
     expect(setup.context.plan.legs.size).toEqual(1);
@@ -38,9 +38,9 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     const command = new PlannerCommandRemoveRouteViaPoint(oldLeg.featureId, newLeg.featureId);
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13-2", newLeg);
 
     expect(setup.context.plan.legs.size).toEqual(1);
@@ -50,10 +50,10 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("viaFlag", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("viaFlag", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13-1", oldLeg);
 
     expect(setup.context.plan.legs.size).toEqual(1);

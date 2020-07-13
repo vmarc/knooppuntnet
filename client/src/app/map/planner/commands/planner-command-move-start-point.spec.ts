@@ -12,7 +12,7 @@ describe("PlannerCommandMoveStartPoint", () => {
 
     const sourceFlag = PlanFlag.start("sourceFlag", [1, 1]);
 
-    setup.routeLayer.addFlag(sourceFlag);
+    setup.markerLayer.addFlag(sourceFlag);
 
     const plan = new Plan(setup.node1, sourceFlag, List());
     setup.context.updatePlan(plan);
@@ -21,20 +21,20 @@ describe("PlannerCommandMoveStartPoint", () => {
     setup.context.execute(command);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1002");
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(1);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [2, 2]);
 
     command.undo(setup.context);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectFlagCount(1);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
 
     command.do(setup.context);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1002");
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(1);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [2, 2]);
   });
 
 });

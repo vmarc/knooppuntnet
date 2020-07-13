@@ -1,33 +1,20 @@
 import {Coordinate} from "ol/coordinate";
-import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
 import Point from "ol/geom/Point";
 import VectorLayer from "ol/layer/Vector";
 import Map from "ol/Map";
 import VectorSource from "ol/source/Vector";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
 import {Marker} from "../../../components/ol/domain/marker";
 import {Layers} from "../../../components/ol/layers/layers";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlanUtil} from "../plan/plan-util";
-import {PlannerRouteLayer} from "./planner-route-layer";
+import {PlannerMarkerLayer} from "./planner-marker-layer";
 
-export class PlannerRouteLayerImpl extends PlannerRouteLayer {
-
-  private legStyle = new Style({
-    stroke: new Stroke({
-      color: "rgba(255, 0, 255, 0.5)",
-      width: 12
-    })
-  });
+export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
 
   private source = new VectorSource();
 
   private layer = new VectorLayer({
-    zIndex: Layers.zIndexPlannerRouteLayer,
+    zIndex: Layers.zIndexPlannerMarkerLayer,
     source: this.source
   });
 
@@ -78,22 +65,6 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
     const feature = this.source.getFeatureById(featureId);
     if (feature) {
       (feature.getGeometry() as Point).setCoordinates(coordinate);
-    }
-  }
-
-  addPlanLeg(leg: PlanLeg): void {
-    this.removePlanLeg(leg.featureId);
-    const feature = new Feature(new LineString(leg.routes.flatMap(route => PlanUtil.planRouteCoordinates(route)).toArray()));
-    feature.setId(leg.featureId);
-    feature.set("layer", "leg");
-    feature.setStyle(this.legStyle);
-    this.source.addFeature(feature);
-  }
-
-  removePlanLeg(legId: string): void {
-    const feature = this.source.getFeatureById(legId);
-    if (feature) {
-      this.source.removeFeature(feature);
     }
   }
 

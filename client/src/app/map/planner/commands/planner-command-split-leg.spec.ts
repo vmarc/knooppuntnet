@@ -31,10 +31,10 @@ describe("PlannerCommandSplitLeg", () => {
     const command = new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("viaFlag", [3, 3]);
-    setup.routeLayer.expectEndFlagExists("endFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("viaFlag", [3, 3]);
+    setup.markerLayer.expectEndFlagExists("endFlag", [2, 2]);
 
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("13", newLeg1);
@@ -50,9 +50,9 @@ describe("PlannerCommandSplitLeg", () => {
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("endFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("endFlag", [2, 2]);
 
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);

@@ -1,25 +1,23 @@
-import {Coordinate} from "ol/coordinate";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
-import {PlanFlag} from "../plan/plan-flag";
 
-export interface PlannerRouteLayer {
+export abstract class PlannerRouteLayer {
 
-  addFlag(flag: PlanFlag): void;
+  abstract addPlanLeg(leg: PlanLeg): void;
 
-  removeFlag(flag: PlanFlag): void;
+  abstract removePlanLeg(legId: string): void;
 
-  removeFlagWithFeatureId(featureId: string): void;
+  removePlan(plan: Plan): void {
+    plan.legs.forEach(leg => {
+      this.removePlanLeg(leg.featureId);
+    });
+  }
 
-  updateFlag(flag: PlanFlag): void;
+  addPlan(plan: Plan): void {
+    for (let i = 0; i < plan.legs.size; i++) {
+      const leg = plan.legs.get(i);
+      this.addPlanLeg(leg);
+    }
+  }
 
-  updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
-
-  addPlanLeg(leg: PlanLeg): void;
-
-  removePlanLeg(legId: string): void;
-
-  removePlan(plan: Plan): void;
-
-  addPlan(plan: Plan): void;
 }

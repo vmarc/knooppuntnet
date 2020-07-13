@@ -14,7 +14,7 @@ export class PlannerCommandRemoveRouteViaPoint implements PlannerCommand {
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg = context.legs.getById(this.newLegId);
 
-    context.routeLayer.removeFlag(oldLeg.viaFlag);
+    context.markerLayer.removeFlag(oldLeg.viaFlag);
     context.routeLayer.removePlanLeg(oldLeg.featureId);
     context.routeLayer.addPlanLeg(newLeg);
 
@@ -28,7 +28,7 @@ export class PlannerCommandRemoveRouteViaPoint implements PlannerCommand {
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg = context.legs.getById(this.newLegId);
 
-    context.routeLayer.addFlag(oldLeg.viaFlag);
+    context.markerLayer.addFlag(oldLeg.viaFlag);
     context.routeLayer.removePlanLeg(newLeg.featureId);
     context.routeLayer.addPlanLeg(oldLeg);
 

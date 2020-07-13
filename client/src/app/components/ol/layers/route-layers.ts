@@ -2,8 +2,6 @@ import {List} from "immutable";
 import {Color} from "ol/color";
 import Feature from "ol/Feature";
 import LineString from "ol/geom/LineString";
-import {Layer} from "ol/layer";
-import BaseLayer from "ol/layer/Base";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import Stroke from "ol/style/Stroke";

@@ -24,9 +24,9 @@ describe("PlannerCommandAddLeg", () => {
     const command = new PlannerCommandAddLeg(leg.featureId);
     setup.context.execute(command);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg);
 
@@ -37,15 +37,15 @@ describe("PlannerCommandAddLeg", () => {
 
     command.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(1);
+    setup.markerLayer.expectFlagCount(1);
     setup.routeLayer.expectRouteLegCount(0);
     expect(setup.context.plan.legs.size).toEqual(0);
 
     command.do(setup.context);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg);
 
@@ -72,15 +72,15 @@ describe("PlannerCommandAddLeg", () => {
     const addStartCommand = new PlannerCommandAddStartPoint(setup.node1, startFlag);
     setup.context.execute(addStartCommand);
 
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectFlagCount(1);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
 
     setup.legs.add(leg1);
     const addLeg1Command = new PlannerCommandAddLeg(leg1.featureId);
     setup.context.execute(addLeg1Command);
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag1", [2, 2]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
 
     expect(setup.context.plan.legs.size).toEqual(1);
@@ -91,10 +91,10 @@ describe("PlannerCommandAddLeg", () => {
     setup.legs.add(leg2);
     const addLeg2Command = new PlannerCommandAddLeg(leg2.featureId);
     setup.context.execute(addLeg2Command);
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
@@ -109,11 +109,11 @@ describe("PlannerCommandAddLeg", () => {
     setup.legs.add(leg3);
     const addLeg3Command = new PlannerCommandAddLeg(leg3.featureId);
     setup.context.execute(addLeg3Command);
-    setup.routeLayer.expectFlagCount(4);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-    setup.routeLayer.expectViaFlagExists("sinkFlag2", [3, 3]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag3", [4, 4]);
+    setup.markerLayer.expectFlagCount(4);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectViaFlagExists("sinkFlag2", [3, 3]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag3", [4, 4]);
     setup.routeLayer.expectRouteLegCount(3);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
@@ -131,10 +131,10 @@ describe("PlannerCommandAddLeg", () => {
     expect(setup.context.plan.legs.get(2).viaFlag).toEqual(null);
 
     addLeg3Command.undo(setup.context);
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
     setup.routeLayer.expectRouteLegCount(2);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
@@ -148,9 +148,9 @@ describe("PlannerCommandAddLeg", () => {
     expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
 
     addLeg2Command.undo(setup.context);
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag1", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg1);
 
@@ -160,15 +160,15 @@ describe("PlannerCommandAddLeg", () => {
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
 
     addLeg1Command.undo(setup.context);
-    setup.routeLayer.expectFlagCount(1);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectFlagCount(1);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
     setup.routeLayer.expectRouteLegCount(0);
 
     addLeg1Command.do(setup.context); // redo
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("startFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag1", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg1);
 
@@ -179,7 +179,7 @@ describe("PlannerCommandAddLeg", () => {
 
     addLeg1Command.undo(setup.context);
     addStartCommand.undo(setup.context);
-    setup.routeLayer.expectFlagCount(0);
+    setup.markerLayer.expectFlagCount(0);
     setup.routeLayer.expectRouteLegCount(0);
 
   });

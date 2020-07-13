@@ -1,13 +1,8 @@
 import {List} from "immutable";
-import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
-import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerContext} from "./planner-context";
@@ -15,11 +10,13 @@ import {PlannerCursorMock} from "./planner-cursor-mock";
 import {PlannerElasticBandMock} from "./planner-elastic-band-mock";
 import {PlannerHighlightLayerMock} from "./planner-highlight-layer-mock";
 import {PlannerLegRepositoryMock} from "./planner-leg-repository-mock";
+import {PlannerMarkerLayerMock} from "./planner-marker-layer-mock";
 import {PlannerRouteLayerMock} from "./planner-route-layer-mock";
 
 export class PlannerTestSetup {
 
   readonly routeLayer = new PlannerRouteLayerMock();
+  readonly markerLayer = new PlannerMarkerLayerMock();
   readonly cursor = new PlannerCursorMock();
   readonly elasticBand = new PlannerElasticBandMock();
   readonly highlightLayer = new PlannerHighlightLayerMock();
@@ -28,6 +25,7 @@ export class PlannerTestSetup {
 
   readonly context = new PlannerContext(
     this.routeLayer,
+    this.markerLayer,
     this.cursor,
     this.elasticBand,
     this.highlightLayer,
@@ -45,24 +43,11 @@ export class PlannerTestSetup {
     this.context.nextNetworkType(NetworkType.hiking);
   }
 
-  createLeg(sourceNode: PlanNode, sinkNode: PlanNode): PlanLeg {
-    const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, "", null, List([fragment]));
-    const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
-    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const legKey = PlanUtil.key(source, sink);
-    const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, PlanFlag.end(FeatureId.next(), sinkNode.coordinate), null, List([route]));
-    this.legRepository.add(leg);
-    this.legs.add(leg);
-    return leg;
-  }
-
   createPlanWithStartPointOnly(): Plan {
     const sourceFlag = PlanFlag.start("sourceFlag", this.node1.coordinate);
     const plan = new Plan(this.node1, sourceFlag, List());
     this.context.updatePlan(plan);
-    this.routeLayer.addFlag(sourceFlag);
+    this.markerLayer.addFlag(sourceFlag);
     return plan;
   }
 
@@ -75,8 +60,8 @@ export class PlannerTestSetup {
     const plan = new Plan(this.node1, sourceFlag, List([leg]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(sourceFlag);
-    this.routeLayer.addFlag(sinkFlag);
+    this.markerLayer.addFlag(sourceFlag);
+    this.markerLayer.addFlag(sinkFlag);
     this.routeLayer.addPlanLeg(leg);
 
     return plan;
@@ -96,9 +81,9 @@ export class PlannerTestSetup {
     const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2]));
     this.context.updatePlan(plan);
 
-    this.routeLayer.addFlag(sourceFlag);
-    this.routeLayer.addFlag(sinkFlag1);
-    this.routeLayer.addFlag(sinkFlag2);
+    this.markerLayer.addFlag(sourceFlag);
+    this.markerLayer.addFlag(sinkFlag1);
+    this.markerLayer.addFlag(sinkFlag2);
     this.routeLayer.addPlanLeg(leg1);
     this.routeLayer.addPlanLeg(leg2);
 

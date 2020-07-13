@@ -27,10 +27,10 @@ describe("PlannerCommandReverse", () => {
     setup.context.execute(new PlannerCommandAddLeg(leg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
@@ -41,10 +41,10 @@ describe("PlannerCommandReverse", () => {
     const reverseCommand = new PlanReverser(setup.context).reverse(setup.context.plan);
     setup.context.execute(reverseCommand);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectPlanFlagExists(setup.context.plan.sourceFlag);
-    setup.routeLayer.expectPlanFlagExists(setup.context.plan.legs.get(0).sinkFlag);
-    setup.routeLayer.expectPlanFlagExists(setup.context.plan.legs.get(1).sinkFlag);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectPlanFlagExists(setup.context.plan.sourceFlag);
+    setup.markerLayer.expectPlanFlagExists(setup.context.plan.legs.get(0).sinkFlag);
+    setup.markerLayer.expectPlanFlagExists(setup.context.plan.legs.get(1).sinkFlag);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
     expect(setup.context.plan.sourceFlag.coordinate).toEqual([3, 3]);
@@ -56,10 +56,10 @@ describe("PlannerCommandReverse", () => {
 
     reverseCommand.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 

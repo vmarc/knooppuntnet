@@ -38,8 +38,8 @@ describe("PlannerEngine", () => {
       expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
       expect(setup.context.plan.legs.size).toEqual(0);
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectStartFlagExists(setup.context.plan.sourceFlag.featureId, [1, 1]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectStartFlagExists(setup.context.plan.sourceFlag.featureId, [1, 1]);
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
     });
@@ -75,8 +75,8 @@ describe("PlannerEngine", () => {
       expect(setup.context.plan.legs.get(0).sinkFlag.coordinate).toEqual([2, 2]);
       expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectEndFlagExists(setup.context.plan.legs.get(0).sinkFlag.featureId, [2, 2]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectEndFlagExists(setup.context.plan.legs.get(0).sinkFlag.featureId, [2, 2]);
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
     });
@@ -102,8 +102,8 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -116,8 +116,8 @@ describe("PlannerEngine", () => {
       // assert - drag ongoing
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1.5, 1.5]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1.5, 1.5]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -133,8 +133,8 @@ describe("PlannerEngine", () => {
       expect(setup.context.plan.sourceNode.nodeId).toEqual("1002");
       expect(setup.context.plan.legs.size).toEqual(0);
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -159,8 +159,8 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -176,8 +176,8 @@ describe("PlannerEngine", () => {
       expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
       expect(setup.context.plan.legs.size).toEqual(0);
 
-      setup.routeLayer.expectFlagCount(1);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectFlagCount(1);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -199,9 +199,9 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -214,9 +214,9 @@ describe("PlannerEngine", () => {
       // assert - drag ongoing
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1.5, 1.5]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1.5, 1.5]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -233,9 +233,9 @@ describe("PlannerEngine", () => {
       expect(newPlan.sourceNode.nodeId).toEqual("1003");
       expect(newPlan.legs.size).toEqual(1);
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [3, 3]);
-      setup.routeLayer.expectEndFlagCoordinateExists([2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [3, 3]);
+      setup.markerLayer.expectEndFlagCoordinateExists([2, 2]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -259,9 +259,9 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1.1, 1.1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -281,9 +281,9 @@ describe("PlannerEngine", () => {
       expect(newLeg.sourceNode.nodeId).toEqual("1001");
       expect(newLeg.sinkNode.nodeId).toEqual("1002");
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -309,9 +309,9 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2.1, 2.1]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([2, 2]);
@@ -324,9 +324,9 @@ describe("PlannerEngine", () => {
       // assert - drag ongoing
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2.5, 2.5]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2.5, 2.5]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([2, 2]);
@@ -345,9 +345,9 @@ describe("PlannerEngine", () => {
       expect(newLeg.source.node.nodeId).toEqual(1001);
       expect(newLeg.sink.node.nodeId).toEqual(1003);
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagCoordinateExists([3, 3]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagCoordinateExists([3, 3]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -370,9 +370,9 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2.1, 2.1]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2.1, 2.1]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([2, 2]);
@@ -393,9 +393,9 @@ describe("PlannerEngine", () => {
       expect(newLeg.sinkNode.nodeId).toEqual("1002");
       TestSupport.expectCoordinates(newLeg, [1, 1], [2, 2]);
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -422,10 +422,10 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(3);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectViaFlagExists("sinkFlag1", [2.1, 2.1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagExists("sinkFlag1", [2.1, 2.1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -438,10 +438,10 @@ describe("PlannerEngine", () => {
       // assert - drag ongoing
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(3);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectViaFlagExists("sinkFlag1", [2.5, 2.5]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagExists("sinkFlag1", [2.5, 2.5]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -459,10 +459,10 @@ describe("PlannerEngine", () => {
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
       TestSupport.expectStartFlag(newPlan.sourceFlag, "sourceFlag", [1, 1]);
 
-      setup.routeLayer.expectFlagCount(3);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectViaFlagCoordinateExists([4, 4]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagCoordinateExists([4, 4]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -486,10 +486,10 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(3);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectViaFlagExists("sinkFlag1", [2.1, 2.1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagExists("sinkFlag1", [2.1, 2.1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -507,10 +507,10 @@ describe("PlannerEngine", () => {
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
       TestSupport.expectStartFlag(newPlan.sourceFlag, "sourceFlag", [1, 1]);
 
-      setup.routeLayer.expectFlagCount(3);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -537,9 +537,9 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -552,9 +552,9 @@ describe("PlannerEngine", () => {
       // assert - drag ongoing
       expect(eventIsNotFurtherPropagated2).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -571,10 +571,10 @@ describe("PlannerEngine", () => {
       expect(newPlan.legs.size).toEqual(2);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
 
-      setup.routeLayer.expectFlagCount(3);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectViaFlagCoordinateExists([3, 3]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagCoordinateExists([3, 3]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 
@@ -599,9 +599,9 @@ describe("PlannerEngine", () => {
       // assert - drag started
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(true);
       setup.elasticBand.expectAnchor1([1, 1]);
@@ -617,9 +617,9 @@ describe("PlannerEngine", () => {
       const newPlan = setup.context.plan;
       expect(newPlan.legs.size).toEqual(1);
 
-      setup.routeLayer.expectFlagCount(2);
-      setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-      setup.routeLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectFlagCount(2);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 

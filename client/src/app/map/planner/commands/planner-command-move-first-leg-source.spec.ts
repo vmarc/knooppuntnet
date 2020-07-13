@@ -43,9 +43,9 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
     TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("newStartFlag", [3, 3]);
-    setup.routeLayer.expectEndFlagExists("newSinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("newStartFlag", [3, 3]);
+    setup.markerLayer.expectEndFlagExists("newSinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("32", newLeg);
 
@@ -56,9 +56,9 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "oldStartFlag", [1, 1]);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("oldStartFlag", [1, 1]);
-    setup.routeLayer.expectEndFlagExists("oldSinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("oldStartFlag", [1, 1]);
+    setup.markerLayer.expectEndFlagExists("oldSinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", oldLeg);
 
@@ -69,9 +69,9 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
     TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
 
-    setup.routeLayer.expectFlagCount(2);
-    setup.routeLayer.expectStartFlagExists("newStartFlag", [3, 3]);
-    setup.routeLayer.expectEndFlagExists("newSinkFlag", [2, 2]);
+    setup.markerLayer.expectFlagCount(2);
+    setup.markerLayer.expectStartFlagExists("newStartFlag", [3, 3]);
+    setup.markerLayer.expectEndFlagExists("newSinkFlag", [2, 2]);
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("32", newLeg);
 

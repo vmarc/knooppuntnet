@@ -25,10 +25,10 @@ describe("PlannerCommandReset", () => {
     setup.context.execute(new PlannerCommandAddLeg(leg1.featureId));
     setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("viaFlag", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("endFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("viaFlag", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("endFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
@@ -49,10 +49,10 @@ describe("PlannerCommandReset", () => {
 
     resetCommand.undo(setup.context);
 
-    setup.routeLayer.expectFlagCount(3);
-    setup.routeLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.routeLayer.expectViaFlagExists("viaFlag", [2, 2]);
-    setup.routeLayer.expectEndFlagExists("endFlag", [3, 3]);
+    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+    setup.markerLayer.expectViaFlagExists("viaFlag", [2, 2]);
+    setup.markerLayer.expectEndFlagExists("endFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
