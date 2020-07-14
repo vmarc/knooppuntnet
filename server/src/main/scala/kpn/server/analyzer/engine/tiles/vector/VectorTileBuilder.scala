@@ -51,6 +51,7 @@ class VectorTileBuilder() extends TileBuilder {
             ListMap(
               "id" -> (tileRoute.routeId.toString + "-" + segment.pathId),
               "name" -> tileRoute.routeName,
+              "oneway" -> segment.oneWay.toString,
               "surface" -> segment.surface,
               "survey" -> surveyDate.yyyymm
             )
@@ -58,6 +59,7 @@ class VectorTileBuilder() extends TileBuilder {
             ListMap(
               "id" -> (tileRoute.routeId.toString + "-" + segment.pathId),
               "name" -> tileRoute.routeName,
+              "oneway" -> segment.oneWay.toString,
               "surface" -> segment.surface
             )
         }

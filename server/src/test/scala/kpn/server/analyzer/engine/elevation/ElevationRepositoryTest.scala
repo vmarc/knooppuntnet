@@ -8,17 +8,17 @@ class ElevationRepositoryTest extends UnitTest {
 
   private val repo = new ElevationRepositoryImpl()
 
-  test("Essen") {
+  ignore("Essen") {
     val essen = LatLonImpl.from(51.46774, 4.46839)
     repo.elevation(Converter.latLonToPoint(essen)) should equal(Some(13))
   }
 
-  test("Paris") {
+  ignore("Paris") {
     val paris = LatLonImpl.from(48.8568537, 2.3411688)
     repo.elevation(Converter.latLonToPoint(paris)) should equal(Some(39))
   }
 
-  test("Vienna") {
+  ignore("Vienna") {
     val vienna = LatLonImpl.from(48.12, 16.22)
     repo.elevation(Converter.latLonToPoint(vienna)) should equal(Some(378))
   }

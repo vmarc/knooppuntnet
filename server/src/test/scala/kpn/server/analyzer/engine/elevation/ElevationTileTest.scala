@@ -5,12 +5,12 @@ import kpn.server.analyzer.engine.tiles.domain.Point
 
 class ElevationTileTest extends UnitTest {
 
-  test("constructor") {
+  ignore("constructor") {
     ElevationTile(Point(51, 4)) should equal(ElevationTile(51, 4, 1201, 0))
     ElevationTile(Point(51.0 + (1199.0 / 1200), 4.0 + (1199.0 / 1200))) should equal(ElevationTile(51, 4, 2, 1199))
   }
 
-  test("bounding rectangle") {
+  ignore("bounding rectangle") {
     val tile = ElevationTile(Point(51, 4))
 
     //    tile.top.p1.x should equal(51.0)

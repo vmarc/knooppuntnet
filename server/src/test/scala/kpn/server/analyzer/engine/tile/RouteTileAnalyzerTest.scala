@@ -33,6 +33,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       segments = Seq(
         TileRouteSegment(
           0,
+          oneWay = false,
           "",
           lines = Seq(
             line
@@ -61,6 +62,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       segments = Seq(
         TileRouteSegment(
           0,
+          oneWay = false,
           "",
           lines = Seq(
             line
@@ -89,6 +91,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       segments = Seq(
         TileRouteSegment(
           0,
+          oneWay = false,
           "",
           lines = Seq(
             line

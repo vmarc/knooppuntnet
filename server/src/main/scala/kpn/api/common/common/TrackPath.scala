@@ -16,4 +16,12 @@ case class TrackPath(
     field("oneWay", oneWay).
     field("segments", segments).
     build
+
+  def trackPoints: Seq[TrackPoint] = {
+    segments.headOption match {
+      case None => Seq()
+      case Some(segment) => segment.source +: segments.flatMap(segment => segment.fragments.map(_.trackPoint))
+    }
+  }
+
 }
