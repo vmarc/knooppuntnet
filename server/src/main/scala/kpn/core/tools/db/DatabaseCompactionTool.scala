@@ -112,7 +112,7 @@ class DatabaseCompactionTool(template: RestOperations, baseUrl: String) {
   }
 
   private def waitUntilNoCompactionActive(immediate: Boolean = false): Unit = {
-    if (immediate) {
+    if (!immediate) {
       Thread.sleep(10000)
     }
     while (compactionActive()) {
