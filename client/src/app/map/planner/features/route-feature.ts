@@ -5,6 +5,7 @@ export class RouteFeature {
   constructor(readonly routeId: number,
               readonly pathId: number,
               readonly routeName: string,
+              readonly oneWay: boolean,
               readonly feature: FeatureLike) {
   }
 

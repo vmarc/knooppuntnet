@@ -75,10 +75,11 @@ export class PlannerInteraction {
       if (layer.endsWith("route")) {
         const segmentId = feature.get("id");
         const routeName = feature.get("name");
+        const oneWay = feature.get("oneway") === "true";
         const dashIndex = segmentId.indexOf("-");
         const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
         const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
-        return new RouteFeature(+routeId, +pathId, routeName, feature);
+        return new RouteFeature(+routeId, +pathId, routeName, oneWay, feature);
       }
     }
 
@@ -98,10 +99,11 @@ export class PlannerInteraction {
       if (layer.endsWith("route")) {
         const segmentId = feature.get("id");
         const routeName = feature.get("name");
+        const oneWay = feature.get("oneway") === "true";
         const dashIndex = segmentId.indexOf("-");
         const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
         const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
-        return new RouteFeature(+routeId, +pathId, routeName, feature);
+        return new RouteFeature(+routeId, +pathId, routeName, oneWay, feature);
       }
     }
 

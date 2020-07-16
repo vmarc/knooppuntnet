@@ -7,10 +7,12 @@ import {LineString} from "ol/geom";
 import GeometryLayout from "ol/geom/GeometryLayout";
 import GeometryType from "ol/geom/GeometryType";
 import RenderFeature from "ol/render/Feature";
+import {LegEndRoute} from "src/app/kpn/api/common/planner/leg-end-route";
 import {NodeClick} from "../../../components/ol/domain/node-click";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
 import {PoiId} from "../../../components/ol/domain/poi-id";
 import {RouteClick} from "../../../components/ol/domain/route-click";
+import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
@@ -390,7 +392,16 @@ export class PlannerEngineImpl implements PlannerEngine {
     const sourceNode = PlanUtil.planSinkNode(this.context.plan);
     const source: LegEnd = PlanUtil.legEndNode(+sourceNode.nodeId);
 
-    const sink: LegEnd = PlanUtil.legEndRoutes(routes);
+    const trackPathKeys = routes.flatMap(routeFeature => {
+      const trackPathKey = routeFeature.toTrackPathKey();
+      if (routeFeature.oneWay) {
+        return List([trackPathKey]);
+      }
+      const extraTrackPathKey = new TrackPathKey(routeFeature.routeId, 100 + routeFeature.pathId);
+      return List([trackPathKey, extraTrackPathKey]);
+    });
+
+    const sink: LegEnd = new LegEnd(null, new LegEndRoute(trackPathKeys));
     const sinkNode = PlanUtil.planNodeWithCoordinate("0", "", coordinate);
     const leg = this.context.buildLeg(source, sink, sourceNode, sinkNode, PlanFlagType.End);
 
