@@ -1,9 +1,12 @@
 package kpn.core.tools.db
 
+import java.io.File
+
 import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.json.Json
+import org.apache.commons.io.FileUtils
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -18,64 +21,35 @@ object DatabaseCompactionTool {
 
   def main(args: Array[String]): Unit = {
 
-    val host = "kpn-frontend"
-    val port = Couch.config.port
+    val exit = DatabaseCompactionToolOptions.parse(args) match {
+      case Some(options) =>
 
-    val backendCompactions = Seq(
-      DatabaseCompaction("analysis", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("analysis1", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("attic-analysis", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("attic-changes", Seq("ChangeDocumentsDesign", "ChangesDesign")),
-      DatabaseCompaction("backend-actions", Seq("BackendMetricsDesign")),
-      DatabaseCompaction("backend-actions-new", Seq()),
-      DatabaseCompaction("changes", Seq("ChangeDocumentsDesign", "ChangesDesign")),
-      DatabaseCompaction("changes-test", Seq("ChangeDocumentsDesign", "ChangesDesign")),
-      DatabaseCompaction("changes-tmp", Seq("ChangeDocumentsDesign", "ChangesDesign")),
-      // DatabaseCompaction("changes1", Seq("ChangeDocumentsDesign", "ChangesDesign")), // 36Gb !!
-      DatabaseCompaction("changesets2", Seq()),
-      DatabaseCompaction("frontend-actions", Seq("FrontEndActions")),
-      DatabaseCompaction("master-test", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("master-test-1", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("master-test-2", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("master1", Seq("AnalyzerDesign", "LocationDesign")),
-      DatabaseCompaction("master2", Seq("AnalyzerDesign", "LocationDesign")),
-      DatabaseCompaction("pois3", Seq("PoiDesign")),
-      DatabaseCompaction("pois4", Seq("PoiDesign")),
-      DatabaseCompaction("pois5", Seq("PoiDesign")),
-      DatabaseCompaction("tasks-test", Seq()),
-      DatabaseCompaction("tasks1", Seq())
-    )
+        log.info("Start")
 
-    val frontendCompactions = Seq(
-      DatabaseCompaction("analysis", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("analysis1", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("backend-actions", Seq("BackendMetricsDesign")),
-      DatabaseCompaction("changes", Seq("ChangeDocumentsDesign", "ChangesDesign")),
-      DatabaseCompaction("changes-test", Seq("ChangeDocumentsDesign", "ChangesDesign")),
-      // DatabaseCompaction("changes1", Seq("ChangeDocumentsDesign", "ChangesDesign")), // 36Gb !!
-      DatabaseCompaction("changesets2", Seq()),
-      DatabaseCompaction("frontend-actions", Seq("FrontEndActions")),
-      DatabaseCompaction("master-test", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("master-test-1", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("master-test-2", Seq("AnalyzerDesign", "LocationDesign", "PlannerDesign", "TileDesign")),
-      DatabaseCompaction("master1", Seq("AnalyzerDesign", "LocationDesign")),
-      DatabaseCompaction("master2", Seq("AnalyzerDesign", "LocationDesign")),
-      DatabaseCompaction("pois2", Seq("PoiDesign")),
-      DatabaseCompaction("pois4", Seq("PoiDesign")),
-    )
+        val context = DatabaseContextImpl(Couch.config, Json.objectMapper, "")
+        val template = context.authenticatedRestTemplate
 
+        try {
+          val url = s"http://${options.host}:${Couch.config.port}"
+          new DatabaseCompactionTool(template, url).go(options.compactions)
+          log.info(s"Done")
+        }
+        catch {
+          case e: Exception =>
+            log.error("Abort", e)
+        }
+        finally {
+          ()
+        }
 
-    val context = DatabaseContextImpl(Couch.config, Json.objectMapper, "")
-    val template = context.authenticatedRestTemplate
+        0
 
-    try {
-      new DatabaseCompactionTool(template, s"http://$host:$port").go(frontendCompactions)
+      case None =>
+        // arguments are bad, error message will have been displayed
+        -1
     }
-    catch {
-      case e: Exception =>
-        log.error("Abort", e)
-    }
-    log.info("Done")
+
+    System.exit(exit)
   }
 }
 
@@ -83,17 +57,23 @@ class DatabaseCompactionTool(template: RestOperations, baseUrl: String) {
 
   import DatabaseCompactionTool.log
 
-  def go(compactions: Seq[DatabaseCompaction]): Unit = {
+  def go(configurationFilename: String): Unit = {
+    val compactions = readCompactions(configurationFilename)
     waitUntilNoCompactionActive(immediate = true)
     compactions.foreach { compaction =>
-      compact(compaction.name)
+      compact(compaction.database)
       waitUntilNoCompactionActive()
       compaction.designs.foreach { design =>
-        compact(compaction.name, design)
+        compact(compaction.database, design)
         waitUntilNoCompactionActive()
       }
-      viewCleanup(compaction.name)
+      viewCleanup(compaction.database)
     }
+  }
+
+  private def readCompactions(configurationFilename: String): Seq[DatabaseCompaction] = {
+    val configuration = FileUtils.readFileToString(new File(configurationFilename), "UTF-8")
+    Json.objectMapper.readValue(configuration, classOf[DatabaseCompactions]).compactions
   }
 
   private def compact(database: String): Unit = {
