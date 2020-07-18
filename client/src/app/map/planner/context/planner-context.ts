@@ -1,5 +1,7 @@
 import {List} from "immutable";
+import {Coordinate} from "ol/coordinate";
 import {BehaviorSubject, Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";

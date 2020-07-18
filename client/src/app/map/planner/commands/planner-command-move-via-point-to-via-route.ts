@@ -1,8 +1,5 @@
 import {List} from "immutable";
-import {Coordinate} from "ol/coordinate";
 import {PlannerContext} from "../context/planner-context";
-import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlannerCommand} from "./planner-command";
 
@@ -10,26 +7,33 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
   constructor(private readonly oldLegId1: string,
               private readonly oldLegId2: string,
-              private readonly newLegId: string,
-              // private readonly viaRoute: ViaRoute,
-              private readonly coordinate: Coordinate) {
+              private readonly newLegId1: string,
+              private readonly newLegId2: string) {
   }
 
   public do(context: PlannerContext) {
+
     const oldLeg1 = context.legs.getById(this.oldLegId1);
     const oldLeg2 = context.legs.getById(this.oldLegId2);
-    const newLeg = context.legs.getById(this.newLegId);
+    const newLeg1 = context.legs.getById(this.newLegId1);
+    const newLeg2 = context.legs.getById(this.newLegId2);
 
-    context.markerLayer.removeFlagWithFeatureId(oldLeg1.sinkNode.featureId);
-    // TODO PLAN should create flag outside of this class
-    context.markerLayer.addFlag(new PlanFlag(PlanFlagType.Via, this.flagFeatureId(), this.coordinate));
+    context.markerLayer.removeFlag(oldLeg1.sinkFlag);
+    context.markerLayer.addFlag(newLeg1.viaFlag);
     context.routeLayer.removePlanLeg(oldLeg1.featureId);
     context.routeLayer.removePlanLeg(oldLeg2.featureId);
-    context.routeLayer.addPlanLeg(newLeg);
+    context.routeLayer.addPlanLeg(newLeg1);
+    context.routeLayer.addPlanLeg(newLeg2);
 
-    const newLegs: List<PlanLeg> = context.plan.legs
-      .map(leg => leg.featureId === oldLeg1.featureId ? newLeg : leg)
-      .filter(leg => leg.featureId !== oldLeg2.featureId);
+    const newLegs: List<PlanLeg> = context.plan.legs.map(leg => {
+      if (leg.featureId === oldLeg1.featureId) {
+        return newLeg1;
+      }
+      if (leg.featureId === oldLeg2.featureId) {
+        return newLeg2;
+      }
+      return leg;
+    });
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
@@ -38,25 +42,29 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
     const oldLeg1 = context.legs.getById(this.oldLegId1);
     const oldLeg2 = context.legs.getById(this.oldLegId2);
-    const newLeg = context.legs.getById(this.newLegId);
+    const newLeg1 = context.legs.getById(this.newLegId1);
+    const newLeg2 = context.legs.getById(this.newLegId2);
 
-    context.markerLayer.removeFlagWithFeatureId(this.flagFeatureId());
+    context.markerLayer.removeFlag(newLeg1.viaFlag);
+
     context.markerLayer.addFlag(oldLeg1.sinkFlag);
+
+    context.routeLayer.removePlanLeg(newLeg1.featureId);
+    context.routeLayer.removePlanLeg(newLeg2.featureId);
     context.routeLayer.addPlanLeg(oldLeg1);
     context.routeLayer.addPlanLeg(oldLeg2);
-    context.routeLayer.removePlanLeg(newLeg.featureId);
 
-    const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg.featureId);
-    if (legIndex > -1) {
-      const newLegs1 = context.plan.legs.update(legIndex, () => oldLeg1);
-      const newLegs2 = newLegs1.insert(legIndex + 1, oldLeg2);
-      const newPlan = context.plan.withLegs(newLegs2);
-      context.updatePlan(newPlan);
-    }
-  }
-
-  private flagFeatureId(): string {
-    return ""; // this.viaRoute.routeId + "-" + this.viaRoute.pathId;
+    const newLegs: List<PlanLeg> = context.plan.legs.map(leg => {
+      if (leg.featureId === newLeg1.featureId) {
+        return oldLeg1;
+      }
+      if (leg.featureId === newLeg2.featureId) {
+        return oldLeg2;
+      }
+      return leg;
+    });
+    const newPlan = context.plan.withLegs(newLegs);
+    context.updatePlan(newPlan);
   }
 
 }

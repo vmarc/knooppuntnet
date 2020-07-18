@@ -48,3 +48,4 @@ Post 3.0.0 release
 - [ ] issue #95 ferry
 - [ ] cobblestone surface
 - [ ] improved strategy for update of routing graph
+- [ ] Spain

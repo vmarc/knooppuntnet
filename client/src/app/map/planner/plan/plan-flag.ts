@@ -20,6 +20,10 @@ export class PlanFlag {
     return new PlanFlag(PlanFlagType.Via, featureId, coordinate);
   }
 
+  static invisible(featureId: string, coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.Invisible, featureId, coordinate);
+  }
+
   toVia(): PlanFlag {
     return new PlanFlag(PlanFlagType.Via, this.featureId, this.coordinate);
   }
