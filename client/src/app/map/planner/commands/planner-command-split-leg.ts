@@ -1,5 +1,4 @@
 import {PlannerContext} from "../context/planner-context";
-import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
@@ -15,6 +14,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
+    context.markerLayer.removeFlag(oldLeg.viaFlag);
     context.markerLayer.addFlag(newLeg1.sinkFlag);
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === oldLeg.featureId);
     if (legIndex > -1) {
@@ -36,6 +36,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.markerLayer.removeFlag(newLeg1.sinkFlag);
     context.routeLayer.removePlanLeg(newLeg1.featureId);
     context.routeLayer.removePlanLeg(newLeg2.featureId);
+    context.markerLayer.addFlag(oldLeg.viaFlag);
     context.routeLayer.addPlanLeg(oldLeg);
     const legIndex = context.plan.legs.findIndex(leg => leg.featureId === newLeg1.featureId);
     if (legIndex > -1) {

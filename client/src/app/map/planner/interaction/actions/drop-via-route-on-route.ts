@@ -11,19 +11,13 @@ import {PlanFlag} from "../../plan/plan-flag";
 import {PlanFlagType} from "../../plan/plan-flag-type";
 import {PlanLeg} from "../../plan/plan-leg";
 import {PlanUtil} from "../../plan/plan-util";
-import {PlannerDragFlag} from "../planner-drag-flag";
 
-export class DropRouteViaFlagOnRoute {
+export class DropViaRouteOnRoute {
 
   constructor(private readonly context: PlannerContext) {
   }
 
-  drop(nodeDrag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
-
-    const legs = this.context.plan.legs;
-    const oldLegIndex = legs.findIndex(leg => nodeDrag.planFlag.featureId === leg.viaFlag?.featureId);
-    const oldLeg = legs.get(oldLegIndex);
-
+  drop(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
     this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate).subscribe(newLeg1 => {
       if (newLeg1) {
         this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag, coordinate).subscribe(newLeg2 => {

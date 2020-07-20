@@ -1,7 +1,6 @@
 The following table describes the interactions with nodes and routes in the planner map. 
 This is intended for manual testing of these interactions. 
 
-
 |Nr|planner interaction|OK|expected result
 |:---|:---|:---|:---
 |1|hover over node|OK|cursor changes (+ yellow highlight) to indicate node is clickable
@@ -25,10 +24,10 @@ This is intended for manual testing of these interactions.
 |19|drag brown node via marker, drop on other node|OK|via point is moved, legs are recalculated
 |20|drag brown via-route via marker, drop on other node|OK|via point is moved, legs are recalculated
 |21|drag brown node via marker, drop on route|OK|via point is moved, legs are recalculated
-|22|drag brown via-route via marker, drop on route|NOK|via point is moved, legs are recalculated
+|22|drag brown via-route via marker, drop on route|OK|via point is moved, legs are recalculated
 |23|drag node-to-node-leg, drop on node|OK|via point is move, legs are recalculated
-|24|drag node-to-node-leg, drop on route|OK|via point is move, legs are recalculated
-|25|drag via-route-leg, drop on node|almost ok|TODO old via point still shown
-|26|drag via-route-leg, drop on route|NOK|TODO not implemented?
+|24|drag node-to-node-leg, drop on route|OK|via point is moved, legs are recalculated
+|25|drag via-route-leg, drop on node|OK|via point is moved, legs are recalculated
+|26|drag via-route-leg, drop on route|OK|via point is moved, legs are recalculated
 |27|single click on brown node via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
 |28|single click on brown route via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node

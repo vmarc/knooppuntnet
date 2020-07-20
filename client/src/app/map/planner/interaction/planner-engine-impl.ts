@@ -33,8 +33,8 @@ import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {DropEndNodeOnRoute} from "./actions/drop-end-node-on-route";
-import {DropRouteViaFlagOnRoute} from "./actions/drop-route-via-flag-on-route";
 import {DropViaNodeOnRoute} from "./actions/drop-via-node-on-route";
+import {DropViaRouteOnRoute} from "./actions/drop-via-route-on-route";
 import {MoveFirstLegSource} from "./actions/move-first-leg-source";
 import {MoveNodeViaPointToNode} from "./actions/move-node-via-point-to-node";
 import {MoveRouteViaPointToNode} from "./actions/move-route-via-point-to-node";
@@ -257,8 +257,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         const routeFeatures = Features.findRoutes(features);
         if (!routeFeatures.isEmpty()) {
           if (this.isDraggingLeg()) {
-            // TODO PLAN make following line work again
-            // this.dropLegOnRoute(routeFeature, coordinate);
+            this.dropLegOnRoute(routeFeatures, coordinate);
           } else if (this.isDraggingNode()) {
             this.dropNodeOnRoute(routeFeatures, coordinate);
           }
@@ -561,14 +560,20 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
   }
 
-  private dropLegOnRoute(routeFeature: RouteFeature, coordinate: Coordinate) {
-    console.log("drop leg on routeFeature id=" + routeFeature.feature.get("id"));
+  private dropLegOnRoute(routeFeatures: List<RouteFeature>, coordinate: Coordinate) {
+    const oldLeg = this.context.plan.legs.find(leg => leg.featureId === this.legDrag.oldLegId);
+    if (oldLeg) {
+      new DropViaRouteOnRoute(this.context).drop(oldLeg, routeFeatures, coordinate);
+    }
   }
 
   private dropNodeOnRoute(routeFeatures: List<RouteFeature>, coordinate: Coordinate) {
     if (this.nodeDrag.planFlag.flagType === PlanFlagType.Via) {
       if (this.nodeDrag.oldNode === null) {
-        new DropRouteViaFlagOnRoute(this.context).drop(this.nodeDrag, routeFeatures, coordinate);
+        const oldLeg = this.context.plan.legs.find(leg => this.nodeDrag.planFlag.featureId === leg.viaFlag?.featureId);
+        if (oldLeg) {
+          new DropViaRouteOnRoute(this.context).drop(oldLeg, routeFeatures, coordinate);
+        }
       } else {
         new DropViaNodeOnRoute(this.context).drop(this.nodeDrag, routeFeatures, coordinate);
       }
