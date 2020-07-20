@@ -23,7 +23,7 @@ This is intended for manual testing of these interactions.
 |17|in plan with last leg node-to-node, drag green end marker, drop on route|OK|end marker moved, leg recalculated
 |18|in plan with last leg via-route, drag green end marker, drop on route|OK|end marker moved, route-via-markers are kept
 |19|drag brown node via marker, drop on other node|OK|via point is moved, legs are recalculated
-|20|drag brown via-route via marker, drop on other node|NOK|via point is moved, legs are recalculated
+|20|drag brown via-route via marker, drop on other node|OK|via point is moved, legs are recalculated
 |21|drag brown node via marker, drop on route|OK|via point is moved, legs are recalculated
 |22|drag brown via-route via marker, drop on route|NOK|via point is moved, legs are recalculated
 |23|drag node-to-node-leg, drop on node|OK|via point is move, legs are recalculated

@@ -19,7 +19,6 @@ import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
-import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
 import {PlannerCommandRemoveRouteViaPoint} from "../commands/planner-command-remove-route-via-point";
 import {PlannerCommandRemoveViaPoint} from "../commands/planner-command-remove-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
@@ -36,6 +35,8 @@ import {PlanUtil} from "../plan/plan-util";
 import {DropEndNodeOnRoute} from "./actions/drop-end-node-on-route";
 import {DropViaNodeOnRoute} from "./actions/drop-via-node-on-route";
 import {MoveFirstLegSource} from "./actions/move-first-leg-source";
+import {MoveNodeViaPointToNode} from "./actions/move-node-via-point-to-node";
+import {MoveRouteViaPointToNode} from "./actions/move-route-via-point-to-node";
 import {Features} from "./features";
 import {PlannerDragFlag} from "./planner-drag-flag";
 import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
@@ -172,6 +173,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
     if (this.isDraggingNode()) {
+
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         this.highlightNode(networkNodeFeature.node);
@@ -236,14 +238,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
-    if (this.isViaRouteFlagClicked(singleClick)) {
-      console.log("viaRouteFlagClicked");
-    }
-
-
     if (this.isDraggingLeg() || this.isDraggingNode()) {
-
-      console.log("end draggingLeg or draggingNode");
 
       this.context.cursor.setStyleDefault();
       this.context.elasticBand.setInvisible();
@@ -357,7 +352,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   private removeViaLegRouteViaPoint(oldLeg1: PlanLeg): void {
 
     const oldLeg2 = this.context.plan.legs.find(leg => {
-      console.log("  leg.sourceNode.featureId=" + leg.sourceNode.nodeId + ", oldLeg1.sinkNode.featureId=" + oldLeg1.sinkNode.nodeId);
       return leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId;
     });
 
@@ -402,8 +396,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private routeSelected(routes: List<RouteFeature>, coordinate: Coordinate): void {
-
-    console.log("routeSelected()");
 
     // current sink is source for new leg
     const sourceNode = PlanUtil.planSinkNode(this.context.plan);
@@ -474,7 +466,9 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private isViaFlagClicked(singleClick: boolean): boolean {
-    return singleClick === true && this.nodeDrag !== null
+    return singleClick === true
+      && this.nodeDrag !== null
+      && this.nodeDrag.oldNode !== null
       && this.nodeDrag.oldNode.featureId !== this.context.plan.sinkNode().featureId
       && this.nodeDrag.oldNode.featureId !== this.context.plan.sourceNode.featureId;
   }
@@ -534,12 +528,9 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private moveEndPoint(sinkNode: PlanNode): void {
 
-    console.log("moveEndPoint()");
-
     const oldLeg = this.context.plan.legs.get(-1, null);
 
     if (oldLeg.viaFlag) {
-      console.log("moveEndPoint() via-route");
       const sourceNode: PlanNode = oldLeg.sinkNode;
       const source = PlanUtil.legEndNode(+sourceNode.nodeId);
       const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
@@ -547,7 +538,6 @@ export class PlannerEngineImpl implements PlannerEngine {
       const command = new PlannerCommandAddLeg(leg.featureId);
       this.context.execute(command);
     } else {
-      console.log("moveEndPoint() end-node");
       const sourceNode = oldLeg.sourceNode;
       const source = PlanUtil.legEndNode(+sourceNode.nodeId);
       const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
@@ -555,36 +545,19 @@ export class PlannerEngineImpl implements PlannerEngine {
       const command = new PlannerCommandMoveEndPoint(oldLeg.featureId, newLeg.featureId);
       this.context.execute(command);
     }
-
   }
 
   private moveViaPoint(targetNode: PlanNode): void {
-
     const legs = this.context.plan.legs;
     const legIndex1 = legs.findIndex(leg => leg.sinkFlag.featureId === this.nodeDrag.planFlag.featureId);
-    const oldLeg1 = legs.get(legIndex1);
-    const oldLeg2 = legs.get(legIndex1 + 1);
-
-    const sourceNode1 = oldLeg1.sourceNode;
-    const sinkNode1 = targetNode;
-    const source1 = PlanUtil.legEndNode(+sourceNode1.nodeId);
-    const sink1 = PlanUtil.legEndNode(+sinkNode1.nodeId);
-
-    const sourceNode2 = targetNode;
-    const sinkNode2 = oldLeg2.sinkNode;
-    const source2 = PlanUtil.legEndNode(+sourceNode2.nodeId);
-    const sink2 = PlanUtil.legEndNode(+sinkNode2.nodeId);
-
-    const newLeg1 = this.context.buildLeg(source1, sink1, sourceNode1, sinkNode1, PlanFlagType.Via);
-    const newLeg2 = this.context.buildLeg(source2, sink2, sourceNode2, sinkNode2, PlanFlagType.End);
-
-    const command = new PlannerCommandMoveViaPoint(
-      oldLeg1.featureId,
-      oldLeg2.featureId,
-      newLeg1.featureId,
-      newLeg2.featureId
-    );
-    this.context.execute(command);
+    if (legIndex1 >= 0) {
+      new MoveNodeViaPointToNode(this.context).move(targetNode, legIndex1);
+    } else {
+      const viaLegIndex = legs.findIndex(leg => this.nodeDrag.planFlag.featureId === leg.viaFlag?.featureId);
+      if (viaLegIndex >= 0) {
+        new MoveRouteViaPointToNode(this.context).move(targetNode, viaLegIndex);
+      }
+    }
   }
 
   private dropLegOnRoute(routeFeature: RouteFeature, coordinate: Coordinate) {
