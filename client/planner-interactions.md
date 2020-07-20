@@ -1,3 +1,7 @@
+The following table describes the interactions with nodes and routes in the planner map. 
+This is intended for manual testing of these interactions. 
+
+
 |Nr|planner interaction|OK|expected result
 |:---|:---|:---|:---
 |1|hover over node|OK|cursor changes (+ yellow highlight) to indicate node is clickable
@@ -12,17 +16,19 @@
 |10|click route in plan with last leg node-to-node|OK|adds leg, adds brown via marker on the coordinate that was clicked and adds green end marker on destination node, previous green end marker becomes brown via marker
 |11|in plan with start marker only, drag blue start marker, drop on other node|OK|plan start is moved
 |12|in plan with first leg node-to-node, drag blue start marker, drop on other node|OK|plan start is moved, first leg is recalculated
-|13|in plan with first leg via-route, drag blue start marker, drop on other node|NOK|plan start is moved, first leg is recalculated (keeps going through route-via-point)
-|14|drag blue start marker, drop on route|NOK|not supported, no cursor/highlight change when hovering over route - marker jumps back to original position
+|13|in plan with first leg via-route, drag blue start marker, drop on other node|OK|plan start is moved, first leg is recalculated (keeps going through route-via-point, end marker can change)
+|14|drag blue start marker, drop on route|OK|not supported, no cursor/highlight change when hovering over route - marker jumps back to original position
 |15|in plan with last leg node-to-node, drag green end marker, drop on other node|OK|plan destination is moved, last leg is recalculated
-|16|in plan with last leg via-route, drag green end marker, drop on other node|?|plan destination is moved, last leg is recalculated
-|17|in plan with last leg node-to-node, drag green end marker, drop on route|?|TODO
-|18|in plan with last leg via-route, drag green end marker, drop on route|?|TODO
-|19|drag brown node via marker, drop on other node|?|via point is moved, legs are recalculated
-|20|drag brown via-route via marker, drop on other node|?|via point is moved, legs are recalculated
-|21|drag brown node via marker, drop on route|?|via point is moved, legs are recalculated
-|22|drag brown via-route via marker, drop on route|?|via point is moved, legs are recalculated
-|23|drag node-to-node-leg, drop on node|?|TODO
-|24|drag node-to-node-leg, drop on route|?|TODO
-|25|drag via-route-leg, drop on node|?|TODO
-|26|drag via-route-leg, drop on route|?|TODO
+|16|in plan with last leg via-route, drag green end marker, drop on other node|OK|add leg to new destination, keep the last via-route
+|17|in plan with last leg node-to-node, drag green end marker, drop on route|OK|end marker moved, leg recalculated
+|18|in plan with last leg via-route, drag green end marker, drop on route|OK|end marker moved, route-via-markers are kept
+|19|drag brown node via marker, drop on other node|OK|via point is moved, legs are recalculated
+|20|drag brown via-route via marker, drop on other node|NOK|via point is moved, legs are recalculated
+|21|drag brown node via marker, drop on route|OK|via point is moved, legs are recalculated
+|22|drag brown via-route via marker, drop on route|NOK|via point is moved, legs are recalculated
+|23|drag node-to-node-leg, drop on node|OK|via point is move, legs are recalculated
+|24|drag node-to-node-leg, drop on route|OK|via point is move, legs are recalculated
+|25|drag via-route-leg, drop on node|almost ok|TODO old via point still shown
+|26|drag via-route-leg, drop on route|NOK|TODO not implemented?
+|27|single click on brown node via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
+|28|single click on brown route via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
