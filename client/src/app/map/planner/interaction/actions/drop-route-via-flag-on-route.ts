@@ -1,0 +1,81 @@
+import {List} from "immutable";
+import {Coordinate} from "ol/coordinate";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
+import {PlannerCommandMoveRouteViaPoint} from "../../commands/planner-command-move-route-via-point";
+import {PlannerContext} from "../../context/planner-context";
+import {FeatureId} from "../../features/feature-id";
+import {RouteFeature} from "../../features/route-feature";
+import {PlanFlag} from "../../plan/plan-flag";
+import {PlanFlagType} from "../../plan/plan-flag-type";
+import {PlanLeg} from "../../plan/plan-leg";
+import {PlanUtil} from "../../plan/plan-util";
+import {PlannerDragFlag} from "../planner-drag-flag";
+
+export class DropRouteViaFlagOnRoute {
+
+  constructor(private readonly context: PlannerContext) {
+  }
+
+  drop(nodeDrag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
+
+    const legs = this.context.plan.legs;
+    const oldLegIndex = legs.findIndex(leg => nodeDrag.planFlag.featureId === leg.viaFlag?.featureId);
+    const oldLeg = legs.get(oldLegIndex);
+
+    this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate).subscribe(newLeg1 => {
+      if (newLeg1) {
+        this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag, coordinate).subscribe(newLeg2 => {
+          if (newLeg2) {
+            const command = new PlannerCommandMoveRouteViaPoint(
+              oldLeg.featureId,
+              newLeg1.featureId,
+              newLeg2.featureId
+            );
+            this.context.execute(command);
+          }
+        });
+      }
+    });
+  }
+
+  private buildViaRouteLeg(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): Observable<PlanLeg> {
+
+    const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
+    const sink = PlanUtil.legEndRoutes(routeFeatures);
+
+    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+      map(planLegDetail => {
+        if (planLegDetail) {
+          const legKey = PlanUtil.key(source, sink);
+          const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+          const sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
+          const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, planLegDetail.routes);
+          this.context.legs.add(newLeg);
+          return newLeg;
+        }
+        return null;
+      })
+    );
+  }
+
+  private buildNodeToNodeLeg(sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag, coordinate: Coordinate): Observable<PlanLeg> {
+
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+
+    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+      map(planLegDetail => {
+        if (planLegDetail) {
+          const legKey = PlanUtil.key(source, sink);
+          const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, planLegDetail.routes);
+          this.context.legs.add(leg);
+          return leg;
+        }
+        return null;
+      })
+    );
+  }
+
+}

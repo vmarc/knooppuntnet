@@ -2,7 +2,7 @@ import {List} from "immutable";
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
 
-export class PlannerCommandMoveRouteViaPointToNode implements PlannerCommand {
+export class PlannerCommandMoveRouteViaPoint implements PlannerCommand {
 
   constructor(private readonly oldLegId: string,
               private readonly newLegId1: string,
@@ -10,11 +10,13 @@ export class PlannerCommandMoveRouteViaPointToNode implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
+
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
     context.markerLayer.removeFlag(oldLeg.viaFlag);
+    context.markerLayer.addFlag(newLeg1.viaFlag);
     context.markerLayer.addFlag(newLeg1.sinkFlag);
     context.routeLayer.removePlanLeg(oldLeg.featureId);
     context.routeLayer.addPlanLeg(newLeg1);
@@ -37,6 +39,7 @@ export class PlannerCommandMoveRouteViaPointToNode implements PlannerCommand {
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
+    context.markerLayer.removeFlag(newLeg1.viaFlag);
     context.markerLayer.removeFlag(newLeg1.sinkFlag);
     context.markerLayer.addFlag(oldLeg.viaFlag);
     context.routeLayer.removePlanLeg(newLeg1.featureId);

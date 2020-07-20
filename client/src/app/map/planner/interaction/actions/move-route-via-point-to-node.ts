@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveRouteViaPointToNode} from "../../commands/planner-command-move-route-via-point-to-node";
+import {PlannerCommandMoveRouteViaPoint} from "../../commands/planner-command-move-route-via-point";
 import {PlannerContext} from "../../context/planner-context";
 import {FeatureId} from "../../features/feature-id";
 import {PlanFlag} from "../../plan/plan-flag";
@@ -24,7 +24,7 @@ export class MoveRouteViaPointToNode {
 
     combineLatest([newLeg1$, newLeg2$]).pipe(
       tap(([newLeg1, newLeg2]) => {
-        const command = new PlannerCommandMoveRouteViaPointToNode(
+        const command = new PlannerCommandMoveRouteViaPoint(
           oldLeg.featureId,
           newLeg1.featureId,
           newLeg2.featureId

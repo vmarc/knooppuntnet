@@ -33,6 +33,7 @@ import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {DropEndNodeOnRoute} from "./actions/drop-end-node-on-route";
+import {DropRouteViaFlagOnRoute} from "./actions/drop-route-via-flag-on-route";
 import {DropViaNodeOnRoute} from "./actions/drop-via-node-on-route";
 import {MoveFirstLegSource} from "./actions/move-first-leg-source";
 import {MoveNodeViaPointToNode} from "./actions/move-node-via-point-to-node";
@@ -566,7 +567,11 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private dropNodeOnRoute(routeFeatures: List<RouteFeature>, coordinate: Coordinate) {
     if (this.nodeDrag.planFlag.flagType === PlanFlagType.Via) {
-      new DropViaNodeOnRoute(this.context).drop(this.nodeDrag, routeFeatures, coordinate);
+      if (this.nodeDrag.oldNode === null) {
+        new DropRouteViaFlagOnRoute(this.context).drop(this.nodeDrag, routeFeatures, coordinate);
+      } else {
+        new DropViaNodeOnRoute(this.context).drop(this.nodeDrag, routeFeatures, coordinate);
+      }
     } else if (this.nodeDrag.planFlag.flagType === PlanFlagType.End) {
       new DropEndNodeOnRoute(this.context).drop(this.nodeDrag, routeFeatures, coordinate);
     }
