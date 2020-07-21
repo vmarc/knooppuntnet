@@ -30,9 +30,6 @@ This is intended for manual testing of these interactions.
 |25|drag via-route-leg, drop on node|OK|via point is moved, legs are recalculated
 |26|drag via-route-leg, drop on route|OK|via point is moved, legs are recalculated
 |27|single click on brown node via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
-|28|single click on brown route via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
+|28|single click on brown route via marker|NOK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
 
-TODO click on via-route via marker to delete it
-
-TODO not shortest route: http://localhost:4100/map/cycling#49fxwl-4w9g.1|4w9g.2t
-TODO not shortest route: http://localhost:4100/map/cycling#49fxwl-52kln.1|52kln.2t
+TODO save and restore plan with via-route via clipboard link or QR code 

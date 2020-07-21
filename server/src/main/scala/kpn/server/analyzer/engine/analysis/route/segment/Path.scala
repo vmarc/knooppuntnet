@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.common.TrackPoint
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 
 object Path {
@@ -20,4 +21,7 @@ case class Path(
 
   def routeNodes: Seq[RouteNode] = Seq(start, end).flatten
 
+  def trackPoints: Seq[TrackPoint] = {
+    segments.flatMap(_.nodes).map(node => TrackPoint(node.latitude, node.longitude))
+  }
 }

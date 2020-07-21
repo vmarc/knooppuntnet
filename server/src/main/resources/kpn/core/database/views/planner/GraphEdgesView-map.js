@@ -42,8 +42,16 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var routeId = doc.route.summary.id;
   var routeMap = doc.route.analysis.map;
 
-  emitPath(networkType, routeId, routeMap.forwardPath, true);
-  emitPath(networkType, routeId, routeMap.backwardPath, true);
+  if (routeMap.forwardPath) {
+    emitPath(networkType, routeId, routeMap.forwardPath, routeMap.forwardPath.oneWay);
+    if (routeMap.forwardPath.oneWay === true) {
+      emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
+    }
+  }
+  else {
+    emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
+  }
+
   emitPaths(networkType, routeId, routeMap.startTentaclePaths);
   emitPaths(networkType, routeId, routeMap.endTentaclePaths);
 }

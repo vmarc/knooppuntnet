@@ -57,10 +57,14 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
 
     val pathIdIterator = (1L to 10000L).iterator
 
+    val forwardPathTrackPoints = structure.forwardPath.toSeq.flatMap(_.trackPoints)
+    val backwardPathTrackPoints = structure.backwardPath.toSeq.flatMap(_.trackPoints)
+    val same = forwardPathTrackPoints == backwardPathTrackPoints.reverse
+
     RouteMap(
       bounds,
-      forwardPath = structure.forwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = true)),
-      backwardPath = structure.backwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = true)),
+      forwardPath = structure.forwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = !same)),
+      backwardPath = structure.backwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = !same)),
       unusedSegments = structure.unusedSegments.map(toTrackSegment),
       startTentaclePaths = structure.startTentaclePaths.map(path => toTrackPath(pathIdIterator, path)),
       endTentaclePaths = structure.endTentaclePaths.map(path => toTrackPath(pathIdIterator, path)),
