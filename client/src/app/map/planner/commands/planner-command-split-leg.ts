@@ -10,6 +10,8 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
+    context.debug("PlannerCommandSplitLeg");
+
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
@@ -28,6 +30,8 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+
+    context.debug("PlannerCommandSplitLeg undo");
 
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg1 = context.legs.getById(this.newLegId1);

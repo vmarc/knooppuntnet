@@ -2,7 +2,7 @@ import {List} from "immutable";
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
 
-export class PlannerCommandMoveRouteViaPoint implements PlannerCommand {
+export class PlannerCommandMoveViaRoute implements PlannerCommand {
 
   constructor(private readonly oldLegId: string,
               private readonly newLegId1: string,
@@ -11,14 +11,17 @@ export class PlannerCommandMoveRouteViaPoint implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
+    context.debug("PlannerCommandMoveViaRoute");
+
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg1 = context.legs.getById(this.newLegId1);
     const newLeg2 = context.legs.getById(this.newLegId2);
 
     context.markerLayer.removeFlag(oldLeg.viaFlag);
+    context.routeLayer.removePlanLeg(oldLeg.featureId);
+
     context.markerLayer.addFlag(newLeg1.viaFlag);
     context.markerLayer.addFlag(newLeg1.sinkFlag);
-    context.routeLayer.removePlanLeg(oldLeg.featureId);
     context.routeLayer.addPlanLeg(newLeg1);
     context.routeLayer.addPlanLeg(newLeg2);
 
@@ -34,6 +37,8 @@ export class PlannerCommandMoveRouteViaPoint implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+
+    context.debug("PlannerCommandMoveViaRoute undo");
 
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg1 = context.legs.getById(this.newLegId1);

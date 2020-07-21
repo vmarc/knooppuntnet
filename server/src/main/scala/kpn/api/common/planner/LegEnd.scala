@@ -36,7 +36,24 @@ object LegEnd {
       }
 
       planString.split("-").toSeq.flatMap { fragment =>
-        if (fragment.contains(".")) {
+        if (fragment.contains("|")) {
+          fragment.split("\\|") match {
+            case subFragments =>
+              val paths = subFragments.toSeq.flatMap { subFragment =>
+                subFragment.split("\\.") match {
+                  case Array(routeIdFragment, pathIdFragment) =>
+                    val routeId = fragmentToLong(routeIdFragment)
+                    val pathId = fragmentToLong(pathIdFragment)
+                    Some(TrackPathKey(routeId, pathId))
+                  case _ => None
+                }
+              }
+              Some(LegEnd.route(LegEndRoute(paths)))
+
+            case _ => None
+          }
+        }
+        else if (fragment.contains(".")) {
           fragment.split("\\.") match {
             case Array(routeIdFragment, pathIdFragment) =>
               val routeId = fragmentToLong(routeIdFragment)

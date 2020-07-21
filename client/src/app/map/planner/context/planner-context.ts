@@ -168,4 +168,8 @@ export class PlannerContext {
     return leg;
   }
 
+  debug(message: string): void {
+    console.log("PLANNER: " + message);
+  }
+
 }

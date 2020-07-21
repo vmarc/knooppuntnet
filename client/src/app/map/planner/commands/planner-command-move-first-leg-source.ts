@@ -15,6 +15,7 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
+    context.debug("PlannerCommandMoveFirstLegSource");
     this.update(
       context,
       this.oldLegId,
@@ -27,6 +28,7 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+    context.debug("PlannerCommandMoveFirstLegSource undo");
     this.update(
       context,
       this.newLegId,

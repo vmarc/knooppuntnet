@@ -10,8 +10,8 @@ This is intended for manual testing of these interactions.
 |5|click route in empty plan|OK|not possible, route cannot be starting point
 |6|click node in plan with start marker only|OK|adds leg and green end marker
 |7|click node in plan with last leg node-to-node|OK|adds leg, and green end marker, previous green end marker becomes brown via marker
-|8|click node in plan with last leg via-route|OK|adds leg and green end marker, previous green end marker becomes invisible (brown route via marker remains)
-|9|click route in plan with start marker only|OK|adds leg, adds brown via marker on the coordinate that was clicked and adds green end marker on destination node
+|8|click route in plan with start marker only|OK|adds leg, adds brown via marker on the coordinate that was clicked and adds green end marker on destination node
+|9|click node in plan with last leg via-route|OK|adds leg and green end marker, previous green end marker becomes invisible (brown route via marker remains)
 |10|click route in plan with last leg node-to-node|OK|adds leg, adds brown via marker on the coordinate that was clicked and adds green end marker on destination node, previous green end marker becomes brown via marker
 |11|in plan with start marker only, drag blue start marker, drop on other node|OK|plan start is moved
 |12|in plan with first leg node-to-node, drag blue start marker, drop on other node|OK|plan start is moved, first leg is recalculated
@@ -31,3 +31,8 @@ This is intended for manual testing of these interactions.
 |26|drag via-route-leg, drop on route|OK|via point is moved, legs are recalculated
 |27|single click on brown node via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
 |28|single click on brown route via marker|OK|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
+
+TODO click on via-route via marker to delete it
+
+TODO not shortest route: http://localhost:4100/map/cycling#49fxwl-4w9g.1|4w9g.2t
+TODO not shortest route: http://localhost:4100/map/cycling#49fxwl-52kln.1|52kln.2t

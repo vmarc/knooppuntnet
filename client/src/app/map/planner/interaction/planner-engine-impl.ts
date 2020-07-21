@@ -267,7 +267,10 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       if (this.isDraggingNode()) {
         // cancel drag - put flag at its original coordinate again
-        this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, this.nodeDrag.oldNode.coordinate);
+
+        console.log("RESET " + singleClick);
+
+        this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, this.nodeDrag.planFlag.coordinate);
       }
 
       this.dragCancel();
@@ -311,7 +314,12 @@ export class PlannerEngineImpl implements PlannerEngine {
   private removeViaPoint(): void {
 
     const legs = this.context.plan.legs;
-    const nextLegIndex = legs.findIndex(leg => leg.sourceNode.featureId === this.nodeDrag.oldNode.featureId);
+    const nextLegIndex = legs.findIndex(leg => {
+      if (this.nodeDrag.oldNode !== null) {
+        return leg.sourceNode.featureId === this.nodeDrag.oldNode.featureId;
+      }
+      return this.nodeDrag.planFlag.featureId === leg.viaFlag?.featureId;
+    });
     const oldLeg1 = legs.get(nextLegIndex - 1);
     const oldLeg2 = legs.get(nextLegIndex);
 
@@ -466,11 +474,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private isViaFlagClicked(singleClick: boolean): boolean {
-    return singleClick === true
-      && this.nodeDrag !== null
-      && this.nodeDrag.oldNode !== null
-      && this.nodeDrag.oldNode.featureId !== this.context.plan.sinkNode().featureId
-      && this.nodeDrag.oldNode.featureId !== this.context.plan.sourceNode.featureId;
+    return singleClick === true && this.nodeDrag !== null && (this.nodeDrag.planFlag.flagType === PlanFlagType.Via);
   }
 
   private isViaRouteFlagClicked(singleClick: boolean): boolean {

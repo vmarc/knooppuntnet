@@ -8,10 +8,12 @@ export class PlannerCommandMoveEndPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
+    context.debug("PlannerCommandMoveEndPoint");
     this.update(context, this.oldLastLegId, this.newLastLegId);
   }
 
   public undo(context: PlannerContext) {
+    context.debug("PlannerCommandMoveEndPoint undo");
     this.update(context, this.newLastLegId, this.oldLastLegId);
   }
 

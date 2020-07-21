@@ -3,7 +3,7 @@ import {Coordinate} from "ol/coordinate";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveRouteViaPoint} from "../../commands/planner-command-move-route-via-point";
+import {PlannerCommandMoveViaRoute} from "../../commands/planner-command-move-via-route";
 import {PlannerContext} from "../../context/planner-context";
 import {FeatureId} from "../../features/feature-id";
 import {RouteFeature} from "../../features/route-feature";
@@ -22,7 +22,7 @@ export class DropViaRouteOnRoute {
       if (newLeg1) {
         this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag, coordinate).subscribe(newLeg2 => {
           if (newLeg2) {
-            const command = new PlannerCommandMoveRouteViaPoint(
+            const command = new PlannerCommandMoveViaRoute(
               oldLeg.featureId,
               newLeg1.featureId,
               newLeg2.featureId

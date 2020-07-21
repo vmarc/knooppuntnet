@@ -11,6 +11,8 @@ export class PlannerCommandRemoveRouteViaPoint implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
+    context.debug("PlannerCommandRemoveRouteViaPoint");
+
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg = context.legs.getById(this.newLegId);
 
@@ -26,6 +28,8 @@ export class PlannerCommandRemoveRouteViaPoint implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+
+    context.debug("PlannerCommandRemoveRouteViaPoint undo");
 
     const oldLeg = context.legs.getById(this.oldLegId);
     const newLeg = context.legs.getById(this.newLegId);

@@ -13,6 +13,8 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
+    context.debug("PlannerCommandMoveViaPointToViaRoute");
+
     const oldLeg1 = context.legs.getById(this.oldLegId1);
     const oldLeg2 = context.legs.getById(this.oldLegId2);
     const newLeg1 = context.legs.getById(this.newLegId1);
@@ -39,6 +41,8 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+
+    context.debug("PlannerCommandMoveViaPointToViaRoute undo");
 
     const oldLeg1 = context.legs.getById(this.oldLegId1);
     const oldLeg2 = context.legs.getById(this.oldLegId2);

@@ -8,8 +8,9 @@ export class PlannerCommandAddLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
-    let newLegs = context.plan.legs;
+    context.debug("PlannerCommandAddLeg");
 
+    let newLegs = context.plan.legs;
     const lastLeg = newLegs.last(null);
     if (lastLeg !== null) {
       const updatedLastLegSinkFlag = lastLeg.viaFlag === null ? lastLeg.sinkFlag.toVia() : lastLeg.sinkFlag.toInvisible();
@@ -31,6 +32,8 @@ export class PlannerCommandAddLeg implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
+
+    context.debug("PlannerCommandAddLeg undo");
 
     const leg = context.legs.getById(this.legId);
 

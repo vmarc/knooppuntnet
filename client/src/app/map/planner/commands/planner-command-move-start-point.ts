@@ -11,10 +11,12 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
+    context.debug("PlannerCommandMoveStartPoint");
     this.update(context, this.oldNode, this.newNode);
   }
 
   public undo(context: PlannerContext) {
+    context.debug("PlannerCommandMoveStartPoint undo");
     this.update(context, this.newNode, this.oldNode);
   }
 

@@ -62,4 +62,13 @@ class LegEndTest extends UnitTest {
     }.getMessage should equal("Could not interprete planString 'a-?-c'")
   }
 
+  test("node-routes") {
+    LegEnd.fromPlanString("a-b.1|c.1") should equal(
+      Seq(
+        LegEnd.node(10),
+        LegEnd.route(List(TrackPathKey(11, 1), TrackPathKey(12, 1))),
+      )
+    )
+  }
+
 }

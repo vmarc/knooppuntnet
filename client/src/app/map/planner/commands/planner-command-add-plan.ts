@@ -8,12 +8,14 @@ export class PlannerCommandAddPlan implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
+    context.debug("PlannerCommandAddPlan");
     context.routeLayer.addPlan(this.plan);
     context.markerLayer.addPlan(this.plan);
     context.updatePlan(this.plan);
   }
 
   public undo(context: PlannerContext) {
+    context.debug("PlannerCommandAddPlan undo");
     context.routeLayer.removePlan(this.plan);
     context.markerLayer.removePlan(this.plan);
     context.updatePlan(Plan.empty);
