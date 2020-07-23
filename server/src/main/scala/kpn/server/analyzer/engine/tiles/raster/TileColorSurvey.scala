@@ -23,15 +23,15 @@ class TileColorSurvey(dateInfo: SurveyDateInfo) extends TileColor {
       case None => TileColor.gray
       case Some(surveyDay) =>
         if (!surveyDay.isBefore(dateInfo.lastMonthStart)) {
-          TileColor.lightGreen;
+          TileColor.lightGreen
         } else if (!surveyDay.isBefore(dateInfo.lastHalfYearStart)) {
-          TileColor.green;
+          TileColor.green
         } else if (!surveyDay.isBefore(dateInfo.lastYearStart)) {
-          TileColor.darkGreen;
+          TileColor.darkGreen
         } else if (!surveyDay.isBefore(dateInfo.lastTwoYearsStart)) {
-          TileColor.veryDarkGreen;
+          TileColor.veryDarkGreen
         } else {
-          TileColor.darkRed;
+          TileColor.darkRed
         }
     }
   }
