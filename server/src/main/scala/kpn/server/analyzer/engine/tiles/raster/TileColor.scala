@@ -9,7 +9,7 @@ import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
 // See also: Typescript MainStyleColors
 object TileColor {
 
-  val gray: Color = new Color(150, 150, 150)
+  val gray: Color = new Color(200, 200, 200)
 
   val lightGreen: Color = new Color(0, 255, 0)
 

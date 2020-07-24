@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tiles.raster
 
 import java.awt.BasicStroke
-import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.RenderingHints
@@ -12,10 +11,8 @@ import javax.imageio.ImageIO
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileDataNode
-import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 
-class RasterTileBuilder extends TileBuilder {
+class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
 
   private val width = 256
   private val height = 256
@@ -35,47 +32,28 @@ class RasterTileBuilder extends TileBuilder {
 
   private def drawRoutes(g: Graphics2D, data: TileData): Unit = {
 
-    val lineWidth = if (data.tile.z < 8) {
+    val lineWidth = if (data.tile.z < 9) {
       0.5f
     }
-    else {
+    else if (data.tile.z < 10) {
       1f
+    }
+    else {
+      2f
     }
 
     g.setStroke(new BasicStroke(lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND))
 
     data.routes.foreach { tileRoute =>
-
-      g.setColor(routeColor(tileRoute))
-
       tileRoute.segments.foreach { segment =>
+        g.setColor(tileColor.routeColor(tileRoute, segment))
         segment.lines.foreach { line =>
-
           val x1 = lngToPixel(data.tile, line.p1.x)
           val y1 = latToPixel(data.tile, line.p1.y)
           val x2 = lngToPixel(data.tile, line.p2.x)
           val y2 = latToPixel(data.tile, line.p2.y)
-
           g.drawLine(x1, y1, x2, y2)
         }
-      }
-    }
-  }
-
-  private def drawNodes(g: Graphics2D, data: TileData): Unit = {
-
-    data.nodes.foreach { node =>
-
-      g.setColor(nodeColor(node))
-
-      val x = lngToPixel(data.tile, node.lon)
-      val y = latToPixel(data.tile, node.lat)
-
-      if (data.tile.z == 10) {
-        g.fillOval(x - 2, y - 2, 5, 5)
-      }
-      else if (data.tile.z > 10) {
-        g.fillOval(x - 3, y - 3, 7, 7)
       }
     }
   }
@@ -86,6 +64,24 @@ class RasterTileBuilder extends TileBuilder {
 
   private def latToPixel(tile: Tile, lat: Double): Int = {
     (height - ((lat - tile.bounds.yMin) * height / (tile.bounds.yMax - tile.bounds.yMin))).round.toInt
+  }
+
+  private def drawNodes(g: Graphics2D, data: TileData): Unit = {
+
+    data.nodes.foreach { node =>
+
+      g.setColor(tileColor.nodeColor(node))
+
+      val x = lngToPixel(data.tile, node.lon)
+      val y = latToPixel(data.tile, node.lat)
+
+      if (data.tile.z == 10) {
+        g.fillOval(x - 1, y - 1, 3, 3)
+      }
+      else if (data.tile.z > 10) {
+        g.fillOval(x - 1, y - 1, 3, 3)
+      }
+    }
   }
 
   private def createGraphics(image: BufferedImage) = {
@@ -101,28 +97,6 @@ class RasterTileBuilder extends TileBuilder {
     ImageIO.write(image, "png", out)
     out.close()
     out.toByteArray
-  }
-
-  private def routeColor(tileRoute: TileDataRoute): Color = {
-    val colorValue = tileRoute.layer match {
-      case "orphan-route" => "#006000" // MainStyleColors.darkGreen
-      case "incomplete-route" => "#ff0000" // MainStyleColors.red
-      case "error-route" => "#ffa500" // orange
-      case "route" => "#00c800" // MainStyleColors.green
-      case _ => "#00c800" // MainStyleColors.green
-    }
-    Color.decode(colorValue)
-  }
-
-  private def nodeColor(node: TileDataNode): Color = {
-    val colorString = node.layer match {
-      case "error-orphan-node" => "#0000bb" // MainStyleColors.darkBlue
-      case "orphan-node" => "#006000" // MainStyleColors.darkGreen
-      case "error-node" => "#0000ff" // MainStyleColors.blue
-      case "node" => "#00c800" // MainStyleColors.green
-      case _ => "#00c800" // MainStyleColors.green
-    }
-    Color.decode(colorString)
   }
 
 }

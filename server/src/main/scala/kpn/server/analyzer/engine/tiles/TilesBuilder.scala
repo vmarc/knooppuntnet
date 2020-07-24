@@ -4,35 +4,64 @@ import kpn.api.common.NodeInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileNodes
 import kpn.server.analyzer.engine.tiles.domain.TileRoutes
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
-import org.locationtech.jts.geom.GeometryFactory
 
 class TilesBuilder(
-  tileBuilder: TileBuilder,
-  tileFileRepository: TileFileRepository,
+  bitmapTileFileRepository: TileFileRepository,
+  vectorTileFileRepository: TileFileRepository,
+  tileFileBuilder: TileFileBuilder,
   nodeTileAnalyzer: NodeTileAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
 ) {
 
   private val log = Log(classOf[TilesBuilder])
 
-  private val geomFactory = new GeometryFactory
-
   def build(
     z: Int,
     analysis: TileAnalysis
   ): Unit = {
 
-    val existingTileNames = tileFileRepository.existingTileNames(analysis.networkType.name, z)
+    val existingTileNames = if (z < ZoomLevel.vectorTileMinZoom) {
+      bitmapTileFileRepository.existingTileNames(analysis.networkType.name, z)
+    }
+    else {
+      vectorTileFileRepository.existingTileNames(analysis.networkType.name, z)
+    }
+
+    val existingTileNamesSurface = if (z < ZoomLevel.vectorTileMinZoom) {
+      bitmapTileFileRepository.existingTileNames(analysis.networkType.name + "/surface", z)
+    }
+    else {
+      Seq()
+    }
+    val existingTileNamesSurvey = if (z < ZoomLevel.vectorTileMinZoom) {
+      bitmapTileFileRepository.existingTileNames(analysis.networkType.name + "/survey", z)
+    }
+    else {
+      Seq()
+    }
+
+    val existingTileNamesAnalysis = if (z < ZoomLevel.vectorTileMinZoom) {
+      bitmapTileFileRepository.existingTileNames(analysis.networkType.name + "/analysis", z)
+    }
+    else {
+      Seq()
+    }
 
     log.info(s"Processing zoomlevel $z")
     log.info(s"Number of tiles before: " + existingTileNames.size)
+    if (z < ZoomLevel.vectorTileMinZoom) {
+      log.info(s"Number of surface tiles before: " + existingTileNamesSurface.size)
+      log.info(s"Number of survey tiles before: " + existingTileNamesSurvey.size)
+      log.info(s"Number of analysis tiles before: " + existingTileNamesAnalysis.size)
+    }
 
     log.info(s"buildTileNodeMap()")
     val tileNodes = buildTileNodeMap(analysis.networkType, z, analysis.nodes, analysis.orphanNodes)
@@ -63,7 +92,6 @@ class TilesBuilder(
         }
       }
 
-
       val nodes = tileNodesOption match {
         case None => Seq()
         case Some(tn) => tn.nodes
@@ -80,20 +108,43 @@ class TilesBuilder(
         routes
       )
 
-      val tileBytes = tileBuilder.build(tileData)
-      if (tileBytes.length > 0) {
-        tileFileRepository.saveOrUpdate(analysis.networkType.name, tile, tileBytes)
-      }
+      tileFileBuilder.build(tileData)
     }
 
     val afterTileNames = tileNames.map(tileName => analysis.networkType.name + "-" + tileName)
-
     val obsoleteTileNames = (existingTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
     log.info(s"Obsolete: " + obsoleteTileNames)
 
     log.info(s"Obsolete tile count: " + obsoleteTileNames.size)
-    tileFileRepository.delete(obsoleteTileNames)
-    log.info(s"Obsolete tiles removed")
+
+    if (z < ZoomLevel.vectorTileMinZoom) {
+
+      bitmapTileFileRepository.delete(obsoleteTileNames)
+      log.info(s"Obsolete bitmap tiles removed: " + obsoleteTileNames.size)
+
+      val afterTileNamesSurface = tileNames.map(tileName => analysis.networkType.name + "-surface-" + tileName)
+
+      log.info(s"z=$z, existingTileNamesSurface=$existingTileNamesSurface")
+      log.info(s"z=$z, afterTileNamesSurface=$afterTileNamesSurface")
+
+      val obsoleteTileNamesSurface = (existingTileNamesSurface.toSet -- afterTileNamesSurface.toSet).toSeq.sorted
+      bitmapTileFileRepository.delete(obsoleteTileNamesSurface)
+      log.info(s"Obsolete bitmap surface tiles removed: " + obsoleteTileNamesSurface.size)
+
+      val afterTileNamesSurvey = tileNames.map(tileName => analysis.networkType.name + "-survey-" + tileName)
+      val obsoleteTileNamesSurvey = (existingTileNamesSurvey.toSet -- afterTileNamesSurvey.toSet).toSeq.sorted
+      bitmapTileFileRepository.delete(obsoleteTileNamesSurvey)
+      log.info(s"Obsolete bitmap survey tiles removed: " + obsoleteTileNamesSurvey.size)
+
+      val afterTileNamesAnalysis = tileNames.map(tileName => analysis.networkType.name + "-analysis-" + tileName)
+      val obsoleteTileNamesAnalysis = (existingTileNamesAnalysis.toSet -- afterTileNamesAnalysis.toSet).toSeq.sorted
+      bitmapTileFileRepository.delete(obsoleteTileNamesAnalysis)
+      log.info(s"Obsolete bitmap analysis tiles removed: " + obsoleteTileNamesAnalysis.size)
+    }
+    else {
+      vectorTileFileRepository.delete(obsoleteTileNames)
+      log.info(s"Obsolete vector tiles removed")
+    }
   }
 
   private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode], orphanNodes: Seq[NodeInfo]): Map[String, TileNodes] = {

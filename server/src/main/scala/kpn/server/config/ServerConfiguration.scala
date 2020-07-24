@@ -75,11 +75,6 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def rasterTileBuilder: TileBuilder = {
-    new RasterTileBuilder()
-  }
-
-  @Bean
   def vectorTileBuilder: TileBuilder = {
     new VectorTileBuilder()
   }

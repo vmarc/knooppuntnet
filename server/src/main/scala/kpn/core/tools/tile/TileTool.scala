@@ -8,13 +8,12 @@ import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileFileBuilder
+import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzer
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
-import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
-import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
-import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -35,14 +34,6 @@ object TileTool {
       TileToolOptions.parse(args) match {
         case Some(options) =>
 
-          def createTilesBuilder(tileBuilder: TileBuilder, extension: String): TilesBuilder = {
-            val tileCalculator = new TileCalculatorImpl()
-            val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-            val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-            val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, extension)
-            new TilesBuilder(tileBuilder, tileFileRepository, nodeTileAnalyzer, routeTileAnalyzer)
-          }
-
           Couch.executeIn(options.analysisDatabaseHost, options.analysisDatabaseName) { analysisDatabase =>
 
             new DatabaseIndexer(analysisDatabase, null, null, null, null).index(true)
@@ -58,10 +49,24 @@ object TileTool {
               )
             }
 
+            val tileCalculator = new TileCalculatorImpl()
+            val bitmapTileFileRepository = new TileFileRepositoryImpl(options.tileDir, "png")
+            val vectorTileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
+            val tileFileBuilder: TileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
+            val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+            val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+
+            val tilesBuilder: TilesBuilder = new TilesBuilder(
+              bitmapTileFileRepository,
+              vectorTileFileRepository,
+              tileFileBuilder,
+              nodeTileAnalyzer,
+              routeTileAnalyzer
+            )
+
             val tileTool = new TileTool(
               tileAnalyzer,
-              createTilesBuilder(new VectorTileBuilder(), "mvt"),
-              createTilesBuilder(new RasterTileBuilder(), "png")
+              tilesBuilder
             )
 
             NetworkType.all.foreach(tileTool.make)
@@ -89,20 +94,13 @@ object TileTool {
 
 class TileTool(
   tileAnalyzer: TileAnalyzer,
-  vectorTilesBuilder: TilesBuilder,
-  bitmapTilesBuilder: TilesBuilder
+  tilesBuilder: TilesBuilder
 ) {
 
   def make(networkType: NetworkType): Unit = {
-
     val tileAnalysis = tileAnalyzer.analysis(networkType)
-
-    (ZoomLevel.bitmapTileMinZoom to ZoomLevel.bitmapTileMaxZoom).foreach { z =>
-      bitmapTilesBuilder.build(z, tileAnalysis)
-    }
-
-    (ZoomLevel.vectorTileMinZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-      vectorTilesBuilder.build(z, tileAnalysis)
+    (ZoomLevel.minZoom to ZoomLevel.vectorTileMinZoom).foreach { z =>
+      tilesBuilder.build(z, tileAnalysis)
     }
   }
 
