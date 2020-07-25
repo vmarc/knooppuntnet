@@ -31,7 +31,7 @@
     "@angular/platform-browser-dynamic": "^10.0.5",
     "@angular/router": "^10.0.5",
     "@angular/service-worker": "^10.0.5",
-    "@swimlane/ngx-charts": "^13.0.2",
+    "@swimlane/ngx-charts": "^13.0.3",
     "@types/file-saver": "^2.0.0",
     "@types/ol": "^6.1.0",
     "angular-qrious": "9.0.0",
