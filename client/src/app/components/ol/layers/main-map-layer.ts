@@ -8,6 +8,7 @@ import {MainMapStyle} from "../style/main-map-style";
 import {MapLayer} from "./map-layer";
 import {NetworkBitmapTileLayer} from "./network-bitmap-tile-layer";
 import {NetworkVectorTileLayer} from "./network-vector-tile-layer";
+import {MapMode} from "../services/map-mode";
 
 export class MainMapLayer {
 
@@ -20,7 +21,7 @@ export class MainMapLayer {
 
   build(): MapLayer {
     const networkType = this.mapService.networkType();
-    this.bitmapTileLayer = NetworkBitmapTileLayer.build(networkType);
+    this.bitmapTileLayer = NetworkBitmapTileLayer.build(networkType, MapMode.analysis);
     this.vectorTileLayer = NetworkVectorTileLayer.oldBuild(networkType);
 
     const layer = new LayerGroup({

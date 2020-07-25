@@ -27,6 +27,7 @@ import {RouteLayers} from "../layers/route-layers";
 import {RouteNodesLayer} from "../layers/route-nodes-layer";
 import {TileDebugLayer} from "../layers/tile-debug-layer";
 import {MapService} from "./map.service";
+import {MapMode} from "./map-mode";
 
 @Injectable()
 export class MapLayerService {
@@ -70,8 +71,8 @@ export class MapLayerService {
     return layer;
   }
 
-  networkBitmapTileLayer(networkType: NetworkType): MapLayer {
-    const layer = NetworkBitmapTileLayer.build(networkType);
+  networkBitmapTileLayer(networkType: NetworkType, mapMode: MapMode): MapLayer {
+    const layer = NetworkBitmapTileLayer.build(networkType, mapMode);
     const layerName = this.i18nService.translation("@@map.layer." + networkType.name);
     layer.layer.set("name", layerName);
     return layer;

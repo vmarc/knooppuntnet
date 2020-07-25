@@ -99,7 +99,7 @@ class TileTool(
 
   def make(networkType: NetworkType): Unit = {
     val tileAnalysis = tileAnalyzer.analysis(networkType)
-    (ZoomLevel.minZoom to ZoomLevel.vectorTileMinZoom).foreach { z =>
+    (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
       tilesBuilder.build(z, tileAnalysis)
     }
   }

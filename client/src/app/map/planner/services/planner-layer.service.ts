@@ -23,6 +23,7 @@ import {MainMapStyle} from "../../../components/ol/style/main-map-style";
 import {I18nService} from "../../../i18n/i18n.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
+import {MapMode} from "../../../components/ol/services/map-mode";
 
 @Injectable()
 export class PlannerLayerService {
@@ -37,7 +38,9 @@ export class PlannerLayerService {
   private tileNameLayer: MapLayer;
   private poiLayer: MapLayer;
   private gpxLayer: MapLayer;
-  private bitmapLayers: ImmutableMap<NetworkType, MapLayer>;
+  private bitmapLayersSurface: ImmutableMap<NetworkType, MapLayer>;
+  private bitmapLayersSurvey: ImmutableMap<NetworkType, MapLayer>;
+  private bitmapLayersAnalysis: ImmutableMap<NetworkType, MapLayer>;
   private vectorLayers: ImmutableMap<NetworkType, MapLayer>;
   private allLayers: List<MapLayer>;
 
@@ -50,9 +53,9 @@ export class PlannerLayerService {
 
     this.mapLayers$ = this._mapLayers$.asObservable();
 
-    this.networkLayerChange$ = combineLatest([this.mapZoomService.zoomLevel$, this.plannerService.context.networkType$]).pipe(
-      map(([zoomLevel, networkType]) => {
-        return this.networkLayerChange(zoomLevel, networkType);
+    this.networkLayerChange$ = combineLatest([this.mapZoomService.zoomLevel$, this.plannerService.context.networkType$, this.mapService.mapMode$]).pipe(
+      map(([zoomLevel, networkType, mapMode]) => {
+        return this.networkLayerChange(zoomLevel, networkType, mapMode);
       }),
       filter(change => change !== null),
       tap(change => {
@@ -71,13 +74,17 @@ export class PlannerLayerService {
     this.gpxVectorLayer.set("name", gpxLayerName);
     this.gpxLayer = new MapLayer("gpx-layer", this.gpxVectorLayer);
 
-    this.bitmapLayers = this.buildBitmapLayers();
+    this.bitmapLayersSurface = this.buildBitmapLayers(MapMode.surface);
+    this.bitmapLayersSurvey = this.buildBitmapLayers(MapMode.survey);
+    this.bitmapLayersAnalysis = this.buildBitmapLayers(MapMode.analysis);
     this.vectorLayers = this.buildVectorLayers();
 
     this.standardLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer, this.gpxLayer]);
 
     this.allLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer, this.gpxLayer])
-      .concat(this.bitmapLayers.values())
+      .concat(this.bitmapLayersSurface.values())
+      .concat(this.bitmapLayersSurvey.values())
+      .concat(this.bitmapLayersAnalysis.values())
       .concat(this.vectorLayers.values());
   }
 
@@ -103,13 +110,22 @@ export class PlannerLayerService {
     });
   }
 
-  private networkLayerChange(zoomLevel: number, networkType: NetworkType): MapLayerChange {
+  private networkLayerChange(zoomLevel: number, networkType: NetworkType, mapMode: MapMode): MapLayerChange {
     let newLayer: MapLayer;
     if (zoomLevel <= ZoomLevel.bitmapTileMaxZoom) {
-      newLayer = this.bitmapLayers.get(networkType);
+      if (mapMode === MapMode.surface) {
+        newLayer = this.bitmapLayersSurface.get(networkType);
+      }
+      else if (mapMode === MapMode.survey) {
+        newLayer = this.bitmapLayersSurvey.get(networkType);
+      }
+      else {
+        newLayer = this.bitmapLayersAnalysis.get(networkType);
+      }
     } else if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
       newLayer = this.vectorLayers.get(networkType);
     }
+
 
     const oldLayer = this.activeNetworkLayer;
     if (oldLayer !== null && oldLayer.name === newLayer.name) {
@@ -121,9 +137,9 @@ export class PlannerLayerService {
     return new MapLayerChange(oldLayer, newLayer);
   }
 
-  private buildBitmapLayers(): ImmutableMap<NetworkType, MapLayer> {
+  private buildBitmapLayers(mapMode: MapMode): ImmutableMap<NetworkType, MapLayer> {
     const keysAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(networkType => {
-      return [networkType, this.mapLayerService.networkBitmapTileLayer(networkType)];
+      return [networkType, this.mapLayerService.networkBitmapTileLayer(networkType, mapMode)];
     });
     return ImmutableMap<NetworkType, MapLayer>(keysAndValues.toArray());
   }

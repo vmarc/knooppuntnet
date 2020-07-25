@@ -48,7 +48,7 @@ import {MapService} from "../../components/ol/services/map.service";
             <span>More than two years ago</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(150, 150, 150)"></kpn-legend-icon>
+            <kpn-legend-icon color="rgb(200, 200, 200)"></kpn-legend-icon>
             <span>Unknown</span>
           </div>
         </div>
