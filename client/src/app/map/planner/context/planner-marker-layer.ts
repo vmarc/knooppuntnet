@@ -17,8 +17,8 @@ export abstract class PlannerMarkerLayer {
   removePlan(plan: Plan): void {
     this.removeFlag(plan.sourceFlag);
     plan.legs.forEach(leg => {
-      this.removeFlag(leg.sinkFlag);
       this.removeFlag(leg.viaFlag);
+      this.removeFlag(leg.sinkFlag);
     });
   }
 
@@ -26,8 +26,8 @@ export abstract class PlannerMarkerLayer {
     this.addFlag(plan.sourceFlag);
     for (let i = 0; i < plan.legs.size; i++) {
       const leg = plan.legs.get(i);
-      this.addFlag(leg.sinkFlag);
       this.addFlag(leg.viaFlag);
+      this.addFlag(leg.sinkFlag);
     }
   }
 

@@ -38,35 +38,37 @@ describe("PlannerCommandReverse", () => {
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
 
-    const reverseCommand = new PlanReverser(setup.context).reverse(setup.context.plan);
-    setup.context.execute(reverseCommand);
+    new PlanReverser(setup.context).reverse(setup.context.plan).subscribe( newPlan => {
 
-    setup.markerLayer.expectFlagCount(3);
-    setup.markerLayer.expectPlanFlagExists(setup.context.plan.sourceFlag);
-    setup.markerLayer.expectPlanFlagExists(setup.context.plan.legs.get(0).sinkFlag);
-    setup.markerLayer.expectPlanFlagExists(setup.context.plan.legs.get(1).sinkFlag);
+      const reverseCommand = new PlannerCommandReverse(setup.context.plan, newPlan);
+      setup.context.execute(reverseCommand);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
-    expect(setup.context.plan.sourceFlag.coordinate).toEqual([3, 3]);
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).sinkFlag.coordinate).toEqual([2, 2]);
-    expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.Via);
-    expect(setup.context.plan.legs.get(1).sinkFlag.coordinate).toEqual([1, 1]);
-    expect(setup.context.plan.legs.get(1).sinkFlag.flagType).toEqual(PlanFlagType.End);
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectPlanFlagExists(setup.context.plan.sourceFlag);
+      setup.markerLayer.expectPlanFlagExists(setup.context.plan.legs.get(0).sinkFlag);
+      setup.markerLayer.expectPlanFlagExists(setup.context.plan.legs.get(1).sinkFlag);
 
-    reverseCommand.undo(setup.context);
+      expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
+      expect(setup.context.plan.sourceFlag.coordinate).toEqual([3, 3]);
+      expect(setup.context.plan.legs.size).toEqual(2);
+      expect(setup.context.plan.legs.get(0).sinkFlag.coordinate).toEqual([2, 2]);
+      expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.Via);
+      expect(setup.context.plan.legs.get(1).sinkFlag.coordinate).toEqual([1, 1]);
+      expect(setup.context.plan.legs.get(1).sinkFlag.flagType).toEqual(PlanFlagType.End);
 
-    setup.markerLayer.expectFlagCount(3);
-    setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
-    setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
-    setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
-    setup.routeLayer.expectRouteLegExists("12", leg1);
-    setup.routeLayer.expectRouteLegExists("23", leg2);
+      reverseCommand.undo(setup.context);
 
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
+      setup.markerLayer.expectFlagCount(3);
+      setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
+      setup.markerLayer.expectViaFlagExists("sinkFlag1", [2, 2]);
+      setup.markerLayer.expectEndFlagExists("sinkFlag2", [3, 3]);
+      setup.routeLayer.expectRouteLegExists("12", leg1);
+      setup.routeLayer.expectRouteLegExists("23", leg2);
 
+      expect(setup.context.plan.legs.size).toEqual(2);
+      expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
+      expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
+    });
   });
 
 });

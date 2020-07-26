@@ -15,12 +15,12 @@ export class TestSupport {
     expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
   }
 
-  static expectViaFlag(planFlag: PlanFlag, featureId: string, coordinate) {
-    TestSupport.expectFlag(planFlag, PlanFlagType.Via, featureId, coordinate);
-  }
-
   static expectStartFlag(planFlag: PlanFlag, featureId: string, coordinate) {
     TestSupport.expectFlag(planFlag, PlanFlagType.Start, featureId, coordinate);
+  }
+
+  static expectViaFlag(planFlag: PlanFlag, featureId: string, coordinate) {
+    TestSupport.expectFlag(planFlag, PlanFlagType.Via, featureId, coordinate);
   }
 
   static expectEndFlag(planFlag: PlanFlag, featureId: string, coordinate) {
@@ -31,9 +31,30 @@ export class TestSupport {
     TestSupport.expectFlag(planFlag, PlanFlagType.Invisible, featureId, coordinate);
   }
 
+  static expectStartFlagCoordinate(planFlag: PlanFlag, coordinate) {
+    TestSupport.expectFlagCoordinate(planFlag, PlanFlagType.Start, coordinate);
+  }
+
+  static expectViaFlagCoordinate(planFlag: PlanFlag, coordinate) {
+    TestSupport.expectFlagCoordinate(planFlag, PlanFlagType.Via, coordinate);
+  }
+
+  static expectEndFlagCoordinate(planFlag: PlanFlag, coordinate) {
+    TestSupport.expectFlagCoordinate(planFlag, PlanFlagType.End, coordinate);
+  }
+
+  static expectInvisibleFlagCoordinate(planFlag: PlanFlag, coordinate) {
+    TestSupport.expectFlagCoordinate(planFlag, PlanFlagType.Invisible, coordinate);
+  }
+
   static expectFlag(planFlag: PlanFlag, flagType: PlanFlagType, featureId: string, coordinate) {
     expect(planFlag.flagType).toEqual(flagType);
     expect(planFlag.featureId).toEqual(featureId);
+    TestSupport.expectCoordinate(planFlag.coordinate, coordinate);
+  }
+
+  static expectFlagCoordinate(planFlag: PlanFlag, flagType: PlanFlagType, coordinate) {
+    expect(planFlag.flagType).toEqual(flagType);
     TestSupport.expectCoordinate(planFlag.coordinate, coordinate);
   }
 

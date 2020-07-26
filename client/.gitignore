@@ -8,6 +8,7 @@ cypress.json
 /dist
 /map
 /tmp
+/out
 /out-tsc
 
 # dependencies

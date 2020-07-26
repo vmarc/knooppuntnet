@@ -90,4 +90,32 @@ export class PlannerTestSetup {
     return plan;
   }
 
+  createThreeLegPlan(): Plan {
+
+    const sourceFlag = PlanFlag.start("sourceFlag", this.node1.coordinate);
+    const sinkFlag1 = PlanFlag.via("sinkFlag1", this.node2.coordinate);
+    const sinkFlag2 = PlanFlag.via("sinkFlag2", this.node3.coordinate);
+    const sinkFlag3 = PlanFlag.end("sinkFlag3", this.node4.coordinate);
+
+    const leg1 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag1, null);
+    const leg2 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node2, this.node3, sinkFlag2, null);
+    const leg3 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node3, this.node4, sinkFlag3, null);
+    this.context.legs.add(leg1);
+    this.context.legs.add(leg2);
+    this.context.legs.add(leg3);
+
+    const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2, leg3]));
+    this.context.updatePlan(plan);
+
+    this.markerLayer.addFlag(sourceFlag);
+    this.markerLayer.addFlag(sinkFlag1);
+    this.markerLayer.addFlag(sinkFlag2);
+    this.markerLayer.addFlag(sinkFlag3);
+    this.routeLayer.addPlanLeg(leg1);
+    this.routeLayer.addPlanLeg(leg2);
+    this.routeLayer.addPlanLeg(leg3);
+
+    return plan;
+  }
+
 }

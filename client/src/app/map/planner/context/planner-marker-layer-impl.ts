@@ -8,6 +8,9 @@ import {Layers} from "../../../components/ol/layers/layers";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlannerMarkerLayer} from "./planner-marker-layer";
+import Feature from "ol/Feature";
+import {List} from "immutable";
+import Geometry from "ol/geom/Geometry";
 
 export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
 
@@ -66,6 +69,10 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
     if (feature) {
       (feature.getGeometry() as Point).setCoordinates(coordinate);
     }
+  }
+
+  features(): List<Feature<Geometry>> {
+    return List(this.source.getFeatures());
   }
 
 }

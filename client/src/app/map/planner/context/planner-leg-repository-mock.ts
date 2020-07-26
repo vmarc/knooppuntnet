@@ -1,32 +1,23 @@
-import {List} from "immutable";
+import {Map} from "immutable";
 import {Observable, of} from "rxjs";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {PlanLegDetail} from "../../../kpn/api/common/planner/plan-leg-detail";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlannerLegRepository} from "./planner-leg-repository";
+import {PlanUtil} from "../plan/plan-util";
 
 export class PlannerLegRepositoryMock implements PlannerLegRepository {
 
-  private planLegs: List<PlanLeg> = List();
+  private planLegDetails: Map<string, PlanLegDetail> = Map();
 
   planLeg(networkType: NetworkType, source: LegEnd, sink: LegEnd): Observable<PlanLegDetail> {
-
-    // const legKey = "";
-    //
-    // let planLeg = this.planLegs.find(leg => leg.featureId === legId);
-    // if (!planLeg) {
-    //   const foundLeg = this.planLegs.find(leg => leg.key === legKey);
-    //   if (foundLeg) {
-    //     planLeg = new PlanLeg(legKey, legId, source, sink, foundLeg.meters, foundLeg.routes);
-    //   }
-    // }
-    // return of(planLeg);
-    return of(null);
+    const key = PlanUtil.key(source, sink);
+    return of(this.planLegDetails.get(key));
   }
 
-  add(leg: PlanLeg): void {
-    this.planLegs = this.planLegs.push(leg);
+  add(source: LegEnd, sink: LegEnd, planLegDetail: PlanLegDetail): void {
+    const key = PlanUtil.key(source, sink);
+    this.planLegDetails = this.planLegDetails.set(key, planLegDetail);
   }
 
 }

@@ -1,6 +1,6 @@
 export enum PlanFlagType {
-  Start,
-  End,
-  Via,
-  Invisible
+  Start = "Start",
+  End = "End",
+  Via = "Via",
+  Invisible = "Invisible"
 }

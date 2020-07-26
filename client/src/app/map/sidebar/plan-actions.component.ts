@@ -9,6 +9,7 @@ import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
 import {Plan} from "../planner/plan/plan";
 import {PlanReverser} from "../planner/plan/plan-reverser";
 import {PlanOutputDialogComponent} from "./plan-output-dialog.component";
+import {PlannerCommandReverse} from "../planner/commands/planner-command-reverse";
 
 @Component({
   selector: "kpn-plan-actions",
@@ -116,8 +117,11 @@ export class PlanActionsComponent implements OnInit {
   }
 
   reverse(): void {
-    const command = new PlanReverser(this.plannerService.context).reverse(this.plannerService.context.plan);
-    this.plannerService.context.execute(command);
+    const oldPlan = this.plannerService.context.plan;
+    new PlanReverser(this.plannerService.context).reverse(oldPlan).subscribe(newPlan => {
+      const command = new PlannerCommandReverse(oldPlan, newPlan);
+      this.plannerService.context.execute(command);
+    });
   }
 
   output(): void {

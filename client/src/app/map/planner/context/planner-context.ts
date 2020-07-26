@@ -119,21 +119,6 @@ export class PlannerContext {
   buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlagType: PlanFlagType): PlanLeg {
 
     const legKey = PlanUtil.key(source, sink);
-    // const cachedLeg = this.legs.get(legKey);
-    // if (cachedLeg) {
-    //   const planLeg = new PlanLeg(
-    //     legFeatureId,
-    //     legKey,
-    //     cachedLeg.source,
-    //     cachedLeg.sink,
-    //     cachedLeg.sourceNode, // TODO PLAN should have PlanNode with new featureId ?
-    //     cachedLeg.sinkNode, // TODO PLAN should have PlanNode with new featureId ?
-    //     cachedLeg.meters,
-    //     cachedLeg.routes // TODO PLAN PlanNode's in routes should alse have new featureId ?
-    //   );
-    //   this.legs.add(planLeg);
-    //   return planLeg;
-    // }
 
     const legFeatureId = FeatureId.next();
 
