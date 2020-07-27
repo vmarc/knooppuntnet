@@ -29,7 +29,6 @@ export class PlannerDragFlagAnalyzer {
       return null;
     }
 
-    // handle node-to-node route via flag
     const legIndex = legs.findIndex(leg => flag.id === leg.sinkFlag?.featureId);
     if (legIndex >= 0) {
       const previousLeg = legs.get(legIndex);
@@ -40,19 +39,6 @@ export class PlannerDragFlagAnalyzer {
         previousLeg.sourceNode.coordinate,
         nextLeg.sinkNode.coordinate,
         nextLeg.sourceNode
-      );
-    }
-
-    // handle via-route via flag
-    const viaLegIndex = legs.findIndex(leg => flag.id === leg.viaFlag?.featureId);
-    if (viaLegIndex >= 0) {
-      const viaLeg = legs.get(viaLegIndex);
-      return new PlannerDragFlag(
-        viaLeg.viaFlag,
-        viaLeg.featureId,
-        viaLeg.sourceNode.coordinate,
-        viaLeg.sinkNode.coordinate,
-        null
       );
     }
 

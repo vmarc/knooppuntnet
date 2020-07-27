@@ -1,9 +1,7 @@
 import {List} from "immutable";
 import {Feature} from "ol";
 import {Coordinate} from "ol/coordinate";
-import {MultiLineString} from "ol/geom";
-import {Point} from "ol/geom";
-import {LineString} from "ol/geom";
+import {LineString, MultiLineString, Point} from "ol/geom";
 import GeometryLayout from "ol/geom/GeometryLayout";
 import GeometryType from "ol/geom/GeometryType";
 import RenderFeature from "ol/render/Feature";
@@ -45,6 +43,7 @@ import {PlannerDragLeg} from "./planner-drag-leg";
 import {PlannerDragViaRouteFlag} from "./planner-drag-via-route-flag";
 import {PlannerDragViaRouteFlagAnalyzer} from "./planner-drag-via-route-flag-analyzer";
 import {PlannerEngine} from "./planner-engine";
+import {RemoveViaLegRouteViaPoint} from "./actions/remove-via-leg-route-via-point";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -344,7 +343,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (clickedLeg.sinkFlag.flagType === PlanFlagType.End) {
         this.removeEndLegRouteViaPoint(clickedLeg);
       } else {
-        this.removeViaLegRouteViaPoint(clickedLeg);
+        new RemoveViaLegRouteViaPoint(this.context).remove(clickedLeg);
       }
     }
   }
@@ -355,29 +354,6 @@ export class PlannerEngineImpl implements PlannerEngine {
     const newLeg = this.context.buildLeg(source, sink, oldLeg.sourceNode, oldLeg.sinkNode, oldLeg.sinkFlag.flagType);
     const command = new PlannerCommandRemoveRouteViaPoint(oldLeg.featureId, newLeg.featureId);
     this.context.execute(command);
-  }
-
-  private removeViaLegRouteViaPoint(oldLeg1: PlanLeg): void {
-
-    const oldLeg2 = this.context.plan.legs.find(leg => {
-      return leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId;
-    });
-
-    if (oldLeg2 != null) {
-      const sourceNode = oldLeg1.sourceNode;
-      const sinkNode = oldLeg2.sinkNode;
-      const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-      const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-
-      const newLeg = this.context.buildLeg(source, sink, sourceNode, sinkNode, oldLeg2.sinkFlag.flagType);
-
-      const command = new PlannerCommandRemoveViaPoint(
-        oldLeg1.featureId,
-        oldLeg2.featureId,
-        newLeg.featureId
-      );
-      this.context.execute(command);
-    }
   }
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
