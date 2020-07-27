@@ -1,7 +1,5 @@
-import {combineLatest} from "rxjs";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
+import {combineLatest, Observable} from "rxjs";
+import {map, tap} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandMoveViaRoute} from "../../commands/planner-command-move-via-route";
 import {PlannerContext} from "../../context/planner-context";
@@ -38,18 +36,12 @@ export class MoveRouteViaPointToNode {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(planLegDetail => {
-        if (planLegDetail) {
-          const lastRoute = planLegDetail.routes.last(null);
-          if (lastRoute) {
-            const legKey = PlanUtil.key(source, sink);
-            const sinkFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
-            const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, planLegDetail.routes);
-            this.context.legs.add(newLeg);
-            return newLeg;
-          }
-        }
-        return null;
+      map(data => {
+        const legKey = PlanUtil.key(source, sink);
+        const sinkFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
+        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
+        this.context.legs.add(newLeg);
+        return newLeg;
       })
     );
   }
@@ -58,17 +50,11 @@ export class MoveRouteViaPointToNode {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(planLegDetail => {
-        if (planLegDetail) {
-          const lastRoute = planLegDetail.routes.last(null);
-          if (lastRoute) {
-            const legKey = PlanUtil.key(source, sink);
-            const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, planLegDetail.routes);
-            this.context.legs.add(newLeg);
-            return newLeg;
-          }
-        }
-        return null;
+      map(data => {
+        const legKey = PlanUtil.key(source, sink);
+        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
+        this.context.legs.add(newLeg);
+        return newLeg;
       })
     );
   }

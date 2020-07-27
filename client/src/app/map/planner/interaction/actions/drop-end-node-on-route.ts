@@ -36,19 +36,13 @@ export class DropEndNodeOnRoute {
     const sink = PlanUtil.legEndRoutes(routeFeatures);
 
     return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(planLegDetail => {
-        if (planLegDetail) {
-          const lastRoute = planLegDetail.routes.last(null);
-          if (lastRoute) {
-            const legKey = PlanUtil.key(source, sink);
-            const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
-            const sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), lastRoute.sinkNode.coordinate);
-            const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, planLegDetail.routes);
-            this.context.legs.add(newLeg);
-            return newLeg;
-          }
-        }
-        return null;
+      map(data => {
+        const legKey = PlanUtil.key(source, sink);
+        const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+        const sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), data.sinkNode.coordinate);
+        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, data.routes);
+        this.context.legs.add(newLeg);
+        return newLeg;
       })
     );
   }

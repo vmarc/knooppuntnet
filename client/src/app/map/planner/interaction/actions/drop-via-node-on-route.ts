@@ -48,16 +48,13 @@ export class DropViaNodeOnRoute {
     const sink = PlanUtil.legEndRoutes(routeFeatures);
 
     return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(planLegDetail => {
-        if (planLegDetail) {
-          const legKey = PlanUtil.key(source, sink);
-          const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
-          const sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
-          const newLeg1 = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, planLegDetail.routes);
-          this.context.legs.add(newLeg1);
-          return newLeg1;
-        }
-        return null;
+      map(data => {
+        const legKey = PlanUtil.key(source, sink);
+        const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+        const sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
+        const newLeg1 = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, data.routes);
+        this.context.legs.add(newLeg1);
+        return newLeg1;
       })
     );
   }
@@ -68,16 +65,13 @@ export class DropViaNodeOnRoute {
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
     return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(planLegDetail => {
-        if (planLegDetail) {
-          const legKey = PlanUtil.key(source, sink);
-          const viaFlag2 = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
-          const sinkFlag2 = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
-          const newLeg2 = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag2, viaFlag2, planLegDetail.routes);
-          this.context.legs.add(newLeg2);
-          return newLeg2;
-        }
-        return null;
+      map(data => {
+        const legKey = PlanUtil.key(source, sink);
+        const viaFlag2 = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+        const sinkFlag2 = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
+        const newLeg2 = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag2, viaFlag2, data.routes);
+        this.context.legs.add(newLeg2);
+        return newLeg2;
       })
     );
   }

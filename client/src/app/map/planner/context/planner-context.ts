@@ -136,18 +136,15 @@ export class PlannerContext {
     const leg = new PlanLeg(legFeatureId, legKey, source, sink, sinkFlag, viaFlag, List());
     this.legs.add(leg);
 
-    this.legRepository.planLeg(this.networkType, source, sink).subscribe(planLegDetail => {
-      if (planLegDetail) {
-        let updatedSinkFlag = sinkFlag;
-        if (sink.route !== null) {
-          const newSinkNode = planLegDetail.routes.last(null).sinkNode;
-          updatedSinkFlag = PlanFlag.end(sinkFlag.featureId, newSinkNode.coordinate);
-          this.markerLayer.updateFlag(updatedSinkFlag);
-        }
-        const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, updatedSinkFlag, viaFlag, planLegDetail.routes);
-        this.legs.add(updatedLeg);
-        this.updatePlanLeg(updatedLeg);
+    this.legRepository.planLeg(this.networkType, source, sink).subscribe(data => {
+      let updatedSinkFlag = sinkFlag;
+      if (sink.route !== null) {
+        updatedSinkFlag = PlanFlag.end(sinkFlag.featureId, data.sinkNode.coordinate);
+        this.markerLayer.updateFlag(updatedSinkFlag);
       }
+      const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, updatedSinkFlag, viaFlag, data.routes);
+      this.legs.add(updatedLeg);
+      this.updatePlanLeg(updatedLeg);
     });
 
     return leg;

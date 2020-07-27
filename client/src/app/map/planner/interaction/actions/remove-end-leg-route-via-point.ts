@@ -24,17 +24,11 @@ export class RemoveEndLegRouteViaPoint {
     const sink = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
 
     return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(planLegDetail => {
-        if (planLegDetail) {
-          const lastRoute = planLegDetail.routes.last(null);
-          if (lastRoute) {
-            const legKey = PlanUtil.key(source, sink);
-            const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, oldLeg.sinkFlag, null, planLegDetail.routes);
-            this.context.legs.add(newLeg);
-            return newLeg;
-          }
-        }
-        return null;
+      map(data => {
+        const legKey = PlanUtil.key(source, sink);
+        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, oldLeg.sinkFlag, null, data.routes);
+        this.context.legs.add(newLeg);
+        return newLeg;
       })
     );
   }
