@@ -2,7 +2,6 @@ import {PlanReverser} from "./plan-reverser";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanUtil} from "./plan-util";
 import {List} from "immutable";
-import {PlanLegDetail} from "../../../kpn/api/common/planner/plan-leg-detail";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {Plan} from "./plan";
 import {PlanFlag} from "./plan-flag";
@@ -13,6 +12,7 @@ import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
 import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
 import {TestSupport} from "../../../util/test-support";
+import {PlanLegData} from "../context/plan-leg-data";
 
 describe("PlanReverser", () => {
 
@@ -48,9 +48,9 @@ describe("PlanReverser", () => {
     const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
-    const planLegDetail = new PlanLegDetail(List([planRoute]));
+    const planLegData = new PlanLegData(List([planRoute]));
 
-    setup.legRepository.add(PlanUtil.legEndNode(1002), PlanUtil.legEndNode(1001), planLegDetail);
+    setup.legRepository.add(PlanUtil.legEndNode(1002), PlanUtil.legEndNode(1001), planLegData);
 
     const oldPlan = setup.createOneLegPlan();
 
@@ -81,13 +81,13 @@ describe("PlanReverser", () => {
     const planRoute32 = new PlanRoute(planNode3, planNode2, 0, List(), List());
     const planRoute21 = new PlanRoute(planNode2, planNode1, 0, List(), List());
 
-    const planLegDetail43 = new PlanLegDetail(List([planRoute43]));
-    const planLegDetail32 = new PlanLegDetail(List([planRoute32]));
-    const planLegDetail21 = new PlanLegDetail(List([planRoute21]));
+    const planLegData43 = new PlanLegData(List([planRoute43]));
+    const planLegData32 = new PlanLegData(List([planRoute32]));
+    const planLegData21 = new PlanLegData(List([planRoute21]));
 
-    setup.legRepository.add(PlanUtil.legEndNode(1004), PlanUtil.legEndNode(1003), planLegDetail43);
-    setup.legRepository.add(PlanUtil.legEndNode(1003), PlanUtil.legEndNode(1002), planLegDetail32);
-    setup.legRepository.add(PlanUtil.legEndNode(1002), PlanUtil.legEndNode(1001), planLegDetail21);
+    setup.legRepository.add(PlanUtil.legEndNode(1004), PlanUtil.legEndNode(1003), planLegData43);
+    setup.legRepository.add(PlanUtil.legEndNode(1003), PlanUtil.legEndNode(1002), planLegData32);
+    setup.legRepository.add(PlanUtil.legEndNode(1002), PlanUtil.legEndNode(1001), planLegData21);
 
     const oldPlan = setup.createThreeLegPlan();
 
@@ -148,13 +148,13 @@ describe("PlanReverser", () => {
     const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
-    const planLegDetail = new PlanLegDetail(List([planRoute]));
+    const planLegData = new PlanLegData(List([planRoute]));
 
     const trackPathKey = new TrackPathKey(10, 1);
     const source = PlanUtil.legEndNode(1003);
     const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey])));
 
-    setup.legRepository.add(source, sink, planLegDetail);
+    setup.legRepository.add(source, sink, planLegData);
   }
 
   function buildSingleViaRoutePlan(setup: PlannerTestSetup): Plan {
@@ -226,13 +226,13 @@ describe("PlanReverser", () => {
     const sinkNode = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
 
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
-    const planLegDetail = new PlanLegDetail(List([planRoute]));
+    const planLegData = new PlanLegData(List([planRoute]));
 
     const trackPathKey = new TrackPathKey(10, 1);
     const source = PlanUtil.legEndNode(1004);
     const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey])));
 
-    setup.legRepository.add(source, sink, planLegDetail);
+    setup.legRepository.add(source, sink, planLegData);
   }
 
   function buildExpectedNodeToNodeLeg(setup: PlannerTestSetup): void {
@@ -241,12 +241,12 @@ describe("PlanReverser", () => {
     const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
 
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
-    const planLegDetail = new PlanLegDetail(List([planRoute]));
+    const planLegData = new PlanLegData(List([planRoute]));
 
     const source = PlanUtil.legEndNode(1002);
     const sink = PlanUtil.legEndNode(1001);
 
-    setup.legRepository.add(source, sink, planLegDetail);
+    setup.legRepository.add(source, sink, planLegData);
   }
 
   function buildPlan(setup: PlannerTestSetup): Plan {

@@ -14,6 +14,7 @@ import {RouteFeature} from "../features/route-feature";
 import {Plan} from "./plan";
 import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
+import {PlanFlagType} from "./plan-flag-type";
 
 export class PlanUtil {
 
@@ -81,6 +82,14 @@ export class PlanUtil {
       }).join("|");
     }
     return "";
+  }
+
+  static viaFlag(coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+  }
+
+  static endFlag(coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.End, FeatureId.next(), coordinate);
   }
 
   static planNode(nodeId: string, nodeName: string, latLon: LatLonImpl): PlanNode {

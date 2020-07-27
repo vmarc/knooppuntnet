@@ -23,6 +23,7 @@ export class PlannerCommandReverse implements PlannerCommand {
     context.markerLayer.removePlan(fromPlan);
     context.routeLayer.addPlan(toPlan);
     context.markerLayer.addPlan(toPlan);
+    context.updatePlan(toPlan);
   }
 
 }
