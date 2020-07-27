@@ -17,7 +17,6 @@ import {PlannerCommandAddLeg} from "../commands/planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
-import {PlannerCommandRemoveRouteViaPoint} from "../commands/planner-command-remove-route-via-point";
 import {PlannerCommandRemoveViaPoint} from "../commands/planner-command-remove-via-point";
 import {PlannerCommandSplitLeg} from "../commands/planner-command-split-leg";
 import {PlannerContext} from "../context/planner-context";
@@ -28,7 +27,6 @@ import {NetworkNodeFeature} from "../features/network-node-feature";
 import {RouteFeature} from "../features/route-feature";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlanLeg} from "../plan/plan-leg";
 import {PlanUtil} from "../plan/plan-util";
 import {DropEndNodeOnRoute} from "./actions/drop-end-node-on-route";
 import {DropViaNodeOnRoute} from "./actions/drop-via-node-on-route";
@@ -44,6 +42,7 @@ import {PlannerDragViaRouteFlag} from "./planner-drag-via-route-flag";
 import {PlannerDragViaRouteFlagAnalyzer} from "./planner-drag-via-route-flag-analyzer";
 import {PlannerEngine} from "./planner-engine";
 import {RemoveViaLegRouteViaPoint} from "./actions/remove-via-leg-route-via-point";
+import {RemoveEndLegRouteViaPoint} from "./actions/remove-end-leg-route-via-point";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -341,19 +340,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     const clickedLeg = this.context.plan.legs.find(leg => leg.featureId === this.viaRouteDrag.legFeatureId);
     if (clickedLeg != null) {
       if (clickedLeg.sinkFlag.flagType === PlanFlagType.End) {
-        this.removeEndLegRouteViaPoint(clickedLeg);
+        new RemoveEndLegRouteViaPoint(this.context).remove(clickedLeg);
       } else {
         new RemoveViaLegRouteViaPoint(this.context).remove(clickedLeg);
       }
     }
-  }
-
-  private removeEndLegRouteViaPoint(oldLeg: PlanLeg): void {
-    const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
-    const sink = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
-    const newLeg = this.context.buildLeg(source, sink, oldLeg.sourceNode, oldLeg.sinkNode, oldLeg.sinkFlag.flagType);
-    const command = new PlannerCommandRemoveRouteViaPoint(oldLeg.featureId, newLeg.featureId);
-    this.context.execute(command);
   }
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
