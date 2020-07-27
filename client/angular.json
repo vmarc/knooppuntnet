@@ -47,6 +47,9 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "ol-geocoder"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets",

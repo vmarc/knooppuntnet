@@ -44,7 +44,7 @@ export class PlanReverser {
     const oldLeg = oldLegs.get(0);
     const source = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
 
-    let sink: LegEnd = null;
+    let sink: LegEnd;
     if (oldLeg.sink.route !== null) {
       sink = oldLeg.sink;
     } else {
@@ -73,7 +73,7 @@ export class PlanReverser {
           map(extraLeg => {
             return List([firstLeg, extraLeg]);
           })
-        )
+        );
       })
     );
   }
@@ -85,7 +85,7 @@ export class PlanReverser {
           const lastRoute = planLegDetail.routes.last(null);
           if (lastRoute) {
             const legKey = PlanUtil.key(source, sink);
-            let sinkFlagType = PlanFlagType.Via;
+            const sinkFlagType = PlanFlagType.Via;
             const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), lastRoute.sinkNode.coordinate);
             const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, planLegDetail.routes);
             this.context.legs.add(newLeg);
