@@ -59,11 +59,11 @@ export class MainMapRouteStyle {
 
   private routeColor(feature: FeatureLike): Color {
     let color = MainStyleColors.gray;
-    if (this.mapService.mapMode() === MapMode.surface) {
+    if (this.mapService.mapMode === MapMode.surface) {
       color = this.routeColorSurface(feature);
-    } else if (this.mapService.mapMode() === MapMode.survey) {
+    } else if (this.mapService.mapMode === MapMode.survey) {
       color = this.routeColorSurvey(feature);
-    } else if (this.mapService.mapMode() === MapMode.analysis) {
+    } else if (this.mapService.mapMode === MapMode.analysis) {
       color = this.routeColorAnalysis(feature);
     }
     return color;

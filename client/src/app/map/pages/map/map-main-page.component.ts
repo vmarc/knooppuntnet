@@ -5,8 +5,7 @@ import {Coordinate} from "ol/coordinate";
 import Map from "ol/Map";
 import Overlay from "ol/Overlay";
 import View from "ol/View";
-import {Observable} from "rxjs";
-import {combineLatest} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
 import {delay} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {NoRouteDialogComponent} from "../../../components/ol/components/no-route-dialog.component";
@@ -39,7 +38,7 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
     <div id="main-map" class="map">
       <kpn-route-control (action)="zoomInToRoute()"></kpn-route-control>
       <kpn-geolocation-control (action)="geolocation($event)"></kpn-geolocation-control>
-      <kpn-layer-switcher [mapLayers]="mapLayers$ | async">
+      <kpn-layer-switcher [mapLayers]="layerSwitcherMapLayers$ | async">
         <kpn-poi-menu></kpn-poi-menu>
       </kpn-layer-switcher>
     </div>
@@ -58,7 +57,7 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
 })
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  mapLayers$: Observable<MapLayers>;
+  layerSwitcherMapLayers$: Observable<MapLayers>;
   interaction = new PlannerInteraction(this.plannerService.engine);
   overlay: Overlay;
   private map: Map;
@@ -109,6 +108,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         })
     );
+
+    this.layerSwitcherMapLayers$ = this.plannerLayerService.layerSwitcherMapLayers$.pipe(
+      delay(0)
+    );
   }
 
   ngAfterViewInit(): void {
@@ -118,6 +121,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
+    this.plannerLayerService.mapDestroy(this.map);
     this.pageService.nextToolbarBackgroundColor(null);
   }
 
@@ -143,10 +147,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private buildMap(): void {
-    this.plannerLayerService.init();
-    this.mapLayers$ = this.plannerLayerService.mapLayers$.pipe(
-      delay(0)
-    );
+    this.plannerLayerService.initializeLayers();
 
     this.overlay = new Overlay({
       id: "popup",
@@ -170,7 +171,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     });
 
-    this.plannerLayerService.applyMap(this.map);
+    this.plannerLayerService.mapInit(this.map);
 
     this.plannerService.init(this.map);
     this.interaction.addToMap(this.map);

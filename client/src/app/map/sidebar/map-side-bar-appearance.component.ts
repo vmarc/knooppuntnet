@@ -71,7 +71,7 @@ export class MapSidebarAppearanceComponent {
   }
 
   mapMode(): MapMode {
-    return this.mapService.mapMode();
+    return this.mapService.mapMode;
   }
 
   modeChanged(event: MatRadioChange): void {

@@ -73,11 +73,11 @@ export class MainMapNodeStyle {
 
   private determineSmallNodeStyle(feature: FeatureLike): Style {
     let style = NodeStyle.smallGray;
-    if (this.mapService.mapMode() === MapMode.surface) {
+    if (this.mapService.mapMode === MapMode.surface) {
       style = NodeStyle.smallGreen;
-    } else if (this.mapService.mapMode() === MapMode.survey) {
+    } else if (this.mapService.mapMode === MapMode.survey) {
       style = this.surveyDateStyle.smallNodeStyle(feature);
-    } else if (this.mapService.mapMode() === MapMode.analysis) {
+    } else if (this.mapService.mapMode === MapMode.analysis) {
       style = this.smallNodeStyleAnalysis(feature);
     }
     return style;
@@ -96,11 +96,11 @@ export class MainMapNodeStyle {
 
   private nodeColor(feature: FeatureLike): Color {
     let color = MainStyleColors.gray;
-    if (this.mapService.mapMode() === MapMode.surface) {
+    if (this.mapService.mapMode === MapMode.surface) {
       color = MainStyleColors.green;
-    } else if (this.mapService.mapMode() === MapMode.survey) {
+    } else if (this.mapService.mapMode === MapMode.survey) {
       color = this.surveyDateStyle.surveyColor(feature);
-    } else if (this.mapService.mapMode() === MapMode.analysis) {
+    } else if (this.mapService.mapMode === MapMode.analysis) {
       color = this.nodeColorAnalysis(feature);
     }
     return color;

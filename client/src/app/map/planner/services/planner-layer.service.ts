@@ -1,15 +1,10 @@
 import {Injectable} from "@angular/core";
-import {List} from "immutable";
-import {Map as ImmutableMap} from "immutable";
+import {List, Map as ImmutableMap} from "immutable";
 import VectorLayer from "ol/layer/Vector";
 import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
-import {ReplaySubject} from "rxjs";
-import {Observable} from "rxjs";
-import {combineLatest} from "rxjs";
-import {tap} from "rxjs/operators";
-import {filter} from "rxjs/operators";
-import {map} from "rxjs/operators";
+import {combineLatest, Observable, ReplaySubject} from "rxjs";
+import {filter, map, tap} from "rxjs/operators";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {GpxLayer} from "../../../components/ol/layers/gpx-layer";
 import {MapLayer} from "../../../components/ol/layers/map-layer";
@@ -24,14 +19,15 @@ import {I18nService} from "../../../i18n/i18n.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 import {MapMode} from "../../../components/ol/services/map-mode";
+import {Subscriptions} from "../../../util/Subscriptions";
 
 @Injectable()
 export class PlannerLayerService {
 
   standardLayers: List<MapLayer>;
-  mapLayers$: Observable<MapLayers>;
+  layerSwitcherMapLayers$: Observable<MapLayers>;
   gpxVectorLayer: VectorLayer;
-  private _mapLayers$ = new ReplaySubject<MapLayers>();
+  private _layerSwitcherMapLayers$ = new ReplaySubject<MapLayers>();
   private networkLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
   private osmLayer: MapLayer;
@@ -44,6 +40,8 @@ export class PlannerLayerService {
   private vectorLayers: ImmutableMap<NetworkType, MapLayer>;
   private allLayers: List<MapLayer>;
 
+  private readonly mapRelatedSubscriptions = new Subscriptions();
+
   constructor(private mapLayerService: MapLayerService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
@@ -51,20 +49,56 @@ export class PlannerLayerService {
               private mapZoomService: MapZoomService,
               private i18nService: I18nService) {
 
-    this.mapLayers$ = this._mapLayers$.asObservable();
+    this.layerSwitcherMapLayers$ = this._layerSwitcherMapLayers$.asObservable();
 
     this.networkLayerChange$ = combineLatest([this.mapZoomService.zoomLevel$, this.plannerService.context.networkType$, this.mapService.mapMode$]).pipe(
       map(([zoomLevel, networkType, mapMode]) => {
         return this.networkLayerChange(zoomLevel, networkType, mapMode);
       }),
-      filter(change => change !== null),
       tap(change => {
-        this._mapLayers$.next(new MapLayers(this.standardLayers.push(change.newLayer)));
+        this._layerSwitcherMapLayers$.next(new MapLayers(this.standardLayers.push(change.newLayer)));
       })
     );
   }
 
-  init(): void {
+  mapInit(olMap: Map) {
+
+    this.allLayers.forEach(mapLayer => {
+      if (mapLayer.applyMap) {
+        mapLayer.applyMap(olMap);
+      }
+    });
+
+    const mainMapStyle = new MainMapStyle(olMap, this.mapService).styleFunction();
+    List(this.vectorLayers.values()).forEach(mapLayer => {
+      const vectorTileLayer = (mapLayer.layer) as VectorTileLayer;
+      vectorTileLayer.setStyle(mainMapStyle);
+      this.mapRelatedSubscriptions.add(
+        this.mapService.mapMode$.subscribe(() => vectorTileLayer.getSource().changed())
+      );
+    });
+
+    this.mapRelatedSubscriptions.add(
+      this.networkLayerChange$.pipe(
+        filter(change => change.oldLayer?.name !== change.newLayer?.name),
+        tap(change => {
+          if (change.oldLayer !== null) {
+            olMap.removeLayer(change.oldLayer.layer);
+          }
+          olMap.getLayers().insertAt(this.standardLayers.size, change.newLayer.layer);
+        })
+      ).subscribe()
+    );
+  }
+
+  mapDestroy(olMap: Map): void {
+    this.activeNetworkLayer = null;
+    this.mapRelatedSubscriptions.unsubscribe();
+    olMap.dispose();
+  }
+
+  initializeLayers(): void {
+
     this.osmLayer = this.mapLayerService.osmLayer("main-map");
     this.tileNameLayer = this.mapLayerService.tileNameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
@@ -88,53 +122,27 @@ export class PlannerLayerService {
       .concat(this.vectorLayers.values());
   }
 
-  applyMap(olMap: Map) {
-    this.allLayers.forEach(mapLayer => {
-      if (mapLayer.applyMap) {
-        mapLayer.applyMap(olMap);
-      }
-    });
-
-    const mainMapStyle = new MainMapStyle(olMap, this.mapService).styleFunction();
-    List(this.vectorLayers.values()).forEach(l => {
-      const vectorTileLayer = (l.layer) as VectorTileLayer;
-      vectorTileLayer.setStyle(mainMapStyle);
-      this.mapService.mapMode$.subscribe(() => vectorTileLayer.getSource().changed());
-    });
-
-    this.networkLayerChange$.subscribe(change => {
-      if (change.oldLayer !== null) {
-        olMap.removeLayer(change.oldLayer.layer);
-      }
-      olMap.getLayers().insertAt(this.standardLayers.size, change.newLayer.layer);
-    });
+  private networkLayerChange(zoomLevel: number, networkType: NetworkType, mapMode: MapMode): MapLayerChange {
+    const newLayer = this.determineNetworkLayer(zoomLevel, networkType, mapMode);
+    const oldLayer = this.activeNetworkLayer;
+    this.activeNetworkLayer = newLayer;
+    return new MapLayerChange(oldLayer, newLayer);
   }
 
-  private networkLayerChange(zoomLevel: number, networkType: NetworkType, mapMode: MapMode): MapLayerChange {
+  private determineNetworkLayer(zoomLevel: number, networkType: NetworkType, mapMode: MapMode): MapLayer {
     let newLayer: MapLayer;
     if (zoomLevel <= ZoomLevel.bitmapTileMaxZoom) {
       if (mapMode === MapMode.surface) {
         newLayer = this.bitmapLayersSurface.get(networkType);
-      }
-      else if (mapMode === MapMode.survey) {
+      } else if (mapMode === MapMode.survey) {
         newLayer = this.bitmapLayersSurvey.get(networkType);
-      }
-      else {
+      } else {
         newLayer = this.bitmapLayersAnalysis.get(networkType);
       }
     } else if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
       newLayer = this.vectorLayers.get(networkType);
     }
-
-
-    const oldLayer = this.activeNetworkLayer;
-    if (oldLayer !== null && oldLayer.name === newLayer.name) {
-      // no change
-      return null;
-    }
-
-    this.activeNetworkLayer = newLayer;
-    return new MapLayerChange(oldLayer, newLayer);
+    return newLayer;
   }
 
   private buildBitmapLayers(mapMode: MapMode): ImmutableMap<NetworkType, MapLayer> {

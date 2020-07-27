@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {View} from "ol";
-import {ReplaySubject} from "rxjs";
+import {BehaviorSubject, ReplaySubject} from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -8,8 +8,12 @@ import {ReplaySubject} from "rxjs";
 export class MapZoomService {
 
   private _zoomLevel = 0;
-  private _zoomLevel$ = new ReplaySubject<number>(1);
+  private _zoomLevel$ = new BehaviorSubject<number>(null);
   zoomLevel$ = this._zoomLevel$.asObservable();
+
+  get zoomLevel(): number {
+    return this._zoomLevel$.value;
+  }
 
   install(view: View): void {
     this.updateZoomLevel(view.getZoom());

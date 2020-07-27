@@ -79,7 +79,7 @@ export class MapService {
     return this._networkType$.next(networkType);
   }
 
-  mapMode(): MapMode {
+  get mapMode(): MapMode {
     return this._mapMode$.value;
   }
 
