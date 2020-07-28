@@ -42,7 +42,7 @@ export class MoveFirstLegSource {
     return this.context.fetchLeg(source, oldLeg.sink).pipe(
       map(data => {
         const sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), data.sinkNode.coordinate);
-        return this.context.newLeg(data, sinkFlag, oldLeg.viaFlag);
+        return PlanUtil.leg(data, sinkFlag, oldLeg.viaFlag);
       })
     );
   }

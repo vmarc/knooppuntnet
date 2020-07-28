@@ -15,6 +15,7 @@ import {Plan} from "./plan";
 import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
 import {PlanFlagType} from "./plan-flag-type";
+import {PlanLegData} from "../context/plan-leg-data";
 
 export class PlanUtil {
 
@@ -84,6 +85,10 @@ export class PlanUtil {
     return "";
   }
 
+  static startFlag(coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.Start, FeatureId.next(), coordinate);
+  }
+
   static viaFlag(coordinate: Coordinate): PlanFlag {
     return new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
   }
@@ -134,6 +139,11 @@ export class PlanUtil {
     const segment = new PlanSegment(0, "", null, List([fragment]));
     const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
     return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
+  }
+
+  static leg(data: PlanLegData, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {
+    const legKey = PlanUtil.key(data.source, data.sink);
+    return new PlanLeg(FeatureId.next(), legKey, data.source, data.sink, sinkFlag, viaFlag, data.routes);
   }
 
 }

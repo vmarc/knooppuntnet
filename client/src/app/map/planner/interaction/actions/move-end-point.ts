@@ -39,7 +39,7 @@ export class MoveEndPoint {
     return this.context.fetchLeg(source, sink).pipe(
       map(data => {
         const sinkFlag = PlanUtil.endFlag(data.sinkNode.coordinate);
-        return this.context.newLeg(data, sinkFlag, null);
+        return PlanUtil.leg(data, sinkFlag, null);
       })
     );
   }

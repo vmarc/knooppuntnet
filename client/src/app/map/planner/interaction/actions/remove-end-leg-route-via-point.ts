@@ -17,12 +17,10 @@ export class RemoveEndLegRouteViaPoint {
   }
 
   private buildNewLeg(oldLeg: PlanLeg): Observable<PlanLeg> {
-
     const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
-
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, oldLeg.sinkFlag, null))
+      map(data => PlanUtil.leg(data, oldLeg.sinkFlag, null))
     );
   }
 }

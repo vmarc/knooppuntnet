@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {List} from "immutable";
-import {Map as TranslationMap} from "immutable";
+import {List, Map as TranslationMap} from "immutable";
 import Map from "ol/Map";
 import {BehaviorSubject} from "rxjs";
 import {AppService} from "../app.service";
@@ -15,7 +14,6 @@ import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
 import {PlannerRouteLayerImpl} from "./planner/context/planner-route-layer-impl";
 import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
-import {PlanLegCache} from "./planner/plan/plan-leg-cache";
 import {PlanRoute} from "../kpn/api/common/planner/plan-route";
 import {PlanUtil} from "./planner/plan/plan-util";
 
@@ -33,7 +31,6 @@ export class PlannerService {
   private elasticBand = new PlannerElasticBandImpl();
   private highlightLayer = new PlannerHighlightLayerImpl();
   private legRepository = new PlannerLegRepositoryImpl(this.appService);
-  private legCache: PlanLegCache = new PlanLegCache();
   private overlay = new PlannerOverlayImpl(this.mapService);
   context: PlannerContext = new PlannerContext(
     this.routeLayer,
@@ -42,7 +39,6 @@ export class PlannerService {
     this.elasticBand,
     this.highlightLayer,
     this.legRepository,
-    this.legCache,
     this.overlay
   );
 

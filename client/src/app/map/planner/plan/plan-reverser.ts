@@ -24,7 +24,7 @@ export class PlanReverser {
     return this.buildLegs(oldPlan.legs.reverse(), List()).pipe(
       map(newLegs => {
         const sourceNode = newLegs.get(0).sourceNode;
-        const sourceFlag = PlanFlag.start(FeatureId.next(), sourceNode.coordinate);
+        const sourceFlag = PlanUtil.startFlag( sourceNode.coordinate);
         return new Plan(sourceNode, sourceFlag, newLegs);
       })
     );
@@ -82,20 +82,18 @@ export class PlanReverser {
     return this.context.fetchLeg(source, sink).pipe(
       map(data => {
         const sinkFlag = PlanUtil.viaFlag(data.sinkNode.coordinate);
-        return this.context.newLeg(data, sinkFlag, viaFlag);
+        return PlanUtil.leg(data, sinkFlag, viaFlag);
       })
     );
   }
 
   private buildExtraLeg(sourceNodeId: string, sinkNodeId: string, sinkFlagType: PlanFlagType): Observable<PlanLeg> {
-
     const source = PlanUtil.legEndNode(+sourceNodeId);
     const sink = PlanUtil.legEndNode(+sinkNodeId);
-
     return this.context.fetchLeg(source, sink).pipe(
       map(data => {
         const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), data.sinkNode.coordinate);
-        return this.context.newLeg(data, sinkFlag, null);
+        return PlanUtil.leg(data, sinkFlag, null);
       })
     );
   }

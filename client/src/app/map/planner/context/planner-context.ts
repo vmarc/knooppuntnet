@@ -5,7 +5,6 @@ import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
 import {Plan} from "../plan/plan";
 import {PlanLeg} from "../plan/plan-leg";
-import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerHighlightLayer} from "./planner-highlight-layer";
@@ -14,9 +13,6 @@ import {PlannerMarkerLayer} from "./planner-marker-layer";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import {PlanLegData} from "./plan-leg-data";
-import {PlanUtil} from "../plan/plan-util";
-import {FeatureId} from "../features/feature-id";
-import {PlanFlag} from "../plan/plan-flag";
 
 export class NetworkTypeData {
   constructor(public plan: Plan,
@@ -40,7 +36,6 @@ export class PlannerContext {
               readonly elasticBand: PlannerElasticBand,
               readonly highlightLayer: PlannerHighlightLayer,
               readonly legRepository: PlannerLegRepository,
-              readonly legs: PlanLegCache,
               readonly overlay: PlannerOverlay) {
     this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
     this.plan$ = this._plan$.asObservable();
@@ -116,13 +111,6 @@ export class PlannerContext {
 
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     return this.legRepository.planLeg(this.networkType, source, sink);
-  }
-
-  newLeg(data: PlanLegData, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {
-    const legKey = PlanUtil.key(data.source, data.sink);
-    const newLeg = new PlanLeg(FeatureId.next(), legKey, data.source, data.sink, sinkFlag, null, data.routes);
-    this.legs.add(newLeg);
-    return newLeg;
   }
 
   debug(message: string): void {

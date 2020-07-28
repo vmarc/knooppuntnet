@@ -39,7 +39,7 @@ export class DropEndNodeOnRoute {
       map(data => {
         const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
         const sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), data.sinkNode.coordinate);
-        return this.context.newLeg(data, sinkFlag, viaFlag);
+        return PlanUtil.leg(data, sinkFlag, viaFlag);
       })
     );
   }

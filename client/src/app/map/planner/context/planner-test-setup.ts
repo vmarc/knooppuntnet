@@ -3,7 +3,6 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanLegCache} from "../plan/plan-leg-cache";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerContext} from "./planner-context";
 import {PlannerCursorMock} from "./planner-cursor-mock";
@@ -21,7 +20,6 @@ export class PlannerTestSetup {
   readonly elasticBand = new PlannerElasticBandMock();
   readonly highlightLayer = new PlannerHighlightLayerMock();
   readonly legRepository = new PlannerLegRepositoryMock();
-  readonly legs = new PlanLegCache();
 
   readonly context = new PlannerContext(
     this.routeLayer,
@@ -30,7 +28,6 @@ export class PlannerTestSetup {
     this.elasticBand,
     this.highlightLayer,
     this.legRepository,
-    this.legs,
     null
   );
 

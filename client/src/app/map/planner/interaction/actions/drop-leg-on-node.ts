@@ -16,7 +16,7 @@ export class DropLegOnNode {
   }
 
   drop(legDrag: PlannerDragLeg, connection: PlanNode): void {
-    const oldLeg = this.context.legs.getById(legDrag.oldLegId);
+    const oldLeg = this.context.plan.legs.find(leg => leg.featureId === legDrag.oldLegId);
     if (oldLeg) {
       this.buildLeg1(oldLeg.sourceNode, connection).pipe(
         switchMap(newLeg1 =>
@@ -35,7 +35,7 @@ export class DropLegOnNode {
     const sinkFlag = PlanUtil.viaFlag(sinkNode.coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, null))
+      map(data => PlanUtil.leg(data, sinkFlag, null))
     );
   }
 
@@ -48,7 +48,7 @@ export class DropLegOnNode {
     const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, null))
+      map(data => PlanUtil.leg(data, sinkFlag, null))
     );
   }
 

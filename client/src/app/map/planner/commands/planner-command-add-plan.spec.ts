@@ -17,8 +17,6 @@ describe("PlannerCommandAddPlan", () => {
 
     const leg = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, sinkFlag, null);
 
-    setup.legs.add(leg);
-
     const plan = new Plan(setup.node1, startFlag, List([leg]));
 
     const command = new PlannerCommandAddPlan(plan);

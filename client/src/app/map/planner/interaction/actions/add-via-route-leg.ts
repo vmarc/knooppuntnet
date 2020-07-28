@@ -43,7 +43,7 @@ export class AddViaRouteLeg {
       map(data => {
         const sinkFlag = PlanUtil.endFlag(data.sinkNode.coordinate);
         const viaFlag = PlanUtil.viaFlag(coordinate);
-        return this.context.newLeg(data, sinkFlag, viaFlag);
+        return PlanUtil.leg(data, sinkFlag, viaFlag);
       })
     );
   }

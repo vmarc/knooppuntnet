@@ -23,7 +23,7 @@ export class AddLeg {
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const sinkFlag = PlanUtil.endFlag(sinkNode.coordinate);
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, null))
+      map(data => PlanUtil.leg(data, sinkFlag, null))
     );
   }
 

@@ -1,7 +1,7 @@
 import {List} from "immutable";
 import {Coordinate} from "ol/coordinate";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {map, switchMap} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandMoveViaRoute} from "../../commands/planner-command-move-via-route";
 import {PlannerContext} from "../../context/planner-context";
@@ -16,17 +16,13 @@ export class DropViaRouteOnRoute {
   }
 
   drop(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
-    // TODO PLAN refactor to use switchMap
-    this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate).subscribe(newLeg1 => {
-      if (newLeg1) {
-        this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag).subscribe(newLeg2 => {
-          if (newLeg2) {
-            const command = new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2);
-            this.context.execute(command);
-          }
-        });
-      }
-    });
+    this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate).pipe(
+      switchMap(newLeg1 =>
+        this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag).pipe(
+          map(newLeg2 => new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2))
+        )
+      )
+    ).subscribe(command => this.context.execute(command));
   }
 
   private buildViaRouteLeg(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): Observable<PlanLeg> {
@@ -37,7 +33,7 @@ export class DropViaRouteOnRoute {
     const sinkFlag = PlanUtil.invisibleFlag(coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, viaFlag))
+      map(data => PlanUtil.leg(data, sinkFlag, viaFlag))
     );
   }
 
@@ -47,7 +43,7 @@ export class DropViaRouteOnRoute {
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, null))
+      map(data => PlanUtil.leg(data, sinkFlag, null))
     );
   }
 

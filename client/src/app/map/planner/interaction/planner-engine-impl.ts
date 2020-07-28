@@ -333,7 +333,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private legDragStarted(legId: string, coordinate: Coordinate): boolean {
-    const leg = this.context.legs.getById(legId);
+    const leg = this.context.plan.legs.find(leg => leg.featureId === legId);
     if (leg) {
       const anchor1 = leg.sourceNode.coordinate;
       const anchor2 = leg.sinkNode.coordinate;

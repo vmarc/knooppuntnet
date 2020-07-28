@@ -34,7 +34,7 @@ export class MoveNodeViaPointToNode {
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const sinkFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, null))
+      map(data => PlanUtil.leg(data, sinkFlag, null))
     );
   }
 
@@ -42,7 +42,7 @@ export class MoveNodeViaPointToNode {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     return this.context.fetchLeg(source, sink).pipe(
-      map(data => this.context.newLeg(data, sinkFlag, null))
+      map(data => PlanUtil.leg(data, sinkFlag, null))
     );
   }
 
