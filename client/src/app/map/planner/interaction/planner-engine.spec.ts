@@ -1,6 +1,7 @@
 import {List} from "immutable";
 import {expectCoordinates} from "../../../util/test-support";
 import {expectStartFlag} from "../../../util/test-support";
+import {expectEndFlagCoordinate} from "../../../util/test-support";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
@@ -13,7 +14,6 @@ import {MapFeature} from "../features/map-feature";
 import {NetworkNodeFeature} from "../features/network-node-feature";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerEngineImpl} from "./planner-engine-impl";
 
@@ -58,6 +58,8 @@ describe("PlannerEngine", () => {
       const node1 = NetworkNodeFeature.create("1001", "01", [1, 1]);
       const node2 = NetworkNodeFeature.create("1002", "02", [2, 2]);
 
+      setup.createPlanLegData(setup.node1, setup.node2);
+
       setup.context.updatePlan(new Plan(node1.node, PlanFlag.start("n1", [1, 1]), List()));
 
       const features: List<MapFeature> = List([node2]);
@@ -77,8 +79,7 @@ describe("PlannerEngine", () => {
         const leg = legs.get(0);
         expect(leg.source.node.nodeId).toEqual(1001);
         expect(leg.sink.node.nodeId).toEqual(1002);
-        expect(leg.sinkFlag.flagType).toEqual(PlanFlagType.End);
-        expect(leg.sinkFlag.coordinate).toEqual([2, 2]);
+        expectEndFlagCoordinate(leg.sinkFlag, [2, 2]);
         expect(leg.viaFlag).toEqual(null);
       }
 
@@ -200,6 +201,8 @@ describe("PlannerEngine", () => {
       const newStartNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       const oldStartNodeFeature = FlagFeature.start("sourceFlag");
 
+      setup.createPlanLegData(setup.node3, setup.node2);
+
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldStartNodeFeature]), [1.1, 1.1], false);
 
@@ -309,6 +312,8 @@ describe("PlannerEngine", () => {
       const oldPlan = setup.createOneLegPlan();
       const newEndNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       const oldEndNodeFeature = FlagFeature.end(oldPlan.legs.last(null).sinkFlag.featureId);
+
+      setup.createPlanLegData(setup.node1, setup.node3);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldEndNodeFeature]), [2.1, 2.1], false);
@@ -422,6 +427,9 @@ describe("PlannerEngine", () => {
       setup.createTwoLegPlan();
       const newViaNodeFeature = NetworkNodeFeature.create("1004", "04", [4, 4]);
       const oldViaNodeFeature = FlagFeature.via("sinkFlag1");
+
+      setup.createPlanLegData(setup.node1, setup.node4);
+      setup.createPlanLegData(setup.node4, setup.node3);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldViaNodeFeature]), [2.1, 2.1], false);
@@ -537,6 +545,9 @@ describe("PlannerEngine", () => {
       const oldPlan = setup.createOneLegPlan();
       const newViaNodeFeature = NetworkNodeFeature.create("1003", "03", [3, 3]);
       const oldLegFeature = new LegFeature(oldPlan.legs.get(0).featureId);
+
+      setup.createPlanLegData(setup.node1, setup.node3);
+      setup.createPlanLegData(setup.node3, setup.node2);
 
       // act - start drag
       const eventIsNotFurtherPropagated = engine.handleDownEvent(List([oldLegFeature]), [1.5, 1.5], false);

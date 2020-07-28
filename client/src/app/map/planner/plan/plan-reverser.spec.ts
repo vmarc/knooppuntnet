@@ -54,7 +54,7 @@ describe("PlanReverser", () => {
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
-    setup.legRepository.add(PlanUtil.legEndNode(1002), PlanUtil.legEndNode(1001), planLegData);
+    setup.legRepository.add(planLegData);
 
     const oldPlan = setup.createOneLegPlan();
 
@@ -94,9 +94,9 @@ describe("PlanReverser", () => {
     const planLegData32 = new PlanLegData(legEnd3, legEnd2, List([planRoute32]));
     const planLegData21 = new PlanLegData(legEnd2, legEnd1, List([planRoute21]));
 
-    setup.legRepository.add(PlanUtil.legEndNode(1004), PlanUtil.legEndNode(1003), planLegData43);
-    setup.legRepository.add(PlanUtil.legEndNode(1003), PlanUtil.legEndNode(1002), planLegData32);
-    setup.legRepository.add(PlanUtil.legEndNode(1002), PlanUtil.legEndNode(1001), planLegData21);
+    setup.legRepository.add(planLegData43);
+    setup.legRepository.add(planLegData32);
+    setup.legRepository.add(planLegData21);
 
     const oldPlan = setup.createThreeLegPlan();
 
@@ -163,7 +163,7 @@ describe("PlanReverser", () => {
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
-    setup.legRepository.add(source, sink, planLegData);
+    setup.legRepository.add(planLegData);
   }
 
   function buildSingleViaRoutePlan(setup: PlannerTestSetup): Plan {
@@ -238,7 +238,7 @@ describe("PlanReverser", () => {
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
-    setup.legRepository.add(source, sink, planLegData);
+    setup.legRepository.add(planLegData);
   }
 
   function buildExpectedNodeToNodeLeg(setup: PlannerTestSetup): void {
@@ -251,7 +251,7 @@ describe("PlanReverser", () => {
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
-    setup.legRepository.add(source, sink, planLegData);
+    setup.legRepository.add(planLegData);
   }
 
   function buildPlan(setup: PlannerTestSetup): Plan {

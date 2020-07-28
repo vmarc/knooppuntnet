@@ -38,7 +38,7 @@ describe("PlannerCommandReset", () => {
       expect(leg1.sinkFlag.featureId).toEqual("viaFlag");
       expect(leg1.viaFlag).toEqual(null);
 
-      const leg2 = legs.get(0);
+      const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
       expect(leg2.sinkFlag.featureId).toEqual("endFlag");
       expect(leg2.viaFlag).toEqual(null);
@@ -69,7 +69,7 @@ describe("PlannerCommandReset", () => {
       expect(leg1.sinkFlag.featureId).toEqual("viaFlag");
       expect(leg1.viaFlag).toEqual(null);
 
-      const leg2 = legs.get(0);
+      const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
       expect(leg2.sinkFlag.featureId).toEqual("endFlag");
       expect(leg2.viaFlag).toEqual(null);

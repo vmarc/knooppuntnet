@@ -1,11 +1,12 @@
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanReverser} from "../plan/plan-reverser";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddLeg} from "./planner-command-add-leg";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
 import {PlannerCommandReverse} from "./planner-command-reverse";
+import {expectViaFlagCoordinate} from "../../../util/test-support";
+import {expectEndFlagCoordinate} from "../../../util/test-support";
 
 describe("PlannerCommandReverse", () => {
 
@@ -19,6 +20,9 @@ describe("PlannerCommandReverse", () => {
 
     const leg1 = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, sinkFlag1, null);
     const leg2 = PlanUtil.singleRoutePlanLeg("23", setup.node2, setup.node3, sinkFlag2, null);
+
+    setup.createPlanLegData(setup.node3, setup.node2);
+    setup.createPlanLegData(setup.node2, setup.node1);
 
     setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
     setup.context.execute(new PlannerCommandAddLeg(leg1));
@@ -51,14 +55,8 @@ describe("PlannerCommandReverse", () => {
       {
         const legs = setup.context.plan.legs;
         expect(legs.size).toEqual(2);
-
-        const leg1 = legs.get(0);
-        expect(leg1.sinkFlag.coordinate).toEqual([2, 2]);
-        expect(leg1.sinkFlag.flagType).toEqual(PlanFlagType.Via);
-
-        const leg2 = legs.get(1);
-        expect(leg2.sinkFlag.coordinate).toEqual([1, 1]);
-        expect(leg2.sinkFlag.flagType).toEqual(PlanFlagType.End);
+        expectViaFlagCoordinate(legs.get(0).sinkFlag, [2, 2]);
+        expectEndFlagCoordinate(legs.get(1).sinkFlag, [1, 1]);
       }
 
       reverseCommand.undo(setup.context);

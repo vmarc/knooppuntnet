@@ -2,10 +2,11 @@ import {List} from "immutable";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanUtil} from "../plan/plan-util";
 import {PlannerCommandAddPlan} from "./planner-command-add-plan";
 import {PlannerCommandSplitLeg} from "./planner-command-split-leg";
+import {expectViaFlagCoordinate} from "../../../util/test-support";
+import {expectEndFlagCoordinate} from "../../../util/test-support";
 
 describe("PlannerCommandSplitLeg", () => {
 
@@ -44,13 +45,11 @@ describe("PlannerCommandSplitLeg", () => {
 
       const leg1 = legs.get(0);
       expect(leg1.featureId).toEqual("13");
-      expect(leg1.sinkFlag.flagType).toEqual(PlanFlagType.Via);
-      expect(leg1.sinkFlag.coordinate).toEqual([3, 3]);
+      expectViaFlagCoordinate(leg1.sinkFlag, [3, 3]);
 
-      const leg2 = legs.get(0);
+      const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("32");
-      expect(leg2.sinkFlag.flagType).toEqual(PlanFlagType.End);
-      expect(leg2.sinkFlag.coordinate).toEqual([2, 2]);
+      expectEndFlagCoordinate(leg2.sinkFlag, [2, 2]);
     }
 
     command.undo(setup.context);
@@ -70,8 +69,7 @@ describe("PlannerCommandSplitLeg", () => {
 
       const leg = legs.get(0);
       expect(leg.featureId).toEqual("12");
-      expect(leg.sinkFlag.flagType).toEqual(PlanFlagType.End);
-      expect(leg.sinkFlag.coordinate).toEqual([2, 2]);
+      expectEndFlagCoordinate(leg.sinkFlag, [2, 2]);
     }
   });
 

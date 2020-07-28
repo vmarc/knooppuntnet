@@ -11,6 +11,9 @@ import {PlannerHighlightLayerMock} from "./planner-highlight-layer-mock";
 import {PlannerLegRepositoryMock} from "./planner-leg-repository-mock";
 import {PlannerMarkerLayerMock} from "./planner-marker-layer-mock";
 import {PlannerRouteLayerMock} from "./planner-route-layer-mock";
+import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
+import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
+import {PlanLegData} from "./plan-leg-data";
 
 export class PlannerTestSetup {
 
@@ -107,6 +110,15 @@ export class PlannerTestSetup {
     this.routeLayer.addPlanLeg(leg3);
 
     return plan;
+  }
+
+  createPlanLegData(node1: PlanNode, node2: PlanNode): PlanLegData {
+    const source = PlanUtil.legEndNode(+node1.nodeId);
+    const sink = PlanUtil.legEndNode(+node2.nodeId);
+    const planRoute = new PlanRoute(node1, node2, 0, List(), List());
+    const planLegData = new PlanLegData(source, sink, List([planRoute]));
+    this.legRepository.add(planLegData);
+    return planLegData
   }
 
 }
