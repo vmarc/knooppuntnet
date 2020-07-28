@@ -21,7 +21,7 @@ export class DropLegOnNode {
       this.buildLeg1(oldLeg.sourceNode, connection).pipe(
         switchMap(newLeg1 =>
           this.buildLeg2(connection, oldLeg.sinkNode).pipe(
-            map(newLeg2 => new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId))
+            map(newLeg2 => new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2))
           )
         )
       ).subscribe(command => this.context.execute(command))

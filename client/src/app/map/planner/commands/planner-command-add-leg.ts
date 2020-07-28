@@ -1,9 +1,10 @@
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
+import {PlanLeg} from "../plan/plan-leg";
 
 export class PlannerCommandAddLeg implements PlannerCommand {
 
-  constructor(private legId: string) {
+  constructor(private leg: PlanLeg) {
   }
 
   public do(context: PlannerContext) {
@@ -20,12 +21,11 @@ export class PlannerCommandAddLeg implements PlannerCommand {
       context.markerLayer.updateFlag(updatedLastLeg.sinkFlag);
     }
 
-    const leg = context.legs.getById(this.legId);
-    newLegs = newLegs.push(leg);
+    newLegs = newLegs.push(this.leg);
 
-    context.markerLayer.addFlag(leg.viaFlag);
-    context.markerLayer.addFlag(leg.sinkFlag);
-    context.routeLayer.addPlanLeg(leg);
+    context.markerLayer.addFlag(this.leg.viaFlag);
+    context.markerLayer.addFlag(this.leg.sinkFlag);
+    context.routeLayer.addPlanLeg(this.leg);
 
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
@@ -35,11 +35,9 @@ export class PlannerCommandAddLeg implements PlannerCommand {
 
     context.debug("PlannerCommandAddLeg undo");
 
-    const leg = context.legs.getById(this.legId);
-
-    context.routeLayer.removePlanLeg(this.legId);
-    context.markerLayer.removeFlag(leg.viaFlag);
-    context.markerLayer.removeFlag(leg.sinkFlag);
+    context.routeLayer.removePlanLeg(this.leg.featureId);
+    context.markerLayer.removeFlag(this.leg.viaFlag);
+    context.markerLayer.removeFlag(this.leg.sinkFlag);
 
     let newLegs = context.plan.legs.slice(0, -1);
 

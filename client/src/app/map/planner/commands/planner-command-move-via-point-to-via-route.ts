@@ -5,34 +5,29 @@ import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
-  constructor(private readonly oldLegId1: string,
-              private readonly oldLegId2: string,
-              private readonly newLegId1: string,
-              private readonly newLegId2: string) {
+  constructor(private readonly oldLeg1: PlanLeg,
+              private readonly oldLeg2: PlanLeg,
+              private readonly newLeg1: PlanLeg,
+              private readonly newLeg2: PlanLeg) {
   }
 
   public do(context: PlannerContext) {
 
     context.debug("PlannerCommandMoveViaPointToViaRoute");
 
-    const oldLeg1 = context.legs.getById(this.oldLegId1);
-    const oldLeg2 = context.legs.getById(this.oldLegId2);
-    const newLeg1 = context.legs.getById(this.newLegId1);
-    const newLeg2 = context.legs.getById(this.newLegId2);
-
-    context.markerLayer.removeFlag(oldLeg1.sinkFlag);
-    context.markerLayer.addFlag(newLeg1.viaFlag);
-    context.routeLayer.removePlanLeg(oldLeg1.featureId);
-    context.routeLayer.removePlanLeg(oldLeg2.featureId);
-    context.routeLayer.addPlanLeg(newLeg1);
-    context.routeLayer.addPlanLeg(newLeg2);
+    context.markerLayer.removeFlag(this.oldLeg1.sinkFlag);
+    context.markerLayer.addFlag(this.newLeg1.viaFlag);
+    context.routeLayer.removePlanLeg(this.oldLeg1.featureId);
+    context.routeLayer.removePlanLeg(this.oldLeg2.featureId);
+    context.routeLayer.addPlanLeg(this.newLeg1);
+    context.routeLayer.addPlanLeg(this.newLeg2);
 
     const newLegs: List<PlanLeg> = context.plan.legs.map(leg => {
-      if (leg.featureId === oldLeg1.featureId) {
-        return newLeg1;
+      if (leg.featureId === this.oldLeg1.featureId) {
+        return this.newLeg1;
       }
-      if (leg.featureId === oldLeg2.featureId) {
-        return newLeg2;
+      if (leg.featureId === this.oldLeg2.featureId) {
+        return this.newLeg2;
       }
       return leg;
     });
@@ -44,26 +39,21 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
     context.debug("PlannerCommandMoveViaPointToViaRoute undo");
 
-    const oldLeg1 = context.legs.getById(this.oldLegId1);
-    const oldLeg2 = context.legs.getById(this.oldLegId2);
-    const newLeg1 = context.legs.getById(this.newLegId1);
-    const newLeg2 = context.legs.getById(this.newLegId2);
+    context.markerLayer.removeFlag(this.newLeg1.viaFlag);
 
-    context.markerLayer.removeFlag(newLeg1.viaFlag);
+    context.markerLayer.addFlag(this.oldLeg1.sinkFlag);
 
-    context.markerLayer.addFlag(oldLeg1.sinkFlag);
-
-    context.routeLayer.removePlanLeg(newLeg1.featureId);
-    context.routeLayer.removePlanLeg(newLeg2.featureId);
-    context.routeLayer.addPlanLeg(oldLeg1);
-    context.routeLayer.addPlanLeg(oldLeg2);
+    context.routeLayer.removePlanLeg(this.newLeg1.featureId);
+    context.routeLayer.removePlanLeg(this.newLeg2.featureId);
+    context.routeLayer.addPlanLeg(this.oldLeg1);
+    context.routeLayer.addPlanLeg(this.oldLeg2);
 
     const newLegs: List<PlanLeg> = context.plan.legs.map(leg => {
-      if (leg.featureId === newLeg1.featureId) {
-        return oldLeg1;
+      if (leg.featureId === this.newLeg1.featureId) {
+        return this.oldLeg1;
       }
-      if (leg.featureId === newLeg2.featureId) {
-        return oldLeg2;
+      if (leg.featureId === this.newLeg2.featureId) {
+        return this.oldLeg2;
       }
       return leg;
     });

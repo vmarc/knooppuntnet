@@ -1,30 +1,26 @@
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
+import {PlanLeg} from "../plan/plan-leg";
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
-  constructor(private readonly oldLegId1: string,
-              private readonly oldLegId2: string,
-              private readonly newLegId1: string,
-              private readonly newLegId2: string) {
+  constructor(private readonly oldLeg1: PlanLeg,
+              private readonly oldLeg2: PlanLeg,
+              private readonly newLeg1: PlanLeg,
+              private readonly newLeg2: PlanLeg) {
   }
 
   public do(context: PlannerContext) {
     context.debug("PlannerCommandMoveViaPoint");
-    this.update(context, this.oldLegId1, this.oldLegId2, this.newLegId1, this.newLegId2);
+    this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
   }
 
   public undo(context: PlannerContext) {
     context.debug("PlannerCommandMoveViaPoint undo");
-    this.update(context, this.newLegId1, this.newLegId2, this.oldLegId1, this.oldLegId2);
+    this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
   }
 
-  private update(context: PlannerContext, fromLegId1: string, fromLegId2: string, toLegId1: string, toLegId2: string) {
-
-    const fromLeg1 = context.legs.getById(fromLegId1);
-    const fromLeg2 = context.legs.getById(fromLegId2);
-    const toLeg1 = context.legs.getById(toLegId1);
-    const toLeg2 = context.legs.getById(toLegId2);
+  private update(context: PlannerContext, fromLeg1: PlanLeg, fromLeg2: PlanLeg, toLeg1: PlanLeg, toLeg2: PlanLeg) {
 
     context.markerLayer.removeFlag(fromLeg1.sinkFlag);
     context.markerLayer.addFlag(toLeg1.sinkFlag);

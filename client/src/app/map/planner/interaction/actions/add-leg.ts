@@ -12,10 +12,9 @@ export class AddLeg {
   }
 
   add(sinkNode: PlanNode): void {
-    this.buildLeg(sinkNode).subscribe(leg => {
-      const command = new PlannerCommandAddLeg(leg.featureId);
-      this.context.execute(command);
-    });
+    this.buildLeg(sinkNode).pipe(
+      map(leg => new PlannerCommandAddLeg(leg))
+    ).subscribe(command => this.context.execute(command));
   }
 
   private buildLeg(sinkNode: PlanNode): Observable<PlanLeg> {

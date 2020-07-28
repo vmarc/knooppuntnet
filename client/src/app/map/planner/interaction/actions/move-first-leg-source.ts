@@ -17,7 +17,7 @@ export class MoveFirstLegSource {
 
   move(newSourceNode: PlanNode): void {
 
-    const oldLeg: PlanLeg = this.context.plan.legs.get(0, null);
+    const oldLeg = this.context.plan.legs.get(0, null);
     const newSource = PlanUtil.legEndNode(+newSourceNode.nodeId);
 
     this.buildNewLeg(newSource, oldLeg).subscribe(newLeg => {
@@ -26,10 +26,10 @@ export class MoveFirstLegSource {
         const oldSourceFlag = this.context.plan.sourceFlag;
         const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
         const command = new PlannerCommandMoveFirstLegSource(
-          oldLeg.featureId,
+          oldLeg,
           oldSourceNode,
           oldSourceFlag,
-          newLeg.featureId,
+          newLeg,
           newSourceNode,
           newSourceFlag
         );

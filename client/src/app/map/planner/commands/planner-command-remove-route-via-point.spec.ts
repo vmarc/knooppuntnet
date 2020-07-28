@@ -18,11 +18,8 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     const oldLeg = PlanUtil.singleRoutePlanLeg("13-1", setup.node1, setup.node3, sinkFlag, viaFlag);
     const newLeg = PlanUtil.singleRoutePlanLeg("13-2", setup.node1, setup.node3, sinkFlag, null);
 
-    setup.legs.add(oldLeg);
-    setup.legs.add(newLeg);
-
     setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
-    setup.context.execute(new PlannerCommandAddLeg(oldLeg.featureId));
+    setup.context.execute(new PlannerCommandAddLeg(oldLeg));
 
     setup.markerLayer.expectFlagCount(3);
     setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
@@ -35,7 +32,7 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
 
-    const command = new PlannerCommandRemoveRouteViaPoint(oldLeg.featureId, newLeg.featureId);
+    const command = new PlannerCommandRemoveRouteViaPoint(oldLeg, newLeg);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(2);

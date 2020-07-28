@@ -21,7 +21,7 @@ export class MoveEndPoint {
       const source = PlanUtil.legEndNode(+sourceNode.nodeId);
       const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
       this.buildLeg(source, sink).subscribe(newLeg => {
-        const command = new PlannerCommandMoveEndPoint(oldLeg.featureId, newLeg.featureId);
+        const command = new PlannerCommandMoveEndPoint(oldLeg, newLeg);
         this.context.execute(command);
       });
     } else {
@@ -29,7 +29,7 @@ export class MoveEndPoint {
       const source = PlanUtil.legEndNode(+sourceNode.nodeId);
       const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
       this.buildLeg(source, sink).subscribe(newLeg => {
-        const command = new PlannerCommandMoveEndPoint(oldLeg.featureId, newLeg.featureId);
+        const command = new PlannerCommandMoveEndPoint(oldLeg, newLeg);
         this.context.execute(command);
       });
     }

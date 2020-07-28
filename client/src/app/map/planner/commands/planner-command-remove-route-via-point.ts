@@ -5,24 +5,21 @@ import {PlannerCommand} from "./planner-command";
 
 export class PlannerCommandRemoveRouteViaPoint implements PlannerCommand {
 
-  constructor(private readonly oldLegId: string,
-              private readonly newLegId: string) {
+  constructor(private readonly oldLeg: PlanLeg,
+              private readonly newLeg: PlanLeg) {
   }
 
   public do(context: PlannerContext) {
 
     context.debug("PlannerCommandRemoveRouteViaPoint");
 
-    const oldLeg = context.legs.getById(this.oldLegId);
-    const newLeg = context.legs.getById(this.newLegId);
+    context.markerLayer.removeFlag(this.oldLeg.viaFlag);
+    context.markerLayer.removeFlag(this.oldLeg.sinkFlag);
+    context.routeLayer.removePlanLeg(this.oldLeg.featureId);
+    context.markerLayer.addFlag(this.newLeg.sinkFlag);
+    context.routeLayer.addPlanLeg(this.newLeg);
 
-    context.markerLayer.removeFlag(oldLeg.viaFlag);
-    context.markerLayer.removeFlag(oldLeg.sinkFlag);
-    context.routeLayer.removePlanLeg(oldLeg.featureId);
-    context.markerLayer.addFlag(newLeg.sinkFlag);
-    context.routeLayer.addPlanLeg(newLeg);
-
-    const newLegs: List<PlanLeg> = context.plan.legs.map(leg => leg.featureId === oldLeg.featureId ? newLeg : leg);
+    const newLegs: List<PlanLeg> = context.plan.legs.map(leg => leg.featureId === this.oldLeg.featureId ? this.newLeg : leg);
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
@@ -31,16 +28,13 @@ export class PlannerCommandRemoveRouteViaPoint implements PlannerCommand {
 
     context.debug("PlannerCommandRemoveRouteViaPoint undo");
 
-    const oldLeg = context.legs.getById(this.oldLegId);
-    const newLeg = context.legs.getById(this.newLegId);
+    context.markerLayer.removeFlag(this.newLeg.sinkFlag);
+    context.routeLayer.removePlanLeg(this.newLeg.featureId);
+    context.markerLayer.addFlag(this.oldLeg.viaFlag);
+    context.markerLayer.addFlag(this.oldLeg.sinkFlag);
+    context.routeLayer.addPlanLeg(this.oldLeg);
 
-    context.markerLayer.removeFlag(newLeg.sinkFlag);
-    context.routeLayer.removePlanLeg(newLeg.featureId);
-    context.markerLayer.addFlag(oldLeg.viaFlag);
-    context.markerLayer.addFlag(oldLeg.sinkFlag);
-    context.routeLayer.addPlanLeg(oldLeg);
-
-    const newLegs: List<PlanLeg> = context.plan.legs.map(leg => leg.featureId === newLeg.featureId ? oldLeg : leg);
+    const newLegs = context.plan.legs.map(leg => leg.featureId === this.newLeg.featureId ? this.oldLeg : leg);
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }

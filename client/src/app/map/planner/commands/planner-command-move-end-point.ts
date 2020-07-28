@@ -1,25 +1,24 @@
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
+import {PlanLeg} from "../plan/plan-leg";
 
 export class PlannerCommandMoveEndPoint implements PlannerCommand {
 
-  constructor(private readonly oldLastLegId: string,
-              private readonly newLastLegId: string) {
+  constructor(private readonly oldLeg: PlanLeg,
+              private readonly newLeg: PlanLeg) {
   }
 
   public do(context: PlannerContext) {
     context.debug("PlannerCommandMoveEndPoint");
-    this.update(context, this.oldLastLegId, this.newLastLegId);
+    this.update(context, this.oldLeg, this.newLeg);
   }
 
   public undo(context: PlannerContext) {
     context.debug("PlannerCommandMoveEndPoint undo");
-    this.update(context, this.newLastLegId, this.oldLastLegId);
+    this.update(context, this.newLeg, this.oldLeg);
   }
 
-  private update(context: PlannerContext, fromLegId: string, toLegId: string) {
-    const fromLeg = context.legs.getById(fromLegId);
-    const toLeg = context.legs.getById(toLegId);
+  private update(context: PlannerContext, fromLeg: PlanLeg, toLeg: PlanLeg) {
     context.markerLayer.removeFlag(fromLeg.viaFlag);
     context.markerLayer.removeFlag(fromLeg.sinkFlag);
     context.routeLayer.removePlanLeg(fromLeg.featureId);

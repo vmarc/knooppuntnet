@@ -21,14 +21,10 @@ describe("PlannerCommandSplitLeg", () => {
     const newLeg1 = PlanUtil.singleRoutePlanLeg("13", setup.node1, setup.node3, viaFlag, null);
     const newLeg2 = PlanUtil.singleRoutePlanLeg("32", setup.node3, setup.node2, endFlag, null);
 
-    setup.context.legs.add(oldLeg);
-    setup.context.legs.add(newLeg1);
-    setup.context.legs.add(newLeg2);
-
     const plan = new Plan(setup.node1, sourceFlag, List([oldLeg]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
-    const command = new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
+    const command = new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(3);

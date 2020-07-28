@@ -21,17 +21,14 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     const oldSourceFlag = PlanFlag.start("oldStartFlag", [1, 1]);
     const newSourceFlag = PlanFlag.start("newStartFlag", [3, 3]);
 
-    setup.legs.add(oldLeg);
-    setup.legs.add(newLeg);
-
     const plan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveFirstLegSource(
-      "12",
+      oldLeg,
       setup.node1,
       oldSourceFlag,
-      "32",
+      newLeg,
       setup.node3,
       newSourceFlag
     );
@@ -91,17 +88,14 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     const oldSourceFlag = PlanFlag.start("oldStartFlag", [1, 1]);
     const newSourceFlag = PlanFlag.start("newStartFlag", [3, 3]);
 
-    setup.legs.add(oldLeg);
-    setup.legs.add(newLeg);
-
     const plan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveFirstLegSource(
-      "12",
+      oldLeg,
       setup.node1,
       oldSourceFlag,
-      "32",
+      newLeg,
       setup.node3,
       newSourceFlag
     );

@@ -11,10 +11,9 @@ export class RemoveEndLegRouteViaPoint {
   }
 
   remove(oldLeg: PlanLeg): void {
-    this.buildNewLeg(oldLeg).subscribe(newLeg => {
-      const command = new PlannerCommandRemoveRouteViaPoint(oldLeg.featureId, newLeg.featureId);
-      this.context.execute(command);
-    });
+    this.buildNewLeg(oldLeg).pipe(
+      map(newLeg => new PlannerCommandRemoveRouteViaPoint(oldLeg, newLeg))
+    ).subscribe(command => this.context.execute(command));
   }
 
   private buildNewLeg(oldLeg: PlanLeg): Observable<PlanLeg> {

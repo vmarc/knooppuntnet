@@ -33,10 +33,9 @@ export class AddViaRouteLeg {
 
     const sink = new LegEnd(null, new LegEndRoute(trackPathKeys));
 
-    this.buildLeg(source, sink, coordinate).subscribe(leg => {
-      const command = new PlannerCommandAddLeg(leg.featureId);
-      this.context.execute(command);
-    });
+    this.buildLeg(source, sink, coordinate).pipe(
+      map(leg => new PlannerCommandAddLeg(leg))
+    ).subscribe(command => this.context.execute(command));
   }
 
   private buildLeg(source: LegEnd, sink: LegEnd, coordinate: Coordinate): Observable<PlanLeg> {

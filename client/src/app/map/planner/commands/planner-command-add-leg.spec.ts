@@ -19,9 +19,7 @@ describe("PlannerCommandAddLeg", () => {
     const addStartCommand = new PlannerCommandAddStartPoint(setup.node1, startFlag);
     setup.context.execute(addStartCommand);
 
-    setup.legs.add(leg);
-
-    const command = new PlannerCommandAddLeg(leg.featureId);
+    const command = new PlannerCommandAddLeg(leg);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(2);
@@ -75,8 +73,7 @@ describe("PlannerCommandAddLeg", () => {
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
 
-    setup.legs.add(leg1);
-    const addLeg1Command = new PlannerCommandAddLeg(leg1.featureId);
+    const addLeg1Command = new PlannerCommandAddLeg(leg1);
     setup.context.execute(addLeg1Command);
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
@@ -88,8 +85,7 @@ describe("PlannerCommandAddLeg", () => {
     TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "sinkFlag1", [2, 2]);
     expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
 
-    setup.legs.add(leg2);
-    const addLeg2Command = new PlannerCommandAddLeg(leg2.featureId);
+    const addLeg2Command = new PlannerCommandAddLeg(leg2);
     setup.context.execute(addLeg2Command);
     setup.markerLayer.expectFlagCount(3);
     setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
@@ -106,8 +102,7 @@ describe("PlannerCommandAddLeg", () => {
     TestSupport.expectEndFlag(setup.context.plan.legs.get(1).sinkFlag, "sinkFlag2", [3, 3]);
     expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
 
-    setup.legs.add(leg3);
-    const addLeg3Command = new PlannerCommandAddLeg(leg3.featureId);
+    const addLeg3Command = new PlannerCommandAddLeg(leg3);
     setup.context.execute(addLeg3Command);
     setup.markerLayer.expectFlagCount(4);
     setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);

@@ -21,11 +21,7 @@ export class DropViaRouteOnRoute {
       if (newLeg1) {
         this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag).subscribe(newLeg2 => {
           if (newLeg2) {
-            const command = new PlannerCommandMoveViaRoute(
-              oldLeg.featureId,
-              newLeg1.featureId,
-              newLeg2.featureId
-            );
+            const command = new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2);
             this.context.execute(command);
           }
         });

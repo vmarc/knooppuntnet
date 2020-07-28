@@ -22,15 +22,10 @@ describe("PlannerCommandMoveViaPoint", () => {
     const newLeg1 = PlanUtil.singleRoutePlanLeg("14", setup.node1, setup.node4, newViaFlag, null);
     const newLeg2 = PlanUtil.singleRoutePlanLeg("43", setup.node4, setup.node3, sinkFlag, null);
 
-    setup.legs.add(oldLeg1);
-    setup.legs.add(oldLeg2);
-    setup.legs.add(newLeg1);
-    setup.legs.add(newLeg2);
-
     const plan = new Plan(setup.node1, sourceFlag, List([oldLeg1, oldLeg2]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
-    const command = new PlannerCommandMoveViaPoint(oldLeg1.featureId, oldLeg2.featureId, newLeg1.featureId, newLeg2.featureId);
+    const command = new PlannerCommandMoveViaPoint(oldLeg1, oldLeg2, newLeg1, newLeg2);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(3);

@@ -20,13 +20,10 @@ describe("PlannerCommandMoveEndPoint", () => {
     const oldLeg = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, oldSinkFlag, null);
     const newLeg = PlanUtil.singleRoutePlanLeg("13", setup.node1, setup.node3, newSinkFlag, null);
 
-    setup.legs.add(oldLeg);
-    setup.legs.add(newLeg);
-
     const plan = new Plan(setup.node1, startFlag, List([oldLeg]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
-    const command = new PlannerCommandMoveEndPoint("12", "13");
+    const command = new PlannerCommandMoveEndPoint(oldLeg, newLeg);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(2);
@@ -80,13 +77,10 @@ describe("PlannerCommandMoveEndPoint", () => {
     const oldLeg = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, oldSinkFlag, null);
     const newLeg = PlanUtil.singleRoutePlanLeg("13", setup.node1, setup.node3, newSinkFlag, newViaFlag);
 
-    setup.legs.add(oldLeg);
-    setup.legs.add(newLeg);
-
     const plan = new Plan(setup.node1, startFlag, List([oldLeg]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
-    const command = new PlannerCommandMoveEndPoint("12", "13");
+    const command = new PlannerCommandMoveEndPoint(oldLeg, newLeg);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(3);

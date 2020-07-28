@@ -23,7 +23,7 @@ export class DropEndNodeOnRoute {
     if (oldLeg) {
       this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe(newLeg => {
         if (newLeg) {
-          const command = new PlannerCommandMoveEndPoint(oldLeg.featureId, newLeg.featureId);
+          const command = new PlannerCommandMoveEndPoint(oldLeg, newLeg);
           this.context.execute(command);
         }
       });

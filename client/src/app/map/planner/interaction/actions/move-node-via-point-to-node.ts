@@ -1,5 +1,5 @@
 import {combineLatest, Observable} from "rxjs";
-import {map, tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandMoveViaPoint} from "../../commands/planner-command-move-via-point";
 import {PlannerContext} from "../../context/planner-context";
@@ -25,16 +25,8 @@ export class MoveNodeViaPointToNode {
     const newLeg2$ = this.buildNewLeg2(viaNode, oldLeg2.sinkNode, oldLeg2.sinkFlag);
 
     combineLatest([newLeg1$, newLeg2$]).pipe(
-      tap(([newLeg1, newLeg2]) => {
-        const command = new PlannerCommandMoveViaPoint(
-          oldLeg1.featureId,
-          oldLeg2.featureId,
-          newLeg1.featureId,
-          newLeg2.featureId
-        );
-        this.context.execute(command);
-      })
-    ).subscribe();
+      map(([newLeg1, newLeg2]) => new PlannerCommandMoveViaPoint(oldLeg1, oldLeg2, newLeg1, newLeg2))
+    ).subscribe(command => this.context.execute(command));
   }
 
   private buildNewLeg1(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {

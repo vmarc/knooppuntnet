@@ -20,12 +20,9 @@ describe("PlannerCommandReverse", () => {
     const leg1 = PlanUtil.singleRoutePlanLeg("12", setup.node1, setup.node2, sinkFlag1, null);
     const leg2 = PlanUtil.singleRoutePlanLeg("23", setup.node2, setup.node3, sinkFlag2, null);
 
-    setup.legs.add(leg1);
-    setup.legs.add(leg2);
-
     setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
-    setup.context.execute(new PlannerCommandAddLeg(leg1.featureId));
-    setup.context.execute(new PlannerCommandAddLeg(leg2.featureId));
+    setup.context.execute(new PlannerCommandAddLeg(leg1));
+    setup.context.execute(new PlannerCommandAddLeg(leg2));
 
     setup.markerLayer.expectFlagCount(3);
     setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
@@ -38,7 +35,7 @@ describe("PlannerCommandReverse", () => {
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
     expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
 
-    new PlanReverser(setup.context).reverse(setup.context.plan).subscribe( newPlan => {
+    new PlanReverser(setup.context).reverse(setup.context.plan).subscribe(newPlan => {
 
       const reverseCommand = new PlannerCommandReverse(setup.context.plan, newPlan);
       setup.context.execute(reverseCommand);

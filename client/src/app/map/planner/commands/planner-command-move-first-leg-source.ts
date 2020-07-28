@@ -3,13 +3,14 @@ import {PlannerContext} from "../context/planner-context";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommand} from "./planner-command";
+import {PlanLeg} from "../plan/plan-leg";
 
 export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
 
-  constructor(private readonly oldLegId: string,
+  constructor(private readonly oldLeg: PlanLeg,
               private readonly oldSourceNode: PlanNode,
               private readonly oldSourceFlag: PlanFlag,
-              private readonly newLegId: string,
+              private readonly newLeg: PlanLeg,
               private readonly newSourceNode: PlanNode,
               private readonly newSourceFlag: PlanFlag) {
   }
@@ -18,10 +19,10 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
     context.debug("PlannerCommandMoveFirstLegSource");
     this.update(
       context,
-      this.oldLegId,
+      this.oldLeg,
       this.oldSourceNode,
       this.oldSourceFlag,
-      this.newLegId,
+      this.newLeg,
       this.newSourceNode,
       this.newSourceFlag
     );
@@ -31,10 +32,10 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
     context.debug("PlannerCommandMoveFirstLegSource undo");
     this.update(
       context,
-      this.newLegId,
+      this.newLeg,
       this.newSourceNode,
       this.newSourceFlag,
-      this.oldLegId,
+      this.oldLeg,
       this.oldSourceNode,
       this.oldSourceFlag
     );
@@ -42,15 +43,13 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
 
   public update(
     context: PlannerContext,
-    fromLegId: string,
+    fromLeg: PlanLeg,
     fromSourceNode: PlanNode,
     fromSourceFlag: PlanFlag,
-    toLegId: string,
+    toLeg: PlanLeg,
     toSourceNode: PlanNode,
     toSourceFlag: PlanFlag
   ) {
-    const fromLeg = context.legs.getById(fromLegId);
-    const toLeg = context.legs.getById(toLegId);
     context.markerLayer.removeFlag(fromSourceFlag);
     context.markerLayer.removeFlag(fromLeg.viaFlag);
     context.markerLayer.removeFlag(fromLeg.sinkFlag);

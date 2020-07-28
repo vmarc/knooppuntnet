@@ -56,7 +56,6 @@ export class PlannerTestSetup {
     const sourceFlag = PlanFlag.start("sourceFlag", this.node1.coordinate);
     const sinkFlag = PlanFlag.end("sinkFlag", this.node2.coordinate);
     const leg = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag, null);
-    this.context.legs.add(leg);
     const plan = new Plan(this.node1, sourceFlag, List([leg]));
     this.context.updatePlan(plan);
 
@@ -75,8 +74,6 @@ export class PlannerTestSetup {
 
     const leg1 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag1, null);
     const leg2 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node2, this.node3, sinkFlag2, null);
-    this.context.legs.add(leg1);
-    this.context.legs.add(leg2);
 
     const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2]));
     this.context.updatePlan(plan);
@@ -100,9 +97,6 @@ export class PlannerTestSetup {
     const leg1 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag1, null);
     const leg2 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node2, this.node3, sinkFlag2, null);
     const leg3 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node3, this.node4, sinkFlag3, null);
-    this.context.legs.add(leg1);
-    this.context.legs.add(leg2);
-    this.context.legs.add(leg3);
 
     const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2, leg3]));
     this.context.updatePlan(plan);
