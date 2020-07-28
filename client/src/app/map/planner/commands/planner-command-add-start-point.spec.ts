@@ -1,4 +1,4 @@
-import {TestSupport} from "../../../util/test-support";
+import {expectStartFlag} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlannerCommandAddStartPoint} from "./planner-command-add-start-point";
@@ -18,7 +18,7 @@ describe("PlannerCommandAddStartPoint", () => {
     setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "startFlag", [1, 1]);
+    expectStartFlag(setup.context.plan.sourceFlag, "startFlag", [1, 1]);
     expect(setup.context.plan.legs.size).toEqual(0);
 
     command.undo(setup.context);
@@ -33,7 +33,7 @@ describe("PlannerCommandAddStartPoint", () => {
     setup.markerLayer.expectStartFlagExists("startFlag", [1, 1]);
 
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "startFlag", [1, 1]);
+    expectStartFlag(setup.context.plan.sourceFlag, "startFlag", [1, 1]);
     expect(setup.context.plan.legs.size).toEqual(0);
 
   });

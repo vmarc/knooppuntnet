@@ -1,4 +1,6 @@
-import {TestSupport} from "../../../util/test-support";
+import {expectEndFlag} from "../../../util/test-support";
+import {expectInvisibleFlag} from "../../../util/test-support";
+import {expectViaFlag} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanUtil} from "../plan/plan-util";
@@ -45,13 +47,13 @@ describe("PlannerCommandRemoveViaPoint", () => {
       expect(leg1.featureId).toEqual("12");
       expect(leg1.sourceNode.nodeId).toEqual("1001");
       expect(leg1.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectViaFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
+      expectViaFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
       expect(leg2.sourceNode.nodeId).toEqual("1002");
       expect(leg2.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
+      expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
     }
 
     const command = new PlannerCommandRemoveViaPoint(oldLeg1, oldLeg2, newLeg);
@@ -71,7 +73,7 @@ describe("PlannerCommandRemoveViaPoint", () => {
       expect(leg.featureId).toEqual("13");
       expect(leg.sourceNode.nodeId).toEqual("1001");
       expect(leg.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectEndFlag(leg.sinkFlag, "newSinkFlag", [3, 3]);
+      expectEndFlag(leg.sinkFlag, "newSinkFlag", [3, 3]);
     }
 
     command.undo(setup.context);
@@ -92,13 +94,13 @@ describe("PlannerCommandRemoveViaPoint", () => {
       expect(leg1.featureId).toEqual("12");
       expect(leg1.sourceNode.nodeId).toEqual("1001");
       expect(leg1.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectViaFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
+      expectViaFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
       expect(leg2.sourceNode.nodeId).toEqual("1002");
       expect(leg2.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
+      expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
     }
   });
 
@@ -141,14 +143,14 @@ describe("PlannerCommandRemoveViaPoint", () => {
       expect(leg1.featureId).toEqual("12");
       expect(leg1.sourceNode.nodeId).toEqual("1001");
       expect(leg1.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectViaFlag(leg1.viaFlag, "oldViaFlag", [15, 15]);
-      TestSupport.expectInvisibleFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
+      expectViaFlag(leg1.viaFlag, "oldViaFlag", [15, 15]);
+      expectInvisibleFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
       expect(leg2.sourceNode.nodeId).toEqual("1002");
       expect(leg2.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
+      expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
     }
 
     const command = new PlannerCommandRemoveViaPoint(oldLeg1, oldLeg2, newLeg);
@@ -168,7 +170,7 @@ describe("PlannerCommandRemoveViaPoint", () => {
       expect(leg.featureId).toEqual("13");
       expect(leg.sourceNode.nodeId).toEqual("1001");
       expect(leg.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectEndFlag(leg.sinkFlag, "newSinkFlag", [3, 3]);
+      expectEndFlag(leg.sinkFlag, "newSinkFlag", [3, 3]);
     }
 
     command.undo(setup.context);
@@ -190,14 +192,14 @@ describe("PlannerCommandRemoveViaPoint", () => {
       expect(leg1.featureId).toEqual("12");
       expect(leg1.sourceNode.nodeId).toEqual("1001");
       expect(leg1.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectViaFlag(leg1.viaFlag, "oldViaFlag", [15, 15]);
-      TestSupport.expectInvisibleFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
+      expectViaFlag(leg1.viaFlag, "oldViaFlag", [15, 15]);
+      expectInvisibleFlag(leg1.sinkFlag, "oldSinkFlag1", [2, 2]);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
       expect(leg2.sourceNode.nodeId).toEqual("1002");
       expect(leg2.sinkNode.nodeId).toEqual("1003");
-      TestSupport.expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
+      expectEndFlag(leg2.sinkFlag, "oldSinkFlag2", [3, 3]);
     }
   });
 

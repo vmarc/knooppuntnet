@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {TestSupport} from "../../../util/test-support";
+import {expectEndFlag} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
@@ -35,7 +35,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
 
     command.undo(setup.context);
 
@@ -48,7 +48,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "oldSinkFlag", [2, 2]);
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "oldSinkFlag", [2, 2]);
 
     command.do(setup.context);
 
@@ -61,7 +61,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
 
   });
 
@@ -93,7 +93,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
 
     command.undo(setup.context);
 
@@ -106,7 +106,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "oldSinkFlag", [2, 2]);
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "oldSinkFlag", [2, 2]);
 
     command.do(setup.context);
 
@@ -120,7 +120,7 @@ describe("PlannerCommandMoveEndPoint", () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("13");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "newSinkFlag", [3, 3]);
 
   });
 

@@ -1,6 +1,6 @@
 import {Map} from "immutable";
 import {Coordinate} from "ol/coordinate";
-import {TestSupport} from "../../../util/test-support";
+import {expectCoordinate} from "../../../util/test-support";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlannerMarkerLayer} from "./planner-marker-layer";
@@ -91,7 +91,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     }
 
     expect(flag.flagType).toEqual(flagType);
-    TestSupport.expectCoordinate(flag.coordinate, coordinate);
+    expectCoordinate(flag.coordinate, coordinate);
   }
 
   expectStartFlagCoordinateExists(coordinate: Coordinate): void {
@@ -124,7 +124,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     const flag = this.flags.get(planFlag.featureId);
     expect(flag.featureId).toEqual(planFlag.featureId);
     expect(flag.flagType).toEqual(planFlag.flagType);
-    TestSupport.expectCoordinate(flag.coordinate, planFlag.coordinate);
+    expectCoordinate(flag.coordinate, planFlag.coordinate);
   }
 
 }

@@ -1,5 +1,6 @@
 import {List} from "immutable";
-import {TestSupport} from "../../../util/test-support";
+import {expectCoordinates} from "../../../util/test-support";
+import {expectStartFlag} from "../../../util/test-support";
 import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
@@ -397,7 +398,7 @@ describe("PlannerEngine", () => {
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.sourceNode.nodeId).toEqual("1001");
       expect(newLeg.sinkNode.nodeId).toEqual("1002");
-      TestSupport.expectCoordinates(newLeg, [1, 1], [2, 2]);
+      expectCoordinates(newLeg, [1, 1], [2, 2]);
 
       setup.markerLayer.expectFlagCount(2);
       setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
@@ -463,7 +464,7 @@ describe("PlannerEngine", () => {
       const newPlan = setup.context.plan;
       expect(newPlan.legs.size).toEqual(2);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      TestSupport.expectStartFlag(newPlan.sourceFlag, "sourceFlag", [1, 1]);
+      expectStartFlag(newPlan.sourceFlag, "sourceFlag", [1, 1]);
 
       setup.markerLayer.expectFlagCount(3);
       setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
@@ -511,7 +512,7 @@ describe("PlannerEngine", () => {
       const newPlan = setup.context.plan;
       expect(newPlan.legs.size).toEqual(2);
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      TestSupport.expectStartFlag(newPlan.sourceFlag, "sourceFlag", [1, 1]);
+      expectStartFlag(newPlan.sourceFlag, "sourceFlag", [1, 1]);
 
       setup.markerLayer.expectFlagCount(3);
       setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);

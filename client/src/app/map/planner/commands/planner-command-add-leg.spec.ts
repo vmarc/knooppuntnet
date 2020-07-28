@@ -1,4 +1,5 @@
-import {TestSupport} from "../../../util/test-support";
+import {expectEndFlag} from "../../../util/test-support";
+import {expectViaFlag} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {PlanFlag} from "../plan/plan-flag";
 import {PlanUtil} from "../plan/plan-util";
@@ -34,7 +35,7 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg = legs.get(0);
       expect(leg.featureId).toEqual("12");
-      TestSupport.expectEndFlag(leg.sinkFlag, "sinkFlag", [2, 2]);
+      expectEndFlag(leg.sinkFlag, "sinkFlag", [2, 2]);
       expect(leg.viaFlag).toEqual(null);
     }
 
@@ -58,7 +59,7 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg = legs.get(0);
       expect(leg.featureId).toEqual("12");
-      TestSupport.expectEndFlag(leg.sinkFlag, "sinkFlag", [2, 2]);
+      expectEndFlag(leg.sinkFlag, "sinkFlag", [2, 2]);
       expect(leg.viaFlag).toEqual(null);
     }
   });
@@ -95,7 +96,7 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg = legs.get(0);
       expect(leg.featureId).toEqual("12");
-      TestSupport.expectEndFlag(leg.sinkFlag, "sinkFlag1", [2, 2]);
+      expectEndFlag(leg.sinkFlag, "sinkFlag1", [2, 2]);
       expect(leg.viaFlag).toEqual(null);
     }
 
@@ -114,12 +115,12 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg1 = legs.get(0);
       expect(leg1.featureId).toEqual("12");
-      TestSupport.expectViaFlag(leg1.sinkFlag, "sinkFlag1", [2, 2]);
+      expectViaFlag(leg1.sinkFlag, "sinkFlag1", [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
-      TestSupport.expectEndFlag(leg2.sinkFlag, "sinkFlag2", [3, 3]);
+      expectEndFlag(leg2.sinkFlag, "sinkFlag2", [3, 3]);
       expect(leg2.viaFlag).toEqual(null);
     }
 
@@ -141,17 +142,17 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg1 = legs.get(0);
       expect(leg1.featureId).toEqual("12");
-      TestSupport.expectViaFlag(leg1.sinkFlag, "sinkFlag1", [2, 2]);
+      expectViaFlag(leg1.sinkFlag, "sinkFlag1", [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
-      TestSupport.expectViaFlag(leg2.sinkFlag, "sinkFlag2", [3, 3]);
+      expectViaFlag(leg2.sinkFlag, "sinkFlag2", [3, 3]);
       expect(leg2.viaFlag).toEqual(null);
 
       const leg3 = legs.get(2);
       expect(leg3.featureId).toEqual("34");
-      TestSupport.expectEndFlag(leg3.sinkFlag, "sinkFlag3", [4, 4]);
+      expectEndFlag(leg3.sinkFlag, "sinkFlag3", [4, 4]);
       expect(leg3.viaFlag).toEqual(null);
     }
 
@@ -170,12 +171,12 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg1 = legs.get(0);
       expect(leg1.featureId).toEqual("12");
-      TestSupport.expectViaFlag(leg1.sinkFlag, "sinkFlag1", [2, 2]);
+      expectViaFlag(leg1.sinkFlag, "sinkFlag1", [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
 
       const leg2 = legs.get(1);
       expect(leg2.featureId).toEqual("23");
-      TestSupport.expectEndFlag(leg2.sinkFlag, "sinkFlag2", [3, 3]);
+      expectEndFlag(leg2.sinkFlag, "sinkFlag2", [3, 3]);
       expect(leg2.viaFlag).toEqual(null);
     }
 
@@ -192,7 +193,7 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg = legs.get(0);
       expect(leg.featureId).toEqual("12");
-      TestSupport.expectEndFlag(leg.sinkFlag, "sinkFlag1", [2, 2]);
+      expectEndFlag(leg.sinkFlag, "sinkFlag1", [2, 2]);
       expect(leg.viaFlag).toEqual(null);
     }
 
@@ -215,7 +216,7 @@ describe("PlannerCommandAddLeg", () => {
 
       const leg = legs.get(0);
       expect(leg.featureId).toEqual("12");
-      TestSupport.expectEndFlag(leg.sinkFlag, "sinkFlag1", [2, 2]);
+      expectEndFlag(leg.sinkFlag, "sinkFlag1", [2, 2]);
       expect(leg.viaFlag).toEqual(null);
     }
 

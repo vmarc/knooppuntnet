@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {TestSupport} from "../../../util/test-support";
+import {expectStartFlag} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
@@ -38,7 +38,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("32");
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
+    expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists("newStartFlag", [3, 3]);
@@ -51,7 +51,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "oldStartFlag", [1, 1]);
+    expectStartFlag(setup.context.plan.sourceFlag, "oldStartFlag", [1, 1]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists("oldStartFlag", [1, 1]);
@@ -64,7 +64,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("32");
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
+    expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists("newStartFlag", [3, 3]);
@@ -105,7 +105,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("32");
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
+    expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists("newStartFlag", [3, 3]);
@@ -118,7 +118,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "oldStartFlag", [1, 1]);
+    expectStartFlag(setup.context.plan.sourceFlag, "oldStartFlag", [1, 1]);
 
     setup.markerLayer.expectFlagCount(3);
     setup.markerLayer.expectStartFlagExists("oldStartFlag", [1, 1]);
@@ -132,7 +132,7 @@ describe("PlannerCommandMoveFirstLegSource", () => {
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual("32");
     expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
-    TestSupport.expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
+    expectStartFlag(setup.context.plan.sourceFlag, "newStartFlag", [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists("newStartFlag", [3, 3]);

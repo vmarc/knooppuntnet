@@ -11,7 +11,9 @@ import {PlanLeg} from "./plan-leg";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
 import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
 import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
-import {TestSupport} from "../../../util/test-support";
+import {expectEndFlagCoordinate} from "../../../util/test-support";
+import {expectStartFlagCoordinate} from "../../../util/test-support";
+import {expectViaFlagCoordinate} from "../../../util/test-support";
 import {PlanLegData} from "../context/plan-leg-data";
 
 describe("PlanReverser", () => {
@@ -35,7 +37,7 @@ describe("PlanReverser", () => {
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
       expect(newPlan.sourceNode.nodeId).toEqual("1001");
-      TestSupport.expectStartFlagCoordinate(newPlan.sourceFlag, [1, 1]);
+      expectStartFlagCoordinate(newPlan.sourceFlag, [1, 1]);
       expect(newPlan.legs.isEmpty()).toEqual(true);
     });
   });
@@ -59,13 +61,13 @@ describe("PlanReverser", () => {
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
       expect(newPlan.sourceNode.nodeId).toEqual("1002");
-      TestSupport.expectStartFlagCoordinate(newPlan.sourceFlag, [2, 2]);
+      expectStartFlagCoordinate(newPlan.sourceFlag, [2, 2]);
 
       expect(newPlan.legs.size).toEqual(1);
       const leg = newPlan.legs.get(0);
       expect(leg.source.node.nodeId).toEqual(1002);
       expect(leg.sink.node.nodeId).toEqual(1001);
-      TestSupport.expectEndFlagCoordinate(leg.sinkFlag, [1, 1]);
+      expectEndFlagCoordinate(leg.sinkFlag, [1, 1]);
       expect(leg.viaFlag).toEqual(null);
     });
   });
@@ -101,26 +103,26 @@ describe("PlanReverser", () => {
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
       expect(newPlan.sourceNode.nodeId).toEqual("1004");
-      TestSupport.expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
+      expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
 
       expect(newPlan.legs.size).toEqual(3);
 
       const leg1 = newPlan.legs.get(0);
       expect(leg1.source.node.nodeId).toEqual(1004);
       expect(leg1.sink.node.nodeId).toEqual(1003);
-      TestSupport.expectViaFlagCoordinate(leg1.sinkFlag, [3, 3]);
+      expectViaFlagCoordinate(leg1.sinkFlag, [3, 3]);
       expect(leg1.viaFlag).toEqual(null);
 
       const leg2 = newPlan.legs.get(1);
       expect(leg2.source.node.nodeId).toEqual(1003);
       expect(leg2.sink.node.nodeId).toEqual(1002);
-      TestSupport.expectViaFlagCoordinate(leg2.sinkFlag, [2, 2]);
+      expectViaFlagCoordinate(leg2.sinkFlag, [2, 2]);
       expect(leg2.viaFlag).toEqual(null);
 
       const leg3 = newPlan.legs.get(2);
       expect(leg3.source.node.nodeId).toEqual(1002);
       expect(leg3.sink.node.nodeId).toEqual(1001);
-      TestSupport.expectEndFlagCoordinate(leg3.sinkFlag, [1, 1]);
+      expectEndFlagCoordinate(leg3.sinkFlag, [1, 1]);
       expect(leg3.viaFlag).toEqual(null);
 
     });
@@ -136,7 +138,7 @@ describe("PlanReverser", () => {
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
       expect(newPlan.sourceNode.nodeId).toEqual("1003");
-      TestSupport.expectStartFlagCoordinate(newPlan.sourceFlag, [3, 3]);
+      expectStartFlagCoordinate(newPlan.sourceFlag, [3, 3]);
 
       expect(newPlan.legs.size).toEqual(1);
       const leg = newPlan.legs.get(0);
@@ -144,8 +146,8 @@ describe("PlanReverser", () => {
       expect(leg.sink.route.trackPathKeys.size).toEqual(1);
       expect(leg.sink.route.trackPathKeys.get(0).routeId).toEqual(10);
       expect(leg.sink.route.trackPathKeys.get(0).pathId).toEqual(1);
-      TestSupport.expectViaFlagCoordinate(leg.viaFlag, [2, 2]);
-      TestSupport.expectEndFlagCoordinate(leg.sinkFlag, [1, 1]);
+      expectViaFlagCoordinate(leg.viaFlag, [2, 2]);
+      expectEndFlagCoordinate(leg.sinkFlag, [1, 1]);
     });
   });
 
@@ -204,7 +206,7 @@ describe("PlanReverser", () => {
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
       expect(newPlan.sourceNode.nodeId).toEqual("1004");
-      TestSupport.expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
+      expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
 
       expect(newPlan.legs.size).toEqual(2);
 
@@ -213,14 +215,14 @@ describe("PlanReverser", () => {
       expect(leg1.sink.route.trackPathKeys.size).toEqual(1);
       expect(leg1.sink.route.trackPathKeys.get(0).routeId).toEqual(10);
       expect(leg1.sink.route.trackPathKeys.get(0).pathId).toEqual(1);
-      TestSupport.expectViaFlagCoordinate(leg1.viaFlag, [3, 3]);
-      TestSupport.expectViaFlagCoordinate(leg1.sinkFlag, [2, 2]);
+      expectViaFlagCoordinate(leg1.viaFlag, [3, 3]);
+      expectViaFlagCoordinate(leg1.sinkFlag, [2, 2]);
 
       const leg2 = newPlan.legs.get(1);
       expect(leg2.source.node.nodeId).toEqual(1002);
       expect(leg2.sink.node.nodeId).toEqual(1001);
       expect(leg2.viaFlag).toEqual(null);
-      TestSupport.expectEndFlagCoordinate(leg2.sinkFlag, [1, 1]);
+      expectEndFlagCoordinate(leg2.sinkFlag, [1, 1]);
 
     });
   });
