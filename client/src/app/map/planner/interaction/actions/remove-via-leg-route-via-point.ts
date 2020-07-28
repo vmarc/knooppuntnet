@@ -6,7 +6,6 @@ import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {PlanFlag} from "../../plan/plan-flag";
-import {FeatureId} from "../../features/feature-id";
 
 export class RemoveViaLegRouteViaPoint {
 
@@ -36,13 +35,8 @@ export class RemoveViaLegRouteViaPoint {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 }

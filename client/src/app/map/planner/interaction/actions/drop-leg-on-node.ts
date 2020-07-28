@@ -21,9 +21,7 @@ export class DropLegOnNode {
       this.buildLeg1(oldLeg.sourceNode, connection).pipe(
         switchMap(newLeg1 =>
           this.buildLeg2(connection, oldLeg.sinkNode).pipe(
-            map(newLeg2 => {
-              return new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId);
-            })
+            map(newLeg2 => new PlannerCommandSplitLeg(oldLeg.featureId, newLeg1.featureId, newLeg2.featureId))
           )
         )
       ).subscribe(command => this.context.execute(command))
@@ -34,15 +32,10 @@ export class DropLegOnNode {
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+    const sinkFlag = PlanUtil.viaFlag(sinkNode.coordinate);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const sinkFlag = PlanUtil.viaFlag(sinkNode.coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 
@@ -54,13 +47,8 @@ export class DropLegOnNode {
     const sinkFlagType = isLastLeg ? PlanFlagType.End : PlanFlagType.Via;
     const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 

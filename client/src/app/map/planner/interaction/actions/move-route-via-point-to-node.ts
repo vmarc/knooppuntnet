@@ -35,27 +35,17 @@ export class MoveRouteViaPointToNode {
   private buildNewLeg1(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const sinkFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    const sinkFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 
   private buildNewLeg2(sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 

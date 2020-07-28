@@ -5,10 +5,8 @@ import {map} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
 import {PlannerCommandMoveViaRoute} from "../../commands/planner-command-move-via-route";
 import {PlannerContext} from "../../context/planner-context";
-import {FeatureId} from "../../features/feature-id";
 import {RouteFeature} from "../../features/route-feature";
 import {PlanFlag} from "../../plan/plan-flag";
-import {PlanFlagType} from "../../plan/plan-flag-type";
 import {PlanLeg} from "../../plan/plan-leg";
 import {PlanUtil} from "../../plan/plan-util";
 
@@ -18,9 +16,10 @@ export class DropViaRouteOnRoute {
   }
 
   drop(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
+    // TODO PLAN refactor to use switchMap
     this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate).subscribe(newLeg1 => {
       if (newLeg1) {
-        this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag, coordinate).subscribe(newLeg2 => {
+        this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag).subscribe(newLeg2 => {
           if (newLeg2) {
             const command = new PlannerCommandMoveViaRoute(
               oldLeg.featureId,
@@ -38,31 +37,21 @@ export class DropViaRouteOnRoute {
 
     const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
     const sink = PlanUtil.legEndRoutes(routeFeatures);
+    const viaFlag = PlanUtil.viaFlag(coordinate);
+    const sinkFlag = PlanUtil.invisibleFlag(coordinate);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
-        const sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, viaFlag))
     );
   }
 
-  private buildNodeToNodeLeg(sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag, coordinate: Coordinate): Observable<PlanLeg> {
+  private buildNodeToNodeLeg(sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag): Observable<PlanLeg> {
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const leg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(leg);
-        return leg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 

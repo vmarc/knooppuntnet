@@ -44,13 +44,8 @@ export class RemoveViaPoint {
   }
 
   private buildLeg(source: LegEnd, sink: LegEnd, sinkFlag: PlanFlag): Observable<PlanLeg> {
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
-      map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
-      })
+    return this.context.fetchLeg(source, sink).pipe(
+      map(data => this.context.newLeg(data, sinkFlag, null))
     );
   }
 

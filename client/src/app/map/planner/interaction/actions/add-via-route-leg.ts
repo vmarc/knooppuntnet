@@ -10,7 +10,6 @@ import {PlannerCommandAddLeg} from "../../commands/planner-command-add-leg";
 import {Observable} from "rxjs";
 import {PlanLeg} from "../../plan/plan-leg";
 import {map} from "rxjs/operators";
-import {FeatureId} from "../../features/feature-id";
 
 export class AddViaRouteLeg {
 
@@ -41,14 +40,11 @@ export class AddViaRouteLeg {
   }
 
   private buildLeg(source: LegEnd, sink: LegEnd, coordinate: Coordinate): Observable<PlanLeg> {
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+    return this.context.fetchLeg(source, sink).pipe(
       map(data => {
-        const legKey = PlanUtil.key(source, sink);
         const sinkFlag = PlanUtil.endFlag(data.sinkNode.coordinate);
         const viaFlag = PlanUtil.viaFlag(coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
+        return this.context.newLeg(data, sinkFlag, viaFlag);
       })
     );
   }

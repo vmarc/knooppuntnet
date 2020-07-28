@@ -47,7 +47,7 @@ export class DropViaNodeOnRoute {
     const source = PlanUtil.legEndNode(+oldLeg1.sourceNode.nodeId);
     const sink = PlanUtil.legEndRoutes(routeFeatures);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+    return this.context.fetchLeg(source, sink).pipe(
       map(data => {
         const legKey = PlanUtil.key(source, sink);
         const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
@@ -64,7 +64,7 @@ export class DropViaNodeOnRoute {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+    return this.context.fetchLeg(source, sink).pipe(
       map(data => {
         const legKey = PlanUtil.key(source, sink);
         const viaFlag2 = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);

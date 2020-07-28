@@ -39,13 +39,10 @@ export class MoveFirstLegSource {
   }
 
   private buildNewLeg(source: LegEnd, oldLeg: PlanLeg): Observable<PlanLeg> {
-    return this.context.legRepository.planLeg(this.context.networkType, source, oldLeg.sink).pipe(
+    return this.context.fetchLeg(source, oldLeg.sink).pipe(
       map(data => {
-        const legKey = PlanUtil.key(source, oldLeg.sink);
         const sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), data.sinkNode.coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, oldLeg.sink, sinkFlag, oldLeg.viaFlag, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
+        return this.context.newLeg(data, sinkFlag, oldLeg.viaFlag);
       })
     );
   }

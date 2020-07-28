@@ -92,6 +92,10 @@ export class PlanUtil {
     return new PlanFlag(PlanFlagType.End, FeatureId.next(), coordinate);
   }
 
+  static invisibleFlag(coordinate: Coordinate): PlanFlag {
+    return new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
+  }
+
   static planNode(nodeId: string, nodeName: string, latLon: LatLonImpl): PlanNode {
     const coordinate = Util.latLonToCoordinate(latLon);
     return new PlanNode(FeatureId.next(), nodeId, nodeName, coordinate, latLon);

@@ -1,17 +1,11 @@
-import {List} from "immutable";
 import {BehaviorSubject, Observable} from "rxjs";
 import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerCommand} from "../commands/planner-command";
 import {PlannerCommandStack} from "../commands/planner-command-stack";
-import {FeatureId} from "../features/feature-id";
 import {Plan} from "../plan/plan";
-import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
 import {PlanLeg} from "../plan/plan-leg";
 import {PlanLegCache} from "../plan/plan-leg-cache";
-import {PlanUtil} from "../plan/plan-util";
 import {PlannerCursor} from "./planner-cursor";
 import {PlannerElasticBand} from "./planner-elastic-band";
 import {PlannerHighlightLayer} from "./planner-highlight-layer";
@@ -19,6 +13,10 @@ import {PlannerLegRepository} from "./planner-leg-repository";
 import {PlannerMarkerLayer} from "./planner-marker-layer";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
+import {PlanLegData} from "./plan-leg-data";
+import {PlanUtil} from "../plan/plan-util";
+import {FeatureId} from "../features/feature-id";
+import {PlanFlag} from "../plan/plan-flag";
 
 export class NetworkTypeData {
   constructor(public plan: Plan,
@@ -116,38 +114,15 @@ export class PlannerContext {
     this.overlay.setPosition(undefined, 0);
   }
 
-  buildLeg(source: LegEnd, sink: LegEnd, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlagType: PlanFlagType): PlanLeg {
+  fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
+    return this.legRepository.planLeg(this.networkType, source, sink);
+  }
 
-    const legKey = PlanUtil.key(source, sink);
-
-    const legFeatureId = FeatureId.next();
-
-    let sinkFlag: PlanFlag = null;
-    let viaFlag: PlanFlag = null;
-
-    if (sink.node !== null) {
-      sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
-    }
-    if (sink.route !== null) { // TODO PLAN still need a way to get sinkNode coordinate --> should be coordinate that was clicked
-      viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
-      sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), sinkNode.coordinate);
-    }
-
-    const leg = new PlanLeg(legFeatureId, legKey, source, sink, sinkFlag, viaFlag, List());
-    this.legs.add(leg);
-
-    this.legRepository.planLeg(this.networkType, source, sink).subscribe(data => {
-      let updatedSinkFlag = sinkFlag;
-      if (sink.route !== null) {
-        updatedSinkFlag = PlanFlag.end(sinkFlag.featureId, data.sinkNode.coordinate);
-        this.markerLayer.updateFlag(updatedSinkFlag);
-      }
-      const updatedLeg = new PlanLeg(legFeatureId, legKey, source, sink, updatedSinkFlag, viaFlag, data.routes);
-      this.legs.add(updatedLeg);
-      this.updatePlanLeg(updatedLeg);
-    });
-
-    return leg;
+  newLeg(data: PlanLegData, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {
+    const legKey = PlanUtil.key(data.source, data.sink);
+    const newLeg = new PlanLeg(FeatureId.next(), legKey, data.source, data.sink, sinkFlag, null, data.routes);
+    this.legs.add(newLeg);
+    return newLeg;
   }
 
   debug(message: string): void {

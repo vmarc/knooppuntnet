@@ -79,14 +79,10 @@ export class PlanReverser {
   }
 
   private buildFirstLeg(source: LegEnd, sink: LegEnd, viaFlag: PlanFlag): Observable<PlanLeg> {
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+    return this.context.fetchLeg(source, sink).pipe(
       map(data => {
-        const legKey = PlanUtil.key(source, sink);
-        const sinkFlagType = PlanFlagType.Via;
-        const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), data.sinkNode.coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, viaFlag, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
+        const sinkFlag = PlanUtil.viaFlag(data.sinkNode.coordinate);
+        return this.context.newLeg(data, sinkFlag, viaFlag);
       })
     );
   }
@@ -96,13 +92,10 @@ export class PlanReverser {
     const source = PlanUtil.legEndNode(+sourceNodeId);
     const sink = PlanUtil.legEndNode(+sinkNodeId);
 
-    return this.context.legRepository.planLeg(this.context.networkType, source, sink).pipe(
+    return this.context.fetchLeg(source, sink).pipe(
       map(data => {
-        const legKey = PlanUtil.key(source, sink);
         const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), data.sinkNode.coordinate);
-        const newLeg = new PlanLeg(FeatureId.next(), legKey, source, sink, sinkFlag, null, data.routes);
-        this.context.legs.add(newLeg);
-        return newLeg;
+        return this.context.newLeg(data, sinkFlag, null);
       })
     );
   }
