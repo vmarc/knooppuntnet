@@ -68,12 +68,18 @@ describe("PlannerEngine", () => {
       expect(eventIsNotFurtherPropagated).toBeTruthy();
 
       expect(setup.context.plan.sourceNode.nodeId).toEqual("1001");
-      expect(setup.context.plan.legs.size).toEqual(1);
-      expect(setup.context.plan.legs.get(0).source.node.nodeId).toEqual(1001);
-      expect(setup.context.plan.legs.get(0).sink.node.nodeId).toEqual(1002);
-      expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.End);
-      expect(setup.context.plan.legs.get(0).sinkFlag.coordinate).toEqual([2, 2]);
-      expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
+
+      {
+        const legs = setup.context.plan.legs;
+        expect(legs.size).toEqual(1);
+
+        const leg = legs.get(0);
+        expect(leg.source.node.nodeId).toEqual(1001);
+        expect(leg.sink.node.nodeId).toEqual(1002);
+        expect(leg.sinkFlag.flagType).toEqual(PlanFlagType.End);
+        expect(leg.sinkFlag.coordinate).toEqual([2, 2]);
+        expect(leg.viaFlag).toEqual(null);
+      }
 
       setup.markerLayer.expectFlagCount(1);
       setup.markerLayer.expectEndFlagExists(setup.context.plan.legs.get(0).sinkFlag.featureId, [2, 2]);

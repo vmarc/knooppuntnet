@@ -29,13 +29,20 @@ describe("PlannerCommandReset", () => {
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("viaFlag");
-    expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
-    expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sinkFlag.featureId).toEqual("endFlag");
-    expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(2);
+
+      const leg1 = legs.get(0);
+      expect(leg1.featureId).toEqual("12");
+      expect(leg1.sinkFlag.featureId).toEqual("viaFlag");
+      expect(leg1.viaFlag).toEqual(null);
+
+      const leg2 = legs.get(0);
+      expect(leg2.featureId).toEqual("23");
+      expect(leg2.sinkFlag.featureId).toEqual("endFlag");
+      expect(leg2.viaFlag).toEqual(null);
+    }
 
     const resetCommand = new PlannerCommandReset();
     setup.context.execute(resetCommand);
@@ -53,14 +60,20 @@ describe("PlannerCommandReset", () => {
     setup.routeLayer.expectRouteLegExists("12", leg1);
     setup.routeLayer.expectRouteLegExists("23", leg2);
 
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sinkFlag.featureId).toEqual("viaFlag");
-    expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
-    expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sinkFlag.featureId).toEqual("endFlag");
-    expect(setup.context.plan.legs.get(1).viaFlag).toEqual(null);
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(2);
 
+      const leg1 = legs.get(0);
+      expect(leg1.featureId).toEqual("12");
+      expect(leg1.sinkFlag.featureId).toEqual("viaFlag");
+      expect(leg1.viaFlag).toEqual(null);
+
+      const leg2 = legs.get(0);
+      expect(leg2.featureId).toEqual("23");
+      expect(leg2.sinkFlag.featureId).toEqual("endFlag");
+      expect(leg2.viaFlag).toEqual(null);
+    }
   });
 
 });

@@ -27,10 +27,15 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13-1", oldLeg);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("13-1");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(1);
+
+      const leg = legs.get(0);
+      expect(leg.featureId).toEqual("13-1");
+      expect(leg.sourceNode.nodeId).toEqual("1001");
+      expect(leg.sinkNode.nodeId).toEqual("1003");
+    }
 
     const command = new PlannerCommandRemoveRouteViaPoint(oldLeg, newLeg);
     setup.context.execute(command);
@@ -40,10 +45,15 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13-2", newLeg);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("13-2");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(1);
+
+      const leg = legs.get(0);
+      expect(leg.featureId).toEqual("13-2");
+      expect(leg.sourceNode.nodeId).toEqual("1001");
+      expect(leg.sinkNode.nodeId).toEqual("1003");
+    }
 
     command.undo(setup.context);
 
@@ -53,10 +63,15 @@ describe("PlannerCommandRemoveRouteViaPoint", () => {
     setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
     setup.routeLayer.expectRouteLegExists("13-1", oldLeg);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("13-1");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1003");
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(1);
+
+      const leg = legs.get(0);
+      expect(leg.featureId).toEqual("13-1");
+      expect(leg.sourceNode.nodeId).toEqual("1001");
+      expect(leg.sinkNode.nodeId).toEqual("1003");
+    }
   });
 
 });

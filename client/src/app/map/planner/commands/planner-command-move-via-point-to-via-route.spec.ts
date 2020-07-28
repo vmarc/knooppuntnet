@@ -34,13 +34,20 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
 
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1002");
-    expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
-    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1002");
-    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1003");
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(2);
+
+      const leg1 = legs.get(0);
+      expect(leg1.featureId).toEqual("12");
+      expect(leg1.sourceNode.nodeId).toEqual("1001");
+      expect(leg1.sinkNode.nodeId).toEqual("1002");
+
+      const leg2 = legs.get(1);
+      expect(leg2.featureId).toEqual("23");
+      expect(leg2.sourceNode.nodeId).toEqual("1002");
+      expect(leg2.sinkNode.nodeId).toEqual("1003");
+    }
 
     const command = new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2);
     setup.context.execute(command);
@@ -52,13 +59,20 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     setup.routeLayer.expectRouteLegExists("14", newLeg1);
     setup.routeLayer.expectRouteLegExists("43", newLeg2);
 
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("14");
-    expect(setup.context.plan.legs.get(0).sourceNode.nodeId).toEqual("1001");
-    expect(setup.context.plan.legs.get(0).sinkNode.nodeId).toEqual("1004");
-    expect(setup.context.plan.legs.get(1).featureId).toEqual("43");
-    expect(setup.context.plan.legs.get(1).sourceNode.nodeId).toEqual("1004");
-    expect(setup.context.plan.legs.get(1).sinkNode.nodeId).toEqual("1003");
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(2);
+
+      const leg1 = legs.get(0);
+      expect(leg1.featureId).toEqual("14");
+      expect(leg1.sourceNode.nodeId).toEqual("1001");
+      expect(leg1.sinkNode.nodeId).toEqual("1004");
+
+      const leg2 = legs.get(1);
+      expect(leg2.featureId).toEqual("43");
+      expect(leg2.sourceNode.nodeId).toEqual("1004");
+      expect(leg2.sinkNode.nodeId).toEqual("1003");
+    }
 
     command.undo(setup.context);
 
@@ -69,9 +83,13 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     setup.routeLayer.expectRouteLegExists("12", oldLeg1);
     setup.routeLayer.expectRouteLegExists("23", oldLeg2);
 
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    expect(setup.context.plan.legs.get(1).featureId).toEqual("23");
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(2);
+      expect(legs.get(0).featureId).toEqual("12");
+      expect(legs.get(1).featureId).toEqual("23");
+    }
+
   });
 
 });

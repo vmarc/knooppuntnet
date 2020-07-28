@@ -1,5 +1,5 @@
 import {List} from "immutable";
-import {TestSupport} from "../../../util/test-support";
+import {expectEndFlag} from "../../../util/test-support";
 import {PlannerTestSetup} from "../context/planner-test-setup";
 import {Plan} from "../plan/plan";
 import {PlanFlag} from "../plan/plan-flag";
@@ -28,10 +28,15 @@ describe("PlannerCommandAddPlan", () => {
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "sinkFlag", [2, 2]);
-    expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(1);
+
+      const leg = legs.get(0);
+      expect(leg.featureId).toEqual("12");
+      expectEndFlag(leg.sinkFlag, "sinkFlag", [2, 2]);
+      expect(leg.viaFlag).toEqual(null);
+    }
 
     command.undo(setup.context);
 
@@ -47,11 +52,15 @@ describe("PlannerCommandAddPlan", () => {
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists("12", leg);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual("12");
-    TestSupport.expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, "sinkFlag", [2, 2]);
-    expect(setup.context.plan.legs.get(0).viaFlag).toEqual(null);
+    {
+      const legs = setup.context.plan.legs;
+      expect(legs.size).toEqual(1);
 
+      const leg = legs.get(0);
+      expect(leg.featureId).toEqual("12");
+      expectEndFlag(leg.sinkFlag, "sinkFlag", [2, 2]);
+      expect(leg.viaFlag).toEqual(null);
+    }
   });
 
 });

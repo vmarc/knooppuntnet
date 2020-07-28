@@ -4,6 +4,12 @@ import {PlanFlagType} from "../map/planner/plan/plan-flag-type";
 import {PlanLeg} from "../map/planner/plan/plan-leg";
 import {PlanUtil} from "../map/planner/plan/plan-util";
 
+export function expectEndFlag(planFlag: PlanFlag, featureId: string, coordinate) {
+  TestSupport.expectFlag(planFlag, PlanFlagType.End, featureId, coordinate);
+}
+
+
+
 export class TestSupport {
 
   static expectCoordinate(actual: Coordinate, expected: Coordinate): void {

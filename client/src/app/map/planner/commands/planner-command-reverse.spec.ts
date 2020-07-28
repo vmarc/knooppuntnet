@@ -47,11 +47,19 @@ describe("PlannerCommandReverse", () => {
 
       expect(setup.context.plan.sourceNode.nodeId).toEqual("1003");
       expect(setup.context.plan.sourceFlag.coordinate).toEqual([3, 3]);
-      expect(setup.context.plan.legs.size).toEqual(2);
-      expect(setup.context.plan.legs.get(0).sinkFlag.coordinate).toEqual([2, 2]);
-      expect(setup.context.plan.legs.get(0).sinkFlag.flagType).toEqual(PlanFlagType.Via);
-      expect(setup.context.plan.legs.get(1).sinkFlag.coordinate).toEqual([1, 1]);
-      expect(setup.context.plan.legs.get(1).sinkFlag.flagType).toEqual(PlanFlagType.End);
+
+      {
+        const legs = setup.context.plan.legs;
+        expect(legs.size).toEqual(2);
+
+        const leg1 = legs.get(0);
+        expect(leg1.sinkFlag.coordinate).toEqual([2, 2]);
+        expect(leg1.sinkFlag.flagType).toEqual(PlanFlagType.Via);
+
+        const leg2 = legs.get(1);
+        expect(leg2.sinkFlag.coordinate).toEqual([1, 1]);
+        expect(leg2.sinkFlag.flagType).toEqual(PlanFlagType.End);
+      }
 
       reverseCommand.undo(setup.context);
 
