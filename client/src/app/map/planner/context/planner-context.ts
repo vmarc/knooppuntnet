@@ -13,6 +13,7 @@ import {PlannerMarkerLayer} from "./planner-marker-layer";
 import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import {PlanLegData} from "./plan-leg-data";
+import {PlannerHighlighter} from "./planner-highlighter";
 
 export class NetworkTypeData {
   constructor(public plan: Plan,
@@ -34,7 +35,7 @@ export class PlannerContext {
               readonly markerLayer: PlannerMarkerLayer,
               readonly cursor: PlannerCursor,
               readonly elasticBand: PlannerElasticBand,
-              readonly highlightLayer: PlannerHighlightLayer,
+              readonly highlighter: PlannerHighlighter,
               readonly legRepository: PlannerLegRepository,
               readonly overlay: PlannerOverlay) {
     this._plan$ = new BehaviorSubject<Plan>(Plan.empty);

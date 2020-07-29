@@ -1,10 +1,5 @@
 import {List} from "immutable";
-import {Feature} from "ol";
 import {Coordinate} from "ol/coordinate";
-import {LineString, MultiLineString, Point} from "ol/geom";
-import GeometryLayout from "ol/geom/GeometryLayout";
-import GeometryType from "ol/geom/GeometryType";
-import RenderFeature from "ol/render/Feature";
 import {NodeClick} from "../../../components/ol/domain/node-click";
 import {PoiClick} from "../../../components/ol/domain/poi-click";
 import {PoiId} from "../../../components/ol/domain/poi-id";
@@ -109,7 +104,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
     if (features.isEmpty()) {
-      this.context.highlightLayer.reset();
+      this.context.highlighter.reset();
       this.context.cursor.setStyleDefault();
       return false;
     }
@@ -122,7 +117,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
-      this.highlightNode(networkNodeFeature.node);
+      this.context.highlighter.highlightNode(networkNodeFeature.node);
       this.context.cursor.setStylePointer();
       return true;
     }
@@ -149,12 +144,12 @@ export class PlannerEngineImpl implements PlannerEngine {
       const route = Features.findRoute(features);
       if (route != null) {
         this.context.cursor.setStylePointer();
-        this.highlightRoute(route);
+        this.context.highlighter.highlightRoute(route);
         return true;
       }
     }
 
-    this.context.highlightLayer.reset();
+    this.context.highlighter.reset();
     this.context.cursor.setStyleDefault();
 
     return false;
@@ -166,7 +161,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
-        this.highlightNode(networkNodeFeature.node);
+        this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, networkNodeFeature.node.coordinate);
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
@@ -176,9 +171,9 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (!this.isDraggingStartNode()) {
         const routeFeature = Features.findRoute(features);
         if (routeFeature != null) {
-          this.highlightRoute(routeFeature);
+          this.context.highlighter.highlightRoute(routeFeature);
         } else {
-          this.context.highlightLayer.reset();
+          this.context.highlighter.reset();
         }
       }
 
@@ -191,7 +186,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
-        this.highlightNode(networkNodeFeature.node);
+        this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
         return true;
@@ -199,9 +194,9 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
-        this.highlightRoute(routeFeature);
+        this.context.highlighter.highlightRoute(routeFeature);
       } else {
-        this.context.highlightLayer.reset();
+        this.context.highlighter.reset();
       }
       this.context.elasticBand.updatePosition(coordinate);
       return true;
@@ -212,7 +207,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean, modifierKeyOnly: boolean): boolean {
 
-    this.context.highlightLayer.reset();
+    this.context.highlighter.reset();
 
     if (this.isViaFlagClicked(singleClick)) {
       new RemoveViaPoint(this.context).remove(this.nodeDrag);
@@ -265,38 +260,6 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     return false;
-  }
-
-  private highlightNode(node: PlanNode): void {
-    const point = new Point(node.coordinate);
-    const feature = new Feature(point);
-    this.context.highlightLayer.highlightFeature(feature);
-  }
-
-  private highlightRoute(routeFeature: RouteFeature): void {
-    if (routeFeature.feature instanceof RenderFeature) {
-      const renderFeature = routeFeature.feature as RenderFeature;
-      const geometryType = renderFeature.getType();
-      if (geometryType === GeometryType.LINE_STRING) {
-        const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
-        const lineString = new LineString(coordinates, GeometryLayout.XY);
-        const feature = new Feature(lineString);
-        this.context.highlightLayer.highlightFeature(feature);
-      } else if (geometryType === GeometryType.MULTI_LINE_STRING) {
-        const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
-        const ends: number[] = [];
-        renderFeature.getEnds().forEach(num => {
-          if (typeof num === "number") {
-            ends.push(num);
-          }
-        });
-        const lineString = new MultiLineString(coordinates, GeometryLayout.XY, ends);
-        const feature = new Feature(lineString);
-        this.context.highlightLayer.highlightFeature(feature);
-      } else {
-        console.log("OTHER GEOMETRY TYPE " + geometryType);
-      }
-    }
   }
 
   private removeRouteViaPoint(): void {

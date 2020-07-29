@@ -7,13 +7,13 @@ import {PlanUtil} from "../plan/plan-util";
 import {PlannerContext} from "./planner-context";
 import {PlannerCursorMock} from "./planner-cursor-mock";
 import {PlannerElasticBandMock} from "./planner-elastic-band-mock";
-import {PlannerHighlightLayerMock} from "./planner-highlight-layer-mock";
 import {PlannerLegRepositoryMock} from "./planner-leg-repository-mock";
 import {PlannerMarkerLayerMock} from "./planner-marker-layer-mock";
 import {PlannerRouteLayerMock} from "./planner-route-layer-mock";
 import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
 import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
 import {PlanLegData} from "./plan-leg-data";
+import {PlannerHighlighterMock} from "./planner-highlighter-mock";
 
 export class PlannerTestSetup {
 
@@ -21,7 +21,7 @@ export class PlannerTestSetup {
   readonly markerLayer = new PlannerMarkerLayerMock();
   readonly cursor = new PlannerCursorMock();
   readonly elasticBand = new PlannerElasticBandMock();
-  readonly highlightLayer = new PlannerHighlightLayerMock();
+  readonly highlighter = new PlannerHighlighterMock();
   readonly legRepository = new PlannerLegRepositoryMock();
 
   readonly context = new PlannerContext(
@@ -29,7 +29,7 @@ export class PlannerTestSetup {
     this.markerLayer,
     this.cursor,
     this.elasticBand,
-    this.highlightLayer,
+    this.highlighter,
     this.legRepository,
     null
   );

@@ -7,7 +7,6 @@ import {MapService} from "../components/ol/services/map.service";
 import {PlannerContext} from "./planner/context/planner-context";
 import {PlannerCursorImpl} from "./planner/context/planner-cursor-impl";
 import {PlannerElasticBandImpl} from "./planner/context/planner-elastic-band-impl";
-import {PlannerHighlightLayerImpl} from "./planner/context/planner-highlight-layer-impl";
 import {PlannerLegRepositoryImpl} from "./planner/context/planner-leg-repository-impl";
 import {PlannerMarkerLayerImpl} from "./planner/context/planner-marker-layer-impl";
 import {PlannerOverlayImpl} from "./planner/context/planner-overlay-impl";
@@ -16,6 +15,8 @@ import {PlannerEngine} from "./planner/interaction/planner-engine";
 import {PlannerEngineImpl} from "./planner/interaction/planner-engine-impl";
 import {PlanRoute} from "../kpn/api/common/planner/plan-route";
 import {PlanUtil} from "./planner/plan/plan-util";
+import {PlannerHighlighterImpl} from "./planner/context/planner-highlighter-impl";
+import {PlannerHighlightLayer} from "./planner/context/planner-highlight-layer";
 
 @Injectable({
   providedIn: "root"
@@ -29,7 +30,8 @@ export class PlannerService {
   private markerLayer = new PlannerMarkerLayerImpl();
   private cursor = new PlannerCursorImpl();
   private elasticBand = new PlannerElasticBandImpl();
-  private highlightLayer = new PlannerHighlightLayerImpl();
+  private highlightLayer = new PlannerHighlightLayer();
+  private highlighter = new PlannerHighlighterImpl(this.highlightLayer);
   private legRepository = new PlannerLegRepositoryImpl(this.appService);
   private overlay = new PlannerOverlayImpl(this.mapService);
   context: PlannerContext = new PlannerContext(
@@ -37,7 +39,7 @@ export class PlannerService {
     this.markerLayer,
     this.cursor,
     this.elasticBand,
-    this.highlightLayer,
+    this.highlighter,
     this.legRepository,
     this.overlay
   );
