@@ -61,7 +61,12 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNode = Features.findNetworkNode(features);
     if (networkNode != null) {
-      this.nodeSelected(networkNode);
+      if (modifierKeyOnly) {
+        this.context.overlay.nodeClicked(new NodeClick(coordinate, networkNode));
+      }
+      else {
+        this.nodeSelected(networkNode);
+      }
       return true;
     }
 
@@ -72,11 +77,6 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
     }
 
-    const node = Features.findNode(features);
-    if (node != null) {
-      this.context.overlay.nodeClicked(new NodeClick(coordinate, node));
-      return true;
-    }
 
     if (modifierKeyOnly === true) {
       const route = Features.findRoute(features);
@@ -134,15 +134,9 @@ export class PlannerEngineImpl implements PlannerEngine {
       return true;
     }
 
-    const node = Features.findNode(features);
-    if (node != null) {
-      this.context.cursor.setStylePointer();
-      return true;
-    }
-
-    if (this.context.plan.sourceNode !== null) { // no clicking routes when start node has not been selected yet
-      const route = Features.findRoute(features);
-      if (route != null) {
+    const route = Features.findRoute(features);
+    if (route != null) {
+      if (modifierKeyOnly || this.context.plan.sourceNode !== null) { // no clicking routes when start node has not been selected yet
         this.context.cursor.setStylePointer();
         this.context.highlighter.highlightRoute(route);
         return true;
@@ -250,9 +244,6 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       if (this.isDraggingNode()) {
         // cancel drag - put flag at its original coordinate again
-
-        console.log("RESET " + singleClick);
-
         this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, this.nodeDrag.planFlag.coordinate);
       }
 

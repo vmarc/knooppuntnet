@@ -4,11 +4,11 @@ This is intended for manual testing of these interactions.
 |Nr|planner interaction|OK|expected result
 |:---|:---|:---|:---
 |1|hover over node|OK|cursor changes (+ yellow highlight) to indicate node is clickable
-|1a|hover over node, with ctrl-key down|?|cursor changes (+ yellow highlight) to indicate node is clickable
-|2|hover over route in empty plan|?|no cursor change, route is not clickable
-|2a|hover over route in empty plan, with ctrl-key down|?|cursor changes (+ yellow highlight) to indicate route is clickable
-|3|hover over route in plan with at least a start marker|?|cursor changes (+ yellow highlight) to indicate that the route is clickable (note: highlight may be partial due to technical limitation)
-|3a|hover over route in plan with at least a start marker, with ctrl-key down|?|cursor changes (+ yellow highlight) to indicate that the route is clickable (note: highlight may be partial due to technical limitation)
+|1a|hover over node, with ctrl-key down|OK|cursor changes (+ yellow highlight) to indicate node is clickable
+|2|hover over route in empty plan|OK|no cursor change, route is not clickable
+|2a|hover over route in empty plan, with ctrl-key down|OK|cursor changes (+ yellow highlight) to indicate route is clickable
+|3|hover over route in plan with at least a start marker|OK|cursor changes (+ yellow highlight) to indicate that the route is clickable (note: highlight may be partial due to technical limitation)
+|3a|hover over route in plan with at least a start marker, with ctrl-key down|OK|cursor changes (+ yellow highlight) to indicate that the route is clickable (note: highlight may be partial due to technical limitation)
 |4|click node in empty plan|?|adds blue start marker
 |4a|click node in empty plan, with ctrl-key down|?|open node details popup
 |5|click route in empty plan|?|not possible, route cannot be starting point
