@@ -43,8 +43,6 @@ import {RemoveViaPoint} from "./actions/remove-via-point";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
-  private newInteractionToggle = true;
-
   private legDrag: PlannerDragLeg = null;
   private nodeDrag: PlannerDragFlag = null;
   private viaRouteDrag: PlannerDragViaRouteFlag = null;
@@ -92,12 +90,10 @@ export class PlannerEngineImpl implements PlannerEngine {
         return true;
       }
     } else if (this.context.plan.sourceNode !== null) {
-      if (this.newInteractionToggle) {
-        const routes = Features.findRoutes(features);
-        if (!routes.isEmpty()) {
-          new AddViaRouteLeg(this.context).add(routes, coordinate);
-          return true;
-        }
+      const routes = Features.findRoutes(features);
+      if (!routes.isEmpty()) {
+        new AddViaRouteLeg(this.context).add(routes, coordinate);
+        return true;
       }
     }
 
@@ -150,13 +146,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     if (this.context.plan.sourceNode !== null) { // no clicking routes when start node has not been selected yet
-      if (this.newInteractionToggle) {
-        const route = Features.findRoute(features);
-        if (route != null) {
-          this.context.cursor.setStylePointer();
-          this.highlightRoute(route);
-          return true;
-        }
+      const route = Features.findRoute(features);
+      if (route != null) {
+        this.context.cursor.setStylePointer();
+        this.highlightRoute(route);
+        return true;
       }
     }
 
@@ -182,9 +176,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (!this.isDraggingStartNode()) {
         const routeFeature = Features.findRoute(features);
         if (routeFeature != null) {
-          if (this.newInteractionToggle) {
-            this.highlightRoute(routeFeature);
-          }
+          this.highlightRoute(routeFeature);
         } else {
           this.context.highlightLayer.reset();
         }

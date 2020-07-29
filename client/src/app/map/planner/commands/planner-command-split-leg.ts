@@ -1,6 +1,7 @@
 import {PlannerContext} from "../context/planner-context";
 import {PlannerCommand} from "./planner-command";
 import {PlanLeg} from "../plan/plan-leg";
+import {List} from "immutable";
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
 
@@ -15,15 +16,20 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
 
     context.markerLayer.removeFlag(this.oldLeg.viaFlag);
     context.markerLayer.addFlag(this.newLeg1.sinkFlag);
-    const legIndex = context.plan.legs.findIndex(leg => leg.featureId === this.oldLeg.featureId);
-    if (legIndex > -1) {
-      context.routeLayer.removePlanLeg(this.oldLeg.featureId);
-      context.routeLayer.addPlanLeg(this.newLeg1);
-      context.routeLayer.addPlanLeg(this.newLeg2);
-      const newLegs = context.plan.legs.remove(legIndex).push(this.newLeg1).push(this.newLeg2);
-      const newPlan = context.plan.withLegs(newLegs);
-      context.updatePlan(newPlan);
-    }
+
+    context.routeLayer.removePlanLeg(this.oldLeg.featureId);
+    context.routeLayer.addPlanLeg(this.newLeg1);
+    context.routeLayer.addPlanLeg(this.newLeg2);
+
+    const newLegs = context.plan.legs.flatMap(leg => {
+      if (leg.featureId === this.oldLeg.featureId) {
+        return List([this.newLeg1, this.newLeg2]);
+      }
+      return List([leg]);
+    });
+
+    const newPlan = context.plan.withLegs(newLegs);
+    context.updatePlan(newPlan);
   }
 
   public undo(context: PlannerContext) {
@@ -35,12 +41,19 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.routeLayer.removePlanLeg(this.newLeg2.featureId);
     context.markerLayer.addFlag(this.oldLeg.viaFlag);
     context.routeLayer.addPlanLeg(this.oldLeg);
-    const legIndex = context.plan.legs.findIndex(leg => leg.featureId === this.newLeg1.featureId);
-    if (legIndex > -1) {
-      const newLegs = context.plan.legs.remove(legIndex).remove(legIndex).insert(legIndex, this.oldLeg);
-      const newPlan = context.plan.withLegs(newLegs);
-      context.updatePlan(newPlan);
-    }
+
+    const newLegs = context.plan.legs.flatMap(leg => {
+      if (leg.featureId === this.newLeg1.featureId) {
+        return List([this.oldLeg]);
+      }
+      if (leg.featureId === this.newLeg2.featureId) {
+        return List();
+      }
+      return List([leg]);
+    });
+
+    const newPlan = context.plan.withLegs(newLegs);
+    context.updatePlan(newPlan);
   }
 
 }
