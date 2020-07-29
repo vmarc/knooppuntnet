@@ -35,7 +35,7 @@ import {PlannerLayerService} from "../../planner/services/planner-layer.service"
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-map-popup></kpn-map-popup>
-    <div id="main-map" class="map">
+    <div id="main-map" class="map" (mouseleave)="mouseleave()">
       <kpn-route-control (action)="zoomInToRoute()"></kpn-route-control>
       <kpn-geolocation-control (action)="geolocation($event)"></kpn-geolocation-control>
       <kpn-layer-switcher [mapLayers]="layerSwitcherMapLayers$ | async">
@@ -112,6 +112,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.layerSwitcherMapLayers$ = this.plannerLayerService.layerSwitcherMapLayers$.pipe(
       delay(0)
     );
+  }
+
+  mouseleave() {
+    this.plannerService.engine.handleMouseLeave();
   }
 
   ngAfterViewInit(): void {

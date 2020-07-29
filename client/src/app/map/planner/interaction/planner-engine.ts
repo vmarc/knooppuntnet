@@ -12,4 +12,5 @@ export interface PlannerEngine {
 
   handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean, modifierKeyOnly: boolean): boolean;
 
+  handleMouseLeave(): void;
 }

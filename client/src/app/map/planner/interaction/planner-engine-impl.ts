@@ -253,6 +253,10 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
+  handleMouseLeave(): void {
+    this.context.highlighter.reset();
+  }
+
   private removeRouteViaPoint(): void {
     const clickedLeg = this.context.plan.legs.find(leg => leg.featureId === this.viaRouteDrag.legFeatureId);
     if (clickedLeg != null) {
