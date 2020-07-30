@@ -54,7 +54,8 @@ import {PlannerService} from "../../../planner.service";
           <span class="kpn-label" i18n="@@poi.detail.email">E-mail</span> <a [href]="emailLink()">{{poi.email}}</a>
         </div>
         <div *ngIf="poi.facebook" class="item">
-          <a [href]="poi.facebook" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.facebook">Facebook</a>
+          <a [href]="poi.facebook" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.facebook">Facebook</a>
         </div>
 
         <div *ngIf="poi.description" class="item">{{poi.description}}</div>
@@ -79,29 +80,37 @@ import {PlannerService} from "../../../planner.service";
         </div>
 
         <div *ngIf="poi.imageLink" class="item">
-          <a [href]="poi.imageLink" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.image">Image</a>
+          <a [href]="poi.imageLink" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.image">Image</a>
         </div>
 
         <div *ngIf="poi.mapillary" class="item">
-          <a [href]="poi.mapillary" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.mapillary">Mapillary</a>
+          <a [href]="poi.mapillary" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.mapillary">Mapillary</a>
         </div>
 
         <div *ngIf="poi.onroerendErfgoed" class="item">
-          <a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank" rel="nofollow noreferrer">Onroerend Erfgoed</a>
+          <a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank"
+             rel="nofollow noreferrer">Onroerend Erfgoed</a>
         </div>
 
         <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
-          <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.website">Website</a>
-          <a *ngIf="poi.wikidata" [href]="poi.wikidata" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.wikidata">Wikidata</a>
-          <a *ngIf="poi.wikipedia" [href]="poi.wikipedia" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.wikipedia">Wikipedia</a>
+          <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.website">Website</a>
+          <a *ngIf="poi.wikidata" [href]="poi.wikidata" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.wikidata">Wikidata</a>
+          <a *ngIf="poi.wikipedia" [href]="poi.wikipedia" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.wikipedia">Wikipedia</a>
         </div>
 
         <div *ngIf="poi.molenDatabase" class="item">
-          <a [href]="poi.molenDatabase" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.molen-database">Molen database</a>
+          <a [href]="poi.molenDatabase" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.molen-database">Molen database</a>
         </div>
 
         <div *ngIf="poi.hollandscheMolenDatabase" class="item">
-          <a [href]="poi.hollandscheMolenDatabase" class="external" target="_blank" rel="nofollow noreferrer" i18n="@@poi.detail.hollandsche-molen-database">
+          <a [href]="poi.hollandscheMolenDatabase" class="external" target="_blank" rel="nofollow noreferrer"
+             i18n="@@poi.detail.hollandsche-molen-database">
             Hollandsche Molen database
           </a>
         </div>
@@ -114,11 +123,19 @@ import {PlannerService} from "../../../planner.service";
           <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
         </div>
 
-        <div class="item">
-          <kpn-osm-link [kind]="poiClick.poiId.elementType" [elementId]="poiClick.poiId.elementId.toString()" title="osm"></kpn-osm-link>
-          <kpn-josm-link [kind]="poiClick.poiId.elementType" [elementId]="poiClick.poiId.elementId" title="edit"></kpn-josm-link>
-        </div>
+      </div>
 
+      <div class="item">
+        <kpn-osm-link
+          [kind]="poiClick.poiId.elementType"
+          [elementId]="poiClick.poiId.elementId.toString()"
+          title="osm">
+        </kpn-osm-link>
+        <kpn-josm-link
+          [kind]="poiClick.poiId.elementType"
+          [elementId]="poiClick.poiId.elementId"
+          title="edit">
+        </kpn-josm-link>
       </div>
     </div>
   `,
@@ -128,9 +145,10 @@ import {PlannerService} from "../../../planner.service";
       margin-bottom: 10px;
     }
 
-    .image {
-      border: 1px solid #cccccc;
+    .item * {
+      margin-right: 10px;
     }
+
   `]
 })
 export class MapPopupPoiComponent implements OnInit {
