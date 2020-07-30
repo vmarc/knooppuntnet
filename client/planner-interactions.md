@@ -36,11 +36,12 @@ Test results per browser:
 |21|drag brown node via marker, drop on route|OK|?|?|via point is moved, legs are recalculated
 |22|drag brown via-route via marker, drop on route|OK|?|?|via point is moved, legs are recalculated
 |23|drag node-to-node-leg, drop on node|OK|?|?|via point is move, legs are recalculated
-|24|drag node-to-node-leg, drop on route|?|?|?|via point is moved, legs are recalculated
-|25|drag via-route-leg, drop on node|?|?|?|via point is moved, legs are recalculated
-|26|drag via-route-leg, drop on route|?|?|?|via point is moved, legs are recalculated
-|27|single click on brown node via marker|?|?|?|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
-|28|single click on brown route via marker|NOK|?|?|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
-|29|plan with via-route, click reverse|NOK|?|?|plan reversed
+|24|drag node-to-node-leg, drop on route|OK|?|?|via point is moved, legs are recalculated
+|25|drag via-route-leg, drop on node|OK|?|?|via point is moved, legs are recalculated
+|26|drag via-route-leg, drop on route|OK|?|?|via point is moved, legs are recalculated
+|27|single click on brown node via marker|OK|?|?|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
+|28|single click on brown route via marker|OK|?|?|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
+|29|click reverse|OK|?|?|plan reversed
+|30|plan with via-route, click reverse|OK|?|?|plan reversed
 
 TODO save and restore plan with via-route via clipboard link or QR code 
