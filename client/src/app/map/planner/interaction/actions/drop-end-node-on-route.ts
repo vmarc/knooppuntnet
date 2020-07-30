@@ -3,7 +3,7 @@ import {Coordinate} from "ol/coordinate";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveEndPoint} from "../../commands/planner-command-move-end-point";
+import {PlannerCommandReplaceLeg} from "../../commands/planner-command-replace-leg";
 import {PlannerContext} from "../../context/planner-context";
 import {FeatureId} from "../../features/feature-id";
 import {RouteFeature} from "../../features/route-feature";
@@ -23,7 +23,7 @@ export class DropEndNodeOnRoute {
     if (oldLeg) {
       this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe(newLeg => {
         if (newLeg) {
-          const command = new PlannerCommandMoveEndPoint(oldLeg, newLeg);
+          const command = new PlannerCommandReplaceLeg(oldLeg, newLeg);
           this.context.execute(command);
         }
       });

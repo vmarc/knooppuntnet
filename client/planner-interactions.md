@@ -23,7 +23,7 @@ This is intended for manual testing of these interactions.
 |13|in plan with first leg via-route, drag blue start marker, drop on other node|OK|plan start is moved, first leg is recalculated (keeps going through route-via-point, end marker can change)
 |14|drag blue start marker, drop on route|OK|not supported, no cursor/highlight change when hovering over route - marker jumps back to original position
 |15|in plan with last leg node-to-node, drag green end marker, drop on other node|OK|plan destination is moved, last leg is recalculated
-|16|in plan with last leg via-route, drag green end marker, drop on other node|?|add leg to new destination, keep the last via-route
+|16|in plan with last leg via-route, drag green end marker, drop on other node|OK|plan destination is moved, last leg is recalculated
 |17|in plan with last leg node-to-node, drag green end marker, drop on route|?|end marker moved, leg recalculated
 |18|in plan with last leg via-route, drag green end marker, drop on route|?|end marker moved, route-via-markers are kept
 |19|drag brown node via marker, drop on other node|?|via point is moved, legs are recalculated

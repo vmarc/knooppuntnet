@@ -2,7 +2,7 @@ import {List} from "immutable";
 import {expectCoordinates} from "../../../util/test-support";
 import {expectStartFlag} from "../../../util/test-support";
 import {expectEndFlagCoordinate} from "../../../util/test-support";
-import {PlannerCommandMoveEndPoint} from "../commands/planner-command-move-end-point";
+import {PlannerCommandReplaceLeg} from "../commands/planner-command-replace-leg";
 import {PlannerCommandMoveFirstLegSource} from "../commands/planner-command-move-first-leg-source";
 import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
 import {PlannerCommandMoveViaPoint} from "../commands/planner-command-move-via-point";
@@ -364,7 +364,7 @@ describe("PlannerEngine", () => {
       setup.elasticBand.expectVisible(false);
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
-      expect(setup.context.commandStack.last()).toEqual(jasmine.any(PlannerCommandMoveEndPoint));
+      expect(setup.context.commandStack.last()).toEqual(jasmine.any(PlannerCommandReplaceLeg));
 
     });
 
