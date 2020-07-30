@@ -14,9 +14,8 @@ export class MoveRouteViaPointToNode {
   constructor(private readonly context: PlannerContext) {
   }
 
-  move(viaNode: PlanNode, viaLegIndex: number): void {
+  move(viaNode: PlanNode, oldLeg: PlanLeg): void {
 
-    const oldLeg = this.context.plan.legs.get(viaLegIndex);
     const newLeg1$ = this.buildNewLeg1(oldLeg.sourceNode, viaNode);
     const newLeg2$ = this.buildNewLeg2(viaNode, oldLeg.sinkNode, oldLeg.sinkFlag);
 

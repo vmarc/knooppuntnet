@@ -27,7 +27,7 @@ export class DropViaNodeOnRoute {
 
     this.buildNewLeg1(oldLeg1, routeFeatures, coordinate).pipe(
       switchMap(newLeg1 =>
-        this.buildNewLeg2(newLeg1.sinkNode, oldLeg2.sinkNode, coordinate).pipe(
+        this.buildNewLeg2(newLeg1.sinkNode, oldLeg2.sinkNode, oldLeg2.sinkFlag, coordinate).pipe(
           map(newLeg2 => new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2))
         )
       )
@@ -46,12 +46,11 @@ export class DropViaNodeOnRoute {
     );
   }
 
-  private buildNewLeg2(sourceNode: PlanNode, sinkNode: PlanNode, coordinate: Coordinate): Observable<PlanLeg> {
+  private buildNewLeg2(sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag, coordinate: Coordinate): Observable<PlanLeg> {
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
-    const sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(
       map(data => PlanUtil.leg(data, sinkFlag, viaFlag))

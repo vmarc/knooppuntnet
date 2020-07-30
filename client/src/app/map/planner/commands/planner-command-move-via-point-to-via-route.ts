@@ -12,48 +12,37 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-
     context.debug("PlannerCommandMoveViaPointToViaRoute");
-
-    context.markerLayer.removeFlag(this.oldLeg1.sinkFlag);
-    context.markerLayer.addFlag(this.newLeg1.viaFlag);
-    context.routeLayer.removePlanLeg(this.oldLeg1.featureId);
-    context.routeLayer.removePlanLeg(this.oldLeg2.featureId);
-    context.routeLayer.addPlanLeg(this.newLeg1);
-    context.routeLayer.addPlanLeg(this.newLeg2);
-
-    const newLegs: List<PlanLeg> = context.plan.legs.map(leg => {
-      if (leg.featureId === this.oldLeg1.featureId) {
-        return this.newLeg1;
-      }
-      if (leg.featureId === this.oldLeg2.featureId) {
-        return this.newLeg2;
-      }
-      return leg;
-    });
-    const newPlan = context.plan.withLegs(newLegs);
-    context.updatePlan(newPlan);
+    this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
   }
 
   public undo(context: PlannerContext) {
-
     context.debug("PlannerCommandMoveViaPointToViaRoute undo");
+    this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
+  }
 
-    context.markerLayer.removeFlag(this.newLeg1.viaFlag);
+  private update(context: PlannerContext, fromLeg1: PlanLeg, fromLeg2: PlanLeg, toLeg1: PlanLeg, toLeg2: PlanLeg) {
 
-    context.markerLayer.addFlag(this.oldLeg1.sinkFlag);
+    context.markerLayer.removeFlag(fromLeg1.viaFlag);
+    context.markerLayer.removeFlag(fromLeg1.sinkFlag);
+    context.markerLayer.removeFlag(fromLeg2.viaFlag);
+    context.markerLayer.removeFlag(fromLeg2.sinkFlag);
+    context.routeLayer.removePlanLeg(fromLeg1.featureId);
+    context.routeLayer.removePlanLeg(fromLeg2.featureId);
 
-    context.routeLayer.removePlanLeg(this.newLeg1.featureId);
-    context.routeLayer.removePlanLeg(this.newLeg2.featureId);
-    context.routeLayer.addPlanLeg(this.oldLeg1);
-    context.routeLayer.addPlanLeg(this.oldLeg2);
+    context.markerLayer.addFlag(toLeg1.viaFlag);
+    context.markerLayer.addFlag(toLeg1.sinkFlag);
+    context.markerLayer.addFlag(toLeg2.viaFlag);
+    context.markerLayer.addFlag(toLeg2.sinkFlag);
+    context.routeLayer.addPlanLeg(toLeg1);
+    context.routeLayer.addPlanLeg(toLeg2);
 
     const newLegs: List<PlanLeg> = context.plan.legs.map(leg => {
-      if (leg.featureId === this.newLeg1.featureId) {
-        return this.oldLeg1;
+      if (leg.featureId === fromLeg1.featureId) {
+        return toLeg1;
       }
-      if (leg.featureId === this.newLeg2.featureId) {
-        return this.oldLeg2;
+      if (leg.featureId === fromLeg2.featureId) {
+        return toLeg2;
       }
       return leg;
     });

@@ -15,11 +15,15 @@ export class PlannerCommandMoveViaRoute implements PlannerCommand {
     context.debug("PlannerCommandMoveViaRoute");
 
     context.markerLayer.removeFlag(this.oldLeg.viaFlag);
+    context.markerLayer.removeFlag(this.oldLeg.sinkFlag);
     context.routeLayer.removePlanLeg(this.oldLeg.featureId);
 
     context.markerLayer.addFlag(this.newLeg1.viaFlag);
     context.markerLayer.addFlag(this.newLeg1.sinkFlag);
     context.routeLayer.addPlanLeg(this.newLeg1);
+
+    context.markerLayer.addFlag(this.newLeg2.viaFlag);
+    context.markerLayer.addFlag(this.newLeg2.sinkFlag);
     context.routeLayer.addPlanLeg(this.newLeg2);
 
     const newLegs = context.plan.legs.flatMap(leg => {
@@ -39,9 +43,14 @@ export class PlannerCommandMoveViaRoute implements PlannerCommand {
 
     context.markerLayer.removeFlag(this.newLeg1.viaFlag);
     context.markerLayer.removeFlag(this.newLeg1.sinkFlag);
-    context.markerLayer.addFlag(this.oldLeg.viaFlag);
     context.routeLayer.removePlanLeg(this.newLeg1.featureId);
+
+    context.markerLayer.removeFlag(this.newLeg2.viaFlag);
+    context.markerLayer.removeFlag(this.newLeg2.sinkFlag);
     context.routeLayer.removePlanLeg(this.newLeg2.featureId);
+
+    context.markerLayer.addFlag(this.oldLeg.viaFlag);
+    context.markerLayer.addFlag(this.oldLeg.sinkFlag);
     context.routeLayer.addPlanLeg(this.oldLeg);
 
     const newLegs = context.plan.legs.flatMap(leg => {

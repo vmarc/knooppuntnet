@@ -13,14 +13,15 @@ export class MoveEndPoint {
   }
 
   move(sinkNode: PlanNode): void {
-    const oldLeg = this.context.plan.legs.get(-1, null);
-    const sourceNode = oldLeg.sourceNode;
-    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    this.buildLeg(source, sink).subscribe(newLeg => {
-      const command = new PlannerCommandReplaceLeg(oldLeg, newLeg);
-      this.context.execute(command);
-    });
+    const oldLeg = this.context.plan.legs.last(null);
+    if (oldLeg) {
+      const sourceNode = oldLeg.sourceNode;
+      const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+      const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
+      this.buildLeg(source, sink).pipe(
+        map(newLeg => new PlannerCommandReplaceLeg(oldLeg, newLeg))
+      ).subscribe(command => this.context.execute(command));
+    }
   }
 
   private buildLeg(source: LegEnd, sink: LegEnd): Observable<PlanLeg> {
