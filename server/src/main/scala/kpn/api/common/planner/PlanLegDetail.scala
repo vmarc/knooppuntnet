@@ -2,7 +2,9 @@ package kpn.api.common.planner
 
 import kpn.api.common.common.ToStringBuilder
 
-case class PlanLegDetail(  // TODO PLAN get ride of this class and use just routes collection instead ???
+case class PlanLegDetail(
+  source: LegEnd,
+  sink: LegEnd,
   routes: Seq[PlanRoute]
 ) {
 

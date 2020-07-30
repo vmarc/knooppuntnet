@@ -62,20 +62,20 @@ export class PlanUtil {
   }
 
   static legEndKey(legEnd: LegEnd): string {
-    if (legEnd.node !== null) {
+    if (legEnd.node) {
       return legEnd.node.nodeId.toString();
     }
-    if (legEnd.route !== null) {
+    if (legEnd.route) {
       return legEnd.route.trackPathKeys.map(trackPath => `${trackPath.routeId}.${trackPath.pathId}`).join("|");
     }
     return "";
   }
 
   static encodedLegEndKey(legEnd: LegEnd): string {
-    if (legEnd.node !== null) {
+    if (legEnd.node) {
       return legEnd.node.nodeId.toString(36);
     }
-    if (legEnd.route !== null) {
+    if (legEnd.route) {
       return legEnd.route.trackPathKeys.map(trackPath => {
         const routeId = trackPath.routeId.toString(36);
         const pathId = trackPath.pathId.toString(36);

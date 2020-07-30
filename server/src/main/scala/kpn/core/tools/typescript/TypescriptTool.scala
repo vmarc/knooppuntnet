@@ -17,9 +17,9 @@ object TypescriptTool {
 
 class TypescriptTool() {
 
-  val root = "/home/marcv/wrk/projects/knooppuntnet/server/src/main/scala/kpn/api/common"
+  val root = "/home/marcv/wrk/projects1/knooppuntnet/server/src/main/scala/kpn/api/common"
 
-  val targetDir = "/home/marcv/wrk/projects/knooppuntnet/client/src/app"
+  val targetDir = "/home/marcv/wrk/projects1/knooppuntnet/client/src/app"
 
   val ignoredClasses: Seq[String] = Seq(
   )

@@ -18,7 +18,7 @@ export class PlanBuilder {
     const sourceNode = planDetail.routes.get(0).sourceNode;
     const sinkNode = planDetail.routes.last(null).sinkNode;
     const source = new LegEnd(new LegEndNode(+sourceNode.nodeId), null);
-    const sourceFlag = new PlanFlag(PlanFlagType.Start, FeatureId.next(), sinkNode.coordinate);
+    const sourceFlag = new PlanFlag(PlanFlagType.Start, FeatureId.next(), sourceNode.coordinate);
     const sink = new LegEnd(new LegEndNode(+sinkNode.nodeId), null);
     const sinkFlag = new PlanFlag(PlanFlagType.End, FeatureId.next(), sinkNode.coordinate);
     const viaFlag: PlanFlag = null;

@@ -69,6 +69,22 @@ object LegEnd {
       }
     }
   }
+
+  def fromString(string: String): LegEnd = {
+    if (string.contains(".")) {
+      string.split("\\.") match {
+        case Array(routeIdString, pathIdString) =>
+          val routeId = routeIdString.toLong
+          val pathId = pathIdString.toLong
+          LegEnd.route(List(TrackPathKey(routeId, pathId)))
+        case _ => null
+      }
+    }
+    else {
+      node(string.toLong)
+    }
+  }
+
 }
 
 case class LegEnd(

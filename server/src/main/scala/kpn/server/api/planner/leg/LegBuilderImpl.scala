@@ -42,24 +42,20 @@ class LegBuilderImpl(
   override def plan(networkType: NetworkType, planString: String, encoded: Boolean): Option[PlanLegDetail] = {
     graphRepository.graph(networkType) match {
       case Some(graph) =>
-        val planLegDetails = loadPlanLegs(networkType, graph, planString, encoded)
+        val legEnds = LegEnd.fromPlanString(planString, encoded)
+        val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq())
         if (planLegDetails.isEmpty) {
           None
         }
         else {
           val allRoutes = planLegDetails.flatMap(_.routes)
-          Some(PlanLegDetail(allRoutes))
+          Some(PlanLegDetail(legEnds.head, legEnds.last, allRoutes))
         }
 
       case None =>
         log.error("Could not find graph for network type " + networkType.name)
         None
     }
-  }
-
-  private def loadPlanLegs(networkType: NetworkType, graph: NodeNetworkGraph, planString: String, encoded: Boolean): Seq[PlanLegDetail] = {
-    val legEnds = LegEnd.fromPlanString(planString, encoded)
-    legEndsToPlanLegs(networkType, graph, legEnds, Seq())
   }
 
   @scala.annotation.tailrec
@@ -132,8 +128,12 @@ class LegBuilderImpl(
         graph.findPath(source, sink) match {
           case Some(graphPath) =>
             val planRoutes = graphPathToPlanRoutes(graphPath)
+            val sourceLegEnd = LegEnd.fromString(source)
+            val sinkLegEnd = LegEnd.fromString(sink)
             Some(
               PlanLegDetail(
+                sourceLegEnd,
+                sinkLegEnd,
                 planRoutes
               )
             )
