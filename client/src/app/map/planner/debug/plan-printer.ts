@@ -11,7 +11,7 @@ export class PlanPrinter {
     this.out.println(`sourceNode=${this.node(plan.sourceNode)}`);
     this.out.println(`sourceFlag=${this.flag(plan.sourceFlag)}`);
     plan.legs.forEach(leg => {
-      this.out.println(`  leg key=${leg.key}`);
+      this.out.println(`  leg featureId=${leg.featureId}, key=${leg.key}`);
       if (leg.viaFlag !== null) {
         this.out.println(`    viaFlag=${this.flag(leg.viaFlag)}`);
       } else {

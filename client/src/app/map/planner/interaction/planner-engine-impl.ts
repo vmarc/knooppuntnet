@@ -241,15 +241,14 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
 
-      this.context.cursor.setStyleDefault();
-      this.context.elasticBand.setInvisible();
       const networkNode = Features.findNetworkNode(features);
       if (networkNode != null) {
         if (this.isDraggingLeg()) {
           new DropLegOnNode(this.context).drop(this.legDrag, networkNode.node);
-          this.legDrag = null;
+          this.dragCancel();
         } else if (this.isDraggingNode()) {
           this.dropNodeOnNode(networkNode.node);
+          this.dragCancel();
         }
         return true;
       }
@@ -262,6 +261,7 @@ export class PlannerEngineImpl implements PlannerEngine {
           } else if (this.isDraggingNode()) {
             this.dropNodeOnRoute(routeFeatures, coordinate);
           }
+          this.dragCancel();
           return true;
         }
       }
@@ -276,15 +276,13 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingViaRouteFlag()) {
 
-      this.context.cursor.setStyleDefault();
-      this.context.elasticBand.setInvisible();
-
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         const oldLeg = this.context.plan.legs.find(leg => leg.featureId === this.viaRouteDrag.legFeatureId);
         if (oldLeg) {
           new MoveRouteViaPointToNode(this.context).move(networkNodeFeature.node, oldLeg);
         }
+        this.dragCancel();
         return true;
       }
 
@@ -294,9 +292,11 @@ export class PlannerEngineImpl implements PlannerEngine {
         if (oldLeg) {
           new DropViaRouteOnRoute(this.context).drop(oldLeg, routeFeatures, coordinate);
         }
+        this.dragCancel();
         return true;
       }
 
+      this.dragCancel();
       return true;
     }
 
@@ -388,7 +388,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private dropNodeOnNode(targetNode: PlanNode): void {
-
     if (this.nodeDrag.planFlag.flagType === PlanFlagType.Start) {
       if (this.context.plan.legs.isEmpty()) {
         this.moveStartPoint(targetNode);
@@ -400,8 +399,6 @@ export class PlannerEngineImpl implements PlannerEngine {
     } else {
       this.moveViaPoint(targetNode);
     }
-
-    this.nodeDrag = null;
   }
 
   private moveStartPoint(newSourceNode: PlanNode): void {
