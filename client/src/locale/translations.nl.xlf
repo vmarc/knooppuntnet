@@ -8072,7 +8072,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
         <source>Extend or adapt your route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>read more<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Output when satisfied.</source>
-        <target>Ga verder met het uitbreiden of aanpassen van uw route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>lees meer<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Klik op de uitvoer lnop wanneer klaar.</target>
+        <target>Ga verder met het uitbreiden of aanpassen van uw route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>lees meer<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Klik op de uitvoer knop wanneer klaar.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">16</context>
