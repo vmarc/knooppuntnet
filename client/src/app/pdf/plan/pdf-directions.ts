@@ -136,7 +136,7 @@ export class PdfDirections {
 
   private printColour(y: number, colour: string): void {
     this.doc.setFontSize(10);
-    let translatedColour = this.plannerService.translate(colour);
+    let translatedColour = this.plannerService.colour(colour);
     if (!(translatedColour && translatedColour.length > 0)) {
       translatedColour = colour;
     }
