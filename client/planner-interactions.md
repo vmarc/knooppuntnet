@@ -43,5 +43,12 @@ Test results per browser:
 |28|single click on brown route via marker|OK|?|?|via marker is removed, and new leg is calculated connection previous leg start node to next leg end node
 |29|click reverse|OK|?|?|plan reversed
 |30|plan with via-route, click reverse|OK|?|?|plan reversed
+|31|shift drag rectangle|OK|?|?|zoom in to selected area
+|32|click "R" button, without plan|OK|?|?|error popup
+|33|click "R" button, with plan|OK|?|?|zoom in/out to make planned route fit map view
+|34|click spyglass button, enter location|OK|?|?|zoom and pan to choosen location
+|35|click "target" button (with browser permission)|OK|?|?|zoom and pan to what the browser thinks is the current location
+|35|click "target" button (without browser permission)|OK|?|?|error popup
+|36|click double-ended arraow button in upper right corner|OK|?|?|map is shown fullscreen
 
-TODO save and restore plan with via-route via clipboard link or QR code 
+save and restore plan with via-route via clipboard link or QR code 

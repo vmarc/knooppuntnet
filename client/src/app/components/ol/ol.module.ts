@@ -18,14 +18,16 @@ import {MapLayerService} from "./services/map-layer.service";
 import {MapPositionService} from "./services/map-position.service";
 import {MapService} from "./services/map.service";
 import {PoiTileLayerService} from "./services/poi-tile-layer.service";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatCheckboxModule,
-    MatProgressBarModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        MatCheckboxModule,
+        MatProgressBarModule,
+        SharedModule,
+        MatDialogModule
+    ],
   declarations: [
     NodeMapComponent,
     NodeMovedMapComponent,
