@@ -8420,6 +8420,14 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route.colour.or" datatype="html">
+        <source>or</source>
+        <target>oder</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
