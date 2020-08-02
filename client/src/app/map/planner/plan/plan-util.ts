@@ -16,6 +16,7 @@ import {PlanFlag} from "./plan-flag";
 import {PlanLeg} from "./plan-leg";
 import {PlanFlagType} from "./plan-flag-type";
 import {PlanLegData} from "../context/plan-leg-data";
+import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
 
 export class PlanUtil {
 
@@ -56,9 +57,13 @@ export class PlanUtil {
     return new LegEnd(new LegEndNode(nodeId), null);
   }
 
+  static legEndRoute(trackPathKeys: List<TrackPathKey>): LegEnd {
+    return new LegEnd(null, new LegEndRoute(trackPathKeys, null));
+  }
+
   static legEndRoutes(routeFeatures: List<RouteFeature>): LegEnd {
     const trackPathKeys = routeFeatures.map(routeFeature => routeFeature.toTrackPathKey());
-    return new LegEnd(null, new LegEndRoute(trackPathKeys));
+    return new LegEnd(null, new LegEndRoute(trackPathKeys, null));
   }
 
   static legEndKey(legEnd: LegEnd): string {
@@ -74,6 +79,12 @@ export class PlanUtil {
   static encodedLegEndKey(legEnd: LegEnd): string {
     if (legEnd.node) {
       return legEnd.node.nodeId.toString(36);
+    }
+    if (legEnd.route?.selection) {
+      const trackPath = legEnd.route.selection
+      const routeId = trackPath.routeId.toString(36);
+      const pathId = trackPath.pathId.toString(36);
+      return `${routeId}.${pathId}`;
     }
     if (legEnd.route) {
       return legEnd.route.trackPathKeys.map(trackPath => {
@@ -144,6 +155,12 @@ export class PlanUtil {
   static leg(data: PlanLegData, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {
     const legKey = PlanUtil.key(data.source, data.sink);
     return new PlanLeg(FeatureId.next(), legKey, data.source, data.sink, sinkFlag, viaFlag, data.routes);
+  }
+
+  static planRoute(sourceNode: PlanNode, sinkNode: PlanNode): PlanRoute {
+    const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
+    const segment = new PlanSegment(0, "", null, List([fragment]));
+    return new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
   }
 
 }

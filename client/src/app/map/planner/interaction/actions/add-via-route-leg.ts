@@ -31,7 +31,7 @@ export class AddViaRouteLeg {
       return List([trackPathKey, extraTrackPathKey]);
     });
 
-    const sink = new LegEnd(null, new LegEndRoute(trackPathKeys));
+    const sink = new LegEnd(null, new LegEndRoute(trackPathKeys, null));
 
     this.buildLeg(source, sink, coordinate).pipe(
       map(leg => new PlannerCommandAddLeg(leg))

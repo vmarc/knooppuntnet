@@ -2,6 +2,7 @@ package kpn.server.api.planner.leg
 
 import kpn.api.common.LatLonImpl
 import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
@@ -129,7 +130,17 @@ class LegBuilderImpl(
           case Some(graphPath) =>
             val planRoutes = graphPathToPlanRoutes(graphPath)
             val sourceLegEnd = LegEnd.fromString(source)
-            val sinkLegEnd = LegEnd.fromString(sink)
+
+            val sinkLegEndSelection = LegEnd.fromString(sink)
+
+            val sinkLegEnd: LegEnd = sinkLegEndSelection.route match {
+              case Some(legEndRoute) =>
+                val allTrackPathKeys = params.sink.route.get.trackPathKeys
+                val selectedTrackPathKey = legEndRoute.trackPathKeys.head
+                LegEnd.route(allTrackPathKeys, Some(selectedTrackPathKey))
+              case _ => sinkLegEndSelection
+            }
+
             Some(
               PlanLegDetail(
                 sourceLegEnd,

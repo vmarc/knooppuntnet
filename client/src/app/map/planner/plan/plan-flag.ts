@@ -25,15 +25,19 @@ export class PlanFlag {
   }
 
   toVia(): PlanFlag {
-    return new PlanFlag(PlanFlagType.Via, this.featureId, this.coordinate);
+    return this.to(PlanFlagType.Via);
   }
 
   toEnd(): PlanFlag {
-    return new PlanFlag(PlanFlagType.End, this.featureId, this.coordinate);
+    return this.to(PlanFlagType.End);
   }
 
   toInvisible(): PlanFlag {
-    return new PlanFlag(PlanFlagType.Invisible, this.featureId, this.coordinate);
+    return this.to(PlanFlagType.Invisible);
+  }
+
+  to(planFlagType: PlanFlagType): PlanFlag {
+    return new PlanFlag(planFlagType, this.featureId, this.coordinate);
   }
 
   withCoordinate(coordinate: Coordinate): PlanFlag {

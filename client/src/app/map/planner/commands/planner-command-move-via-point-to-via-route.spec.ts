@@ -52,10 +52,12 @@ describe("PlannerCommandMoveViaPointToViaRoute", () => {
     const command = new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2);
     setup.context.execute(command);
 
-    setup.markerLayer.expectFlagCount(3);
+    setup.markerLayer.expectFlagCount(4);
     setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
     setup.markerLayer.expectViaFlagExists("newViaFlag", [4.5, 4.5]);
+    setup.markerLayer.expectViaFlagExists("newLeg1SinkFlag", [4, 4]);
     setup.markerLayer.expectEndFlagExists("sinkFlag", [3, 3]);
+
     setup.routeLayer.expectRouteLegExists("14", newLeg1);
     setup.routeLayer.expectRouteLegExists("43", newLeg2);
 

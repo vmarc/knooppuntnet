@@ -592,7 +592,7 @@ describe("PlannerEngine", () => {
       setup.markerLayer.expectFlagCount(3);
       setup.markerLayer.expectStartFlagExists("sourceFlag", [1, 1]);
       setup.markerLayer.expectViaFlagCoordinateExists([3, 3]);
-      setup.markerLayer.expectEndFlagExists("sinkFlag", [2, 2]);
+      setup.markerLayer.expectEndFlagCoordinateExists([2, 2]);
 
       setup.elasticBand.expectVisible(false);
 

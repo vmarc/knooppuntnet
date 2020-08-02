@@ -15,6 +15,7 @@ import {expectEndFlagCoordinate} from "../../../util/test-support";
 import {expectStartFlagCoordinate} from "../../../util/test-support";
 import {expectViaFlagCoordinate} from "../../../util/test-support";
 import {PlanLegData} from "../context/plan-leg-data";
+import {expectInvisibleFlagCoordinate} from "../../../util/test-support";
 
 describe("PlanReverser", () => {
 
@@ -158,7 +159,7 @@ describe("PlanReverser", () => {
 
     const trackPathKey = new TrackPathKey(10, 1);
     const source = PlanUtil.legEndNode(1003);
-    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey])));
+    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey]), null));
 
     const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
@@ -178,7 +179,7 @@ describe("PlanReverser", () => {
     const trackPathKey = new TrackPathKey(10, 1);
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey])));
+    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey]), null));
     const legKey = PlanUtil.key(source, sink);
 
     const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
@@ -216,7 +217,7 @@ describe("PlanReverser", () => {
       expect(leg1.sink.route.trackPathKeys.get(0).routeId).toEqual(10);
       expect(leg1.sink.route.trackPathKeys.get(0).pathId).toEqual(1);
       expectViaFlagCoordinate(leg1.viaFlag, [3, 3]);
-      expectViaFlagCoordinate(leg1.sinkFlag, [2, 2]);
+      expectInvisibleFlagCoordinate(leg1.sinkFlag, [2, 2]);
 
       const leg2 = newPlan.legs.get(1);
       expect(leg2.source.node.nodeId).toEqual(1002);
@@ -231,11 +232,10 @@ describe("PlanReverser", () => {
 
     const sourceNode = PlanUtil.planNodeWithCoordinate("1004", "04", [4, 4]);
     const sinkNode = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
-    const trackPathKey = new TrackPathKey(10, 1);
-    const source = PlanUtil.legEndNode(1004);
-    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey])));
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndRoute(List([new TrackPathKey(10, 1)]));
 
-    const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
+    const planRoute = PlanUtil.planRoute(sourceNode, sinkNode);
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
@@ -245,16 +245,19 @@ describe("PlanReverser", () => {
 
     const sourceNode = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
     const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
-    const source = PlanUtil.legEndNode(1002);
-    const sink = PlanUtil.legEndNode(1001);
+    const source = PlanUtil.legEndNode(+sourceNode.nodeId);
+    const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
-    const planRoute = new PlanRoute(sourceNode, sinkNode, 0, List(), List());
+    const planRoute = PlanUtil.planRoute(sourceNode, sinkNode);
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
   }
 
   function buildPlan(setup: PlannerTestSetup): Plan {
+    /*
+      1  -----  2  --via3--  4
+    */
 
     const sourceNode = setup.node1;
     const viaNode = setup.node3;
@@ -266,13 +269,13 @@ describe("PlanReverser", () => {
     const trackPathKey = new TrackPathKey(10, 1);
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey])));
+    const sink = new LegEnd(null, new LegEndRoute(List([trackPathKey]), null));
     const legKey = PlanUtil.key(source, sink);
 
-    const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, "", null, List([fragment]));
-    const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
-    const leg = new PlanLeg("11", legKey, source, sink, sinkFlag, viaFlag, List([route]));
+    const route1 = PlanUtil.planRoute(sourceNode, setup.node2);
+    const route2 = PlanUtil.planRoute(setup.node2, sinkNode);
+
+    const leg = new PlanLeg("11", legKey, source, sink, sinkFlag, viaFlag, List([route1, route2]));
 
     const oldPlan = new Plan(sourceNode, sourceFlag, List([leg]));
     setup.context.updatePlan(oldPlan);

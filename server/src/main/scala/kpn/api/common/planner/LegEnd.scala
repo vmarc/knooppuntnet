@@ -9,8 +9,8 @@ object LegEnd {
     LegEnd(Some(LegEndNode(nodeId)), None)
   }
 
-  def route(trackPathKeys: List[TrackPathKey]): LegEnd = {
-    route(LegEndRoute(trackPathKeys))
+  def route(trackPathKeys: Seq[TrackPathKey], selection: Option[TrackPathKey] = None): LegEnd = {
+    route(LegEndRoute(trackPathKeys, selection))
   }
 
   def route(legEndRoute: LegEndRoute): LegEnd = {
@@ -48,7 +48,7 @@ object LegEnd {
                   case _ => None
                 }
               }
-              Some(LegEnd.route(LegEndRoute(paths)))
+              Some(LegEnd.route(LegEndRoute(paths, None)))
 
             case _ => None
           }

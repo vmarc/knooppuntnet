@@ -835,6 +835,6 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def legEndRoute(routeId: Long, pathId: Long): LegEndRoute = {
-    LegEndRoute(List(TrackPathKey(routeId, pathId)))
+    LegEndRoute(List(TrackPathKey(routeId, pathId)), None)
   }
 }

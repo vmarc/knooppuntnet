@@ -5,7 +5,8 @@ import {TrackPathKey} from "../common/track-path-key";
 
 export class LegEndRoute {
 
-  constructor(readonly trackPathKeys: List<TrackPathKey>) {
+  constructor(readonly trackPathKeys: List<TrackPathKey>,
+              readonly selection: TrackPathKey) {
   }
 
   public static fromJSON(jsonObject: any): LegEndRoute {
@@ -13,7 +14,8 @@ export class LegEndRoute {
       return undefined;
     }
     return new LegEndRoute(
-      jsonObject.trackPathKeys ? List(jsonObject.trackPathKeys.map((json: any) => TrackPathKey.fromJSON(json))) : List()
+      jsonObject.trackPathKeys ? List(jsonObject.trackPathKeys.map((json: any) => TrackPathKey.fromJSON(json))) : List(),
+      TrackPathKey.fromJSON(jsonObject.selection)
     );
   }
 }

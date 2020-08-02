@@ -24,7 +24,7 @@ export class PlanReverser {
     return this.buildLegs(oldPlan.legs.reverse(), List()).pipe(
       map(newLegs => {
         const sourceNode = newLegs.get(0).sourceNode;
-        const sourceFlag = PlanUtil.startFlag( sourceNode.coordinate);
+        const sourceFlag = PlanUtil.startFlag(sourceNode.coordinate);
         return new Plan(sourceNode, sourceFlag, newLegs);
       })
     );
@@ -45,7 +45,7 @@ export class PlanReverser {
     const source = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
 
     let sink: LegEnd;
-    if (oldLeg.sink.route !== null) {
+    if (oldLeg.sink.route) {
       sink = oldLeg.sink;
     } else {
       sink = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
@@ -58,20 +58,31 @@ export class PlanReverser {
         let sinkFlagType = PlanFlagType.Via;
         if (oldLegs.size === 1) {
           sinkFlagType = PlanFlagType.End;
+        } else if (oldLeg.viaFlag) {
+          sinkFlagType = PlanFlagType.Invisible;
         }
 
-        if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
-          // already at target node, no extra leg needed
-          let updatedFirstLeg = firstLeg;
-          if (sinkFlagType === PlanFlagType.End) {
-            updatedFirstLeg = updatedFirstLeg.withSinkFlag(updatedFirstLeg.sinkFlag.toEnd());
-          }
+        if (!oldLeg.viaFlag) {
+          const updatedFirstLeg = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(sinkFlagType));
           return of(List([updatedFirstLeg]));
         }
 
+        if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
+          const updatedFirstLeg = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(sinkFlagType));
+          return of(List([updatedFirstLeg]));
+        }
+
+        let firstLegSinkFlagType = PlanFlagType.Invisible;
+        if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
+          // this is the last leg, we have reached the end of the plan
+          firstLegSinkFlagType = PlanFlagType.End;
+        }
+
+        const updatedFirstLeg = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(firstLegSinkFlagType));
+
         return this.buildExtraLeg(firstLeg.sinkNode.nodeId, oldLeg.sourceNode.nodeId, sinkFlagType).pipe(
           map(extraLeg => {
-            return List([firstLeg, extraLeg]);
+            return List([updatedFirstLeg, extraLeg]);
           })
         );
       })
