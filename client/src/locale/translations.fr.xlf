@@ -8484,6 +8484,14 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="route.colour.or" datatype="html">
+        <source>or</source>
+        <target>ou</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
