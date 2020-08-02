@@ -50,6 +50,8 @@ import {PlannerService} from "../planner.service";
       <span id="white" i18n="@@route.colour.white">white</span>
       <span id="yellow" i18n="@@route.colour.yellow">yellow</span>
 
+      <span id="or" i18n="@@route.colour.or">or</span>
+
     </div>
   `,
   styles: [`

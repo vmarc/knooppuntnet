@@ -6968,6 +6968,13 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="route.colour.or">
+        <source>or</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="poi.menu.pois">
         <source>Points of interest</source>
         <context-group purpose="location">

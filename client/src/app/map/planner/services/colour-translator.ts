@@ -13,7 +13,8 @@ export class ColourTranslator {
       const translatedColourElements = colourKeyElements.map(colourKeyElement => this.translateColour(colourKeyElement));
       return translatedColourElements.join("-");
     });
-    return translatedColours.join("/");
+    const or = this.translations.get("or", "/");
+    return translatedColours.join(` ${or} `);
   }
 
   private translateColour(key: string): string {
