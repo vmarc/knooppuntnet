@@ -6626,10 +6626,6 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="sourcefile">app/components/shared/link/doc-link.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/link/doc-link-small.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.home" datatype="html">
         <source>Home</source>
@@ -7746,7 +7742,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Défini dans une relation réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInRouteRelation" datatype="html">
@@ -7754,7 +7750,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Défini en relation d&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.referencedInRoute" datatype="html">
@@ -7762,7 +7758,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Référencé dans l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheck" datatype="html">
@@ -7770,7 +7766,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Vérification d&apos;intégrité</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheckFailed" datatype="html">
@@ -7778,7 +7774,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Le contrôle d&apos;intégrité a échoué</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.connection" datatype="html">
@@ -7786,7 +7782,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastUpdated" datatype="html">
@@ -7794,7 +7790,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Dernière mise à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
@@ -7802,7 +7798,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Dernière enquête</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
@@ -7810,7 +7806,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>la semaine dernière</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
@@ -7818,7 +7814,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>le mois dernier</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
@@ -7826,7 +7822,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>l&apos;année dernière</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
@@ -7834,7 +7830,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>dernier semestre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
@@ -7842,7 +7838,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>deux dernières années</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
@@ -7850,7 +7846,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>plus ancien</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
@@ -7858,7 +7854,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>rôle connection</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dialog.close" datatype="html">
@@ -7914,7 +7910,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Enquêter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.accessible" datatype="html">
@@ -7922,7 +7918,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Accessible</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">
@@ -8131,11 +8127,11 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
-        <source>Extend or adapt your route (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>read more<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Output when satisfied.</source>
+        <source>Extend or adapt your route. Output when satisfied.</source>
         <target>Prolongez ou adaptez votre itinéraire (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>en savoir plus<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Clicquez &quot;resultat&quot; une fois satisfait.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.unavailable.title" datatype="html">
@@ -8490,6 +8486,148 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.home" datatype="html">
+        <source>Knooppuntnet</source>
+        <target>Knooppuntnet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.planner" datatype="html">
+        <source>Knooppuntnet/Planner#What_do_you_see.3F</source>
+        <target>NL:Knooppuntnet_planner</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.login-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Login</source>
+        <target>Knooppuntnet/Analysis#Login</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.logout-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Logout</source>
+        <target>Knooppuntnet/Analysis#Logout</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.node-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Node</source>
+        <target>Knooppuntnet/Analysis#Node</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.route-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Route</source>
+        <target>Knooppuntnet/Analysis#Route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.network-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Network</source>
+        <target>Knooppuntnet/Analysis#Network</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.changes-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Changes</source>
+        <target>Knooppuntnet/Analysis#Changes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.location-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Location</source>
+        <target>Knooppuntnet/Analysis#Location</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Overview_in_numbers</source>
+        <target>Knooppuntnet/Analysis#Overview_in_numbers</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.subset-networks-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Subset_networks</source>
+        <target>Knooppuntnet/Analysis#Subset_networks</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.subset-facts-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Subset_facts</source>
+        <target>Knooppuntnet/Analysis#Subset_facts</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Subset_orphan_nodes</source>
+        <target>Knooppuntnet/Analysis#Subset_orphan_nodes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Subset_orphan_routes</source>
+        <target>Knooppuntnet/Analysis#Subset_orphan_routes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.subset-map-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Subset_map</source>
+        <target>Knooppuntnet/Analysis#Subset_map</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="wiki.subset-changes-page" datatype="html">
+        <source>Knooppuntnet/Analysis#Subset_Changes</source>
+        <target>Knooppuntnet/Analysis#Subset_Changes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner-tip.read-more" datatype="html">
+        <source>read
+          more</source>
+        <target>read
+          more</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
     </body>
