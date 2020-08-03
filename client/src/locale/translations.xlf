@@ -779,7 +779,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.planner" datatype="html">
-        <source>Knooppuntnet/Planner#What_do_you_see.3F</source>
+        <source>Knooppuntnet_planner#What_do_you_see.3F</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">76</context>
@@ -790,98 +790,98 @@
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.login-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Login</source>
+        <source>Knooppuntnet_analysis#Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.logout-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Logout</source>
+        <source>Knooppuntnet_analysis#Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.node-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Node</source>
+        <source>Knooppuntnet_analysis#Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.route-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Route</source>
+        <source>Knooppuntnet_analysis#Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.network-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Network</source>
+        <source>Knooppuntnet_analysis#Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.changes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Changes</source>
+        <source>Knooppuntnet_analysis#Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.location-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Location</source>
+        <source>Knooppuntnet_analysis#Location</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Overview_in_numbers</source>
+        <source>Knooppuntnet_analysis#Overview_in_numbers</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-networks-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_networks</source>
+        <source>Knooppuntnet_analysis#Subset_networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-facts-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_facts</source>
+        <source>Knooppuntnet_analysis#Subset_facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_orphan_nodes</source>
+        <source>Knooppuntnet_analysis#Subset_orphan_nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_orphan_routes</source>
+        <source>Knooppuntnet_analysis#Subset_orphan_routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-map-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_map</source>
+        <source>Knooppuntnet_analysis#Subset_map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-changes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_Changes</source>
+        <source>Knooppuntnet_analysis#Subset_Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">91</context>
