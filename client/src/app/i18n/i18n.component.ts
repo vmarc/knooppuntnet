@@ -60,7 +60,8 @@ import {I18nService} from "./i18n.service";
       <span id="@@filter.yes" i18n="@@filter.yes">yes</span>
       <span id="@@filter.no" i18n="@@filter.no">no</span>
       <span id="@@filter.unknown" i18n="@@filter.unknown">unknown</span>
-      <span id="@@filter.definedInNetworkRelation" i18n="@@filter.definedInNetworkRelation">Defined in network relation</span>
+      <span id="@@filter.definedInNetworkRelation"
+            i18n="@@filter.definedInNetworkRelation">Defined in network relation</span>
       <span id="@@filter.definedInRouteRelation" i18n="@@filter.definedInRouteRelation">Defined in route relation</span>
       <span id="@@filter.referencedInRoute" i18n="@@filter.referencedInRoute">Referenced in route</span>
       <span id="@@filter.integrityCheck" i18n="@@filter.integrityCheck">Integrity check</span>
@@ -77,6 +78,24 @@ import {I18nService} from "./i18n.service";
       <span id="@@filter.lastTwoYears" i18n="@@filter.lastTwoYears">last two years</span>
       <span id="@@filter.older" i18n="@@filter.older">older</span>
       <span id="@@filter.roleConnection" i18n="@@filter.roleConnection">Role connection</span>
+
+      <span id="@@wiki.home" i18n="@@wiki.home">Knooppuntnet</span>
+      <span id="@@wiki.planner" i18n="@@wiki.planner">Knooppuntnet/Planner#What_do_you_see.3F</span>
+      <span id="@@wiki.planner.edit" i18n="@@wiki.planner">Knooppuntnet/Planner#Edit_route</span>
+      <span id="@@wiki.login-page" i18n="@@wiki.login-page">Knooppuntnet/Analysis#Login</span>
+      <span id="@@wiki.logout-page" i18n="@@wiki.logout-page">Knooppuntnet/Analysis#Logout</span>
+      <span id="@@wiki.node-page" i18n="@@wiki.node-page">Knooppuntnet/Analysis#Node</span>
+      <span id="@@wiki.route-page" i18n="@@wiki.route-page">Knooppuntnet/Analysis#Route</span>
+      <span id="@@wiki.network-page" i18n="@@wiki.network-page">Knooppuntnet/Analysis#Network</span>
+      <span id="@@wiki.changes-page" i18n="@@wiki.changes-page">Knooppuntnet/Analysis#Changes</span>
+      <span id="@@wiki.location-page" i18n="@@wiki.location-page">Knooppuntnet/Analysis#Location</span>
+      <span id="@@wiki.overview-in-numbers-page" i18n="@@wiki.overview-in-numbers-page">Knooppuntnet/Analysis#Overview_in_numbers</span>
+      <span id="@@wiki.subset-networks-page" i18n="@@wiki.subset-networks-page">Knooppuntnet/Analysis#Subset_networks</span>
+      <span id="@@wiki.subset-facts-page" i18n="@@wiki.subset-facts-page">Knooppuntnet/Analysis#Subset_facts</span>
+      <span id="@@wiki.subset-orphan-nodes-page" i18n="@@wiki.subset-orphan-nodes-page">Knooppuntnet/Analysis#Subset_orphan_nodes</span>
+      <span id="@@wiki.subset-orphan-routes-page" i18n="@@wiki.subset-orphan-routes-page">Knooppuntnet/Analysis#Subset_orphan_routes</span>
+      <span id="@@wiki.subset-map-page" i18n="@@wiki.subset-map-page">Knooppuntnet/Analysis#Subset_map</span>
+      <span id="@@wiki.subset-changes-page" i18n="@@wiki.subset-changes-page">Knooppuntnet/Analysis#Subset_Changes</span>
 
     </div>
   `,

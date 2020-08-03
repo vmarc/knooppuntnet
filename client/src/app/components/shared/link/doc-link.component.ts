@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
+import {I18nService} from "../../../i18n/i18n.service";
 
 @Component({
   selector: "kpn-doc-link",
@@ -23,7 +24,11 @@ export class DocLinkComponent {
 
   @Input() subject: string;
 
+  constructor(private i18nService: I18nService) {
+  }
+
   href(): string {
-    return `docs/en.html#${this.subject}`;
+    const languageSpecificSubject = this.i18nService.translation(`@@wiki.${this.subject}`);
+    return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 }

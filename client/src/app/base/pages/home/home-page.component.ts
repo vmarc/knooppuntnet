@@ -6,7 +6,7 @@ import {PageService} from "../../../components/shared/page.service";
   selector: "kpn-home-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-header [pageTitle]="null" subject="" i18n="@@home.page-title">Node networks</kpn-page-header>
+    <kpn-page-header [pageTitle]="null" subject="home" i18n="@@home.page-title">Node networks</kpn-page-header>
     <kpn-icon-button routerLink="/map" icon="map" i18n="@@home.map">Map</kpn-icon-button>
     <kpn-icon-button routerLink="/analysis" icon="analysis" i18n="@@home.analysis">Analysis</kpn-icon-button>
   `

@@ -1,16 +1,15 @@
 import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
 import {Observable} from "rxjs";
 import {combineLatest} from "rxjs";
 import {delay} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {ZoomLevel} from "../../components/ol/domain/zoom-level";
 import {MapZoomService} from "../../components/ol/services/map-zoom.service";
-import {WarningDialogComponent} from "../../components/shared/dialog/warning-dialog.component";
 import {PlannerService} from "../planner.service";
 import {Plan} from "../planner/plan/plan";
 import {PlanPhase} from "../planner/plan/plan-phase";
+import {I18nService} from "../../i18n/i18n.service";
 
 @Component({
   selector: "kpn-plan-tip",
@@ -30,8 +29,10 @@ import {PlanPhase} from "../planner/plan/plan-phase";
       <p *ngIf="planPhaseEnum.clickEndNode === planPhase" i18n="@@planner-tip.click-end-node">
         Click the endnode of your route.
       </p>
-      <p *ngIf="planPhaseEnum.extendRoute === planPhase" i18n="@@planner-tip.extend-route">
-        Extend or adapt your route (<a (click)="more()">read more</a>). Output when satisfied.
+      <p *ngIf="planPhaseEnum.extendRoute === planPhase">
+        <span i18n="@@planner-tip.extend-route">Extend or adapt your route. Output when satisfied.</span>
+        <a id="read-more" [href]="more()" i18n="@@planner-tip.read-more" target="knooppuntnet-documentation">read
+          more</a>
       </p>
     </div>
   `,
@@ -39,6 +40,20 @@ import {PlanPhase} from "../planner/plan/plan-phase";
     .tip {
       height: 70px;
       font-style: italic;
+    }
+
+    #read-more {
+      padding-left: 10px;
+    }
+
+    #read-more::before {
+      content: "(";
+      color: black;
+    }
+
+    #read-more::after {
+      content: ")";
+      color: black;
     }
   `]
 })
@@ -49,7 +64,7 @@ export class PlanTipComponent implements OnInit {
 
   constructor(private plannerService: PlannerService,
               private mapZoomService: MapZoomService,
-              private dialog: MatDialog) {
+              private i18nService: I18nService) {
   }
 
   ngOnInit(): void {
@@ -62,23 +77,9 @@ export class PlanTipComponent implements OnInit {
     );
   }
 
-  more(): void {
-
-    let message = "This will be a link to that part of the documentation ";
-    message += "that explains all possible interaction with the map while ";
-    message += "planning a route. ";
-    message += "This link has not been implemented yet.";
-
-    this.dialog.open(
-      WarningDialogComponent,
-      {
-        width: "450px",
-        data: {
-          title: "Link - not implemented yet",
-          message: message
-        }
-      }
-    );
+  more(): string {
+    const languageSpecificSubject = this.i18nService.translation(`@@wiki.planner.edit`);
+    return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 
   private determinePlanPhase(zoomLevel: number, plan: Plan): PlanPhase {

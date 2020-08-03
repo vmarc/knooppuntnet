@@ -27,7 +27,6 @@ import {ItemComponent} from "./items/item.component";
 import {ItemsComponent} from "./items/items.component";
 import {JsonComponent} from "./json/json.component";
 import {BracketsComponent} from "./link/brackets.component";
-import {DocLinkSmallComponent} from "./link/doc-link-small.component";
 import {DocLinkComponent} from "./link/doc-link.component";
 import {IconLinkComponent} from "./link/icon-link.component";
 import {IconNetworkLinkComponent} from "./link/icon-network-link.component";
@@ -137,7 +136,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
-    DocLinkSmallComponent,
     I18nComponent,
     AnalysisSidebarComponent,
     IconHappyComponent,
@@ -202,7 +200,6 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
-    DocLinkSmallComponent,
     I18nComponent,
     TagsTextComponent,
     AnalysisSidebarComponent,
