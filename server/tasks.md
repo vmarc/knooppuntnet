@@ -1,10 +1,10 @@
 Summary of release 3.0.0 tasks
 
 Route planner
-- [ ] issue #91 missing links in network graph
+- [x] issue #91 missing links in network graph
 - [x] issue #90 location edit
-- [ ] issue #89 via marker on route
-- [ ] issue #86 lower zoom level tiles with surface/surveydate info
+- [x] issue #89 via marker on route
+- [x] issue #86 lower zoom level tiles with surface/surveydate info
 - [ ] issue #82 multiple markers on same node
 - [ ] better handling of "no route to destination"
 - [ ] show spinner while preparing pdf export from planner map
