@@ -8128,7 +8128,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
         <source>Extend or adapt your route. Output when satisfied.</source>
-        <target>Prolongez ou adaptez votre itinéraire (<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>en savoir plus<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>). Clicquez &quot;resultat&quot; une fois satisfait.</target>
+        <target>Prolongez ou adaptez votre itinéraire. Clicquez &quot;resultat&quot; une fois satisfait.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -8497,8 +8497,8 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.planner" datatype="html">
-        <source>Knooppuntnet/Planner#What_do_you_see.3F</source>
-        <target>NL:Knooppuntnet_planner</target>
+        <source>Knooppuntnet_planner#What_do_you_see.3F</source>
+        <target>Knooppuntnet_planner#What_do_you_see.3F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">76</context>
@@ -8509,112 +8509,112 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.login-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Login</source>
-        <target>Knooppuntnet/Analysis#Login</target>
+        <source>Knooppuntnet_analysis#Login</source>
+        <target>Knooppuntnet_analysis#Login</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.logout-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Logout</source>
-        <target>Knooppuntnet/Analysis#Logout</target>
+        <source>Knooppuntnet_analysis#Logout</source>
+        <target>Knooppuntnet_analysis#Logout</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.node-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Node</source>
-        <target>Knooppuntnet/Analysis#Node</target>
+        <source>Knooppuntnet_analysis#Node</source>
+        <target>Knooppuntnet_analysis#Node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.route-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Route</source>
-        <target>Knooppuntnet/Analysis#Route</target>
+        <source>Knooppuntnet_analysis#Route</source>
+        <target>Knooppuntnet_analysis#Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.network-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Network</source>
-        <target>Knooppuntnet/Analysis#Network</target>
+        <source>Knooppuntnet_analysis#Network</source>
+        <target>Knooppuntnet_analysis#Network</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.changes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Changes</source>
-        <target>Knooppuntnet/Analysis#Changes</target>
+        <source>Knooppuntnet_analysis#Changes</source>
+        <target>Knooppuntnet_analysis#Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.location-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Location</source>
-        <target>Knooppuntnet/Analysis#Location</target>
+        <source>Knooppuntnet_analysis#Location</source>
+        <target>Knooppuntnet_analysis#Location</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Overview_in_numbers</source>
-        <target>Knooppuntnet/Analysis#Overview_in_numbers</target>
+        <source>Knooppuntnet_analysis#Overview_in_numbers</source>
+        <target>Knooppuntnet_analysis#Overview_in_numbers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-networks-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_networks</source>
-        <target>Knooppuntnet/Analysis#Subset_networks</target>
+        <source>Knooppuntnet_analysis#Subset_networks</source>
+        <target>Knooppuntnet_analysis#Subset_networks</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-facts-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_facts</source>
-        <target>Knooppuntnet/Analysis#Subset_facts</target>
+        <source>Knooppuntnet_analysis#Subset_facts</source>
+        <target>Knooppuntnet_analysis#Subset_facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_orphan_nodes</source>
-        <target>Knooppuntnet/Analysis#Subset_orphan_nodes</target>
+        <source>Knooppuntnet_analysis#Subset_orphan_nodes</source>
+        <target>Knooppuntnet_analysis#Subset_orphan_nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_orphan_routes</source>
-        <target>Knooppuntnet/Analysis#Subset_orphan_routes</target>
+        <source>Knooppuntnet_analysis#Subset_orphan_routes</source>
+        <target>Knooppuntnet_analysis#Subset_orphan_routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-map-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_map</source>
-        <target>Knooppuntnet/Analysis#Subset_map</target>
+        <source>Knooppuntnet_analysis#Subset_map</source>
+        <target>Knooppuntnet_analysis#Subset_map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-changes-page" datatype="html">
-        <source>Knooppuntnet/Analysis#Subset_Changes</source>
-        <target>Knooppuntnet/Analysis#Subset_Changes</target>
+        <source>Knooppuntnet_analysis#Subset_Changes</source>
+        <target>Knooppuntnet_analysis#Subset_Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">91</context>
@@ -8623,8 +8623,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       <trans-unit id="planner-tip.read-more" datatype="html">
         <source>read
           more</source>
-        <target>read
-          more</target>
+        <target>en savoir plus</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">18</context>
