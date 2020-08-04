@@ -32,8 +32,8 @@ object LocationFactView extends View {
     val result = database.execute(query)
     val factRefMap = result.rows.map { row =>
       val key = Fields(row.key)
-      val elementType = key.string(2);
-      val fact = key.string(3);
+      val elementType = key.string(2)
+      val fact = key.string(3)
       val ref = Ref(key.long(5), key.string(4))
       fact -> ElementRef(elementType, ref)
     }.groupBy(_._1).map(kv => kv._1 -> kv._2.map(_._2))

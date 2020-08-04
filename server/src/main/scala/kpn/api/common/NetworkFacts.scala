@@ -28,10 +28,7 @@ case class NetworkFacts(
       case _ => 0
     }
 
-    val nameMissingCount = nameMissing match {
-      case Some(fact) => 1
-      case _ => 0
-    }
+    val nameMissingCount = if (nameMissing.isDefined) 1 else 0
 
     networkExtraMemberNodeCount + networkExtraMemberWayCount + networkExtraMemberRelationCount + integrityCheckFailedCount + nameMissingCount
   }

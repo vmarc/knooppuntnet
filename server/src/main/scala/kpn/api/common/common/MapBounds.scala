@@ -4,8 +4,6 @@ import kpn.api.common.data.Node
 
 object MapBounds {
 
-  private val percentageExtra = 5
-
   def apply(): MapBounds = MapBounds("0", "0", "0", "0")
 
   def apply(nodes: Seq[Node]): MapBounds = {
@@ -23,12 +21,12 @@ object MapBounds {
       val lonMax = longitudes.max
 
       val latExtra = (latMax - latMin) / 5
-      val lonExtra = (latMax - latMin) / 5
+      val lonExtra = (lonMax - lonMin) / 5
 
       val latMinAdjusted = (latMin - latExtra).toString
       val latMaxAdjusted = (latMax + latExtra).toString
-      val lonMinAdjusted = (lonMin - latExtra).toString
-      val lonMaxAdjusted = (lonMax + latExtra).toString
+      val lonMinAdjusted = (lonMin - lonExtra).toString
+      val lonMaxAdjusted = (lonMax + lonExtra).toString
 
       MapBounds(latMinAdjusted, latMaxAdjusted, lonMinAdjusted, lonMaxAdjusted)
     }

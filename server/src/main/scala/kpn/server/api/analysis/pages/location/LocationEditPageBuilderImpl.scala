@@ -21,8 +21,8 @@ class LocationEditPageBuilderImpl(
   override def build(locationKey: LocationKey): Option[LocationEditPage] = {
 
     val factCount = locationRepository.factCount(locationKey.networkType, locationKey.name)
-    val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(99999, 0))
-    val routes = locationRepository.routes(locationKey, LocationRoutesParameters(99999, 0))
+    val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(99999))
+    val routes = locationRepository.routes(locationKey, LocationRoutesParameters(99999))
 
     val bounds = Bounds.from(nodes, 0.15)
 
