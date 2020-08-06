@@ -29,7 +29,8 @@ case class DatabaseContextImpl(
   }
 
   def restTemplate: RestOperations = {
-    new RestTemplate(converters)
+    authenticatedRestTemplate
+    // new RestTemplate(converters)
   }
 
   private def converters: java.util.List[HttpMessageConverter[_]] = {
