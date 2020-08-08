@@ -20,17 +20,12 @@ case class DatabaseContextImpl(
     s"http://${couchConfig.host}:${couchConfig.port}/$databaseName"
   }
 
-  def authenticatedRestTemplate: RestOperations = {
+  def restTemplate: RestOperations = {
     val restTemplate = new RestTemplate(converters)
     restTemplate.getInterceptors.add(
       new BasicAuthenticationInterceptor(couchConfig.user, couchConfig.password)
     )
     restTemplate
-  }
-
-  def restTemplate: RestOperations = {
-    authenticatedRestTemplate
-    // new RestTemplate(converters)
   }
 
   private def converters: java.util.List[HttpMessageConverter[_]] = {

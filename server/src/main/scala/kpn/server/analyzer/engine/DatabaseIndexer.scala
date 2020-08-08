@@ -37,16 +37,16 @@ class DatabaseIndexer(
 
   @PostConstruct
   def firstIndexing(): Unit = {
-    index(verbose = true)
+//    index(verbose = true)
   }
 
   @Scheduled(initialDelay = 60000, fixedDelay = 60000)
   def repeatIndexing(): Unit = {
-    log.info("start")
-    val start = System.currentTimeMillis()
-    index(verbose = false)
-    val end = System.currentTimeMillis()
-    log.info(s"done (${end - start}ms)")
+//    log.info("start")
+//    val start = System.currentTimeMillis()
+//    index(verbose = false)
+//    val end = System.currentTimeMillis()
+//    log.info(s"done (${end - start}ms)")
   }
 
   def index(verbose: Boolean): Unit = {

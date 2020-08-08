@@ -47,7 +47,7 @@ class DatabaseBulkSave(context: DatabaseContext) {
     val entity = new HttpEntity[String](body, headers)
 
     try {
-      val response: ResponseEntity[String] = context.authenticatedRestTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+      val response: ResponseEntity[String] = context.restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
       val saveResponse = context.objectMapper.readValue(s"""{"results": ${response.getBody}}""", classOf[SaveResponse])
 
       if (saveResponse.results.exists(!_.ok.contains(true))) {

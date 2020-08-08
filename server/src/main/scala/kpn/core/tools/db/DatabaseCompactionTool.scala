@@ -27,7 +27,7 @@ object DatabaseCompactionTool {
         log.info("Start")
 
         val context = DatabaseContextImpl(Couch.config, Json.objectMapper, "")
-        val template = context.authenticatedRestTemplate
+        val template = context.restTemplate
 
         try {
           val url = s"http://${options.host}:${Couch.config.port}"

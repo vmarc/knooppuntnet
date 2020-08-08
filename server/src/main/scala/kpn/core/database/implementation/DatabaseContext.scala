@@ -7,8 +7,6 @@ trait DatabaseContext {
 
   def databaseUrl: String
 
-  def authenticatedRestTemplate: RestOperations
-
   def restTemplate: RestOperations
 
   def objectMapper: ObjectMapper

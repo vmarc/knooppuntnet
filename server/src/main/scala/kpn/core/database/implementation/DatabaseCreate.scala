@@ -8,7 +8,7 @@ class DatabaseCreate(context: DatabaseContext) {
 
   def create(): Unit = {
     try {
-      context.authenticatedRestTemplate.put(context.databaseUrl, "")
+      context.restTemplate.put(context.databaseUrl, "")
     }
     catch {
       case e: ResourceAccessException =>

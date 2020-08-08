@@ -101,7 +101,7 @@ class DatabaseSave(context: DatabaseContext, maxRetries: Int = 3, backOffPeriod:
     val json = context.objectMapper.writeValueAsString(newDoc)
     try {
       val entity = new HttpEntity[String](json)
-      val response: ResponseEntity[String] = context.authenticatedRestTemplate.exchange(url, HttpMethod.PUT, entity, classOf[String])
+      val response: ResponseEntity[String] = context.restTemplate.exchange(url, HttpMethod.PUT, entity, classOf[String])
       if (!HttpStatus.CREATED.equals(response.getStatusCode)) {
         throw new IllegalStateException(s"Could not save '$url' (unexpected status code ${response.getStatusCode.name()})")
       }

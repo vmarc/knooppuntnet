@@ -9,7 +9,7 @@ class DatabaseDelete(context: DatabaseContext) {
   def delete(): Unit = {
 
     try {
-      context.authenticatedRestTemplate.delete(context.databaseUrl)
+      context.restTemplate.delete(context.databaseUrl)
     }
     catch {
       case e: ResourceAccessException =>

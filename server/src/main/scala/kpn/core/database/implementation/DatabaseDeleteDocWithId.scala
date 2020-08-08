@@ -11,7 +11,7 @@ class DatabaseDeleteDocWithId(context: DatabaseContext) {
     val url = s"${context.databaseUrl}/$docId?rev=$rev"
 
     try {
-      context.authenticatedRestTemplate.delete(url)
+      context.restTemplate.delete(url)
     }
     catch {
       case e: ResourceAccessException =>
