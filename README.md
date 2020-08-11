@@ -1,6 +1,6 @@
-![logo](client/src/assets/icons/icon-72x72.png)
-
 # knooppuntnet
+
+![logo](client/src/assets/icons/icon-72x72.png)
 
 Table of contents
 
