@@ -1,3 +1,5 @@
+![logo](client/src/assets/icons/icon-72x72.png)
+
 # knooppuntnet
 
 Table of contents
