@@ -53,9 +53,14 @@ import {PlannerService} from "../../../planner.service";
         <div *ngIf="poi.email" class="item">
           <span class="kpn-label" i18n="@@poi.detail.email">E-mail</span> <a [href]="emailLink()">{{poi.email}}</a>
         </div>
-        <div *ngIf="poi.facebook" class="item">
-          <a [href]="poi.facebook" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.facebook">Facebook</a>
+
+        <div *ngIf="poi.facebook || poi.twitter" class="item">
+          <a *ngIf="poi.facebook" [href]="poi.facebook" target="_blank" rel="nofollow noreferrer">
+            <img src="/assets/images/icons/facebook.png" class="image" title="Facebook">
+          </a>
+          <a *ngIf="poi.twitter" [href]="poi.twitter" target="_blank" rel="nofollow noreferrer">
+            <img src="/assets/images/icons/twitter.png" class="image" title="Twitter">
+          </a>
         </div>
 
         <div *ngIf="poi.description" class="item">{{poi.description}}</div>
@@ -137,6 +142,7 @@ import {PlannerService} from "../../../planner.service";
           title="edit">
         </kpn-josm-link>
       </div>
+
     </div>
   `,
   styles: [`
@@ -147,6 +153,7 @@ import {PlannerService} from "../../../planner.service";
 
     .item * {
       margin-right: 10px;
+      align-items: center;
     }
 
   `]

@@ -15,6 +15,7 @@ case class PoiAnalysis(
   email: Option[String] = None,
   fax: Option[String] = None,
   facebook: Option[String] = None,
+  twitter: Option[String] = None,
   website: Option[String] = None,
   wikidata: Option[String] = None,
   wikipedia: Option[String] = None,
