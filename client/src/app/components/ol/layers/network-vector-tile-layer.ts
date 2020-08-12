@@ -26,6 +26,7 @@ export class NetworkVectorTileLayer {
     });
 
     return new VectorTileLayer({
+      zIndex: Layers.zIndexNetworkLayer,
       source: source,
       renderMode: "image"
     });
@@ -48,7 +49,7 @@ export class NetworkVectorTileLayer {
     const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
       source: source,
-      renderMode: "image"
+      renderMode: "vector"
     });
 
     const applyMap = (map: Map) => {

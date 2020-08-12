@@ -12,7 +12,7 @@ export class TileDebugLayer {
   public build(): MapLayer {
 
     const tileGrid = createXYZ({
-      tileSize: 256,
+      tileSize: 512,
       maxZoom: 20
     });
 

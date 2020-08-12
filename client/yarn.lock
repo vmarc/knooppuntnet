@@ -1380,10 +1380,24 @@
   resolved "https://registry.yarnpkg.com/@mapbox/geojson-types/-/geojson-types-1.0.2.tgz#9aecf642cb00eab1080a57c4f949a65b4a5846d6"
   integrity sha512-e9EBqHHv3EORHrSfbR9DqecPNn+AmuAoQxV6aL8Xu30bJMJR1o8PZLZzpk1Wq7/NfCbuhmakHTPYRhoqLsXRnw==
 
-"@mapbox/jsonlint-lines-primitives@^2.0.2":
+"@mapbox/jsonlint-lines-primitives@^2.0.2", "@mapbox/jsonlint-lines-primitives@~2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.2.tgz#ce56e539f83552b58d10d672ea4d6fc9adc7b234"
   integrity sha1-zlblOfg1UrWNENZy6k1vya3HsjQ=
+
+"@mapbox/mapbox-gl-style-spec@^13.14.0":
+  version "13.16.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-style-spec/-/mapbox-gl-style-spec-13.16.0.tgz#fe0dc62c22697ff3e38966a3f44e57ade48b4260"
+  integrity sha512-HtQCLg8NLgnYI0uOSbMNtTcwiCJc9WR5uZekhFaXbyjUWwZVNMW7ElKrDLYkaZ4lvUvbqjotyvZC2Holn/yhpg==
+  dependencies:
+    "@mapbox/jsonlint-lines-primitives" "~2.0.2"
+    "@mapbox/point-geometry" "^0.1.0"
+    "@mapbox/unitbezier" "^0.0.0"
+    csscolorparser "~1.0.2"
+    json-stringify-pretty-compact "^2.0.0"
+    minimist "^1.2.5"
+    rw "^1.3.3"
+    sort-object "^0.3.2"
 
 "@mapbox/mapbox-gl-supported@^1.5.0":
   version "1.5.0"
@@ -1478,10 +1492,10 @@
     semver "7.3.2"
     semver-intersect "1.4.0"
 
-"@swimlane/ngx-charts@^13.0.3":
-  version "13.0.4"
-  resolved "https://registry.yarnpkg.com/@swimlane/ngx-charts/-/ngx-charts-13.0.4.tgz#d63a8ae2fbb6ec77ff7bf8e1b9db424cfea6043e"
-  integrity sha512-4EvwclbctVQ5VzPBC63DJsg+jwQU/NlR/yQ9ObVH5acefEbS8kupn3cp/gaWftLTQ0jdXqRqycHNkLOQZfa3XQ==
+"@swimlane/ngx-charts@^14.0.0":
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/@swimlane/ngx-charts/-/ngx-charts-14.0.0.tgz#396b600cd2e9eedbc17cfba0b36f7b77e68615df"
+  integrity sha512-UiAleBA4Hs7IEB+5mSmn1ojntD32lpfR7BokuVUNkhWiX4CsljKsXgm1EwIw2A14JBu4g8EDjKrdbED79eShEA==
   dependencies:
     d3-array "^2.4.0"
     d3-brush "^1.1.5"
@@ -1494,11 +1508,6 @@
     d3-shape "^1.3.7"
     d3-time-format "^2.2.2"
     d3-transition "^1.3.2"
-
-"@types/arcgis-rest-api@*":
-  version "10.4.4"
-  resolved "https://registry.yarnpkg.com/@types/arcgis-rest-api/-/arcgis-rest-api-10.4.4.tgz#c84b26ac7f01deb2829bff10ebbe544c2310fbcd"
-  integrity sha512-5NwSfj4po+03fauyr4F5AxYzu8pbbqmxay+pNr5ef2V3Mj+7OylvV48VKuVoO9m799jhZdH3EQgQBHm3Y6q1Sw==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
@@ -1573,15 +1582,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.26.tgz#213e153babac0ed169d44a6d919501e68f59dea9"
   integrity sha512-UmUm94/QZvU5xLcUlNR8hA7Ac+fGpO1EG/a8bcWVz0P0LqtxFmun9Y2bbtuckwGboWJIT70DoWq1r3hb56n3DA==
 
-"@types/ol@^6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@types/ol/-/ol-6.1.0.tgz#446915e0c6f6a21736d9e026b5beb1588ad0b8b3"
-  integrity sha512-NyaUqEq4k7/utn2NZt8JViHjLoKIRIrK4QhtB7tBwJTuMGlK16pALqX2uZuB3PuVYyYveL4loI0TRvD0Eqdk9g==
-  dependencies:
-    "@types/arcgis-rest-api" "*"
-    "@types/geojson" "*"
-    "@types/topojson-specification" "*"
-
 "@types/q@^0.0.32":
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
@@ -1606,13 +1606,6 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
-
-"@types/topojson-specification@*":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.1.tgz#a80cb294290b79f2d674d3f5938c544ed2bd9d80"
-  integrity sha512-ZZYZUgkmUls9Uhxx2WZNt9f/h2+H3abUUjOVmq+AaaDFckC5oAwd+MDp95kBirk+XCXrYj0hfpI6DSUiJMrpYQ==
-  dependencies:
-    "@types/geojson" "*"
 
 "@types/webpack-sources@^0.1.5":
   version "0.1.5"
@@ -3592,7 +3585,7 @@ cssauron@^1.4.0:
   dependencies:
     through X.X.X
 
-csscolorparser@~1.0.3:
+csscolorparser@~1.0.2, csscolorparser@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/csscolorparser/-/csscolorparser-1.0.3.tgz#b34f391eea4da8f3e98231e2ccd8df9c041f171b"
   integrity sha1-s085HupNqPPpgjHizNjfnAQfFxs=
@@ -4267,11 +4260,6 @@ elliptic@^6.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
-
-elm-pep@^1.0.4:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/elm-pep/-/elm-pep-1.0.6.tgz#768b6b0cc59ce6b608d9d14c87ef8c2c0936f6ec"
-  integrity sha512-1DJ6ReFk8+GtgoqRiEhBo28K69Rxe9Bfc7h16+1VMQT2KlCuPBYj5W33OYa2AZpqkuqCBLhcNzO10zxJVakapA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -6371,6 +6359,11 @@ json-schema@0.2.3:
   resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
   integrity sha1-tIDIkuWaLwWVTOcnvT8qTogvnhM=
 
+json-stringify-pretty-compact@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/json-stringify-pretty-compact/-/json-stringify-pretty-compact-2.0.0.tgz#e77c419f52ff00c45a31f07f4c820c2433143885"
+  integrity sha512-WRitRfs6BGq4q8gTgOy4ek7iPFXjbra0H3PmDLKm2xnZ+Gh1HUhiKGgCZkSPNULlP7mvfu6FV/mOLhCarspADQ==
+
 json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
@@ -6983,6 +6976,11 @@ mapbox-gl@1.10.1:
     supercluster "^7.0.0"
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.1"
+
+mapbox-to-css-font@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/mapbox-to-css-font/-/mapbox-to-css-font-2.4.0.tgz#a23b51664a1ee839beaefade013f2655bee9a390"
+  integrity sha512-v674D0WtpxCXlA6E+sBlG1QJWdUkz/s9qAD91bJSXBGuBL5lL4tJXpoJEftecphCh2SVQCjWMS2vhylc3AIQTg==
 
 marked@^1.1.0:
   version "1.1.1"
@@ -7868,14 +7866,22 @@ ol-geocoder@4.0.0:
   resolved "https://registry.yarnpkg.com/ol-geocoder/-/ol-geocoder-4.0.0.tgz#43470bb607528e5270c02d5d08a52c6a77713cae"
   integrity sha512-CPD62EgimRKbsXlQjJRx5m2z+ge0xc1mNzN61rn2J7icWuwuRZ48XH0F2aAA7uCCrtAf8ftYtz+xyJzRJS+syg==
 
-ol@^6.3.1:
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/ol/-/ol-6.3.1.tgz#11fcb987e632efb9f75f87fe8d85f50764543843"
-  integrity sha512-cSSYizzUJQ7AhFSrLPAKopjDXPCHtJsXSmjf3xutPG+iyBeD9IOepQGSgpOSZavPI1gsYh9wowiH+NZwVJ/NYQ==
+ol-mapbox-style@^6.1.1:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/ol-mapbox-style/-/ol-mapbox-style-6.1.2.tgz#611f918c2b713fb66de0ee85bc688aebbbb290af"
+  integrity sha512-0n+6K1dhMH7/AMA1eAEb1Pt4ZRFWr1fiJWSgwHfDFQpK4yuhJgtLcn9dtxprB1NOpTHeJ5XbTKOrgTY/DR0oxQ==
   dependencies:
-    elm-pep "^1.0.4"
+    "@mapbox/mapbox-gl-style-spec" "^13.14.0"
+    mapbox-to-css-font "^2.4.0"
+    webfont-matcher "^1.1.0"
+
+ol@^6.4.3:
+  version "6.4.3"
+  resolved "https://registry.yarnpkg.com/ol/-/ol-6.4.3.tgz#2277bb583fe2848e4b2062f85f1c5136b4b0c1b2"
+  integrity sha512-JcoZ/VJE9cUoxfhpa2EFYH0AHFYty1x47aITsQgLkyvWIWWigWp1N9LBcCSlCuu2QkE+DutomI2oKfnFbQA/xw==
+  dependencies:
+    ol-mapbox-style "^6.1.1"
     pbf "3.2.1"
-    pixelworks "1.1.0"
     rbush "^3.0.1"
 
 omggif@1.0.7:
@@ -8330,11 +8336,6 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
-
-pixelworks@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/pixelworks/-/pixelworks-1.1.0.tgz#1f095ad48dca8bf8a1c8258e0092031a44f22ca5"
-  integrity sha1-Hwla1I3Ki/ihyCWOAJIDGkTyLKU=
 
 pkg-dir@^3.0.0:
   version "3.0.0"
@@ -10064,12 +10065,30 @@ socks@~2.3.2:
     ip "1.1.5"
     smart-buffer "^4.1.0"
 
+sort-asc@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/sort-asc/-/sort-asc-0.1.0.tgz#ab799df61fc73ea0956c79c4b531ed1e9e7727e9"
+  integrity sha1-q3md9h/HPqCVbHnEtTHtHp53J+k=
+
+sort-desc@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/sort-desc/-/sort-desc-0.1.1.tgz#198b8c0cdeb095c463341861e3925d4ee359a9ee"
+  integrity sha1-GYuMDN6wlcRjNBhh45JdTuNZqe4=
+
 sort-keys@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-1.1.2.tgz#441b6d4d346798f1b4e49e8920adfba0e543f9ad"
   integrity sha1-RBttTTRnmPG05J6JIK37oOVD+a0=
   dependencies:
     is-plain-obj "^1.0.0"
+
+sort-object@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/sort-object/-/sort-object-0.3.2.tgz#98e0d199ede40e07c61a84403c61d6c3b290f9e2"
+  integrity sha1-mODRme3kDgfGGoRAPGHWw7KQ+eI=
+  dependencies:
+    sort-asc "^0.1.0"
+    sort-desc "^0.1.1"
 
 source-list-map@^2.0.0:
   version "2.0.1"
@@ -11317,6 +11336,11 @@ webdriver-manager@^12.1.7:
     rimraf "^2.5.2"
     semver "^5.3.0"
     xml2js "^0.4.17"
+
+webfont-matcher@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/webfont-matcher/-/webfont-matcher-1.1.0.tgz#98ce95097b29e31fbe733053e10e571642d1c6c7"
+  integrity sha1-mM6VCXsp4x++czBT4Q5XFkLRxsc=
 
 webidl-conversions@^3.0.0, webidl-conversions@^3.0.1:
   version "3.0.1"

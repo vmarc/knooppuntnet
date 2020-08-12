@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.0.0-alpha-37",
+  "version": "3.0.0-alpha-38",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -31,9 +31,8 @@
     "@angular/platform-browser-dynamic": "^10.0.5",
     "@angular/router": "^10.0.5",
     "@angular/service-worker": "^10.0.5",
-    "@swimlane/ngx-charts": "^13.0.3",
+    "@swimlane/ngx-charts": "^14.0.0",
     "@types/file-saver": "^2.0.0",
-    "@types/ol": "^6.1.0",
     "angular-qrious": "9.0.0",
     "canvg": "^1.5.3",
     "core-js": "^2.5.4",
@@ -44,7 +43,7 @@
     "ngx-clipboard": "^13.0.1",
     "ngx-i18nsupport": "^0.17.1",
     "ngx-markdown": "10.1.0",
-    "ol": "^6.3.1",
+    "ol": "^6.4.3",
     "ol-geocoder": "4.0.0",
     "qrious": "^4.0.2",
     "rxjs": "^6.5.5",

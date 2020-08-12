@@ -185,6 +185,8 @@ The client is using [Angular](https://angular.io/), [Typescript](https://www.typ
 
 The server is using the [Scala](https://www.scala-lang.org/) programming language,
 [SpringBoot](https://spring.io/projects/spring-boot),
+[CouchDB](https://couchdb.apache.org/) database,
+a local [OverpassAPI](http://overpass-api.de/) instance,
 [JTS topology suite](https://locationtech.github.io/jts/),
 [JGraphT](https://jgrapht.org/),
 [ScalaTest](https://www.scalatest.org/)
@@ -196,12 +198,11 @@ Point of interest icons are by [Map Icons Collection](https://mapicons.mapsmarke
 Other icons are from [www.flaticon.com](https://www.flaticon.com) and are licensed by
 [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
 These icons are made by:
-
-* [Scott de Jonge](https://www.flaticon.com/authors/scott-de-jonge)
-* [Vitaly Gorbachev](https://www.flaticon.com/authors/vitaly-gorbachev)
-* [Freepik](https://www.freepik.com/)
-* [Plainicon](https://www.flaticon.com/authors/plainicon)
-* [Google](https://www.flaticon.com/authors/google)
-* [Smashicons](https://www.flaticon.com/authors/smashicons)
-* [dmitri13](https://www.flaticon.com/authors/dmitri13)
-* [Roundicons](https://www.flaticon.com/authors/roundicons)
+[Scott de Jonge](https://www.flaticon.com/authors/scott-de-jonge),
+[Vitaly Gorbachev](https://www.flaticon.com/authors/vitaly-gorbachev),
+[Freepik](https://www.freepik.com/),
+[Plainicon](https://www.flaticon.com/authors/plainicon),
+[Google](https://www.flaticon.com/authors/google),
+[Smashicons](https://www.flaticon.com/authors/smashicons),
+[dmitri13](https://www.flaticon.com/authors/dmitri13) and
+[Roundicons](https://www.flaticon.com/authors/roundicons).

@@ -8,7 +8,7 @@ export class ZoomLevel {
   static readonly vectorTileMaxOverZoom = 20;
 
   static readonly poiTileMinZoom = 11;
-  static readonly poiTileMaxZoom = 15;
+  static readonly poiTileMaxZoom = 14;
 
   static readonly minZoom: number = Math.min(
     ZoomLevel.bitmapTileMinZoom,
