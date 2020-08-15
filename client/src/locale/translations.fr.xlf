@@ -2996,20 +2996,12 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="poi.detail.facebook" datatype="html">
-        <source>Facebook</source>
-        <target>Facebook</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="poi.detail.wheelchair" datatype="html">
         <source>Wheelchair</source>
         <target>Fauteuil roulant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.opengingHours" datatype="html">
@@ -3017,7 +3009,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Heures d&apos;ouverture</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.serviceHours" datatype="html">
@@ -3025,7 +3017,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Horaires de service</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.image" datatype="html">
@@ -3033,7 +3025,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Image</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.mapillary" datatype="html">
@@ -3041,7 +3033,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Mapillary</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
@@ -3049,7 +3041,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Onroerend Erfgoed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.website" datatype="html">
@@ -3057,7 +3049,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Site Web</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikidata" datatype="html">
@@ -3065,7 +3057,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Wikidata</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.wikipedia" datatype="html">
@@ -3073,7 +3065,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Wikipedia</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.molen-database" datatype="html">
@@ -3081,7 +3073,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Base de données moulin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.detail.hollandsche-molen-database" datatype="html">
@@ -3089,7 +3081,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Base de données Hollandsche Molen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.compact" datatype="html">
