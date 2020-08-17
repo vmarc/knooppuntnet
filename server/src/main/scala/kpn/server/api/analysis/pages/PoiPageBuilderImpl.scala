@@ -58,7 +58,7 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository, masterPoiAnalyzer: Master
     val tags = format("Reported", filteredTags) +
       format("Interpreted", interpretedTags) +
       format("Processed", processedTags) +
-      format("Ingored", ignoredTags)
+      format("Ignored", ignoredTags)
 
     val message = s"$header$tags"
     log.info(message)

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2020-08-17T16:06:02Z"/>
+
+    <node id="301008710" lat="51.8414877" lon="5.8591703" version="3" timestamp="2010-12-01T21:00:50Z" changeset="6508524" uid="105255" user="Sven L"/>
+    <node id="301008711" lat="51.8414778" lon="5.8594129" version="3" timestamp="2010-12-01T21:00:50Z" changeset="6508524" uid="105255" user="Sven L"/>
+    <node id="302102477" lat="51.8414930" lon="5.8596025" version="14" timestamp="2020-08-17T08:27:23Z" changeset="89504800" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rcn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="45"/>
+    </node>
+    <node id="1015045146" lat="51.8415324" lon="5.8589509" version="1" timestamp="2010-12-01T21:00:43Z" changeset="6508524" uid="105255" user="Sven L"/>
+    <node id="1015045148" lat="51.8416099" lon="5.8587576" version="13" timestamp="2020-08-17T08:27:23Z" changeset="89504800" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rcn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="45"/>
+    </node>
+    <node id="4811573507" lat="51.8415569" lon="5.8588736" version="2" timestamp="2018-05-23T16:57:47Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
+    <way id="219735412" version="12" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam">
+        <nd ref="1015045148"/>
+        <nd ref="4811573507"/>
+        <nd ref="1015045146"/>
+        <nd ref="301008710"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Keizer Karelplein"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="oneway:bicycle" v="no"/>
+        <tag k="oneway:mofa" v="no"/>
+        <tag k="oneway:moped" v="no"/>
+        <tag k="sidewalk" v="right"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="670452378" version="4" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam">
+        <nd ref="301008710"/>
+        <nd ref="301008711"/>
+        <nd ref="302102477"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Keizer Karelplein"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="oneway:bicycle" v="no"/>
+        <tag k="oneway:mofa" v="no"/>
+        <tag k="oneway:moped" v="no"/>
+        <tag k="sidewalk" v="right"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <relation id="11512871" version="1" timestamp="2020-08-17T08:27:22Z" changeset="89504800" uid="7103674" user="Peter Elderson">
+        <member type="way" ref="670452378" role=""/>
+        <member type="way" ref="219735412" role=""/>
+        <tag k="network" v="rcn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="ref" v="45-45"/>
+        <tag k="route" v="bicycle"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
