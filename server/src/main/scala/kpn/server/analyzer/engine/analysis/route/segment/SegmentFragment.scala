@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Node
 
 /**
@@ -10,11 +11,10 @@ import kpn.api.common.data.Node
   */
 case class SegmentFragment(fragment: Fragment, reversed: Boolean = false) {
 
-  override def toString: String = {
-    val name = getClass.getSimpleName
-    val fragments = new SegmentFragmentFormatter(this).string
-    s"$name($fragments)"
-  }
+  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("fragment", fragment).
+    field("reversed", reversed).
+    build
 
   def startNode: Node = {
     if (reversed) {

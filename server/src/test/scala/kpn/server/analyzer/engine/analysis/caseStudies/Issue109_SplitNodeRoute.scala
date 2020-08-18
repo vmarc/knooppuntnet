@@ -18,7 +18,7 @@ import kpn.server.analyzer.load.data.LoadedRoute
 import scala.xml.InputSource
 import scala.xml.XML
 
-class Issue109_RoundaboutRoute extends UnitTest {
+class Issue109_SplitNodeRoute extends UnitTest {
 
   test("analysis") {
     val loadedRoute = readRoute()
@@ -32,8 +32,30 @@ class Issue109_RoundaboutRoute extends UnitTest {
       routeTileAnalyzer
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
-    println(routeAnalysis.route.facts)
-    println(routeAnalysis.structure.unusedSegments)
+
+    routeAnalysis.route.facts.isEmpty should equal(true)
+    routeAnalysis.structure.unusedSegments.isEmpty should equal(true)
+
+    val paths = routeAnalysis.structure.splitNodePaths
+
+    val pathNodeNames = paths.map { path =>
+      val start = path.start.map(_.alternateName).getOrElse("")
+      val end = path.end.map(_.alternateName).getOrElse("")
+      start -> end
+    }.toSet
+
+    pathNodeNames should equal(
+      Set(
+        "45.a" -> "45.b",
+        "45.b" -> "45.c",
+        "45.c" -> "45.d",
+        "45.d" -> "45.e",
+        "45.e" -> "45.f",
+        "45.f" -> "45.g",
+        "45.g" -> "45",
+        "45" -> "45.a"
+      )
+    )
   }
 
   private def readRoute(): LoadedRoute = {

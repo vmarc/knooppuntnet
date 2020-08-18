@@ -25,7 +25,12 @@ import scala.collection.mutable.ListBuffer
 
 object RouteStructureAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new RouteStructureAnalyzer(context).analyze
+    if (context.structure.isEmpty) {
+      new RouteStructureAnalyzer(context).analyze
+    }
+    else {
+      context
+    }
   }
 }
 

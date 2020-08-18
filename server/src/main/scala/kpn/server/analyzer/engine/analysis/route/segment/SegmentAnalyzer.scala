@@ -49,6 +49,7 @@ class SegmentAnalyzer(
       backwardPath,
       startTentaclePaths,
       endTentaclePaths,
+      Seq.empty,
       unusedSegments
     )
   }
