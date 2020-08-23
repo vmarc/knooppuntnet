@@ -174,21 +174,16 @@ class ReplicatorTool(
   }
 
   private def replicate(replicationId: ReplicationId): ReplicationResult = {
-    val result = replicateChangesFile(replicationId)
-    result match {
-      case ReplicationResult(Ok, _, _, _) =>
-        if (oper.isActive) {
-          if (!replicateStateFile(replicationId)) {
-            ReplicationResult(NotFound)
-          }
-          else {
-            result
-          }
-        }
-        else {
-          ReplicationResult(End)
-        }
-      case result => result
+    if (replicateStateFile(replicationId)) {
+      if (oper.isActive) {
+        replicateChangesFile(replicationId)
+      }
+      else {
+        ReplicationResult(End)
+      }
+    }
+    else {
+      ReplicationResult(NotFound)
     }
   }
 
