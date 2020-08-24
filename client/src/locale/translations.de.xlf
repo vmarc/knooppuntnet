@@ -813,7 +813,7 @@
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>The route is broken: the begin- and end-networknodes cannot be connected through ways either
       in the forward direction or the backward direction or both.</source>
-        <target>Die Route ist unterbrochen: Der Start- und das Endnetzwerkknoten können weder in Vorwärtsrichtung noch in Rückwärtsrichtung oder in beiden Richtungen miteinander verbunden werden.</target>
+        <target>Die Route ist unterbrochen: Der Start- und der Endnetzwerkknoten können entweder in Vorwärtsrichtung oder Rückwärtsrichtung bzw. in beiden Richtungen nicht miteinander verbunden werden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-continious.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -861,7 +861,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-name-missing" datatype="html">
         <source>The route relation does not have a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.</source>
-        <target>Die Routerelation hat kein _&quot;note&quot;_ oder _&quot;ref&quot;_-Tag mit dem Routennamen.</target>
+        <target>Die Routenrelation hat kein _&quot;note&quot;_ oder _&quot;ref&quot;_-Tag mit dem Routennamen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-name-missing.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -869,7 +869,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-tag-missing" datatype="html">
         <source>Routerelation does not contain the required _route_ tag.</source>
-        <target>Die Routerelation enthält nicht das erforderliche _route_ Tag.</target>
+        <target>Die Routenrelation enthält nicht das erforderliche _route_ Tag.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-missing.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -883,11 +883,11 @@
       A hiking route relation needs to have one of the following values in its _&quot;route&quot;_ tag: _&quot;foot&quot;_,
       _&quot;hiking&quot;_, or _&quot;walking&quot;_. Note that _&quot;walking&quot;_ is a value that is frequently found,
       but not actually documented as a valid value in the OSM wiki pages.</source>
-        <target>Ungültiger Wert im erforderlichen Tag _&quot;route&quot;_ in der Routenbeziehung.
+        <target>Ungültiger Wert im erforderlichen Tag _&quot;route&quot;_ in der Routenrelation.
 
-Eine Fahrradrouterelation muss den Wert _&quot;bicycle&quot;_ in ihrem _&quot;route&quot;_ Tag haben.
+Eine Fahrradroutenrelation muss den Wert _&quot;bicycle&quot;_ in ihrem _&quot;route&quot;_ Tag haben.
 
-Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&quot;_ Tag haben: _&quot;foot&quot;_, _&quot;hiking&quot;_, oder _&quot;walking&quot;_. Beachten Sie, dass _&quot;walking&quot;_ ein Wert ist, der häufig gefunden wird, aber auf den OSM-Wiki-Seiten nicht als gültiger Wert dokumentiert ist.</target>
+Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&quot;_ Tag haben: _&quot;foot&quot;_, _&quot;hiking&quot;_, oder _&quot;walking&quot;_. Beachten Sie, dass _&quot;walking&quot;_ ein Wert ist, der zwar häufig gefunden wird, aber auf den OSM-Wiki-Seiten nicht als gültiger Wert dokumentiert ist.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -895,7 +895,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-node" datatype="html">
         <source>The route relation contains 1 or more unexpected nodes</source>
-        <target>Die Routerelation enthält einen oder mehrere unerwartete Knoten</target>
+        <target>Die Routenrelation enthält einen oder mehrere unerwartete Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-node.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -905,7 +905,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <source>The route relation contains one or more unexpected relation members. In route relations
       we expect only members of type _&quot;way&quot;_, or members of type _&quot;node&quot;_ with a tag
       _&quot;rwn_ref&quot;_ or _&quot;rcn_ref&quot;_.</source>
-        <target>Die Routerelation enthält ein oder mehrere unerwartete Mitglieder. In Routerelationen erwarten wir nur Mitglieder vom Typ _&quot;way&quot;_ oder Mitglieder vom Typ _&quot;node&quot;_ mit einem Tag _&quot;rwn_ref&quot;_ oder _&quot;rcn_ref&quot;_.</target>
+        <target>Die Routenrelation enthält ein oder mehrere unerwartete Mitglieder. In Routenrelationen erwarten wir nur Mitglieder vom Typ _&quot;way&quot;_ oder Mitglieder vom Typ _&quot;node&quot;_ mit einem Tag _&quot;rwn_ref&quot;_ oder _&quot;rcn_ref&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -967,7 +967,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <trans-unit id="fact.description.route-incomplete" datatype="html">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely
       marked incomplete by adding a tag _&quot;fixme&quot;_ with value _&quot;incomplete&quot;_ in the route relation.</source>
-        <target>Die Route ist als unvollständig definiert. Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;incomplete&quot;_ in die Routenrelation eingefügt wird.</target>
+        <target>Die Route ist als unvollständig markiert. Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;incomplete&quot;_ in die Routenrelation eingefügt wird.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -977,7 +977,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         <source>The route is marked as having an incomplete definition. A route definition is explicitely
       marked incomplete by adding a tag _&quot;fixme&quot;_ with value _&quot;incomplete&quot;_ in the route relation. But
       after analysis, the route seems to be ok.</source>
-        <target>Die Route ist als unvollständig definiert. Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;incomplete&quot;_ in die Routenrelation eingefügt wird. Aber nach der Analyse scheint die Route in Ordnung zu sein.</target>
+        <target>Die Route ist als unvollständig markiert. Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;incomplete&quot;_ in die Routenrelation eingefügt wird. Aber nach der Analyse scheint die Route in Ordnung zu sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-incomplete-ok.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1042,7 +1042,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="fact.description.route-suspicious-ways" datatype="html">
         <source>Route with funny ways (for example ways with only 1 node).</source>
-        <target>Route mit verdächtige Wege (zum Beispiel Wege mit nur 1 Knoten).</target>
+        <target>Route mit verdächtigen Wegen (zum Beispiel Wege mit nur 1 Knoten).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-suspicious-ways.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1106,7 +1106,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="fact.description.integrity-check" datatype="html">
         <source>This network node has a tag that indicates the expected number of routes that arrive/depart in this node.</source>
-        <target>Dieser Netzwerkknoten verfügt über ein Tag, das die erwartete Anzahl von Routen angibt, die in diesem Knoten ankommen/abfahren.</target>
+        <target>Dieser Netzwerkknoten verfügt über ein Tag, das die erwartete Anzahl von Routen angibt, die an diesem Knoten ankommen bzw. von ihm abgehen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-integrity-check.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1146,7 +1146,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="fact.description.lost-canoe-node-tag" datatype="html">
         <source>This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.</source>
-        <target>Dieser Knoten ist kein gültiger Canoenetwork-Knoten mehr, da das Tag rpn_ref entfernt wurde.</target>
+        <target>Dieser Knoten ist kein gültiger Kanunetzwerk-Knoten mehr, da das Tag rpn_ref entfernt wurde.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-lost-canoe-node-tag.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1170,7 +1170,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="fact.description.was-orphan" datatype="html">
         <source>No longer an orphan.</source>
-        <target>Keine Waise mehr.</target>
+        <target>Nicht mehr verwaist.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1231,7 +1231,8 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
         <source>NOK - Not defined in network relation</source>
-        <target>NOK - In der Netzwerkrelation nicht definiert</target>
+        <target>Nicht OK - In der Netzwerkrelation nicht definiert</target>
+        <note priority="1" from="description">I hope this is the correct interpretation of NOK...</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -1244,7 +1245,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
         the network relation), then the node does not have to be included as member in
         the network relation. The node can be added the network relation, but should get
         the role _&quot;connection&quot;_ in that case.</source>
-        <target>Dieser Knoten ist nicht als Mitglied in der Netzwerkrelation enthalten. Das ist nicht in Ordnung. Die Konvention besteht darin, jeden Knoten in die Netzwerkrelation aufzunehmen. Eine Ausnahme ist, wenn der Knoten zu einem anderen Netzwerk gehört (alle Routen zu diesem Knoten haben die Rolle _&quot;connection&quot;_ in der Netzwerkrelation), dann muss der Knoten nicht als Mitglied in die Netzwerkrelation aufgenommen werden. Dem Knoten kann die Netzwerkrelation hinzugefügt werden, sollte aber in diesem Fall die Rolle _&quot;connection&quot;_ erhalten.</target>
+        <target>Dieser Knoten ist nicht als Mitglied in der Netzwerkrelation enthalten. Das ist nicht in Ordnung. Die Konvention besteht darin, jeden Knoten in die Netzwerkrelation aufzunehmen. Eine Ausnahme ist, wenn der Knoten zu einem anderen Netzwerk gehört (alle Routen zu diesem Knoten haben die Rolle _&quot;connection&quot;_ in der Netzwerkrelation), dann muss der Knoten nicht als Mitglied in die Netzwerkrelation aufgenommen werden. Der Knoten kann der Netzwerkrelation hinzugefügt werden, sollte aber in diesem Fall die Rolle _&quot;connection&quot;_ erhalten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -1311,7 +1312,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="integrity-indicator.gray.title" datatype="html">
         <source>OK - expected route count missing</source>
-        <target>OK - erwartete Routenanzahl fehlt</target>
+        <target>OK - Keine Angabe zur erwarteten Routenanzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -1320,7 +1321,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <trans-unit id="integrity-indicator.gray.text" datatype="html">
         <source>This network node does not have an _&quot;<x equiv-text="{{tag}}" id="INTERPOLATION"/>&quot;_ tag.
         This is OK because the use of this tag is optional.</source>
-        <target>Dieser Netzwerkrelation hat kein _&quot;<x equiv-text="{{tag}}" id="INTERPOLATION"/>&quot;_ -Tag. Dies ist in Ordnung, da die Verwendung dieses Tags optional ist.</target>
+        <target>Diese Netzwerkrelation hat kein _&quot;<x equiv-text="{{tag}}" id="INTERPOLATION"/>&quot;_ -Tag. Dies ist in Ordnung, da die Verwendung dieses Tags optional ist.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -1345,7 +1346,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
         <source>NOK - unexpected route count</source>
-        <target>NOK - unerwartete Routenanzahl</target>
+        <target>Nicht OK - unerwartete Routenanzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -1612,7 +1613,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>
         License change
       <x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</source>
-        <target>Ältere Änderungen können nicht angezeigt werden. Der Verlauf in der Analysedatenbank geht nicht über den 12.09.2012 hinaus (Lizenzänderung).</target>
+        <target>Ältere Änderungen können nicht angezeigt werden. Der Verlauf in der Analysedatenbank geht nicht vor den 12.09.2012 zurück (Lizenzänderung).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/history-incomplete-warning.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1676,7 +1677,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-changes.node-diff.start-tentacle-nodes" datatype="html">
         <source>Start tentacle nodes</source>
-        <target>Start Tentakelknoten</target>
+        <target>Start-Tentakelknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1684,7 +1685,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-changes.node-diff.end-tentacle-nodes" datatype="html">
         <source>End tentacle nodes</source>
-        <target>End Tentakelknoten</target>
+        <target>End-Tentakelknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -1740,7 +1741,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
         <source>Removed node(s)</source>
-        <target>Entfernte Knoten</target>
+        <target>Knoten entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -1756,7 +1757,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
         <source>Updated node(s)</source>
-        <target>Aktualisierte Knoten</target>
+        <target>Knoten aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -2048,7 +2049,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.nodes.added" datatype="html">
         <source>Added non-network node member(s) in network relation</source>
-        <target>Nicht-Netzwerkknotenmitglied(e) in Netzwerkrelation hinzugefügt</target>
+        <target>Nicht-Netzwerkknotenmitglied(er) in Netzwerkrelation hinzugefügt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">44</context>
@@ -2056,7 +2057,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.ways.added" datatype="html">
         <source>Added way member(s) in network relation</source>
-        <target>Way-Mitglied(e) in Netzwerkrelation hinzugefügt</target>
+        <target>Weg-Mitglied(er) in Netzwerkrelation hinzugefügt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -2064,7 +2065,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.relations.added" datatype="html">
         <source>Added non-route relation(s) in network relation</source>
-        <target>Nicht-Routenbeziehung (en) in Netzwerkrelation hinzugefügt</target>
+        <target>Nicht-Routenbeziehung(en) in Netzwerkrelation hinzugefügt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -2080,7 +2081,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.network-nodes.updated" datatype="html">
         <source>Updated network node(s)</source>
-        <target>Aktualisierte Netzwerkknoten</target>
+        <target>Aktualisierte(r) Netzwerkknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">72</context>
@@ -2096,7 +2097,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.nodes.updated" datatype="html">
         <source>Updated non-network node(s)</source>
-        <target>Aktualisierte Nicht-Netzwerkknoten</target>
+        <target>Aktualisierte(r) Nicht-Netzwerkknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">96</context>
@@ -2104,7 +2105,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.ways.updated" datatype="html">
         <source>Updated way member(s)</source>
-        <target>Aktualisierte Way-Mitglieder</target>
+        <target>Aktualisierte Weg-Mitglieder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">103</context>
@@ -2144,7 +2145,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.ways.removed" datatype="html">
         <source>Removed way member(s) from network relation</source>
-        <target>Wegmitglied(e) aus der Netzwerkrelation entfernt</target>
+        <target>Wegmitglied(er) aus der Netzwerkrelation entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">148</context>
@@ -2152,7 +2153,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="network-changes.relations.removed" datatype="html">
         <source>Removed non-route relation(s) from network relation</source>
-        <target>Nicht-Routen-Relation (en) aus der Netzwerk-Relation entfernt</target>
+        <target>Nicht-Routen-Relation(en) aus der Netzwerk-Relation entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">155</context>
@@ -2345,7 +2346,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="planner.title" datatype="html">
         <source>Route planner</source>
-        <target>Routenplanner</target>
+        <target>Routenplaner</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-planner.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -4624,7 +4625,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="location-page.menu.facts" datatype="html">
         <source>Facts</source>
-        <target>Facten</target>
+        <target>Fakten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -7117,7 +7118,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>NOK - Not Accessible</source>
-        <target>NOK - Nicht zugänglich</target>
+        <target>Nicht OK - Nicht zugänglich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -7233,7 +7234,7 @@ Eine Wanderrouterelation muss einen der folgenden Werte in ihrem _&quot;route&qu
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
         <source>NOK - Investigate facts</source>
-        <target>NOK - Untersuchen Sie Fakten</target>
+        <target>Nicht OK - Untersuchen Sie die Fakten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">12</context>
