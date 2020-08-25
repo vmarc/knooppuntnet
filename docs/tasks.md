@@ -29,13 +29,9 @@ Server
 - [x] improve stability of database connections after move to Germany (retries)
 - [x] investigate improved styling for background tiles?
 - [x] improve route analysis performance (indexes vs hash)
-- [ ] further complete installation of new server and migration from old server
+- [x] further complete installation of new server and migration from old server
 - [ ] configure nginx to forward old url's to new url's
 - [ ] historical processing complete
-
-
-Docs
-- [ ] GPDR/cookies?
 
 
 Post 3.0.0 release
