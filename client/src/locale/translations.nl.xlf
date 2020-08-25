@@ -1232,8 +1232,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
-        <source>NOK - Not defined in network relation</source>
-        <target>Niet In Orde - Niet opgenomen in netwerkrelatie</target>
+        <source>Not OK - Not defined in network relation</source>
+        <target>Niet in orde - Niet opgenomen in netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -1346,8 +1346,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
-        <source>NOK - unexpected route count</source>
-        <target>Niet In Orde - onverwacht aantal routes</target>
+        <source>Not OK - unexpected route count</source>
+        <target>Niet in orde - Onverwacht aantal routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -7120,8 +7120,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
-        <source>NOK - Not Accessible</source>
-        <target>Niet toegankelijk</target>
+        <source>Not OK - Not Accessible</source>
+        <target>Niet in orde - Niet toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -7236,8 +7236,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
-        <source>NOK - Investigate facts</source>
-        <target>Niet In Orde - Onderzoek feiten</target>
+        <source>Not OK - Investigate facts</source>
+        <target>Niet in orde - Onderzoek feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">12</context>
