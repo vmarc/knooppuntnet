@@ -1230,7 +1230,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
-        <source>NOK - Not defined in network relation</source>
+        <source>Not OK - Not defined in network relation</source>
         <target>Nicht OK - In der Netzwerkrelation nicht definiert</target>
         <note priority="1" from="description">I hope this is the correct interpretation of NOK...</note>
         <context-group purpose="location">
@@ -1345,7 +1345,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
-        <source>NOK - unexpected route count</source>
+        <source>Not OK - unexpected route count</source>
         <target>Nicht OK - unerwartete Routenanzahl</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
@@ -2370,7 +2370,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="planner.surface" datatype="html">
         <source>Surface</source>
-        <target>Oberfläche</target>
+        <target>Straßenbelag</target>
+        <note priority="1" from="description">other possibilities would be &quot;Straßenzustand&quot;. With &quot;Oberfläche&quot; it is not immediately clear what is meant.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -2387,6 +2388,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="planner.survey" datatype="html">
         <source>Date last survey</source>
         <target>Datum der letzten Vermessung</target>
+        <note priority="1" from="description">Slightly different meaning but possibly easier to understand would be: &quot;Datum der letzten Überprüfung&quot;</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -2395,6 +2397,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="planner.pois.title" datatype="html">
         <source>Points of interest</source>
         <target>Points of interest</target>
+        <note priority="1" from="description">Difficult to translate, usually an equivalent could be &quot;Sehenswürdigkeiten&quot; but this relates to mainly touristic sights, not shops and so on. &quot;Punkt von Interesse&quot; is completely unusual in german. A possibility would be to use something like &quot;zusätzliche Symbole&quot; - &quot;additional symbols/marks&quot; instead of poi.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -2641,7 +2644,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.fuel" datatype="html">
         <source>Fuel</source>
-        <target>Kraftstoff</target>
+        <target>Tankstelle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">58</context>
@@ -2777,7 +2780,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.artwork" datatype="html">
         <source>Artwork</source>
-        <target>Grafik</target>
+        <target>Kunstwerk</target>
+        <note priority="1" from="description">&apos;artwork&apos; is translated as &quot;Graphik&quot; only for the use of artwork for example for record cover designs. The tag in e.g. tourism=artwork means a public piece of art, usually sculpture.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -2817,7 +2821,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.heritage" datatype="html">
         <source>Heritage</source>
-        <target>Kulturerbestätten</target>
+        <target>Kulturerbe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -3018,6 +3022,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
         <source>Onroerend Erfgoed</source>
         <target>Onroerend Erfgoed</target>
+        <note priority="1" from="description">Maybe you translate that? Would it be appropriate to set a translation in brackets as Onroerend Erfgoed (Kulturerbestätte)</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">79</context>
@@ -3049,7 +3054,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.detail.molen-database" datatype="html">
         <source>Molen database</source>
-        <target>Molen-Datenbank</target>
+        <target>Mühlen-Datenbank</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">93</context>
@@ -3057,7 +3062,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.detail.hollandsche-molen-database" datatype="html">
         <source>Hollandsche Molen database</source>
-        <target>Hollandsche Molen Datenbank</target>
+        <target>Mühlen-Datenbank De Hollandsche Molen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
           <context context-type="linenumber">98</context>
@@ -3097,7 +3102,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="plan.head" datatype="html">
         <source>Head</source>
-        <target>Gehe</target>
+        <target>Gehen Sie nach</target>
+        <note priority="1" from="description">Correct if followed by the compass direction (north south ...)</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -3106,6 +3112,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="plan.onto" datatype="html">
         <source>onto</source>
         <target>auf</target>
+        <note priority="1" from="description">For correct german still would remain the need for the correct article for the street depending on the gender. Don&apos;t know what usual navigational systems do with it... I think it&apos;s more useful to ignore that and avoid the article...</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -3161,7 +3168,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="plan.heading.west" datatype="html">
         <source>west</source>
-        <target>West</target>
+        <target>Westen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -3534,6 +3541,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="poi.car" datatype="html">
         <source>Car</source>
         <target>Wagen</target>
+        <note priority="1" from="description">if for the tag shop=car, then &quot;Autohandel&quot; would be much easier to understand. &quot;Wagen&quot; also means carriage and trolley.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">30</context>
@@ -3541,7 +3549,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.chemist" datatype="html">
         <source>Chemist</source>
-        <target>Drogist</target>
+        <target>Drogerie</target>
+        <note priority="1" from="description">&quot;Drogist&quot; is not used in daily language, the tag chemist is recommended in the wiki for the german &quot;Drogerie&quot; which is in fact not the same as &quot;chemist&quot;...</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -3574,6 +3583,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="poi.general" datatype="html">
         <source>General</source>
         <target>Allgemein</target>
+        <note priority="1" from="description">From the word &quot;Allgemein&quot; no one would think of a shop. The tag shop=general has no good equivalent in german. Possibly &quot;Geschäft&quot; or &quot;Laden&quot; would be most appropriate.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">61</context>
@@ -3581,7 +3591,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.gift" datatype="html">
         <source>Gift</source>
-        <target>Geschenk</target>
+        <target>Geschenke</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">62</context>
@@ -3653,7 +3663,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.pets" datatype="html">
         <source>Pets</source>
-        <target>Haustiere</target>
+        <target>Zoohandlung</target>
+        <note priority="1" from="description">According to the wiki the tag pet is used for shops with mainly pet food, supplies and only optionally the pets themselves.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">94</context>
@@ -3733,7 +3744,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.american-football" datatype="html">
         <source>American football</source>
-        <target>Amerikanischer Fußball</target>
+        <target>American Football</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -3805,7 +3816,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.deli" datatype="html">
         <source>Deli</source>
-        <target>Deli</target>
+        <target>Delikatessen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -3821,7 +3832,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.diy-hardware" datatype="html">
         <source>DIY hardware</source>
-        <target>DIY hardware</target>
+        <target>Baumarkt</target>
+        <note priority="1" from="description">according to the tag description</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -3869,7 +3881,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.seafood" datatype="html">
         <source>Seafood</source>
-        <target>Meeresfrüchte</target>
+        <target>Fisch</target>
+        <note priority="1" from="description">depending on: shop=seafood &quot;Fischgeschäft&quot;, if used for cuisine=seafood &quot;Fischrestaurant&quot;. &quot;Fisch&quot; seems to be more appropriate, as &quot;Meeresfrüchte&quot; means mainly mussels, crabs and so on.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
           <context context-type="linenumber">106</context>
@@ -4143,7 +4156,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <source>Number of routes that are marked as having an incomplete definition.\
         A route definition is explicitely marked incomplete by adding a tag _&quot;fixme&quot;_ with
         value _&quot;incomplete&quot;_ in the route relation.</source>
-        <target>Anzahl der Routen, die als unvollständig definiert sind.\ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;unvollständig&quot;_ in die Routenrelation eingefügt wird.</target>
+        <target>Anzahl der Routen, die als unvollständig markiert sind.\ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;unvollständig&quot;_ in die Routenrelation eingefügt wird.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">95</context>
@@ -4162,7 +4175,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         that look ok after analysis.\
         A route definition is explicitely marked incomplete by adding a tag _&quot;fixme&quot;_ with
         value _&quot;incomplete&quot;_ in the route relation.</source>
-        <target>Anzahl der Routen, die als unvollständig definiert sind, aber nach der Analyse in Ordnung aussehen. \ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;incomplete&quot;_ hinzugefügt wird in der Routenrelation.</target>
+        <target>Anzahl der Routen, die als unvollständig markiert sind, aber nach der Analyse in Ordnung aussehen. \ Eine Routendefinition wird explizit als unvollständig markiert, indem ein Tag _&quot;fixme&quot;_ mit dem Wert _&quot;incomplete&quot;_ hinzugefügt wird in der Routenrelation.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">108</context>
@@ -4467,7 +4480,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
         or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
         in the network relation).</source>
-        <target>Anzahl der unerwarteten Netzwerkrelationmitglieder vom Typ _&quot;node&quot;_ (wir erwarten nur [Netzwerkknoten](docs/en.html#glossary-node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](docs/en.html#glossary-info-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
+        <target>Anzahl der unerwarteten Netzwerkrelationsmitglieder vom Typ _&quot;node&quot;_ (wir erwarten nur [Netzwerkknoten](docs/en.html#glossary-node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](docs/en.html#glossary-info-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">310</context>
@@ -4801,7 +4814,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="location-routes.table.broken" datatype="html">
         <source>Broken</source>
-        <target>Gebrochen</target>
+        <target>Unterbrochen</target>
+        <note priority="1" from="description">as used in other places.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/routes/location-route-table.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -4940,6 +4954,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="route.members.table.node-count" datatype="html">
         <source>#Nodes</source>
         <target>#Knoten</target>
+        <note priority="1" from="description">The # - sign is not used for &quot;number&quot; in german. If you want to be brief &quot;Anz. Knoten&quot; (for &quot;Anzahl der Knoten&quot;= number of nodes) maybe an alternative.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -4995,7 +5010,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="route.incomplete" datatype="html">
         <source>Route definition is incomplete (has tag _&quot;fixme=incomplete&quot;_).</source>
-        <target>Die Routendefinition ist unvollständig (hat das Tag _&quot;fixme =incomplete&quot;_).</target>
+        <target>Die Route ist als unvollständig markiert (hat das Tag _&quot;fixme =incomplete&quot;_).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -5083,7 +5098,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.group.amenity" datatype="html">
         <source>Amenity</source>
-        <target>Ausstattung</target>
+        <target>Einrichtung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-amenity.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -5179,7 +5194,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.group.landmarks" datatype="html">
         <source>Landmarks</source>
-        <target>Sehenswürdigkeiten</target>
+        <target>Orientierungspunkte</target>
+        <note priority="1" from="description">or indeed &quot;Landmarken&quot;, which is in the dictionaries and which I properly understand but would never use. &quot;Sehenswürdigkeiten&quot; means (touristic, interesting, beautiful) sights. &quot;Orientierungspunkt&quot; is quite proper for the use of landmark (and seamark) as described in https://wiki.openstreetmap.org/wiki/Seamarks/Landmarks#Landmarks</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -5255,7 +5271,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="route.number-of-ways" datatype="html">
         <source>Number of ways</source>
-        <target>Anzahl der Wegen</target>
+        <target>Anzahl der Wege</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">59</context>
@@ -5726,7 +5742,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.removed-nodes" datatype="html">
         <source>Removed non-network nodes</source>
-        <target>Entfernte nicht-Netzwerkknoten</target>
+        <target>Nicht-Netzwerkknoten entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-removed.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5734,7 +5750,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.updated-nodes" datatype="html">
         <source>Updated non-network nodes</source>
-        <target>Aktualisierte Nicht-Netzwerkknoten</target>
+        <target>Nicht-Netzwerkknoten aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-updated.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5742,7 +5758,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.added-ways" datatype="html">
         <source>Added ways</source>
-        <target>Wegen hinzugefügt</target>
+        <target>Wege hinzugefügt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-added.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5750,7 +5766,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.removed-ways" datatype="html">
         <source>Removed ways</source>
-        <target>Entfernte Wege</target>
+        <target>Wege entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-removed.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5758,7 +5774,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.updated-ways" datatype="html">
         <source>Updated ways</source>
-        <target>Aktualisierte Wege</target>
+        <target>Wege aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-updated.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5774,7 +5790,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.updated-relations" datatype="html">
         <source>Updated non-route relations</source>
-        <target>Aktualisierte Nicht-Routen-Relationen</target>
+        <target>Nicht-Routen-Relationen aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-updated.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5782,7 +5798,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="change-set.network-changes.removed-relations" datatype="html">
         <source>Removed non-route relations</source>
-        <target>Entfernte Nicht-Routen-Relationen</target>
+        <target>Nicht-Routen-Relationen entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-removed.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -5830,7 +5846,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="node-diffs-added.change-set-created" datatype="html">
         <source>Created in this changeset.</source>
-        <target>Erstellt in diesem Änderungssatz.</target>
+        <target>In diesem Änderungssatz erstellt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -6006,7 +6022,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="node-change.removed-from-route" datatype="html">
         <source>Removed from route</source>
-        <target>Von der Route entfernt</target>
+        <target>Aus der Route entfernt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -6038,7 +6054,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="node-change.moved.note.1" datatype="html">
         <source>Note: Node position is shown as it was at</source>
-        <target>Hinweis: Die Knotenposition wird so angezeigt, wie sie war</target>
+        <target>Hinweis: Die Knotenposition wird angezeigt wie am</target>
+        <note priority="1" from="description">word order would be: &quot;Node position is shon as it was at xxx&quot; to &quot;Die Knotenposition wird so angezeigt, wie sie am xxx war&quot;. Changed it to another construction without subordinate clause.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -6786,7 +6803,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="analysis.location.select-from-tree" datatype="html">
         <source>Select from tree</source>
-        <target>Aus Baum auswählen</target>
+        <target>Aus Baumstruktur auswählen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-mode.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -6794,7 +6811,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="location.selector.input.place-holder" datatype="html">
         <source>enter municipality or other administrative boundary name</source>
-        <target>Geben Sie den Namen der Gemeinde oder einer anderen Verwaltungsgrenze ein</target>
+        <target>Geben Sie den Namen der Gemeinde oder einer anderen Verwaltungseinheit ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-selector.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6810,7 +6827,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="location.tree.expand-all" datatype="html">
         <source>Expand all</source>
-        <target>alles entfalten</target>
+        <target>alles aufklappen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-tree.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -7117,7 +7134,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
-        <source>NOK - Not Accessible</source>
+        <source>Not OK - Not Accessible</source>
         <target>Nicht OK - Nicht zugänglich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
@@ -7233,7 +7250,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
-        <source>NOK - Investigate facts</source>
+        <source>Not OK - Investigate facts</source>
         <target>Nicht OK - Untersuchen Sie die Fakten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
@@ -7498,7 +7515,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="fact.description.node-invalid-survey-date" datatype="html">
         <source>The node survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
       The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</source>
-        <target>Das Datum der survey hat ein unerwartetes Format (gültiges Format: JJJJ-MM-TT oder JJJJ-MM). Das Datum wird im Tag _&quot;survey:date&quot;_ oder im Tag _&quot;source:date&quot;_ definiert, wenn _&quot;source=survey&quot;_.</target>
+        <target>Das Datum des survey hat ein unerwartetes Format (gültiges Format: JJJJ-MM-TT oder JJJJ-MM). Das Datum wird im Tag _&quot;survey:date&quot;_ oder im Tag _&quot;source:date&quot;_ definiert, wenn _&quot;source=survey&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-node-invalid-survey-date.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7507,7 +7524,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="fact.description.route-invalid-survey-date" datatype="html">
         <source>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM).
       The survey date is defined in the _&quot;survey:date&quot;_ tag, or the _&quot;source:date&quot;_ tag if _&quot;source=survey&quot;_.</source>
-        <target>Das Datum der Routensurvey hat ein unerwartetes Format (gültiges Format: JJJJ-MM-TT oder JJJJ-MM). Das Datum wird im Tag _&quot;survey:date&quot;_ oder im Tag _&quot;source:date&quot;_ definiert, wenn _&quot;source=survey&quot;_.</target>
+        <target>Das Datum des Routensurvey hat ein unerwartetes Format (gültiges Format: JJJJ-MM-TT oder JJJJ-MM). Das Datum wird im Tag _&quot;survey:date&quot;_ oder im Tag _&quot;source:date&quot;_ definiert, wenn _&quot;source=survey&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-invalid-survey-date.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7539,7 +7556,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="network-nodes.table.last-survey" datatype="html">
         <source>Last survey</source>
-        <target>Letzte Survey</target>
+        <target>Letztes Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">57</context>
@@ -7563,7 +7580,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="network-routes.table.last-survey" datatype="html">
         <source>Last survey</source>
-        <target>Letzte Survey</target>
+        <target>Letztes Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">47</context>
@@ -7726,7 +7743,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
         <source>Last survey</source>
-        <target>Letzte Survey</target>
+        <target>Letztes Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">66</context>
@@ -7896,7 +7913,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <source>You clicked the button to zoom to fit the complete route on the map,
         but there is no start- and endnode for the route defined yet. Please
         plan a route first.</source>
-        <target>Sie haben auf die Schaltfläche geklickt, um die gesamte Route auf der Karte zu vergrößern. Es gibt jedoch noch keinen Start- und Endknoten für die definierte Route. Bitte Planen Sie zuerst eine Route.</target>
+        <target>Sie haben auf die Schaltfläche geklickt, um die gesamte Route auf die Karte einzupassen. Es gibt jedoch noch keinen Start- und Endknoten für die definierte Route. Bitte Planen Sie zuerst eine Route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7944,7 +7961,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="planner.action.reset.title" datatype="html">
         <source>Wipe out current route plan and restart route planning from scratch</source>
-        <target>Löschen der aktuellen Routenplan und start die Routenplanung von Grund auf neu</target>
+        <target>Löschen des aktuellen Routenplans und Routenplanung von Grund auf neu starten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -8008,7 +8025,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
         <source>Navigation instructions</source>
-        <target>Navigationsanweisungen</target>
+        <target>Wegbeschreibung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -8033,7 +8050,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       <trans-unit id="planner-tip.click-start-node" datatype="html">
         <source>Use zoom, pan or use magnifying glass to find and click the
         startnode of your route.</source>
-        <target>Verwenden Sie Zoom, Schwenken oder Lupe, um den Startknoten Ihrer Route zu finden und darauf zu klicken.</target>
+        <target>Verwenden Sie Zoom, Verschieben oder die Lupe, um den Startknoten Ihrer Route zu finden und darauf zu klicken.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8057,7 +8074,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
         <source>Extend or adapt your route. Output when satisfied.</source>
-        <target>Erweitern oder passen Sie Ihre Route an. Ausgabe bei Zufriedenheit.</target>
+        <target>Erweitern oder passen Sie Ihre Route an und geben Sie sie aus, wenn sie zufrieden sind.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -8147,7 +8164,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Erstellen Sie eine Routen-PDF-Datei mit Knoten im &apos;Strip&apos;-Format</target>
+        <target>Erstellen Sie eine Routen-PDF-Datei mit Knoten in einem Streifen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -8155,7 +8172,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
         <source>Produce a route pdf with navigation instructions</source>
-        <target>Erstellen Sie ein Routen-PDF mit Navigationsanweisungen</target>
+        <target>Erstellen Sie ein Routen-PDF mit der Wegbeschreibung.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">41</context>
@@ -8211,7 +8228,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="location-edit.routes" datatype="html">
         <source>routes relations (quick)</source>
-        <target>Route relationen (schnell)</target>
+        <target>Routenrelationen (schnell)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -8339,7 +8356,8 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="route.colour.purple" datatype="html">
         <source>purple</source>
-        <target>lila</target>
+        <target>purpur</target>
+        <note priority="1" from="description">or use &quot;pink&quot; depending on the colour you use. &quot;lila&quot; and &quot;violett&quot; are quite synonymic.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">40</context>
