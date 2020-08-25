@@ -36,7 +36,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
       </markdown>
 
       <span dialog-title *ngIf="isRed()" i18n="@@network-indicator.red.title">
-        NOK - Not defined in network relation
+        Not OK - Not defined in network relation
       </span>
       <markdown dialog-body *ngIf="isRed()" i18n="@@network-indicator.red.text">
         This node is not included as a member in the network relation. This is not OK. The

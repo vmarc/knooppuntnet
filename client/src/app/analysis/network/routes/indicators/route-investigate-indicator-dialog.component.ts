@@ -17,7 +17,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
       </div>
 
       <span dialog-title *ngIf="isRed()" i18n="@@route-investigate-indicator.red.title">
-        NOK - Investigate facts
+        Not OK - Investigate facts
       </span>
       <div dialog-body *ngIf="isRed()" i18n="@@route-investigate-indicator.red.text">
         Something is wrong with this route.

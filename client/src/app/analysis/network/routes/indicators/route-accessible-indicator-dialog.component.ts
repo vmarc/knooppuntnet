@@ -41,7 +41,7 @@ import {RouteAccessibleData} from "./route-accessible-data";
 
 
       <span dialog-title *ngIf="isRed()" i18n="@@route-accessible-indicator.red.title">
-        NOK - Not Accessible
+        Not OK - Not Accessible
       </span>
 
       <div dialog-body *ngIf="isRed() && isCycling() " i18n="@@route-accessible-indicator.red.text.cycling">
