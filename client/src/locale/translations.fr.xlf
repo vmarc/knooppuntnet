@@ -1237,8 +1237,8 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.red.title" datatype="html">
-        <source>NOK - Not defined in network relation</source>
-        <target>NOK - Not defined in network relation</target>
+        <source>Not OK - Not defined in network relation</source>
+        <target>Not OK - Not defined in network relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -1359,8 +1359,8 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="integrity-indicator.red.title" datatype="html">
-        <source>NOK - unexpected route count</source>
-        <target>NOK - nombre de routes inattendues</target>
+        <source>Not OK - unexpected route count</source>
+        <target>Incorrect - nombre de routes inattendues</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/integrity-indicator-dialog.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -7174,8 +7174,8 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
-        <source>NOK - Not Accessible</source>
-        <target>NOK - Not Accessible</target>
+        <source>Not OK - Not Accessible</source>
+        <target>Not OK - Not Accessible</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -7290,8 +7290,8 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
-        <source>NOK - Investigate facts</source>
-        <target>NOK - Investigate facts</target>
+        <source>Not OK - Investigate facts</source>
+        <target>Not OK - Investigate facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">12</context>
