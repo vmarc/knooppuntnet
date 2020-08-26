@@ -131,7 +131,7 @@ object PoiConfiguration {
       PoiDefinition("marketplace", "market.png", 14, 15, HasTag("amenity", "marketplace")),
       PoiDefinition("musical-instrument", "music_rock.png", 14, 15, HasTag("shop", "musical_instrument")),
       PoiDefinition("optician", "glasses.png", 14, 15, HasTag("shop", "optician")),
-      PoiDefinition("pets", "pets.png", 14, 15, HasTag("shop", "pets")),
+      PoiDefinition("pets", "pets.png", 14, 15, HasTag("shop", "pet")),
       PoiDefinition("phone", "phones.png", 14, 15, HasTag("shop", "mobile_phone")),
       PoiDefinition("photo", "photo.png", 14, 15, HasTag("shop", "photo")),
       PoiDefinition("shoes", "highhills.png", 14, 15, HasTag("shop", "shoes")),
