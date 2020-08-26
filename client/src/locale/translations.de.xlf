@@ -2387,7 +2387,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
         <source>Date last survey</source>
-        <target>Datum der letzten Vermessung</target>
+        <target>Datum der letzten Überprüfung</target>
         <note priority="1" from="description">Slightly different meaning but possibly easier to understand would be: &quot;Datum der letzten Überprüfung&quot;</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
@@ -2396,7 +2396,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
         <source>Points of interest</source>
-        <target>Points of interest</target>
+        <target>Symbole</target>
         <note priority="1" from="description">Difficult to translate, usually an equivalent could be &quot;Sehenswürdigkeiten&quot; but this relates to mainly touristic sights, not shops and so on. &quot;Punkt von Interesse&quot; is completely unusual in german. A possibility would be to use something like &quot;zusätzliche Symbole&quot; - &quot;additional symbols/marks&quot; instead of poi.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
@@ -3021,7 +3021,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.detail.onroerendErfgoed" datatype="html">
         <source>Onroerend Erfgoed</source>
-        <target>Onroerend Erfgoed</target>
+        <target>Onroerend Erfgoed (Kulturerbestätte)</target>
         <note priority="1" from="description">Maybe you translate that? Would it be appropriate to set a translation in brackets as Onroerend Erfgoed (Kulturerbestätte)</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/popup/map-popup-poi.component.ts</context>
@@ -3540,7 +3540,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.car" datatype="html">
         <source>Car</source>
-        <target>Wagen</target>
+        <target>Autohandel</target>
         <note priority="1" from="description">if for the tag shop=car, then &quot;Autohandel&quot; would be much easier to understand. &quot;Wagen&quot; also means carriage and trolley.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -3582,7 +3582,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.general" datatype="html">
         <source>General</source>
-        <target>Allgemein</target>
+        <target>Kaufladen</target>
         <note priority="1" from="description">From the word &quot;Allgemein&quot; no one would think of a shop. The tag shop=general has no good equivalent in german. Possibly &quot;Geschäft&quot; or &quot;Laden&quot; would be most appropriate.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -3832,7 +3832,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.diy-hardware" datatype="html">
         <source>DIY hardware</source>
-        <target>Baumarkt</target>
+        <target>Baumarkt/Eisenwaren</target>
         <note priority="1" from="description">according to the tag description</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -3881,7 +3881,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.seafood" datatype="html">
         <source>Seafood</source>
-        <target>Fisch</target>
+        <target>Fischhandlung</target>
         <note priority="1" from="description">depending on: shop=seafood &quot;Fischgeschäft&quot;, if used for cuisine=seafood &quot;Fischrestaurant&quot;. &quot;Fisch&quot; seems to be more appropriate, as &quot;Meeresfrüchte&quot; means mainly mussels, crabs and so on.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-names.component.ts</context>
@@ -5194,7 +5194,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
       </trans-unit>
       <trans-unit id="poi.group.landmarks" datatype="html">
         <source>Landmarks</source>
-        <target>Orientierungspunkte</target>
+        <target>Sehenswürdigkeiten</target>
         <note priority="1" from="description">or indeed &quot;Landmarken&quot;, which is in the dictionaries and which I properly understand but would never use. &quot;Sehenswürdigkeiten&quot; means (touristic, interesting, beautiful) sights. &quot;Orientierungspunkt&quot; is quite proper for the use of landmark (and seamark) as described in https://wiki.openstreetmap.org/wiki/Seamarks/Landmarks#Landmarks</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
