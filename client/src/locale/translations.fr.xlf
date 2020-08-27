@@ -3124,20 +3124,12 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.onto" datatype="html">
-        <source>onto</source>
-        <target>sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="plan.heading.north" datatype="html">
         <source>north</source>
         <target>au nord</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-east" datatype="html">
@@ -3145,7 +3137,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>au nord-est</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.east" datatype="html">
@@ -3153,7 +3145,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>à l&apos;est</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-east" datatype="html">
@@ -3161,7 +3153,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>au sud-est</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south" datatype="html">
@@ -3169,7 +3161,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>au sud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-west" datatype="html">
@@ -3177,7 +3169,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>au sud-ouest</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.west" datatype="html">
@@ -3185,7 +3177,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>à l&apos;ouest</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-west" datatype="html">
@@ -3193,7 +3185,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>au nord-ouest</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.continue" datatype="html">
@@ -3201,15 +3193,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Continuer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.continue.street" datatype="html">
-        <source>Continue on</source>
-        <target>Continu</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-left" datatype="html">
@@ -3217,15 +3201,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Légèrement à gauche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-slight-left.street" datatype="html">
-        <source>Slight left onto</source>
-        <target>Légèrement à gauche sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-right" datatype="html">
@@ -3233,15 +3209,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Légèrement à droite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-slight-right.street" datatype="html">
-        <source>Slight right onto</source>
-        <target>Prendre légèrement à droite sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-left" datatype="html">
@@ -3249,15 +3217,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Tournez à gauche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-left.street" datatype="html">
-        <source>Turn left onto</source>
-        <target>Tournez à gauche sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-right" datatype="html">
@@ -3265,15 +3225,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Tournez à droite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-right.street" datatype="html">
-        <source>Turn right onto</source>
-        <target>Tournez à droite sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-left" datatype="html">
@@ -3281,15 +3233,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Tourner complètement à gauche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-left.street" datatype="html">
-        <source>Sharp left onto</source>
-        <target>Prendre complètement à gauche sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-right" datatype="html">
@@ -3297,15 +3241,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Fort à droite</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-right.street" datatype="html">
-        <source>Sharp right onto</source>
-        <target>Prendre complètement à droite sur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
@@ -6587,14 +6523,6 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="footer.status" datatype="html">
-        <source>status</source>
-        <target>situation</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
         <source>knooppuntnet</source>
         <target>knooppuntnet</target>
@@ -8341,7 +8269,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>Follow colour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.black" datatype="html">
@@ -8349,7 +8277,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>noir</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.blue" datatype="html">
@@ -8357,7 +8285,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>bleu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.brown" datatype="html">
@@ -8365,7 +8293,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>marron</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.gray" datatype="html">
@@ -8373,7 +8301,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>gris</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.green" datatype="html">
@@ -8381,7 +8309,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>vert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.grey" datatype="html">
@@ -8389,7 +8317,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>gris</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.orange" datatype="html">
@@ -8397,7 +8325,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>orange</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.purple" datatype="html">
@@ -8405,7 +8333,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>violet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.red" datatype="html">
@@ -8413,7 +8341,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>rouge</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.violet" datatype="html">
@@ -8421,7 +8349,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>violet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.white" datatype="html">
@@ -8429,7 +8357,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>blanc</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.yellow" datatype="html">
@@ -8437,7 +8365,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>jaune</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.route-name" datatype="html">
@@ -8477,7 +8405,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <target>ou</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.home" datatype="html">
