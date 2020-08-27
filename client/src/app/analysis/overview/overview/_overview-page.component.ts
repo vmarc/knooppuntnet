@@ -34,7 +34,6 @@ import {Statistics} from "../../../kpn/api/custom/statistics";
       <ng-template #list>
         <kpn-overview-list [statistics]="stats"></kpn-overview-list>
       </ng-template>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `,
   styles: [`

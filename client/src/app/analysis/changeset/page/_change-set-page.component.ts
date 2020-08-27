@@ -30,7 +30,6 @@ class ChangeSetKey {
       <kpn-change-set-network-changes [page]="response.result"></kpn-change-set-network-changes>
       <kpn-change-set-orphan-node-changes [page]="response.result"></kpn-change-set-orphan-node-changes>
       <kpn-change-set-orphan-route-changes [page]="response.result"></kpn-change-set-orphan-route-changes>
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

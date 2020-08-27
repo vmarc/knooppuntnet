@@ -46,8 +46,6 @@ import {ChangesService} from "../../components/changes/filter/changes.service";
           </kpn-item>
         </kpn-items>
       </kpn-changes>
-
-      <kpn-json [object]="response"></kpn-json>
     </div>
   `
 })

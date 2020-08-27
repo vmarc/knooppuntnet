@@ -35,6 +35,7 @@ import {Component} from "@angular/core";
           issues
         </a>
       </li>
+      <!--
       <li>
         <a
           routerLink="/status"
@@ -42,6 +43,7 @@ import {Component} from "@angular/core";
           status
         </a>
       </li>
+      -->
     </ul>
   `,
   styles: [`
