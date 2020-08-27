@@ -104,16 +104,14 @@ export class PdfDirections {
       texts = texts.push(" ");
       texts = texts.push(this.plannerService.translate("heading-" + instruction.heading));
       if (!!instruction.street) {
-        texts = texts.push(" ");
-        texts = texts.push(this.plannerService.translate("onto"));
-        texts = texts.push(" ");
+        texts = texts.push(": ");
         texts = texts.push(instruction.street);
       }
     } else {
-      const key = "command-" + instruction.command + (!!instruction.street ? "-street" : "");
+      const key = "command-" + instruction.command;
       texts = texts.push(this.plannerService.translate(key));
       if (!!instruction.street) {
-        texts = texts.push(" ");
+        texts = texts.push(": ");
         texts = texts.push(instruction.street);
       }
     }

@@ -18,18 +18,14 @@ import {PlanInstruction} from "../planner/plan/plan-instruction";
       <kpn-plan-instruction-command [command]="instruction.command"></kpn-plan-instruction-command>
       <div>
         <div *ngIf="instruction.heading">
-          <span>
-            {{translate("head")}}
-            {{translate("heading-" + instruction.heading)}}
-          </span>
+          <span class="kpn-label">{{translate("head")}} {{translate("heading-" + instruction.heading)}}</span>
           <span *ngIf="instruction.street">
-            {{translate("onto")}}
             {{instruction.street}}
           </span>
         </div>
         <div *ngIf="!instruction.heading">
-          <span *ngIf="instruction.street">
-            {{translate("command-" + instruction.command + "-street")}}
+          <span *ngIf="instruction.street" class="kpn-label">{{translate("command-" + instruction.command)}}</span>
+          <span>
             {{instruction.street}}
           </span>
           <span *ngIf="!instruction.street">
