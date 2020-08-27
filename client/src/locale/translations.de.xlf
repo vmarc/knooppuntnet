@@ -3109,21 +3109,12 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.onto" datatype="html">
-        <source>onto</source>
-        <target>auf</target>
-        <note priority="1" from="description">For correct german still would remain the need for the correct article for the street depending on the gender. Don&apos;t know what usual navigational systems do with it... I think it&apos;s more useful to ignore that and avoid the article...</note>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="plan.heading.north" datatype="html">
         <source>north</source>
         <target>Norden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-east" datatype="html">
@@ -3131,7 +3122,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Nordosten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.east" datatype="html">
@@ -3139,7 +3130,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Osten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-east" datatype="html">
@@ -3147,7 +3138,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Südosten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south" datatype="html">
@@ -3155,7 +3146,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Süden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-west" datatype="html">
@@ -3163,7 +3154,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Südwesten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.west" datatype="html">
@@ -3171,7 +3162,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Westen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-west" datatype="html">
@@ -3179,7 +3170,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Nordwesten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.continue" datatype="html">
@@ -3187,15 +3178,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Weiter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.continue.street" datatype="html">
-        <source>Continue on</source>
-        <target>Weiter auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-left" datatype="html">
@@ -3203,15 +3186,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Leicht nach links</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-slight-left.street" datatype="html">
-        <source>Slight left onto</source>
-        <target>Leicht links auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-right" datatype="html">
@@ -3219,15 +3194,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Leicht rechts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-slight-right.street" datatype="html">
-        <source>Slight right onto</source>
-        <target>Leicht rechts auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-left" datatype="html">
@@ -3235,15 +3202,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Biegen Sie links ab</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-left.street" datatype="html">
-        <source>Turn left onto</source>
-        <target>Biegen Sie links ab auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-right" datatype="html">
@@ -3251,15 +3210,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Biegen Sie rechts ab</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-right.street" datatype="html">
-        <source>Turn right onto</source>
-        <target>Biegen Sie rechts ab auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-left" datatype="html">
@@ -3267,15 +3218,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Scharf nach links</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-left.street" datatype="html">
-        <source>Sharp left onto</source>
-        <target>Scharf links auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-right" datatype="html">
@@ -3283,15 +3226,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Scharf rechts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="plan.command.turn-sharp-right.street" datatype="html">
-        <source>Sharp right onto</source>
-        <target>Scharf nach rechts auf</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
@@ -6549,14 +6484,6 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="footer.status" datatype="html">
-        <source>status</source>
-        <target>Status</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
         <source>knooppuntnet</source>
         <target>knooppuntnet</target>
@@ -8295,7 +8222,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Folgen Sie der Farbe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.black" datatype="html">
@@ -8303,7 +8230,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>schwarz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.blue" datatype="html">
@@ -8311,7 +8238,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>blau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.brown" datatype="html">
@@ -8319,7 +8246,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>braun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.gray" datatype="html">
@@ -8327,7 +8254,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>grau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.green" datatype="html">
@@ -8335,7 +8262,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>grün</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.grey" datatype="html">
@@ -8343,7 +8270,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>grau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.orange" datatype="html">
@@ -8351,7 +8278,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>orange</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.purple" datatype="html">
@@ -8360,7 +8287,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">or use &quot;pink&quot; depending on the colour you use. &quot;lila&quot; and &quot;violett&quot; are quite synonymic.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.red" datatype="html">
@@ -8368,7 +8295,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>rot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.violet" datatype="html">
@@ -8376,7 +8303,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>violett</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.white" datatype="html">
@@ -8384,7 +8311,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>weiß</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.yellow" datatype="html">
@@ -8392,7 +8319,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>gelb</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.route-name" datatype="html">
@@ -8432,7 +8359,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>oder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.home" datatype="html">
