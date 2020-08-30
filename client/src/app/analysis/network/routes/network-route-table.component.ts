@@ -125,12 +125,12 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
       tap(filter => this.dataSource.data = filter.filter(this.routes).toArray()),
       delay(0)
     ).subscribe(filter => {
-      this.networkRoutesService.filterOptions$.next(filter.filterOptions(this.routes));
+      this.networkRoutesService.setFilterOptions(filter.filterOptions(this.routes));
     });
   }
 
   ngOnDestroy() {
-    this.networkRoutesService.filterOptions$.next(FilterOptions.empty());
+    this.networkRoutesService.setFilterOptions(FilterOptions.empty());
   }
 
   rowNumber(index: number): number {

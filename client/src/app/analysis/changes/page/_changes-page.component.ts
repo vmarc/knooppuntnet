@@ -13,7 +13,6 @@ import {ChangesService} from "../../components/changes/filter/changes.service";
 
 @Component({
   selector: "kpn-changes-page",
-  // TODO PUSH changeDetection: ChangeDetectionStrategy.OnPush, see NodeChangesPageComponent
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
@@ -103,7 +102,7 @@ export class ChangesPageComponent implements OnInit {
   private reload() {
     this.appService.changes(this.parameters).subscribe(response => {
       this.response = response;
-      this.changesService.filterOptions.next(
+      this.changesService.setFilterOptions(
         ChangeFilterOptions.from(
           this.parameters,
           this.response.result.filter,

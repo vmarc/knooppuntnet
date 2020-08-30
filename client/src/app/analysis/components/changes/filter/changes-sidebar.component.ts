@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Subscriptions} from "../../../../util/Subscriptions";
-import {ChangeFilterOptions} from "./change-filter-options";
+import {Component} from "@angular/core";
 import {ChangesService} from "./changes.service";
 
 @Component({
@@ -9,26 +7,11 @@ import {ChangesService} from "./changes.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-change-filter [filterOptions]="filterOptions"></kpn-change-filter>
+      <kpn-change-filter [filterOptions]="changesService.filterOptions$ | async"></kpn-change-filter>
     </kpn-sidebar>
   `
 })
-export class ChangesSidebarComponent implements OnInit, OnDestroy {
-
-  filterOptions: ChangeFilterOptions;
-  private readonly subscriptions = new Subscriptions();
-
-  constructor(private changesService: ChangesService) {
+export class ChangesSidebarComponent {
+  constructor(public changesService: ChangesService) {
   }
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.changesService.filterOptions.subscribe(filterOptions => this.filterOptions = filterOptions)
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
 }

@@ -107,7 +107,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
             this.page = Util.safeGet(() => response.result);
             this.nodeName$.next(Util.safeGet(() => response.result.nodeInfo.name));
             this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-            this.nodeChangesService.filterOptions$.next(
+            this.nodeChangesService.setFilterOptions(
               ChangeFilterOptions.from(
                 this.parameters,
                 response.result.filter,

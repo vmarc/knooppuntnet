@@ -43,7 +43,10 @@ import {NetworkChangesService} from "./network-changes.service";
           <p>
             <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
           </p>
-          <kpn-changes [(parameters)]="parameters" [totalCount]="response.result.totalCount" [changeCount]="response.result.changes.size">
+          <kpn-changes
+            [(parameters)]="parameters"
+            [totalCount]="response.result.totalCount"
+            [changeCount]="response.result.changes.size">
             <kpn-items>
               <kpn-item *ngFor="let networkChangeInfo of response.result.changes; let i=index" [index]="rowIndex(i)">
                 <kpn-network-change-set [networkChangeInfo]="networkChangeInfo"></kpn-network-change-set>
@@ -54,10 +57,7 @@ import {NetworkChangesService} from "./network-changes.service";
         </div>
       </div>
     </div>
-  `,
-  providers: [
-    NetworkChangesService
-  ]
+  `
 })
 export class NetworkChangesPageComponent implements OnInit {
 
@@ -94,7 +94,7 @@ export class NetworkChangesPageComponent implements OnInit {
           tap(response => {
             if (response.result) {
               this.networkService.update(networkId, response.result.network);
-              this.networkChangesService.filterOptions$.next(
+              this.networkChangesService.setFilterOptions(
                 ChangeFilterOptions.from(
                   this.parameters,
                   response.result.filter,

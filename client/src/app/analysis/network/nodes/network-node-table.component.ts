@@ -48,14 +48,18 @@ import {NetworkNodesService} from "./network-nodes.service";
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.node">Node</th>
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.node">
+          Node
+        </th>
         <td mat-cell *matCellDef="let node">
           <kpn-link-node [nodeId]="node.id" [nodeName]="node.name"></kpn-link-node>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.name">Name</th>
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.name">
+          Name
+        </th>
         <td mat-cell *matCellDef="let node">
           {{name(node)}}
         </td>
@@ -80,14 +84,18 @@ import {NetworkNodesService} from "./network-nodes.service";
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-survey">Last survey</th>
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header
+            i18n="@@network-nodes.table.last-survey">Last survey
+        </th>
         <td mat-cell *matCellDef="let node">
           {{node.lastSurvey | day}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="last-edit">
-        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-edit">Last edit</th>
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-nodes.table.last-edit">
+          Last edit
+        </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.timestamp"></kpn-day>
           <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
@@ -147,12 +155,12 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
       tap(filter => this.dataSource.data = filter.filter(this.nodes).toArray()),
       delay(0)
     ).subscribe(filter => {
-      this.networkNodesService.filterOptions$.next(filter.filterOptions(this.nodes));
+      this.networkNodesService.setFilterOptions(filter.filterOptions(this.nodes));
     });
   }
 
   ngOnDestroy() {
-    this.networkNodesService.filterOptions$.next(FilterOptions.empty());
+    this.networkNodesService.setFilterOptions(FilterOptions.empty());
   }
 
   private displayedColumns() {

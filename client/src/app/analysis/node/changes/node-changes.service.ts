@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
+import {Observable} from "rxjs";
 import {AppService} from "../../../app.service";
 import {Util} from "../../../components/shared/util";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
@@ -9,14 +10,20 @@ import {ChangeFilterOptions} from "../../components/changes/filter/change-filter
 export class NodeChangesService {
 
   readonly parameters$ = new BehaviorSubject<ChangesParameters>(this.initialParameters());
+  readonly filterOptions$: Observable<ChangeFilterOptions>;
 
-  readonly filterOptions$ = new BehaviorSubject<ChangeFilterOptions>(ChangeFilterOptions.empty());
+  private readonly _filterOptions$ = new BehaviorSubject<ChangeFilterOptions>(ChangeFilterOptions.empty());
 
   constructor(private appService: AppService) {
+    this.filterOptions$ = this._filterOptions$.asObservable();
+  }
+
+  setFilterOptions(options: ChangeFilterOptions) {
+    this._filterOptions$.next(options);
   }
 
   resetFilterOptions() {
-    this.filterOptions$.next(ChangeFilterOptions.empty());
+    this.setFilterOptions(ChangeFilterOptions.empty());
   }
 
   updateParameters(parameters: ChangesParameters) {

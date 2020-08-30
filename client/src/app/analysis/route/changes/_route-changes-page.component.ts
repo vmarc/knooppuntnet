@@ -108,7 +108,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
                 this.page = Util.safeGet(() => response.result);
                 this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
                 this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-                this.routeChangesService.filterOptions$.next(
+                this.routeChangesService.setFilterOptions(
                   ChangeFilterOptions.from(
                     this.parameters,
                     response.result.filter,

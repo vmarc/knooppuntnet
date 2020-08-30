@@ -14,5 +14,10 @@ import {NetworkChangesService} from "./network-changes.service";
 export class NetworkChangesSidebarComponent {
   constructor(public networkChangesService: NetworkChangesService) {
   }
+
+  ngOnInit() {
+    this.networkChangesService.filterOptions$.subscribe(options => console.log(JSON.stringify(options, null, 2)));
+  }
+
 }
 
