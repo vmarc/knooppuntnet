@@ -38,8 +38,9 @@ class SubsetFact {
       <div class="fact-description">
         <kpn-fact-description [factName]="factName"></kpn-fact-description>
       </div>
-      <div *ngIf="!hasFacts">
-        <i i18n="@@subset-facts.no-facts">No facts</i>
+      <div *ngIf="!hasFacts" class="kpn-line">
+        <span i18n="@@subset-facts.no-facts">No facts</span>
+        <kpn-icon-happy></kpn-icon-happy>
       </div>
       <div *ngIf="hasFacts">
         <div class="kpn-space-separated kpn-label">

@@ -32,8 +32,8 @@ import {Facts} from "../../fact/facts";
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
       <p *ngIf="!hasFacts" class="kpn-line">
-        <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-facts.no-facts">No facts</span>
+        <kpn-icon-happy></kpn-icon-happy>
       </p>
       <div *ngIf="hasFacts" class="kpn-line">
         <kpn-items>
