@@ -2061,6 +2061,90 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="filter.month.january">
+        <source>January</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.february">
+        <source>February</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.march">
+        <source>March</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.april">
+        <source>April</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.may">
+        <source>May</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.june">
+        <source>June</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.july">
+        <source>July</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.august">
+        <source>August</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.september">
+        <source>September</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.october">
+        <source>October</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.november">
+        <source>November</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.month.december">
+        <source>December</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/components/changes/filter/change-filter-period.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="route-change.way-added.title">
         <source>Added way</source>
         <context-group purpose="location">
