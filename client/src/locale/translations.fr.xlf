@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="login" datatype="html">
         <source>login</source>
-        <target>Connexion</target>
+        <target>connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/link-login.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -32,7 +32,7 @@
       </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
         <source>list of authorised applications</source>
-        <target>list of authorised applications</target>
+        <target>liste des applications autorisées</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/osm-link-user-aoth-clients.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -48,7 +48,7 @@
       </trans-unit>
       <trans-unit id="network-type.hiking" datatype="html">
         <source>Hiking</source>
-        <target>Hiking</target>
+        <target>Randonnée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -96,7 +96,7 @@
       </trans-unit>
       <trans-unit id="network-type.horse-riding" datatype="html">
         <source>Horse riding</source>
-        <target>Horse riding</target>
+        <target>Équitation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -120,7 +120,7 @@
       </trans-unit>
       <trans-unit id="network-type.motorboat" datatype="html">
         <source>Motorboat</source>
-        <target>Motorboat</target>
+        <target>Bateau à moteur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -144,7 +144,7 @@
       </trans-unit>
       <trans-unit id="network-type.canoe" datatype="html">
         <source>Canoe</source>
-        <target>Canoe</target>
+        <target>Canoé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -168,7 +168,7 @@
       </trans-unit>
       <trans-unit id="network-type.inline-skating" datatype="html">
         <source>Inline Skating</source>
-        <target>Inline Skating</target>
+        <target>Patins à roulettes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -192,7 +192,7 @@
       </trans-unit>
       <trans-unit id="subset.in" datatype="html">
         <source>in</source>
-        <target>in</target>
+        <target>en</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit id="map.start-node" datatype="html">
         <source>Start node</source>
-        <target>Noeud start</target>
+        <target>Nœud de départ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -212,7 +212,7 @@
       </trans-unit>
       <trans-unit id="map.end-node" datatype="html">
         <source>End node</source>
-        <target>Noeud final</target>
+        <target>Nœud final</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -220,7 +220,7 @@
       </trans-unit>
       <trans-unit id="map.start-tentacle-node" datatype="html">
         <source>Start tentacle node</source>
-        <target>nœud tentacule start</target>
+        <target>Nœud &quot;tentacule&quot; de départ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="map.end-tentacle-node" datatype="html">
         <source>End tentacle node</source>
-        <target>Nœud de tentacule final</target>
+        <target>Nœud &quot;tentacule&quot; final</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -252,7 +252,7 @@
       </trans-unit>
       <trans-unit id="map.layer.backward-route" datatype="html">
         <source>Backward route</source>
-        <target>Retour en arrière</target>
+        <target>Itinéraire retour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -260,7 +260,7 @@
       </trans-unit>
       <trans-unit id="map.layer.start-tentacle" datatype="html">
         <source>Start tentacle</source>
-        <target>Start tentacule</target>
+        <target>&quot;Tentacule&quot; de départ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">27</context>
@@ -268,7 +268,7 @@
       </trans-unit>
       <trans-unit id="map.layer.end-tentacle" datatype="html">
         <source>End tentacle</source>
-        <target>tentacule final</target>
+        <target>&quot;Tentacule&quot; finale</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -284,7 +284,7 @@
       </trans-unit>
       <trans-unit id="map.layer.nodes" datatype="html">
         <source>Nodes</source>
-        <target>Noeuds</target>
+        <target>Nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">30</context>
@@ -340,7 +340,7 @@
       </trans-unit>
       <trans-unit id="map.layer.tile-names" datatype="html">
         <source>Tilenames</source>
-        <target>Noms de til</target>
+        <target>Noms de tuile</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -364,7 +364,7 @@
       </trans-unit>
       <trans-unit id="map.layer.node" datatype="html">
         <source>Node</source>
-        <target>Noeud</target>
+        <target>Nœud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -404,7 +404,7 @@
       </trans-unit>
       <trans-unit id="map.layer.inline-skating" datatype="html">
         <source>Inline Skating</source>
-        <target>Patinage à roues alignées</target>
+        <target>Patinage à roulettes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">48</context>
@@ -412,7 +412,7 @@
       </trans-unit>
       <trans-unit id="map.layer.nodes-and-routes" datatype="html">
         <source>Nodes and routes</source>
-        <target>Noeuds et itinéraires</target>
+        <target>Nœuds et itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -420,7 +420,7 @@
       </trans-unit>
       <trans-unit id="map.layer.boundary" datatype="html">
         <source>Boundary</source>
-        <target>Limite</target>
+        <target>Limite administrative</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">50</context>
@@ -428,7 +428,7 @@
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
         <source>Items per page</source>
-        <target>Items per page</target>
+        <target>Nombre d&apos;éléments par page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -436,7 +436,7 @@
       </trans-unit>
       <trans-unit id="paginator.next-page-label" datatype="html">
         <source>Next page</source>
-        <target>Next page</target>
+        <target>Page suivante</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -444,7 +444,7 @@
       </trans-unit>
       <trans-unit id="paginator.previous-page-label" datatype="html">
         <source>Previous page</source>
-        <target>Previous page</target>
+        <target>Page précédente</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -452,7 +452,7 @@
       </trans-unit>
       <trans-unit id="paginator.first-page-label" datatype="html">
         <source>First page</source>
-        <target>First page</target>
+        <target>Première page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -460,7 +460,7 @@
       </trans-unit>
       <trans-unit id="paginator.last-page-label" datatype="html">
         <source>Last page</source>
-        <target>Last page</target>
+        <target>Dernière page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -468,7 +468,7 @@
       </trans-unit>
       <trans-unit id="paginator.from" datatype="html">
         <source>of</source>
-        <target>of</target>
+        <target>sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/paginator/paginator.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -476,7 +476,7 @@
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
         <source>Added</source>
-        <target>Added</target>
+        <target>Ajouté</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -492,7 +492,7 @@
       </trans-unit>
       <trans-unit id="fact.name.deleted" datatype="html">
         <source>Deleted</source>
-        <target>Deleted</target>
+        <target>Supprimé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -500,7 +500,7 @@
       </trans-unit>
       <trans-unit id="fact.name.integrity-check" datatype="html">
         <source>IntegrityCheck</source>
-        <target>IntegrityCheck</target>
+        <target>Contrôle de l&apos;intégrité</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -508,7 +508,7 @@
       </trans-unit>
       <trans-unit id="fact.name.integrity-check-failed" datatype="html">
         <source>IntegrityCheckFailed</source>
-        <target>IntegrityCheckFailed</target>
+        <target>Contrôle de l&apos;intégrité échoué</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -540,7 +540,7 @@
       </trans-unit>
       <trans-unit id="fact.name.name-missing" datatype="html">
         <source>NameMissing</source>
-        <target>NameMissing</target>
+        <target>Nom manquant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -580,7 +580,7 @@
       </trans-unit>
       <trans-unit id="fact.name.orphan-node" datatype="html">
         <source>OrphanNode</source>
-        <target>OrphanNode</target>
+        <target>Nœud orphelin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -588,7 +588,7 @@
       </trans-unit>
       <trans-unit id="fact.name.orphan-route" datatype="html">
         <source>OrphanRoute</source>
-        <target>OrphanRoute</target>
+        <target>Itinéraire orphelin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -604,7 +604,7 @@
       </trans-unit>
       <trans-unit id="fact.name.route-broken" datatype="html">
         <source>RouteBroken</source>
-        <target>RouteBroken</target>
+        <target>Itinéraire interrompu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -813,7 +813,7 @@
       <trans-unit id="fact.description.route-not-continious" datatype="html">
         <source>The route is broken: the begin- and end-networknodes cannot be connected through ways either
       in the forward direction or the backward direction or both.</source>
-        <target>La route est interrompue: les nœuds de réseau de début et de fin ne peuvent pas être connectés par des chemins soit vers l&apos;avant, soit vers l&apos;arrière ou les deux.</target>
+        <target>L&apos;itinéraire est interrompu: les nœuds de réseau de début et de fin ne peuvent pas être connectés par des chemins soit vers l&apos;avant, soit vers l&apos;arrière ou les deux.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-not-continious.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -821,7 +821,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-unused-segments" datatype="html">
         <source>The route contains ways or part of ways that are not used in the connection between the end nodes.</source>
-        <target>La route contient des chemins ou une partie de chemin qui ne sont pas utilisées dans la connexion entre les nœuds d&apos;extrémité.</target>
+        <target>L&apos;itinéraire contient des chemins ou une partie de chemin qui ne sont pas utilisées dans la connexion entre les nœuds d&apos;extrémité.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/fact/descriptions/fact-route-unused-segments.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1276,7 +1276,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-connection-indicator.blue.title" datatype="html">
         <source>OK - Connection</source>
-        <target>OK - Connection</target>
+        <target>OK - Connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -1294,7 +1294,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-connection-indicator.gray.title" datatype="html">
         <source>OK - No connection</source>
-        <target>OK - No connection</target>
+        <target>OK - Pas de connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -1389,7 +1389,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.title" datatype="html">
         <source>OK - Connection</source>
-        <target>OK - Connection</target>
+        <target>OK - Connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1489,7 +1489,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-page.menu.details" datatype="html">
         <source>Details</source>
-        <target>Details</target>
+        <target>Détails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -1505,7 +1505,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-page.menu.nodes" datatype="html">
         <source>Nodes</source>
-        <target>Nodes</target>
+        <target>Nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -1513,7 +1513,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-page.menu.routes" datatype="html">
         <source>Routes</source>
-        <target>Routes</target>
+        <target>Itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -1521,7 +1521,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-page.menu.map" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/components/network-page-header.component.ts</context>
           <context context-type="linenumber">50</context>
@@ -1537,7 +1537,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-page.menu.networks" datatype="html">
         <source>Networks</source>
-        <target>Networks</target>
+        <target>Réseaux</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -1561,7 +1561,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-page.menu.orphan-nodes" datatype="html">
         <source>Orphan nodes</source>
-        <target>Orphan nodes</target>
+        <target>Nœuds orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -1573,7 +1573,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-page.menu.orphan-routes" datatype="html">
         <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <target>Itinéraires orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -1585,7 +1585,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-page.menu.map" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -1617,7 +1617,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="subset-map.title" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/map/_subset-map-page.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1669,7 +1669,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.member-order-changed" datatype="html">
         <source>Member order changed.</source>
-        <target>Member order changed.</target>
+        <target>Ordre des membres modifié</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -1677,7 +1677,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.node-diff.start-nodes" datatype="html">
         <source>Start nodes</source>
-        <target>Start nodes</target>
+        <target>Nœuds de départ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -1685,7 +1685,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.node-diff.end-nodes" datatype="html">
         <source>End nodes</source>
-        <target>End nodes</target>
+        <target>Nœuds d&apos;arrivée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1709,7 +1709,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.node-diff.added" datatype="html">
         <source>added</source>
-        <target>added</target>
+        <target>ajouté</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -1717,7 +1717,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.node-diff.removed" datatype="html">
         <source>removed</source>
-        <target>removed</target>
+        <target>supprimé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-node-diff.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -1725,7 +1725,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-update.title" datatype="html">
         <source>Updated way</source>
-        <target>Updated way</target>
+        <target>Voie mise à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -1749,7 +1749,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-update.direction-reversed" datatype="html">
         <source>Direction reversed</source>
-        <target>Direction reversed</target>
+        <target>Direction inversée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -1757,7 +1757,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-update.removed-nodes" datatype="html">
         <source>Removed node(s)</source>
-        <target>Removed node(s)</target>
+        <target>Nœud(s) supprimé(s)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -1765,7 +1765,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-update.added-nodes" datatype="html">
         <source>Added node(s)</source>
-        <target>Added node(s)</target>
+        <target>Nœud(s) ajouté(s)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">31</context>
@@ -1773,7 +1773,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-update.updated-nodes" datatype="html">
         <source>Updated node(s)</source>
-        <target>Updated node(s)</target>
+        <target>Nœud(s) mis à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -1781,7 +1781,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-added.title" datatype="html">
         <source>Added way</source>
-        <target>Added way</target>
+        <target>Voie ajoutée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-added.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -1789,7 +1789,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-added.this-changeset" datatype="html">
         <source>this changeset</source>
-        <target>this changeset</target>
+        <target>ce &quot;changeset&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-added.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -1797,7 +1797,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-removed.title" datatype="html">
         <source>Removed way</source>
-        <target>Removed way</target>
+        <target>Voie supprimée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-removed.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -1805,7 +1805,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.key" datatype="html">
         <source>Key</source>
-        <target>Key</target>
+        <target>Clé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -1829,7 +1829,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.before" datatype="html">
         <source>Before</source>
-        <target>Before</target>
+        <target>Avant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -1845,7 +1845,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.after" datatype="html">
         <source>After</source>
-        <target>After</target>
+        <target>Après</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-table.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -1869,7 +1869,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.deleted-tag" datatype="html">
         <source>Deleted tag</source>
-        <target>Deleted tag</target>
+        <target>Étiquette supprimée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1877,7 +1877,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.deleted-tags" datatype="html">
         <source>Deleted tags</source>
-        <target>Deleted tags</target>
+        <target>Étiquettes supprimées</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1885,7 +1885,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.value" datatype="html">
         <source>Value</source>
-        <target>Value</target>
+        <target>Valeur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -1897,7 +1897,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.added-tag" datatype="html">
         <source>Added tag</source>
-        <target>Added tag</target>
+        <target>Étiquette ajoutée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -1905,7 +1905,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.added-tags" datatype="html">
         <source>Added tags</source>
-        <target>Added tags</target>
+        <target>Étiquettes ajoutées</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -1913,7 +1913,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.updated-tag" datatype="html">
         <source>Updated tag</source>
-        <target>Updated tag</target>
+        <target>Étiquette mise à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">53</context>
@@ -1921,7 +1921,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.updated-tags" datatype="html">
         <source>Updated tags</source>
-        <target>Updated tags</target>
+        <target>Étiquettes mises à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -1929,7 +1929,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.same-tag" datatype="html">
         <source>Same tag</source>
-        <target>Same tag</target>
+        <target>Étiquette identique</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">83</context>
@@ -1937,7 +1937,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.same-tags" datatype="html">
         <source>Same tags</source>
-        <target>Same tags</target>
+        <target>Étiquettes identiques</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">86</context>
@@ -2033,7 +2033,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.network-created" datatype="html">
         <source>Network created</source>
-        <target>Network created</target>
+        <target>Réseau créé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -2041,7 +2041,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.network-deleted" datatype="html">
         <source>Network deleted</source>
-        <target>Network deleted</target>
+        <target>Réseau supprimé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -2049,7 +2049,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.network-nodes.added" datatype="html">
         <source>Added node(s)</source>
-        <target>Added node(s)</target>
+        <target>Nœud(s) ajouté(s)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -2057,7 +2057,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.routes.added" datatype="html">
         <source>Added route(s)</source>
-        <target>Added route(s)</target>
+        <target>Itinéraire(s) ajouté(s)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -2105,7 +2105,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.routes.updated" datatype="html">
         <source>Updated route(s)</source>
-        <target>Updated route(s)</target>
+        <target>Itinéraire(s) mis à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">84</context>
@@ -2145,7 +2145,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.routes.removed" datatype="html">
         <source>Removed route(s)</source>
-        <target>Removed route(s)</target>
+        <target>Itinéraire(s) supprimé(s)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">129</context>
@@ -2343,7 +2343,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="not-found.title" datatype="html">
         <source>Not found</source>
-        <target>Not found</target>
+        <target>Introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/not-found/not-found-page.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -3938,7 +3938,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.km.comment" datatype="html">
         <source>Total length in kilometers.</source>
-        <target>Total length in kilometers.</target>
+        <target>Longueur totale en kilomètres.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -3946,7 +3946,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.km.name" datatype="html">
         <source>Length (km)</source>
-        <target>Length (km)</target>
+        <target>Longueur (km)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -3954,7 +3954,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.network-count.comment" datatype="html">
         <source>Number of networks.</source>
-        <target>Number of networks.</target>
+        <target>Nombre de réseaux.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -3970,7 +3970,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.node-count.comment" datatype="html">
         <source>Number of network nodes.</source>
-        <target>Number of network nodes.</target>
+        <target>Nombre de nœuds.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -3978,7 +3978,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.node-count.name" datatype="html">
         <source>Node count</source>
-        <target>Node count</target>
+        <target>Nombre de nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -3986,7 +3986,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-count.comment" datatype="html">
         <source>Number of routes.</source>
-        <target>Number of routes.</target>
+        <target>Nombre d&apos;itinéraires.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -3994,7 +3994,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-count.name" datatype="html">
         <source>Route count</source>
-        <target>Route count</target>
+        <target>Nombre d&apos;itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -4002,7 +4002,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-not-continious-network-count.comment" datatype="html">
         <source>Number of networks with broken routes.</source>
-        <target>Number of networks with broken routes.</target>
+        <target>Nombre de réseaux avec des itinéraires interrompus.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -4018,7 +4018,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-not-continious.comment" datatype="html">
         <source>Number of broken routes.</source>
-        <target>Number of broken routes.</target>
+        <target>Nombre d&apos;itinéraires interrompus.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">52</context>
@@ -4034,7 +4034,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-not-continious-percentage.comment" datatype="html">
         <source>Percentage of broken routes.</source>
-        <target>Percentage of broken routes.</target>
+        <target>Pourcentage d&apos;itinéraires interrompus.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">60</context>
@@ -4050,7 +4050,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-broken-network-count.comment" datatype="html">
         <source>Number of networks containing routes with issues.</source>
-        <target>Number of networks containing routes with issues.</target>
+        <target>Nombre de réseaux contenant des itinéraires à problèmes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">68</context>
@@ -4066,7 +4066,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-broken-count.comment" datatype="html">
         <source>Number of routes with issues.</source>
-        <target>Number of routes with issues.</target>
+        <target>Nombre d&apos;itinéraires à problèmes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">76</context>
@@ -4082,7 +4082,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.route-broken-percentage.comment" datatype="html">
         <source>Percentage of routes with issues.</source>
-        <target>Percentage of routes with issues.</target>
+        <target>Pourcentage d&apos;itinéraires à problèmes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">84</context>
@@ -4156,7 +4156,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.name" datatype="html">
         <source>Orphan nodes</source>
-        <target>Orphan nodes</target>
+        <target>Nœuds orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">128</context>
@@ -4176,7 +4176,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="stats.orphan-route-count.name" datatype="html">
         <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <target>Itinéraires orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">143</context>
@@ -4807,7 +4807,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.route-not-found" datatype="html">
         <source>Route not found</source>
-        <target>Route not found</target>
+        <target>Itinéraire introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/_route-changes-page.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -4823,7 +4823,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.title" datatype="html">
         <source>Route</source>
-        <target>Route</target>
+        <target>Itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/components/route-page-header.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -4831,7 +4831,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.menu.details" datatype="html">
         <source>Details</source>
-        <target>Details</target>
+        <target>Détails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/components/route-page-header.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -4839,7 +4839,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.menu.map" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/components/route-page-header.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -4863,7 +4863,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
         <source>Route Members</source>
-        <target>Route Members</target>
+        <target>Membres de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -4871,7 +4871,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.none" datatype="html">
         <source>None</source>
-        <target>None</target>
+        <target>Aucun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -4879,7 +4879,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.node" datatype="html">
         <source>Node</source>
-        <target>Node</target>
+        <target>Nœud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -4887,7 +4887,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.id" datatype="html">
         <source>Id</source>
-        <target>Id</target>
+        <target>Identifiant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -4895,7 +4895,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.nodes" datatype="html">
         <source>Nodes</source>
-        <target>Nodes</target>
+        <target>Nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -4903,7 +4903,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.role" datatype="html">
         <source>Role</source>
-        <target>Role</target>
+        <target>Rôle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -4911,7 +4911,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.length" datatype="html">
         <source>Length</source>
-        <target>Length</target>
+        <target>Longueur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -4919,7 +4919,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.node-count" datatype="html">
         <source>#Nodes</source>
-        <target>#Nodes</target>
+        <target>#Nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -4927,7 +4927,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.name" datatype="html">
         <source>Name</source>
-        <target>Name</target>
+        <target>Nom</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -4935,7 +4935,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.unaccessible" datatype="html">
         <source>Unaccessible</source>
-        <target>Unaccessible</target>
+        <target>Inaccessible</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -4943,7 +4943,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.one-way" datatype="html">
         <source>One Way</source>
-        <target>One Way</target>
+        <target>Sens unique</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -4951,7 +4951,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.one-way.yes" datatype="html">
         <source>Yes</source>
-        <target>Yes</target>
+        <target>Oui</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">69</context>
@@ -4959,7 +4959,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.members.table.one-way.reverse" datatype="html">
         <source>Reverse</source>
-        <target>Reverse</target>
+        <target>Inversé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-members.component.ts</context>
           <context context-type="linenumber">70</context>
@@ -4991,7 +4991,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.location.none" datatype="html">
         <source>None</source>
-        <target>None</target>
+        <target>Aucun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-location.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -4999,7 +4999,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.no-network-references" datatype="html">
         <source>None</source>
-        <target>None</target>
+        <target>Aucun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/route-network-references.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -5821,7 +5821,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-diffs-added.change-set-updated" datatype="html">
         <source>Updated in this changeset.</source>
-        <target>Updated in this changeset.</target>
+        <target>Mise à jour dans ce &quot;changeset&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -5829,7 +5829,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-diffs-added.change-set-existing" datatype="html">
         <source>Existing node</source>
-        <target>Existing node</target>
+        <target>Nœud existant</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-added.component.ts</context>
           <context context-type="linenumber">25</context>
@@ -5837,7 +5837,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-diffs-updated.title" datatype="html">
         <source>Updated network nodes</source>
-        <target>Updated network nodes</target>
+        <target>Nœuds mis à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -5861,7 +5861,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-diffs-added.title" datatype="html">
         <source>Added routes</source>
-        <target>Added routes</target>
+        <target>Itinéraires ajoutés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -5869,7 +5869,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-diffs-added.new-relation" datatype="html">
         <source>New relation</source>
-        <target>New relation</target>
+        <target>Nouvelle relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -5885,7 +5885,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-diffs-added.existing-relation" datatype="html">
         <source>Existing relation</source>
-        <target>Existing relation</target>
+        <target>Relation existante</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-added.component.ts</context>
           <context context-type="linenumber">25</context>
@@ -5893,7 +5893,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-diffs-removed.title" datatype="html">
         <source>Removed routes</source>
-        <target>Removed routes</target>
+        <target>Itinéraires supprimés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-removed.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -5901,7 +5901,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-diffs-updated.title" datatype="html">
         <source>Updated routes</source>
-        <target>Updated routes</target>
+        <target>Itinéraires mis à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/route-diffs/route-diffs-updated.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -5981,7 +5981,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-change.added-to-network" datatype="html">
         <source>Added to network</source>
-        <target>Added to network</target>
+        <target>Ajouté au réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -5989,7 +5989,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-change.removed-from-route" datatype="html">
         <source>Removed from route</source>
-        <target>Removed from route</target>
+        <target>Supprimé de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -5997,7 +5997,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-change.removed-from-network" datatype="html">
         <source>Removed from network</source>
-        <target>Removed from network</target>
+        <target>Supprimé du réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-detail.component.ts</context>
           <context context-type="linenumber">61</context>
@@ -6005,7 +6005,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-change.moved.meters" datatype="html">
         <source>The node has moved <x equiv-text="{{nodeMoved.distance}}" id="INTERPOLATION"/> meters.</source>
-        <target>The node has moved <x equiv-text="{{nodeMoved.distance}}" id="INTERPOLATION"/> meters.</target>
+        <target>Ce nœud a été déplacé de <x equiv-text="{{nodeMoved.distance}}" id="INTERPOLATION"/> mètres.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -6013,7 +6013,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node-change.moved.less-than-1-meter" datatype="html">
         <source>The node has moved less than 1 meter.</source>
-        <target>The node has moved less than 1 meter.</target>
+        <target>Ce nœud a été déplacé de moins d&apos;1 mètre.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -6055,7 +6055,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.summary" datatype="html">
         <source>Summary</source>
-        <target>Summary</target>
+        <target>Résumé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -6071,7 +6071,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.last-updated" datatype="html">
         <source>Last updated</source>
-        <target>Last updated</target>
+        <target>Dernière mise à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -6079,7 +6079,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.tags" datatype="html">
         <source>Tags</source>
-        <target>Tags</target>
+        <target>Étiquettes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -6087,7 +6087,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.location" datatype="html">
         <source>Location</source>
-        <target>Location</target>
+        <target>Position</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">37</context>
@@ -6095,7 +6095,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.networks" datatype="html">
         <source>Networks</source>
-        <target>Networks</target>
+        <target>Réseaux</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">41</context>
@@ -6103,7 +6103,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
         <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <target>Itinéraires orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">45</context>
@@ -6127,7 +6127,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.unchanged" datatype="html">
         <source>(Unchanged)</source>
-        <target>(Unchanged)</target>
+        <target>(inchangé)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -6143,7 +6143,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="overview-page.title" datatype="html">
         <source>Overview</source>
-        <target>Overview</target>
+        <target>Aperçu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview/_overview-page.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -6159,7 +6159,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route.route-not-found" datatype="html">
         <source>Route not found</source>
-        <target>Route not found</target>
+        <target>Itinéraire introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -6167,7 +6167,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.inactive" datatype="html">
         <source>This network node is not active anymore.</source>
-        <target>This network node is not active anymore.</target>
+        <target>Ce nœud n&apos;est plus actif.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -6175,7 +6175,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.node" datatype="html">
         <source>network node</source>
-        <target>network node</target>
+        <target>nœud de réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -6187,7 +6187,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.orphan" datatype="html">
         <source>This network node does not belong to a known node network (orphan).</source>
-        <target>This network node does not belong to a known node network (orphan).</target>
+        <target>Ce nœud ne fait pas partie d&apos;un réseau de nœuds connu (orphelin).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-summary.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -6277,7 +6277,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.title" datatype="html">
         <source>Node</source>
-        <target>Node</target>
+        <target>Nœud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/components/node-page-header.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -6285,7 +6285,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.menu.details" datatype="html">
         <source>Details</source>
-        <target>Details</target>
+        <target>Détails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/components/node-page-header.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -6293,7 +6293,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.menu.map" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/components/node-page-header.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -6317,7 +6317,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.details-sidebar.tip" datatype="html">
         <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.</source>
-        <target>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes.</target>
+        <target>Conseil: cliquez sur un autre nœud ou itinéraire dans la carte pour avoir le détail de ces nœuds ou itinéraires.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-details-sidebar.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6325,7 +6325,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="overview-table.detail" datatype="html">
         <source>Detail</source>
-        <target>Detail</target>
+        <target>Détails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -6377,7 +6377,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="overview-table.comment" datatype="html">
         <source>Comment</source>
-        <target>Comment</target>
+        <target>Commentaire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -6473,7 +6473,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tags.no-tags" datatype="html">
         <source>No tags</source>
-        <target>No tags</target>
+        <target>Pas d&apos;étiquette</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -6485,7 +6485,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tags.key" datatype="html">
         <source>Key</source>
-        <target>Key</target>
+        <target>Clé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -6493,7 +6493,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="tags.value" datatype="html">
         <source>Value</source>
-        <target>Value</target>
+        <target>Valeur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/tags/tags-table.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -6525,7 +6525,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
         <source>knooppuntnet</source>
-        <target>knooppuntnet</target>
+        <target>réseau de nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/toolbar/toolbar.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6533,7 +6533,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="sidebar.back" datatype="html">
         <source>back</source>
-        <target>back</target>
+        <target>retour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/sidebar/sidebar-back.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -6903,7 +6903,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-changes.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target>Network not found</target>
+        <target>Réseau introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -6911,7 +6911,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.title" datatype="html">
         <source>Details</source>
-        <target>Details</target>
+        <target>Détails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -6919,7 +6919,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target>Network not found</target>
+        <target>Réseau introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -6935,7 +6935,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.nodes" datatype="html">
         <source>nodes</source>
-        <target>nodes</target>
+        <target>nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -6943,7 +6943,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.routes" datatype="html">
         <source>routes</source>
-        <target>routes</target>
+        <target>itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -6959,7 +6959,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.not-active" datatype="html">
         <source>This network is not active anymore.</source>
-        <target>This network is not active anymore.</target>
+        <target>Ce réseau n&apos;est plus actif.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -6967,7 +6967,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.nr" datatype="html">
         <source>Nr</source>
-        <target>Nr</target>
+        <target>Numéro</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -6975,7 +6975,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.analysis" datatype="html">
         <source>Analysis</source>
-        <target>Analysis</target>
+        <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -6983,7 +6983,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.node" datatype="html">
         <source>Node</source>
-        <target>Node</target>
+        <target>Nœud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">25</context>
@@ -6991,7 +6991,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.routes" datatype="html">
         <source>Routes</source>
-        <target>Routes</target>
+        <target>Itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">57</context>
@@ -6999,7 +6999,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-edit" datatype="html">
         <source>Last edit</source>
-        <target>Last edit</target>
+        <target>Dernière modification</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">70</context>
@@ -7007,7 +7007,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.no-routes" datatype="html">
         <source>no routes</source>
-        <target>no routes</target>
+        <target>aucun itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-routes.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -7015,7 +7015,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.table.nr" datatype="html">
         <source>Nr</source>
-        <target>Nr</target>
+        <target>Numéro</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -7023,7 +7023,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.table.analysis" datatype="html">
         <source>Analysis</source>
-        <target>Analysis</target>
+        <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -7031,7 +7031,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.table.node" datatype="html">
         <source>Route</source>
-        <target>Route</target>
+        <target>Itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -7039,7 +7039,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
         <source>Last edit</source>
-        <target>Last edit</target>
+        <target>Dernière modification</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -7047,7 +7047,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.title" datatype="html">
         <source>OK - Accessibility unknown</source>
-        <target>OK - Accessibility unknown</target>
+        <target>OK - Accessibilité inconnue</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7055,7 +7055,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.text" datatype="html">
         <source>Accessibility information is unknown for this type of route.</source>
-        <target>Accessibility information is unknown for this type of route.</target>
+        <target>Les informations d&apos;accessibilité de ce type d&apos;itinéraire sont inconnues.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -7071,7 +7071,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.cycling" datatype="html">
         <source>This route is completely accessible for bicycle.</source>
-        <target>This route is completely accessible for bicycle.</target>
+        <target>Cet itinéraire est complètement accessible à vélo.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -7079,7 +7079,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.hiking" datatype="html">
         <source>This route is completely accessible for hiking.</source>
-        <target>This route is completely accessible for hiking.</target>
+        <target>Cet itinéraire est accessible pour la randonnée.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -7087,7 +7087,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.motorboat" datatype="html">
         <source>This route is completely accessible for motorboat.</source>
-        <target>This route is completely accessible for motorboat.</target>
+        <target>Cet itinéraire est accessible pour les bateaux à moteur.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">25</context>
@@ -7095,7 +7095,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.green.text.canoe" datatype="html">
         <source>This route is completely accessible for canoe.</source>
-        <target>This route is completely accessible for canoe.</target>
+        <target>Cet itinéraire est accessible pour les canoés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -7103,7 +7103,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.title" datatype="html">
         <source>Not OK - Not Accessible</source>
-        <target>Not OK - Not Accessible</target>
+        <target>Incorrect - Inaccessible</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -7111,7 +7111,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.cycling" datatype="html">
         <source>This route is not completely accessible for bicycle.</source>
-        <target>This route is not completely accessible for bicycle.</target>
+        <target>Cet itinéraire n&apos;est pas complètement accessible à vélo.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -7119,7 +7119,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.hiking" datatype="html">
         <source>This route is not completely accessible for hiking.</source>
-        <target>This route is not completely accessible for hiking.</target>
+        <target>Cet itinéraire n&apos;est pas complètement accessible pour la randonnée.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -7127,7 +7127,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.motorboat" datatype="html">
         <source>This route is not completely accessible for motorboat.</source>
-        <target>This route is not completely accessible for motorboat.</target>
+        <target>Cet itinéraire n&apos;est pas complètement accessible pour les bateaux à moteur.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">46</context>
@@ -7135,7 +7135,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.red.text.canoe" datatype="html">
         <source>This route is not completely accessible for canoe.</source>
-        <target>This route is not completely accessible for canoe.</target>
+        <target>Cet itinéraire n&apos;est pas complètement accessible pour les canoés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-accessible-indicator-dialog.component.ts</context>
           <context context-type="linenumber">50</context>
@@ -7155,7 +7155,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.title" datatype="html">
         <source>OK - Connection</source>
-        <target>OK - Connection</target>
+        <target>OK - Connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7163,7 +7163,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-connection-indicator.blue.text" datatype="html">
         <source>This route is a connection to another network.</source>
-        <target>This route is a connection to another network.</target>
+        <target>Cet itinéraire est une connexion avec un autre réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -7171,7 +7171,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-connection-indicator.gray.title" datatype="html">
         <source>OK - No connection</source>
-        <target>OK - No connection</target>
+        <target>OK - Pas de connexion</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -7179,7 +7179,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-connection-indicator.gray.text" datatype="html">
         <source>This route is not a connection to another network.</source>
-        <target>This route is not a connection to another network.</target>
+        <target>Cet itinéraire n&apos;est pas une connexion avec un autre réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -7211,7 +7211,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.text" datatype="html">
         <source>No issues found during route analysis.</source>
-        <target>No issues found during route analysis.</target>
+        <target>Aucun problème trouvé durant l&apos;analyse de l&apos;itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -7227,7 +7227,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.text" datatype="html">
         <source>Something is wrong with this route.</source>
-        <target>Something is wrong with this route.</target>
+        <target>Il y a un problème avec cet itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/indicators/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -7247,7 +7247,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.summary" datatype="html">
         <source>Summary</source>
-        <target>Summary</target>
+        <target>Résumé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7255,7 +7255,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.country" datatype="html">
         <source>Country</source>
-        <target>Country</target>
+        <target>Pays</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -7263,7 +7263,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.last-updated" datatype="html">
         <source>Last updated</source>
-        <target>Last updated</target>
+        <target>Dernière mise à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -7271,7 +7271,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.relation-last-updated" datatype="html">
         <source>Relation last updated</source>
-        <target>Relation last updated</target>
+        <target>Dernière relation mise à jour</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -7279,7 +7279,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-details.tags" datatype="html">
         <source>Tags</source>
-        <target>Tags</target>
+        <target>Étiquettes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/network-details.component.ts</context>
           <context context-type="linenumber">22</context>
@@ -7287,7 +7287,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-facts.checks-table.node" datatype="html">
         <source>Node</source>
-        <target>Node</target>
+        <target>Nœud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-checks.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7319,7 +7319,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-facts.node" datatype="html">
         <source>Node:</source>
-        <target>Node:</target>
+        <target>Nœud:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-nodes.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7327,7 +7327,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-facts.nodes" datatype="html">
         <source>Nodes:</source>
-        <target>Nodes:</target>
+        <target>Nœuds:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-nodes.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7335,7 +7335,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-facts.route" datatype="html">
         <source>Route:</source>
-        <target>Route:</target>
+        <target>Itinéraire:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-routes.component.ts</context>
           <context context-type="linenumber">2</context>
@@ -7343,7 +7343,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-facts.routes" datatype="html">
         <source>Routes:</source>
-        <target>Routes:</target>
+        <target>Itinéraires:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-routes.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -7359,7 +7359,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-facts.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target>Network not found</target>
+        <target>Itinéraire introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/_network-facts-page.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -7375,7 +7375,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-map.title" datatype="html">
         <source>Map</source>
-        <target>Map</target>
+        <target>Carte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/_network-map-page.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7383,7 +7383,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.title" datatype="html">
         <source>Nodes</source>
-        <target>Nodes</target>
+        <target>Nœuds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7391,7 +7391,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target>Network not found</target>
+        <target>Itinéraire introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -7407,7 +7407,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.title" datatype="html">
         <source>Routes</source>
-        <target>Routes</target>
+        <target>Itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7415,7 +7415,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.network-not-found" datatype="html">
         <source>Network not found</source>
-        <target>Network not found</target>
+        <target>Itinéraire introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">12</context>
@@ -7451,7 +7451,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="node.node-not-found" datatype="html">
         <source>Node not found</source>
-        <target>Node not found</target>
+        <target>Nœud introuvable</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -7501,7 +7501,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.name" datatype="html">
         <source>Name</source>
-        <target>Name</target>
+        <target>Nom</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">34</context>
@@ -7525,7 +7525,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-nodes.table.last-survey" datatype="html">
         <source>Last survey</source>
-        <target>Last survey</target>
+        <target>Dernier contrôle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">62</context>
@@ -7541,7 +7541,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.table.role" datatype="html">
         <source>Role</source>
-        <target>Role</target>
+        <target>Rôle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">40</context>
@@ -7549,7 +7549,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-routes.table.last-survey" datatype="html">
         <source>Last survey</source>
-        <target>Last survey</target>
+        <target>Dernier contrôle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">47</context>
@@ -7603,7 +7603,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="timeout.message-1" datatype="html">
         <source>Sorry.</source>
-        <target>Sorry.</target>
+        <target>Désolé.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -7611,7 +7611,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="timeout.message-2" datatype="html">
         <source>No response from editor within 5 seconds.</source>
-        <target>No response from editor within 5 seconds.</target>
+        <target>Aucune réponse de l&apos;éditeur endéans les dernières 5 secondes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7619,7 +7619,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="timeout.message-3" datatype="html">
         <source>Has the editor (JOSM) been started? Has remote control been enabled in the editor?</source>
-        <target>Has the editor (JOSM) been started? Has remote control been enabled in the editor?</target>
+        <target>L&apos;éditeur JOSM a-t-il été démarré ? Le contrôle à distance a-t-il été activé dans l&apos;éditeur ?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/link/timeout.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -7787,7 +7787,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip-zoom-in" datatype="html">
         <source>Zoom in for node or route details.</source>
-        <target>Zoom in for node or route details.</target>
+        <target>Zoomez pour avoir les détails du nœud ou de l&apos;itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -7795,7 +7795,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-map.side-bar.part-of-network" datatype="html">
         <source>Part of network</source>
-        <target>Part of network</target>
+        <target>Fait partie du réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -7803,7 +7803,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-map.side-bar.not-part-of-network" datatype="html">
         <source>Not part of network</source>
-        <target>Not part of network</target>
+        <target>Ne fait pas partie du réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -7811,7 +7811,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip1" datatype="html">
         <source>Click on node or route to go to detail page.</source>
-        <target>Click on node or route to go to detail page.</target>
+        <target>Cliquez sur le nœud ou l&apos;itinéraire pour aller sur la page de détails.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -7819,7 +7819,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip2" datatype="html">
         <source>Use ctrl-click to open the detail page in another browser tab.</source>
-        <target>Use ctrl-click to open the detail page in another browser tab.</target>
+        <target>Utilisez ctrl-clic pour ouvrir la page de détail dans un nouvel onglet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/map/network-map-sidebar.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -7867,7 +7867,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-control.title" datatype="html">
         <source>zoom to fit entire route</source>
-        <target>zoom to fit entire route</target>
+        <target>Zoomez pour voir l&apos;itinéraire complet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/route-control.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -7875,7 +7875,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="no-route-dialog.title" datatype="html">
         <source>No route</source>
-        <target>No route</target>
+        <target>Aucun itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -7885,9 +7885,8 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <source>You clicked the button to zoom to fit the complete route on the map,
         but there is no start- and endnode for the route defined yet. Please
         plan a route first.</source>
-        <target>You clicked the button to zoom to fit the complete route on the map,
-        but there is no start- and endnode for the route defined yet. Please
-        plan a route first.</target>
+        <target>Vous avez cliqué sur le bouton pour voir l&apos;itinéraire complet sur la carte, mais il n&apos;y a aucun nœud de départ et d&apos;arrivée défini pour le moment.
+Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8266,7 +8265,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="plan.follow-colour" datatype="html">
         <source>Follow colour</source>
-        <target>Follow colour</target>
+        <target>Suivez la couleur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-translations.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -8370,7 +8369,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="plan.output.route-name" datatype="html">
         <source>Route name</source>
-        <target>Route name</target>
+        <target>Nom de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -8378,7 +8377,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="plan.output.route-name-placeholder" datatype="html">
         <source>type route name</source>
-        <target>type route name</target>
+        <target>entrez le nom de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -8386,7 +8385,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="map.layer.gpx" datatype="html">
         <source>Your GPX trace</source>
-        <target>Your GPX trace</target>
+        <target>Votre trace GPX</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
           <context context-type="linenumber">39</context>
@@ -8394,7 +8393,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="planner.add-gpx_trace" datatype="html">
         <source>Add your GPX trace</source>
-        <target>Add your GPX trace</target>
+        <target>Ajouter votre trace GPX</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">23</context>
