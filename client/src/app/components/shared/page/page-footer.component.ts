@@ -6,6 +6,7 @@ import {Component} from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="footer links">
+      <!--
       <li>
         <a
           [href]="docsUrl()"
@@ -15,6 +16,7 @@ import {Component} from "@angular/core";
           documentation
         </a>
       </li>
+      -->
       <li>
         <a
           href="https://www.openstreetmap.org/message/new/vmarc"
@@ -59,7 +61,7 @@ import {Component} from "@angular/core";
 export class PageFooterComponent {
 
   docsUrl(): string {
-    return "docs/en.html";
+    return `https://wiki.openstreetmap.org/wiki/Knooppuntnet`;
   }
 
 }
