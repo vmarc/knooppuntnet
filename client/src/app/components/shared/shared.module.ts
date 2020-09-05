@@ -73,6 +73,7 @@ import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
 import {LinkNodeRefHeaderComponent} from "./link/link-node-ref-header";
+import {LinkRouteRefHeaderComponent} from "./link/link-route-ref-header";
 
 @NgModule({
   imports: [
@@ -144,6 +145,7 @@ import {LinkNodeRefHeaderComponent} from "./link/link-node-ref-header";
     LinkNodeRefComponent,
     LinkNodeRefHeaderComponent,
     LinkRouteRefComponent,
+    LinkRouteRefHeaderComponent,
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
@@ -210,6 +212,7 @@ import {LinkNodeRefHeaderComponent} from "./link/link-node-ref-header";
     LinkNodeRefComponent,
     LinkNodeRefHeaderComponent,
     LinkRouteRefComponent,
+    LinkRouteRefHeaderComponent,
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
