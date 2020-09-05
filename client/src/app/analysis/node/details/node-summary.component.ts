@@ -12,7 +12,7 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 
       <p>
         <kpn-osm-link-node [nodeId]="nodeInfo.id"></kpn-osm-link-node>
-        <span class="kpn-brackets">
+        <span class="kpn-brackets-link">
           <kpn-josm-node [nodeId]="nodeInfo.id"></kpn-josm-node>
         </span>
       </p>

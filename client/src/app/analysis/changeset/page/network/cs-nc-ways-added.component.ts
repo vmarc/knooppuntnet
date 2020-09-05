@@ -9,9 +9,8 @@ import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/netw
   template: `
     <div *ngIf="!wayIds().isEmpty()" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <!-- @@ Toegevoegde wegen -->
         <span i18n="@@change-set.network-changes.added-ways">Added ways</span>
-        <span class="kpn-thin">{{wayIds().size}}</span>
+        <span class="kpn-brackets kpn-thin">{{wayIds().size}}</span>
         <kpn-icon-investigate></kpn-icon-investigate>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">

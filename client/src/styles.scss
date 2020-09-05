@@ -273,13 +273,22 @@ table.kpn-bordered-table {
   }
 }
 
-.kpn-brackets a::before {
+.kpn-brackets::before {
+  content: "(";
+  padding-left: 5px;
+}
+
+.kpn-brackets::after {
+  content: ")";
+}
+
+.kpn-brackets-link a::before {
   content: "(";
   color: grey;
   padding-left: 5px;
 }
 
-.kpn-brackets a::after {
+.kpn-brackets-link a::after {
   content: ")";
   color: grey;
 }

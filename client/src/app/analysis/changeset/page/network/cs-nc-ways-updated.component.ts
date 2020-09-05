@@ -9,9 +9,8 @@ import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/netw
   template: `
     <div *ngIf="!wayIds().isEmpty()" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <!-- @@ Aangepaste wegen -->
         <span i18n="@@change-set.network-changes.updated-ways">Updated ways</span>
-        <span class="kpn-thin">{{wayIds().size}}</span>
+        <span class="kpn-brackets kpn-thin">{{wayIds().size}}</span>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-way *ngFor="let wayId of wayIds()" [wayId]="wayId" [title]="wayId.toString()"></kpn-osm-link-way>

@@ -9,8 +9,8 @@ import {RouteDiffsData} from "./route-diffs-data";
   template: `
     <div *ngIf="refs.length > 0" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
-        <span class="kpn-thick" i18n="@@route-diffs-removed.title">Removed routes</span>
-        <span>({{refs.length}})</span>
+        <span i18n="@@route-diffs-removed.title">Removed routes</span>
+        <span class="kpn-brackets kpn-thin">{{refs.length}}</span>
         <kpn-icon-investigate></kpn-icon-investigate>
       </div>
       <div class="kpn-level-2-body">

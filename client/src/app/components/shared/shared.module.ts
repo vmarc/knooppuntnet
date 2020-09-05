@@ -72,6 +72,7 @@ import {TagsTextComponent} from "./tags/tags-text.component";
 import {SituationOnComponent} from "./timestamp/situation-on.component";
 import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
+import {LinkNodeRefHeaderComponent} from "./link/link-node-ref-header";
 
 @NgModule({
   imports: [
@@ -141,6 +142,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     IconHappyComponent,
     IconInvestigateComponent,
     LinkNodeRefComponent,
+    LinkNodeRefHeaderComponent,
     LinkRouteRefComponent,
     NodeListComponent,
     PaginatorComponent,
@@ -206,6 +208,7 @@ import {ToolbarComponent} from "./toolbar/toolbar.component";
     IconHappyComponent,
     IconInvestigateComponent,
     LinkNodeRefComponent,
+    LinkNodeRefHeaderComponent,
     LinkRouteRefComponent,
     NodeListComponent,
     PaginatorComponent,

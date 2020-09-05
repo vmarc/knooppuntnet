@@ -8,7 +8,7 @@ import {List} from "immutable";
   template: `
     <div *ngFor="let elementId of elementIds">
       <kpn-osm-link-node [nodeId]="elementId" [title]="elementId.toString()"></kpn-osm-link-node>
-      <span class="kpn-brackets">
+      <span class="kpn-brackets-link">
         <kpn-josm-node [nodeId]="elementId"></kpn-josm-node>
       </span>
     </div>

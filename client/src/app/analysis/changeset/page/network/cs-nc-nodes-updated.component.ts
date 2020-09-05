@@ -9,9 +9,8 @@ import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/netw
   template: `
     <div *ngIf="!nodeIds().isEmpty()" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <!-- @@ Aangepaste nodes die geen knooppunten zijn -->
         <span i18n="@@change-set.network-changes.updated-nodes">Updated non-network nodes</span>
-        <span class="kpn-thin">{{nodeIds().size}}</span>
+        <span class="kpn-brackets kpn-thin">{{nodeIds().size}}</span>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-node

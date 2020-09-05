@@ -14,7 +14,7 @@ import {RouteInfo} from "../../../kpn/api/common/route/route-info";
 
       <p>
         <kpn-osm-link-relation [relationId]="route.summary.id"></kpn-osm-link-relation>
-        <span class="kpn-brackets">
+        <span class="kpn-brackets-link">
           <kpn-josm-relation [relationId]="route.summary.id"></kpn-josm-relation>
         </span>
       </p>

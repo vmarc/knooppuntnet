@@ -9,9 +9,8 @@ import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/netw
   template: `
     <div *ngIf="!relationIds().isEmpty()" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <!-- @@ Aangepaste relaties die geen route relatie zijn -->
         <span i18n="@@change-set.network-changes.updated-relations">Updated non-route relations</span>
-        <span class="kpn-thin">{{relationIds().size}}</span>
+        <span class="kpn-brackets kpn-thin">{{relationIds().size}}</span>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-relation
