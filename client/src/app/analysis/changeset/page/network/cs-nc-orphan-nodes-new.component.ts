@@ -11,8 +11,7 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-detail kpn-line">
       <span i18n="@@change-set.network-changes.orphan-nodes-introduced" class="kpn-label">
-        Following nodes that used to be part of this network have become orphan
-      </span>
+        Following nodes that used to be part of this network have become orphan</span>
       <div class="kpn-comma-list">
         <kpn-link-node-ref
           *ngFor="let ref of refs()"
