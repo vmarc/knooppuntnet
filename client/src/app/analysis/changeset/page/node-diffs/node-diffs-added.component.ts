@@ -29,7 +29,7 @@ import {NodeDiffsData} from "./node-diffs-data";
                     v{{nodeChangeInfo.after.version}}.
                   </div>
                   <div *ngSwitchDefault>
-                    <ng-container i18n="@@node-diffs-added.change-set-existing">Existing node</ng-container>
+                    <span i18n="@@node-diffs-added.change-set-existing" class="kpn-label">Existing node</span>
                     <kpn-meta-data [metaData]="nodeChangeInfo.after"></kpn-meta-data>
                   </div>
                 </ng-container>

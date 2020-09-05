@@ -26,9 +26,9 @@ import {NodeDiffsData} from "./node-diffs-data";
               <ng-container
                 *ngIf="nodeChangeInfo.before.version !== nodeChangeInfo.after.version"
                 i18n="@@node-diffs-updated.node-changed">
-                Node changed to v{{nodeChangeInfo.after.version}}.
+                Node changed to v{{nodeChangeInfo.after.version}}
               </ng-container>
-              <kpn-meta-data [metaData]="nodeChangeInfo.after"></kpn-meta-data>
+              <kpn-meta-data [metaData]="nodeChangeInfo.before"></kpn-meta-data>
               <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change-detail>
             </div>
           </div>

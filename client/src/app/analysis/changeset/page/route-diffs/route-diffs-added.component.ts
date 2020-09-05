@@ -31,7 +31,7 @@ import {RouteDiffsData} from "./route-diffs-data";
                   </ng-container>
                 </ng-container>
                 <ng-container *ngIf="ref.routeChangeInfo.after.changeSetId != data.changeSetId">
-                  <ng-container i18n="@@route-diffs-added.existing-relation">Existing relation</ng-container>
+                  <ng-container i18n="@@route-diffs-added.existing-relation" class="kpn-label">Existing relation</ng-container>
                   <kpn-meta-data [metaData]="ref.routeChangeInfo.after"></kpn-meta-data>
                 </ng-container>
               </div>
