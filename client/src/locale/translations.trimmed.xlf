@@ -93,25 +93,18 @@
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="footer.documentation">
-        <source>documentation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
       <trans-unit datatype="html" id="footer.contact">
         <source>contact</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="footer.issues">
         <source>issues</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="toolbar.title">
@@ -2174,7 +2167,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-change.way-update.changed-to">
-        <source>Changed to v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/>.</source>
+        <source>Changed to v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -3974,35 +3967,42 @@
         <source>achavi</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="change-set.header.osmcha">
+        <source>osmcha</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.timestamp">
         <source>Timestamp</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.replication-number">
         <source>Minute diff</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.comment">
         <source>Comment</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.analysis">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/change-set-header.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.analysis.happy">
@@ -4097,7 +4097,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node-diffs-updated.node-changed">
-        <source>Node changed to v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/>.</source>
+        <source>Node changed to v<x equiv-text="{{nodeChangeInfo.after.version}}" id="INTERPOLATION"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/node-diffs/node-diffs-updated.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -4153,10 +4153,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="version-change.relation-unchanged">
-        <source>Relation unchanged.</source>
+        <source>Relation unchanged</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/version-change.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-diffs.network-created">
@@ -4202,63 +4202,63 @@
         <source>Added non-network nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-added.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.removed-nodes">
         <source>Removed non-network nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-removed.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.updated-nodes">
         <source>Updated non-network nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-nodes-updated.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.added-ways">
         <source>Added ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-added.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.removed-ways">
         <source>Removed ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-removed.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.updated-ways">
         <source>Updated ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-ways-updated.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.added-relations">
         <source>Added non-route relations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-added.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.updated-relations">
         <source>Updated non-route relations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-updated.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.removed-relations">
         <source>Removed non-route relations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/changeset/page/network/cs-nc-relations-removed.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.changes">
