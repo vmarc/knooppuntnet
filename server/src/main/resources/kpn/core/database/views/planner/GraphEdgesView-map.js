@@ -1,4 +1,5 @@
 var emitPath = function (networkType, routeId, path, oneWay) {
+
   if (path) {
     var key = [
       networkType,
@@ -10,6 +11,7 @@ var emitPath = function (networkType, routeId, path, oneWay) {
       path.endNodeId,
       path.meters
     ];
+
     emit(key, value);
 
     if (!oneWay) {
@@ -23,6 +25,7 @@ var emitPath = function (networkType, routeId, path, oneWay) {
         path.startNodeId,
         path.meters
       ];
+
       emit(backwardKey, backwardValue);
     }
   }
@@ -45,11 +48,14 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   if (routeMap.forwardPath) {
     emitPath(networkType, routeId, routeMap.forwardPath, routeMap.forwardPath.oneWay);
     if (routeMap.forwardPath.oneWay === true) {
+      if (routeMap.backwardPath) {
+        emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
+      }
+    }
+  } else {
+    if (routeMap.backwardPath) {
       emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
     }
-  }
-  else {
-    emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
   }
 
   emitPaths(networkType, routeId, routeMap.startTentaclePaths);
