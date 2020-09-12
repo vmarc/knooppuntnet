@@ -67,8 +67,9 @@ object PoiGroupLandmarks {
     )
 
     poi("windmill", "windmill-2.png", 11, 11,
-      Seq("man_made" -> "windmill"),
+      Seq("man_made" -> "windmill", "building" -> "windmill"),
       tags => tags.has("man_made", "windmill")
+        || tags.has("building", "windmill")
     )
 
     poi("watermill", "watermill-2.png", 11, 11,

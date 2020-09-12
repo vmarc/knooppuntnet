@@ -64,6 +64,7 @@ object PoiGroupHikingBiking {
     poi("attraction", "star.png", 11, 11,
       Seq("tourism" -> "attraction"),
       tags => tags.has("tourism", "attraction")
+        && !tags.has("building", "windmill")
     )
 
     poi("defibrillator", "aed-2.png", 13, 14,
