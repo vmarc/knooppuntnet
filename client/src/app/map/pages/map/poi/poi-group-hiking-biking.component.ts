@@ -9,6 +9,7 @@ import {Component} from "@angular/core";
       <kpn-poi-config poiId="ebike-charging"></kpn-poi-config>
       <kpn-poi-config poiId="bicycle"></kpn-poi-config>
       <kpn-poi-config poiId="bicycle-rental"></kpn-poi-config>
+      <kpn-poi-config poiId="bicycle-rental-2"></kpn-poi-config>
       <kpn-poi-config poiId="bicycle-parking"></kpn-poi-config>
       <kpn-poi-config poiId="information"></kpn-poi-config>
       <kpn-poi-config poiId="bench"></kpn-poi-config>

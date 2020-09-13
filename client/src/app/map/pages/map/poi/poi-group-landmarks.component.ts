@@ -14,8 +14,10 @@ import {Component} from "@angular/core";
       <kpn-poi-config poiId="buddhist-temple"></kpn-poi-config>
       <kpn-poi-config poiId="hindu-temple"></kpn-poi-config>
       <kpn-poi-config poiId="synagogue"></kpn-poi-config>
+      <kpn-poi-config poiId="wayside-shrine"></kpn-poi-config>
       <kpn-poi-config poiId="heritage"></kpn-poi-config>
       <kpn-poi-config poiId="historic"></kpn-poi-config>
+      <kpn-poi-config poiId="boundary-stone"></kpn-poi-config>
       <kpn-poi-config poiId="castle"></kpn-poi-config>
       <kpn-poi-config poiId="monument-memorial"></kpn-poi-config>
       <kpn-poi-config poiId="statue"></kpn-poi-config>

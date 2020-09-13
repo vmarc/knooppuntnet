@@ -14,6 +14,7 @@ object PoiGroupLandmarks {
       Seq("amenity" -> "place_of_worship"),
       tags => tags.has("amenity", "place_of_worship")
         && tags.has("religion", "christian")
+        && !tags.has("historic", "wayside_shrine")
     )
 
     poi("mosque", "mosquee.png", 12, 13,
@@ -40,6 +41,11 @@ object PoiGroupLandmarks {
         && tags.has("religion", "jewish")
     )
 
+    poi("wayside-shrine", "cross-2.png", 15, 15,
+      Seq("historic" -> "wayside_shrine"),
+      tags => tags.has("historic", "wayside_shrine")
+    )
+
     poi("heritage", "worldheritagesite.png", 12, 14,
       Seq("heritage" -> ""),
       tags => tags.has("heritage")
@@ -48,7 +54,12 @@ object PoiGroupLandmarks {
     poi("historic", "star-3.png", 11, 11,
       Seq("historic" -> ""),
       tags => tags.has("historic")
-        && !tags.has("historic", "memorial", "monument", "statue", "castle")
+        && !tags.has("historic", "memorial", "monument", "statue", "castle",	"boundary_stone")
+    )
+
+    poi("boundary-stone", "modernmonument.png", 15, 15,
+      Seq("historic" -> ""),
+      tags => tags.has("historic",	"boundary_stone")
     )
 
     poi("castle", "castle-2.png", 11, 11,

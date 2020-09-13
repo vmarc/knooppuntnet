@@ -20,6 +20,12 @@ object PoiGroupHikingBiking {
       tags => tags.has("amenity", "bicycle_rental")
     )
 
+    poi("bicycle-rental-2", "bicycle_parking.png", 15, 15,
+      Seq("amenity" -> "bicycle_rental"),
+      tags => tags.has("amenity", "bicycle_rental")
+      && tags.has("network", "Velo", "Villo!")
+    )
+
     poi("bicycle-parking", "parking_bicycle-2.png", 13, 14,
       Seq("amenity" -> "bicycle_parking"),
       tags => tags.has("amenity", "bicycle_parking")

@@ -27,8 +27,10 @@ import {PoiService} from "../../../../services/poi.service";
       <span id="bicycle" i18n="@@poi.bicycle">Bicycle</span>
       <span id="bicycle-parking" i18n="@@poi.bicycle-parking">Bicycle parking</span>
       <span id="bicycle-rental" i18n="@@poi.bicycle-rental">Bicycle rental</span>
+      <span id="bicycle-rental-2" i18n="@@poi.bicycle-rental">Bicycle rental</span>
       <span id="biergarten" i18n="@@poi.biergarten">Biergarten</span>
       <span id="books-stationary" i18n="@@poi.books-stationary">Books/stationary</span>
+      <span id="boundary-stone" i18n="@@poi.boundary-stone">Boundary stone</span>
       <span id="buddhist-temple" i18n="@@poi.buddhist-temple">Buddhist temple</span>
       <span id="busstop" i18n="@@poi.busstop">Bus stop</span>
       <span id="butcher" i18n="@@poi.butcher">Butcher</span>
@@ -134,6 +136,7 @@ import {PoiService} from "../../../../services/poi.service";
       <span id="vineyard" i18n="@@poi.vineyard">Vineyard</span>
       <span id="volleyball" i18n="@@poi.volleyball">Volleyball</span>
       <span id="watermill" i18n="@@poi.watermill">Watermill</span>
+      <span id="wayside-shrine" i18n="@@poi.wayside-shrine">Wayside shrine</span>
       <span id="windmill" i18n="@@poi.windmill">Windmill</span>
       <span id="wine" i18n="@@poi.wine">Wine</span>
       <span id="zoo" i18n="@@poi.zoo">Zoo</span>
