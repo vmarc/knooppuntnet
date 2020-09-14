@@ -1180,7 +1180,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
         <source>Unexpected - Defined in network relation</source>
-        <target>Unexpected - Defined in network relation</target>
+        <target>Inattendu - Défini dans la relation de réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/network-indicator-dialog.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1280,8 +1280,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       <trans-unit id="node-connection-indicator.blue.text" datatype="html">
         <source>This node is a connection to another network. All routes to this
         node have the role _&quot;connection&quot;_ in the network relation.</source>
-        <target>This node is a connection to another network. All routes to this
-        node have the role _&quot;connection&quot;_ in the network relation.</target>
+        <target>Ce nœud est une connexion vers un autre réseau. Tous les itinéraires vers ce nœud ont le rôle _&quot;connexion&quot;_ dans la relation de réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/node-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -1393,8 +1392,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       <trans-unit id="role-connection-indicator.blue.text" datatype="html">
         <source>This node is a connection to another network.
         This node has role _&quot;connection&quot;_ in the network relation.</source>
-        <target>This node is a connection to another network.
-        This node has role _&quot;connection&quot;_ in the network relation.</target>
+        <target>Ce nœud est une connexion vers un autre réseau. Ce nœud ont le rôle _&quot;connexion&quot;_ dans la relation de réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -4268,8 +4266,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       <trans-unit id="stats.route-unused-segments.comment" datatype="html">
         <source>Number of routes where one or more of the ways (or part of ways) are not used in the
         forward or backward path or in one of the tentacles.</source>
-        <target>Number of routes where one or more of the ways (or part of ways) are not used in the
-        forward or backward path or in one of the tentacles.</target>
+        <target>Nombre d&apos;itinéraires où une ou plusieurs voie(s) (ou partie(s) de voie) ne sont pas utilisées dans le trajet aller ou retour ou dans l&apos;une des tentacules.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">209</context>
@@ -4285,7 +4282,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-node-missing-in-ways.comment" datatype="html">
         <source>Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.</source>
-        <target>Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.</target>
+        <target>Nombre d&apos;itinéraires pour lesquels le nœud de départ et/ou d&apos;arrivée est introuvable dans toutes les voies de l&apos;itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">220</context>
@@ -4301,7 +4298,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-redundant-nodes.comment" datatype="html">
         <source>Number of routes where the ways of the route contain extra nodes other than the start and end nodes.</source>
-        <target>Number of routes where the ways of the route contain extra nodes other than the start and end nodes.</target>
+        <target>Nombre d&apos;itinéraires où les voies de l&apos;itinéraire contiennent des nœuds additionnels autres que les nœuds de départ et d&apos;arrivée.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">230</context>
@@ -4317,7 +4314,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-without-ways.comment" datatype="html">
         <source>Routes without ways (a route is expected to have at least 1 way).</source>
-        <target>Routes without ways (a route is expected to have at least 1 way).</target>
+        <target>Itinéraires sans voie (un itinéraire doit contenir au moins une voie)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">241</context>
@@ -4333,7 +4330,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
         <source>Routes without a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.</source>
-        <target>Routes without a _&quot;note&quot;_ or _&quot;ref&quot;_ tag with the route name.</target>
+        <target>Itinéraires sans étiquette _&quot;note&quot;_ ou _&quot;ref&quot;_ avec le nom de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">252</context>
@@ -4349,7 +4346,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-tag-missing.comment" datatype="html">
         <source>The route relation does not contain a _&quot;route&quot;_ tag.</source>
-        <target>The route relation does not contain a _&quot;route&quot;_ tag.</target>
+        <target>La relation d&apos;itinéraire ne contient pas d&apos;étiquette _&quot;route&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">263</context>
@@ -4365,7 +4362,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-tag-invalid.comment" datatype="html">
         <source>The value in the _&quot;route&quot;_ tag in the route relation is unexpected.</source>
-        <target>The value in the _&quot;route&quot;_ tag in the route relation is unexpected.</target>
+        <target>La valeur de l&apos;étiquette _&quot;route&quot;_ dans la relation de réseau est inattendue.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">274</context>
@@ -4477,7 +4474,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.node-member-missing.comment" datatype="html">
         <source>Number of nodes that are not included in the network relation</source>
-        <target>Number of nodes that are not included in the network relation</target>
+        <target>Nombre de nœuds qui ne sont pas inclus dans la relation de réseau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/domain/statistic-configurations.component.ts</context>
           <context context-type="linenumber">347</context>
@@ -5280,9 +5277,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <source>This details of the changes history are available to registered OpenStreetMap contributors only, after
         <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
         .</source>
-        <target>This details of the changes history are available to registered OpenStreetMap contributors only, after
-        <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
-        .</target>
+        <target>Le détail de l&apos;historique de changement est uniquement disponible pour les contributeurs OpenStreetMap enregistrés, après <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -5314,7 +5309,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-facts.node-refs" datatype="html">
         <source>{VAR_PLURAL, plural, one {node} other {nodes} }</source>
-        <target>{VAR_PLURAL, plural, one {node} other {nodes} }</target>
+        <target>{VAR_PLURAL, plural, one {nœud} other {nœuds} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -5322,7 +5317,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-facts.route-refs" datatype="html">
         <source>{VAR_PLURAL, plural, one {route} other {routes} }</source>
-        <target>{VAR_PLURAL, plural, one {route} other {routes} }</target>
+        <target>{VAR_PLURAL, plural, one {itinéraire} other {itinéraires} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">27</context>
@@ -5330,7 +5325,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-facts.osm-node-refs" datatype="html">
         <source>{VAR_PLURAL, plural, one {node} other {nodes} }</source>
-        <target>{VAR_PLURAL, plural, one {node} other {nodes} }</target>
+        <target>{VAR_PLURAL, plural, one {nœud} other {nœuds} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -5338,7 +5333,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-facts.osm-way-refs" datatype="html">
         <source>{VAR_PLURAL, plural, one {way} other {ways} }</source>
-        <target>{VAR_PLURAL, plural, one {way} other {ways} }</target>
+        <target>{VAR_PLURAL, plural, one {voie} other {voies} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -5354,7 +5349,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-facts.in-networks" datatype="html">
         <source>{VAR_PLURAL, plural, one {in 1 network} other {in <x equiv-text="{{networkCount}}" id="INTERPOLATION"/> networks} }</source>
-        <target>{VAR_PLURAL, plural, one {in 1 network} other {in <x equiv-text="{{networkCount}}" id="INTERPOLATION"/> networks} }</target>
+        <target>{VAR_PLURAL, plural, one {dans 1 réseau} other {dans <x equiv-text="{{networkCount}}" id="INTERPOLATION"/> réseaux} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">32</context>
@@ -5370,7 +5365,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-facts.routes" datatype="html">
         <source>{VAR_PLURAL, plural, one {1 route} other {<x equiv-text="{{networkFactRefs.factRefs.size}}" id="INTERPOLATION"/> routes} }</source>
-        <target>{VAR_PLURAL, plural, one {1 route} other {<x equiv-text="{{networkFactRefs.factRefs.size}}" id="INTERPOLATION"/> routes} }</target>
+        <target>{VAR_PLURAL, plural, one {1 itinéraire} other {<x equiv-text="{{networkFactRefs.factRefs.size}}" id="INTERPOLATION"/> itinéraires} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">44</context>
@@ -6008,7 +6003,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="node-change.moved.note.1" datatype="html">
         <source>Note: Node position is shown as it was at</source>
-        <target>Note: Node position is shown as it was at</target>
+        <target>Note: la position du nœud est celle du</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -6016,7 +6011,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="node-change.moved.note.2" datatype="html">
         <source>, while the map background is shown as it is today.</source>
-        <target>, while the map background is shown as it is today.</target>
+        <target>, alors que le fond de carte montre la situation telle qu&apos;elle est aujourd&apos;hui.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/components/changes/node/node-change-moved.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -6191,8 +6186,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       <trans-unit id="node.network.integrity-check-failed" datatype="html">
         <source>Integritycheck failed: expected <x equiv-text="{{reference.nodeIntegrityCheck.expected}}" id="INTERPOLATION"/> routes,
             but found <x equiv-text="{{reference.nodeIntegrityCheck.actual}}" id="INTERPOLATION_1"/>.</source>
-        <target>Integritycheck failed: expected <x equiv-text="{{reference.nodeIntegrityCheck.expected}}" id="INTERPOLATION"/> routes,
-            but found <x equiv-text="{{reference.nodeIntegrityCheck.actual}}" id="INTERPOLATION_1"/>.</target>
+        <target>Contrôle d&apos;intégrité échoué: <x equiv-text="{{reference.nodeIntegrityCheck.expected}}" id="INTERPOLATION"/> itinéraire(s) attendu(s), mais <x equiv-text="{{reference.nodeIntegrityCheck.actual}}" id="INTERPOLATION_1"/> trouvé(s).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-network-reference.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -6200,7 +6194,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="node.network.integrity-check-ok" datatype="html">
         <source>Expected number of routes (<x equiv-text="{{reference.nodeIntegrityCheck.expected}}" id="INTERPOLATION"/>) matches the number of routes found.</source>
-        <target>Expected number of routes (<x equiv-text="{{reference.nodeIntegrityCheck.expected}}" id="INTERPOLATION"/>) matches the number of routes found.</target>
+        <target>Le nombre d&apos;itinéraires attendu (<x equiv-text="{{reference.nodeIntegrityCheck.expected}}" id="INTERPOLATION"/>) correspond au nombre d&apos;itinéraires trouvé.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-network-reference.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -6238,9 +6232,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <source>This node is not included as member in the networkrelation:
       the _&quot;<x equiv-text="{{expectedRouteRelationsTag}}" id="INTERPOLATION"/>&quot;_ tag does not apply
       to this netwerk.</source>
-        <target>This node is not included as member in the networkrelation:
-      the _&quot;<x equiv-text="{{expectedRouteRelationsTag}}" id="INTERPOLATION"/>&quot;_ tag does not apply
-      to this netwerk.</target>
+        <target>Ce nœud n&apos;est pas inclus comme membre dans la relation de réseau: l&apos;étiquette _&quot;<x equiv-text="{{expectedRouteRelationsTag}}" id="INTERPOLATION"/>&quot;_ ne s&apos;applique pas à ce réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-network-reference-statement.component.ts</context>
           <context context-type="linenumber">21</context>
@@ -6880,9 +6872,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <source>The details of network changes history are available to registered OpenStreetMap contributors only, after
         <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
         .</source>
-        <target>The details of network changes history are available to registered OpenStreetMap contributors only, after
-        <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
-        .</target>
+        <target>Le détail de l&apos;historique de changement du réseau est uniquement disponible pour les contributeurs OpenStreetMap enregistrés, après <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -7298,7 +7288,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="network-facts.checks-table.title" datatype="html">
         <source>node integrity check failures</source>
-        <target>node integrity check failures</target>
+        <target>contrôle d&apos;intégrité du nœud échoué</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/facts/network-fact-checks.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -7420,9 +7410,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <source>The details of the node changes history is available to registered OpenStreetMap contributors only, after
       <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
       .</source>
-        <target>The details of the node changes history is available to registered OpenStreetMap contributors only, after
-      <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
-      .</target>
+        <target>Le détail de l&apos;historique de changement du nœud est uniquement disponible pour les contributeurs OpenStreetMap enregistrés, après <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -7553,8 +7541,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       <trans-unit id="node.initial-value" datatype="html">
         <source>Oldest known state of node (at date of
         <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</source>
-        <target>Oldest known state of node (at date of
-        <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Dernier état connu du nœud (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/node-change.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -7563,8 +7550,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       <trans-unit id="route-change.initial-value" datatype="html">
         <source>Oldest known state of route (at date of
         <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</source>
-        <target>Oldest known state of route (at date of
-        <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Dernier état connu de l&apos;itinéraire (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/changes/route-change.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -7573,8 +7559,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       <trans-unit id="network-changes.network-initial-value" datatype="html">
         <source>Oldest known state of network (at date of
         <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</source>
-        <target>Oldest known state of network (at date of
-        <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Dernier état connu du réseau (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">16</context>
