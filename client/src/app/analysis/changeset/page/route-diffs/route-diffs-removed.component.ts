@@ -18,7 +18,7 @@ import {RouteDiffsData} from "./route-diffs-data";
           <div class="kpn-line kpn-level-3-header">
             <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements"></kpn-link-route-ref-header>
           </div>
-          <div class="kpn-level-3-body">
+          <div *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
             <kpn-meta-data [metaData]="ref.routeChangeInfo.before"></kpn-meta-data>
           </div>
         </div>
@@ -35,5 +35,4 @@ export class RouteDiffsRemovedComponent {
   ngOnInit(): void {
     this.refs = this.data.refDiffs.removed.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref))).toArray();
   }
-
 }

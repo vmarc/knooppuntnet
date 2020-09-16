@@ -1,18 +1,17 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
+import {Util} from "../../../../components/shared/util";
 
 @Component({
   selector: "kpn-node-change-detail",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <!-- facts -->
     <div *ngFor="let fact of nodeChangeInfo.facts" class="kpn-detail">
       <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
     </div>
 
-    <!-- connectionChanges -->
     <div *ngFor="let change of nodeChangeInfo.connectionChanges" class="kpn-detail">
       <span
         *ngIf="change.after"
@@ -25,7 +24,6 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
       <kpn-link-network-details [networkId]="change.ref.id" [title]="change.ref.name"></kpn-link-network-details>
     </div>
 
-    <!--roleConnectionChanges -->
     <div *ngFor="let change of nodeChangeInfo.roleConnectionChanges" class="kpn-detail">
       <span
         *ngIf="change.after"
@@ -38,7 +36,6 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
       <kpn-link-network-details [networkId]="change.ref.id" [title]="change.ref.name"></kpn-link-network-details>
     </div>
 
-    <!-- definedInNetworkChanges -->
     <div *ngFor="let change of nodeChangeInfo.definedInNetworkChanges" class="kpn-detail">
       <span
         *ngIf="change.after" i18n="@@node-change.added-to-network-relation"
@@ -71,7 +68,7 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
 
     <kpn-fact-diffs [factDiffs]="nodeChangeInfo.factDiffs"></kpn-fact-diffs>
 
-    <div *ngIf="nodeChangeInfo.tagDiffs" class="kpn-detail">
+    <div *ngIf="hasTagDiffs()" class="kpn-detail">
       <kpn-tag-diffs [tagDiffs]="nodeChangeInfo.tagDiffs"></kpn-tag-diffs>
     </div>
 
@@ -79,5 +76,11 @@ import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
   `
 })
 export class NodeChangeDetailComponent {
+
   @Input() nodeChangeInfo: NodeChangeInfo;
+
+  hasTagDiffs(): boolean {
+    return Util.hasTagDiffs(this.nodeChangeInfo.tagDiffs);
+  }
+
 }

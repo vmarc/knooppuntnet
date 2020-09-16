@@ -7,16 +7,12 @@ import {Ref} from "../../../kpn/api/common/common/ref";
   selector: "kpn-link-route-ref-header",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="kpn-line" *ngIf="known">
+    <div class="kpn-line">
       <div class="kpn-thick">
-        <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
+        <kpn-link-route *ngIf="known" [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
+        <span *ngIf="!known">{{ref.name}}</span>
       </div>
-      <kpn-osm-link-relation [relationId]="ref.id" [title]="ref.name"></kpn-osm-link-relation>
-    </div>
-    <div class="kpn-line" *ngIf="!known">
-      <div class="kpn-thick">
-        <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
-      </div>
+      <kpn-osm-link-relation [relationId]="ref.id" [title]="ref.id.toString()"></kpn-osm-link-relation>
     </div>
   `
 })

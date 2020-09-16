@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {Component, Input} from "@angular/core";
 import {NodeDiffsData} from "./node-diffs-data";
+import {MetaData} from "../../../../kpn/api/common/data/meta-data";
 
 @Component({
   selector: "kpn-node-diffs-added",
@@ -20,19 +21,17 @@ import {NodeDiffsData} from "./node-diffs-data";
           <div class="kpn-level-3-body">
             <div *ngFor="let nodeChangeInfo of data.findNodeChangeInfo(nodeRef)">
               <div *ngIf="nodeChangeInfo.after">
-                <ng-container [ngSwitch]="nodeChangeInfo.after.version">
-                  <div *ngSwitchCase="1">
-                    <ng-container i18n="@@node-diffs-added.change-set-created">Created in this changeset.</ng-container>
-                  </div>
-                  <div *ngSwitchCase="data.changeSetId">
-                    <ng-container i18n="@@node-diffs-added.change-set-updated">Updated in this changeset.</ng-container>
-                    v{{nodeChangeInfo.after.version}}.
-                  </div>
-                  <div *ngSwitchDefault>
-                    <span i18n="@@node-diffs-added.change-set-existing" class="kpn-label">Existing node</span>
-                    <kpn-meta-data [metaData]="nodeChangeInfo.after"></kpn-meta-data>
-                  </div>
-                </ng-container>
+                <div *ngIf="isCreated(nodeChangeInfo.after)">
+                  <ng-container i18n="@@node-diffs-added.change-set-created">Created in this changeset.</ng-container>
+                </div>
+                <div *ngIf="isUpdated(nodeChangeInfo.after)">
+                  <ng-container i18n="@@node-diffs-added.change-set-updated">Updated in this changeset.</ng-container>
+                  v{{nodeChangeInfo.after.version}}.
+                </div>
+                <div *ngIf="isExisting(nodeChangeInfo.after)">
+                  <span i18n="@@node-diffs-added.change-set-existing" class="kpn-label">Existing node</span>
+                  <kpn-meta-data [metaData]="nodeChangeInfo.after"></kpn-meta-data>
+                </div>
               </div>
             </div>
           </div>
@@ -49,4 +48,15 @@ export class NodeDiffsAddedComponent {
     return this.data.refDiffs.added;
   }
 
+  isCreated(metaData: MetaData): boolean {
+    return this.data.changeSetId == metaData.changeSetId && metaData.version == 1;
+  }
+
+  isUpdated(metaData: MetaData): boolean {
+    return this.data.changeSetId == metaData.changeSetId && metaData.version != 1;
+  }
+
+  isExisting(metaData: MetaData): boolean {
+    return !this.isCreated(metaData) && !this.isUpdated(metaData);
+  }
 }

@@ -9,15 +9,14 @@ import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
   selector: "kpn-tag-diffs",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="!!tagDiffs">
-      <div *ngIf="small$ | async; then small else large"></div>
-      <ng-template #small>
-        <kpn-tag-diffs-text *ngIf="small$ | async; else large" [tagDiffs]="tagDiffs"></kpn-tag-diffs-text>
-      </ng-template>
-      <ng-template #large>
-        <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs"></kpn-tag-diffs-table>
-      </ng-template>
-    </div>
+    <div *ngIf="small$ | async; then small else large"></div>
+    <ng-template #small>
+      <kpn-tag-diffs-text *ngIf="small$ | async; else large" [tagDiffs]="tagDiffs"></kpn-tag-diffs-text>
+    </ng-template>
+    <ng-template #large>
+      <div class="kpn-label" i18n="@@tag-diffs.title">Tag changes</div>
+      <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs"></kpn-tag-diffs-table>
+    </ng-template>
   `
 })
 export class TagDiffsComponent {

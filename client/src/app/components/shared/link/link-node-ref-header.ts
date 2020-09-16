@@ -7,16 +7,12 @@ import {Ref} from "../../../kpn/api/common/common/ref";
   selector: "kpn-link-node-ref-header",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="kpn-line" *ngIf="known">
+    <div class="kpn-line">
       <div class="kpn-thick">
-        <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
+        <kpn-link-node *ngIf="known" [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
+        <span *ngIf="!known">{{ref.name}}</span>
       </div>
-      <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.name"></kpn-osm-link-node>
-    </div>
-    <div class="kpn-line" *ngIf="!known">
-      <div class="kpn-thick">
-        <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.name"></kpn-osm-link-node>
-      </div>
+      <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.id.toString()"></kpn-osm-link-node>
     </div>
   `
 })
@@ -31,5 +27,3 @@ export class LinkNodeRefHeaderComponent implements OnInit {
     this.known = this.knownElements.nodeIds.contains(this.ref.id);
   }
 }
-
-

@@ -9,7 +9,7 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
   selector: "kpn-cs-nc-orphan-routes-new",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="!refs().isEmpty()" class="kpn-detail kpn-line">
+    <div *ngIf="!refs().isEmpty()" class="kpn-detail">
       <span i18n="@@change-set.network-changes.orphan-routes-introduced" class="kpn-label">
         Following routes that used to be part of this network have become orphan</span>
       <div class="kpn-comma-list">
@@ -19,7 +19,7 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
           [knownElements]="knownElements">
         </kpn-link-route-ref>
       </div>
-      <kpn-icon-investigate></kpn-icon-investigate>
+      <kpn-icon-investigate class="kpn-separate"></kpn-icon-investigate>
     </div>
   `
 })

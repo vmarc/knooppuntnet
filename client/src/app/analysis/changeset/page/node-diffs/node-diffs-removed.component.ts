@@ -32,5 +32,4 @@ export class NodeDiffsRemovedComponent {
   refs() {
     return this.data.refDiffs.removed;
   }
-
 }

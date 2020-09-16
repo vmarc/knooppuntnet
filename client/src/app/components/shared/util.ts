@@ -10,6 +10,7 @@ import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
 import {Country} from "../../kpn/api/custom/country";
 import {NetworkType} from "../../kpn/api/custom/network-type";
 import {Subset} from "../../kpn/api/custom/subset";
+import {TagDiffs} from "../../kpn/api/common/diff/tag-diffs";
 
 interface IPropertyGetter<T> {
   (): T;
@@ -127,6 +128,10 @@ export class Util {
   private static format(level: number): string {
     const integer = Math.floor(level);
     return (integer + 1000).toString().substr(1, 3);
+  }
+
+  static hasTagDiffs(tagDiffs: TagDiffs): boolean {
+    return tagDiffs && !(tagDiffs.mainTags.isEmpty() && tagDiffs.extraTags.isEmpty());
   }
 
 }

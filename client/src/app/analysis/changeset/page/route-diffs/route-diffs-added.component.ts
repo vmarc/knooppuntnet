@@ -19,7 +19,7 @@ import {RouteDiffsData} from "./route-diffs-data";
           <div class="kpn-line kpn-level-3-header">
             <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements"></kpn-link-route-ref-header>
           </div>
-          <div class="kpn-level-3-body">
+          <div  *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
             <div *ngIf="ref.routeChangeInfo.after">
               <div class="kpn-thin">
                 <ng-container *ngIf="ref.routeChangeInfo.after.changeSetId == data.changeSetId">

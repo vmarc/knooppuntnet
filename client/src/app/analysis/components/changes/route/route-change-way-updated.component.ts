@@ -4,6 +4,7 @@ import {List} from "immutable";
 import {RawNode} from "../../../../kpn/api/common/data/raw/raw-node";
 import {NodeUpdate} from "../../../../kpn/api/common/diff/node-update";
 import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
+import {Util} from "../../../../components/shared/util";
 
 @Component({
   selector: "kpn-route-change-way-updated",
@@ -47,7 +48,7 @@ import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
           <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)"></kpn-node-list>
         </div>
 
-        <div class="kpn-detail">
+        <div *ngIf="hasTagDiffs()" class="kpn-detail">
           <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs"></kpn-tag-diffs>
         </div>
       </div>
@@ -68,6 +69,10 @@ export class RouteChangeWayUpdatedComponent {
 
   isNewVersion(wayUpdate: WayUpdate): boolean {
     return wayUpdate.before.version !== wayUpdate.after.version;
+  }
+
+  hasTagDiffs(): boolean {
+    return Util.hasTagDiffs(this.wayUpdate.tagDiffs);
   }
 
 }

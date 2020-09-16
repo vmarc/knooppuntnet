@@ -138,10 +138,6 @@ import {List} from "immutable";
       width: 60px;
     }
 
-    .label::after {
-      content: ":";
-    }
-
     .important-value {
       display: inline-block;
     }

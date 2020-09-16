@@ -9,7 +9,7 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
   selector: "kpn-cs-nc-orphan-nodes-old",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="!refs().isEmpty()" class="kpn-detail kpn-line">
+    <div *ngIf="!refs().isEmpty()" class="kpn-detail">
       <span i18n="@@change-set.network-diffs.orphan-nodes-resolved" class="kpn-label">
         Orphan nodes added to this network</span>
       <div class="kpn-comma-list">
@@ -19,7 +19,7 @@ import {Ref} from "../../../../kpn/api/common/common/ref";
           [knownElements]="knownElements">
         </kpn-link-node-ref>
       </div>
-      <kpn-icon-happy></kpn-icon-happy>
+      <kpn-icon-happy class="kpn-separate"></kpn-icon-happy>
     </div>
   `
 })
