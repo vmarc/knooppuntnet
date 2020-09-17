@@ -6,7 +6,7 @@ import {Component} from "@angular/core";
   selector: "kpn-location-changes",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p>changes work-in-progress</p>
+    <p>work-in-progress - not implemented yet</p>
   `
 })
 export class LocationChangesComponent {

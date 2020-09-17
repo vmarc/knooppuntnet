@@ -72,7 +72,7 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
           title="Open in editor (like JOSM)"
           i18n-title="@@links.edit.tooltip"
           i18n="@@links.edit">
-          Edit
+          Load in JOSM editor
         </button>
       </p>
     </ng-template>

@@ -12,7 +12,7 @@ import {LocationEditPageService} from "./location-edit-page.service";
   template: `
     <kpn-location-page-header
       pageName="edit"
-      pageTitle="Edit"
+      pageTitle="Load in editor"
       i18n-pageTitle="@@location-edit.title">
     </kpn-location-page-header>
 
