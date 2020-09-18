@@ -16,9 +16,24 @@ class LocationEditPageBuilderImpl(locationRepository: LocationRepository) extend
 
   override def build(locationKey: LocationKey): Option[LocationEditPage] = {
 
-    val factCount = locationRepository.factCount(locationKey.networkType, locationKey.name)
-    val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(99999))
-    val routes = locationRepository.routes(locationKey, LocationRoutesParameters(99999))
+    val summary = locationRepository.summary(locationKey)
+
+    if (summary.nodeCount > maxNodes) {
+      Some(
+        LocationEditPage(
+          TimeInfoBuilder.timeInfo,
+          summary,
+          tooManyNodes = true,
+          maxNodes,
+          Bounds(),
+          Seq.empty,
+          Seq.empty
+        )
+      )
+    }
+    else {
+      val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(99999))
+      val routes = locationRepository.routes(locationKey, LocationRoutesParameters(99999))
 
       val bounds = Bounds.from(nodes, 0.15)
 
