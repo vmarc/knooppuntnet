@@ -9,6 +9,8 @@ export class LocationEditPage {
 
   constructor(readonly timeInfo: TimeInfo,
               readonly summary: LocationSummary,
+              readonly tooManyNodes: boolean,
+              readonly maxNodes: number,
               readonly bounds: Bounds,
               readonly nodeIds: List<number>,
               readonly routeIds: List<number>) {
@@ -21,6 +23,8 @@ export class LocationEditPage {
     return new LocationEditPage(
       TimeInfo.fromJSON(jsonObject.timeInfo),
       LocationSummary.fromJSON(jsonObject.summary),
+      jsonObject.tooManyNodes,
+      jsonObject.maxNodes,
       Bounds.fromJSON(jsonObject.bounds),
       jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
       jsonObject.routeIds ? List(jsonObject.routeIds) : List()

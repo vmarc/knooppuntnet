@@ -65,7 +65,7 @@ import {LocationService} from "../location.service";
           [link]="link('edit')"
           [active]="pageName === 'edit'"
           i18n="@@location-page.menu.edit">
-          Edit
+          Load in editor
         </kpn-page-menu-option>
 
       </kpn-page-menu>

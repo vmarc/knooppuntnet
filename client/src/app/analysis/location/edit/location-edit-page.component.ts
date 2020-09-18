@@ -16,12 +16,38 @@ import {LocationEditPageService} from "./location-edit-page.service";
       i18n-pageTitle="@@location-edit.title">
     </kpn-location-page-header>
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="response$ | async as response; else analyzing" class="kpn-spacer-above">
       <kpn-location-response [situationOnEnabled]="false" [response]="response">
-        <kpn-location-edit [page]="response.result"></kpn-location-edit>
+        <p *ngIf="response.result.tooManyNodes" class="too-many-nodes" i18n="@@location-edit.too-many-nodes.1">
+          This location contains more than the maximum number of nodes ({{response.result.maxNodes}})
+          that can be loaded in the editor in one go. This limitation is to avoid overloading the
+          OpenStreetMap api while loading the node and route details from JOSM.
+        </p>
+        <p *ngIf="response.result.tooManyNodes" class="too-many-nodes" i18n="@@location-edit.too-many-nodes.2">
+          Please select a location with less nodes.
+        </p>
+        <kpn-location-edit
+          *ngIf="!response.result.tooManyNodes"
+          [page]="response.result">
+        </kpn-location-edit>
       </kpn-location-response>
     </div>
+    <ng-template #analyzing>
+      <p class="analyzing" i18n="@@location-edit.analyzing">
+        Analyzing location nodes and routes, please wait...
+      </p>
+    </ng-template>
   `,
+  styles: [`
+    .too-many-nodes {
+      max-width: 40em;
+      font-style: italic;
+    }
+
+    .analyzing {
+      font-style: italic;
+    }
+  `],
   providers: [
     LocationEditPageService
   ]

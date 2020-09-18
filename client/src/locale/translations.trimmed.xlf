@@ -4940,7 +4940,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-page.menu.edit">
-        <source>Edit</source>
+        <source>Load in editor</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/components/location-page-header.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -5162,6 +5162,29 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-edit.too-many-nodes.1">
+        <source>This location contains more than the maximum number of nodes (<x equiv-text="{{response.result.maxNodes}}" id="INTERPOLATION"/>)
+          that can be loaded in the editor in one go. This limitation is to avoid overloading the
+          OpenStreetMap api while loading the node and route details from JOSM.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-edit.too-many-nodes.2">
+        <source>Please select a location with less nodes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-edit.analyzing">
+        <source>Analyzing location nodes and routes, please wait...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit-page.component.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-edit.nodes">
