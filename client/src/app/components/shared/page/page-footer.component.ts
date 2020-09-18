@@ -46,6 +46,13 @@ import {Component} from "@angular/core";
         </a>
       </li>
       -->
+      <li>
+        <a
+          routerLink="/settings"
+          i18n="@@footer.settings">
+          settings
+        </a>
+      </li>
     </ul>
   `,
   styles: [`

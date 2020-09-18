@@ -9,6 +9,7 @@ import {PdfService} from "../../pdf/pdf.service";
 import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {PlannerService} from "../planner.service";
 import {PlanUtil} from "../planner/plan/plan-util";
+import {SettingsService} from "../../services/settings.service";
 
 @Component({
   selector: "kpn-plan-output-dialog",
@@ -16,8 +17,10 @@ import {PlanUtil} from "../planner/plan/plan-util";
   template: `
     <kpn-dialog>
       <div mat-dialog-title>
-        <mat-icon svgIcon="output"></mat-icon>
-        <span i18n="@@plan.output.title">Output</span>
+        <div class="kpn-line">
+          <mat-icon svgIcon="output"></mat-icon>
+          <span i18n="@@plan.output.title">Output</span>
+        </div>
       </div>
       <div mat-dialog-content class="dialog-content">
 
@@ -51,6 +54,7 @@ import {PlanUtil} from "../planner/plan/plan-util";
         </button>
 
         <button
+          *ngIf="isInstructionsEnabled()"
           mat-stroked-button
           (click)="printInstructions()"
           title="Produce a route pdf with navigation instructions"
@@ -110,7 +114,8 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   @ViewChild("routename") input: ElementRef;
 
   constructor(private pdfService: PdfService,
-              private plannerService: PlannerService) {
+              private plannerService: PlannerService,
+              private settingsService: SettingsService) {
   }
 
   ngOnInit(): void {
@@ -140,6 +145,10 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   nameChanged(event): void {
     this.name = event.target.value;
+  }
+
+  isInstructionsEnabled(): boolean {
+    return this.settingsService.instructions;
   }
 
   private routeName(): string {

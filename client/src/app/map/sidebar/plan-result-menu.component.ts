@@ -2,6 +2,7 @@ import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {PlannerService} from "../planner.service";
+import {SettingsService} from "../../services/settings.service";
 
 @Component({
   selector: "kpn-plan-result-menu",
@@ -18,8 +19,9 @@ import {PlannerService} from "../planner.service";
           Detailed
         </a>
       </span>
-      <span>
-        <a [ngClass]="{'selected': mode === 'instructions'}" (click)="instructions($event)" i18n="@@planner.instructions">
+      <span *ngIf="isInstructionsEnabled()">
+        <a [ngClass]="{'selected': mode === 'instructions'}" (click)="instructions($event)"
+           i18n="@@planner.instructions">
           Instructions
         </a>
       </span>
@@ -50,7 +52,8 @@ export class PlanResultMenuComponent implements OnInit {
 
   mode$: BehaviorSubject<string>;
 
-  constructor(private plannerService: PlannerService) {
+  constructor(private plannerService: PlannerService,
+              private settingsService: SettingsService) {
   }
 
   ngOnInit(): void {
@@ -70,5 +73,9 @@ export class PlanResultMenuComponent implements OnInit {
   instructions(event) {
     this.mode$.next("instructions");
     event.stopPropagation();
+  }
+
+  isInstructionsEnabled(): boolean {
+    return this.settingsService.instructions;
   }
 }

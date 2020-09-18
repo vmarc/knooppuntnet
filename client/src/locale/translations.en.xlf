@@ -3715,7 +3715,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-result-menu.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.distance" datatype="html">
@@ -3992,6 +3992,64 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="breadcrumb.settings" datatype="html">
+        <source>Settings</source>
+        <target state="final">[Settings]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings-page.title" datatype="html">
+        <source>Settings</source>
+        <target state="final">[Settings]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings.directions" datatype="html">
+        <source>
+      Navigation instructions
+    </source>
+        <target state="final">[
+      Navigation instructions
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings.directions.comment.1" datatype="html">
+        <source>
+      You can enable this extra functionality in the planner to generate
+      a list with navigation instructions for the route you have planned.
+    </source>
+        <target state="final">[
+      You can enable this extra functionality in the planner to generate
+      a list with navigation instructions for the route you have planned.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings.directions.comment.2" datatype="html">
+        <source>
+      This functionality is still experimental and under development at
+      this moment and may not work completely ok yet. By default, this
+      functionality is not enabled.
+    </source>
+        <target state="final">[
+      This functionality is still experimental and under development at
+      this moment and may not work completely ok yet. By default, this
+      functionality is not enabled.
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.tourism" datatype="html">
@@ -7682,6 +7740,18 @@
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="footer.settings" datatype="html">
+        <source>
+          settings
+        </source>
+        <target state="final">[
+          settings
+        ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
         <source>knooppuntnet</source>
         <target>knooppuntnet</target>
@@ -7795,6 +7865,10 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/status/status/system-status-page.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -9747,7 +9821,7 @@
         <target>Output</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.route-name" datatype="html">
@@ -9755,7 +9829,7 @@
         <target state="final">[Route name]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.route-name-placeholder" datatype="html">
@@ -9763,7 +9837,7 @@
         <target state="final">[type route name]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf" datatype="html">
@@ -9775,7 +9849,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
@@ -9783,7 +9857,7 @@
         <target state="final">[Produce a route pdf file with compact node overview]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf" datatype="html">
@@ -9795,7 +9869,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
@@ -9803,7 +9877,7 @@
         <target state="final">[Produce a route pdf file with nodes in 'strip' format]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
@@ -9815,7 +9889,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
@@ -9823,7 +9897,7 @@
         <target state="final">[Produce a route pdf with navigation instructions]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx" datatype="html">
@@ -9835,7 +9909,7 @@
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.gpx.tooltip" datatype="html">
@@ -9843,7 +9917,7 @@
         <target state="final">[Produce a route file that can be used in a gps-device]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.clipboard" datatype="html">
@@ -9855,7 +9929,7 @@
         ]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.clipboard.tooltip" datatype="html">
@@ -9863,7 +9937,7 @@
         <target state="final">[Copy a link to this route to the clipboard (for example to keep for later or paste in email)]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/plan-output-dialog.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">

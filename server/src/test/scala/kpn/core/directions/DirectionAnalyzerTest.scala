@@ -5,16 +5,16 @@ import kpn.core.util.UnitTest
 
 class DirectionAnalyzerTest extends UnitTest {
 
-  val center = Latlon(51.22028773788435, 4.40149747542472)
+  private val center = Latlon(51.22028773788435, 4.40149747542472)
 
-  val north = Latlon(51.222242920428386, 4.401500893123836)
-  val northEast = Latlon(51.222236077220245, 4.404927468003483)
-  val east = Latlon(51.22030444098334, 4.404938404640651)
-  val southEast = Latlon(51.21828367093697, 4.404938404640651)
-  val south = Latlon(51.21829737137152, 4.401482427295517)
-  val southWest = Latlon(51.218269970498326, 4.398223309419409)
-  val west = Latlon(51.22030444098334, 4.398223309419409)
-  val northWest = Latlon(51.222229227589565, 4.398234246056577)
+  private val north = Latlon(51.222242920428386, 4.401500893123836)
+  private val northEast = Latlon(51.222236077220245, 4.404927468003483)
+  private val east = Latlon(51.22030444098334, 4.404938404640651)
+  private val southEast = Latlon(51.21828367093697, 4.404938404640651)
+  private val south = Latlon(51.21829737137152, 4.401482427295517)
+  private val southWest = Latlon(51.218269970498326, 4.398223309419409)
+  private val west = Latlon(51.22030444098334, 4.398223309419409)
+  private val northWest = Latlon(51.222229227589565, 4.398234246056577)
 
   test("calculateOrientation") {
     calculateOrientation(center, north) should equal((Math.PI / 2) +- 0.01)

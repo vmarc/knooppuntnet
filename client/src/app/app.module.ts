@@ -23,6 +23,7 @@ import {UserService} from "./services/user.service";
 import {SpinnerInterceptor} from "./spinner/spinner-interceptor";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
+import {SettingsService} from "./services/settings.service";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {SpinnerService} from "./spinner/spinner.service";
     MatIconRegistry,
     IconService,
     PoiService,
-    LogUpdateService
+    LogUpdateService,
+    SettingsService
   ],
   bootstrap: [
     AppComponent
