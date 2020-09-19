@@ -7,6 +7,31 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 
 object PoiLocation {
 
+  val austriaBoundingBox: Rectangle = {
+    boundsFrom(
+      new Tile(10, 0, 0),
+      new Tile(10, 0, 0)
+    )
+  }
+
+  val spainBoundingBox: Rectangle = {
+    boundsFrom(
+      new Tile(10, 0, 0),
+      new Tile(10, 0, 0)
+    )
+  }
+
+  val franceBoundingBox: Rectangle = { // TODO how to combine with belgium/netherlands?
+    boundsFrom(
+      new Tile(10, 0, 0),
+      new Tile(10, 0, 0)
+    )
+  }
+
+
+
+  // multiple germany bounding boxes
+
   val germanyBoundingBox: Rectangle = {
     boundsFrom(
       new Tile(10, 528, 340),
