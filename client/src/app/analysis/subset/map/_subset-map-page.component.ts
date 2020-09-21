@@ -16,6 +16,8 @@ import {Subset} from "../../../kpn/api/custom/subset";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.component";
+import {BehaviorSubject} from "rxjs";
+import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 @Component({
   selector: "kpn-subset-map-page",
@@ -23,6 +25,7 @@ import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.compo
   template: `
     <kpn-subset-page-header-block
       [subset]="subset$ | async"
+      [subsetInfo$]="subsetInfo$"
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@subset-map.title">
@@ -39,6 +42,7 @@ import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.compo
 export class SubsetMapPageComponent implements OnInit, OnDestroy {
 
   subset$: Observable<Subset>;
+  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetMapPage>>;
 
   bounds: Bounds;
@@ -54,13 +58,17 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subset$ = this.activatedRoute.params.pipe(map(params => Util.subsetInRoute(params)));
+    this.subset$ = this.activatedRoute.params.pipe(
+      map(params => Util.subsetInRoute(params)),
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+    );
     this.response$ = this.subset$.pipe(
       flatMap(subset => this.appService.subsetMap(subset).pipe(
         tap(response => {
           this.bounds = response.result.bounds;
           this.networks = response.result.networks;
           this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+          this.subsetInfo$.next(response.result.subsetInfo);
           response.result.networks.forEach(networkAttributes => {
             this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
           });

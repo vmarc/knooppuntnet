@@ -11,6 +11,8 @@ import {SubsetOrphanRoutesPage} from "../../../kpn/api/common/subset/subset-orph
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
+import {BehaviorSubject} from "rxjs";
+import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 @Component({
   selector: "kpn-subset-orphan-routes-page",
@@ -19,6 +21,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
     <kpn-subset-page-header-block
       [subset]="subset$ | async"
+      [subsetInfo$]="subsetInfo$"
       pageName="orphan-routes"
       pageTitle="Orphan routes"
       i18n-pageTitle="@@subset-orphan-routes.title">
@@ -44,6 +47,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 export class SubsetOrphanRoutesPageComponent implements OnInit {
 
   subset$: Observable<Subset>;
+  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanRoutesPage>>;
 
   routes: List<RouteSummary>;
@@ -54,12 +58,16 @@ export class SubsetOrphanRoutesPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subset$ = this.activatedRoute.params.pipe(map(params => Util.subsetInRoute(params)));
+    this.subset$ = this.activatedRoute.params.pipe(
+      map(params => Util.subsetInRoute(params)),
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+    );
     this.response$ = this.subset$.pipe(
       flatMap(subset => this.appService.subsetOrphanRoutes(subset).pipe(
         tap(response => {
           this.routes = response.result.rows;
           this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+          this.subsetInfo$.next(response.result.subsetInfo);
         })
       ))
     );

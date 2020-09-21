@@ -3,6 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {flatMap, map, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {Util} from "../../../components/shared/util";
@@ -11,6 +12,7 @@ import {SubsetOrphanNodesPage} from "../../../kpn/api/common/subset/subset-orpha
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
+import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 @Component({
   selector: "kpn-subset-orphan-nodes-page",
@@ -19,6 +21,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 
     <kpn-subset-page-header-block
       [subset]="subset$ | async"
+      [subsetInfo$]="subsetInfo$"
       pageName="orphan-nodes"
       pageTitle="Orphan nodes"
       i18n-pageTitle="@@subset-orphan-nodes.title">
@@ -44,6 +47,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
 export class SubsetOrphanNodesPageComponent implements OnInit {
 
   subset$: Observable<Subset>;
+  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanNodesPage>>;
 
   nodes: List<NodeInfo>;
@@ -54,12 +58,16 @@ export class SubsetOrphanNodesPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subset$ = this.activatedRoute.params.pipe(map(params => Util.subsetInRoute(params)));
+    this.subset$ = this.activatedRoute.params.pipe(
+      map(params => Util.subsetInRoute(params)),
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+    );
     this.response$ = this.subset$.pipe(
       flatMap(subset => this.appService.subsetOrphanNodes(subset).pipe(
         tap(response => {
           this.nodes = response.result.rows;
           this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+          this.subsetInfo$.next(response.result.subsetInfo);
         })
       ))
     );

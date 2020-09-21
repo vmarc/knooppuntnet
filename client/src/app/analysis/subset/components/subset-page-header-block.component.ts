@@ -5,6 +5,9 @@ import {I18nService} from "../../../i18n/i18n.service";
 import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {OnInit} from "@angular/core";
 
 @Component({
   selector: "kpn-subset-page-header-block",
@@ -43,7 +46,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       <kpn-page-menu-option
         [link]="link('networks')"
         [active]="pageName === 'networks'"
-        [elementCount]="networkCount()"
+        [elementCount]="networkCount$ | async"
         i18n="@@subset-page.menu.networks">
         Networks
       </kpn-page-menu-option>
@@ -51,7 +54,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       <kpn-page-menu-option
         [link]="link('facts')"
         [active]="pageName === 'facts'"
-        [elementCount]="factCount()"
+        [elementCount]="factCount$ | async"
         i18n="@@subset-page.menu.facts">
         Facts
       </kpn-page-menu-option>
@@ -59,7 +62,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       <kpn-page-menu-option
         [link]="link('orphan-nodes')"
         [active]="pageName === 'orphan-nodes'"
-        [elementCount]="orphanNodeCount()"
+        [elementCount]="orphanNodeCount$ | async"
         i18n="@@subset-page.menu.orphan-nodes">
         Orphan nodes
       </kpn-page-menu-option>
@@ -67,7 +70,7 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
       <kpn-page-menu-option
         [link]="link('orphan-routes')"
         [active]="pageName === 'orphan-routes'"
-        [elementCount]="orphanRouteCount()"
+        [elementCount]="orphanRouteCount$ | async"
         i18n="@@subset-page.menu.orphan-routes">
         Orphan routes
       </kpn-page-menu-option>
@@ -89,14 +92,27 @@ import {SubsetCacheService} from "../../../services/subset-cache.service";
     </kpn-page-menu>
   `
 })
-export class SubsetPageHeaderBlockComponent {
+export class SubsetPageHeaderBlockComponent implements OnInit {
 
   @Input() subset: Subset;
   @Input() pageName: string;
   @Input() pageTitle: string;
+  @Input() subsetInfo$: Observable<SubsetInfo>;
+
+  networkCount$: Observable<number>;
+  factCount$: Observable<number>;
+  orphanNodeCount$: Observable<number>;
+  orphanRouteCount$: Observable<number>;
 
   constructor(private subsetCacheService: SubsetCacheService,
               private i18nService: I18nService) {
+  }
+
+  ngOnInit(): void {
+    this.networkCount$ = this.subsetInfo$.pipe(map(subsetInfo => subsetInfo?.networkCount));
+    this.factCount$ = this.subsetInfo$.pipe(map(subsetInfo => subsetInfo?.factCount));
+    this.orphanNodeCount$ = this.subsetInfo$.pipe(map(subsetInfo => subsetInfo?.orphanNodeCount));
+    this.orphanRouteCount$ = this.subsetInfo$.pipe(map(subsetInfo => subsetInfo?.orphanRouteCount));
   }
 
   networkTypeLink(): string {
@@ -117,26 +133,6 @@ export class SubsetPageHeaderBlockComponent {
       return `/analysis/${networkType}/${country}/${targetPageName}`;
     }
     return "/";
-  }
-
-  networkCount() {
-    return Util.safeGet(() => this.subsetInfo().networkCount);
-  }
-
-  factCount() {
-    return Util.safeGet(() => this.subsetInfo().factCount);
-  }
-
-  orphanNodeCount() {
-    return Util.safeGet(() => this.subsetInfo().orphanNodeCount);
-  }
-
-  orphanRouteCount() {
-    return Util.safeGet(() => this.subsetInfo().orphanRouteCount);
-  }
-
-  subsetInfo(): SubsetInfo {
-    return this.subsetCacheService.getSubsetInfo(this.subset.key());
   }
 
   subsetName(): string {

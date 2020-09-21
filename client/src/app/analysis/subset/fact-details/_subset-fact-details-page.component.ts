@@ -10,6 +10,8 @@ import {SubsetFactDetailsPage} from "../../../kpn/api/common/subset/subset-fact-
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
+import {BehaviorSubject} from "rxjs";
+import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 class SubsetFact {
   constructor(readonly subset: Subset,
@@ -25,6 +27,7 @@ class SubsetFact {
     <div *ngIf="subsetFact$ | async as subsetFact">
       <kpn-subset-page-header-block
         [subset]="subsetFact.subset"
+        [subsetInfo$]="subsetInfo$"
         pageName="facts"
         pageTitle="Facts"
         i18n-pageTitle="@@subset-facts.title">
@@ -84,6 +87,7 @@ class SubsetFact {
 export class SubsetFactDetailsPageComponent implements OnInit {
 
   subsetFact$: Observable<SubsetFact>;
+  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetFactDetailsPage>>;
 
   factName: string;
@@ -97,7 +101,10 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subsetFact$ = this.activatedRoute.params.pipe(map(params => this.interpreteParams(params)));
+    this.subsetFact$ = this.activatedRoute.params.pipe(
+      map(params => this.interpreteParams(params)),
+      tap(subsetFact => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subsetFact.subset.key())))
+    );
     this.response$ = this.subsetFact$.pipe(
       flatMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset, subsetFact.factName).pipe(
         tap(response => {
@@ -105,6 +112,7 @@ export class SubsetFactDetailsPageComponent implements OnInit {
           this.refCount = this.calculateRefCount(response);
           this.networkCount = response.result.networks.size;
           this.subsetCacheService.setSubsetInfo(subsetFact.subset.key(), response.result.subsetInfo);
+          this.subsetInfo$.next(response.result.subsetInfo);
         })
       ))
     );

@@ -13,6 +13,8 @@ import {UserService} from "../../../services/user.service";
 import {Subscriptions} from "../../../util/Subscriptions";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {SubsetChangesService} from "./subset-changes.service";
+import {BehaviorSubject} from "rxjs";
+import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 @Component({
   selector: "kpn-subset-changes-page",
@@ -20,6 +22,7 @@ import {SubsetChangesService} from "./subset-changes.service";
 
     <kpn-subset-page-header-block
       [subset]="subset"
+      [subsetInfo$]="subsetInfo$"
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@subset-changes.title">
@@ -53,6 +56,7 @@ import {SubsetChangesService} from "./subset-changes.service";
 export class SubsetChangesPageComponent implements OnInit, OnDestroy {
 
   subset: Subset;
+  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response: ApiResponse<SubsetChangesPage>;
 
   private readonly subscriptions = new Subscriptions();
@@ -108,7 +112,8 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   private reload() {
     this.appService.subsetChanges(this.subset, this.parameters).subscribe(response => {
       this.response = response;
-      this.subsetCacheService.setSubsetInfo(this.subset.key(), this.response.result.subsetInfo);
+      this.subsetCacheService.setSubsetInfo(this.subset.key(), response.result.subsetInfo);
+      this.subsetInfo$.next(response.result.subsetInfo);
       this.subsetChangesService.setFilterOptions(
         ChangeFilterOptions.from(
           this.parameters,
