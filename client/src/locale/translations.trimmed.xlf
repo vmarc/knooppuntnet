@@ -5265,7 +5265,7 @@
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-changes.login-required">
@@ -5274,135 +5274,135 @@
         .</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.title">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.no-facts">
         <source>No facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.node-refs">
         <source>{VAR_PLURAL, plural, one {node} other {nodes} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.route-refs">
         <source>{VAR_PLURAL, plural, one {route} other {routes} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.osm-node-refs">
         <source>{VAR_PLURAL, plural, one {node} other {nodes} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.osm-way-refs">
         <source>{VAR_PLURAL, plural, one {way} other {ways} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.osm-relation-refs">
         <source>{VAR_PLURAL, plural, one {relation} other {relations} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.in-networks">
         <source>{VAR_PLURAL, plural, one {in 1 network} other {in <x equiv-text="{{networkCount}}" id="INTERPOLATION"/> networks} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.orphan-routes">
         <source>Orphan routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.routes">
         <source>{VAR_PLURAL, plural, one {1 route} other {<x equiv-text="{{networkFactRefs.factRefs.size}}" id="INTERPOLATION"/> routes} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-networks.title">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-networks.no-networks">
         <source>No networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-networks.summary">
-        <source>_There are __<x equiv-text="{{page.networkCount | integer}}" id="INTERPOLATION"/>__ networks, with a total of __<x equiv-text="{{page.nodeCount | integer}}" id="INTERPOLATION_1"/>__ nodes
-          and __<x equiv-text="{{page.routeCount | integer}}" id="INTERPOLATION_2"/>__ routes with an overall length of __<x equiv-text="{{page.km | integer}}" id="INTERPOLATION_3"/>__ km._</source>
+        <source>_There are __<x equiv-text="{{page.networkCount | integer}}" id="INTERPOLATION"/>__ networks, with a total of __<x equiv-text="{{page.nodeCount | integer}}" id="INTERPOLATION_1"/>__
+          nodes and __<x equiv-text="{{page.routeCount | integer}}" id="INTERPOLATION_2"/>__ routes with an overall length of __<x equiv-text="{{page.km | integer}}" id="INTERPOLATION_3"/>__ km._</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/networks/_subset-networks-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-nodes.title">
         <source>Orphan nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-nodes.no-routes">
         <source>No orphan nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-routes.title">
         <source>Orphan routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-routes.no-routes">
         <source>No orphan routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-networks.table.network">
@@ -5594,7 +5594,7 @@
         <source>Map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/subset/map/_subset-map-page.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.map">
