@@ -1,15 +1,20 @@
 import {Component} from "@angular/core";
 import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
-import {decrement, increment, reset} from "./counter.actions";
+import {decrement, increment, reset, set} from "./counter.actions";
 
 @Component({
   selector: "app-counter",
   template: `
     <div class="buttons">
-      <button id="increment" (click)="increment()">Increment</button>
-      <button id="decrement" (click)="decrement()">Decrement</button>
-      <button id="reset" (click)="reset()">Reset Counter</button>
+      <button (click)="increment()">Increment</button>
+      <button (click)="decrement()">Decrement</button>
+      <button (click)="reset()">Reset Counter</button>
+    </div>
+    <div class="buttons">
+      <button (click)="value(2)">2</button>
+      <button (click)="value(4)">4</button>
+      <button (click)="value(8)">8</button>
     </div>
 
     <div class="count">
@@ -20,6 +25,7 @@ import {decrement, increment, reset} from "./counter.actions";
 
     .buttons :not(:last-child) {
       margin-right: 10px;
+      margin-bottom: 10px;
     }
 
     .count {
@@ -47,6 +53,10 @@ export class CounterComponent {
 
   reset() {
     this.store.dispatch(reset());
+  }
+
+  value(value: number) {
+    this.store.dispatch(set({value: value}));
   }
 
 }
