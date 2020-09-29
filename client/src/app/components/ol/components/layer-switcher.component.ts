@@ -21,7 +21,7 @@ import {MapLayers} from "../layers/map-layers";
         </div>
         <ng-content></ng-content>
       </div>
-      <div *ngIf="!open" (mouseenter)="openPanel()" (mouseleave)="closePanel()">
+      <div [ngClass]="{'hidden': open}" (mouseenter)="openPanel()">
         <img [src]="'/assets/images/layers.png'" alt="layers">
       </div>
     </div>
@@ -38,6 +38,10 @@ import {MapLayers} from "../layers/map-layers";
       border-style: solid;
       border-width: 1px;
       border-radius: 5px;
+    }
+
+    .hidden {
+      display: none;
     }
   `]
 })
