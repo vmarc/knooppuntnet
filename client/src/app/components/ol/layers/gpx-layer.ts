@@ -3,8 +3,13 @@ import VectorSource from "ol/source/Vector";
 import {Stroke} from "ol/style";
 import {Style} from "ol/style";
 import {Layers} from "./layers";
+import {MapLayer} from "./map-layer";
+import {I18nService} from "../../../i18n/i18n.service";
 
 export class GpxLayer {
+
+  constructor(private i18nService: I18nService) {
+  }
 
   build(): VectorLayer {
 
@@ -20,7 +25,7 @@ export class GpxLayer {
       "MultiLineString": lineStyle
     };
 
-    return new VectorLayer({
+    const layer = new VectorLayer({
       zIndex: Layers.zIndexGpxLayer,
       source: new VectorSource({
         features: []
@@ -29,5 +34,9 @@ export class GpxLayer {
         return style[feature.getGeometry().getType()];
       }
     });
+
+    const gpxLayerName = this.i18nService.translation("@@map.layer.gpx");
+    layer.set("name", gpxLayerName);
+    return new MapLayer("gpx-layer", layer);
   }
 }
