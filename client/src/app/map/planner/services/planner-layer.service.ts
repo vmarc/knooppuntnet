@@ -6,7 +6,6 @@ import Map from "ol/Map";
 import {combineLatest, Observable, ReplaySubject} from "rxjs";
 import {filter, map, tap} from "rxjs/operators";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
-import {GpxLayer} from "../../../components/ol/layers/gpx-layer";
 import {MapLayer} from "../../../components/ol/layers/map-layer";
 import {MapLayerChange} from "../../../components/ol/layers/map-layer-change";
 import {MapLayers} from "../../../components/ol/layers/map-layers";
@@ -15,7 +14,6 @@ import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
 import {MapService} from "../../../components/ol/services/map.service";
 import {PoiTileLayerService} from "../../../components/ol/services/poi-tile-layer.service";
 import {MainMapStyle} from "../../../components/ol/style/main-map-style";
-import {I18nService} from "../../../i18n/i18n.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 import {MapMode} from "../../../components/ol/services/map-mode";
@@ -31,7 +29,9 @@ export class PlannerLayerService {
   private networkLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
   private osmLayer: MapLayer;
-  private tileNameLayer: MapLayer;
+  private backgroundLayer: MapLayer;
+  private tile256NameLayer: MapLayer;
+  private tile512NameLayer: MapLayer;
   private poiLayer: MapLayer;
   private gpxLayer: MapLayer;
   private bitmapLayersSurface: ImmutableMap<NetworkType, MapLayer>;
@@ -46,8 +46,7 @@ export class PlannerLayerService {
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
               private mapService: MapService,
-              private mapZoomService: MapZoomService,
-              private i18nService: I18nService) {
+              private mapZoomService: MapZoomService) {
 
     this.layerSwitcherMapLayers$ = this._layerSwitcherMapLayers$.asObservable();
 
@@ -99,23 +98,21 @@ export class PlannerLayerService {
 
   initializeLayers(): void {
 
-    this.osmLayer = this.mapLayerService.osmLayer("main-map");
-    this.tileNameLayer = this.mapLayerService.tileNameLayer();
+    this.osmLayer = this.mapLayerService.osmLayer();
+    this.backgroundLayer = this.mapLayerService.backgroundLayer("main-map");
+    this.tile256NameLayer = this.mapLayerService.tile256NameLayer();
+    this.tile512NameLayer = this.mapLayerService.tile512NameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
-
-    this.gpxVectorLayer = new GpxLayer().build();
-    const gpxLayerName = this.i18nService.translation("@@map.layer.gpx");
-    this.gpxVectorLayer.set("name", gpxLayerName);
-    this.gpxLayer = new MapLayer("gpx-layer", this.gpxVectorLayer);
+    this.gpxLayer = this.mapLayerService.gpxLayer();
 
     this.bitmapLayersSurface = this.buildBitmapLayers(MapMode.surface);
     this.bitmapLayersSurvey = this.buildBitmapLayers(MapMode.survey);
     this.bitmapLayersAnalysis = this.buildBitmapLayers(MapMode.analysis);
     this.vectorLayers = this.buildVectorLayers();
 
-    this.standardLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer, this.gpxLayer]);
+    this.standardLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer]);
 
-    this.allLayers = List([this.osmLayer, this.tileNameLayer, this.poiLayer, this.gpxLayer])
+    this.allLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer])
       .concat(this.bitmapLayersSurface.values())
       .concat(this.bitmapLayersSurvey.values())
       .concat(this.bitmapLayersAnalysis.values())

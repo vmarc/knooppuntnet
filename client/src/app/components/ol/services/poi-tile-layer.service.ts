@@ -26,13 +26,15 @@ export class PoiTileLayerService {
     const layer = this.mapLayerService.poiTileLayer();
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changed.subscribe(() => layer.changed());
-    layer.setVisible(false);
     return new MapLayer("poi-tile-layer", layer, this.applyMap(layer));
   }
 
   private applyMap(layer: BaseLayer) {
     return (map: Map) => {
       map.getView().on("change:resolution", () => this.zoom(layer, map.getView().getZoom()));
+      this.poiService.enabled.subscribe(enabled => {
+        this.updateLayerVisibility(layer, map.getView().getZoom());
+      });
       this.updateLayerVisibility(layer, map.getView().getZoom());
     };
   }
@@ -45,9 +47,8 @@ export class PoiTileLayerService {
 
   private updateLayerVisibility(layer: BaseLayer, zoomLevel: number) {
     const zoom = Math.round(zoomLevel);
-    layer.setVisible(zoom >= ZoomLevel.poiTileMinZoom);
+    layer.setVisible(zoom > ZoomLevel.poiTileMinZoom && this.poiService._enabled.getValue());
   }
-
 
   private poiStyleFunction(): StyleFunction {
     return (feature, resolution) => {

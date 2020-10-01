@@ -10,17 +10,19 @@ import {PoiService} from "../../../services/poi.service";
 
     <mat-checkbox
       (click)="$event.stopPropagation();"
-      [checked]="service.isEnabled()"
+      [checked]="isEnabled()"
       (change)="enabledChanged($event)"
       class="pois"
       i18n="@@poi.menu.pois">
       Points of interest
     </mat-checkbox>
     <div>
-      <kpn-poi-menu-option groupName="hiking-biking" i18n="@@poi.group.hiking-biking">Hiking/biking</kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="hiking-biking" i18n="@@poi.group.hiking-biking">Hiking/biking
+      </kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="landmarks" i18n="@@poi.group.landmarks">Landmarks</kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="restaurants" i18n="@@poi.group.restaurants">Restaurants</kpn-poi-menu-option>
-      <kpn-poi-menu-option groupName="places-to-stay" i18n="@@poi.group.places-to-stay">Places to stay</kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="places-to-stay" i18n="@@poi.group.places-to-stay">Places to stay
+      </kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="tourism" i18n="@@poi.group.tourism">Tourism</kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="amenity" i18n="@@poi.group.amenity">Amenity</kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops">Shops</kpn-poi-menu-option>
@@ -43,7 +45,11 @@ import {PoiService} from "../../../services/poi.service";
 })
 export class PoiMenuComponent {
 
-  constructor(public service: PoiService) {
+  constructor(private service: PoiService) {
+  }
+
+  isEnabled(): boolean {
+    return this.service.isEnabled();
   }
 
   enabledChanged(event: MatCheckboxChange): void {
