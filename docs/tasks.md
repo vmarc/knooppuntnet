@@ -7,8 +7,8 @@ Route planner
 - [x] issue #86 lower zoom level tiles with surface/surveydate info
 - [ ] better handling of "no route to destination"
 - [ ] show spinner while preparing pdf export from planner map
-- [ ] review/test directions (left and right still mixed up?), remove when not good enough
-- [ ] user guide
+- [x] review/test directions (left and right still mixed up?), remove when not good enough
+- [x] user guide
 
 
 Analysis client
@@ -20,9 +20,9 @@ Analysis client
 
 Client in general
 - [ ] better error handling when server not available
-- [ ] cleanup status pages or make private
-- [ ] German translation
-- [ ] French translation
+- [x] cleanup status pages or make private
+- [x] German translation
+- [x] French translation
 
 
 Server
@@ -30,8 +30,8 @@ Server
 - [x] investigate improved styling for background tiles?
 - [x] improve route analysis performance (indexes vs hash)
 - [x] further complete installation of new server and migration from old server
-- [ ] configure nginx to forward old url's to new url's
-- [ ] historical processing complete
+- [x] configure nginx to forward old url's to new url's
+- [x] historical processing complete
 
 
 Post 3.0.0 release

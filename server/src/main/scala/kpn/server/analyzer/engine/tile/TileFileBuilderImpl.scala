@@ -24,6 +24,9 @@ class TileFileBuilderImpl(
       buildRasterSurface(tileData)
       buildRasterSurvey(tileData)
       buildRasterAnalysis(tileData)
+      if (tileData.tile.z == ZoomLevel.poiTileMinZoom) {
+        buildVector(tileData)
+      }
     }
     else {
       buildVector(tileData)
