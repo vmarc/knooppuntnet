@@ -54,9 +54,9 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       })
     });
 
-    this.layers.applyMap(this.map);
     const view = this.map.getView();
     view.fit(Util.toExtent(this.page.bounds, 0.1));
+    this.layers.applyMap(this.map);
     this.mapZoomService.install(view);
     this.mapClickService.installOn(this.map);
 
@@ -76,10 +76,10 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer(this.mapId));
+    mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesTileLayer(this.page.networkSummary.networkType, this.page.nodeIds, this.page.routeIds));
     mapLayers = mapLayers.push(this.mapLayerService.networkNodesMarkerLayer(this.page.nodes));
-    // mapLayers = mapLayers.push(this.mapLayerService.tileNameLayer());
+    mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);
   }
 }

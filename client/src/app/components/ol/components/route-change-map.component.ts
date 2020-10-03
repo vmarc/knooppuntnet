@@ -59,7 +59,7 @@ export class RouteChangeMapComponent implements AfterViewInit {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.osmLayer(this.mapId));
+    mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
     mapLayers = mapLayers.push(this.mapLayerService.routeNodeLayer(this.nodes));
     mapLayers = mapLayers.concat(this.mapLayerService.routeChangeLayers(this.geometryDiff));
     return new MapLayers(mapLayers.filter(layer => layer !== null));

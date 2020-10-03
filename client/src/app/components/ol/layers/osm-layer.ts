@@ -16,6 +16,7 @@ export class OsmLayer {
 
     const osmLayerName = this.i18nService.translation("@@map.layer.osm");
     layer.set("name", osmLayerName);
+    layer.setVisible(false);
     return new MapLayer("osm-layer", layer);
   }
 

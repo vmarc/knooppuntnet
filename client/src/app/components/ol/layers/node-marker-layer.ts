@@ -5,6 +5,7 @@ import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
 import {MapLayer} from "./map-layer";
+import {Layers} from "./layers";
 
 export class NodeMarkerLayer {
 
@@ -18,6 +19,7 @@ export class NodeMarkerLayer {
 
     const source = new VectorSource();
     const layer = new VectorLayer({
+      zIndex: Layers.zIndexNetworkNodesLayer,
       source: source
     });
 

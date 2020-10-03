@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
-import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
 import {List} from "immutable";
 import {MapBrowserEvent} from "ol";
@@ -81,7 +80,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     return new MapLayers(
       List([
-        this.mapLayerService.osmLayer(this.mapId),
+        this.mapLayerService.backgroundLayer(this.mapId),
         this.mapLayerService.networkMarkerLayer(this.networks)
       ])
     );

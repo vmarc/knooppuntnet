@@ -6,6 +6,7 @@ import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
 import {MapLayer} from "./map-layer";
+import {Layers} from "./layers";
 
 export class NetworkNodesMarkerLayer {
 
@@ -26,6 +27,7 @@ export class NetworkNodesMarkerLayer {
 
     const source = new VectorSource();
     const layer = new VectorLayer({
+      zIndex: Layers.zIndexNetworkNodesLayer,
       source: source
     });
     const name = this.i18nService.translation("@@map.layer.nodes");

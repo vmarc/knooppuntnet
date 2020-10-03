@@ -25,9 +25,12 @@ import {PoiTileLayer} from "../layers/poi-tile-layer";
 import {RouteChangeLayers} from "../layers/route-change-layers";
 import {RouteLayers} from "../layers/route-layers";
 import {RouteNodesLayer} from "../layers/route-nodes-layer";
-import {TileDebugLayer} from "../layers/tile-debug-layer";
+import {TileDebug256Layer} from "../layers/tile-debug-256-layer";
 import {MapService} from "./map.service";
 import {MapMode} from "./map-mode";
+import {BackgroundLayer} from "../layers/background-layer";
+import {TileDebug512Layer} from "../layers/tile-debug-512-layer";
+import {GpxLayer} from "../layers/gpx-layer";
 
 @Injectable()
 export class MapLayerService {
@@ -36,12 +39,20 @@ export class MapLayerService {
               private mapService: MapService) {
   }
 
-  osmLayer(mapElementId: string): MapLayer {
-    return new OsmLayer(this.i18nService).build(mapElementId);
+  osmLayer(): MapLayer {
+    return new OsmLayer(this.i18nService).build();
   }
 
-  tileNameLayer(): MapLayer {
-    return new TileDebugLayer(this.i18nService).build();
+  backgroundLayer(mapElementId: string): MapLayer {
+    return new BackgroundLayer(this.i18nService).build(mapElementId);
+  }
+
+  tile256NameLayer(): MapLayer {
+    return new TileDebug256Layer(this.i18nService).build();
+  }
+
+  tile512NameLayer(): MapLayer {
+    return new TileDebug512Layer(this.i18nService).build();
   }
 
   mainMapLayer(): MapLayer {
@@ -108,4 +119,9 @@ export class MapLayerService {
   poiTileLayer(): VectorTileLayer {
     return new PoiTileLayer().build();
   }
+
+  gpxLayer(): MapLayer {
+    return new GpxLayer(this.i18nService).build();
+  }
+
 }
