@@ -31,6 +31,7 @@ import {MapMode} from "./map-mode";
 import {BackgroundLayer} from "../layers/background-layer";
 import {TileDebug512Layer} from "../layers/tile-debug-512-layer";
 import {GpxLayer} from "../layers/gpx-layer";
+import {PoiAreasLayer} from "../layers/poi-areas-layer";
 
 @Injectable()
 export class MapLayerService {
@@ -122,6 +123,10 @@ export class MapLayerService {
 
   gpxLayer(): MapLayer {
     return new GpxLayer(this.i18nService).build();
+  }
+
+  poiAreasLayer(geoJson: string): MapLayer {
+    return new PoiAreasLayer(this.i18nService).build(geoJson);
   }
 
 }

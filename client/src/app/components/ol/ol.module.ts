@@ -19,15 +19,16 @@ import {MapPositionService} from "./services/map-position.service";
 import {MapService} from "./services/map.service";
 import {PoiTileLayerService} from "./services/poi-tile-layer.service";
 import {MatDialogModule} from "@angular/material/dialog";
+import {PoiMapComponent} from "./components/poi-map.component";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatCheckboxModule,
-        MatProgressBarModule,
-        SharedModule,
-        MatDialogModule
-    ],
+  imports: [
+    CommonModule,
+    MatCheckboxModule,
+    MatProgressBarModule,
+    SharedModule,
+    MatDialogModule
+  ],
   declarations: [
     NodeMapComponent,
     NodeMovedMapComponent,
@@ -38,7 +39,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     LocationMapComponent,
     NetworkMapComponent,
     RouteControlComponent,
-    NoRouteDialogComponent
+    NoRouteDialogComponent,
+    PoiMapComponent
   ],
   exports: [
     NodeMapComponent,
@@ -49,7 +51,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     LocationMapComponent,
     LayerSwitcherComponent,
     NetworkMapComponent,
-    RouteControlComponent
+    RouteControlComponent,
+    PoiMapComponent
   ],
   providers: [
     MapService,

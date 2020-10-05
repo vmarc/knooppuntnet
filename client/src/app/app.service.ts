@@ -346,6 +346,11 @@ export class AppService {
     );
   }
 
+  public poiAreas(): Observable<ApiResponse<string>> {
+    const url = "/json-api/poi/areas";
+    return this.http.get(url);
+  }
+
   public storeChangesParameters(parameters: ChangesParameters): void {
     this.browserStorageService.set("impact", parameters.impact.toString());
     this.browserStorageService.itemsPerPage = parameters.itemsPerPage;

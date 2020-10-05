@@ -57,6 +57,7 @@ import {I18nService} from "./i18n.service";
       <span id="@@map.layer.inline-skating" i18n="@@map.layer.inline-skating">Inline Skating</span>
       <span id="@@map.layer.nodes-and-routes" i18n="@@map.layer.nodes-and-routes">Nodes and routes</span>
       <span id="@@map.layer.boundary" i18n="@@map.layer.boundary">Boundary</span>
+      <span id="@@map.layer.poi-areas" i18n="@@map.layer.poi-areas">Poi areas</span>
 
       <span id="@@filter.all" i18n="@@filter.all">all</span>
       <span id="@@filter.yes" i18n="@@filter.yes">yes</span>

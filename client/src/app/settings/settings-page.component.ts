@@ -26,12 +26,23 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
       this moment and may not work completely ok yet. By default, this
       functionality is not enabled.
     </p>
+
+    <p class="spacer">
+      <a
+        routerLink="/poi/areas"
+        i18n="@@settings.poi-areas">
+        Point of interest areas
+      </a>
+    </p>
   `,
   styles: [`
     .comment {
       margin-left: 1em;
       max-width: 40em;
       font-style: italic;
+    }
+    .spacer {
+      margin-top: 50px;
     }
   `]
 })

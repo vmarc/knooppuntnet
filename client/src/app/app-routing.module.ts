@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import("./settings/settings.module").then(m => m.SettingsModule)
   },
   {
+    path: "poi",
+    loadChildren: () => import("./poi/poi.module").then(m => m.PoiModule)
+  },
+  {
     path: "",
     loadChildren: () => import("./base/base.module").then(m => m.BaseModule)
   }
