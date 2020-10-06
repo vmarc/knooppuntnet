@@ -104,6 +104,7 @@ export class PlannerLayerService {
     this.tile512NameLayer = this.mapLayerService.tile512NameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
     this.gpxLayer = this.mapLayerService.gpxLayer();
+    this.gpxVectorLayer = this.gpxLayer.layer as VectorLayer;
 
     this.bitmapLayersSurface = this.buildBitmapLayers(MapMode.surface);
     this.bitmapLayersSurvey = this.buildBitmapLayers(MapMode.survey);
