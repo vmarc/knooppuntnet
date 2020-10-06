@@ -8770,20 +8770,12 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="planner.legend.survey" datatype="html">
-        <source>Most recent survey</source>
-        <target>Most recent survey</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="planner.legend.survey.last-month" datatype="html">
         <source>Last month</source>
         <target>Last month</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-half-month" datatype="html">
@@ -8791,7 +8783,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Last half year</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-year" datatype="html">
@@ -8799,7 +8791,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Last year</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-two-years" datatype="html">
@@ -8807,7 +8799,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Last two years</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.more-than-tow-years-ago" datatype="html">
@@ -8815,7 +8807,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>More than two years ago</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.unknown" datatype="html">
@@ -8823,7 +8815,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Unknown</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.analysis.ok" datatype="html">
@@ -8831,7 +8823,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>OK</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.review" datatype="html">
@@ -8839,7 +8831,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Review</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.start-node" datatype="html">
@@ -8847,7 +8839,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Start node icon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.start-node" datatype="html">
@@ -8855,7 +8847,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Start node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.end-node" datatype="html">
@@ -8863,7 +8855,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>End node icon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.end-node" datatype="html">
@@ -8871,7 +8863,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>End node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.via-node" datatype="html">
@@ -8879,7 +8871,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Via node icon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.via-node" datatype="html">
@@ -8887,7 +8879,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Via node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.poi-areas" datatype="html">
