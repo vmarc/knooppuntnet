@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {MapService} from "../../components/ol/services/map.service";
 
-/* tslint:disable:template-i18n work-in-progress */
 @Component({
   selector: "kpn-map-sidebar-legend",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,74 +15,80 @@ import {MapService} from "../../components/ol/services/map.service";
         <div *ngIf="mapMode === 'surface'" class="legend">
           <div>
             <kpn-legend-icon color="rgb(0, 200, 0)"></kpn-legend-icon>
-            <span>Paved</span>
+            <span i18n="@@planner.legend.paved">Paved</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(255, 165, 0)"></kpn-legend-icon>
-            <span>Unpaved</span>
+            <span i18n="@@planner.legend.unpaved">Unpaved</span>
           </div>
         </div>
         <div *ngIf="mapMode === 'survey'" class="legend">
-          <div class="title">
-            Most recent survey
-          </div>
           <div>
             <kpn-legend-icon color="rgb(0, 255, 0)"></kpn-legend-icon>
-            <span>Last month</span>
+            <span i18n="@@planner.legend.survey.last-month">Last month</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(0, 200, 0)"></kpn-legend-icon>
-            <span>Last half year</span>
+            <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(0, 150, 0)"></kpn-legend-icon>
-            <span>Last year</span>
+            <span i18n="@@planner.legend.survey.last-year">Last year</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(0, 90, 0)"></kpn-legend-icon>
-            <span>Last two years</span>
+            <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(150, 0, 0)"></kpn-legend-icon>
-            <span>More than two years ago</span>
+            <span i18n="@@planner.legend.survey.more-than-tow-years-ago">More than two years ago</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(200, 200, 200)"></kpn-legend-icon>
-            <span>Unknown</span>
+            <span i18n="@@planner.legend.survey.unknown">Unknown</span>
           </div>
         </div>
         <div *ngIf="mapMode === 'analysis'" class="legend">
           <div>
             <kpn-legend-icon color="rgb(0, 200, 0)"></kpn-legend-icon>
-            <span>TODO</span>
+            <span i18n="@@planner.legend.analysis.ok">OK</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(150, 0, 0)"></kpn-legend-icon>
-            <span>TODO</span>
-          </div>
-          <div>
-            <span>etc.</span>
+            <span i18n="@@planner.legend.survey.review">Review</span>
           </div>
         </div>
 
         <div class="legend">
           <div>
             <div class="legend-icon">
-              <img src="/assets/images/marker-icon-blue.png" class="image" alt="Start node icon">
+              <img
+                src="/assets/images/marker-icon-blue.png"
+                class="image"
+                alt="Start node icon"
+                i18n-alt="@@planner.legend.marker.icon.start-node">
             </div>
-            <span>Start node</span>
+            <span i18n="@@planner.legend.marker.start-node">Start node</span>
           </div>
           <div>
             <div class="legend-icon">
-              <img src="/assets/images/marker-icon-green.png" class="image" alt="End node icon">
+              <img
+                src="/assets/images/marker-icon-green.png"
+                class="image"
+                alt="End node icon"
+                i18n-alt="@@planner.legend.marker.icon.end-node">
             </div>
-            <span>End node</span>
+            <span i18n="@@planner.legend.marker.end-node">End node</span>
           </div>
           <div>
             <div class="legend-icon">
-              <img src="/assets/images/marker-icon-orange.png" class="image" alt="Via node icon">
+              <img
+                src="/assets/images/marker-icon-orange.png"
+                class="image"
+                alt="Via node icon"
+                i18n-alt="@@planner.legend.marker.icon.via-node">
             </div>
-            <span>Via node</span>
+            <span i18n="@@planner.legend.marker.via-node">Via node</span>
           </div>
         </div>
       </div>
