@@ -5,7 +5,7 @@
 
     <groupId>knooppuntnet</groupId>
     <artifactId>server</artifactId>
-    <version>3.0.0-SNAPSHOT-alpha-35</version>
+    <version>3.0.0-SNAPSHOT-alpha-36</version>
     <name>server</name>
     <description>knooppuntnet server</description>
 
@@ -170,6 +170,12 @@
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
+            <version>22.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-geojson</artifactId>
             <version>22.2</version>
         </dependency>
 
