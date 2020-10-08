@@ -8,7 +8,7 @@ import {LocationNodesPageService} from "./location-nodes-page.service";
   selector: "kpn-location-nodes",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="page.nodes.isEmpty()" i18n="@@location-nodes.no-nodes">
+    <div *ngIf="page.nodes.isEmpty()" class="kpn-spacer-above" i18n="@@location-nodes.no-nodes">
       No nodes
     </div>
     <kpn-location-node-table

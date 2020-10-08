@@ -12,11 +12,12 @@ import {Facts} from "../../fact/facts";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <div *ngIf="locationFacts.isEmpty()" i18n="@@location-facts.none" class="none">
-      None
+    <div *ngIf="locationFacts.isEmpty()" class="kpn-line kpn-spacer-above">
+      <span i18n="@@location-facts.none">No facts</span>
+      <kpn-icon-happy></kpn-icon-happy>
     </div>
 
-    <kpn-items>
+    <kpn-items *ngIf="!locationFacts.isEmpty()">
       <kpn-item *ngFor="let locationFact of locationFacts; let i=index" [index]="i">
         <div class="kpn-line">
           <kpn-fact-name [factName]="locationFact.fact.name"></kpn-fact-name>
@@ -44,10 +45,6 @@ import {Facts} from "../../fact/facts";
     </kpn-items>
   `,
   styles: [`
-
-    .none {
-      padding-top: 50px;
-    }
 
     .description {
       max-width: 60em;

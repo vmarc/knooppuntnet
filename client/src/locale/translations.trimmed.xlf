@@ -42,10 +42,6 @@
           <context context-type="sourcefile">app/components/shared/link/josm-link.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="osm-link.oath-clients">
         <source>list of authorised applications</source>
@@ -5119,10 +5115,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-facts.none">
-        <source>None</source>
+        <source>No facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="analysis.location.search-by-name">
@@ -5146,11 +5142,18 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="location.selector.warning-selection-mandatory">
+        <source>Please make a selection in the field above</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/selection/location-selector.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="location.selector.button">
         <source>Location overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location.tree.expand-all">
@@ -5275,7 +5278,14 @@
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="links.edit.tooltip">
+      <trans-unit datatype="html" id="location-edit.submit">
+        <source>Load in JOSM editor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-edit.submit.tooltip">
         <source>Open in editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>

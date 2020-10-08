@@ -20,12 +20,15 @@ import {LocationOption} from "./location-option";
           i18n-placeholder="@@location.selector.input.place-holder"
           matInput [formControl]="locationInputControl"
           [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayName">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayName" (opened)="resetWarning()">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option.locationName}} <span class="node-count">({{option.nodeCount}})</span>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <p *ngIf="warningSelectionMandatory" class="warning" i18n="@@location.selector.warning-selection-mandatory">
+        Please make a selection in the field above
+      </p>
       <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">Location overview</button>
     </form>
   `,
@@ -52,6 +55,7 @@ export class LocationSelectorComponent implements OnInit {
   @Input() locationNode: LocationNode;
   @Output() selection = new EventEmitter<string>();
 
+  warningSelectionMandatory = false;
   options: List<LocationOption> = List();
   locationInputControl = new FormControl();
   filteredOptions: Observable<LocationOption[]>;
@@ -61,7 +65,7 @@ export class LocationSelectorComponent implements OnInit {
     this.formGroup = this.fb.group({locationInputControl: this.locationInputControl});
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.options = this.toOptions(this.locationNode);
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(""),
@@ -70,8 +74,18 @@ export class LocationSelectorComponent implements OnInit {
     );
   }
 
-  select() {
-    this.selection.emit(this.locationInputControl.value.locationName);
+  select(): void {
+    if (this.locationInputControl.value) {
+      this.selection.emit(this.locationInputControl.value.locationName);
+      this.warningSelectionMandatory = false;
+    }
+    else {
+      this.warningSelectionMandatory = true;
+    }
+  }
+
+  resetWarning(): void {
+    this.warningSelectionMandatory = false;
   }
 
   displayName(locationOption?: LocationOption): string | undefined {

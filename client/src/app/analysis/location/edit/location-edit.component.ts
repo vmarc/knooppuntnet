@@ -70,8 +70,8 @@ import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-p
           color="primary"
           (click)="edit()"
           title="Open in editor (like JOSM)"
-          i18n-title="@@links.edit.tooltip"
-          i18n="@@links.edit">
+          i18n-title="@@location-edit.submit.tooltip"
+          i18n="@@location-edit.submit">
           Load in JOSM editor
         </button>
       </p>
