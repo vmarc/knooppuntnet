@@ -25,10 +25,6 @@
           <context context-type="sourcefile">app/components/shared/link/josm-link.component.ts</context>
           <context context-type="linenumber">2</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
         <source>list of authorised applications</source>
@@ -4606,11 +4602,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.none" datatype="html">
-        <source>None</source>
+        <source>No facts</source>
         <target>Geen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
@@ -6728,7 +6724,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Locatie-overzicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.expand-all" datatype="html">
@@ -8148,14 +8144,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="links.edit.tooltip" datatype="html">
-        <source>Open in editor (like JOSM)</source>
-        <target>Open in een editor (bijvoorbeeld JOSM)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">55</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location-edit.ready" datatype="html">
         <source>Ready</source>
         <target>Klaar</target>
@@ -8869,6 +8857,30 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <context-group purpose="location">
           <context context-type="sourcefile">app/poi/areas/poi-areas-page.component.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location.selector.warning-selection-mandatory" datatype="html">
+        <source>Please make a selection in the field above</source>
+        <target>Maak een selectie in het veld hierboven</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/selection/location-selector.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.submit" datatype="html">
+        <source>Load in JOSM editor</source>
+        <target>Laad in JOSM editor</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-edit.submit.tooltip" datatype="html">
+        <source>Open in editor (like JOSM)</source>
+        <target>Open in een editor (bijvoorbeeld JOSM)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
     </body>
