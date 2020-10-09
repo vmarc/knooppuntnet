@@ -24,6 +24,10 @@ import {SpinnerInterceptor} from "./spinner/spinner-interceptor";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
 import {SettingsService} from "./services/settings.service";
+import * as Sentry from "@sentry/angular";
+import {ErrorHandler} from "@angular/core";
+import {Router} from "@angular/router";
+import {APP_INITIALIZER} from "@angular/core";
 
 @NgModule({
   declarations: [
@@ -44,6 +48,25 @@ import {SettingsService} from "./services/settings.service";
     ServiceWorkerModule.register("ngsw-worker.js", {enabled: environment.production})
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true,
+        dialogOptions: {
+          title: "It looks like we’re having issues in knooppuntnet."
+        }
+      }),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
     {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},
     UserService,
     AppService,

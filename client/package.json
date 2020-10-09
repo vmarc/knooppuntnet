@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.0.0-alpha-49",
+  "version": "3.0.0-alpha-50",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -31,6 +31,8 @@
     "@angular/platform-browser-dynamic": "^10.1.2",
     "@angular/router": "^10.1.2",
     "@angular/service-worker": "^10.1.2",
+    "@sentry/angular": "^5.25.0",
+    "@sentry/tracing": "^5.25.0",
     "@swimlane/ngx-charts": "^14.0.0",
     "@types/file-saver": "^2.0.0",
     "angular-qrious": "9.0.0",
