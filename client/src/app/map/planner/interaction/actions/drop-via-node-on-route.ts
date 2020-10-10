@@ -18,10 +18,10 @@ export class DropViaNodeOnRoute {
   constructor(private readonly context: PlannerContext) {
   }
 
-  drop(nodeDrag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
+  drop(dragFlag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
 
     const legs = this.context.plan.legs;
-    const legIndex2 = legs.findIndex(leg => leg.sourceNode.featureId === nodeDrag.oldNode.featureId);
+    const legIndex2 = legs.findIndex(leg => leg.sourceNode.featureId === dragFlag.oldNode.featureId);
     const oldLeg1 = legs.get(legIndex2 - 1);
     const oldLeg2 = legs.get(legIndex2);
 
@@ -31,7 +31,13 @@ export class DropViaNodeOnRoute {
           map(newLeg2 => new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2))
         )
       )
-    ).subscribe(command => this.context.execute(command));
+    ).subscribe(
+      command => this.context.execute(command),
+      error => {
+        this.context.resetDragFlag(dragFlag);
+        this.context.errorDialog(error);
+      }
+    );
   }
 
   private buildNewLeg1(oldLeg1: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): Observable<PlanLeg> {

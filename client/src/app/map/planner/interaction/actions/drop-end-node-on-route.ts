@@ -18,15 +18,21 @@ export class DropEndNodeOnRoute {
   constructor(private readonly context: PlannerContext) {
   }
 
-  drop(nodeDrag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
+  drop(dragFlag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
     const oldLeg = this.context.plan.legs.last(null);
     if (oldLeg) {
-      this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe(newLeg => {
-        if (newLeg) {
-          const command = new PlannerCommandReplaceLeg(oldLeg, newLeg);
-          this.context.execute(command);
+      this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe(
+        newLeg => {
+          if (newLeg) {
+            const command = new PlannerCommandReplaceLeg(oldLeg, newLeg);
+            this.context.execute(command);
+          }
+        },
+        error => {
+          this.context.resetDragFlag(dragFlag);
+          this.context.errorDialog(error);
         }
-      });
+      );
     }
   }
 

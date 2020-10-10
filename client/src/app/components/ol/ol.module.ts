@@ -20,6 +20,7 @@ import {MapService} from "./services/map.service";
 import {PoiTileLayerService} from "./services/poi-tile-layer.service";
 import {MatDialogModule} from "@angular/material/dialog";
 import {PoiMapComponent} from "./components/poi-map.component";
+import {LegNotFoundDialogComponent} from "./components/leg-not-found-dialog";
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import {PoiMapComponent} from "./components/poi-map.component";
     NetworkMapComponent,
     RouteControlComponent,
     NoRouteDialogComponent,
+    LegNotFoundDialogComponent,
     PoiMapComponent
   ],
   exports: [

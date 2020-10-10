@@ -8,13 +8,14 @@ import {PlanFlag} from "../../plan/plan-flag";
 import {PlanFlagType} from "../../plan/plan-flag-type";
 import {PlanLeg} from "../../plan/plan-leg";
 import {PlanUtil} from "../../plan/plan-util";
+import {PlannerDragFlag} from "../planner-drag-flag";
 
 export class MoveNodeViaPointToNode {
 
   constructor(private readonly context: PlannerContext) {
   }
 
-  move(viaNode: PlanNode, legIndex1: number): void {
+  move(dragFlag: PlannerDragFlag, viaNode: PlanNode, legIndex1: number): void {
 
     const legs = this.context.plan.legs;
 
@@ -26,7 +27,13 @@ export class MoveNodeViaPointToNode {
 
     combineLatest([newLeg1$, newLeg2$]).pipe(
       map(([newLeg1, newLeg2]) => new PlannerCommandMoveViaPoint(oldLeg1, oldLeg2, newLeg1, newLeg2))
-    ).subscribe(command => this.context.execute(command));
+    ).subscribe(
+      command => this.context.execute(command),
+      error => {
+        this.context.resetDragFlag(dragFlag);
+        this.context.errorDialog(error)
+      }
+    );
   }
 
   private buildNewLeg1(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {

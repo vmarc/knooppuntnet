@@ -14,6 +14,8 @@ import {PlannerOverlay} from "./planner-overlay";
 import {PlannerRouteLayer} from "./planner-route-layer";
 import {PlanLegData} from "./plan-leg-data";
 import {PlannerHighlighter} from "./planner-highlighter";
+import {Subject} from "rxjs";
+import {PlannerDragFlag} from "../interaction/planner-drag-flag";
 
 export class NetworkTypeData {
   constructor(public plan: Plan,
@@ -25,9 +27,11 @@ export class PlannerContext {
 
   plan$: Observable<Plan>;
   networkType$: Observable<NetworkType>;
+  error$: Observable<Error>;
 
   private _plan$: BehaviorSubject<Plan>;
   private _networkType$: BehaviorSubject<NetworkType>;
+  private _error$ = new Subject<Error>();
   private _commandStack$: BehaviorSubject<PlannerCommandStack>;
   private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
 
@@ -42,6 +46,7 @@ export class PlannerContext {
     this.plan$ = this._plan$.asObservable();
     this._networkType$ = new BehaviorSubject<NetworkType>(null);
     this.networkType$ = this._networkType$.asObservable();
+    this.error$ = this._error$.asObservable();
     this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
   }
 
@@ -116,6 +121,14 @@ export class PlannerContext {
 
   debug(message: string): void {
     console.log("PLANNER: " + message);
+  }
+
+  errorDialog(error: Error): void {
+    this._error$.next(error);
+  }
+
+  resetDragFlag(dragFlag: PlannerDragFlag): void {
+    this.markerLayer.updateFlagCoordinate(dragFlag.planFlag.featureId, dragFlag.oldNode.coordinate);
   }
 
 }

@@ -24,7 +24,10 @@ export class DropLegOnNode {
             map(newLeg2 => new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2))
           )
         )
-      ).subscribe(command => this.context.execute(command))
+      ).subscribe(
+        command => this.context.execute(command),
+        error => this.context.errorDialog(error)
+      );
     }
   }
 

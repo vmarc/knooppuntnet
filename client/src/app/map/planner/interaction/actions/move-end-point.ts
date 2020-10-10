@@ -6,13 +6,14 @@ import {LegEnd} from "../../../../kpn/api/common/planner/leg-end";
 import {Observable} from "rxjs";
 import {PlanLeg} from "../../plan/plan-leg";
 import {map} from "rxjs/operators";
+import {PlannerDragFlag} from "../planner-drag-flag";
 
 export class MoveEndPoint {
 
   constructor(private readonly context: PlannerContext) {
   }
 
-  move(sinkNode: PlanNode): void {
+  move(dragFlag: PlannerDragFlag, sinkNode: PlanNode): void {
     const oldLeg = this.context.plan.legs.last(null);
     if (oldLeg) {
       const sourceNode = oldLeg.sourceNode;
@@ -20,7 +21,13 @@ export class MoveEndPoint {
       const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
       this.buildLeg(source, sink).pipe(
         map(newLeg => new PlannerCommandReplaceLeg(oldLeg, newLeg))
-      ).subscribe(command => this.context.execute(command));
+      ).subscribe(
+        command => this.context.execute(command),
+        error => {
+          this.context.resetDragFlag(dragFlag);
+          this.context.errorDialog(error)
+        }
+      );
     }
   }
 

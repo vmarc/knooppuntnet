@@ -22,7 +22,10 @@ export class DropViaRouteOnRoute {
           map(newLeg2 => new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2))
         )
       )
-    ).subscribe(command => this.context.execute(command));
+    ).subscribe(
+      command => this.context.execute(command),
+      error => this.context.errorDialog(error)
+    );
   }
 
   private buildViaRouteLeg(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): Observable<PlanLeg> {

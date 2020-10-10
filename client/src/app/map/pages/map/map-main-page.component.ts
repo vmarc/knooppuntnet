@@ -29,6 +29,7 @@ import {PlannerCommandAddPlan} from "../../planner/commands/planner-command-add-
 import {PlannerInteraction} from "../../planner/interaction/planner-interaction";
 import {PlanBuilder} from "../../planner/plan/plan-builder";
 import {PlannerLayerService} from "../../planner/services/planner-layer.service";
+import {LegNotFoundDialogComponent} from "../../../components/ol/components/leg-not-found-dialog";
 
 @Component({
   selector: "kpn-map-main-page",
@@ -76,6 +77,11 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               private dialog: MatDialog,
               private appService: AppService) {
     this.pageService.showFooter = false;
+    this.plannerService.context.error$.subscribe(error => {
+      if ("leg-not-found" == error.message) {
+        this.dialog.open(LegNotFoundDialogComponent, {maxWidth: 600});
+      }
+    });
   }
 
   ngOnInit(): void {

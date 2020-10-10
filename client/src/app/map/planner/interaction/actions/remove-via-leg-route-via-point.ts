@@ -19,10 +19,13 @@ export class RemoveViaLegRouteViaPoint {
     });
 
     if (oldLeg2 != null) {
-      this.buildNewLeg(oldLeg1.sourceNode, oldLeg2.sinkNode, oldLeg2.sinkFlag).subscribe(newLeg => {
-        const command = new PlannerCommandRemoveViaPoint(oldLeg1, oldLeg2, newLeg);
-        this.context.execute(command);
-      });
+      this.buildNewLeg(oldLeg1.sourceNode, oldLeg2.sinkNode, oldLeg2.sinkFlag).subscribe(
+        newLeg => {
+          const command = new PlannerCommandRemoveViaPoint(oldLeg1, oldLeg2, newLeg);
+          this.context.execute(command);
+        },
+        error => this.context.errorDialog(error)
+      );
     }
   }
 

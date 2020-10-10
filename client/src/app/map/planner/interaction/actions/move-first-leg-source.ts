@@ -5,31 +5,38 @@ import {PlannerCommandMoveFirstLegSource} from "../../commands/planner-command-m
 import {PlannerContext} from "../../context/planner-context";
 import {PlanLeg} from "../../plan/plan-leg";
 import {PlanUtil} from "../../plan/plan-util";
+import {PlannerDragFlag} from "../planner-drag-flag";
 
 export class MoveFirstLegSource {
 
   constructor(private readonly context: PlannerContext) {
   }
 
-  move(newSourceNode: PlanNode): void {
+  move(dragFlag: PlannerDragFlag, newSourceNode: PlanNode): void {
     const oldLeg = this.context.plan.legs.first(null);
     if (oldLeg) {
-      this.buildNewLeg(newSourceNode, oldLeg).subscribe(newLeg => {
-        if (newLeg) {
-          const oldSourceNode = this.context.plan.sourceNode;
-          const oldSourceFlag = this.context.plan.sourceFlag;
-          const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
-          const command = new PlannerCommandMoveFirstLegSource(
-            oldLeg,
-            oldSourceNode,
-            oldSourceFlag,
-            newLeg,
-            newSourceNode,
-            newSourceFlag
-          );
-          this.context.execute(command);
+      this.buildNewLeg(newSourceNode, oldLeg).subscribe(
+        newLeg => {
+          if (newLeg) {
+            const oldSourceNode = this.context.plan.sourceNode;
+            const oldSourceFlag = this.context.plan.sourceFlag;
+            const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
+            const command = new PlannerCommandMoveFirstLegSource(
+              oldLeg,
+              oldSourceNode,
+              oldSourceFlag,
+              newLeg,
+              newSourceNode,
+              newSourceFlag
+            );
+            this.context.execute(command);
+          }
+        },
+        error => {
+          this.context.resetDragFlag(dragFlag);
+          this.context.errorDialog(error)
         }
-      });
+      );
     }
   }
 

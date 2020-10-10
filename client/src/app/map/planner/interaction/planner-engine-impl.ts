@@ -280,7 +280,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (networkNodeFeature != null) {
         const oldLeg = this.context.plan.legs.find(leg => leg.featureId === this.viaRouteDrag.legFeatureId);
         if (oldLeg) {
-          new MoveRouteViaPointToNode(this.context).move(networkNodeFeature.node, oldLeg);
+          new MoveRouteViaPointToNode(this.context).viaRouteDragMove(this.viaRouteDrag, networkNodeFeature.node, oldLeg);
         }
         this.dragCancel();
         return true;
@@ -392,10 +392,10 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (this.context.plan.legs.isEmpty()) {
         this.moveStartPoint(targetNode);
       } else {
-        new MoveFirstLegSource(this.context).move(targetNode);
+        new MoveFirstLegSource(this.context).move(this.nodeDrag, targetNode);
       }
     } else if (this.nodeDrag.planFlag.flagType === PlanFlagType.End) {
-      new MoveEndPoint(this.context).move(targetNode);
+      new MoveEndPoint(this.context).move(this.nodeDrag, targetNode);
     } else {
       this.moveViaPoint(targetNode);
     }
@@ -410,11 +410,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     const legs = this.context.plan.legs;
     const legIndex1 = legs.findIndex(leg => leg.sinkFlag.featureId === this.nodeDrag.planFlag.featureId);
     if (legIndex1 >= 0) {
-      new MoveNodeViaPointToNode(this.context).move(targetNode, legIndex1);
+      new MoveNodeViaPointToNode(this.context).move(this.nodeDrag, targetNode, legIndex1);
     } else {
       const viaLeg = legs.find(leg => this.nodeDrag.planFlag.featureId === leg.viaFlag?.featureId);
       if (viaLeg) {
-        new MoveRouteViaPointToNode(this.context).move(targetNode, viaLeg);
+        new MoveRouteViaPointToNode(this.context).nodeDragMove(this.nodeDrag, targetNode, viaLeg);
       }
     }
   }

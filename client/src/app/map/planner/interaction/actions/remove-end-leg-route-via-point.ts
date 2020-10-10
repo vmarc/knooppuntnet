@@ -13,7 +13,10 @@ export class RemoveEndLegRouteViaPoint {
   remove(oldLeg: PlanLeg): void {
     this.buildNewLeg(oldLeg).pipe(
       map(newLeg => new PlannerCommandReplaceLeg(oldLeg, newLeg))
-    ).subscribe(command => this.context.execute(command));
+    ).subscribe(
+      command => this.context.execute(command),
+      error => this.context.errorDialog(error)
+    );
   }
 
   private buildNewLeg(oldLeg: PlanLeg): Observable<PlanLeg> {
