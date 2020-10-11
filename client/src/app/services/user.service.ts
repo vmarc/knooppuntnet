@@ -2,6 +2,7 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {BrowserStorageService} from "./browser-storage.service";
+import * as Sentry from "@sentry/angular";
 
 @Injectable()
 export class UserService {
@@ -12,6 +13,10 @@ export class UserService {
   constructor(private http: HttpClient,
               private router: Router,
               private browserStorageService: BrowserStorageService) {
+    const user = browserStorageService.get("user");
+    if (user !== null) {
+      Sentry.setUser({id: user});
+    }
   }
 
   public isLoggedIn(): boolean {
@@ -80,6 +85,7 @@ export class UserService {
         console.log("DEBUG logout success");
         console.log(JSON.stringify(r, null, 2));
         this.browserStorageService.remove("user");
+        Sentry.setUser(null);
       },
       error => {
         console.log("DEBUG logout error response");
@@ -96,6 +102,7 @@ export class UserService {
       responseType: "text"
     }).subscribe(user => {
         this.browserStorageService.set("user", user);
+        Sentry.setUser({id: user});
         console.log("DEBUG authenticated success, user=" + user);
         console.log("DEBUG search=" + search);
 
