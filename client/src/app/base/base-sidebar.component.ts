@@ -62,6 +62,7 @@ export class BaseSidebarComponent {
   extraFunctionsEnabled = false;
 
   field: string;
+  fieldLength = 0;
 
   constructor() {
     Sentry.setContext("test-context", {
@@ -75,7 +76,7 @@ export class BaseSidebarComponent {
   }
 
   undefinedField(): void {
-    this.field.length;
+    this.fieldLength = this.field.length;
   }
 
   undefinedFieldWithinScope(): void {
@@ -85,10 +86,11 @@ export class BaseSidebarComponent {
     try {
       this.undefinedField();
     } catch (e) {
-      Sentry.withScope(function (scope) {
+      Sentry.withScope(scope => {
         scope.setTag("tag1", "tag-value-1");
         scope.setTag("tag2", "tag-value-2");
         scope.setExtra("extra-1", "extra-value-1");
+        scope.setExtra("field-length", "" + this.fieldLength);
         const eventId = Sentry.captureException(e);
         Sentry.showReportDialog({
           eventId: eventId,
