@@ -8870,14 +8870,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="settings.poi-areas" datatype="html">
-        <source>Point of interest areas</source>
-        <target>Point of interest areas</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="poi-areas.title" datatype="html">
         <source>Point of interest areas</source>
         <target>Point of interest areas</target>
@@ -8918,6 +8910,22 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/edit/location-edit.component.ts</context>
           <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="leg-not-found-dialog.title" datatype="html">
+        <source>No path</source>
+        <target>No path</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/leg-not-found-dialog.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="leg-not-found-dialog.message" datatype="html">
+        <source>The planner did not find a path to the selected destination.</source>
+        <target>The planner did not find a path to the selected destination.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/leg-not-found-dialog.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
     </body>
