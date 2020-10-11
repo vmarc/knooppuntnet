@@ -1,3 +1,7 @@
+# Knooppuntnet background tile generation and update
+
+## docker
+
 Install docker: (instructions from https://linuxize.com/post/how-to-install-and-use-docker-on-ubuntu-18-04/)
 
   sudo apt update
@@ -16,6 +20,8 @@ Install docker: (instructions from https://linuxize.com/post/how-to-install-and-
   sudo usermod -aG docker marcv
   docker container run hello-world
 
+## openmaptiles
+
 Documented on https://openmaptiles.org/docs/generate/generate-openmaptiles/
 
   cd /kpn
@@ -29,14 +35,16 @@ Documented on https://openmaptiles.org/docs/generate/generate-openmaptiles/
   docker-compose pull
   ./quickstart.sh ==> to test
 
-Update procedure:
+## Update procedure
 
-  mkdir ~/tile-data // if not exists
-  cd ~/tile-data
-  mkdir old
-  mv *.pbf old
-  ./download.sh
-  ./merge.sh
+Download OpenStreetMap data from geofabrik:
+
+    mkdir ~/tile-data // if not exists
+    cd ~/tile-data
+    mkdir old
+    mv *.pbf old
+    ./download.sh    # 3 minutes
+    ./merge.sh       # 10 minutes
 
 Contents of download.sh:
 
@@ -70,13 +78,15 @@ ll -h *.pbf
 	-rw-rw-r-- 1 marcv marcv 843M Jul 15 02:17 spain-latest.osm.pbf
 
 
-//Get bounding box:
-//
-//	osmium fileinfo -eg data.bbox all.osm.pbf
-//
-//Update .env file with bounding box.
-//
-//Update .env file with max zoom level 14.
+Only first time:
+
+    Get bounding box:
+    
+        osmium fileinfo -eg data.bbox all.osm.pbf
+    
+    Update .env file with bounding box.
+    
+    Update .env file with max zoom level 14.
 
 Remove following line from openmaptiles.yaml:
 
@@ -87,12 +97,7 @@ Prepare:
 	rm -rf data
 	mkdir -p data
 
-	mv ~/tile-data/all.osm.pbf data/
-
-//Start:
-//
-//	nohup ./quickstart.sh all  &               // gestart op 2020-07-15 17:50
-//	                                           // opnieuw gestart op 2020-07-16 08:30
+	mv tile-data/all.osm.pbf data/
 
 Start up the database container:
 

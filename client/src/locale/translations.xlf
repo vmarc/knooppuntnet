@@ -2170,6 +2170,24 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="leg-not-found-dialog.title" datatype="html">
+        <source>
+        No path
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/leg-not-found-dialog.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="leg-not-found-dialog.message" datatype="html">
+        <source>
+        The planner did not find a path to the selected destination.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ol/components/leg-not-found-dialog.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="filter.month.january" datatype="html">
         <source>January</source>
         <context-group purpose="location">
@@ -8297,15 +8315,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="settings.poi-areas" datatype="html">
-        <source>
-        Point of interest areas
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi-areas.title" datatype="html">
