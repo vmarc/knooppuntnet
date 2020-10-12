@@ -51,7 +51,7 @@ import {APP_INITIALIZER} from "@angular/core";
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
-        showDialog: true,
+        showDialog: false,
         dialogOptions: {
           title: "It looks like we’re having issues in knooppuntnet."
         }
