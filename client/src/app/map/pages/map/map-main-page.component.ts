@@ -61,6 +61,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   layerSwitcherMapLayers$: Observable<MapLayers>;
   interaction = new PlannerInteraction(this.plannerService.engine);
   overlay: Overlay;
+  private planLoaded = false;
   private map: Map;
   private readonly subscriptions = new Subscriptions();
 
@@ -109,7 +110,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
               const plan = PlanBuilder.build(response.result, fragment);
               const command = new PlannerCommandAddPlan(plan);
               this.plannerService.context.execute(command);
-              this.zoomInToRoute();
+              this.planLoaded = true;
+              if (this.map) {
+                this.zoomInToRoute();
+              }
             });
           }
         })
@@ -125,7 +129,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.buildMap(), 1);
+    setTimeout(() => this.buildMap(), 1000);
   }
 
   ngOnDestroy(): void {
@@ -192,6 +196,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mapZoomService.install(view);
 
     MapGeocoder.install(this.map);
+
+    if (this.planLoaded) {
+      this.zoomInToRoute();
+    }
 
     this.subscriptions.add(
       this.pageService.sidebarOpen.subscribe(state => {
