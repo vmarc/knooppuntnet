@@ -120,7 +120,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.name = this.defaultName();
-    this.planUrl = window.location.href + "#" + PlanUtil.toUrlString(this.plannerService.context.plan);
+    this.planUrl = this.buildPlanUrl();
   }
 
   ngAfterViewInit(): void {
@@ -162,5 +162,14 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
     const source = this.plannerService.context.plan.sourceNode.nodeName;
     const sink = PlanUtil.planSinkNode(this.plannerService.context.plan).nodeName;
     return Util.today() + " route " + source + " " + sink;
+  }
+
+  private buildPlanUrl(): string {
+    let root = window.location.href;
+    const fragmentIndex = root.indexOf('#');
+    if (fragmentIndex > 0) {
+      root = root.substr(0, fragmentIndex);
+    }
+    return root + "#" + PlanUtil.toUrlString(this.plannerService.context.plan);
   }
 }
