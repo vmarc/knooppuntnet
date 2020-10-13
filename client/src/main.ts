@@ -2,7 +2,6 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {AppModule} from "./app/app.module";
 import {environment} from "./environments/environment";
 import * as Sentry from "@sentry/angular";
-import {Integrations} from "@sentry/tracing";
 import {enableProdMode} from "@angular/core";
 
 if (environment.production) {
@@ -18,17 +17,7 @@ if (environment.production) {
         }
       }
       return breadcrumb;
-    },
-    integrations: [
-      new Integrations.BrowserTracing({
-        tracingOrigins: [
-          "localhost",
-          "https://experimental.knooppuntnet.nl/json-api"
-        ],
-        routingInstrumentation: Sentry.routingInstrumentation,
-      }),
-    ],
-    tracesSampleRate: 1.0,
+    }
   });
   enableProdMode();
 }
