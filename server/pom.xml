@@ -351,6 +351,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <mainClass>kpn.server.ServerApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
