@@ -26,6 +26,7 @@ import {PlannerLayerService} from "../planner/services/planner-layer.service";
             Node and route quality status
           </mat-radio-button>
         </mat-radio-group>
+        <!--
         <div class="kpn-spacer-above">
           <input id="input-file-id" type="file" (change)="fileChanged($event)" class="file-input" accept=".gpx">
           <label
@@ -35,6 +36,7 @@ import {PlannerLayerService} from "../planner/services/planner-layer.service";
             Add your GPX trace
           </label>
         </div>
+        -->
       </ng-template>
     </mat-expansion-panel>
   `,
