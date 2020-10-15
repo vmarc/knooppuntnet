@@ -137,6 +137,9 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.unsubscribe();
     this.plannerLayerService.mapDestroy(this.map);
     this.pageService.nextToolbarBackgroundColor(null);
+    if (this.map) {
+      this.map.setTarget(null);
+    }
   }
 
   zoomInToRoute(): void {

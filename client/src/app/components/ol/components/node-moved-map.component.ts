@@ -11,6 +11,7 @@ import {MapControls} from "../layers/map-controls";
 import {MapLayer} from "../layers/map-layer";
 import {MapLayers} from "../layers/map-layers";
 import {MapLayerService} from "../services/map-layer.service";
+import {OnDestroy} from "@angular/core";
 
 @Component({
   selector: "kpn-node-moved-map",
@@ -21,7 +22,7 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class NodeMovedMapComponent implements AfterViewInit {
+export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() nodeMoved: NodeMoved;
 
@@ -36,7 +37,13 @@ export class NodeMovedMapComponent implements AfterViewInit {
     setTimeout(() => this.buildMap(), 1);
   }
 
-  buildMap(): void {
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.setTarget(null);
+    }
+  }
+
+  private buildMap(): void {
     this.layers = this.buildLayers();
     this.map = new Map({
       target: this.mapId,

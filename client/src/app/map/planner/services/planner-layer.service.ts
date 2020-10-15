@@ -93,7 +93,6 @@ export class PlannerLayerService {
   mapDestroy(olMap: Map): void {
     this.activeNetworkLayer = null;
     this.mapRelatedSubscriptions.unsubscribe();
-    olMap.dispose();
   }
 
   initializeLayers(): void {

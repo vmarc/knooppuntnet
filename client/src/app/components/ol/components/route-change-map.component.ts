@@ -15,6 +15,7 @@ import {MapControls} from "../layers/map-controls";
 import {MapLayer} from "../layers/map-layer";
 import {MapLayers} from "../layers/map-layers";
 import {MapLayerService} from "../services/map-layer.service";
+import {OnDestroy} from "@angular/core";
 
 @Component({
   selector: "kpn-route-change-map",
@@ -25,7 +26,7 @@ import {MapLayerService} from "../services/map-layer.service";
     </div>
   `
 })
-export class RouteChangeMapComponent implements AfterViewInit {
+export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() geometryDiff: GeometryDiff;
   @Input() nodes: List<RawNode>;
@@ -40,6 +41,12 @@ export class RouteChangeMapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => this.buildMap(), 1);
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.setTarget(null);
+    }
   }
 
   buildMap(): void {

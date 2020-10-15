@@ -70,6 +70,9 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    if (this.map) {
+      this.map.setTarget(null);
+    }
   }
 
   private buildLayers(): MapLayers {

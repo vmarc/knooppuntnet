@@ -75,6 +75,9 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
+    if (this.map) {
+      this.map.setTarget(null);
+    }
   }
 
   private buildLayers(): MapLayers {

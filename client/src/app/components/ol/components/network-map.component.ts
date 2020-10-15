@@ -72,6 +72,9 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.map.dispose();
     this.subscriptions.unsubscribe();
+    if (this.map) {
+      this.map.setTarget(null);
+    }
   }
 
   private buildLayers(): MapLayers {
