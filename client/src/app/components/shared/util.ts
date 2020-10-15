@@ -88,6 +88,14 @@ export class Util {
     return new LatLonImpl("" + lonLat[1], "" + lonLat[0]);
   }
 
+  public static coordinateToString(coordinate: Coordinate): string {
+    if (coordinate) {
+      const lonLat = toLonLat(coordinate);
+      return "[" + lonLat[1] + ", " + lonLat[0] + "]";
+    }
+    return "[]";
+  }
+
   public static latLonToCoordinate(latLon: LatLonImpl): Coordinate {
     return this.toCoordinate(latLon.latitude, latLon.longitude);
   }

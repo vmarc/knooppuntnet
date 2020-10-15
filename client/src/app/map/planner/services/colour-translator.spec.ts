@@ -9,10 +9,10 @@ describe("ColourTranslator", () => {
     expectTranslation("white", "wit");
     expectTranslation("red", "rood");
     expectTranslation("blue", "blue");
-    expectTranslation("white;red;blue", "wit/rood/blue");
+    expectTranslation("white;red;blue", "wit / rood / blue");
     expectTranslation("white-red", "wit-rood");
     expectTranslation("red-blue", "rood-blue");
-    expectTranslation("white-red;red-blue", "wit-rood/rood-blue");
+    expectTranslation("white-red;red-blue", "wit-rood / rood-blue");
   });
 
   function expectTranslation(source: string, expected: string) {

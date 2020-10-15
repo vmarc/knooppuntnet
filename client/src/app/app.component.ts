@@ -9,6 +9,8 @@ import {IconService} from "./services/icon.service";
 import {UserService} from "./services/user.service";
 import {SpinnerService} from "./spinner/spinner.service";
 import {Subscriptions} from "./util/Subscriptions";
+import {VersionService} from "./services/version.service";
+import * as Sentry from "@sentry/angular";
 
 @Component({
   selector: "app-root",
@@ -80,7 +82,10 @@ export class AppComponent implements OnInit {
               private pageService: PageService,
               private pageWidthService: PageWidthService,
               private spinnerService: SpinnerService,
+              private versionService: VersionService,
               router: Router) {
+
+    Sentry.setTag("knooppuntnet-version", versionService.version);
 
     this.subscriptions.add(
       router.events.subscribe(event => {

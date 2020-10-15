@@ -1,6 +1,8 @@
 import {LayoutModule} from "@angular/cdk/layout";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgModule} from "@angular/core";
+import {ErrorHandler} from "@angular/core";
+import {APP_INITIALIZER} from "@angular/core";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -25,9 +27,8 @@ import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
 import {SettingsService} from "./services/settings.service";
 import * as Sentry from "@sentry/angular";
-import {ErrorHandler} from "@angular/core";
 import {Router} from "@angular/router";
-import {APP_INITIALIZER} from "@angular/core";
+import {VersionService} from "./services/version.service";
 
 @NgModule({
   declarations: [
@@ -63,12 +64,14 @@ import {APP_INITIALIZER} from "@angular/core";
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: () => () => {},
+      useFactory: () => () => {
+      },
       deps: [Sentry.TraceService],
       multi: true,
     },
     {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},
     UserService,
+    VersionService,
     AppService,
     I18nService,
     SpinnerService,

@@ -35,6 +35,9 @@ import {DropLegOnNode} from "./actions/drop-leg-on-node";
 import {MoveEndPoint} from "./actions/move-end-point";
 import {AddViaRouteLeg} from "./actions/add-via-route-leg";
 import {RemoveViaPoint} from "./actions/remove-via-point";
+import * as Sentry from "@sentry/angular";
+import {Severity} from "@sentry/types/dist/severity";
+import {Util} from "../../../components/shared/util";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -61,6 +64,18 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNode = Features.findNetworkNode(features);
     if (networkNode != null) {
+
+      this.breadcrumb(
+        "down event network node",
+        {
+          "modifierKeyOnly": modifierKeyOnly,
+          "feature-id": networkNode?.node?.featureId,
+          "node-id": networkNode?.node?.nodeId,
+          "node-name": networkNode?.node?.nodeName,
+          "coordinate": Util.coordinateToString(networkNode?.node?.coordinate)
+        }
+      );
+
       if (modifierKeyOnly) {
         this.context.overlay.nodeClicked(new NodeClick(coordinate, networkNode));
       } else {
@@ -71,6 +86,15 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const leg = Features.findLeg(features);
     if (leg != null) {
+
+      this.breadcrumb(
+        "down event leg",
+        {
+          "modifierKeyOnly": modifierKeyOnly,
+          "feature-id": leg?.id
+        }
+      );
+
       if (this.legDragStarted(leg.id, coordinate)) {
         return true;
       }
@@ -80,12 +104,29 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (modifierKeyOnly === true) {
       const route = Features.findRoute(features);
       if (route != null) {
+        this.breadcrumb(
+          "down event route",
+          {
+            "modifierKeyOnly": modifierKeyOnly,
+            "routeId": route?.routeId,
+            "pathId": route?.pathId,
+            "routeName": route?.routeName,
+            "oneWay": route?.oneWay
+          }
+        );
         this.context.overlay.routeClicked(new RouteClick(coordinate, route));
         return true;
       }
     } else if (this.context.plan.sourceNode !== null) {
       const routes = Features.findRoutes(features);
       if (!routes.isEmpty()) {
+        this.breadcrumb(
+          "down event routes",
+          {
+            "modifierKeyOnly": modifierKeyOnly,
+            "routeIds": routes?.map(route => route?.routeId).join(", ")
+          }
+        );
         new AddViaRouteLeg(this.context).add(routes, coordinate);
         return true;
       }
@@ -93,6 +134,16 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const poiFeature = Features.findPoi(features);
     if (poiFeature != null) {
+      this.breadcrumb(
+        "down event poi",
+        {
+          "modifierKeyOnly": modifierKeyOnly,
+          "poiId": poiFeature.poiId,
+          "poiType": poiFeature.poiType,
+          "layer": poiFeature.layer,
+          "coordinate": Util.coordinateToString(poiFeature.coordinate)
+        }
+      );
       this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
       return true;
     }
@@ -319,10 +370,10 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
-    if (this.context.plan.sourceNode === null) {
-      this.addStartPoint(networkNode.node);
-    } else {
+    if (this.context.plan.sourceNode) {
       new AddLeg(this.context).add(networkNode.node);
+    } else {
+      this.addStartPoint(networkNode.node);
     }
   }
 
@@ -345,6 +396,15 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private flagDragStarted(flag: FlagFeature, coordinate: Coordinate): boolean {
+
+    this.breadcrumb(
+      "flag drag started",
+      {
+        "flag-type": flag.flagType,
+        "flag-feature-id": flag.id,
+        "coordinate": Util.coordinateToString(coordinate)
+      }
+    );
 
     this.nodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
     if (this.nodeDrag !== null) {
@@ -457,6 +517,16 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.context.elasticBand.setInvisible();
       this.viaRouteDrag = null;
     }
+  }
+
+  private breadcrumb(message: string, data: { [key: string]: any }): void {
+    Sentry.addBreadcrumb({
+      type: "user",
+      category: "action",
+      level: Severity.Info,
+      message: message,
+      data: data
+    });
   }
 
 }
