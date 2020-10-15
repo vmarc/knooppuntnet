@@ -18,6 +18,11 @@ class StatusController(statusFacade: StatusFacade) {
     statusFacade.status()
   }
 
+  @GetMapping(value = Array("/json-api/status/ok"))
+  def ok(): ApiResponse[String] = {
+    statusFacade.statusOk()
+  }
+
   @PostMapping(value = Array("/json-api/status/replication"))
   def replicationStatus(@RequestBody parameters: PeriodParameters): ApiResponse[ReplicationStatusPage] = {
     statusFacade.replicationStatus(parameters)

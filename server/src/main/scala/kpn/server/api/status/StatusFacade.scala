@@ -10,6 +10,8 @@ trait StatusFacade {
 
   def status(): ApiResponse[Status]
 
+  def statusOk(): ApiResponse[String]
+
   def replicationStatus(parameters: PeriodParameters): ApiResponse[ReplicationStatusPage]
 
   def systemStatus(parameters: PeriodParameters): ApiResponse[SystemStatusPage]

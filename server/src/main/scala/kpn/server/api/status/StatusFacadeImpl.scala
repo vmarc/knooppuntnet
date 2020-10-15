@@ -76,6 +76,10 @@ class StatusFacadeImpl(
     response
   }
 
+  override def statusOk(): ApiResponse[String] = {
+    ApiResponse(analysisRepository.lastUpdated(), 1, Some("OK"))
+  }
+
   override def replicationStatus(parameters: PeriodParameters): ApiResponse[ReplicationStatusPage] = {
 
     val replicationDelays = backendActionsRepository.query(parameters, "replication-delay", average = true)

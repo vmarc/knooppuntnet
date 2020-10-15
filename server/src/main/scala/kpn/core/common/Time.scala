@@ -29,7 +29,7 @@ object Time {
     currentTime.remove()
   }
 
-  private def system(): Timestamp = {
+  def system(): Timestamp = {
     TimestampUtil.toTimestamp(ZonedDateTime.now(ZoneId.of("UTC")))
   }
 }
