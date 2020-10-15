@@ -7,7 +7,6 @@ import kpn.api.custom.Tags
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.SplitNodeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
@@ -67,7 +66,7 @@ class MasterRouteAnalyzerImpl(
         SuspiciousWaysRouteAnalyzer,
         // OverlappingWaysRouteAnalyzer,
         RouteFragmentAnalyzer,
-        SplitNodeRouteAnalyzer,
+        // SplitNodeRouteAnalyzer,
         RouteStructureAnalyzer,
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,

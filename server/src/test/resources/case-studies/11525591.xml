@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.
+    </note>
+    <meta osm_base="2020-10-14T11:49:03Z"/>
+
+    <node id="47308100" lat="52.7289751" lon="6.6340629" version="5" timestamp="2020-08-21T10:29:49Z"
+          changeset="89739718" uid="639999" user="Roef">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="37"/>
+    </node>
+    <node id="47308119" lat="52.7289951" lon="6.6336559" version="4" timestamp="2020-08-21T10:29:49Z"
+          changeset="89739718" uid="639999" user="Roef">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="37"/>
+    </node>
+    <node id="6285791182" lat="52.7289868" lon="6.6339887" version="1" timestamp="2019-02-18T11:15:57Z"
+          changeset="67311200" uid="6520786" user="JTS51"/>
+    <node id="6285791183" lat="52.7289914" lon="6.6339119" version="1" timestamp="2019-02-18T11:15:57Z"
+          changeset="67311200" uid="6520786" user="JTS51"/>
+    <way id="6419674" version="7" timestamp="2019-02-18T11:16:13Z" changeset="67311200" uid="6520786" user="JTS51">
+        <nd ref="47308100"/>
+        <nd ref="6285791182"/>
+        <nd ref="6285791183"/>
+        <nd ref="47308119"/>
+        <tag k="highway" v="tertiary"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Verlengde Hoogeveense Vaart"/>
+    </way>
+    <relation id="11525591" version="2" timestamp="2020-08-21T11:54:56Z" changeset="89744341" uid="639999" user="Roef">
+        <member type="way" ref="6419674" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="operator" v="Recreatieschap Drenthe"/>
+        <tag k="ref" v="37-37"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+</osm>
