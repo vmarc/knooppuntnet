@@ -7,6 +7,7 @@ import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
 import {Util} from "../../shared/util";
 import {Marker} from "../domain/marker";
 import {MapLayer} from "./map-layer";
+import {Layers} from "./layers";
 
 export class RouteNodesLayer {
 
@@ -26,6 +27,7 @@ export class RouteNodesLayer {
       source.addFeature(nodeMarker);
     });
     const layer = new VectorLayer({
+      zIndex: Layers.zIndexNetworkNodesLayer,
       source: source
     });
     layer.set("name", this.i18nService.translation("@@map.layer.nodes"));

@@ -12,6 +12,7 @@ import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
 import {PointSegment} from "../../../kpn/api/common/route/point-segment";
 import {Util} from "../../shared/util";
 import {MapLayer} from "./map-layer";
+import {Layers} from "./layers";
 
 export class RouteChangeLayers {
 
@@ -53,6 +54,7 @@ export class RouteChangeLayers {
     });
 
     const layer = new VectorLayer({
+      zIndex: Layers.zIndexNetworkLayer,
       source: source
     });
     layer.set("name", this.i18nService.translation(name));
