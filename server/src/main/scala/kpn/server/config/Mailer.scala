@@ -1,5 +1,7 @@
 package kpn.server.config
 
+import java.net.InetAddress
+
 import javax.annotation.PreDestroy
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.SimpleMailMessage
@@ -25,6 +27,7 @@ class Mailer(
 
   @PreDestroy
   def onExit(): Unit = {
-    send(s"$applicationName - Server stopped", "ok?")
+    val hostname = InetAddress.getLocalHost.getHostName
+    send(s"$hostname $applicationName - Server stopped", "ok?")
   }
 }
