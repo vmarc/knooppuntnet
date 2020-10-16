@@ -32,7 +32,7 @@ export class GpxWriter {
   }
 
   private wayPoints(plan: Plan): List<string> {
-    const nodes = List([plan.sourceNode]).concat(plan.legs.map(leg => leg.sinkNode));
+    const nodes = List([plan.sourceNode]).concat(plan.legs.flatMap(leg => leg.routes.map(r=> r.sinkNode)));
     return nodes.flatMap(node => this.wayPoint(node));
   }
 
