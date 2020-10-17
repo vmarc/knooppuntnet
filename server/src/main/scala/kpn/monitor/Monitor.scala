@@ -34,7 +34,7 @@ class Monitor(
   private val log = Log(classOf[Monitor])
   private var lastEmail: Option[Timestamp] = None
 
-  @Scheduled(initialDelay = 0, fixedDelay = 5000)
+  @Scheduled(initialDelay = 0, fixedDelay = 5 * 60 * 1000)
   def monitor(): Unit = {
 
     val restTemplate = new RestTemplate

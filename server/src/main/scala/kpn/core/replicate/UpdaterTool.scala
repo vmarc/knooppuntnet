@@ -108,29 +108,39 @@ class UpdaterTool(
 
   @tailrec
   private def processBatchLoop(previousReplicationId: ReplicationId): Unit = {
-    FileUtils.cleanDirectory(options.tmpDir)
-    val (lastReplicationId, timestampOption) = readBatchAndWriteTempFiles(previousReplicationId, 0, None)
-    if (previousReplicationId == lastReplicationId) {
-      // all files processed, sleep for a while
-      sleep(lastReplicationId)
-      if (oper.isActive) {
-        processBatchLoop(lastReplicationId)
-      }
-    }
-    else {
-      if (oper.isActive) {
-        val batchSize = lastReplicationId.number - previousReplicationId.next.number + 1
-        LOG.info(s"Processing batch ${previousReplicationId.next.name} to ${lastReplicationId.name} [$batchSize]")
-        LOG.elapsed {
-          new OverpassUpdate(options.overpassUpdate, options.tmpDir).update(timestampOption.get)
-          (s"${timestampOption.get.yyyymmddhhmmss}", ())
+
+    statusRepository.replicatorStatus match {
+      case None =>
+
+        LOG.info("Cannot find replicator status")
+        sleep(WAIT)
+
+      case Some(maxReplicationId) =>
+
+        FileUtils.cleanDirectory(options.tmpDir)
+        val (lastReplicationId, timestampOption) = readBatchAndWriteTempFiles(previousReplicationId, maxReplicationId, 0, None)
+        if (previousReplicationId == lastReplicationId) {
+          // all files processed, sleep for a while
+          sleep(lastReplicationId)
+          if (oper.isActive) {
+            processBatchLoop(lastReplicationId)
+          }
         }
-        statusRepository.writeUpdateStatus(lastReplicationId)
-        log(previousReplicationId, lastReplicationId)
-        if (oper.isActive) {
-          processBatchLoop(lastReplicationId)
+        else {
+          if (oper.isActive) {
+            val batchSize = lastReplicationId.number - previousReplicationId.next.number + 1
+            LOG.info(s"Processing batch ${previousReplicationId.next.name} to ${lastReplicationId.name} [$batchSize]")
+            LOG.elapsed {
+              new OverpassUpdate(options.overpassUpdate, options.tmpDir).update(timestampOption.get)
+              (s"${timestampOption.get.yyyymmddhhmmss}", ())
+            }
+            statusRepository.writeUpdateStatus(lastReplicationId)
+            log(previousReplicationId, lastReplicationId)
+            if (oper.isActive) {
+              processBatchLoop(lastReplicationId)
+            }
+          }
         }
-      }
     }
   }
 
@@ -144,15 +154,15 @@ class UpdaterTool(
   }
 
   @tailrec
-  private def readBatchAndWriteTempFiles(previousReplicationId: ReplicationId, filesInBatchCount: Int, timestamp: Option[Timestamp]): (ReplicationId, Option[Timestamp]) = {
+  private def readBatchAndWriteTempFiles(previousReplicationId: ReplicationId, maxReplicationId: ReplicationId, filesInBatchCount: Int, timestamp: Option[Timestamp]): (ReplicationId, Option[Timestamp]) = {
     val replicationId = previousReplicationId.next
-    if (filesInBatchCount < UpdaterTool.BATCH_SIZE) {
+    if (replicationId.number <= maxReplicationId.number && filesInBatchCount < UpdaterTool.BATCH_SIZE) {
       ThreadContext.push(replicationId.name)
       minuteDiff(replicationId) match {
         case Some(diff) =>
           FileUtils.writeStringToFile(new File(options.tmpDir, s"${diff.replicationId.number}.xml"), diff.xml, "UTF-8")
           ThreadContext.pop()
-          readBatchAndWriteTempFiles(replicationId, filesInBatchCount + 1, Some(diff.timestamp))
+          readBatchAndWriteTempFiles(replicationId, maxReplicationId, filesInBatchCount + 1, Some(diff.timestamp))
         case None =>
           ThreadContext.pop()
           (previousReplicationId, timestamp)
