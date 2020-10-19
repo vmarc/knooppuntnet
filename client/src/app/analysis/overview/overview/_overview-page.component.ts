@@ -23,17 +23,21 @@ import {Statistics} from "../../../kpn/api/custom/statistics";
 
     <kpn-statistic-configurations></kpn-statistic-configurations>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div class="situation-on">
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+      <div *ngIf="response.result">
+        <div class="situation-on">
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </div>
+        <ng-content *ngIf="veryLarge$ | async; then table else list"></ng-content>
+        <ng-template #table>
+          <kpn-overview-table [statistics]="stats"></kpn-overview-table>
+        </ng-template>
+        <ng-template #list>
+          <kpn-overview-list [statistics]="stats"></kpn-overview-list>
+        </ng-template>
       </div>
-      <ng-content *ngIf="veryLarge$ | async; then table else list"></ng-content>
-      <ng-template #table>
-        <kpn-overview-table [statistics]="stats"></kpn-overview-table>
-      </ng-template>
-      <ng-template #list>
-        <kpn-overview-list [statistics]="stats"></kpn-overview-list>
-      </ng-template>
     </div>
   `,
   styles: [`
@@ -57,7 +61,11 @@ export class OverviewPageComponent implements OnInit {
   ngOnInit(): void {
     this.pageService.defaultMenu();
     this.response$ = this.appService.overview().pipe(
-      tap(response => this.stats = response.result)
+      tap(response => {
+        if (response.result) {
+          this.stats = response.result
+        }
+      })
     );
   }
 }

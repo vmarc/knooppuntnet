@@ -21,6 +21,7 @@ import {PoiTileLayerService} from "./services/poi-tile-layer.service";
 import {MatDialogModule} from "@angular/material/dialog";
 import {PoiMapComponent} from "./components/poi-map.component";
 import {LegNotFoundDialogComponent} from "./components/leg-not-found-dialog";
+import {LegHttpErrorDialogComponent} from "./components/leg-http-error.dialog";
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import {LegNotFoundDialogComponent} from "./components/leg-not-found-dialog";
     RouteControlComponent,
     NoRouteDialogComponent,
     LegNotFoundDialogComponent,
+    LegHttpErrorDialogComponent,
     PoiMapComponent
   ],
   exports: [

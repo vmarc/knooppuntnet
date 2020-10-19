@@ -12,10 +12,11 @@ import {LocationService} from "../location.service";
 export class LocationEditPageService {
 
   readonly response$: Observable<ApiResponse<LocationEditPage>>;
+  readonly httpError$: Observable<string>;
 
   constructor(private locationService: LocationService,
               private appService: AppService) {
-
+    this.httpError$ = appService.httpError$;
     this.response$ = locationService.locationKey$.pipe(
       switchMap(locationKey =>
         this.appService.locationEdit(locationKey).pipe(

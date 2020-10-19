@@ -28,23 +28,25 @@ import {ChangesService} from "../../components/changes/filter/changes.service";
       .
     </div>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response" class="kpn-spacer-above">
-
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </p>
-
-      <kpn-changes
-        [(parameters)]="parameters"
-        [totalCount]="page.changeCount"
-        [changeCount]="page.changes.size"
-        [showFirstLastButtons]="false">
-        <kpn-items>
-          <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
-            <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
-          </kpn-item>
-        </kpn-items>
-      </kpn-changes>
+      <div *ngIf="response.result">
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        </p>
+        <kpn-changes
+          [(parameters)]="parameters"
+          [totalCount]="page.changeCount"
+          [changeCount]="page.changes.size"
+          [showFirstLastButtons]="false">
+          <kpn-items>
+            <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
+              <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
+            </kpn-item>
+          </kpn-items>
+        </kpn-changes>
+      </div>
     </div>
   `
 })
@@ -102,13 +104,15 @@ export class ChangesPageComponent implements OnInit {
   private reload() {
     this.appService.changes(this.parameters).subscribe(response => {
       this.response = response;
-      this.changesService.setFilterOptions(
-        ChangeFilterOptions.from(
-          this.parameters,
-          this.response.result.filter,
-          (parameters: ChangesParameters) => this.parameters = parameters
-        )
-      );
+      if (response.result) {
+        this.changesService.setFilterOptions(
+          ChangeFilterOptions.from(
+            this.parameters,
+            this.response.result.filter,
+            (parameters: ChangesParameters) => this.parameters = parameters
+          )
+        );
+      }
     });
   }
 

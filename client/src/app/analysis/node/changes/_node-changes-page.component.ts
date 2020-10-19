@@ -35,6 +35,8 @@ import {NodeChangesService} from "./node-changes.service";
       [changeCount]="changeCount$ | async">
     </kpn-node-page-header>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="!isLoggedIn()" i18n="@@node.login-required" class="kpn-spacer-above">
       The details of the node changes history is available to registered OpenStreetMap contributors only, after
       <kpn-link-login></kpn-link-login>

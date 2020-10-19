@@ -15,6 +15,9 @@ import {LocationSelectionService} from "./location-selection.service";
   selector: "kpn-location-selection-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+
+    <kpn-error></kpn-error>
+
     <div *ngIf="locationNode$ | async as locationNode">
 
       <ul class="breadcrumb">

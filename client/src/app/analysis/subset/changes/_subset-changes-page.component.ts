@@ -28,13 +28,16 @@ import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
       i18n-pageTitle="@@subset-changes.title">
     </kpn-subset-page-header-block>
 
+    <kpn-error></kpn-error>
+
     <div class="kpn-spacer-above">
       <div *ngIf="!isLoggedIn()" i18n="@@subset-changes.login-required">
         This details of the changes history are available to registered OpenStreetMap contributors only, after
         <kpn-link-login></kpn-link-login>
         .
       </div>
-      <div *ngIf="response">
+
+      <div *ngIf="response?.result">
         <p>
           <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
         </p>

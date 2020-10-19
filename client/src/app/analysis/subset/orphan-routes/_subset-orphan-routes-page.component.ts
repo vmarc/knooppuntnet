@@ -27,6 +27,8 @@ import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
       i18n-pageTitle="@@subset-orphan-routes.title">
     </kpn-subset-page-header-block>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>

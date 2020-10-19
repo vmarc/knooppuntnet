@@ -33,6 +33,8 @@ import {FactInfo} from "../../fact/fact-info";
       [changeCount]="changeCount$ | async">
     </kpn-node-page-header>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found

@@ -37,6 +37,8 @@ class SubsetFact {
       </h2>
     </div>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response">
       <div class="fact-description">
         <kpn-fact-description [factName]="factName"></kpn-fact-description>

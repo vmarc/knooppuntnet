@@ -30,6 +30,8 @@ import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
       i18n-pageTitle="@@subset-networks.title">
     </kpn-subset-page-header-block>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="networks.isEmpty()" i18n="@@subset-networks.no-networks">
         No networks

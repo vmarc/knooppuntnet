@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {ReplaySubject} from "rxjs";
 import {BehaviorSubject, Observable} from "rxjs";
-import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {NodeClick} from "../domain/node-click";
@@ -37,9 +36,11 @@ export class MapService {
   private _routeClicked$ = new ReplaySubject<RouteClick>(1);
 
   constructor(private appService: AppService) {
-    appService.surveyDateInfo().pipe(
-      map(response => SurveyDateValues.from(response.result))
-    ).subscribe(surveyDateValues => this._surveyDateInfo$.next(surveyDateValues));
+    appService.surveyDateInfo().subscribe(response => {
+      if (response.result) {
+        this._surveyDateInfo$.next(SurveyDateValues.from(response.result))
+      }
+    });
 
     this.highlightedNodeId$ = this._highlightedNodeId$;
     this.highlightedRouteId$ = this._highlightedRouteId$;

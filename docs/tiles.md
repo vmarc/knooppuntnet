@@ -109,13 +109,13 @@ Import external data:
 
 Import OSM data:
 
-	/kpn/scripts/03-import-osm.sh       # 11 hours
+	/kpn/scripts/03-import-osm.sh       # 18 hours
 	/kpn/scripts/04-import-borders.sh   # 6 minutes
 	/kpn/scripts/05-import-wikidata.sh  # 4 minutes
 
 (Re-)Create sql scripts:
 
-	/kpn/scripts/06-import-sql.sh  # 4 hours
+	/kpn/scripts/06-import-sql.sh  # 3 hours
 
 Change MIN_ZOOM to 4 and MAX_ZOOM to 12 in
 
@@ -134,21 +134,15 @@ Adapt data/all.dc-config.yml, default zoom levels:
 
 Generate tiles:
 
-	/kpn/scripts/08-generate-tiles-12.sh     # 6.5 hours
+	/kpn/scripts/08-generate-tiles-12.sh     # 6 hours
 
-Rename data/tiles.mbtiles !!
-
-Generate zoom level 13:    data/all.dc-config.yml !!!!
+Generate zoom level 13:
 
 	/kpn/scripts/09-generate-tiles-13.sh     # 6 hours
 
-Rename data/tiles.mbtiles !!
-
 Generate zoom level 14:
 
-	/kpn/scripts/08-generate-tiles-14.sh    # almost 2 days
-
-Rename data/tiles.mbtiles !!
+	/kpn/scripts/10-generate-tiles-14.sh    # almost 2 days
 
 Copy tiles to kpn server, on kpn server:
 

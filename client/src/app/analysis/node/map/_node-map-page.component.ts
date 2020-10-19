@@ -27,6 +27,8 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
       [changeCount]="changeCount$ | async">
     </kpn-node-page-header>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response">
       <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@node.node-not-found">
         Node not found

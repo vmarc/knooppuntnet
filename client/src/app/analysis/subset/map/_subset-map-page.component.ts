@@ -30,6 +30,9 @@ import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
       pageTitle="Map"
       i18n-pageTitle="@@subset-map.title">
     </kpn-subset-page-header-block>
+
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async">
       <kpn-subset-map
         [bounds]="bounds"

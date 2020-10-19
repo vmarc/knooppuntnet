@@ -14,6 +14,8 @@ import {LocationFactsPageService} from "./location-facts-page.service";
       i18n-pageTitle="@@location-facts.title">
     </kpn-location-page-header>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="service.response | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-facts [locationFacts]="response.result.locationFacts"></kpn-location-facts>

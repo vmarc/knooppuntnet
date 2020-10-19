@@ -74,6 +74,7 @@ import {TimestampComponent} from "./timestamp/timestamp.component";
 import {ToolbarComponent} from "./toolbar/toolbar.component";
 import {LinkNodeRefHeaderComponent} from "./link/link-node-ref-header";
 import {LinkRouteRefHeaderComponent} from "./link/link-route-ref-header";
+import {ErrorComponent} from "./error/error.component";
 
 @NgModule({
   imports: [
@@ -153,7 +154,8 @@ import {LinkRouteRefHeaderComponent} from "./link/link-route-ref-header";
     DayPipe,
     TimeoutComponent,
     DialogComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    ErrorComponent
   ],
   exports: [
     LinkChangesetComponent,
@@ -219,7 +221,8 @@ import {LinkRouteRefHeaderComponent} from "./link/link-route-ref-header";
     BracketsComponent,
     DayPipe,
     DialogComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    ErrorComponent
   ]
 })
 export class SharedModule {

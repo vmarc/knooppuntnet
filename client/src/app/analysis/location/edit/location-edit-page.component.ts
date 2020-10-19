@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {first} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {LocationEditPageService} from "./location-edit-page.service";
@@ -15,6 +16,8 @@ import {LocationEditPageService} from "./location-edit-page.service";
       pageTitle="Load in editor"
       i18n-pageTitle="@@location-edit.title">
     </kpn-location-page-header>
+
+    <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response; else analyzing" class="kpn-spacer-above">
       <kpn-location-response [situationOnEnabled]="false" [response]="response">
@@ -33,7 +36,7 @@ import {LocationEditPageService} from "./location-edit-page.service";
       </kpn-location-response>
     </div>
     <ng-template #analyzing>
-      <p class="analyzing" i18n="@@location-edit.analyzing">
+      <p *ngIf="noHttpError$ | async" class="analyzing" i18n="@@location-edit.analyzing">
         Analyzing location nodes and routes, please wait...
       </p>
     </ng-template>
@@ -55,14 +58,17 @@ import {LocationEditPageService} from "./location-edit-page.service";
 export class LocationEditPageComponent implements OnInit {
 
   readonly response$: Observable<ApiResponse<LocationEditPage>>;
+  readonly noHttpError$: Observable<boolean>;
 
   constructor(private service: LocationEditPageService,
               private activatedRoute: ActivatedRoute) {
     this.response$ = service.response$;
+    this.noHttpError$ = service.httpError$.pipe(map(error => error == null));
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(first()).subscribe(params => this.service.params(params));
   }
+
 }
 
