@@ -42,14 +42,10 @@ import {NodeChangesService} from "./node-changes.service";
     </div>
 
     <div *ngIf="isLoggedIn() && response$ | async as response" class="kpn-spacer-above">
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-      </p>
       <div *ngIf="!page" i18n="@@node.node-not-found">
         Node not found
       </div>
       <div *ngIf="page">
-
         <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
           <kpn-items>
             <kpn-item *ngFor="let nodeChangeInfo of page.changes; let i=index" [index]="i">
@@ -104,16 +100,18 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
       switchMap(([nodeId, changeParameters]) =>
         this.appService.nodeChanges(nodeId, changeParameters).pipe(
           tap(response => {
-            this.page = Util.safeGet(() => response.result);
-            this.nodeName$.next(Util.safeGet(() => response.result.nodeInfo.name));
-            this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-            this.nodeChangesService.setFilterOptions(
-              ChangeFilterOptions.from(
-                this.parameters,
-                response.result.filter,
-                (parameters: ChangesParameters) => this.parameters = parameters
-              )
-            );
+            if (response.result) {
+              this.page = Util.safeGet(() => response.result);
+              this.nodeName$.next(Util.safeGet(() => response.result.nodeInfo.name));
+              this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
+              this.nodeChangesService.setFilterOptions(
+                ChangeFilterOptions.from(
+                  this.parameters,
+                  response.result.filter,
+                  (parameters: ChangesParameters) => this.parameters = parameters
+                )
+              );
+            }
           })
         )
       )

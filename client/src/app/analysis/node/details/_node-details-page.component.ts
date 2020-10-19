@@ -102,12 +102,14 @@ export class NodeDetailsPageComponent implements OnInit {
       tap(nodeId => this.nodeId$.next(nodeId)),
       flatMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
         tap(response => {
-          this.nodeName$.next(response.result.nodeInfo.name);
-          this.changeCount$.next(response.result.changeCount);
-          this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
-          this.factInfos = this.buildFactInfos(response.result);
-          this.nodeInfo = response.result.nodeInfo;
-          this.references = response.result.references;
+          if (response.result) {
+            this.nodeName$.next(response.result.nodeInfo.name);
+            this.changeCount$.next(response.result.changeCount);
+            this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
+            this.factInfos = this.buildFactInfos(response.result);
+            this.nodeInfo = response.result.nodeInfo;
+            this.references = response.result.references;
+          }
         })
       ))
     );

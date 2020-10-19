@@ -27,7 +27,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </kpn-route-page-header>
 
     <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result" i18n="@@route-map-page.route-not-found">
+      <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@route.route-not-found">
         Route not found
       </div>
       <div *ngIf="response.result">
@@ -58,8 +58,10 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
       tap(routeId => this.routeId$.next(routeId)),
       flatMap(routeId => this.appService.routeMap(routeId).pipe(
         tap(response => {
-          this.routeName$.next(response.result.route.summary.name);
-          this.changeCount$.next(response.result.changeCount);
+          if (response.result) {
+            this.routeName$.next(response.result.route.summary.name);
+            this.changeCount$.next(response.result.changeCount);
+          }
         })
       ))
     );

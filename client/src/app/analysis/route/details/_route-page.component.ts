@@ -135,11 +135,13 @@ export class RoutePageComponent implements OnInit {
       tap(routeId => this.routeId$.next(routeId)),
       flatMap(routeId => this.appService.routeDetails(routeId)),
       tap(response => {
-        this.route = response.result.route;
-        this.routeName$.next(this.route.summary.name);
-        this.changeCount$.next(response.result.changeCount);
-        this.tags = InterpretedTags.routeTags(this.route.tags);
-        this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
+        if (response.result) {
+          this.route = response.result.route;
+          this.routeName$.next(this.route.summary.name);
+          this.changeCount$.next(response.result.changeCount);
+          this.tags = InterpretedTags.routeTags(this.route.tags);
+          this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
+        }
       })
     );
   }

@@ -3,7 +3,6 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
 import kpn.server.repository.FactRepository
 import kpn.server.repository.OverviewRepository
 import org.springframework.stereotype.Component

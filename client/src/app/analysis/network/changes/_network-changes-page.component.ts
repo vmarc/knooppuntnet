@@ -36,7 +36,7 @@ import {NetworkChangesService} from "./network-changes.service";
       </div>
 
       <div *ngIf="isLoggedIn() && response$ | async as response">
-        <div *ngIf="!response.result" i18n="@@network-changes.network-not-found">
+        <div *ngIf="!response.result" i18n="@@network-page.network-not-found">
           Network not found
         </div>
         <div *ngIf="response.result">

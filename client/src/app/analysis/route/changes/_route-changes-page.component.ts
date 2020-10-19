@@ -45,7 +45,7 @@ import {RouteChangesService} from "./route-changes.service";
 
       <div *ngIf="response$ | async as response">
 
-        <div *ngIf="!page" i18n="@@route-changes.route-not-found">
+        <div *ngIf="!page" i18n="@@route.route-not-found">
           Route not found
         </div>
 
@@ -105,16 +105,18 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
           switchMap(([nodeId, changeParameters]) =>
             this.appService.routeChanges(nodeId, changeParameters).pipe(
               tap(response => {
-                this.page = Util.safeGet(() => response.result);
-                this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
-                this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-                this.routeChangesService.setFilterOptions(
-                  ChangeFilterOptions.from(
-                    this.parameters,
-                    response.result.filter,
-                    (parameters: ChangesParameters) => this.parameters = parameters
-                  )
-                );
+                if (response.result) {
+                  this.page = Util.safeGet(() => response.result);
+                  this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
+                  this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
+                  this.routeChangesService.setFilterOptions(
+                    ChangeFilterOptions.from(
+                      this.parameters,
+                      response.result.filter,
+                      (parameters: ChangesParameters) => this.parameters = parameters
+                    )
+                  );
+                }
               })
             )
           )

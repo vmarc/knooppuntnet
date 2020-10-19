@@ -28,7 +28,7 @@ import {ApiResponse} from "../../../kpn/api/custom/api-response";
     </kpn-node-page-header>
 
     <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result" i18n="@@node.node-not-found">
+      <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@node.node-not-found">
         Node not found
       </div>
       <div *ngIf="response.result">
@@ -61,9 +61,11 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
       tap(nodeId => this.nodeId$.next(nodeId)),
       flatMap(nodeId => this.appService.nodeMap(nodeId).pipe(
         tap(response => {
-          this.nodeMapInfo = response.result.nodeMapInfo;
-          this.nodeName$.next(response.result.nodeMapInfo.name);
-          this.changeCount$.next(response.result.changeCount);
+          if (response.result) {
+            this.nodeMapInfo = response.result.nodeMapInfo;
+            this.nodeName$.next(response.result.nodeMapInfo.name);
+            this.changeCount$.next(response.result.changeCount);
+          }
         })
       ))
     );

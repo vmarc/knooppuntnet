@@ -1884,7 +1884,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/map/_node-map-page.component.ts</context>
@@ -2913,7 +2913,7 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="route-changes.route-not-found" datatype="html">
+      <trans-unit id="route.route-not-found" datatype="html">
         <source>
           Route not found
         </source>
@@ -2921,21 +2921,20 @@
           <context context-type="sourcefile">app/analysis/route/changes/_route-changes-page.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/map/_route-map-page.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.route-map" datatype="html">
         <source>Route map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/map/_route-map-page.component.ts</context>
           <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-map-page.route-not-found" datatype="html">
-        <source>
-        Route not found
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
@@ -3041,15 +3040,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route.route-not-found" datatype="html">
-        <source>
-        Route not found
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.summary" datatype="html">
@@ -3236,7 +3226,7 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-changes.network-not-found" datatype="html">
+      <trans-unit id="network-page.network-not-found" datatype="html">
         <source>
           Network not found
         </source>
@@ -3244,19 +3234,32 @@
           <context context-type="sourcefile">app/analysis/network/changes/_network-changes-page.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/facts/_network-facts-page.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/map/_network-map-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="network-details.title" datatype="html">
         <source>Details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
           <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-details.network-not-found" datatype="html">
-        <source>Network not found</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/details/_network-details-page.component.ts</context>
-          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.nodes" datatype="html">
@@ -3296,15 +3299,6 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-facts.network-not-found" datatype="html">
-        <source>
-        Network not found
-      </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/facts/_network-facts-page.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="network-facts.no-facts" datatype="html">
         <source>No facts</source>
         <context-group purpose="location">
@@ -3324,13 +3318,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
           <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-nodes.network-not-found" datatype="html">
-        <source>Network not found</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/nodes/_network-nodes-page.component.ts</context>
-          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.no-nodes" datatype="html">
@@ -3426,13 +3413,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
           <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-routes.network-not-found" datatype="html">
-        <source>Network not found</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/network/routes/_network-routes-page.component.ts</context>
-          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.no-routes" datatype="html">
@@ -6389,15 +6369,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
           <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.add-gpx_trace" datatype="html">
-        <source>
-            Add your GPX trace
-          </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
