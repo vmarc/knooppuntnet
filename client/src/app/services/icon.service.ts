@@ -44,6 +44,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("logo", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/logo.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("video", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/video.svg")));
   }
 
   private registerActionIcons() {

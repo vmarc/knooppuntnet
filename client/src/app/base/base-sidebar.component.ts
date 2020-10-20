@@ -46,6 +46,11 @@ import {Severity} from "@sentry/types/dist/severity";
             <a routerLink="/status">status</a>
           </p>
         </li>
+        <li>
+          <p>
+            <a routerLink="/demo">video demos</a>
+          </p>
+        </li>
       </ul>
     </kpn-sidebar>
   `,

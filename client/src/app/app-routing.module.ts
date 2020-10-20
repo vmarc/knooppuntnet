@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import("./poi/poi.module").then(m => m.PoiModule)
   },
   {
+    path: "demo",
+    loadChildren: () => import("./demo/demo.module").then(m => m.DemoModule)
+  },
+  {
     path: "",
     loadChildren: () => import("./base/base.module").then(m => m.BaseModule)
   }

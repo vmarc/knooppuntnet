@@ -138,7 +138,7 @@ Generate tiles:
 
 Generate zoom level 13:
 
-	/kpn/scripts/09-generate-tiles-13.sh     # 6 hours
+	/kpn/scripts/09-generate-tiles-13.sh     # 22 hours
 
 Generate zoom level 14:
 
