@@ -210,11 +210,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(18, "", 8, 9) // 9: redundant
     }
 
-    analyze(d) should equal(
-      "Start=(5/01/01.a/W,3/01/01.b/W,1/01/01.c/W)," +
-        "End=(8/01/01/W)," +
-        "Redundant=(9/02/02/W)"
-    )
+    analyze(d) should equal("Start=(8/01/01.a/W,5/01/01.b/W,3/01/01.c/W,1/01/01.d/W),End=(8/01/01.a/W),Redundant=(9/02/02/W)")
   }
 
   test("start and end node with the same name, but only one node in ways") {
@@ -227,10 +223,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(13, "", 3, 4)
     }
 
-    analyze(d) should equal(
-      "Start=(1/01/01/W)," +
-        "Redundant=(4/02/02/W)"
-    )
+    analyze(d) should equal("Start=(1/01/01/W),End=(1/01/01/W),Redundant=(4/02/02/W)")
   }
 
   test("node name with leading zero in route name and without leading zero in way") {

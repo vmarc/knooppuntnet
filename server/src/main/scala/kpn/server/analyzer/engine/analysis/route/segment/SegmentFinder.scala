@@ -27,7 +27,8 @@ class SegmentFinder(
   fragmentMap: Map[Int, Fragment],
   networkType: NetworkType,
   allRouteNodes: Set[RouteNode],
-  allNodes: Set[Node]) {
+  allNodes: Set[Node],
+  loop: Boolean) {
 
   private val maxSolutionCount = 1000
   private val timeout = 10000L
@@ -136,7 +137,7 @@ class SegmentFinder(
             //noinspection SideEffectsInMonadicTransformation
             debug(context.indent + 1, s"${context.direction} from $from to $to path=$path")
           }
-          if (passedNodes.contains(segmentFragment.endNode)) {
+          if (!loop && passedNodes.contains(segmentFragment.endNode)) {
             if (log.isDebugEnabled) {
               //noinspection SideEffectsInMonadicTransformation
               debug(context.indent, "dead end: already passed through node " + segmentFragment.endNode)

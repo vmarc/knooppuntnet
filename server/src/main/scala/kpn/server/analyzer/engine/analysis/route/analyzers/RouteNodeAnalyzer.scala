@@ -92,7 +92,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
             Seq(nodesX.last)
           }
           else {
-            Seq()
+            nodesX
           }
         }
         else {
@@ -101,7 +101,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     val allStartNodes = startNodeName match {
-      case Some(name) => Unique.filter(nodes.filterNot(allEndNodes.contains).filter(n => isEquivalent(nameOf(n), name)))
+      case Some(name) => Unique.filter(nodes.filter(n => if (context.routeNameAnalysis.get.isStartNodeNameSameAsEndNodeName) true else !allEndNodes.contains(n)).filter(n => isEquivalent(nameOf(n), name)))
       case None => Seq()
     }
 

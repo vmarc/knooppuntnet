@@ -71,6 +71,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         new SegmentAnalyzer(
           context.networkType,
           context.loadedRoute.relation.id,
+          context.routeNameAnalysis.exists(_.isStartNodeNameSameAsEndNodeName),
           fragmentMap,
           routeNodeAnalysis
         ).structure

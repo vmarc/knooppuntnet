@@ -46,7 +46,7 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val fragmentMap = b.fragments.map(f => f.id -> f).toMap
     val fragmentIds = b.fragments.map(_.id).toSet
-    val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.hiking, allRouteNodes, allNodes)
+    val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.hiking, allRouteNodes, allNodes, false)
     val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentIds, nodes).findTentacles
 
     Path.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 9), Seq(3, 4, 9)))
@@ -78,7 +78,7 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val fragmentMap = b.fragments.map(f => f.id -> f).toMap
     val fragmentIds = b.fragments.map(_.id).toSet
-    val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.hiking, allRouteNodes, allNodes)
+    val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.hiking, allRouteNodes, allNodes, false)
     val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentIds, nodes).findTentacles
 
     Path.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 3), Seq(3, 4, 5)))
@@ -110,7 +110,7 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val fragmentMap = b.fragments.map(f => f.id -> f).toMap
     val fragmentIds = b.fragments.map(_.id).toSet
-    val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.cycling, allRouteNodes, allNodes)
+    val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.cycling, allRouteNodes, allNodes, false)
     val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentIds, nodes).findTentacles
 
     Path.toNodeIds(tentacles) should equal(Set(Seq(3, 2, 1), Seq(5, 4, 3)))

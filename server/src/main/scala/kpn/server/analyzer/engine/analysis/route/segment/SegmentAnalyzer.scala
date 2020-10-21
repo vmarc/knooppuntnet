@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection.Forwar
 class SegmentAnalyzer(
   networkType: NetworkType,
   routeId: Long,
+  loop: Boolean,
   fragmentMap: Map[Int, Fragment],
   routeNodeAnalysis: RouteNodeAnalysis
 ) {
@@ -23,7 +24,7 @@ class SegmentAnalyzer(
   private val allRouteNodes: Set[RouteNode] = (routeNodeAnalysis.startNodes ++ routeNodeAnalysis.endNodes).toSet
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
-  private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes)
+  private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes, loop)
   private val allFragmentIds = fragmentMap.values.map(_.id).toSet
 
   def structure: RouteStructure = {
