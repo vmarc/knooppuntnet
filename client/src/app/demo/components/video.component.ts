@@ -25,8 +25,6 @@ import {ElementRef} from "@angular/core";
   `,
   styles: [`
     video {
-      position: absolute;
-      top: 250px;
       border: 2px solid lightgrey;
     }
   `]

@@ -10,7 +10,7 @@ import {VideoComponent} from "../components/video.component";
       Video demo - How to plan a route?
     </h1>
 
-    <div>
+    <div class="instructions">
       <div>
         You can select the "Map" icon on the home page to start planning a route.
       </div>
@@ -21,16 +21,18 @@ import {VideoComponent} from "../components/video.component";
           Start demo
         </button>
       </div>
-
-      <kpn-video
-        videoSource="https://knooppuntnet.nl/public/demo1.mp4"
-        (canPlay)="canplay()"
-        (currentTime)="currentTimeChanged($event)">
-      </kpn-video>
-
     </div>
+
+    <kpn-video
+      videoSource="https://knooppuntnet.nl/public/demo1.mp4"
+      (canPlay)="canplay()"
+      (currentTime)="currentTimeChanged($event)">
+    </kpn-video>
   `,
   styles: [`
+    .instructions {
+      min-height: 150px;
+    }
   `]
 })
 export class DemoPlanRouteComponent implements OnInit {
