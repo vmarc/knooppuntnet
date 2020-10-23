@@ -5,6 +5,7 @@ import {Output} from "@angular/core";
 import {EventEmitter} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {ElementRef} from "@angular/core";
+import {MatSliderChange} from "@angular/material/slider";
 
 @Component({
   selector: "kpn-video",
@@ -17,15 +18,34 @@ import {ElementRef} from "@angular/core";
       #videoPlayer
       width="1280px"
       height="720px"
+      controls
       (canplay)="canplayChanged()"
       (timeupdate)="timeupdateChanged()">
       <source [src]="videoSource" type='video/mp4'/>
       Sorry, your browser doesn't support embedded videos.
     </video>
+
+    <div>
+      <mat-slider
+        class="progress"
+        min="0"
+        max="100"
+        [value]="progress"
+        (change)="sliderChanged($event)"
+        (input)="inputChanged($event)">
+      </mat-slider>
+    </div>
+    <div>
+      <button (click)="playPause()">Play/Pause</button>
+    </div>
   `,
   styles: [`
     video {
       border: 2px solid lightgrey;
+    }
+
+    .progress {
+      width: 1280px;
     }
   `]
 })
@@ -37,14 +57,26 @@ export class VideoComponent {
   @ViewChild("videoPlayer", {static: false}) videoplayer: ElementRef;
 
   canPlayReceived = false;
+  progress = 0;
 
   canplayChanged(): void {
     this.canPlayReceived = true;
     this.canPlay.emit(true);
+    this.play();
   }
 
   timeupdateChanged(): void {
-    this.currentTime.emit(this.videoplayer.nativeElement.currentTime);
+    if (this.videoplayer.nativeElement.duration > 0) {
+      this.progress = 100 * this.videoplayer.nativeElement.currentTime / this.videoplayer.nativeElement.duration;
+    }
+  }
+
+  playPause(): void {
+    if (this.videoplayer.nativeElement.paused) {
+      this.play();
+    } else {
+      this.pause();
+    }
   }
 
   play(): void {
@@ -61,6 +93,15 @@ export class VideoComponent {
 
   setDurrentTime(value: number): void {
     this.videoplayer.nativeElement.currentTime = value;
+  }
+
+  sliderChanged(event: MatSliderChange) {
+    console.log("sliderChanged");
+  }
+
+  inputChanged(event) {
+    console.log("inputChanged");
+    this.videoplayer.nativeElement.currentTime = event.value / 100 * this.videoplayer.nativeElement.duration;
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ViewChild} from "@angular/core";
 import {PageService} from "../../components/shared/page.service";
 import {VideoComponent} from "../components/video.component";
@@ -6,36 +6,14 @@ import {VideoComponent} from "../components/video.component";
 @Component({
   selector: "kpn-plan-a-route",
   template: `
-    <h1 class="header">
-      Video demo - How to plan a route?
-    </h1>
-
-    <div class="instructions">
-      <div>
-        You can select the "Map" icon on the home page to start planning a route.
-      </div>
-
-      <div class="kpn-spacer-above kpn-spacer-below">
-        <button mat-raised-button color="primary" (click)="start()">
-          <mat-icon svgIcon="add"></mat-icon>
-          Start demo
-        </button>
-      </div>
-    </div>
-
     <kpn-video
       videoSource="https://knooppuntnet.nl/public/demo1.mp4"
       (canPlay)="canplay()"
       (currentTime)="currentTimeChanged($event)">
     </kpn-video>
-  `,
-  styles: [`
-    .instructions {
-      min-height: 150px;
-    }
-  `]
+  `
 })
-export class DemoPlanRouteComponent implements OnInit {
+export class DemoPlanRouteComponent {
 
   canPlay = false;
   currentTime = 0;
@@ -43,10 +21,7 @@ export class DemoPlanRouteComponent implements OnInit {
   @ViewChild(VideoComponent, {static: false}) video: VideoComponent;
 
   constructor(private pageService: PageService) {
-  }
-
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
+    this.pageService.showFooter = false;
   }
 
   start() {
@@ -55,6 +30,7 @@ export class DemoPlanRouteComponent implements OnInit {
 
   canplay(): void {
     this.canPlay = true;
+    this.video.play();
   }
 
   currentTimeChanged(currentTime: number): void {

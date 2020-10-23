@@ -142,7 +142,7 @@ Generate zoom level 13:
 
 Generate zoom level 14:
 
-	/kpn/scripts/10-generate-tiles-14.sh    # almost 2 days
+	/kpn/scripts/10-generate-tiles-14.sh    # almost 3.5 days
 
 Copy tiles to kpn server, on kpn server:
 
@@ -153,9 +153,9 @@ Copy tiles to kpn server, on kpn server:
 
 On kpn server:
 
-	nohup /kpn/soft/mbutil/mb-util tiles.mbtiles.12 t12 --image_format=pbf >> /kpn/logs/mbutil-12.log 2>&1 &
-	nohup /kpn/soft/mbutil/mb-util tiles.mbtiles.13 t13 --image_format=pbf >> /kpn/logs/mbutil-13.log 2>&1 &
-	nohup /kpn/soft/mbutil/mb-util tiles.mbtiles.14 t14 --image_format=pbf >> /kpn/logs/mbutil-14.log 2>&1 &
+	/kpn/soft/mbutil/mb-util tiles.mbtiles.12 t12 --image_format=pbf >> /kpn/logs/mbutil-12.log 2>&1 
+	/kpn/soft/mbutil/mb-util tiles.mbtiles.13 t13 --image_format=pbf >> /kpn/logs/mbutil-13.log 2>&1 
+	/kpn/soft/mbutil/mb-util tiles.mbtiles.14 t14 --image_format=pbf >> /kpn/logs/mbutil-14.log 2>&1 
 
 	mkdir osm
 	mv t12/12 osm

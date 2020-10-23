@@ -29,6 +29,7 @@ import {SettingsService} from "./services/settings.service";
 import * as Sentry from "@sentry/angular";
 import {Router} from "@angular/router";
 import {VersionService} from "./services/version.service";
+import {CoreModule} from "./core/core.module";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {VersionService} from "./services/version.service";
     HttpClientModule,
     SharedModule,
     AppRoutingModule,
+    CoreModule,
     SpinnerModule,
     ServiceWorkerModule.register("ngsw-worker.js", {enabled: environment.production})
   ],
