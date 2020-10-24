@@ -158,7 +158,8 @@ On kpn server:
 	/kpn/soft/mbutil/mb-util tiles.mbtiles.14 t14 --image_format=pbf >> /kpn/logs/mbutil-14.log 2>&1 
 
 	mkdir osm
-	mv t12/12 osm
+	mv t12/? osm
+	mv t12/?? osm
 	mv t13/13 osm
 	mv t14/14 osm
 
