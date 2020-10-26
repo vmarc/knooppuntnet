@@ -1,7 +1,9 @@
 import {Component} from "@angular/core";
+import {ChangeDetectionStrategy} from "@angular/core";
 
 @Component({
   selector: "kpn-demo-sidebar",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 class="header title" i18n="demo.title">
       Demo videos

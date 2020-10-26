@@ -6,24 +6,25 @@ import {PageService} from "../../components/shared/page.service";
   selector: "kpn-demo-menu",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="header">
-      <h1>
-        Video demos
-      </h1>
+    <p i18n="demo.select-video">
+      Select a video on the left by clicking its play button.
+    </p>
+    <div class="video-icon">
+      <mat-icon svgIcon="video"></mat-icon>
     </div>
-    <ol>
-      <li>
-        <p>
-          <a routerLink="plan-a-route">How to plan a route?</a>
-        </p>
-      </li>
-      <li>
-        <p>
-          <a routerLink="zoom-in">How to zoom in to a selected area of the map?</a>
-        </p>
-      </li>
-    </ol>
-  `
+  `,
+  styles: [`
+    .video-icon {
+      padding-top: 5em;
+      display: flex;
+      justify-content: center;
+    }
+    .video-icon mat-icon {
+      width: 200px;
+      height: 200px;
+      color: #f8f8f8;
+    }
+  `]
 })
 export class DemoMenuComponent implements OnInit {
 
