@@ -2,12 +2,17 @@ import {ChangeDetectionStrategy} from "@angular/core";
 import {Component} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {actionDemoPlay} from "../../core/demo/demo.actions";
+import {Observable} from "rxjs";
+import {select} from "@ngrx/store";
+import {selectDemoVideoPlayButtonEnabled} from "../../core/demo/demo.selectors";
 
 @Component({
   selector: "kpn-demo-video-play-button",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div (click)="play()" class="play-button">
+    <div  *ngIf="videoPlayButtonEnabled$ | async"
+          (click)="play()"
+          class="play-button">
       <mat-icon svgIcon="play"></mat-icon>
     </div>
   `,
@@ -44,7 +49,10 @@ import {actionDemoPlay} from "../../core/demo/demo.actions";
 })
 export class DemoVideoPlayButton {
 
+  videoPlayButtonEnabled$: Observable<boolean>;
+
   constructor(private store: Store) {
+    this.videoPlayButtonEnabled$ = this.store.pipe(select(selectDemoVideoPlayButtonEnabled));
   }
 
   play(): void {

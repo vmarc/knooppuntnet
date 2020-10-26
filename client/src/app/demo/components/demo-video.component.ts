@@ -5,12 +5,13 @@ import {AfterViewInit} from "@angular/core";
 import {ElementRef} from "@angular/core";
 import {OnDestroy} from "@angular/core";
 import {Store} from "@ngrx/store";
-import {BehaviorSubject} from "rxjs";
 import {PageService} from "../../components/shared/page.service";
 import {DemoService} from "../../core/demo/demo.service";
 import {actionDemoEnd} from "../../core/demo/demo.actions";
 import {actionDemoVideoPlayerAvailable} from "../../core/demo/demo.actions";
 import {actionDemoPlayingChanged} from "../../core/demo/demo.actions";
+import {actionDemoCanPlay} from "../../core/demo/demo.actions";
+import {actionDemoTimeUpdate} from "../../core/demo/demo.actions";
 
 @Component({
   selector: "kpn-video",
@@ -19,7 +20,7 @@ import {actionDemoPlayingChanged} from "../../core/demo/demo.actions";
 
     <kpn-video-cover *ngIf="!canPlayReceived"></kpn-video-cover>
 
-    <kpn-demo-video-play-button *ngIf="showPlayButton$ | async" (click)="play()"></kpn-demo-video-play-button>
+    <kpn-demo-video-play-button></kpn-demo-video-play-button>
 
     <video
       #videoPlayer
@@ -29,22 +30,14 @@ import {actionDemoPlayingChanged} from "../../core/demo/demo.actions";
       (click)="playPause()"
       (playing)="playingChanged()"
       (pause)="pauseChanged()"
-      (canplay)="canplayChanged()"
-      (timeupdate)="timeupdateChanged()"
+      (canplay)="canPlayChanged()"
+      (timeupdate)="timeChanged()"
       i18n="demo.no-video-support">
       <source #videoPlayerSource src="" type='video/mp4'/>
       Sorry, cannot play videos in your browser.
     </video>
 
-    <div class="footer">
-      <mat-slider
-        class="progress"
-        min="0"
-        max="100"
-        [value]="progress"
-        (input)="sliderInputChanged($event)">
-      </mat-slider>
-    </div>
+    <kpn-demo-video-progress></kpn-demo-video-progress>
   `,
   styles: [`
     video {
@@ -52,27 +45,14 @@ import {actionDemoPlayingChanged} from "../../core/demo/demo.actions";
       position: absolute;
       border: 2px solid lightgrey;
     }
-
-    .progress {
-      width: 1280px;
-    }
-
-    .footer {
-      z-index: 3;
-      position: absolute;
-      padding-top: 720px;
-    }
   `]
 })
 export class DemoVideoComponent implements AfterViewInit, OnDestroy {
-
-  showPlayButton$ = new BehaviorSubject<boolean>(false);
 
   @ViewChild("videoPlayer", {static: false}) videoElementRef: ElementRef;
   @ViewChild("videoPlayerSource", {static: false}) videoPlayerSourceRef: ElementRef;
 
   canPlayReceived = false;
-  progress = 0;
 
   constructor(private store: Store,
               private demoService: DemoService,
@@ -89,44 +69,23 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
     this.store.dispatch(actionDemoEnd());
   }
 
-  canplayChanged(): void {
-    this.showPlayButton$.next(true);
+  canPlayChanged(): void {
+    this.store.dispatch(actionDemoCanPlay({duration: this.demoService.duration}));
+
+
     this.canPlayReceived = true;
-    this.play();
   }
 
-  timeupdateChanged(): void {
-    if (this.videoElementRef.nativeElement.duration > 0) {
-      this.progress = 100 * this.videoElementRef.nativeElement.currentTime / this.videoElementRef.nativeElement.duration;
-    }
+  timeChanged(): void {
+    this.store.dispatch(actionDemoTimeUpdate({time: this.demoService.time}));
   }
 
   playPause(): void {
     if (this.videoElementRef.nativeElement.paused) {
-      this.play();
+      this.demoService.play();
     } else {
-      this.pause();
+      this.demoService.pause();
     }
-  }
-
-  play(): void {
-    const promise = this.videoElementRef.nativeElement.play();
-    if (promise !== undefined) {
-      promise.then(_ => {
-        // Autoplay started
-        this.showPlayButton$.next(false);
-      }).catch(error => {
-        // Autoplay was prevented
-      });
-    }
-  }
-
-  pause(): void {
-    this.videoElementRef.nativeElement.pause();
-  }
-
-  sliderInputChanged(event) {
-    this.videoElementRef.nativeElement.currentTime = event.value / 100 * this.videoElementRef.nativeElement.duration;
   }
 
   playingChanged(): void {
