@@ -6,11 +6,14 @@ import {EffectsModule} from "@ngrx/effects";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {environment} from "../../environments/environment";
 import {metaReducers, reducers} from "./core.state";
+import {StoreRouterConnectingModule} from "@ngrx/router-store";
+import {DemoService} from "./demo/demo.service";
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forRoot(reducers, {metaReducers}),
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([
       DemoEffects
     ]),
@@ -19,6 +22,9 @@ import {metaReducers, reducers} from "./core.state";
       : StoreDevtoolsModule.instrument({
         name: "Knooppuntnet"
       })
+  ],
+  providers: [
+    DemoService
   ]
 })
 export class CoreModule {
