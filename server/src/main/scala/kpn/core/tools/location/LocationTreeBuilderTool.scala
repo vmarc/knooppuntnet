@@ -1,8 +1,5 @@
 package kpn.core.tools.location
 
-import java.io.File
-import java.io.FileFilter
-
 import kpn.api.custom.Country
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
@@ -27,12 +24,6 @@ class LocationTreeBuilderTool {
 
   private val areaCache = collection.mutable.Map[String, Double]()
 
-  private class GeoJsonFileFilter(level: String) extends FileFilter {
-    def accept(pathname: File): Boolean = {
-      pathname.getName.endsWith("_" + level + ".GeoJson")
-    }
-  }
-
   def run(): Unit = {
     val configuration = buildConfigurationTree()
     writeTree(configuration)
@@ -44,17 +35,32 @@ class LocationTreeBuilderTool {
     val locations = LocationConfigurationDefinition.countries.flatMap { configuration =>
       val country = configuration.country.domain.toUpperCase
       log.info(s"$country Loading locations")
-      val locationsPerLevel = configuration.levels.map { level =>
-        readLocations(configuration.country, level)
+      val countryLocations = readLocations(configuration.country)
+
+      val locationsPerLevel = configuration.levels.map(level => {
+        countryLocations.filter(locationDefinition => locationDefinition.level == level)
+      })
+
+      val root = countryLocations.find(location => location.id == configuration.root) match {
+        case Some(rootLocation) => rootLocation
+        case None =>
+          val message = s"$country Cannot find configured root location: " + configuration.root + " in locations:\n" + countryLocations.map(_.id)
+          log.error(message)
+          throw new RuntimeException(message)
       }
+
       log.info(s"$country Calculating hierarchy")
-      calculateTree(0, configuration.country, locationsPerLevel.head, locationsPerLevel.tail)
+      calculateTree(0, configuration.country, Seq(root), locationsPerLevel.tail)
     }
     LocationConfiguration(locations)
   }
 
-  private def calculateTree(depth: Int, country: Country, levelLocations: Seq[LocationDefinition],
-                            remainderLocations: Seq[Seq[LocationDefinition]]): Seq[LocationDefinition] = {
+  private def calculateTree(
+    depth: Int,
+    country: Country,
+    levelLocations: Seq[LocationDefinition],
+    remainderLocations: Seq[Seq[LocationDefinition]]
+  ): Seq[LocationDefinition] = {
 
     if (remainderLocations.isEmpty) {
       levelLocations
@@ -66,12 +72,12 @@ class LocationTreeBuilderTool {
           log.info(s"${country.domain.toUpperCase} ${index + 1}/${levelLocations.size}  ${location.name} ")
         }
         val children = nextLevelLocations.filter(loc => contains(location, loc))
-        if (country == Country.be && depth == 1 && children.isEmpty) {
+        if (country == Country.be && location.level == 4 && children.isEmpty) {
           val nextLevelLocations2 = remainderLocations(2) // level 8 Brussels-Capital
           val children2 = nextLevelLocations2.filter(loc => contains(location, loc))
           location.copy(children = children2.sortBy(_.name))
         }
-        else if (country == Country.de && depth == 1 && children.isEmpty) {
+        else if (country == Country.de && location.level == 4 && children.isEmpty) {
           val nextLevelLocations2 = remainderLocations.tail.head
           val children2 = nextLevelLocations2.filter(loc => contains(location, loc))
           location.copy(children = children2.sortBy(_.name))
@@ -84,18 +90,15 @@ class LocationTreeBuilderTool {
     }
   }
 
-  private def readLocations(country: Country, level: Int): Seq[LocationDefinition] = {
-    val countryRootDir = LocationConfigurationDefinition.DIR + country.domain
-    val root = new File(countryRootDir)
-    root.listFiles(new GeoJsonFileFilter("AL" + level)).map { file =>
-      new LocationDefinitionReader(file).read()
-    }
+  private def readLocations(country: Country): Seq[LocationDefinition] = {
+    val locations = new LocationDefinitionReader(LocationConfigurationDefinition.DIR, country).read()
+    locations.filterNot(location => LocationConfigurationDefinition.excludedLocations.contains(location.id))
   }
 
   private def contains(a: LocationDefinition, b: LocationDefinition): Boolean = {
     val intersection = a.geometry.intersection(b.geometry)
     val intersectionArea = intersection.getArea
-    val bArea = areaCache.getOrElseUpdate(b.filename, b.geometry.getArea)
+    val bArea = areaCache.getOrElseUpdate(b.id, b.geometry.getArea)
     Math.abs(intersectionArea / bArea) > 0.95
   }
 
@@ -107,11 +110,11 @@ class LocationTreeBuilderTool {
   }
 
   private def toTree(location: LocationDefinition): LocationTree = {
-    if (location.children.nonEmpty) {
-      LocationTree(location.filename, Some(location.children.map(toTree)))
+    if (location.children.size > 1) {
+      LocationTree(location.id, Some(location.children.map(toTree)))
     }
     else {
-      LocationTree(location.filename)
+      LocationTree(location.id)
     }
   }
 

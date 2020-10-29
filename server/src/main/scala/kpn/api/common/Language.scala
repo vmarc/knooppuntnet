@@ -1,4 +1,3 @@
-// Migrated to Angular
 package kpn.api.common
 
 sealed trait Language

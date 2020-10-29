@@ -1,96 +1,68 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import java.io.File
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.util.zip.GZIPInputStream
 
 import kpn.api.common.Language
 import kpn.api.common.Languages
-import kpn.core.database.query.Fields
+import kpn.api.custom.Country
 import kpn.server.json.Json
-import org.apache.commons.io.FileUtils
-import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
-import org.locationtech.jts.geom.MultiPolygon
-import org.locationtech.jts.geom.Polygon
 
 object LocationDefinitionReader {
 
-  private case class LocationJsonProperties(id: String, name: String, alltags: Map[String, String])
+  private case class LocationJsonProperties(id: String, name: String, all_tags: Map[String, String])
 
   private case class LocationJson(properties: LocationJsonProperties, bbox: Seq[String], geometry: Geometry)
 
+  private case class LocationsJson(features: Seq[LocationJson])
+
 }
 
-class LocationDefinitionReader(file: File) {
+class LocationDefinitionReader(root: String, country: Country) {
 
   import LocationDefinitionReader._
 
-  def read(children: Seq[LocationDefinition] = Seq.empty): LocationDefinition = {
-    val json = FileUtils.readFileToString(file, "UTF-8")
+  def read(): Seq[LocationDefinition] = {
 
-    val locationJson = Json.objectMapper.readValue(json, classOf[LocationJson])
+    val locationsJson = readLocationsJson()
 
-    val newGeometry = locationJson.geometry match {
-      case multiPolygon: MultiPolygon =>
+    locationsJson.features.map { locationJson =>
+      val name = locationJson.properties.name
+      val level = locationJson.properties.all_tags("admin_level").toInt
+      val id = s"${country.domain}/$level/$name"
+      val boundingBox = locationJson.geometry.getEnvelopeInternal
+      val locationNames = parseLocationNames(locationJson)
 
-        val polygons = (0 until multiPolygon.getNumGeometries).flatMap { index =>
-          multiPolygon.getGeometryN(index) match {
-            case polygon: Polygon =>
-              if (polygon.getCoordinate.x > -50) {
-                Some(polygon)
-              }
-              else {
-                None
-              }
-            case _ => None
-          }
-        }.toArray
-        new MultiPolygon(polygons, multiPolygon.getFactory)
+      LocationDefinition(
+        id,
+        name,
+        level,
+        locationNames,
+        boundingBox,
+        locationJson.geometry
+      )
     }
+  }
 
-    val boundingBox = newGeometry.getEnvelopeInternal
-    val locationNames = parseLocationNames(locationJson)
-
-    LocationDefinition(
-      locationJson.properties.id,
-      locationJson.properties.name,
-      locationNames,
-      filename,
-      boundingBox,
-      newGeometry,
-      children
-    )
+  private def readLocationsJson(): LocationsJson = {
+    val gzippedInputStream = new FileInputStream(countryFileName)
+    val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
+    val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
+    Json.objectMapper.readValue(fileReader, classOf[LocationsJson])
   }
 
   private def parseLocationNames(locationJson: LocationJson): Map[Language, String] = {
+    val name = locationJson.properties.name
     Languages.all.flatMap { language =>
       val key = "name:" + language.toString.toLowerCase
-      locationJson.properties.alltags.get(key).map(value => language -> value.toString)
+      locationJson.properties.all_tags.get(key).filter(_ != name).map(value => language -> value)
     }.toMap
   }
 
-  private def parseBoundingBox(locationJson: LocationJson): Envelope = {
-    if (locationJson.bbox.size != 4) {
-      throw error("Field 'bbox' does not contain 4 elements")
-    }
-
-    val bbox = Fields(locationJson.bbox)
-    val latMin = bbox.double(0)
-    val latMax = bbox.double(1)
-    val lonMin = bbox.double(2)
-    val lonMax = bbox.double(3)
-    new Envelope(latMin, lonMin, latMax, lonMax)
-  }
-
-
-  private def error(message: String): RuntimeException = {
-    new RuntimeException(s"Error parsing file '${file.getAbsolutePath}': $message")
-  }
-
-  private def filename: String = {
-    val path = file.getAbsolutePath
-    val a = LocationConfigurationDefinition.DIR.length
-    val b = LocationConfigurationDefinition.EXTENSION.length
-    path.drop(a).dropRight(b)
+  private def countryFileName: String = {
+    s"$root/${country.domain}.geojson.gz"
   }
 
 }

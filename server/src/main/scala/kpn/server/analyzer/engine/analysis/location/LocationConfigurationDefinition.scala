@@ -6,20 +6,28 @@ import kpn.api.custom.Country
 
 object LocationConfigurationDefinition {
 
-  val DIR = "/kpn/conf/locations/"
-  val EXTENSION = ".GeoJson"
+  val DIR = "/kpn/conf/locations"
 
-  def file(name: String): File = new File(filename(name))
-  def filename(name: String): String = s"$DIR$name$EXTENSION"
-  def treeFile: File = new File(LocationConfigurationDefinition.DIR + "tree.json")
+  val excludedLocations = Seq(
+    "nl/4/Caribbean Netherlands",
+    "fr/4/Corsica",
+    "es/4/Balearic Islands",
+    "es/4/Canary Islands",
+    "es/4/Melilla",
+    "es/4/Plazas de Soberanía",
+    "es/4/Ceuta",
+  )
 
-  val nl: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.nl, Seq(3, 4, 8))
-  val be: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.be, Seq(2, 4, 6, 7, 8))
-  val de: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.de, Seq(2, 4, 5, 6))
-  val fr: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.fr, Seq(3, 4, 7))
-  val at: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.at, Seq(2, 4, 6))
+  def treeFile: File = new File(LocationConfigurationDefinition.DIR + "/tree.json")
 
-  val countries: Seq[LocationConfigurationDefinition] = Seq(nl, be, de, fr, at)
+  val nl: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.nl, "nl/3/Netherlands", Seq(3, 4, 8))
+  val be: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.be, "be/2/Belgium", Seq(2, 4, 6, 7, 8))
+  val de: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.de, "de/2/Germany", Seq(2, 4, 5, 6))
+  val fr: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.fr, "fr/3/Metropolitan France", Seq(3, 4, 7))
+  val at: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.at, "at/2/Austria", Seq(2, 4, 6))
+  val es: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.es, "es/2/Spain", Seq(2, 4, 6))
+
+  val countries: Seq[LocationConfigurationDefinition] = Seq(nl, be, de, fr, at, es)
 }
 
-case class LocationConfigurationDefinition(country: Country, levels: Seq[Int])
+case class LocationConfigurationDefinition(country: Country, root: String, levels: Seq[Int])

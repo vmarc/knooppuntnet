@@ -20,6 +20,8 @@ class CountryAnalyzerTest extends UnitTest with SharedTestObjects {
   private val nl1 = node("51.48170361107213", "4.4769287109375")
   private val nl2 = node("51.43948683099483", "4.931525588035583")
   private val de1 = node("50.36999258287717", "6.7291259765625")
+  private val es1 = node("40.4166314", "-3.7038148") // Madrid
+  private val es2 = node("41.6564984", "-0.8787286") // Zaragoza
   private val unknown1 = node("1", "1")
   private val unknown2 = node("2", "2")
 
@@ -27,6 +29,8 @@ class CountryAnalyzerTest extends UnitTest with SharedTestObjects {
     analyzer.countries(be1) should equal(Seq(Country.be))
     analyzer.countries(nl1) should equal(Seq(Country.nl))
     analyzer.countries(de1) should equal(Seq(Country.de))
+    analyzer.countries(es1) should equal(Seq(Country.es))
+    analyzer.countries(es2) should equal(Seq(Country.es))
   }
 
   test("outer 1 Baarle Nassau") {
