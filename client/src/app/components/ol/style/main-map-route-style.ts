@@ -92,7 +92,7 @@ export class MainMapRouteStyle {
     } else if ("incomplete-route" === layer) {
       color = MainStyleColors.red;
     } else if ("error-route" === layer) {
-      color = MainStyleColors.orange;
+      color = MainStyleColors.red;
     }
     return color;
   }

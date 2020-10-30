@@ -12,7 +12,7 @@ class TileColorAnalysis extends TileColor {
     route.layer match {
       case "orphan-route" => TileColor.darkGreen
       case "incomplete-route" => TileColor.red
-      case "error-route" => TileColor.orange
+      case "error-route" => TileColor.red
       case "route" => TileColor.green
       case _ => TileColor.green
     }
@@ -20,9 +20,9 @@ class TileColorAnalysis extends TileColor {
 
   override def nodeColor(node: TileDataNode): Color = {
     node.layer match {
-      case "error-orphan-node" => TileColor.darkBlue
+      case "error-orphan-node" => TileColor.darkRed
       case "orphan-node" => TileColor.darkGreen
-      case "error-node" => TileColor.blue
+      case "error-node" => TileColor.red
       case "node" => TileColor.green
       case _ => TileColor.green
     }

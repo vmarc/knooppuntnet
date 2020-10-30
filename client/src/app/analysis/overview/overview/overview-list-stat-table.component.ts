@@ -31,6 +31,8 @@ import {Stat} from "../domain/stat";
 
       <kpn-overview-list-stat-row [stat]="stat" [country]="at()" [networkType]="cycling()" [rowspan]="1"></kpn-overview-list-stat-row>
 
+      <kpn-overview-list-stat-row [stat]="stat" [country]="es()" [networkType]="cycling()" [rowspan]="1"></kpn-overview-list-stat-row>
+
       <tr>
         <td colspan="2" i18n="@@overview.total">
           Total
@@ -73,6 +75,10 @@ export class OverviewListStatTableComponent {
 
   at() {
     return Countries.at;
+  }
+
+  es() {
+    return Countries.es;
   }
 
   cycling(): NetworkType {

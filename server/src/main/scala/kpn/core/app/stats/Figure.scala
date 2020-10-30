@@ -52,6 +52,14 @@ case class Figure(
         "-",
         "-",
         "-"
+      ),
+      CountryStatistic(
+        "-",
+        number(counts.getOrElse(Subset.esBicycle, 0)),
+        "-",
+        "-",
+        "-",
+        "-"
       )
     )
   }

@@ -8,7 +8,7 @@ export class LocationUrlMatcher {
   public static match(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
 
     const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
-    const country = /(be)|(nl)|(de)|(fr)|(at)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
     const detail = /(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
     if (
@@ -39,7 +39,7 @@ export class LocationUrlMatcher {
   public static subsetUrl(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
 
     const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
-    const country = /(be)|(nl)|(de)|(fr)|(at)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
     const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (

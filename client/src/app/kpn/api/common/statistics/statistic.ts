@@ -9,7 +9,8 @@ export class Statistic {
               readonly be: CountryStatistic,
               readonly de: CountryStatistic,
               readonly fr: CountryStatistic,
-              readonly at: CountryStatistic) {
+              readonly at: CountryStatistic,
+              readonly es: CountryStatistic) {
   }
 
   public static fromJSON(jsonObject: any): Statistic {
@@ -22,7 +23,8 @@ export class Statistic {
       CountryStatistic.fromJSON(jsonObject.be),
       CountryStatistic.fromJSON(jsonObject.de),
       CountryStatistic.fromJSON(jsonObject.fr),
-      CountryStatistic.fromJSON(jsonObject.at)
+      CountryStatistic.fromJSON(jsonObject.at),
+      CountryStatistic.fromJSON(jsonObject.es)
     );
   }
 }

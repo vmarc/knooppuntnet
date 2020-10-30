@@ -7,13 +7,15 @@ export class Countries {
   static de = new Country("de");
   static fr = new Country("fr");
   static at = new Country("at");
+  static es = new Country("es");
 
   static all: Array<Country> = [
     Countries.nl,
     Countries.be,
     Countries.de,
     Countries.fr,
-    Countries.at
+    Countries.at,
+    Countries.es
   ];
 
   public static withDomain(domain: string): Country {

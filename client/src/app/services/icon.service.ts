@@ -104,6 +104,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral("austria", this.domSanitizer.bypassSecurityTrustHtml(
       require("!svg-inline-loader!src/assets/images/icons/austria.svg")));
+
+    this.iconRegistry.addSvgIconLiteral("spain", this.domSanitizer.bypassSecurityTrustHtml(
+      require("!svg-inline-loader!src/assets/images/icons/spain.svg")));
   }
 
   private registerAnalysisResultsIcons() {

@@ -22,6 +22,7 @@ import {AnalysisModeService} from "./analysis-mode.service";
     <kpn-icon-button [routerLink]="deLink | async" icon="germany" i18n="@@country.de">Germany</kpn-icon-button>
     <kpn-icon-button [routerLink]="frLink | async" icon="france" i18n="@@country.fr">France</kpn-icon-button>
     <kpn-icon-button [routerLink]="atLink | async" icon="austria" i18n="@@country.at">Austria</kpn-icon-button>
+    <kpn-icon-button [routerLink]="esLink | async" icon="spain" i18n="@@country.es">Spain</kpn-icon-button>
   `
 })
 export class AnalysisCyclingPageComponent {
@@ -31,6 +32,7 @@ export class AnalysisCyclingPageComponent {
   readonly deLink: Observable<string>;
   readonly frLink: Observable<string>;
   readonly atLink: Observable<string>;
+  readonly esLink: Observable<string>;
 
   constructor(private analysisModeService: AnalysisModeService) {
     this.nlLink = analysisModeService.link("cycling", "nl");
@@ -38,6 +40,7 @@ export class AnalysisCyclingPageComponent {
     this.deLink = analysisModeService.link("cycling", "de");
     this.frLink = analysisModeService.link("cycling", "fr");
     this.atLink = analysisModeService.link("cycling", "at");
+    this.esLink = analysisModeService.link("cycling", "es");
   }
 
 }

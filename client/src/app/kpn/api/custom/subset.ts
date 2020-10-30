@@ -18,7 +18,8 @@ export class Subset {
     new Subset(Countries.de, NetworkType.hiking),
     new Subset(Countries.fr, NetworkType.cycling),
     new Subset(Countries.fr, NetworkType.hiking),
-    new Subset(Countries.at, NetworkType.cycling)
+    new Subset(Countries.at, NetworkType.cycling),
+    new Subset(Countries.es, NetworkType.cycling)
   ];
 
   constructor(readonly country: Country,

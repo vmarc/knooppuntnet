@@ -23,7 +23,7 @@ object LocationConfigurationDefinition {
     "be/7/Nivelles",
   )
 
-  def treeFile: File = new File(LocationConfigurationDefinition.DIR + "/tree.json")
+  def treeFile: File = new File(LocationConfigurationDefinition.DIR + "/tree-new.json")
 
   val nl: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.nl, "nl/3/Netherlands", Seq(3, 4, 8))
   val be: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.be, "be/2/Belgium", Seq(2, 4, 6, 7, 8))

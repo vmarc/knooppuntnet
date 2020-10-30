@@ -57,7 +57,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.overview(user())
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -66,7 +66,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetNetworks(user(), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
   def subsetFacts(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -75,7 +75,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetFacts(user(), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
   def subsetFactDetails(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
@@ -86,7 +86,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetFactDetails(user(), subset, f)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
   def subsetOrphanNodes(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -95,7 +95,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetOrphanNodes(user(), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
   def subsetOrphanRoutes(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -104,7 +104,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetOrphanRoutes(user(), subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
+  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
   def subsetMap(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -113,7 +113,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetMap(user(), subset.get)
   }
 
-  @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
+  @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
@@ -284,7 +284,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationMap(user(), locationKey)
   }
 
-  @PostMapping(value = Array("/json-api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at}/{location}/changes"))
+  @PostMapping(value = Array("/json-api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es}/{location}/changes"))
   def locationChanges(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,

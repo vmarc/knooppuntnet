@@ -33,6 +33,8 @@ export class Stat {
       countryStatistic = this.figures.fr;
     } else if (subset.country.domain === "at") {
       countryStatistic = this.figures.at;
+    } else if (subset.country.domain === "es") {
+      countryStatistic = this.figures.es;
     } else {
       return "-";
     }
