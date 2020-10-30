@@ -4,14 +4,27 @@ import kpn.api.common.DE
 import kpn.api.common.EN
 import kpn.api.common.FR
 import kpn.api.common.NL
+import kpn.api.custom.Country
 import kpn.core.util.UnitTest
 
 class LocationDefinitionReaderTest extends UnitTest {
 
-  test("Essen") {
-    val file = LocationConfigurationDefinition.file("be/Essen_964003_AL8")
-    val locationDefinition = new LocationDefinitionReader(file).read()
-    locationDefinition.name should equal("Essen")
+  test("location definition reader") {
+
+    val locationDefinitions = new LocationDefinitionReader(LocationConfigurationDefinition.DIR, Country.be).read()
+
+    testEssen(locationDefinitions)
+    testBelgium(locationDefinitions)
+  }
+
+  private def testEssen(locationDefinitions: Seq[LocationDefinition]): Unit = {
+
+    val locationDefinition = locationDefinitions.find(_.name == "Essen").get
+
+    locationDefinition.name(NL) should equal("Essen")
+    locationDefinition.name(EN) should equal("Essen")
+    locationDefinition.name(DE) should equal("Essen")
+    locationDefinition.name(FR) should equal("Essen")
 
     val locator = LocationLocator.from(locationDefinition)
 
@@ -22,10 +35,10 @@ class LocationDefinitionReaderTest extends UnitTest {
     locator.contains("51.43948683099483", "4.931525588035583") should equal(false)
   }
 
-  test("Belgium") {
-    val file = LocationConfigurationDefinition.file("be/Belgium_52411_AL2")
-    val locationDefinition = new LocationDefinitionReader(file).read()
-    locationDefinition.name should equal("Belgium")
+  private def testBelgium(locationDefinitions: Seq[LocationDefinition]): Unit = {
+
+    val locationDefinition = locationDefinitions.find(_.name == "Belgium").get
+
     locationDefinition.name(NL) should equal("België")
     locationDefinition.name(EN) should equal("Belgium")
     locationDefinition.name(DE) should equal("Belgien")
@@ -44,6 +57,5 @@ class LocationDefinitionReaderTest extends UnitTest {
 
     // inner in be outer Baarle Nassau
     locator.contains("51.43948683099483", "4.931525588035583") should equal(false)
-
   }
 }

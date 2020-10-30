@@ -47,8 +47,8 @@ class LocationDefinitionTest extends UnitTest {
     LocationDefinition(
       id = "",
       name = name,
+      level = 0,
       locationNames = Map.empty,
-      filename = "",
       boundingBox = new Envelope(),
       geometry = null,
       children = children

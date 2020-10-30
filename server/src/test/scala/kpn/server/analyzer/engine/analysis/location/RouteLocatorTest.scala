@@ -1,7 +1,5 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import java.io.File
-
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
@@ -12,19 +10,15 @@ import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 
 class RouteLocatorTest extends UnitTest with SharedTestObjects {
 
-  private val essen = Location(Seq("Belgium", "Flanders", "Antwerp province", "Antwerp", "Essen"))
-  private val kalmthout = Location(Seq("Belgium", "Flanders", "Antwerp province", "Antwerp", "Kalmthout"))
-  private val roosendaal = Location(Seq("Netherlands", "North Brabant", "Roosendaal"))
-  private val rucphen = Location(Seq("Netherlands", "North Brabant", "Rucphen"))
-  private val woensdrecht = Location(Seq("Netherlands", "North Brabant", "Woensdrecht"))
+  private val essen = Location(Seq("be", "Flanders", "Antwerp province", "Antwerp arrondissement", "Essen BE"))
+  private val kalmthout = Location(Seq("be", "Flanders", "Antwerp province", "Antwerp arrondissement", "Kalmthout"))
+  private val roosendaal = Location(Seq("nl", "North Brabant", "Roosendaal"))
+  private val rucphen = Location(Seq("nl", "North Brabant", "Rucphen"))
+  private val woensdrecht = Location(Seq("nl", "North Brabant", "Woensdrecht"))
 
   test("way based locator") {
 
-    val locator = {
-      val configuration = readLocationConfiguration()
-      // val locationConfiguration = new LocationConfigurationReader().read()
-      new RouteLocatorImpl(configuration)
-    }
+    val locator = new RouteLocatorImpl(new LocationConfigurationReader().read())
 
     // route 24-81
     locator.locate(route("28184").analysis.map) should equal(
@@ -36,15 +30,15 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
           LocationCandidate(woensdrecht, 2)
         ),
         Seq(
-          "Antwerp",
+          "Antwerp arrondissement",
           "Antwerp province",
-          "Belgium",
-          "Essen",
+          "Essen BE",
           "Flanders",
-          "Netherlands",
           "North Brabant",
           "Roosendaal",
-          "Woensdrecht"
+          "Woensdrecht",
+          "be",
+          "nl"
         )
       )
     )
@@ -59,15 +53,15 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
           LocationCandidate(essen, 16)
         ),
         Seq(
-          "Antwerp",
+          "Antwerp arrondissement",
           "Antwerp province",
-          "Belgium",
-          "Essen",
+          "Essen BE",
           "Flanders",
-          "Netherlands",
           "North Brabant",
           "Roosendaal",
-          "Rucphen"
+          "Rucphen",
+          "be",
+          "nl"
         )
       )
     )
@@ -81,49 +75,15 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
           LocationCandidate(essen, 15)
         ),
         Seq(
-          "Antwerp",
+          "Antwerp arrondissement",
           "Antwerp province",
-          "Belgium",
-          "Essen",
+          "Essen BE",
           "Flanders",
-          "Kalmthout"
+          "Kalmthout",
+          "be"
         )
       )
     )
-  }
-
-  private def readLocationConfiguration(): LocationConfiguration = {
-
-    val be = {
-      val essen = location("be/Essen_964003_AL8.GeoJson")
-      val kalmthout = location("be/Kalmthout_1284337_AL8.GeoJson")
-      val antwerp7 = location("be/Antwerp_1902793_AL7.GeoJson", Seq(essen, kalmthout))
-      val antwerp6 = location("be/Antwerp_53114_AL6.GeoJson", Seq(antwerp7), Some("Antwerp province"))
-      val flanders = location("be/Flanders_53134_AL4.GeoJson", Seq(antwerp6))
-      location("be/Belgium_52411_AL2.GeoJson", Seq(flanders))
-    }
-
-    val nl = {
-      val roosendaal = location("nl/Roosendaal_2078302_AL8.GeoJson")
-      val rucphen = location("nl/Rucphen_2078299_AL8.GeoJson")
-      val woensdrecht = location("nl/Woensdrecht_2078304_AL8.GeoJson")
-      val northBrabant = location("nl/North Brabant_47696_AL4.GeoJson", Seq(roosendaal, rucphen, woensdrecht))
-      location("nl/Netherlands_47796_AL3.GeoJson", Seq(northBrabant))
-    }
-
-    val de = location("de/Germany_51477_AL2.GeoJson")
-
-    LocationConfiguration(Seq(nl, be, de))
-  }
-
-  private def location(name: String, children: Seq[LocationDefinition] = Seq.empty, uniqueName: Option[String] = None): LocationDefinition = {
-    val filename = "/kpn/conf/locations/" + name
-    val file = new File(filename)
-    val locationDefinition = new LocationDefinitionReader(file).read(children)
-    uniqueName match {
-      case Some(un) => locationDefinition.copy(name = un)
-      case None => locationDefinition
-    }
   }
 
   private def route(routeId: String): RouteInfo = {

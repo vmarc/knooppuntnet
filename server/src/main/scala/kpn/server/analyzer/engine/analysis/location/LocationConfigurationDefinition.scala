@@ -18,6 +18,11 @@ object LocationConfigurationDefinition {
     "es/4/Ceuta",
   )
 
+  val skippedLocations = Seq(
+    "be/7/Brussels-Capital",
+    "be/7/Nivelles",
+  )
+
   def treeFile: File = new File(LocationConfigurationDefinition.DIR + "/tree.json")
 
   val nl: LocationConfigurationDefinition = LocationConfigurationDefinition(Country.nl, "nl/3/Netherlands", Seq(3, 4, 8))
