@@ -35,7 +35,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.unsupported" datatype="html">
-        <source>Unsupported (not Belgium, The Netherlands, Germany, France or Austria)</source>
+        <source>Unsupported (not Belgium, The Netherlands, Germany, France, Austria or Spain)</source>
         <target>Nicht unterstützt (nicht Belgien, Niederlande, Deutschland, Frankreich oder Österreich)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/country-name.component.ts</context>
@@ -47,7 +47,7 @@
         <target>Wandern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -71,7 +71,7 @@
         <target>Radfahren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -95,7 +95,7 @@
         <target>Reiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -119,7 +119,7 @@
         <target>Motorboot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -143,7 +143,7 @@
         <target>Kanu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -167,7 +167,7 @@
         <target>Inline-Skating</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -191,7 +191,7 @@
         <target>in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/selection/location-selection-page.component.ts</context>
@@ -203,7 +203,7 @@
         <target>Startknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.end-node" datatype="html">
@@ -211,7 +211,7 @@
         <target>Endknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.start-tentacle-node" datatype="html">
@@ -219,7 +219,7 @@
         <target>Start Tentakelknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.end-tentacle-node" datatype="html">
@@ -227,7 +227,7 @@
         <target>End Tentakelknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.redundant-node" datatype="html">
@@ -235,7 +235,7 @@
         <target>Redundanter Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.forward-route" datatype="html">
@@ -243,7 +243,7 @@
         <target>Vorwärtsroute</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.backward-route" datatype="html">
@@ -251,7 +251,7 @@
         <target>Rückwärtsroute</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.start-tentacle" datatype="html">
@@ -259,7 +259,7 @@
         <target>Start Tentakel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.end-tentacle" datatype="html">
@@ -267,7 +267,7 @@
         <target>End Tentakel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unused" datatype="html">
@@ -275,7 +275,7 @@
         <target>Nicht verwendet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes" datatype="html">
@@ -283,7 +283,7 @@
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.network" datatype="html">
@@ -291,7 +291,7 @@
         <target>Netzwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.networks" datatype="html">
@@ -299,7 +299,7 @@
         <target>Netzwerke</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unchanged" datatype="html">
@@ -307,7 +307,7 @@
         <target>Unverändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.added" datatype="html">
@@ -315,7 +315,7 @@
         <target>Hinzugefügt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.deleted" datatype="html">
@@ -323,7 +323,7 @@
         <target>Gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.osm" datatype="html">
@@ -331,7 +331,7 @@
         <target>OpenStreetMap</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.other-routes" datatype="html">
@@ -339,7 +339,7 @@
         <target>Andere Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.cycling" datatype="html">
@@ -347,7 +347,7 @@
         <target>Radfahren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.node" datatype="html">
@@ -355,7 +355,7 @@
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.hiking" datatype="html">
@@ -363,7 +363,7 @@
         <target>Wandern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.horse-riding" datatype="html">
@@ -371,7 +371,7 @@
         <target>Reiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.motorboat" datatype="html">
@@ -379,7 +379,7 @@
         <target>Motorboot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.canoe" datatype="html">
@@ -387,7 +387,7 @@
         <target>Kanu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.inline-skating" datatype="html">
@@ -395,7 +395,7 @@
         <target>Inline-Skaten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes-and-routes" datatype="html">
@@ -403,7 +403,7 @@
         <target>Knoten und Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.boundary" datatype="html">
@@ -411,7 +411,7 @@
         <target>Grenze</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
@@ -6094,7 +6094,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Insgesamt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview/overview-list-stat-table.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.route-not-found" datatype="html">
@@ -6325,7 +6325,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Kommentar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="country.nl" datatype="html">
@@ -7525,7 +7525,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>alle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.yes" datatype="html">
@@ -7533,7 +7533,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>ja</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.no" datatype="html">
@@ -7541,7 +7541,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>nein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.unknown" datatype="html">
@@ -7549,7 +7549,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>unbekannt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInNetworkRelation" datatype="html">
@@ -7557,7 +7557,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>In Netzwerkrelation definiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInRouteRelation" datatype="html">
@@ -7565,7 +7565,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>In Routenrelation definiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.referencedInRoute" datatype="html">
@@ -7573,7 +7573,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>In der Route angegeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheck" datatype="html">
@@ -7581,7 +7581,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Integritätsprüfung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheckFailed" datatype="html">
@@ -7589,7 +7589,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Integritätsprüfung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.connection" datatype="html">
@@ -7597,7 +7597,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Verbindung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastUpdated" datatype="html">
@@ -7605,7 +7605,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
@@ -7613,7 +7613,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Letztes Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
@@ -7621,7 +7621,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>letzte Woche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
@@ -7629,7 +7629,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>letzten Monat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
@@ -7637,7 +7637,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>letztes Jahr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
@@ -7645,7 +7645,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>letztes halbes Jahr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
@@ -7653,7 +7653,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>letzte zwei Jahre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
@@ -7661,7 +7661,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>älter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
@@ -7669,7 +7669,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Rolle &quot;connection&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dialog.close" datatype="html">
@@ -7725,7 +7725,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Untersuchen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.accessible" datatype="html">
@@ -7733,7 +7733,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Zugänglich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">
@@ -8275,7 +8275,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Ihre GPX-Spur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.add-gpx_trace" datatype="html">
@@ -8299,7 +8299,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.planner" datatype="html">
@@ -8307,11 +8307,11 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_planner#What_do_you_see.3F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">80</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.login-page" datatype="html">
@@ -8319,7 +8319,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Login</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.logout-page" datatype="html">
@@ -8327,7 +8327,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Logout</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.node-page" datatype="html">
@@ -8335,7 +8335,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.route-page" datatype="html">
@@ -8343,7 +8343,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.network-page" datatype="html">
@@ -8351,7 +8351,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Network</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.changes-page" datatype="html">
@@ -8359,7 +8359,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.location-page" datatype="html">
@@ -8367,7 +8367,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Location</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
@@ -8375,7 +8375,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Overview_in_numbers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-networks-page" datatype="html">
@@ -8383,7 +8383,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Subset_networks</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-facts-page" datatype="html">
@@ -8391,7 +8391,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Subset_facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
@@ -8399,7 +8399,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Subset_orphan_nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
@@ -8407,7 +8407,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Subset_orphan_routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-map-page" datatype="html">
@@ -8415,7 +8415,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Subset_map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-changes-page" datatype="html">
@@ -8423,7 +8423,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knooppuntnet_analysis#Subset_Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.read-more" datatype="html">
@@ -8650,7 +8650,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Background</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-256-names" datatype="html">
@@ -8658,7 +8658,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Tilenames (256)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-512-names" datatype="html">
@@ -8666,7 +8666,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Tilenames (512)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.poi-areas" datatype="html">
@@ -8674,7 +8674,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Poi areas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.paved" datatype="html">
@@ -9003,6 +9003,42 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/components/demo-sidebar.component.ts</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.es" datatype="html">
+        <source>Spain</source>
+        <target>Spanien</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/overview/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d516a56b9ced2bb851d1fda1b665d9a235fcbc2f" datatype="html">
+        <source>Select a video on the left by clicking its play button.</source>
+        <target>Select a video on the left by clicking its play button.</target>
+        <note priority="1" from="description">demo.select-video</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/menu/demo-menu.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0d4310fa0d22d1e99b50264db25db84785401ffa" datatype="html">
+        <source><x ctype="x-source" equiv-text="&lt;source/&gt;" id="TAG_SOURCE"/>
+      Sorry, cannot play videos in your browser.</source>
+        <target><x ctype="x-source" equiv-text="&lt;source/&gt;" id="TAG_SOURCE"/>
+      Sorry, cannot play videos in your browser.</target>
+        <note priority="1" from="description">demo.no-video-support</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-video.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
     </body>
