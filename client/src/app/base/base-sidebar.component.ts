@@ -51,6 +51,11 @@ import {Severity} from "@sentry/types/dist/severity";
             <a routerLink="/demo">video demos</a>
           </p>
         </li>
+        <li>
+          <p>
+            <a routerLink="/pieter">tryout gpx to osm matching</a>
+          </p>
+        </li>
       </ul>
     </kpn-sidebar>
   `,
