@@ -11,16 +11,24 @@ import {ChangeDetectionStrategy} from "@angular/core";
 
     <div class="video-list">
 
-      <kpn-demo-video-control name="plan-a-route" i18n="demo.plan-a-route">
-        How to plan a route?
+      <kpn-demo-video-control name="plan-a-route" duration="55" i18n="demo.plan-a-route">
+        How to plan a walk (or bicycle ride)?
       </kpn-demo-video-control>
 
-      <kpn-demo-video-control name="zoom-in" i18n="demo.zoom-in">
+      <kpn-demo-video-control name="zoom-in" duration="12" i18n="demo.zoom-in">
         How to zoom in to a selected area of the map?
       </kpn-demo-video-control>
 
-      <kpn-demo-video-control name="via-loop" i18n="demo.via-loop">
-        How to include a loop in the route?
+      <kpn-demo-video-control name="current-location" duration="8" i18n="demo.current-location">
+        How to zoom in to your current location?
+      </kpn-demo-video-control>
+
+      <kpn-demo-video-control name="refine-plan" duration="86" i18n="demo.refine-plan">
+        How to refine your plan?
+      </kpn-demo-video-control>
+
+      <kpn-demo-video-control name="via-loop" duration="18" i18n="demo.via-loop">
+        How to include a loop in the route? (Dutch)
       </kpn-demo-video-control>
 
     </div>

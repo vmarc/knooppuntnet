@@ -11,6 +11,7 @@ import {DemoVideoControlComponent} from "./components/demo-video-control.compone
 import {DemoVideoPlayButton} from "./components/demo-video-play-button";
 import {DemoVideoComponent} from "./components/demo-video.component";
 import {DemoVideoProgressComponent} from "./components/demo-video-progress.component";
+import {DemoDisabledComponent} from "./components/demo-disabled.component";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {DemoVideoProgressComponent} from "./components/demo-video-progress.compo
   declarations: [
     DemoMenuComponent,
     DemoVideoComponent,
+    DemoDisabledComponent,
     DemoVideoProgressComponent,
     VideoCoverComponent,
     DemoSidebarComponent,

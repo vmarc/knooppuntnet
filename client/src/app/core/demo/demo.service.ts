@@ -1,10 +1,23 @@
 import {Injectable} from "@angular/core";
+import {map} from "rxjs/operators";
+import {PageWidth} from "../../components/shared/page-width";
+import {PageWidthService} from "../../components/shared/page-width.service";
+import {Store} from "@ngrx/store";
+import {actionDemoEnabledChanged} from "./demo.actions";
 
 @Injectable()
 export class DemoService {
 
   private videoElement: HTMLVideoElement;
   private sourceElement: HTMLSourceElement;
+
+  constructor(private store: Store, private pageWidthService: PageWidthService) {
+    pageWidthService.current$.pipe(
+      map(pageWidth => pageWidth == PageWidth.veryLarge)
+    ).subscribe(enabled => {
+      this.store.dispatch(actionDemoEnabledChanged({enabled: enabled}))
+    });
+  }
 
   setVideoElement(videoElement: HTMLVideoElement, sourceElement: HTMLSourceElement): void {
     this.videoElement = videoElement;
@@ -17,9 +30,6 @@ export class DemoService {
   }
 
   setProgress(progress: number): void {
-
-    console.log("setProgress " + progress);
-
     this.videoElement.currentTime = progress * this.videoElement.duration;
   }
 

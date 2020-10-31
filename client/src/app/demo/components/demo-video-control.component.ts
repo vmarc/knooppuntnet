@@ -4,6 +4,7 @@ import {select, Store} from "@ngrx/store";
 import {actionDemoControlPlay} from "../../core/demo/demo.actions";
 import {selectDemoVideo} from "../../core/demo/demo.selectors";
 import {selectDemoPlaying} from "../../core/demo/demo.selectors";
+import {selectDemoEnabled} from "../../core/demo/demo.selectors";
 import {Observable} from "rxjs";
 import {combineLatest} from "rxjs";
 import {map} from "rxjs/operators";
@@ -13,12 +14,27 @@ import {map} from "rxjs/operators";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="video-control" [ngClass]="{ selected: selected$ | async}">
-      <span class="title">
-        <ng-content></ng-content>
-      </span>
-      <a (click)="play()" class="play-pause-button" [ngClass]="{ buttonSelected: selected$ | async}">
-        <mat-icon [svgIcon]="icon$ | async"></mat-icon>
-      </a>
+      <div class="control-text">
+        <div class="title">
+          <ng-content></ng-content>
+        </div>
+        <div class="duration">
+          {{duration}} <span i18n="demo.duration.seconds">seconds</span>
+        </div>
+      </div>
+
+      <div *ngIf="enabled$ | async; then enabled else disabled"></div>
+      <ng-template #enabled>
+        <a (click)="play()" class="play-pause-button" [ngClass]="{ buttonSelected: selected$ | async}">
+          <mat-icon [svgIcon]="icon$ | async"></mat-icon>
+        </a>
+      </ng-template>
+      <ng-template #disabled>
+        <span class="play-pause-button-disabled">
+          <mat-icon [svgIcon]="icon$ | async"></mat-icon>
+        </span>
+      </ng-template>
+
     </div>
   `,
   styles: [`
@@ -26,8 +42,14 @@ import {map} from "rxjs/operators";
     .video-control {
       display: flex;
       border-bottom: 1px solid lightgrey;
-      height: 3em;
+      height: 4em;
       padding: 1em;
+    }
+
+    .control-text {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .selected {
@@ -39,6 +61,10 @@ import {map} from "rxjs/operators";
       padding-right: 10px;
     }
 
+    .duration {
+      color: lightgray;
+    }
+
     .play-pause-button {
       color: lightgray;
       cursor: pointer;
@@ -46,6 +72,10 @@ import {map} from "rxjs/operators";
 
     .play-pause-button:hover {
       color: gray;
+    }
+
+    .play-pause-button-disabled {
+      color: lightgray;
     }
 
     .buttonSelected {
@@ -61,25 +91,33 @@ import {map} from "rxjs/operators";
       height: 3em;
     }
 
+    .play-pause-button-disabled mat-icon {
+      width: 3em;
+      height: 3em;
+    }
+
   `]
 })
 export class DemoVideoControlComponent {
 
-  @Input() name;
+  @Input() name: string;
+  @Input() duration: string;
 
-  selected$: Observable<boolean>;
-  playing$: Observable<boolean>;
-  icon$: Observable<string>;
+  selected$: Observable<boolean> = this.store.pipe(
+    select(selectDemoVideo),
+    map(current => current == this.name)
+  );
+
+  playing$: Observable<boolean> = combineLatest([this.selected$, this.store.pipe(select(selectDemoPlaying))]).pipe(
+    map(([selected, playing]) => selected && playing)
+  );
+
+  icon$: Observable<string> = this.playing$.pipe(map(playing => playing ? "pause" : "play"));
+
+  enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
 
   constructor(private store: Store) {
-    this.selected$ = this.store.pipe(
-      select(selectDemoVideo),
-      map(current => current == this.name)
-    );
-    this.playing$ = combineLatest([this.selected$, this.store.pipe(select(selectDemoPlaying))]).pipe(
-      map(([selected, playing]) => selected && playing)
-    );
-    this.icon$ = this.playing$.pipe(map(playing => playing ? "pause" : "play"));
+    this.enabled$.subscribe(enabled => console.log("ENABLED=" + enabled));
   }
 
   play(): void {

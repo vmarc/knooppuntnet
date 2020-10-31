@@ -8,6 +8,7 @@ export class VideoState {
 
 export interface DemoState {
   video: string;
+  enabled: boolean;
   playing: boolean;
   time: number;
   duration: number;

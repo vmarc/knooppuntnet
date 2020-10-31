@@ -10,6 +10,11 @@ export const selectDemo = createSelector(
   (state: DemoState) => state
 );
 
+export const selectDemoEnabled = createSelector(
+  selectDemo,
+  (state: DemoState) => state.enabled
+);
+
 export const selectDemoPlaying = createSelector(
   selectDemo,
   (state: DemoState) => state.playing
@@ -22,7 +27,7 @@ export const selectDemoVideo = createSelector(
 
 export const selectDemoVideoSource = createSelector(
   selectDemoVideo,
-  (video: string) => `http://knooppuntnet.nl/public/${video}.mp4`
+  (video: string) => `/videos/en/${video}.mp4`
 );
 
 export const selectCurrentVideoState = createSelector(

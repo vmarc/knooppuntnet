@@ -15,9 +15,11 @@ import {actionDemoUpdateProgress} from "./demo.actions";
 import {tap} from "rxjs/operators";
 import {mergeMap} from "rxjs/operators";
 import {withLatestFrom} from "rxjs/operators";
+import {filter} from "rxjs/operators";
 import {DemoService} from "./demo.service";
 import {selectDemoVideoSource} from "./demo.selectors";
 import {selectCurrentVideoState} from "./demo.selectors";
+import {selectDemoEnabled} from "./demo.selectors";
 
 @Injectable()
 export class DemoEffects {
@@ -40,7 +42,12 @@ export class DemoEffects {
     () =>
       this.actions$.pipe(
         ofType(actionDemoVideoPlayerAvailable),
-        mergeMap(() => this.store.pipe(select(selectDemoVideoSource))),
+        mergeMap(() =>
+          this.store.pipe(
+            filter(selectDemoEnabled),
+            select(selectDemoVideoSource)
+          )
+        ),
         tap((videoSource: string) => {
           this.demoService.setSource(videoSource);
         })

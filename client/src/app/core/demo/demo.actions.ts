@@ -42,6 +42,11 @@ export const actionDemoPlayingChanged = createAction(
   props<{ playing: boolean }>()
 );
 
+export const actionDemoEnabledChanged = createAction(
+  "[Demo] Enabled changed",
+  props<{ enabled: boolean }>()
+);
+
 export const actionDemoEnd = createAction(
   "[Demo] End"
 );

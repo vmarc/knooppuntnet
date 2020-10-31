@@ -8394,26 +8394,56 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="d516a56b9ced2bb851d1fda1b665d9a235fcbc2f" datatype="html">
+      <trans-unit id="babd77a056781cf75bbd9371bf9c0a9f7efd7ce1" datatype="html">
         <source>
-      Select a video on the left by clicking its play button.
-    </source>
+        Select a video on the left by clicking its play button.
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/menu/demo-menu.component.ts</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">6</context>
         </context-group>
         <note priority="1" from="description">demo.select-video</note>
       </trans-unit>
-      <trans-unit id="0d4310fa0d22d1e99b50264db25db84785401ffa" datatype="html">
+      <trans-unit id="d63c7faa226fbab58e1cadb178e3050f857b9786" datatype="html">
         <source>
-      <x id="TAG_SOURCE" ctype="x-source" equiv-text="&lt;source/&gt;"/>
-      Sorry, cannot play videos in your browser.
-    </source>
+          <x id="TAG_SOURCE" ctype="x-source" equiv-text="&lt;source/&gt;"/>
+          Sorry, cannot play videos in your browser.
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/components/demo-video.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <note priority="1" from="description">demo.no-video-support</note>
+      </trans-unit>
+      <trans-unit id="b283f5ebf97ab7fce9fc9a828b9777fdea71798c" datatype="html">
+        <source>
+      Sorry.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-disabled.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">demo.disabled.text-1</note>
+      </trans-unit>
+      <trans-unit id="95761c9aafc0a046661853ba7a7edae617285b37" datatype="html">
+        <source>
+      Your window is currently not large enough to show the videos in good quality.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-disabled.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">demo.disabled.text-2</note>
+      </trans-unit>
+      <trans-unit id="d00c62ea079b0f158b1dcbfbb7e4cc2b8288a52a" datatype="html">
+        <source>
+      Please increase your browser window size, or use a device with a larger display to view the videos.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-disabled.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">demo.disabled.text-3</note>
       </trans-unit>
       <trans-unit id="416fae240f83f95471d7bc57e009ffe038b37aa4" datatype="html">
         <source>
@@ -8425,9 +8455,9 @@
         </context-group>
         <note priority="1" from="description">demo.title</note>
       </trans-unit>
-      <trans-unit id="4a33366e6100d6a0404dd7467b4d9a01119e15d9" datatype="html">
+      <trans-unit id="3edd06dddac2fcdfc84778ff68b5dbc103e63479" datatype="html">
         <source>
-        How to plan a route?
+        How to plan a walk (or bicycle ride)?
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/components/demo-sidebar.component.ts</context>
@@ -8445,15 +8475,43 @@
         </context-group>
         <note priority="1" from="description">demo.zoom-in</note>
       </trans-unit>
-      <trans-unit id="7bd6ae799934b51318a45794e3a044f0f0d0fb70" datatype="html">
+      <trans-unit id="1a046c1267b14abb2dfdaa3348124c747cfecb5d" datatype="html">
         <source>
-        How to include a loop in the route?
+        How to zoom in to your current location?
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/demo/components/demo-sidebar.component.ts</context>
           <context context-type="linenumber">16</context>
         </context-group>
+        <note priority="1" from="description">demo.current-location</note>
+      </trans-unit>
+      <trans-unit id="159f1bbcc343475e106a896bca0a58536076175d" datatype="html">
+        <source>
+        How to refine your plan?
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-sidebar.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">demo.refine-plan</note>
+      </trans-unit>
+      <trans-unit id="8a967e152e9f4a5fe35cd360411ed527d8f78454" datatype="html">
+        <source>
+        How to include a loop in the route? (Dutch)
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-sidebar.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
         <note priority="1" from="description">demo.via-loop</note>
+      </trans-unit>
+      <trans-unit id="38bd5794dbe84081cfa7867e876245e1ddae93e7" datatype="html">
+        <source>seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/demo/components/demo-video-control.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">demo.duration.seconds</note>
       </trans-unit>
       <trans-unit id="authenticate-page.title" datatype="html">
         <source>
@@ -8483,6 +8541,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
           <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.demo" datatype="html">
+        <source>Demo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.title" datatype="html">

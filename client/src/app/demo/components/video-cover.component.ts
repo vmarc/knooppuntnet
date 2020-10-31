@@ -16,7 +16,6 @@ import {Component} from "@angular/core";
   `,
   styles: [`
     .cover {
-      position: absolute;
       background-color: white;
       width: 1280px;
       height: 720px;

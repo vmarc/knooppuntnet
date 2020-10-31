@@ -5,9 +5,11 @@ import {actionDemoStartVideo} from "./demo.actions";
 import {actionDemoPlayingChanged} from "./demo.actions";
 import {actionDemoCanPlay} from "./demo.actions";
 import {actionDemoTimeUpdate} from "./demo.actions";
+import {actionDemoEnabledChanged} from "./demo.actions";
 
 export const initialState: DemoState = {
   video: "",
+  enabled: false,
   playing: false,
   time: 0,
   duration: 0,
@@ -33,6 +35,13 @@ const reducer = createReducer(
       ...state,
       playing: playing,
       videoPlayButtonEnabled: false
+    })
+  ),
+  on(
+    actionDemoEnabledChanged,
+    (state, {enabled}) => ({
+      ...state,
+      enabled: enabled
     })
   ),
   on(
