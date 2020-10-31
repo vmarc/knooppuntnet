@@ -18,6 +18,7 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 import {MapMode} from "../../../components/ol/services/map-mode";
 import {Subscriptions} from "../../../util/Subscriptions";
+import {SettingsService} from "../../../services/settings.service";
 
 @Injectable()
 export class PlannerLayerService {
@@ -46,7 +47,8 @@ export class PlannerLayerService {
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
               private mapService: MapService,
-              private mapZoomService: MapZoomService) {
+              private mapZoomService: MapZoomService,
+              private settingsService: SettingsService) {
 
     this.layerSwitcherMapLayers$ = this._layerSwitcherMapLayers$.asObservable();
 
@@ -110,9 +112,14 @@ export class PlannerLayerService {
     this.bitmapLayersAnalysis = this.buildBitmapLayers(MapMode.analysis);
     this.vectorLayers = this.buildVectorLayers();
 
-    this.standardLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer]);
+    if (this.settingsService.extraLayers) {
+      this.standardLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer]);
+    }
+    else {
+      this.standardLayers = List([this.backgroundLayer, this.poiLayer]);
+    }
 
-    this.allLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer])
+    this.allLayers = this.standardLayers
       .concat(this.bitmapLayersSurface.values())
       .concat(this.bitmapLayersSurvey.values())
       .concat(this.bitmapLayersAnalysis.values())

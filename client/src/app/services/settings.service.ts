@@ -15,7 +15,15 @@ export class SettingsService {
   }
 
   set instructions(instructions: boolean) {
-    this.updateSettings(new Settings(instructions));
+    this.updateSettings(new Settings(instructions, this._settings.extraLayers));
+  }
+
+  get extraLayers(): boolean {
+    return this.settings().extraLayers;
+  }
+
+  set extraLayers(extraLayers: boolean) {
+    this.updateSettings(new Settings(this._settings.instructions, extraLayers));
   }
 
   private settings(): Settings {
@@ -24,7 +32,7 @@ export class SettingsService {
       if (json !== null) {
         this._settings = Settings.fromJSON(JSON.parse(json));
       } else {
-        this.updateSettings(new Settings(false));
+        this.updateSettings(new Settings(false, false));
       }
     }
     return this._settings;

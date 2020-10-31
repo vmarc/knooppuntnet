@@ -8349,18 +8349,18 @@
       </trans-unit>
       <trans-unit id="settings.directions" datatype="html">
         <source>
-      Navigation instructions
-    </source>
+        Navigation instructions
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.directions.comment.1" datatype="html">
         <source>
-      You can enable this extra functionality in the planner to generate
-      a list with navigation instructions for the route you have planned.
-    </source>
+        You can enable this extra functionality in the planner to generate
+        a list with navigation instructions for the route you have planned.
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -8368,13 +8368,42 @@
       </trans-unit>
       <trans-unit id="settings.directions.comment.2" datatype="html">
         <source>
-      This functionality is still experimental and under development at
-      this moment and may not work completely ok yet. By default, this
-      functionality is not enabled.
-    </source>
+        This functionality is still experimental and under development at
+        this moment and may not work completely ok yet. By default, this
+        functionality is not enabled.
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings.extra-layers" datatype="html">
+        <source>
+        Extra layers
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings.extra-layers.comment.1" datatype="html">
+        <source>
+        Enables the option to select extra layers in the planner map.
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="settings.extra-layers.comment.2" datatype="html">
+        <source>
+        These extra layers are intended for debugging purposes only, and are not needed
+        for normal planner use. The extra layers can show the tile names and background
+        tiles from OpenStreetMap (normally we use tiles from our own server).
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi-areas.title" datatype="html">

@@ -23,6 +23,7 @@ object Subset {
 
   val atBicycle: Subset = Subset(Country.at, NetworkType.cycling)
 
+  val esHiking: Subset = Subset(Country.es, NetworkType.hiking)
   val esBicycle: Subset = Subset(Country.es, NetworkType.cycling)
 
   val all: Seq[Subset] = Seq(
@@ -36,6 +37,7 @@ object Subset {
     beHiking,
     deHiking,
     frHiking,
+    esHiking,
     nlHorseRiding,
     beHorseRiding,
     deHorseRiding,
