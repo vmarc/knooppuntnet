@@ -3,7 +3,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
@@ -61,7 +61,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
     this.response$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
       tap(nodeId => this.nodeId$.next(nodeId)),
-      flatMap(nodeId => this.appService.nodeMap(nodeId).pipe(
+      mergeMap(nodeId => this.appService.nodeMap(nodeId).pipe(
         tap(response => {
           if (response.result) {
             this.nodeMapInfo = response.result.nodeMapInfo;

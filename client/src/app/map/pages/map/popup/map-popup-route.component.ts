@@ -31,7 +31,8 @@ import {PlannerService} from "../../../planner.service";
       </div>
 
       <p class="more-details">
-        <kpn-link-route [routeId]="response.result.id" title="More details" i18n-title="@@map.route-popup.more-details"></kpn-link-route>
+        <kpn-link-route [routeId]="response.result.id" title="More details"
+                        i18n-title="@@map.route-popup.more-details"></kpn-link-route>
       </p>
 
     </div>
@@ -60,7 +61,11 @@ export class MapPopupRouteComponent implements OnInit {
       filter(routeClick => routeClick !== null),
       switchMap(routeClick =>
         this.appService.mapRouteDetail(routeClick.route.routeId).pipe(
-          tap(response => this.openPopup(routeClick.coordinate))
+          tap(response => {
+            if (response.result) {
+              this.openPopup(routeClick.coordinate)
+            }
+          })
         )
       )
     );

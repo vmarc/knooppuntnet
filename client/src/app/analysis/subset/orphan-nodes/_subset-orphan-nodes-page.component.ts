@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Observable} from "rxjs";
 import {BehaviorSubject} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {Util} from "../../../components/shared/util";
 import {NodeInfo} from "../../../kpn/api/common/node-info";
@@ -52,7 +52,7 @@ export class SubsetOrphanNodesPageComponent implements OnInit {
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanNodesPage>>;
 
-  nodes: List<NodeInfo>;
+  nodes: List<NodeInfo> = List();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -65,11 +65,13 @@ export class SubsetOrphanNodesPageComponent implements OnInit {
       tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
     );
     this.response$ = this.subset$.pipe(
-      flatMap(subset => this.appService.subsetOrphanNodes(subset).pipe(
+      mergeMap(subset => this.appService.subsetOrphanNodes(subset).pipe(
         tap(response => {
-          this.nodes = response.result.rows;
-          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
-          this.subsetInfo$.next(response.result.subsetInfo);
+          if (response.result) {
+            this.nodes = response.result.rows;
+            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetInfo$.next(response.result.subsetInfo);
+          }
         })
       ))
     );

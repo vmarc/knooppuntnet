@@ -3,7 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {BehaviorSubject} from "rxjs";
-import {flatMap} from "rxjs/operators";
+import {mergeMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
 import {AppService} from "../../../app.service";
@@ -74,11 +74,13 @@ export class SubsetFactsPageComponent implements OnInit {
       tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
     );
     this.response$ = this.subset$.pipe(
-      flatMap(subset => this.appService.subsetFacts(subset).pipe(
+      mergeMap(subset => this.appService.subsetFacts(subset).pipe(
         tap(response => {
-          this.hasFacts = response.result && response.result.subsetInfo.factCount > 0;
-          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
-          this.subsetInfo$.next(response.result.subsetInfo);
+          if (response.result) {
+            this.hasFacts = response.result && response.result.subsetInfo.factCount > 0;
+            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetInfo$.next(response.result.subsetInfo);
+          }
         })
       ))
     );

@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidth} from "../../../components/shared/page-width";
 import {PageWidthService} from "../../../components/shared/page-width.service";
@@ -57,7 +57,9 @@ import {FactInfo} from "../../fact/fact-info";
         </kpn-data>
 
         <kpn-data title="Network" i18n-title="@@route.network">
-          <kpn-route-network-references [references]="response.result.references.networkReferences"></kpn-route-network-references>
+          <kpn-route-network-references
+            [references]="response.result.references.networkReferences">
+          </kpn-route-network-references>
         </kpn-data>
 
         <div *ngIf="route.analysis">
@@ -100,7 +102,10 @@ import {FactInfo} from "../../fact/fact-info";
         </kpn-data>
 
         <div *ngIf="showRouteDetails$ | async">
-          <kpn-route-members [networkType]="route.summary.networkType" [members]="route.analysis.members"></kpn-route-members>
+          <kpn-route-members
+            [networkType]="route.summary.networkType"
+            [members]="route.analysis.members">
+          </kpn-route-members>
         </div>
       </div>
     </div>
@@ -133,7 +138,7 @@ export class RoutePageComponent implements OnInit {
     this.response$ = this.activatedRoute.params.pipe(
       map(params => params["routeId"]),
       tap(routeId => this.routeId$.next(routeId)),
-      flatMap(routeId => this.appService.routeDetails(routeId)),
+      mergeMap(routeId => this.appService.routeDetails(routeId)),
       tap(response => {
         if (response.result) {
           this.route = response.result.route;

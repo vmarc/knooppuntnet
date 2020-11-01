@@ -30,7 +30,9 @@ export class LocationRoutesPageService {
       switchMap(([parameters, locationKey]) =>
         this.appService.locationRoutes(locationKey, parameters).pipe(
           tap(response => {
-            this.locationService.nextSummary(locationKey.name, response.result.summary);
+            if (response.result) {
+              this.locationService.nextSummary(locationKey.name, response.result.summary);
+            }
           })
         )
       )

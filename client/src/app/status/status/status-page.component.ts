@@ -43,9 +43,11 @@ export class StatusPageComponent implements OnInit {
   ngOnInit(): void {
     this.response$ = this.appService.status().pipe(
       tap(response => {
-        const timestamp = response.result.timestamp;
-        this.replicationLinks = new StatusLinks(timestamp, "/status/replication");
-        this.systemLinks = new StatusLinks(timestamp, "/status/system");
+        if (response.result) {
+          const timestamp = response.result.timestamp;
+          this.replicationLinks = new StatusLinks(timestamp, "/status/replication");
+          this.systemLinks = new StatusLinks(timestamp, "/status/system");
+        }
       })
     );
   }

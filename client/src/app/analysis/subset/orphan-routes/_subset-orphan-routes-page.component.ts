@@ -3,7 +3,8 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Observable} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {Util} from "../../../components/shared/util";
 import {RouteSummary} from "../../../kpn/api/common/route-summary";
@@ -11,7 +12,6 @@ import {SubsetOrphanRoutesPage} from "../../../kpn/api/common/subset/subset-orph
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {Subset} from "../../../kpn/api/custom/subset";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {BehaviorSubject} from "rxjs";
 import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 @Component({
@@ -52,7 +52,7 @@ export class SubsetOrphanRoutesPageComponent implements OnInit {
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanRoutesPage>>;
 
-  routes: List<RouteSummary>;
+  routes: List<RouteSummary> = List();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -65,11 +65,13 @@ export class SubsetOrphanRoutesPageComponent implements OnInit {
       tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
     );
     this.response$ = this.subset$.pipe(
-      flatMap(subset => this.appService.subsetOrphanRoutes(subset).pipe(
+      mergeMap(subset => this.appService.subsetOrphanRoutes(subset).pipe(
         tap(response => {
-          this.routes = response.result.rows;
-          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
-          this.subsetInfo$.next(response.result.subsetInfo);
+          if (response.result) {
+            this.routes = response.result.rows;
+            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetInfo$.next(response.result.subsetInfo);
+          }
         })
       ))
     );

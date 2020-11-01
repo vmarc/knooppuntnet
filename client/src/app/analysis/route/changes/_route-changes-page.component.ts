@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ReplaySubject} from "rxjs";
 import {combineLatest} from "rxjs";
 import {Observable} from "rxjs";
-import {flatMap} from "rxjs/operators";
+import {mergeMap} from "rxjs/operators";
 import {switchMap} from "rxjs/operators";
 import {tap} from "rxjs/operators";
 import {map} from "rxjs/operators";
@@ -100,7 +100,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
       map(params => params["routeId"]),
       tap(routeId => this.routeId$.next(routeId)),
       tap(routeId => this.updateParameters(routeId)),
-      flatMap(routeId =>
+      mergeMap(routeId =>
         combineLatest([this.routeId$, this.routeChangesService.parameters$]).pipe(
           switchMap(([nodeId, changeParameters]) =>
             this.appService.routeChanges(nodeId, changeParameters).pipe(

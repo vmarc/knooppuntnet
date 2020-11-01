@@ -3,7 +3,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {shareReplay} from "rxjs/operators";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {NetworkMapPage} from "../../../kpn/api/common/network/network-map-page";
@@ -53,7 +53,7 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
     );
 
     this.response$ = this.networkId$.pipe(
-      flatMap(networkId =>
+      mergeMap(networkId =>
         this.appService.networkMap(networkId).pipe(
           tap(response => {
             if (response.result) {

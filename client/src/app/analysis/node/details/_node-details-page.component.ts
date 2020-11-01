@@ -5,7 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
@@ -62,11 +62,16 @@ import {FactInfo} from "../../fact/fact-info";
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
-          <kpn-node-network-references [nodeInfo]="nodeInfo" [references]="references.networkReferences"></kpn-node-network-references>
+          <kpn-node-network-references
+            [nodeInfo]="nodeInfo"
+            [references]="references.networkReferences">
+          </kpn-node-network-references>
         </kpn-data>
 
         <kpn-data title="Orphan routes" i18n-title="@@node.orphan-routes">
-          <kpn-node-orphan-route-references [references]="references.routeReferences"></kpn-node-orphan-route-references>
+          <kpn-node-orphan-route-references
+            [references]="references.routeReferences">
+          </kpn-node-orphan-route-references>
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
@@ -102,7 +107,7 @@ export class NodeDetailsPageComponent implements OnInit {
     this.response$ = this.activatedRoute.params.pipe(
       map(params => params["nodeId"]),
       tap(nodeId => this.nodeId$.next(nodeId)),
-      flatMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
+      mergeMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
         tap(response => {
           if (response.result) {
             this.nodeName$.next(response.result.nodeInfo.name);

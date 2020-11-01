@@ -4,7 +4,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Observable} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
@@ -16,7 +17,6 @@ import {Subset} from "../../../kpn/api/custom/subset";
 import {NetworkCacheService} from "../../../services/network-cache.service";
 import {SubsetCacheService} from "../../../services/subset-cache.service";
 import {SubsetMapNetworkDialogComponent} from "./subset-map-network-dialog.component";
-import {BehaviorSubject} from "rxjs";
 import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
 
 @Component({
@@ -66,15 +66,17 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
       tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
     );
     this.response$ = this.subset$.pipe(
-      flatMap(subset => this.appService.subsetMap(subset).pipe(
+      mergeMap(subset => this.appService.subsetMap(subset).pipe(
         tap(response => {
-          this.bounds = response.result.bounds;
-          this.networks = response.result.networks;
-          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
-          this.subsetInfo$.next(response.result.subsetInfo);
-          response.result.networks.forEach(networkAttributes => {
-            this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
-          });
+          if (response.result) {
+            this.bounds = response.result.bounds;
+            this.networks = response.result.networks;
+            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetInfo$.next(response.result.subsetInfo);
+            response.result.networks.forEach(networkAttributes => {
+              this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
+            });
+          }
         })
       ))
     );

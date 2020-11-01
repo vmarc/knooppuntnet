@@ -3,7 +3,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subject} from "rxjs";
 import {Observable} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {RouteMapPage} from "../../../kpn/api/common/route/route-map-page";
@@ -56,7 +56,7 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
     this.response$ = this.activatedRoute.params.pipe(
       map(params => params["routeId"]),
       tap(routeId => this.routeId$.next(routeId)),
-      flatMap(routeId => this.appService.routeMap(routeId).pipe(
+      mergeMap(routeId => this.appService.routeMap(routeId).pipe(
         tap(response => {
           if (response.result) {
             this.routeName$.next(response.result.route.summary.name);

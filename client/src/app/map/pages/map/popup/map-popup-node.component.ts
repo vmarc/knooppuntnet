@@ -85,8 +85,10 @@ export class MapPopupNodeComponent implements OnInit, OnDestroy {
       switchMap(nodeClick =>
         this.appService.mapNodeDetail(this.mapService.networkType(), +nodeClick.node.node.nodeId).pipe(
           tap(response => {
-            const coordinate = Util.toCoordinate(response.result.latitude, response.result.longitude);
-            this.openPopup(coordinate);
+            if (response.result) {
+              const coordinate = Util.toCoordinate(response.result.latitude, response.result.longitude);
+              this.openPopup(coordinate);
+            }
           })
         )
       )

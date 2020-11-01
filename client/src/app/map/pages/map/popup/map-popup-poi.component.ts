@@ -3,7 +3,7 @@ import {OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {Coordinate} from "ol/coordinate";
 import {Observable} from "rxjs";
-import {filter, flatMap, tap} from "rxjs/operators";
+import {filter, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../../app.service";
 import {PoiClick} from "../../../../components/ol/domain/poi-click";
 import {MapService} from "../../../../components/ol/services/map.service";
@@ -177,7 +177,7 @@ export class MapPopupPoiComponent implements OnInit {
     this.response$ = this.mapService.poiClicked$.pipe(
       filter(poiClick => poiClick !== null),
       tap(poiClick => this.poiClick = poiClick),
-      flatMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId)),
+      mergeMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId)),
       tap(response => {
         if (response.result) {
           this.poiPage = response.result;

@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {List} from "immutable";
 import {Observable} from "rxjs";
 import {BehaviorSubject} from "rxjs";
-import {flatMap, map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
 import {AppService} from "../../../app.service";
 import {PageWidthService} from "../../../components/shared/page-width.service";
 import {PageService} from "../../../components/shared/page.service";
@@ -65,7 +65,7 @@ export class SubsetNetworksPageComponent implements OnInit {
   response$: Observable<ApiResponse<SubsetNetworksPage>>;
 
   page: SubsetNetworksPage;
-  networks: List<NetworkAttributes>;
+  networks: List<NetworkAttributes> = List();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -82,15 +82,17 @@ export class SubsetNetworksPageComponent implements OnInit {
       tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
     );
     this.response$ = this.subset$.pipe(
-      flatMap(subset => this.appService.subsetNetworks(subset).pipe(
+      mergeMap(subset => this.appService.subsetNetworks(subset).pipe(
         tap(response => {
-          this.page = response.result;
-          this.networks = response.result.networks;
-          this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
-          this.subsetInfo$.next(response.result.subsetInfo);
-          response.result.networks.forEach(networkAttributes => {
-            this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
-          });
+          if (response.result) {
+            this.page = response.result;
+            this.networks = response.result.networks;
+            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetInfo$.next(response.result.subsetInfo);
+            response.result.networks.forEach(networkAttributes => {
+              this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);
+            });
+          }
         })
       ))
     );
