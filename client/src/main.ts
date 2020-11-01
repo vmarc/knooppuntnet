@@ -17,6 +17,14 @@ if (environment.production) {
         }
       }
       return breadcrumb;
+    },
+    beforeSend(event, hint) {
+      const error = hint.originalException;
+      if (error && error.toString().includes("ChunkLoadError")) {
+        window.location.reload();
+        return null;
+      }
+      return event;
     }
   });
   enableProdMode();
