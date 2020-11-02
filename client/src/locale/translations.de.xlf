@@ -6457,7 +6457,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Probleme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
@@ -8544,7 +8544,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>settings</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.title" datatype="html">
@@ -9140,11 +9140,11 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.issues" datatype="html">
-        <source>Knooppuntnet_issues</source>
-        <target>DE:Knooppuntnet_Probleme</target>
+        <source>https://wiki.openstreetmap.org/wiki/Knooppuntnet_issues</source>
+        <target>https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_Probleme</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/i18n/i18n.component.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="sourcefile">app/components/shared/page/page-footer.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
     </body>
