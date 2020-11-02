@@ -103,21 +103,20 @@ export class DemoVideoControlComponent {
   @Input() name: string;
   @Input() duration: string;
 
-  selected$: Observable<boolean> = this.store.pipe(
+  readonly selected$: Observable<boolean> = this.store.pipe(
     select(selectDemoVideo),
     map(current => current == this.name)
   );
 
-  playing$: Observable<boolean> = combineLatest([this.selected$, this.store.pipe(select(selectDemoPlaying))]).pipe(
+  readonly playing$: Observable<boolean> = combineLatest([this.selected$, this.store.pipe(select(selectDemoPlaying))]).pipe(
     map(([selected, playing]) => selected && playing)
   );
 
-  icon$: Observable<string> = this.playing$.pipe(map(playing => playing ? "pause" : "play"));
+  readonly icon$: Observable<string> = this.playing$.pipe(map(playing => playing ? "pause" : "play"));
 
-  enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
+  readonly enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
 
   constructor(private store: Store) {
-    this.enabled$.subscribe(enabled => console.log("ENABLED=" + enabled));
   }
 
   play(): void {

@@ -64,7 +64,7 @@ import {BrowserStorageService} from "./services/browser-storage.service";
 export class AppService {
 
   private _httpError$ = new BehaviorSubject(null);
-  httpError$: Observable<string> = this._httpError$.asObservable();
+  readonly httpError$: Observable<string> = this._httpError$.asObservable();
 
   constructor(private http: HttpClient,
               markdownService: MarkdownService,

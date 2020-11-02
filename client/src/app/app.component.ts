@@ -90,10 +90,15 @@ export class AppComponent implements OnInit {
     this.subscriptions.add(
       router.events.subscribe(event => {
         if (event instanceof RouteConfigLoadStart) {
+          console.log(`AppComponent.RouteConfigLoadStart: ${event.route.path}`);
           this.spinnerService.start(`lazy-load-${event.route.path}`);
         } else if (event instanceof RouteConfigLoadEnd) {
+          console.log(`AppComponent.RouteConfigLoadEnd: ${event.route.path}`);
           this.spinnerService.end(`lazy-load-${event.route.path}`);
         }
+      },
+      error => {
+        console.log("AppComponent router event error: " + error.toString());
       })
     );
   }
