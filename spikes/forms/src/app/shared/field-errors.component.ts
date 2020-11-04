@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {AbstractControl} from "@angular/forms";
+import {FormGroupDirective} from "@angular/forms";
 import {Util} from "./util";
-import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: "app-field-errors",
@@ -24,13 +24,15 @@ export class FieldErrorsComponent {
 
   @Input() control: AbstractControl;
 
+  constructor(private formGroupDirective: FormGroupDirective) {
+  }
+
   show(): boolean {
-    const submitted$: BehaviorSubject<boolean> = this.control["submitted"];
     return this.control &&
       this.control.invalid && (
         this.control.dirty ||
         this.control.touched ||
-        (submitted$ && submitted$.value)
+        this.formGroupDirective.submitted
       );
   }
 

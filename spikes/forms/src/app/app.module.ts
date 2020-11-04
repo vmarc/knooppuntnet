@@ -19,6 +19,7 @@ import {InputDirective} from "./shared/input.directive";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {MessageService} from "./shared/message.service";
+import {ClassesComponent} from "./shared/classes.component";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {MessageService} from "./shared/message.service";
     Page2Component,
     Page3Component,
     InputDirective,
+    ClassesComponent,
   ],
   imports: [
     BrowserModule,

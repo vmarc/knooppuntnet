@@ -97,10 +97,8 @@ export class Page3Component implements OnInit {
   }
 
   submit(): void {
-    Util.submitForm(this.form);
     if (this.form.valid) {
       this.messageService.say("submit valid form");
-      Util.resetForm(this.form);
     } else {
       this.messageService.warn("cannot submit invalid form");
     }

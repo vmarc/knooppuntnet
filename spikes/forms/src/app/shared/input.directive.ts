@@ -1,38 +1,27 @@
 import {Directive, ElementRef} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {NgControl} from "@angular/forms";
-import {BehaviorSubject} from "rxjs";
-import {Subscription} from "rxjs";
+import {DoCheck} from "@angular/core";
+import {FormGroupDirective} from "@angular/forms";
 
 @Directive({
   selector: "[kpn-input]"
 })
-export class InputDirective implements OnInit, OnDestroy {
+export class InputDirective implements DoCheck {
 
-  private element: HTMLInputElement;
-  private subscription: Subscription;
+  private submitted = false;
 
   constructor(private elementRef: ElementRef,
-              private formControl: NgControl) {
-    this.element = this.elementRef.nativeElement;
+              private parentFormGroup: FormGroupDirective) {
   }
 
-  ngOnInit(): void {
-    const submitted$ = new BehaviorSubject<boolean>(false);
-    this.formControl.control["submitted"] = submitted$;
-    this.subscription = submitted$.subscribe(submitted => {
-      if (submitted) {
-        this.element.classList.add("kpn-submitted");
+  ngDoCheck(): void {
+    const formGroupSubmitted = this.parentFormGroup.submitted;
+    if (formGroupSubmitted !== this.submitted) {
+      this.submitted = formGroupSubmitted;
+      if (this.submitted) {
+        this.elementRef.nativeElement.classList.add("our-own-submitted");
       } else {
-        this.element.classList.remove("kpn-submitted");
+        this.elementRef.nativeElement.classList.remove("our-own-submitted");
       }
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
     }
   }
 

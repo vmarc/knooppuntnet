@@ -1,4 +1,6 @@
 import {Component} from "@angular/core";
+import {ViewChild} from "@angular/core";
+import {ElementRef} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {FormControl} from "@angular/forms";
 import {Validators} from "@angular/forms";
@@ -17,11 +19,11 @@ import {MessageService} from "../shared/message.service";
       <div class="fields">
 
         <label>First name</label>
-        <input kpn-input #first [formControl]="firstName" placeholder="First name placeholder">
+        <input kpn-input #first [formControl]="firstName">
         <app-field-errors [control]="firstName"></app-field-errors>
 
         <label>Last name</label>
-        <input kpn-input #last [formControl]="lastName" placeholder="Last name placeholder">
+        <input kpn-input #last [formControl]="lastName">
         <app-field-errors [control]="lastName"></app-field-errors>
 
       </div>
@@ -53,6 +55,32 @@ import {MessageService} from "../shared/message.service";
           </ul>
         </li>
       </ul>
+      <div class="classes">
+        <button mat-raised-button (click)="updateClasses1()">Classes</button>
+        <div *ngIf="firstNameClasses1">
+          <p>
+            firstName classes =
+            <app-classes [classes]="firstNameClasses1"></app-classes>
+          </p>
+          <p>
+            lastName classes =
+            <app-classes [classes]="lastNameClasses1"></app-classes>
+          </p>
+        </div>
+      </div>
+      <div class="classes">
+        <button mat-raised-button (click)="updateClasses2()">Classes</button>
+        <div *ngIf="firstNameClasses2">
+          <p>
+            firstName classes =
+            <app-classes [classes]="firstNameClasses2"></app-classes>
+          </p>
+          <p>
+            lastName classes =
+            <app-classes [classes]="lastNameClasses2"></app-classes>
+          </p>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
@@ -87,15 +115,21 @@ import {MessageService} from "../shared/message.service";
       background: none;
     }
 
-    input.ng-invalid.kpn-submitted {
+    input.ng-invalid.our-own-submitted {
       border: 1px solid red;
       background: rgba(255, 182, 193, 0.2);
+    }
+
+    .classes {
+      padding-top: 2em;
+    }
+
+    .classes button {
+      margin-bottom: 1em;
     }
   `]
 })
 export class Page2Component {
-
-  util = Util;
 
   readonly firstName = new FormControl("", Validators.required);
   readonly lastName = new FormControl("", Validators.required);
@@ -109,13 +143,32 @@ export class Page2Component {
   }
 
   submit(): void {
-    Util.submitForm(this.form);
     if (this.form.valid) {
       this.messageService.say("Valid form submitted");
-      Util.resetForm(this.form);
     } else {
       this.messageService.warn("Cannot submit invalid form");
     }
+  }
+
+  // ***************************** debug *****************************
+
+  util = Util;
+  firstNameClasses1 = "";
+  lastNameClasses1 = "";
+  firstNameClasses2 = "";
+  lastNameClasses2 = "";
+
+  @ViewChild("first") firstNameInput: ElementRef;
+  @ViewChild("last") lastNameInput: ElementRef;
+
+  updateClasses1(): void {
+    this.firstNameClasses1 = this.firstNameInput.nativeElement.classList.value;
+    this.lastNameClasses1 = this.lastNameInput.nativeElement.classList.value;
+  }
+
+  updateClasses2(): void {
+    this.firstNameClasses2 = this.firstNameInput.nativeElement.classList.value;
+    this.lastNameClasses2 = this.lastNameInput.nativeElement.classList.value;
   }
 
 }
