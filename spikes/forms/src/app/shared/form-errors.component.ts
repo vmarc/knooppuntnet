@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {FormGroup} from "@angular/forms";
+import {FormGroupDirective} from "@angular/forms";
 import {Util} from "./util";
 
 @Component({
@@ -25,8 +26,11 @@ export class FormErrorsComponent {
 
   @Input() form: FormGroup;
 
+  constructor(private formGroupDirective: FormGroupDirective) {
+  }
+
   show(): boolean {
-    return this.form && this.form.invalid && this.form["submitted"];
+    return this.form && this.form.invalid && this.formGroupDirective.submitted;
   }
 
 }
