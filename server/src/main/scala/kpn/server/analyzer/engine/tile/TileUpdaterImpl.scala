@@ -38,10 +38,13 @@ class TileUpdaterImpl(
 
     def update() {
       val allTasks = taskRepository.all(TileTask.prefix)
+      log.debug(s"processing ${allTasks.size} tasks")
       (minZoomLevel to ZoomLevel.maxZoom).foreach { zoomLevel =>
         routeCache.clear()
         val tasks = allTasks.filter(task => TileTask.zoomLevel(task) == zoomLevel)
-        tasks.foreach { task =>
+        log.debug(s"processing ${allTasks.size} tasks at zoomLevel $zoomLevel")
+        tasks.zipWithIndex.foreach { case (task, index) =>
+          log.debug(s"processing task $task")
           processTask(task)
           taskRepository.delete(task)
         }

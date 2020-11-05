@@ -4,13 +4,16 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.repository.NetworkRepository
+import kpn.server.repository.NodeRepository
 import kpn.server.repository.OrphanRepository
 import kpn.server.repository.RouteRepository
 
 class TileAnalyzerImpl(
   networkRepository: NetworkRepository,
   orphanRepository: OrphanRepository,
+  nodeRepository: NodeRepository,
   routeRepository: RouteRepository
 ) extends TileAnalyzer {
 
@@ -18,7 +21,7 @@ class TileAnalyzerImpl(
 
   def analysis(networkType: NetworkType): TileAnalysis = {
 
-    val subsets = Subset.all.filter(_.networkType == networkType)
+    val subsets = Seq(Subset.nlHiking) // Subset.all.filter(_.networkType == networkType)
     val details = subsets.flatMap { subset =>
       networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
         //noinspection SideEffectsInMonadicTransformation
@@ -32,22 +35,18 @@ class TileAnalyzerImpl(
     val nodes = details.flatMap(_.nodes).map(node => new TileDataNodeBuilder().build(node))
 
     val routeIds = details.flatMap(_.routes.map(_.id))
+    val routeInfos = loadRouteAnalyses(routeRepository, routeIds)
 
-    val orphanRouteIds = subsets.flatMap { subset =>
-      orphanRepository.orphanRoutes(subset)
-    }.map(_.id)
-
-    val orphanNodes = subsets.flatMap { subset =>
-      orphanRepository.orphanNodes(subset)
-    }
-
-    val routeInfos: Seq[RouteInfo] = loadRouteAnalyses(routeRepository, routeIds ++ orphanRouteIds)
+    val orphanRouteIds = subsets.flatMap(subset => orphanRepository.orphanRoutes(subset)).map(_.id)
+    val orphanRouteInfos = loadRouteAnalyses(routeRepository, orphanRouteIds)
+    val extraNodesInOrphanRoutes = findExtraNodesInOrphanRoutes(networkType, nodes, orphanRouteInfos)
+    val orphanNodes = subsets.flatMap { subset => orphanRepository.orphanNodes(subset) }
 
     TileAnalysis(
       networkType,
-      nodes,
+      nodes ++ extraNodesInOrphanRoutes,
       orphanNodes,
-      routeInfos
+      routeInfos ++ orphanRouteInfos
     )
   }
 
@@ -62,6 +61,22 @@ class TileAnalyzerImpl(
       }
       routeRepo.routeWithId(routeId)
     }
+  }
+
+  private def findExtraNodesInOrphanRoutes(networkType: NetworkType, nodes: Seq[TileDataNode], orphanRouteInfos: Seq[RouteInfo]) = {
+
+    val orphanRouteNodeIds: Seq[Long] = orphanRouteInfos.flatMap { route =>
+      val allNodes = route.analysis.map.startNodes ++
+        route.analysis.map.endNodes ++
+        route.analysis.map.startTentacleNodes ++
+        route.analysis.map.endTentacleNodes ++
+        route.analysis.map.redundantNodes
+      allNodes.map(_.id)
+    }
+
+    val extraNodesInOrphanRouteIds = orphanRouteNodeIds.toSet -- nodes.map(_.id).toSet
+    val extrasNodeInOrphanRoutes = extraNodesInOrphanRouteIds.flatMap(nodeId => nodeRepository.nodeWithId(nodeId))
+    extrasNodeInOrphanRoutes.map(node => new TileDataNodeBuilder().build(networkType, node))
   }
 
 }
