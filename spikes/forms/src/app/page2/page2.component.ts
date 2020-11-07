@@ -19,11 +19,11 @@ import {MessageService} from "../shared/message.service";
       <div class="fields">
 
         <label>First name</label>
-        <input kpn-input #first [formControl]="firstName">
+        <input our-own-input #first [formControl]="firstName">
         <app-field-errors [control]="firstName"></app-field-errors>
 
         <label>Last name</label>
-        <input kpn-input #last [formControl]="lastName">
+        <input our-own-input #last [formControl]="lastName">
         <app-field-errors [control]="lastName"></app-field-errors>
 
       </div>
