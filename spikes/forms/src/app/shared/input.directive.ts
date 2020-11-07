@@ -3,7 +3,7 @@ import {DoCheck} from "@angular/core";
 import {FormGroupDirective} from "@angular/forms";
 
 @Directive({
-  selector: "[kpn-input]"
+  selector: "[our-own-input]"
 })
 export class InputDirective implements DoCheck {
 
