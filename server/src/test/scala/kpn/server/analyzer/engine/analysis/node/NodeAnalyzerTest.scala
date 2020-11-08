@@ -61,6 +61,12 @@ class NodeAnalyzerTest extends UnitTest {
     NodeAnalyzer.name(NetworkType.hiking, Tags.empty) should equal("")
   }
 
+  test("name - * and .") {
+    val tags = Tags.from("rwn_ref" -> "*", "rcn_ref" -> ".")
+    NodeAnalyzer.name(NetworkType.hiking, tags) should equal("*")
+    NodeAnalyzer.name(NetworkType.cycling, tags) should equal(".")
+  }
+
   test("hasNodeTag") {
     NodeAnalyzer.hasNodeTag(Tags.from("rwn_ref" -> "01")) should equal(true)
     NodeAnalyzer.hasNodeTag(Tags.from("icn_ref" -> "01")) should equal(true)
