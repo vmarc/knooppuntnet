@@ -124,26 +124,26 @@ class TilesBuilder(
 
       val afterTileNamesSurface = tileNames.map(tileName => analysis.networkType.name + "-surface-" + tileName)
 
-      log.info(s"z=$z, existingTileNamesSurface=$existingTileNamesSurface")
-      log.info(s"z=$z, afterTileNamesSurface=$afterTileNamesSurface")
+      log.debug(s"z=$z, existingTileNamesSurface=$existingTileNamesSurface")
+      log.debug(s"z=$z, afterTileNamesSurface=$afterTileNamesSurface")
 
       val obsoleteTileNamesSurface = (existingTileNamesSurface.toSet -- afterTileNamesSurface.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesSurface)
-      log.info(s"Obsolete bitmap surface tiles removed: " + obsoleteTileNamesSurface.size)
+      log.info(s"Obsolete bitmap surface tiles removed: ${obsoleteTileNamesSurface.size}")
 
       val afterTileNamesSurvey = tileNames.map(tileName => analysis.networkType.name + "-survey-" + tileName)
       val obsoleteTileNamesSurvey = (existingTileNamesSurvey.toSet -- afterTileNamesSurvey.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesSurvey)
-      log.info(s"Obsolete bitmap survey tiles removed: " + obsoleteTileNamesSurvey.size)
+      log.info(s"Obsolete bitmap survey tiles removed: ${obsoleteTileNamesSurvey.size}")
 
       val afterTileNamesAnalysis = tileNames.map(tileName => analysis.networkType.name + "-analysis-" + tileName)
       val obsoleteTileNamesAnalysis = (existingTileNamesAnalysis.toSet -- afterTileNamesAnalysis.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesAnalysis)
-      log.info(s"Obsolete bitmap analysis tiles removed: " + obsoleteTileNamesAnalysis.size)
+      log.info(s"Obsolete bitmap analysis tiles removed: ${obsoleteTileNamesAnalysis.size}")
     }
     else {
       vectorTileFileRepository.delete(obsoleteTileNames)
-      log.info(s"Obsolete vector tiles removed")
+      log.info(s"Obsolete vector tiles removed: ${obsoleteTileNames.size}")
     }
   }
 
@@ -188,7 +188,8 @@ class TilesBuilder(
         }
       }
     }
-    map.toMap
+    map
+      .toMap
   }
 
   private def buildTileRoutes(z: Int, routeInfos: Seq[RouteInfo]): Seq[TileDataRoute] = {

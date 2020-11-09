@@ -6,6 +6,8 @@ trait TileFileRepository {
 
   def saveOrUpdate(tileType: String, tile: Tile, tileBytes: Array[Byte]): Unit
 
+  def deleteTile(tileType: String, tile: Tile): Unit
+
   def existingTileNames(tileType: String, z: Int): Seq[String]
 
   def delete(tilenames: Seq[String]): Unit

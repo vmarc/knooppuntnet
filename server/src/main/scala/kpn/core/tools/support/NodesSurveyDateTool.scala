@@ -7,7 +7,7 @@ import kpn.server.repository.NodeRepositoryImpl
 
 object NodesSurveyDateTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-database", "master-test-1") { database =>
+    Couch.executeIn("kpn-database", "attic-analysis") { database =>
       new NodesSurveyDateTool(database).analyze()
     }
   }

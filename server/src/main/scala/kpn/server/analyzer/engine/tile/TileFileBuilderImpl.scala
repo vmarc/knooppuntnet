@@ -34,9 +34,15 @@ class TileFileBuilderImpl(
   }
 
   private def buildVector(tileData: TileData): Unit = {
-    val tileBytes = new VectorTileBuilder().build(tileData)
-    if (tileBytes.length > 0) {
-      vectorTileRepository.saveOrUpdate(tileData.networkType.name, tileData.tile, tileBytes)
+    if (tileData.isEmpty) {
+      // TODO continue implemetation...
+      // vectorTileRepository.delete()
+    }
+    else {
+      val tileBytes = new VectorTileBuilder().build(tileData)
+      if (tileBytes.length > 0) {
+        vectorTileRepository.saveOrUpdate(tileData.networkType.name, tileData.tile, tileBytes)
+      }
     }
   }
 

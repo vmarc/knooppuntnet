@@ -21,7 +21,7 @@ class TileAnalyzerImpl(
 
   def analysis(networkType: NetworkType): TileAnalysis = {
 
-    val subsets = Seq(Subset.nlHiking) // Subset.all.filter(_.networkType == networkType)
+    val subsets = Subset.all.filter(_.networkType == networkType)
     val details = subsets.flatMap { subset =>
       networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
         //noinspection SideEffectsInMonadicTransformation

@@ -10,4 +10,8 @@ case class TileData(
   tile: Tile,
   nodes: Seq[TileDataNode],
   routes: Seq[TileDataRoute]
-)
+) {
+  def isEmpty: Boolean = {
+    nodes.isEmpty && routes.isEmpty
+  }
+}
