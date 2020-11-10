@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2020-11-10T08:11:02Z"/>
+
+    <node id="246540219" lat="51.6746285" lon="3.7028115" version="4" timestamp="2016-04-19T15:48:04Z" changeset="38698257" uid="778729" user="janremi"/>
+    <node id="246540220" lat="51.6748046" lon="3.7025348" version="3" timestamp="2016-04-19T15:48:04Z" changeset="38698257" uid="778729" user="janremi"/>
+    <node id="354906288" lat="51.6749939" lon="3.7022290" version="6" timestamp="2020-11-08T13:26:18Z" changeset="93739521" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="*"/>
+    </node>
+    <node id="354906301" lat="51.6743977" lon="3.7033468" version="2" timestamp="2016-04-19T15:48:04Z" changeset="38698257" uid="778729" user="janremi"/>
+    <node id="354906303" lat="51.6743997" lon="3.7035614" version="4" timestamp="2020-11-07T17:49:03Z" changeset="93715583" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="91"/>
+    </node>
+    <node id="519171735" lat="51.6753254" lon="3.7017593" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="604316329" lat="51.6767552" lon="3.6973844" version="2" timestamp="2016-09-22T20:59:56Z" changeset="42359978" uid="4521474" user="actiwo"/>
+    <node id="604316330" lat="51.6766066" lon="3.6974377" version="1" timestamp="2010-01-04T11:49:31Z" changeset="3536447" uid="39544" user="Siegfried1988"/>
+    <node id="604316331" lat="51.6765723" lon="3.6976588" version="1" timestamp="2010-01-04T11:49:31Z" changeset="3536447" uid="39544" user="Siegfried1988"/>
+    <node id="604316332" lat="51.6765704" lon="3.6980395" version="1" timestamp="2010-01-04T11:49:32Z" changeset="3536447" uid="39544" user="Siegfried1988"/>
+    <node id="604316333" lat="51.6765799" lon="3.6983772" version="1" timestamp="2010-01-04T11:49:32Z" changeset="3536447" uid="39544" user="Siegfried1988"/>
+    <node id="604316334" lat="51.6766789" lon="3.6985706" version="1" timestamp="2010-01-04T11:49:32Z" changeset="3536447" uid="39544" user="Siegfried1988"/>
+    <node id="604316335" lat="51.6766504" lon="3.6988561" version="1" timestamp="2010-01-04T11:49:32Z" changeset="3536447" uid="39544" user="Siegfried1988"/>
+    <node id="604316336" lat="51.6765836" lon="3.6992177" version="2" timestamp="2016-04-20T11:50:42Z" changeset="38726088" uid="778729" user="janremi"/>
+    <node id="604316337" lat="51.6765824" lon="3.6996469" version="2" timestamp="2016-04-20T11:50:43Z" changeset="38726088" uid="778729" user="janremi"/>
+    <node id="687022898" lat="51.6752728" lon="3.7018069" version="2" timestamp="2016-04-19T15:48:04Z" changeset="38698257" uid="778729" user="janremi"/>
+    <node id="1002457699" lat="51.6797239" lon="3.6991449" version="2" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="1578533506" lat="51.6806631" lon="3.6991218" version="4" timestamp="2020-11-04T22:50:19Z" changeset="93565780" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="3"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="90"/>
+    </node>
+    <node id="2011404479" lat="51.6755679" lon="3.7016485" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404480" lat="51.6756857" lon="3.7014496" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404481" lat="51.6757827" lon="3.7013631" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404482" lat="51.6759871" lon="3.7012757" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404483" lat="51.6763766" lon="3.7012172" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404484" lat="51.6764246" lon="3.7011725" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404485" lat="51.6764751" lon="3.7010337" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="2011404487" lat="51.6769027" lon="3.6974347" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404489" lat="51.6771316" lon="3.6975994" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404490" lat="51.6772804" lon="3.6977546" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404492" lat="51.6773767" lon="3.6978993" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404494" lat="51.6774380" lon="3.6978887" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404496" lat="51.6774883" lon="3.6977970" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404498" lat="51.6775036" lon="3.6968972" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404500" lat="51.6775233" lon="3.6975994" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404503" lat="51.6775364" lon="3.6973030" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404506" lat="51.6775495" lon="3.6965973" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404509" lat="51.6776502" lon="3.6964032" version="1" timestamp="2012-11-12T20:58:34Z" changeset="13852370" uid="716637" user="Traildino"/>
+    <node id="2011404512" lat="51.6777347" lon="3.6963389" version="2" timestamp="2017-10-22T19:27:01Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404515" lat="51.6780360" lon="3.6966729" version="2" timestamp="2017-10-22T19:27:01Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404517" lat="51.6781836" lon="3.6966361" version="2" timestamp="2017-10-22T19:27:01Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404520" lat="51.6784308" lon="3.6963186" version="2" timestamp="2017-10-22T19:27:01Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404523" lat="51.6785796" lon="3.6959339" version="2" timestamp="2017-10-22T19:27:01Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404526" lat="51.6787284" lon="3.6958246" version="2" timestamp="2017-10-22T19:27:01Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404529" lat="51.6789384" lon="3.6958457" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404532" lat="51.6791419" lon="3.6966714" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404535" lat="51.6791813" lon="3.6968055" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404537" lat="51.6792338" lon="3.6968831" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404540" lat="51.6793301" lon="3.6969713" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404543" lat="51.6794548" lon="3.6970348" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404546" lat="51.6795773" lon="3.6973312" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404548" lat="51.6796714" lon="3.6975676" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404554" lat="51.6797501" lon="3.6978040" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404557" lat="51.6797786" lon="3.6988273" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404560" lat="51.6798070" lon="3.6980475" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404563" lat="51.6798398" lon="3.6985768" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404566" lat="51.6798508" lon="3.6982663" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404569" lat="51.6798591" lon="3.6990971" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404572" lat="51.6798639" lon="3.6984110" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404575" lat="51.6799562" lon="3.6990679" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="2011404578" lat="51.6800806" lon="3.6990679" version="2" timestamp="2017-10-22T19:27:02Z" changeset="53160522" uid="88549" user="B@rt"/>
+    <node id="4133560964" lat="51.6744228" lon="3.7031338" version="1" timestamp="2016-04-19T15:48:04Z" changeset="38698257" uid="778729" user="janremi"/>
+    <node id="4135717155" lat="51.6765322" lon="3.7004632" version="2" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="7928480361" lat="51.6764941" lon="3.7007465" version="1" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <node id="7928480362" lat="51.6759057" lon="3.7012928" version="1" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber"/>
+    <way id="7594749" version="15" timestamp="2020-11-04T22:09:18Z" changeset="93564721" uid="7103674" user="Peter Elderson">
+        <nd ref="354906303"/>
+        <nd ref="354906301"/>
+        <nd ref="4133560964"/>
+        <nd ref="246540219"/>
+        <nd ref="246540220"/>
+        <nd ref="354906288"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="segregated" v="no"/>
+        <tag k="traffic_sign" v="NL:G11"/>
+    </way>
+    <way id="47480442" version="4" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber">
+        <nd ref="1578533506"/>
+        <nd ref="2011404578"/>
+        <nd ref="2011404575"/>
+        <nd ref="2011404569"/>
+        <nd ref="1002457699"/>
+        <nd ref="2011404557"/>
+        <nd ref="2011404563"/>
+        <nd ref="2011404572"/>
+        <nd ref="2011404566"/>
+        <nd ref="2011404560"/>
+        <nd ref="2011404554"/>
+        <nd ref="2011404548"/>
+        <nd ref="2011404546"/>
+        <nd ref="2011404543"/>
+        <nd ref="2011404540"/>
+        <nd ref="2011404537"/>
+        <nd ref="2011404535"/>
+        <nd ref="2011404532"/>
+        <nd ref="2011404529"/>
+        <nd ref="2011404526"/>
+        <nd ref="2011404523"/>
+        <nd ref="2011404520"/>
+        <nd ref="2011404517"/>
+        <nd ref="2011404515"/>
+        <tag k="highway" v="track"/>
+    </way>
+    <way id="190500983" version="1" timestamp="2012-11-12T20:58:40Z" changeset="13852370" uid="716637" user="Traildino">
+        <nd ref="2011404512"/>
+        <nd ref="2011404509"/>
+        <nd ref="2011404506"/>
+        <nd ref="2011404498"/>
+        <nd ref="2011404503"/>
+        <nd ref="2011404500"/>
+        <nd ref="2011404496"/>
+        <nd ref="2011404494"/>
+        <nd ref="2011404492"/>
+        <nd ref="2011404490"/>
+        <nd ref="2011404489"/>
+        <nd ref="2011404487"/>
+        <nd ref="604316329"/>
+        <tag k="highway" v="path"/>
+    </way>
+    <way id="190501016" version="3" timestamp="2020-09-21T14:43:58Z" changeset="91236073" uid="452471" user="kaartenliefhebber">
+        <nd ref="519171735"/>
+        <nd ref="2011404479"/>
+        <nd ref="2011404480"/>
+        <nd ref="2011404481"/>
+        <nd ref="7928480362"/>
+        <nd ref="2011404482"/>
+        <nd ref="2011404483"/>
+        <nd ref="2011404484"/>
+        <nd ref="2011404485"/>
+        <nd ref="7928480361"/>
+        <nd ref="4135717155"/>
+        <nd ref="604316337"/>
+        <tag k="highway" v="path"/>
+    </way>
+    <way id="190501018" version="1" timestamp="2012-11-12T20:58:42Z" changeset="13852370" uid="716637" user="Traildino">
+        <nd ref="604316329"/>
+        <nd ref="604316330"/>
+        <nd ref="604316331"/>
+        <nd ref="604316332"/>
+        <nd ref="604316333"/>
+        <nd ref="604316334"/>
+        <nd ref="604316335"/>
+        <nd ref="604316336"/>
+        <nd ref="604316337"/>
+        <tag k="highway" v="track"/>
+    </way>
+    <way id="534326289" version="1" timestamp="2017-10-22T19:27:00Z" changeset="53160522" uid="88549" user="B@rt">
+        <nd ref="2011404515"/>
+        <nd ref="2011404512"/>
+        <tag k="highway" v="track"/>
+        <tag k="tracktype" v="grade5"/>
+    </way>
+    <way id="867125925" version="1" timestamp="2020-11-04T22:08:58Z" changeset="93564721" uid="7103674" user="Peter Elderson">
+        <nd ref="354906288"/>
+        <nd ref="687022898"/>
+        <nd ref="519171735"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="segregated" v="no"/>
+        <tag k="traffic_sign" v="NL:G11"/>
+    </way>
+    <relation id="11838989" version="2" timestamp="2020-11-08T13:26:21Z" changeset="93739521" uid="7103674" user="Peter Elderson">
+        <member type="way" ref="47480442" role=""/>
+        <member type="way" ref="534326289" role=""/>
+        <member type="way" ref="190500983" role=""/>
+        <member type="way" ref="190501018" role=""/>
+        <member type="way" ref="190501016" role=""/>
+        <member type="way" ref="867125925" role=""/>
+        <member type="way" ref="7594749" role=""/>
+        <member type="node" ref="354906303" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="ref" v="90-91"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>

@@ -135,8 +135,9 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
         nodeUtil.alternateNames(facts, endNodes)
     }
 
-    val redundantNodes = nodeUtil.sortByName(nodes.toSet -- (startNodes ++ endNodes).toSet)
-
+    val redundantNodes = nodeUtil.sortByName(
+      (nodes.toSet -- (startNodes ++ endNodes).toSet).filter(node => nameOf(node) != "*")
+    )
 
     def toRouteNodes(nodes: Seq[Node]): Seq[RouteNode] = {
       nodes.map(toRouteNode)
