@@ -41,6 +41,7 @@ import {LocationSelectionPageComponent} from "./selection/location-selection-pag
 import {LocationSelectionService} from "./selection/location-selection.service";
 import {LocationSelectorComponent} from "./selection/location-selector.component";
 import {LocationTreeComponent} from "./selection/location-tree.component";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import {LocationTreeComponent} from "./selection/location-tree.component";
     FactModule,
     MatProgressBarModule,
     OlModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSlideToggleModule
   ],
   declarations: [
     LocationPageHeaderComponent,

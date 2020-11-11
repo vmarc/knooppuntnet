@@ -11,5 +11,6 @@ case class LocationNodeInfo(
   longitude: String,
   lastUpdated: Timestamp,
   factCount: Int,
+  expectedRouteCount: Int,
   routeReferences: Seq[Ref]
 ) extends LatLon

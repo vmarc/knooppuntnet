@@ -12,6 +12,7 @@ export class LocationNodeInfo {
               readonly longitude: string,
               readonly lastUpdated: Timestamp,
               readonly factCount: number,
+              readonly expectedRouteCount: number,
               readonly routeReferences: List<Ref>) {
   }
 
@@ -26,6 +27,7 @@ export class LocationNodeInfo {
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
       jsonObject.factCount,
+      jsonObject.expectedRouteCount,
       jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List()
     );
   }

@@ -16,11 +16,22 @@ import {PaginatorComponent} from "../../../components/shared/paginator/paginator
 import {LocationNodeInfo} from "../../../kpn/api/common/location/location-node-info";
 import {TimeInfo} from "../../../kpn/api/common/time-info";
 import {BrowserStorageService} from "../../../services/browser-storage.service";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: "kpn-location-node-table",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+
+    <!--
+      <mat-slide-toggle
+        [checked]="unexpectedRouteCountOnly"
+        (change)="unexpectedRouteCountOnlyChanged($event)"
+        i18n="@@location-nodes.unexpected-route-count-only">
+        Unexpected route count only
+      </mat-slide-toggle>
+    -->
+
     <kpn-paginator
       (page)="page.emit($event)"
       [length]="nodeCount"
@@ -53,6 +64,14 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
         </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="expectedRouteCount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.expected-route-count">Expected
+        </mat-header-cell>
+        <mat-cell *matCellDef="let node">
+          {{node.expectedRouteCount}}
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="routes">
         <mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.routes">Routes</mat-header-cell>
         <mat-cell *matCellDef="let node">
@@ -61,7 +80,8 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.last-edit">Last edit</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.last-edit">Last edit
+        </mat-header-cell>
         <mat-cell *matCellDef="let node" class="kpn-line">
           <kpn-day [timestamp]="node.timestamp"></kpn-day>
           <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
@@ -74,6 +94,10 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
     </mat-table>
   `,
   styles: [`
+
+    .mat-slide-toggle {
+      margin-top: 1em;
+    }
 
     .mat-header-cell {
       margin-right: 10px;
@@ -94,11 +118,15 @@ import {BrowserStorageService} from "../../../services/browser-storage.service";
     }
 
     .mat-column-analysis {
-      flex: 0 0 200px;
+      flex: 0 0 60px;
     }
 
     .mat-column-node {
       flex: 1 0 60px;
+    }
+
+    .mat-column-expectedRouteCount {
+      flex: 2 0 60px;
     }
 
     .mat-column-routes {
@@ -116,6 +144,8 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Input() nodes: List<LocationNodeInfo> = List();
   @Input() nodeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
+
+  unexpectedRouteCountOnly = false;
 
   itemsPerPage: number;
   dataSource: MatTableDataSource<LocationNodeInfo>;
@@ -144,13 +174,24 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     return this.paginator.rowNumber(index);
   }
 
+  unexpectedRouteCountOnlyChanged(event: MatSlideToggleChange): void {
+    this.unexpectedRouteCountOnly = event.checked;
+    this.dataSource.data = this.nodes.filter(node => {
+      if (this.unexpectedRouteCountOnly) {
+        return node.expectedRouteCount != node.routeReferences.size
+      } else {
+        return node.expectedRouteCount == node.routeReferences.size
+      }
+    }).toArray();
+  }
+
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "routes", "lastEdit"];
+      return ["nr", "analysis", "node", "expectedRouteCount", "routes", "lastEdit"];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "analysis", "node", "routes"];
+      return ["nr", "analysis", "node", "expectedRouteCount", "routes"];
     }
 
     return ["nr", "analysis", "node"];
