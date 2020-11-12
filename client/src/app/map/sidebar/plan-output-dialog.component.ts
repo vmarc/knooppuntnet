@@ -9,7 +9,10 @@ import {PdfService} from "../../pdf/pdf.service";
 import {GpxWriter} from "../../pdf/plan/gpx-writer";
 import {PlannerService} from "../planner.service";
 import {PlanUtil} from "../planner/plan/plan-util";
-import {SettingsService} from "../../services/settings.service";
+import {Store} from "@ngrx/store";
+import {select} from "@ngrx/store";
+import {selectPreferencesInstructions} from "../../core/preferences/preferences.selectors";
+import {AppState} from "../../core/core.state";
 
 @Component({
   selector: "kpn-plan-output-dialog",
@@ -54,7 +57,7 @@ import {SettingsService} from "../../services/settings.service";
         </button>
 
         <button
-          *ngIf="isInstructionsEnabled()"
+          *ngIf="instructions$ | async"
           mat-stroked-button
           (click)="printInstructions()"
           title="Produce a route pdf with navigation instructions"
@@ -113,9 +116,11 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   planUrl = "";
   @ViewChild("routename") input: ElementRef;
 
+  readonly instructions$ = this.store.pipe(select(selectPreferencesInstructions));
+
   constructor(private pdfService: PdfService,
               private plannerService: PlannerService,
-              private settingsService: SettingsService) {
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -145,10 +150,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   nameChanged(event): void {
     this.name = event.target.value;
-  }
-
-  isInstructionsEnabled(): boolean {
-    return this.settingsService.instructions;
   }
 
   private routeName(): string {

@@ -2,7 +2,10 @@ import {OnInit} from "@angular/core";
 import {ChangeDetectionStrategy, Component} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {PlannerService} from "../planner.service";
-import {SettingsService} from "../../services/settings.service";
+import {Store} from "@ngrx/store";
+import {select} from "@ngrx/store";
+import {AppState} from "../../core/core.state";
+import {selectPreferencesInstructions} from "../../core/preferences/preferences.selectors";
 
 @Component({
   selector: "kpn-plan-result-menu",
@@ -19,7 +22,7 @@ import {SettingsService} from "../../services/settings.service";
           Detailed
         </a>
       </span>
-      <span *ngIf="isInstructionsEnabled()">
+      <span *ngIf="instructions$ | async">
         <a [ngClass]="{'selected': mode === 'instructions'}" (click)="instructions($event)"
            i18n="@@planner.instructions">
           Instructions
@@ -51,9 +54,10 @@ import {SettingsService} from "../../services/settings.service";
 export class PlanResultMenuComponent implements OnInit {
 
   mode$: BehaviorSubject<string>;
+  readonly instructions$ = this.store.pipe(select(selectPreferencesInstructions));
 
   constructor(private plannerService: PlannerService,
-              private settingsService: SettingsService) {
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -73,9 +77,5 @@ export class PlanResultMenuComponent implements OnInit {
   instructions(event) {
     this.mode$.next("instructions");
     event.stopPropagation();
-  }
-
-  isInstructionsEnabled(): boolean {
-    return this.settingsService.instructions;
   }
 }

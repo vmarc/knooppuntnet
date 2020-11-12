@@ -5,6 +5,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import Map from "ol/Map";
 import {combineLatest, Observable, ReplaySubject} from "rxjs";
 import {filter, map, tap} from "rxjs/operators";
+import {first} from "rxjs/operators";
 import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
 import {MapLayer} from "../../../components/ol/layers/map-layer";
 import {MapLayerChange} from "../../../components/ol/layers/map-layer-change";
@@ -18,7 +19,10 @@ import {NetworkType} from "../../../kpn/api/custom/network-type";
 import {PlannerService} from "../../planner.service";
 import {MapMode} from "../../../components/ol/services/map-mode";
 import {Subscriptions} from "../../../util/Subscriptions";
-import {SettingsService} from "../../../services/settings.service";
+import {AppState} from "../../../core/core.state";
+import {Store} from "@ngrx/store";
+import {select} from "@ngrx/store";
+import {selectPreferencesExtraLayers} from "../../../core/preferences/preferences.selectors";
 
 @Injectable()
 export class PlannerLayerService {
@@ -43,12 +47,14 @@ export class PlannerLayerService {
 
   private readonly mapRelatedSubscriptions = new Subscriptions();
 
+  private readonly extraLayers$: Observable<boolean> = this.store.pipe(select(selectPreferencesExtraLayers));
+
   constructor(private mapLayerService: MapLayerService,
               private poiTileLayerService: PoiTileLayerService,
               private plannerService: PlannerService,
               private mapService: MapService,
               private mapZoomService: MapZoomService,
-              private settingsService: SettingsService) {
+              private store: Store<AppState>) {
 
     this.layerSwitcherMapLayers$ = this._layerSwitcherMapLayers$.asObservable();
 
@@ -112,12 +118,13 @@ export class PlannerLayerService {
     this.bitmapLayersAnalysis = this.buildBitmapLayers(MapMode.analysis);
     this.vectorLayers = this.buildVectorLayers();
 
-    if (this.settingsService.extraLayers) {
-      this.standardLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer]);
-    }
-    else {
-      this.standardLayers = List([this.backgroundLayer, this.poiLayer]);
-    }
+    this.extraLayers$.pipe(first()).subscribe(extraLayers => {
+      if (extraLayers) {
+        this.standardLayers = List([this.osmLayer, this.backgroundLayer, this.tile256NameLayer, this.tile512NameLayer, this.poiLayer, this.gpxLayer]);
+      } else {
+        this.standardLayers = List([this.backgroundLayer, this.poiLayer]);
+      }
+    });
 
     this.allLayers = this.standardLayers
       .concat(this.bitmapLayersSurface.values())

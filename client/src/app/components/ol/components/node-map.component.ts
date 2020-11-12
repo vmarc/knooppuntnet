@@ -18,8 +18,8 @@ import {AppState} from "../../../core/core.state";
 import {Store} from "@ngrx/store";
 import {select} from "@ngrx/store";
 import {Observable} from "rxjs";
-import {selectSharedDefaultNetworkType} from "../../../core/shared/shared.selectors";
 import {take} from "rxjs/operators";
+import {selectPreferencesNetworkType} from "../../../core/preferences/preferences.selectors";
 
 @Component({
   selector: "kpn-node-map",
@@ -40,7 +40,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   private readonly defaultNetworkType$: Observable<string> = this.store.pipe(
-    select(selectSharedDefaultNetworkType)
+    select(selectPreferencesNetworkType)
   );
 
   constructor(private mapClickService: MapClickService,

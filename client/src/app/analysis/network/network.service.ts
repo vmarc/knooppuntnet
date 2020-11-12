@@ -4,7 +4,7 @@ import {NetworkSummary} from "../../kpn/api/common/network/network-summary";
 import {NetworkCacheService} from "../../services/network-cache.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../core/core.state";
-import {actionSharedNetworkTypeSelected} from "../../core/shared/shared.actions";
+import {actionPreferencesNetworkType} from "../../core/preferences/preferences.actions";
 
 @Injectable({
   providedIn: "root",
@@ -28,6 +28,6 @@ export class NetworkService {
     this.networkCacheService.setNetworkSummary(networkId, networkSummary);
     this.networkName$.next(networkSummary.name);
     this.networkSummary$.next(networkSummary);
-    this.store.dispatch(actionSharedNetworkTypeSelected({networkType: networkSummary.networkType.name}));
+    this.store.dispatch(actionPreferencesNetworkType({networkType: networkSummary.networkType.name}));
   }
 }

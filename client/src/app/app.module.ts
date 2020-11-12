@@ -25,7 +25,6 @@ import {UserService} from "./services/user.service";
 import {SpinnerInterceptor} from "./spinner/spinner-interceptor";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {SpinnerService} from "./spinner/spinner.service";
-import {SettingsService} from "./services/settings.service";
 import * as Sentry from "@sentry/angular";
 import {Router} from "@angular/router";
 import {VersionService} from "./services/version.service";
@@ -83,7 +82,6 @@ import {CoreModule} from "./core/core.module";
     IconService,
     PoiService,
     LogUpdateService,
-    SettingsService
   ],
   bootstrap: [
     AppComponent

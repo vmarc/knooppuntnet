@@ -1,6 +1,12 @@
 import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {SettingsService} from "../services/settings.service";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {AppState} from "../core/core.state";
+import {Store} from "@ngrx/store";
+import {select} from "@ngrx/store";
+import {selectPreferencesInstructions} from "../core/preferences/preferences.selectors";
+import {selectPreferencesExtraLayers} from "../core/preferences/preferences.selectors";
+import {actionPreferencesInstructions} from "../core/preferences/preferences.actions";
+import {actionPreferencesExtraLayers} from "../core/preferences/preferences.actions";
 
 @Component({
   selector: "kpn-settings-page",
@@ -14,7 +20,10 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
     <kpn-page-header i18n="@@settings-page.title">Settings</kpn-page-header>
 
     <div class="setting">
-      <mat-slide-toggle [checked]="directions()" (change)="directionsChanged($event)" i18n="@@settings.directions">
+      <mat-slide-toggle
+        [checked]="instructions$ | async"
+        (change)="instructionsChanged($event)"
+        i18n="@@settings.directions">
         Navigation instructions
       </mat-slide-toggle>
       <p class="comment" i18n="@@settings.directions.comment.1">
@@ -29,7 +38,10 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
     </div>
 
     <div class="setting">
-      <mat-slide-toggle [checked]="extraLayers()" (change)="extraLayersChanged($event)" i18n="@@settings.extra-layers">
+      <mat-slide-toggle
+        [checked]="extraLayers$ | async"
+        (change)="extraLayersChanged($event)"
+        i18n="@@settings.extra-layers">
         Extra layers
       </mat-slide-toggle>
 
@@ -61,23 +73,18 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 })
 export class SettingsPageComponent {
 
-  constructor(private service: SettingsService) {
+  readonly instructions$ = this.store.pipe(select(selectPreferencesInstructions));
+  readonly extraLayers$ = this.store.pipe(select(selectPreferencesExtraLayers));
+
+  constructor(private store: Store<AppState>) {
   }
 
-  directions(): boolean {
-    return this.service.instructions;
-  }
-
-  directionsChanged(event: MatSlideToggleChange): void {
-    this.service.instructions = event.checked;
-  }
-
-  extraLayers(): boolean {
-    return this.service.extraLayers;
+  instructionsChanged(event: MatSlideToggleChange): void {
+    this.store.dispatch(actionPreferencesInstructions({instructions: event.checked}));
   }
 
   extraLayersChanged(event: MatSlideToggleChange): void {
-    this.service.extraLayers = event.checked;
+    this.store.dispatch(actionPreferencesExtraLayers({extraLayers: event.checked}));
   }
 
 }
