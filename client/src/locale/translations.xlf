@@ -5639,35 +5639,44 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.analysis" datatype="html">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.node" datatype="html">
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-nodes.table.expected-route-count" datatype="html">
+        <source>Expected
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.routes" datatype="html">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.last-edit" datatype="html">
-        <source>Last edit</source>
+        <source>Last edit
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.no-routes" datatype="html">
