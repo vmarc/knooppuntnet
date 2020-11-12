@@ -35,8 +35,7 @@ class TileFileBuilderImpl(
 
   private def buildVector(tileData: TileData): Unit = {
     if (tileData.isEmpty) {
-      // TODO continue implemetation...
-      // vectorTileRepository.delete()
+      vectorTileRepository.deleteTile(tileData.networkType.name, tileData.tile)
     }
     else {
       val tileBytes = new VectorTileBuilder().build(tileData)
@@ -63,9 +62,14 @@ class TileFileBuilderImpl(
   }
 
   private def build(tileBuilder: TileBuilder, tileType: String, tileData: TileData): Unit = {
-    val tileBytes = tileBuilder.build(tileData)
-    if (tileBytes.length > 0) {
-      rasterTileRepository.saveOrUpdate(tileType, tileData.tile, tileBytes)
+    if (tileData.isEmpty) {
+      rasterTileRepository.deleteTile(tileType, tileData.tile)
+    }
+    else {
+      val tileBytes = tileBuilder.build(tileData)
+      if (tileBytes.length > 0) {
+        rasterTileRepository.saveOrUpdate(tileType, tileData.tile, tileBytes)
+      }
     }
   }
 

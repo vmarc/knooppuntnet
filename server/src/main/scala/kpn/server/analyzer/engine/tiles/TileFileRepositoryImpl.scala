@@ -37,16 +37,15 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
   }
 
   override def deleteTile(tileType: String, tile: Tile): Unit = {
-    val fileName = toFileName(tileType, tile)
-    new File(fileName).delete()
-    log.info("delete tile " + fileName)
+    delete(Seq(s"${tileType.replaceAll("/", "-")}-${tile.name}"))
   }
 
   override def existingTileNames(tileType: String, z: Int): Seq[String] = {
     val dir = new File(s"$root/$tileType/$z")
     if (dir.exists) {
-      val files = FileUtils.listFiles(new File(s"$root/$tileType/$z"), TRUE, TRUE).asScala.toSeq
-      files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll("." + extension, ""))
+      val files = FileUtils.listFiles(dir, TRUE, TRUE).asScala.toSeq
+      val tileNames = files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll("." + extension, ""))
+      tileNames.sorted
     }
     else {
       Seq()
@@ -59,7 +58,12 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
       val tileNumber = TileName.tileNumber(tileName)
       val filename = s"$root/$networkType/$tileNumber.$extension"
       log.debug(s"delete tile $tileName, file: $filename")
-      new File(filename).delete()
+      val file = new File(filename)
+      file.delete()
+      val fileDir = file.getParentFile
+      if (fileDir.list().isEmpty) {
+        fileDir.delete()
+      }
     }
   }
 
