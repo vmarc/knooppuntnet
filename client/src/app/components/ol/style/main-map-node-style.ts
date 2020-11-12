@@ -44,7 +44,7 @@ export class MainMapNodeStyle {
 
   private determineNodeMainStyle(feature: FeatureLike, large: boolean): Style {
     let style: Style;
-    if (large) {
+    if (large && "*" != feature.get("name")) {
       style = this.determineLargeNodeStyle(feature);
     } else {
       style = this.determineSmallNodeStyle(feature);

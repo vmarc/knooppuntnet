@@ -167,9 +167,11 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
-      this.context.highlighter.highlightNode(networkNodeFeature.node);
-      this.context.cursor.setStylePointer();
-      return true;
+      if (modifierKeyOnly || networkNodeFeature.node.nodeName != "*") {
+        this.context.highlighter.highlightNode(networkNodeFeature.node);
+        this.context.cursor.setStylePointer();
+        return true;
+      }
     }
 
     const leg = Features.findLeg(features);
@@ -204,7 +206,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingNode()) {
 
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (networkNodeFeature != null) {
+      if (networkNodeFeature != null && networkNodeFeature.node.nodeName != "*") {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, networkNodeFeature.node.coordinate);

@@ -63,7 +63,6 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     const view = this.map.getView();
     view.fit(this.buildExtent());
     view.on("change:resolution", () => {
-      console.log("zoomLevel=" + view.getZoom());
       if (view.getZoom() < ZoomLevel.vectorTileMinZoom) {
         if (this.networkVectorTileLayerActive) {
           this.map.removeLayer(this.networkVectorTileLayer.layer);

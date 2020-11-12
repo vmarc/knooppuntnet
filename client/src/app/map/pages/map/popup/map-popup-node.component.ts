@@ -97,7 +97,6 @@ export class MapPopupNodeComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.mapZoomService.zoomLevel$.subscribe(z => {
         this.zoomLevel = z;
-        console.log("zoomlevel=" + this.zoomLevel);
       })
     );
   }
