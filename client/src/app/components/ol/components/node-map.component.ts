@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from "@angular/core";
 import {OnDestroy} from "@angular/core";
-import {OnInit} from "@angular/core";
 import {AfterViewInit, Component, Input} from "@angular/core";
 import {List} from "immutable";
 import Map from "ol/Map";
@@ -15,6 +14,12 @@ import {MapLayer} from "../layers/map-layer";
 import {MapLayers} from "../layers/map-layers";
 import {MapClickService} from "../services/map-click.service";
 import {MapLayerService} from "../services/map-layer.service";
+import {AppState} from "../../../core/core.state";
+import {Store} from "@ngrx/store";
+import {select} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {selectSharedDefaultNetworkType} from "../../../core/shared/shared.selectors";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: "kpn-node-map",
@@ -34,9 +39,14 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   private readonly mapId = "node-map";
   private readonly subscriptions = new Subscriptions();
 
+  private readonly defaultNetworkType$: Observable<string> = this.store.pipe(
+    select(selectSharedDefaultNetworkType)
+  );
+
   constructor(private mapClickService: MapClickService,
               private mapLayerService: MapLayerService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private store: Store<AppState>) {
   }
 
   ngAfterViewInit(): void {
@@ -76,9 +86,21 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildLayers(): MapLayers {
+
+    const networkLayers = this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes);
+    if (networkLayers.size > 1) {
+      this.defaultNetworkType$.pipe(take(1)).subscribe(defaultNetworkType => {
+        networkLayers.forEach(networkLayer => {
+          if (defaultNetworkType != null && networkLayer.name != defaultNetworkType) {
+            networkLayer.layer.setVisible(false);
+          }
+        });
+      });
+    }
+
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
-    mapLayers = mapLayers.concat(this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes).toArray());
+    mapLayers = mapLayers.concat(networkLayers.toArray());
     mapLayers = mapLayers.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);

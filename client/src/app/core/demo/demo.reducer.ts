@@ -7,7 +7,7 @@ import {actionDemoCanPlay} from "./demo.actions";
 import {actionDemoTimeUpdate} from "./demo.actions";
 import {actionDemoEnabledChanged} from "./demo.actions";
 
-export const initialState: DemoState = {
+const initialState: DemoState = {
   video: "",
   enabled: false,
   playing: false,

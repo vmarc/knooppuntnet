@@ -48,7 +48,7 @@ export class NetworkVectorTileLayer {
       layer.setStyle(nodeMapStyle);
     };
 
-    return new MapLayer(`network-vector-tile-${networkType.name}-layer`, layer, applyMap);
+    return new MapLayer(`${networkType.name}`, layer, applyMap);
   }
 
 }

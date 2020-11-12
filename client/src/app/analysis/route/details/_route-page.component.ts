@@ -14,6 +14,9 @@ import {RouteDetailsPage} from "../../../kpn/api/common/route/route-details-page
 import {RouteInfo} from "../../../kpn/api/common/route/route-info";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {FactInfo} from "../../fact/fact-info";
+import {AppState} from "../../../core/core.state";
+import {Store} from "@ngrx/store";
+import {actionSharedNetworkTypeSelected} from "../../../core/shared/shared.actions";
 
 @Component({
   selector: "kpn-route-page",
@@ -126,7 +129,8 @@ export class RoutePageComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private pageService: PageService,
-              private pageWidthService: PageWidthService) {
+              private pageWidthService: PageWidthService,
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -146,6 +150,7 @@ export class RoutePageComponent implements OnInit {
           this.changeCount$.next(response.result.changeCount);
           this.tags = InterpretedTags.routeTags(this.route.tags);
           this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
+          this.store.dispatch(actionSharedNetworkTypeSelected({networkType: this.route.summary.networkType.name}));
         }
       })
     );

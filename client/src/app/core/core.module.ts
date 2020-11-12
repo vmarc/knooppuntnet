@@ -8,6 +8,7 @@ import {environment} from "../../environments/environment";
 import {metaReducers, reducers} from "./core.state";
 import {StoreRouterConnectingModule} from "@ngrx/router-store";
 import {DemoService} from "./demo/demo.service";
+import {SharedEffects} from "./shared/shared.effects";
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {DemoService} from "./demo/demo.service";
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([
+      SharedEffects,
       DemoEffects
     ]),
     environment.production

@@ -8,6 +8,9 @@ import {AppService} from "../../../app.service";
 import {PageService} from "../../../components/shared/page.service";
 import {RouteMapPage} from "../../../kpn/api/common/route/route-map-page";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../core/core.state";
+import {actionSharedNetworkTypeSelected} from "../../../core/shared/shared.actions";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -46,7 +49,8 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private store: Store<AppState>) {
     this.pageService.showFooter = false;
   }
 
@@ -60,6 +64,7 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
         tap(response => {
           if (response.result) {
             this.routeName$.next(response.result.route.summary.name);
+            this.store.dispatch(actionSharedNetworkTypeSelected({networkType: response.result.route.summary.networkType.name}));
             this.changeCount$.next(response.result.changeCount);
           }
         })

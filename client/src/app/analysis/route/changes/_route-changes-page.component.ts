@@ -13,11 +13,13 @@ import {PageService} from "../../../components/shared/page.service";
 import {Util} from "../../../components/shared/util";
 import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
 import {RouteChangesPage} from "../../../kpn/api/common/route/route-changes-page";
-import {RouteInfo} from "../../../kpn/api/common/route/route-info";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {UserService} from "../../../services/user.service";
 import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
 import {RouteChangesService} from "./route-changes.service";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../core/core.state";
+import {actionSharedNetworkTypeSelected} from "../../../core/shared/shared.actions";
 
 @Component({
   selector: "kpn-route-changes-page",
@@ -74,13 +76,13 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   changeCount$ = new ReplaySubject<number>(1);
 
   page: RouteChangesPage;
-  route: RouteInfo;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private routeChangesService: RouteChangesService,
               private pageService: PageService,
-              private userService: UserService) {
+              private userService: UserService,
+              private store: Store<AppState>) {
   }
 
   get parameters() {
@@ -109,6 +111,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
                   this.page = Util.safeGet(() => response.result);
                   this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
                   this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
+                  this.store.dispatch(actionSharedNetworkTypeSelected({networkType: this.page.route.summary.networkType.name}));
                   this.routeChangesService.setFilterOptions(
                     ChangeFilterOptions.from(
                       this.parameters,
