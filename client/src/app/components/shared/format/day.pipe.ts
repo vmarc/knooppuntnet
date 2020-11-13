@@ -1,5 +1,6 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {Day} from "../../../kpn/api/custom/day";
+import {Util} from "../util";
 
 @Pipe({
   name: "day"
@@ -10,18 +11,14 @@ export class DayPipe implements PipeTransform {
     if (day) {
       let result = day.year.toString();
       result += "-";
-      result += this.twoDigits(day.month);
+      result += Util.twoDigits(day.month);
       if (day.day) {
         result += "-";
-        result += this.twoDigits(day.day);
+        result += Util.twoDigits(day.day);
       }
       return result;
     }
     return "-";
-  }
-
-  private twoDigits(value: number): string {
-    return (value < 10 ? "0" : "") + value;
   }
 
 }

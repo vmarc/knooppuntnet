@@ -128,8 +128,8 @@ export class Util {
   public static today(): string {
     const today = new Date();
     const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = Util.twoDigits(today.getMonth() + 1);
+    const dd = Util.twoDigits(today.getDate());
     return yyyy + "-" + mm + "-" + dd;
   }
 
@@ -140,6 +140,10 @@ export class Util {
 
   static hasTagDiffs(tagDiffs: TagDiffs): boolean {
     return tagDiffs && !(tagDiffs.mainTags.isEmpty() && tagDiffs.extraTags.isEmpty());
+  }
+
+  static twoDigits(value: number): string {
+    return (value < 10 ? "0" : "") + value;
   }
 
 }

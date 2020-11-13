@@ -1,5 +1,6 @@
 import * as JsPdf from "jspdf";
 import {PdfPage} from "./pdf-page";
+import {Util} from "../../components/shared/util";
 
 export class PdfFooter {
 
@@ -21,10 +22,10 @@ export class PdfFooter {
 
   private today(): string {
     const date = new Date();
-    const dd = String(date.getDate()).padStart(2, "0");
-    const mm = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const dd = Util.twoDigits(date.getDate());
+    const mm = Util.twoDigits(date.getMonth() + 1); // January is 0!
     const yyyy = date.getFullYear();
-    return `${dd}/${mm}/${yyyy}`;
+    return `${yyyy}-${mm}-${dd}`;
   }
 
 }
