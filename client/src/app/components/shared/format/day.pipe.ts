@@ -10,13 +10,18 @@ export class DayPipe implements PipeTransform {
     if (day) {
       let result = day.year.toString();
       result += "-";
-      result += day.month.toString().padStart(2, "0");
+      result += this.twoDigits(day.month);
       if (day.day) {
         result += "-";
-        result += day.day.toString().padStart(2, "0");
+        result += this.twoDigits(day.day);
       }
       return result;
     }
     return "-";
   }
+
+  private twoDigits(value: number): string {
+    return (value < 10 ? "0" : "") + value;
+  }
+
 }
