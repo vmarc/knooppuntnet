@@ -38,6 +38,7 @@ import {RemoveViaPoint} from "./actions/remove-via-point";
 import * as Sentry from "@sentry/angular";
 import {Severity} from "@sentry/types/dist/severity";
 import {Util} from "../../../components/shared/util";
+import {PlanPrinter} from "../debug/plan-printer";
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -72,7 +73,8 @@ export class PlannerEngineImpl implements PlannerEngine {
           "feature-id": networkNode?.node?.featureId,
           "node-id": networkNode?.node?.nodeId,
           "node-name": networkNode?.node?.nodeName,
-          "coordinate": Util.coordinateToString(networkNode?.node?.coordinate)
+          "coordinate": Util.coordinateToString(networkNode?.node?.coordinate),
+          "plan": this.planSummary()
         }
       );
 
@@ -91,7 +93,8 @@ export class PlannerEngineImpl implements PlannerEngine {
         "down event leg",
         {
           "modifierKeyOnly": modifierKeyOnly,
-          "feature-id": leg?.id
+          "feature-id": leg?.id,
+          "plan": this.planSummary()
         }
       );
 
@@ -111,7 +114,8 @@ export class PlannerEngineImpl implements PlannerEngine {
             "routeId": route?.routeId,
             "pathId": route?.pathId,
             "routeName": route?.routeName,
-            "oneWay": route?.oneWay
+            "oneWay": route?.oneWay,
+            "plan": this.planSummary()
           }
         );
         this.context.overlay.routeClicked(new RouteClick(coordinate, route));
@@ -124,7 +128,8 @@ export class PlannerEngineImpl implements PlannerEngine {
           "down event routes",
           {
             "modifierKeyOnly": modifierKeyOnly,
-            "routeIds": routes?.map(route => route?.routeId).join(", ")
+            "routeIds": routes?.map(route => route?.routeId).join(", "),
+            "plan": this.planSummary()
           }
         );
         new AddViaRouteLeg(this.context).add(routes, coordinate);
@@ -141,7 +146,8 @@ export class PlannerEngineImpl implements PlannerEngine {
           "poiId": poiFeature.poiId,
           "poiType": poiFeature.poiType,
           "layer": poiFeature.layer,
-          "coordinate": Util.coordinateToString(poiFeature.coordinate)
+          "coordinate": Util.coordinateToString(poiFeature.coordinate),
+          "plan": this.planSummary()
         }
       );
       this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
@@ -373,7 +379,13 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.sourceNode) {
-      new AddLeg(this.context).add(networkNode.node);
+      const sinkNode = this.context.plan.sinkNode();
+      if (sinkNode && sinkNode.nodeId == networkNode.node.nodeId) {
+        // we are already at that node, no need to add an extra leg here
+      }
+      else {
+        new AddLeg(this.context).add(networkNode.node);
+      }
     } else {
       this.addStartPoint(networkNode.node);
     }
@@ -404,7 +416,8 @@ export class PlannerEngineImpl implements PlannerEngine {
       {
         "flag-type": flag.flagType,
         "flag-feature-id": flag.id,
-        "coordinate": Util.coordinateToString(coordinate)
+        "coordinate": Util.coordinateToString(coordinate),
+        "plan": this.planSummary()
       }
     );
 
@@ -529,6 +542,10 @@ export class PlannerEngineImpl implements PlannerEngine {
       message: message,
       data: data
     });
+  }
+
+  private planSummary(): string {
+    return new PlanPrinter().plan(this.context.plan).result();
   }
 
 }

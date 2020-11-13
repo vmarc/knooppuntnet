@@ -19,7 +19,7 @@ export class PlanPrinter {
       if (leg.viaFlag !== null) {
         this.out.println(`    viaFlag=${this.flag(leg.viaFlag)}`);
       } else {
-        this.out.println(`    viaFlag=null`);
+        this.out.println(`    viaFlag=none`);
       }
       this.out.println(`    sinkFlag=${this.flag(leg.sinkFlag)}`);
       this.out.println(`    sinkNode=${this.node(leg.sinkNode)}`);
@@ -29,25 +29,34 @@ export class PlanPrinter {
   }
 
   private node(planNode: PlanNode): string {
-    return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(planNode.coordinate)}`;
+    if (planNode) {
+      return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(planNode.coordinate)}`;
+    }
+    return "none";
   }
 
   private flag(planFlag: PlanFlag): string {
-    return `${planFlag.flagType} ${this.out.coordinate(planFlag.coordinate)}`;
+    if (planFlag) {
+      return `${planFlag.flagType} ${this.out.coordinate(planFlag.coordinate)}`;
+    }
+    return "none";
   }
 
   private static sink(legEnd: LegEnd): string {
-    if (legEnd.node) {
-      return `${legEnd.node.nodeId}`;
+    if (legEnd) {
+      if (legEnd.node) {
+        return `${legEnd.node.nodeId}`;
+      }
+      if (legEnd.route && legEnd.route.selection) {
+        const selection = PlanPrinter.trackPathKey(legEnd.route.selection);
+        const trackPathKeys = PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
+        return `${trackPathKeys}, selection=${selection}`;
+      }
+      if (legEnd.route) {
+        return PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
+      }
     }
-    if (legEnd.route && legEnd.route.selection) {
-      const selection = PlanPrinter.trackPathKey(legEnd.route.selection);
-      const trackPathKeys = PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
-      return `${trackPathKeys}, selection=${selection}`;
-    }
-    if (legEnd.route) {
-      return PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
-    }
+    return "none";
   }
 
   private static trackPathKeys(keys: List<TrackPathKey>): string {
