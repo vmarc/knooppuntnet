@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.NodeRoute
 import kpn.api.common.common.NodeRouteCount
+import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeRouteDoc
@@ -36,7 +37,7 @@ class NodeRouteRepositoryImpl(analysisDatabase: Database) extends NodeRouteRepos
     NodeRouteReferenceView.queryCount(analysisDatabase, networkType, stale = false)
   }
 
-  override def expectedNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteCount] = {
+  override def expectedNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
     NodeRouteExpectedView.query(analysisDatabase, networkType, stale = false)
   }
 

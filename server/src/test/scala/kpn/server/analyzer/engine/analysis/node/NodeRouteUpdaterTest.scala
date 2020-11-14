@@ -89,10 +89,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, 2, Some(1)), // route 01-02 and 01-03
-          NodeRoute(1002, NetworkType.hiking, 1, Some(2)), // route 01-02
-          NodeRoute(1003, NetworkType.hiking, 1, Some(3)), // route 01-03
-          NodeRoute(1004, NetworkType.hiking, 0, Some(4))
+          NodeRoute(1001, NetworkType.hiking, Seq(), 1, 2), // route 01-02 and 01-03
+          NodeRoute(1002, NetworkType.hiking, Seq(), 2, 1), // route 01-02
+          NodeRoute(1003, NetworkType.hiking, Seq(), 3, 1), // route 01-03
+          NodeRoute(1004, NetworkType.hiking, Seq(), 4, 0)
         )
       )
 
@@ -104,10 +104,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       // route 01-03 [id=12] disappears from actual route count for node 1001 and 1003
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, 1, Some(1)), // route 01-02
-          NodeRoute(1002, NetworkType.hiking, 1, Some(2)), // route 01-02
-          NodeRoute(1003, NetworkType.hiking, 0, Some(3)),
-          NodeRoute(1004, NetworkType.hiking, 0, Some(4))
+          NodeRoute(1001, NetworkType.hiking, Seq(), 1, 1), // route 01-02
+          NodeRoute(1002, NetworkType.hiking, Seq(), 2, 1), // route 01-02
+          NodeRoute(1003, NetworkType.hiking, Seq(), 3, 0),
+          NodeRoute(1004, NetworkType.hiking, Seq(), 4, 0)
         )
       )
 
@@ -120,8 +120,8 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       // no more NodeRoute document for nodes 1002 and 1004
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, 1, Some(1)), // route 01-02
-          NodeRoute(1003, NetworkType.hiking, 0, Some(3))
+          NodeRoute(1001, NetworkType.hiking, Seq(), 1, 1), // route 01-02
+          NodeRoute(1003, NetworkType.hiking, Seq(), 3, 0)
         )
       )
     }
@@ -133,11 +133,11 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
-      nodeRouteRepository.save(NodeRoute(1001, NetworkType.hiking, 3, Some(4)))
+      nodeRouteRepository.save(NodeRoute(1001, NetworkType.hiking, Seq(), 4, 3))
 
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, 3, Some(4))
+          NodeRoute(1001, NetworkType.hiking, Seq(), 4, 3)
         )
       )
 

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeRoute
-import kpn.api.common.common.NodeRouteCount
+import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.repository.NodeRouteRepository
@@ -14,7 +14,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
 
   override def update(): Unit = {
     NetworkType.all.foreach { networkType =>
-      Log.context(s"NodeRouteUpdate ${networkType.name}") {
+      Log.context(s"node-route/${networkType.name}") {
         updateNetworkType(networkType)
       }
     }
@@ -35,15 +35,19 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
   }
 
   private def actualNodeRouteCounts(networkType: NetworkType): Map[Long, Int] = {
-    log.debugElapsed(
-      ("read actual node route counts", toMap(nodeRouteRepository.actualNodeRouteCounts(networkType)))
-    )
+    log.debugElapsed {
+      val counts = nodeRouteRepository.actualNodeRouteCounts(networkType)
+      val map = counts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount.routeCount).toMap
+      ("read actual node route counts", map)
+    }
   }
 
-  private def expectedNodeRouteCounts(networkType: NetworkType): Map[Long, Int] = {
-    log.debugElapsed(
-      ("read expected node route counts", toMap(nodeRouteRepository.expectedNodeRouteCounts(networkType)))
-    )
+  private def expectedNodeRouteCounts(networkType: NetworkType): Map[Long, NodeRouteExpectedCount] = {
+    log.debugElapsed {
+      val counts = nodeRouteRepository.expectedNodeRouteCounts(networkType)
+      val map = counts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount).toMap
+      ("read expected node route counts", map)
+    }
   }
 
   private def readNodeRoutes(networkType: NetworkType): Seq[NodeRoute] = {
@@ -70,7 +74,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     }
   }
 
-  private def analyzeObsoleteNodeRoutes(expected: Map[Long, Int], nodeRoutes: Seq[NodeRoute]) = {
+  private def analyzeObsoleteNodeRoutes(expected: Map[Long, NodeRouteExpectedCount], nodeRoutes: Seq[NodeRoute]): Seq[Long] = {
     (nodeRoutes.map(_.id).toSet -- expected.keys).toSeq.sorted
   }
 
@@ -79,27 +83,32 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     nodeRoutes: Seq[NodeRoute],
     obsoleteIds: Seq[Long],
     actual: Map[Long, Int],
-    expected: Map[Long, Int]
+    expected: Map[Long, NodeRouteExpectedCount]
   ): Seq[NodeRoute] = {
     nodeRoutes.flatMap { nodeRoute =>
       if (obsoleteIds.contains(nodeRoute.id)) {
         None
       }
       else {
-        val actualRouteCount = actual.getOrElse(nodeRoute.id, 0)
-        val expectedRouteCount = expected.get(nodeRoute.id)
-        if (nodeRoute.actualRouteCount == actualRouteCount && nodeRoute.expectedRouteCount == expectedRouteCount) {
-          None
-        }
-        else {
-          Some(
-            NodeRoute(
-              nodeRoute.id,
-              networkType,
-              actualRouteCount,
-              expectedRouteCount
-            )
-          )
+        expected.get(nodeRoute.id) match {
+          case None => None
+          case Some(nodeRouteExpectedCount) =>
+            val actualRouteCount = actual.getOrElse(nodeRoute.id, 0)
+            val expectedRouteCount = nodeRouteExpectedCount.routeCount
+            if (nodeRoute.actualRouteCount == actualRouteCount && nodeRoute.expectedRouteCount == expectedRouteCount) {
+              None
+            }
+            else {
+              Some(
+                NodeRoute(
+                  nodeRoute.id,
+                  networkType,
+                  nodeRouteExpectedCount.locationNames,
+                  expectedRouteCount,
+                  actualRouteCount
+                )
+              )
+            }
         }
       }
     }
@@ -109,7 +118,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     networkType: NetworkType,
     nodeRoutes: Seq[NodeRoute],
     actual: Map[Long, Int],
-    expected: Map[Long, Int]
+    expected: Map[Long, NodeRouteExpectedCount]
   ): Seq[NodeRoute] = {
 
     val existingRouteNodeIds = nodeRoutes.map(_.id).toSet
@@ -120,22 +129,22 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
         None
       }
       else {
-        val actualRouteCount = actual.getOrElse(nodeId, 0)
-        val expectedRouteCount = expected.get(nodeId)
-        Some(
-          NodeRoute(
-            nodeId,
-            networkType,
-            actualRouteCount,
-            expectedRouteCount
-          )
-        )
+        expected.get(nodeId) match {
+          case None => None
+          case Some(nodeRouteExpectedCount) =>
+            val actualRouteCount = actual.getOrElse(nodeId, 0)
+            Some(
+              NodeRoute(
+                nodeId,
+                networkType,
+                nodeRouteExpectedCount.locationNames,
+                nodeRouteExpectedCount.routeCount,
+                actualRouteCount
+              )
+            )
+        }
       }
     }
-  }
-
-  private def toMap(nodeRouteCounts: Seq[NodeRouteCount]): Map[Long, Int] = {
-    nodeRouteCounts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount.routeCount).toMap
   }
 
 }

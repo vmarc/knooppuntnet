@@ -5,6 +5,7 @@ import kpn.api.custom.NetworkType
 case class NodeRoute(
   id: Long,
   networkType: NetworkType,
-  actualRouteCount: Int,
-  expectedRouteCount: Option[Int]
+  locationNames: Seq[String],
+  expectedRouteCount: Int,
+  actualRouteCount: Int
 )

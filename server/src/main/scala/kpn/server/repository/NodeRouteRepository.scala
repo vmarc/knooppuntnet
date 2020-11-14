@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.NodeRoute
 import kpn.api.common.common.NodeRouteCount
+import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.custom.NetworkType
 
 trait NodeRouteRepository {
@@ -14,6 +15,6 @@ trait NodeRouteRepository {
 
   def actualNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteCount]
 
-  def expectedNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteCount]
+  def expectedNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteExpectedCount]
 
 }

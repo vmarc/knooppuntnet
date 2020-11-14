@@ -2,6 +2,8 @@ package kpn.core.database.views.location
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.NodeRouteCount
+import kpn.api.common.common.NodeRouteExpectedCount
+import kpn.api.common.location.Location
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
@@ -20,12 +22,13 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
         nodeRepository.save(
           newNodeInfo(
             id = nodeId,
-            tags = Tags.from(s"expected_r${networkType.letter}n_route_relations" -> expectedRouteRelations.toString)
+            tags = Tags.from(s"expected_r${networkType.letter}n_route_relations" -> expectedRouteRelations.toString),
+            location = Some(Location(Seq("a", "b")))
           )
         )
       }
 
-      def query(networkType: NetworkType): Seq[NodeRouteCount] = {
+      def query(networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
         NodeRouteExpectedView.query(database, networkType, stale = false)
       }
 
@@ -46,43 +49,43 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
       query(NetworkType.hiking) should equal(
         Seq(
-          NodeRouteCount(1001, 1),
-          NodeRouteCount(1002, 2)
+          NodeRouteExpectedCount(1001, 1, Seq("a", "b")),
+          NodeRouteExpectedCount(1002, 2, Seq("a", "b"))
         )
       )
 
       query(NetworkType.cycling) should equal(
         Seq(
-          NodeRouteCount(1003, 3),
-          NodeRouteCount(1004, 4)
+          NodeRouteExpectedCount(1003, 3, Seq("a", "b")),
+          NodeRouteExpectedCount(1004, 4, Seq("a", "b"))
         )
       )
 
       query(NetworkType.horseRiding) should equal(
         Seq(
-          NodeRouteCount(1005, 5),
-          NodeRouteCount(1006, 6)
+          NodeRouteExpectedCount(1005, 5, Seq("a", "b")),
+          NodeRouteExpectedCount(1006, 6, Seq("a", "b"))
         )
       )
 
       query(NetworkType.canoe) should equal(
         Seq(
-          NodeRouteCount(1007, 7),
-          NodeRouteCount(1008, 8)
+          NodeRouteExpectedCount(1007, 7, Seq("a", "b")),
+          NodeRouteExpectedCount(1008, 8, Seq("a", "b"))
         )
       )
 
       query(NetworkType.motorboat) should equal(
         Seq(
-          NodeRouteCount(1009, 9),
-          NodeRouteCount(1010, 10)
+          NodeRouteExpectedCount(1009, 9, Seq("a", "b")),
+          NodeRouteExpectedCount(1010, 10, Seq("a", "b"))
         )
       )
 
       query(NetworkType.inlineSkating) should equal(
         Seq(
-          NodeRouteCount(1011, 11),
-          NodeRouteCount(1012, 12)
+          NodeRouteExpectedCount(1011, 11, Seq("a", "b")),
+          NodeRouteExpectedCount(1012, 12, Seq("a", "b"))
         )
       )
     }
