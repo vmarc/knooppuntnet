@@ -102,6 +102,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
               Some(
                 NodeRoute(
                   nodeRoute.id,
+                  nodeRoute.name,
                   networkType,
                   nodeRouteExpectedCount.locationNames,
                   expectedRouteCount,
@@ -136,6 +137,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
             Some(
               NodeRoute(
                 nodeId,
+                nodeRouteExpectedCount.nodeName,
                 networkType,
                 nodeRouteExpectedCount.locationNames,
                 nodeRouteExpectedCount.routeCount,

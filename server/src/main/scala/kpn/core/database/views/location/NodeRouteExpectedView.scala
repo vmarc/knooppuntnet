@@ -31,11 +31,13 @@ object NodeRouteExpectedView extends View {
     val result = database.execute(query)
     result.rows.map { row =>
       val locationNames = row.doc.node.location.toSeq.flatMap(_.names)
+      val nodeName = row.doc.node.name(networkType)
       val key = Fields(row.key)
       NodeRouteExpectedCount(
         key.long(1),
-        row.value.toInt,
-        locationNames
+        nodeName,
+        locationNames,
+        row.value.toInt
       )
     }
   }

@@ -8,16 +8,34 @@ if (doc) {
         var nodeLocationName = doc.node.location.names[nodeLocationNameIndex];
         for (var nodeFactIndex = 0; nodeFactIndex < doc.node.facts.length; nodeFactIndex++) {
           var nodeFact = doc.node.facts[nodeFactIndex];
-          var nodeKey = [
-            networkType,
-            nodeLocationName,
-            "node",
-            nodeFact,
-            nodeName.name,
-            doc.node.id
-          ];
-          emit(nodeKey, 1);
+          if ("IntegrityCheckFailed" !== nodeFact) {
+            var nodeKey = [
+              networkType,
+              nodeLocationName,
+              "node",
+              nodeFact,
+              nodeName.name,
+              doc.node.id
+            ];
+            emit(nodeKey, 1);
+          }
         }
+      }
+    }
+  } else if (doc.nodeRoute && doc.nodeRoute.locationNames) {
+    var nodeRoute = doc.nodeRoute;
+    if (nodeRoute.expectedRouteCount !== nodeRoute.actualRouteCount) {
+      for (var nodeRouteLocationNameIndex = 0; nodeRouteLocationNameIndex < nodeRoute.locationNames.length; nodeRouteLocationNameIndex++) {
+        var nodeRouteLocationName = nodeRoute.locationNames[nodeRouteLocationNameIndex];
+        var nodeRouteKey = [
+          nodeRoute.networkType,
+          nodeRouteLocationName,
+          "node",
+          "IntegrityCheckFailed",
+          nodeRoute.name,
+          nodeRoute.id
+        ];
+        emit(nodeRouteKey, 1);
       }
     }
   } else if (doc.route && doc.route.summary && doc.route.analysis && doc.route.analysis.locationAnalysis && doc.route.active === true) {

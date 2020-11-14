@@ -11,7 +11,9 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.node.NodeRouteUpdaterImpl
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.NodeRouteRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
 class LocationFactViewTest extends UnitTest with SharedTestObjects {
@@ -19,7 +21,14 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
   test("node") {
 
     withDatabase { database =>
+
+      val updater = {
+        val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
+        new NodeRouteUpdaterImpl(nodeRouteRepository)
+      }
+
       val repo = new NodeRepositoryImpl(database)
+
       repo.save(
         newNodeInfo(
           id = 1001,
@@ -27,7 +36,10 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
           latitude = "1",
           longitude = "2",
           lastUpdated = Timestamp(2019, 8, 11, 12, 34, 56),
-          tags = Tags.from("rcn_ref" -> "01"),
+          tags = Tags.from(
+            "rcn_ref" -> "01",
+            "expected_rcn_route_relations" -> "3"
+          ),
           facts = Seq(
             Fact.IntegrityCheckFailed
           ),
@@ -36,6 +48,8 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
           )
         )
       )
+
+      updater.update()
 
       def testQuery(locationName: String): Unit = {
         LocationFactView.query(database, NetworkType.cycling, locationName, stale = false) should equal(

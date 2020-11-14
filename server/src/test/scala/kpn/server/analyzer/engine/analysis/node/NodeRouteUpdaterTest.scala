@@ -20,20 +20,23 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
-      def node(nodeId: Long, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
+      def node(nodeId: Long, nodeName: String, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
         nodeRepository.save(
           newNodeInfo(
             id = nodeId,
-            tags = Tags.from(s"expected_r${networkType.letter}n_route_relations" -> expectedRouteRelations.toString)
+            tags = Tags.from(
+              s"r${networkType.letter}n_ref" -> nodeName,
+              s"expected_r${networkType.letter}n_route_relations" -> expectedRouteRelations.toString
+            )
           )
         )
       }
 
-      node(1001, NetworkType.hiking, 1)
-      node(1002, NetworkType.hiking, 2)
-      node(1003, NetworkType.hiking, 3)
-      node(1004, NetworkType.hiking, 4)
-      node(1005, NetworkType.cycling, 5)
+      node(1001, "01", NetworkType.hiking, 1)
+      node(1002, "02", NetworkType.hiking, 2)
+      node(1003, "03", NetworkType.hiking, 3)
+      node(1004, "04", NetworkType.hiking, 4)
+      node(1005, "05", NetworkType.cycling, 5)
 
       routeRepository.save(
         newRoute(
@@ -89,10 +92,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, Seq(), 1, 2), // route 01-02 and 01-03
-          NodeRoute(1002, NetworkType.hiking, Seq(), 2, 1), // route 01-02
-          NodeRoute(1003, NetworkType.hiking, Seq(), 3, 1), // route 01-03
-          NodeRoute(1004, NetworkType.hiking, Seq(), 4, 0)
+          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 2), // route 01-02 and 01-03
+          NodeRoute(1002, "02", NetworkType.hiking, Seq(), 2, 1), // route 01-02
+          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 1), // route 01-03
+          NodeRoute(1004, "04", NetworkType.hiking, Seq(), 4, 0)
         )
       )
 
@@ -104,10 +107,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       // route 01-03 [id=12] disappears from actual route count for node 1001 and 1003
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, Seq(), 1, 1), // route 01-02
-          NodeRoute(1002, NetworkType.hiking, Seq(), 2, 1), // route 01-02
-          NodeRoute(1003, NetworkType.hiking, Seq(), 3, 0),
-          NodeRoute(1004, NetworkType.hiking, Seq(), 4, 0)
+          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 1), // route 01-02
+          NodeRoute(1002, "02", NetworkType.hiking, Seq(), 2, 1), // route 01-02
+          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 0),
+          NodeRoute(1004, "04", NetworkType.hiking, Seq(), 4, 0)
         )
       )
 
@@ -120,8 +123,8 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       // no more NodeRoute document for nodes 1002 and 1004
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, Seq(), 1, 1), // route 01-02
-          NodeRoute(1003, NetworkType.hiking, Seq(), 3, 0)
+          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 1), // route 01-02
+          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 0)
         )
       )
     }
@@ -133,11 +136,11 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
-      nodeRouteRepository.save(NodeRoute(1001, NetworkType.hiking, Seq(), 4, 3))
+      nodeRouteRepository.save(NodeRoute(1001, "01", NetworkType.hiking, Seq(), 4, 3))
 
       nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
         Seq(
-          NodeRoute(1001, NetworkType.hiking, Seq(), 4, 3)
+          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 4, 3)
         )
       )
 
