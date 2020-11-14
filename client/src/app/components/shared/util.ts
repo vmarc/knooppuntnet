@@ -1,5 +1,7 @@
 import {Params, Route} from "@angular/router";
+import {ActivatedRouteSnapshot} from "@angular/router";
 import {List} from "immutable";
+import {Map} from "immutable";
 import {Coordinate} from "ol/coordinate";
 import {boundingExtent} from "ol/extent";
 import {Extent} from "ol/extent";
@@ -144,6 +146,16 @@ export class Util {
 
   static twoDigits(value: number): string {
     return (value < 10 ? "0" : "") + value;
+  }
+
+  static paramsIn(routeSnapshot: ActivatedRouteSnapshot): Map<string, string> {
+    let route = routeSnapshot;
+    let params = Map(Object.keys(route.params).map(key => [key, route.params[key]]));
+    while (route.firstChild) {
+      route = route.firstChild;
+      Object.keys(route.params).forEach(key => params = params.set(key, route.params[key]));
+    }
+    return params;
   }
 
 }

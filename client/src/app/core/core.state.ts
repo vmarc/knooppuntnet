@@ -9,8 +9,6 @@ import * as fromRouter from '@ngrx/router-store';
 import {SharedState} from "./shared/shared.model";
 import {sharedReducer} from "./shared/shared.reducer";
 import {localStorageSync} from "ngrx-store-localstorage";
-import {Map} from "immutable";
-import {ActivatedRouteSnapshot} from "@angular/router";
 import {PreferencesState} from "./preferences/preferences.model";
 import {preferencesReducer} from "./preferences/preferences.reducer";
 
@@ -45,16 +43,6 @@ export const {
   // selectRouteData,      // select the current route data
   // selectUrl,            // select the current url
 } = fromRouter.getSelectors(selectRouterState);
-
-export function paramsIn(routeSnapshot: ActivatedRouteSnapshot): Map<string, string> {
-  let route = routeSnapshot;
-  let params = Map(Object.keys(route.params).map(key => [key, route.params[key]]));
-  while (route.firstChild) {
-    route = route.firstChild;
-    Object.keys(route.params).forEach(key => params = params.set(key, route.params[key]));
-  }
-  return params;
-}
 
 export interface AppState {
   preferences: PreferencesState,
