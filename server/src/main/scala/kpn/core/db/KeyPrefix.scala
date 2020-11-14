@@ -12,4 +12,7 @@ object KeyPrefix {
   val NetworkUpdate = "network-update"
 
   val Poi = "poi"
+
+  val NodeRoute = "node-route"
+
 }
