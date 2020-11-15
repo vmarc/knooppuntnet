@@ -5,7 +5,7 @@
 
     <groupId>knooppuntnet</groupId>
     <artifactId>server</artifactId>
-    <version>3.0.10-f</version>
+    <version>3.1.0-aplha-1</version>
     <name>server</name>
     <description>knooppuntnet server</description>
 

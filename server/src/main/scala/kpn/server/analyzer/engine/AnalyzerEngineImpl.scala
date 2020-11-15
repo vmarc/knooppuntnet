@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine
 import kpn.api.common.ReplicationId
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.NodeRouteUpdater
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
@@ -28,6 +29,7 @@ class AnalyzerEngineImpl(
   tileUpdater: TileUpdater,
   poiChangeAnalyzer: PoiChangeAnalyzer,
   poiTileUpdater: PoiTileUpdater,
+  nodeRouteUpdater: NodeRouteUpdater,
   analyzerReload: Boolean
 ) extends AnalyzerEngine {
 
@@ -60,6 +62,7 @@ class AnalyzerEngineImpl(
         }
 
         if (!analyzerHistory) {
+          nodeRouteUpdater.update()
           tileUpdater.update(12)
           poiChangeAnalyzer.analyze(osmChange)
           poiTileUpdater.update()

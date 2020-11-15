@@ -38,6 +38,7 @@ object DatabaseViewTool {
       updateView(database, AnalyzerDesign)
       updateView(database, PlannerDesign)
       updateView(database, LocationDesign)
+      updateView(database, NodeRouteDesign)
       updateView(database, TileDesign)
     }
 

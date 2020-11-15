@@ -11,6 +11,7 @@ import kpn.core.database.views.changes.ChangesView
 import kpn.core.database.views.location.LocationView
 import kpn.core.database.views.metrics.BackendMetricsView
 import kpn.core.database.views.metrics.FrontendMetricsView
+import kpn.core.database.views.node.NodeRouteView
 import kpn.core.database.views.planner.GraphEdgesView
 import kpn.core.database.views.poi.PoiView
 import kpn.core.database.views.tile.TileView
@@ -53,6 +54,7 @@ class DatabaseIndexer(
 
     indexDatabase(verbose, "analysis-database/analyzer-design", analysisAnalyzerQuery)
     indexDatabase(verbose, "analysis-database/location-design", analysisLocationQuery)
+    indexDatabase(verbose, "analysis-database/node-route-design", analysisNodeRouteQuery)
     indexDatabase(verbose, "analysis-database/planner-design", analysisPlannerQuery)
     indexDatabase(verbose, "analysis-database/tile-design", analysisTileQuery)
 
@@ -80,6 +82,10 @@ class DatabaseIndexer(
 
   private def analysisLocationQuery(): Unit = {
     LocationView.query(analysisDatabase, "", NetworkType.canoe, "", stale = false)
+  }
+
+  private def analysisNodeRouteQuery(): Unit = {
+    NodeRouteView.query(analysisDatabase, NetworkType.canoe, stale = false)
   }
 
   private def analysisPlannerQuery(): Unit = {
