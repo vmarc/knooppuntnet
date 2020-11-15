@@ -10,6 +10,7 @@ import kpn.core.database.views.common.Design
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.metrics.BackendMetricsDesign
 import kpn.core.database.views.metrics.FrontendMetricsDesign
+import kpn.core.database.views.node.NodeRouteDesign
 import kpn.core.database.views.planner.PlannerDesign
 import kpn.core.database.views.poi.PoiDesign
 import kpn.core.database.views.tile.TileDesign

@@ -1,4 +1,4 @@
-package kpn.core.database.views.location
+package kpn.core.database.views.node
 
 import kpn.api.common.NodeRoute
 import kpn.api.custom.NetworkType
@@ -19,7 +19,7 @@ object NodeRouteView extends View {
 
   def query(database: Database, networkType: NetworkType, stale: Boolean): Seq[NodeRoute] = {
 
-    val query = Query(LocationDesign, NodeRouteView, classOf[ViewResult])
+    val query = Query(NodeRouteDesign, NodeRouteView, classOf[ViewResult])
       .stale(stale)
       .keyStartsWith(networkType.name)
       .includeDocs(true)

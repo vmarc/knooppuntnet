@@ -7,9 +7,9 @@ import kpn.api.common.common.Ref
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeRouteDoc
-import kpn.core.database.views.location.NodeRouteExpectedView
-import kpn.core.database.views.location.NodeRouteReferenceView
-import kpn.core.database.views.location.NodeRouteView
+import kpn.core.database.views.node.NodeRouteExpectedView
+import kpn.core.database.views.node.NodeRouteReferenceView
+import kpn.core.database.views.node.NodeRouteView
 import kpn.core.db.KeyPrefix
 import kpn.core.util.Log
 import org.springframework.stereotype.Component

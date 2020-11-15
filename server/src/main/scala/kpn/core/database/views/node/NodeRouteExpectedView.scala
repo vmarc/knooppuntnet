@@ -1,4 +1,4 @@
-package kpn.core.database.views.location
+package kpn.core.database.views.node
 
 import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.custom.NetworkType
@@ -22,7 +22,7 @@ object NodeRouteExpectedView extends View {
 
   def query(database: Database, networkType: NetworkType, stale: Boolean): Seq[NodeRouteExpectedCount] = {
 
-    val query = Query(LocationDesign, NodeRouteExpectedView, classOf[ViewResult])
+    val query = Query(NodeRouteDesign, NodeRouteExpectedView, classOf[ViewResult])
       .stale(stale)
       .includeDocs(true)
       .reduce(false)

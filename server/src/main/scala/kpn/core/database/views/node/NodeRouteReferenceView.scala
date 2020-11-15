@@ -1,4 +1,4 @@
-package kpn.core.database.views.location
+package kpn.core.database.views.node
 
 import kpn.api.common.common.NodeRouteCount
 import kpn.api.common.common.Ref
@@ -29,7 +29,7 @@ object NodeRouteReferenceView extends View {
 
   def query(database: Database, networkType: NetworkType, nodeId: Long, stale: Boolean): Seq[Ref] = {
 
-    val query = Query(LocationDesign, NodeRouteReferenceView, classOf[ViewResult])
+    val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[ViewResult])
       .stale(stale)
       .reduce(false)
       .keyStartsWith(networkType.name, nodeId)
@@ -46,7 +46,7 @@ object NodeRouteReferenceView extends View {
 
   def queryCount(database: Database, networkType: NetworkType, stale: Boolean): Seq[NodeRouteCount] = {
 
-    val query = Query(LocationDesign, NodeRouteReferenceView, classOf[CountResult])
+    val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[CountResult])
       .stale(stale)
       .keyStartsWith(networkType.name)
       .reduce(true)

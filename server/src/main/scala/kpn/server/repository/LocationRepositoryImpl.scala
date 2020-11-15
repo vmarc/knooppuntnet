@@ -16,7 +16,7 @@ import kpn.core.database.views.location.LocationNodeCount
 import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
-import kpn.core.database.views.location.NodeRouteReferenceView
+import kpn.core.database.views.node.NodeRouteReferenceView
 import org.springframework.stereotype.Component
 
 @Component

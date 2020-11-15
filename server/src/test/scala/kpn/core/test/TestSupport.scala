@@ -11,6 +11,7 @@ import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.location.LocationDesign
+import kpn.core.database.views.node.NodeRouteDesign
 import kpn.core.database.views.planner.PlannerDesign
 import kpn.core.database.views.poi.PoiDesign
 import kpn.core.database.views.tile.TileDesign
@@ -62,6 +63,7 @@ object TestSupport extends Assertions {
       new DesignRepositoryImpl(database).save(LocationDesign)
       new DesignRepositoryImpl(database).save(PoiDesign)
       new DesignRepositoryImpl(database).save(TileDesign)
+      new DesignRepositoryImpl(database).save(NodeRouteDesign)
 
       try {
         f(database)

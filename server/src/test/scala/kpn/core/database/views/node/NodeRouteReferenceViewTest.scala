@@ -1,4 +1,4 @@
-package kpn.core.database.views.location
+package kpn.core.database.views.node
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.NodeRouteCount
