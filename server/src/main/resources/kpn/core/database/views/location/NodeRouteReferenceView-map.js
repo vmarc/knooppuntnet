@@ -1,16 +1,3 @@
-function emitRouteReferences(networkType, routeReference, nodes) {
-  for (var nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-    var node = nodes[nodeIndex];
-    var key = [
-      networkType,
-      node.id,
-      routeReference.routeName,
-      routeReference.routeId
-    ];
-    emit(key, 1);
-  }
-}
-
 if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
 
   var analysis = doc.route.analysis;
@@ -21,8 +8,49 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
     routeName: summary.name
   };
 
-  emitRouteReferences(summary.networkType, routeReference, analysis.map.startNodes);
-  emitRouteReferences(summary.networkType, routeReference, analysis.map.startTentacleNodes);
-  emitRouteReferences(summary.networkType, routeReference, analysis.map.endNodes);
-  emitRouteReferences(summary.networkType, routeReference, analysis.map.endTentacleNodes);
+  var allNodeIds = [];
+  var allNodes = [];
+
+  for (var i = 0; i < analysis.map.startNodes.length; i++) {
+    var node = analysis.map.startNodes[i];
+    if (allNodeIds.indexOf(node.id) < 0) {
+      allNodeIds.push(node.id);
+      allNodes.push(node);
+    }
+  }
+
+  for (i = 0; i < analysis.map.startTentacleNodes.length; i++) {
+    node = analysis.map.startTentacleNodes[i];
+    if (allNodeIds.indexOf(node.id) < 0) {
+      allNodeIds.push(node.id);
+      allNodes.push(node);
+    }
+  }
+
+  for (i = 0; i < analysis.map.endNodes.length; i++) {
+    node = analysis.map.endNodes[i];
+    if (allNodeIds.indexOf(node.id) < 0) {
+      allNodeIds.push(node.id);
+      allNodes.push(node);
+    }
+  }
+
+  for (i = 0; i < analysis.map.endTentacleNodes.length; i++) {
+    node = analysis.map.endTentacleNodes[i];
+    if (allNodeIds.indexOf(node.id) < 0) {
+      allNodeIds.push(node.id);
+      allNodes.push(node);
+    }
+  }
+
+  for (i = 0; i < allNodes.length; i++) {
+    node = allNodes[i];
+    var key = [
+      summary.networkType,
+      node.id,
+      routeReference.routeName,
+      routeReference.routeId
+    ];
+    emit(key, 1);
+  }
 }

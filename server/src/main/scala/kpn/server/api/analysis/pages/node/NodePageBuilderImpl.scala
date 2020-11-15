@@ -6,18 +6,23 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
+import kpn.api.common.node.NodeIntegrity
+import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeReferences
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
+import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodePageBuilderImpl(
   nodeRepository: NodeRepository,
+  nodeRouteRepository: NodeRouteRepository,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends NodePageBuilder {
@@ -57,7 +62,7 @@ class NodePageBuilderImpl(
 
   private def buildNodeDetailsPage(user: Option[String], nodeInfo: NodeInfo): NodeDetailsPage = {
     val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
-    NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo), changeCount)
+    NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo), buildNodeIntegrity(nodeInfo), changeCount)
   }
 
   private def buildNodeMapPage(user: Option[String], nodeInfo: NodeInfo): NodeMapPage = {
@@ -98,6 +103,23 @@ class NodePageBuilderImpl(
     val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id)
     val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id)
     NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
+  }
+
+  private def buildNodeIntegrity(nodeInfo: NodeInfo): NodeIntegrity = {
+    NodeIntegrity(
+      NetworkType.all.flatMap { networkType =>
+        val tagKey = s"expected_r${networkType.letter}n_route_relations"
+        nodeInfo.tags(tagKey).map { tagValue =>
+          val expectedRouteCount: Int = tagValue.toInt
+          val routeRefs = nodeRouteRepository.nodeRouteReferences(networkType, nodeInfo.id)
+          NodeIntegrityDetail(
+            networkType,
+            expectedRouteCount,
+            routeRefs
+          )
+        }
+      }
+    )
   }
 
   private def isIncomplete(nodeChanges: Seq[NodeChange]) = {

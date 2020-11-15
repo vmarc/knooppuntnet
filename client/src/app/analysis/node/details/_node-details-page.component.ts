@@ -15,6 +15,7 @@ import {NodeDetailsPage} from "../../../kpn/api/common/node/node-details-page";
 import {NodeReferences} from "../../../kpn/api/common/node/node-references";
 import {ApiResponse} from "../../../kpn/api/custom/api-response";
 import {FactInfo} from "../../fact/fact-info";
+import {NodeIntegrity} from "../../../kpn/api/common/node/node-integrity";
 
 @Component({
   selector: "kpn-node-details-page",
@@ -61,6 +62,10 @@ import {FactInfo} from "../../fact/fact-info";
           <kpn-node-location [location]="nodeInfo.location"></kpn-node-location>
         </kpn-data>
 
+        <kpn-data title="Integrity" i18n-title="@@node.integrity">
+          <kpn-node-integrity [integrity]="integrity"></kpn-node-integrity>
+        </kpn-data>
+
         <kpn-data title="Networks" i18n-title="@@node.networks">
           <kpn-node-network-references
             [nodeInfo]="nodeInfo"
@@ -94,6 +99,7 @@ export class NodeDetailsPageComponent implements OnInit {
   nodeInfo: NodeInfo;
   factInfos: List<FactInfo>;
   references: NodeReferences;
+  integrity: NodeIntegrity;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -116,6 +122,7 @@ export class NodeDetailsPageComponent implements OnInit {
             this.factInfos = this.buildFactInfos(response.result);
             this.nodeInfo = response.result.nodeInfo;
             this.references = response.result.references;
+            this.integrity = response.result.integrity;
           }
         })
       ))

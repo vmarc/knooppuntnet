@@ -21,6 +21,7 @@ import {NodeOrphanRouteReferencesComponent} from "./details/node-orphan-route-re
 import {NodeSummaryComponent} from "./details/node-summary.component";
 import {NodeMapPageComponent} from "./map/_node-map-page.component";
 import {NodeRoutingModule} from "./node-routing.module";
+import {NodeIntegrityComponent} from "./details/node-integrity.component";
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import {NodeRoutingModule} from "./node-routing.module";
     NodePageHeaderComponent,
     NodeChangesSidebarComponent,
     NodeLocationComponent,
+    NodeIntegrityComponent,
     NodeDetailsSidebarComponent,
   ],
   providers: [

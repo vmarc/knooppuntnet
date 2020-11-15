@@ -14,7 +14,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in route") {
 
-    withDatabase { database =>
+   withDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -92,6 +92,42 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       )
 
       queryNode(database, 1001) should equal(Seq())
+    }
+  }
+
+  test("identical nodes are emitted only once") {
+
+    withDatabase { database =>
+      val routeRepository = new RouteRepositoryImpl(database)
+      routeRepository.save(
+        newRoute(
+          id = 10,
+          networkType = NetworkType.hiking,
+          name = "01-01",
+          analysis = newRouteInfoAnalysis(
+            map = newRouteMap(
+              startNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
+              ),
+              endNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                )
+              )
+            )
+          )
+        )
+      )
+
+      val expectedReferences = Seq(
+        Ref(10, "01-01")
+      )
+
+      queryNode(database, 1001) should equal(expectedReferences)
     }
   }
 

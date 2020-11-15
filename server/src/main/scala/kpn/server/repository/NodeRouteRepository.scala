@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.common.NodeRoute
 import kpn.api.common.common.NodeRouteCount
 import kpn.api.common.common.NodeRouteExpectedCount
+import kpn.api.common.common.Ref
 import kpn.api.custom.NetworkType
 
 trait NodeRouteRepository {
@@ -12,6 +13,8 @@ trait NodeRouteRepository {
   def delete(nodeId: Long, networkType: NetworkType): Unit
 
   def nodeRoutes(networkType: NetworkType): Seq[NodeRoute]
+
+  def nodeRouteReferences(networkType: NetworkType, nodeId: Long): Seq[Ref]
 
   def actualNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteCount]
 

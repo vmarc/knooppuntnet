@@ -11,26 +11,16 @@ import {NodeNetworkRouteReference} from "../../../kpn/api/common/node/node-netwo
   template: `
     <div>
       <kpn-icon-network-link [reference]="toReference(reference)"></kpn-icon-network-link>
-
       <div class="network-reference-details">
         <div class="text">
-
-          <kpn-node-network-reference-statement [nodeInfo]="nodeInfo" [reference]="reference"></kpn-node-network-reference-statement>
-
-          <div *ngIf="reference.nodeIntegrityCheck && reference.nodeIntegrityCheck.failed" i18n="@@node.network.integrity-check-failed">
-            Integritycheck failed: expected {{reference.nodeIntegrityCheck.expected}} routes,
-            but found {{reference.nodeIntegrityCheck.actual}}.
-          </div>
-          <div *ngIf="reference.nodeIntegrityCheck && !reference.nodeIntegrityCheck.failed" i18n="@@node.network.integrity-check-ok">
-            Expected number of routes ({{reference.nodeIntegrityCheck.expected}}) matches the number of routes found.
-          </div>
-
+          <kpn-node-network-reference-statement
+            [nodeInfo]="nodeInfo"
+            [reference]="reference">
+          </kpn-node-network-reference-statement>
         </div>
-
         <div *ngFor="let routeReference of reference.routes" class="route-line">
           <kpn-icon-route-link [reference]="toRouteReference(routeReference)"></kpn-icon-route-link>
         </div>
-
       </div>
     </div>
   `,

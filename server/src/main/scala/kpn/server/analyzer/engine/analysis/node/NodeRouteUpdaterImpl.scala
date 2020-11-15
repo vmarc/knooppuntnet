@@ -94,18 +94,20 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
           case None => None
           case Some(nodeRouteExpectedCount) =>
             val actualRouteCount = actual.getOrElse(nodeRoute.id, 0)
-            val expectedRouteCount = nodeRouteExpectedCount.routeCount
-            if (nodeRoute.actualRouteCount == actualRouteCount && nodeRoute.expectedRouteCount == expectedRouteCount) {
+            if (nodeRoute.actualRouteCount == actualRouteCount &&
+              nodeRoute.expectedRouteCount == nodeRouteExpectedCount.routeCount &&
+              nodeRoute.name == nodeRouteExpectedCount.nodeName &&
+              nodeRoute.locationNames == nodeRouteExpectedCount.locationNames) {
               None
             }
             else {
               Some(
                 NodeRoute(
                   nodeRoute.id,
-                  nodeRoute.name,
+                  nodeRouteExpectedCount.nodeName,
                   networkType,
                   nodeRouteExpectedCount.locationNames,
-                  expectedRouteCount,
+                  nodeRouteExpectedCount.routeCount,
                   actualRouteCount
                 )
               )

@@ -17,6 +17,7 @@ import kpn.api.common.location.Location
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
+import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeNetworkIntegrityCheck
 import kpn.api.common.node.NodeNetworkReference
@@ -38,6 +39,7 @@ object NodePageExample {
     NodeDetailsPage(
       nodeInfo(),
       nodeReferences(),
+      NodeIntegrity(),
       123
     )
   }

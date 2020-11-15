@@ -60,7 +60,7 @@ object LocationNodeView extends View {
       val value = Fields(row.value)
 
       val expectedRoutesTagKey = s"expected_r${locationKey.networkType.letter}n_route_relations"
-      val expectedRouteCount = row.doc.node.tags(expectedRoutesTagKey).filter(_.forall(Character.isDigit)).getOrElse("3").toInt
+      val expectedRouteCount = row.doc.node.tags(expectedRoutesTagKey).filter(_.forall(Character.isDigit)).map(_.toInt)
 
       LocationNodeInfo(
         id = key.long(4),
