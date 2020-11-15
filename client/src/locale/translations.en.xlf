@@ -7598,12 +7598,20 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node.integrity" datatype="html">
+        <source>Integrity</source>
+        <target state="final">[Integrity]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.networks" datatype="html">
         <source>Networks</source>
         <target>Networks</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
@@ -7611,7 +7619,7 @@
         <target>Orphan routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
@@ -7619,7 +7627,7 @@
         <target>Facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
@@ -7728,32 +7736,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-network-references.component.ts</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node.network.integrity-check-failed" datatype="html">
-        <source>
-            Integritycheck failed: expected <x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/> routes,
-            but found <x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>.
-          </source>
-        <target state="final">
-            Integritycheck failed: expected <x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/> routes,
-            but found <x id="INTERPOLATION_1" equiv-text="{{reference.nodeIntegrityCheck.actual}}"/>.
-          </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/details/node-network-reference.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="node.network.integrity-check-ok" datatype="html">
-        <source>
-            Expected number of routes (<x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>) matches the number of routes found.
-          </source>
-        <target state="final">
-            Expected number of routes (<x id="INTERPOLATION" equiv-text="{{reference.nodeIntegrityCheck.expected}}"/>) matches the number of routes found.
-          </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/analysis/node/details/node-network-reference.component.ts</context>
-          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.network.role-connection" datatype="html">
@@ -7878,6 +7860,46 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/node-location.component.ts</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.none" datatype="html">
+        <source>
+      There is no integrity information for this node
+      (no expected_rXn_route_relations tag).
+    </source>
+        <target state="final">[
+      There is no integrity information for this node
+      (no expected_rXn_route_relations tag).
+    ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.ok" datatype="html">
+        <source>
+            The expected number of routes (<x id="INTERPOLATION" equiv-text="{{detail.expectedRouteCount}}"/>) matches the number of routes found.
+          </source>
+        <target state="final">[
+            The expected number of routes (<x id="INTERPOLATION" equiv-text="{{detail.expectedRouteCount}}"/>) matches the number of routes found.
+          ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.not-ok" datatype="html">
+        <source>
+            The actual number of routes in this node (<x id="INTERPOLATION" equiv-text="{{detail.routeRefs.size}}"/>)
+            does not match the expected number of routes (<x id="INTERPOLATION_1" equiv-text="{{detail.expectedRouteCount}}"/>).
+          </source>
+        <target state="final">[
+            The actual number of routes in this node (<x id="INTERPOLATION" equiv-text="{{detail.routeRefs.size}}"/>)
+            does not match the expected number of routes (<x id="INTERPOLATION_1" equiv-text="{{detail.expectedRouteCount}}"/>).
+          ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.details-sidebar.tip" datatype="html">
