@@ -6025,7 +6025,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Netwerken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
@@ -6033,7 +6033,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Route wezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
@@ -6041,7 +6041,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
@@ -8604,7 +8604,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Navigatie-instructies</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.directions.comment.1" datatype="html">
@@ -8613,7 +8613,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Je kan deze extra functionaliteit in de planner inschakelen om een lijst met navigatie-instructies aan te maken voor de route die je hebt gepland.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.directions.comment.2" datatype="html">
@@ -8623,7 +8623,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Deze functionaliteit is momenteel nog in ontwikkeling en werkt mogelijk nog niet helemaal ok. Standaard is deze functionaliteit niet ingeschakeld.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.background" datatype="html">
@@ -8988,7 +8988,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Extra kaart lagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.extra-layers.comment.1" datatype="html">
@@ -8996,7 +8996,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Voegt opties toe om extra kaartlagen te selecteren in de planner kaart.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.extra-layers.comment.2" datatype="html">
@@ -9006,7 +9006,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <target>Deze extra kaartlagen zijn bedoeld als extra informatie bij het opsporen van problemen in knooppuntnet. Deze extra kaartlagen zijn niet nodig voor normaal gebruik.  Deze extra kaartlagen laten toe om de kaarttegelnummers te tonen, en de achtergrondlaag van OpenStreetMap (normaal gebruiken we enkel onze eigen achtergrondtegels en niet die van OpenStreetMap).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="babd77a056781cf75bbd9371bf9c0a9f7efd7ce1" datatype="html">
@@ -9131,6 +9131,40 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn _&quot;horse&quot;_, _&quot
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
           <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity" datatype="html">
+        <source>Integrity</source>
+        <target>Integriteit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.none" datatype="html">
+        <source>There is no integrity information for this node
+      (no expected_rXn_route_relations tag).</source>
+        <target>Er is geen integriteitsinformatie voor dit knooppunt (geen expected-rXn_route_relations tag).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.ok" datatype="html">
+        <source>The expected number of routes (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION"/>) matches the number of routes found.</source>
+        <target>Het aantal verwachte routes (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION"/>) klopt met het aantal gevonden routes.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.not-ok" datatype="html">
+        <source>The actual number of routes in this node (<x equiv-text="{{detail.routeRefs.size}}" id="INTERPOLATION"/>)
+            does not match the expected number of routes (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION_1"/>).</source>
+        <target>Het aantal routes in dit knooppunt (<x equiv-text="{{detail.routeRefs.size}}" id="INTERPOLATION"/>) komt niet overeen met het verwachte aantal routes (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION_1"/>).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
     </body>
