@@ -6056,7 +6056,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <target>Réseaux</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
@@ -6064,7 +6064,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <target>Itinéraires orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
@@ -6072,7 +6072,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         <target>Facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
@@ -8637,7 +8637,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Navigation instructions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.directions.comment.1" datatype="html">
@@ -8647,7 +8647,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         a list with navigation instructions for the route you have planned.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.directions.comment.2" datatype="html">
@@ -8659,7 +8659,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         functionality is not enabled.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.background" datatype="html">
@@ -9025,7 +9025,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Extra layers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.extra-layers.comment.1" datatype="html">
@@ -9033,7 +9033,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Enables the option to select extra layers in the planner map.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.extra-layers.comment.2" datatype="html">
@@ -9045,7 +9045,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         tiles from OpenStreetMap (normally we use tiles from our own server).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/settings/settings-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="babd77a056781cf75bbd9371bf9c0a9f7efd7ce1" datatype="html">
@@ -9170,6 +9170,41 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/analysis/location/nodes/location-node-table.component.ts</context>
           <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity" datatype="html">
+        <source>Integrity</source>
+        <target>Intégrité</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/_node-details-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.none" datatype="html">
+        <source>There is no integrity information for this node
+      (no expected_rXn_route_relations tag).</source>
+        <target>There is no integrity information for this node
+      (no expected_rXn_route_relations tag).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.ok" datatype="html">
+        <source>The expected number of routes (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION"/>) matches the number of routes found.</source>
+        <target>Le nombre d&apos;itinéraires attendu (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION"/>) correspond au nombre d&apos;itinéraires trouvé.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="node.integrity.not-ok" datatype="html">
+        <source>The actual number of routes in this node (<x equiv-text="{{detail.routeRefs.size}}" id="INTERPOLATION"/>)
+            does not match the expected number of routes (<x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION_1"/>).</source>
+        <target>Contrôle d&apos;intégrité échoué: <x equiv-text="{{detail.routeRefs.size}}" id="INTERPOLATION"/> itinéraire(s) attendu(s), mais <x equiv-text="{{detail.expectedRouteCount}}" id="INTERPOLATION_1"/> trouvé(s).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/analysis/node/details/node-integrity.component.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
     </body>
