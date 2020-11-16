@@ -27,6 +27,7 @@ case class Query[T](
   keyLong: Option[Long] = None,
   startKey: Option[String] = None,
   endKey: Option[String] = None,
+  keys: Option[Seq[String]] = None,
   stale: Option[String] = None,
   reduce: Option[String] = None,
   descending: Option[String] = None,

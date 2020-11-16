@@ -3,7 +3,6 @@ package kpn.core.database
 import kpn.core.database.doc.Doc
 import kpn.core.database.implementation.DatabaseBulkSave
 import kpn.core.database.implementation.DatabaseContext
-import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.database.implementation.DatabaseCreate
 import kpn.core.database.implementation.DatabaseDelete
 import kpn.core.database.implementation.DatabaseDeleteDocWithId
@@ -16,6 +15,11 @@ import kpn.core.database.implementation.DatabaseQuery
 import kpn.core.database.implementation.DatabaseRevision
 import kpn.core.database.implementation.DatabaseSave
 import kpn.core.database.query.Query
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 
 class DatabaseImpl(context: DatabaseContext) extends Database {
 
@@ -69,4 +73,14 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
   override def keysWithIds(docIds: Seq[String], stale: Boolean): Seq[String] = {
     new DatabaseKeysWithIds(context).keysWithIds(docIds, stale)
   }
+
+  override def post[T](query: Query[T], body: String, docType: Class[T]): T = {
+    val url: String = s"${context.databaseUrl}/${query.build()}"
+    val headers = new HttpHeaders()
+    headers.setContentType(MediaType.APPLICATION_JSON)
+    val entity = new HttpEntity[String](body, headers)
+    val response: ResponseEntity[String] = context.restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+    context.objectMapper.readValue(response.getBody, docType)
+  }
+
 }

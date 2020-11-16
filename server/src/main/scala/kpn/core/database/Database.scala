@@ -29,4 +29,6 @@ trait Database {
 
   def execute[T](query: Query[T]): T
 
+  def post[T](query: Query[T], body: String, docType: Class[T]): T
+
 }

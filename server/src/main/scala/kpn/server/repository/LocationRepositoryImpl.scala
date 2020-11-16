@@ -16,7 +16,6 @@ import kpn.core.database.views.location.LocationNodeCount
 import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
-import kpn.core.database.views.node.NodeRouteReferenceView
 import org.springframework.stereotype.Component
 
 @Component
@@ -36,11 +35,7 @@ class LocationRepositoryImpl(analysisDatabase: Database) extends LocationReposit
   }
 
   override def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean): Seq[LocationNodeInfo] = {
-    val nodeInfos = LocationNodeView.query(analysisDatabase, locationKey, parameters, stale)
-    nodeInfos.map { nodeInfo =>
-      val routeReferences = NodeRouteReferenceView.query(analysisDatabase, locationKey.networkType, nodeInfo.id, stale)
-      nodeInfo.copy(routeReferences = routeReferences)
-    }
+    LocationNodeView.query(analysisDatabase, locationKey, parameters, stale)
   }
 
   override def nodeCount(locationKey: LocationKey, stale: Boolean): Long = {
