@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "app-home",
+  selector: 'app-home',
   template: `
     <a routerLink="counter">counter</a>
   `
