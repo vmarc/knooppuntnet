@@ -1,5 +1,5 @@
-import {MapFeature} from "./map-feature";
-import {PlanFlagType} from "../plan/plan-flag-type";
+import {MapFeature} from './map-feature';
+import {PlanFlagType} from '../plan/plan-flag-type';
 
 export class FlagFeature extends MapFeature {
 

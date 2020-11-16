@@ -1,5 +1,5 @@
-import {Map} from "immutable";
-import {Statistic} from "../common/statistics/statistic";
+import {Map} from 'immutable';
+import {Statistic} from '../common/statistics/statistic';
 
 export class Statistics {
 

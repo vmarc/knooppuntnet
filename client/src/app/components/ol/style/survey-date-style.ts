@@ -1,9 +1,9 @@
-import {Color} from "ol/color";
-import {FeatureLike} from "ol/Feature";
-import {Style} from "ol/style";
-import {MapService} from "../services/map.service";
-import {MainStyleColors} from "./main-style-colors";
-import {NodeStyle} from "./node-style";
+import {Color} from 'ol/color';
+import {FeatureLike} from 'ol/Feature';
+import {Style} from 'ol/style';
+import {MapService} from '../services/map.service';
+import {MainStyleColors} from './main-style-colors';
+import {NodeStyle} from './node-style';
 
 export class SurveyDateStyle {
 
@@ -12,7 +12,7 @@ export class SurveyDateStyle {
 
   surveyColor(feature: FeatureLike): Color {
     let color = MainStyleColors.gray; // survey date unknown
-    const survey = feature.get("survey");
+    const survey = feature.get('survey');
     if (survey) {
       if (survey > this.mapService.surveyDateInfo().lastMonthStart) {
         color = MainStyleColors.lightGreen;
@@ -31,7 +31,7 @@ export class SurveyDateStyle {
 
   smallNodeStyle(feature: FeatureLike): Style {
     let style = NodeStyle.smallGray; // survey date unknown
-    const survey = feature.get("survey");
+    const survey = feature.get('survey');
     if (survey) {
       if (survey > this.mapService.surveyDateInfo().lastMonthStart) {
         style = NodeStyle.smallLightGreen;

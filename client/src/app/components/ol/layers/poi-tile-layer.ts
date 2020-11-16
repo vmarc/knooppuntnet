@@ -1,7 +1,7 @@
-import MVT from "ol/format/MVT";
-import VectorTileLayer from "ol/layer/VectorTile";
-import VectorTile from "ol/source/VectorTile";
-import {ZoomLevel} from "../domain/zoom-level";
+import MVT from 'ol/format/MVT';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import VectorTile from 'ol/source/VectorTile';
+import {ZoomLevel} from '../domain/zoom-level';
 
 export class PoiTileLayer {
 
@@ -12,12 +12,12 @@ export class PoiTileLayer {
       minZoom: ZoomLevel.poiTileMinZoom,
       maxZoom: ZoomLevel.poiTileMaxZoom,
       format: new MVT(),
-      url: "/tiles/poi/{z}/{x}/{y}.mvt"
+      url: '/tiles/poi/{z}/{x}/{y}.mvt'
     });
 
     return new VectorTileLayer({
-      source: source,
-      renderMode: "image"
+      source,
+      renderMode: 'image'
     });
   }
 

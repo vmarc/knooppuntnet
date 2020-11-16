@@ -1,13 +1,13 @@
-import {OnInit} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {MatButtonToggleChange} from "@angular/material/button-toggle";
-import {ActivatedRoute} from "@angular/router";
-import {Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatButtonToggleChange} from '@angular/material/button-toggle';
+import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
-  selector: "kpn-network-type-selector",
+  selector: 'kpn-network-type-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-button-toggle-group [value]="networkType$ | async" (change)="networkTypeChanged($event)">
@@ -57,11 +57,11 @@ export class NetworkTypeSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.networkType$ = this.activatedRoute.params.pipe(
-      map(params => params["networkType"])
+      map(params => params['networkType'])
     );
   }
 
   networkTypeChanged(event: MatButtonToggleChange) {
-    this.router.navigate(["../../" + event.value], {relativeTo: this.activatedRoute});
+    this.router.navigate(['../../' + event.value], {relativeTo: this.activatedRoute});
   }
 }

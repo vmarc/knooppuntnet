@@ -1,10 +1,10 @@
-import {Inject} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {WarningDialogData} from "./warning-dialog-data";
+import {Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {WarningDialogData} from './warning-dialog-data';
 
 @Component({
-  selector: "kpn-warning-dialog",
+  selector: 'kpn-warning-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>

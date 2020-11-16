@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import {UserService} from "../../../services/user.service";
-import {VersionService} from "../../../services/version.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {UserService} from '../../../services/user.service';
+import {VersionService} from '../../../services/version.service';
 
 /* tslint:disable:template-i18n */
 @Component({
-  selector: "kpn-sidebar-footer",
+  selector: 'kpn-sidebar-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="footer">
@@ -68,7 +68,7 @@ export class SidebarFooterComponent {
 
   link(language: string): string {
     let path = this.router.url;
-    if (path.startsWith("/en/") || path.startsWith("/nl/") || path.startsWith("/fr/") || path.startsWith("/de/")) {
+    if (path.startsWith('/en/') || path.startsWith('/nl/') || path.startsWith('/fr/') || path.startsWith('/de/')) {
       path = path.substring(3);
     }
     return `/${language}${path}`;

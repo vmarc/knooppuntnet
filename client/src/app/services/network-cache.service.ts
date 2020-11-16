@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Map} from "immutable";
-import {NetworkSummary} from "../kpn/api/common/network/network-summary";
+import {Injectable} from '@angular/core';
+import {Map} from 'immutable';
+import {NetworkSummary} from '../kpn/api/common/network/network-summary';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class NetworkCacheService {
 

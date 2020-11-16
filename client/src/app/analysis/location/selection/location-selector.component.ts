@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
-import {LocationNode} from "../../../kpn/api/common/location/location-node";
-import {Country} from "../../../kpn/api/custom/country";
-import {LocationOption} from "./location-option";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {LocationNode} from '../../../kpn/api/common/location/location-node';
+import {Country} from '../../../kpn/api/custom/country';
+import {LocationOption} from './location-option';
 
 @Component({
-  selector: "kpn-location-selector",
+  selector: 'kpn-location-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
@@ -68,8 +68,8 @@ export class LocationSelectorComponent implements OnInit {
   ngOnInit(): void {
     this.options = this.toOptions(this.locationNode);
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
-      startWith(""),
-      map(value => typeof value === "string" ? value : value.locationName),
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.locationName),
       map(name => name ? this._filter(name) : this.options.toArray())
     );
   }
@@ -78,8 +78,7 @@ export class LocationSelectorComponent implements OnInit {
     if (this.locationInputControl.value) {
       this.selection.emit(this.locationInputControl.value.locationName);
       this.warningSelectionMandatory = false;
-    }
-    else {
+    } else {
       this.warningSelectionMandatory = true;
     }
   }

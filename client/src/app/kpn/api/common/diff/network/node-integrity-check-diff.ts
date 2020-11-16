@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NodeIntegrityCheck} from "../../node-integrity-check";
+import {NodeIntegrityCheck} from '../../node-integrity-check';
 
 export class NodeIntegrityCheckDiff {
 

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "kpn-josm-relation",
+  selector: 'kpn-josm-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<kpn-josm-link kind="relation" [elementId]="relationId" [full]="true"></kpn-josm-link>`
 })

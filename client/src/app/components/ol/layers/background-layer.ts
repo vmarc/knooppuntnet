@@ -1,11 +1,11 @@
-import {LngLatLike} from "mapbox-gl";
-import * as mapboxgl from "mapbox-gl/dist/mapbox-gl-dev";
-import {Layer} from "ol/layer";
-import {toLonLat} from "ol/proj";
-import {I18nService} from "../../../i18n/i18n.service";
-import {OsmLibertyStyle} from "../style/osm-liberty-style";
-import {Layers} from "./layers";
-import {MapLayer} from "./map-layer";
+import {LngLatLike} from 'mapbox-gl';
+import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
+import {Layer} from 'ol/layer';
+import {toLonLat} from 'ol/proj';
+import {I18nService} from '../../../i18n/i18n.service';
+import {OsmLibertyStyle} from '../style/osm-liberty-style';
+import {Layers} from './layers';
+import {MapLayer} from './map-layer';
 
 export class BackgroundLayer {
 
@@ -33,12 +33,12 @@ export class BackgroundLayer {
 
     const layer = new Layer({
       zIndex: Layers.zIndexOsmLayer,
-      render: function (frameState) {
+      render(frameState) {
         const canvas = mbMap.getCanvas();
         const viewState = frameState.viewState;
 
         const visible = layer.getVisible();
-        canvas.style.display = visible ? "block" : "none";
+        canvas.style.display = visible ? 'block' : 'none';
 
         canvas.style.opacity = layer.getOpacity().toString();
 
@@ -72,9 +72,9 @@ export class BackgroundLayer {
       }
     });
 
-    const backgroundLayerName = this.i18nService.translation("@@map.layer.background");
-    layer.set("name", backgroundLayerName);
-    return new MapLayer("background-layer", layer);
+    const backgroundLayerName = this.i18nService.translation('@@map.layer.background');
+    layer.set('name', backgroundLayerName);
+    return new MapLayer('background-layer', layer);
   }
 
 }

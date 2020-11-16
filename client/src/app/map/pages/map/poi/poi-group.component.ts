@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material/checkbox";
-import {PoiService} from "../../../../services/poi.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {PoiService} from '../../../../services/poi.service';
 
 @Component({
-  selector: "kpn-poi-group",
+  selector: 'kpn-poi-group',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel>

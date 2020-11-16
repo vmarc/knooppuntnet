@@ -1,11 +1,11 @@
-import {List} from "immutable";
-import {SurveyDateInfo} from "../api/common/survey-date-info";
-import {Day} from "../api/custom/day";
-import {Filter} from "./filter";
-import {FilterOption} from "./filter-option";
-import {FilterOptionGroup} from "./filter-option-group";
-import {Filters} from "./filters";
-import {SurveyDateFilterKind} from "./survey-date-filter-kind";
+import {List} from 'immutable';
+import {SurveyDateInfo} from '../api/common/survey-date-info';
+import {Day} from '../api/custom/day';
+import {Filter} from './filter';
+import {FilterOption} from './filter-option';
+import {FilterOptionGroup} from './filter-option-group';
+import {Filters} from './filters';
+import {SurveyDateFilterKind} from './survey-date-filter-kind';
 
 export class SurveyDateFilter<T> extends Filter<T> {
 
@@ -19,7 +19,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
               private readonly selectLastYear: () => void,
               private readonly selectLastTwoYears: () => void,
               private readonly selectOlder: () => void) {
-    super("lastSurvey");
+    super('lastSurvey');
   }
 
   passes(element: T): boolean {
@@ -64,13 +64,13 @@ export class SurveyDateFilter<T> extends Filter<T> {
     const lastTwoYearsCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart));
     const olderCount = filteredElements.count(e => !!this.getter(e) && this.getter(e).olderThan(this.surveyDateInfo.lastTwoYearsStart));
 
-    const all = new FilterOption("all", allCount, this.isAll(), this.selectAll);
-    const unknown = new FilterOption("unknown", unknownCount, this.isUnknown(), this.selectUnknown);
-    const lastMonth = new FilterOption("lastMonth", lastMonthCount, this.isLastMonth(), this.selectLastMonth);
-    const lastHalfYear = new FilterOption("lastHalfYear", lastHalfYearCount, this.isLastHalfYear(), this.selectLastHalfYear);
-    const lastYear = new FilterOption("lastYear", lastYearCount, this.isLastYear(), this.selectLastYear);
-    const lastTwoYears = new FilterOption("lastTwoYears", lastTwoYearsCount, this.isLastTwoYears(), this.selectLastTwoYears);
-    const older = new FilterOption("older", olderCount, this.isOlder(), this.selectOlder);
+    const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
+    const unknown = new FilterOption('unknown', unknownCount, this.isUnknown(), this.selectUnknown);
+    const lastMonth = new FilterOption('lastMonth', lastMonthCount, this.isLastMonth(), this.selectLastMonth);
+    const lastHalfYear = new FilterOption('lastHalfYear', lastHalfYearCount, this.isLastHalfYear(), this.selectLastHalfYear);
+    const lastYear = new FilterOption('lastYear', lastYearCount, this.isLastYear(), this.selectLastYear);
+    const lastTwoYears = new FilterOption('lastTwoYears', lastTwoYearsCount, this.isLastTwoYears(), this.selectLastTwoYears);
+    const older = new FilterOption('older', olderCount, this.isOlder(), this.selectOlder);
 
     return new FilterOptionGroup(
       this.name,

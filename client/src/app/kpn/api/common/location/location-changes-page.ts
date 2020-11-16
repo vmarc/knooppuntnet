@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {LocationSummary} from "./location-summary";
+import {LocationSummary} from './location-summary';
 
 export class LocationChangesPage {
 

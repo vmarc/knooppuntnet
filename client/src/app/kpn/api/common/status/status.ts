@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {ActionTimestamp} from "./action-timestamp";
-import {DiskUsage} from "./disk-usage";
+import {ActionTimestamp} from './action-timestamp';
+import {DiskUsage} from './disk-usage';
 
 export class Status {
 

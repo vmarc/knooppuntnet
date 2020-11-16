@@ -1,12 +1,12 @@
-import {OnInit} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {delay} from "rxjs/operators";
-import {ZoomLevel} from "../../../components/ol/domain/zoom-level";
-import {MapZoomService} from "../../../components/ol/services/map-zoom.service";
+import {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {delay} from 'rxjs/operators';
+import {ZoomLevel} from '../../../components/ol/domain/zoom-level';
+import {MapZoomService} from '../../../components/ol/services/map-zoom.service';
 
 @Component({
-  selector: "kpn-network-map-sidebar",
+  selector: 'kpn-network-map-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>

@@ -1,25 +1,25 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {List} from "immutable";
-import {Subject} from "rxjs";
-import {Observable} from "rxjs";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageWidth} from "../../../components/shared/page-width";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PageService} from "../../../components/shared/page.service";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {RouteDetailsPage} from "../../../kpn/api/common/route/route-details-page";
-import {RouteInfo} from "../../../kpn/api/common/route/route-info";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {FactInfo} from "../../fact/fact-info";
-import {AppState} from "../../../core/core.state";
-import {Store} from "@ngrx/store";
-import {actionPreferencesNetworkType} from "../../../core/preferences/preferences.actions";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {List} from 'immutable';
+import {Subject} from 'rxjs';
+import {Observable} from 'rxjs';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageWidth} from '../../../components/shared/page-width';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PageService} from '../../../components/shared/page.service';
+import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
+import {RouteDetailsPage} from '../../../kpn/api/common/route/route-details-page';
+import {RouteInfo} from '../../../kpn/api/common/route/route-info';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {FactInfo} from '../../fact/fact-info';
+import {AppState} from '../../../core/core.state';
+import {Store} from '@ngrx/store';
+import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
-  selector: "kpn-route-page",
+  selector: 'kpn-route-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -140,7 +140,7 @@ export class RoutePageComponent implements OnInit {
     this.routeName$.next(history.state.routeName);
     this.changeCount$.next(history.state.changeCount);
     this.response$ = this.activatedRoute.params.pipe(
-      map(params => params["routeId"]),
+      map(params => params['routeId']),
       tap(routeId => this.routeId$.next(routeId)),
       mergeMap(routeId => this.appService.routeDetails(routeId)),
       tap(response => {

@@ -1,18 +1,18 @@
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidth} from "../../components/shared/page-width";
-import {PageWidthService} from "../../components/shared/page-width.service";
-import {PlannerService} from "../planner.service";
-import {PlannerCommandReset} from "../planner/commands/planner-command-reset";
-import {Plan} from "../planner/plan/plan";
-import {PlanReverser} from "../planner/plan/plan-reverser";
-import {PlanOutputDialogComponent} from "./plan-output-dialog.component";
-import {PlannerCommandReverse} from "../planner/commands/planner-command-reverse";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidth} from '../../components/shared/page-width';
+import {PageWidthService} from '../../components/shared/page-width.service';
+import {PlannerService} from '../planner.service';
+import {PlannerCommandReset} from '../planner/commands/planner-command-reset';
+import {Plan} from '../planner/plan/plan';
+import {PlanReverser} from '../planner/plan/plan-reverser';
+import {PlanOutputDialogComponent} from './plan-output-dialog.component';
+import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse';
 
 @Component({
-  selector: "kpn-plan-actions",
+  selector: 'kpn-plan-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="buttons" *ngIf="plan$ | async as plan">

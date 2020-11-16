@@ -1,6 +1,6 @@
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {RouteFeature} from "../features/route-feature";
-import {PlannerHighlighter} from "./planner-highlighter";
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {RouteFeature} from '../features/route-feature';
+import {PlannerHighlighter} from './planner-highlighter';
 
 export class PlannerHighlighterMock implements PlannerHighlighter {
 

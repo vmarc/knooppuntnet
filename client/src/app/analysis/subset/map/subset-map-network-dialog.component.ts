@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {SubsetMapNetwork} from '../../../kpn/api/common/subset/subset-map-network';
 
 @Component({
-  selector: "kpn-subset-map-network-dialog",
+  selector: 'kpn-subset-map-network-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="dialog">

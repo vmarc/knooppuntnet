@@ -1,25 +1,25 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import {select} from "@ngrx/store";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {State} from "./demo.model";
-import {actionDemoPlay} from "./demo.actions";
-import {actionDemoPause} from "./demo.actions";
-import {actionDemoEnd} from "./demo.actions";
-import {actionDemoVideoPlayerAvailable} from "./demo.actions";
-import {actionDemoStartVideo} from "./demo.actions";
-import {actionDemoControlPlay} from "./demo.actions";
-import {actionDemoCanPlay} from "./demo.actions";
-import {actionDemoUpdateProgress} from "./demo.actions";
-import {tap} from "rxjs/operators";
-import {mergeMap} from "rxjs/operators";
-import {withLatestFrom} from "rxjs/operators";
-import {filter} from "rxjs/operators";
-import {DemoService} from "./demo.service";
-import {selectDemoVideoSource} from "./demo.selectors";
-import {selectCurrentVideoState} from "./demo.selectors";
-import {selectDemoEnabled} from "./demo.selectors";
+import {select} from '@ngrx/store';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {State} from './demo.model';
+import {actionDemoPlay} from './demo.actions';
+import {actionDemoPause} from './demo.actions';
+import {actionDemoEnd} from './demo.actions';
+import {actionDemoVideoPlayerAvailable} from './demo.actions';
+import {actionDemoStartVideo} from './demo.actions';
+import {actionDemoControlPlay} from './demo.actions';
+import {actionDemoCanPlay} from './demo.actions';
+import {actionDemoUpdateProgress} from './demo.actions';
+import {tap} from 'rxjs/operators';
+import {mergeMap} from 'rxjs/operators';
+import {withLatestFrom} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
+import {DemoService} from './demo.service';
+import {selectDemoVideoSource} from './demo.selectors';
+import {selectCurrentVideoState} from './demo.selectors';
+import {selectDemoEnabled} from './demo.selectors';
 
 @Injectable()
 export class DemoEffects {
@@ -33,7 +33,7 @@ export class DemoEffects {
     () =>
       this.actions$.pipe(
         ofType(actionDemoStartVideo),
-        tap(action => this.router.navigate(["/demo", action.video]))
+        tap(action => this.router.navigate(['/demo', action.video]))
       ),
     {dispatch: false}
   );
@@ -113,7 +113,7 @@ export class DemoEffects {
               this.demoService.play();
             }
           } else {
-            this.router.navigate(["/demo", action.video]);
+            this.router.navigate(['/demo', action.video]);
           }
         })
       ),

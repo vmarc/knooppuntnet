@@ -1,4 +1,4 @@
-import {SubscriptionLike} from "rxjs";
+import {SubscriptionLike} from 'rxjs';
 
 export class Subscriptions {
 

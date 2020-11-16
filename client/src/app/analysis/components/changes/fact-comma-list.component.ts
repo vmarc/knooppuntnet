@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {Fact} from "../../../kpn/api/custom/fact";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {Fact} from '../../../kpn/api/custom/fact';
 
 @Component({
-  selector: "kpn-fact-comma-list",
+  selector: 'kpn-fact-comma-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="hasFacts()" class="kpn-detail kpn-line">

@@ -1,16 +1,16 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
-import {AppService} from "../../app.service";
-import {Status} from "../../kpn/api/common/status/status";
-import {ApiResponse} from "../../kpn/api/custom/api-response";
-import {StatusLinks} from "./status-links";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {AppService} from '../../app.service';
+import {Status} from '../../kpn/api/common/status/status';
+import {ApiResponse} from '../../kpn/api/custom/api-response';
+import {StatusLinks} from './status-links';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-status-page",
+  selector: 'kpn-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response$ | async as response">
@@ -45,8 +45,8 @@ export class StatusPageComponent implements OnInit {
       tap(response => {
         if (response.result) {
           const timestamp = response.result.timestamp;
-          this.replicationLinks = new StatusLinks(timestamp, "/status/replication");
-          this.systemLinks = new StatusLinks(timestamp, "/status/system");
+          this.replicationLinks = new StatusLinks(timestamp, '/status/replication');
+          this.systemLinks = new StatusLinks(timestamp, '/status/system');
         }
       })
     );

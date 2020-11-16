@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, Input, SimpleChanges} from "@angular/core";
-import {List} from "immutable";
-import {DirectionsAnalyzer} from "../planner/directions/directions-analyzer";
-import {Plan} from "../planner/plan/plan";
-import {PlanInstruction} from "../planner/plan/plan-instruction";
+import {ChangeDetectionStrategy, Component, Input, SimpleChanges} from '@angular/core';
+import {List} from 'immutable';
+import {DirectionsAnalyzer} from '../planner/directions/directions-analyzer';
+import {Plan} from '../planner/plan/plan';
+import {PlanInstruction} from '../planner/plan/plan-instruction';
 
 @Component({
-  selector: "kpn-plan-instructions",
+  selector: 'kpn-plan-instructions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let instruction of instructions">

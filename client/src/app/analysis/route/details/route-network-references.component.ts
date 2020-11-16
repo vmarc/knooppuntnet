@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Reference} from "../../../kpn/api/common/common/reference";
-import {List} from "immutable";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Reference} from '../../../kpn/api/common/common/reference';
+import {List} from 'immutable';
 
 @Component({
-  selector: "kpn-route-network-references",
+  selector: 'kpn-route-network-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="references.isEmpty()" i18n="@@route.no-network-references">None</div>

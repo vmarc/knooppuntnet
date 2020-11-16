@@ -1,22 +1,22 @@
-import {List} from "immutable";
-import {Coordinate} from "ol/coordinate";
-import {Util} from "../../../components/shared/util";
-import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
-import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
-import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
-import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
-import {FeatureId} from "../features/feature-id";
-import {RouteFeature} from "../features/route-feature";
-import {Plan} from "./plan";
-import {PlanFlag} from "./plan-flag";
-import {PlanLeg} from "./plan-leg";
-import {PlanFlagType} from "./plan-flag-type";
-import {PlanLegData} from "../context/plan-leg-data";
-import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
+import {List} from 'immutable';
+import {Coordinate} from 'ol/coordinate';
+import {Util} from '../../../components/shared/util';
+import {LatLonImpl} from '../../../kpn/api/common/lat-lon-impl';
+import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {LegEndNode} from '../../../kpn/api/common/planner/leg-end-node';
+import {LegEndRoute} from '../../../kpn/api/common/planner/leg-end-route';
+import {PlanFragment} from '../../../kpn/api/common/planner/plan-fragment';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanRoute} from '../../../kpn/api/common/planner/plan-route';
+import {PlanSegment} from '../../../kpn/api/common/planner/plan-segment';
+import {FeatureId} from '../features/feature-id';
+import {RouteFeature} from '../features/route-feature';
+import {Plan} from './plan';
+import {PlanFlag} from './plan-flag';
+import {PlanLeg} from './plan-leg';
+import {PlanFlagType} from './plan-flag-type';
+import {PlanLegData} from '../context/plan-leg-data';
+import {TrackPathKey} from '../../../kpn/api/common/common/track-path-key';
 
 export class PlanUtil {
 
@@ -32,11 +32,11 @@ export class PlanUtil {
       legEnds = legEnds.push(leg.sink);
     });
 
-    return legEnds.map(legEnd => PlanUtil.encodedLegEndKey(legEnd)).join("-");
+    return legEnds.map(legEnd => PlanUtil.encodedLegEndKey(legEnd)).join('-');
   }
 
   static toNodeIds(planUrlString: string): List<string> {
-    const nodeIdsRadix36: List<string> = List(planUrlString.split("-"));
+    const nodeIdsRadix36: List<string> = List(planUrlString.split('-'));
     return nodeIdsRadix36.map(nodeId => parseInt(nodeId, 36).toString());
   }
 
@@ -50,7 +50,7 @@ export class PlanUtil {
   }
 
   static key(source: LegEnd, sink: LegEnd): string {
-    return PlanUtil.legEndKey(source) + ">" + PlanUtil.legEndKey(sink);
+    return PlanUtil.legEndKey(source) + '>' + PlanUtil.legEndKey(sink);
   }
 
   static legEndNode(nodeId: number): LegEnd {
@@ -71,9 +71,9 @@ export class PlanUtil {
       return legEnd.node.nodeId.toString();
     }
     if (legEnd.route) {
-      return legEnd.route.trackPathKeys.map(trackPath => `${trackPath.routeId}.${trackPath.pathId}`).join("|");
+      return legEnd.route.trackPathKeys.map(trackPath => `${trackPath.routeId}.${trackPath.pathId}`).join('|');
     }
-    return "";
+    return '';
   }
 
   static encodedLegEndKey(legEnd: LegEnd): string {
@@ -81,7 +81,7 @@ export class PlanUtil {
       return legEnd.node.nodeId.toString(36);
     }
     if (legEnd.route?.selection) {
-      const trackPath = legEnd.route.selection
+      const trackPath = legEnd.route.selection;
       const routeId = trackPath.routeId.toString(36);
       const pathId = trackPath.pathId.toString(36);
       return `${routeId}.${pathId}`;
@@ -91,9 +91,9 @@ export class PlanUtil {
         const routeId = trackPath.routeId.toString(36);
         const pathId = trackPath.pathId.toString(36);
         return `${routeId}.${pathId}`;
-      }).join("|");
+      }).join('|');
     }
-    return "";
+    return '';
   }
 
   static startFlag(coordinate: Coordinate): PlanFlag {
@@ -144,10 +144,10 @@ export class PlanUtil {
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const legKey = sourceNode.nodeId + "-" + sinkNode.nodeId;
+    const legKey = sourceNode.nodeId + '-' + sinkNode.nodeId;
 
     const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, "", null, List([fragment]));
+    const segment = new PlanSegment(0, '', null, List([fragment]));
     const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
     return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
   }
@@ -159,7 +159,7 @@ export class PlanUtil {
 
   static planRoute(sourceNode: PlanNode, sinkNode: PlanNode): PlanRoute {
     const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, "", null, List([fragment]));
+    const segment = new PlanSegment(0, '', null, List([fragment]));
     return new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
   }
 

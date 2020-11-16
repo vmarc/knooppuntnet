@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {View} from "ol";
-import {BehaviorSubject, ReplaySubject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {View} from 'ol';
+import {BehaviorSubject, ReplaySubject} from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class MapZoomService {
 
@@ -17,7 +17,7 @@ export class MapZoomService {
 
   install(view: View): void {
     this.updateZoomLevel(view.getZoom());
-    view.on("change:resolution", () => this.updateZoomLevel(view.getZoom()));
+    view.on('change:resolution', () => this.updateZoomLevel(view.getZoom()));
   }
 
   private updateZoomLevel(zoomLevel: number): void {

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "kpn-data",
+  selector: 'kpn-data',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="data">
@@ -14,7 +14,7 @@ import {Component, Input} from "@angular/core";
       </div>
     </div>
   `,
-  styleUrls: ["./data.component.scss"]
+  styleUrls: ['./data.component.scss']
 })
 export class DataComponent {
   @Input() title: string;

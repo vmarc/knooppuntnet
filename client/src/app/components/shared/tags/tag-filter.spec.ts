@@ -1,11 +1,11 @@
-import {List} from "immutable";
-import {Tags} from "../../../kpn/api/custom/tags";
-import {InterpretedTags} from "./interpreted-tags";
-import {Tag} from "../../../kpn/api/custom/tag";
+import {List} from 'immutable';
+import {Tags} from '../../../kpn/api/custom/tags';
+import {InterpretedTags} from './interpreted-tags';
+import {Tag} from '../../../kpn/api/custom/tag';
 
-describe("TagFilter", () => {
+describe('TagFilter', () => {
 
-  it("empty", () => {
+  it('empty', () => {
     const filter = InterpretedTags.networkTags(new Tags(List()));
     expect(filter.isEmpty()).toEqual(true);
     expect(filter.hasStandardTags()).toEqual(false);
@@ -14,29 +14,29 @@ describe("TagFilter", () => {
     expect(filter.extraTags()).toEqual(List());
   });
 
-  it("tags are filtered out and sorted", () => {
+  it('tags are filtered out and sorted', () => {
 
     const unfiltered = Tags.fromArray(
       [
-        ["c", "6"],
-        ["name", "3"],
-        ["b", "5"],
-        ["type", "2"],
-        ["a", "4"],
-        ["network", "1"]
+        ['c', '6'],
+        ['name', '3'],
+        ['b', '5'],
+        ['type', '2'],
+        ['a', '4'],
+        ['network', '1']
       ]
     );
 
     const expectedStandardTags = [
-      ["network", "1"],
-      ["type", "2"],
-      ["name", "3"]
+      ['network', '1'],
+      ['type', '2'],
+      ['name', '3']
     ];
 
     const expectedExtraTags = [
-      ["a", "4"],
-      ["b", "5"],
-      ["c", "6"]
+      ['a', '4'],
+      ['b', '5'],
+      ['c', '6']
     ];
 
     const filter = InterpretedTags.networkTags(unfiltered);

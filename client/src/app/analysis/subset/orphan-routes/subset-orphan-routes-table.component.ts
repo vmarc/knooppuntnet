@@ -1,17 +1,17 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
-import {MatTableDataSource} from "@angular/material/table";
-import {List} from "immutable";
-import {BehaviorSubject} from "rxjs";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
-import {RouteSummary} from "../../../kpn/api/common/route-summary";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {SubsetOrphanRouteFilter} from "./subset-orphan-route-filter";
-import {SubsetOrphanRouteFilterCriteria} from "./subset-orphan-route-filter-criteria";
-import {SubsetOrphanRoutesService} from "./subset-orphan-routes.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {List} from 'immutable';
+import {BehaviorSubject} from 'rxjs';
+import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
+import {RouteSummary} from '../../../kpn/api/common/route-summary';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {SubsetOrphanRouteFilter} from './subset-orphan-route-filter';
+import {SubsetOrphanRouteFilterCriteria} from './subset-orphan-route-filter-criteria';
+import {SubsetOrphanRoutesService} from './subset-orphan-routes.service';
 
 @Component({
-  selector: "kpn-subset-orphan-routes-table",
+  selector: 'kpn-subset-orphan-routes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
@@ -66,7 +66,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<RouteSummary>;
 
-  displayedColumns = ["rowNumber", "route"];
+  displayedColumns = ['rowNumber', 'route'];
 
   private readonly filterCriteria = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 

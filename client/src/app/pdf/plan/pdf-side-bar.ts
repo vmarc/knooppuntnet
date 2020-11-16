@@ -1,5 +1,5 @@
-import * as JsPdf from "jspdf";
-import {PdfPage} from "./pdf-page";
+import * as JsPdf from 'jspdf';
+import {PdfPage} from './pdf-page';
 
 export class PdfSideBar {
 
@@ -25,7 +25,7 @@ export class PdfSideBar {
     this.doc.setFontSize(12);
     const textWidth = this.doc.getTextWidth(this.name);
     this.doc.text(this.name, xLeft + 5, yTop + 5 + textWidth, {angle: 90});
-    this.doc.text("knooppuntnet", xLeft + 5, yBottom - 5, {angle: 90});
+    this.doc.text('knooppuntnet', xLeft + 5, yBottom - 5, {angle: 90});
 
     this.doc.setDrawColor(0);
     this.doc.setTextColor(0);

@@ -1,5 +1,5 @@
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {RouteFeature} from "../features/route-feature";
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {RouteFeature} from '../features/route-feature';
 
 export interface PlannerHighlighter {
 

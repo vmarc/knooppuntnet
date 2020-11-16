@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
-import {ElementRef} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {Store} from "@ngrx/store";
-import {select} from "@ngrx/store";
-import {PageService} from "../../components/shared/page.service";
-import {DemoService} from "../../core/demo/demo.service";
-import {actionDemoEnd} from "../../core/demo/demo.actions";
-import {actionDemoVideoPlayerAvailable} from "../../core/demo/demo.actions";
-import {actionDemoPlayingChanged} from "../../core/demo/demo.actions";
-import {actionDemoCanPlay} from "../../core/demo/demo.actions";
-import {actionDemoTimeUpdate} from "../../core/demo/demo.actions";
-import {Observable} from "rxjs";
-import {selectDemoEnabled} from "../../core/demo/demo.selectors";
-import {map} from "rxjs/operators";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {AfterViewInit} from '@angular/core';
+import {ElementRef} from '@angular/core';
+import {OnDestroy} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
+import {PageService} from '../../components/shared/page.service';
+import {DemoService} from '../../core/demo/demo.service';
+import {actionDemoEnd} from '../../core/demo/demo.actions';
+import {actionDemoVideoPlayerAvailable} from '../../core/demo/demo.actions';
+import {actionDemoPlayingChanged} from '../../core/demo/demo.actions';
+import {actionDemoCanPlay} from '../../core/demo/demo.actions';
+import {actionDemoTimeUpdate} from '../../core/demo/demo.actions';
+import {Observable} from 'rxjs';
+import {selectDemoEnabled} from '../../core/demo/demo.selectors';
+import {map} from 'rxjs/operators';
 
 @Component({
-  selector: "kpn-video",
+  selector: 'kpn-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -74,8 +74,8 @@ import {map} from "rxjs/operators";
 })
 export class DemoVideoComponent implements AfterViewInit, OnDestroy {
 
-  @ViewChild("videoPlayer", {static: false}) videoElementRef: ElementRef;
-  @ViewChild("videoPlayerSource", {static: false}) videoPlayerSourceRef: ElementRef;
+  @ViewChild('videoPlayer', {static: false}) videoElementRef: ElementRef;
+  @ViewChild('videoPlayerSource', {static: false}) videoPlayerSourceRef: ElementRef;
 
   canPlayReceived = false;
   readonly enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));

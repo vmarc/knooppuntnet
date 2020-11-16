@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-map-sidebar",
+  selector: 'kpn-map-sidebar',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-map-sidebar-planner></kpn-map-sidebar-planner>

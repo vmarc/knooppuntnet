@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {ActionTimestamp} from "./action-timestamp";
-import {BarChart} from "./bar-chart";
-import {BarChart2D} from "./bar-chart2d";
+import {ActionTimestamp} from './action-timestamp';
+import {BarChart} from './bar-chart';
+import {BarChart2D} from './bar-chart2d';
 
 export class ReplicationStatusPage {
 

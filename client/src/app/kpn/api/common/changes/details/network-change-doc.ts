@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NetworkChange} from "./network-change";
+import {NetworkChange} from './network-change';
 
 export class NetworkChangeDoc {
 

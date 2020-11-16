@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {ClientPoiDefinition} from "./client-poi-definition";
+import {List} from 'immutable';
+import {ClientPoiDefinition} from './client-poi-definition';
 
 export class ClientPoiGroupDefinition {
 

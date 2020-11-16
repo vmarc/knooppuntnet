@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
-import {TagDetail} from "../../../kpn/api/common/diff/tag-detail";
-import {List} from "immutable";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TagDiffs} from '../../../kpn/api/common/diff/tag-diffs';
+import {TagDetail} from '../../../kpn/api/common/diff/tag-detail';
+import {List} from 'immutable';
 
 @Component({
-  selector: "kpn-tag-diffs-text",
+  selector: 'kpn-tag-diffs-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -160,10 +160,10 @@ export class TagDiffsTextComponent implements OnInit {
 
   ngOnInit(): void {
     const allTagDetails = this.tagDiffs.mainTags.concat(this.tagDiffs.extraTags);
-    this.deletedTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === "Delete" /*TagDetailType.Delete*/);
-    this.addedTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === "Add" /* TagDetailType.Add*/);
-    this.updatedTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === "Update" /* TagDetailType.Update*/);
-    this.sameTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === "Same" /* TagDetailType.Same*/);
+    this.deletedTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === 'Delete' /*TagDetailType.Delete*/);
+    this.addedTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === 'Add' /* TagDetailType.Add*/);
+    this.updatedTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === 'Update' /* TagDetailType.Update*/);
+    this.sameTagDetails = allTagDetails.filter(tagDetail => tagDetail.action.name === 'Same' /* TagDetailType.Same*/);
   }
 
 }

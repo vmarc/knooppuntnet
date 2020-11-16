@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "kpn-route-page-header",
+  selector: 'kpn-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -49,18 +49,18 @@ export class RoutePageHeaderComponent {
   @Input() changeCount: number;
 
   linkRouteDetails(): string {
-    return this.linkRoute("");
+    return this.linkRoute('');
   }
 
   linkRouteMap(): string {
-    return this.linkRoute("/map");
+    return this.linkRoute('/map');
   }
 
   linkRouteChanges(): string {
-    return this.linkRoute("/changes");
+    return this.linkRoute('/changes');
   }
 
-  state(): { [k: string]: any; } {
+  state(): { [k: string]: any } {
     return {routeName: this.routeName, changeCount: this.changeCount};
   }
 

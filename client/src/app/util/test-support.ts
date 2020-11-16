@@ -1,8 +1,8 @@
-import {Coordinate} from "ol/coordinate";
-import {PlanFlag} from "../map/planner/plan/plan-flag";
-import {PlanFlagType} from "../map/planner/plan/plan-flag-type";
-import {PlanLeg} from "../map/planner/plan/plan-leg";
-import {PlanUtil} from "../map/planner/plan/plan-util";
+import {Coordinate} from 'ol/coordinate';
+import {PlanFlag} from '../map/planner/plan/plan-flag';
+import {PlanFlagType} from '../map/planner/plan/plan-flag-type';
+import {PlanLeg} from '../map/planner/plan/plan-leg';
+import {PlanUtil} from '../map/planner/plan/plan-util';
 
 export function expectCoordinate(actual: Coordinate, expected: Coordinate): void {
   expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));

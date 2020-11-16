@@ -1,6 +1,6 @@
-import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
-import {PlannerCommand} from "./planner-command";
+import {PlannerContext} from '../context/planner-context';
+import {Plan} from '../plan/plan';
+import {PlannerCommand} from './planner-command';
 
 export class PlannerCommandAddPlan implements PlannerCommand {
 
@@ -8,14 +8,14 @@ export class PlannerCommandAddPlan implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandAddPlan");
+    context.debug('PlannerCommandAddPlan');
     context.routeLayer.addPlan(this.plan);
     context.markerLayer.addPlan(this.plan);
     context.updatePlan(this.plan);
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandAddPlan undo");
+    context.debug('PlannerCommandAddPlan undo');
     context.routeLayer.removePlan(this.plan);
     context.markerLayer.removePlan(this.plan);
     context.updatePlan(Plan.empty);

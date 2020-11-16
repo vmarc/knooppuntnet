@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {RouteLegRoute} from "./route-leg-route";
+import {List} from 'immutable';
+import {RouteLegRoute} from './route-leg-route';
 
 export class RouteLeg {
 

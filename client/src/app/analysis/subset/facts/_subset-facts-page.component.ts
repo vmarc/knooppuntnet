@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {mergeMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {Util} from "../../../components/shared/util";
-import {SubsetFactsPage} from "../../../kpn/api/common/subset/subset-facts-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Fact} from "../../../kpn/api/custom/fact";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {FactLevel} from "../../fact/fact-level";
-import {Facts} from "../../fact/facts";
-import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {Util} from '../../../components/shared/util';
+import {SubsetFactsPage} from '../../../kpn/api/common/subset/subset-facts-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Fact} from '../../../kpn/api/custom/fact';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {FactLevel} from '../../fact/fact-level';
+import {Facts} from '../../fact/facts';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 @Component({
-  selector: "kpn-subset-facts-page",
+  selector: 'kpn-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

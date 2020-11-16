@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {RouteLegFragment} from "./route-leg-fragment";
+import {List} from 'immutable';
+import {RouteLegFragment} from './route-leg-fragment';
 
 export class RouteLegSegment {
 

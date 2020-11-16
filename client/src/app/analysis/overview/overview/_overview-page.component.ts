@@ -1,16 +1,16 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PageService} from "../../../components/shared/page.service";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Statistics} from "../../../kpn/api/custom/statistics";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PageService} from '../../../components/shared/page.service';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Statistics} from '../../../kpn/api/custom/statistics';
 
 @Component({
-  selector: "kpn-overview-page",
+  selector: 'kpn-overview-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -63,7 +63,7 @@ export class OverviewPageComponent implements OnInit {
     this.response$ = this.appService.overview().pipe(
       tap(response => {
         if (response.result) {
-          this.stats = response.result
+          this.stats = response.result;
         }
       })
     );

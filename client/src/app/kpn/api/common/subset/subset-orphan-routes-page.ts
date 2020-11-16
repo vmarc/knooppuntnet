@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {RouteSummary} from "../route-summary";
-import {SubsetInfo} from "./subset-info";
-import {TimeInfo} from "../time-info";
+import {List} from 'immutable';
+import {RouteSummary} from '../route-summary';
+import {SubsetInfo} from './subset-info';
+import {TimeInfo} from '../time-info';
 
 export class SubsetOrphanRoutesPage {
 

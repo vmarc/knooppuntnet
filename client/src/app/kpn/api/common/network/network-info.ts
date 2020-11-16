@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Fact} from "../../custom/fact";
-import {NetworkAttributes} from "./network-attributes";
-import {NetworkInfoDetail} from "./network-info-detail";
-import {Tags} from "../../custom/tags";
+import {List} from 'immutable';
+import {Fact} from '../../custom/fact';
+import {NetworkAttributes} from './network-attributes';
+import {NetworkInfoDetail} from './network-info-detail';
+import {Tags} from '../../custom/tags';
 
 export class NetworkInfo {
 

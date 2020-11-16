@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-timeout",
+  selector: 'kpn-timeout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>

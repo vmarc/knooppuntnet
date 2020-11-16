@@ -1,16 +1,16 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Util} from "../../../components/shared/util";
-import {I18nService} from "../../../i18n/i18n.service";
-import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {OnInit} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Util} from '../../../components/shared/util';
+import {I18nService} from '../../../i18n/i18n.service';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {OnInit} from '@angular/core';
 
 @Component({
-  selector: "kpn-subset-page-header-block",
+  selector: 'kpn-subset-page-header-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -132,17 +132,17 @@ export class SubsetPageHeaderBlockComponent implements OnInit {
       const country = Util.safeGet(() => this.subset.country.domain);
       return `/analysis/${networkType}/${country}/${targetPageName}`;
     }
-    return "/";
+    return '/';
   }
 
   subsetName(): string {
-    const networkType = this.i18nService.translation("@@network-type." + this.subset.networkType.name);
-    const country = this.i18nService.translation("@@country." + this.subset.country.domain);
-    const inWord = this.i18nService.translation("@@subset.in");
+    const networkType = this.i18nService.translation('@@network-type.' + this.subset.networkType.name);
+    const country = this.i18nService.translation('@@country.' + this.subset.country.domain);
+    const inWord = this.i18nService.translation('@@subset.in');
     return `${networkType} ${inWord} ${country}`;
   }
 
   subsetPageTitle(): string {
-    return this.subsetName() + " | " + this.pageTitle;
+    return this.subsetName() + ' | ' + this.pageTitle;
   }
 }

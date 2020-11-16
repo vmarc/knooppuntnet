@@ -1,16 +1,16 @@
-import {ActionReducerMap, createFeatureSelector, MetaReducer} from "@ngrx/store";
-import {ActionReducer} from "@ngrx/store";
-import {demoReducer} from "./demo/demo.reducer";
-import {DemoState} from "./demo/demo.model";
-import {RouterStateUrl} from "./router/router.state";
-import {RouterReducerState} from "@ngrx/router-store";
-import {routerReducer} from "@ngrx/router-store";
+import {ActionReducerMap, createFeatureSelector, MetaReducer} from '@ngrx/store';
+import {ActionReducer} from '@ngrx/store';
+import {demoReducer} from './demo/demo.reducer';
+import {DemoState} from './demo/demo.model';
+import {RouterStateUrl} from './router/router.state';
+import {RouterReducerState} from '@ngrx/router-store';
+import {routerReducer} from '@ngrx/router-store';
 import * as fromRouter from '@ngrx/router-store';
-import {SharedState} from "./shared/shared.model";
-import {sharedReducer} from "./shared/shared.reducer";
-import {localStorageSync} from "ngrx-store-localstorage";
-import {PreferencesState} from "./preferences/preferences.model";
-import {preferencesReducer} from "./preferences/preferences.reducer";
+import {SharedState} from './shared/shared.model';
+import {sharedReducer} from './shared/shared.reducer';
+import {localStorageSync} from 'ngrx-store-localstorage';
+import {PreferencesState} from './preferences/preferences.model';
+import {preferencesReducer} from './preferences/preferences.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {
   preferences: preferencesReducer,
@@ -20,18 +20,18 @@ export const reducers: ActionReducerMap<AppState> = {
 };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({keys: ["preferences"], rehydrate: true})(reducer);
+  return localStorageSync({keys: ['preferences'], rehydrate: true})(reducer);
 }
 
 export const metaReducers: MetaReducer<AppState>[] = [localStorageSyncReducer];
 
-export const selectPreferencesState = createFeatureSelector<AppState, PreferencesState>("preferences");
+export const selectPreferencesState = createFeatureSelector<AppState, PreferencesState>('preferences');
 
-export const selectSharedState = createFeatureSelector<AppState, SharedState>("shared");
+export const selectSharedState = createFeatureSelector<AppState, SharedState>('shared');
 
-export const selectDemoState = createFeatureSelector<AppState, DemoState>("demo");
+export const selectDemoState = createFeatureSelector<AppState, DemoState>('demo');
 
-export const selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>("router");
+export const selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>('router');
 
 export const {
   // selectCurrentRoute,   // select the current route
@@ -45,8 +45,8 @@ export const {
 } = fromRouter.getSelectors(selectRouterState);
 
 export interface AppState {
-  preferences: PreferencesState,
-  shared: SharedState,
+  preferences: PreferencesState;
+  shared: SharedState;
   demo: DemoState;
   router: RouterReducerState<RouterStateUrl>;
 }

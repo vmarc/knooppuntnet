@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {PageService} from "../../../components/shared/page.service";
-import {UserService} from "../../../services/user.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {PageService} from '../../../components/shared/page.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
-  selector: "kpn-logout-page",
+  selector: 'kpn-logout-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

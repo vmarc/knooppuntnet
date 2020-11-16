@@ -1,8 +1,8 @@
-import {Filter} from "./filter";
-import {Filters} from "./filters";
-import {List} from "immutable";
-import {FilterOptionGroup} from "./filter-option-group";
-import {FilterOption} from "./filter-option";
+import {Filter} from './filter';
+import {Filters} from './filters';
+import {List} from 'immutable';
+import {FilterOptionGroup} from './filter-option-group';
+import {FilterOption} from './filter-option';
 
 export class BooleanFilter<T> extends Filter<T> {
 
@@ -34,21 +34,21 @@ export class BooleanFilter<T> extends Filter<T> {
 
     if (active) {
       const allOption = new FilterOption(
-        "all",
+        'all',
         filteredElements.size,
         this.criterium == null,
         this.all
       );
 
       const yesOption = new FilterOption(
-        "yes",
+        'yes',
         yesElements.size,
         this.criterium === true,
         this.yes
       );
 
       const noOption = new FilterOption(
-        "no",
+        'no',
         noElements.size,
         this.criterium === false,
         this.no

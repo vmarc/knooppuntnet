@@ -1,5 +1,5 @@
-import Map from "ol/Map";
-import {PlannerCursor} from "./planner-cursor";
+import Map from 'ol/Map';
+import {PlannerCursor} from './planner-cursor';
 
 export class PlannerCursorImpl implements PlannerCursor {
 
@@ -10,19 +10,19 @@ export class PlannerCursorImpl implements PlannerCursor {
   }
 
   setStyleGrab(): void {
-    this.setStyle("grab");
+    this.setStyle('grab');
   }
 
   setStyleGrabbing(): void {
-    this.setStyle("grabbing");
+    this.setStyle('grabbing');
   }
 
   setStylePointer(): void {
-    this.setStyle("pointer");
+    this.setStyle('pointer');
   }
 
   setStyleDefault(): void {
-    this.setStyle("default");
+    this.setStyle('default');
   }
 
   private setStyle(style: string): void {

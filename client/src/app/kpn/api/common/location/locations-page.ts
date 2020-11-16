@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {LocationNode} from "./location-node";
+import {LocationNode} from './location-node';
 
 export class LocationsPage {
 

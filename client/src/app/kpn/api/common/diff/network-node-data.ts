@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {RawNode} from "../data/raw/raw-node";
+import {RawNode} from '../data/raw/raw-node';
 
 export class NetworkNodeData {
 

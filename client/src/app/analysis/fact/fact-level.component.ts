@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {FactLevel} from "./fact-level";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {FactLevel} from './fact-level';
 
 @Component({
-  selector: "kpn-fact-level",
+  selector: 'kpn-fact-level',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="isInfo()" class="info circle"></div>

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {PageService} from "../../../components/shared/page.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PageService} from '../../../components/shared/page.service';
 
 @Component({
-  selector: "kpn-not-found-page",
+  selector: 'kpn-not-found-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1 i18n="@@not-found.title">

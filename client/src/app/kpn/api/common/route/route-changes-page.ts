@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {ChangesFilter} from "../changes/filter/changes-filter";
-import {RouteChangeInfo} from "./route-change-info";
-import {RouteInfo} from "./route-info";
+import {List} from 'immutable';
+import {ChangesFilter} from '../changes/filter/changes-filter';
+import {RouteChangeInfo} from './route-change-info';
+import {RouteInfo} from './route-info';
 
 export class RouteChangesPage {
 

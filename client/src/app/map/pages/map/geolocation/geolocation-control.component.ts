@@ -1,15 +1,15 @@
-import {EventEmitter} from "@angular/core";
-import {Output} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
-import {Coordinate} from "ol/coordinate";
-import {fromLonLat} from "ol/proj";
-import {GeolocationPermissionDeniedDialogComponent} from "./geolocation-permission-denied-dialog.component";
-import {GeolocationTimeoutDialogComponent} from "./geolocation-timeout-dialog.component";
-import {GeolocationUnavailableDialogComponent} from "./geolocation-unavailable-dialog.component";
+import {EventEmitter} from '@angular/core';
+import {Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {Coordinate} from 'ol/coordinate';
+import {fromLonLat} from 'ol/proj';
+import {GeolocationPermissionDeniedDialogComponent} from './geolocation-permission-denied-dialog.component';
+import {GeolocationTimeoutDialogComponent} from './geolocation-timeout-dialog.component';
+import {GeolocationUnavailableDialogComponent} from './geolocation-unavailable-dialog.component';
 
 @Component({
-  selector: "kpn-geolocation-control",
+  selector: 'kpn-geolocation-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="control">

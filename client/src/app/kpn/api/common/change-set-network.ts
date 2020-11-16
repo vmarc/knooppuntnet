@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {ChangeSetElementRefs} from "./change-set-element-refs";
-import {Country} from "../custom/country";
-import {NetworkType} from "../custom/network-type";
+import {ChangeSetElementRefs} from './change-set-element-refs';
+import {Country} from '../custom/country';
+import {NetworkType} from '../custom/network-type';
 
 export class ChangeSetNetwork {
 

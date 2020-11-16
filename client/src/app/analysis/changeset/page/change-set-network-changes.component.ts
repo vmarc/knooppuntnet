@@ -1,15 +1,15 @@
-import {DOCUMENT} from "@angular/common";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Inject} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
-import {Subscriptions} from "../../../util/Subscriptions";
+import {DOCUMENT} from '@angular/common';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Inject} from '@angular/core';
+import {OnDestroy} from '@angular/core';
+import {AfterViewInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
+import {Subscriptions} from '../../../util/Subscriptions';
 
 @Component({
-  selector: "kpn-change-set-network-changes",
+  selector: 'kpn-change-set-network-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let networkChangeInfo of page.networkChanges" class="kpn-level-1">
@@ -49,7 +49,7 @@ export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewIni
           const offsetPosition = elementPosition - headerOffset;
           window.scrollTo({
             top: offsetPosition,
-            behavior: "smooth"
+            behavior: 'smooth'
           });
         }
       })

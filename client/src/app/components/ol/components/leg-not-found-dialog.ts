@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-leg-not-found-dialog",
+  selector: 'kpn-leg-not-found-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
 
 @Component({
-  selector: "kpn-network-fact-node-ids",
+  selector: 'kpn-network-fact-node-ids',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let elementId of elementIds">

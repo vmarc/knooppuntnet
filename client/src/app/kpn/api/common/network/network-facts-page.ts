@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NetworkFact} from "../network-fact";
-import {NetworkSummary} from "./network-summary";
+import {List} from 'immutable';
+import {NetworkFact} from '../network-fact';
+import {NetworkSummary} from './network-summary';
 
 export class NetworkFactsPage {
 

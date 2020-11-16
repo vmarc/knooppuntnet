@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {TrackPathKey} from "../common/track-path-key";
+import {List} from 'immutable';
+import {TrackPathKey} from '../common/track-path-key';
 
 export class LegEndRoute {
 

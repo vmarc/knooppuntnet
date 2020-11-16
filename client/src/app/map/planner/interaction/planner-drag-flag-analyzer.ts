@@ -1,7 +1,7 @@
-import {FlagFeature} from "../features/flag-feature";
-import {Plan} from "../plan/plan";
-import {PlanFlagType} from "../plan/plan-flag-type";
-import {PlannerDragFlag} from "./planner-drag-flag";
+import {FlagFeature} from '../features/flag-feature';
+import {Plan} from '../plan/plan';
+import {PlanFlagType} from '../plan/plan-flag-type';
+import {PlannerDragFlag} from './planner-drag-flag';
 
 export class PlannerDragFlagAnalyzer {
 

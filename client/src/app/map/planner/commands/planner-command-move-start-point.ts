@@ -1,8 +1,8 @@
-import {List} from "immutable";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
-import {PlannerCommand} from "./planner-command";
+import {List} from 'immutable';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlannerContext} from '../context/planner-context';
+import {Plan} from '../plan/plan';
+import {PlannerCommand} from './planner-command';
 
 export class PlannerCommandMoveStartPoint implements PlannerCommand {
 
@@ -11,12 +11,12 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandMoveStartPoint");
+    context.debug('PlannerCommandMoveStartPoint');
     this.update(context, this.oldNode, this.newNode);
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandMoveStartPoint undo");
+    context.debug('PlannerCommandMoveStartPoint undo');
     this.update(context, this.newNode, this.oldNode);
   }
 

@@ -1,13 +1,13 @@
-import {List} from "immutable";
-import {TimeInfo} from "../api/common/time-info";
-import {Timestamp} from "../api/custom/timestamp";
-import {Filters} from "./filters";
-import {TimestampFilter} from "./timestamp-filter";
-import {TimestampFilterKind} from "./timestamp-filter-kind";
+import {List} from 'immutable';
+import {TimeInfo} from '../api/common/time-info';
+import {Timestamp} from '../api/custom/timestamp';
+import {Filters} from './filters';
+import {TimestampFilter} from './timestamp-filter';
+import {TimestampFilterKind} from './timestamp-filter-kind';
 
-describe("TimestampFilter", () => {
+describe('TimestampFilter', () => {
 
-  it("last week", () => {
+  it('last week', () => {
 
     const filter = buildFilter(TimestampFilterKind.LAST_WEEK);
 
@@ -22,7 +22,7 @@ describe("TimestampFilter", () => {
     expect(filterOptionGroup.options.get(4).count).toEqual(0); // older
   });
 
-  it("last month", () => {
+  it('last month', () => {
 
     const filter = buildFilter(TimestampFilterKind.LAST_MONTH);
 
@@ -38,7 +38,7 @@ describe("TimestampFilter", () => {
     expect(filterOptionGroup.options.get(4).count).toEqual(0); // older
   });
 
-  it("last year", () => {
+  it('last year', () => {
 
     const filter = buildFilter(TimestampFilterKind.LAST_YEAR);
 
@@ -54,7 +54,7 @@ describe("TimestampFilter", () => {
     expect(filterOptionGroup.options.get(4).count).toEqual(0); // older
   });
 
-  it("older", () => {
+  it('older', () => {
 
     const filter = buildFilter(TimestampFilterKind.OLDER);
 

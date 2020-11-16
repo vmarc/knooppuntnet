@@ -1,11 +1,11 @@
-import {List} from "immutable";
+import {List} from 'immutable';
 
 export class NetworkScope {
 
-  static local: NetworkScope = new NetworkScope("local", "l");
-  static regional: NetworkScope = new NetworkScope("regional", "r");
-  static national: NetworkScope = new NetworkScope("national", "n");
-  static international: NetworkScope = new NetworkScope("international", "i");
+  static local: NetworkScope = new NetworkScope('local', 'l');
+  static regional: NetworkScope = new NetworkScope('regional', 'r');
+  static national: NetworkScope = new NetworkScope('national', 'n');
+  static international: NetworkScope = new NetworkScope('international', 'i');
 
   static all: List<NetworkScope> = List([
     NetworkScope.local,

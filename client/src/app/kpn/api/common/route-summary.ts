@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Country} from "../custom/country";
-import {NetworkType} from "../custom/network-type";
-import {Tags} from "../custom/tags";
-import {Timestamp} from "../custom/timestamp";
+import {List} from 'immutable';
+import {Country} from '../custom/country';
+import {NetworkType} from '../custom/network-type';
+import {Tags} from '../custom/tags';
+import {Timestamp} from '../custom/timestamp';
 
 export class RouteSummary {
 

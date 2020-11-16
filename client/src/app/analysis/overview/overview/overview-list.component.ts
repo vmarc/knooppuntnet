@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {List} from "immutable";
-import {OverviewService} from "./overview.service";
-import {Stat} from "../domain/stat";
-import {Statistics} from "../../../kpn/api/custom/statistics";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {List} from 'immutable';
+import {OverviewService} from './overview.service';
+import {Stat} from '../domain/stat';
+import {Statistics} from '../../../kpn/api/custom/statistics';
 
 @Component({
-  selector: "kpn-overview-list",
+  selector: 'kpn-overview-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let stat of stats">

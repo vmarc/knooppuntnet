@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {RouteLegNode} from "./route-leg-node";
-import {RouteLegSegment} from "./route-leg-segment";
+import {List} from 'immutable';
+import {RouteLegNode} from './route-leg-node';
+import {RouteLegSegment} from './route-leg-segment';
 
 export class RouteLegRoute {
 

@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs/operators";
-import {PageService} from "../../../components/shared/page.service";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {LocationMapPageService} from "./location-map-page.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {first} from 'rxjs/operators';
+import {PageService} from '../../../components/shared/page.service';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {LocationMapPageService} from './location-map-page.service';
 
 @Component({
-  selector: "kpn-location-map-page",
+  selector: 'kpn-location-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-location-page-header

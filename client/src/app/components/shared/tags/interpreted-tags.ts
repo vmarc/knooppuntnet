@@ -1,42 +1,42 @@
-import {List} from "immutable";
-import {Tags} from "../../../kpn/api/custom/tags";
-import {Tag} from "../../../kpn/api/custom/tag";
+import {List} from 'immutable';
+import {Tags} from '../../../kpn/api/custom/tags';
+import {Tag} from '../../../kpn/api/custom/tag';
 
 export class InterpretedTags {
 
   static nodeTags(tags: Tags): InterpretedTags {
     const standardTagKeys = List([
-      "rwn_ref",
-      "rcn_ref",
-      "expected_rwn_route_relations",
-      "expected_rcn_route_relations",
-      "expected_rhn_route_relations",
-      "expected_rmn_route_relations",
-      "expected_rpn_route_relations",
-      "expected_rin_route_relations",
-      "network:type"
+      'rwn_ref',
+      'rcn_ref',
+      'expected_rwn_route_relations',
+      'expected_rcn_route_relations',
+      'expected_rhn_route_relations',
+      'expected_rmn_route_relations',
+      'expected_rpn_route_relations',
+      'expected_rin_route_relations',
+      'network:type'
     ]);
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   static routeTags(tags: Tags): InterpretedTags {
     const standardTagKeys = List([
-      "ref",
-      "note",
-      "network",
-      "type",
-      "route",
-      "network:type"
+      'ref',
+      'note',
+      'network',
+      'type',
+      'route',
+      'network:type'
     ]);
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   static networkTags(tags: Tags): InterpretedTags {
     const standardTagKeys = List([
-      "network",
-      "type",
-      "name",
-      "network:type"
+      'network',
+      'type',
+      'name',
+      'network:type'
     ]);
     return new InterpretedTags(standardTagKeys, tags);
   }

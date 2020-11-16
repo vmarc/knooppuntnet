@@ -1,4 +1,4 @@
-import {ActionTimestamp} from "../../kpn/api/common/status/action-timestamp";
+import {ActionTimestamp} from '../../kpn/api/common/status/action-timestamp';
 
 export class StatusLinks {
 

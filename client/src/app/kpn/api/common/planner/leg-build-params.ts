@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {LegEnd} from "./leg-end";
+import {LegEnd} from './leg-end';
 
 export class LegBuildParams {
 

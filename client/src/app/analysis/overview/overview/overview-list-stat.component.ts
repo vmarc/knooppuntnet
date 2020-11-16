@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Stat} from "../domain/stat";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Stat} from '../domain/stat';
 
 @Component({
-  selector: "kpn-overview-list-stat",
+  selector: 'kpn-overview-list-stat',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -104,7 +104,7 @@ export class OverviewListStatComponent {
   }
 
   comment(stat: Stat) {
-    return stat.configuration.comment.replace("\\", "\n\n");
+    return stat.configuration.comment.replace('\\', '\n\n');
   }
 
 }

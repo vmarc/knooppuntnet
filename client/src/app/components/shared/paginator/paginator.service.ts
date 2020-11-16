@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PaginatorService {
 
@@ -14,12 +14,12 @@ export class PaginatorService {
 
   updateTranslations(elements: HTMLCollection) {
     if (!this.isTranslationsUpdated()) {
-      this.itemsPerPageLabel = this.translate(elements, "itemsPerPageLabel");
-      this.nextPageLabel = this.translate(elements, "nextPageLabel");
-      this.previousPageLabel = this.translate(elements, "previousPageLabel");
-      this.firstPageLabel = this.translate(elements, "firstPageLabel");
-      this.lastPageLabel = this.translate(elements, "lastPageLabel");
-      this.of = this.translate(elements, "of");
+      this.itemsPerPageLabel = this.translate(elements, 'itemsPerPageLabel');
+      this.nextPageLabel = this.translate(elements, 'nextPageLabel');
+      this.previousPageLabel = this.translate(elements, 'previousPageLabel');
+      this.firstPageLabel = this.translate(elements, 'firstPageLabel');
+      this.lastPageLabel = this.translate(elements, 'lastPageLabel');
+      this.of = this.translate(elements, 'of');
     }
   }
 
@@ -28,10 +28,10 @@ export class PaginatorService {
   }
 
   private translate(elements: HTMLCollection, id: string): string {
-    const element = Array.from(elements).find(span => span.getAttribute("id") === id);
+    const element = Array.from(elements).find(span => span.getAttribute('id') === id);
     if (element === undefined) {
       console.error(`PaginatorService: could not find element with id '${id}'`);
-      return "?";
+      return '?';
     }
     return element.textContent;
   }

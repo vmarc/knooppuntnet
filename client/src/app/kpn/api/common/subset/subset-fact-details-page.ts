@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Fact} from "../../custom/fact";
-import {NetworkFactRefs} from "./network-fact-refs";
-import {SubsetInfo} from "./subset-info";
+import {List} from 'immutable';
+import {Fact} from '../../custom/fact';
+import {NetworkFactRefs} from './network-fact-refs';
+import {SubsetInfo} from './subset-info';
 
 export class SubsetFactDetailsPage {
 

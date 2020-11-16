@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {FactInfo} from "./fact-info";
-import {FactLevel} from "./fact-level";
-import {Facts} from "./facts";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {FactInfo} from './fact-info';
+import {FactLevel} from './fact-level';
+import {Facts} from './facts';
 
 @Component({
-  selector: "kpn-facts",
+  selector: 'kpn-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -70,7 +70,7 @@ export class FactsComponent {
   @Input() factInfos: List<FactInfo>;
 
   get filteredFactInfos(): List<FactInfo> {
-    return this.factInfos.filterNot(factInfo => factInfo.fact.name === "RouteBroken");
+    return this.factInfos.filterNot(factInfo => factInfo.fact.name === 'RouteBroken');
   }
 
   factLevel(factInfo: FactInfo): FactLevel {

@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {RouteSummary} from "../../../kpn/api/common/route-summary";
-import {Tags} from "../../../kpn/api/custom/tags";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
+import {RouteSummary} from '../../../kpn/api/common/route-summary';
+import {Tags} from '../../../kpn/api/custom/tags';
 
 @Component({
-  selector: "kpn-subset-orphan-route",
+  selector: 'kpn-subset-orphan-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>

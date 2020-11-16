@@ -1,11 +1,11 @@
-import {GeoJSON} from "ol/format";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import {Fill} from "ol/style";
-import {Stroke} from "ol/style";
-import {Style} from "ol/style";
-import {I18nService} from "../../../i18n/i18n.service";
-import {MapLayer} from "./map-layer";
+import {GeoJSON} from 'ol/format';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import {Fill} from 'ol/style';
+import {Stroke} from 'ol/style';
+import {Style} from 'ol/style';
+import {I18nService} from '../../../i18n/i18n.service';
+import {MapLayer} from './map-layer';
 
 export class PoiAreasLayer {
 
@@ -14,20 +14,20 @@ export class PoiAreasLayer {
 
   build(geoJson: string): MapLayer {
 
-    const features = new GeoJSON().readFeatures(geoJson, {featureProjection: "EPSG:3857"});
+    const features = new GeoJSON().readFeatures(geoJson, {featureProjection: 'EPSG:3857'});
 
     const vectorSource = new VectorSource({
-      features: features
+      features
     });
 
     const lineStyle = new Style({
       stroke: new Stroke({
-        color: "rgba(255, 0, 0, 0.9)",
+        color: 'rgba(255, 0, 0, 0.9)',
         width: 3
       })
     });
 
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return lineStyle;
     };
 
@@ -36,8 +36,8 @@ export class PoiAreasLayer {
       style: styleFunction
     });
 
-    const layerName = this.i18nService.translation("@@map.layer.poi-areas");
-    layer.set("name", layerName);
-    return new MapLayer("poi-areas-layer", layer);
+    const layerName = this.i18nService.translation('@@map.layer.poi-areas');
+    layer.set('name', layerName);
+    return new MapLayer('poi-areas-layer', layer);
   }
 }

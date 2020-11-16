@@ -1,16 +1,16 @@
-import {saveAs} from "file-saver";
-import {List} from "immutable";
-import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
-import {Plan} from "../../map/planner/plan/plan";
-import {PlanNode} from "../../kpn/api/common/planner/plan-node";
-import {PlanUtil} from "../../map/planner/plan/plan-util";
+import {saveAs} from 'file-saver';
+import {List} from 'immutable';
+import {LatLonImpl} from '../../kpn/api/common/lat-lon-impl';
+import {Plan} from '../../map/planner/plan/plan';
+import {PlanNode} from '../../kpn/api/common/planner/plan-node';
+import {PlanUtil} from '../../map/planner/plan/plan-util';
 
 export class GpxWriter {
 
   write(plan: Plan, name: string): void {
-    const content = this.header().concat(this.body(plan, name)).concat(this.footer()).join("\n");
-    const blob = new Blob([content], {type: "application/gpx"});
-    const filename = name.replace(/ /g, "_") + ".gpx";
+    const content = this.header().concat(this.body(plan, name)).concat(this.footer()).join('\n');
+    const blob = new Blob([content], {type: 'application/gpx'});
+    const filename = name.replace(/ /g, '_') + '.gpx';
     saveAs(blob, filename);
   }
 

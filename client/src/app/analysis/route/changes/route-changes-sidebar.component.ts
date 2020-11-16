@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {RouteChangesService} from "./route-changes.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {RouteChangesService} from './route-changes.service';
 
 @Component({
-  selector: "kpn-route-changes-sidebar",
+  selector: 'kpn-route-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>

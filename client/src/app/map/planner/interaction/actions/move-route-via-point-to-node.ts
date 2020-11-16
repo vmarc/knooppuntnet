@@ -1,15 +1,15 @@
-import {combineLatest, Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveViaRoute} from "../../commands/planner-command-move-via-route";
-import {PlannerContext} from "../../context/planner-context";
-import {FeatureId} from "../../features/feature-id";
-import {PlanFlag} from "../../plan/plan-flag";
-import {PlanFlagType} from "../../plan/plan-flag-type";
-import {PlanLeg} from "../../plan/plan-leg";
-import {PlanUtil} from "../../plan/plan-util";
-import {PlannerDragFlag} from "../planner-drag-flag";
-import {PlannerDragViaRouteFlag} from "../planner-drag-via-route-flag";
+import {combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlannerCommandMoveViaRoute} from '../../commands/planner-command-move-via-route';
+import {PlannerContext} from '../../context/planner-context';
+import {FeatureId} from '../../features/feature-id';
+import {PlanFlag} from '../../plan/plan-flag';
+import {PlanFlagType} from '../../plan/plan-flag-type';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
+import {PlannerDragFlag} from '../planner-drag-flag';
+import {PlannerDragViaRouteFlag} from '../planner-drag-via-route-flag';
 
 export class MoveRouteViaPointToNode {
 
@@ -35,7 +35,7 @@ export class MoveRouteViaPointToNode {
       command => this.context.execute(command),
       error => {
         this.context.markerLayer.updateFlagCoordinate(dragFlag.featureId, oldNode.coordinate);
-        this.context.errorDialog(error)
+        this.context.errorDialog(error);
       }
     );
   }

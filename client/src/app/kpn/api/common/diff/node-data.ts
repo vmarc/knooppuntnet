@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {RawNode} from "../data/raw/raw-node";
-import {Subset} from "../../custom/subset";
+import {List} from 'immutable';
+import {RawNode} from '../data/raw/raw-node';
+import {Subset} from '../../custom/subset';
 
 export class NodeData {
 

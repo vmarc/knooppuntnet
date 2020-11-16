@@ -1,14 +1,14 @@
-import {Color} from "ol/color";
-import {FeatureLike} from "ol/Feature";
-import CircleStyle from "ol/style/Circle";
-import Circle from "ol/style/Circle";
-import Fill from "ol/style/Fill";
-import Style from "ol/style/Style";
-import {MapMode} from "../services/map-mode";
-import {MapService} from "../services/map.service";
-import {MainStyleColors} from "./main-style-colors";
-import {NodeStyle} from "./node-style";
-import {SurveyDateStyle} from "./survey-date-style";
+import {Color} from 'ol/color';
+import {FeatureLike} from 'ol/Feature';
+import CircleStyle from 'ol/style/Circle';
+import Circle from 'ol/style/Circle';
+import Fill from 'ol/style/Fill';
+import Style from 'ol/style/Style';
+import {MapMode} from '../services/map-mode';
+import {MapService} from '../services/map.service';
+import {MainStyleColors} from './main-style-colors';
+import {NodeStyle} from './node-style';
+import {SurveyDateStyle} from './survey-date-style';
 
 export class MainMapNodeStyle {
 
@@ -23,7 +23,7 @@ export class MainMapNodeStyle {
   }
 
   public nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
-    const featureId = feature.get("id");
+    const featureId = feature.get('id');
     const large = zoom >= this.largeMinZoomLevel;
     const selectedStyle = this.determineNodeSelectedStyle(featureId, large);
     const style = this.determineNodeMainStyle(feature, large);
@@ -44,7 +44,7 @@ export class MainMapNodeStyle {
 
   private determineNodeMainStyle(feature: FeatureLike, large: boolean): Style {
     let style: Style;
-    if (large && "*" != feature.get("name")) {
+    if (large && '*' != feature.get('name')) {
       style = this.determineLargeNodeStyle(feature);
     } else {
       style = this.determineSmallNodeStyle(feature);
@@ -58,10 +58,10 @@ export class MainMapNodeStyle {
 
     const circleStyle: CircleStyle = this.largeNodeStyle.getImage() as CircleStyle;
 
-    this.largeNodeStyle.getText().setText(feature.get("name"));
+    this.largeNodeStyle.getText().setText(feature.get('name'));
     circleStyle.getStroke().setColor(color);
 
-    if (this.mapService.highlightedNodeId && feature.get("id") === this.mapService.highlightedNodeId) {
+    if (this.mapService.highlightedNodeId && feature.get('id') === this.mapService.highlightedNodeId) {
       circleStyle.getStroke().setWidth(5);
       circleStyle.setRadius(16);
     } else {
@@ -86,7 +86,7 @@ export class MainMapNodeStyle {
   private nodeSelectedStyle(radius: number): Style {
     return new Style({
       image: new Circle({
-        radius: radius,
+        radius,
         fill: new Fill({
           color: MainStyleColors.yellow
         })
@@ -107,13 +107,13 @@ export class MainMapNodeStyle {
   }
 
   private nodeColorAnalysis(feature: FeatureLike): Color {
-    const layer = feature.get("layer");
+    const layer = feature.get('layer');
     let nodeColor: Color;
-    if ("error-node" === layer) {
+    if ('error-node' === layer) {
       nodeColor = MainStyleColors.blue;
-    } else if ("orphan-node" === layer) {
+    } else if ('orphan-node' === layer) {
       nodeColor = MainStyleColors.darkGreen;
-    } else if ("error-orphan-node" === layer) {
+    } else if ('error-orphan-node' === layer) {
       nodeColor = MainStyleColors.darkBlue;
     } else {
       nodeColor = MainStyleColors.green;
@@ -122,13 +122,13 @@ export class MainMapNodeStyle {
   }
 
   private smallNodeStyleAnalysis(feature: FeatureLike): Style {
-    const layer = feature.get("layer");
+    const layer = feature.get('layer');
     let style: Style;
-    if ("error-node" === layer) {
+    if ('error-node' === layer) {
       style = NodeStyle.smallBlue;
-    } else if ("orphan-node" === layer) {
+    } else if ('orphan-node' === layer) {
       style = NodeStyle.smallDarkGreen;
-    } else if ("error-orphan-node" === layer) {
+    } else if ('error-orphan-node' === layer) {
       style = NodeStyle.smallDarkBlue;
     } else {
       style = NodeStyle.smallGreen;

@@ -1,11 +1,11 @@
-import {List} from "immutable";
-import {Util} from "../../../components/shared/util";
-import {Bounds} from "../../../kpn/api/common/bounds";
-import {LatLonImpl} from "../../../kpn/api/common/lat-lon-impl";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlanFlag} from "./plan-flag";
-import {PlanLeg} from "./plan-leg";
-import {PlanUtil} from "./plan-util";
+import {List} from 'immutable';
+import {Util} from '../../../components/shared/util';
+import {Bounds} from '../../../kpn/api/common/bounds';
+import {LatLonImpl} from '../../../kpn/api/common/lat-lon-impl';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanFlag} from './plan-flag';
+import {PlanLeg} from './plan-leg';
+import {PlanUtil} from './plan-util';
 
 export class Plan {
 
@@ -51,7 +51,7 @@ export class Plan {
     const meters = this.cumulativeMetersLeg(legIndex);
     const km = Math.round(meters / 100) / 10;
     const kmString = parseFloat(km.toFixed(1));
-    return kmString + " km";
+    return kmString + ' km';
   }
 
   bounds(): Bounds {
@@ -72,11 +72,7 @@ export class Plan {
   }
 
   unpavedPercentage(): string {
-    const distances: List<number> = this.legs.flatMap(leg => {
-      return leg.routes.flatMap(route => {
-        return route.segments.filter(segment => segment.surface === "unpaved").map(segment => segment.meters);
-      });
-    });
+    const distances: List<number> = this.legs.flatMap(leg => leg.routes.flatMap(route => route.segments.filter(segment => segment.surface === 'unpaved').map(segment => segment.meters)));
     const unpavedMeters = Util.sum(distances);
     const percentage = Math.round(100 * unpavedMeters / this.meters());
     return `${percentage}%`;

@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {Tag} from "../../../kpn/api/custom/tag";
-import {Tags} from "../../../kpn/api/custom/tags";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {Tag} from '../../../kpn/api/custom/tag';
+import {Tags} from '../../../kpn/api/custom/tags';
 
 @Component({
-  selector: "kpn-change-set-tags",
+  selector: 'kpn-change-set-tags',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="hasTags()">
@@ -40,7 +40,7 @@ export class ChangeSetTagsComponent {
 
   tags(): List<Tag> {
     if (this.changeSetTags && this.changeSetTags.tags) {
-      return this.changeSetTags.tags.filterNot(tag => tag.key === "comment");
+      return this.changeSetTags.tags.filterNot(tag => tag.key === 'comment');
     }
     return List();
   }

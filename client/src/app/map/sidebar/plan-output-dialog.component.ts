@@ -1,21 +1,21 @@
-import {AfterViewInit} from "@angular/core";
-import {ElementRef} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Util} from "../../components/shared/util";
-import {PdfService} from "../../pdf/pdf.service";
-import {GpxWriter} from "../../pdf/plan/gpx-writer";
-import {PlannerService} from "../planner.service";
-import {PlanUtil} from "../planner/plan/plan-util";
-import {Store} from "@ngrx/store";
-import {select} from "@ngrx/store";
-import {selectPreferencesInstructions} from "../../core/preferences/preferences.selectors";
-import {AppState} from "../../core/core.state";
+import {AfterViewInit} from '@angular/core';
+import {ElementRef} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Util} from '../../components/shared/util';
+import {PdfService} from '../../pdf/pdf.service';
+import {GpxWriter} from '../../pdf/plan/gpx-writer';
+import {PlannerService} from '../planner.service';
+import {PlanUtil} from '../planner/plan/plan-util';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
+import {selectPreferencesInstructions} from '../../core/preferences/preferences.selectors';
+import {AppState} from '../../core/core.state';
 
 @Component({
-  selector: "kpn-plan-output-dialog",
+  selector: 'kpn-plan-output-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>
@@ -112,9 +112,9 @@ import {AppState} from "../../core/core.state";
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
-  name = "";
-  planUrl = "";
-  @ViewChild("routename") input: ElementRef;
+  name = '';
+  planUrl = '';
+  @ViewChild('routename') input: ElementRef;
 
   readonly instructions$ = this.store.pipe(select(selectPreferencesInstructions));
 
@@ -162,7 +162,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   private defaultName(): string {
     const source = this.plannerService.context.plan.sourceNode.nodeName;
     const sink = PlanUtil.planSinkNode(this.plannerService.context.plan).nodeName;
-    return Util.today() + " route " + source + " " + sink;
+    return Util.today() + ' route ' + source + ' ' + sink;
   }
 
   private buildPlanUrl(): string {
@@ -171,6 +171,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
     if (fragmentIndex > 0) {
       root = root.substr(0, fragmentIndex);
     }
-    return root + "#" + PlanUtil.toUrlString(this.plannerService.context.plan);
+    return root + '#' + PlanUtil.toUrlString(this.plannerService.context.plan);
   }
 }

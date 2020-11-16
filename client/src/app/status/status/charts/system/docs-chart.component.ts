@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {BarChart} from "../../../../kpn/api/common/status/bar-chart";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {BarChart} from '../../../../kpn/api/common/status/bar-chart';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-docs-chart",
+  selector: 'kpn-docs-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2>
@@ -46,8 +46,8 @@ export class DocsChartComponent {
   data() {
     return [
       {
-        "name": "Lesotho",
-        "series": this.barChart.data
+        name: 'Lesotho',
+        series: this.barChart.data
       }
     ];
   }

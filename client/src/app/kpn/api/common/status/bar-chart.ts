@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NameValue} from "./name-value";
+import {List} from 'immutable';
+import {NameValue} from './name-value';
 
 export class BarChart {
 

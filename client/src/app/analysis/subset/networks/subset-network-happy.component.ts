@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
-import {InterpretedNetworkAttributes} from "./interpreted-network-attributes";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
+import {InterpretedNetworkAttributes} from './interpreted-network-attributes';
 
 @Component({
-  selector: "kpn-subset-network-happy",
+  selector: 'kpn-subset-network-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-icon-happy *ngIf="interpretedNetwork.happy()"></kpn-icon-happy>

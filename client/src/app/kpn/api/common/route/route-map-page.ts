@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {RouteInfo} from "./route-info";
+import {RouteInfo} from './route-info';
 
 export class RouteMapPage {
 

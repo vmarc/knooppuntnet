@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NetworkRouteRow} from "./network-route-row";
-import {NetworkSummary} from "./network-summary";
-import {NetworkType} from "../../custom/network-type";
-import {SurveyDateInfo} from "../survey-date-info";
-import {TimeInfo} from "../time-info";
+import {List} from 'immutable';
+import {NetworkRouteRow} from './network-route-row';
+import {NetworkSummary} from './network-summary';
+import {NetworkType} from '../../custom/network-type';
+import {SurveyDateInfo} from '../survey-date-info';
+import {TimeInfo} from '../time-info';
 
 export class NetworkRoutesPage {
 

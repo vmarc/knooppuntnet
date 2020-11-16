@@ -1,10 +1,10 @@
-import {PlannerContext} from "../../context/planner-context";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlanUtil} from "../../plan/plan-util";
-import {PlannerCommandAddLeg} from "../../commands/planner-command-add-leg";
-import {PlanLeg} from "../../plan/plan-leg";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {PlannerContext} from '../../context/planner-context';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlanUtil} from '../../plan/plan-util';
+import {PlannerCommandAddLeg} from '../../commands/planner-command-add-leg';
+import {PlanLeg} from '../../plan/plan-leg';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class AddLeg {
 

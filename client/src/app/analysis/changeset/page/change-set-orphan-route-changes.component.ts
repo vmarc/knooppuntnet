@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {ChangeSetElementRef} from "../../../kpn/api/common/change-set-element-ref";
-import {ChangeSetSubsetElementRefs} from "../../../kpn/api/common/change-set-subset-element-refs";
-import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
-import {Ref} from "../../../kpn/api/common/common/ref";
-import {RefDiffs} from "../../../kpn/api/common/diff/ref-diffs";
-import {RouteDiffsData} from "./route-diffs/route-diffs-data";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {ChangeSetElementRef} from '../../../kpn/api/common/change-set-element-ref';
+import {ChangeSetSubsetElementRefs} from '../../../kpn/api/common/change-set-subset-element-refs';
+import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
+import {Ref} from '../../../kpn/api/common/common/ref';
+import {RefDiffs} from '../../../kpn/api/common/diff/ref-diffs';
+import {RouteDiffsData} from './route-diffs/route-diffs-data';
 
 @Component({
-  selector: "kpn-change-set-orphan-route-changes",
+  selector: 'kpn-change-set-orphan-route-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let refs of page.summary.orphanRouteChanges" class="kpn-level-1">

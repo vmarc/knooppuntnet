@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidth} from "../../components/shared/page-width";
-import {PageWidthService} from "../../components/shared/page-width.service";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidth} from '../../components/shared/page-width';
+import {PageWidthService} from '../../components/shared/page-width.service';
 
 @Component({
-  selector: "kpn-map-toolbar",
+  selector: 'kpn-map-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="toolbar">

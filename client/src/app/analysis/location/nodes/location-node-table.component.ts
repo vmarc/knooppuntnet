@@ -1,25 +1,25 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnChanges} from "@angular/core";
-import {SimpleChanges} from "@angular/core";
-import {EventEmitter} from "@angular/core";
-import {Output} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
-import {LocationNodeInfo} from "../../../kpn/api/common/location/location-node-info";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {BrowserStorageService} from "../../../services/browser-storage.service";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnChanges} from '@angular/core';
+import {SimpleChanges} from '@angular/core';
+import {EventEmitter} from '@angular/core';
+import {Output} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
+import {LocationNodeInfo} from '../../../kpn/api/common/location/location-node-info';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {BrowserStorageService} from '../../../services/browser-storage.service';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 
 @Component({
-  selector: "kpn-location-node-table",
+  selector: 'kpn-location-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -165,7 +165,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["nodes"]) {
+    if (changes['nodes']) {
       this.dataSource.data = this.nodes.toArray();
     }
   }
@@ -178,22 +178,22 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     this.unexpectedRouteCountOnly = event.checked;
     this.dataSource.data = this.nodes.filter(node => {
       if (this.unexpectedRouteCountOnly) {
-        return node.expectedRouteCount != node.routeReferences.size
+        return node.expectedRouteCount != node.routeReferences.size;
       } else {
-        return node.expectedRouteCount == node.routeReferences.size
+        return node.expectedRouteCount == node.routeReferences.size;
       }
     }).toArray();
   }
 
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "expectedRouteCount", "routes", "lastEdit"];
+      return ['nr', 'analysis', 'node', 'expectedRouteCount', 'routes', 'lastEdit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "analysis", "node", "expectedRouteCount", "routes"];
+      return ['nr', 'analysis', 'node', 'expectedRouteCount', 'routes'];
     }
 
-    return ["nr", "analysis", "node"];
+    return ['nr', 'analysis', 'node'];
   }
 }

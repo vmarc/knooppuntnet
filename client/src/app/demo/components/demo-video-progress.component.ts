@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Store} from "@ngrx/store";
-import {select} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {actionDemoUpdateProgress} from "../../core/demo/demo.actions";
-import {selectDemoProgress} from "../../core/demo/demo.selectors";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {actionDemoUpdateProgress} from '../../core/demo/demo.actions';
+import {selectDemoProgress} from '../../core/demo/demo.selectors';
 
 @Component({
-  selector: "kpn-demo-video-progress",
+  selector: 'kpn-demo-video-progress',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="progress">

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {I18nService} from "../../../i18n/i18n.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {I18nService} from '../../../i18n/i18n.service';
 
 @Component({
-  selector: "kpn-page-footer",
+  selector: 'kpn-page-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="footer links">

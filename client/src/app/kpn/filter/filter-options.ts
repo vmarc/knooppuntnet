@@ -1,5 +1,5 @@
-import {List} from "immutable";
-import {FilterOptionGroup} from "./filter-option-group";
+import {List} from 'immutable';
+import {FilterOptionGroup} from './filter-option-group';
 
 export class FilterOptions {
 

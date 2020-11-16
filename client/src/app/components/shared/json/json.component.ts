@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 /* tslint:disable:template-i18n */
 @Component({
-  selector: "kpn-json",
+  selector: 'kpn-json',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <br/>
@@ -22,7 +22,7 @@ import {Component, Input, OnInit} from "@angular/core";
 export class JsonComponent implements OnInit {
 
   @Input() object: any;
-  contents = "";
+  contents = '';
   visible = false;
 
   ngOnInit(): void {

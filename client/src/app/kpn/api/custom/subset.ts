@@ -1,6 +1,6 @@
-import {Countries} from "../../common/countries";
-import {Country} from "./country";
-import {NetworkType} from "./network-type";
+import {Countries} from '../../common/countries';
+import {Country} from './country';
+import {NetworkType} from './network-type';
 
 export class Subset {
 
@@ -30,7 +30,7 @@ export class Subset {
     if (!jsonObject) {
       return undefined;
     }
-    const splitted = jsonObject.split(":");
+    const splitted = jsonObject.split(':');
     return new Subset(
       Country.fromJSON(splitted[0]),
       NetworkType.fromJSON(splitted[1])
@@ -38,7 +38,7 @@ export class Subset {
   }
 
   public key(): string {
-    return this.networkType.name + "/" + this.country.domain;
+    return this.networkType.name + '/' + this.country.domain;
   }
 
 }

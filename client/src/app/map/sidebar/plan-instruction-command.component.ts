@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "kpn-plan-instruction-command",
+  selector: 'kpn-plan-instruction-command',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-icon svgIcon={{command}} class="command-icon"></mat-icon>

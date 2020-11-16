@@ -1,7 +1,7 @@
-import {PlannerContext} from "../context/planner-context";
-import {PlannerCommand} from "./planner-command";
-import {List} from "immutable";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlannerContext} from '../context/planner-context';
+import {PlannerCommand} from './planner-command';
+import {List} from 'immutable';
+import {PlanLeg} from '../plan/plan-leg';
 
 export class PlannerCommandRemoveViaPoint implements PlannerCommand {
 
@@ -12,7 +12,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
-    context.debug("PlannerCommandRemoveViaPoint");
+    context.debug('PlannerCommandRemoveViaPoint');
 
     context.markerLayer.removeFlag(this.oldLeg1.viaFlag);
     context.markerLayer.removeFlag(this.oldLeg1.sinkFlag);
@@ -35,7 +35,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
 
   public undo(context: PlannerContext) {
 
-    context.debug("PlannerCommandRemoveViaPoint undo");
+    context.debug('PlannerCommandRemoveViaPoint undo');
 
     context.markerLayer.removeFlag(this.newLeg.sinkFlag);
     context.routeLayer.removePlanLeg(this.newLeg.featureId);

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {I18nService} from "../../../i18n/i18n.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {I18nService} from '../../../i18n/i18n.service';
 
 @Component({
-  selector: "kpn-doc-link",
+  selector: 'kpn-doc-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [href]="href()"

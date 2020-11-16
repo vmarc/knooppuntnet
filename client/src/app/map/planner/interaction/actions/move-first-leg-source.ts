@@ -1,11 +1,11 @@
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveFirstLegSource} from "../../commands/planner-command-move-first-leg-source";
-import {PlannerContext} from "../../context/planner-context";
-import {PlanLeg} from "../../plan/plan-leg";
-import {PlanUtil} from "../../plan/plan-util";
-import {PlannerDragFlag} from "../planner-drag-flag";
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlannerCommandMoveFirstLegSource} from '../../commands/planner-command-move-first-leg-source';
+import {PlannerContext} from '../../context/planner-context';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
+import {PlannerDragFlag} from '../planner-drag-flag';
 
 export class MoveFirstLegSource {
 
@@ -34,7 +34,7 @@ export class MoveFirstLegSource {
         },
         error => {
           this.context.resetDragFlag(dragFlag);
-          this.context.errorDialog(error)
+          this.context.errorDialog(error);
         }
       );
     }

@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {MatRadioChange} from "@angular/material/radio";
-import {GPX} from "ol/format";
-import {MapMode} from "../../components/ol/services/map-mode";
-import {MapService} from "../../components/ol/services/map.service";
-import {PlannerLayerService} from "../planner/services/planner-layer.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {MatRadioChange} from '@angular/material/radio';
+import {GPX} from 'ol/format';
+import {MapMode} from '../../components/ol/services/map-mode';
+import {MapService} from '../../components/ol/services/map.service';
+import {PlannerLayerService} from '../planner/services/planner-layer.service';
 
 @Component({
-  selector: "kpn-map-sidebar-appearance",
+  selector: 'kpn-map-sidebar-appearance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel [expanded]="true">
@@ -66,7 +66,7 @@ export class MapSidebarAppearanceComponent {
     const file = event.target.files[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      const gpxFeatures = new GPX().readFeatures(fileReader.result, {featureProjection: "EPSG:3857"});
+      const gpxFeatures = new GPX().readFeatures(fileReader.result, {featureProjection: 'EPSG:3857'});
       this.plannerLayerService.gpxVectorLayer.getSource().addFeatures(gpxFeatures);
     };
     fileReader.readAsText(file);

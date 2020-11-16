@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material/checkbox";
-import {PoiService} from "../../services/poi.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {PoiService} from '../../services/poi.service';
 
 @Component({
-  selector: "kpn-map-sidebar-poi-configuration",
+  selector: 'kpn-map-sidebar-poi-configuration',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel>

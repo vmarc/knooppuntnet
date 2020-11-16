@@ -1,6 +1,6 @@
-import {I18nService} from "../../../i18n/i18n.service";
-import {MapLayer} from "./map-layer";
-import OSM from "ol/source/OSM";
+import {I18nService} from '../../../i18n/i18n.service';
+import {MapLayer} from './map-layer';
+import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 
 export class OsmLayer {
@@ -14,10 +14,10 @@ export class OsmLayer {
       source: new OSM(),
     });
 
-    const osmLayerName = this.i18nService.translation("@@map.layer.osm");
-    layer.set("name", osmLayerName);
+    const osmLayerName = this.i18nService.translation('@@map.layer.osm');
+    layer.set('name', osmLayerName);
     layer.setVisible(false);
-    return new MapLayer("osm-layer", layer);
+    return new MapLayer('osm-layer', layer);
   }
 
 }

@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {List} from "immutable";
-import {ChangeSetNetwork} from "../../../kpn/api/common/change-set-network";
-import {ChangeSetSummaryInfo} from "../../../kpn/api/common/change-set-summary-info";
-import {ChangeSetNetworkAction} from "./components/change-set-network.component";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {List} from 'immutable';
+import {ChangeSetNetwork} from '../../../kpn/api/common/change-set-network';
+import {ChangeSetSummaryInfo} from '../../../kpn/api/common/change-set-summary-info';
+import {ChangeSetNetworkAction} from './components/change-set-network.component';
 
 @Component({
-  selector: "kpn-change-set",
+  selector: 'kpn-change-set',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -51,9 +51,9 @@ export class ChangesSetComponent implements OnInit {
 
   private buildNetworkActions(): List<ChangeSetNetworkAction> {
     const networkChanges = this.changeSet.summary.networkChanges;
-    const creates = this.toNetworkActions("C", networkChanges.creates);
-    const updates = this.toNetworkActions("U", networkChanges.updates);
-    const deletes = this.toNetworkActions("D", networkChanges.deletes);
+    const creates = this.toNetworkActions('C', networkChanges.creates);
+    const updates = this.toNetworkActions('U', networkChanges.updates);
+    const deletes = this.toNetworkActions('D', networkChanges.deletes);
     return creates.concat(updates).concat(deletes);
   }
 

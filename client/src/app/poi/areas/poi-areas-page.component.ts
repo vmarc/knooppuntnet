@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {ApiResponse} from "../../kpn/api/custom/api-response";
-import {AppService} from "../../app.service";
-import {PageService} from "../../components/shared/page.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ApiResponse} from '../../kpn/api/custom/api-response';
+import {AppService} from '../../app.service';
+import {PageService} from '../../components/shared/page.service';
 
 @Component({
-  selector: "kpn-poi-areas-page",
+  selector: 'kpn-poi-areas-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-header>

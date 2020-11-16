@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {LatLonImpl} from "../lat-lon-impl";
-import {Coordinate} from "ol/coordinate";
+import {LatLonImpl} from '../lat-lon-impl';
+import {Coordinate} from 'ol/coordinate';
 
 export class PlanFragmentCoordinate {
 

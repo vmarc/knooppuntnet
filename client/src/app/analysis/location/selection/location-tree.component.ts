@@ -1,16 +1,16 @@
-import {FlatTreeControl} from "@angular/cdk/tree";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
-import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
-import {AppService} from "../../../app.service";
-import {LocationNode} from "../../../kpn/api/common/location/location-node";
-import {Country} from "../../../kpn/api/custom/country";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {LocationFlatNode} from "./location-flat-node";
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {AppService} from '../../../app.service';
+import {LocationNode} from '../../../kpn/api/common/location/location-node';
+import {Country} from '../../../kpn/api/custom/country';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {LocationFlatNode} from './location-flat-node';
 
 @Component({
-  selector: "kpn-location-tree",
+  selector: 'kpn-location-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="buttons">
@@ -120,14 +120,12 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   }
 
   private transformer() {
-    return (node: LocationNode, level: number) => {
-      return new LocationFlatNode(
+    return (node: LocationNode, level: number) => new LocationFlatNode(
         !!node.children && node.children.size > 0,
         node.name,
         node.nodeCount,
         level
       );
-    };
   }
 
 }

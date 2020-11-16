@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PageService} from "../../../components/shared/page.service";
-import {Util} from "../../../components/shared/util";
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
-import {SubsetNetworksPage} from "../../../kpn/api/common/subset/subset-networks-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {NetworkCacheService} from "../../../services/network-cache.service";
-import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PageService} from '../../../components/shared/page.service';
+import {Util} from '../../../components/shared/util';
+import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
+import {SubsetNetworksPage} from '../../../kpn/api/common/subset/subset-networks-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {NetworkCacheService} from '../../../services/network-cache.service';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 @Component({
-  selector: "kpn-subset-networks-page",
+  selector: 'kpn-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

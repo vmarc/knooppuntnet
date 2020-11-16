@@ -1,18 +1,18 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {Util} from "../../../components/shared/util";
-import {ChangesPage} from "../../../kpn/api/common/changes-page";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {UserService} from "../../../services/user.service";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
-import {ChangesService} from "../../components/changes/filter/changes.service";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {Util} from '../../../components/shared/util';
+import {ChangesPage} from '../../../kpn/api/common/changes-page';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {UserService} from '../../../services/user.service';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
+import {ChangesService} from '../../components/changes/filter/changes.service';
 
 @Component({
-  selector: "kpn-changes-page",
+  selector: 'kpn-changes-page',
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

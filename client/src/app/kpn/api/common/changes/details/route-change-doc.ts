@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {RouteChange} from "./route-change";
+import {RouteChange} from './route-change';
 
 export class RouteChangeDoc {
 

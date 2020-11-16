@@ -1,8 +1,8 @@
-import {Timestamp} from "./timestamp";
+import {Timestamp} from './timestamp';
 
-describe("Timestamp", () => {
+describe('Timestamp', () => {
 
-  it("sameAs", () => {
+  it('sameAs', () => {
     expect(new Timestamp(2020, 8, 11, 1, 2, 3).sameAs(new Timestamp(2020, 8, 11, 1, 2, 3))).toBeTruthy();
     expect(new Timestamp(2029, 8, 11, 1, 2, 3).sameAs(new Timestamp(2020, 8, 11, 1, 2, 3))).toBeFalsy();
     expect(new Timestamp(2020, 9, 11, 1, 2, 3).sameAs(new Timestamp(2020, 8, 11, 1, 2, 3))).toBeFalsy();
@@ -12,7 +12,7 @@ describe("Timestamp", () => {
     expect(new Timestamp(2020, 8, 11, 1, 2, 9).sameAs(new Timestamp(2020, 8, 11, 1, 2, 3))).toBeFalsy();
   });
 
-  it("youngerThan", () => {
+  it('youngerThan', () => {
     expect(new Timestamp(2020, 8, 11, 12, 13, 14).youngerThan(new Timestamp(2020, 8, 11, 12, 13, 14))).toBeFalsy();
     expect(new Timestamp(2020, 8, 11, 12, 13, 13).youngerThan(new Timestamp(2020, 8, 11, 12, 13, 14))).toBeFalsy();
     expect(new Timestamp(2020, 8, 11, 12, 12, 14).youngerThan(new Timestamp(2020, 8, 11, 12, 13, 14))).toBeFalsy();

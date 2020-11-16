@@ -1,7 +1,7 @@
-import {Route} from "@angular/router";
-import {UrlSegmentGroup} from "@angular/router";
-import {UrlSegment} from "@angular/router";
-import {UrlMatchResult} from "@angular/router";
+import {Route} from '@angular/router';
+import {UrlSegmentGroup} from '@angular/router';
+import {UrlSegment} from '@angular/router';
+import {UrlMatchResult} from '@angular/router';
 
 export class LocationUrlMatcher {
 
@@ -59,7 +59,7 @@ export class LocationUrlMatcher {
       (segments.length === 3 || segments.length === 4) &&
       networkType.test(segments[0].path) &&
       country.test(segments[1].path) &&
-      "facts" === segments[2].path
+      'facts' === segments[2].path
     ) {
       return {
         consumed: [],

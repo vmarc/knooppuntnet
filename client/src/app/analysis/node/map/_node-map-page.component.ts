@@ -1,17 +1,17 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Subject} from "rxjs";
-import {Observable} from "rxjs";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
-import {NodeMapPage} from "../../../kpn/api/common/node/node-map-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs';
+import {Observable} from 'rxjs';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {NodeMapInfo} from '../../../kpn/api/common/node-map-info';
+import {NodeMapPage} from '../../../kpn/api/common/node/node-map-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
 
 @Component({
-  selector: "kpn-node-map-page",
+  selector: 'kpn-node-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -59,7 +59,7 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
     this.nodeName$.next(history.state.nodeName);
     this.changeCount$.next(history.state.changeCount);
     this.response$ = this.activatedRoute.params.pipe(
-      map(params => params["nodeId"]),
+      map(params => params['nodeId']),
       tap(nodeId => this.nodeId$.next(nodeId)),
       mergeMap(nodeId => this.appService.nodeMap(nodeId).pipe(
         tap(response => {

@@ -1,5 +1,5 @@
-import {SurveyDateFilterKind} from "../../../kpn/filter/survey-date-filter-kind";
-import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
+import {SurveyDateFilterKind} from '../../../kpn/filter/survey-date-filter-kind';
+import {TimestampFilterKind} from '../../../kpn/filter/timestamp-filter-kind';
 
 export class NetworkRouteFilterCriteria {
 

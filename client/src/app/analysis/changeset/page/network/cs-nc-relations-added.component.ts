@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/network-change-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {NetworkChangeInfo} from '../../../../kpn/api/common/changes/details/network-change-info';
 
 @Component({
-  selector: "kpn-cs-nc-relations-added",
+  selector: 'kpn-cs-nc-relations-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!relationIds().isEmpty()" class="kpn-level-2">

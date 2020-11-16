@@ -1,6 +1,6 @@
-import {Coordinate} from "ol/coordinate";
-import {Plan} from "../plan/plan";
-import {PlanFlag} from "../plan/plan-flag";
+import {Coordinate} from 'ol/coordinate';
+import {Plan} from '../plan/plan';
+import {PlanFlag} from '../plan/plan-flag';
 
 export abstract class PlannerMarkerLayer {
 

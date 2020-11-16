@@ -1,14 +1,14 @@
-import {combineLatest, Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveViaPoint} from "../../commands/planner-command-move-via-point";
-import {PlannerContext} from "../../context/planner-context";
-import {FeatureId} from "../../features/feature-id";
-import {PlanFlag} from "../../plan/plan-flag";
-import {PlanFlagType} from "../../plan/plan-flag-type";
-import {PlanLeg} from "../../plan/plan-leg";
-import {PlanUtil} from "../../plan/plan-util";
-import {PlannerDragFlag} from "../planner-drag-flag";
+import {combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlannerCommandMoveViaPoint} from '../../commands/planner-command-move-via-point';
+import {PlannerContext} from '../../context/planner-context';
+import {FeatureId} from '../../features/feature-id';
+import {PlanFlag} from '../../plan/plan-flag';
+import {PlanFlagType} from '../../plan/plan-flag-type';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
+import {PlannerDragFlag} from '../planner-drag-flag';
 
 export class MoveNodeViaPointToNode {
 
@@ -31,7 +31,7 @@ export class MoveNodeViaPointToNode {
       command => this.context.execute(command),
       error => {
         this.context.resetDragFlag(dragFlag);
-        this.context.errorDialog(error)
+        this.context.errorDialog(error);
       }
     );
   }

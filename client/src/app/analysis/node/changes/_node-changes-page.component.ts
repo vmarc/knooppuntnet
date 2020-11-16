@@ -1,25 +1,25 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Subject} from "rxjs";
-import {combineLatest} from "rxjs";
-import {Observable} from "rxjs";
-import {switchMap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {Util} from "../../../components/shared/util";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {NodeChangesPage} from "../../../kpn/api/common/node/node-changes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {UserService} from "../../../services/user.service";
-import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
-import {NodeChangesService} from "./node-changes.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs';
+import {combineLatest} from 'rxjs';
+import {Observable} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {Util} from '../../../components/shared/util';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {NodeChangesPage} from '../../../kpn/api/common/node/node-changes-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {UserService} from '../../../services/user.service';
+import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
+import {NodeChangesService} from './node-changes.service';
 
 @Component({
-  selector: "kpn-node-changes-page",
+  selector: 'kpn-node-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -95,7 +95,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
     this.changeCount$.next(history.state.changeCount);
 
     this.nodeId$ = this.activatedRoute.params.pipe(
-      map(params => params["nodeId"]),
+      map(params => params['nodeId']),
       tap(nodeId => this.updateParameters(nodeId))
     );
     this.response$ = combineLatest([this.nodeId$, this.nodeChangesService.parameters$]).pipe(

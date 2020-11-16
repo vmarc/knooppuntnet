@@ -1,25 +1,25 @@
-import {PlanReverser} from "./plan-reverser";
-import {PlannerTestSetup} from "../context/planner-test-setup";
-import {PlanUtil} from "./plan-util";
-import {List} from "immutable";
-import {PlanRoute} from "../../../kpn/api/common/planner/plan-route";
-import {Plan} from "./plan";
-import {PlanFlag} from "./plan-flag";
-import {PlanFragment} from "../../../kpn/api/common/planner/plan-fragment";
-import {PlanSegment} from "../../../kpn/api/common/planner/plan-segment";
-import {PlanLeg} from "./plan-leg";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {LegEndRoute} from "../../../kpn/api/common/planner/leg-end-route";
-import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
-import {expectEndFlagCoordinate} from "../../../util/test-support";
-import {expectStartFlagCoordinate} from "../../../util/test-support";
-import {expectViaFlagCoordinate} from "../../../util/test-support";
-import {PlanLegData} from "../context/plan-leg-data";
-import {expectInvisibleFlagCoordinate} from "../../../util/test-support";
+import {PlanReverser} from './plan-reverser';
+import {PlannerTestSetup} from '../context/planner-test-setup';
+import {PlanUtil} from './plan-util';
+import {List} from 'immutable';
+import {PlanRoute} from '../../../kpn/api/common/planner/plan-route';
+import {Plan} from './plan';
+import {PlanFlag} from './plan-flag';
+import {PlanFragment} from '../../../kpn/api/common/planner/plan-fragment';
+import {PlanSegment} from '../../../kpn/api/common/planner/plan-segment';
+import {PlanLeg} from './plan-leg';
+import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {LegEndRoute} from '../../../kpn/api/common/planner/leg-end-route';
+import {TrackPathKey} from '../../../kpn/api/common/common/track-path-key';
+import {expectEndFlagCoordinate} from '../../../util/test-support';
+import {expectStartFlagCoordinate} from '../../../util/test-support';
+import {expectViaFlagCoordinate} from '../../../util/test-support';
+import {PlanLegData} from '../context/plan-leg-data';
+import {expectInvisibleFlagCoordinate} from '../../../util/test-support';
 
-describe("PlanReverser", () => {
+describe('PlanReverser', () => {
 
-  it("reverse empty plan", () => {
+  it('reverse empty plan', () => {
 
     const setup = new PlannerTestSetup();
     const oldPlan = Plan.empty;
@@ -31,24 +31,24 @@ describe("PlanReverser", () => {
     });
   });
 
-  it("reverse plan with start node only", () => {
+  it('reverse plan with start node only', () => {
 
     const setup = new PlannerTestSetup();
     const oldPlan = setup.createPlanWithStartPointOnly();
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
-      expect(newPlan.sourceNode.nodeId).toEqual("1001");
+      expect(newPlan.sourceNode.nodeId).toEqual('1001');
       expectStartFlagCoordinate(newPlan.sourceFlag, [1, 1]);
       expect(newPlan.legs.isEmpty()).toEqual(true);
     });
   });
 
-  it("reverse plan with single node-to-node leg", () => {
+  it('reverse plan with single node-to-node leg', () => {
 
     const setup = new PlannerTestSetup();
 
-    const sourceNode = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
+    const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
@@ -61,7 +61,7 @@ describe("PlanReverser", () => {
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
-      expect(newPlan.sourceNode.nodeId).toEqual("1002");
+      expect(newPlan.sourceNode.nodeId).toEqual('1002');
       expectStartFlagCoordinate(newPlan.sourceFlag, [2, 2]);
 
       expect(newPlan.legs.size).toEqual(1);
@@ -73,14 +73,14 @@ describe("PlanReverser", () => {
     });
   });
 
-  it("reverse plan with multiple node-to-node legs", () => {
+  it('reverse plan with multiple node-to-node legs', () => {
 
     const setup = new PlannerTestSetup();
 
-    const planNode1 = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
-    const planNode2 = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
-    const planNode3 = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
-    const planNode4 = PlanUtil.planNodeWithCoordinate("1004", "04", [4, 4]);
+    const planNode1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
+    const planNode2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
+    const planNode3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
+    const planNode4 = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
 
     const legEnd1 = PlanUtil.legEndNode(+planNode1.nodeId);
     const legEnd2 = PlanUtil.legEndNode(+planNode2.nodeId);
@@ -103,7 +103,7 @@ describe("PlanReverser", () => {
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
-      expect(newPlan.sourceNode.nodeId).toEqual("1004");
+      expect(newPlan.sourceNode.nodeId).toEqual('1004');
       expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
 
       expect(newPlan.legs.size).toEqual(3);
@@ -129,7 +129,7 @@ describe("PlanReverser", () => {
     });
   });
 
-  it("reverse plan with single via-route leg", () => {
+  it('reverse plan with single via-route leg', () => {
 
     const setup = new PlannerTestSetup();
 
@@ -138,7 +138,7 @@ describe("PlanReverser", () => {
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
-      expect(newPlan.sourceNode.nodeId).toEqual("1003");
+      expect(newPlan.sourceNode.nodeId).toEqual('1003');
       expectStartFlagCoordinate(newPlan.sourceFlag, [3, 3]);
 
       expect(newPlan.legs.size).toEqual(1);
@@ -154,8 +154,8 @@ describe("PlanReverser", () => {
 
   function buildExpectedSingleViaRouteLeg(setup: PlannerTestSetup): void {
 
-    const sourceNode = PlanUtil.planNodeWithCoordinate("1003", "03", [3, 3]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
+    const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
 
     const trackPathKey = new TrackPathKey(10, 1);
     const source = PlanUtil.legEndNode(1003);
@@ -173,9 +173,9 @@ describe("PlanReverser", () => {
     const viaNode = setup.node2;
     const sinkNode = setup.node3;
 
-    const sourceFlag = PlanFlag.start("sourceFlag", sourceNode.coordinate);
-    const viaFlag = PlanFlag.via("viaFlag", viaNode.coordinate);
-    const sinkFlag = PlanFlag.end("sinkFlag", sinkNode.coordinate);
+    const sourceFlag = PlanFlag.start('sourceFlag', sourceNode.coordinate);
+    const viaFlag = PlanFlag.via('viaFlag', viaNode.coordinate);
+    const sinkFlag = PlanFlag.end('sinkFlag', sinkNode.coordinate);
     const trackPathKey = new TrackPathKey(10, 1);
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
@@ -183,9 +183,9 @@ describe("PlanReverser", () => {
     const legKey = PlanUtil.key(source, sink);
 
     const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, "", null, List([fragment]));
+    const segment = new PlanSegment(0, '', null, List([fragment]));
     const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
-    const leg = new PlanLeg("11", legKey, source, sink, sinkFlag, viaFlag, List([route]));
+    const leg = new PlanLeg('11', legKey, source, sink, sinkFlag, viaFlag, List([route]));
 
     const oldPlan = new Plan(sourceNode, sourceFlag, List([leg]));
     setup.context.updatePlan(oldPlan);
@@ -197,7 +197,7 @@ describe("PlanReverser", () => {
     return oldPlan;
   }
 
-  it("reverse plan with node-to-node leg and via-route leg", () => {
+  it('reverse plan with node-to-node leg and via-route leg', () => {
 
     const setup = new PlannerTestSetup();
     buildExpectedViaRouteLeg(setup);
@@ -206,7 +206,7 @@ describe("PlanReverser", () => {
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe(newPlan => {
 
-      expect(newPlan.sourceNode.nodeId).toEqual("1004");
+      expect(newPlan.sourceNode.nodeId).toEqual('1004');
       expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
 
       expect(newPlan.legs.size).toEqual(2);
@@ -230,8 +230,8 @@ describe("PlanReverser", () => {
 
   function buildExpectedViaRouteLeg(setup: PlannerTestSetup): void {
 
-    const sourceNode = PlanUtil.planNodeWithCoordinate("1004", "04", [4, 4]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
+    const sinkNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndRoute(List([new TrackPathKey(10, 1)]));
 
@@ -243,8 +243,8 @@ describe("PlanReverser", () => {
 
   function buildExpectedNodeToNodeLeg(setup: PlannerTestSetup): void {
 
-    const sourceNode = PlanUtil.planNodeWithCoordinate("1002", "02", [2, 2]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate("1001", "01", [1, 1]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
+    const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
@@ -263,9 +263,9 @@ describe("PlanReverser", () => {
     const viaNode = setup.node3;
     const sinkNode = setup.node4;
 
-    const sourceFlag = PlanFlag.start("sourceFlag", sourceNode.coordinate);
-    const viaFlag = PlanFlag.via("viaFlag", viaNode.coordinate);
-    const sinkFlag = PlanFlag.end("sinkFlag", sinkNode.coordinate);
+    const sourceFlag = PlanFlag.start('sourceFlag', sourceNode.coordinate);
+    const viaFlag = PlanFlag.via('viaFlag', viaNode.coordinate);
+    const sinkFlag = PlanFlag.end('sinkFlag', sinkNode.coordinate);
     const trackPathKey = new TrackPathKey(10, 1);
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
@@ -275,7 +275,7 @@ describe("PlanReverser", () => {
     const route1 = PlanUtil.planRoute(sourceNode, setup.node2);
     const route2 = PlanUtil.planRoute(setup.node2, sinkNode);
 
-    const leg = new PlanLeg("11", legKey, source, sink, sinkFlag, viaFlag, List([route1, route2]));
+    const leg = new PlanLeg('11', legKey, source, sink, sinkFlag, viaFlag, List([route1, route2]));
 
     const oldPlan = new Plan(sourceNode, sourceFlag, List([leg]));
     setup.context.updatePlan(oldPlan);

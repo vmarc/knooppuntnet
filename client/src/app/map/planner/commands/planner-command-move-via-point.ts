@@ -1,6 +1,6 @@
-import {PlannerContext} from "../context/planner-context";
-import {PlannerCommand} from "./planner-command";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlannerContext} from '../context/planner-context';
+import {PlannerCommand} from './planner-command';
+import {PlanLeg} from '../plan/plan-leg';
 
 export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
@@ -11,12 +11,12 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandMoveViaPoint");
+    context.debug('PlannerCommandMoveViaPoint');
     this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandMoveViaPoint undo");
+    context.debug('PlannerCommandMoveViaPoint undo');
     this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
   }
 

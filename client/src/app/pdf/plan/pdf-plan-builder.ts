@@ -1,8 +1,8 @@
-import {List, Range} from "immutable";
-import {Plan} from "../../map/planner/plan/plan";
-import {PlanRoute} from "../../kpn/api/common/planner/plan-route";
-import {PdfPlan} from "./pdf-plan";
-import {PdfPlanNode} from "./pdf-plan-node";
+import {List, Range} from 'immutable';
+import {Plan} from '../../map/planner/plan/plan';
+import {PlanRoute} from '../../kpn/api/common/planner/plan-route';
+import {PdfPlan} from './pdf-plan';
+import {PdfPlanNode} from './pdf-plan-node';
 
 export class PdfPlanBuilder {
 
@@ -19,14 +19,14 @@ export class PdfPlanBuilder {
 
     const nodes = Range(0, allRoutes.size + 1).map(nodeIndex => {
       if (nodeIndex === 0) {
-        return new PdfPlanNode(plan.sourceNode.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), "START");
+        return new PdfPlanNode(plan.sourceNode.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), 'START');
       }
       const routeIndex = nodeIndex - 1;
 
       const route = allRoutes.get(routeIndex);
       const nodeName = route.sinkNode.nodeName;
       const cumulativeDistance = PdfPlanBuilder.distanceToString(cumulativeDistances.get(routeIndex));
-      let distance = "END";
+      let distance = 'END';
       if (routeIndex < allRoutes.size - 1) {
         distance = PdfPlanBuilder.distanceToString(allMeters.get(routeIndex + 1));
       }
@@ -40,7 +40,7 @@ export class PdfPlanBuilder {
   private static distanceToString(distance: number): string {
     if (distance >= 1000) {
       const km = Math.round(distance / 100) / 10;
-      return parseFloat(km.toFixed(1)) + " km";
+      return parseFloat(km.toFixed(1)) + ' km';
     }
     return `${distance} m`;
   }

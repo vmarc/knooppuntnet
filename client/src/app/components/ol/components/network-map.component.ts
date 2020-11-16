@@ -1,23 +1,23 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {AfterViewInit, Component, Input} from "@angular/core";
-import {List} from "immutable";
-import Map from "ol/Map";
-import View from "ol/View";
-import {NetworkMapPage} from "../../../kpn/api/common/network/network-map-page";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {PageService} from "../../shared/page.service";
-import {Util} from "../../shared/util";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapControls} from "../layers/map-controls";
-import {MapLayer} from "../layers/map-layer";
-import {MapLayers} from "../layers/map-layers";
-import {MapClickService} from "../services/map-click.service";
-import {MapLayerService} from "../services/map-layer.service";
-import {MapZoomService} from "../services/map-zoom.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import {NetworkMapPage} from '../../../kpn/api/common/network/network-map-page';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {PageService} from '../../shared/page.service';
+import {Util} from '../../shared/util';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapControls} from '../layers/map-controls';
+import {MapLayer} from '../layers/map-layer';
+import {MapLayers} from '../layers/map-layers';
+import {MapClickService} from '../services/map-click.service';
+import {MapLayerService} from '../services/map-layer.service';
+import {MapZoomService} from '../services/map-zoom.service';
 
 @Component({
-  selector: "kpn-network-map",
+  selector: 'kpn-network-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="network-nodes-map" class="kpn-map">
@@ -31,7 +31,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   layers: MapLayers;
   private map: Map;
-  private readonly mapId = "network-nodes-map";
+  private readonly mapId = 'network-nodes-map';
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapLayerService: MapLayerService,

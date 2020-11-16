@@ -1,16 +1,16 @@
-import {List} from "immutable";
-import TileLayer from "ol/layer/Tile";
-import XYZ from "ol/source/XYZ";
-import MVT from "ol/format/MVT";
-import VectorTileLayer from "ol/layer/VectorTile";
-import Map from "ol/Map";
-import VectorTile from "ol/source/VectorTile";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {ZoomLevel} from "../domain/zoom-level";
-import {NetworkNodesMapStyle} from "../style/network-nodes-map-style";
-import {MapLayer} from "./map-layer";
-import LayerGroup from "ol/layer/Group";
-import {Layers} from "./layers";
+import {List} from 'immutable';
+import TileLayer from 'ol/layer/Tile';
+import XYZ from 'ol/source/XYZ';
+import MVT from 'ol/format/MVT';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import Map from 'ol/Map';
+import VectorTile from 'ol/source/VectorTile';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {ZoomLevel} from '../domain/zoom-level';
+import {NetworkNodesMapStyle} from '../style/network-nodes-map-style';
+import {MapLayer} from './map-layer';
+import LayerGroup from 'ol/layer/Group';
+import {Layers} from './layers';
 
 export class NetworkNodesTileLayer {
 
@@ -41,7 +41,7 @@ export class NetworkNodesTileLayer {
       const nodeMapStyle = new NetworkNodesMapStyle(map, nodeIds, routeIds).styleFunction();
       vectorLayer.setStyle(nodeMapStyle);
       updateLayerVisibility();
-      map.getView().on("change:resolution", () => updateLayerVisibility());
+      map.getView().on('change:resolution', () => updateLayerVisibility());
       return true;
     };
 
@@ -65,13 +65,13 @@ export class NetworkNodesTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
+      url: '/tiles/' + networkType.name + '/{z}/{x}/{y}.mvt'
     });
 
     return new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
-      source: source,
-      renderMode: "image"
+      source,
+      renderMode: 'image'
     });
   }
 }

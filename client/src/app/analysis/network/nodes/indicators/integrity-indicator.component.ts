@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
-import {NetworkInfoNode} from "../../../../kpn/api/common/network/network-info-node";
-import {NetworkType} from "../../../../kpn/api/custom/network-type";
-import {IntegrityIndicatorData} from "./integrity-indicator-data";
-import {IntegrityIndicatorDialogComponent} from "./integrity-indicator-dialog.component";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {NetworkInfoNode} from '../../../../kpn/api/common/network/network-info-node';
+import {NetworkType} from '../../../../kpn/api/custom/network-type';
+import {IntegrityIndicatorData} from './integrity-indicator-data';
+import {IntegrityIndicatorDialogComponent} from './integrity-indicator-dialog.component';
 
 @Component({
-  selector: "kpn-integrity-indicator",
+  selector: 'kpn-integrity-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
@@ -46,12 +46,12 @@ export class IntegrityIndicatorComponent implements OnInit {
     let color;
     if (this.node.integrityCheck) {
       if (this.node.integrityCheck.failed) {
-        color = "red";
+        color = 'red';
       } else {
-        color = "green";
+        color = 'green';
       }
     } else {
-      color = "gray";
+      color = 'gray';
     }
     return color;
   }

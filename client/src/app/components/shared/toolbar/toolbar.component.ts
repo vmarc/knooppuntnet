@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {PageService} from "../page.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {PageService} from '../page.service';
 
 @Component({
-  selector: "kpn-toolbar",
+  selector: 'kpn-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-toolbar [class]="toolbarBackgroundColor$ | async">

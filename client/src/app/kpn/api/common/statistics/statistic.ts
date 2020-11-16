@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {CountryStatistic} from "./country-statistic";
+import {CountryStatistic} from './country-statistic';
 
 export class Statistic {
 

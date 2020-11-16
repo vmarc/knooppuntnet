@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import BaseLayer from "ol/layer/Base";
-import Map from "ol/Map";
-import {StyleFunction} from "ol/style/Style";
-import {PoiService} from "../../../services/poi.service";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapLayer} from "../layers/map-layer";
-import {PoiStyleMap} from "../style/poi-style-map";
-import {MapLayerService} from "./map-layer.service";
+import {Injectable} from '@angular/core';
+import BaseLayer from 'ol/layer/Base';
+import Map from 'ol/Map';
+import {StyleFunction} from 'ol/style/Style';
+import {PoiService} from '../../../services/poi.service';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapLayer} from '../layers/map-layer';
+import {PoiStyleMap} from '../style/poi-style-map';
+import {MapLayerService} from './map-layer.service';
 
 @Injectable()
 export class PoiTileLayerService {
@@ -26,12 +26,12 @@ export class PoiTileLayerService {
     const layer = this.mapLayerService.poiTileLayer();
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changed.subscribe(() => layer.changed());
-    return new MapLayer("poi-tile-layer", layer, this.applyMap(layer));
+    return new MapLayer('poi-tile-layer', layer, this.applyMap(layer));
   }
 
   private applyMap(layer: BaseLayer) {
     return (map: Map) => {
-      map.getView().on("change:resolution", () => this.zoom(layer, map.getView().getZoom()));
+      map.getView().on('change:resolution', () => this.zoom(layer, map.getView().getZoom()));
       this.poiService.enabled.subscribe(enabled => {
         this.updateLayerVisibility(layer, map.getView().getZoom());
       });
@@ -53,7 +53,7 @@ export class PoiTileLayerService {
   private poiStyleFunction(): StyleFunction {
     return (feature, resolution) => {
       if (this.poiStyleMap) {
-        const layer = feature.get("layer");
+        const layer = feature.get('layer');
         if (layer != null) {
           if (this.poiService.isPoiActive(layer)) {
             const style = this.poiStyleMap.get(layer);

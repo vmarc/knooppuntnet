@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Reference} from "../common/reference";
+import {List} from 'immutable';
+import {Reference} from '../common/reference';
 
 export class RouteReferences {
 

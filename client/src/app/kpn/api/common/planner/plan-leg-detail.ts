@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {LegEnd} from "./leg-end";
-import {PlanRoute} from "./plan-route";
+import {List} from 'immutable';
+import {LegEnd} from './leg-end';
+import {PlanRoute} from './plan-route';
 
 export class PlanLegDetail {
 

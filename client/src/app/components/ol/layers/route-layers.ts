@@ -1,21 +1,21 @@
-import {List} from "immutable";
-import {Color} from "ol/color";
-import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
-import {I18nService} from "../../../i18n/i18n.service";
-import {TrackPath} from "../../../kpn/api/common/common/track-path";
-import {TrackPoint} from "../../../kpn/api/common/common/track-point";
-import {TrackSegment} from "../../../kpn/api/common/common/track-segment";
-import {RouteMap} from "../../../kpn/api/common/route/route-map";
-import {RouteNetworkNodeInfo} from "../../../kpn/api/common/route/route-network-node-info";
-import {Util} from "../../shared/util";
-import {Marker} from "../domain/marker";
-import {MapLayer} from "./map-layer";
-import {Layers} from "./layers";
+import {List} from 'immutable';
+import {Color} from 'ol/color';
+import Feature from 'ol/Feature';
+import LineString from 'ol/geom/LineString';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import {I18nService} from '../../../i18n/i18n.service';
+import {TrackPath} from '../../../kpn/api/common/common/track-path';
+import {TrackPoint} from '../../../kpn/api/common/common/track-point';
+import {TrackSegment} from '../../../kpn/api/common/common/track-segment';
+import {RouteMap} from '../../../kpn/api/common/route/route-map';
+import {RouteNetworkNodeInfo} from '../../../kpn/api/common/route/route-network-node-info';
+import {Util} from '../../shared/util';
+import {Marker} from '../domain/marker';
+import {MapLayer} from './map-layer';
+import {Layers} from './layers';
 
 export class RouteLayers {
 
@@ -36,14 +36,14 @@ export class RouteLayers {
   private buildForwardLayer(): MapLayer {
     const path = this.routeMap.forwardPath;
     if (path && !path.segments.isEmpty()) {
-      const title = this.i18nService.translation("@@map.layer.forward-route");
+      const title = this.i18nService.translation('@@map.layer.forward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source: source
+        source
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
-      layer.set("name", title);
-      return new MapLayer("route-forward-layer", layer);
+      layer.set('name', title);
+      return new MapLayer('route-forward-layer', layer);
     }
     return null;
   }
@@ -51,14 +51,14 @@ export class RouteLayers {
   private buildBackwardLayer(): MapLayer {
     const path = this.routeMap.backwardPath;
     if (path) {
-      const title = this.i18nService.translation("@@map.layer.backward-route");
+      const title = this.i18nService.translation('@@map.layer.backward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source: source
+        source
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
-      layer.set("name", title);
-      return new MapLayer("route-backward-layer", layer);
+      layer.set('name', title);
+      return new MapLayer('route-backward-layer', layer);
     }
     return null;
   }
@@ -66,16 +66,16 @@ export class RouteLayers {
   private buildStartTentaclesLayer(): MapLayer {
     const paths = this.routeMap.startTentaclePaths;
     if (paths && !paths.isEmpty()) {
-      const title = this.i18nService.translation("@@map.layer.start-tentacle");
+      const title = this.i18nService.translation('@@map.layer.start-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source: source
+        source
       });
       paths.forEach(path => {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
-      layer.set("name", title);
-      return new MapLayer("route-start-tentacle-layer", layer);
+      layer.set('name', title);
+      return new MapLayer('route-start-tentacle-layer', layer);
     }
     return null;
   }
@@ -83,16 +83,16 @@ export class RouteLayers {
   private buildEndTentaclesLayer(): MapLayer {
     const paths = this.routeMap.endTentaclePaths;
     if (paths && !paths.isEmpty()) {
-      const title = this.i18nService.translation("@@map.layer.end-tentacle");
+      const title = this.i18nService.translation('@@map.layer.end-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source: source
+        source
       });
       paths.forEach(path => {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
-      layer.set("name", title);
-      return new MapLayer("route-end-tentacles-layer", layer);
+      layer.set('name', title);
+      return new MapLayer('route-end-tentacles-layer', layer);
     }
     return null;
   }
@@ -100,26 +100,26 @@ export class RouteLayers {
   private buildUnusedSegmentsLayer(): MapLayer {
     const segments = this.routeMap.unusedSegments;
     if (segments && !segments.isEmpty()) {
-      const title = this.i18nService.translation("@@map.layer.unused");
+      const title = this.i18nService.translation('@@map.layer.unused');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source: source
+        source
       });
       segments.forEach(segment => {
         source.addFeature(this.segmentToFeature(title, [255, 0, 0, 0.3], segment));
       });
-      layer.set("name", title);
-      return new MapLayer("route-unused-segment-layer", layer);
+      layer.set('name', title);
+      return new MapLayer('route-unused-segment-layer', layer);
     }
     return null;
   }
 
   private buildMarkerLayer(): MapLayer {
-    const startNodeMarkers = this.buildMarkers(this.routeMap.startNodes, "green", "@@map.start-node");
-    const endNodeMarkers = this.buildMarkers(this.routeMap.endNodes, "red", "@@map.end-node");
-    const startTentacleNodeMarkers = this.buildMarkers(this.routeMap.startTentacleNodes, "orange", "@@map.start-tentacle-node");
-    const endTentacleNodeMarkers = this.buildMarkers(this.routeMap.endTentacleNodes, "purple", "@@map.end-tentacle-node");
-    const redundantNodeMarkers = this.buildMarkers(this.routeMap.redundantNodes, "yellow", "@@map.redundant-node");
+    const startNodeMarkers = this.buildMarkers(this.routeMap.startNodes, 'green', '@@map.start-node');
+    const endNodeMarkers = this.buildMarkers(this.routeMap.endNodes, 'red', '@@map.end-node');
+    const startTentacleNodeMarkers = this.buildMarkers(this.routeMap.startTentacleNodes, 'orange', '@@map.start-tentacle-node');
+    const endTentacleNodeMarkers = this.buildMarkers(this.routeMap.endTentacleNodes, 'purple', '@@map.end-tentacle-node');
+    const redundantNodeMarkers = this.buildMarkers(this.routeMap.redundantNodes, 'yellow', '@@map.redundant-node');
     const markers: List<Feature> = startNodeMarkers.concat(endNodeMarkers)
       .concat(startTentacleNodeMarkers)
       .concat(endTentacleNodeMarkers)
@@ -128,13 +128,13 @@ export class RouteLayers {
     const source = new VectorSource();
     const layer = new VectorLayer({
       zIndex: Layers.zIndexNetworkNodesLayer,
-      source: source
+      source
     });
 
     source.addFeatures(markers.toArray());
-    const layerName = this.i18nService.translation("@@map.layer.nodes");
-    layer.set("name", layerName);
-    return new MapLayer("route-marker-layer", layer);
+    const layerName = this.i18nService.translation('@@map.layer.nodes');
+    layer.set('name', layerName);
+    return new MapLayer('route-marker-layer', layer);
   }
 
   private buildMarkers(nodes: List<RouteNetworkNodeInfo>, color: string, nodeType: string): List<Feature> {
@@ -142,7 +142,7 @@ export class RouteLayers {
     return nodes.map(node => {
       const coordinate = Util.toCoordinate(node.lat, node.lon);
       const marker = Marker.create(color, coordinate);
-      marker.set("name", translatedNodeType);
+      marker.set('name', translatedNodeType);
       return marker;
     });
   }
@@ -166,7 +166,7 @@ export class RouteLayers {
     const feature = new Feature(polygon);
     const style = new Style({
       stroke: new Stroke({
-        color: color,
+        color,
         width: 15
       })
     });

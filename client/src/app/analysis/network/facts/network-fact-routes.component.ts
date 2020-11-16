@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {Ref} from "../../../kpn/api/common/common/ref";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {Ref} from '../../../kpn/api/common/common/ref';
 
 @Component({
-  selector: "kpn-network-fact-routes",
+  selector: 'kpn-network-fact-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span *ngIf="routes.size == 1" i18n="@@network-facts.route">

@@ -1,11 +1,11 @@
-import {PlanUtil} from "../../plan/plan-util";
-import {PlannerCommandRemoveViaPoint} from "../../commands/planner-command-remove-via-point";
-import {PlannerContext} from "../../context/planner-context";
-import {PlanLeg} from "../../plan/plan-leg";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PlanFlag} from "../../plan/plan-flag";
+import {PlanUtil} from '../../plan/plan-util';
+import {PlannerCommandRemoveViaPoint} from '../../commands/planner-command-remove-via-point';
+import {PlannerContext} from '../../context/planner-context';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PlanFlag} from '../../plan/plan-flag';
 
 export class RemoveViaLegRouteViaPoint {
 
@@ -14,9 +14,7 @@ export class RemoveViaLegRouteViaPoint {
 
   remove(oldLeg1: PlanLeg): void {
 
-    const oldLeg2 = this.context.plan.legs.find(leg => {
-      return leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId;
-    });
+    const oldLeg2 = this.context.plan.legs.find(leg => leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId);
 
     if (oldLeg2 != null) {
       this.buildNewLeg(oldLeg1.sourceNode, oldLeg2.sinkNode, oldLeg2.sinkFlag).subscribe(

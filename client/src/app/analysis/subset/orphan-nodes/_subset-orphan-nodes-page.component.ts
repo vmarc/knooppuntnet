@@ -1,21 +1,21 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {Util} from "../../../components/shared/util";
-import {NodeInfo} from "../../../kpn/api/common/node-info";
-import {SubsetOrphanNodesPage} from "../../../kpn/api/common/subset/subset-orphan-nodes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {Util} from '../../../components/shared/util';
+import {NodeInfo} from '../../../kpn/api/common/node-info';
+import {SubsetOrphanNodesPage} from '../../../kpn/api/common/subset/subset-orphan-nodes-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 @Component({
-  selector: "kpn-subset-orphan-nodes-page",
+  selector: 'kpn-subset-orphan-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

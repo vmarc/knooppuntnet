@@ -1,4 +1,4 @@
-import {Color} from "ol/color";
+import {Color} from 'ol/color';
 
 export class MainStyleColors {
 

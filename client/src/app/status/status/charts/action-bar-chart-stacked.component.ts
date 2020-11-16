@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {BarChart2D} from "../../../kpn/api/common/status/bar-chart2d";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {BarChart2D} from '../../../kpn/api/common/status/bar-chart2d';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-action-bar-chart-stacked",
+  selector: 'kpn-action-bar-chart-stacked',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ngx-charts-bar-vertical-stacked

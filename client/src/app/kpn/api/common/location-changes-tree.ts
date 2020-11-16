@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {LocationChangesTreeNode} from "./location-changes-tree-node";
-import {NetworkType} from "../custom/network-type";
+import {List} from 'immutable';
+import {LocationChangesTreeNode} from './location-changes-tree-node';
+import {NetworkType} from '../custom/network-type';
 
 export class LocationChangesTree {
 

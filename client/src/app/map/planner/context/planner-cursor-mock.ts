@@ -1,21 +1,21 @@
 export class PlannerCursorMock {
 
-  style = "default";
+  style = 'default';
 
   setStyleGrab(): void {
-    this.setStyle("grab");
+    this.setStyle('grab');
   }
 
   setStyleGrabbing(): void {
-    this.setStyle("grabbing");
+    this.setStyle('grabbing');
   }
 
   setStylePointer(): void {
-    this.setStyle("pointer");
+    this.setStyle('pointer');
   }
 
   setStyleDefault(): void {
-    this.setStyle("default");
+    this.setStyle('default');
   }
 
   private setStyle(style: string): void {

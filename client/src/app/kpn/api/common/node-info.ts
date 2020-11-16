@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Country} from "../custom/country";
-import {Day} from "../custom/day";
-import {Fact} from "../custom/fact";
-import {Location} from "./location/location";
-import {NodeName} from "./node-name";
-import {Tags} from "../custom/tags";
-import {Timestamp} from "../custom/timestamp";
+import {List} from 'immutable';
+import {Country} from '../custom/country';
+import {Day} from '../custom/day';
+import {Fact} from '../custom/fact';
+import {Location} from './location/location';
+import {NodeName} from './node-name';
+import {Tags} from '../custom/tags';
+import {Timestamp} from '../custom/timestamp';
 
 export class NodeInfo {
 

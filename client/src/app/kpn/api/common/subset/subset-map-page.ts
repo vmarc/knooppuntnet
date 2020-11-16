@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Bounds} from "../bounds";
-import {SubsetInfo} from "./subset-info";
-import {SubsetMapNetwork} from "./subset-map-network";
+import {List} from 'immutable';
+import {Bounds} from '../bounds';
+import {SubsetInfo} from './subset-info';
+import {SubsetMapNetwork} from './subset-map-network';
 
 export class SubsetMapPage {
 

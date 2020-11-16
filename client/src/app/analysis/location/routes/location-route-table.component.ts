@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {SimpleChanges} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {EventEmitter} from "@angular/core";
-import {Output} from "@angular/core";
-import {Input} from "@angular/core";
-import {OnChanges} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
-import {LocationRouteInfo} from "../../../kpn/api/common/location/location-route-info";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {BrowserStorageService} from "../../../services/browser-storage.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {SimpleChanges} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {EventEmitter} from '@angular/core';
+import {Output} from '@angular/core';
+import {Input} from '@angular/core';
+import {OnChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
+import {LocationRouteInfo} from '../../../kpn/api/common/location/location-route-info';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {BrowserStorageService} from '../../../services/browser-storage.service';
 
 @Component({
-  selector: "kpn-location-route-table",
+  selector: 'kpn-location-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
@@ -99,7 +99,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["routes"]) {
+    if (changes['routes']) {
       this.dataSource.data = this.routes.toArray();
     }
   }
@@ -107,14 +107,14 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   private displayedColumns() {
 
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "route", "distance", "broken", "lastEdit"];
+      return ['nr', 'route', 'distance', 'broken', 'lastEdit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "route", "distance", "broken"];
+      return ['nr', 'route', 'distance', 'broken'];
     }
 
-    return ["nr", "route", "distance"];
+    return ['nr', 'route', 'distance'];
   }
 
   rowNumber(index: number): number {

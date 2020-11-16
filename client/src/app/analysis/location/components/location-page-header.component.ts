@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {LocationKey} from "../../../kpn/api/custom/location-key";
-import {LocationService} from "../location.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {LocationKey} from '../../../kpn/api/custom/location-key';
+import {LocationService} from '../location.service';
 
 @Component({
-  selector: "kpn-location-page-header",
+  selector: 'kpn-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="locationKey$ | async as locationKey">

@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Timestamp} from "../../../custom/timestamp";
+import {Timestamp} from '../../../custom/timestamp';
 
 export class ChangeKey {
 

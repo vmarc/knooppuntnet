@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {NetworkDetailsPage} from "../../../kpn/api/common/network/network-details-page";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NetworkDetailsPage} from '../../../kpn/api/common/network/network-details-page';
 
 @Component({
-  selector: "kpn-network-details",
+  selector: 'kpn-network-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-data title="Situation on" i18n-title="@@network-details.situation-on">

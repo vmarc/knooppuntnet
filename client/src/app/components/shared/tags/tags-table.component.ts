@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {InterpretedTags} from "./interpreted-tags";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {InterpretedTags} from './interpreted-tags';
 
 @Component({
-  selector: "kpn-tags-table",
+  selector: 'kpn-tags-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="tags.isEmpty()" i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>

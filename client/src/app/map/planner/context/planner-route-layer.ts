@@ -1,5 +1,5 @@
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
+import {Plan} from '../plan/plan';
+import {PlanLeg} from '../plan/plan-leg';
 
 export abstract class PlannerRouteLayer {
 

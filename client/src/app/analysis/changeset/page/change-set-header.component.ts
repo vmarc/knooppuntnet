@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Util} from "../../../components/shared/util";
-import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Util} from '../../../components/shared/util';
+import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
 
 @Component({
-  selector: "kpn-change-set-header",
+  selector: 'kpn-change-set-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table class="kpn-table">
@@ -85,10 +85,10 @@ export class ChangeSetHeaderComponent {
   }
 
   hasComment() {
-    return this.page.changeSetInfo && this.page.changeSetInfo.tags.has("comment");
+    return this.page.changeSetInfo && this.page.changeSetInfo.tags.has('comment');
   }
 
   comment() {
-    return this.page.changeSetInfo.tags.get("comment");
+    return this.page.changeSetInfo.tags.get('comment');
   }
 }

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-fact-route-tag-invalid",
+  selector: 'kpn-fact-route-tag-invalid',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown ngPreserveWhitespaces i18n="@@fact.description.route-tag-invalid">

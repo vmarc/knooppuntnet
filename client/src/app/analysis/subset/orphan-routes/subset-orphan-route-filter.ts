@@ -1,18 +1,18 @@
-import {List} from "immutable";
-import {BehaviorSubject} from "rxjs";
-import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
-import {Filters} from "../../../kpn/filter/filters";
-import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
-import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
-import {RouteSummary} from "../../../kpn/api/common/route-summary";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {SubsetOrphanRouteFilterCriteria} from "./subset-orphan-route-filter-criteria";
+import {List} from 'immutable';
+import {BehaviorSubject} from 'rxjs';
+import {BooleanFilter} from '../../../kpn/filter/boolean-filter';
+import {FilterOptions} from '../../../kpn/filter/filter-options';
+import {Filters} from '../../../kpn/filter/filters';
+import {TimestampFilter} from '../../../kpn/filter/timestamp-filter';
+import {TimestampFilterKind} from '../../../kpn/filter/timestamp-filter-kind';
+import {RouteSummary} from '../../../kpn/api/common/route-summary';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {SubsetOrphanRouteFilterCriteria} from './subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRouteFilter {
 
   private readonly brokenFilter = new BooleanFilter<RouteSummary>(
-    "broken",
+    'broken',
     this.criteria.broken,
     (row) => row.isBroken,
     this.update({...this.criteria, broken: null}),

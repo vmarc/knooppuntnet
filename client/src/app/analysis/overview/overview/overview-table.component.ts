@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {OverviewService} from "./overview.service";
-import {Stat} from "../domain/stat";
-import {Statistics} from "../../../kpn/api/custom/statistics";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {OverviewService} from './overview.service';
+import {Stat} from '../domain/stat';
+import {Statistics} from '../../../kpn/api/custom/statistics';
 
 @Component({
-  selector: "kpn-overview-table",
+  selector: 'kpn-overview-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table title="overview" class="kpn-table">

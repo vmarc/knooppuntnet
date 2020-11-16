@@ -1,11 +1,11 @@
-import {BreakpointObserver} from "@angular/cdk/layout";
-import {Injectable} from "@angular/core";
-import {ReplaySubject} from "rxjs";
-import {merge} from "rxjs";
-import {PageWidth} from "./page-width";
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {Injectable} from '@angular/core';
+import {ReplaySubject} from 'rxjs';
+import {merge} from 'rxjs';
+import {PageWidth} from './page-width';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PageWidthService {
 

@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {NetworkRouteRow} from '../../../kpn/api/common/network/network-route-row';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
 
 @Component({
-  selector: "kpn-network-route-analysis",
+  selector: 'kpn-network-route-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">

@@ -1,7 +1,7 @@
-import {Coordinate} from "ol/coordinate";
-import {NodeClick} from "../../../components/ol/domain/node-click";
-import {PoiClick} from "../../../components/ol/domain/poi-click";
-import {RouteClick} from "../../../components/ol/domain/route-click";
+import {Coordinate} from 'ol/coordinate';
+import {NodeClick} from '../../../components/ol/domain/node-click';
+import {PoiClick} from '../../../components/ol/domain/poi-click';
+import {RouteClick} from '../../../components/ol/domain/route-click';
 
 export interface PlannerOverlay {
 

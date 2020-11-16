@@ -1,9 +1,9 @@
-import {List} from "immutable";
-import {Util} from "../../../../components/shared/util";
-import {ChangesFilter} from "../../../../kpn/api/common/changes/filter/changes-filter";
-import {ChangesFilterPeriod} from "../../../../kpn/api/common/changes/filter/changes-filter-period";
-import {ChangesParameters} from "../../../../kpn/api/common/changes/filter/changes-parameters";
-import {ChangeFilterOption} from "./change-filter-option";
+import {List} from 'immutable';
+import {Util} from '../../../../components/shared/util';
+import {ChangesFilter} from '../../../../kpn/api/common/changes/filter/changes-filter';
+import {ChangesFilterPeriod} from '../../../../kpn/api/common/changes/filter/changes-filter-period';
+import {ChangesParameters} from '../../../../kpn/api/common/changes/filter/changes-parameters';
+import {ChangeFilterOption} from './change-filter-option';
 
 export class ChangeFilterOptions {
 
@@ -24,17 +24,15 @@ export class ChangeFilterOptions {
 
     const options = filter.periods.map(year => {
       const months = year.periods.map(month => {
-        const days = month.periods.map(day => {
-          return new ChangeFilterOption(
-            "day",
+        const days = month.periods.map(day => new ChangeFilterOption(
+            'day',
             day,
             List(),
             () => update(this.updatedParameters(parameters, true, year.name, month.name, day.name)),
             () => update(this.updatedParameters(parameters, false, year.name, month.name, day.name))
-          );
-        });
+          ));
         return new ChangeFilterOption(
-          "month",
+          'month',
           month,
           days,
           () => update(this.updatedParameters(parameters, true, year.name, month.name)),
@@ -43,7 +41,7 @@ export class ChangeFilterOptions {
       });
 
       return new ChangeFilterOption(
-        "year",
+        'year',
         year,
         months,
         () => update(this.updatedParameters(parameters, true, year.name)),
@@ -99,7 +97,7 @@ export class ChangeFilterOptions {
     const impactedCount = Util.sum(filter.periods.map(period => period.impactedCount));
 
     const all = new ChangesFilterPeriod(
-      "All",
+      'All',
       totalCount,
       impactedCount,
       false,
@@ -108,7 +106,7 @@ export class ChangeFilterOptions {
     );
 
     return new ChangeFilterOption(
-      "year",
+      'year',
       all,
       List(),
       () => update(this.updatedParameters(parameters, true)),

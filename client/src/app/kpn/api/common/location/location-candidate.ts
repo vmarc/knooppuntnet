@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Location} from "./location";
+import {Location} from './location';
 
 export class LocationCandidate {
 

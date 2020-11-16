@@ -1,12 +1,12 @@
-import MVT from "ol/format/MVT";
-import VectorTileLayer from "ol/layer/VectorTile";
-import Map from "ol/Map";
-import VectorTile from "ol/source/VectorTile";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {ZoomLevel} from "../domain/zoom-level";
-import {NodeMapStyle} from "../style/node-map-style";
-import {Layers} from "./layers";
-import {MapLayer} from "./map-layer";
+import MVT from 'ol/format/MVT';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import Map from 'ol/Map';
+import VectorTile from 'ol/source/VectorTile';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {ZoomLevel} from '../domain/zoom-level';
+import {NodeMapStyle} from '../style/node-map-style';
+import {Layers} from './layers';
+import {MapLayer} from './map-layer';
 
 export class NetworkVectorTileLayer {
 
@@ -17,13 +17,13 @@ export class NetworkVectorTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
+      url: '/tiles/' + networkType.name + '/{z}/{x}/{y}.mvt'
     });
 
     return new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
-      source: source,
-      renderMode: "image"
+      source,
+      renderMode: 'image'
     });
   }
 
@@ -34,13 +34,13 @@ export class NetworkVectorTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: "/tiles/" + networkType.name + "/{z}/{x}/{y}.mvt"
+      url: '/tiles/' + networkType.name + '/{z}/{x}/{y}.mvt'
     });
 
     const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
-      source: source,
-      renderMode: "image"
+      source,
+      renderMode: 'image'
     });
 
     const applyMap = (map: Map) => {

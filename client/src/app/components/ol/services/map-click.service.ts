@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
-import {MapBrowserEvent} from "ol";
-import {platformModifierKeyOnly} from "ol/events/condition";
-import {FeatureLike} from "ol/Feature";
-import Interaction from "ol/interaction/Interaction";
-import PointerInteraction from "ol/interaction/Pointer";
-import Map from "ol/Map";
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {MapBrowserEvent} from 'ol';
+import {platformModifierKeyOnly} from 'ol/events/condition';
+import {FeatureLike} from 'ol/Feature';
+import Interaction from 'ol/interaction/Interaction';
+import PointerInteraction from 'ol/interaction/Pointer';
+import Map from 'ol/Map';
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
@@ -50,9 +50,9 @@ export class MapClickService {
   }
 
   private handleMoveEvent(evt: MapBrowserEvent): boolean {
-    let cursorStyle = "default";
+    let cursorStyle = 'default';
     if (this.isHooveringOverNodeOrRoute(evt)) {
-      cursorStyle = "pointer";
+      cursorStyle = 'pointer';
     }
     evt.map.getTargetElement().style.cursor = cursorStyle;
     return true;
@@ -72,27 +72,27 @@ export class MapClickService {
   }
 
   private handleRouteClicked(feature: FeatureLike, openNewTab: boolean): void {
-    const featureId = feature.get("id");
-    const routeName = feature.get("name");
-    const routeId = featureId.substring(0, featureId.indexOf("-"));
+    const featureId = feature.get('id');
+    const routeName = feature.get('name');
+    const routeId = featureId.substring(0, featureId.indexOf('-'));
     const url = `/analysis/route/${routeId}`;
     if (openNewTab) {
       window.open(url);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
-      setTimeout(() => this.router.navigateByUrl(url, {state: {routeName: routeName}}), 250);
+      setTimeout(() => this.router.navigateByUrl(url, {state: {routeName}}), 250);
     }
   }
 
   private handleNodeClicked(feature: FeatureLike, openNewTab: boolean): void {
-    const nodeId = feature.get("id");
-    const nodeName = feature.get("name");
+    const nodeId = feature.get('id');
+    const nodeName = feature.get('name');
     const url = `/analysis/node/${nodeId}`;
     if (openNewTab) {
       window.open(url);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
-      setTimeout(() => this.router.navigateByUrl(url, {state: {nodeName: nodeName}}), 250);
+      setTimeout(() => this.router.navigateByUrl(url, {state: {nodeName}}), 250);
     }
   }
 
@@ -109,13 +109,13 @@ export class MapClickService {
   }
 
   private isNode(feature: FeatureLike): boolean {
-    const layer = feature.get("layer");
-    return layer && (layer.endsWith("node") || layer === "node-marker");
+    const layer = feature.get('layer');
+    return layer && (layer.endsWith('node') || layer === 'node-marker');
   }
 
   private isRoute(feature: FeatureLike): boolean {
-    const layer = feature.get("layer");
-    return layer && layer.endsWith("route");
+    const layer = feature.get('layer');
+    return layer && layer.endsWith('route');
   }
 
 }

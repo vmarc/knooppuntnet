@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {NodeNetworkReference} from "../../../kpn/api/common/node/node-network-reference";
-import {Reference} from "../../../kpn/api/common/common/reference";
-import {NodeInfo} from "../../../kpn/api/common/node-info";
-import {NodeNetworkRouteReference} from "../../../kpn/api/common/node/node-network-route-reference";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {NodeNetworkReference} from '../../../kpn/api/common/node/node-network-reference';
+import {Reference} from '../../../kpn/api/common/common/reference';
+import {NodeInfo} from '../../../kpn/api/common/node-info';
+import {NodeNetworkRouteReference} from '../../../kpn/api/common/node/node-network-route-reference';
 
 @Component({
-  selector: "kpn-node-network-reference",
+  selector: 'kpn-node-network-reference',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -57,7 +57,7 @@ export class NodeNetworkReferenceComponent {
   }
 
   toRouteReference(ref: NodeNetworkRouteReference): Reference {
-    return new Reference(ref.routeId, ref.routeName, this.reference.networkType, ref.routeRole === "connection");
+    return new Reference(ref.routeId, ref.routeName, this.reference.networkType, ref.routeRole === 'connection');
   }
 
 }

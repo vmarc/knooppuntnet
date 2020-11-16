@@ -1,11 +1,11 @@
-import {Coordinate} from "ol/coordinate";
-import Map from "ol/Map";
-import Overlay from "ol/Overlay";
-import {NodeClick} from "../../../components/ol/domain/node-click";
-import {PoiClick} from "../../../components/ol/domain/poi-click";
-import {RouteClick} from "../../../components/ol/domain/route-click";
-import {MapService} from "../../../components/ol/services/map.service";
-import {PlannerOverlay} from "./planner-overlay";
+import {Coordinate} from 'ol/coordinate';
+import Map from 'ol/Map';
+import Overlay from 'ol/Overlay';
+import {NodeClick} from '../../../components/ol/domain/node-click';
+import {PoiClick} from '../../../components/ol/domain/poi-click';
+import {RouteClick} from '../../../components/ol/domain/route-click';
+import {MapService} from '../../../components/ol/services/map.service';
+import {PlannerOverlay} from './planner-overlay';
 
 export class PlannerOverlayImpl implements PlannerOverlay {
 
@@ -15,7 +15,7 @@ export class PlannerOverlayImpl implements PlannerOverlay {
   }
 
   addToMap(map: Map) {
-    this.overlay = map.getOverlayById("popup");
+    this.overlay = map.getOverlayById('popup');
   }
 
   poiClicked(poiClick: PoiClick): void {

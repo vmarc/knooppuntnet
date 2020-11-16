@@ -1,6 +1,6 @@
-import {PlannerContext} from "../context/planner-context";
-import {PlannerCommand} from "./planner-command";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlannerContext} from '../context/planner-context';
+import {PlannerCommand} from './planner-command';
+import {PlanLeg} from '../plan/plan-leg';
 
 export class PlannerCommandAddLeg implements PlannerCommand {
 
@@ -9,7 +9,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
-    context.debug("PlannerCommandAddLeg");
+    context.debug('PlannerCommandAddLeg');
 
     let newLegs = context.plan.legs;
     const lastLeg = newLegs.last(null);
@@ -32,7 +32,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
 
   public undo(context: PlannerContext) {
 
-    context.debug("PlannerCommandAddLeg undo");
+    context.debug('PlannerCommandAddLeg undo');
 
     context.routeLayer.removePlanLeg(this.leg.featureId);
     context.markerLayer.removeFlag(this.leg.viaFlag);

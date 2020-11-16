@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {ChangeSetElementRef} from "../../../../kpn/api/common/change-set-element-ref";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ChangeSetElementRef} from '../../../../kpn/api/common/change-set-element-ref';
 
 export class ChangeSetElement {
   constructor(readonly action: string,
@@ -10,7 +10,7 @@ export class ChangeSetElement {
 }
 
 @Component({
-  selector: "kpn-change-set-element-ref",
+  selector: 'kpn-change-set-element-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngClass]="['ref-block', borderStyle()]">
@@ -23,7 +23,7 @@ export class ChangeSetElement {
       </div>
     </div>
   `,
-  styleUrls: ["./change-set-element-ref.component.scss"]
+  styleUrls: ['./change-set-element-ref.component.scss']
 })
 export class ChangesSetElementRefComponent {
 
@@ -31,12 +31,12 @@ export class ChangesSetElementRefComponent {
 
   borderStyle() {
     if (this.element.ref.investigate === true) {
-      return "border-investigate";
+      return 'border-investigate';
     }
     if (this.element.ref.happy === true) {
-      return "border-happy";
+      return 'border-happy';
     }
-    return "border-normal";
+    return 'border-normal';
   }
 
 }

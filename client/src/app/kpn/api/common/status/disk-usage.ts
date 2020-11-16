@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {BarChart} from "./bar-chart";
+import {BarChart} from './bar-chart';
 
 export class DiskUsage {
 

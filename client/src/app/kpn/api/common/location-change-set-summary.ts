@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {ChangeKey} from "./changes/details/change-key";
-import {LocationChangesTree} from "./location-changes-tree";
-import {Timestamp} from "../custom/timestamp";
+import {List} from 'immutable';
+import {ChangeKey} from './changes/details/change-key';
+import {LocationChangesTree} from './location-changes-tree';
+import {Timestamp} from '../custom/timestamp';
 
 export class LocationChangeSetSummary {
 

@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Country} from "../../../kpn/api/custom/country";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {Stat} from "../domain/stat";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Country} from '../../../kpn/api/custom/country';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {Stat} from '../domain/stat';
 
 @Component({
-  selector: "kpn-overview-list-stat-row",
+  selector: 'kpn-overview-list-stat-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tr>

@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Tags} from "../../../custom/tags";
-import {Timestamp} from "../../../custom/timestamp";
+import {List} from 'immutable';
+import {Tags} from '../../../custom/tags';
+import {Timestamp} from '../../../custom/timestamp';
 
 export class RawWay {
 

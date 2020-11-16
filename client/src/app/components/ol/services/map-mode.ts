@@ -1,5 +1,5 @@
 export enum MapMode {
-  surface = "surface",
-  survey = "survey",
-  analysis = "analysis"
+  surface = 'surface',
+  survey = 'survey',
+  analysis = 'analysis'
 }

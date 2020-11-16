@@ -1,15 +1,15 @@
-import {Coordinate} from "ol/coordinate";
+import {Coordinate} from 'ol/coordinate';
 
 export class Printer {
 
-  private out = "";
+  private out = '';
 
   result(): string {
     return this.out;
   }
 
   println(message: string): void {
-    this.print(message + "\n");
+    this.print(message + '\n');
   }
 
   print(message: string): void {

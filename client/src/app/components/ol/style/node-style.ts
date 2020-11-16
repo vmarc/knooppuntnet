@@ -1,10 +1,10 @@
-import {Color} from "ol/color";
-import Circle from "ol/style/Circle";
-import Fill from "ol/style/Fill";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
-import Text from "ol/style/Text";
-import {MainStyleColors} from "./main-style-colors";
+import {Color} from 'ol/color';
+import Circle from 'ol/style/Circle';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import Text from 'ol/style/Text';
+import {MainStyleColors} from './main-style-colors';
 
 export class NodeStyle {
 
@@ -28,7 +28,7 @@ export class NodeStyle {
           color: MainStyleColors.white
         }),
         stroke: new Stroke({
-          color: color,
+          color,
           width: 2
         })
       })
@@ -43,15 +43,15 @@ export class NodeStyle {
           color: MainStyleColors.white
         }),
         stroke: new Stroke({
-          color: color,
+          color,
           width: 3
         })
       }),
       text: new Text({
-        text: "",
-        textAlign: "center",
-        textBaseline: "middle",
-        font: "14px Arial, Verdana, Helvetica, sans-serif",
+        text: '',
+        textAlign: 'center',
+        textBaseline: 'middle',
+        font: '14px Arial, Verdana, Helvetica, sans-serif',
         stroke: new Stroke({
           color: MainStyleColors.white,
           width: 5

@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {Stat} from "../domain/stat";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {Stat} from '../domain/stat';
 
 @Component({
-  selector: "kpn-overview-table-row",
+  selector: 'kpn-overview-table-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <td>
@@ -50,7 +50,7 @@ export class OverviewTableRowComponent {
   }
 
   comment() {
-    return this.stat.configuration.comment.replace("\\", "\n\n");
+    return this.stat.configuration.comment.replace('\\', '\n\n');
   }
 
 }

@@ -1,14 +1,14 @@
-import {OnInit} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
-import {PlannerService} from "../planner.service";
-import {Store} from "@ngrx/store";
-import {select} from "@ngrx/store";
-import {AppState} from "../../core/core.state";
-import {selectPreferencesInstructions} from "../../core/preferences/preferences.selectors";
+import {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {PlannerService} from '../planner.service';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
+import {AppState} from '../../core/core.state';
+import {selectPreferencesInstructions} from '../../core/preferences/preferences.selectors';
 
 @Component({
-  selector: "kpn-plan-result-menu",
+  selector: 'kpn-plan-result-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="menu" *ngIf="mode$ | async as mode">
@@ -65,17 +65,17 @@ export class PlanResultMenuComponent implements OnInit {
   }
 
   compact(event) {
-    this.mode$.next("compact");
+    this.mode$.next('compact');
     event.stopPropagation();
   }
 
   detailed(event) {
-    this.mode$.next("detailed");
+    this.mode$.next('detailed');
     event.stopPropagation();
   }
 
   instructions(event) {
-    this.mode$.next("instructions");
+    this.mode$.next('instructions');
     event.stopPropagation();
   }
 }

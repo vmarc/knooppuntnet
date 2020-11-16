@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {PlannerService} from "../planner.service";
-import {PlanInstruction} from "../planner/plan/plan-instruction";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {PlannerService} from '../planner.service';
+import {PlanInstruction} from '../planner/plan/plan-instruction';
 
 @Component({
-  selector: "kpn-plan-instruction",
+  selector: 'kpn-plan-instruction',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="instruction.node" class="node">

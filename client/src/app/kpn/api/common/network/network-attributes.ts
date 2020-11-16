@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
-import {Country} from "../../custom/country";
-import {Integrity} from "./integrity";
-import {LatLonImpl} from "../lat-lon-impl";
-import {NetworkType} from "../../custom/network-type";
-import {Timestamp} from "../../custom/timestamp";
+import {Country} from '../../custom/country';
+import {Integrity} from './integrity';
+import {LatLonImpl} from '../lat-lon-impl';
+import {NetworkType} from '../../custom/network-type';
+import {Timestamp} from '../../custom/timestamp';
 
 export class NetworkAttributes {
 

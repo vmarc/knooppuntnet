@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material/checkbox";
-import {List} from "immutable";
-import BaseLayer from "ol/layer/Base";
-import {MapLayers} from "../layers/map-layers";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {List} from 'immutable';
+import BaseLayer from 'ol/layer/Base';
+import {MapLayers} from '../layers/map-layers';
 
 @Component({
-  selector: "kpn-layer-switcher",
+  selector: 'kpn-layer-switcher',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="switcher">
@@ -52,7 +52,7 @@ export class LayerSwitcherComponent {
   open = false;
 
   namedLayers(): List<BaseLayer> {
-    return this.mapLayers.layers.map(ml => ml.layer).filter(layer => layer.get("name"));
+    return this.mapLayers.layers.map(ml => ml.layer).filter(layer => layer.get('name'));
   }
 
   openPanel(): void {
@@ -72,7 +72,7 @@ export class LayerSwitcherComponent {
   }
 
   layerName(layer: BaseLayer): string {
-    return layer.get("name");
+    return layer.get('name');
   }
 
 }

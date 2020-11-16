@@ -1,28 +1,28 @@
-import {OnDestroy} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {delay} from "rxjs/operators";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
-import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
-import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
-import {BrowserStorageService} from "../../../services/browser-storage.service";
-import {NetworkRouteFilter} from "./network-route-filter";
-import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
-import {NetworkRoutesService} from "./network-routes.service";
+import {OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {delay} from 'rxjs/operators';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
+import {NetworkRouteRow} from '../../../kpn/api/common/network/network-route-row';
+import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {FilterOptions} from '../../../kpn/filter/filter-options';
+import {BrowserStorageService} from '../../../services/browser-storage.service';
+import {NetworkRouteFilter} from './network-route-filter';
+import {NetworkRouteFilterCriteria} from './network-route-filter-criteria';
+import {NetworkRoutesService} from './network-routes.service';
 
 @Component({
-  selector: "kpn-network-route-table",
+  selector: 'kpn-network-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -143,13 +143,13 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "route", "distance", "role", "last-survey", "last-edit"];
+      return ['nr', 'analysis', 'route', 'distance', 'role', 'last-survey', 'last-edit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "analysis", "route", "distance", "role"];
+      return ['nr', 'analysis', 'route', 'distance', 'role'];
     }
 
-    return ["nr", "analysis", "route"];
+    return ['nr', 'analysis', 'route'];
   }
 }

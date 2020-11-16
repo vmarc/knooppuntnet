@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {NodeDiffsData} from "./node-diffs-data";
-import {MetaData} from "../../../../kpn/api/common/data/meta-data";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {NodeDiffsData} from './node-diffs-data';
+import {MetaData} from '../../../../kpn/api/common/data/meta-data';
 
 @Component({
-  selector: "kpn-node-diffs-added",
+  selector: 'kpn-node-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-level-2">

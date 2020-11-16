@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-geolocation-timeout-dialog",
+  selector: 'kpn-geolocation-timeout-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>

@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material/checkbox";
-import {PoiService} from "../../../services/poi.service";
+import {Component} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {PoiService} from '../../../services/poi.service';
 
 @Component({
-  selector: "kpn-poi-menu",
+  selector: 'kpn-poi-menu',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-divider></mat-divider>

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {FilterOptions} from '../../../kpn/filter/filter-options';
 
 @Component({
-  selector: "kpn-filter",
+  selector: 'kpn-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="filter" *ngIf="!filterOptions.isEmpty()">
@@ -14,7 +14,7 @@ import {FilterOptions} from "../../../kpn/filter/filter-options";
       </div>
     </div>
   `,
-  styleUrls: ["./filter.scss"]
+  styleUrls: ['./filter.scss']
 })
 export class FilterComponent {
   @Input() filterOptions: FilterOptions;

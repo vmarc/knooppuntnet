@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {ChangesFilter} from "../changes/filter/changes-filter";
-import {NodeChangeInfo} from "./node-change-info";
-import {NodeInfo} from "../node-info";
+import {List} from 'immutable';
+import {ChangesFilter} from '../changes/filter/changes-filter';
+import {NodeChangeInfo} from './node-change-info';
+import {NodeInfo} from '../node-info';
 
 export class NodeChangesPage {
 

@@ -1,7 +1,7 @@
-import {List} from "immutable";
-import {PlannerContext} from "../context/planner-context";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlannerCommand} from "./planner-command";
+import {List} from 'immutable';
+import {PlannerContext} from '../context/planner-context';
+import {PlanLeg} from '../plan/plan-leg';
+import {PlannerCommand} from './planner-command';
 
 export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
 
@@ -12,12 +12,12 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandMoveViaPointToViaRoute");
+    context.debug('PlannerCommandMoveViaPointToViaRoute');
     this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandMoveViaPointToViaRoute undo");
+    context.debug('PlannerCommandMoveViaPointToViaRoute undo');
     this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
   }
 

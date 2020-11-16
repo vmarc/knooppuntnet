@@ -1,11 +1,11 @@
-import * as JsPdf from "jspdf";
-import * as QRious from "qrious";
-import {Plan} from "../../map/planner/plan/plan";
-import {PdfDocumentModel} from "./pdf-document-model";
-import {PdfFooter} from "./pdf-footer";
-import {PdfPage} from "./pdf-page";
-import {PdfPlanBuilder} from "./pdf-plan-builder";
-import {PdfSideBar} from "./pdf-side-bar";
+import * as JsPdf from 'jspdf';
+import * as QRious from 'qrious';
+import {Plan} from '../../map/planner/plan/plan';
+import {PdfDocumentModel} from './pdf-document-model';
+import {PdfFooter} from './pdf-footer';
+import {PdfPage} from './pdf-page';
+import {PdfPlanBuilder} from './pdf-plan-builder';
+import {PdfSideBar} from './pdf-side-bar';
 
 export class PdfDocument {
 
@@ -21,7 +21,7 @@ export class PdfDocument {
   print(): void {
     this.drawGrid();
     this.drawQrCode();
-    const filename = this.name.replace(/ /g, "_") + ".pdf";
+    const filename = this.name.replace(/ /g, '_') + '.pdf';
     this.doc.save(filename);
   }
 
@@ -33,13 +33,13 @@ export class PdfDocument {
 
     const qrious = new QRious({
       value: this.planUrl,
-      level: "L", // Error correction level of the QR code (L, M, Q, H)
-      mime: "image/png",
+      level: 'L', // Error correction level of the QR code (L, M, Q, H)
+      mime: 'image/png',
       size: 200,
       padding: 0
     });
 
-    this.doc.addImage(qrious.toDataURL(), "PNG", x, y, qrCodeSize, qrCodeSize, "", "FAST");
+    this.doc.addImage(qrious.toDataURL(), 'PNG', x, y, qrCodeSize, qrCodeSize, '', 'FAST');
   }
 
   private drawGrid() {
@@ -100,7 +100,7 @@ export class PdfDocument {
             node.nodeName,
             xNodeNumberText,
             yNodeNumberText,
-            {align: "center", baseline: "middle", lineHeightFactor: "1"}
+            {align: 'center', baseline: 'middle', lineHeightFactor: '1'}
           );
 
           const yCumulativeDistance = yBottom - (this.model.cumulativeDistanceHeight / 2);
@@ -109,14 +109,14 @@ export class PdfDocument {
             node.cumulativeDistance,
             xNodeNumberText,
             yCumulativeDistance,
-            {align: "center", baseline: "middle", lineHeightFactor: "1"}
+            {align: 'center', baseline: 'middle', lineHeightFactor: '1'}
           );
 
           const xLegDistance = xLegDistanceLeft + (this.model.legDistanceWidth / 2);
           this.doc.setFontSize(8);
-          const widthLegDistanceText = this.doc.getTextWidth("1200 m");
+          const widthLegDistanceText = this.doc.getTextWidth('1200 m');
           const yLegDistance = yTop + (this.model.rowHeight / 2) + (widthLegDistanceText / 2);
-          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {angle: 90, lineHeightFactor: "1"});
+          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {angle: 90, lineHeightFactor: '1'});
         }
       }
     }

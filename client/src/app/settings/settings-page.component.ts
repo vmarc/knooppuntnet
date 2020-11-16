@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
-import {AppState} from "../core/core.state";
-import {Store} from "@ngrx/store";
-import {select} from "@ngrx/store";
-import {selectPreferencesInstructions} from "../core/preferences/preferences.selectors";
-import {selectPreferencesExtraLayers} from "../core/preferences/preferences.selectors";
-import {actionPreferencesInstructions} from "../core/preferences/preferences.actions";
-import {actionPreferencesExtraLayers} from "../core/preferences/preferences.actions";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import {AppState} from '../core/core.state';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
+import {selectPreferencesInstructions} from '../core/preferences/preferences.selectors';
+import {selectPreferencesExtraLayers} from '../core/preferences/preferences.selectors';
+import {actionPreferencesInstructions} from '../core/preferences/preferences.actions';
+import {actionPreferencesExtraLayers} from '../core/preferences/preferences.actions';
 
 @Component({
-  selector: "kpn-settings-page",
+  selector: 'kpn-settings-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">

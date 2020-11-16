@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-poi-group-shops",
+  selector: 'kpn-poi-group-shops',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-poi-group name="shops" title="Shops" i18n-title="@@poi.group.shops">

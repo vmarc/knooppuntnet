@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Bounds} from "../bounds";
+import {Bounds} from '../bounds';
 
 export class NetworkShape {
 

@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
-import {Observable} from "rxjs";
-import {AppService} from "../../../app.service";
-import {Util} from "../../../components/shared/util";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Observable} from 'rxjs';
+import {AppService} from '../../../app.service';
+import {Util} from '../../../components/shared/util';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
 
 @Injectable()
 export class RouteChangesService {

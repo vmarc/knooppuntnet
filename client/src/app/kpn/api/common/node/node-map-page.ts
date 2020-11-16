@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NodeMapInfo} from "../node-map-info";
+import {NodeMapInfo} from '../node-map-info';
 
 export class NodeMapPage {
 

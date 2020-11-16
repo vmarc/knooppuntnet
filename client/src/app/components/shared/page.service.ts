@@ -1,16 +1,16 @@
-import {Injectable} from "@angular/core";
-import {Title} from "@angular/platform-browser";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {PageWidthService} from "./page-width.service";
+import {Injectable} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {PageWidthService} from './page-width.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class PageService {
 
   readonly toolbarBackgroundColor$: Observable<string>;
-  readonly defaultTitle = "knooppuntnet";
+  readonly defaultTitle = 'knooppuntnet';
   readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
   showFooter = true;
   private _toolbarBackgroundColor$: BehaviorSubject<string>;
@@ -41,7 +41,7 @@ export class PageService {
   }
 
   setTitle(prefix: string): void {
-    const title = prefix ? prefix + " | " + this.defaultTitle : this.defaultTitle;
+    const title = prefix ? prefix + ' | ' + this.defaultTitle : this.defaultTitle;
     this.titleService.setTitle(title);
   }
 

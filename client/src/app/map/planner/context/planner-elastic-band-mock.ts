@@ -1,6 +1,6 @@
-import {Coordinate} from "ol/coordinate";
-import {expectCoordinate} from "../../../util/test-support";
-import {PlannerElasticBand} from "./planner-elastic-band";
+import {Coordinate} from 'ol/coordinate';
+import {expectCoordinate} from '../../../util/test-support';
+import {PlannerElasticBand} from './planner-elastic-band';
 
 export class PlannerElasticBandMock implements PlannerElasticBand {
 

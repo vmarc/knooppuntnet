@@ -1,16 +1,16 @@
-import {UrlMatchResult} from "@angular/router";
-import {UrlSegment} from "@angular/router";
-import {LocationUrlMatcher} from "./location-url-matcher";
+import {UrlMatchResult} from '@angular/router';
+import {UrlSegment} from '@angular/router';
+import {LocationUrlMatcher} from './location-url-matcher';
 
-xdescribe("location-url-matcher", () => {
+xdescribe('location-url-matcher', () => {
 
-  it("match", () => {
+  it('match', () => {
 
     const url = [
-      new UrlSegment("cycling", {}),
-      new UrlSegment("nl", {}),
-      new UrlSegment("essen", {}),
-      new UrlSegment("nodes", {}),
+      new UrlSegment('cycling', {}),
+      new UrlSegment('nl', {}),
+      new UrlSegment('essen', {}),
+      new UrlSegment('nodes', {}),
     ];
 
     const result: UrlMatchResult = LocationUrlMatcher.match(url, null, null);
@@ -18,13 +18,13 @@ xdescribe("location-url-matcher", () => {
     expect(result.consumed).toEqual(url);
   });
 
-  it("no match", () => {
+  it('no match', () => {
 
     const url = [
-      new UrlSegment("XX", {}),
-      new UrlSegment("nl", {}),
-      new UrlSegment("essen", {}),
-      new UrlSegment("nodes", {}),
+      new UrlSegment('XX', {}),
+      new UrlSegment('nl', {}),
+      new UrlSegment('essen', {}),
+      new UrlSegment('nodes', {}),
     ];
 
     const result: UrlMatchResult = LocationUrlMatcher.match(url, null, null);

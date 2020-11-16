@@ -1,36 +1,36 @@
-import {Routes} from "@angular/router";
-import {RouterModule} from "@angular/router";
-import {NgModule} from "@angular/core";
-import {DemoMenuComponent} from "./menu/demo-menu.component";
-import {DemoSidebarComponent} from "./components/demo-sidebar.component";
-import {DemoVideoComponent} from "./components/demo-video.component";
+import {Routes} from '@angular/router';
+import {RouterModule} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {DemoMenuComponent} from './menu/demo-menu.component';
+import {DemoSidebarComponent} from './components/demo-sidebar.component';
+import {DemoVideoComponent} from './components/demo-video.component';
 
 const routes: Routes = [
   {
-    path: ":video",
+    path: ':video',
     children: [
       {
-        path: "",
+        path: '',
         component: DemoVideoComponent
       },
       {
-        path: "",
+        path: '',
         component: DemoSidebarComponent,
-        outlet: "sidebar"
+        outlet: 'sidebar'
       }
     ]
   },
   {
-    path: "",
+    path: '',
     children: [
       {
-        path: "",
+        path: '',
         component: DemoMenuComponent
       },
       {
-        path: "",
+        path: '',
         component: DemoSidebarComponent,
-        outlet: "sidebar"
+        outlet: 'sidebar'
       }
     ]
   },

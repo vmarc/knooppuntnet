@@ -1,5 +1,5 @@
-import {Country} from "./country";
-import {NetworkType} from "./network-type";
+import {Country} from './country';
+import {NetworkType} from './network-type';
 
 export class LocationKey {
 

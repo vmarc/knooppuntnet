@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {KnownElements} from "../../../kpn/api/common/common/known-elements";
-import {Ref} from "../../../kpn/api/common/common/ref";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {KnownElements} from '../../../kpn/api/common/common/known-elements';
+import {Ref} from '../../../kpn/api/common/common/ref';
 
 @Component({
-  selector: "kpn-link-node-ref-header",
+  selector: 'kpn-link-node-ref-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">

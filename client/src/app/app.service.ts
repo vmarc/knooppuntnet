@@ -1,64 +1,64 @@
-import {HttpClient} from "@angular/common/http";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {MarkdownService} from "ngx-markdown";
-import {Observable} from "rxjs";
-import {of} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {timeout} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {catchError} from "rxjs/operators";
-import {ChangesPage} from "./kpn/api/common/changes-page";
-import {ChangeSetPage} from "./kpn/api/common/changes/change-set-page";
-import {ChangesParameters} from "./kpn/api/common/changes/filter/changes-parameters";
-import {LocationChangesPage} from "./kpn/api/common/location/location-changes-page";
-import {LocationChangesParameters} from "./kpn/api/common/location/location-changes-parameters";
-import {LocationEditPage} from "./kpn/api/common/location/location-edit-page";
-import {LocationFactsPage} from "./kpn/api/common/location/location-facts-page";
-import {LocationMapPage} from "./kpn/api/common/location/location-map-page";
-import {LocationNodesPage} from "./kpn/api/common/location/location-nodes-page";
-import {LocationNodesParameters} from "./kpn/api/common/location/location-nodes-parameters";
-import {LocationRoutesPage} from "./kpn/api/common/location/location-routes-page";
-import {LocationRoutesParameters} from "./kpn/api/common/location/location-routes-parameters";
-import {LocationsPage} from "./kpn/api/common/location/locations-page";
-import {NetworkChangesPage} from "./kpn/api/common/network/network-changes-page";
-import {NetworkDetailsPage} from "./kpn/api/common/network/network-details-page";
-import {NetworkFactsPage} from "./kpn/api/common/network/network-facts-page";
-import {NetworkMapPage} from "./kpn/api/common/network/network-map-page";
-import {NetworkNodesPage} from "./kpn/api/common/network/network-nodes-page";
-import {NetworkRoutesPage} from "./kpn/api/common/network/network-routes-page";
-import {MapNodeDetail} from "./kpn/api/common/node/map-node-detail";
-import {NodeChangesPage} from "./kpn/api/common/node/node-changes-page";
-import {NodeDetailsPage} from "./kpn/api/common/node/node-details-page";
-import {NodeMapPage} from "./kpn/api/common/node/node-map-page";
-import {LegBuildParams} from "./kpn/api/common/planner/leg-build-params";
-import {PlanLegDetail} from "./kpn/api/common/planner/plan-leg-detail";
-import {PlanParams} from "./kpn/api/common/planner/plan-params";
-import {PoiPage} from "./kpn/api/common/poi-page";
-import {MapRouteDetail} from "./kpn/api/common/route/map-route-detail";
-import {RouteChangesPage} from "./kpn/api/common/route/route-changes-page";
-import {RouteDetailsPage} from "./kpn/api/common/route/route-details-page";
-import {RouteMapPage} from "./kpn/api/common/route/route-map-page";
-import {PeriodParameters} from "./kpn/api/common/status/period-parameters";
-import {ReplicationStatusPage} from "./kpn/api/common/status/replication-status-page";
-import {Status} from "./kpn/api/common/status/status";
-import {SystemStatusPage} from "./kpn/api/common/status/system-status-page";
-import {SubsetChangesPage} from "./kpn/api/common/subset/subset-changes-page";
-import {SubsetFactDetailsPage} from "./kpn/api/common/subset/subset-fact-details-page";
-import {SubsetFactsPage} from "./kpn/api/common/subset/subset-facts-page";
-import {SubsetMapPage} from "./kpn/api/common/subset/subset-map-page";
-import {SubsetNetworksPage} from "./kpn/api/common/subset/subset-networks-page";
-import {SubsetOrphanNodesPage} from "./kpn/api/common/subset/subset-orphan-nodes-page";
-import {SubsetOrphanRoutesPage} from "./kpn/api/common/subset/subset-orphan-routes-page";
-import {SurveyDateInfo} from "./kpn/api/common/survey-date-info";
-import {ClientPoiConfiguration} from "./kpn/api/common/tiles/client-poi-configuration";
-import {ApiResponse} from "./kpn/api/custom/api-response";
-import {Country} from "./kpn/api/custom/country";
-import {LocationKey} from "./kpn/api/custom/location-key";
-import {NetworkType} from "./kpn/api/custom/network-type";
-import {Statistics} from "./kpn/api/custom/statistics";
-import {Subset} from "./kpn/api/custom/subset";
-import {BrowserStorageService} from "./services/browser-storage.service";
+import {HttpClient} from '@angular/common/http';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {MarkdownService} from 'ngx-markdown';
+import {Observable} from 'rxjs';
+import {of} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {timeout} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
+import {ChangesPage} from './kpn/api/common/changes-page';
+import {ChangeSetPage} from './kpn/api/common/changes/change-set-page';
+import {ChangesParameters} from './kpn/api/common/changes/filter/changes-parameters';
+import {LocationChangesPage} from './kpn/api/common/location/location-changes-page';
+import {LocationChangesParameters} from './kpn/api/common/location/location-changes-parameters';
+import {LocationEditPage} from './kpn/api/common/location/location-edit-page';
+import {LocationFactsPage} from './kpn/api/common/location/location-facts-page';
+import {LocationMapPage} from './kpn/api/common/location/location-map-page';
+import {LocationNodesPage} from './kpn/api/common/location/location-nodes-page';
+import {LocationNodesParameters} from './kpn/api/common/location/location-nodes-parameters';
+import {LocationRoutesPage} from './kpn/api/common/location/location-routes-page';
+import {LocationRoutesParameters} from './kpn/api/common/location/location-routes-parameters';
+import {LocationsPage} from './kpn/api/common/location/locations-page';
+import {NetworkChangesPage} from './kpn/api/common/network/network-changes-page';
+import {NetworkDetailsPage} from './kpn/api/common/network/network-details-page';
+import {NetworkFactsPage} from './kpn/api/common/network/network-facts-page';
+import {NetworkMapPage} from './kpn/api/common/network/network-map-page';
+import {NetworkNodesPage} from './kpn/api/common/network/network-nodes-page';
+import {NetworkRoutesPage} from './kpn/api/common/network/network-routes-page';
+import {MapNodeDetail} from './kpn/api/common/node/map-node-detail';
+import {NodeChangesPage} from './kpn/api/common/node/node-changes-page';
+import {NodeDetailsPage} from './kpn/api/common/node/node-details-page';
+import {NodeMapPage} from './kpn/api/common/node/node-map-page';
+import {LegBuildParams} from './kpn/api/common/planner/leg-build-params';
+import {PlanLegDetail} from './kpn/api/common/planner/plan-leg-detail';
+import {PlanParams} from './kpn/api/common/planner/plan-params';
+import {PoiPage} from './kpn/api/common/poi-page';
+import {MapRouteDetail} from './kpn/api/common/route/map-route-detail';
+import {RouteChangesPage} from './kpn/api/common/route/route-changes-page';
+import {RouteDetailsPage} from './kpn/api/common/route/route-details-page';
+import {RouteMapPage} from './kpn/api/common/route/route-map-page';
+import {PeriodParameters} from './kpn/api/common/status/period-parameters';
+import {ReplicationStatusPage} from './kpn/api/common/status/replication-status-page';
+import {Status} from './kpn/api/common/status/status';
+import {SystemStatusPage} from './kpn/api/common/status/system-status-page';
+import {SubsetChangesPage} from './kpn/api/common/subset/subset-changes-page';
+import {SubsetFactDetailsPage} from './kpn/api/common/subset/subset-fact-details-page';
+import {SubsetFactsPage} from './kpn/api/common/subset/subset-facts-page';
+import {SubsetMapPage} from './kpn/api/common/subset/subset-map-page';
+import {SubsetNetworksPage} from './kpn/api/common/subset/subset-networks-page';
+import {SubsetOrphanNodesPage} from './kpn/api/common/subset/subset-orphan-nodes-page';
+import {SubsetOrphanRoutesPage} from './kpn/api/common/subset/subset-orphan-routes-page';
+import {SurveyDateInfo} from './kpn/api/common/survey-date-info';
+import {ClientPoiConfiguration} from './kpn/api/common/tiles/client-poi-configuration';
+import {ApiResponse} from './kpn/api/custom/api-response';
+import {Country} from './kpn/api/custom/country';
+import {LocationKey} from './kpn/api/custom/location-key';
+import {NetworkType} from './kpn/api/custom/network-type';
+import {Statistics} from './kpn/api/custom/statistics';
+import {Subset} from './kpn/api/custom/subset';
+import {BrowserStorageService} from './services/browser-storage.service';
 
 @Injectable()
 export class AppService {
@@ -69,34 +69,32 @@ export class AppService {
   constructor(private http: HttpClient,
               markdownService: MarkdownService,
               private browserStorageService: BrowserStorageService) {
-    markdownService.renderer.link = (href: string, title: string, text: string) => {
-      return `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
-    };
+    markdownService.renderer.link = (href: string, title: string, text: string) => `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
   }
 
   public edit(url: string): Observable<Object> {
     this._httpError$.next(null);
-    return this.http.get(url, {responseType: "text"}).pipe(
+    return this.http.get(url, {responseType: 'text'}).pipe(
       timeout(5000)
     );
   }
 
   public overview(): Observable<ApiResponse<Statistics>> {
-    const url = "/json-api/overview";
+    const url = '/json-api/overview';
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, Statistics.fromJSON))
     );
   }
 
   public subsetNetworks(subset: Subset): Observable<ApiResponse<SubsetNetworksPage>> {
-    const url = this.subsetUrl(subset, "networks");
+    const url = this.subsetUrl(subset, 'networks');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetNetworksPage.fromJSON))
     );
   }
 
   public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
-    const url = this.subsetUrl(subset, "facts");
+    const url = this.subsetUrl(subset, 'facts');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetFactsPage.fromJSON))
     );
@@ -110,28 +108,28 @@ export class AppService {
   }
 
   public subsetOrphanNodes(subset: Subset): Observable<ApiResponse<SubsetOrphanNodesPage>> {
-    const url = this.subsetUrl(subset, "orphan-nodes");
+    const url = this.subsetUrl(subset, 'orphan-nodes');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanNodesPage.fromJSON))
     );
   }
 
   public subsetOrphanRoutes(subset: Subset): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
-    const url = this.subsetUrl(subset, "orphan-routes");
+    const url = this.subsetUrl(subset, 'orphan-routes');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanRoutesPage.fromJSON))
     );
   }
 
   public subsetMap(subset: Subset): Observable<ApiResponse<SubsetMapPage>> {
-    const url = this.subsetUrl(subset, "map");
+    const url = this.subsetUrl(subset, 'map');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetMapPage.fromJSON))
     );
   }
 
   public subsetChanges(subset: Subset, parameters: ChangesParameters): Observable<ApiResponse<SubsetChangesPage>> {
-    const url = this.subsetUrl(subset, "changes");
+    const url = this.subsetUrl(subset, 'changes');
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetChangesPage.fromJSON))
     );
@@ -222,7 +220,7 @@ export class AppService {
   }
 
   public changes(parameters: ChangesParameters): Observable<ApiResponse<ChangesPage>> {
-    const url = "/json-api/changes";
+    const url = '/json-api/changes';
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, ChangesPage.fromJSON))
     );
@@ -250,7 +248,7 @@ export class AppService {
   }
 
   public poiConfiguration(): Observable<ApiResponse<ClientPoiConfiguration>> {
-    const url = "/json-api/poi-configuration";
+    const url = '/json-api/poi-configuration';
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, ClientPoiConfiguration.fromJSON))
     );
@@ -285,89 +283,89 @@ export class AppService {
   }
 
   public locationEdit(locationKey: LocationKey): Observable<ApiResponse<LocationEditPage>> {
-    const url = this.locationUrl(locationKey, "edit");
-    return this.httpPost(url, "").pipe(
+    const url = this.locationUrl(locationKey, 'edit');
+    return this.httpPost(url, '').pipe(
       map(response => ApiResponse.fromJSON(response, LocationEditPage.fromJSON))
     );
   }
 
   public locationNodes(locationKey: LocationKey, parameters: LocationNodesParameters): Observable<ApiResponse<LocationNodesPage>> {
-    const url = this.locationUrl(locationKey, "nodes");
+    const url = this.locationUrl(locationKey, 'nodes');
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationNodesPage.fromJSON))
     );
   }
 
   public locationRoutes(locationKey: LocationKey, parameters: LocationRoutesParameters): Observable<ApiResponse<LocationRoutesPage>> {
-    const url = this.locationUrl(locationKey, "routes");
+    const url = this.locationUrl(locationKey, 'routes');
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationRoutesPage.fromJSON))
     );
   }
 
   public locationFacts(locationKey: LocationKey): Observable<ApiResponse<LocationFactsPage>> {
-    const url = this.locationUrl(locationKey, "facts");
+    const url = this.locationUrl(locationKey, 'facts');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, LocationFactsPage.fromJSON))
     );
   }
 
   public locationMap(locationKey: LocationKey): Observable<ApiResponse<LocationMapPage>> {
-    const url = this.locationUrl(locationKey, "map");
+    const url = this.locationUrl(locationKey, 'map');
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, LocationMapPage.fromJSON))
     );
   }
 
   public locationChanges(locationKey: LocationKey, parameters: LocationChangesParameters): Observable<ApiResponse<LocationChangesPage>> {
-    const url = this.locationUrl(locationKey, "changes");
+    const url = this.locationUrl(locationKey, 'changes');
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, LocationChangesPage.fromJSON))
     );
   }
 
   public status(): Observable<ApiResponse<Status>> {
-    const url = "/json-api/status";
+    const url = '/json-api/status';
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, Status.fromJSON))
     );
   }
 
   public replicationStatus(parameters: PeriodParameters): Observable<ApiResponse<ReplicationStatusPage>> {
-    const url = "/json-api/status/replication";
+    const url = '/json-api/status/replication';
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, ReplicationStatusPage.fromJSON))
     );
   }
 
   public systemStatus(parameters: PeriodParameters): Observable<ApiResponse<SystemStatusPage>> {
-    const url = "/json-api/status/system";
+    const url = '/json-api/status/system';
     return this.httpPost(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, SystemStatusPage.fromJSON))
     );
   }
 
   public surveyDateInfo(): Observable<ApiResponse<SurveyDateInfo>> {
-    const url = "/json-api/survey-date-info";
+    const url = '/json-api/survey-date-info';
     return this.httpGet(url).pipe(
       map(response => ApiResponse.fromJSON(response, SurveyDateInfo.fromJSON))
     );
   }
 
   public poiAreas(): Observable<ApiResponse<string>> {
-    const url = "/json-api/poi/areas";
+    const url = '/json-api/poi/areas';
     return this.httpGet(url);
   }
 
   public storeChangesParameters(parameters: ChangesParameters): void {
-    this.browserStorageService.set("impact", parameters.impact.toString());
+    this.browserStorageService.set('impact', parameters.impact.toString());
     this.browserStorageService.itemsPerPage = parameters.itemsPerPage;
   }
 
   public changesParameters(parameters: ChangesParameters): ChangesParameters {
-    const impact = this.browserStorageService.get("impact") === "true";
+    const impact = this.browserStorageService.get('impact') === 'true';
     const itemsPerPage = this.browserStorageService.itemsPerPage;
-    return {...parameters, impact: impact, itemsPerPage: +itemsPerPage};
+    return {...parameters, impact, itemsPerPage: +itemsPerPage};
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {
@@ -395,12 +393,12 @@ export class AppService {
   private handleError(error: any): Observable<ApiResponse<any>> {
     if (error instanceof HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
-        this._httpError$.next("error-event");
+        this._httpError$.next('error-event');
       } else {
-        this._httpError$.next("error-" + error.status);
+        this._httpError$.next('error-' + error.status);
       }
     } else {
-      this._httpError$.next("error");
+      this._httpError$.next('error');
     }
     return of(new ApiResponse<any>());
   }

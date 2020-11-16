@@ -1,5 +1,5 @@
-import {List} from "immutable";
-import {PlannerCommand} from "./planner-command";
+import {List} from 'immutable';
+import {PlannerCommand} from './planner-command';
 
 /*
   Collection with planner commands that have been executed. We keep the details of these

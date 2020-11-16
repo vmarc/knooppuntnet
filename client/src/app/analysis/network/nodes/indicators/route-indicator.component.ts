@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
-import {NetworkInfoNode} from "../../../../kpn/api/common/network/network-info-node";
-import {RouteIndicatorDialogComponent} from "./route-indicator-dialog.component";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {NetworkInfoNode} from '../../../../kpn/api/common/network/network-info-node';
+import {RouteIndicatorDialogComponent} from './route-indicator-dialog.component';
 
 @Component({
-  selector: "kpn-route-indicator",
+  selector: 'kpn-route-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
@@ -26,7 +26,7 @@ export class RouteIndicatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.color = this.node.definedInRoute ? "green" : "gray";
+    this.color = this.node.definedInRoute ? 'green' : 'gray';
   }
 
   onOpenDialog() {

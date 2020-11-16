@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {DiskUsage} from "../../../kpn/api/common/status/disk-usage";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {DiskUsage} from '../../../kpn/api/common/status/disk-usage';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-server-disk-usage",
+  selector: 'kpn-server-disk-usage',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="section">

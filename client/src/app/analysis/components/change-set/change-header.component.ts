@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {ChangeKey} from "../../../kpn/api/common/changes/details/change-key";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {ChangeKey} from '../../../kpn/api/common/changes/details/change-key';
 
 @Component({
-  selector: "kpn-change-header",
+  selector: 'kpn-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">

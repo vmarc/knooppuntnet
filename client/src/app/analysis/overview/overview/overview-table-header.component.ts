@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Subset} from "../../../kpn/api/custom/subset";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Subset} from '../../../kpn/api/custom/subset';
 
 @Component({
-  selector: "kpn-overview-table-header",
+  selector: 'kpn-overview-table-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tr>

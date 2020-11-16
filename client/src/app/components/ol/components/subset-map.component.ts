@@ -1,26 +1,26 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {AfterViewInit, Component, EventEmitter, Input, Output} from "@angular/core";
-import {List} from "immutable";
-import {MapBrowserEvent} from "ol";
-import {FeatureLike} from "ol/Feature";
-import Interaction from "ol/interaction/Interaction";
-import PointerInteraction from "ol/interaction/Pointer";
-import Map from "ol/Map";
-import View from "ol/View";
-import {Bounds} from "../../../kpn/api/common/bounds";
-import {SubsetMapNetwork} from "../../../kpn/api/common/subset/subset-map-network";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {PageService} from "../../shared/page.service";
-import {Util} from "../../shared/util";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapControls} from "../layers/map-controls";
-import {MapLayers} from "../layers/map-layers";
-import {NetworkMarkerLayer} from "../layers/network-marker-layer";
-import {MapLayerService} from "../services/map-layer.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
+import {List} from 'immutable';
+import {MapBrowserEvent} from 'ol';
+import {FeatureLike} from 'ol/Feature';
+import Interaction from 'ol/interaction/Interaction';
+import PointerInteraction from 'ol/interaction/Pointer';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import {Bounds} from '../../../kpn/api/common/bounds';
+import {SubsetMapNetwork} from '../../../kpn/api/common/subset/subset-map-network';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {PageService} from '../../shared/page.service';
+import {Util} from '../../shared/util';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapControls} from '../layers/map-controls';
+import {MapLayers} from '../layers/map-layers';
+import {NetworkMarkerLayer} from '../layers/network-marker-layer';
+import {MapLayerService} from '../services/map-layer.service';
 
 @Component({
-  selector: "kpn-subset-map",
+  selector: 'kpn-subset-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="subset-map" class="kpn-map">
@@ -37,7 +37,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   layers: MapLayers;
   private map: Map;
 
-  private readonly mapId = "subset-map";
+  private readonly mapId = 'subset-map';
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapLayerService: MapLayerService,
@@ -107,16 +107,12 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
         const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
         if (features) {
           const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
-          evt.map.getTargetElement().style.cursor = index >= 0 ? "pointer" : "default";
+          evt.map.getTargetElement().style.cursor = index >= 0 ? 'pointer' : 'default';
         }
         return false;
       },
-      handleDragEvent: (evt: MapBrowserEvent) => {
-        return false;
-      },
-      handleUpEvent: (evt: MapBrowserEvent) => {
-        return false;
-      }
+      handleDragEvent: (evt: MapBrowserEvent) => false,
+      handleUpEvent: (evt: MapBrowserEvent) => false
     });
   }
 

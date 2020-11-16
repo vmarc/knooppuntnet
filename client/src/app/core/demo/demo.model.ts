@@ -1,4 +1,4 @@
-import {AppState} from "../core.state";
+import {AppState} from '../core.state';
 
 export class VideoState {
   constructor(public video: string,

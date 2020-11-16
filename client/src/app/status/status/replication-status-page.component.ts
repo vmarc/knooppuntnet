@@ -1,20 +1,20 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {Component} from "@angular/core";
-import {Params} from "@angular/router";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {flatMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {AppService} from "../../app.service";
-import {PeriodParameters} from "../../kpn/api/common/status/period-parameters";
-import {ReplicationStatusPage} from "../../kpn/api/common/status/replication-status-page";
-import {StatusLinks} from "./status-links";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {flatMap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {AppService} from '../../app.service';
+import {PeriodParameters} from '../../kpn/api/common/status/period-parameters';
+import {ReplicationStatusPage} from '../../kpn/api/common/status/replication-status-page';
+import {StatusLinks} from './status-links';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-replication-status-page",
+  selector: 'kpn-replication-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -79,47 +79,47 @@ export class ReplicationStatusPageComponent implements OnInit {
     this.page$ = this.activatedRoute.params.pipe(
       map(params => this.toPeriodParameters(params)),
       tap(parameters => {
-        if (parameters.period === "year") {
-          this.xAxisLabel = "weeks";
-        } else if (parameters.period === "month") {
-          this.xAxisLabel = "days";
-        } else if (parameters.period === "week") {
-          this.xAxisLabel = "days";
-        } else if (parameters.period === "day") {
-          this.xAxisLabel = "hours";
-        } else if (parameters.period === "hour") {
-          this.xAxisLabel = "minutes";
+        if (parameters.period === 'year') {
+          this.xAxisLabel = 'weeks';
+        } else if (parameters.period === 'month') {
+          this.xAxisLabel = 'days';
+        } else if (parameters.period === 'week') {
+          this.xAxisLabel = 'days';
+        } else if (parameters.period === 'day') {
+          this.xAxisLabel = 'hours';
+        } else if (parameters.period === 'hour') {
+          this.xAxisLabel = 'minutes';
         }
       }),
       flatMap(parameters => this.appService.replicationStatus(parameters).pipe(
         map(r => r.result),
-        tap(page => this.statusLinks = new StatusLinks(page.timestamp, "/status/replication"))
+        tap(page => this.statusLinks = new StatusLinks(page.timestamp, '/status/replication'))
       ))
     );
   }
 
   private toPeriodParameters(params: Params): PeriodParameters {
 
-    const period = params["period"];
-    if ("year" === period) {
-      return new PeriodParameters("year", +params["year"], null, null, null, null);
+    const period = params['period'];
+    if ('year' === period) {
+      return new PeriodParameters('year', +params['year'], null, null, null, null);
     }
-    if ("month" === period) {
-      return new PeriodParameters("month", +params["year"], +params["monthOrWeek"], null, null, null);
+    if ('month' === period) {
+      return new PeriodParameters('month', +params['year'], +params['monthOrWeek'], null, null, null);
     }
-    if ("week" === period) {
-      return new PeriodParameters("week", +params["year"], null, +params["monthOrWeek"], null, null);
+    if ('week' === period) {
+      return new PeriodParameters('week', +params['year'], null, +params['monthOrWeek'], null, null);
     }
-    if ("day" === period) {
-      return new PeriodParameters("day", +params["year"], +params["month"], null, +params["day"], null);
+    if ('day' === period) {
+      return new PeriodParameters('day', +params['year'], +params['month'], null, +params['day'], null);
     }
-    if ("hour" === period) {
-      return new PeriodParameters("hour", +params["year"], +params["month"], null, +params["day"], +params["hour"]);
+    if ('hour' === period) {
+      return new PeriodParameters('hour', +params['year'], +params['month'], null, +params['day'], +params['hour']);
     }
 
     const now = new Date();
     return new PeriodParameters(
-      "hour",
+      'hour',
       now.getFullYear(),
       now.getMonth(),
       null,

@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-geolocation-permission-denied-dialog",
+  selector: 'kpn-geolocation-permission-denied-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>

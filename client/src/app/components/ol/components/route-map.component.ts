@@ -1,24 +1,24 @@
-import {OnDestroy} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit, Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {Extent} from "ol/extent";
-import Map from "ol/Map";
-import View from "ol/View";
-import {RouteInfo} from "../../../kpn/api/common/route/route-info";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {PageService} from "../../shared/page.service";
-import {Util} from "../../shared/util";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapControls} from "../layers/map-controls";
-import {MapLayer} from "../layers/map-layer";
-import {MapLayers} from "../layers/map-layers";
-import {MapClickService} from "../services/map-click.service";
-import {MapLayerService} from "../services/map-layer.service";
-import {MapService} from "../services/map.service";
+import {OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {Extent} from 'ol/extent';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import {RouteInfo} from '../../../kpn/api/common/route/route-info';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {PageService} from '../../shared/page.service';
+import {Util} from '../../shared/util';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapControls} from '../layers/map-controls';
+import {MapLayer} from '../layers/map-layer';
+import {MapLayers} from '../layers/map-layers';
+import {MapClickService} from '../services/map-click.service';
+import {MapLayerService} from '../services/map-layer.service';
+import {MapService} from '../services/map.service';
 
 @Component({
-  selector: "kpn-route-map",
+  selector: 'kpn-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="route-map" class="kpn-map">
@@ -35,7 +35,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   private networkVectorTileLayerActive = true;
 
   private map: Map;
-  private readonly mapId = "route-map";
+  private readonly mapId = 'route-map';
   private readonly subscriptions = new Subscriptions();
 
   constructor(private mapService: MapService,
@@ -62,7 +62,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
 
     const view = this.map.getView();
     view.fit(this.buildExtent());
-    view.on("change:resolution", () => {
+    view.on('change:resolution', () => {
       if (view.getZoom() < ZoomLevel.vectorTileMinZoom) {
         if (this.networkVectorTileLayerActive) {
           this.map.removeLayer(this.networkVectorTileLayer.layer);

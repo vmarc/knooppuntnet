@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {ChangeKey} from "../changes/details/change-key";
-import {Fact} from "../../custom/fact";
-import {FactDiffs} from "../diff/common/fact-diffs";
-import {MetaData} from "../data/meta-data";
-import {NodeMoved} from "../diff/node/node-moved";
-import {Ref} from "../common/ref";
-import {RefBooleanChange} from "../changes/details/ref-boolean-change";
-import {TagDiffs} from "../diff/tag-diffs";
-import {Tags} from "../../custom/tags";
+import {List} from 'immutable';
+import {ChangeKey} from '../changes/details/change-key';
+import {Fact} from '../../custom/fact';
+import {FactDiffs} from '../diff/common/fact-diffs';
+import {MetaData} from '../data/meta-data';
+import {NodeMoved} from '../diff/node/node-moved';
+import {Ref} from '../common/ref';
+import {RefBooleanChange} from '../changes/details/ref-boolean-change';
+import {TagDiffs} from '../diff/tag-diffs';
+import {Tags} from '../../custom/tags';
 
 export class NodeChangeInfo {
 

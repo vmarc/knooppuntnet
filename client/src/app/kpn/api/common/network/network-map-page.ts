@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Bounds} from "../bounds";
-import {NetworkInfoNode} from "./network-info-node";
-import {NetworkSummary} from "./network-summary";
+import {List} from 'immutable';
+import {Bounds} from '../bounds';
+import {NetworkInfoNode} from './network-info-node';
+import {NetworkSummary} from './network-summary';
 
 export class NetworkMapPage {
 

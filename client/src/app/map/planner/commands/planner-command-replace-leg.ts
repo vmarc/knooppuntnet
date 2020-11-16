@@ -1,6 +1,6 @@
-import {PlannerContext} from "../context/planner-context";
-import {PlannerCommand} from "./planner-command";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlannerContext} from '../context/planner-context';
+import {PlannerCommand} from './planner-command';
+import {PlanLeg} from '../plan/plan-leg';
 
 export class PlannerCommandReplaceLeg implements PlannerCommand {
 
@@ -9,12 +9,12 @@ export class PlannerCommandReplaceLeg implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandMoveEndPoint");
+    context.debug('PlannerCommandMoveEndPoint');
     this.update(context, this.oldLeg, this.newLeg);
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandMoveEndPoint undo");
+    context.debug('PlannerCommandMoveEndPoint undo');
     this.update(context, this.newLeg, this.oldLeg);
   }
 

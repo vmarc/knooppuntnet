@@ -1,5 +1,5 @@
-import BaseLayer from "ol/layer/Base";
-import Map from "ol/Map";
+import BaseLayer from 'ol/layer/Base';
+import Map from 'ol/Map';
 
 export class MapLayer {
 

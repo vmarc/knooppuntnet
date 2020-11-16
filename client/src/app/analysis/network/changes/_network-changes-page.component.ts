@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {combineLatest} from "rxjs";
-import {shareReplay} from "rxjs/operators";
-import {switchMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {NetworkChangesPage} from "../../../kpn/api/common/network/network-changes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {NetworkCacheService} from "../../../services/network-cache.service";
-import {UserService} from "../../../services/user.service";
-import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
-import {NetworkService} from "../network.service";
-import {NetworkChangesService} from "./network-changes.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {combineLatest} from 'rxjs';
+import {shareReplay} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {NetworkChangesPage} from '../../../kpn/api/common/network/network-changes-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NetworkCacheService} from '../../../services/network-cache.service';
+import {UserService} from '../../../services/user.service';
+import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
+import {NetworkService} from '../network.service';
+import {NetworkChangesService} from './network-changes.service';
 
 @Component({
-  selector: "kpn-network-changes-page",
+  selector: 'kpn-network-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-page-header
@@ -83,7 +83,7 @@ export class NetworkChangesPageComponent implements OnInit {
   ngOnInit(): void {
 
     this.networkId$ = this.activatedRoute.params.pipe(
-      map(params => +params["networkId"]),
+      map(params => +params['networkId']),
       tap(networkId => this.networkService.init(networkId)),
       shareReplay()
     );

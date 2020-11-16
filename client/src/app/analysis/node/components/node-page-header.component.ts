@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "kpn-node-page-header",
+  selector: 'kpn-node-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -49,18 +49,18 @@ export class NodePageHeaderComponent {
   @Input() pageName: string;
 
   linkNodeDetails(): string {
-    return this.linkNode("");
+    return this.linkNode('');
   }
 
   linkNodeMap(): string {
-    return this.linkNode("/map");
+    return this.linkNode('/map');
   }
 
   linkNodeChanges(): string {
-    return this.linkNode("/changes");
+    return this.linkNode('/changes');
   }
 
-  state(): { [k: string]: any; } {
+  state(): { [k: string]: any } {
     return {nodeName: this.nodeName, changeCount: this.changeCount};
   }
 

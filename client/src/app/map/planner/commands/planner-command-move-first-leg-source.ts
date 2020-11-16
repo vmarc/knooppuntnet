@@ -1,9 +1,9 @@
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
-import {PlanFlag} from "../plan/plan-flag";
-import {PlannerCommand} from "./planner-command";
-import {PlanLeg} from "../plan/plan-leg";
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlannerContext} from '../context/planner-context';
+import {Plan} from '../plan/plan';
+import {PlanFlag} from '../plan/plan-flag';
+import {PlannerCommand} from './planner-command';
+import {PlanLeg} from '../plan/plan-leg';
 
 export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
 
@@ -16,7 +16,7 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandMoveFirstLegSource");
+    context.debug('PlannerCommandMoveFirstLegSource');
     this.update(
       context,
       this.oldLeg,
@@ -29,7 +29,7 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandMoveFirstLegSource undo");
+    context.debug('PlannerCommandMoveFirstLegSource undo');
     this.update(
       context,
       this.newLeg,

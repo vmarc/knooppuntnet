@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {NetworkChangeInfo} from "../../../../kpn/api/common/changes/details/network-change-info";
-import {KnownElements} from "../../../../kpn/api/common/common/known-elements";
-import {Ref} from "../../../../kpn/api/common/common/ref";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {NetworkChangeInfo} from '../../../../kpn/api/common/changes/details/network-change-info';
+import {KnownElements} from '../../../../kpn/api/common/common/known-elements';
+import {Ref} from '../../../../kpn/api/common/common/ref';
 
 @Component({
-  selector: "kpn-cs-nc-orphan-nodes-old",
+  selector: 'kpn-cs-nc-orphan-nodes-old',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-detail">

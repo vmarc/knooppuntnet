@@ -1,9 +1,9 @@
-import {Input} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 /* tslint:disable:template-i18n */
 @Component({
-  selector: "kpn-legend-icon",
+  selector: 'kpn-legend-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg height="30" width="70">

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {MapService} from "../../../components/ol/services/map.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MapService} from '../../../components/ol/services/map.service';
 
 @Component({
-  selector: "kpn-map-page",
+  selector: 'kpn-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">

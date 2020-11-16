@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {AnalysisModeService} from "./analysis-mode.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AnalysisModeService} from './analysis-mode.service';
 
 @Component({
-  selector: "kpn-analysis-horse-riding-page",
+  selector: 'kpn-analysis-horse-riding-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -27,8 +27,8 @@ export class AnalysisHorseRidingPageComponent {
   readonly beLink: Observable<string>;
 
   constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link("horse-riding", "nl");
-    this.beLink = analysisModeService.link("horse-riding", "be");
+    this.nlLink = analysisModeService.link('horse-riding', 'nl');
+    this.beLink = analysisModeService.link('horse-riding', 'be');
   }
 
 }

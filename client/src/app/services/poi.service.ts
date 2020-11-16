@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Map} from "immutable";
-import {BehaviorSubject} from "rxjs";
-import {AppService} from "../app.service";
-import {InterpretedPoiConfiguration} from "../components/ol/domain/interpreted-poi-configuration";
-import {BrowserStorageService} from "./browser-storage.service";
-import {PoiGroupPreference, PoiPreference, PoiPreferences} from "./poi-preferences";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Map} from 'immutable';
+import {BehaviorSubject} from 'rxjs';
+import {AppService} from '../app.service';
+import {InterpretedPoiConfiguration} from '../components/ol/domain/interpreted-poi-configuration';
+import {BrowserStorageService} from './browser-storage.service';
+import {PoiGroupPreference, PoiPreference, PoiPreferences} from './poi-preferences';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class PoiService {
@@ -30,7 +30,7 @@ export class PoiService {
     if (this.poiNames === null) {
       const keysAndValues: Array<[string, string]> = [];
       Array.from(poiElements).forEach(span => {
-        const id = span.getAttribute("id");
+        const id = span.getAttribute('id');
         const translation = span.textContent;
         keysAndValues.push([id, translation]);
       });
@@ -116,7 +116,7 @@ export class PoiService {
     if (this.poiPreferences != null) {
       const poi = this.poiPreferences.poi(poiId);
       if (poi != null) {
-        return "" + poi.minLevel;
+        return '' + poi.minLevel;
       }
     }
     return null;
@@ -175,7 +175,7 @@ export class PoiService {
   }
 
   private initPoiConfig() {
-    const json = this.browserStorageService.get("poi-config");
+    const json = this.browserStorageService.get('poi-config');
     if (json !== null) {
       this.poiPreferences = PoiPreferences.fromJSON(JSON.parse(json));
       // TODO make sure that changes to poi and poi group definitions are taken into account (work with configuration versions?)
@@ -195,6 +195,6 @@ export class PoiService {
   }
 
   private savePoiConfig() {
-    this.browserStorageService.set("poi-config", JSON.stringify(this.poiPreferences));
+    this.browserStorageService.set('poi-config', JSON.stringify(this.poiPreferences));
   }
 }

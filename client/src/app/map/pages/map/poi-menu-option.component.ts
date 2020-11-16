@@ -1,10 +1,10 @@
-import {Input} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material/checkbox";
-import {PoiService} from "../../../services/poi.service";
+import {Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {PoiService} from '../../../services/poi.service';
 
 @Component({
-  selector: "kpn-poi-menu-option",
+  selector: 'kpn-poi-menu-option',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-checkbox

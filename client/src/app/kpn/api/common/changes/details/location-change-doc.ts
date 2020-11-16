@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {LocationChange} from "./location-change";
+import {LocationChange} from './location-change';
 
 export class LocationChangeDoc {
 

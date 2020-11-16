@@ -1,23 +1,23 @@
-import {OnDestroy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Coordinate} from "ol/coordinate";
-import {Observable} from "rxjs";
-import {switchMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {filter} from "rxjs/operators";
-import {AppService} from "../../../../app.service";
-import {MapZoomService} from "../../../../components/ol/services/map-zoom.service";
-import {MapService} from "../../../../components/ol/services/map.service";
-import {Util} from "../../../../components/shared/util";
-import {MapNodeDetail} from "../../../../kpn/api/common/node/map-node-detail";
-import {ApiResponse} from "../../../../kpn/api/custom/api-response";
-import {Subscriptions} from "../../../../util/Subscriptions";
-import {PlannerService} from "../../../planner.service";
+import {OnDestroy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Coordinate} from 'ol/coordinate';
+import {Observable} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
+import {AppService} from '../../../../app.service';
+import {MapZoomService} from '../../../../components/ol/services/map-zoom.service';
+import {MapService} from '../../../../components/ol/services/map.service';
+import {Util} from '../../../../components/shared/util';
+import {MapNodeDetail} from '../../../../kpn/api/common/node/map-node-detail';
+import {ApiResponse} from '../../../../kpn/api/custom/api-response';
+import {Subscriptions} from '../../../../util/Subscriptions';
+import {PlannerService} from '../../../planner.service';
 
 @Component({
-  selector: "kpn-map-popup-node",
+  selector: 'kpn-map-popup-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response$ | async as response">

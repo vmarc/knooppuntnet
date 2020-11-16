@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {AppService} from "../../../app.service";
-import {Observable} from "rxjs";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {AppService} from '../../../app.service';
+import {Observable} from 'rxjs';
 
 @Component({
-  selector: "kpn-error",
+  selector: 'kpn-error',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="httpError$ | async as httpError" class="kpn-spacer-above http-error">

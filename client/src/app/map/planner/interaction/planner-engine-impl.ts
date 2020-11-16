@@ -1,44 +1,44 @@
-import {List} from "immutable";
-import {Coordinate} from "ol/coordinate";
-import {NodeClick} from "../../../components/ol/domain/node-click";
-import {PoiClick} from "../../../components/ol/domain/poi-click";
-import {PoiId} from "../../../components/ol/domain/poi-id";
-import {RouteClick} from "../../../components/ol/domain/route-click";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandAddStartPoint} from "../commands/planner-command-add-start-point";
-import {PlannerCommandMoveStartPoint} from "../commands/planner-command-move-start-point";
-import {PlannerContext} from "../context/planner-context";
-import {FeatureId} from "../features/feature-id";
-import {FlagFeature} from "../features/flag-feature";
-import {MapFeature} from "../features/map-feature";
-import {NetworkNodeFeature} from "../features/network-node-feature";
-import {RouteFeature} from "../features/route-feature";
-import {PlanFlag} from "../plan/plan-flag";
-import {PlanFlagType} from "../plan/plan-flag-type";
-import {DropEndNodeOnRoute} from "./actions/drop-end-node-on-route";
-import {DropViaNodeOnRoute} from "./actions/drop-via-node-on-route";
-import {DropViaRouteOnRoute} from "./actions/drop-via-route-on-route";
-import {MoveFirstLegSource} from "./actions/move-first-leg-source";
-import {MoveNodeViaPointToNode} from "./actions/move-node-via-point-to-node";
-import {MoveRouteViaPointToNode} from "./actions/move-route-via-point-to-node";
-import {Features} from "./features";
-import {PlannerDragFlag} from "./planner-drag-flag";
-import {PlannerDragFlagAnalyzer} from "./planner-drag-flag-analyzer";
-import {PlannerDragLeg} from "./planner-drag-leg";
-import {PlannerDragViaRouteFlag} from "./planner-drag-via-route-flag";
-import {PlannerDragViaRouteFlagAnalyzer} from "./planner-drag-via-route-flag-analyzer";
-import {PlannerEngine} from "./planner-engine";
-import {RemoveViaLegRouteViaPoint} from "./actions/remove-via-leg-route-via-point";
-import {RemoveEndLegRouteViaPoint} from "./actions/remove-end-leg-route-via-point";
-import {AddLeg} from "./actions/add-leg";
-import {DropLegOnNode} from "./actions/drop-leg-on-node";
-import {MoveEndPoint} from "./actions/move-end-point";
-import {AddViaRouteLeg} from "./actions/add-via-route-leg";
-import {RemoveViaPoint} from "./actions/remove-via-point";
-import * as Sentry from "@sentry/angular";
-import {Severity} from "@sentry/types/dist/severity";
-import {Util} from "../../../components/shared/util";
-import {PlanPrinter} from "../debug/plan-printer";
+import {List} from 'immutable';
+import {Coordinate} from 'ol/coordinate';
+import {NodeClick} from '../../../components/ol/domain/node-click';
+import {PoiClick} from '../../../components/ol/domain/poi-click';
+import {PoiId} from '../../../components/ol/domain/poi-id';
+import {RouteClick} from '../../../components/ol/domain/route-click';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlannerCommandAddStartPoint} from '../commands/planner-command-add-start-point';
+import {PlannerCommandMoveStartPoint} from '../commands/planner-command-move-start-point';
+import {PlannerContext} from '../context/planner-context';
+import {FeatureId} from '../features/feature-id';
+import {FlagFeature} from '../features/flag-feature';
+import {MapFeature} from '../features/map-feature';
+import {NetworkNodeFeature} from '../features/network-node-feature';
+import {RouteFeature} from '../features/route-feature';
+import {PlanFlag} from '../plan/plan-flag';
+import {PlanFlagType} from '../plan/plan-flag-type';
+import {DropEndNodeOnRoute} from './actions/drop-end-node-on-route';
+import {DropViaNodeOnRoute} from './actions/drop-via-node-on-route';
+import {DropViaRouteOnRoute} from './actions/drop-via-route-on-route';
+import {MoveFirstLegSource} from './actions/move-first-leg-source';
+import {MoveNodeViaPointToNode} from './actions/move-node-via-point-to-node';
+import {MoveRouteViaPointToNode} from './actions/move-route-via-point-to-node';
+import {Features} from './features';
+import {PlannerDragFlag} from './planner-drag-flag';
+import {PlannerDragFlagAnalyzer} from './planner-drag-flag-analyzer';
+import {PlannerDragLeg} from './planner-drag-leg';
+import {PlannerDragViaRouteFlag} from './planner-drag-via-route-flag';
+import {PlannerDragViaRouteFlagAnalyzer} from './planner-drag-via-route-flag-analyzer';
+import {PlannerEngine} from './planner-engine';
+import {RemoveViaLegRouteViaPoint} from './actions/remove-via-leg-route-via-point';
+import {RemoveEndLegRouteViaPoint} from './actions/remove-end-leg-route-via-point';
+import {AddLeg} from './actions/add-leg';
+import {DropLegOnNode} from './actions/drop-leg-on-node';
+import {MoveEndPoint} from './actions/move-end-point';
+import {AddViaRouteLeg} from './actions/add-via-route-leg';
+import {RemoveViaPoint} from './actions/remove-via-point';
+import * as Sentry from '@sentry/angular';
+import {Severity} from '@sentry/types/dist/severity';
+import {Util} from '../../../components/shared/util';
+import {PlanPrinter} from '../debug/plan-printer';
 
 export class PlannerEngineImpl implements PlannerEngine {
 
@@ -67,14 +67,14 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (networkNode != null) {
 
       this.breadcrumb(
-        "down event network node",
+        'down event network node',
         {
-          "modifierKeyOnly": modifierKeyOnly,
-          "feature-id": networkNode?.node?.featureId,
-          "node-id": networkNode?.node?.nodeId,
-          "node-name": networkNode?.node?.nodeName,
-          "coordinate": Util.coordinateToString(networkNode?.node?.coordinate),
-          "plan": this.planSummary()
+          modifierKeyOnly,
+          'feature-id': networkNode?.node?.featureId,
+          'node-id': networkNode?.node?.nodeId,
+          'node-name': networkNode?.node?.nodeName,
+          coordinate: Util.coordinateToString(networkNode?.node?.coordinate),
+          plan: this.planSummary()
         }
       );
 
@@ -90,11 +90,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (leg != null) {
 
       this.breadcrumb(
-        "down event leg",
+        'down event leg',
         {
-          "modifierKeyOnly": modifierKeyOnly,
-          "feature-id": leg?.id,
-          "plan": this.planSummary()
+          modifierKeyOnly,
+          'feature-id': leg?.id,
+          plan: this.planSummary()
         }
       );
 
@@ -108,14 +108,14 @@ export class PlannerEngineImpl implements PlannerEngine {
       const route = Features.findRoute(features);
       if (route != null) {
         this.breadcrumb(
-          "down event route",
+          'down event route',
           {
-            "modifierKeyOnly": modifierKeyOnly,
-            "routeId": route?.routeId,
-            "pathId": route?.pathId,
-            "routeName": route?.routeName,
-            "oneWay": route?.oneWay,
-            "plan": this.planSummary()
+            modifierKeyOnly,
+            routeId: route?.routeId,
+            pathId: route?.pathId,
+            routeName: route?.routeName,
+            oneWay: route?.oneWay,
+            plan: this.planSummary()
           }
         );
         this.context.overlay.routeClicked(new RouteClick(coordinate, route));
@@ -125,11 +125,11 @@ export class PlannerEngineImpl implements PlannerEngine {
       const routes = Features.findRoutes(features);
       if (!routes.isEmpty()) {
         this.breadcrumb(
-          "down event routes",
+          'down event routes',
           {
-            "modifierKeyOnly": modifierKeyOnly,
-            "routeIds": routes?.map(route => route?.routeId).join(", "),
-            "plan": this.planSummary()
+            modifierKeyOnly,
+            routeIds: routes?.map(route => route?.routeId).join(', '),
+            plan: this.planSummary()
           }
         );
         new AddViaRouteLeg(this.context).add(routes, coordinate);
@@ -140,14 +140,14 @@ export class PlannerEngineImpl implements PlannerEngine {
     const poiFeature = Features.findPoi(features);
     if (poiFeature != null) {
       this.breadcrumb(
-        "down event poi",
+        'down event poi',
         {
-          "modifierKeyOnly": modifierKeyOnly,
-          "poiId": poiFeature.poiId,
-          "poiType": poiFeature.poiType,
-          "layer": poiFeature.layer,
-          "coordinate": Util.coordinateToString(poiFeature.coordinate),
-          "plan": this.planSummary()
+          modifierKeyOnly,
+          poiId: poiFeature.poiId,
+          poiType: poiFeature.poiType,
+          layer: poiFeature.layer,
+          coordinate: Util.coordinateToString(poiFeature.coordinate),
+          plan: this.planSummary()
         }
       );
       this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
@@ -173,7 +173,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
-      if (modifierKeyOnly || networkNodeFeature.node.nodeName != "*") {
+      if (modifierKeyOnly || networkNodeFeature.node.nodeName != '*') {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         this.context.cursor.setStylePointer();
         return true;
@@ -212,7 +212,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingNode()) {
 
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (networkNodeFeature != null && networkNodeFeature.node.nodeName != "*") {
+      if (networkNodeFeature != null && networkNodeFeature.node.nodeName != '*') {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, networkNodeFeature.node.coordinate);
@@ -382,8 +382,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const sinkNode = this.context.plan.sinkNode();
       if (sinkNode && sinkNode.nodeId == networkNode.node.nodeId) {
         // we are already at that node, no need to add an extra leg here
-      }
-      else {
+      } else {
         new AddLeg(this.context).add(networkNode.node);
       }
     } else {
@@ -412,12 +411,12 @@ export class PlannerEngineImpl implements PlannerEngine {
   private flagDragStarted(flag: FlagFeature, coordinate: Coordinate): boolean {
 
     this.breadcrumb(
-      "flag drag started",
+      'flag drag started',
       {
-        "flag-type": flag.flagType,
-        "flag-feature-id": flag.id,
-        "coordinate": Util.coordinateToString(coordinate),
-        "plan": this.planSummary()
+        'flag-type': flag.flagType,
+        'flag-feature-id': flag.id,
+        coordinate: Util.coordinateToString(coordinate),
+        plan: this.planSummary()
       }
     );
 
@@ -536,11 +535,11 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private breadcrumb(message: string, data: { [key: string]: any }): void {
     Sentry.addBreadcrumb({
-      type: "user",
-      category: "action",
+      type: 'user',
+      category: 'action',
       level: Severity.Info,
-      message: message,
-      data: data
+      message,
+      data
     });
   }
 

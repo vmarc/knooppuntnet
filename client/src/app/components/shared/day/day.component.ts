@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Timestamp} from "../../../kpn/api/custom/timestamp";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Timestamp} from '../../../kpn/api/custom/timestamp';
 
 @Component({
-  selector: "kpn-day",
+  selector: 'kpn-day',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     {{formattedTimestamp()}}
@@ -15,10 +15,10 @@ export class DayComponent {
 
   formattedTimestamp() {
     if (!this.timestamp) {
-      return "";
+      return '';
     }
-    return this.timestamp.year.toString() + "-" +
-      this.digits(this.timestamp.month) + "-" +
+    return this.timestamp.year.toString() + '-' +
+      this.digits(this.timestamp.month) + '-' +
       this.digits(this.timestamp.day);
   }
 

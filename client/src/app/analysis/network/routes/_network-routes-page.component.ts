@@ -1,16 +1,16 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {NetworkRoutesPage} from "../../../kpn/api/common/network/network-routes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {NetworkService} from "../network.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {shareReplay} from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {NetworkRoutesPage} from '../../../kpn/api/common/network/network-routes-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NetworkService} from '../network.service';
 
 @Component({
-  selector: "kpn-network-routes-page",
+  selector: 'kpn-network-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -56,7 +56,7 @@ export class NetworkRoutesPageComponent implements OnInit {
   ngOnInit(): void {
 
     this.networkId$ = this.activatedRoute.params.pipe(
-      map(params => +params["networkId"]),
+      map(params => +params['networkId']),
       tap(networkId => this.networkService.init(networkId)),
       shareReplay()
     );

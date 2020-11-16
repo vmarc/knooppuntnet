@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {PoiAnalysis} from "./poi-analysis";
+import {PoiAnalysis} from './poi-analysis';
 
 export class PoiPage {
 

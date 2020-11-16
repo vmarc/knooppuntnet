@@ -1,9 +1,9 @@
 // generated, but then manually altered to avoid problem with WayDirection
 
-import {List} from "immutable";
-import {RouteNetworkNodeInfo} from "../common/route/route-network-node-info";
-import {Tags} from "./tags";
-import {Timestamp} from "./timestamp";
+import {List} from 'immutable';
+import {RouteNetworkNodeInfo} from '../common/route/route-network-node-info';
+import {Tags} from './tags';
+import {Timestamp} from './timestamp';
 
 export class RouteMemberInfo {
 

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {NetworkNodesService} from "./network-nodes.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {NetworkNodesService} from './network-nodes.service';
 
 @Component({
-  selector: "kpn-network-nodes-sidebar",
+  selector: 'kpn-network-nodes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
 
 @Component({
-  selector: "kpn-change-set-analysis",
+  selector: 'kpn-change-set-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

@@ -1,14 +1,14 @@
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {RouteFeature} from "../features/route-feature";
-import {PlannerHighlighter} from "./planner-highlighter";
-import {Point} from "ol/geom";
-import {LineString} from "ol/geom";
-import {MultiLineString} from "ol/geom";
-import {Feature} from "ol";
-import RenderFeature from "ol/render/Feature";
-import GeometryType from "ol/geom/GeometryType";
-import GeometryLayout from "ol/geom/GeometryLayout";
-import {PlannerHighlightLayer} from "./planner-highlight-layer";
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {RouteFeature} from '../features/route-feature';
+import {PlannerHighlighter} from './planner-highlighter';
+import {Point} from 'ol/geom';
+import {LineString} from 'ol/geom';
+import {MultiLineString} from 'ol/geom';
+import {Feature} from 'ol';
+import RenderFeature from 'ol/render/Feature';
+import GeometryType from 'ol/geom/GeometryType';
+import GeometryLayout from 'ol/geom/GeometryLayout';
+import {PlannerHighlightLayer} from './planner-highlight-layer';
 
 export class PlannerHighlighterImpl implements PlannerHighlighter {
 
@@ -34,7 +34,7 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
         const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
         const ends: number[] = [];
         renderFeature.getEnds().forEach(num => {
-          if (typeof num === "number") {
+          if (typeof num === 'number') {
             ends.push(num);
           }
         });
@@ -42,7 +42,7 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
         const feature = new Feature(lineString);
         this.layer.highlightFeature(feature);
       } else {
-        console.log("OTHER GEOMETRY TYPE " + geometryType);
+        console.log('OTHER GEOMETRY TYPE ' + geometryType);
       }
     }
   }

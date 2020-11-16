@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NodeIntegrityDetail} from "./node-integrity-detail";
+import {List} from 'immutable';
+import {NodeIntegrityDetail} from './node-integrity-detail';
 
 export class NodeIntegrity {
 

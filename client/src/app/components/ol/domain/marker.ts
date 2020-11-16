@@ -1,10 +1,10 @@
-import {Coordinate} from "ol/coordinate";
+import {Coordinate} from 'ol/coordinate';
 
-import Feature from "ol/Feature";
-import Point from "ol/geom/Point";
-import Icon from "ol/style/Icon";
-import IconAnchorUnits from "ol/style/IconAnchorUnits";
-import Style from "ol/style/Style";
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import Icon from 'ol/style/Icon';
+import IconAnchorUnits from 'ol/style/IconAnchorUnits';
+import Style from 'ol/style/Style';
 
 export class Marker {
 
@@ -22,7 +22,7 @@ export class Marker {
         anchor: [12, 41],
         anchorXUnits: IconAnchorUnits.PIXELS,
         anchorYUnits: IconAnchorUnits.PIXELS,
-        src: src
+        src
       })
     });
   }

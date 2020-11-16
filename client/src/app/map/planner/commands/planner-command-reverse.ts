@@ -1,6 +1,6 @@
-import {PlannerContext} from "../context/planner-context";
-import {Plan} from "../plan/plan";
-import {PlannerCommand} from "./planner-command";
+import {PlannerContext} from '../context/planner-context';
+import {Plan} from '../plan/plan';
+import {PlannerCommand} from './planner-command';
 
 export class PlannerCommandReverse implements PlannerCommand {
 
@@ -9,12 +9,12 @@ export class PlannerCommandReverse implements PlannerCommand {
   }
 
   public do(context: PlannerContext) {
-    context.debug("PlannerCommandReverse");
+    context.debug('PlannerCommandReverse');
     PlannerCommandReverse.updatePlan(context, this.oldPlan, this.newPlan);
   }
 
   public undo(context: PlannerContext) {
-    context.debug("PlannerCommandReverse undo");
+    context.debug('PlannerCommandReverse undo');
     PlannerCommandReverse.updatePlan(context, this.newPlan, this.oldPlan);
   }
 

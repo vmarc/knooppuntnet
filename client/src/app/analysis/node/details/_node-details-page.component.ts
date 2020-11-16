@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {List} from "immutable";
-import {Subject} from "rxjs";
-import {Observable} from "rxjs";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {InterpretedTags} from "../../../components/shared/tags/interpreted-tags";
-import {Ref} from "../../../kpn/api/common/common/ref";
-import {NodeInfo} from "../../../kpn/api/common/node-info";
-import {NodeDetailsPage} from "../../../kpn/api/common/node/node-details-page";
-import {NodeReferences} from "../../../kpn/api/common/node/node-references";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {FactInfo} from "../../fact/fact-info";
-import {NodeIntegrity} from "../../../kpn/api/common/node/node-integrity";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {List} from 'immutable';
+import {Subject} from 'rxjs';
+import {Observable} from 'rxjs';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
+import {Ref} from '../../../kpn/api/common/common/ref';
+import {NodeInfo} from '../../../kpn/api/common/node-info';
+import {NodeDetailsPage} from '../../../kpn/api/common/node/node-details-page';
+import {NodeReferences} from '../../../kpn/api/common/node/node-references';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {FactInfo} from '../../fact/fact-info';
+import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
 
 @Component({
-  selector: "kpn-node-details-page",
+  selector: 'kpn-node-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -111,7 +111,7 @@ export class NodeDetailsPageComponent implements OnInit {
     this.changeCount$.next(history.state.changeCount);
     this.pageService.showFooter = true;
     this.response$ = this.activatedRoute.params.pipe(
-      map(params => params["nodeId"]),
+      map(params => params['nodeId']),
       tap(nodeId => this.nodeId$.next(nodeId)),
       mergeMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
         tap(response => {
@@ -131,12 +131,10 @@ export class NodeDetailsPageComponent implements OnInit {
 
   private buildFactInfos(page: NodeDetailsPage): List<FactInfo> {
     const nodeFacts = page.nodeInfo.facts.map(fact => new FactInfo(fact));
-    const extraFacts = page.references.networkReferences.flatMap(networkReference => {
-      return networkReference.facts.map(fact => {
+    const extraFacts = page.references.networkReferences.flatMap(networkReference => networkReference.facts.map(fact => {
         const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
         return new FactInfo(fact, networkRef, null, null);
-      });
-    });
+      }));
     return nodeFacts.concat(extraFacts);
   }
 

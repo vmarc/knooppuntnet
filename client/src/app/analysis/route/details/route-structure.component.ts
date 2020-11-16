@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {List} from "immutable";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {List} from 'immutable';
 
 @Component({
-  selector: "kpn-route-structure",
+  selector: 'kpn-route-structure',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table class="kpn-table">
@@ -27,13 +27,13 @@ export class RouteStructureComponent {
 
   formatted(structureString: string): SafeHtml {
     let html = structureString;
-    html = html.replace(/forward/g, "<b>forward</b>");
-    html = html.replace(/backward/g, "<b>backward</b>");
-    html = html.replace(/unused/g, "<b>unused</b>");
-    html = html.replace(/tentacle/g, "<b>tentacle</b>");
-    html = html.replace(/broken/g, "<span style='color:red'>broken</span>");
-    html = html.replace(/\\+/g, " + ");
-    html = html.replace(/\\-/g, " - ");
+    html = html.replace(/forward/g, '<b>forward</b>');
+    html = html.replace(/backward/g, '<b>backward</b>');
+    html = html.replace(/unused/g, '<b>unused</b>');
+    html = html.replace(/tentacle/g, '<b>tentacle</b>');
+    html = html.replace(/broken/g, '<span style=\'color:red\'>broken</span>');
+    html = html.replace(/\\+/g, ' + ');
+    html = html.replace(/\\-/g, ' - ');
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 

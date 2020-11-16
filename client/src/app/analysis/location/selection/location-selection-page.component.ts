@@ -1,18 +1,18 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {flatMap} from "rxjs/operators";
-import {LocationNode} from "../../../kpn/api/common/location/location-node";
-import {Country} from "../../../kpn/api/custom/country";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {LocationModeService} from "./location-mode.service";
-import {LocationSelectionService} from "./location-selection.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {flatMap} from 'rxjs/operators';
+import {LocationNode} from '../../../kpn/api/common/location/location-node';
+import {Country} from '../../../kpn/api/custom/country';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {LocationModeService} from './location-mode.service';
+import {LocationSelectionService} from './location-selection.service';
 
 @Component({
-  selector: "kpn-location-selection-page",
+  selector: 'kpn-location-selection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -98,13 +98,11 @@ export class LocationSelectionPageComponent implements OnInit {
   ngOnInit() {
     this.locationNode$ = this.activatedRoute.params.pipe(
       map(params => {
-        this.networkType = NetworkType.withName(params["networkType"]);
-        this.country = new Country(params["country"]);
+        this.networkType = NetworkType.withName(params['networkType']);
+        this.country = new Country(params['country']);
         return new Subset(this.country, this.networkType);
       }),
-      flatMap(subset => {
-        return this.locationSelectionService.locations(subset.networkType, subset.country);
-      })
+      flatMap(subset => this.locationSelectionService.locations(subset.networkType, subset.country))
     );
   }
 

@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NodeChangeInfo} from "./node-change-info";
+import {List} from 'immutable';
+import {NodeChangeInfo} from './node-change-info';
 
 export class NodeChangeInfos {
 

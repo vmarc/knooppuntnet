@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-icon-investigate",
+  selector: 'kpn-icon-investigate',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-icon svgIcon="investigate"></mat-icon>

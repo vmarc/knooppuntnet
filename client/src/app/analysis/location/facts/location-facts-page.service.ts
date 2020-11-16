@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {Params} from "@angular/router";
-import {combineLatest} from "rxjs";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
-import {switchMap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {LocationFactsPage} from "../../../kpn/api/common/location/location-facts-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {LocationService} from "../location.service";
+import {Injectable} from '@angular/core';
+import {Params} from '@angular/router';
+import {combineLatest} from 'rxjs';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {LocationFactsPage} from '../../../kpn/api/common/location/location-facts-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {LocationService} from '../location.service';
 
 @Injectable()
 export class LocationFactsPageService {

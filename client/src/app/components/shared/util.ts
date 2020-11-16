@@ -1,37 +1,35 @@
-import {Params, Route} from "@angular/router";
-import {ActivatedRouteSnapshot} from "@angular/router";
-import {List} from "immutable";
-import {Map} from "immutable";
-import {Coordinate} from "ol/coordinate";
-import {boundingExtent} from "ol/extent";
-import {Extent} from "ol/extent";
-import {fromLonLat, toLonLat} from "ol/proj";
-import {Bounds} from "../../kpn/api/common/bounds";
-import {ChangesParameters} from "../../kpn/api/common/changes/filter/changes-parameters";
-import {LatLonImpl} from "../../kpn/api/common/lat-lon-impl";
-import {Country} from "../../kpn/api/custom/country";
-import {NetworkType} from "../../kpn/api/custom/network-type";
-import {Subset} from "../../kpn/api/custom/subset";
-import {TagDiffs} from "../../kpn/api/common/diff/tag-diffs";
+import {Params, Route} from '@angular/router';
+import {ActivatedRouteSnapshot} from '@angular/router';
+import {List} from 'immutable';
+import {Map} from 'immutable';
+import {Coordinate} from 'ol/coordinate';
+import {boundingExtent} from 'ol/extent';
+import {Extent} from 'ol/extent';
+import {fromLonLat, toLonLat} from 'ol/proj';
+import {Bounds} from '../../kpn/api/common/bounds';
+import {ChangesParameters} from '../../kpn/api/common/changes/filter/changes-parameters';
+import {LatLonImpl} from '../../kpn/api/common/lat-lon-impl';
+import {Country} from '../../kpn/api/custom/country';
+import {NetworkType} from '../../kpn/api/custom/network-type';
+import {Subset} from '../../kpn/api/custom/subset';
+import {TagDiffs} from '../../kpn/api/common/diff/tag-diffs';
 
-interface IPropertyGetter<T> {
-  (): T;
-}
+type IPropertyGetter<T> = () => T;
 
 export class Util {
 
   public static routePath(path: string, component: any, sidebarComponent: any): Route {
     return {
-      path: path,
+      path,
       children: [
         {
-          path: "",
-          component: component
+          path: '',
+          component
         },
         {
-          path: "",
+          path: '',
           component: sidebarComponent,
-          outlet: "sidebar"
+          outlet: 'sidebar'
         }
       ]
     };
@@ -39,29 +37,29 @@ export class Util {
 
   public static routePathWithToolbar(path: string, component: any, sidebarComponent: any, toolbarComponent: any): Route {
     return {
-      path: path,
+      path,
       children: [
         {
-          path: "",
-          component: component
+          path: '',
+          component
         },
         {
-          path: "",
+          path: '',
           component: sidebarComponent,
-          outlet: "sidebar"
+          outlet: 'sidebar'
         },
         {
-          path: "",
+          path: '',
           component: toolbarComponent,
-          outlet: "toolbar"
+          outlet: 'toolbar'
         }
       ]
     };
   }
 
   public static subsetInRoute(params: Params): Subset {
-    const country = params["country"];
-    const networkType = params["networkType"];
+    const country = params['country'];
+    const networkType = params['networkType'];
     return new Subset(new Country(country), NetworkType.withName(networkType));
   }
 
@@ -70,7 +68,7 @@ export class Util {
     const remainder = replicationNumber % 1000000;
     const level2 = this.format(remainder / 1000);
     const level3 = this.format(remainder % 1000);
-    return level1 + "/" + level2 + "/" + level3;
+    return level1 + '/' + level2 + '/' + level3;
   }
 
   public static safeGet<T>(getter: IPropertyGetter<T>, defaultValue?: T): T {
@@ -87,15 +85,15 @@ export class Util {
 
   public static latLonFromCoordinate(coordinate: Coordinate): LatLonImpl {
     const lonLat = toLonLat(coordinate);
-    return new LatLonImpl("" + lonLat[1], "" + lonLat[0]);
+    return new LatLonImpl('' + lonLat[1], '' + lonLat[0]);
   }
 
   public static coordinateToString(coordinate: Coordinate): string {
     if (coordinate) {
       const lonLat = toLonLat(coordinate);
-      return "[" + lonLat[1] + ", " + lonLat[0] + "]";
+      return '[' + lonLat[1] + ', ' + lonLat[0] + ']';
     }
-    return "[]";
+    return '[]';
   }
 
   public static latLonToCoordinate(latLon: LatLonImpl): Coordinate {
@@ -132,7 +130,7 @@ export class Util {
     const yyyy = today.getFullYear();
     const mm = Util.twoDigits(today.getMonth() + 1);
     const dd = Util.twoDigits(today.getDate());
-    return yyyy + "-" + mm + "-" + dd;
+    return yyyy + '-' + mm + '-' + dd;
   }
 
   private static format(level: number): string {
@@ -145,7 +143,7 @@ export class Util {
   }
 
   static twoDigits(value: number): string {
-    return (value < 10 ? "0" : "") + value;
+    return (value < 10 ? '0' : '') + value;
   }
 
   static paramsIn(routeSnapshot: ActivatedRouteSnapshot): Map<string, string> {

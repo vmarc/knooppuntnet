@@ -1,10 +1,10 @@
-import {List} from "immutable";
-import * as JsPdf from "jspdf";
-import {PlannerService} from "../../map/planner.service";
-import {PlanInstruction} from "../../map/planner/plan/plan-instruction";
-import {BitmapIconService} from "../bitmap-icon.service";
-import {PdfPage} from "./pdf-page";
-import {PdfSideBar} from "./pdf-side-bar";
+import {List} from 'immutable';
+import * as JsPdf from 'jspdf';
+import {PlannerService} from '../../map/planner.service';
+import {PlanInstruction} from '../../map/planner/plan/plan-instruction';
+import {BitmapIconService} from '../bitmap-icon.service';
+import {PdfPage} from './pdf-page';
+import {PdfSideBar} from './pdf-side-bar';
 
 export class PdfDirections {
 
@@ -23,7 +23,7 @@ export class PdfDirections {
 
   print(): void {
     this.printPages();
-    this.doc.save("knooppuntnet.pdf");
+    this.doc.save('knooppuntnet.pdf');
   }
 
   private printPages(): void {
@@ -92,35 +92,35 @@ export class PdfDirections {
     const yCircleCenter = y + 2.5 + this.nodeCircleRadius;
     this.doc.setDrawColor(0);
     this.doc.setLineWidth(0.4);
-    this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius, "S");
+    this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius, 'S');
     this.doc.setFontSize(12);
-    this.doc.text(node, xCircleCenter, yCircleCenter, {align: "center", baseline: "middle", lineHeightFactor: "1"});
+    this.doc.text(node, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: '1'});
   }
 
   private instructionText(instruction: PlanInstruction): string {
     let texts = List<string>();
     if (!!instruction.heading) {
-      texts = texts.push(this.plannerService.translate("head"));
-      texts = texts.push(" ");
-      texts = texts.push(this.plannerService.translate("heading-" + instruction.heading));
+      texts = texts.push(this.plannerService.translate('head'));
+      texts = texts.push(' ');
+      texts = texts.push(this.plannerService.translate('heading-' + instruction.heading));
       if (!!instruction.street) {
-        texts = texts.push(": ");
+        texts = texts.push(': ');
         texts = texts.push(instruction.street);
       }
     } else {
-      const key = "command-" + instruction.command;
+      const key = 'command-' + instruction.command;
       texts = texts.push(this.plannerService.translate(key));
       if (!!instruction.street) {
-        texts = texts.push(": ");
+        texts = texts.push(': ');
         texts = texts.push(instruction.street);
       }
     }
-    return texts.join("");
+    return texts.join('');
   }
 
   private printInstructionIcon(y: number, command: string): void {
     this.iconService.getIcon(command).subscribe(icon => {
-      this.doc.addImage(icon, "PNG", this.leftMargin, y, 80, 80, "", "FAST");
+      this.doc.addImage(icon, 'PNG', this.leftMargin, y, 80, 80, '', 'FAST');
     });
   }
 
@@ -128,8 +128,8 @@ export class PdfDirections {
     this.doc.setFontSize(10);
     const left = this.leftMargin + (this.nodeCircleRadius * 2) + PdfPage.spacer;
     const text = this.instructionText(instruction);
-    this.doc.text(text, left, y, {baseline: "top", lineHeightFactor: "1"});
-    this.doc.text(instruction.distance + " m", left, y + 5, {baseline: "top", lineHeightFactor: "1"});
+    this.doc.text(text, left, y, {baseline: 'top', lineHeightFactor: '1'});
+    this.doc.text(instruction.distance + ' m', left, y + 5, {baseline: 'top', lineHeightFactor: '1'});
   }
 
   private printColour(y: number, colour: string): void {
@@ -139,10 +139,10 @@ export class PdfDirections {
       translatedColour = colour;
     }
     let texts = List<string>();
-    texts = texts.push(this.plannerService.translate("follow-colour"));
-    texts = texts.push(" ");
+    texts = texts.push(this.plannerService.translate('follow-colour'));
+    texts = texts.push(' ');
     texts = texts.push(translatedColour);
-    const text = texts.join("");
-    this.doc.text(text, this.leftMargin, y + 5, {baseline: "top", lineHeightFactor: "1"});
+    const text = texts.join('');
+    this.doc.text(text, this.leftMargin, y + 5, {baseline: 'top', lineHeightFactor: '1'});
   }
 }

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
-  selector: "kpn-network-indicator-dialog",
+  selector: 'kpn-network-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -56,19 +56,19 @@ export class NetworkIndicatorDialogComponent {
   }
 
   isOrange() {
-    return this.color === "orange";
+    return this.color === 'orange';
   }
 
   isGreen() {
-    return this.color === "green";
+    return this.color === 'green';
   }
 
   isGray() {
-    return this.color === "gray";
+    return this.color === 'gray';
   }
 
   isRed() {
-    return this.color === "red";
+    return this.color === 'red';
   }
 
 }

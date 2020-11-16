@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {TagDetail} from "./tag-detail";
+import {List} from 'immutable';
+import {TagDetail} from './tag-detail';
 
 export class TagDiffs {
 

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from "@angular/core";
-import {I18nService} from "./i18n.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from '@angular/core';
+import {I18nService} from './i18n.service';
 
 @Component({
-  selector: "kpn-i18n",
+  selector: 'kpn-i18n',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!isRegistryUpdated()">

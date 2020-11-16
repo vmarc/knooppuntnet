@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {LocationFact} from "./location-fact";
-import {LocationSummary} from "./location-summary";
+import {List} from 'immutable';
+import {LocationFact} from './location-fact';
+import {LocationSummary} from './location-summary';
 
 export class LocationFactsPage {
 

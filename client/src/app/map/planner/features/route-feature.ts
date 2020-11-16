@@ -1,5 +1,5 @@
-import {FeatureLike} from "ol/Feature";
-import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
+import {FeatureLike} from 'ol/Feature';
+import {TrackPathKey} from '../../../kpn/api/common/common/track-path-key';
 
 export class RouteFeature {
   constructor(readonly routeId: number,

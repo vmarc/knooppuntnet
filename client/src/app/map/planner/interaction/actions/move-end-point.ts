@@ -1,12 +1,12 @@
-import {PlannerContext} from "../../context/planner-context";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlanUtil} from "../../plan/plan-util";
-import {PlannerCommandReplaceLeg} from "../../commands/planner-command-replace-leg";
-import {LegEnd} from "../../../../kpn/api/common/planner/leg-end";
-import {Observable} from "rxjs";
-import {PlanLeg} from "../../plan/plan-leg";
-import {map} from "rxjs/operators";
-import {PlannerDragFlag} from "../planner-drag-flag";
+import {PlannerContext} from '../../context/planner-context';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlanUtil} from '../../plan/plan-util';
+import {PlannerCommandReplaceLeg} from '../../commands/planner-command-replace-leg';
+import {LegEnd} from '../../../../kpn/api/common/planner/leg-end';
+import {Observable} from 'rxjs';
+import {PlanLeg} from '../../plan/plan-leg';
+import {map} from 'rxjs/operators';
+import {PlannerDragFlag} from '../planner-drag-flag';
 
 export class MoveEndPoint {
 
@@ -25,7 +25,7 @@ export class MoveEndPoint {
         command => this.context.execute(command),
         error => {
           this.context.resetDragFlag(dragFlag);
-          this.context.errorDialog(error)
+          this.context.errorDialog(error);
         }
       );
     }

@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {ChangesFilter} from "../changes/filter/changes-filter";
-import {NetworkChangeInfo} from "../changes/details/network-change-info";
-import {NetworkSummary} from "./network-summary";
+import {List} from 'immutable';
+import {ChangesFilter} from '../changes/filter/changes-filter';
+import {NetworkChangeInfo} from '../changes/details/network-change-info';
+import {NetworkSummary} from './network-summary';
 
 export class NetworkChangesPage {
 

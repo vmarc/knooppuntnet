@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {PlannerService} from "../map/planner.service";
-import {DirectionsAnalyzer} from "../map/planner/directions/directions-analyzer";
-import {Plan} from "../map/planner/plan/plan";
-import {BitmapIconService} from "./bitmap-icon.service";
-import {PdfDirections} from "./plan/pdf-directions";
-import {PdfDocument} from "./plan/pdf-document";
-import {PdfStripDocument} from "./plan/pdf-strip-document";
+import {Injectable} from '@angular/core';
+import {PlannerService} from '../map/planner.service';
+import {DirectionsAnalyzer} from '../map/planner/directions/directions-analyzer';
+import {Plan} from '../map/planner/plan/plan';
+import {BitmapIconService} from './bitmap-icon.service';
+import {PdfDirections} from './plan/pdf-directions';
+import {PdfDocument} from './plan/pdf-document';
+import {PdfStripDocument} from './plan/pdf-strip-document';
 
 @Injectable()
 export class PdfService {

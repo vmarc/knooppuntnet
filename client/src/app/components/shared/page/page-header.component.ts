@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from "@angular/core";
-import {PageService} from "../page.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {PageService} from '../page.service';
 
 @Component({
-  selector: "kpn-page-header",
+  selector: 'kpn-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="header">
@@ -31,13 +31,13 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
   @Input() subject: string;
   @Input() pageTitle: string;
 
-  @ViewChild("title", { read: ElementRef, static: true }) renderedTitle: ElementRef;
+  @ViewChild('title', { read: ElementRef, static: true }) renderedTitle: ElementRef;
 
   constructor(private pageService: PageService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["pageTitle"]) {
+    if (changes['pageTitle']) {
       this.updatePageTitle();
     }
   }

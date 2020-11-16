@@ -1,20 +1,20 @@
-import {BehaviorSubject, Observable} from "rxjs";
-import {Subject} from "rxjs";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {PlannerCommand} from "../commands/planner-command";
-import {PlannerCommandStack} from "../commands/planner-command-stack";
-import {Plan} from "../plan/plan";
-import {PlanLeg} from "../plan/plan-leg";
-import {PlannerCursor} from "./planner-cursor";
-import {PlannerElasticBand} from "./planner-elastic-band";
-import {PlannerLegRepository} from "./planner-leg-repository";
-import {PlannerMarkerLayer} from "./planner-marker-layer";
-import {PlannerOverlay} from "./planner-overlay";
-import {PlannerRouteLayer} from "./planner-route-layer";
-import {PlanLegData} from "./plan-leg-data";
-import {PlannerHighlighter} from "./planner-highlighter";
-import {PlannerDragFlag} from "../interaction/planner-drag-flag";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Subject} from 'rxjs';
+import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {PlannerCommand} from '../commands/planner-command';
+import {PlannerCommandStack} from '../commands/planner-command-stack';
+import {Plan} from '../plan/plan';
+import {PlanLeg} from '../plan/plan-leg';
+import {PlannerCursor} from './planner-cursor';
+import {PlannerElasticBand} from './planner-elastic-band';
+import {PlannerLegRepository} from './planner-leg-repository';
+import {PlannerMarkerLayer} from './planner-marker-layer';
+import {PlannerOverlay} from './planner-overlay';
+import {PlannerRouteLayer} from './planner-route-layer';
+import {PlanLegData} from './plan-leg-data';
+import {PlannerHighlighter} from './planner-highlighter';
+import {PlannerDragFlag} from '../interaction/planner-drag-flag';
 
 export class NetworkTypeData {
   constructor(public plan: Plan,

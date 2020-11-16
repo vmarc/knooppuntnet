@@ -1,9 +1,9 @@
-import {PlannerContext} from "../../context/planner-context";
-import {PlanLeg} from "../../plan/plan-leg";
-import {PlanUtil} from "../../plan/plan-util";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PlannerCommandReplaceLeg} from "../../commands/planner-command-replace-leg";
+import {PlannerContext} from '../../context/planner-context';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PlannerCommandReplaceLeg} from '../../commands/planner-command-replace-leg';
 
 export class RemoveEndLegRouteViaPoint {
 

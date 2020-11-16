@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {NodeChangeInfo} from "../../../../kpn/api/common/node/node-change-info";
-import {Util} from "../../../../components/shared/util";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {NodeChangeInfo} from '../../../../kpn/api/common/node/node-change-info';
+import {Util} from '../../../../components/shared/util';
 
 @Component({
-  selector: "kpn-node-change-detail",
+  selector: 'kpn-node-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

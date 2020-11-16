@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Day} from "../../custom/day";
-import {Fact} from "../../custom/fact";
-import {NodeIntegrityCheck} from "../node-integrity-check";
-import {Ref} from "../common/ref";
-import {Tags} from "../../custom/tags";
-import {Timestamp} from "../../custom/timestamp";
+import {List} from 'immutable';
+import {Day} from '../../custom/day';
+import {Fact} from '../../custom/fact';
+import {NodeIntegrityCheck} from '../node-integrity-check';
+import {Ref} from '../common/ref';
+import {Tags} from '../../custom/tags';
+import {Timestamp} from '../../custom/timestamp';
 
 export class NetworkInfoNode {
 

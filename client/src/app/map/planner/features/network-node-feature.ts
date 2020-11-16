@@ -1,7 +1,7 @@
-import {Coordinate} from "ol/coordinate";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlanUtil} from "../plan/plan-util";
-import {MapFeature} from "./map-feature";
+import {Coordinate} from 'ol/coordinate';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanUtil} from '../plan/plan-util';
+import {MapFeature} from './map-feature';
 
 export class NetworkNodeFeature extends MapFeature {
 

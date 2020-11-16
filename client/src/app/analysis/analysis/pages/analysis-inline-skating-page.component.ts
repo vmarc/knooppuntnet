@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {AnalysisModeService} from "./analysis-mode.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AnalysisModeService} from './analysis-mode.service';
 
 @Component({
-  selector: "kpn-analysis-inline-skating-page",
+  selector: 'kpn-analysis-inline-skating-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -25,7 +25,7 @@ export class AnalysisInlineSkatingPageComponent {
   readonly nlLink: Observable<string>;
 
   constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link("inline-skating", "nl");
+    this.nlLink = analysisModeService.link('inline-skating', 'nl');
   }
 
 }

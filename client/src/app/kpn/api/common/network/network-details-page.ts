@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {NetworkAttributes} from "./network-attributes";
-import {NetworkFacts} from "../network-facts";
-import {NetworkSummary} from "./network-summary";
-import {Tags} from "../../custom/tags";
+import {NetworkAttributes} from './network-attributes';
+import {NetworkFacts} from '../network-facts';
+import {NetworkSummary} from './network-summary';
+import {Tags} from '../../custom/tags';
 
 export class NetworkDetailsPage {
 

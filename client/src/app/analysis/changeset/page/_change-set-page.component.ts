@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
-import {map, mergeMap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {Util} from "../../../components/shared/util";
-import {ChangeSetPage} from "../../../kpn/api/common/changes/change-set-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {map, mergeMap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {Util} from '../../../components/shared/util';
+import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
 
 class ChangeSetKey {
   constructor(readonly changeSetId: string,
@@ -17,7 +17,7 @@ class ChangeSetKey {
 }
 
 @Component({
-  selector: "kpn-change-set-page",
+  selector: 'kpn-change-set-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1>
@@ -41,7 +41,7 @@ class ChangeSetKey {
 export class ChangeSetPageComponent implements OnInit {
 
   response$: Observable<ApiResponse<ChangeSetPage>>;
-  changeSetTitle = "";
+  changeSetTitle = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -57,15 +57,15 @@ export class ChangeSetPageComponent implements OnInit {
         if (response.result) {
           const a = response.result.summary.key.changeSetId;
           const b = Util.replicationName(response.result.summary.key.replicationNumber);
-          this.changeSetTitle = a + " " + b;
+          this.changeSetTitle = a + ' ' + b;
         }
       })
     );
   }
 
   private interpreteParams(params: Params): ChangeSetKey {
-    const changeSetId = params["changeSetId"];
-    const replicationNumber = params["replicationNumber"];
+    const changeSetId = params['changeSetId'];
+    const replicationNumber = params['replicationNumber'];
     return new ChangeSetKey(changeSetId, replicationNumber);
   }
 

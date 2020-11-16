@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
-  selector: "kpn-connection-indicator-dialog",
+  selector: 'kpn-connection-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator-dialog letter="C" i18n-letter="@@node-connection-indicator.letter" [color]="color">
@@ -34,11 +34,11 @@ export class NodeConnectionIndicatorDialogComponent {
   }
 
   isBlue() {
-    return this.color === "blue";
+    return this.color === 'blue';
   }
 
   isGray() {
-    return this.color === "gray";
+    return this.color === 'gray';
   }
 
 }

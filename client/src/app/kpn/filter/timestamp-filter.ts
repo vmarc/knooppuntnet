@@ -1,11 +1,11 @@
-import {List} from "immutable";
-import {TimeInfo} from "../api/common/time-info";
-import {Timestamp} from "../api/custom/timestamp";
-import {Filter} from "./filter";
-import {FilterOption} from "./filter-option";
-import {FilterOptionGroup} from "./filter-option-group";
-import {Filters} from "./filters";
-import {TimestampFilterKind} from "./timestamp-filter-kind";
+import {List} from 'immutable';
+import {TimeInfo} from '../api/common/time-info';
+import {Timestamp} from '../api/custom/timestamp';
+import {Filter} from './filter';
+import {FilterOption} from './filter-option';
+import {FilterOptionGroup} from './filter-option-group';
+import {Filters} from './filters';
+import {TimestampFilterKind} from './timestamp-filter-kind';
 
 export class TimestampFilter<T> extends Filter<T> {
 
@@ -17,7 +17,7 @@ export class TimestampFilter<T> extends Filter<T> {
               private readonly selectLastMonth: () => void,
               private readonly selectLastYear: () => void,
               private readonly selectOlder: () => void) {
-    super("lastUpdated");
+    super('lastUpdated');
   }
 
   passes(element: T): boolean {
@@ -52,11 +52,11 @@ export class TimestampFilter<T> extends Filter<T> {
     const lastYearCount = filteredElements.count(e => this.isBetween(e, this.timeInfo.lastMonthStart, this.timeInfo.lastYearStart));
     const olderCount = filteredElements.count(e => this.getter(e).olderThan(this.timeInfo.lastYearStart));
 
-    const all = new FilterOption("all", allCount, this.isAll(), this.selectAll);
-    const lastWeek = new FilterOption("lastWeek", lastWeekCount, this.isLastWeek(), this.selectLastWeek);
-    const lastMonth = new FilterOption("lastMonth", lastMonthCount, this.isLastMonth(), this.selectLastMonth);
-    const lastYear = new FilterOption("lastYear", lastYearCount, this.isLastYear(), this.selectLastYear);
-    const older = new FilterOption("older", olderCount, this.isOlder(), this.selectOlder);
+    const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
+    const lastWeek = new FilterOption('lastWeek', lastWeekCount, this.isLastWeek(), this.selectLastWeek);
+    const lastMonth = new FilterOption('lastMonth', lastMonthCount, this.isLastMonth(), this.selectLastMonth);
+    const lastYear = new FilterOption('lastYear', lastYearCount, this.isLastYear(), this.selectLastYear);
+    const older = new FilterOption('older', olderCount, this.isOlder(), this.selectOlder);
 
     return new FilterOptionGroup(this.name, all, lastWeek, lastMonth, lastYear, older);
   }

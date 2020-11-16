@@ -1,13 +1,13 @@
-import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
-import {NodeMoved} from "../../../kpn/api/common/diff/node/node-moved";
-import {Util} from "../../shared/util";
-import {Marker} from "../domain/marker";
-import {MapLayer} from "./map-layer";
+import Feature from 'ol/Feature';
+import LineString from 'ol/geom/LineString';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import {NodeMoved} from '../../../kpn/api/common/diff/node/node-moved';
+import {Util} from '../../shared/util';
+import {Marker} from '../domain/marker';
+import {MapLayer} from './map-layer';
 
 export class NodeMovedLayer {
 
@@ -15,12 +15,12 @@ export class NodeMovedLayer {
 
     const before = Util.latLonToCoordinate(nodeMoved.before);
     const after = Util.latLonToCoordinate(nodeMoved.after);
-    const nodeMarker = Marker.create("blue", after);
+    const nodeMarker = Marker.create('blue', after);
 
     const displacement = new Feature(new LineString([before, after]));
     displacement.setStyle(new Style({
       stroke: new Stroke({
-        color: "red",
+        color: 'red',
         width: 5
       })
     }));
@@ -29,10 +29,10 @@ export class NodeMovedLayer {
     source.addFeature(displacement);
     source.addFeature(nodeMarker);
     const layer = new VectorLayer({
-      source: source
+      source
     });
 
-    return new MapLayer("node-moved-layer", layer);
+    return new MapLayer('node-moved-layer', layer);
   }
 
 }

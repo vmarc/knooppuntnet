@@ -1,15 +1,15 @@
-import {PlannerContext} from "../../context/planner-context";
-import {List} from "immutable";
-import {RouteFeature} from "../../features/route-feature";
-import {Coordinate} from "ol/coordinate";
-import {PlanUtil} from "../../plan/plan-util";
-import {LegEnd} from "../../../../kpn/api/common/planner/leg-end";
-import {TrackPathKey} from "../../../../kpn/api/common/common/track-path-key";
-import {LegEndRoute} from "../../../../kpn/api/common/planner/leg-end-route";
-import {PlannerCommandAddLeg} from "../../commands/planner-command-add-leg";
-import {Observable} from "rxjs";
-import {PlanLeg} from "../../plan/plan-leg";
-import {map} from "rxjs/operators";
+import {PlannerContext} from '../../context/planner-context';
+import {List} from 'immutable';
+import {RouteFeature} from '../../features/route-feature';
+import {Coordinate} from 'ol/coordinate';
+import {PlanUtil} from '../../plan/plan-util';
+import {LegEnd} from '../../../../kpn/api/common/planner/leg-end';
+import {TrackPathKey} from '../../../../kpn/api/common/common/track-path-key';
+import {LegEndRoute} from '../../../../kpn/api/common/planner/leg-end-route';
+import {PlannerCommandAddLeg} from '../../commands/planner-command-add-leg';
+import {Observable} from 'rxjs';
+import {PlanLeg} from '../../plan/plan-leg';
+import {map} from 'rxjs/operators';
 
 export class AddViaRouteLeg {
 

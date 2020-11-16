@@ -1,14 +1,14 @@
-import {PlannerContext} from "../../context/planner-context";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlanUtil} from "../../plan/plan-util";
-import {PlanFlagType} from "../../plan/plan-flag-type";
-import {PlannerCommandSplitLeg} from "../../commands/planner-command-split-leg";
-import {PlannerDragLeg} from "../planner-drag-leg";
-import {Observable} from "rxjs";
-import {PlanLeg} from "../../plan/plan-leg";
-import {map, switchMap} from "rxjs/operators";
-import {FeatureId} from "../../features/feature-id";
-import {PlanFlag} from "../../plan/plan-flag";
+import {PlannerContext} from '../../context/planner-context';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlanUtil} from '../../plan/plan-util';
+import {PlanFlagType} from '../../plan/plan-flag-type';
+import {PlannerCommandSplitLeg} from '../../commands/planner-command-split-leg';
+import {PlannerDragLeg} from '../planner-drag-leg';
+import {Observable} from 'rxjs';
+import {PlanLeg} from '../../plan/plan-leg';
+import {map, switchMap} from 'rxjs/operators';
+import {FeatureId} from '../../features/feature-id';
+import {PlanFlag} from '../../plan/plan-flag';
 
 export class DropLegOnNode {
 

@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {Stat} from "../domain/stat";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {Stat} from '../domain/stat';
 
 @Component({
-  selector: "kpn-overview-value",
+  selector: 'kpn-overview-value',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a *ngIf="hasLink()" [routerLink]="link()">{{value()}}</a>
@@ -30,7 +30,7 @@ export class OverviewValueComponent {
   }
 
   link() {
-    return "/analysis/" + this.stat.configuration.linkFunction(this.stat.configuration.fact, this.subset);
+    return '/analysis/' + this.stat.configuration.linkFunction(this.stat.configuration.fact, this.subset);
   }
 
 }

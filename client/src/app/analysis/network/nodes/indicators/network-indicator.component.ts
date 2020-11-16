@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
-import {NetworkInfoNode} from "../../../../kpn/api/common/network/network-info-node";
-import {NetworkIndicatorDialogComponent} from "./network-indicator-dialog.component";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {NetworkInfoNode} from '../../../../kpn/api/common/network/network-info-node';
+import {NetworkIndicatorDialogComponent} from './network-indicator-dialog.component';
 
 @Component({
-  selector: "kpn-network-indicator",
+  selector: 'kpn-network-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
@@ -37,15 +37,15 @@ export class NetworkIndicatorComponent implements OnInit {
     let color;
     if (this.node.definedInRelation) {
       if (this.node.connection && !this.node.roleConnection) {
-        color = "orange";
+        color = 'orange';
       } else {
-        color = "green";
+        color = 'green';
       }
     } else {
       if (this.node.connection) {
-        color = "gray";
+        color = 'gray';
       } else {
-        color = "red";
+        color = 'red';
       }
     }
     return color;

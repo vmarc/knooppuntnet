@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {Params} from "@angular/router";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
-import {switchMap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {LocationService} from "../location.service";
+import {Injectable} from '@angular/core';
+import {Params} from '@angular/router';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {LocationService} from '../location.service';
 
 @Injectable()
 export class LocationEditPageService {

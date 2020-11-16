@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {ChangeSetSummary} from "./change-set-summary";
+import {ChangeSetSummary} from './change-set-summary';
 
 export class ChangeSetSummaryInfo {
 

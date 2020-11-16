@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {ReplaySubject} from "rxjs";
-import {BehaviorSubject, Observable} from "rxjs";
-import {AppService} from "../../../app.service";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {NodeClick} from "../domain/node-click";
-import {PoiClick} from "../domain/poi-click";
-import {RouteClick} from "../domain/route-click";
-import {MapMode} from "./map-mode";
-import {SurveyDateValues} from "./survey-date-values";
+import {Injectable} from '@angular/core';
+import {ReplaySubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {AppService} from '../../../app.service';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {NodeClick} from '../domain/node-click';
+import {PoiClick} from '../domain/poi-click';
+import {RouteClick} from '../domain/route-click';
+import {MapMode} from './map-mode';
+import {SurveyDateValues} from './survey-date-values';
 
 @Injectable()
 export class MapService {
@@ -30,7 +30,7 @@ export class MapService {
   private _networkType$ = new BehaviorSubject<NetworkType | null>(null);
   private _mapMode$ = new BehaviorSubject<MapMode>(MapMode.surface);
   private _surveyDateInfo$ = new BehaviorSubject<SurveyDateValues>(null);
-  private _popupType$ = new BehaviorSubject<string>("");
+  private _popupType$ = new BehaviorSubject<string>('');
   private _poiClicked$ = new ReplaySubject<PoiClick>(1);
   private _nodeClicked$ = new ReplaySubject<NodeClick>(1);
   private _routeClicked$ = new ReplaySubject<RouteClick>(1);
@@ -38,7 +38,7 @@ export class MapService {
   constructor(private appService: AppService) {
     appService.surveyDateInfo().subscribe(response => {
       if (response.result) {
-        this._surveyDateInfo$.next(SurveyDateValues.from(response.result))
+        this._surveyDateInfo$.next(SurveyDateValues.from(response.result));
       }
     });
 
@@ -93,17 +93,17 @@ export class MapService {
   }
 
   nextPoiClick(poiClick: PoiClick) {
-    this._popupType$.next("poi");
+    this._popupType$.next('poi');
     this._poiClicked$.next(poiClick);
   }
 
   nextNodeClick(nodeClick: NodeClick) {
-    this._popupType$.next("node");
+    this._popupType$.next('node');
     this._nodeClicked$.next(nodeClick);
   }
 
   nextRouteClick(routeClick: RouteClick) {
-    this._popupType$.next("route");
+    this._popupType$.next('route');
     this._routeClicked$.next(routeClick);
   }
 }

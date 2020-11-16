@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {LocationChangeSetSummary} from "./location-change-set-summary";
+import {LocationChangeSetSummary} from './location-change-set-summary';
 
 export class LocationChangeSetSummaryDoc {
 

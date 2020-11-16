@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {AnalysisModeService} from "./analysis-mode.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AnalysisModeService} from './analysis-mode.service';
 
 @Component({
-  selector: "kpn-analysis-hiking-page",
+  selector: 'kpn-analysis-hiking-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -31,10 +31,10 @@ export class AnalysisHikingPageComponent {
   readonly frLink: Observable<string>;
 
   constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link("hiking", "nl");
-    this.beLink = analysisModeService.link("hiking", "be");
-    this.deLink = analysisModeService.link("hiking", "de");
-    this.frLink = analysisModeService.link("hiking", "fr");
+    this.nlLink = analysisModeService.link('hiking', 'nl');
+    this.beLink = analysisModeService.link('hiking', 'be');
+    this.deLink = analysisModeService.link('hiking', 'de');
+    this.frLink = analysisModeService.link('hiking', 'fr');
   }
 
 }

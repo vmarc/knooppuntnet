@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from "@angular/core";
-import {List} from "immutable";
-import {Subset} from "src/app/kpn/api/custom/subset";
-import {OverviewService} from "../overview/overview.service";
-import {StatisticConfigurationComponent} from "./statistic-configuration.component";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from '@angular/core';
+import {List} from 'immutable';
+import {Subset} from 'src/app/kpn/api/custom/subset';
+import {OverviewService} from '../overview/overview.service';
+import {StatisticConfigurationComponent} from './statistic-configuration.component';
 
 @Component({
-  selector: "kpn-statistic-configurations",
+  selector: 'kpn-statistic-configurations',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -414,10 +414,10 @@ export class StatisticConfigurationsComponent implements AfterViewInit {
 
   @ViewChildren(StatisticConfigurationComponent) children: StatisticConfigurationComponent[];
 
-  readonly networks = (id: string, subset: Subset) => subset.key() + "/networks";
-  readonly orphanNodes = (id: string, subset: Subset) => subset.key() + "/orphan-nodes";
-  readonly orphanRoutes = (id: string, subset: Subset) => subset.key() + "/orphan-routes";
-  readonly factDetailCounts = (id: string, subset: Subset) => subset.key() + "/facts/" + id;
+  readonly networks = (id: string, subset: Subset) => subset.key() + '/networks';
+  readonly orphanNodes = (id: string, subset: Subset) => subset.key() + '/orphan-nodes';
+  readonly orphanRoutes = (id: string, subset: Subset) => subset.key() + '/orphan-routes';
+  readonly factDetailCounts = (id: string, subset: Subset) => subset.key() + '/facts/' + id;
 
   constructor(private overviewService: OverviewService,
               private cdr: ChangeDetectorRef) {

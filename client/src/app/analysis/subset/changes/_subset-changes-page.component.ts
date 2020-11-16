@@ -1,23 +1,23 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {Util} from "../../../components/shared/util";
-import {ChangesPage} from "../../../kpn/api/common/changes-page";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {SubsetChangesPage} from "../../../kpn/api/common/subset/subset-changes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {UserService} from "../../../services/user.service";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
-import {SubsetChangesService} from "./subset-changes.service";
-import {BehaviorSubject} from "rxjs";
-import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {Util} from '../../../components/shared/util';
+import {ChangesPage} from '../../../kpn/api/common/changes-page';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {SubsetChangesPage} from '../../../kpn/api/common/subset/subset-changes-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {UserService} from '../../../services/user.service';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
+import {SubsetChangesService} from './subset-changes.service';
+import {BehaviorSubject} from 'rxjs';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 @Component({
-  selector: "kpn-subset-changes-page",
+  selector: 'kpn-subset-changes-page',
   template: `
 
     <kpn-subset-page-header-block

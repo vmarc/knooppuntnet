@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {KnownElements} from "../../../kpn/api/common/common/known-elements";
-import {Ref} from "../../../kpn/api/common/common/ref";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {KnownElements} from '../../../kpn/api/common/common/known-elements';
+import {Ref} from '../../../kpn/api/common/common/ref';
 
 @Component({
-  selector: "kpn-link-node-ref",
+  selector: 'kpn-link-node-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-link-node *ngIf="known" [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>

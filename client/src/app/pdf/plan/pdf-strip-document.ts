@@ -1,12 +1,12 @@
-import * as JsPdf from "jspdf";
-import {Plan} from "../../map/planner/plan/plan";
-import {PdfPage} from "./pdf-page";
-import {PdfPlanBuilder} from "./pdf-plan-builder";
-import {PdfSideBar} from "./pdf-side-bar";
-import {PdfFooter} from "./pdf-footer";
-import {PdfPlanNode} from "./pdf-plan-node";
-import {BitmapIconService} from "../bitmap-icon.service";
-import {PdfStripDocumentModel} from "./pdf-strip-document-model";
+import * as JsPdf from 'jspdf';
+import {Plan} from '../../map/planner/plan/plan';
+import {PdfPage} from './pdf-page';
+import {PdfPlanBuilder} from './pdf-plan-builder';
+import {PdfSideBar} from './pdf-side-bar';
+import {PdfFooter} from './pdf-footer';
+import {PdfPlanNode} from './pdf-plan-node';
+import {BitmapIconService} from '../bitmap-icon.service';
+import {PdfStripDocumentModel} from './pdf-strip-document-model';
 
 export class PdfStripDocument {
 
@@ -23,7 +23,7 @@ export class PdfStripDocument {
 
   print(): void {
     this.drawPlan();
-    this.doc.save("knooppuntnet-strip.pdf");
+    this.doc.save('knooppuntnet-strip.pdf');
   }
 
   private drawPlan() {
@@ -67,14 +67,14 @@ export class PdfStripDocument {
     const yDistance = yCircleCenter + this.model.circleRadius + PdfPage.spacer;
 
     this.doc.setLineWidth(0.05);
-    this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius, "S");
+    this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius, 'S');
 
     this.doc.setFontSize(12);
-    this.doc.text(node.nodeName, xCircleCenter, yCircleCenter, {align: "center", baseline: "middle", lineHeightFactor: "1"});
+    this.doc.text(node.nodeName, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: '1'});
 
     this.doc.setFontSize(8);
-    this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {baseline: "middle", lineHeightFactor: "1"});
-    this.doc.text(node.distance, xCircleCenter, yDistance, {align: "center", baseline: "top", lineHeightFactor: "1"});
+    this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {baseline: 'middle', lineHeightFactor: '1'});
+    this.doc.text(node.distance, xCircleCenter, yDistance, {align: 'center', baseline: 'top', lineHeightFactor: '1'});
   }
 
   private drawLaneLine(x: number): void {
@@ -85,8 +85,8 @@ export class PdfStripDocument {
     this.doc.line(x, PdfPage.yContentsTop, x, y);
     this.doc.setLineDash([]);
 
-    this.iconService.getIcon("scissors").subscribe(icon => {
-      this.doc.addImage(icon, "PNG", x - 3, y - 10, 6, 6, "", "FAST");
+    this.iconService.getIcon('scissors').subscribe(icon => {
+      this.doc.addImage(icon, 'PNG', x - 3, y - 10, 6, 6, '', 'FAST');
     });
 
     this.doc.setDrawColor(1);

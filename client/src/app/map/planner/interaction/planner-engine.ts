@@ -1,6 +1,6 @@
-import {List} from "immutable";
-import {Coordinate} from "ol/coordinate";
-import {MapFeature} from "../features/map-feature";
+import {List} from 'immutable';
+import {Coordinate} from 'ol/coordinate';
+import {MapFeature} from '../features/map-feature';
 
 export interface PlannerEngine {
 

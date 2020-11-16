@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component} from "@angular/core";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-dialog",
+  selector: 'kpn-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button mat-icon-button class="close-button" [mat-dialog-close]="true">
-      <mat-icon svgIcon="remove" i18n="@@dialog.close">close</mat-icon>
+      <mat-icon svgIcon="remove"></mat-icon>
     </button>
     <ng-content></ng-content>
   `,

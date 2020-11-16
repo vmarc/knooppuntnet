@@ -1,14 +1,14 @@
-import {List} from "immutable";
-import {Coordinate} from "ol/coordinate";
-import {Observable} from "rxjs";
-import {map, switchMap} from "rxjs/operators";
-import {PlanNode} from "../../../../kpn/api/common/planner/plan-node";
-import {PlannerCommandMoveViaRoute} from "../../commands/planner-command-move-via-route";
-import {PlannerContext} from "../../context/planner-context";
-import {RouteFeature} from "../../features/route-feature";
-import {PlanFlag} from "../../plan/plan-flag";
-import {PlanLeg} from "../../plan/plan-leg";
-import {PlanUtil} from "../../plan/plan-util";
+import {List} from 'immutable';
+import {Coordinate} from 'ol/coordinate';
+import {Observable} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
+import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlannerCommandMoveViaRoute} from '../../commands/planner-command-move-via-route';
+import {PlannerContext} from '../../context/planner-context';
+import {RouteFeature} from '../../features/route-feature';
+import {PlanFlag} from '../../plan/plan-flag';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
 
 export class DropViaRouteOnRoute {
 

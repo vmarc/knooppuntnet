@@ -1,18 +1,18 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Input} from "@angular/core";
-import {Output} from "@angular/core";
-import {EventEmitter} from "@angular/core";
-import {ElementRef} from "@angular/core";
-import {ChangeDetectorRef} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator";
-import {MatPaginator} from "@angular/material/paginator";
-import {PaginatorService} from "./paginator.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Input} from '@angular/core';
+import {Output} from '@angular/core';
+import {EventEmitter} from '@angular/core';
+import {ElementRef} from '@angular/core';
+import {ChangeDetectorRef} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {AfterViewInit} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
+import {PaginatorService} from './paginator.service';
 
 @Component({
-  selector: "kpn-paginator",
+  selector: 'kpn-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NodeData} from "./node-data";
-import {NodeDataUpdate} from "./node-data-update";
+import {List} from 'immutable';
+import {NodeData} from './node-data';
+import {NodeDataUpdate} from './node-data-update';
 
 export class NodeDiffs {
 

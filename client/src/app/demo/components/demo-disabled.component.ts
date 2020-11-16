@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
+import {Component} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: "kpn-demo-disabled",
+  selector: 'kpn-demo-disabled',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="demo.disabled.text-1">

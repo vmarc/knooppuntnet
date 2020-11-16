@@ -1,5 +1,5 @@
-import {Coordinate} from "ol/coordinate";
-import {MapFeature} from "./map-feature";
+import {Coordinate} from 'ol/coordinate';
+import {MapFeature} from './map-feature';
 
 export class PoiFeature extends MapFeature {
 

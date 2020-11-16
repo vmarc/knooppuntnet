@@ -1,28 +1,28 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {OnDestroy} from "@angular/core";
-import {AfterViewInit, Component, Input} from "@angular/core";
-import {List} from "immutable";
-import Map from "ol/Map";
-import View from "ol/View";
-import {NodeMapInfo} from "../../../kpn/api/common/node-map-info";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {PageService} from "../../shared/page.service";
-import {Util} from "../../shared/util";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapControls} from "../layers/map-controls";
-import {MapLayer} from "../layers/map-layer";
-import {MapLayers} from "../layers/map-layers";
-import {MapClickService} from "../services/map-click.service";
-import {MapLayerService} from "../services/map-layer.service";
-import {AppState} from "../../../core/core.state";
-import {Store} from "@ngrx/store";
-import {select} from "@ngrx/store";
-import {Observable} from "rxjs";
-import {take} from "rxjs/operators";
-import {selectPreferencesNetworkType} from "../../../core/preferences/preferences.selectors";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import {NodeMapInfo} from '../../../kpn/api/common/node-map-info';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {PageService} from '../../shared/page.service';
+import {Util} from '../../shared/util';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapControls} from '../layers/map-controls';
+import {MapLayer} from '../layers/map-layer';
+import {MapLayers} from '../layers/map-layers';
+import {MapClickService} from '../services/map-click.service';
+import {MapLayerService} from '../services/map-layer.service';
+import {AppState} from '../../../core/core.state';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {take} from 'rxjs/operators';
+import {selectPreferencesNetworkType} from '../../../core/preferences/preferences.selectors';
 
 @Component({
-  selector: "kpn-node-map",
+  selector: 'kpn-node-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="node-map" class="kpn-map">
@@ -36,7 +36,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
 
   layers: MapLayers;
   private map: Map;
-  private readonly mapId = "node-map";
+  private readonly mapId = 'node-map';
   private readonly subscriptions = new Subscriptions();
 
   private readonly defaultNetworkType$: Observable<string> = this.store.pipe(
@@ -58,7 +58,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
       layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View({
-        center: center,
+        center,
         minZoom: ZoomLevel.vectorTileMinZoom,
         maxZoom: ZoomLevel.maxZoom,
         zoom: 18

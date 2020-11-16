@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
-  selector: "kpn-route-connection-indicator-dialog",
+  selector: 'kpn-route-connection-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -34,10 +34,10 @@ export class RouteConnectionIndicatorDialogComponent {
   }
 
   isBlue() {
-    return this.color === "blue";
+    return this.color === 'blue';
   }
 
   isGray() {
-    return this.color === "gray";
+    return this.color === 'gray';
   }
 }

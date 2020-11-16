@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
+import {List} from 'immutable';
 
 export class Location {
 

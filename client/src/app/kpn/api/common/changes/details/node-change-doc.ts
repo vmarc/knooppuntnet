@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {NodeChange} from "./node-change";
+import {NodeChange} from './node-change';
 
 export class NodeChangeDoc {
 

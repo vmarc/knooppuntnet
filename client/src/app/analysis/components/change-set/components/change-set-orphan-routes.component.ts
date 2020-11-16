@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {ChangeSetSubsetElementRefs} from "../../../../kpn/api/common/change-set-subset-element-refs";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ChangeSetSubsetElementRefs} from '../../../../kpn/api/common/change-set-subset-element-refs';
 
 @Component({
-  selector: "kpn-change-set-orphan-routes",
+  selector: 'kpn-change-set-orphan-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -25,7 +25,7 @@ export class ChangesSetOrphanRoutesComponent {
     if (this.subsetElementRefs.subset.country) {
       return this.subsetElementRefs.subset.country.domain.toUpperCase();
     }
-    return "??country??";
+    return '??country??';
   }
 
   networkType() {

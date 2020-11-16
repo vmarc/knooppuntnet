@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {NodeIntegrityCheckDiff} from "./node-integrity-check-diff";
-import {NodeRouteReferenceDiffs} from "./node-route-reference-diffs";
-import {TagDiffs} from "../tag-diffs";
+import {NodeIntegrityCheckDiff} from './node-integrity-check-diff';
+import {NodeRouteReferenceDiffs} from './node-route-reference-diffs';
+import {TagDiffs} from '../tag-diffs';
 
 export class NetworkNodeDiff {
 

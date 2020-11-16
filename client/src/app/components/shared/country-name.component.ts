@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {I18nService} from "../../i18n/i18n.service";
-import {Country} from "../../kpn/api/custom/country";
-import {Util} from "./util";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {I18nService} from '../../i18n/i18n.service';
+import {Country} from '../../kpn/api/custom/country';
+import {Util} from './util';
 
 @Component({
-  selector: "kpn-country-name",
+  selector: 'kpn-country-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="country">{{countryName()}}</ng-container>
@@ -22,7 +22,7 @@ export class CountryNameComponent {
   }
 
   countryName(): string {
-    return this.i18nService.translation("@@country." + Util.safeGet(() => this.country.domain));
+    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country.domain));
   }
 
 }

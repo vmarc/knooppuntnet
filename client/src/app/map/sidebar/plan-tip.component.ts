@@ -1,18 +1,18 @@
-import {OnInit} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {combineLatest} from "rxjs";
-import {delay} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {ZoomLevel} from "../../components/ol/domain/zoom-level";
-import {MapZoomService} from "../../components/ol/services/map-zoom.service";
-import {PlannerService} from "../planner.service";
-import {Plan} from "../planner/plan/plan";
-import {PlanPhase} from "../planner/plan/plan-phase";
-import {I18nService} from "../../i18n/i18n.service";
+import {OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {combineLatest} from 'rxjs';
+import {delay} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {ZoomLevel} from '../../components/ol/domain/zoom-level';
+import {MapZoomService} from '../../components/ol/services/map-zoom.service';
+import {PlannerService} from '../planner.service';
+import {Plan} from '../planner/plan/plan';
+import {PlanPhase} from '../planner/plan/plan-phase';
+import {I18nService} from '../../i18n/i18n.service';
 
 @Component({
-  selector: "kpn-plan-tip",
+  selector: 'kpn-plan-tip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="planPhase$ | async as planPhase" class="tip">

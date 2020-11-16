@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {MapService} from "../../components/ol/services/map.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {MapService} from '../../components/ol/services/map.service';
 
 @Component({
-  selector: "kpn-map-sidebar-legend",
+  selector: 'kpn-map-sidebar-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel [expanded]="true">

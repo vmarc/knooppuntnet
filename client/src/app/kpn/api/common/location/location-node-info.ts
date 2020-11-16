@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Ref} from "../common/ref";
-import {Timestamp} from "../../custom/timestamp";
+import {List} from 'immutable';
+import {Ref} from '../common/ref';
+import {Timestamp} from '../../custom/timestamp';
 
 export class LocationNodeInfo {
 

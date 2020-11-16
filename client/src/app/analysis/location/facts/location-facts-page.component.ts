@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {first} from "rxjs/operators";
-import {LocationFactsPageService} from "./location-facts-page.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {first} from 'rxjs/operators';
+import {LocationFactsPageService} from './location-facts-page.service';
 
 @Component({
-  selector: "kpn-location-facts-page",
+  selector: 'kpn-location-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-location-page-header

@@ -1,16 +1,16 @@
-import {Component, Input} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {select, Store} from "@ngrx/store";
-import {actionDemoControlPlay} from "../../core/demo/demo.actions";
-import {selectDemoVideo} from "../../core/demo/demo.selectors";
-import {selectDemoPlaying} from "../../core/demo/demo.selectors";
-import {selectDemoEnabled} from "../../core/demo/demo.selectors";
-import {Observable} from "rxjs";
-import {combineLatest} from "rxjs";
-import {map} from "rxjs/operators";
+import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {actionDemoControlPlay} from '../../core/demo/demo.actions';
+import {selectDemoVideo} from '../../core/demo/demo.selectors';
+import {selectDemoPlaying} from '../../core/demo/demo.selectors';
+import {selectDemoEnabled} from '../../core/demo/demo.selectors';
+import {Observable} from 'rxjs';
+import {combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
-  selector: "kpn-demo-video-control",
+  selector: 'kpn-demo-video-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="video-control" [ngClass]="{ selected: selected$ | async}">
@@ -112,7 +112,7 @@ export class DemoVideoControlComponent {
     map(([selected, playing]) => selected && playing)
   );
 
-  readonly icon$: Observable<string> = this.playing$.pipe(map(playing => playing ? "pause" : "play"));
+  readonly icon$: Observable<string> = this.playing$.pipe(map(playing => playing ? 'pause' : 'play'));
 
   readonly enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
 

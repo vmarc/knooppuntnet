@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Check} from "./check";
-import {Ref} from "./common/ref";
+import {List} from 'immutable';
+import {Check} from './check';
+import {Ref} from './common/ref';
 
 export class NetworkFact {
 

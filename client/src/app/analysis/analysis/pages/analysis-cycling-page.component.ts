@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {Observable} from "rxjs";
-import {AnalysisModeService} from "./analysis-mode.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AnalysisModeService} from './analysis-mode.service';
 
 @Component({
-  selector: "kpn-analysis-cycling-page",
+  selector: 'kpn-analysis-cycling-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -35,12 +35,12 @@ export class AnalysisCyclingPageComponent {
   readonly esLink: Observable<string>;
 
   constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link("cycling", "nl");
-    this.beLink = analysisModeService.link("cycling", "be");
-    this.deLink = analysisModeService.link("cycling", "de");
-    this.frLink = analysisModeService.link("cycling", "fr");
-    this.atLink = analysisModeService.link("cycling", "at");
-    this.esLink = analysisModeService.link("cycling", "es");
+    this.nlLink = analysisModeService.link('cycling', 'nl');
+    this.beLink = analysisModeService.link('cycling', 'be');
+    this.deLink = analysisModeService.link('cycling', 'de');
+    this.frLink = analysisModeService.link('cycling', 'fr');
+    this.atLink = analysisModeService.link('cycling', 'at');
+    this.esLink = analysisModeService.link('cycling', 'es');
   }
 
 }

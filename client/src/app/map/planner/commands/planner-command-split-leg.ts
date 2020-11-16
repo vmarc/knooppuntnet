@@ -1,7 +1,7 @@
-import {PlannerContext} from "../context/planner-context";
-import {PlannerCommand} from "./planner-command";
-import {PlanLeg} from "../plan/plan-leg";
-import {List} from "immutable";
+import {PlannerContext} from '../context/planner-context';
+import {PlannerCommand} from './planner-command';
+import {PlanLeg} from '../plan/plan-leg';
+import {List} from 'immutable';
 
 export class PlannerCommandSplitLeg implements PlannerCommand {
 
@@ -12,7 +12,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
 
   public do(context: PlannerContext) {
 
-    context.debug("PlannerCommandSplitLeg");
+    context.debug('PlannerCommandSplitLeg');
 
     context.markerLayer.removeFlag(this.oldLeg.viaFlag);
     context.markerLayer.removeFlag(this.oldLeg.sinkFlag);
@@ -39,7 +39,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
 
   public undo(context: PlannerContext) {
 
-    context.debug("PlannerCommandSplitLeg undo");
+    context.debug('PlannerCommandSplitLeg undo');
 
     context.markerLayer.removeFlag(this.newLeg1.viaFlag);
     context.markerLayer.removeFlag(this.newLeg1.sinkFlag);

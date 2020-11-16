@@ -1,6 +1,6 @@
-import {PdfPage} from "./pdf-page";
-import {PdfPlanNode} from "./pdf-plan-node";
-import {List} from "immutable";
+import {PdfPage} from './pdf-page';
+import {PdfPlanNode} from './pdf-plan-node';
+import {List} from 'immutable';
 
 export class PdfStripDocumentModel {
 

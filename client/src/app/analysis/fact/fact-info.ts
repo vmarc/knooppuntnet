@@ -1,5 +1,5 @@
-import {Fact} from "../../kpn/api/custom/fact";
-import {Ref} from "../../kpn/api/common/common/ref";
+import {Fact} from '../../kpn/api/custom/fact';
+import {Ref} from '../../kpn/api/common/common/ref';
 
 export class FactInfo {
   constructor(public fact: Fact,

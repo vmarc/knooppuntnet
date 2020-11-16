@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {List} from "immutable";
-import {Location} from "../../../kpn/api/common/location/location";
-import {LocationCandidate} from "../../../kpn/api/common/location/location-candidate";
-import {RouteLocationAnalysis} from "../../../kpn/api/common/route-location-analysis";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {List} from 'immutable';
+import {Location} from '../../../kpn/api/common/location/location';
+import {LocationCandidate} from '../../../kpn/api/common/location/location-candidate';
+import {RouteLocationAnalysis} from '../../../kpn/api/common/route-location-analysis';
 
 @Component({
-  selector: "kpn-route-location",
+  selector: 'kpn-route-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p *ngIf="!hasLocations()" i18n="@@route.location.none">None</p>
@@ -47,7 +47,7 @@ export class RouteLocationComponent {
 
   percentage(locationCandidate: LocationCandidate): string {
     if (locationCandidate.percentage === 100) {
-      return "";
+      return '';
     }
     return `${locationCandidate.percentage}%`;
   }

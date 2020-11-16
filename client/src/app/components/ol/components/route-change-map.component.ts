@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {List} from "immutable";
-import Map from "ol/Map";
-import View from "ol/View";
-import {Bounds} from "../../../kpn/api/common/bounds";
-import {RawNode} from "../../../kpn/api/common/data/raw/raw-node";
-import {GeometryDiff} from "../../../kpn/api/common/route/geometry-diff";
-import {UniqueId} from "../../../kpn/common/unique-id";
-import {Util} from "../../shared/util";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapControls} from "../layers/map-controls";
-import {MapLayer} from "../layers/map-layer";
-import {MapLayers} from "../layers/map-layers";
-import {MapLayerService} from "../services/map-layer.service";
-import {OnDestroy} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {AfterViewInit} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {List} from 'immutable';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import {Bounds} from '../../../kpn/api/common/bounds';
+import {RawNode} from '../../../kpn/api/common/data/raw/raw-node';
+import {GeometryDiff} from '../../../kpn/api/common/route/geometry-diff';
+import {UniqueId} from '../../../kpn/common/unique-id';
+import {Util} from '../../shared/util';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapControls} from '../layers/map-controls';
+import {MapLayer} from '../layers/map-layer';
+import {MapLayers} from '../layers/map-layers';
+import {MapLayerService} from '../services/map-layer.service';
+import {OnDestroy} from '@angular/core';
 
 @Component({
-  selector: "kpn-route-change-map",
+  selector: 'kpn-route-change-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-embedded-map">

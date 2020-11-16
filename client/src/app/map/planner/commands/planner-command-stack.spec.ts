@@ -1,6 +1,6 @@
-import {PlannerContext} from "../context/planner-context";
-import {PlannerCommand} from "./planner-command";
-import {PlannerCommandStack} from "./planner-command-stack";
+import {PlannerContext} from '../context/planner-context';
+import {PlannerCommand} from './planner-command';
+import {PlannerCommandStack} from './planner-command-stack';
 
 class TestCommand implements PlannerCommand {
 
@@ -14,7 +14,7 @@ class TestCommand implements PlannerCommand {
   }
 }
 
-describe("PlannerCommandStack", () => {
+describe('PlannerCommandStack', () => {
 
   let stack: PlannerCommandStack;
 
@@ -22,7 +22,7 @@ describe("PlannerCommandStack", () => {
     stack = new PlannerCommandStack();
   });
 
-  it("empty stack", () => {
+  it('empty stack', () => {
     expect(stack.commandCount).toEqual(0);
     expect(stack.size).toEqual(0);
     expect(stack.canUndo).toEqual(false);
@@ -31,9 +31,9 @@ describe("PlannerCommandStack", () => {
     expect(stack.redo()).toEqual(null);
   });
 
-  it("push/pop command", () => {
+  it('push/pop command', () => {
 
-    const command = new TestCommand("a");
+    const command = new TestCommand('a');
 
     stack.push(command);
     expect(stack.commandCount).toEqual(1);
@@ -48,10 +48,10 @@ describe("PlannerCommandStack", () => {
     expect(stack.canRedo).toEqual(true);
   });
 
-  it("undo/redo", () => {
+  it('undo/redo', () => {
 
-    const command1 = new TestCommand("1");
-    const command2 = new TestCommand("2");
+    const command1 = new TestCommand('1');
+    const command2 = new TestCommand('2');
 
     stack.push(command1);
     stack.push(command2);
@@ -75,11 +75,11 @@ describe("PlannerCommandStack", () => {
 
   });
 
-  it("undo/push", () => {
+  it('undo/push', () => {
 
-    const command1 = new TestCommand("1");
-    const command2 = new TestCommand("2");
-    const command3 = new TestCommand("3");
+    const command1 = new TestCommand('1');
+    const command2 = new TestCommand('2');
+    const command3 = new TestCommand('3');
 
     stack.push(command1);
     stack.push(command2);

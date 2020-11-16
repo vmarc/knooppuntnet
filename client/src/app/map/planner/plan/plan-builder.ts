@@ -1,15 +1,15 @@
 /*
   Builds a Plan from a single PlanDetail.
  */
-import {List} from "immutable";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {LegEndNode} from "../../../kpn/api/common/planner/leg-end-node";
-import {PlanLegDetail} from "../../../kpn/api/common/planner/plan-leg-detail";
-import {FeatureId} from "../features/feature-id";
-import {Plan} from "./plan";
-import {PlanFlag} from "./plan-flag";
-import {PlanFlagType} from "./plan-flag-type";
-import {PlanLeg} from "./plan-leg";
+import {List} from 'immutable';
+import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {LegEndNode} from '../../../kpn/api/common/planner/leg-end-node';
+import {PlanLegDetail} from '../../../kpn/api/common/planner/plan-leg-detail';
+import {FeatureId} from '../features/feature-id';
+import {Plan} from './plan';
+import {PlanFlag} from './plan-flag';
+import {PlanFlagType} from './plan-flag-type';
+import {PlanLeg} from './plan-leg';
 
 export class PlanBuilder {
 

@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {MatRadioChange} from "@angular/material/radio";
-import {I18nService} from "../../../i18n/i18n.service";
-import {FilterOption} from "../../../kpn/filter/filter-option";
-import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MatRadioChange} from '@angular/material/radio';
+import {I18nService} from '../../../i18n/i18n.service';
+import {FilterOption} from '../../../kpn/filter/filter-option';
+import {FilterOptionGroup} from '../../../kpn/filter/filter-option-group';
 
 @Component({
-  selector: "kpn-filter-radio-group",
+  selector: 'kpn-filter-radio-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -22,7 +22,7 @@ import {FilterOptionGroup} from "../../../kpn/filter/filter-option-group";
       </mat-radio-group>
     </div>
   `,
-  styleUrls: ["./filter.scss"]
+  styleUrls: ['./filter.scss']
 })
 export class FilterRadioGroupComponent {
 

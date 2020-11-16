@@ -1,13 +1,13 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {List} from "immutable";
-import {RawNode} from "../../../../kpn/api/common/data/raw/raw-node";
-import {NodeUpdate} from "../../../../kpn/api/common/diff/node-update";
-import {WayUpdate} from "../../../../kpn/api/common/diff/way-update";
-import {Util} from "../../../../components/shared/util";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {List} from 'immutable';
+import {RawNode} from '../../../../kpn/api/common/data/raw/raw-node';
+import {NodeUpdate} from '../../../../kpn/api/common/diff/node-update';
+import {WayUpdate} from '../../../../kpn/api/common/diff/way-update';
+import {Util} from '../../../../components/shared/util';
 
 @Component({
-  selector: "kpn-route-change-way-updated",
+  selector: 'kpn-route-change-way-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-level-4">

@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {BarChart} from "../../../kpn/api/common/status/bar-chart";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {BarChart} from '../../../kpn/api/common/status/bar-chart';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-action-bar-chart",
+  selector: 'kpn-action-bar-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ngx-charts-bar-vertical

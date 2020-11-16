@@ -1,26 +1,26 @@
-import {OnDestroy} from "@angular/core";
-import {AfterViewInit} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {List} from "immutable";
-import Map from "ol/Map";
-import View from "ol/View";
-import {Bounds} from "../../../kpn/api/common/bounds";
-import {Subscriptions} from "../../../util/Subscriptions";
-import {PageService} from "../../shared/page.service";
-import {Util} from "../../shared/util";
-import {ZoomLevel} from "../domain/zoom-level";
-import {MapControls} from "../layers/map-controls";
-import {MapLayer} from "../layers/map-layer";
-import {MapLayers} from "../layers/map-layers";
-import {MapClickService} from "../services/map-click.service";
-import {MapLayerService} from "../services/map-layer.service";
-import {MapService} from "../services/map.service";
+import {OnDestroy} from '@angular/core';
+import {AfterViewInit} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {List} from 'immutable';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import {Bounds} from '../../../kpn/api/common/bounds';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {PageService} from '../../shared/page.service';
+import {Util} from '../../shared/util';
+import {ZoomLevel} from '../domain/zoom-level';
+import {MapControls} from '../layers/map-controls';
+import {MapLayer} from '../layers/map-layer';
+import {MapLayers} from '../layers/map-layers';
+import {MapClickService} from '../services/map-click.service';
+import {MapLayerService} from '../services/map-layer.service';
+import {MapService} from '../services/map.service';
 
 @Component({
-  selector: "kpn-location-map",
+  selector: 'kpn-location-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="location-map" class="kpn-map">
@@ -35,7 +35,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
 
   layers: MapLayers;
   private map: Map;
-  private readonly mapId = "location-map";
+  private readonly mapId = 'location-map';
   private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,

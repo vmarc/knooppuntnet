@@ -1,21 +1,21 @@
-import {List} from "immutable";
-import {BehaviorSubject} from "rxjs";
-import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
-import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
-import {Filters} from "../../../kpn/filter/filters";
-import {SurveyDateFilter} from "../../../kpn/filter/survey-date-filter";
-import {SurveyDateFilterKind} from "../../../kpn/filter/survey-date-filter-kind";
-import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
-import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
-import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
+import {List} from 'immutable';
+import {BehaviorSubject} from 'rxjs';
+import {NetworkInfoNode} from '../../../kpn/api/common/network/network-info-node';
+import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {BooleanFilter} from '../../../kpn/filter/boolean-filter';
+import {FilterOptions} from '../../../kpn/filter/filter-options';
+import {Filters} from '../../../kpn/filter/filters';
+import {SurveyDateFilter} from '../../../kpn/filter/survey-date-filter';
+import {SurveyDateFilterKind} from '../../../kpn/filter/survey-date-filter-kind';
+import {TimestampFilter} from '../../../kpn/filter/timestamp-filter';
+import {TimestampFilterKind} from '../../../kpn/filter/timestamp-filter-kind';
+import {NetworkNodeFilterCriteria} from './network-node-filter-criteria';
 
 export class NetworkNodeFilter {
 
   private readonly definedInNetworkRelationFilter = new BooleanFilter<NetworkInfoNode>(
-    "definedInNetworkRelation",
+    'definedInNetworkRelation',
     this.criteria.definedInNetworkRelation,
     (row) => row.definedInRelation,
     this.update({...this.criteria, definedInNetworkRelation: null}),
@@ -24,7 +24,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly definedInRouteRelationFilter = new BooleanFilter<NetworkInfoNode>(
-    "definedInRouteRelation",
+    'definedInRouteRelation',
     this.criteria.definedInRouteRelation,
     (row) => row.definedInRoute,
     this.update({...this.criteria, definedInRouteRelation: null}),
@@ -33,7 +33,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly referencedInRouteFilter = new BooleanFilter<NetworkInfoNode>(
-    "referencedInRoute",
+    'referencedInRoute',
     this.criteria.referencedInRoute,
     (row) => !row.routeReferences.isEmpty(),
     this.update({...this.criteria, referencedInRoute: null}),
@@ -42,7 +42,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly connectionFilter = new BooleanFilter<NetworkInfoNode>(
-    "connection",
+    'connection',
     this.criteria.connection,
     (row) => row.connection,
     this.update({...this.criteria, connection: null}),
@@ -51,7 +51,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly roleConnectionFilter = new BooleanFilter<NetworkInfoNode>(
-    "roleConnection",
+    'roleConnection',
     this.criteria.roleConnection,
     (row) => row.roleConnection,
     this.update({...this.criteria, roleConnection: null}),
@@ -60,7 +60,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly integrityCheckFilter = new BooleanFilter<NetworkInfoNode>(
-    "integrityCheck",
+    'integrityCheck',
     this.criteria.integrityCheck,
     (row) => row.integrityCheck !== undefined,
     this.update({...this.criteria, integrityCheck: null}),
@@ -69,7 +69,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkInfoNode>(
-    "integrityCheckFailed",
+    'integrityCheckFailed',
     this.criteria.integrityCheckFailed,
     (row) => row.integrityCheck === undefined ? false : row.integrityCheck.failed,
     this.update({...this.criteria, integrityCheckFailed: null}),

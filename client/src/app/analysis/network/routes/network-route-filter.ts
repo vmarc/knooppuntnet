@@ -1,21 +1,21 @@
-import {List} from "immutable";
-import {BehaviorSubject} from "rxjs";
-import {NetworkRouteRow} from "../../../kpn/api/common/network/network-route-row";
-import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {BooleanFilter} from "../../../kpn/filter/boolean-filter";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
-import {Filters} from "../../../kpn/filter/filters";
-import {SurveyDateFilter} from "../../../kpn/filter/survey-date-filter";
-import {SurveyDateFilterKind} from "../../../kpn/filter/survey-date-filter-kind";
-import {TimestampFilter} from "../../../kpn/filter/timestamp-filter";
-import {TimestampFilterKind} from "../../../kpn/filter/timestamp-filter-kind";
-import {NetworkRouteFilterCriteria} from "./network-route-filter-criteria";
+import {List} from 'immutable';
+import {BehaviorSubject} from 'rxjs';
+import {NetworkRouteRow} from '../../../kpn/api/common/network/network-route-row';
+import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {BooleanFilter} from '../../../kpn/filter/boolean-filter';
+import {FilterOptions} from '../../../kpn/filter/filter-options';
+import {Filters} from '../../../kpn/filter/filters';
+import {SurveyDateFilter} from '../../../kpn/filter/survey-date-filter';
+import {SurveyDateFilterKind} from '../../../kpn/filter/survey-date-filter-kind';
+import {TimestampFilter} from '../../../kpn/filter/timestamp-filter';
+import {TimestampFilterKind} from '../../../kpn/filter/timestamp-filter-kind';
+import {NetworkRouteFilterCriteria} from './network-route-filter-criteria';
 
 export class NetworkRouteFilter {
 
   private readonly investigateFilter = new BooleanFilter<NetworkRouteRow>(
-    "investigate",
+    'investigate',
     this.criteria.investigate,
     (row) => row.investigate,
     this.update({...this.criteria, investigate: null}),
@@ -24,7 +24,7 @@ export class NetworkRouteFilter {
   );
 
   private readonly accessibleFilter = new BooleanFilter<NetworkRouteRow>(
-    "accessible",
+    'accessible',
     this.criteria.accessible,
     (row) => row.accessible,
     this.update({...this.criteria, accessible: null}),
@@ -33,7 +33,7 @@ export class NetworkRouteFilter {
   );
 
   private readonly roleConnectionFilter = new BooleanFilter<NetworkRouteRow>(
-    "connection",
+    'connection',
     this.criteria.roleConnection,
     (row) => row.roleConnection,
     this.update({...this.criteria, roleConnection: null}),

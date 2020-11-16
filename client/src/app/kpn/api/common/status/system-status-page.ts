@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {ActionTimestamp} from "./action-timestamp";
-import {BarChart} from "./bar-chart";
+import {ActionTimestamp} from './action-timestamp';
+import {BarChart} from './bar-chart';
 
 export class SystemStatusPage {
 

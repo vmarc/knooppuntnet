@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {ChangeFilterOption} from "./change-filter-option";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ChangeFilterOption} from './change-filter-option';
 
 /* tslint:disable:template-i18n */
 @Component({
-  selector: "kpn-change-filter-period",
+  selector: 'kpn-change-filter-period',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="row">
@@ -34,7 +34,7 @@ import {ChangeFilterOption} from "./change-filter-option";
       </div>
     </div>
   `,
-  styleUrls: ["../../filter/filter.scss"]
+  styleUrls: ['../../filter/filter.scss']
 })
 export class ChangeFilterPeriodComponent {
   @Input() option: ChangeFilterOption;

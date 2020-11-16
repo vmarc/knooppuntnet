@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {PlanNode} from "./plan-node";
-import {PlanSegment} from "./plan-segment";
+import {List} from 'immutable';
+import {PlanNode} from './plan-node';
+import {PlanSegment} from './plan-segment';
 
 export class PlanRoute {
 

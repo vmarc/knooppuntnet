@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Inject} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {IntegrityIndicatorData} from "./integrity-indicator-data";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {IntegrityIndicatorData} from './integrity-indicator-data';
 
 @Component({
-  selector: "kpn-integrity-indicator-dialog",
+  selector: 'kpn-integrity-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator-dialog letter="E" i18n-letter="@@integrity-indicator.letter" [color]="color">
@@ -58,15 +58,15 @@ export class IntegrityIndicatorDialogComponent {
   }
 
   isGray() {
-    return this.color === "gray";
+    return this.color === 'gray';
   }
 
   isGreen() {
-    return this.color === "green";
+    return this.color === 'green';
   }
 
   isRed() {
-    return this.color === "red";
+    return this.color === 'red';
   }
 
 }

@@ -1,6 +1,6 @@
-import * as JsPdf from "jspdf";
-import {PdfPage} from "./pdf-page";
-import {Util} from "../../components/shared/util";
+import * as JsPdf from 'jspdf';
+import {PdfPage} from './pdf-page';
+import {Util} from '../../components/shared/util';
 
 export class PdfFooter {
 
@@ -9,7 +9,7 @@ export class PdfFooter {
 
   print(pageCount: number, pageIndex: number): void {
 
-    const text = this.today() + "  " + (pageIndex + 1) + "/" + pageCount;
+    const text = this.today() + '  ' + (pageIndex + 1) + '/' + pageCount;
 
     this.doc.setTextColor(180);
     this.doc.setFontSize(10);

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {NodeChangesService} from "./node-changes.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {NodeChangesService} from './node-changes.service';
 
 @Component({
-  selector: "kpn-node-changes-sidebar",
+  selector: 'kpn-node-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>

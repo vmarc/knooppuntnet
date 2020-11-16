@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import * as Sentry from "@sentry/angular";
-import {Severity} from "@sentry/types/dist/severity";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import * as Sentry from '@sentry/angular';
+import {Severity} from '@sentry/types/dist/severity';
 
 /* tslint:disable:template-i18n English only */
 @Component({
-  selector: "kpn-base-sidebar",
+  selector: 'kpn-base-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
@@ -75,14 +75,14 @@ export class BaseSidebarComponent {
   fieldLength = 0;
 
   constructor() {
-    Sentry.setContext("test-context", {
-      field1: "field-value-1",
-      field2: "field-value-2"
+    Sentry.setContext('test-context', {
+      field1: 'field-value-1',
+      field2: 'field-value-2'
     });
   }
 
   throwError(): void {
-    throw new Error("Sentry.io demo error");
+    throw new Error('Sentry.io demo error');
   }
 
   undefinedField(): void {
@@ -97,14 +97,14 @@ export class BaseSidebarComponent {
       this.undefinedField();
     } catch (e) {
       Sentry.withScope(scope => {
-        scope.setTag("tag1", "tag-value-1");
-        scope.setTag("tag2", "tag-value-2");
-        scope.setExtra("extra-1", "extra-value-1");
-        scope.setExtra("field-length", "" + this.fieldLength);
+        scope.setTag('tag1', 'tag-value-1');
+        scope.setTag('tag2', 'tag-value-2');
+        scope.setExtra('extra-1', 'extra-value-1');
+        scope.setExtra('field-length', '' + this.fieldLength);
         const eventId = Sentry.captureException(e);
         Sentry.showReportDialog({
-          eventId: eventId,
-          successMessage: "Dankuwel: de informatie is nu verstuurd naar Sentry..."
+          eventId,
+          successMessage: 'Dankuwel: de informatie is nu verstuurd naar Sentry...'
         });
       });
     }
@@ -116,13 +116,13 @@ export class BaseSidebarComponent {
 
   addCustomBreadcrumb(): void {
     Sentry.addBreadcrumb({
-      type: "knooppuntnet",
+      type: 'knooppuntnet',
       level: Severity.Info,
-      message: "this is a custom breadcrumb",
-      category: "action",
+      message: 'this is a custom breadcrumb',
+      category: 'action',
       data: {
-        "breadcrumb-data-1": "breadcrumb-data-1-value",
-        "breadcrumb-data-2": "breadcrumb-data-2-value",
+        'breadcrumb-data-1': 'breadcrumb-data-1-value',
+        'breadcrumb-data-2': 'breadcrumb-data-2-value',
       }
     });
   }

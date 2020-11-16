@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {Coordinate} from "ol/coordinate";
-import {Extent} from "ol/extent";
-import {fromLonLat} from "ol/proj";
-import View from "ol/View";
-import {BrowserStorageService} from "../../../services/browser-storage.service";
-import {MapPosition} from "../domain/map-position";
+import {Injectable} from '@angular/core';
+import {Coordinate} from 'ol/coordinate';
+import {Extent} from 'ol/extent';
+import {fromLonLat} from 'ol/proj';
+import View from 'ol/View';
+import {BrowserStorageService} from '../../../services/browser-storage.service';
+import {MapPosition} from '../domain/map-position';
 
 @Injectable()
 export class MapPositionService {
 
-  private mapPositionKey = "map-position";
+  private mapPositionKey = 'map-position';
 
   private view: View;
 
@@ -43,9 +43,9 @@ export class MapPositionService {
   }
 
   private updateUponPositionChange(): void {
-    this.view.on("change:resolution", () => this.update());
-    this.view.on("change:center", (e) => this.update());
-    this.view.on("change:rotation", (e) => this.update());
+    this.view.on('change:resolution', () => this.update());
+    this.view.on('change:center', (e) => this.update());
+    this.view.on('change:rotation', (e) => this.update());
   }
 
   private update(): void {

@@ -1,17 +1,17 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
-import {map, mergeMap, tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {NetworkMapPage} from "../../../kpn/api/common/network/network-map-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {NetworkService} from "../network.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {shareReplay} from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {NetworkMapPage} from '../../../kpn/api/common/network/network-map-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NetworkService} from '../network.service';
 
 @Component({
-  selector: "kpn-network-map-page",
+  selector: 'kpn-network-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -47,7 +47,7 @@ export class NetworkMapPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.networkId$ = this.activatedRoute.params.pipe(
-      map(params => +params["networkId"]),
+      map(params => +params['networkId']),
       tap(networkId => this.networkService.init(networkId)),
       shareReplay()
     );

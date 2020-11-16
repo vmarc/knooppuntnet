@@ -1,10 +1,10 @@
-import {Plan} from "../plan/plan";
-import {Printer} from "./printer";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlanFlag} from "../plan/plan-flag";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {TrackPathKey} from "../../../kpn/api/common/common/track-path-key";
-import {List} from "immutable";
+import {Plan} from '../plan/plan';
+import {Printer} from './printer';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanFlag} from '../plan/plan-flag';
+import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {TrackPathKey} from '../../../kpn/api/common/common/track-path-key';
+import {List} from 'immutable';
 
 export class PlanPrinter {
 
@@ -32,14 +32,14 @@ export class PlanPrinter {
     if (planNode) {
       return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(planNode.coordinate)}`;
     }
-    return "none";
+    return 'none';
   }
 
   private flag(planFlag: PlanFlag): string {
     if (planFlag) {
       return `${planFlag.flagType} ${this.out.coordinate(planFlag.coordinate)}`;
     }
-    return "none";
+    return 'none';
   }
 
   private static sink(legEnd: LegEnd): string {
@@ -56,11 +56,11 @@ export class PlanPrinter {
         return PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
       }
     }
-    return "none";
+    return 'none';
   }
 
   private static trackPathKeys(keys: List<TrackPathKey>): string {
-    return keys.map(key => PlanPrinter.trackPathKey(key)).join("|");
+    return keys.map(key => PlanPrinter.trackPathKey(key)).join('|');
   }
 
   private static trackPathKey(key: TrackPathKey): string {

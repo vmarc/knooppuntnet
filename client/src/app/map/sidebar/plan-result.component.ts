@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PlannerService} from "../planner.service";
-import {Plan} from "../planner/plan/plan";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PlannerService} from '../planner.service';
+import {Plan} from '../planner/plan/plan';
 
 @Component({
-  selector: "kpn-plan-result",
+  selector: 'kpn-plan-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="plan$ | async as plan">
@@ -28,9 +28,9 @@ export class PlanResultComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.compact$ = this.plannerService.resultMode$.pipe(map(mode => mode === "compact"));
-    this.detailed$ = this.plannerService.resultMode$.pipe(map(mode => mode === "detailed"));
-    this.instructions$ = this.plannerService.resultMode$.pipe(map(mode => mode === "instructions"));
+    this.compact$ = this.plannerService.resultMode$.pipe(map(mode => mode === 'compact'));
+    this.detailed$ = this.plannerService.resultMode$.pipe(map(mode => mode === 'detailed'));
+    this.instructions$ = this.plannerService.resultMode$.pipe(map(mode => mode === 'instructions'));
     this.plan$ = this.plannerService.context.plan$;
   }
 }

@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {Bounds} from "../bounds";
-import {LocationSummary} from "./location-summary";
+import {Bounds} from '../bounds';
+import {LocationSummary} from './location-summary';
 
 export class LocationMapPage {
 

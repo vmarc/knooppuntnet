@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {TrackSegment} from "./track-segment";
+import {List} from 'immutable';
+import {TrackSegment} from './track-segment';
 
 export class TrackPath {
 

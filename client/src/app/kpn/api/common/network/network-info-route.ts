@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {Day} from "../../custom/day";
-import {Fact} from "../../custom/fact";
-import {Timestamp} from "../../custom/timestamp";
+import {List} from 'immutable';
+import {Day} from '../../custom/day';
+import {Fact} from '../../custom/fact';
+import {Timestamp} from '../../custom/timestamp';
 
 export class NetworkInfoRoute {
 

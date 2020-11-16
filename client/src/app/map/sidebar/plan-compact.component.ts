@@ -1,11 +1,11 @@
-import {Input} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {PlannerService} from "../planner.service";
-import {Plan} from "../planner/plan/plan";
-import {PlanRoute} from "../../kpn/api/common/planner/plan-route";
+import {Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {PlannerService} from '../planner.service';
+import {Plan} from '../planner/plan/plan';
+import {PlanRoute} from '../../kpn/api/common/planner/plan-route';
 
 @Component({
-  selector: "kpn-plan-compact",
+  selector: 'kpn-plan-compact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span *ngIf="plan.sourceNode !== null" class="node">

@@ -1,4 +1,4 @@
-import {NetworkType} from "../../../../kpn/api/custom/network-type";
+import {NetworkType} from '../../../../kpn/api/custom/network-type';
 
 export class IntegrityIndicatorData {
   constructor(readonly color: string,

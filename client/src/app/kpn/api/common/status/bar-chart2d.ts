@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {BarChart2dValue} from "./bar-chart2d-value";
+import {List} from 'immutable';
+import {BarChart2dValue} from './bar-chart2d-value';
 
 export class BarChart2D {
 

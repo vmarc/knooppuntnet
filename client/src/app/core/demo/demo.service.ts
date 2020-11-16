@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {map} from "rxjs/operators";
-import {PageWidth} from "../../components/shared/page-width";
-import {PageWidthService} from "../../components/shared/page-width.service";
-import {Store} from "@ngrx/store";
-import {actionDemoEnabledChanged} from "./demo.actions";
+import {Injectable} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {PageWidth} from '../../components/shared/page-width';
+import {PageWidthService} from '../../components/shared/page-width.service';
+import {Store} from '@ngrx/store';
+import {actionDemoEnabledChanged} from './demo.actions';
 
 @Injectable()
 export class DemoService {
@@ -15,7 +15,7 @@ export class DemoService {
     pageWidthService.current$.pipe(
       map(pageWidth => pageWidth == PageWidth.veryLarge)
     ).subscribe(enabled => {
-      this.store.dispatch(actionDemoEnabledChanged({enabled: enabled}))
+      this.store.dispatch(actionDemoEnabledChanged({enabled}));
     });
   }
 
@@ -36,7 +36,7 @@ export class DemoService {
   end(): void {
     if (this.videoElement && this.sourceElement) {
       this.videoElement.pause();
-      this.sourceElement.src = "";
+      this.sourceElement.src = '';
       this.videoElement.load();
       this.sourceElement = null;
       this.videoElement = null;

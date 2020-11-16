@@ -1,5 +1,5 @@
-import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
-import {DayPipe} from "../../shared/format/day.pipe";
+import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
+import {DayPipe} from '../../shared/format/day.pipe';
 
 export class SurveyDateValues {
   constructor(readonly lastMonthStart: string,

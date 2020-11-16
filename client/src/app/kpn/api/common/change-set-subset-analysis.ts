@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {Subset} from "../custom/subset";
+import {Subset} from '../custom/subset';
 
 export class ChangeSetSubsetAnalysis {
 

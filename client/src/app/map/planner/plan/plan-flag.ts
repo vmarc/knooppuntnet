@@ -1,5 +1,5 @@
-import {Coordinate} from "ol/coordinate";
-import {PlanFlagType} from "./plan-flag-type";
+import {Coordinate} from 'ol/coordinate';
+import {PlanFlagType} from './plan-flag-type';
 
 export class PlanFlag {
 

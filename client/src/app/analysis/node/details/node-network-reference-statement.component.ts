@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit} from "@angular/core";
-import {NodeNetworkReference} from "../../../kpn/api/common/node/node-network-reference";
-import {NodeInfo} from "../../../kpn/api/common/node-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {NodeNetworkReference} from '../../../kpn/api/common/node/node-network-reference';
+import {NodeInfo} from '../../../kpn/api/common/node-info';
 
 @Component({
-  selector: "kpn-node-network-reference-statement",
+  selector: 'kpn-node-network-reference-statement',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -42,19 +42,19 @@ export class NodeNetworkReferenceStatementComponent implements OnInit {
   summaryStatement: string;
 
   ngOnInit(): void {
-    let statement = "";
+    let statement = '';
     if (this.reference.nodeRoleConnection) {
       if (this.hasExpectedRouteRelationsTag()) {
-        statement = "role-connection-invalid";
+        statement = 'role-connection-invalid';
       } else {
-        statement = "role-connection";
+        statement = 'role-connection';
       }
     } else if (this.reference.nodeDefinedInRelation) {
-      statement = "network-member";
+      statement = 'network-member';
     } else if (this.hasExpectedRouteRelationsTag()) {
-      statement = "not-network-member-invalid";
+      statement = 'not-network-member-invalid';
     } else {
-      statement = "not-network-member";
+      statement = 'not-network-member';
     }
 
     this.summaryStatement = statement;

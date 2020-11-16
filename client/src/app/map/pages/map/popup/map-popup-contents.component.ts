@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
-import {MapService} from "../../../../components/ol/services/map.service";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
+import {MapService} from '../../../../components/ol/services/map.service';
 
 @Component({
-  selector: "kpn-map-popup-contents",
+  selector: 'kpn-map-popup-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="mapService.popupType$ | async as popupType">

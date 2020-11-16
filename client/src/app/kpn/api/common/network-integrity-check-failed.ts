@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NodeIntegrityCheck} from "./node-integrity-check";
+import {List} from 'immutable';
+import {NodeIntegrityCheck} from './node-integrity-check';
 
 export class NetworkIntegrityCheckFailed {
 

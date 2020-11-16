@@ -1,4 +1,4 @@
-import {NetworkAttributes} from "../../../kpn/api/common/network/network-attributes";
+import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
 
 export class InterpretedNetworkAttributes {
 
@@ -6,7 +6,7 @@ export class InterpretedNetworkAttributes {
   }
 
   percentageOk(): string {
-    return Math.round(this.routePercentageOk()) + "%";
+    return Math.round(this.routePercentageOk()) + '%';
   }
 
   happy(): boolean {

@@ -1,17 +1,17 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {tap} from "rxjs/operators";
-import {map, mergeMap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {Util} from "../../../components/shared/util";
-import {SubsetFactDetailsPage} from "../../../kpn/api/common/subset/subset-fact-details-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {Subset} from "../../../kpn/api/custom/subset";
-import {SubsetCacheService} from "../../../services/subset-cache.service";
-import {SubsetInfo} from "../../../kpn/api/common/subset/subset-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {map, mergeMap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {Util} from '../../../components/shared/util';
+import {SubsetFactDetailsPage} from '../../../kpn/api/common/subset/subset-fact-details-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Subset} from '../../../kpn/api/custom/subset';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 class SubsetFact {
   constructor(readonly subset: Subset,
@@ -20,7 +20,7 @@ class SubsetFact {
 }
 
 @Component({
-  selector: "kpn-subset-fact-details-page",
+  selector: 'kpn-subset-fact-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -94,7 +94,7 @@ class SubsetFact {
       </div>
     </div>
   `,
-  styleUrls: ["./_subset-fact-details-page.component.scss"]
+  styleUrls: ['./_subset-fact-details-page.component.scss']
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
 
@@ -133,20 +133,20 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   }
 
   hasNodeRefs(): boolean {
-    return this.factName === "NodeMemberMissing"
-      || this.factName === "IntegrityCheckFailed";
+    return this.factName === 'NodeMemberMissing'
+      || this.factName === 'IntegrityCheckFailed';
   }
 
   hasOsmNodeRefs(): boolean {
-    return this.factName === "NetworkExtraMemberNode";
+    return this.factName === 'NetworkExtraMemberNode';
   }
 
   hasOsmWayRefs(): boolean {
-    return this.factName === "NetworkExtraMemberWay";
+    return this.factName === 'NetworkExtraMemberWay';
   }
 
   hasOsmRelationRefs(): boolean {
-    return this.factName === "NetworkExtraMemberRelation";
+    return this.factName === 'NetworkExtraMemberRelation';
   }
 
   hasRouteRefs(): boolean {
@@ -158,7 +158,7 @@ export class SubsetFactDetailsPageComponent implements OnInit {
 
   private interpreteParams(params: Params): SubsetFact {
     const subset = Util.subsetInRoute(params);
-    this.factName = params["fact"];
+    this.factName = params['fact'];
     return new SubsetFact(subset, this.factName);
   }
 

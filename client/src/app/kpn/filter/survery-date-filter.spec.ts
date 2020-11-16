@@ -1,13 +1,13 @@
-import {List} from "immutable";
-import {SurveyDateInfo} from "../api/common/survey-date-info";
-import {Day} from "../api/custom/day";
-import {Filters} from "./filters";
-import {SurveyDateFilter} from "./survey-date-filter";
-import {SurveyDateFilterKind} from "./survey-date-filter-kind";
+import {List} from 'immutable';
+import {SurveyDateInfo} from '../api/common/survey-date-info';
+import {Day} from '../api/custom/day';
+import {Filters} from './filters';
+import {SurveyDateFilter} from './survey-date-filter';
+import {SurveyDateFilterKind} from './survey-date-filter-kind';
 
-describe("SurveyDateFilter", () => {
+describe('SurveyDateFilter', () => {
 
-  it("unknown", () => {
+  it('unknown', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.UNKNOWN);
 
@@ -24,7 +24,7 @@ describe("SurveyDateFilter", () => {
     expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
   });
 
-  it("last month", () => {
+  it('last month', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.LAST_MONTH);
 
@@ -41,7 +41,7 @@ describe("SurveyDateFilter", () => {
     expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
   });
 
-  it("last half year", () => {
+  it('last half year', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.LAST_HALF_YEAR);
 
@@ -59,7 +59,7 @@ describe("SurveyDateFilter", () => {
     expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
   });
 
-  it("last year", () => {
+  it('last year', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.LAST_YEAR);
 
@@ -77,7 +77,7 @@ describe("SurveyDateFilter", () => {
     expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
   });
 
-  it("last two years", () => {
+  it('last two years', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.LAST_TWO_YEARS);
 
@@ -95,7 +95,7 @@ describe("SurveyDateFilter", () => {
     expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
   });
 
-  it("older", () => {
+  it('older', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.OLDER);
 

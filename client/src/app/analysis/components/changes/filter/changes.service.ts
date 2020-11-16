@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
-import {Observable} from "rxjs";
-import {ChangeFilterOptions} from "./change-filter-options";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Observable} from 'rxjs';
+import {ChangeFilterOptions} from './change-filter-options';
 
 @Injectable()
 export class ChangesService {

@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnDestroy, OnInit} from "@angular/core";
-import {MatRadioChange} from "@angular/material/radio";
-import {MapService} from "../../../../components/ol/services/map.service";
-import {PoiService} from "../../../../services/poi.service";
-import {Subscriptions} from "../../../../util/Subscriptions";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {MatRadioChange} from '@angular/material/radio';
+import {MapService} from '../../../../components/ol/services/map.service';
+import {PoiService} from '../../../../services/poi.service';
+import {Subscriptions} from '../../../../util/Subscriptions';
 
 @Component({
-  selector: "kpn-poi-config",
+  selector: 'kpn-poi-config',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="poi-config">
@@ -92,7 +92,7 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
         this.icon = definition.icon;
         this.minLevel = definition.minLevel;
       } else {
-        console.log("DEBUG PoiConfigComponent definition not found name=" + this.poiId);
+        console.log('DEBUG PoiConfigComponent definition not found name=' + this.poiId);
       }
     }));
   }

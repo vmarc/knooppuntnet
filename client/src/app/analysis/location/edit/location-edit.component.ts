@@ -1,19 +1,19 @@
-import {Input} from "@angular/core";
-import {ChangeDetectionStrategy, Component} from "@angular/core";
-import {MatCheckboxChange} from "@angular/material/checkbox/checkbox";
-import {List, Range} from "immutable";
-import {Subscription} from "rxjs";
-import {TimeoutError} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {concat} from "rxjs";
-import {Observable} from "rxjs";
-import {delay} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-page";
+import {Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatCheckboxChange} from '@angular/material/checkbox/checkbox';
+import {List, Range} from 'immutable';
+import {Subscription} from 'rxjs';
+import {TimeoutError} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {concat} from 'rxjs';
+import {Observable} from 'rxjs';
+import {delay} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
 
 @Component({
-  selector: "kpn-location-edit",
+  selector: 'kpn-location-edit',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>
@@ -105,16 +105,16 @@ export class LocationEditComponent {
   showProgress$ = new BehaviorSubject<boolean>(false);
   ready$ = new BehaviorSubject<boolean>(false);
   error$ = new BehaviorSubject<boolean>(false);
-  errorName$ = new BehaviorSubject<string>("");
-  errorMessage$ = new BehaviorSubject<string>("");
+  errorName$ = new BehaviorSubject<string>('');
+  errorMessage$ = new BehaviorSubject<string>('');
   timeout$ = new BehaviorSubject<boolean>(false);
   showEstimatedTime$ = new BehaviorSubject<boolean>(false);
 
   private readonly nodeChunkSize = 50;
   private readonly routeChunkSize = 50;
   private readonly requestDelay = 200;
-  private readonly josmUrl = "http://localhost:8111/";
-  private readonly apiUrl = this.josmUrl + "import?url=https://api.openstreetmap.org/api/0.6";
+  private readonly josmUrl = 'http://localhost:8111/';
+  private readonly apiUrl = this.josmUrl + 'import?url=https://api.openstreetmap.org/api/0.6';
 
   constructor(private appService: AppService) {
   }
@@ -230,7 +230,7 @@ export class LocationEditComponent {
       .map(chunkStart => this.page.nodeIds.slice(chunkStart, chunkStart + this.nodeChunkSize))
       .toList();
     return nodeBatches.map(nodeIds => {
-      const nodeIdString = nodeIds.join(",");
+      const nodeIdString = nodeIds.join(',');
       const url = `${this.apiUrl}/nodes?nodes=${nodeIdString}`;
       return this.appService.edit(url).pipe(
         tap(() => this.updateProgress()),
@@ -247,7 +247,7 @@ export class LocationEditComponent {
       .map(chunkStart => this.page.routeIds.slice(chunkStart, chunkStart + this.routeChunkSize))
       .toList();
     return routeBatches.map(routeIds => {
-      const routeIdString = routeIds.join(",");
+      const routeIdString = routeIds.join(',');
       const url = `${this.apiUrl}/relations?relations=${routeIdString}`;
       return this.appService.edit(url).pipe(
         tap(() => this.updateProgress()),

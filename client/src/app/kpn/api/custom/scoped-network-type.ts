@@ -1,6 +1,6 @@
-import {NetworkScope} from "./network-scope";
-import {NetworkType} from "./network-type";
-import {List} from "immutable";
+import {NetworkScope} from './network-scope';
+import {NetworkType} from './network-type';
+import {List} from 'immutable';
 
 export class ScopedNetworkType {
 
@@ -15,7 +15,7 @@ export class ScopedNetworkType {
 
   public static create(networkScope: NetworkScope,
                        networkType: NetworkType): ScopedNetworkType {
-    const key = networkScope.letter + networkType.letter + "n";
+    const key = networkScope.letter + networkType.letter + 'n';
     return new ScopedNetworkType(networkScope, networkType, key);
   }
 

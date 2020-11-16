@@ -1,6 +1,6 @@
-import {Coordinate} from "ol/coordinate";
-import {PlanNode} from "../../../kpn/api/common/planner/plan-node";
-import {PlanFlag} from "../plan/plan-flag";
+import {Coordinate} from 'ol/coordinate';
+import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanFlag} from '../plan/plan-flag';
 
 export class PlannerDragViaRouteFlag {
 

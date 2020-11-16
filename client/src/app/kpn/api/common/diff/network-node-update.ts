@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {NetworkNodeData} from "./network-node-data";
-import {NetworkNodeDiff} from "./network/network-node-diff";
+import {NetworkNodeData} from './network-node-data';
+import {NetworkNodeDiff} from './network/network-node-diff';
 
 export class NetworkNodeUpdate {
 

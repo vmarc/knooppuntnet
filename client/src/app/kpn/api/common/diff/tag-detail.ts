@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import {TagDetailType} from "./tag-detail-type";
+import {TagDetailType} from './tag-detail-type';
 
 export class TagDetail {
 

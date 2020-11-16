@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {RouteChangeInfo} from "../../../../kpn/api/common/route/route-change-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {RouteChangeInfo} from '../../../../kpn/api/common/route/route-change-info';
 
 @Component({
-  selector: "kpn-route-change-detail",
+  selector: 'kpn-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

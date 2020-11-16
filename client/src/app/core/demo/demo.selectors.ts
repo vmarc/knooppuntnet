@@ -1,9 +1,9 @@
-import {createSelector} from "@ngrx/store";
-import {DemoState} from "./demo.model";
-import {VideoState} from "./demo.model";
-import {selectDemoState} from "../core.state";
-import {selectRouteParams} from "../core.state";
-import {Params} from "@angular/router";
+import {createSelector} from '@ngrx/store';
+import {DemoState} from './demo.model';
+import {VideoState} from './demo.model';
+import {selectDemoState} from '../core.state';
+import {selectRouteParams} from '../core.state';
+import {Params} from '@angular/router';
 
 export const selectDemo = createSelector(
   selectDemoState,

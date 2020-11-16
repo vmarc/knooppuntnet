@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {PlanFragment} from "./plan-fragment";
+import {List} from 'immutable';
+import {PlanFragment} from './plan-fragment';
 
 export class PlanSegment {
 

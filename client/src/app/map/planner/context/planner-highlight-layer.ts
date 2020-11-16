@@ -1,20 +1,20 @@
-import {FeatureLike} from "ol/Feature";
-import Feature from "ol/Feature";
-import GeometryType from "ol/geom/GeometryType";
-import VectorLayer from "ol/layer/Vector";
-import Map from "ol/Map";
-import VectorSource from "ol/source/Vector";
-import Circle from "ol/style/Circle";
-import Fill from "ol/style/Fill";
-import Stroke from "ol/style/Stroke";
-import {StyleFunction} from "ol/style/Style";
-import Style from "ol/style/Style";
-import {Layers} from "../../../components/ol/layers/layers";
+import {FeatureLike} from 'ol/Feature';
+import Feature from 'ol/Feature';
+import GeometryType from 'ol/geom/GeometryType';
+import VectorLayer from 'ol/layer/Vector';
+import Map from 'ol/Map';
+import VectorSource from 'ol/source/Vector';
+import Circle from 'ol/style/Circle';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import {StyleFunction} from 'ol/style/Style';
+import Style from 'ol/style/Style';
+import {Layers} from '../../../components/ol/layers/layers';
 
 export class PlannerHighlightLayer {
 
   private readonly largeMinZoomLevel = 13;
-  private readonly yellow = "rgba(255, 255, 0, 0.8)";
+  private readonly yellow = 'rgba(255, 255, 0, 0.8)';
   private readonly routeStyle = this.buildRouteStyle();
   private readonly smallNodeStyle = this.buildNodeStyle(12);
   private readonly largeNodeStyle = this.buildNodeStyle(22);
@@ -61,7 +61,7 @@ export class PlannerHighlightLayer {
   private buildNodeStyle(radius: number): Style {
     return new Style({
       image: new Circle({
-        radius: radius,
+        radius,
         fill: new Fill({
           color: this.yellow
         })

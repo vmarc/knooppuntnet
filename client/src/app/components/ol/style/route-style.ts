@@ -1,7 +1,7 @@
-import {Color} from "ol/color";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
-import {MainStyleColors} from "./main-style-colors";
+import {Color} from 'ol/color';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import {MainStyleColors} from './main-style-colors';
 
 export class RouteStyle {
 

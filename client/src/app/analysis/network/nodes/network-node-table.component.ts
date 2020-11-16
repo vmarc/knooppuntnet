@@ -1,28 +1,28 @@
-import {OnDestroy} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import {List} from "immutable";
-import {Observable} from "rxjs";
-import {BehaviorSubject} from "rxjs";
-import {tap} from "rxjs/operators";
-import {delay} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {PaginatorComponent} from "../../../components/shared/paginator/paginator.component";
-import {NetworkInfoNode} from "../../../kpn/api/common/network/network-info-node";
-import {SurveyDateInfo} from "../../../kpn/api/common/survey-date-info";
-import {TimeInfo} from "../../../kpn/api/common/time-info";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
-import {FilterOptions} from "../../../kpn/filter/filter-options";
-import {BrowserStorageService} from "../../../services/browser-storage.service";
-import {NetworkNodeFilter} from "./network-node-filter";
-import {NetworkNodeFilterCriteria} from "./network-node-filter-criteria";
-import {NetworkNodesService} from "./network-nodes.service";
+import {OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {List} from 'immutable';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {delay} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
+import {NetworkInfoNode} from '../../../kpn/api/common/network/network-info-node';
+import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
+import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {FilterOptions} from '../../../kpn/filter/filter-options';
+import {BrowserStorageService} from '../../../services/browser-storage.service';
+import {NetworkNodeFilter} from './network-node-filter';
+import {NetworkNodeFilterCriteria} from './network-node-filter-criteria';
+import {NetworkNodesService} from './network-nodes.service';
 
 @Component({
-  selector: "kpn-network-node-table",
+  selector: 'kpn-network-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
@@ -165,31 +165,31 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "name", "routes-expected", "routes-actual", "last-survey", "last-edit"];
+      return ['nr', 'analysis', 'node', 'name', 'routes-expected', 'routes-actual', 'last-survey', 'last-edit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "analysis", "node", "routes-expected", "routes-actual"];
+      return ['nr', 'analysis', 'node', 'routes-expected', 'routes-actual'];
     }
 
-    return ["nr", "analysis", "node"];
+    return ['nr', 'analysis', 'node'];
   }
 
   private headerColumns1() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ["nr", "analysis", "node", "name", "routes", "last-survey", "last-edit"];
+      return ['nr', 'analysis', 'node', 'name', 'routes', 'last-survey', 'last-edit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ["nr", "analysis", "node", "routes"];
+      return ['nr', 'analysis', 'node', 'routes'];
     }
 
-    return ["nr", "analysis", "node"];
+    return ['nr', 'analysis', 'node'];
   }
 
   private headerColumns2() {
     if (this.pageWidthService.isVeryLarge() || this.pageWidthService.isLarge()) {
-      return ["routes-expected", "routes-actual"];
+      return ['routes-expected', 'routes-actual'];
     }
     return [];
   }
@@ -202,7 +202,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     if (node.integrityCheck && node.integrityCheck.expected) {
       return node.integrityCheck.expected.toString();
     }
-    return "-";
+    return '-';
   }
 
   name(node: NetworkInfoNode): string {
@@ -213,7 +213,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
         return nameTag.value;
       }
     }
-    return "-";
+    return '-';
   }
 
   pageChanged(event: PageEvent): void {

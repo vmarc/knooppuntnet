@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-history-incomplete-warning",
+  selector: 'kpn-history-incomplete-warning',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="note" i18n="@@history-incomplete.warning">

@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-plan",
+  selector: 'kpn-plan',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-poi-names></kpn-poi-names>

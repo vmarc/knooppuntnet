@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {LocationNode} from "../../../kpn/api/common/location/location-node";
-import {Country} from "../../../kpn/api/custom/country";
-import {NetworkType} from "../../../kpn/api/custom/network-type";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {shareReplay} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {LocationNode} from '../../../kpn/api/common/location/location-node';
+import {Country} from '../../../kpn/api/custom/country';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
 
 @Injectable()
 export class LocationSelectionService {

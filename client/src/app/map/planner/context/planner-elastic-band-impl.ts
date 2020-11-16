@@ -1,18 +1,18 @@
-import {Coordinate} from "ol/coordinate";
-import Feature from "ol/Feature";
-import LineString from "ol/geom/LineString";
-import VectorLayer from "ol/layer/Vector";
-import Map from "ol/Map";
-import VectorSource from "ol/source/Vector";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
-import {PlannerElasticBand} from "./planner-elastic-band";
+import {Coordinate} from 'ol/coordinate';
+import Feature from 'ol/Feature';
+import LineString from 'ol/geom/LineString';
+import VectorLayer from 'ol/layer/Vector';
+import Map from 'ol/Map';
+import VectorSource from 'ol/source/Vector';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import {PlannerElasticBand} from './planner-elastic-band';
 
 export class PlannerElasticBandImpl implements PlannerElasticBand {
 
   private rubberBandStyle = new Style({
     stroke: new Stroke({
-      color: "rgba(0, 0, 255, 0.7)",
+      color: 'rgba(0, 0, 255, 0.7)',
       lineDash: [10, 10],
       width: 2
     })

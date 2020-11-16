@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidthService} from "../../../components/shared/page-width.service";
-import {TagDiffs} from "../../../kpn/api/common/diff/tag-diffs";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidthService} from '../../../components/shared/page-width.service';
+import {TagDiffs} from '../../../kpn/api/common/diff/tag-diffs';
 
 @Component({
-  selector: "kpn-tag-diffs",
+  selector: 'kpn-tag-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="small$ | async; then small else large"></div>

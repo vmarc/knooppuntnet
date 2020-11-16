@@ -1,5 +1,5 @@
-import {Filter} from "./filter";
-import {List} from "immutable";
+import {Filter} from './filter';
+import {List} from 'immutable';
 
 export class Filters<T> {
 

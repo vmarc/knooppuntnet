@@ -1,12 +1,12 @@
-import {Inject, Injectable, InjectionToken} from "@angular/core";
+import {Inject, Injectable, InjectionToken} from '@angular/core';
 
-export const BROWSER_STORAGE = new InjectionToken<Storage>("Browser Storage", {
-  providedIn: "root",
+export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
+  providedIn: 'root',
   factory: () => localStorage
 });
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class BrowserStorageService {
 
@@ -14,15 +14,15 @@ export class BrowserStorageService {
   }
 
   get itemsPerPage(): number {
-    let value = this.get("items-per-page");
+    let value = this.get('items-per-page');
     if (value == null) {
-      value = "15";
+      value = '15';
     }
     return +value;
   }
 
   set itemsPerPage(value: number) {
-    this.set("items-per-page", value.toString());
+    this.set('items-per-page', value.toString());
   }
 
   get(key: string): string | null {

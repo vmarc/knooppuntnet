@@ -1,11 +1,11 @@
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {ChangeDetectionStrategy} from "@angular/core";
-import {NodeIntegrity} from "../../../kpn/api/common/node/node-integrity";
-import {NodeIntegrityDetail} from "../../../kpn/api/common/node/node-integrity-detail";
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
+import {NodeIntegrityDetail} from '../../../kpn/api/common/node/node-integrity-detail';
 
 @Component({
-  selector: "kpn-node-integrity",
+  selector: 'kpn-node-integrity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p *ngIf="integrity.details.isEmpty()" i18n="@@node.integrity.none">

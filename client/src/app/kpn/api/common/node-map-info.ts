@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {List} from "immutable";
-import {NetworkType} from "../custom/network-type";
+import {List} from 'immutable';
+import {NetworkType} from '../custom/network-type';
 
 export class NodeMapInfo {
 

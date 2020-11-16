@@ -1,28 +1,28 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {ReplaySubject} from "rxjs";
-import {combineLatest} from "rxjs";
-import {Observable} from "rxjs";
-import {mergeMap} from "rxjs/operators";
-import {switchMap} from "rxjs/operators";
-import {tap} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {AppService} from "../../../app.service";
-import {PageService} from "../../../components/shared/page.service";
-import {Util} from "../../../components/shared/util";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
-import {RouteChangesPage} from "../../../kpn/api/common/route/route-changes-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {UserService} from "../../../services/user.service";
-import {ChangeFilterOptions} from "../../components/changes/filter/change-filter-options";
-import {RouteChangesService} from "./route-changes.service";
-import {Store} from "@ngrx/store";
-import {AppState} from "../../../core/core.state";
-import {actionPreferencesNetworkType} from "../../../core/preferences/preferences.actions";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ReplaySubject} from 'rxjs';
+import {combineLatest} from 'rxjs';
+import {Observable} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
+import {switchMap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {AppService} from '../../../app.service';
+import {PageService} from '../../../components/shared/page.service';
+import {Util} from '../../../components/shared/util';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {RouteChangesPage} from '../../../kpn/api/common/route/route-changes-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {UserService} from '../../../services/user.service';
+import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
+import {RouteChangesService} from './route-changes.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../core/core.state';
+import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
-  selector: "kpn-route-changes-page",
+  selector: 'kpn-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -99,7 +99,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
     this.routeName$.next(history.state.routeName);
     this.changeCount$.next(history.state.changeCount);
     this.response$ = this.activatedRoute.params.pipe(
-      map(params => params["routeId"]),
+      map(params => params['routeId']),
       tap(routeId => this.routeId$.next(routeId)),
       tap(routeId => this.updateParameters(routeId)),
       mergeMap(routeId =>

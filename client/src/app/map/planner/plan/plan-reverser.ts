@@ -1,14 +1,14 @@
-import {PlannerContext} from "../context/planner-context";
-import {FeatureId} from "../features/feature-id";
-import {Plan} from "./plan";
-import {PlanFlag} from "./plan-flag";
-import {PlanUtil} from "./plan-util";
-import {PlanLeg} from "./plan-leg";
-import {List} from "immutable";
-import {LegEnd} from "../../../kpn/api/common/planner/leg-end";
-import {PlanFlagType} from "./plan-flag-type";
-import {Observable, of} from "rxjs";
-import {map, switchMap} from "rxjs/operators";
+import {PlannerContext} from '../context/planner-context';
+import {FeatureId} from '../features/feature-id';
+import {Plan} from './plan';
+import {PlanFlag} from './plan-flag';
+import {PlanUtil} from './plan-util';
+import {PlanLeg} from './plan-leg';
+import {List} from 'immutable';
+import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {PlanFlagType} from './plan-flag-type';
+import {Observable, of} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 
 export class PlanReverser {
 
@@ -81,9 +81,7 @@ export class PlanReverser {
         const updatedFirstLeg = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(firstLegSinkFlagType));
 
         return this.buildExtraLeg(firstLeg.sinkNode.nodeId, oldLeg.sourceNode.nodeId, sinkFlagType).pipe(
-          map(extraLeg => {
-            return List([updatedFirstLeg, extraLeg]);
-          })
+          map(extraLeg => List([updatedFirstLeg, extraLeg]))
         );
       })
     );

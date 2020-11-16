@@ -1,21 +1,21 @@
-import {PdfPlanNode} from "./pdf-plan-node";
-import {List} from "immutable";
-import {PdfDocumentModel} from "./pdf-document-model";
+import {PdfPlanNode} from './pdf-plan-node';
+import {List} from 'immutable';
+import {PdfDocumentModel} from './pdf-document-model';
 
-describe("PdfDocumentModel", () => {
+describe('PdfDocumentModel', () => {
 
   function createModel(nodeCount: number): PdfDocumentModel {
     const nodes = new Array<PdfPlanNode>();
     for (let i = 0; i < nodeCount; i++) {
       const nodeName = (i + 1).toString();
-      const distance = i === (nodeCount - 1) ? "END" : "10 m";
-      const cumulativeDistance = i === 0 ? "START" : `${i * 10} m`;
+      const distance = i === (nodeCount - 1) ? 'END' : '10 m';
+      const cumulativeDistance = i === 0 ? 'START' : `${i * 10} m`;
       nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance));
     }
     return new PdfDocumentModel(List(nodes));
   }
 
-  it("pageCount", () => {
+  it('pageCount', () => {
     expect(createModel(1).pageCount()).toEqual(1);
     expect(createModel(10).pageCount()).toEqual(1);
     expect(createModel(97).pageCount()).toEqual(1);
@@ -25,7 +25,7 @@ describe("PdfDocumentModel", () => {
     expect(createModel(197).pageCount()).toEqual(3);
   });
 
-  it("nodeCountOnPage", () => {
+  it('nodeCountOnPage', () => {
     expect(createModel(1).pageNodeCount(0)).toEqual(1);
     expect(createModel(10).pageNodeCount(0)).toEqual(10);
     expect(createModel(97).pageNodeCount(0)).toEqual(97);
@@ -42,7 +42,7 @@ describe("PdfDocumentModel", () => {
     expect(createModel(197).pageNodeCount(2)).toEqual(1);
   });
 
-  it("pageRowCount", () => {
+  it('pageRowCount', () => {
     expect(createModel(1).pageRowCount(0)).toEqual(1);
     expect(createModel(7).pageRowCount(0)).toEqual(1);
     expect(createModel(8).pageRowCount(0)).toEqual(2);
@@ -55,7 +55,7 @@ describe("PdfDocumentModel", () => {
 
   });
 
-  it("columnCount", () => {
+  it('columnCount', () => {
 
     const model = createModel(100);
 
@@ -66,13 +66,13 @@ describe("PdfDocumentModel", () => {
     expect(model.columnCount(1, 1, 0)).toEqual(2);
   });
 
-  it("node", () => {
+  it('node', () => {
     const model = createModel(100);
-    expect(model.node(0, 0, 0).nodeName).toEqual("1");
-    expect(model.node(0, 0, 1).nodeName).toEqual("2");
-    expect(model.node(0, 1, 0).nodeName).toEqual("8");
-    expect(model.node(0, 2, 0).nodeName).toEqual("15");
-    expect(model.node(1, 0, 0).nodeName).toEqual("99");
+    expect(model.node(0, 0, 0).nodeName).toEqual('1');
+    expect(model.node(0, 0, 1).nodeName).toEqual('2');
+    expect(model.node(0, 1, 0).nodeName).toEqual('8');
+    expect(model.node(0, 2, 0).nodeName).toEqual('15');
+    expect(model.node(1, 0, 0).nodeName).toEqual('99');
   });
 
 });

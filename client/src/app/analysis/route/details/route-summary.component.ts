@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {RouteInfo} from "../../../kpn/api/common/route/route-info";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {RouteInfo} from '../../../kpn/api/common/route/route-info';
 
 @Component({
-  selector: "kpn-route-summary",
+  selector: 'kpn-route-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -49,11 +49,11 @@ export class RouteSummaryComponent {
   @Input() route: RouteInfo;
 
   isRouteBroken() {
-    return this.route.facts.map(fact => fact.name).contains("RouteBroken");
+    return this.route.facts.map(fact => fact.name).contains('RouteBroken');
   }
 
   isRouteIncomplete() {
-    return this.route.facts.map(fact => fact.name).contains("RouteIncomplete");
+    return this.route.facts.map(fact => fact.name).contains('RouteIncomplete');
   }
 
 }

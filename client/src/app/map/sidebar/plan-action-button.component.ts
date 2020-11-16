@@ -1,14 +1,14 @@
-import {Input} from "@angular/core";
-import {EventEmitter} from "@angular/core";
-import {Output} from "@angular/core";
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {PageWidth} from "../../components/shared/page-width";
-import {PageWidthService} from "../../components/shared/page-width.service";
+import {Input} from '@angular/core';
+import {EventEmitter} from '@angular/core';
+import {Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {PageWidth} from '../../components/shared/page-width';
+import {PageWidthService} from '../../components/shared/page-width.service';
 
 @Component({
-  selector: "kpn-plan-action-button",
+  selector: 'kpn-plan-action-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
@@ -43,9 +43,9 @@ import {PageWidthService} from "../../components/shared/page-width.service";
 export class PlanActionButtonComponent implements OnInit {
 
   @Input() enabled = false;
-  @Input() icon = "";
-  @Input() text = "";
-  @Input() title = "";
+  @Input() icon = '';
+  @Input() text = '';
+  @Input() title = '';
   @Output() action = new EventEmitter<any>();
 
   showButtonText$: Observable<boolean>;

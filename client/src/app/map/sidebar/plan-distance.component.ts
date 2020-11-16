@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from "@angular/core";
-import {Plan} from "../planner/plan/plan";
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Plan} from '../planner/plan/plan';
 
 @Component({
-  selector: "kpn-plan-distance",
+  selector: 'kpn-plan-distance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="meters > 0" class="distance">
@@ -33,7 +33,7 @@ export class PlanDistanceComponent implements OnChanges {
 
   distance(): string {
     if (this.meters > 1000) {
-      const km = (this.meters / 1000).toFixed(1).toString().replace(".", ",");
+      const km = (this.meters / 1000).toFixed(1).toString().replace('.', ',');
       return `${km} km`;
     }
     return `${this.meters} m`;

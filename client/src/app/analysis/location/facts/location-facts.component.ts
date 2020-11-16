@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Input} from "@angular/core";
-import {Component} from "@angular/core";
-import {List} from "immutable";
-import {LocationFact} from "../../../kpn/api/common/location/location-fact";
-import {Fact} from "../../../kpn/api/custom/fact";
-import {FactLevel} from "../../fact/fact-level";
-import {Facts} from "../../fact/facts";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {List} from 'immutable';
+import {LocationFact} from '../../../kpn/api/common/location/location-fact';
+import {Fact} from '../../../kpn/api/custom/fact';
+import {FactLevel} from '../../fact/fact-level';
+import {Facts} from '../../fact/facts';
 
 @Component({
-  selector: "kpn-location-facts",
+  selector: 'kpn-location-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

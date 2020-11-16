@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {first} from "rxjs/operators";
-import {map} from "rxjs/operators";
-import {LocationEditPage} from "../../../kpn/api/common/location/location-edit-page";
-import {ApiResponse} from "../../../kpn/api/custom/api-response";
-import {LocationEditPageService} from "./location-edit-page.service";
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {LocationEditPageService} from './location-edit-page.service';
 
 @Component({
-  selector: "kpn-location-edit-page",
+  selector: 'kpn-location-edit-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-location-page-header

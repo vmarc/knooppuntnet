@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "kpn-video-cover",
+  selector: 'kpn-video-cover',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="cover">

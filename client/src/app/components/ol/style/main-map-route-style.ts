@@ -1,12 +1,12 @@
-import {Color} from "ol/color";
-import {FeatureLike} from "ol/Feature";
-import Stroke from "ol/style/Stroke";
-import Style from "ol/style/Style";
-import {MapMode} from "../services/map-mode";
-import {MapService} from "../services/map.service";
-import {MainStyleColors} from "./main-style-colors";
-import {RouteStyle} from "./route-style";
-import {SurveyDateStyle} from "./survey-date-style";
+import {Color} from 'ol/color';
+import {FeatureLike} from 'ol/Feature';
+import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import {MapMode} from '../services/map-mode';
+import {MapService} from '../services/map.service';
+import {MainStyleColors} from './main-style-colors';
+import {RouteStyle} from './route-style';
+import {SurveyDateStyle} from './survey-date-style';
 
 export class MainMapRouteStyle {
 
@@ -25,7 +25,7 @@ export class MainMapRouteStyle {
   }
 
   private determineRouteSelectedStyle(feature: FeatureLike): Style {
-    const featureId = feature.get("id");
+    const featureId = feature.get('id');
     let style = null;
     if (this.mapService.selectedRouteId && featureId && featureId.startsWith(this.mapService.selectedRouteId)) {
       style = this.defaultRouteSelectedStyle;
@@ -35,7 +35,7 @@ export class MainMapRouteStyle {
 
   private determineRouteStyle(feature: FeatureLike, zoom: number): Style {
     const color = this.routeColor(feature);
-    const highligthed = this.mapService.highlightedRouteId && feature.get("id").startsWith(this.mapService.highlightedRouteId);
+    const highligthed = this.mapService.highlightedRouteId && feature.get('id').startsWith(this.mapService.highlightedRouteId);
     return this.routeStyleBuilder.style(color, zoom, highligthed);
   }
 
@@ -70,9 +70,9 @@ export class MainMapRouteStyle {
   }
 
   private routeColorSurface(feature: FeatureLike): Color {
-    const surface = feature.get("surface");
+    const surface = feature.get('surface');
     let color = MainStyleColors.green;
-    if ("unpaved" === surface) {
+    if ('unpaved' === surface) {
       color = MainStyleColors.orange;
     }
     return color;
@@ -83,15 +83,15 @@ export class MainMapRouteStyle {
   }
 
   private routeColorAnalysis(feature: FeatureLike): Color {
-    const layer = feature.get("layer");
+    const layer = feature.get('layer');
     let color = MainStyleColors.gray;
-    if ("route" === layer) {
+    if ('route' === layer) {
       color = MainStyleColors.green;
-    } else if ("orphan-route" === layer) {
+    } else if ('orphan-route' === layer) {
       color = MainStyleColors.darkGreen;
-    } else if ("incomplete-route" === layer) {
+    } else if ('incomplete-route' === layer) {
       color = MainStyleColors.red;
-    } else if ("error-route" === layer) {
+    } else if ('error-route' === layer) {
       color = MainStyleColors.red;
     }
     return color;

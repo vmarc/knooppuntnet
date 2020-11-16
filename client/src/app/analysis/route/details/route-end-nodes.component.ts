@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
-import {RouteInfoAnalysis} from "../../../kpn/api/common/route/route-info-analysis";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {RouteInfoAnalysis} from '../../../kpn/api/common/route/route-info-analysis';
 
 /* tslint:disable:template-i18n */
 @Component({
-  selector: "kpn-route-end-nodes",
+  selector: 'kpn-route-end-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p *ngIf="analysis.map.endNodes.isEmpty()">?</p>

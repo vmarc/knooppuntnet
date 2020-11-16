@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {PageEvent} from "@angular/material/paginator";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
-import {ChangesParameters} from "../../../kpn/api/common/changes/filter/changes-parameters";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {PageEvent} from '@angular/material/paginator';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 
 @Component({
-  selector: "kpn-changes",
+  selector: 'kpn-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

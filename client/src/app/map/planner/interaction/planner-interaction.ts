@@ -1,11 +1,11 @@
-import {List} from "immutable";
-import {platformModifierKeyOnly} from "ol/events/condition";
-import PointerInteraction from "ol/interaction/Pointer";
-import Map from "ol/Map";
-import MapBrowserEvent from "ol/MapBrowserEvent";
-import {MapFeature} from "../features/map-feature";
-import {PlannerEngine} from "./planner-engine";
-import {Features} from "./features";
+import {List} from 'immutable';
+import {platformModifierKeyOnly} from 'ol/events/condition';
+import PointerInteraction from 'ol/interaction/Pointer';
+import Map from 'ol/Map';
+import MapBrowserEvent from 'ol/MapBrowserEvent';
+import {MapFeature} from '../features/map-feature';
+import {PlannerEngine} from './planner-engine';
+import {Features} from './features';
 
 export class PlannerInteraction {
 
@@ -27,12 +27,8 @@ export class PlannerInteraction {
         this.downEventTime = new Date().getTime();
         return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
       },
-      handleMoveEvent: (evt: MapBrowserEvent) => {
-        return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
-      },
-      handleDragEvent: (evt: MapBrowserEvent) => {
-        return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
-      },
+      handleMoveEvent: (evt: MapBrowserEvent) => this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt)),
+      handleDragEvent: (evt: MapBrowserEvent) => this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt)),
       handleUpEvent: (evt: MapBrowserEvent) => {
         const upEventTime = new Date().getTime();
         const timeSinceUp = upEventTime - this.downEventTime;

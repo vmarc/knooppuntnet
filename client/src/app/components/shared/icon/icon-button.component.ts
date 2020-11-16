@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from "@angular/core";
-import {Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "kpn-icon-button",
+  selector: 'kpn-icon-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [routerLink]="routerLink">
