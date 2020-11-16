@@ -1,4 +1,4 @@
-import {Action, createReducer, on} from "@ngrx/store";
+import {createReducer, on} from "@ngrx/store";
 import {DemoState} from "./demo.model";
 import {actionDemoPause} from "./demo.actions";
 import {actionDemoStartVideo} from "./demo.actions";
@@ -16,7 +16,7 @@ const initialState: DemoState = {
   videoPlayButtonEnabled: false
 };
 
-const reducer = createReducer(
+export const demoReducer = createReducer(
   initialState,
   on(
     actionDemoPause,
@@ -60,10 +60,3 @@ const reducer = createReducer(
     })
   )
 );
-
-export function demoReducer(
-  state: DemoState | undefined,
-  action: Action
-) {
-  return reducer(state, action);
-}

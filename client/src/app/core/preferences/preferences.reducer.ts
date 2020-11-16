@@ -1,4 +1,4 @@
-import {Action, createReducer} from "@ngrx/store";
+import {createReducer} from "@ngrx/store";
 import {on} from "@ngrx/store";
 import {routerNavigatedAction} from "@ngrx/router-store";
 import {PreferencesState} from "./preferences.model";
@@ -13,7 +13,7 @@ const initialState: PreferencesState = {
   extraLayers: false
 };
 
-const reducer = createReducer(
+export const preferencesReducer = createReducer(
   initialState,
   on(
     routerNavigatedAction,
@@ -39,10 +39,3 @@ const reducer = createReducer(
     (state, action) => ({...state, extraLayers: action.extraLayers})
   )
 );
-
-export function preferencesReducer(
-  state: PreferencesState | undefined,
-  action: Action
-) {
-  return reducer(state, action);
-}
