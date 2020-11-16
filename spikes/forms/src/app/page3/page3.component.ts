@@ -1,10 +1,10 @@
-import {Component} from "@angular/core";
-import {OnInit} from "@angular/core";
-import {FormGroup} from "@angular/forms";
-import {ValidatorFn} from "@angular/forms";
-import {MatTableDataSource} from "@angular/material/table";
-import {Util} from "../shared/util";
-import {MessageService} from "../shared/message.service";
+import {Component} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ValidatorFn} from '@angular/forms';
+import {MatTableDataSource} from '@angular/material/table';
+import {Util} from '../shared/util';
+import {MessageService} from '../shared/message.service';
 
 class Row {
   constructor(readonly name: string) {
@@ -12,7 +12,7 @@ class Row {
 }
 
 @Component({
-  selector: "app-page3",
+  selector: 'app-page3',
   template: `
     <h1>Page 3 - form table validation</h1>
 
@@ -78,13 +78,13 @@ class Row {
 })
 export class Page3Component implements OnInit {
 
-  private id = 1;
-
-  readonly displayedColumns: string[] = ["name"];
+  readonly displayedColumns: string[] = ['name'];
   readonly dataSource: MatTableDataSource<Row> = new MatTableDataSource();
   readonly form = new FormGroup({}, this.tableValidator(this.dataSource));
 
-  util = Util;
+  readonly util = Util;
+
+  private id = 1;
 
   constructor(private messageService: MessageService) {
   }
@@ -98,9 +98,9 @@ export class Page3Component implements OnInit {
 
   submit(): void {
     if (this.form.valid) {
-      this.messageService.say("submit valid form");
+      this.messageService.say('submit valid form');
     } else {
-      this.messageService.warn("cannot submit invalid form");
+      this.messageService.warn('cannot submit invalid form');
     }
   }
 
@@ -117,10 +117,10 @@ export class Page3Component implements OnInit {
 
   private tableValidator(dataSource: MatTableDataSource<any>): ValidatorFn {
     return () => {
-      if (dataSource.data.length == 3) {
+      if (dataSource.data.length === 3) {
         return null;
       }
-      return {"Table should contain 3 elements": true};
+      return {'Table should contain 3 elements': true};
     };
   }
 }

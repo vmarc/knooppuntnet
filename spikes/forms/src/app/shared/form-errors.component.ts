@@ -1,10 +1,10 @@
-import {Component, Input} from "@angular/core";
-import {FormGroup} from "@angular/forms";
-import {FormGroupDirective} from "@angular/forms";
-import {Util} from "./util";
+import {Component, Input} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {FormGroupDirective} from '@angular/forms';
+import {Util} from './util';
 
 @Component({
-  selector: "app-form-errors",
+  selector: 'app-form-errors',
   template: `
     <div *ngIf="show()" class="errors">
       <div *ngFor="let error of util.toMessages(form.errors)">
@@ -22,9 +22,9 @@ import {Util} from "./util";
 
 export class FormErrorsComponent {
 
-  util = Util;
-
   @Input() form: FormGroup;
+
+  readonly util = Util;
 
   constructor(private formGroupDirective: FormGroupDirective) {
   }

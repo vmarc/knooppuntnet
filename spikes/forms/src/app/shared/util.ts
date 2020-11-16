@@ -1,4 +1,4 @@
-import {ValidationErrors} from "@angular/forms";
+import {ValidationErrors} from '@angular/forms';
 
 export class Util {
 
@@ -9,7 +9,9 @@ export class Util {
   public static toMessages(errors: ValidationErrors | null): string[] {
     const messages: Array<string> = [];
     for (const key in errors) {
-      messages.push(key);
+      if (errors.hasOwnProperty(key)) {
+        messages.push(key);
+      }
     }
     return messages;
   }

@@ -1,14 +1,14 @@
-import {Component} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {ElementRef} from "@angular/core";
-import {FormGroup} from "@angular/forms";
-import {FormControl} from "@angular/forms";
-import {Validators} from "@angular/forms";
-import {Util} from "../shared/util";
-import {MessageService} from "../shared/message.service";
+import {Component} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {ElementRef} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import {Validators} from '@angular/forms';
+import {Util} from '../shared/util';
+import {MessageService} from '../shared/message.service';
 
 @Component({
-  selector: "app-page2",
+  selector: 'app-page2',
   template: `
     <h1>Page 2 - form regular field validation</h1>
 
@@ -19,11 +19,11 @@ import {MessageService} from "../shared/message.service";
       <div class="fields">
 
         <label>First name</label>
-        <input our-own-input #first [formControl]="firstName">
+        <input ourOwnInput #first [formControl]="firstName">
         <app-field-errors [control]="firstName"></app-field-errors>
 
         <label>Last name</label>
-        <input our-own-input #last [formControl]="lastName">
+        <input ourOwnInput #last [formControl]="lastName">
         <app-field-errors [control]="lastName"></app-field-errors>
 
       </div>
@@ -131,8 +131,8 @@ import {MessageService} from "../shared/message.service";
 })
 export class Page2Component {
 
-  readonly firstName = new FormControl("", Validators.required);
-  readonly lastName = new FormControl("", Validators.required);
+  readonly firstName = new FormControl('', Validators.required);
+  readonly lastName = new FormControl('', Validators.required);
 
   readonly form = new FormGroup({
     firstName: this.firstName,
@@ -144,22 +144,22 @@ export class Page2Component {
 
   submit(): void {
     if (this.form.valid) {
-      this.messageService.say("Valid form submitted");
+      this.messageService.say('Valid form submitted');
     } else {
-      this.messageService.warn("Cannot submit invalid form");
+      this.messageService.warn('Cannot submit invalid form');
     }
   }
 
   // ***************************** debug *****************************
 
   util = Util;
-  firstNameClasses1 = "";
-  lastNameClasses1 = "";
-  firstNameClasses2 = "";
-  lastNameClasses2 = "";
+  firstNameClasses1 = '';
+  lastNameClasses1 = '';
+  firstNameClasses2 = '';
+  lastNameClasses2 = '';
 
-  @ViewChild("first") firstNameInput: ElementRef;
-  @ViewChild("last") lastNameInput: ElementRef;
+  @ViewChild('first') firstNameInput: ElementRef;
+  @ViewChild('last') lastNameInput: ElementRef;
 
   updateClasses1(): void {
     this.firstNameClasses1 = this.firstNameInput.nativeElement.classList.value;

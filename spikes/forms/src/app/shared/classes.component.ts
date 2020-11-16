@@ -1,7 +1,7 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: "app-classes",
+  selector: 'app-classes',
   template: `
     <span
       *ngFor="let className of classNames()"
@@ -26,16 +26,16 @@ export class ClassesComponent {
   @Input() classes: string;
 
   classNames(): string[] {
-    return this.classes.split(" ");
+    return this.classes.split(' ');
   }
 
   isSpecial(className: string): boolean {
-    return className.indexOf("ng-") >= 0;
+    return className.indexOf('ng-') >= 0;
   }
 
   isExtraSpecial(className: string): boolean {
-    return className.indexOf("mat-form-field-invalid") >= 0 ||
-      className.indexOf("our-own-submitted") >= 0;
+    return className.indexOf('mat-form-field-invalid') >= 0 ||
+      className.indexOf('our-own-submitted') >= 0;
   }
 
 }

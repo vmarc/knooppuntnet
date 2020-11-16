@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 @Component({
-  selector: "app-menu",
+  selector: 'app-menu',
   template: `
     <a routerLink="../page1">page 1</a> |
     <a routerLink="../page2">page 2</a> |

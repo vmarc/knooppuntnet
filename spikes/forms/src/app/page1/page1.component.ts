@@ -1,14 +1,14 @@
-import {Component} from "@angular/core";
-import {ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
-import {FormControl} from "@angular/forms";
-import {Validators} from "@angular/forms";
-import {Util} from "../shared/util";
-import {MessageService} from "../shared/message.service";
-import {MatFormField} from "@angular/material/form-field";
+import {Component} from '@angular/core';
+import {ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {FormControl} from '@angular/forms';
+import {Validators} from '@angular/forms';
+import {Util} from '../shared/util';
+import {MessageService} from '../shared/message.service';
+import {MatFormField} from '@angular/material/form-field';
 
 @Component({
-  selector: "app-page1",
+  selector: 'app-page1',
   template: `
     <h1>Page 1 - form material field validation</h1>
 
@@ -107,8 +107,8 @@ import {MatFormField} from "@angular/material/form-field";
 })
 export class Page1Component {
 
-  readonly firstName = new FormControl("", [this.firstNameValidator(), Validators.required]);
-  readonly lastName = new FormControl("", [this.lastNameValidator(), Validators.required]);
+  readonly firstName = new FormControl('', [this.firstNameValidator(), Validators.required]);
+  readonly lastName = new FormControl('', [this.lastNameValidator(), Validators.required]);
 
   readonly form = new FormGroup({
     firstName: this.firstName,
@@ -120,22 +120,22 @@ export class Page1Component {
 
   submit(): void {
     if (this.form.valid) {
-      this.messageService.say("submit valid form");
+      this.messageService.say('submit valid form');
     } else {
-      this.messageService.warn("cannot submit invalid form");
+      this.messageService.warn('cannot submit invalid form');
     }
   }
 
   firstNameValidator() {
     return () => {
-      console.log("validating first name: " + this.firstName?.value);
+      console.log('validating first name: ' + this.firstName?.value);
       return null;
     };
   }
 
   lastNameValidator() {
     return () => {
-      console.log("validating last name: " + this.lastName?.value);
+      console.log('validating last name: ' + this.lastName?.value);
       return null;
     };
   }
@@ -144,13 +144,13 @@ export class Page1Component {
 
   util = Util;
 
-  firstNameClasses1 = "";
-  lastNameClasses1 = "";
-  firstNameClasses2 = "";
-  lastNameClasses2 = "";
+  firstNameClasses1 = '';
+  lastNameClasses1 = '';
+  firstNameClasses2 = '';
+  lastNameClasses2 = '';
 
-  @ViewChild("firstNameFormField") firstNameFormField: MatFormField;
-  @ViewChild("lastNameFormField") lastNameFormField: MatFormField;
+  @ViewChild('firstNameFormField') firstNameFormField: MatFormField;
+  @ViewChild('lastNameFormField') lastNameFormField: MatFormField;
 
   updateClasses1(): void {
     this.firstNameClasses1 = this.firstNameFormField._elementRef.nativeElement.classList.value;

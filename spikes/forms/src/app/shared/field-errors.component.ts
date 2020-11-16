@@ -1,10 +1,10 @@
-import {Component, Input} from "@angular/core";
-import {AbstractControl} from "@angular/forms";
-import {FormGroupDirective} from "@angular/forms";
-import {Util} from "./util";
+import {Component, Input} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+import {FormGroupDirective} from '@angular/forms';
+import {Util} from './util';
 
 @Component({
-  selector: "app-field-errors",
+  selector: 'app-field-errors',
   template: `
     <div *ngIf="show()" class="errors">
       <div *ngFor="let error of util.toMessages(control.errors)">
@@ -20,9 +20,9 @@ import {Util} from "./util";
 })
 export class FieldErrorsComponent {
 
-  util = Util;
-
   @Input() control: AbstractControl;
+
+  readonly util = Util;
 
   constructor(private formGroupDirective: FormGroupDirective) {
   }

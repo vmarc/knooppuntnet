@@ -1,9 +1,9 @@
-import {Directive, ElementRef} from "@angular/core";
-import {DoCheck} from "@angular/core";
-import {FormGroupDirective} from "@angular/forms";
+import {Directive, ElementRef} from '@angular/core';
+import {DoCheck} from '@angular/core';
+import {FormGroupDirective} from '@angular/forms';
 
 @Directive({
-  selector: "[our-own-input]"
+  selector: '[ourOwnInput]'
 })
 export class InputDirective implements DoCheck {
 
@@ -18,9 +18,9 @@ export class InputDirective implements DoCheck {
     if (formGroupSubmitted !== this.submitted) {
       this.submitted = formGroupSubmitted;
       if (this.submitted) {
-        this.elementRef.nativeElement.classList.add("our-own-submitted");
+        this.elementRef.nativeElement.classList.add('our-own-submitted');
       } else {
-        this.elementRef.nativeElement.classList.remove("our-own-submitted");
+        this.elementRef.nativeElement.classList.remove('our-own-submitted');
       }
     }
   }
