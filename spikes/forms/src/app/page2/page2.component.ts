@@ -82,52 +82,7 @@ import {MessageService} from '../shared/message.service';
         </div>
       </div>
     </div>
-  `,
-  styles: [`
-
-    form {
-      padding-top: 2em;
-    }
-
-    .fields {
-      display: grid;
-      grid-template-columns: 5em 20em auto;
-      column-gap: 1em;
-      row-gap: 1em;
-    }
-
-    .debug {
-      padding-top: 4em;
-      font-family: monospace;
-    }
-
-    form button {
-      margin-top: 2em;
-    }
-
-    input.ng-invalid {
-      border: 1px solid red;
-      background: rgba(255, 182, 193, 0.2);
-    }
-
-    input.ng-invalid.ng-pristine {
-      border: 1px solid rgb(118, 118, 118);
-      background: none;
-    }
-
-    input.ng-invalid.our-own-submitted {
-      border: 1px solid red;
-      background: rgba(255, 182, 193, 0.2);
-    }
-
-    .classes {
-      padding-top: 2em;
-    }
-
-    .classes button {
-      margin-bottom: 1em;
-    }
-  `]
+  `
 })
 export class Page2Component {
 
