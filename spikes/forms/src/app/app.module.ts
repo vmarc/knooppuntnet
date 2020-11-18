@@ -19,11 +19,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {MessageService} from './shared/message.service';
 import {ClassesComponent} from './shared/classes.component';
-import {Sub1Component} from "./page4/sub1.component";
-import {Page4Component} from "./page4/page4.component";
-import {Sub3Component} from "./page4/sub3.component";
-import {Sub2Component} from "./page4/sub2.component";
-import {MatRadioModule} from "@angular/material/radio";
+import {Sub1Component} from './page4/sub1.component';
+import {Page4Component} from './page4/page4.component';
+import {Sub3Component} from './page4/sub3.component';
+import {Sub2Component} from './page4/sub2.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [

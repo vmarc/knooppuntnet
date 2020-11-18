@@ -1,13 +1,11 @@
 import {Component} from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {ElementRef} from "@angular/core";
-import {ChangeDetectorRef} from "@angular/core";
+import {ChangeDetectorRef} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {Util} from '../shared/util';
 import {MessageService} from '../shared/message.service';
-import {MatRadioChange} from "@angular/material/radio";
+import {MatRadioChange} from '@angular/material/radio';
 
 @Component({
   selector: 'app-page4',
@@ -100,7 +98,7 @@ export class Page4Component {
     lastName: this.lastName,
   });
 
-  sub = "sub1";
+  sub = 'sub1';
 
   constructor(private messageService: MessageService,
               private cdr: ChangeDetectorRef) {
@@ -125,13 +123,13 @@ export class Page4Component {
   }
 
   controlNames() {
-    let controls = [];
-    for (let key in this.form.controls) {
+    const controls = [];
+    for (const key in this.form.controls) {
       if (this.form.controls.hasOwnProperty(key)) {
         controls.push(key);
       }
     }
-    return controls.join(", ");
+    return controls.join(', ');
   }
 
 }
