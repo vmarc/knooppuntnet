@@ -25,6 +25,7 @@ export interface Data {
       nzPaginationPosition="both"
       nzShowSizeChanger="true"
       nzBordered="true"
+      nzSize="small"
       [nzData]="listOfData"
       (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
       <thead>
