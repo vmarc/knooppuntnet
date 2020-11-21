@@ -46,7 +46,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def listImports(): Seq[String] = {
     if (classInfo.fields.exists(field => field.classType.isArray && !field.classType.typeName.contains("Array"))) {
-      Seq("""import {List} from "immutable";""")
+      Seq("import {List} from 'immutable';")
     }
     else {
       Seq()
@@ -55,7 +55,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def mapImports(): Seq[String] = {
     if (classInfo.fields.exists(_.classType.isMap)) {
-      Seq("""import {Map} from "immutable";""")
+      Seq("import {Map} from 'immutable';")
     }
     else {
       Seq()
@@ -65,10 +65,10 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   private def dependencyImports(): Seq[String] = {
     classInfo.dependencies.map { dependency =>
       if (dependency.className == "PlanCoordinate") {
-        """import {Coordinate} from "ol/coordinate";"""
+        "import {Coordinate} from 'ol/coordinate';"
       }
       else {
-        s"""import {${dependency.className}} from "${dependency.fileName}";"""
+        s"import {${dependency.className}} from '${dependency.fileName}';"
       }
     }
   }
