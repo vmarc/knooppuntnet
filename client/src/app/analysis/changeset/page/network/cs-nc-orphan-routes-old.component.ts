@@ -10,7 +10,7 @@ import {Ref} from '../../../../kpn/api/common/common/ref';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="!refs().isEmpty()" class="kpn-detail">
-      <span i18n="@@change-set.network-changes.orphan-routes-introduced" class="kpn-label">
+      <span i18n="@@change-set.network-changes.orphan-routes-added" class="kpn-label">
         Orphan routes added to this network</span>
       <div class="kpn-comma-list">
         <kpn-link-route-ref

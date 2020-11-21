@@ -11,13 +11,28 @@ import kpn.server.repository.RouteRepositoryImpl
 
 object RouteTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("server", "master2b") { database =>
-      new RouteTool(database).blackListedRoutesThatAreInTheDatabase()
+    Couch.executeIn("kpn-database", "analysis1") { database =>
+      new RouteTool(database).routesWithStateTag()
     }
   }
 }
 
 class RouteTool(database: Database) {
+
+  def routesWithStateTag(): Unit = {
+    val routeRepository = new RouteRepositoryImpl(database)
+    val allRouteIds = routeRepository.allRouteIds()
+    allRouteIds.zipWithIndex.foreach { case (routeId, index) =>
+      if (((index + 1) % 100) == 0) {
+        println(s"${index + 1}/${allRouteIds.size}")
+      }
+      routeRepository.routeWithId(routeId).foreach { routeInfo =>
+        if (routeInfo.tags.has("state")) {
+          println(s"""== $routeId state=${routeInfo.tags("state").getOrElse("")}""")
+        }
+      }
+    }
+  }
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
     val routeRepository = new RouteRepositoryImpl(database)

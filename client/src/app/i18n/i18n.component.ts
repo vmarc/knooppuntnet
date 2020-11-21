@@ -85,7 +85,7 @@ import {I18nService} from './i18n.service';
 
       <span id="@@wiki.home" i18n="@@wiki.home">Knooppuntnet</span>
       <span id="@@wiki.planner" i18n="@@wiki.planner">Knooppuntnet_planner#What_do_you_see.3F</span>
-      <span id="@@wiki.planner.edit" i18n="@@wiki.planner">Knooppuntnet_planner#Edit_route</span>
+      <span id="@@wiki.planner.edit" i18n="@@wiki.planner.edit">Knooppuntnet_planner#Edit_route</span>
       <span id="@@wiki.login-page" i18n="@@wiki.login-page">Knooppuntnet_analysis#Login</span>
       <span id="@@wiki.logout-page" i18n="@@wiki.logout-page">Knooppuntnet_analysis#Logout</span>
       <span id="@@wiki.node-page" i18n="@@wiki.node-page">Knooppuntnet_analysis#Node</span>

@@ -19,17 +19,15 @@ import {LocationFlatNode} from './location-flat-node';
       <mat-radio-group [value]="all" (change)="allChanged()">
         <mat-radio-button
           [value]="true"
-          title="All"
-          i18n-title="@@location.tree.all"
           class="location-button"
-          i18n="@@location.tree.all">All
+          i18n="@@location.tree.all">
+          All
         </mat-radio-button>
         <mat-radio-button
           [value]="false"
-          title="In use only"
-          i18n-title="@@location.tree.in-use-only"
           class="location-button"
-          i18n="@@location.tree.in-use-only">In use only
+          i18n="@@location.tree.in-use-only">
+          In use only
         </mat-radio-button>
       </mat-radio-group>
     </div>

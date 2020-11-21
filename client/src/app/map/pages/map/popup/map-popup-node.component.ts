@@ -26,7 +26,7 @@ import {PlannerService} from '../../../planner.service';
         {{response.result.name}}
       </h2>
       <p>
-        <span class="kpn-label" i18n="@@map.node-popup.title">Last updated</span>
+        <span class="kpn-label" i18n="@@map.node-popup.last-updated">Last updated</span>
         <kpn-timestamp [timestamp]="response.result.lastUpdated"></kpn-timestamp>
       </p>
 

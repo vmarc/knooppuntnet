@@ -22,9 +22,7 @@ import {NetworkService} from '../network.service';
     </kpn-network-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div *ngIf="!response.result" i18n="@@network-page.network-not-found">
-        Network not found
-      </div>
+      <div *ngIf="!response.result" i18n="@@network-page.network-not-found">Network not found</div>
       <div *ngIf="response.result">
 
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>

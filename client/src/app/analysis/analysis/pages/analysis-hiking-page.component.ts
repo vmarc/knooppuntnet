@@ -17,7 +17,7 @@ import {AnalysisModeService} from './analysis-mode.service';
 
     <kpn-analysis-mode></kpn-analysis-mode>
 
-    <kpn-icon-button [routerLink]="nlLink | async" icon="netherlands" i18n="@@country.nl">Netherlands</kpn-icon-button>
+    <kpn-icon-button [routerLink]="nlLink | async" icon="netherlands" i18n="@@country.nl">The Netherlands</kpn-icon-button>
     <kpn-icon-button [routerLink]="beLink | async" icon="belgium" i18n="@@country.be">Belgium</kpn-icon-button>
     <kpn-icon-button [routerLink]="deLink | async" icon="germany" i18n="@@country.de">Germany</kpn-icon-button>
     <kpn-icon-button [routerLink]="frLink | async" icon="france" i18n="@@country.fr">France</kpn-icon-button>

@@ -12,7 +12,7 @@ import {NodeInfo} from '../../../kpn/api/common/node-info';
       This node has the role _"connection"_ in the networkrelation.
     </markdown>
 
-    <markdown *ngIf="summaryStatement == 'role-connection-invalid'" i18n="@@node.network.role-connection">
+    <markdown *ngIf="summaryStatement == 'role-connection-invalid'" i18n="@@node.network.role-connection-invalid">
       This node has the role _"connection"_ in the networkrelation:
       the _"{{expectedRouteRelationsTag}}"_ tag does not
       apply to this netwerk.
