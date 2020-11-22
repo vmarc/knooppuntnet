@@ -94,7 +94,6 @@ object NodePageExample {
       ),
       facts = Seq(
         Fact.NodeInvalidSurveyDate,
-        Fact.IntegrityCheckFailed,
         Fact.WasOrphan,
         Fact.Deleted
       ),

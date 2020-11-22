@@ -12,12 +12,6 @@ import {NodeInfo} from '../../../kpn/api/common/node-info';
       This node has the role _"connection"_ in the networkrelation.
     </markdown>
 
-    <markdown *ngIf="summaryStatement == 'role-connection-invalid'" i18n="@@node.network.role-connection-invalid">
-      This node has the role _"connection"_ in the networkrelation:
-      the _"{{expectedRouteRelationsTag}}"_ tag does not
-      apply to this netwerk.
-    </markdown>
-
     <p *ngIf="summaryStatement == 'network-member'" i18n="@@node.network.network-member">
       This node is included as member in the networkrelation.
     </p>
@@ -25,13 +19,6 @@ import {NodeInfo} from '../../../kpn/api/common/node-info';
     <p *ngIf="summaryStatement == 'not-network-member'" i18n="@@node.network.not-network-member">
       This node is not included as member in the networkrelation.
     </p>
-
-    <markdown *ngIf="summaryStatement == 'not-network-member-invalid'" i18n="@@node.network.not-network-member-invalid">
-      This node is not included as member in the networkrelation:
-      the _"{{expectedRouteRelationsTag}}"_ tag does not apply
-      to this netwerk.
-    </markdown>
-
   `
 })
 export class NodeNetworkReferenceStatementComponent implements OnInit {
@@ -44,15 +31,9 @@ export class NodeNetworkReferenceStatementComponent implements OnInit {
   ngOnInit(): void {
     let statement = '';
     if (this.reference.nodeRoleConnection) {
-      if (this.hasExpectedRouteRelationsTag()) {
-        statement = 'role-connection-invalid';
-      } else {
-        statement = 'role-connection';
-      }
+      statement = 'role-connection';
     } else if (this.reference.nodeDefinedInRelation) {
       statement = 'network-member';
-    } else if (this.hasExpectedRouteRelationsTag()) {
-      statement = 'not-network-member-invalid';
     } else {
       statement = 'not-network-member';
     }

@@ -10,6 +10,7 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeReferences
+import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
@@ -33,7 +34,9 @@ class NodePageBuilderImpl(
     }
     else {
       nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-        buildNodeDetailsPage(user, nodeInfo)
+        val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
+        val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
+        buildNodeDetailsPage(user, filteredNodeInfo)
       }
     }
   }
