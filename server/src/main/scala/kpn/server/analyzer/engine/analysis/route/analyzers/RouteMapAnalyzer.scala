@@ -118,7 +118,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def toTrackPoint(node: Node): TrackPoint = {
-    TrackPoint(node.latitude.toString, node.longitude.toString)
+    TrackPoint(node.latitude, node.longitude)
   }
 
 }

@@ -26,7 +26,7 @@ class NetworkInitialLoaderWorkerImpl(
     try {
       log.unitElapsed {
         if (blackListRepository.get.containsNetwork(networkId)) {
-          s"Ignored blacklisted network ${networkId}"
+          s"Ignored blacklisted network $networkId"
         }
         else {
           networkLoader.load(Some(timestamp), networkId) match {
@@ -34,7 +34,7 @@ class NetworkInitialLoaderWorkerImpl(
               processNetwork(loadedNetwork)
               loadedNetwork.name
             case None =>
-              s"Failed to load network ${networkId}"
+              s"Failed to load network $networkId"
           }
         }
       }

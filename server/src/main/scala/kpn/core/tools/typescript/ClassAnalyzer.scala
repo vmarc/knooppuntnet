@@ -26,7 +26,7 @@ class ClassAnalyzer {
   def analyze(caseClass: Type): ClassInfo = {
 
     val className = caseClass.typeSymbol.name.toString
-    val packageName = caseClass.typeSymbol.fullName.toString.dropRight(className.length + 1)
+    val packageName = caseClass.typeSymbol.fullName.dropRight(className.length + 1)
     val dirName = packageName.replaceAll("\\.", "/")
     val fileName = dirName + "/" + CamelCaseUtil.toDashed(className) + ".ts"
 

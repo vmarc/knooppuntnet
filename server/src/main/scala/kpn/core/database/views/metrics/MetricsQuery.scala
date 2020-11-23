@@ -122,7 +122,7 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
     }
     val nameValueMap = nameValues.map(nv => nv.name -> nv).toMap
     (0 to 23).map { hour =>
-      val hourString = f"${hour}%02d"
+      val hourString = f"$hour%02d"
       nameValueMap.get(hourString) match {
         case Some(nameValue) => nameValue
         case None => NameValue(hourString, 0)
@@ -147,7 +147,7 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
     }
     val nameValueMap = nameValues.map(nv => nv.name -> nv).toMap
     (0 to 59).map { minute =>
-      val minuteString = f"${minute}%02d"
+      val minuteString = f"$minute%02d"
       nameValueMap.get(minuteString) match {
         case Some(nameValue) => nameValue
         case None => NameValue(minuteString, 0)

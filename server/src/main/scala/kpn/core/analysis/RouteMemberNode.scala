@@ -9,7 +9,7 @@ case class RouteMemberNode(name: String, alternateName: String, number: String, 
   def memberType: String = "node"
   def linkType: LinkType.Value = LinkType.NONE
   def linkName: String = "n"
-  def nodes: Seq[RouteNetworkNodeInfo] = Seq(RouteNetworkNodeInfo(node.id, name, alternateName, node.latitude.toString, node.longitude.toString))
+  def nodes: Seq[RouteNetworkNodeInfo] = Seq(RouteNetworkNodeInfo(node.id, name, alternateName, node.latitude, node.longitude))
   def id: Long = node.id
   def element: Element = node
   def linkDescription: String = ""

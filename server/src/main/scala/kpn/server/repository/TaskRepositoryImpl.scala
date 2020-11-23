@@ -22,7 +22,7 @@ class TaskRepositoryImpl(taskDatabase: Database) extends TaskRepository {
   }
 
   override def all(prefix: String): Seq[String] = {
-    val startKey = s""""${prefix}""""
+    val startKey = s""""$prefix""""
     val endKey = s""""${prefix}z""""
     val query = Query("_all_docs", classOf[ViewResult2])
       .startKey(startKey)

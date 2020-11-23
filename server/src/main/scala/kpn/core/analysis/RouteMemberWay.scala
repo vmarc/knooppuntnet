@@ -40,8 +40,8 @@ case class RouteMemberWay(
       rn.id,
       rn.name,
       rn.alternateName,
-      rn.node.latitude.toString,
-      rn.node.longitude.toString
+      rn.node.latitude,
+      rn.node.longitude
     )
   }
   def id: Long = way.id

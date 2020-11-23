@@ -113,8 +113,8 @@ class AnalysisRepositoryImpl(
     val wayPoints = network.nodes.map(node =>
       WayPoint(
         node.networkNode.name,
-        node.networkNode.node.latitude.toString,
-        node.networkNode.node.longitude.toString, ""
+        node.networkNode.node.latitude,
+        node.networkNode.node.longitude, ""
       )
     )
 

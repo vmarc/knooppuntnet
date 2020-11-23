@@ -43,7 +43,7 @@ class GpxRoute() {
     }
   }
 
-  private def toTrackPoint(node: Node) = TrackPoint(node.latitude.toString, node.longitude.toString)
+  private def toTrackPoint(node: Node) = TrackPoint(node.latitude, node.longitude)
 
   private def startNodes(ways: Seq[Way]) = {
     val nodes1 = ways.head.nodes

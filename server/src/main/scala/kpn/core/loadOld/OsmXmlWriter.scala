@@ -24,8 +24,8 @@ class OsmXmlWriter(out: PrintWriter) {
   def printNode(node: RawNode): Unit = {
     val id = node.id
     val version = node.version
-    val lat = node.latitude.toString
-    val lon = node.longitude.toString
+    val lat = node.latitude
+    val lon = node.longitude
     val timestamp = node.timestamp.iso
     val changeset = node.changeSetId
 
