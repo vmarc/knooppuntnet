@@ -2,24 +2,33 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {CounterComponent} from './counter/counter.component';
 import {HomeComponent} from './home/home.component';
 import {StoreModule} from '@ngrx/store';
-import {counterReducer} from './counter/counter.reducer';
 import {environment} from '../environments/environment';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {CounterComponent} from './counter/counter.component';
+import {NewIssueComponent} from './issue/new-issue.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {IssueListComponent} from './issue/issue-list.component';
+import {IssuesComponent} from './issue/issues.component';
+import {IssueDetailComponent} from './issue/issue-detail.component';
+import {reducers} from './store/app.state';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CounterComponent
+    CounterComponent,
+    IssuesComponent,
+    NewIssueComponent,
+    IssueListComponent,
+    IssueDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(
-      {count: counterReducer},
+      reducers,
       {
         runtimeChecks: {
           strictStateImmutability: true,
@@ -36,6 +45,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
         name: 'ngrx test'
       }),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [
