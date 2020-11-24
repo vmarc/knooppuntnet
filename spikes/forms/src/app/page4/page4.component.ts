@@ -78,13 +78,6 @@ import {MatRadioChange} from '@angular/material/radio';
       font-family: monospace;
     }
 
-    .classes {
-      padding-top: 2em;
-    }
-
-    .classes button {
-      margin-bottom: 1em;
-    }
   `]
 })
 export class Page4Component {
