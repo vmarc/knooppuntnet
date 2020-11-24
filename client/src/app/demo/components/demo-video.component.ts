@@ -8,11 +8,7 @@ import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
 import {PageService} from '../../components/shared/page.service';
 import {DemoService} from '../../core/demo/demo.service';
-import {actionDemoEnd} from '../../core/demo/demo.actions';
-import {actionDemoVideoPlayerAvailable} from '../../core/demo/demo.actions';
-import {actionDemoPlayingChanged} from '../../core/demo/demo.actions';
-import {actionDemoCanPlay} from '../../core/demo/demo.actions';
-import {actionDemoTimeUpdate} from '../../core/demo/demo.actions';
+import * as DemoActions from '../../core/demo/demo.actions';
 import {Observable} from 'rxjs';
 import {selectDemoEnabled} from '../../core/demo/demo.selectors';
 import {map} from 'rxjs/operators';
@@ -89,22 +85,22 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.demoService.setVideoElement(this.videoElementRef.nativeElement, this.videoPlayerSourceRef.nativeElement);
-    this.store.dispatch(actionDemoVideoPlayerAvailable());
+    this.store.dispatch(DemoActions.videoPlayerAvailable());
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(actionDemoEnd());
+    this.store.dispatch(DemoActions.end());
   }
 
   canPlayChanged(): void {
-    this.store.dispatch(actionDemoCanPlay({duration: this.demoService.duration}));
+    this.store.dispatch(DemoActions.canPlay({duration: this.demoService.duration}));
 
 
     this.canPlayReceived = true;
   }
 
   timeChanged(): void {
-    this.store.dispatch(actionDemoTimeUpdate({time: this.demoService.time}));
+    this.store.dispatch(DemoActions.timeUpdate({time: this.demoService.time}));
   }
 
   playPause(): void {
@@ -116,10 +112,10 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
   }
 
   playingChanged(): void {
-    this.store.dispatch(actionDemoPlayingChanged({playing: true}));
+    this.store.dispatch(DemoActions.playingChanged({playing: true}));
   }
 
   pauseChanged(): void {
-    this.store.dispatch(actionDemoPlayingChanged({playing: false}));
+    this.store.dispatch(DemoActions.playingChanged({playing: false}));
   }
 }

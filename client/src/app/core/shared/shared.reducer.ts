@@ -1,5 +1,5 @@
 import {createReducer} from '@ngrx/store';
-import {SharedState} from './shared.model';
+import {SharedState} from './shared.state';
 
 const initialSharedState: SharedState = {};
 

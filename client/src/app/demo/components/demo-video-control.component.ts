@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {actionDemoControlPlay} from '../../core/demo/demo.actions';
+import * as DemoActions from '../../core/demo/demo.actions';
 import {selectDemoVideo} from '../../core/demo/demo.selectors';
 import {selectDemoPlaying} from '../../core/demo/demo.selectors';
 import {selectDemoEnabled} from '../../core/demo/demo.selectors';
@@ -120,7 +120,7 @@ export class DemoVideoControlComponent {
   }
 
   play(): void {
-    this.store.dispatch(actionDemoControlPlay({video: this.name}));
+    this.store.dispatch(DemoActions.controlPlay({video: this.name}));
   }
 
 }

@@ -1,11 +1,6 @@
 import {createReducer, on} from '@ngrx/store';
-import {DemoState} from './demo.model';
-import {actionDemoPause} from './demo.actions';
-import {actionDemoStartVideo} from './demo.actions';
-import {actionDemoPlayingChanged} from './demo.actions';
-import {actionDemoCanPlay} from './demo.actions';
-import {actionDemoTimeUpdate} from './demo.actions';
-import {actionDemoEnabledChanged} from './demo.actions';
+import {DemoState} from './demo.state';
+import * as DemoActions from './demo.actions';
 
 const initialState: DemoState = {
   video: '',
@@ -19,18 +14,18 @@ const initialState: DemoState = {
 export const demoReducer = createReducer(
   initialState,
   on(
-    actionDemoPause,
+    DemoActions.pause,
     (state, action) => ({...state, ...action})
   ),
   on(
-    actionDemoStartVideo,
+    DemoActions.startVideo,
     (state, {video}) => ({
       ...state,
       currentVideo: video
     })
   ),
   on(
-    actionDemoPlayingChanged,
+    DemoActions.playingChanged,
     (state, {playing}) => ({
       ...state,
       playing,
@@ -38,14 +33,14 @@ export const demoReducer = createReducer(
     })
   ),
   on(
-    actionDemoEnabledChanged,
+    DemoActions.enabledChanged,
     (state, {enabled}) => ({
       ...state,
       enabled
     })
   ),
   on(
-    actionDemoCanPlay,
+    DemoActions.canPlay,
     (state, {duration}) => ({
       ...state,
       duration,
@@ -53,7 +48,7 @@ export const demoReducer = createReducer(
     })
   ),
   on(
-    actionDemoTimeUpdate,
+    DemoActions.timeUpdate,
     (state, {time}) => ({
       ...state,
       time

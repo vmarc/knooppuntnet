@@ -16,7 +16,7 @@ import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {FactInfo} from '../../fact/fact-info';
 import {AppState} from '../../../core/core.state';
 import {Store} from '@ngrx/store';
-import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
+import * as PreferencesActions from '../../../core/preferences/preferences.actions';
 
 @Component({
   selector: 'kpn-route-page',
@@ -150,7 +150,7 @@ export class RoutePageComponent implements OnInit {
           this.changeCount$.next(response.result.changeCount);
           this.tags = InterpretedTags.routeTags(this.route.tags);
           this.factInfos = this.route.facts.map(fact => new FactInfo(fact));
-          this.store.dispatch(actionPreferencesNetworkType({networkType: this.route.summary.networkType.name}));
+          this.store.dispatch(PreferencesActions.networkType({networkType: this.route.summary.networkType.name}));
         }
       })
     );

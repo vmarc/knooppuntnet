@@ -1,6 +1,6 @@
 import {createSelector} from '@ngrx/store';
 import {selectSharedState} from '../core.state';
-import {SharedState} from './shared.model';
+import {SharedState} from './shared.state';
 
 // export const selectSharedDefaultNetworkType = createSelector(
 //   selectSharedState,

@@ -1,6 +1,6 @@
 import {createSelector} from '@ngrx/store';
 import {selectPreferencesState} from '../core.state';
-import {PreferencesState} from './preferences.model';
+import {PreferencesState} from './preferences.state';
 
 export const selectPreferencesNetworkType = createSelector(
   selectPreferencesState,

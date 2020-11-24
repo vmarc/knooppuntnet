@@ -1,17 +1,9 @@
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
 import {routerNavigatedAction} from '@ngrx/router-store';
-import {PreferencesState} from './preferences.model';
-import {actionPreferencesNetworkType} from './preferences.actions';
-import {actionPreferencesInstructions} from './preferences.actions';
-import {actionPreferencesExtraLayers} from './preferences.actions';
+import {initialState} from './preferences.state';
+import * as PreferencesActions from './preferences.actions';
 import {Util} from '../../components/shared/util';
-
-const initialState: PreferencesState = {
-  networkType: null,
-  instructions: false,
-  extraLayers: false
-};
 
 export const preferencesReducer = createReducer(
   initialState,
@@ -27,15 +19,15 @@ export const preferencesReducer = createReducer(
     }
   ),
   on(
-    actionPreferencesNetworkType,
+    PreferencesActions.networkType,
     (state, action) => ({...state, networkType: action.networkType})
   ),
   on(
-    actionPreferencesInstructions,
+    PreferencesActions.instructions,
     (state, action) => ({...state, instructions: action.instructions})
   ),
   on(
-    actionPreferencesExtraLayers,
+    PreferencesActions.extraLayers,
     (state, action) => ({...state, extraLayers: action.extraLayers})
   )
 );

@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {actionDemoUpdateProgress} from '../../core/demo/demo.actions';
+import * as DemoActions from '../../core/demo/demo.actions';
 import {selectDemoProgress} from '../../core/demo/demo.selectors';
 
 @Component({
@@ -41,6 +41,6 @@ export class DemoVideoProgressComponent {
   }
 
   updateProgress(event) {
-    this.store.dispatch(actionDemoUpdateProgress({progress: event.value}));
+    this.store.dispatch(DemoActions.updateProgress({progress: event.value}));
   }
 }

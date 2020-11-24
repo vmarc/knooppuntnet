@@ -1,15 +1,15 @@
 import {ActionReducerMap, createFeatureSelector, MetaReducer} from '@ngrx/store';
 import {ActionReducer} from '@ngrx/store';
 import {demoReducer} from './demo/demo.reducer';
-import {DemoState} from './demo/demo.model';
+import {DemoState} from './demo/demo.state';
 import {RouterStateUrl} from './router/router.state';
 import {RouterReducerState} from '@ngrx/router-store';
 import {routerReducer} from '@ngrx/router-store';
 import * as fromRouter from '@ngrx/router-store';
-import {SharedState} from './shared/shared.model';
+import {SharedState} from './shared/shared.state';
 import {sharedReducer} from './shared/shared.reducer';
 import {localStorageSync} from 'ngrx-store-localstorage';
-import {PreferencesState} from './preferences/preferences.model';
+import {PreferencesState} from './preferences/preferences.state';
 import {preferencesReducer} from './preferences/preferences.reducer';
 
 export const reducers: ActionReducerMap<AppState> = {

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
-import {actionDemoPlay} from '../../core/demo/demo.actions';
+import * as DemoActions from '../../core/demo/demo.actions';
 import {Observable} from 'rxjs';
 import {selectDemoVideoPlayButtonEnabled} from '../../core/demo/demo.selectors';
 
@@ -56,6 +56,6 @@ export class DemoVideoPlayButton {
   }
 
   play(): void {
-    this.store.dispatch(actionDemoPlay());
+    this.store.dispatch(DemoActions.play());
   }
 }

@@ -3,15 +3,8 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {State} from './demo.model';
-import {actionDemoPlay} from './demo.actions';
-import {actionDemoPause} from './demo.actions';
-import {actionDemoEnd} from './demo.actions';
-import {actionDemoVideoPlayerAvailable} from './demo.actions';
-import {actionDemoStartVideo} from './demo.actions';
-import {actionDemoControlPlay} from './demo.actions';
-import {actionDemoCanPlay} from './demo.actions';
-import {actionDemoUpdateProgress} from './demo.actions';
+import {State} from './demo.state';
+import * as DemoActions from './demo.actions';
 import {tap} from 'rxjs/operators';
 import {mergeMap} from 'rxjs/operators';
 import {withLatestFrom} from 'rxjs/operators';
@@ -32,7 +25,7 @@ export class DemoEffects {
   startVideo = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoStartVideo),
+        ofType(DemoActions.startVideo),
         tap(action => this.router.navigate(['/demo', action.video]))
       ),
     {dispatch: false}
@@ -41,7 +34,7 @@ export class DemoEffects {
   initialStartVideo = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoVideoPlayerAvailable),
+        ofType(DemoActions.videoPlayerAvailable),
         mergeMap(() =>
           this.store.pipe(
             filter(selectDemoEnabled),
@@ -58,7 +51,7 @@ export class DemoEffects {
   canPlay = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoCanPlay),
+        ofType(DemoActions.canPlay),
         tap(action => this.demoService.play())
       ),
     {dispatch: false}
@@ -67,7 +60,7 @@ export class DemoEffects {
   progressUpdate = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoUpdateProgress),
+        ofType(DemoActions.updateProgress),
         tap(action => this.demoService.setProgress(action.progress))
       ),
     {dispatch: false}
@@ -76,7 +69,7 @@ export class DemoEffects {
   pause = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoPause),
+        ofType(DemoActions.pause),
         tap(action => this.demoService.pause())
       ),
     {dispatch: false}
@@ -85,7 +78,7 @@ export class DemoEffects {
   play = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoPlay),
+        ofType(DemoActions.play),
         tap(action => this.demoService.play())
       ),
     {dispatch: false}
@@ -94,7 +87,7 @@ export class DemoEffects {
   end = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoEnd),
+        ofType(DemoActions.end),
         tap(action => this.demoService.end())
       ),
     {dispatch: false}
@@ -103,7 +96,7 @@ export class DemoEffects {
   controlPlay = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actionDemoControlPlay),
+        ofType(DemoActions.controlPlay),
         withLatestFrom(this.store.pipe(select(selectCurrentVideoState))),
         tap(([action, videoState]) => {
           if (action.video == videoState.video) {
