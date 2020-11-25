@@ -4,10 +4,10 @@ import {IssueState} from './issue.state';
 
 export const selectIssues = createSelector(
   selectIssueState,
-  (state: IssueState) => Object.values(state.entities)
+  (state: IssueState) => Object.values(state.issues)
 );
 
 export const selectIssueActive = createSelector(
   selectIssueState,
-  (state: IssueState) => state.entities.id1
+  (state: IssueState) => state.issues.id1
 );

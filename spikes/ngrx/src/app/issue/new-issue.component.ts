@@ -1,6 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Issue} from '../store/issue/issue.state';
+import * as IssueActions from '../store/issue/issue.actions';
+import {AppState} from '../store/app.state';
+import {Store} from '@ngrx/store';
+import {randomId} from '../store/util';
 
 @Component({
   selector: 'app-new-issue',
@@ -33,12 +36,10 @@ import {Issue} from '../store/issue/issue.state';
   `]
 })
 export class NewIssueComponent {
+
   form: FormGroup;
 
-  @Output()
-  submitNew = new EventEmitter<Issue>();
-
-  constructor(private fb: FormBuilder) {
+  constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -47,7 +48,8 @@ export class NewIssueComponent {
   }
 
   onSubmit(): void {
-    const issue = this.form.value;
-    this.submitNew.emit(issue);
+    const id = randomId();
+    const issue = {...this.form.value, id};
+    this.store.dispatch(IssueActions.submit({issue}));
   }
 }

@@ -17,7 +17,7 @@ export interface Filter {
 }
 
 export interface IssueState {
-  entities: Issues;
+  issues: Issues;
   selected: string[];
   filter: Filter;
 }
@@ -40,7 +40,7 @@ const issues: Issues = {
 };
 
 export const initialState: IssueState = {
-  entities: issues,
+  issues,
   selected: [],
   filter: {text: ''}
 };

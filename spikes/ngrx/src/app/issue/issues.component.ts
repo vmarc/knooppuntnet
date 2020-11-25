@@ -4,7 +4,7 @@ import {Issue} from '../store/issue/issue.state';
 @Component({
   selector: 'app-issues',
   template: `
-    <app-new-issue (submitNew)="onSubmit($event)"></app-new-issue>
+    <app-new-issue></app-new-issue>
     <app-issue-list
       (resolve)="onResolve($event)"
       (search)="onSearch($event)"
@@ -20,8 +20,5 @@ export class IssuesComponent {
   }
 
   onResolve(issue: Issue): void {
-  }
-
-  onSubmit(issue: Issue): void {
   }
 }
