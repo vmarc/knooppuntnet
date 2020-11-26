@@ -3,7 +3,7 @@ import {map} from 'rxjs/operators';
 import {PageWidth} from '../../components/shared/page-width';
 import {PageWidthService} from '../../components/shared/page-width.service';
 import {Store} from '@ngrx/store';
-import * as DemoActions from './demo.actions';
+import {actionDemoEnabledChanged} from "./demo.actions";
 
 @Injectable()
 export class DemoService {
@@ -15,7 +15,7 @@ export class DemoService {
     pageWidthService.current$.pipe(
       map(pageWidth => pageWidth == PageWidth.veryLarge)
     ).subscribe(enabled => {
-      this.store.dispatch(DemoActions.enabledChanged({enabled}));
+      this.store.dispatch(actionDemoEnabledChanged({enabled}));
     });
   }
 

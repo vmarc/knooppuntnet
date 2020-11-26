@@ -1,17 +1,17 @@
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
 
-export const networkType = createAction(
+export const actionPreferencesNetworkType = createAction(
   '[Preferences] NetworkType',
   props<{ networkType: string }>()
 );
 
-export const instructions = createAction(
+export const actionPreferencesInstructions = createAction(
   '[Preferences] Instructions',
   props<{ instructions: boolean }>()
 );
 
-export const extraLayers = createAction(
+export const actionPreferencesExtraLayers = createAction(
   '[Preferences] Extra layers',
   props<{ extraLayers: boolean }>()
 );

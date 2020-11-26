@@ -19,7 +19,7 @@ import {ChangeFilterOptions} from '../../components/changes/filter/change-filter
 import {RouteChangesService} from './route-changes.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import * as PreferencesActions from '../../../core/preferences/preferences.actions';
+import {actionPreferencesNetworkType} from "../../../core/preferences/preferences.actions";
 
 @Component({
   selector: 'kpn-route-changes-page',
@@ -111,7 +111,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
                   this.page = Util.safeGet(() => response.result);
                   this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
                   this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-                  this.store.dispatch(PreferencesActions.networkType({networkType: this.page.route.summary.networkType.name}));
+                  this.store.dispatch(actionPreferencesNetworkType({networkType: this.page.route.summary.networkType.name}));
                   this.routeChangesService.setFilterOptions(
                     ChangeFilterOptions.from(
                       this.parameters,

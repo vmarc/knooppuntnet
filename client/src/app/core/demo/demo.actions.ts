@@ -1,52 +1,52 @@
 import {createAction, props} from '@ngrx/store';
 
-export const videoPlayerAvailable = createAction(
+export const actionDemoVideoPlayerAvailable = createAction(
   '[Demo] Video player available'
 );
 
-export const canPlay = createAction(
+export const actionDemoCanPlay = createAction(
   '[Demo] Can play',
   props<{ duration: number }>()
 );
 
-export const timeUpdate = createAction(
+export const actionDemoTimeUpdate = createAction(
   '[Demo] Time update',
   props<{ time: number }>()
 );
 
-export const updateProgress = createAction(
+export const actionDemoUpdateProgress = createAction(
   '[Demo] Update progress',
   props<{ progress: number }>()
 );
 
-export const startVideo = createAction(
+export const actionDemoStartVideo = createAction(
   '[Demo] Start video',
   props<{ video: string }>()
 );
 
-export const play = createAction(
+export const actionDemoPlay = createAction(
   '[Demo] Play'
 );
 
-export const pause = createAction(
+export const actionDemoPause = createAction(
   '[Demo] Pause'
 );
 
-export const controlPlay = createAction(
+export const actionDemoControlPlay = createAction(
   '[Demo] Control play',
   props<{ video: string }>()
 );
 
-export const playingChanged = createAction(
+export const actionDemoPlayingChanged = createAction(
   '[Demo] Playing changed',
   props<{ playing: boolean }>()
 );
 
-export const enabledChanged = createAction(
+export const actionDemoEnabledChanged = createAction(
   '[Demo] Enabled changed',
   props<{ enabled: boolean }>()
 );
 
-export const end = createAction(
+export const actionDemoEnd = createAction(
   '[Demo] End'
 );

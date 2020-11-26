@@ -5,7 +5,8 @@ import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
 import {selectPreferencesInstructions} from '../core/preferences/preferences.selectors';
 import {selectPreferencesExtraLayers} from '../core/preferences/preferences.selectors';
-import * as PreferencesActions from '../core/preferences/preferences.actions';
+import {actionPreferencesInstructions} from "../core/preferences/preferences.actions";
+import {actionPreferencesExtraLayers} from "../core/preferences/preferences.actions";
 
 @Component({
   selector: 'kpn-settings-page',
@@ -79,11 +80,11 @@ export class SettingsPageComponent {
   }
 
   instructionsChanged(event: MatSlideToggleChange): void {
-    this.store.dispatch(PreferencesActions.instructions({instructions: event.checked}));
+    this.store.dispatch(actionPreferencesInstructions({instructions: event.checked}));
   }
 
   extraLayersChanged(event: MatSlideToggleChange): void {
-    this.store.dispatch(PreferencesActions.extraLayers({extraLayers: event.checked}));
+    this.store.dispatch(actionPreferencesExtraLayers({extraLayers: event.checked}));
   }
 
 }
