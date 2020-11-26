@@ -1,0 +1,75 @@
+import {createReducer} from '@ngrx/store';
+import {on} from '@ngrx/store';
+import {initialState} from './node.state';
+import {actionNodeLink} from './node.actions';
+import {actionNodeDetailsLoaded} from './node.actions';
+import {actionNodeMapLoaded} from './node.actions';
+import {actionNodeChangesLoaded} from './node.actions';
+import {routerNavigationAction} from '@ngrx/router-store';
+
+export const nodeReducer = createReducer(
+  initialState,
+  on(
+    routerNavigationAction,
+    (state, action) => ({
+      ...state,
+      details: null,
+      map: null,
+      changes: null
+    })
+  ),
+  on(
+    actionNodeLink,
+    (state, {nodeId, nodeName}) => ({
+      ...state,
+      nodeId,
+      nodeName,
+      changeCount: 0
+    })
+  ),
+  on(
+    actionNodeDetailsLoaded,
+    (state, {response}) => {
+      const nodeId = response.result?.nodeInfo.id.toString() ?? state.nodeId;
+      const nodeName = response.result?.nodeInfo.name ?? state.nodeName;
+      const changeCount = response.result?.changeCount ?? state.changeCount;
+      return {
+        ...state,
+        nodeId,
+        nodeName,
+        changeCount,
+        details: response
+      };
+    }
+  ),
+  on(
+    actionNodeMapLoaded,
+    (state, {response}) => {
+      const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
+      const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
+      const changeCount = response.result?.changeCount ?? state.changeCount;
+      return {
+        ...state,
+        nodeId,
+        nodeName,
+        changeCount,
+        map: response
+      };
+    }
+  ),
+  on(
+    actionNodeChangesLoaded,
+    (state, {response}) => {
+      const nodeId = response.result?.nodeInfo.id.toString() ?? state.nodeId;
+      const nodeName = response.result?.nodeInfo.name ?? state.nodeName;
+      const changeCount = response.result?.changeCount ?? state.changeCount;
+      return {
+        ...state,
+        nodeId,
+        nodeName,
+        changeCount,
+        changes: response
+      };
+    }
+  )
+);

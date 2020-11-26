@@ -1,14 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Subject} from 'rxjs';
-import {Observable} from 'rxjs';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {AppService} from '../../../app.service';
+import {Component, OnDestroy} from '@angular/core';
+import {filter} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
-import {NodeMapInfo} from '../../../kpn/api/common/node-map-info';
-import {NodeMapPage} from '../../../kpn/api/common/node/node-map-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {selectNodeId} from '../../../core/analysis/node/node.selectors';
+import {selectNodeName} from '../../../core/analysis/node/node.selectors';
+import {selectNodeChangeCount} from '../../../core/analysis/node/node.selectors';
+import {selectNodeMap} from '../../../core/analysis/node/node.selectors';
+import {AppState} from '../../../core/core.state';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'kpn-node-map-page',
@@ -33,44 +32,23 @@ import {ApiResponse} from '../../../kpn/api/custom/api-response';
       <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@node.node-not-found">
         Node not found
       </div>
-      <div *ngIf="response.result">
-        <kpn-node-map [nodeMapInfo]="nodeMapInfo"></kpn-node-map>
+      <div *ngIf="response.result as page">
+        <kpn-node-map [nodeMapInfo]="page.nodeMapInfo"></kpn-node-map>
       </div>
     </div>
   `
 })
-export class NodeMapPageComponent implements OnInit, OnDestroy {
+export class NodeMapPageComponent implements OnDestroy {
 
-  response$: Observable<ApiResponse<NodeMapPage>>;
+  nodeId$ = this.store.select(selectNodeId);
+  nodeName$ = this.store.select(selectNodeName);
+  changeCount$ = this.store.select(selectNodeChangeCount);
 
-  nodeId$ = new Subject<string>();
-  nodeName$ = new Subject<string>();
-  changeCount$ = new Subject<number>();
+  response$ = this.store.select(selectNodeMap).pipe(filter(x => x !== null));
 
-  nodeMapInfo: NodeMapInfo;
-
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService,
-              private pageService: PageService) {
+  constructor(private pageService: PageService,
+              private store: Store<AppState>) {
     this.pageService.showFooter = false;
-  }
-
-  ngOnInit(): void {
-    this.nodeName$.next(history.state.nodeName);
-    this.changeCount$.next(history.state.changeCount);
-    this.response$ = this.activatedRoute.params.pipe(
-      map(params => params['nodeId']),
-      tap(nodeId => this.nodeId$.next(nodeId)),
-      mergeMap(nodeId => this.appService.nodeMap(nodeId).pipe(
-        tap(response => {
-          if (response.result) {
-            this.nodeMapInfo = response.result.nodeMapInfo;
-            this.nodeName$.next(response.result.nodeMapInfo.name);
-            this.changeCount$.next(response.result.changeCount);
-          }
-        })
-      ))
-    );
   }
 
   ngOnDestroy(): void {

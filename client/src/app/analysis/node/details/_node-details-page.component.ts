@@ -1,21 +1,19 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {List} from 'immutable';
-import {Subject} from 'rxjs';
-import {Observable} from 'rxjs';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
 import {Ref} from '../../../kpn/api/common/common/ref';
-import {NodeInfo} from '../../../kpn/api/common/node-info';
 import {NodeDetailsPage} from '../../../kpn/api/common/node/node-details-page';
-import {NodeReferences} from '../../../kpn/api/common/node/node-references';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {FactInfo} from '../../fact/fact-info';
-import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
+import {AppState} from '../../../core/core.state';
+import {Store} from '@ngrx/store';
+import {selectNodeDetails} from '../../../core/analysis/node/node.selectors';
+import {selectNodeName} from '../../../core/analysis/node/node.selectors';
+import {selectNodeId} from '../../../core/analysis/node/node.selectors';
+import {selectNodeChangeCount} from '../../../core/analysis/node/node.selectors';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-node-details-page',
@@ -40,10 +38,10 @@ import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
       </div>
-      <div *ngIf="response.result">
+      <div *ngIf="response.result as page">
 
         <kpn-data title="Summary" i18n-title="@@node.summary">
-          <kpn-node-summary [nodeInfo]="nodeInfo"></kpn-node-summary>
+          <kpn-node-summary [nodeInfo]="page.nodeInfo"></kpn-node-summary>
         </kpn-data>
 
         <kpn-data title="Situation on" i18n-title="@@node.situation-on">
@@ -51,36 +49,36 @@ import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
         </kpn-data>
 
         <kpn-data title="Last updated" i18n-title="@@node.last-updated">
-          <kpn-timestamp [timestamp]="nodeInfo.lastUpdated"></kpn-timestamp>
+          <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated"></kpn-timestamp>
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@node.tags">
-          <kpn-tags-table [tags]="tags"></kpn-tags-table>
+          <kpn-tags-table [tags]="buildTags(page)"></kpn-tags-table>
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@node.location">
-          <kpn-node-location [location]="nodeInfo.location"></kpn-node-location>
+          <kpn-node-location [location]="page.nodeInfo.location"></kpn-node-location>
         </kpn-data>
 
         <kpn-data title="Integrity" i18n-title="@@node.integrity">
-          <kpn-node-integrity [integrity]="integrity"></kpn-node-integrity>
+          <kpn-node-integrity [integrity]="page.integrity"></kpn-node-integrity>
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
           <kpn-node-network-references
-            [nodeInfo]="nodeInfo"
-            [references]="references.networkReferences">
+            [nodeInfo]="page.nodeInfo"
+            [references]="page.references.networkReferences">
           </kpn-node-network-references>
         </kpn-data>
 
         <kpn-data title="Orphan routes" i18n-title="@@node.orphan-routes">
           <kpn-node-orphan-route-references
-            [references]="references.routeReferences">
+            [references]="page.references.routeReferences">
           </kpn-node-orphan-route-references>
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
-          <kpn-facts [factInfos]="factInfos"></kpn-facts>
+          <kpn-facts [factInfos]="buildFactInfos(page)"></kpn-facts>
         </kpn-data>
 
       </div>
@@ -89,52 +87,30 @@ import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
 })
 export class NodeDetailsPageComponent implements OnInit {
 
-  response$: Observable<ApiResponse<NodeDetailsPage>>;
+  nodeId$ = this.store.select(selectNodeId);
+  nodeName$ = this.store.select(selectNodeName);
+  changeCount$ = this.store.select(selectNodeChangeCount);
 
-  nodeId$ = new Subject<string>();
-  nodeName$ = new Subject<string>();
-  changeCount$ = new Subject<number>();
+  response$ = this.store.select(selectNodeDetails).pipe(filter(x => x !== null));
 
-  tags: InterpretedTags;
-  nodeInfo: NodeInfo;
-  factInfos: List<FactInfo>;
-  references: NodeReferences;
-  integrity: NodeIntegrity;
-
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService,
-              private pageService: PageService) {
+  constructor(private pageService: PageService,
+              private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    this.nodeName$.next(history.state.nodeName);
-    this.changeCount$.next(history.state.changeCount);
     this.pageService.showFooter = true;
-    this.response$ = this.activatedRoute.params.pipe(
-      map(params => params['nodeId']),
-      tap(nodeId => this.nodeId$.next(nodeId)),
-      mergeMap(nodeId => this.appService.nodeDetails(nodeId).pipe(
-        tap(response => {
-          if (response.result) {
-            this.nodeName$.next(response.result.nodeInfo.name);
-            this.changeCount$.next(response.result.changeCount);
-            this.tags = InterpretedTags.nodeTags(response.result.nodeInfo.tags);
-            this.factInfos = this.buildFactInfos(response.result);
-            this.nodeInfo = response.result.nodeInfo;
-            this.references = response.result.references;
-            this.integrity = response.result.integrity;
-          }
-        })
-      ))
-    );
   }
 
-  private buildFactInfos(page: NodeDetailsPage): List<FactInfo> {
+  buildTags(page: NodeDetailsPage) {
+    return InterpretedTags.nodeTags(page.nodeInfo.tags);
+  }
+
+  buildFactInfos(page: NodeDetailsPage): List<FactInfo> {
     const nodeFacts = page.nodeInfo.facts.map(fact => new FactInfo(fact));
     const extraFacts = page.references.networkReferences.flatMap(networkReference => networkReference.facts.map(fact => {
-        const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
-        return new FactInfo(fact, networkRef, null, null);
-      }));
+      const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
+      return new FactInfo(fact, networkRef, null, null);
+    }));
     return nodeFacts.concat(extraFacts);
   }
 

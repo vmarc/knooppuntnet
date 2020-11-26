@@ -53,10 +53,7 @@ import {CoreModule} from './core/core.module';
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
-        showDialog: false,
-        dialogOptions: {
-          title: 'It looks like we’re having issues in knooppuntnet.'
-        }
+        showDialog: false
       }),
     },
     {

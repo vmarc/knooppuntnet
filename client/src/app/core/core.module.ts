@@ -9,15 +9,27 @@ import {metaReducers, reducers} from './core.state';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {DemoService} from './demo/demo.service';
 import {SharedEffects} from './shared/shared.effects';
+import {NodeEffects} from './analysis/node/node.effects';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: false,
+        strictActionSerializability: false,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true
+      }
+    }),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([
       SharedEffects,
-      DemoEffects
+      DemoEffects,
+      NodeEffects
     ]),
     environment.production
       ? []

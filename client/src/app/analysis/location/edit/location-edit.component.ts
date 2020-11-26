@@ -11,7 +11,7 @@ import {delay} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
-import {OnInit} from "@angular/core";
+import {OnInit} from '@angular/core';
 
 @Component({
   selector: 'kpn-location-edit',
