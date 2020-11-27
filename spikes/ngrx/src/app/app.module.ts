@@ -13,6 +13,9 @@ import {IssueListComponent} from './issue/issue-list.component';
 import {IssuesComponent} from './issue/issues.component';
 import {IssueDetailComponent} from './issue/issue-detail.component';
 import {reducers} from './store/app.state';
+import {NodeComponent} from './node/node.component';
+import {AppService} from './app.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,10 +25,12 @@ import {reducers} from './store/app.state';
     IssuesComponent,
     NewIssueComponent,
     IssueListComponent,
-    IssueDetailComponent
+    IssueDetailComponent,
+    NodeComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(
       reducers,
@@ -35,7 +40,8 @@ import {reducers} from './store/app.state';
           strictActionImmutability: true,
           strictStateSerializability: true,
           strictActionSerializability: true,
-          strictActionWithinNgZone: true
+          strictActionWithinNgZone: true,
+          strictActionTypeUniqueness: true
         }
       }
     ),
@@ -47,7 +53,9 @@ import {reducers} from './store/app.state';
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    AppService
+  ],
   bootstrap: [
     AppComponent
   ]

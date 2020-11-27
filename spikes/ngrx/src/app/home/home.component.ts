@@ -4,6 +4,7 @@ import {Component} from '@angular/core';
   selector: 'app-home',
   template: `
     <a routerLink="../counter">counter</a> |
+    <a routerLink="../node">node</a> |
     <a routerLink="../issues">issues</a>
   `
 })
