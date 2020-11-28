@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {Component} from '@angular/core';
+import {OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Params} from '@angular/router';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -8,10 +10,10 @@ import {map, mergeMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
 import {SubsetFactDetailsPage} from '../../../kpn/api/common/subset/subset-fact-details-page';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {Subset} from '../../../kpn/api/custom/subset';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 class SubsetFact {
   constructor(readonly subset: Subset,
@@ -80,8 +82,8 @@ class SubsetFact {
               </div>
               <div class="kpn-comma-list fact-detail">
               <span *ngFor="let ref of networkFactRefs.factRefs">
-                <a *ngIf="hasNodeRefs()" [routerLink]="'/analysis/node/' + ref.id">{{ref.name}}</a>
-                <a *ngIf="hasRouteRefs()" [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
+                <kpn-link-node *ngIf="hasNodeRefs()" [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
+                <kpn-link-route *ngIf="hasRouteRefs()" [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
                 <kpn-osm-link-node *ngIf="hasOsmNodeRefs()" [nodeId]="ref.id" [title]="ref.name"></kpn-osm-link-node>
                 <kpn-osm-link-way *ngIf="hasOsmWayRefs()" [wayId]="ref.id" [title]="ref.name"></kpn-osm-link-way>
                 <kpn-osm-link-relation *ngIf="hasOsmRelationRefs()" [relationId]="ref.id"

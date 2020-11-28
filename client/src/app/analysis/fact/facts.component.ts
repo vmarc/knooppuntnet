@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {Input} from '@angular/core';
 import {List} from 'immutable';
 import {FactInfo} from './fact-info';
 import {FactLevel} from './fact-level';
@@ -25,7 +26,7 @@ import {Facts} from './facts';
         </div>
         <div *ngIf="factInfo.routeRef" class="reference">
           <kpn-brackets>
-            <a class="text" [routerLink]="'/analysis/route/' + factInfo.routeRef.id">{{factInfo.routeRef.name}}</a>
+            <kpn-link-route [routeId]="factInfo.routeRef.id" [title]="factInfo.routeRef.name"></kpn-link-route>
           </kpn-brackets>
         </div>
         <div *ngIf="factInfo.nodeRef" class="reference">

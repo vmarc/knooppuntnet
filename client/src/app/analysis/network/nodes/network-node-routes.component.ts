@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {Input} from '@angular/core';
 import {NetworkInfoNode} from '../../../kpn/api/common/network/network-info-node';
 
 @Component({
@@ -13,7 +14,7 @@ import {NetworkInfoNode} from '../../../kpn/api/common/network/network-info-node
 
     <div *ngIf="node.routeReferences.size > 0" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
-        <a [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
+        <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
       </span>
     </div>
   `,

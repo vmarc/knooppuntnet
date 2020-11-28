@@ -16,3 +16,18 @@ export const selectNodeChanges = createSelector(
   selectRouteState,
   (state: RouteState) => state.changes
 );
+
+export const selectRouteId = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.routeId
+);
+
+export const selectRouteName = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.routeName
+);
+
+export const selectRouteChangeCount = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.changeCount
+);

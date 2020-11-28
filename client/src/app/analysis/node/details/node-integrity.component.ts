@@ -31,7 +31,7 @@ import {NodeIntegrityDetail} from '../../../kpn/api/common/node/node-integrity-d
       <div *ngFor="let ref of detail.routeRefs">
         <div class="kpn-line route-ref">
           <kpn-network-type-icon [networkType]="detail.networkType"></kpn-network-type-icon>
-          <a [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
+          <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
         </div>
       </div>
     </div>

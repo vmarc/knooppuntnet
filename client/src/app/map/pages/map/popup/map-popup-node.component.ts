@@ -43,7 +43,7 @@ import {PlannerService} from '../../../planner.service';
         <span class="kpn-label" i18n="@@map.node-popup.routes">Routes</span>
         <span *ngIf="response.result.routeReferences.isEmpty()" i18n="@@map.node-popup.routes.none">None</span>
         <div *ngFor="let ref of response.result.routeReferences" class="reference">
-          <a [routerLink]="'/analysis/route/' + ref.id">{{ref.name}}</a>
+          <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
         </div>
       </div>
 

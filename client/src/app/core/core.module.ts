@@ -1,15 +1,16 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {StoreModule} from '@ngrx/store';
-import {DemoEffects} from './demo/demo.effects';
 import {EffectsModule} from '@ngrx/effects';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../../environments/environment';
+import {NodeEffects} from './analysis/node/node.effects';
+import {RouteEffects} from './analysis/route/route.effects';
 import {metaReducers, reducers} from './core.state';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {DemoEffects} from './demo/demo.effects';
 import {DemoService} from './demo/demo.service';
 import {SharedEffects} from './shared/shared.effects';
-import {NodeEffects} from './analysis/node/node.effects';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {NodeEffects} from './analysis/node/node.effects';
     EffectsModule.forRoot([
       SharedEffects,
       DemoEffects,
-      NodeEffects
+      NodeEffects,
+      RouteEffects
     ]),
     environment.production
       ? []

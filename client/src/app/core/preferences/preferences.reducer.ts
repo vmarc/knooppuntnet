@@ -2,6 +2,9 @@ import {routerNavigatedAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
 import {Util} from '../../components/shared/util';
+import {actionRouteChangesLoaded} from '../analysis/route/route.actions';
+import {actionRouteMapLoaded} from '../analysis/route/route.actions';
+import {actionRouteDetailsLoaded} from '../analysis/route/route.actions';
 import {actionPreferencesNetworkType} from './preferences.actions';
 import {actionPreferencesInstructions} from './preferences.actions';
 import {actionPreferencesExtraLayers} from './preferences.actions';
@@ -31,5 +34,35 @@ export const preferencesReducer = createReducer(
   on(
     actionPreferencesExtraLayers,
     (state, action) => ({...state, extraLayers: action.extraLayers})
+  ),
+  on(
+    actionRouteDetailsLoaded,
+    (state, {response}) => {
+      const networkType = response?.result.route.summary.networkType.name ?? state.networkType;
+      return {
+        ...state,
+        networkType
+      };
+    }
+  ),
+  on(
+    actionRouteMapLoaded,
+    (state, {response}) => {
+      const networkType = response?.result.route.summary.networkType.name ?? state.networkType;
+      return {
+        ...state,
+        networkType
+      };
+    }
+  ),
+  on(
+    actionRouteChangesLoaded,
+    (state, {response}) => {
+      const networkType = response?.result.route.summary.networkType.name ?? state.networkType;
+      return {
+        ...state,
+        networkType
+      };
+    }
   )
 );
