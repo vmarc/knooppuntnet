@@ -1,16 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Subject} from 'rxjs';
-import {Observable} from 'rxjs';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {AppService} from '../../../app.service';
-import {PageService} from '../../../components/shared/page.service';
-import {RouteMapPage} from '../../../kpn/api/common/route/route-map-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {Component} from '@angular/core';
+import {OnDestroy} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {PageService} from '../../../components/shared/page.service';
+import {selectRouteMap} from '../../../core/analysis/route/route.selectors';
+import {selectRouteChangeCount} from '../../../core/analysis/route/route.selectors';
+import {selectRouteName} from '../../../core/analysis/route/route.selectors';
+import {selectRouteId} from '../../../core/analysis/route/route.selectors';
 import {AppState} from '../../../core/core.state';
-import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
   selector: 'kpn-route-changes-page',
@@ -39,39 +36,16 @@ import {actionPreferencesNetworkType} from '../../../core/preferences/preference
     </div>
   `
 })
-export class RouteMapPageComponent implements OnInit, OnDestroy {
+export class RouteMapPageComponent implements OnDestroy {
 
-  response$: Observable<ApiResponse<RouteMapPage>>;
+  readonly routeId$ = this.store.select(selectRouteId);
+  readonly routeName$ = this.store.select(selectRouteName);
+  readonly changeCount$ = this.store.select(selectRouteChangeCount);
+  readonly response$ = this.store.select(selectRouteMap);
 
-  routeId$ = new Subject<string>();
-  routeName$ = new Subject<string>();
-  changeCount$ = new Subject<number>();
-
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService,
-              private pageService: PageService,
+  constructor(private pageService: PageService,
               private store: Store<AppState>) {
     this.pageService.showFooter = false;
-  }
-
-  ngOnInit(): void {
-    this.routeName$.next(history.state.routeName);
-    this.changeCount$.next(history.state.changeCount);
-    this.response$ = this.activatedRoute.params.pipe(
-      map(params => params['routeId']),
-      tap(routeId => this.routeId$.next(routeId)),
-      mergeMap(routeId => this.appService.routeMap(routeId).pipe(
-        tap(response => {
-          if (response.result) {
-            this.routeName$.next(response.result.route.summary.name);
-            this.store.dispatch(actionPreferencesNetworkType({networkType: response.result.route.summary.networkType.name})
-            )
-            ;
-            this.changeCount$.next(response.result.changeCount);
-          }
-        })
-      ))
-    );
   }
 
   ngOnDestroy(): void {

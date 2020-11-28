@@ -7,7 +7,7 @@ export const selectRouteDetails = createSelector(
   (state: RouteState) => state.details
 );
 
-export const selectNodeMap = createSelector(
+export const selectRouteMap = createSelector(
   selectRouteState,
   (state: RouteState) => state.map
 );
