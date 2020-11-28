@@ -22,8 +22,8 @@ export const nodeReducer = createReducer(
     actionNodeLink,
     (state, {nodeId, nodeName}) => ({
       ...state,
-      nodeId: nodeId,
-      nodeName: nodeName,
+      nodeId,
+      nodeName,
       changeCount: 0
     })
   ),
@@ -35,9 +35,9 @@ export const nodeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        nodeId: nodeId,
-        nodeName: nodeName,
-        changeCount: changeCount,
+        nodeId,
+        nodeName,
+        changeCount,
         details: response
       };
     }
@@ -50,9 +50,9 @@ export const nodeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        nodeId: nodeId,
-        nodeName: nodeName,
-        changeCount: changeCount,
+        nodeId,
+        nodeName,
+        changeCount,
         map: response
       };
     }
@@ -65,9 +65,9 @@ export const nodeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        nodeId: nodeId,
-        nodeName: nodeName,
-        changeCount: changeCount,
+        nodeId,
+        nodeName,
+        changeCount,
         changes: response
       };
     }

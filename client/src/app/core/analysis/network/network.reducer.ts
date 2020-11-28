@@ -20,56 +20,44 @@ export const networkReducer = createReducer(
   ),
   on(
     actionNetworkDetailsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        details: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      details: response
+    })
   ),
   on(
     actionNetworkDetailsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        nodes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      nodes: response
+    })
   ),
   on(
     actionNetworkDetailsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        routes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      routes: response
+    })
   ),
   on(
     actionNetworkDetailsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        facts: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      facts: response
+    })
   ),
   on(
     actionNetworkDetailsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        map: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      map: response
+    })
   ),
   on(
     actionNetworkDetailsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        changes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      changes: response
+    })
   )
 );

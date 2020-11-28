@@ -22,8 +22,8 @@ export const routeReducer = createReducer(
     actionRouteLink,
     (state, {routeId, routeName}) => ({
       ...state,
-      routeId: routeId,
-      routeName: routeName,
+      routeId,
+      routeName,
       changeCount: 0
     })
   ),
@@ -35,9 +35,9 @@ export const routeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        routeId: routeId,
-        routeName: routeName,
-        changeCount: changeCount,
+        routeId,
+        routeName,
+        changeCount,
         details: response
       };
     }
@@ -50,9 +50,9 @@ export const routeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        routeId: routeId,
-        routeName: routeName,
-        changeCount: changeCount,
+        routeId,
+        routeName,
+        changeCount,
         map: response
       };
     }
@@ -65,9 +65,9 @@ export const routeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        routeId: routeId,
-        routeName: routeName,
-        changeCount: changeCount,
+        routeId,
+        routeName,
+        changeCount,
         changes: response
       };
     }

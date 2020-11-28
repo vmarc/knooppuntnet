@@ -16,7 +16,7 @@ import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {FactInfo} from '../../fact/fact-info';
 import {AppState} from '../../../core/core.state';
 import {Store} from '@ngrx/store';
-import {actionPreferencesNetworkType} from "../../../core/preferences/preferences.actions";
+import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
   selector: 'kpn-route-page',

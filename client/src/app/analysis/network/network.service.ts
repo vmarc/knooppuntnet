@@ -4,7 +4,7 @@ import {NetworkSummary} from '../../kpn/api/common/network/network-summary';
 import {NetworkCacheService} from '../../services/network-cache.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../core/core.state';
-import {actionPreferencesNetworkType} from "../../core/preferences/preferences.actions";
+import {actionPreferencesNetworkType} from '../../core/preferences/preferences.actions';
 
 @Injectable({
   providedIn: 'root',

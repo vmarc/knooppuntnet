@@ -25,56 +25,44 @@ export const subsetReducer = createReducer(
   ),
   on(
     actionSubsetNetworksLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        networks: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      networks: response
+    })
   ),
   on(
     actionSubsetFactsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        facts: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      facts: response
+    })
   ),
   on(
     actionSubsetOrphanNodesLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        orphanNodes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      orphanNodes: response
+    })
   ),
   on(
     actionSubsetOrphanRoutesLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        orphanRoutes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      orphanRoutes: response
+    })
   ),
   on(
     actionSubsetMapLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        map: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      map: response
+    })
   ),
   on(
     actionSubsetChangesLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        changes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      changes: response
+    })
   )
 );

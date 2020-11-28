@@ -10,7 +10,7 @@ import {RouteMapPage} from '../../../kpn/api/common/route/route-map-page';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {actionPreferencesNetworkType} from "../../../core/preferences/preferences.actions";
+import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
   selector: 'kpn-route-changes-page',

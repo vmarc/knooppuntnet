@@ -19,7 +19,7 @@ import {ChangeFilterOptions} from '../../components/changes/filter/change-filter
 import {RouteChangesService} from './route-changes.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {actionPreferencesNetworkType} from "../../../core/preferences/preferences.actions";
+import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
   selector: 'kpn-route-changes-page',

@@ -25,56 +25,44 @@ export const locationReducer = createReducer(
   ),
   on(
     actionLocationNodesLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        nodes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      nodes: response
+    })
   ),
   on(
     actionLocationRoutesLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        routes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      routes: response
+    })
   ),
   on(
     actionLocationFactsLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        facts: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      facts: response
+    })
   ),
   on(
     actionLocationMapLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        map: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      map: response
+    })
   ),
   on(
     actionLocationChangesLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        changes: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      changes: response
+    })
   ),
   on(
     actionLocationEditLoaded,
-    (state, {response}) => {
-      return {
-        ...state,
-        edit: response
-      };
-    }
+    (state, {response}) => ({
+      ...state,
+      edit: response
+    })
   )
 );

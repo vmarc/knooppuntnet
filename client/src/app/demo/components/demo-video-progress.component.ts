@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {actionDemoUpdateProgress} from "../../core/demo/demo.actions";
+import {actionDemoUpdateProgress} from '../../core/demo/demo.actions';
 import {selectDemoProgress} from '../../core/demo/demo.selectors';
 
 @Component({
