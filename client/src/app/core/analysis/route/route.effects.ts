@@ -12,38 +12,38 @@ import {AppService} from '../../../app.service';
 import {selectUrl} from '../../core.state';
 import {selectRouteParams} from '../../core.state';
 import {AppState} from '../../core.state';
-import {actionNodeMapLoaded} from './node.actions';
-import {actionNodeDetailsLoaded} from './node.actions';
+import {actionRouteDetailsLoaded} from './route.actions';
+import {actionRouteMapLoaded} from './route.actions';
 
 @Injectable()
-export class NodeEffects {
+export class RouteEffects {
   constructor(private actions$: Actions,
               private store: Store<AppState>,
               private appService: AppService) {
   }
 
-  nodePageEnter = createEffect(() =>
+  routePageEnter = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       withLatestFrom(
         this.store.select(selectUrl),
         this.store.select(selectRouteParams)
       ),
-      filter(([action, url, params]) => url.startsWith('/analysis/node/')),
+      filter(([action, url, params]) => url.startsWith('/analysis/route/')),
       mergeMap(([action, url, params]) => {
-        const nodeId = params['nodeId'];
+        const routeId = params['routeId'];
         if (url.endsWith('/map')) {
-          return this.appService.nodeMap(nodeId).pipe(
-            map(response => actionNodeMapLoaded({response}))
+          return this.appService.routeMap(routeId).pipe(
+            map(response => actionRouteMapLoaded({response}))
           );
         }
         // if (url.endsWith('/changes')) {
-        //   return this.appService.nodeChanges(nodeId, null /* TODO PARAMETERS */).pipe(
-        //     map(response => actionNodeChangesLoaded({response}))
+        //   return this.appService.routeChanges(nodeId, null /* TODO PARAMETERS */).pipe(
+        //     map(response => actionRouteChangesLoaded({response}))
         //   );
         // }
-        return this.appService.nodeDetails(nodeId).pipe(
-          map(response => actionNodeDetailsLoaded({response}))
+        return this.appService.routeDetails(routeId).pipe(
+          map(response => actionRouteDetailsLoaded({response}))
         );
       })
     )

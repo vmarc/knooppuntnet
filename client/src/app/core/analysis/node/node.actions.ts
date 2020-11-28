@@ -1,9 +1,9 @@
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {NodeDetailsPage} from '../../../kpn/api/common/node/node-details-page';
 import {NodeChangesPage} from '../../../kpn/api/common/node/node-changes-page';
+import {NodeDetailsPage} from '../../../kpn/api/common/node/node-details-page';
 import {NodeMapPage} from '../../../kpn/api/common/node/node-map-page';
+import {ApiResponse} from '../../../kpn/api/custom/api-response';
 
 export const actionNodeLink = createAction(
   '[Node] Link',

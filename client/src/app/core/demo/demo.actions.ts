@@ -1,4 +1,5 @@
-import {createAction, props} from '@ngrx/store';
+import {createAction} from '@ngrx/store';
+import {props} from '@ngrx/store';
 
 export const actionDemoVideoPlayerAvailable = createAction(
   '[Demo] Video player available'

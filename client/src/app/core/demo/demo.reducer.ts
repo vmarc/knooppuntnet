@@ -1,11 +1,12 @@
-import {createReducer, on} from '@ngrx/store';
+import {createReducer} from '@ngrx/store';
+import {on} from '@ngrx/store';
+import {actionDemoPause} from './demo.actions';
+import {actionDemoStartVideo} from './demo.actions';
+import {actionDemoPlayingChanged} from './demo.actions';
+import {actionDemoEnabledChanged} from './demo.actions';
+import {actionDemoCanPlay} from './demo.actions';
+import {actionDemoTimeUpdate} from './demo.actions';
 import {DemoState} from './demo.state';
-import {actionDemoPause} from "./demo.actions";
-import {actionDemoStartVideo} from "./demo.actions";
-import {actionDemoPlayingChanged} from "./demo.actions";
-import {actionDemoEnabledChanged} from "./demo.actions";
-import {actionDemoCanPlay} from "./demo.actions";
-import {actionDemoTimeUpdate} from "./demo.actions";
 
 const initialState: DemoState = {
   video: '',

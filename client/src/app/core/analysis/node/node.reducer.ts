@@ -1,11 +1,11 @@
+import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
-import {initialState} from './node.state';
 import {actionNodeLink} from './node.actions';
 import {actionNodeDetailsLoaded} from './node.actions';
 import {actionNodeMapLoaded} from './node.actions';
 import {actionNodeChangesLoaded} from './node.actions';
-import {routerNavigationAction} from '@ngrx/router-store';
+import {initialState} from './node.state';
 
 export const nodeReducer = createReducer(
   initialState,
@@ -22,8 +22,8 @@ export const nodeReducer = createReducer(
     actionNodeLink,
     (state, {nodeId, nodeName}) => ({
       ...state,
-      nodeId,
-      nodeName,
+      nodeId: nodeId,
+      nodeName: nodeName,
       changeCount: 0
     })
   ),
@@ -35,9 +35,9 @@ export const nodeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        nodeId,
-        nodeName,
-        changeCount,
+        nodeId: nodeId,
+        nodeName: nodeName,
+        changeCount: changeCount,
         details: response
       };
     }
@@ -50,9 +50,9 @@ export const nodeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        nodeId,
-        nodeName,
-        changeCount,
+        nodeId: nodeId,
+        nodeName: nodeName,
+        changeCount: changeCount,
         map: response
       };
     }
@@ -65,9 +65,9 @@ export const nodeReducer = createReducer(
       const changeCount = response.result?.changeCount ?? state.changeCount;
       return {
         ...state,
-        nodeId,
-        nodeName,
-        changeCount,
+        nodeId: nodeId,
+        nodeName: nodeName,
+        changeCount: changeCount,
         changes: response
       };
     }
