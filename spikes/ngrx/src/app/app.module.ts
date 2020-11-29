@@ -16,12 +16,14 @@ import {reducers} from './store/app.state';
 import {NodeComponent} from './node/node.component';
 import {AppService} from './app.service';
 import {HttpClientModule} from '@angular/common/http';
+import {UserComponent} from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CounterComponent,
+    UserComponent,
     IssuesComponent,
     NewIssueComponent,
     IssueListComponent,

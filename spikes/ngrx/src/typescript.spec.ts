@@ -82,4 +82,23 @@ describe('typescript concepts', () => {
     expect(person2.age).toEqual(50);
   });
 
+  it('timestamp as string type', () => {
+
+    type Timestamp = string;
+
+    const timestamp1: Timestamp = '2020-08-11 12:34:56';
+    const timestamp2: Timestamp = '2020-08-12 12:34:56';
+    const timestamp3: Timestamp = '2020-08-12 12:34:56';
+
+    expect(timestamp1 < timestamp2).toEqual(true);
+    expect(timestamp1 <= timestamp2).toEqual(true);
+    expect(timestamp1 > timestamp2).toEqual(false);
+    expect(timestamp1 >= timestamp2).toEqual(false);
+
+    expect(timestamp2 < timestamp1).toEqual(false);
+
+    expect(timestamp2 == timestamp3).toEqual(true);
+    expect(timestamp2 === timestamp3).toEqual(true);
+  });
+
 });

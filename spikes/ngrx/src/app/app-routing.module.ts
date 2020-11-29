@@ -4,6 +4,7 @@ import {CounterComponent} from './counter/counter.component';
 import {HomeComponent} from './home/home.component';
 import {IssuesComponent} from './issue/issues.component';
 import {NodeComponent} from './node/node.component';
+import {UserComponent} from './user/user.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'node',
     component: NodeComponent
+  },
+  {
+    path: 'users',
+    component: UserComponent
   },
   {
     path: '**',
