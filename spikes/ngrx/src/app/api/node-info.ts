@@ -1,6 +1,6 @@
 import {NodeName} from './node-name';
 import {Tag} from './tag';
-import {Country} from "./country";
+import {Country} from './country';
 
 export interface NodeInfo {
   readonly id: number;

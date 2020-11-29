@@ -1,6 +1,6 @@
 import {NodeNetworkIntegrityCheck} from './node-network-integrity-check';
 import {NodeNetworkRouteReference} from './node-network-route-reference';
-import {NetworkType} from "./network-type";
+import {NetworkType} from './network-type';
 
 export interface NodeNetworkReference {
   readonly networkType: NetworkType;
