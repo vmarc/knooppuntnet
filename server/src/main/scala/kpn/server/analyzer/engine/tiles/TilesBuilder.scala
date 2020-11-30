@@ -28,11 +28,18 @@ class TilesBuilder(
     analysis: TileAnalysis
   ): Unit = {
 
+    val existingVectorTileNames = if (z >= ZoomLevel.vectorTileMinZoom - 1) {
+      vectorTileFileRepository.existingTileNames(analysis.networkType.name, z)
+    }
+    else {
+      Seq()
+    }
+
     val existingTileNames = if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(analysis.networkType.name, z)
     }
     else {
-      vectorTileFileRepository.existingTileNames(analysis.networkType.name, z)
+      Seq()
     }
 
     val existingTileNamesSurface = if (z < ZoomLevel.vectorTileMinZoom) {
@@ -56,11 +63,15 @@ class TilesBuilder(
     }
 
     log.info(s"Processing zoomlevel $z")
-    log.info(s"Number of tiles before: " + existingTileNames.size)
     if (z < ZoomLevel.vectorTileMinZoom) {
+      log.info(s"Number of bitmap tiles before: " + existingTileNames.size)
       log.info(s"Number of surface tiles before: " + existingTileNamesSurface.size)
       log.info(s"Number of survey tiles before: " + existingTileNamesSurvey.size)
       log.info(s"Number of analysis tiles before: " + existingTileNamesAnalysis.size)
+    }
+
+    if (z >= ZoomLevel.vectorTileMinZoom - 1) {
+      log.info(s"Number of vector tiles before: " + existingVectorTileNames.size)
     }
 
     log.info(s"buildTileNodeMap()")
@@ -75,58 +86,54 @@ class TilesBuilder(
     var progress: Int = 0
 
     tileNames.zipWithIndex.foreach { case (tileName: String, index) =>
-      val currentProgress = (100d * (index + 1) / tileNames.size).round.toInt
-      if (currentProgress != progress) {
-        progress = currentProgress
-        log.info(s"Build tile ${index + 1}/${tileNames.size} $progress $tileName")
-      }
-
-      val tileNodesOption = tileNodes.get(tileName)
-      val tileRoutesOption = tileRoutesMap.get(tileName)
-
-      val tile = tileNodesOption match { // TODO MAP can do this cleaner?
-        case Some(tileNodes1) => tileNodes1.tile
-        case None => tileRoutesOption match {
-          case Some(tileRoutes1) => tileRoutes1.tile
-          case None => throw new IllegalStateException()
+      Log.context(s"${index + 1}/${tileNames.size}") {
+        val currentProgress = (100d * (index + 1) / tileNames.size).round.toInt
+        if (currentProgress != progress) {
+          progress = currentProgress
+          log.info(s"Build tile ${index + 1}/${tileNames.size} $progress $tileName")
         }
-      }
 
-      val nodes = tileNodesOption match {
-        case None => Seq()
-        case Some(tn) => tn.nodes
-      }
-      val routes = tileRoutesOption match {
-        case None => Seq()
-        case Some(tr) => tr.routes
-      }
+        val tileNodesOption = tileNodes.get(tileName)
+        val tileRoutesOption = tileRoutesMap.get(tileName)
 
-      val tileData = TileData(
-        analysis.networkType,
-        tile,
-        nodes,
-        routes
-      )
+        val tile = tileNodesOption match { // TODO MAP can do this cleaner?
+          case Some(tileNodes1) => tileNodes1.tile
+          case None => tileRoutesOption match {
+            case Some(tileRoutes1) => tileRoutes1.tile
+            case None => throw new IllegalStateException()
+          }
+        }
 
-      tileFileBuilder.build(tileData)
+        val nodes = tileNodesOption match {
+          case None => Seq()
+          case Some(tn) => tn.nodes
+        }
+        val routes = tileRoutesOption match {
+          case None => Seq()
+          case Some(tr) => tr.routes
+        }
+
+        val tileData = TileData(
+          analysis.networkType,
+          tile,
+          nodes,
+          routes
+        )
+
+        tileFileBuilder.build(tileData)
+      }
     }
 
     val afterTileNames = tileNames.map(tileName => analysis.networkType.name + "-" + tileName)
-    val obsoleteTileNames = (existingTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
-    log.info(s"Obsolete: " + obsoleteTileNames)
 
-    log.info(s"Obsolete tile count: " + obsoleteTileNames.size)
+    if (z <= ZoomLevel.bitmapTileMaxZoom) {
 
-    if (z < ZoomLevel.vectorTileMinZoom) {
-
+      val obsoleteTileNames = (existingTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
+      log.info(s"Obsolete bitmap tiles: " + obsoleteTileNames)
       bitmapTileFileRepository.delete(obsoleteTileNames)
       log.info(s"Obsolete bitmap tiles removed: " + obsoleteTileNames.size)
 
       val afterTileNamesSurface = tileNames.map(tileName => analysis.networkType.name + "-surface-" + tileName)
-
-      log.debug(s"z=$z, existingTileNamesSurface=$existingTileNamesSurface")
-      log.debug(s"z=$z, afterTileNamesSurface=$afterTileNamesSurface")
-
       val obsoleteTileNamesSurface = (existingTileNamesSurface.toSet -- afterTileNamesSurface.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesSurface)
       log.info(s"Obsolete bitmap surface tiles removed: ${obsoleteTileNamesSurface.size}")
@@ -141,7 +148,10 @@ class TilesBuilder(
       bitmapTileFileRepository.delete(obsoleteTileNamesAnalysis)
       log.info(s"Obsolete bitmap analysis tiles removed: ${obsoleteTileNamesAnalysis.size}")
     }
-    else {
+
+    if (z >= ZoomLevel.vectorTileMinZoom - 1) {
+      val obsoleteTileNames = (existingVectorTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
+      log.info(s"Obsolete vector tiles: " + obsoleteTileNames)
       vectorTileFileRepository.delete(obsoleteTileNames)
       log.info(s"Obsolete vector tiles removed: ${obsoleteTileNames.size}")
     }

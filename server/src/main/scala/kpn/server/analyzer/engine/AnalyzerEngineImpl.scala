@@ -63,7 +63,7 @@ class AnalyzerEngineImpl(
 
         if (!analyzerHistory) {
           nodeRouteUpdater.update()
-          tileUpdater.update(12)
+          tileUpdater.update(11)
           poiChangeAnalyzer.analyze(osmChange)
           poiTileUpdater.update()
         }

@@ -101,9 +101,13 @@ class TileTool(
 ) {
 
   def make(networkType: NetworkType): Unit = {
-    val tileAnalysis = tileAnalyzer.analysis(networkType)
-    (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-      tilesBuilder.build(z, tileAnalysis)
+    Log.context(networkType.name) {
+      val tileAnalysis = tileAnalyzer.analysis(networkType)
+      (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
+        Log.context(s"$z") {
+          tilesBuilder.build(z, tileAnalysis)
+        }
+      }
     }
   }
 

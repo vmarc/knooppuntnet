@@ -24,7 +24,7 @@ class TileFileBuilderImpl(
       buildRasterSurface(tileData)
       buildRasterSurvey(tileData)
       buildRasterAnalysis(tileData)
-      if (tileData.tile.z == ZoomLevel.poiTileMinZoom) {
+      if (tileData.tile.z == ZoomLevel.vectorTileMinZoom - 1) { // both mvt and png at zoom level 11
         buildVector(tileData)
       }
     }

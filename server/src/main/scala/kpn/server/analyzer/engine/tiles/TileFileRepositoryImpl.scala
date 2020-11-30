@@ -43,8 +43,8 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
   override def existingTileNames(tileType: String, z: Int): Seq[String] = {
     val dir = new File(s"$root/$tileType/$z")
     if (dir.exists) {
-      val files = FileUtils.listFiles(dir, TRUE, TRUE).asScala.toSeq
-      val tileNames = files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll("." + extension, ""))
+      val files = FileUtils.listFiles(dir, TRUE, TRUE).asScala.toSeq.filter(_.getAbsolutePath.endsWith(extension))
+      val tileNames = files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll("\\." + extension, ""))
       tileNames.sorted
     }
     else {

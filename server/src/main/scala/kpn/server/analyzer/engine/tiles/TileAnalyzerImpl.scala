@@ -23,22 +23,28 @@ class TileAnalyzerImpl(
 
     val subsets = Subset.all.filter(_.networkType == networkType)
     val details = subsets.flatMap { subset =>
-      networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
-        //noinspection SideEffectsInMonadicTransformation
-        log.info(s"network ${networkAttributes.name}")
-        networkRepository.network(networkAttributes.id).flatMap { network =>
-          network.detail
+      Log.context(subset.country.domain) {
+        networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
+          //noinspection SideEffectsInMonadicTransformation
+          log.info(s"network ${networkAttributes.name}")
+          networkRepository.network(networkAttributes.id).flatMap { network =>
+            network.detail
+          }
         }
       }
     }
 
     val nodes = details.flatMap(_.nodes).map(node => new TileDataNodeBuilder().build(node))
 
-    val routeIds = details.flatMap(_.routes.map(_.id))
-    val routeInfos = loadRouteAnalyses(routeRepository, routeIds)
+    val routeInfos = Log.context("network-routes") {
+      val routeIds = details.flatMap(_.routes.map(_.id))
+      loadRouteAnalyses(routeRepository, routeIds)
+    }
 
-    val orphanRouteIds = subsets.flatMap(subset => orphanRepository.orphanRoutes(subset)).map(_.id)
-    val orphanRouteInfos = loadRouteAnalyses(routeRepository, orphanRouteIds)
+    val orphanRouteInfos = Log.context("orphan-routes") {
+      val orphanRouteIds = subsets.flatMap(subset => orphanRepository.orphanRoutes(subset)).map(_.id)
+      loadRouteAnalyses(routeRepository, orphanRouteIds)
+    }
     val extraNodesInOrphanRoutes = findExtraNodesInOrphanRoutes(networkType, nodes, orphanRouteInfos)
     val orphanNodes = subsets.flatMap { subset => orphanRepository.orphanNodes(subset) }
 
@@ -53,13 +59,15 @@ class TileAnalyzerImpl(
   private def loadRouteAnalyses(routeRepo: RouteRepository, routeIds: Seq[Long]) = {
     var progress: Int = 0
     routeIds.zipWithIndex.flatMap { case (routeId, index) =>
-      val currentProgress = (100d * index / routeIds.size).round.toInt
-      if (currentProgress != progress) {
-        //noinspection SideEffectsInMonadicTransformation
-        log.info(s"Load route ${index + 1}/${routeIds.size} $progress%")
-        progress = currentProgress
+      Log.context(s"${index  + 1}/${routeIds.size}") {
+        val currentProgress = (100d * index / routeIds.size).round.toInt
+        if (currentProgress != progress) {
+          //noinspection SideEffectsInMonadicTransformation
+          log.info(s"Load route ${index + 1}/${routeIds.size} $progress%")
+          progress = currentProgress
+        }
+        routeRepo.routeWithId(routeId)
       }
-      routeRepo.routeWithId(routeId)
     }
   }
 
