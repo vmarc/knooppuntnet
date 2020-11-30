@@ -1,9 +1,9 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
 import {LocationMapPageService} from './location-map-page.service';
 
 @Component({
@@ -31,7 +31,7 @@ import {LocationMapPageService} from './location-map-page.service';
     LocationMapPageService
   ]
 })
-export class LocationMapPageComponent {
+export class LocationMapPageComponent implements OnInit {
 
   constructor(public service: LocationMapPageService,
               private activatedRoute: ActivatedRoute,

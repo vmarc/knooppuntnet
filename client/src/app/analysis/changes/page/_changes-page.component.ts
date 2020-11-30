@@ -1,3 +1,4 @@
+import {OnDestroy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppService} from '../../../app.service';
@@ -50,10 +51,12 @@ import {ChangesService} from '../../components/changes/filter/changes.service';
     </div>
   `
 })
-export class ChangesPageComponent implements OnInit {
+export class ChangesPageComponent implements OnInit, OnDestroy {
 
   response: ApiResponse<ChangesPage>;
   private readonly subscriptions = new Subscriptions();
+
+  private _parameters;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -63,8 +66,6 @@ export class ChangesPageComponent implements OnInit {
     const initialParameters = Util.defaultChangesParameters();
     this._parameters = appService.changesParameters(initialParameters);
   }
-
-  private _parameters;
 
   get parameters() {
     return this._parameters;

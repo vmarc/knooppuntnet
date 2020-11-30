@@ -1,3 +1,4 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
@@ -37,9 +38,10 @@ import {InterpretedNetworkAttributes} from './interpreted-network-attributes';
 
   `]
 })
-export class SubsetNetworkComponent {
+export class SubsetNetworkComponent implements OnInit {
 
   @Input() network: NetworkAttributes;
+
   interpretedNetwork: InterpretedNetworkAttributes;
 
   ngOnInit(): void {

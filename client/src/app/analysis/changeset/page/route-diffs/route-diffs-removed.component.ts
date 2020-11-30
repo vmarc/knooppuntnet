@@ -1,3 +1,4 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {RefRouteChangeInfo} from './ref-route-change-info';
@@ -26,11 +27,11 @@ import {RouteDiffsData} from './route-diffs-data';
     </div>
   `
 })
-export class RouteDiffsRemovedComponent {
-
-  refs: Array<RefRouteChangeInfo>;
+export class RouteDiffsRemovedComponent implements OnInit {
 
   @Input() data: RouteDiffsData;
+
+  refs: Array<RefRouteChangeInfo>;
 
   ngOnInit(): void {
     this.refs = this.data.refDiffs.removed.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref))).toArray();

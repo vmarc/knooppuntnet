@@ -145,13 +145,13 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Input() nodeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
 
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
+
   unexpectedRouteCountOnly = false;
 
   itemsPerPage: number;
   dataSource: MatTableDataSource<LocationNodeInfo>;
   displayedColumns$: Observable<Array<string>>;
-
-  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   constructor(private pageWidthService: PageWidthService,
               private browserStorageService: BrowserStorageService) {
@@ -178,9 +178,9 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     this.unexpectedRouteCountOnly = event.checked;
     this.dataSource.data = this.nodes.filter(node => {
       if (this.unexpectedRouteCountOnly) {
-        return node.expectedRouteCount != node.routeReferences.size;
+        return node.expectedRouteCount !== node.routeReferences.size;
       } else {
-        return node.expectedRouteCount == node.routeReferences.size;
+        return node.expectedRouteCount === node.routeReferences.size;
       }
     }).toArray();
   }

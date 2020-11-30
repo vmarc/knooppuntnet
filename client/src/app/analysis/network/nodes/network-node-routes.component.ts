@@ -4,7 +4,7 @@ import {Input} from '@angular/core';
 import {NetworkInfoNode} from '../../../kpn/api/common/network/network-info-node';
 
 @Component({
-  selector: 'network-node-routes',
+  selector: 'kpn-network-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 

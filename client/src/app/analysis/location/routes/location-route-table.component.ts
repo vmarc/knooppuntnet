@@ -81,11 +81,11 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   @Input() routeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
 
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
+
   itemsPerPage: number;
   dataSource: MatTableDataSource<LocationRouteInfo>;
   displayedColumns$: Observable<Array<string>>;
-
-  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   constructor(private pageWidthService: PageWidthService,
               private browserStorageService: BrowserStorageService) {
@@ -104,6 +104,10 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
     }
   }
 
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
+
   private displayedColumns() {
 
     if (this.pageWidthService.isVeryLarge()) {
@@ -115,9 +119,5 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
     }
 
     return ['nr', 'route', 'distance'];
-  }
-
-  rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
   }
 }

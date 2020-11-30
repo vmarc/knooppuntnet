@@ -49,11 +49,11 @@ export class NodeDiffsAddedComponent {
   }
 
   isCreated(metaData: MetaData): boolean {
-    return this.data.changeSetId == metaData.changeSetId && metaData.version == 1;
+    return this.data.changeSetId === metaData.changeSetId && metaData.version === 1;
   }
 
   isUpdated(metaData: MetaData): boolean {
-    return this.data.changeSetId == metaData.changeSetId && metaData.version != 1;
+    return this.data.changeSetId === metaData.changeSetId && metaData.version !== 1;
   }
 
   isExisting(metaData: MetaData): boolean {

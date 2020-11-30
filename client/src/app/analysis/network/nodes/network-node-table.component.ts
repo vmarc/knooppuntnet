@@ -75,7 +75,7 @@ import {NetworkNodesService} from './network-nodes.service';
       <ng-container matColumnDef="routes-actual">
         <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">Actual</th>
         <td mat-cell *matCellDef="let node">
-          <network-node-routes [node]="node"></network-node-routes>
+          <kpn-network-node-routes [node]="node"></kpn-network-node-routes>
         </td>
       </ng-container>
 
@@ -128,13 +128,13 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: List<NetworkInfoNode> = List();
 
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
+
   itemsPerPage: number;
   dataSource: MatTableDataSource<NetworkInfoNode>;
   headerColumns1$: Observable<Array<string>>;
   headerColumns2$: Observable<Array<string>>;
   displayedColumns$: Observable<Array<string>>;
-
-  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(new NetworkNodeFilterCriteria());
 
@@ -161,6 +161,32 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.networkNodesService.setFilterOptions(FilterOptions.empty());
+  }
+
+  rowNumber(index: number): number {
+    return this.paginator.rowNumber(index);
+  }
+
+  expectedRouteCount(node: NetworkInfoNode): string {
+    if (node.integrityCheck && node.integrityCheck.expected) {
+      return node.integrityCheck.expected.toString();
+    }
+    return '-';
+  }
+
+  name(node: NetworkInfoNode): string {
+    const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
+    if (node.tags) {
+      const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
+      if (nameTag) {
+        return nameTag.value;
+      }
+    }
+    return '-';
+  }
+
+  pageChanged(event: PageEvent): void {
+    this.browserStorageService.itemsPerPage = event.pageSize;
   }
 
   private displayedColumns() {
@@ -192,31 +218,5 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
       return ['routes-expected', 'routes-actual'];
     }
     return [];
-  }
-
-  rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
-  }
-
-  expectedRouteCount(node: NetworkInfoNode): string {
-    if (node.integrityCheck && node.integrityCheck.expected) {
-      return node.integrityCheck.expected.toString();
-    }
-    return '-';
-  }
-
-  name(node: NetworkInfoNode): string {
-    const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
-    if (node.tags) {
-      const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
-      if (nameTag) {
-        return nameTag.value;
-      }
-    }
-    return '-';
-  }
-
-  pageChanged(event: PageEvent): void {
-    this.browserStorageService.itemsPerPage = event.pageSize;
   }
 }

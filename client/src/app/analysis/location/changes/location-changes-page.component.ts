@@ -1,3 +1,4 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
@@ -26,7 +27,7 @@ import {LocationChangesPageService} from './location-changes-page.service';
     LocationChangesPageService
   ]
 })
-export class LocationChangesPageComponent {
+export class LocationChangesPageComponent implements OnInit {
 
   constructor(public service: LocationChangesPageService,
               private activatedRoute: ActivatedRoute) {

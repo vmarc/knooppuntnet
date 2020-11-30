@@ -102,11 +102,11 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() routes: List<NetworkRouteRow>;
 
+  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
+
   itemsPerPage: number;
   dataSource: MatTableDataSource<NetworkRouteRow>;
   displayedColumns$: Observable<Array<string>>;
-
-  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
   private readonly filterCriteria$: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
 

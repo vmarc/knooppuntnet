@@ -29,9 +29,9 @@ import {RouteDiffsData} from './route-diffs-data';
 })
 export class RouteDiffsUpdatedComponent implements OnInit {
 
-  refs: Array<RefRouteChangeInfo>;
-
   @Input() data: RouteDiffsData;
+
+  refs: Array<RefRouteChangeInfo>;
 
   ngOnInit(): void {
     this.refs = this.data.refDiffs.updated.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref))).toArray();
