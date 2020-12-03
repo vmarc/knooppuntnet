@@ -16,3 +16,13 @@ export const selectPreferencesExtraLayers = createSelector(
   selectPreferencesState,
   (state: PreferencesState) => state.extraLayers
 );
+
+export const selectPreferencesItemsPerPage = createSelector(
+  selectPreferencesState,
+  (state: PreferencesState) => state.itemsPerPage
+);
+
+export const selectPreferencesImpact = createSelector(
+  selectPreferencesState,
+  (state: PreferencesState) => state.impact
+);

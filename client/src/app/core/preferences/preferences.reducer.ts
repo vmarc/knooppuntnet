@@ -5,6 +5,8 @@ import {Util} from '../../components/shared/util';
 import {actionRouteChangesLoaded} from '../analysis/route/route.actions';
 import {actionRouteMapLoaded} from '../analysis/route/route.actions';
 import {actionRouteDetailsLoaded} from '../analysis/route/route.actions';
+import {actionPreferencesImpact} from './preferences.actions';
+import {actionPreferencesItemsPerPage} from './preferences.actions';
 import {actionPreferencesNetworkType} from './preferences.actions';
 import {actionPreferencesInstructions} from './preferences.actions';
 import {actionPreferencesExtraLayers} from './preferences.actions';
@@ -34,6 +36,14 @@ export const preferencesReducer = createReducer(
   on(
     actionPreferencesExtraLayers,
     (state, action) => ({...state, extraLayers: action.extraLayers})
+  ),
+  on(
+    actionPreferencesItemsPerPage,
+    (state, action) => ({...state, itemsPerPage: action.itemsPerPage})
+  ),
+  on(
+    actionPreferencesImpact,
+    (state, action) => ({...state, impact: action.impact})
   ),
   on(
     actionRouteDetailsLoaded,

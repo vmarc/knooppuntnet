@@ -58,7 +58,6 @@ import {LocationKey} from './kpn/api/custom/location-key';
 import {NetworkType} from './kpn/api/custom/network-type';
 import {Statistics} from './kpn/api/custom/statistics';
 import {Subset} from './kpn/api/custom/subset';
-import {BrowserStorageService} from './services/browser-storage.service';
 
 @Injectable()
 export class AppService {
@@ -67,8 +66,7 @@ export class AppService {
   readonly httpError$: Observable<string> = this._httpError$.asObservable();
 
   constructor(private http: HttpClient,
-              markdownService: MarkdownService,
-              private browserStorageService: BrowserStorageService) {
+              markdownService: MarkdownService) {
     markdownService.renderer.link = (href: string, title: string, text: string) => `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
   }
 
@@ -355,17 +353,6 @@ export class AppService {
   public poiAreas(): Observable<ApiResponse<string>> {
     const url = '/json-api/poi/areas';
     return this.httpGet(url);
-  }
-
-  public storeChangesParameters(parameters: ChangesParameters): void {
-    this.browserStorageService.set('impact', parameters.impact.toString());
-    this.browserStorageService.itemsPerPage = parameters.itemsPerPage;
-  }
-
-  public changesParameters(parameters: ChangesParameters): ChangesParameters {
-    const impact = this.browserStorageService.get('impact') === 'true';
-    const itemsPerPage = this.browserStorageService.itemsPerPage;
-    return {...parameters, impact, itemsPerPage: +itemsPerPage};
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {

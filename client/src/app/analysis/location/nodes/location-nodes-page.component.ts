@@ -17,7 +17,7 @@ import {LocationNodesPageService} from './location-nodes-page.service';
 
     <kpn-error></kpn-error>
 
-    <div *ngIf="service.response | async as response" class="kpn-spacer-above">
+    <div *ngIf="service.response$ | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-nodes [page]="response.result"></kpn-location-nodes>
       </kpn-location-response>

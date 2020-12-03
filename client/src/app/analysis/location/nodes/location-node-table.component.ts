@@ -7,6 +7,7 @@ import {ViewChild} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatTableDataSource} from '@angular/material/table';
 import {List} from 'immutable';
 import {Observable} from 'rxjs';
@@ -15,8 +16,6 @@ import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
 import {LocationNodeInfo} from '../../../kpn/api/common/location/location-node-info';
 import {TimeInfo} from '../../../kpn/api/common/time-info';
-import {BrowserStorageService} from '../../../services/browser-storage.service';
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'kpn-location-node-table',
@@ -36,8 +35,7 @@ import {MatSlideToggleChange} from '@angular/material/slide-toggle';
       (page)="page.emit($event)"
       [length]="nodeCount"
       [pageIndex]="0"
-      [pageSize]="itemsPerPage"
-      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
+      [showPageSizeSelection]="true"
       [showFirstLastButtons]="true">
     </kpn-paginator>
 
@@ -92,6 +90,12 @@ import {MatSlideToggleChange} from '@angular/material/slide-toggle';
       <mat-header-row *matHeaderRowDef="displayedColumns$ | async"></mat-header-row>
       <mat-row *matRowDef="let node; columns: displayedColumns$ | async;"></mat-row>
     </mat-table>
+
+    <!--    <kpn-paginator-->
+    <!--      (page)="page.emit($event)"-->
+    <!--      [length]="nodeCount"-->
+    <!--      [pageIndex]="0"-->
+    <!--    </kpn-paginator>-->
   `,
   styles: [`
 
@@ -149,18 +153,15 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   unexpectedRouteCountOnly = false;
 
-  itemsPerPage: number;
   dataSource: MatTableDataSource<LocationNodeInfo>;
   displayedColumns$: Observable<Array<string>>;
 
-  constructor(private pageWidthService: PageWidthService,
-              private browserStorageService: BrowserStorageService) {
+  constructor(private pageWidthService: PageWidthService) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
-    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource.data = this.nodes.toArray();
   }
 

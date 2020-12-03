@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ReplaySubject} from 'rxjs';
 import {combineLatest} from 'rxjs';
 import {Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
 import {mergeMap} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
@@ -11,6 +12,8 @@ import {map} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
+import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {RouteChangesPage} from '../../../kpn/api/common/route/route-changes-page';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
@@ -54,7 +57,7 @@ import {actionPreferencesNetworkType} from '../../../core/preferences/preference
         <div *ngIf="page">
           <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
             <kpn-items>
-              <kpn-item *ngFor="let routeChangeInfo of page.changes; let i=index" [index]="i">
+              <kpn-item *ngFor="let routeChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
                 <kpn-route-change [routeChangeInfo]="routeChangeInfo"></kpn-route-change>
               </kpn-item>
             </kpn-items>
@@ -86,7 +89,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   }
 
   get parameters() {
-    return this.routeChangesService.parameters$.value;
+    return this.routeChangesService._parameters$.value;
   }
 
   set parameters(parameters: ChangesParameters) {
@@ -98,34 +101,40 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeName$.next(history.state.routeName);
     this.changeCount$.next(history.state.changeCount);
-    this.response$ = this.activatedRoute.params.pipe(
-      map(params => params['routeId']),
-      tap(routeId => this.routeId$.next(routeId)),
-      tap(routeId => this.updateParameters(routeId)),
-      mergeMap(routeId =>
-        combineLatest([this.routeId$, this.routeChangesService.parameters$]).pipe(
-          switchMap(([nodeId, changeParameters]) =>
-            this.appService.routeChanges(nodeId, changeParameters).pipe(
-              tap(response => {
-                if (response.result) {
-                  this.page = Util.safeGet(() => response.result);
-                  this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
-                  this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-                  this.store.dispatch(actionPreferencesNetworkType({networkType: this.page.route.summary.networkType.name}));
-                  this.routeChangesService.setFilterOptions(
-                    ChangeFilterOptions.from(
-                      this.parameters,
-                      response.result.filter,
-                      (parameters: ChangesParameters) => this.parameters = parameters
-                    )
-                  );
-                }
-              })
+
+    combineLatest([
+      this.store.select(selectPreferencesItemsPerPage),
+      this.store.select(selectPreferencesImpact)
+    ]).pipe(first()).subscribe(([itemsPerPage, impact]) => {
+      this.response$ = this.activatedRoute.params.pipe(
+        map(params => params['routeId']),
+        tap(routeId => this.routeId$.next(routeId)),
+        tap(routeId => this.updateParameters(routeId, itemsPerPage, impact)),
+        mergeMap(routeId =>
+          combineLatest([this.routeId$, this.routeChangesService.parameters$]).pipe(
+            switchMap(([nodeId, changeParameters]) =>
+              this.appService.routeChanges(nodeId, changeParameters).pipe(
+                tap(response => {
+                  if (response.result) {
+                    this.page = Util.safeGet(() => response.result);
+                    this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
+                    this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
+                    this.store.dispatch(actionPreferencesNetworkType({networkType: this.page.route.summary.networkType.name}));
+                    this.routeChangesService.setFilterOptions(
+                      ChangeFilterOptions.from(
+                        this.parameters,
+                        response.result.filter,
+                        (parameters: ChangesParameters) => this.parameters = parameters
+                      )
+                    );
+                  }
+                })
+              )
             )
           )
         )
-      )
-    );
+      );
+    });
   }
 
   ngOnDestroy(): void {
@@ -136,7 +145,11 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
     return this.userService.isLoggedIn();
   }
 
-  private updateParameters(routeId: string) {
+  rowIndex(index: number): number {
+    return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
+  }
+
+  private updateParameters(routeId: string, itemsPerPage: number, impact: boolean) {
     this.parameters = new ChangesParameters(
       null,
       null,
@@ -146,9 +159,9 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
       this.parameters.year,
       this.parameters.month,
       this.parameters.day,
-      this.parameters.itemsPerPage,
+      itemsPerPage,
       this.parameters.pageIndex,
-      this.parameters.impact
+      impact
     );
   }
 }

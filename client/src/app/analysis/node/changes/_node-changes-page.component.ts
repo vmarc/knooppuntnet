@@ -2,15 +2,20 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
 import {Subject} from 'rxjs';
 import {combineLatest} from 'rxjs';
 import {Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {AppState} from '../../../core/core.state';
+import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
+import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {NodeChangesPage} from '../../../kpn/api/common/node/node-changes-page';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
@@ -50,7 +55,7 @@ import {NodeChangesService} from './node-changes.service';
       <div *ngIf="page">
         <kpn-changes [(parameters)]="parameters" [totalCount]="page.totalCount" [changeCount]="page.changes.size">
           <kpn-items>
-            <kpn-item *ngFor="let nodeChangeInfo of page.changes; let i=index" [index]="i">
+            <kpn-item *ngFor="let nodeChangeInfo of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-node-change [nodeChangeInfo]="nodeChangeInfo"></kpn-node-change>
             </kpn-item>
           </kpn-items>
@@ -77,11 +82,12 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private nodeChangesService: NodeChangesService,
               private pageService: PageService,
-              private userService: UserService) {
+              private userService: UserService,
+              private store: Store<AppState>) {
   }
 
   get parameters() {
-    return this.nodeChangesService.parameters$.value;
+    return this.nodeChangesService._parameters$.value;
   }
 
   set parameters(parameters: ChangesParameters) {
@@ -98,30 +104,49 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
       map(params => params['nodeId']),
       tap(nodeId => this.updateParameters(nodeId))
     );
-    this.response$ = combineLatest([this.nodeId$, this.nodeChangesService.parameters$]).pipe(
-      switchMap(([nodeId, changeParameters]) =>
-        this.appService.nodeChanges(nodeId, changeParameters).pipe(
-          tap(response => {
-            if (response.result) {
-              this.page = Util.safeGet(() => response.result);
-              this.nodeName$.next(Util.safeGet(() => response.result.nodeInfo.name));
-              this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-              this.nodeChangesService.setFilterOptions(
-                ChangeFilterOptions.from(
-                  this.parameters,
-                  response.result.filter,
-                  (parameters: ChangesParameters) => this.parameters = parameters
-                )
-              );
-            }
-          })
+
+    combineLatest([
+      this.store.select(selectPreferencesItemsPerPage),
+      this.store.select(selectPreferencesImpact)
+    ]).pipe(first()).subscribe(([itemsPerPage, impact]) => {
+
+      this.nodeChangesService._parameters$.next(
+        {
+          ...this.nodeChangesService._parameters$.value,
+          itemsPerPage,
+          impact
+        }
+      );
+
+      this.response$ = combineLatest([this.nodeId$, this.nodeChangesService.parameters$]).pipe(
+        switchMap(([nodeId, changeParameters]) =>
+          this.appService.nodeChanges(nodeId, changeParameters).pipe(
+            tap(response => {
+              if (response.result) {
+                this.page = Util.safeGet(() => response.result);
+                this.nodeName$.next(Util.safeGet(() => response.result.nodeInfo.name));
+                this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
+                this.nodeChangesService.setFilterOptions(
+                  ChangeFilterOptions.from(
+                    this.parameters,
+                    response.result.filter,
+                    (parameters: ChangesParameters) => this.parameters = parameters
+                  )
+                );
+              }
+            })
+          )
         )
-      )
-    );
+      );
+    });
   }
 
   ngOnDestroy(): void {
     this.nodeChangesService.resetFilterOptions();
+  }
+
+  rowIndex(index: number): number {
+    return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
   }
 
   isLoggedIn(): boolean {

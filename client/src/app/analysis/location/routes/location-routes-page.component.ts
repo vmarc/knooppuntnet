@@ -10,14 +10,14 @@ import {LocationRoutesPageService} from './location-routes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-location-page-header
-      pageName="routes"
-      pageTitle="Routes"
-      i18n-pageTitle="@@location-routes.title">
+        pageName="routes"
+        pageTitle="Routes"
+        i18n-pageTitle="@@location-routes.title">
     </kpn-location-page-header>
 
     <kpn-error></kpn-error>
 
-    <div *ngIf="service.response | async as response" class="kpn-spacer-above">
+    <div *ngIf="service.response$ | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-routes [page]="response.result"></kpn-location-routes>
       </kpn-location-response>

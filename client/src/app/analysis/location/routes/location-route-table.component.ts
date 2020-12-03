@@ -15,7 +15,6 @@ import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
 import {LocationRouteInfo} from '../../../kpn/api/common/location/location-route-info';
 import {TimeInfo} from '../../../kpn/api/common/time-info';
-import {BrowserStorageService} from '../../../services/browser-storage.service';
 
 @Component({
   selector: 'kpn-location-route-table',
@@ -24,9 +23,8 @@ import {BrowserStorageService} from '../../../services/browser-storage.service';
     <kpn-paginator
       (page)="page.emit($event)"
       [pageIndex]="0"
-      [pageSize]="itemsPerPage"
-      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
       [length]="routeCount"
+      [showPageSizeSelection]="true"
       [showFirstLastButtons]="true">
     </kpn-paginator>
 
@@ -72,6 +70,12 @@ import {BrowserStorageService} from '../../../services/browser-storage.service';
       <mat-header-row *matHeaderRowDef="displayedColumns$ | async"></mat-header-row>
       <mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></mat-row>
     </mat-table>
+
+    <!--    <kpn-paginator-->
+    <!--      (page)="page.emit($event)"-->
+    <!--      [pageIndex]="0"-->
+    <!--      [length]="routeCount">-->
+    <!--    </kpn-paginator>-->
   `
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
@@ -83,18 +87,15 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  itemsPerPage: number;
   dataSource: MatTableDataSource<LocationRouteInfo>;
   displayedColumns$: Observable<Array<string>>;
 
-  constructor(private pageWidthService: PageWidthService,
-              private browserStorageService: BrowserStorageService) {
+  constructor(private pageWidthService: PageWidthService) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
-    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource.data = this.routes.toArray();
   }
 

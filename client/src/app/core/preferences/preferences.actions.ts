@@ -15,3 +15,13 @@ export const actionPreferencesExtraLayers = createAction(
   '[Preferences] Extra layers',
   props<{ extraLayers: boolean }>()
 );
+
+export const actionPreferencesItemsPerPage = createAction(
+  '[Preferences] Items per page',
+  props<{ itemsPerPage: number }>()
+);
+
+export const actionPreferencesImpact = createAction(
+  '[Preferences] Impact',
+  props<{ impact: boolean }>()
+);

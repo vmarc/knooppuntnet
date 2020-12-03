@@ -4,94 +4,79 @@ import {Input} from '@angular/core';
 import {Output} from '@angular/core';
 import {EventEmitter} from '@angular/core';
 import {ElementRef} from '@angular/core';
-import {ChangeDetectorRef} from '@angular/core';
 import {ViewChild} from '@angular/core';
 import {AfterViewInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {MatPaginator} from '@angular/material/paginator';
-import {PaginatorService} from './paginator.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../core/core.state';
+import {actionPreferencesItemsPerPage} from '../../../core/preferences/preferences.actions';
+import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
-    <div *ngIf="!isTranslationsUpdated()">
-      <span id="itemsPerPageLabel" i18n="@@paginator.items-per-page-label">Items per page</span>
-      <span id="nextPageLabel" i18n="@@paginator.next-page-label">Next page</span>
-      <span id="previousPageLabel" i18n="@@paginator.previous-page-label">Previous page</span>
-      <span id="firstPageLabel" i18n="@@paginator.first-page-label">First page</span>
-      <span id="lastPageLabel" i18n="@@paginator.last-page-label">Last page</span>
-      <span id="of" i18n="@@paginator.from">of</span>
-    </div>
-
     <mat-paginator
-      (page)="page.emit($event)"
+      (page)="itemsPerPageChanged($event)"
       [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"
+      [pageSize]="itemsPerPage$ | async"
+      [pageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
       [length]="length"
       [showFirstLastButtons]="showFirstLastButtons"
-      [hidePageSize]="hidePageSize">
+      [hidePageSize]="!showPageSizeSelection">
     </mat-paginator>
   `
 })
 export class PaginatorComponent implements AfterViewInit {
 
   @Input() pageIndex: number;
-  @Input() pageSize: number;
-  @Input() pageSizeOptions: Array<number>;
   @Input() length: number;
-  @Input() showFirstLastButtons: boolean;
-  @Input() hidePageSize: boolean;
+  @Input() showFirstLastButtons = false;
+  @Input() showPageSizeSelection = false;
 
   @Output() page = new EventEmitter<PageEvent>();
 
   @ViewChild(MatPaginator, {static: true}) matPaginator: MatPaginator;
 
-  constructor(private paginatorService: PaginatorService,
-              private element: ElementRef,
-              private cdr: ChangeDetectorRef) {
+  readonly itemsPerPage$ = this.store.select(selectPreferencesItemsPerPage);
+
+  constructor(private element: ElementRef,
+              private store: Store<AppState>) {
   }
 
   ngAfterViewInit(): void {
-    const divElement = this.element.nativeElement.children[0];
-    if (divElement != null) {
-      if (!this.paginatorService.isTranslationsUpdated()) {
-        const elements = divElement.children;
-        this.paginatorService.updateTranslations(elements);
-        this.initTranslations();
-        this.cdr.detectChanges();
-      } else {
-        this.initTranslations();
-      }
-    }
-  }
-
-  isTranslationsUpdated() {
-    return this.paginatorService.isTranslationsUpdated();
+    this.initTranslations();
   }
 
   rowNumber(index: number): number {
     return (this.matPaginator.pageIndex * this.matPaginator.pageSize) + index + 1;
   }
 
+  itemsPerPageChanged(event: PageEvent): void {
+    this.store.dispatch(actionPreferencesItemsPerPage({itemsPerPage: event.pageSize}));
+    this.page.emit(event);
+  }
+
   private initTranslations(): void {
-    this.matPaginator._intl.itemsPerPageLabel = this.paginatorService.itemsPerPageLabel;
-    this.matPaginator._intl.nextPageLabel = this.paginatorService.nextPageLabel;
-    this.matPaginator._intl.previousPageLabel = this.paginatorService.previousPageLabel;
-    this.matPaginator._intl.firstPageLabel = this.paginatorService.firstPageLabel;
-    this.matPaginator._intl.lastPageLabel = this.paginatorService.lastPageLabel;
+
+    this.matPaginator._intl.itemsPerPageLabel = $localize`:@@paginator.items-per-page-label:Items per page`;
+    this.matPaginator._intl.nextPageLabel = $localize`:@@paginator.next-page-label:Next page`;
+    this.matPaginator._intl.previousPageLabel = $localize`:@@paginator.previous-page-label:Previous page`;
+    this.matPaginator._intl.firstPageLabel = $localize`:@@paginator.first-page-label:First page`;
+    this.matPaginator._intl.lastPageLabel = $localize`:@@paginator.last-page-label:Last page`;
+
+    const of = $localize`:@@paginator.from:of`;
     this.matPaginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0 || pageSize === 0) {
-        return `0 ${this.paginatorService.of} ${length}`;
+        return `0 ${of} ${length}`;
       }
       const itemCount = Math.max(length, 0);
       const startIndex = page * pageSize;
       const endIndex = startIndex < itemCount ?
         Math.min(startIndex + pageSize, itemCount) :
         startIndex + pageSize;
-      return `${startIndex + 1} - ${endIndex} ${this.paginatorService.of} ${length}`;
+      return `${startIndex + 1} - ${endIndex} ${of} ${length}`;
     };
   }
 }

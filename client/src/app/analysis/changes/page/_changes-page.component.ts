@@ -1,9 +1,15 @@
 import {OnDestroy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {combineLatest} from 'rxjs';
+import {first} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {AppState} from '../../../core/core.state';
+import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
+import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 import {ChangesPage} from '../../../kpn/api/common/changes-page';
 import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
@@ -36,11 +42,7 @@ import {ChangesService} from '../../components/changes/filter/changes.service';
         <p>
           <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
         </p>
-        <kpn-changes
-          [(parameters)]="parameters"
-          [totalCount]="page.changeCount"
-          [changeCount]="page.changes.size"
-          [showFirstLastButtons]="false">
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size">
           <kpn-items>
             <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
@@ -62,9 +64,8 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private changesService: ChangesService,
               private pageService: PageService,
-              private userService: UserService) {
-    const initialParameters = Util.defaultChangesParameters();
-    this._parameters = appService.changesParameters(initialParameters);
+              private userService: UserService,
+              private store: Store<AppState>) {
   }
 
   get parameters() {
@@ -73,7 +74,6 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
 
   set parameters(parameters: ChangesParameters) {
     this._parameters = parameters;
-    this.appService.storeChangesParameters(parameters);
     this.reload();
   }
 
@@ -84,7 +84,14 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.pageService.defaultMenu();
     if (this.isLoggedIn()) {
-      this.reload();
+      combineLatest([
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesImpact)
+      ]).pipe(first()).subscribe(([itemsPerPage, impact]) => {
+        const initialParameters = Util.defaultChangesParameters();
+        this.parameters = {...initialParameters, impact, itemsPerPage: +itemsPerPage};
+        // note that this.reload() is called by parameter setter!
+      });
     } else {
       this.changesService.resetFilterOptions();
     }

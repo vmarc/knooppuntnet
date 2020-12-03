@@ -1,20 +1,25 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {combineLatest} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {first} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {AppState} from '../../../core/core.state';
+import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
+import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 import {ChangesPage} from '../../../kpn/api/common/changes-page';
 import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {SubsetChangesPage} from '../../../kpn/api/common/subset/subset-changes-page';
+import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {Subset} from '../../../kpn/api/custom/subset';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 import {UserService} from '../../../services/user.service';
-import {Subscriptions} from '../../../util/Subscriptions';
 import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
 import {SubsetChangesService} from './subset-changes.service';
-import {BehaviorSubject} from 'rxjs';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-changes-page',
@@ -41,11 +46,7 @@ import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
         <p>
           <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
         </p>
-        <kpn-changes
-          [(parameters)]="parameters"
-          [totalCount]="page.changeCount"
-          [changeCount]="page.changes.size"
-          [showFirstLastButtons]="false">
+        <kpn-changes [(parameters)]="parameters" [totalCount]="page.changeCount" [changeCount]="page.changes.size">
           <kpn-items>
             <kpn-item *ngFor="let changeSet of page.changes; let i=index" [index]="rowIndex(i)">
               <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
@@ -56,20 +57,19 @@ import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
     </div>
   `
 })
-export class SubsetChangesPageComponent implements OnInit, OnDestroy {
+export class SubsetChangesPageComponent implements OnInit {
 
   subset: Subset;
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response: ApiResponse<SubsetChangesPage>;
-
-  private readonly subscriptions = new Subscriptions();
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
               private subsetChangesService: SubsetChangesService,
               private pageService: PageService,
               private userService: UserService,
-              private subsetCacheService: SubsetCacheService) {
+              private subsetCacheService: SubsetCacheService,
+              private store: Store<AppState>) {
   }
 
   private _parameters: ChangesParameters;
@@ -79,7 +79,6 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   }
 
   set parameters(parameters: ChangesParameters) {
-    this.appService.storeChangesParameters(parameters);
     this._parameters = parameters;
     if (this.isLoggedIn()) {
       this.reload();
@@ -93,15 +92,15 @@ export class SubsetChangesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
+    combineLatest([
+      this.activatedRoute.params,
+      this.store.select(selectPreferencesItemsPerPage),
+      this.store.select(selectPreferencesImpact)
+    ]).pipe(first()).subscribe(([params, itemsPerPage, impact]) => {
       this.subset = Util.subsetInRoute(params);
       const initialParameters = Util.defaultChangesParameters();
-      this.parameters = this.appService.changesParameters(initialParameters);
+      this.parameters = {...initialParameters, impact, itemsPerPage};
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   rowIndex(index: number): number {

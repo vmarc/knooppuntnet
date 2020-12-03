@@ -1,13 +1,18 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {combineLatest} from 'rxjs';
+import {first} from 'rxjs/operators';
 import {shareReplay} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
+import {AppState} from '../../../core/core.state';
+import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
+import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {NetworkChangesPage} from '../../../kpn/api/common/network/network-changes-page';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
@@ -67,11 +72,12 @@ export class NetworkChangesPageComponent implements OnInit {
               private networkChangesService: NetworkChangesService,
               private networkService: NetworkService,
               private networkCacheService: NetworkCacheService,
-              private userService: UserService) {
+              private userService: UserService,
+              private store: Store<AppState>) {
   }
 
   get parameters(): ChangesParameters {
-    return this.networkChangesService.parameters$.value;
+    return this.networkChangesService._parameters$.value;
   }
 
   set parameters(parameters: ChangesParameters) {
@@ -86,24 +92,37 @@ export class NetworkChangesPageComponent implements OnInit {
       shareReplay()
     );
 
-    this.response$ = combineLatest([this.networkId$, this.networkChangesService.parameters$]).pipe(
-      switchMap(([networkId, changeParameters]) =>
-        this.appService.networkChanges(networkId, changeParameters).pipe(
-          tap(response => {
-            if (response.result) {
-              this.networkService.update(networkId, response.result.network);
-              this.networkChangesService.setFilterOptions(
-                ChangeFilterOptions.from(
-                  this.parameters,
-                  response.result.filter,
-                  (parameters: ChangesParameters) => this.parameters = parameters
-                )
-              );
-            }
-          })
+    combineLatest([
+      this.store.select(selectPreferencesItemsPerPage),
+      this.store.select(selectPreferencesImpact)
+    ]).pipe(first()).subscribe(([itemsPerPage, impact]) => {
+      this.networkChangesService._parameters$.next(
+        {
+          ...this.networkChangesService._parameters$.value,
+          itemsPerPage,
+          impact
+        }
+      );
+
+      this.response$ = combineLatest([this.networkId$, this.networkChangesService.parameters$]).pipe(
+        switchMap(([networkId, changeParameters]) =>
+          this.appService.networkChanges(networkId, changeParameters).pipe(
+            tap(response => {
+              if (response.result) {
+                this.networkService.update(networkId, response.result.network);
+                this.networkChangesService.setFilterOptions(
+                  ChangeFilterOptions.from(
+                    this.parameters,
+                    response.result.filter,
+                    (parameters: ChangesParameters) => this.parameters = parameters
+                  )
+                );
+              }
+            })
+          )
         )
-      )
-    );
+      );
+    });
   }
 
   isLoggedIn(): boolean {
@@ -112,21 +131,5 @@ export class NetworkChangesPageComponent implements OnInit {
 
   rowIndex(index: number): number {
     return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
-  }
-
-  private updateParameters(networkId: string) {
-    this.parameters = new ChangesParameters(
-      null,
-      null,
-      +networkId,
-      null,
-      null,
-      this.parameters.year,
-      this.parameters.month,
-      this.parameters.day,
-      this.parameters.itemsPerPage,
-      this.parameters.pageIndex,
-      this.parameters.impact
-    );
   }
 }

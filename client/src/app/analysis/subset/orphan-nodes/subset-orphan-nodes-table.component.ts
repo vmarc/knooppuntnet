@@ -16,9 +16,8 @@ import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
   template: `
     <kpn-paginator
       [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="50"
-      [pageSizeOptions]="[25, 50, 100, 250, 1000]">
+      [showPageSizeSelection]="true"
+      [showFirstLastButtons]="true">
     </kpn-paginator>
 
     <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
@@ -38,6 +37,11 @@ import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
       <tr mat-row *matRowDef="let node; columns: displayedColumns;"></tr>
 
     </table>
+
+    <!--    <kpn-paginator-->
+    <!--      [length]="dataSource.data.length"-->
+    <!--      [pageIndex]="0"-->
+    <!--    </kpn-paginator>-->
   `,
   styles: [`
 

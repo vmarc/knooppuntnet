@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Observable} from 'rxjs';
-import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
 import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
@@ -11,12 +10,15 @@ import {ChangeFilterOptions} from '../../components/changes/filter/change-filter
 })
 export class NetworkChangesService {
 
-  readonly parameters$ = new BehaviorSubject<ChangesParameters>(this.initialParameters());
+  readonly parameters$: Observable<ChangesParameters>;
   readonly filterOptions$: Observable<ChangeFilterOptions>;
 
+  /*private*/
+  readonly _parameters$ = new BehaviorSubject<ChangesParameters>(Util.defaultChangesParameters());
   private readonly _filterOptions$ = new BehaviorSubject<ChangeFilterOptions>(ChangeFilterOptions.empty());
 
-  constructor(private appService: AppService) {
+  constructor() {
+    this.parameters$ = this._parameters$.asObservable();
     this.filterOptions$ = this._filterOptions$.asObservable();
   }
 
@@ -29,13 +31,7 @@ export class NetworkChangesService {
   }
 
   updateParameters(parameters: ChangesParameters) {
-    this.appService.storeChangesParameters(parameters);
-    this.parameters$.next(parameters);
-  }
-
-  private initialParameters(): ChangesParameters {
-    const initialParameters = Util.defaultChangesParameters();
-    return this.appService.changesParameters(initialParameters);
+    this._parameters$.next(parameters);
   }
 
 }

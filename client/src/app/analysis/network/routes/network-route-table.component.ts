@@ -1,7 +1,6 @@
 import {OnDestroy} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {List} from 'immutable';
 import {Observable} from 'rxjs';
@@ -16,7 +15,6 @@ import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
 import {TimeInfo} from '../../../kpn/api/common/time-info';
 import {NetworkType} from '../../../kpn/api/custom/network-type';
 import {FilterOptions} from '../../../kpn/filter/filter-options';
-import {BrowserStorageService} from '../../../services/browser-storage.service';
 import {NetworkRouteFilter} from './network-route-filter';
 import {NetworkRouteFilterCriteria} from './network-route-filter-criteria';
 import {NetworkRoutesService} from './network-routes.service';
@@ -27,10 +25,8 @@ import {NetworkRoutesService} from './network-routes.service';
   template: `
 
     <kpn-paginator
-      [pageSize]="itemsPerPage"
-      (page)="pageChanged($event)"
-      [pageSizeOptions]="[5, 10, 20, 50, 1000]"
       [length]="routes?.size"
+      [showPageSizeSelection]="true"
       [showFirstLastButtons]="true">
     </kpn-paginator>
 
@@ -88,6 +84,10 @@ import {NetworkRoutesService} from './network-routes.service';
       <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
       <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></tr>
     </table>
+
+    <!--    <kpn-paginator-->
+    <!--      [length]="routes?.size">-->
+    <!--    </kpn-paginator>-->
   `,
   styles: [`
     .mat-column-nr {
@@ -104,20 +104,17 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  itemsPerPage: number;
   dataSource: MatTableDataSource<NetworkRouteRow>;
   displayedColumns$: Observable<Array<string>>;
 
   private readonly filterCriteria$: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(new NetworkRouteFilterCriteria());
 
   constructor(private pageWidthService: PageWidthService,
-              private networkRoutesService: NetworkRoutesService,
-              private browserStorageService: BrowserStorageService) {
+              private networkRoutesService: NetworkRoutesService) {
     this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
-    this.itemsPerPage = this.browserStorageService.itemsPerPage;
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria$.pipe(
@@ -135,10 +132,6 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
-  }
-
-  pageChanged(event: PageEvent): void {
-    this.browserStorageService.itemsPerPage = event.pageSize;
   }
 
   private displayedColumns() {
