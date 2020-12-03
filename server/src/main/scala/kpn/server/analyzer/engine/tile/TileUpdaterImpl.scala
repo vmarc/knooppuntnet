@@ -36,7 +36,7 @@ class TileUpdaterImpl(
     private val nodeCache = new TileDataCache[TileDataNode]()
     private val routeCache = new TileDataCache[TileDataRoute]()
 
-    def update() {
+    def update(): Unit = {
       val allTasks = taskRepository.all(TileTask.prefix)
       log.debug(s"processing ${allTasks.size} tasks")
       (minZoomLevel to ZoomLevel.maxZoom).foreach { zoomLevel =>

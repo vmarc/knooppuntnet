@@ -113,7 +113,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val routeRepository: RouteRepository = stub[RouteRepository]
 
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]
-    (blackListRepository.get _).when().returns(BlackList())
+    (() => blackListRepository.get).when().returns(BlackList())
 
     private val nodeLoader = new NodeLoaderImpl(overpassQueryExecutor, countryAnalyzer)
     private val routeLoader = new RouteLoaderImpl(overpassQueryExecutor, countryAnalyzer)

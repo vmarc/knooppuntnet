@@ -11,7 +11,7 @@ class SystemStatus(
 ) {
 
   def status(): String = {
-    processStatus + "\n\n" + toolStatus
+    processStatus() + "\n\n" + toolStatus
   }
 
   private def toolStatus: String = {

@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes
 
 import java.io.File
+import java.nio.charset.Charset
 
 import kpn.api.common.ReplicationId
 import kpn.core.util.UnitTest
@@ -21,7 +22,7 @@ class ReplicationStateReaderTest extends UnitTest {
 
     new File("/tmp/001/002").mkdirs()
     val file = new File("/tmp/001/002/003.state.txt")
-    FileUtils.writeStringToFile(file, contents)
+    FileUtils.writeStringToFile(file, contents, Charset.defaultCharset)
 
     read(ReplicationId(1, 2, 3)) should equal(Some("2015-06-17T18:19:02Z"))
   }
@@ -37,7 +38,7 @@ class ReplicationStateReaderTest extends UnitTest {
   test("state file with invalid contents") {
     new File("/tmp/001/002").mkdirs()
     val file = new File("/tmp/001/002/003.state.txt")
-    FileUtils.writeStringToFile(file, "brol")
+    FileUtils.writeStringToFile(file, "brol", Charset.defaultCharset)
 
     read(ReplicationId(1, 2, 3)) should equal(None)
   }

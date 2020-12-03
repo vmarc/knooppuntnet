@@ -4,7 +4,7 @@ class TileDataCache[T] {
 
   private val cache = scala.collection.mutable.Map[Long, T]()
 
-  def clear(): Unit = cache.clear
+  def clear(): Unit = cache.clear()
 
   def getOrElseUpdate(key: Long, valueFunction: => Option[T]): Option[T] = {
     if (cache.contains(key)) {
