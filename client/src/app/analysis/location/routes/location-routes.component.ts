@@ -14,6 +14,7 @@ import {LocationRoutesPageService} from './location-routes-page.service';
     <kpn-location-route-table
       *ngIf="!page.routes.isEmpty()"
       (page)="service.pageChanged($event)"
+      [networkType]="service.networkType()"
       [timeInfo]="page.timeInfo"
       [routes]="page.routes"
       [routeCount]="page.summary.routeCount">

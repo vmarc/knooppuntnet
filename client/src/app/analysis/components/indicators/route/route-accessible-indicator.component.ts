@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {NetworkRouteRow} from '../../../../kpn/api/common/network/network-route-row';
 import {NetworkType} from '../../../../kpn/api/custom/network-type';
 import {RouteAccessibleData} from './route-accessible-data';
 import {RouteAccessibleIndicatorDialogComponent} from './route-accessible-indicator-dialog.component';
@@ -21,7 +20,7 @@ import {RouteAccessibleIndicatorDialogComponent} from './route-accessible-indica
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
 
-  @Input() route: NetworkRouteRow;
+  @Input() accessible: boolean;
   @Input() networkType: NetworkType;
   color: string;
 
@@ -33,7 +32,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    const data = new RouteAccessibleData(this.networkType, this.route.accessible, this.color);
+    const data = new RouteAccessibleData(this.networkType, this.accessible, this.color);
     this.dialog.open(RouteAccessibleIndicatorDialogComponent, {data, maxWidth: 600});
   }
 
@@ -45,7 +44,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
       NetworkType.hiking.name === this.networkType.name ||
       NetworkType.motorboat.name === this.networkType.name ||
       NetworkType.canoe.name === this.networkType.name) {
-      color = this.route.accessible ? 'green' : 'red';
+      color = this.accessible ? 'green' : 'red';
     }
     return color;
   }

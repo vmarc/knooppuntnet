@@ -3,7 +3,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
-  selector: 'kpn-route-indicator-dialog',
+  selector: 'kpn-node-route-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
@@ -27,7 +27,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
     </kpn-indicator-dialog>
   `
 })
-export class RouteIndicatorDialogComponent {
+export class NodeRouteIndicatorDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public color: string) {
   }

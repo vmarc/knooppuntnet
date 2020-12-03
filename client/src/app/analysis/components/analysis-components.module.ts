@@ -45,6 +45,12 @@ import {FilterCheckboxGroupComponent} from './filter/filter-checkbox-group.compo
 import {FilterRadioGroupComponent} from './filter/filter-radio-group.component';
 import {FilterTitleComponent} from './filter/filter-title.component';
 import {FilterComponent} from './filter/filter.component';
+import {RouteAccessibleIndicatorDialogComponent} from './indicators/route/route-accessible-indicator-dialog.component';
+import {RouteAccessibleIndicatorComponent} from './indicators/route/route-accessible-indicator.component';
+import {RouteConnectionIndicatorDialogComponent} from './indicators/route/route-connection-indicator-dialog.component';
+import {RouteConnectionIndicatorComponent} from './indicators/route/route-connection-indicator.component';
+import {RouteInvestigateIndicatorDialogComponent} from './indicators/route/route-investigate-indicator-dialog.component';
+import {RouteInvestigateIndicatorComponent} from './indicators/route/route-investigate-indicator.component';
 
 @NgModule({
   imports: [
@@ -96,7 +102,13 @@ import {FilterComponent} from './filter/filter.component';
     RouteNodeDiffComponent,
     RouteDiffComponent,
     NodeChangeDetailComponent,
-    NodeChangeMovedComponent
+    NodeChangeMovedComponent,
+    RouteAccessibleIndicatorComponent,
+    RouteAccessibleIndicatorDialogComponent,
+    RouteConnectionIndicatorComponent,
+    RouteConnectionIndicatorDialogComponent,
+    RouteInvestigateIndicatorComponent,
+    RouteInvestigateIndicatorDialogComponent
   ],
   exports: [
     ChangeHeaderComponent,
@@ -122,7 +134,13 @@ import {FilterComponent} from './filter/filter.component';
     ChangesComponent,
     RouteChangeDetailComponent,
     RouteDiffComponent,
-    NodeChangeDetailComponent
+    NodeChangeDetailComponent,
+    RouteAccessibleIndicatorComponent,
+    RouteAccessibleIndicatorDialogComponent,
+    RouteConnectionIndicatorComponent,
+    RouteConnectionIndicatorDialogComponent,
+    RouteInvestigateIndicatorComponent,
+    RouteInvestigateIndicatorDialogComponent
   ]
 })
 export class AnalysisComponentsModule {

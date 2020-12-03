@@ -14,6 +14,7 @@ import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferenc
 import {LocationRoutesPage} from '../../../kpn/api/common/location/location-routes-page';
 import {LocationRoutesParameters} from '../../../kpn/api/common/location/location-routes-parameters';
 import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
 import {LocationService} from '../location.service';
 
 @Injectable()
@@ -49,6 +50,10 @@ export class LocationRoutesPageService {
   pageChanged(event: PageEvent) {
     window.scroll(0, 0);
     this._parameters$.next({...this._parameters$.getValue(), pageIndex: event.pageIndex, itemsPerPage: event.pageSize});
+  }
+
+  networkType(): NetworkType {
+    return this.locationService.networkType;
   }
 
 }

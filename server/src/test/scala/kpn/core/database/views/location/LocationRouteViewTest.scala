@@ -7,6 +7,7 @@ import kpn.api.common.location.LocationCandidate
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
@@ -23,7 +24,8 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
         id = 11,
         name = "01-02",
         meters = 123,
-        lastUpdated = Timestamp(2018, 11, 8),
+        lastUpdated = Timestamp(2018, 8, 11),
+        lastSurvey = Some(Day(2018, 8, None)),
         analysis = newRouteInfoAnalysis(
           locationAnalysis = RouteLocationAnalysis(
             Some(Location(Seq("country", "province", "municipality"))),
@@ -53,8 +55,10 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
         id = 11,
         name = "01-02",
         meters = 123,
-        lastUpdated = Timestamp(2018, 11, 8),
-        broken = false
+        lastUpdated = Timestamp(2018, 8, 11),
+        lastSurvey = Some(Day(2018, 8, None)),
+        broken = false,
+        accessible = true
       )
 
       query("country") should equal(Seq(expectedRouteInfo))

@@ -2,6 +2,7 @@ package kpn.core.database.views.location
 
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.custom.Day
 import kpn.api.custom.LocationKey
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
@@ -23,7 +24,9 @@ object LocationRouteView extends View {
   private case class ViewResultRowValue(
     meters: Long,
     lastUpdated: Timestamp,
-    broken: Boolean
+    lastSurvey: Option[Day],
+    broken: Boolean,
+    accessible: Boolean
   )
 
   private case class CountViewResult(
@@ -54,7 +57,9 @@ object LocationRouteView extends View {
         name = key.string(2),
         meters = row.value.meters,
         lastUpdated = row.value.lastUpdated,
-        broken = row.value.broken
+        lastSurvey = row.value.lastSurvey,
+        broken = row.value.broken,
+        accessible = row.value.accessible
       )
     }
   }

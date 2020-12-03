@@ -1,5 +1,6 @@
 // this class is generated, please do not modify
 
+import {Day} from '../../custom/day';
 import {Timestamp} from '../../custom/timestamp';
 
 export class LocationRouteInfo {
@@ -8,7 +9,9 @@ export class LocationRouteInfo {
               readonly name: string,
               readonly meters: number,
               readonly lastUpdated: Timestamp,
-              readonly broken: boolean) {
+              readonly lastSurvey: Day,
+              readonly broken: boolean,
+              readonly accessible: boolean) {
   }
 
   public static fromJSON(jsonObject: any): LocationRouteInfo {
@@ -20,7 +23,9 @@ export class LocationRouteInfo {
       jsonObject.name,
       jsonObject.meters,
       Timestamp.fromJSON(jsonObject.lastUpdated),
-      jsonObject.broken
+      Day.fromJSON(jsonObject.lastSurvey),
+      jsonObject.broken,
+      jsonObject.accessible
     );
   }
 }

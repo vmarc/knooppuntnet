@@ -15,6 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTreeModule} from '@angular/material/tree';
 import {OlModule} from '../../components/ol/ol.module';
 import {SharedModule} from '../../components/shared/shared.module';
+import {AnalysisComponentsModule} from '../components/analysis-components.module';
 import {FactModule} from '../fact/fact.module';
 import {LocationChangesPageComponent} from './changes/location-changes-page.component';
 import {LocationChangesComponent} from './changes/location-changes.component';
@@ -32,6 +33,7 @@ import {LocationNodeRoutesComponent} from './nodes/location-node-routes.componen
 import {LocationNodeTableComponent} from './nodes/location-node-table.component';
 import {LocationNodesPageComponent} from './nodes/location-nodes-page.component';
 import {LocationNodesComponent} from './nodes/location-nodes.component';
+import {LocationRouteAnalysisComponent} from './routes/location-route-analysis';
 import {LocationRouteTableComponent} from './routes/location-route-table.component';
 import {LocationRoutesPageComponent} from './routes/location-routes-page.component';
 import {LocationRoutesComponent} from './routes/location-routes.component';
@@ -63,7 +65,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatProgressBarModule,
     OlModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    AnalysisComponentsModule
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -71,6 +74,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     LocationNodesPageComponent,
     LocationFactsPageComponent,
     LocationRoutesPageComponent,
+    LocationRouteAnalysisComponent,
     LocationMapPageComponent,
     LocationChangesPageComponent,
     LocationNodeTableComponent,

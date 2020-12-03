@@ -3,10 +3,10 @@ import {OnInit} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {NetworkInfoNode} from '../../../../kpn/api/common/network/network-info-node';
-import {RouteIndicatorDialogComponent} from './route-indicator-dialog.component';
+import {NodeRouteIndicatorDialogComponent} from './node-route-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-route-indicator',
+  selector: 'kpn-node-route-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator
@@ -17,7 +17,7 @@ import {RouteIndicatorDialogComponent} from './route-indicator-dialog.component'
     </kpn-indicator>
   `
 })
-export class RouteIndicatorComponent implements OnInit {
+export class NodeRouteIndicatorComponent implements OnInit {
 
   @Input() node: NetworkInfoNode;
   color: string;
@@ -30,6 +30,6 @@ export class RouteIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    this.dialog.open(RouteIndicatorDialogComponent, {data: this.color, maxWidth: 600});
+    this.dialog.open(NodeRouteIndicatorDialogComponent, {data: this.color, maxWidth: 600});
   }
 }

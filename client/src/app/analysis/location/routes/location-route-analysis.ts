@@ -1,16 +1,15 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NetworkRouteRow} from '../../../kpn/api/common/network/network-route-row';
+import {LocationRouteInfo} from '../../../kpn/api/common/location/location-route-info';
 import {NetworkType} from '../../../kpn/api/custom/network-type';
 
 @Component({
-  selector: 'kpn-network-route-analysis',
+  selector: 'kpn-location-route-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">
-      <kpn-route-investigate-indicator [investigate]="route.investigate"></kpn-route-investigate-indicator>
+      <kpn-route-investigate-indicator [investigate]="route.broken"></kpn-route-investigate-indicator>
       <kpn-route-accessible-indicator [accessible]="route.accessible" [networkType]="networkType"></kpn-route-accessible-indicator>
-      <kpn-route-connection-indicator [route]="route"></kpn-route-connection-indicator>
     </div>
   `,
   styles: [`
@@ -19,9 +18,9 @@ import {NetworkType} from '../../../kpn/api/custom/network-type';
     }
   `]
 })
-export class NetworkRouteAnalysisComponent {
+export class LocationRouteAnalysisComponent {
 
-  @Input() route: NetworkRouteRow;
+  @Input() route: LocationRouteInfo;
   @Input() networkType: NetworkType;
 
 }

@@ -15,6 +15,7 @@ import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
 import {LocationRouteInfo} from '../../../kpn/api/common/location/location-route-info';
 import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {NetworkType} from '../../../kpn/api/custom/network-type';
 
 @Component({
   selector: 'kpn-location-route-table',
@@ -28,58 +29,69 @@ import {TimeInfo} from '../../../kpn/api/common/time-info';
       [showFirstLastButtons]="true">
     </kpn-paginator>
 
-    <mat-divider></mat-divider>
-
-    <mat-table matSort [dataSource]="dataSource">
+    <table mat-table matSort [dataSource]="dataSource">
 
       <ng-container matColumnDef="nr">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-routes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.nr">Nr</th>
+        <td mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="analysis">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">Analysis</th>
+        <td mat-cell *matCellDef="let route">
+          <kpn-location-route-analysis [route]="route" [networkType]="networkType"></kpn-location-route-analysis>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="route">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-routes.table.route">Route</mat-header-cell>
-        <mat-cell *matCellDef="let route">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.route">Route</th>
+        <td mat-cell *matCellDef="let route">
           <kpn-link-route [routeId]="route.id" [title]="route.name"></kpn-link-route>
-        </mat-cell>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">Distance</mat-header-cell>
-        <mat-cell *matCellDef="let route" i18n="@@location-routes.table.distance.value">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">Distance</th>
+        <td mat-cell *matCellDef="let route" i18n="@@location-routes.table.distance.value">
           {{route.meters}}m
-        </mat-cell>
+        </td>
       </ng-container>
 
-      <ng-container matColumnDef="broken">
-        <mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.broken">Broken</mat-header-cell>
-        <mat-cell *matCellDef="let route">
-          {{route.broken}}
-        </mat-cell>
+      <ng-container matColumnDef="last-survey">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-survey">Last survey</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.lastSurvey | day}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-routes.table.last-edit">Last edit</mat-header-cell>
-        <mat-cell *matCellDef="let route" class="kpn-line">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-edit">Last edit</th>
+        <td mat-cell *matCellDef="let route" class="kpn-separated">
           <kpn-day [timestamp]="route.lastUpdated"></kpn-day>
           <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
           <kpn-osm-link-relation [relationId]="route.id"></kpn-osm-link-relation>
-        </mat-cell>
+        </td>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns$ | async"></mat-header-row>
-      <mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></mat-row>
-    </mat-table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></tr>
+    </table>
 
     <!--    <kpn-paginator-->
     <!--      (page)="page.emit($event)"-->
     <!--      [pageIndex]="0"-->
     <!--      [length]="routeCount">-->
     <!--    </kpn-paginator>-->
-  `
+  `,
+  styles: [`
+    .mat-column-nr {
+      width: 4em;
+    }
+  `]
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
 
+  @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
   @Input() routes: List<LocationRouteInfo> = List();
   @Input() routeCount: number;
@@ -112,13 +124,13 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   private displayedColumns() {
 
     if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'route', 'distance', 'broken', 'lastEdit'];
+      return ['nr', 'analysis', 'route', 'distance', 'last-survey', 'lastEdit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ['nr', 'route', 'distance', 'broken'];
+      return ['nr', 'analysis', 'route', 'distance', 'last-survey', 'lastEdit'];
     }
 
-    return ['nr', 'route', 'distance'];
+    return ['nr', 'analysis', 'route', 'distance'];
   }
 }

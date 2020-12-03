@@ -6,6 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {Observable} from 'rxjs';
 import {LocationSummary} from '../../kpn/api/common/location/location-summary';
 import {LocationKey} from '../../kpn/api/custom/location-key';
+import {NetworkType} from '../../kpn/api/custom/network-type';
 import {LocationParams} from './components/location-params';
 
 @Injectable()
@@ -44,6 +45,13 @@ export class LocationService {
   get key(): string {
     if (this._locationKey$.getValue()) {
       return this._locationKey$.getValue().key();
+    }
+    return null;
+  }
+
+  get networkType(): NetworkType {
+    if (this._locationKey$.getValue()) {
+      return this._locationKey$.getValue().networkType;
     }
     return null;
   }

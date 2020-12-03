@@ -19,14 +19,14 @@ import {RouteInvestigateIndicatorDialogComponent} from './route-investigate-indi
 })
 export class RouteInvestigateIndicatorComponent implements OnInit {
 
-  @Input() route: NetworkRouteRow;
+  @Input() investigate: boolean;
   color: string;
 
   constructor(private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.color = this.route.investigate ? 'red' : 'green';
+    this.color = this.investigate ? 'red' : 'green';
   }
 
   onOpenDialog() {

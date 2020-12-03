@@ -46,6 +46,7 @@ import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Change
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
@@ -302,6 +303,7 @@ trait SharedTestObjects extends MockFactory {
     lastUpdated: Timestamp = defaultTimestamp,
     lastUpdatedBy: String = "",
     relationLastUpdated: Timestamp = defaultTimestamp,
+    lastSurvey: Option[Day] = None,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty
@@ -327,7 +329,7 @@ trait SharedTestObjects extends MockFactory {
       version = 0L,
       changeSetId = 0L,
       lastUpdated,
-      None,
+      lastSurvey,
       Tags.empty,
       facts,
       analysis,

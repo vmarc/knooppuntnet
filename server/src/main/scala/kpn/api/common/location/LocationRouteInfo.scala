@@ -1,5 +1,6 @@
 package kpn.api.common.location
 
+import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class LocationRouteInfo(
@@ -7,5 +8,7 @@ case class LocationRouteInfo(
   name: String,
   meters: Long,
   lastUpdated: Timestamp,
-  broken: Boolean
+  lastSurvey: Option[Day],
+  broken: Boolean,
+  accessible: Boolean
 )

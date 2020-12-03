@@ -40,21 +40,15 @@ import {NetworkIndicatorDialogComponent} from './nodes/indicators/network-indica
 import {NetworkIndicatorComponent} from './nodes/indicators/network-indicator.component';
 import {NodeConnectionIndicatorDialogComponent} from './nodes/indicators/node-connection-indicator-dialog.component';
 import {NodeConnectionIndicatorComponent} from './nodes/indicators/node-connection-indicator.component';
+import {NodeRouteIndicatorDialogComponent} from './nodes/indicators/node-route-indicator-dialog.component';
+import {NodeRouteIndicatorComponent} from './nodes/indicators/node-route-indicator.component';
 import {RoleConnectionIndicatorDialogComponent} from './nodes/indicators/role-connection-indicator-dialog.component';
 import {RoleConnectionIndicatorComponent} from './nodes/indicators/role-connection-indicator.component';
-import {RouteIndicatorDialogComponent} from './nodes/indicators/route-indicator-dialog.component';
-import {RouteIndicatorComponent} from './nodes/indicators/route-indicator.component';
 import {NetworkNodeAnalysisComponent} from './nodes/network-node-analysis.component';
 import {NetworkNodeRoutesComponent} from './nodes/network-node-routes.component';
 import {NetworkNodeTableComponent} from './nodes/network-node-table.component';
 import {NetworkNodesSidebarComponent} from './nodes/network-nodes-sidebar.component';
 import {NetworkRoutesPageComponent} from './routes/_network-routes-page.component';
-import {RouteAccessibleIndicatorDialogComponent} from './routes/indicators/route-accessible-indicator-dialog.component';
-import {RouteAccessibleIndicatorComponent} from './routes/indicators/route-accessible-indicator.component';
-import {RouteConnectionIndicatorDialogComponent} from './routes/indicators/route-connection-indicator-dialog.component';
-import {RouteConnectionIndicatorComponent} from './routes/indicators/route-connection-indicator.component';
-import {RouteInvestigateIndicatorDialogComponent} from './routes/indicators/route-investigate-indicator-dialog.component';
-import {RouteInvestigateIndicatorComponent} from './routes/indicators/route-investigate-indicator.component';
 import {NetworkRouteAnalysisComponent} from './routes/network-route-analysis.component';
 import {NetworkRouteTableComponent} from './routes/network-route-table.component';
 import {NetworkRoutesSidebarComponent} from './routes/network-routes-sidebar.component';
@@ -98,17 +92,11 @@ import {NetworkRoutesSidebarComponent} from './routes/network-routes-sidebar.com
     NetworkIndicatorComponent,
     NetworkIndicatorDialogComponent,
     NodeConnectionIndicatorComponent,
+    NodeRouteIndicatorComponent,
+    NodeRouteIndicatorDialogComponent,
     NodeConnectionIndicatorDialogComponent,
     RoleConnectionIndicatorComponent,
     RoleConnectionIndicatorDialogComponent,
-    RouteIndicatorComponent,
-    RouteIndicatorDialogComponent,
-    RouteAccessibleIndicatorComponent,
-    RouteAccessibleIndicatorDialogComponent,
-    RouteConnectionIndicatorComponent,
-    RouteConnectionIndicatorDialogComponent,
-    RouteInvestigateIndicatorComponent,
-    RouteInvestigateIndicatorDialogComponent,
     NetworkChangeSetComponent,
     NetworkDetailsComponent,
     NetworkFactChecksComponent,
