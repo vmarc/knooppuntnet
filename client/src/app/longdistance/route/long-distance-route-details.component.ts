@@ -1,19 +1,15 @@
-import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
-import {map} from 'rxjs/operators';
-import {AppService} from '../../app.service';
-import {LongDistanceRoute} from '../../kpn/api/common/longdistance/long-distance-route';
-import {ApiResponse} from '../../kpn/api/custom/api-response';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../core/core.state';
+import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
+import {selectLongDistanceRouteDetails} from '../../core/longdistance/long-distance.selectors';
 
 @Component({
   selector: 'kpn-long-distance-route-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-long-distance-route-page-header pageName="details"></kpn-long-distance-route-page-header>
+    <kpn-long-distance-route-page-header pageName="details" [routeId]="routeId$ | async"></kpn-long-distance-route-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
 
@@ -64,26 +60,15 @@ import {ApiResponse} from '../../kpn/api/custom/api-response';
   styles: [`
   `]
 })
-export class LongDistanceRouteDetailsComponent implements OnInit {
+export class LongDistanceRouteDetailsComponent {
 
-  response$: Observable<ApiResponse<LongDistanceRoute>>;
+  routeId$ = this.store.select(selectLongDistanceRouteId);
+  response$ = this.store.select(selectLongDistanceRouteDetails);
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService) {
-  }
-
-  ngOnInit(): void {
-    this.response$ = this.activatedRoute.params.pipe(
-      map(params => {
-        return params['routeId'];
-      }),
-      mergeMap(routeId => this.appService.longDistanceRoute(routeId))
-    );
+  constructor(private store: Store<AppState>) {
   }
 
   gpxUpload(): void {
-
   }
-
 
 }

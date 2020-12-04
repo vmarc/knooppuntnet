@@ -1,12 +1,19 @@
 package kpn.server.api.longdistance
 
-import kpn.api.common.longdistance.LongDistanceRoute
+import kpn.api.common.longdistance.LongDistanceRouteChangesPage
+import kpn.api.common.longdistance.LongDistanceRouteMapPage
+import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
+import kpn.api.common.longdistance.LongDistanceRoutesPage
 import kpn.api.custom.ApiResponse
 
 trait LongDistanceFacade {
 
-  def route(routeId: Long): ApiResponse[LongDistanceRoute]
+  def routes(): ApiResponse[LongDistanceRoutesPage]
 
-  def routes(): ApiResponse[Seq[LongDistanceRoute]]
+  def route(routeId: Long): ApiResponse[LongDistanceRouteDetailsPage]
+
+  def routeMap(routeId: Long): ApiResponse[LongDistanceRouteMapPage]
+
+  def routeChanges(routeId: Long): ApiResponse[LongDistanceRouteChangesPage]
 
 }

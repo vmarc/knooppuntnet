@@ -21,7 +21,10 @@ import {LocationNodesParameters} from './kpn/api/common/location/location-nodes-
 import {LocationRoutesPage} from './kpn/api/common/location/location-routes-page';
 import {LocationRoutesParameters} from './kpn/api/common/location/location-routes-parameters';
 import {LocationsPage} from './kpn/api/common/location/locations-page';
-import {LongDistanceRoute} from './kpn/api/common/longdistance/long-distance-route';
+import {LongDistanceRouteChangesPage} from './kpn/api/common/longdistance/long-distance-route-changes-page';
+import {LongDistanceRouteDetailsPage} from './kpn/api/common/longdistance/long-distance-route-details-page';
+import {LongDistanceRouteMapPage} from './kpn/api/common/longdistance/long-distance-route-map-page';
+import {LongDistanceRoutesPage} from './kpn/api/common/longdistance/long-distance-routes-page';
 import {NetworkChangesPage} from './kpn/api/common/network/network-changes-page';
 import {NetworkDetailsPage} from './kpn/api/common/network/network-details-page';
 import {NetworkFactsPage} from './kpn/api/common/network/network-facts-page';
@@ -356,13 +359,23 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public longDistanceRoutes(): Observable<ApiResponse<LongDistanceRoute[]>> {
+  public longDistanceRoutes(): Observable<ApiResponse<LongDistanceRoutesPage>> {
     const url = '/json-api/long-distance/routes';
     return this.httpGet(url);
   }
 
-  public longDistanceRoute(routeId: string): Observable<ApiResponse<LongDistanceRoute>> {
-    const url = '/json-api/long-distance/routes/' + routeId;
+  public longDistanceRoute(routeId: string): Observable<ApiResponse<LongDistanceRouteDetailsPage>> {
+    const url = `/json-api/long-distance/routes/${routeId}`;
+    return this.httpGet(url);
+  }
+
+  public longDistanceRouteMap(routeId: string): Observable<ApiResponse<LongDistanceRouteMapPage>> {
+    const url = `/json-api/long-distance/routes/${routeId}/map`;
+    return this.httpGet(url);
+  }
+
+  public longDistanceRouteChanges(routeId: string): Observable<ApiResponse<LongDistanceRouteChangesPage>> {
+    const url = `/json-api/long-distance/routes/${routeId}/changes`;
     return this.httpGet(url);
   }
 
