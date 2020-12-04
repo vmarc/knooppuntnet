@@ -156,4 +156,7 @@ export class Util {
     return params;
   }
 
+  static json(object: any): string {
+    return JSON.stringify(object, null, 2);
+  }
 }

@@ -13,12 +13,13 @@ if (doc && doc.node && doc.node.active === true && doc.node.location) {
           nodeName.name,
           doc.node.id
         ],
-        [
-          doc.node.latitude,
-          doc.node.longitude,
-          doc.node.lastUpdated,
-          doc.node.facts.length
-        ]
+        {
+          latitude: doc.node.latitude,
+          longitude: doc.node.longitude,
+          lastUpdated: doc.node.lastUpdated,
+          lastSurvey: doc.node.lastSurvey,
+          factCount: doc.node.facts.length
+        }
       );
     }
   }

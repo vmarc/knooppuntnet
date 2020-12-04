@@ -20,8 +20,9 @@ object LocationNodesPageExample {
           latitude = "1",
           longitude = "2",
           lastUpdated = Timestamp(2018, 11, 8),
+          lastSurvey = None,
           factCount = 3,
-          expectedRouteCount = Some(3),
+          expectedRouteCount = "3",
           routeReferences = Seq(
             Ref(101, "01-02"),
             Ref(102, "01-03")

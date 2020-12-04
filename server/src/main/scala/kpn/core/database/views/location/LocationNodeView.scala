@@ -3,6 +3,7 @@ package kpn.core.database.views.location
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
@@ -18,9 +19,17 @@ object LocationNodeView extends View {
     rows: Seq[ViewResultRow]
   )
 
+  private case class ViewResultRowValue(
+    latitude: String,
+    longitude: String,
+    lastUpdated: Timestamp,
+    lastSurvey: Option[Day],
+    factCount: Int
+  )
+
   private case class ViewResultRow(
     key: Seq[String],
-    value: Seq[String],
+    value: ViewResultRowValue,
     doc: NodeDoc
   )
 
@@ -57,18 +66,18 @@ object LocationNodeView extends View {
     val result = database.execute(query)
     result.rows.map { row =>
       val key = Fields(row.key)
-      val value = Fields(row.value)
 
       val expectedRoutesTagKey = s"expected_r${locationKey.networkType.letter}n_route_relations"
-      val expectedRouteCount = row.doc.node.tags(expectedRoutesTagKey).filter(_.forall(Character.isDigit)).map(_.toInt)
+      val expectedRouteCount = row.doc.node.tags(expectedRoutesTagKey).filter(_.forall(Character.isDigit)).getOrElse("-")
 
       LocationNodeInfo(
         id = key.long(4),
         name = key.string(3),
-        latitude = value.string(0),
-        longitude = value.string(1),
-        lastUpdated = Timestamp.fromIso(value.string(2)),
-        factCount = value.int(3),
+        latitude = row.value.latitude,
+        longitude = row.value.longitude,
+        lastUpdated = row.value.lastUpdated,
+        lastSurvey = row.value.lastSurvey,
+        factCount = row.value.factCount,
         expectedRouteCount,
         routeReferences = Seq.empty
       )

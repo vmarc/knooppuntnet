@@ -7,7 +7,6 @@ import {ViewChild} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatTableDataSource} from '@angular/material/table';
 import {List} from 'immutable';
 import {Observable} from 'rxjs';
@@ -39,57 +38,60 @@ import {TimeInfo} from '../../../kpn/api/common/time-info';
       [showFirstLastButtons]="true">
     </kpn-paginator>
 
-    <mat-divider></mat-divider>
-
-    <mat-table matSort [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource">
 
       <ng-container matColumnDef="nr">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.nr">Nr</mat-header-cell>
-        <mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</mat-cell>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.nr">Nr</th>
+        <td mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="analysis">
-        <mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.analysis">Analysis</mat-header-cell>
-        <mat-cell *matCellDef="let node">
-          <!-- kpn-network-node-analysis [node]="node" [networkType]="networkType"></kpn-network-node-analysis -->
-        </mat-cell>
-      </ng-container>
+<!--      <ng-container matColumnDef="analysis">-->
+<!--        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.analysis">Analysis</th>-->
+<!--        <td mat-cell *matCellDef="let node">-->
+<!--          &lt;!&ndash; kpn-network-node-analysis [node]="node" [networkType]="networkType"></kpn-network-node-analysis &ndash;&gt;-->
+<!--        </td>-->
+<!--      </ng-container>-->
 
       <ng-container matColumnDef="node">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.node">Node</mat-header-cell>
-        <mat-cell *matCellDef="let node">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.node">Node</th>
+        <td mat-cell *matCellDef="let node">
           <kpn-link-node [nodeId]="node.id" [nodeName]="node.name"></kpn-link-node>
-        </mat-cell>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="expectedRouteCount">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.expected-route-count">Expected
-        </mat-header-cell>
-        <mat-cell *matCellDef="let node">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.expected-route-count">Expected</th>
+        <td mat-cell *matCellDef="let node">
           {{node.expectedRouteCount}}
-        </mat-cell>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="routes">
-        <mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.routes">Routes</mat-header-cell>
-        <mat-cell *matCellDef="let node">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.routes">Routes</th>
+        <td mat-cell *matCellDef="let node">
           <kpn-location-node-routes [node]="node"></kpn-location-node-routes>
-        </mat-cell>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last-survey">
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-survey">Last survey</th>
+        <td mat-cell *matCellDef="let node">
+          {{node.lastSurvey | day}}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@location-nodes.table.last-edit">Last edit
-        </mat-header-cell>
-        <mat-cell *matCellDef="let node" class="kpn-line">
-          <kpn-day [timestamp]="node.timestamp"></kpn-day>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-edit">Last edit</th>
+        <td mat-cell *matCellDef="let node" class="kpn-separated">
+          <kpn-day [timestamp]="node.lastEdit"></kpn-day>
           <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
           <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
-        </mat-cell>
+        </td>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns$ | async"></mat-header-row>
-      <mat-row *matRowDef="let node; columns: displayedColumns$ | async;"></mat-row>
-    </mat-table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async;"></tr>
+    </table>
 
     <!--    <kpn-paginator-->
     <!--      (page)="page.emit($event)"-->
@@ -99,47 +101,10 @@ import {TimeInfo} from '../../../kpn/api/common/time-info';
   `,
   styles: [`
 
-    .mat-slide-toggle {
-      margin-top: 1em;
-    }
-
-    .mat-header-cell {
-      margin-right: 10px;
-    }
-
-    .mat-cell {
-      margin-right: 10px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 45px;
-      vertical-align: middle;
-    }
-
     .mat-column-nr {
-      flex: 0 0 30px;
+      flex: 0 0 4em;
     }
 
-    .mat-column-analysis {
-      flex: 0 0 60px;
-    }
-
-    .mat-column-node {
-      flex: 1 0 60px;
-    }
-
-    .mat-column-expectedRouteCount {
-      flex: 2 0 60px;
-    }
-
-    .mat-column-routes {
-      flex: 2 0 200px;
-    }
-
-    .mat-column-lastEdit {
-      flex: 0 0 200px;
-    }
   `]
 })
 export class LocationNodeTableComponent implements OnInit, OnChanges {
@@ -150,8 +115,6 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Output() page = new EventEmitter<PageEvent>();
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
-
-  unexpectedRouteCountOnly = false;
 
   dataSource: MatTableDataSource<LocationNodeInfo>;
   displayedColumns$: Observable<Array<string>>;
@@ -175,26 +138,15 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     return this.paginator.rowNumber(index);
   }
 
-  unexpectedRouteCountOnlyChanged(event: MatSlideToggleChange): void {
-    this.unexpectedRouteCountOnly = event.checked;
-    this.dataSource.data = this.nodes.filter(node => {
-      if (this.unexpectedRouteCountOnly) {
-        return node.expectedRouteCount !== node.routeReferences.size;
-      } else {
-        return node.expectedRouteCount === node.routeReferences.size;
-      }
-    }).toArray();
-  }
-
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'analysis', 'node', 'expectedRouteCount', 'routes', 'lastEdit'];
+      return ['nr', 'node', 'expectedRouteCount', 'routes', 'last-survey', 'lastEdit'];
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'node', 'expectedRouteCount', 'routes'];
+      return ['nr', 'node', 'expectedRouteCount', 'routes'];
     }
 
-    return ['nr', 'analysis', 'node'];
+    return ['nr', 'node', 'expectedRouteCount', 'routes'];
   }
 }

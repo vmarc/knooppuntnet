@@ -74,16 +74,21 @@ object NodeRouteReferenceView extends View {
 
     val result = database.post(query, body, classOf[MultiViewResult])
 
-    result.results.map { res =>
-      val nodeId = Fields(res.rows.head.key).long(1)
-      val refs = res.rows.map { row =>
-        val key = Fields(row.key)
-        Ref(
-          key.long(3),
-          key.string(2)
-        )
+    result.results.flatMap { res =>
+      if (res.rows.nonEmpty) {
+        val nodeId = Fields(res.rows.head.key).long(1)
+        val refs = res.rows.map { row =>
+          val key = Fields(row.key)
+          Ref(
+            key.long(3),
+            key.string(2)
+          )
+        }
+        Some(NodeRouteRefs(nodeId, refs))
       }
-      NodeRouteRefs(nodeId, refs)
+      else {
+        None
+      }
     }
   }
 

@@ -43,8 +43,9 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
               latitude = "1",
               longitude = "2",
               lastUpdated = Timestamp(2019, 8, 11, 12, 34, 56),
+              lastSurvey = None,
               factCount = 0,
-              expectedRouteCount = Some(3),
+              expectedRouteCount = "3",
               routeReferences = Seq.empty
             )
           )
