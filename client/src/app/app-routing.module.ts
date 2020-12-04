@@ -27,8 +27,8 @@ const routes: Routes = [
     loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule)
   },
   {
-    path: 'pieter',
-    loadChildren: () => import('./pieter/pieter.module').then(m => m.PieterModule)
+    path: 'long-distance',
+    loadChildren: () => import('./longdistance/long-distance.module').then(m => m.LongDistanceModule)
   },
   {
     path: '',
@@ -38,7 +38,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { enableTracing: false, relativeLinkResolution: 'legacy' })
+    RouterModule.forRoot(routes, {enableTracing: false, relativeLinkResolution: 'legacy'})
   ],
   exports: [
     RouterModule

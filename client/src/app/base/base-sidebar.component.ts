@@ -53,7 +53,7 @@ import {Severity} from '@sentry/types/dist/severity';
         </li>
         <li>
           <p>
-            <a routerLink="/pieter">tryout gpx to osm matching</a>
+            <a routerLink="/long-distance/routes">Long distance routes</a>
           </p>
         </li>
       </ul>

@@ -1,28 +1,28 @@
 import {Component} from '@angular/core';
 import {AfterViewInit} from '@angular/core';
 import {OnDestroy} from '@angular/core';
-import {OsmLayer} from '../components/ol/layers/osm-layer';
-import {I18nService} from '../i18n/i18n.service';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import {MapLayer} from '../components/ol/layers/map-layer';
-import {Style} from 'ol/style';
-import {Stroke} from 'ol/style';
+import {List} from 'immutable';
 import {GeoJSON} from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
+import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
-import {MapControls} from '../components/ol/layers/map-controls';
-import {ZoomLevel} from '../components/ol/domain/zoom-level';
-import {Util} from '../components/shared/util';
-import {PageService} from '../components/shared/page.service';
-import {MapLayers} from '../components/ol/layers/map-layers';
-import {List} from 'immutable';
-import {Bounds} from '../kpn/api/common/bounds';
+import {Style} from 'ol/style';
+import {Stroke} from 'ol/style';
+import View from 'ol/View';
+import {ZoomLevel} from '../../components/ol/domain/zoom-level';
+import {MapControls} from '../../components/ol/layers/map-controls';
+import {MapLayer} from '../../components/ol/layers/map-layer';
+import {MapLayers} from '../../components/ol/layers/map-layers';
+import {OsmLayer} from '../../components/ol/layers/osm-layer';
+import {PageService} from '../../components/shared/page.service';
+import {Util} from '../../components/shared/util';
+import {I18nService} from '../../i18n/i18n.service';
+import {Bounds} from '../../kpn/api/common/bounds';
 
 @Component({
-  selector: 'kpn-pieter',
+  selector: 'kpn-long-distance-example',
   template: `
-    <div id="pieter-map" class="map">
+    <div id="long-distance-map" class="map">
       <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
     </div>
   `,
@@ -38,7 +38,7 @@ import {Bounds} from '../kpn/api/common/bounds';
     }
   `]
 })
-export class PieterComponent implements AfterViewInit, OnDestroy {
+export class LongDistanceExampleComponent implements AfterViewInit, OnDestroy {
 
   mapLayers: MapLayers;
   map: Map;
@@ -55,7 +55,7 @@ export class PieterComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.map = new Map({
-      target: 'pieter-map',
+      target: 'long-distance-map',
       layers: this.mapLayers.toArray(),
       controls: MapControls.build(),
       view: new View({
@@ -93,7 +93,7 @@ export class PieterComponent implements AfterViewInit, OnDestroy {
       })
     });
 
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return locationStyle;
     };
 
