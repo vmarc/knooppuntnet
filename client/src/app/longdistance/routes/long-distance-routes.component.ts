@@ -5,6 +5,10 @@ import {Component} from '@angular/core';
   selector: 'kpn-long-distance-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <ul class="breadcrumb">
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li>Long distance routes</li>
+    </ul>
 
     <h1>
       Long distance routes

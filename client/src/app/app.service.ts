@@ -21,6 +21,7 @@ import {LocationNodesParameters} from './kpn/api/common/location/location-nodes-
 import {LocationRoutesPage} from './kpn/api/common/location/location-routes-page';
 import {LocationRoutesParameters} from './kpn/api/common/location/location-routes-parameters';
 import {LocationsPage} from './kpn/api/common/location/locations-page';
+import {LongDistanceRoute} from './kpn/api/common/longdistance/long-distance-route';
 import {NetworkChangesPage} from './kpn/api/common/network/network-changes-page';
 import {NetworkDetailsPage} from './kpn/api/common/network/network-details-page';
 import {NetworkFactsPage} from './kpn/api/common/network/network-facts-page';
@@ -352,6 +353,16 @@ export class AppService {
 
   public poiAreas(): Observable<ApiResponse<string>> {
     const url = '/json-api/poi/areas';
+    return this.httpGet(url);
+  }
+
+  public longDistanceRoutes(): Observable<ApiResponse<LongDistanceRoute[]>> {
+    const url = '/json-api/long-distance/routes';
+    return this.httpGet(url);
+  }
+
+  public longDistanceRoute(routeId: string): Observable<ApiResponse<LongDistanceRoute>> {
+    const url = '/json-api/long-distance/routes/' + routeId;
     return this.httpGet(url);
   }
 

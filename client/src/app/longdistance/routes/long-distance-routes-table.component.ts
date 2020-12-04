@@ -3,13 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {AppService} from '../../app.service';
 import {PageWidthService} from '../../components/shared/page-width.service';
-
-export interface LdRoute {
-  readonly group: string,
-  readonly name: string,
-  readonly relationId: number
-}
+import {LongDistanceRoute} from '../../kpn/api/common/longdistance/long-distance-route';
+import {ApiResponse} from '../../kpn/api/custom/api-response';
 
 @Component({
   selector: 'kpn-long-distance-routes-table',
@@ -18,10 +15,24 @@ export interface LdRoute {
 
     <table mat-table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="group">
-        <th mat-header-cell *matHeaderCellDef>Group</th>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let route">
-          {{route.group}}
+          <a [routerLink]="'/long-distance/routes/' + route.id">{{route.id}}</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ref">
+        <th mat-header-cell *matHeaderCellDef>Ref</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.ref}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gpx">
+        <th mat-header-cell *matHeaderCellDef>GPX</th>
+        <td mat-cell *matCellDef="let route">
+          <mat-icon *ngIf="route.gpxFilename" svgIcon="tick"></mat-icon>
         </td>
       </ng-container>
 
@@ -32,15 +43,45 @@ export interface LdRoute {
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="relation">
-        <th mat-header-cell *matHeaderCellDef>Relation</th>
+      <ng-container matColumnDef="operator">
+        <th mat-header-cell *matHeaderCellDef>Operator</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-osm-link-relation [relationId]="route.relationId"></kpn-osm-link-relation>
+          {{route.operator}}
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async;"></tr>
+      <ng-container matColumnDef="distance">
+        <th mat-header-cell *matHeaderCellDef>Distance</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.osmDistance}}km
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="wayCount">
+        <th mat-header-cell *matHeaderCellDef>Ways</th>
+        <td mat-cell *matCellDef="let route">
+          {{route.wayCount}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="website">
+        <th mat-header-cell *matHeaderCellDef>Website</th>
+        <td mat-cell *matCellDef="let route">
+          <a *ngIf="route.website" href="{{route.website}}" target="_blank" rel="nofollow noreferrer" class="external">website</a>
+          <span *ngIf="!route.website">-</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="relation">
+        <th mat-header-cell *matHeaderCellDef>Relation</th>
+        <td mat-cell *matCellDef="let route" class="kpn-separated">
+          <kpn-osm-link-relation [relationId]="route.id"></kpn-osm-link-relation>
+          <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns();"></tr>
     </table>
   `,
   styles: [`
@@ -48,35 +89,27 @@ export interface LdRoute {
 })
 export class LongDistanceRoutesTableComponent implements OnInit {
 
-  dataSource: MatTableDataSource<LdRoute>;
+  response$: Observable<ApiResponse<LongDistanceRoute[]>>;
+
+  dataSource: MatTableDataSource<LongDistanceRoute>;
   displayedColumns$: Observable<Array<string>>;
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor(private pageWidthService: PageWidthService,
+              private appService: AppService) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
-
-    const routes: LdRoute[] = [
-      {group: 'GR5', name: 'Flanders', relationId: 3121667},
-      {group: 'GR5', name: 'Wallonia', relationId: 3121668},
-      {group: 'GR5', name: 'Variant Genk', relationId: 5951316},
-      {group: 'GR5', name: 'Variant Hasselt', relationId: 290732},
-      {group: 'GR5', name: 'Variant Testelt-Zichem (Demervariant) ', relationId: 2923308},
-      {group: 'GR5', name: 'Rond afsluiting Kalmthoutse Heide (3 km)', relationId: 149843},
-      {group: 'GR5A', name: 'Noord', relationId: 13658},
-      {group: 'GR5A', name: 'Zuid', relationId: 2629186},
-      {group: 'GR5A', name: 'Rond Canisvlietsche Kreek', relationId: 133437},
-      {group: 'GR5A', name: 'South: Variant E2 / Verbinding GR5A-GR12', relationId: 13638},
-      {group: 'GR5A', name: 'GR5A South: Variant Dode Ijzer', relationId: 6481535},
-      {group: 'GR5A', name: 'GR5A South: Connection to GR123', relationId: 5556328},
-      {group: 'GR5A', name: 'GR5A Noord: Variant Oostende Haven', relationId: 3194117},
-    ];
-    this.dataSource.data = routes;
+    this.response$ = this.appService.longDistanceRoutes();
+    this.response$.subscribe(response => {
+      if (response.result) {
+        this.dataSource.data = response.result;
+      }
+    });
   }
 
-  private displayedColumns() {
-    return ['group', 'name', 'relation'];
+  displayedColumns(): string[] {
+    return ['id', 'ref', 'gpx', 'name', 'operator', 'distance', 'wayCount', 'website', 'relation'];
   }
 }

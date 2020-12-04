@@ -119,6 +119,9 @@ export class IconService {
 
     this.iconRegistry.addSvgIconLiteral('warning', this.domSanitizer.bypassSecurityTrustHtml(
       require('!svg-inline-loader!src/assets/images/icons/warning.svg')));
+
+    this.iconRegistry.addSvgIconLiteral('tick', this.domSanitizer.bypassSecurityTrustHtml(
+      require('!svg-inline-loader!src/assets/images/icons/tick.svg')));
   }
 
   private registerMenuIcons() {

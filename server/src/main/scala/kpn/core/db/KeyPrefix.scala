@@ -15,4 +15,6 @@ object KeyPrefix {
 
   val NodeRoute = "node-route"
 
+  val LongDistanceRoute = "long-distance-route"
+
 }

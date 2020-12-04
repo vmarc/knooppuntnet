@@ -3,10 +3,16 @@ import {RouterModule, Routes} from '@angular/router';
 import {SidebarComponent} from '../components/shared/sidebar/sidebar.component';
 import {Util} from '../components/shared/util';
 import {LongDistanceExampleComponent} from './example/long-distance-example.component';
+import {LongDistanceRouteChangesComponent} from './route/long-distance-route-changes.component';
+import {LongDistanceRouteDetailsComponent} from './route/long-distance-route-details.component';
+import {LongDistanceRouteMapComponent} from './route/long-distance-route-map.component';
 import {LongDistanceRoutesComponent} from './routes/long-distance-routes.component';
 
 const routes: Routes = [
   Util.routePath('routes', LongDistanceRoutesComponent, SidebarComponent),
+  Util.routePath('routes/:routeId', LongDistanceRouteDetailsComponent, SidebarComponent),
+  Util.routePath('routes/:routeId/map', LongDistanceRouteMapComponent, SidebarComponent),
+  Util.routePath('routes/:routeId/changes', LongDistanceRouteChangesComponent, SidebarComponent),
   Util.routePath('example', LongDistanceExampleComponent, SidebarComponent)
 ];
 
