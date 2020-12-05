@@ -52,3 +52,13 @@ export const selectLongDistanceRouteName = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => state.routeName
 );
+
+export const selectLongDistanceRouteMapFocus = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.mapFocus
+);
+
+export const selectLongDistanceRouteMapFocusNokSegmentId = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.mapFocusNokSegmentId
+);

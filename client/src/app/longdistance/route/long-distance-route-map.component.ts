@@ -20,6 +20,7 @@ import {OsmLayer} from '../../components/ol/layers/osm-layer';
 import {PageService} from '../../components/shared/page.service';
 import {Util} from '../../components/shared/util';
 import {AppState} from '../../core/core.state';
+import {selectLongDistanceRouteMapFocus} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMap} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
 import {I18nService} from '../../i18n/i18n.service';
@@ -109,6 +110,12 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
       });
 
       this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
+
+      this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
+        if (bounds) {
+          this.map.getView().fit(Util.toExtent(bounds, 0.05));
+        }
+      });
     });
   }
 
