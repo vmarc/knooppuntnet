@@ -15,5 +15,5 @@ case class LongDistanceRouteMapPage(
   osmSegments: Seq[LongDistanceRouteSegment],
   gpxGeometry: Option[String],
   okGeometry: Option[String],
-  nokGeometry: Option[String]
+  nokSegments: Seq[LongDistanceRouteNokSegment]
 )

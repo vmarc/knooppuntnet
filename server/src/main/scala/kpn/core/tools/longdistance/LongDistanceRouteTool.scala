@@ -2,6 +2,7 @@ package kpn.core.tools.longdistance
 
 import kpn.api.common.Bounds
 import kpn.api.common.longdistance.LongDistanceRoute
+import kpn.api.common.longdistance.LongDistanceRouteNokSegment
 import kpn.api.common.longdistance.LongDistanceRouteSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
@@ -20,6 +21,7 @@ import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.repository.LongDistanceRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
+import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -95,11 +97,6 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
 
   private def analyzeRoute(routeDefinition: LongDistanceRouteDefinition): Unit = {
 
-    val gpxLineStringOption: Option[LineString] = routeDefinition.gpxFilename match {
-      case Some(filename) => Some(readGpx(filename))
-      case None => None
-    }
-
     loadOsmData(routeDefinition) match {
       case None =>
       case Some(data) =>
@@ -113,38 +110,64 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
 
             val osmRouteSegments = toRouteSegments(routeRelation)
 
-            val (okOption: Option[MultiLineString], nokOption: Option[MultiLineString]) = gpxLineStringOption match {
+            val gpxLineStringOption: Option[LineString] = routeDefinition.gpxFilename match {
+              case None => None
+              case Some(filename) => Some(readGpx(filename))
+            }
+
+            val (okOption: Option[MultiLineString], nokSegments: Seq[LongDistanceRouteNokSegment]) = gpxLineStringOption match {
               case None => (None, None)
               case Some(gpxLineString) =>
-                (None, None)
-              //                  val distanceBetweenSamples = sampleDistanceMeters.toDouble * osmLineString.getLength / toMeters(osmLineString.getLength)
-              //                  val densifiedOsm = Densifier.densify(osmLineString, distanceBetweenSamples)
-              //                  val sampleCoordinates = densifiedOsm.getCoordinates.toSeq
-              //
-              //                  val distances = sampleCoordinates.toList.map(coordinate => toMeters(gpxLineString.distance(geomFactory.createPoint(coordinate))))
-              //
-              //                  log.info(s"distance max=${distances.max}")
-              //                  log.info(s"distance min=${distances.min}")
-              //
-              //                  val withinTolerance = distances.map(distance => distance < toleranceMeters)
-              //                  val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
-              //                  val splittedOkAndIndexes = split(okAndIndexes)
-              //
-              //                  val ok: MultiLineString = toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
-              //                  val nok = toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filterNot(_.head._1))
-              //                  (Some(ok), Some(nok))
+
+                val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / toMeters(gpxLineString.getLength)
+                val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
+                val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
+
+                val distances = sampleCoordinates.toList.map { coordinate =>
+                  val point = geomFactory.createPoint(coordinate)
+                  toMeters(osmRouteSegments.map(segment => segment.lineString.distance(point)).min)
+                }
+
+                val withinTolerance = distances.map(distance => distance < toleranceMeters)
+                val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
+                val splittedOkAndIndexes = split(okAndIndexes)
+
+                val ok: MultiLineString = toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
+
+                val noks = splittedOkAndIndexes.filterNot(_.head._1)
+
+                val nok = noks.zipWithIndex.map { case (segment, segmentIndex) =>
+                  val segmentIndexes = segment.map(_._2)
+                  val maxDistance = distances.zipWithIndex.filter { case (distance, index) =>
+                    segmentIndexes.contains(index)
+                  }.map { case (distance, index) =>
+                    distance
+                  }.max
+
+                  val lineString = toLineString(sampleCoordinates, segment)
+                  val meters: Long = Math.round(toMeters(lineString.getLength))
+                  val bounds = toBounds(lineString.getCoordinates.toSeq)
+                  val geoJson = toGeoJson(lineString)
+
+                  LongDistanceRouteNokSegment(
+                    segmentIndex + 1,
+                    meters,
+                    maxDistance.toLong,
+                    bounds,
+                    geoJson
+                  )
+                }
+                (Some(ok), nok.sortBy(_.distance).reverse)
             }
 
             val gpxDistance = Math.round(toMeters(gpxLineStringOption.map(_.getLength).getOrElse(0)) / 1000)
             val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum / 1000)
-            // val distance = Math.round(routeRelation.wayMembers.map(_.way.length).sum / 1000)
 
             val gpxGeometry = gpxLineStringOption.map(lineString => toGeoJson(lineString))
             val okGeometry = okOption.map(geometry => toGeoJson(geometry))
-            val nokGeometry = nokOption.map(geometry => toGeoJson(geometry))
 
-            // TODO merge gpx bounds + ok + nok
-            val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds))
+            // TODO merge gpx bounds + ok
+            val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))
 
             val route = LongDistanceRoute(
               routeDefinition.routeId,
@@ -165,12 +188,10 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
               osmRouteSegments.map(_.segment),
               gpxGeometry,
               okGeometry,
-              nokGeometry
+              nokSegments
             )
             routeRepository.save(route)
         }
-
-
     }
   }
 
@@ -197,7 +218,12 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
 
   private def toLineString(osmCoordinates: Seq[Coordinate], segment: List[(Boolean, Int)]): LineString = {
     val indexes = segment.map(_._2)
-    val coordinates = indexes.map(index => osmCoordinates(index))
+    val coordinates = if (indexes.size == 1) {
+      Seq(osmCoordinates.head, osmCoordinates.head)
+    }
+    else {
+      indexes.map(index => osmCoordinates(index))
+    }
     geomFactory.createLineString(coordinates.toArray)
   }
 

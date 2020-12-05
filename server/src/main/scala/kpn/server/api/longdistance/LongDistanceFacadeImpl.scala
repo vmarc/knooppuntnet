@@ -96,7 +96,7 @@ class LongDistanceFacadeImpl(
           route.osmSegments,
           route.gpxGeometry,
           route.okGeometry,
-          route.nokGeometry
+          route.nokSegments
         )
       }
     )

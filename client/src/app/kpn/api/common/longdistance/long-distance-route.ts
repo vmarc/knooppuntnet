@@ -2,6 +2,7 @@
 
 import {List} from 'immutable';
 import {Bounds} from '../bounds';
+import {LongDistanceRouteNokSegment} from './long-distance-route-nok-segment';
 import {LongDistanceRouteSegment} from './long-distance-route-segment';
 
 export class LongDistanceRoute {
@@ -24,7 +25,7 @@ export class LongDistanceRoute {
               readonly osmSegments: List<LongDistanceRouteSegment>,
               readonly gpxGeometry: string,
               readonly okGeometry: string,
-              readonly nokGeometry: string) {
+              readonly nokSegments: List<LongDistanceRouteNokSegment>) {
   }
 
   public static fromJSON(jsonObject: any): LongDistanceRoute {
@@ -50,7 +51,7 @@ export class LongDistanceRoute {
       jsonObject.osmSegments ? List(jsonObject.osmSegments.map((json: any) => LongDistanceRouteSegment.fromJSON(json))) : List(),
       jsonObject.gpxGeometry,
       jsonObject.okGeometry,
-      jsonObject.nokGeometry
+      jsonObject.nokSegments ? List(jsonObject.nokSegments.map((json: any) => LongDistanceRouteNokSegment.fromJSON(json))) : List()
     );
   }
 }

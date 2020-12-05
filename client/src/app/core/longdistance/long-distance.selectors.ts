@@ -21,7 +21,17 @@ export const selectLongDistanceRouteMapOsmSegments = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => {
     if (state.map && state.map.result && state.map.result.osmSegments) {
-      return state.map.result.osmSegments
+      return state.map.result.osmSegments;
+    }
+    return [];
+  }
+);
+
+export const selectLongDistanceRouteMapNokSegments = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => {
+    if (state.map && state.map.result && state.map.result.nokSegments) {
+      return state.map.result.nokSegments;
     }
     return [];
   }

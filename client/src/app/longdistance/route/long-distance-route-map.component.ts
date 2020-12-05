@@ -23,6 +23,7 @@ import {AppState} from '../../core/core.state';
 import {selectLongDistanceRouteMap} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
 import {I18nService} from '../../i18n/i18n.service';
+import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/long-distance-route-nok-segment';
 
 @Component({
   selector: 'kpn-long-distance-route-map',
@@ -91,8 +92,8 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
         layers.push(this.geojsonLayer('OK', 'rgba(0, 255, 0, 0.9)', response.result.okGeometry));
       }
 
-      if (response.result.nokGeometry) {
-        layers.push(this.geojsonLayer('NOK', 'rgba(255, 0, 0, 0.9)', response.result.nokGeometry));
+      if (response.result.nokSegments) {
+        layers.push(this.geojsonLayerSegments('NOK', 'rgba(255, 0, 0, 0.9)', response.result.nokSegments));
       }
 
       this.mapLayers = new MapLayers(List(layers));
@@ -117,6 +118,37 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
 
   private geojsonLayer(name: string, color: string, geoJson: string): MapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {featureProjection: 'EPSG:3857'});
+
+    const vectorSource = new VectorSource({
+      features
+    });
+
+    const locationStyle = new Style({
+      stroke: new Stroke({
+        color,
+        width: 4
+      })
+    });
+
+    const styleFunction = function (feature) {
+      return locationStyle;
+    };
+
+    const layer = new VectorLayer({
+      source: vectorSource,
+      style: styleFunction
+    });
+
+    layer.set('name', name);
+    layer.setVisible(true);
+    return new MapLayer(name, layer);
+  }
+
+  private geojsonLayerSegments(name: string, color: string, segments: List<LongDistanceRouteNokSegment>): MapLayer {
+
+    const features = segments.flatMap(segment => {
+      return new GeoJSON().readFeatures(segment.geoJson, {featureProjection: 'EPSG:3857'});
+    });
 
     const vectorSource = new VectorSource({
       features

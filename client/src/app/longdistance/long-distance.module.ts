@@ -10,6 +10,7 @@ import {LongDistanceRoutingModule} from './long-distance-routing.module';
 import {LongDistanceRouteChangesComponent} from './route/long-distance-route-changes.component';
 import {LongDistanceRouteDetailsComponent} from './route/long-distance-route-details.component';
 import {LongDistanceRouteMapLegendComponent} from './route/long-distance-route-map-legend.component';
+import {LongDistanceRouteMapNokSegmentsComponent} from './route/long-distance-route-map-nok-segments.component';
 import {LongDistanceRouteMapSegmentsComponent} from './route/long-distance-route-map-segments.component';
 import {LongDistanceRouteMapSidebarComponent} from './route/long-distance-route-map-sidebar.component';
 import {LongDistanceRouteMapComponent} from './route/long-distance-route-map.component';
@@ -38,6 +39,7 @@ import {LongDistanceRoutesComponent} from './routes/long-distance-routes.compone
     LongDistanceRouteMapSidebarComponent,
     LongDistanceRouteMapLegendComponent,
     LongDistanceRouteMapSegmentsComponent,
+    LongDistanceRouteMapNokSegmentsComponent
   ],
   exports: [],
 })
