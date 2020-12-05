@@ -23,7 +23,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   `,
   styles: [`
     .legend {
-      margin: 15px;
+      padding: 15px;
+      border-bottom: 1px solid lightgray;
     }
   `]
 })

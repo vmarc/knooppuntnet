@@ -16,6 +16,7 @@ import {DayComponent} from './day/day.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {WarningDialogComponent} from './dialog/warning-dialog.component';
 import {DayPipe} from './format/day.pipe';
+import {DistancePipe} from './format/distance.pipe';
 import {IntegerFormatPipe} from './format/integer-format.pipe';
 import {IconButtonComponent} from './icon/icon-button.component';
 import {IconHappyComponent} from './icon/icon-happy.component';
@@ -152,6 +153,7 @@ import {ErrorComponent} from './error/error.component';
     IntegerFormatPipe,
     BracketsComponent,
     DayPipe,
+    DistancePipe,
     TimeoutComponent,
     DialogComponent,
     WarningDialogComponent,
@@ -220,6 +222,7 @@ import {ErrorComponent} from './error/error.component';
     IntegerFormatPipe,
     BracketsComponent,
     DayPipe,
+    DistancePipe,
     DialogComponent,
     WarningDialogComponent,
     ErrorComponent

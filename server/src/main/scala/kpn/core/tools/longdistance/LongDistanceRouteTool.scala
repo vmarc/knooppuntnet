@@ -248,7 +248,7 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
     segments.zipWithIndex.map { case (segment, index) =>
 
       val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
-      val meters: Long = Math.round(lineString.getLength)
+      val meters: Long = Math.round(toMeters(lineString.getLength))
       val bounds = toBounds(lineString.getCoordinates.toSeq)
       val geoJson = toGeoJson(lineString)
 
