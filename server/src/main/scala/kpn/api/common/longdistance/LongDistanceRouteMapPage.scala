@@ -12,7 +12,7 @@ case class LongDistanceRouteMapPage(
   nameFr: Option[String],
   bounds: Bounds,
   gpxFilename: Option[String],
-  osmGeometry: Option[String],
+  osmSegments: Seq[LongDistanceRouteSegment],
   gpxGeometry: Option[String],
   okGeometry: Option[String],
   nokGeometry: Option[String]

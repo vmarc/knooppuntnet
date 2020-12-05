@@ -34,7 +34,7 @@ class ClassAnalyzer {
       case m: MethodSymbol if m.isCaseAccessor =>
 
         val fieldName = m.name.toString
-        val fieldTypeString = m.typeSignature.toString.drop(3)
+        val fieldTypeString = m.typeSignature.toString
         val classType = buildClassType(fieldTypeString)
         Some(ClassField(fieldName, classType))
 
@@ -43,7 +43,7 @@ class ClassAnalyzer {
 
     val dependencies = caseClass.decls.toSeq.flatMap {
       case m: MethodSymbol if m.isCaseAccessor =>
-        val fieldTypeString = m.typeSignature.toString.drop(3)
+        val fieldTypeString = m.typeSignature.toString
         val fieldClassNames = typescriptTypeDependencies(fieldTypeString)
 
         fieldClassNames.flatMap { fieldClassName =>

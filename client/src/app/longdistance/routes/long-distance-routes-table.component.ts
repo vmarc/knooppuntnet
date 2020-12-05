@@ -105,7 +105,9 @@ export class LongDistanceRoutesTableComponent {
     filter(r => r != null),
     tap(response => {
       if (response.result) {
-        this.dataSource.data = response.result.details as LongDistanceRouteDetail[];
+        // @ts-ignore
+        const details: LongDistanceRouteDetail[] = response.result.details as LongDistanceRouteDetail[];
+        this.dataSource.data = details;
       }
     })
   );

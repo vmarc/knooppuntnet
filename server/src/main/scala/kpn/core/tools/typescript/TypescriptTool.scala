@@ -2,8 +2,8 @@ package kpn.core.tools.typescript
 
 import java.io.File
 import java.io.PrintStream
-
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.status.ActionTimestamp
 import org.apache.commons.io.FileUtils
 
 import scala.jdk.CollectionConverters._

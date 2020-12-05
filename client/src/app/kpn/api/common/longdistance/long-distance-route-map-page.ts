@@ -1,6 +1,8 @@
 // this class is generated, please do not modify
 
+import {List} from 'immutable';
 import {Bounds} from '../bounds';
+import {LongDistanceRouteSegment} from './long-distance-route-segment';
 
 export class LongDistanceRouteMapPage {
 
@@ -13,7 +15,7 @@ export class LongDistanceRouteMapPage {
               readonly nameFr: string,
               readonly bounds: Bounds,
               readonly gpxFilename: string,
-              readonly osmGeometry: string,
+              readonly osmSegments: List<LongDistanceRouteSegment>,
               readonly gpxGeometry: string,
               readonly okGeometry: string,
               readonly nokGeometry: string) {
@@ -33,7 +35,7 @@ export class LongDistanceRouteMapPage {
       jsonObject.nameFr,
       Bounds.fromJSON(jsonObject.bounds),
       jsonObject.gpxFilename,
-      jsonObject.osmGeometry,
+      jsonObject.osmSegments ? List(jsonObject.osmSegments.map((json: any) => LongDistanceRouteSegment.fromJSON(json))) : List(),
       jsonObject.gpxGeometry,
       jsonObject.okGeometry,
       jsonObject.nokGeometry

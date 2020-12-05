@@ -93,7 +93,7 @@ class LongDistanceFacadeImpl(
           route.nameFr,
           route.bounds,
           route.gpxFilename,
-          route.osmGeometry,
+          route.osmSegments,
           route.gpxGeometry,
           route.okGeometry,
           route.nokGeometry
