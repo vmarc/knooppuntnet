@@ -1,5 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../core/core.state';
+import {selectLongDistanceRouteName} from '../../core/longdistance/long-distance.selectors';
 
 @Component({
   selector: 'kpn-long-distance-route-page-header',
@@ -11,8 +14,8 @@ import {Component, Input} from '@angular/core';
       <li>Route</li>
     </ul>
 
-    <h1>
-      Long distance route
+    <h1 class="title">
+      {{routeName$ | async}}
     </h1>
 
     <kpn-page-menu>
@@ -35,12 +38,24 @@ import {Component, Input} from '@angular/core';
       </kpn-page-menu-option>
 
     </kpn-page-menu>
-  `
+  `,
+  styles: [`
+    .title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  `]
 })
 export class LongDistanceRoutePageHeaderComponent {
 
   @Input() pageName: string;
   @Input() routeId: number;
   @Input() pageTitle: string;
+
+  routeName$ = this.store.select(selectLongDistanceRouteName);
+
+  constructor(private store: Store<AppState>) {
+  }
 
 }

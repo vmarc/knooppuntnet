@@ -21,8 +21,10 @@ export const longDistanceReducer = createReducer(
       ...state,
       routes: null,
       details: null,
+      changes: null,
       map: null,
-      changes: null
+      mapMode: null,
+      mapFocus: null
     })
   ),
   on(

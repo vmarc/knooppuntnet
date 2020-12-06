@@ -28,30 +28,10 @@ import {LongDistanceRouteMapService} from './long-distance-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-long-distance-route-page-header pageName="map" [routeId]="routeId$ | async"></kpn-long-distance-route-page-header>
-
-    <!--    <div *ngIf="response$ | async as response" class="kpn-spacer-above">-->
-    <!--      <div *ngIf="!response.result">-->
-    <!--        Route not found-->
-    <!--      </div>-->
-    <!--      <div *ngIf="response.result">-->
-    <!--        Not implemented yet-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <div id="long-distance-map" class="map">
+    <div id="long-distance-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
     </div>
-  `,
-  styles: [`
-    .map {
-      position: absolute;
-      top: 48px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: white;
-      overflow: hidden;
-    }
-  `]
+  `
 })
 export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
 
@@ -72,47 +52,55 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
 
-    this.response$.pipe(filter(x => x != null)).subscribe(response => {
+    this.subscriptions.add(
+      this.response$.pipe(filter(x => x != null)).subscribe(response => {
 
-      const layers: MapLayer[] = [];
-      const osmLayer = new OsmLayer(this.i18nService).build();
-      osmLayer.layer.setVisible(false);
-      layers.push(osmLayer);
+        const layers: MapLayer[] = [];
+        const osmLayer = new OsmLayer(this.i18nService).build();
+        osmLayer.layer.setVisible(false);
+        layers.push(osmLayer);
 
-      const backgroundLayer = new BackgroundLayer(this.i18nService).build('long-distance-map');
-      backgroundLayer.layer.setVisible(true);
-      layers.push(backgroundLayer);
+        const backgroundLayer = new BackgroundLayer(this.i18nService).build('long-distance-map');
+        backgroundLayer.layer.setVisible(true);
+        layers.push(backgroundLayer);
 
-      this.mapLayers = new MapLayers(List(layers));
+        this.mapLayers = new MapLayers(List(layers));
 
-      this.map = new Map({
-        target: 'long-distance-map',
-        layers: this.mapLayers.toArray(),
-        controls: MapControls.build(),
-        view: new View({
-          minZoom: 0,
-          maxZoom: ZoomLevel.vectorTileMaxOverZoom
-        })
-      });
+        this.map = new Map({
+          target: 'long-distance-map',
+          layers: this.mapLayers.toArray(),
+          controls: MapControls.build(),
+          view: new View({
+            minZoom: 0,
+            maxZoom: ZoomLevel.vectorTileMaxOverZoom
+          })
+        });
 
-      this.mapService.layers().forEach(layer => this.map.addLayer(layer));
+        this.mapService.layers().forEach(layer => {
+          this.map.addLayer(layer);
+          setTimeout(() => layer.changed(), 1000);
+        });
 
-      this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
+        this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
 
-      this.subscriptions.add(
-        this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
-          if (bounds) {
-            this.map.getView().fit(Util.toExtent(bounds, 0.1));
-          }
-        })
-      );
-
-    });
+        this.subscriptions.add(
+          this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
+            if (bounds) {
+              this.map.getView().fit(Util.toExtent(bounds, 0.1));
+            }
+          })
+        );
+      })
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     this.pageService.showFooter = true;
+    if (this.map) {
+      this.map.dispose();
+      this.map.setTarget(null);
+    }
   }
 
 }

@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../core/core.state';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
@@ -53,11 +54,21 @@ import {selectLongDistanceRouteDetails} from '../../core/longdistance/long-dista
           </p>
         </kpn-data>
 
-        <button mat-raised-button color="primary" (click)="gpxUpload()">GPX Upload</button>
+        <div class="buttons">
+          <button mat-raised-button color="primary" (click)="gpxDownload()">Download GPX file</button>
+          <button mat-raised-button (click)="gpxUpload()">Upload GPX file</button>
+        </div>
       </div>
     </div>
   `,
   styles: [`
+    .buttons {
+      display: flex;
+    }
+
+    .buttons :not(:last-child) {
+      margin-right: 1em;
+    }
   `]
 })
 export class LongDistanceRouteDetailsComponent {
@@ -65,10 +76,24 @@ export class LongDistanceRouteDetailsComponent {
   routeId$ = this.store.select(selectLongDistanceRouteId);
   response$ = this.store.select(selectLongDistanceRouteDetails);
 
-  constructor(private store: Store<AppState>) {
+  constructor(private snackBar: MatSnackBar,
+              private store: Store<AppState>) {
   }
 
   gpxUpload(): void {
+    this.snackBar.open(
+      'Sorry, GPX file upload not implemented yet',
+      'close',
+      {panelClass: ['mat-toolbar', 'mat-primary']}
+    );
+  }
+
+  gpxDownload(): void {
+    this.snackBar.open(
+      'Sorry, GPX file download not implemented yet',
+      'close',
+      {panelClass: ['mat-toolbar', 'mat-primary']}
+    );
   }
 
 }

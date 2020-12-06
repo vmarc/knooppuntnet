@@ -112,30 +112,28 @@ export class LongDistanceRouteMapService {
 
     this.subscriptions.add(
       this.response$.subscribe(response => {
+        this.gpxLayer.getSource().clear();
         if (response?.result?.gpxGeometry) {
           const features = new GeoJSON().readFeatures(response.result.gpxGeometry, {featureProjection: 'EPSG:3857'});
-          this.gpxLayer.setSource(new VectorSource({features}));
-        } else {
-          this.gpxLayer.setSource(new VectorSource());
+          this.gpxLayer.getSource().addFeatures(features);
         }
 
+        this.gpxOkLayer.getSource().clear();
         if (response?.result?.okGeometry) {
           const features = new GeoJSON().readFeatures(response.result.okGeometry, {featureProjection: 'EPSG:3857'});
-          this.gpxOkLayer.setSource(new VectorSource({features}));
-        } else {
-          this.gpxOkLayer.setSource(new VectorSource());
+          this.gpxOkLayer.getSource().addFeatures(features);
         }
 
+        this.gpxNokLayer.getSource().clear();
         if (response?.result?.nokSegments) {
           let features = [];
           response.result.nokSegments.forEach(segment => {
             new GeoJSON().readFeatures(segment.geoJson, {featureProjection: 'EPSG:3857'}).forEach(feature => features.push(feature));
           });
-          this.gpxNokLayer.setSource(new VectorSource({features}));
-        } else {
-          this.gpxNokLayer.setSource(new VectorSource());
+          this.gpxNokLayer.getSource().addFeatures(features);
         }
 
+        this.osmRelationLayer.getSource().clear();
         if (response?.result?.osmSegments) {
           let features = [];
           response.result.osmSegments.forEach(segment => {
@@ -144,9 +142,7 @@ export class LongDistanceRouteMapService {
               features.push(feature);
             });
           });
-          this.osmRelationLayer.setSource(new VectorSource({features}));
-        } else {
-          this.osmRelationLayer.setSource(new VectorSource());
+          this.osmRelationLayer.getSource().addFeatures(features);
         }
       })
     );
