@@ -6,6 +6,7 @@ import VectorSource from 'ol/source/Vector';
 import {Stroke} from 'ol/style';
 import {Style} from 'ol/style';
 import {AppState} from '../../core/core.state';
+import {selectLongDistanceRouteMapGpxEnabled} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapMode} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapGpxOkVisible} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapGpxNokVisible} from '../../core/longdistance/long-distance.selectors';
@@ -44,7 +45,8 @@ export class LongDistanceRouteMapService {
 
   private readonly subscriptions = new Subscriptions();
 
-  private mode: string;
+  private mode = '';
+  private gpxTraceAvailable = false;
 
   constructor(private store: Store<AppState>) {
     this.gpxLayer = this.buildGpxLayer();
@@ -57,6 +59,12 @@ export class LongDistanceRouteMapService {
       this.store.select(selectLongDistanceRouteMapMode).subscribe(mode => {
         this.mode = mode;
         this.osmRelationLayer.changed();
+      })
+    );
+
+    this.subscriptions.add(
+      this.store.select(selectLongDistanceRouteMapGpxEnabled).subscribe(enabled => {
+        this.gpxTraceAvailable = enabled;
       })
     );
   }
@@ -195,13 +203,18 @@ export class LongDistanceRouteMapService {
   private buildOsmRelationLayer(): VectorLayer {
 
     const self = this;
-    const defaultStyle = this.fixedStyle('yellow', 10);
+    const thinStyle = this.fixedStyle('yellow', 4);
+    const thickStyle = this.fixedStyle('yellow', 10);
     const styleFunction = function (feature) {
       if (self.mode === 'osm-segments') {
         const segmentId = feature.get('segmentId');
         return self.styleForSegmentId(segmentId);
       }
-      return defaultStyle;
+      if (self.gpxTraceAvailable) {
+        return thickStyle;
+      }
+
+      return thinStyle;
     };
 
     return new VectorLayer({

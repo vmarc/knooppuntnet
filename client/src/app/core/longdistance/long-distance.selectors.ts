@@ -111,20 +111,36 @@ export const selectLongDistanceRouteMapOsmRelationVisible = createSelector(
 
 export const selectLongDistanceRouteMapGpxEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => !! state.map?.result?.gpxGeometry
+  (state: LongDistanceState) => !!state.map?.result?.gpxGeometry
 );
 
 export const selectLongDistanceRouteMapGpxOkEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => !! state.map?.result?.okGeometry && state.mapMode === 'comparison'
+  (state: LongDistanceState) => !!state.map?.result?.okGeometry && state.mapMode === 'comparison'
 );
 
 export const selectLongDistanceRouteMapGpxNokEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => !! state.map?.result?.nokSegments && state.mapMode === 'comparison'
+  (state: LongDistanceState) => {
+    if (state.mapMode === 'comparison') {
+      if (!!state.map?.result?.nokSegments) {
+        // @ts-ignore
+        const xx = state.map.result.nokSegments as [];
+        return xx.length > 0;
+      }
+    }
+    return false;
+  }
 );
 
 export const selectLongDistanceRouteMapOsmRelationEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => !! state.map?.result?.osmSegments
+  (state: LongDistanceState) => {
+    if (!!state.map?.result?.osmSegments) {
+      // @ts-ignore
+      const xx = state.map.result.osmSegments as [];
+      return xx.length > 0;
+    }
+    return false;
+  }
 );

@@ -3,8 +3,7 @@ import {MatSelectionListChange} from '@angular/material/list';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../core/core.state';
 import {actionLongDistanceRouteMapFocus} from '../../core/longdistance/long-distance.actions';
-import {selectLongDistanceRouteMapNokSegmentsCount} from '../../core/longdistance/long-distance.selectors';
-import {selectLongDistanceRouteMapFocusNokSegmentId} from '../../core/longdistance/long-distance.selectors';
+import {selectLongDistanceRouteMapGpxEnabled} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapNokSegments} from '../../core/longdistance/long-distance.selectors';
 import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/long-distance-route-nok-segment';
 
@@ -12,7 +11,13 @@ import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/lon
   selector: 'kpn-long-distance-route-map-nok-segments',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
+    <div *ngIf="gpxTraceAvailable$ | async; then gpxTrace else noGpxTrace"></div>
+    <ng-template #noGpxTrace>
+      <p>
+        No GPX, no known deviations
+      </p>
+    </ng-template>
+    <ng-template #gpxTrace>
       <p class="segments-title">
         <span>GPX segments where OSM is deviating</span>
       </p>
@@ -34,8 +39,7 @@ import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/lon
           </div>
         </mat-list-option>
       </mat-selection-list>
-
-    </div>
+    </ng-template>
   `,
   styles: [`
 
@@ -64,9 +68,8 @@ import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/lon
 export class LongDistanceRouteMapNokSegmentsComponent {
 
   segments$ = this.store.select(selectLongDistanceRouteMapNokSegments);
-  segmentCount$ = this.store.select(selectLongDistanceRouteMapNokSegmentsCount);
 
-  nokSegmentId$ = this.store.select(selectLongDistanceRouteMapFocusNokSegmentId);
+  gpxTraceAvailable$ = this.store.select(selectLongDistanceRouteMapGpxEnabled);
 
   constructor(private store: Store<AppState>) {
   }

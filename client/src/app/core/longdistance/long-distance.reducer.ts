@@ -56,8 +56,21 @@ export const longDistanceReducer = createReducer(
       const routeName = response.result?.name ?? state.routeName;
       const mapGpxVisible = false;
       const mapGpxOkVisible = !!(response.result?.okGeometry);
-      const mapGpxNokVisible = !!(response.result?.nokSegments);
-      const mapOsmRelationVisible = !!(response.result?.osmSegments);
+
+      let mapGpxNokVisible = false;
+      if (!!response.result?.nokSegments) {
+        // @ts-ignore
+        const xx = response.result.nokSegments as [];
+        mapGpxNokVisible = xx.length > 0;
+      }
+
+      let mapOsmRelationVisible = false;
+      if (!!response.result?.osmSegments) {
+        // @ts-ignore
+        const xx = response.result.osmSegments as [];
+        mapOsmRelationVisible = xx.length > 0;
+      }
+
       return {
         ...state,
         routeId,
@@ -94,8 +107,19 @@ export const longDistanceReducer = createReducer(
       let mapOsmRelationVisible = false;
       if (mode === 'comparison') {
         mapGpxOkVisible = !!(state.map?.result?.gpxGeometry);
-        mapGpxNokVisible = !!(state.map?.result?.nokSegments);
-        mapOsmRelationVisible = !!(state.map?.result?.osmSegments);
+
+        if (!!(state.map.result?.nokSegments)) {
+          // @ts-ignore
+          const xx = state.map.result.nokSegments as [];
+          mapGpxNokVisible = xx.length > 0;
+        }
+
+        if (!!(state.map.result?.osmSegments)) {
+          // @ts-ignore
+          const xx = state.map.result.osmSegments as [];
+          mapOsmRelationVisible = xx.length > 0;
+        }
+
       } else if (mode === 'osm-segments') {
         mapOsmRelationVisible = true;
       }
