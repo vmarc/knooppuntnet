@@ -1,6 +1,7 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionLongDistanceRouteMapMode} from './long-distance.actions';
 import {actionLongDistanceRouteMapFocus} from './long-distance.actions';
 import {actionLongDistanceRoutesLoaded} from './long-distance.actions';
 import {actionLongDistanceRouteChangesLoaded} from './long-distance.actions';
@@ -51,6 +52,7 @@ export const longDistanceReducer = createReducer(
         ...state,
         routeId,
         routeName,
+        mapMode: 'comparison',
         map: response
       };
     }
@@ -65,6 +67,15 @@ export const longDistanceReducer = createReducer(
         routeId,
         routeName,
         changes: response
+      };
+    }
+  ),
+  on(
+    actionLongDistanceRouteMapMode,
+    (state, {mode}) => {
+      return {
+        ...state,
+        mapMode: mode
       };
     }
   ),

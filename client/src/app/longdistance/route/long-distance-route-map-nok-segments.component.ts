@@ -1,7 +1,9 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatSelectionListChange} from '@angular/material/list';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../core/core.state';
 import {actionLongDistanceRouteMapFocus} from '../../core/longdistance/long-distance.actions';
+import {selectLongDistanceRouteMapNokSegmentsCount} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapFocusNokSegmentId} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapNokSegments} from '../../core/longdistance/long-distance.selectors';
 import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/long-distance-route-nok-segment';
@@ -10,71 +12,70 @@ import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/lon
   selector: 'kpn-long-distance-route-map-nok-segments',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="segments">
-      <p>
-        <span>Deviating segments</span>
+    <div>
+      <p class="segments-title">
+        <span>GPX segments where OSM is deviating</span>
       </p>
-      <table class="segment-table">
-        <tr>
-          <th>
-            <svg height="30" width="70">
-              <line x1="0" y1="15" x2="60" y2="15" style="stroke:red;stroke-width:3"/>
-            </svg>
-          </th>
-          <th>Deviation</th>
-          <th class="segment-distance">Length</th>
-        </tr>
 
-        <tr *ngFor="let segment of segments$ | async" [ngClass]="{'selected': (nokSegmentId$ | async) == segment.id}">
-          <td>
-            <button (click)="focus(segment)">Focus</button>
-          </td>
-          <td>
-            {{segment.distance | distance}}
-          </td>
-          <td class="segment-distance">
-            {{segment.meters | distance}}
-          </td>
-        </tr>
-      </table>
+      <div class="segment segment-header">
+        <span class="segment-id">
+          <kpn-legend-line color="red"></kpn-legend-line>
+        </span>
+        <span class="segment-deviation">Deviation</span>
+        <span>Length</span>
+      </div>
+
+      <mat-selection-list [multiple]="false" (selectionChange)="selectionChanged($event)">
+        <mat-list-option *ngFor="let segment of segments$ | async" [value]="segment">
+          <div class="segment">
+            <span class="segment-id">{{segment.id}}</span>
+            <span class="segment-deviation">{{segment.distance | distance}}</span>
+            <span>{{segment.meters | distance}}</span>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+
     </div>
   `,
   styles: [`
 
-    .segments {
-      padding: 15px;
-      border-bottom: 1px solid lightgray;
+    .segments-title {
+      padding-top: 1em;
     }
 
-    .selected {
-      background-color: #eeeeee;
+    .segment {
+      display: flex;
     }
 
-    .segment-table {
-      border-spacing: 0;
-      border-collapse: separate;
+    .segment-header {
+      padding-left: 1em;
     }
 
-    .segment-table td {
-      padding: 3px;
+    .segment-id {
+      width: 3em;
     }
 
-    .segment-distance {
-      text-align: left;
-      width: 100%;
+    .segment-deviation {
+      width: 5em;
     }
+
   `]
 })
 export class LongDistanceRouteMapNokSegmentsComponent {
 
   segments$ = this.store.select(selectLongDistanceRouteMapNokSegments);
+  segmentCount$ = this.store.select(selectLongDistanceRouteMapNokSegmentsCount);
+
   nokSegmentId$ = this.store.select(selectLongDistanceRouteMapFocusNokSegmentId);
 
   constructor(private store: Store<AppState>) {
   }
 
-  focus(segment: LongDistanceRouteNokSegment): void {
-    this.store.dispatch(actionLongDistanceRouteMapFocus({segmentId: segment.id, bounds: segment.bounds}));
+  selectionChanged(event: MatSelectionListChange): void {
+    if (event.options.length > 0) {
+      const segment: LongDistanceRouteNokSegment = event.options[0].value;
+      this.store.dispatch(actionLongDistanceRouteMapFocus({segmentId: segment.id, bounds: segment.bounds}));
+    }
   }
 
 }

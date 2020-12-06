@@ -116,7 +116,7 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
             }
 
             val (okOption: Option[MultiLineString], nokSegments: Seq[LongDistanceRouteNokSegment]) = gpxLineStringOption match {
-              case None => (None, None)
+              case None => (None, Seq())
               case Some(gpxLineString) =>
 
                 val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / toMeters(gpxLineString.getLength)
@@ -157,7 +157,12 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
                     geoJson
                   )
                 }
-                (Some(ok), nok.sortBy(_.distance).reverse)
+
+                val xx: Seq[LongDistanceRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
+                  s.copy(id = index +1)
+                }
+
+                (Some(ok), xx)
             }
 
             val gpxDistance = Math.round(toMeters(gpxLineStringOption.map(_.getLength).getOrElse(0)) / 1000)

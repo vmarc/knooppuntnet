@@ -27,6 +27,11 @@ export const actionLongDistanceRouteChangesLoaded = createAction(
   props<{ response: ApiResponse<LongDistanceRouteChangesPage> }>()
 );
 
+export const actionLongDistanceRouteMapMode = createAction(
+  '[Long distance] Map mode',
+  props<{ mode: string }>()
+);
+
 export const actionLongDistanceRouteMapFocus = createAction(
   '[Long distance] Focus',
   props<{ segmentId: number, bounds: Bounds }>()

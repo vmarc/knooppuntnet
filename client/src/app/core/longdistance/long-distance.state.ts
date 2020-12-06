@@ -12,6 +12,7 @@ export const initialState: LongDistanceState = {
   details: null,
   map: null,
   changes: null,
+  mapMode: null,
   mapFocusNokSegmentId: null,
   mapFocus: null
 };
@@ -23,6 +24,7 @@ export interface LongDistanceState {
   details: ApiResponse<LongDistanceRouteDetailsPage>;
   map: ApiResponse<LongDistanceRouteMapPage>;
   changes: ApiResponse<LongDistanceRouteChangesPage>;
+  mapMode: string,
   mapFocusNokSegmentId: number;
   mapFocus: Bounds;
 }

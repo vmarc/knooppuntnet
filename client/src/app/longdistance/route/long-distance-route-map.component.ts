@@ -113,7 +113,7 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
 
       this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
         if (bounds) {
-          this.map.getView().fit(Util.toExtent(bounds, 0.05));
+          this.map.getView().fit(Util.toExtent(bounds, 0.1));
         }
       });
     });

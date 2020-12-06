@@ -6,9 +6,7 @@ import {Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-long-distance-route-map-legend></kpn-long-distance-route-map-legend>
-      <kpn-long-distance-route-map-segments></kpn-long-distance-route-map-segments>
-      <kpn-long-distance-route-map-nok-segments></kpn-long-distance-route-map-nok-segments>
+      <kpn-long-distance-route-map-control></kpn-long-distance-route-map-control>
     </kpn-sidebar>
   `
 })
