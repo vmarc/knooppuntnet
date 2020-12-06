@@ -14,6 +14,7 @@ import {LegendLineComponent} from './route/legend-line';
 import {LongDistanceRouteChangesComponent} from './route/long-distance-route-changes.component';
 import {LongDistanceRouteDetailsComponent} from './route/long-distance-route-details.component';
 import {LongDistanceRouteMapControlComponent} from './route/long-distance-route-map-control.component';
+import {LongDistanceRouteMapLayersComponent} from './route/long-distance-route-map-layers.component';
 import {LongDistanceRouteMapLegendComponent} from './route/long-distance-route-map-legend.component';
 import {LongDistanceRouteMapNokSegmentsComponent} from './route/long-distance-route-map-nok-segments.component';
 import {LongDistanceRouteMapSegmentsComponent} from './route/long-distance-route-map-segments.component';
@@ -49,7 +50,8 @@ import {LongDistanceRoutesComponent} from './routes/long-distance-routes.compone
     LongDistanceRouteMapSegmentsComponent,
     LongDistanceRouteMapNokSegmentsComponent,
     LegendLineComponent,
-    LongDistanceRouteMapControlComponent
+    LongDistanceRouteMapControlComponent,
+    LongDistanceRouteMapLayersComponent
   ],
   exports: [],
 })

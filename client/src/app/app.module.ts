@@ -18,6 +18,7 @@ import {PageWidthService} from './components/shared/page-width.service';
 import {PageService} from './components/shared/page.service';
 import {SharedModule} from './components/shared/shared.module';
 import {I18nService} from './i18n/i18n.service';
+import {LongDistanceRouteMapService} from './longdistance/route/long-distance-route-map.service';
 import {IconService} from './services/icon.service';
 import {LogUpdateService} from './services/log-update.service';
 import {PoiService} from './services/poi.service';
@@ -79,6 +80,7 @@ import {CoreModule} from './core/core.module';
     IconService,
     PoiService,
     LogUpdateService,
+    LongDistanceRouteMapService
   ],
   bootstrap: [
     AppComponent

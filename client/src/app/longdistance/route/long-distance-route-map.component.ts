@@ -4,15 +4,11 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {List} from 'immutable';
-import {GeoJSON} from 'ol/format';
-import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
-import VectorSource from 'ol/source/Vector';
-import {Style} from 'ol/style';
-import {Stroke} from 'ol/style';
 import View from 'ol/View';
 import {filter} from 'rxjs/operators';
 import {ZoomLevel} from '../../components/ol/domain/zoom-level';
+import {BackgroundLayer} from '../../components/ol/layers/background-layer';
 import {MapControls} from '../../components/ol/layers/map-controls';
 import {MapLayer} from '../../components/ol/layers/map-layer';
 import {MapLayers} from '../../components/ol/layers/map-layers';
@@ -24,7 +20,8 @@ import {selectLongDistanceRouteMapFocus} from '../../core/longdistance/long-dist
 import {selectLongDistanceRouteMap} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
 import {I18nService} from '../../i18n/i18n.service';
-import {LongDistanceRouteNokSegment} from '../../kpn/api/common/longdistance/long-distance-route-nok-segment';
+import {Subscriptions} from '../../util/Subscriptions';
+import {LongDistanceRouteMapService} from './long-distance-route-map.service';
 
 @Component({
   selector: 'kpn-long-distance-route-map',
@@ -64,8 +61,11 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
   mapLayers: MapLayers;
   map: Map;
 
+  private readonly subscriptions = new Subscriptions();
+
   constructor(private i18nService: I18nService,
               private pageService: PageService,
+              private mapService: LongDistanceRouteMapService,
               private store: Store<AppState>) {
     this.pageService.showFooter = false;
   }
@@ -76,26 +76,12 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
 
       const layers: MapLayer[] = [];
       const osmLayer = new OsmLayer(this.i18nService).build();
-      osmLayer.layer.setVisible(true);
+      osmLayer.layer.setVisible(false);
       layers.push(osmLayer);
 
-      if (response.result.gpxGeometry) {
-        layers.push(this.geojsonLayer('GPX', 'rgba(0, 0, 255, 0.9)', response.result.gpxGeometry));
-      }
-
-      if (response.result.osmSegments) {
-        response.result.osmSegments.forEach(s => {
-          layers.push(this.geojsonLayer('OSM', 'rgba(255, 255, 0, 0.9)', s.geoJson));
-        });
-      }
-
-      if (response.result.okGeometry) {
-        layers.push(this.geojsonLayer('OK', 'rgba(0, 255, 0, 0.9)', response.result.okGeometry));
-      }
-
-      if (response.result.nokSegments) {
-        layers.push(this.geojsonLayerSegments('NOK', 'rgba(255, 0, 0, 0.9)', response.result.nokSegments));
-      }
+      const backgroundLayer = new BackgroundLayer(this.i18nService).build('long-distance-map');
+      backgroundLayer.layer.setVisible(true);
+      layers.push(backgroundLayer);
 
       this.mapLayers = new MapLayers(List(layers));
 
@@ -109,77 +95,24 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
         })
       });
 
+      this.mapService.layers().forEach(layer => this.map.addLayer(layer));
+
       this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
 
-      this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
-        if (bounds) {
-          this.map.getView().fit(Util.toExtent(bounds, 0.1));
-        }
-      });
+      this.subscriptions.add(
+        this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
+          if (bounds) {
+            this.map.getView().fit(Util.toExtent(bounds, 0.1));
+          }
+        })
+      );
+
     });
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
     this.pageService.showFooter = true;
-  }
-
-  private geojsonLayer(name: string, color: string, geoJson: string): MapLayer {
-    const features = new GeoJSON().readFeatures(geoJson, {featureProjection: 'EPSG:3857'});
-
-    const vectorSource = new VectorSource({
-      features
-    });
-
-    const locationStyle = new Style({
-      stroke: new Stroke({
-        color,
-        width: 4
-      })
-    });
-
-    const styleFunction = function (feature) {
-      return locationStyle;
-    };
-
-    const layer = new VectorLayer({
-      source: vectorSource,
-      style: styleFunction
-    });
-
-    layer.set('name', name);
-    layer.setVisible(true);
-    return new MapLayer(name, layer);
-  }
-
-  private geojsonLayerSegments(name: string, color: string, segments: List<LongDistanceRouteNokSegment>): MapLayer {
-
-    const features = segments.flatMap(segment => {
-      return new GeoJSON().readFeatures(segment.geoJson, {featureProjection: 'EPSG:3857'});
-    });
-
-    const vectorSource = new VectorSource({
-      features
-    });
-
-    const locationStyle = new Style({
-      stroke: new Stroke({
-        color,
-        width: 4
-      })
-    });
-
-    const styleFunction = function (feature) {
-      return locationStyle;
-    };
-
-    const layer = new VectorLayer({
-      source: vectorSource,
-      style: styleFunction
-    });
-
-    layer.set('name', name);
-    layer.setVisible(true);
-    return new MapLayer(name, layer);
   }
 
 }

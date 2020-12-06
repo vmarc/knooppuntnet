@@ -10,11 +10,15 @@ export const initialState: LongDistanceState = {
   routeName: '',
   routes: null,
   details: null,
-  map: null,
   changes: null,
+  map: null,
   mapMode: null,
   mapFocusNokSegmentId: null,
-  mapFocus: null
+  mapFocus: null,
+  mapGpxVisible: false,
+  mapGpxOkVisible: false,
+  mapGpxNokVisible: false,
+  mapOsmRelationVisible: false
 };
 
 export interface LongDistanceState {
@@ -22,9 +26,13 @@ export interface LongDistanceState {
   routeName: string;
   routes: ApiResponse<LongDistanceRoutesPage>;
   details: ApiResponse<LongDistanceRouteDetailsPage>;
-  map: ApiResponse<LongDistanceRouteMapPage>;
   changes: ApiResponse<LongDistanceRouteChangesPage>;
+  map: ApiResponse<LongDistanceRouteMapPage>;
   mapMode: string,
   mapFocusNokSegmentId: number;
   mapFocus: Bounds;
+  mapGpxVisible: boolean;
+  mapGpxOkVisible: boolean;
+  mapGpxNokVisible: boolean;
+  mapOsmRelationVisible: boolean;
 }

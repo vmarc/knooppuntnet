@@ -27,36 +27,7 @@ import {selectLongDistanceRouteMapOsmSegmentCount} from '../../core/longdistance
         </mat-radio-group>
       </div>
 
-      <div class="comparison-legend">
-
-        <mat-checkbox>
-          <div class="kpn-line">
-            <kpn-legend-line color="blue"></kpn-legend-line>
-            <span>GPX trace</span>
-          </div>
-        </mat-checkbox>
-
-        <mat-checkbox *ngIf="mode === 'comparison'">
-          <div class="kpn-line">
-            <kpn-legend-line color="green"></kpn-legend-line>
-            <span>GPX same as OSM</span>
-          </div>
-        </mat-checkbox>
-
-        <mat-checkbox *ngIf="mode === 'comparison'">
-          <div class="kpn-line">
-            <kpn-legend-line color="red"></kpn-legend-line>
-            <span>GPX where OSM is deviating</span>
-          </div>
-        </mat-checkbox>
-
-        <mat-checkbox *ngIf="mode === 'comparison'">
-          <div class="kpn-line">
-            <kpn-legend-line color="yellow"></kpn-legend-line>
-            <span>OSM relation</span>
-          </div>
-        </mat-checkbox>
-      </div>
+      <kpn-long-distance-route-map-layers></kpn-long-distance-route-map-layers>
 
       <kpn-long-distance-route-map-nok-segments *ngIf="mode === 'comparison'">
       </kpn-long-distance-route-map-nok-segments>
@@ -70,10 +41,6 @@ import {selectLongDistanceRouteMapOsmSegmentCount} from '../../core/longdistance
 
     .control {
       padding: 1em;
-    }
-
-    .comparison-legend {
-      margin-top: 1em;
     }
 
     mat-radio-button {

@@ -36,3 +36,23 @@ export const actionLongDistanceRouteMapFocus = createAction(
   '[Long distance] Focus',
   props<{ segmentId: number, bounds: Bounds }>()
 );
+
+export const actionLongDistanceRouteMapGpxVisible = createAction(
+  '[Long distance] Map gpx visible',
+  props<{ visible: boolean }>()
+);
+
+export const actionLongDistanceRouteMapGpxOkVisible = createAction(
+  '[Long distance] Map gpx ok visible',
+  props<{ visible: boolean }>()
+);
+
+export const actionLongDistanceRouteMapGpxNokVisible = createAction(
+  '[Long distance] Map gpx nok visible',
+  props<{ visible: boolean }>()
+);
+
+export const actionLongDistanceRouteMapOsmRelationVisible = createAction(
+  '[Long distance] Map osm relation visible',
+  props<{ visible: boolean }>()
+);

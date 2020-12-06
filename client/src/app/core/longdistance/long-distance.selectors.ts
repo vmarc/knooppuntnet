@@ -88,3 +88,43 @@ export const selectLongDistanceRouteMapFocusNokSegmentId = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => state.mapFocusNokSegmentId
 );
+
+export const selectLongDistanceRouteMapGpxVisible = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.mapGpxVisible
+);
+
+export const selectLongDistanceRouteMapGpxOkVisible = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.mapGpxOkVisible
+);
+
+export const selectLongDistanceRouteMapGpxNokVisible = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.mapGpxNokVisible
+);
+
+export const selectLongDistanceRouteMapOsmRelationVisible = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.mapOsmRelationVisible
+);
+
+export const selectLongDistanceRouteMapGpxEnabled = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => !! state.map?.result?.gpxGeometry && state.mapMode === 'comparison'
+);
+
+export const selectLongDistanceRouteMapGpxOkEnabled = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => !! state.map?.result?.okGeometry && state.mapMode === 'comparison'
+);
+
+export const selectLongDistanceRouteMapGpxNokEnabled = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => !! state.map?.result?.nokSegments && state.mapMode === 'comparison'
+);
+
+export const selectLongDistanceRouteMapOsmRelationEnabled = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => !! state.map?.result?.osmSegments
+);
