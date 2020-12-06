@@ -111,7 +111,7 @@ export const selectLongDistanceRouteMapOsmRelationVisible = createSelector(
 
 export const selectLongDistanceRouteMapGpxEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => !! state.map?.result?.gpxGeometry && state.mapMode === 'comparison'
+  (state: LongDistanceState) => !! state.map?.result?.gpxGeometry
 );
 
 export const selectLongDistanceRouteMapGpxOkEnabled = createSelector(
