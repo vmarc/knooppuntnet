@@ -77,7 +77,7 @@ export class LongDistanceRouteMapNokSegmentsComponent {
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
       const segment: LongDistanceRouteNokSegment = event.options[0].value;
-      this.store.dispatch(actionLongDistanceRouteMapFocus({segmentId: segment.id, bounds: segment.bounds}));
+      this.store.dispatch(actionLongDistanceRouteMapFocus({bounds: segment.bounds}));
     }
   }
 

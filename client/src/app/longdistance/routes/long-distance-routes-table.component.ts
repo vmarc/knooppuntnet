@@ -44,6 +44,20 @@ import {ApiResponse} from '../../kpn/api/custom/api-response';
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="gpxHappy">
+          <th mat-header-cell *matHeaderCellDef>GPX</th>
+          <td mat-cell *matCellDef="let route">
+            <mat-icon *ngIf="route.gpxHappy" svgIcon="happy"></mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="osmHappy">
+          <th mat-header-cell *matHeaderCellDef>OSM</th>
+          <td mat-cell *matCellDef="let route">
+            <mat-icon *ngIf="route.osmHappy" svgIcon="happy"></mat-icon>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let route">
@@ -105,9 +119,7 @@ export class LongDistanceRoutesTableComponent {
     filter(r => r != null),
     tap(response => {
       if (response.result) {
-        // @ts-ignore
-        const details: LongDistanceRouteDetail[] = response.result.details as LongDistanceRouteDetail[];
-        this.dataSource.data = details;
+        this.dataSource.data = response.result.details;
       }
     })
   );
@@ -118,6 +130,6 @@ export class LongDistanceRoutesTableComponent {
   }
 
   displayedColumns(): string[] {
-    return ['id', 'ref', 'gpx', 'name', 'operator', 'distance', 'wayCount', 'website', 'relation'];
+    return ['id', 'ref', 'gpx', 'gpxHappy', 'osmHappy', 'name', 'operator', 'distance', 'wayCount', 'website', 'relation'];
   }
 }

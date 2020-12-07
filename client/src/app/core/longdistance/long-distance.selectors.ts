@@ -1,5 +1,4 @@
 import {createSelector} from '@ngrx/store';
-import {LongDistanceRouteSegment} from '../../kpn/api/common/longdistance/long-distance-route-segment';
 import {selectLongDistanceState} from '../core.state';
 import {LongDistanceState} from './long-distance.state';
 
@@ -23,6 +22,11 @@ export const selectLongDistanceRouteMapMode = createSelector(
   (state: LongDistanceState) => state.mapMode
 );
 
+export const selectLongDistanceRouteMapBounds = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.map.result.bounds
+);
+
 export const selectLongDistanceRouteMapOsmSegments = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => {
@@ -35,33 +39,17 @@ export const selectLongDistanceRouteMapOsmSegments = createSelector(
 
 export const selectLongDistanceRouteMapOsmSegmentCount = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => {
-    const segments = state.map?.result?.osmSegments;
-    if (segments) {
-      // @ts-ignore
-      return (segments as LongDistanceRouteSegment[]).length;
-    }
-    return 0;
-  }
+  (state: LongDistanceState) => state.map?.result?.osmSegments?.length ?? 0
 );
 
 export const selectLongDistanceRouteMapNokSegments = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => {
-    return state.map?.result?.nokSegments ?? [];
-  }
+  (state: LongDistanceState) => state.map?.result?.nokSegments ?? []
 );
 
 export const selectLongDistanceRouteMapNokSegmentsCount = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => {
-    const segments = state.map?.result?.nokSegments;
-    if (segments) {
-      // @ts-ignore
-      return (segments as LongDistanceRouteNokSegment[]).length;
-    }
-    return [];
-  }
+  (state: LongDistanceState) => state.map?.result?.nokSegments?.length ?? 0
 );
 
 export const selectLongDistanceRouteChanges = createSelector(
@@ -77,16 +65,6 @@ export const selectLongDistanceRouteId = createSelector(
 export const selectLongDistanceRouteName = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => state.routeName
-);
-
-export const selectLongDistanceRouteMapFocus = createSelector(
-  selectLongDistanceState,
-  (state: LongDistanceState) => state.mapFocus
-);
-
-export const selectLongDistanceRouteMapFocusNokSegmentId = createSelector(
-  selectLongDistanceState,
-  (state: LongDistanceState) => state.mapFocusNokSegmentId
 );
 
 export const selectLongDistanceRouteMapGpxVisible = createSelector(
@@ -116,31 +94,15 @@ export const selectLongDistanceRouteMapGpxEnabled = createSelector(
 
 export const selectLongDistanceRouteMapGpxOkEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => !!state.map?.result?.okGeometry && state.mapMode === 'comparison'
+  (state: LongDistanceState) => state.mapMode === 'comparison' && !!state.map?.result?.okGeometry
 );
 
 export const selectLongDistanceRouteMapGpxNokEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => {
-    if (state.mapMode === 'comparison') {
-      if (!!state.map?.result?.nokSegments) {
-        // @ts-ignore
-        const xx = state.map.result.nokSegments as [];
-        return xx.length > 0;
-      }
-    }
-    return false;
-  }
+  (state: LongDistanceState) => state.mapMode === 'comparison' && (state.map?.result?.nokSegments?.length ?? 0) > 0
 );
 
 export const selectLongDistanceRouteMapOsmRelationEnabled = createSelector(
   selectLongDistanceState,
-  (state: LongDistanceState) => {
-    if (!!state.map?.result?.osmSegments) {
-      // @ts-ignore
-      const xx = state.map.result.osmSegments as [];
-      return xx.length > 0;
-    }
-    return false;
-  }
+  (state: LongDistanceState) => (state.map?.result?.osmSegments?.length ?? 0) > 0
 );

@@ -1,6 +1,6 @@
 package kpn.api.common.longdistance
 
-import kpn.api.common.Bounds
+import kpn.api.common.BoundsI
 
 case class LongDistanceRoute(
   id: Long,
@@ -16,7 +16,7 @@ case class LongDistanceRoute(
   wayCount: Long,
   osmDistance: Long,
   gpxDistance: Long,
-  bounds: Bounds,
+  bounds: BoundsI,
   gpxFilename: Option[String],
   osmSegments: Seq[LongDistanceRouteSegment],
   gpxGeometry: Option[String],

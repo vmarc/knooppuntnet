@@ -1,4 +1,3 @@
-import {Bounds} from '../../kpn/api/common/bounds';
 import {LongDistanceRouteChangesPage} from '../../kpn/api/common/longdistance/long-distance-route-changes-page';
 import {LongDistanceRouteDetailsPage} from '../../kpn/api/common/longdistance/long-distance-route-details-page';
 import {LongDistanceRouteMapPage} from '../../kpn/api/common/longdistance/long-distance-route-map-page';
@@ -13,8 +12,6 @@ export const initialState: LongDistanceState = {
   changes: null,
   map: null,
   mapMode: null,
-  mapFocusNokSegmentId: null,
-  mapFocus: null,
   mapGpxVisible: false,
   mapGpxOkVisible: false,
   mapGpxNokVisible: false,
@@ -29,8 +26,6 @@ export interface LongDistanceState {
   changes: ApiResponse<LongDistanceRouteChangesPage>;
   map: ApiResponse<LongDistanceRouteMapPage>;
   mapMode: string,
-  mapFocusNokSegmentId: number;
-  mapFocus: Bounds;
   mapGpxVisible: boolean;
   mapGpxOkVisible: boolean;
   mapGpxNokVisible: boolean;

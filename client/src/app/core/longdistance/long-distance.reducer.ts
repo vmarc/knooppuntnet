@@ -6,7 +6,6 @@ import {actionLongDistanceRouteMapGpxOkVisible} from './long-distance.actions';
 import {actionLongDistanceRouteMapOsmRelationVisible} from './long-distance.actions';
 import {actionLongDistanceRouteMapGpxNokVisible} from './long-distance.actions';
 import {actionLongDistanceRouteMapMode} from './long-distance.actions';
-import {actionLongDistanceRouteMapFocus} from './long-distance.actions';
 import {actionLongDistanceRoutesLoaded} from './long-distance.actions';
 import {actionLongDistanceRouteChangesLoaded} from './long-distance.actions';
 import {actionLongDistanceRouteMapLoaded} from './long-distance.actions';
@@ -23,8 +22,7 @@ export const longDistanceReducer = createReducer(
       details: null,
       changes: null,
       map: null,
-      mapMode: null,
-      mapFocus: null
+      mapMode: null
     })
   ),
   on(
@@ -52,24 +50,13 @@ export const longDistanceReducer = createReducer(
   on(
     actionLongDistanceRouteMapLoaded,
     (state, {response}) => {
+
       const routeId = response.result?.id ?? state.routeId;
       const routeName = response.result?.name ?? state.routeName;
       const mapGpxVisible = false;
       const mapGpxOkVisible = !!(response.result?.okGeometry);
-
-      let mapGpxNokVisible = false;
-      if (!!response.result?.nokSegments) {
-        // @ts-ignore
-        const xx = response.result.nokSegments as [];
-        mapGpxNokVisible = xx.length > 0;
-      }
-
-      let mapOsmRelationVisible = false;
-      if (!!response.result?.osmSegments) {
-        // @ts-ignore
-        const xx = response.result.osmSegments as [];
-        mapOsmRelationVisible = xx.length > 0;
-      }
+      let mapGpxNokVisible = (response.result?.nokSegments?.length ?? 0) > 0;
+      let mapOsmRelationVisible = (response.result?.osmSegments?.length ?? 0) > 0;
 
       return {
         ...state,
@@ -107,19 +94,8 @@ export const longDistanceReducer = createReducer(
       let mapOsmRelationVisible = false;
       if (mode === 'comparison') {
         mapGpxOkVisible = !!(state.map?.result?.gpxGeometry);
-
-        if (!!(state.map.result?.nokSegments)) {
-          // @ts-ignore
-          const xx = state.map.result.nokSegments as [];
-          mapGpxNokVisible = xx.length > 0;
-        }
-
-        if (!!(state.map.result?.osmSegments)) {
-          // @ts-ignore
-          const xx = state.map.result.osmSegments as [];
-          mapOsmRelationVisible = xx.length > 0;
-        }
-
+        mapGpxNokVisible = (state.map.result?.nokSegments?.length ?? 0) > 0;
+        mapOsmRelationVisible = (state.map.result?.osmSegments?.length ?? 0) > 0;
       } else if (mode === 'osm-segments') {
         mapOsmRelationVisible = true;
       }
@@ -131,16 +107,6 @@ export const longDistanceReducer = createReducer(
         mapGpxNokVisible,
         mapOsmRelationVisible,
         mapMode: mode
-      };
-    }
-  ),
-  on(
-    actionLongDistanceRouteMapFocus,
-    (state, {segmentId, bounds}) => {
-      return {
-        ...state,
-        mapFocusNokSegmentId: segmentId,
-        mapFocus: bounds
       };
     }
   ),

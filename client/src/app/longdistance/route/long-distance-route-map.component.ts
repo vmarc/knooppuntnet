@@ -16,7 +16,6 @@ import {OsmLayer} from '../../components/ol/layers/osm-layer';
 import {PageService} from '../../components/shared/page.service';
 import {Util} from '../../components/shared/util';
 import {AppState} from '../../core/core.state';
-import {selectLongDistanceRouteMapFocus} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMap} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
 import {I18nService} from '../../i18n/i18n.service';
@@ -76,17 +75,18 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
           })
         });
 
+        this.mapService.setMap(this.map);
+
         this.mapService.layers().forEach(layer => {
           this.map.addLayer(layer);
-          setTimeout(() => layer.changed(), 1000);
         });
 
         this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
 
         this.subscriptions.add(
-          this.store.select(selectLongDistanceRouteMapFocus).subscribe(bounds => {
-            if (bounds) {
-              this.map.getView().fit(Util.toExtent(bounds, 0.1));
+          this.pageService.sidebarOpen.subscribe(state => {
+            if (this.map) {
+              setTimeout(() => this.map.updateSize(), 250);
             }
           })
         );
@@ -95,6 +95,7 @@ export class LongDistanceRouteMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.mapService.setMap(null);
     this.subscriptions.unsubscribe();
     this.pageService.showFooter = true;
     if (this.map) {

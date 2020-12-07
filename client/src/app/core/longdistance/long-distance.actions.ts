@@ -1,6 +1,7 @@
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
 import {Bounds} from '../../kpn/api/common/bounds';
+import {BoundsI} from '../../kpn/api/common/bounds-i';
 import {LongDistanceRouteChangesPage} from '../../kpn/api/common/longdistance/long-distance-route-changes-page';
 import {LongDistanceRouteDetailsPage} from '../../kpn/api/common/longdistance/long-distance-route-details-page';
 import {LongDistanceRouteMapPage} from '../../kpn/api/common/longdistance/long-distance-route-map-page';
@@ -34,7 +35,7 @@ export const actionLongDistanceRouteMapMode = createAction(
 
 export const actionLongDistanceRouteMapFocus = createAction(
   '[Long distance] Focus',
-  props<{ segmentId: number, bounds: Bounds }>()
+  props<{ bounds: BoundsI }>()
 );
 
 export const actionLongDistanceRouteMapGpxVisible = createAction(

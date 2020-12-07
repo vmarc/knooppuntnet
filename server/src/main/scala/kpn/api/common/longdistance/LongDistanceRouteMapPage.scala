@@ -1,6 +1,7 @@
 package kpn.api.common.longdistance
 
 import kpn.api.common.Bounds
+import kpn.api.common.BoundsI
 
 case class LongDistanceRouteMapPage(
   id: Long,
@@ -10,7 +11,7 @@ case class LongDistanceRouteMapPage(
   nameEn: Option[String],
   nameDe: Option[String],
   nameFr: Option[String],
-  bounds: Bounds,
+  bounds: BoundsI,
   gpxFilename: Option[String],
   osmSegments: Seq[LongDistanceRouteSegment],
   gpxGeometry: Option[String],

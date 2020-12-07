@@ -54,6 +54,28 @@ import {selectLongDistanceRouteDetails} from '../../core/longdistance/long-dista
           </p>
         </kpn-data>
 
+        <kpn-data title="Analysis">
+          <p *ngIf="route.happy">
+            <span>All ok</span>
+          </p>
+          <div *ngIf="!route.gpxFilename && route.osmSegmentCount == 1 && route.gpxNokSegmentCount == 0">
+            <p>No GPX, so no known deviations.</p>
+            <p>The OSM route looks ok: a GPX trace can be created from it.</p>
+          </div>
+          <div *ngIf="route.osmSegmentCount > 1" class="kpn-line warning-line">
+            <div>
+              <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>
+            </div>
+            <span>The OSM route relation contains {{route.osmSegmentCount}} segments. It will not be possible to create a GPX trace from it.</span>
+          </div>
+          <div *ngIf="route.gpxNokSegmentCount > 0" class="kpn-line warning-line">
+            <div>
+              <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>
+            </div>
+            <span>There are {{route.gpxNokSegmentCount}} segments in the GPX trace where the distance to the closest OSM way is more than 10 meters.</span>
+          </div>
+        </kpn-data>
+
         <div class="buttons">
           <button mat-raised-button color="primary" (click)="gpxDownload()">Download GPX file</button>
           <button mat-raised-button (click)="gpxUpload()">Upload GPX file</button>
@@ -63,11 +85,21 @@ import {selectLongDistanceRouteDetails} from '../../core/longdistance/long-dista
   `,
   styles: [`
     .buttons {
+      padding-top: 2em;
       display: flex;
     }
 
     .buttons :not(:last-child) {
       margin-right: 1em;
+    }
+
+    .warning-line {
+      padding-bottom: 1em;
+    }
+
+    .warning-icon {
+      width: 2em;
+      height: 2em;
     }
   `]
 })

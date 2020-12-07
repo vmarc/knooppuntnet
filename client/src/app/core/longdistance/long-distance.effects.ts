@@ -4,14 +4,17 @@ import {createEffect} from '@ngrx/effects';
 import {ofType} from '@ngrx/effects';
 import {routerNavigatedAction} from '@ngrx/router-store';
 import {Store} from '@ngrx/store';
+import {tap} from 'rxjs/operators';
 import {withLatestFrom} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {filter} from 'rxjs/operators';
 import {mergeMap} from 'rxjs/operators';
 import {AppService} from '../../app.service';
+import {LongDistanceRouteMapService} from '../../longdistance/route/long-distance-route-map.service';
 import {AppState} from '../core.state';
 import {selectUrl} from '../core.state';
 import {selectRouteParams} from '../core.state';
+import {actionLongDistanceRouteMapFocus} from './long-distance.actions';
 import {actionLongDistanceRouteMapLoaded} from './long-distance.actions';
 import {actionLongDistanceRoutesLoaded} from './long-distance.actions';
 import {actionLongDistanceRouteDetailsLoaded} from './long-distance.actions';
@@ -19,10 +22,20 @@ import {actionLongDistanceRouteChangesLoaded} from './long-distance.actions';
 
 @Injectable()
 export class LongDistanceEffects {
+
   constructor(private actions$: Actions,
               private store: Store<AppState>,
-              private appService: AppService) {
+              private appService: AppService,
+              private mapService: LongDistanceRouteMapService) {
   }
+
+  mapFocusEffect = createEffect(() =>
+      this.actions$.pipe(
+        ofType(actionLongDistanceRouteMapFocus),
+        tap(action => this.mapService.focus(action.bounds))
+      ),
+    {dispatch: false}
+  );
 
   longDistancePageEnter = createEffect(() =>
     this.actions$.pipe(

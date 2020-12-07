@@ -1,6 +1,7 @@
 package kpn.core.tools.longdistance
 
 import kpn.api.common.Bounds
+import kpn.api.common.BoundsI
 import kpn.api.common.longdistance.LongDistanceRoute
 import kpn.api.common.longdistance.LongDistanceRouteNokSegment
 import kpn.api.common.longdistance.LongDistanceRouteSegment
@@ -146,7 +147,7 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
 
                   val lineString = toLineString(sampleCoordinates, segment)
                   val meters: Long = Math.round(toMeters(lineString.getLength))
-                  val bounds = toBounds(lineString.getCoordinates.toSeq)
+                  val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
                   val geoJson = toGeoJson(lineString)
 
                   LongDistanceRouteNokSegment(
@@ -280,7 +281,7 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
 
       val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
       val meters: Long = Math.round(toMeters(lineString.getLength))
-      val bounds = toBounds(lineString.getCoordinates.toSeq)
+      val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
       val geoJson = toGeoJson(lineString)
 
       LongDistanceRouteSegmentData(
@@ -308,12 +309,12 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
     )
   }
 
-  private def mergeBounds(boundss: Seq[Bounds]): Bounds = {
+  private def mergeBounds(boundss: Seq[BoundsI]): BoundsI = {
     val minLat = boundss.map(_.minLat).min
     val maxLat = boundss.map(_.maxLat).max
     val minLon = boundss.map(_.minLon).min
     val maxLon = boundss.map(_.maxLon).max
-    new Bounds(
+    BoundsI(
       minLat,
       minLon,
       maxLat,

@@ -2,9 +2,11 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {GeoJSON} from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
+import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
 import {Stroke} from 'ol/style';
 import {Style} from 'ol/style';
+import {Util} from '../../components/shared/util';
 import {AppState} from '../../core/core.state';
 import {selectLongDistanceRouteMapGpxEnabled} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapMode} from '../../core/longdistance/long-distance.selectors';
@@ -13,6 +15,7 @@ import {selectLongDistanceRouteMapGpxNokVisible} from '../../core/longdistance/l
 import {selectLongDistanceRouteMapOsmRelationVisible} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapGpxVisible} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMap} from '../../core/longdistance/long-distance.selectors';
+import {BoundsI} from '../../kpn/api/common/bounds-i';
 import {Subscriptions} from '../../util/Subscriptions';
 
 @Injectable({
@@ -48,6 +51,8 @@ export class LongDistanceRouteMapService {
   private mode = '';
   private gpxTraceAvailable = false;
 
+  private map: Map = null;
+
   constructor(private store: Store<AppState>) {
     this.gpxLayer = this.buildGpxLayer();
     this.gpxOkLayer = this.buildGpxOkLayer();
@@ -67,6 +72,16 @@ export class LongDistanceRouteMapService {
         this.gpxTraceAvailable = enabled;
       })
     );
+  }
+
+  setMap(map: Map): void {
+    this.map = map;
+  }
+
+  focus(bounds: BoundsI): void {
+    if (this.map !== null) {
+      this.map.getView().fit(Util.toExtent(bounds, 0.1));
+    }
   }
 
   layers(): VectorLayer[] {

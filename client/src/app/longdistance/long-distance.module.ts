@@ -16,7 +16,7 @@ import {LongDistanceRouteDetailsComponent} from './route/long-distance-route-det
 import {LongDistanceRouteMapControlComponent} from './route/long-distance-route-map-control.component';
 import {LongDistanceRouteMapLayersComponent} from './route/long-distance-route-map-layers.component';
 import {LongDistanceRouteMapNokSegmentsComponent} from './route/long-distance-route-map-nok-segments.component';
-import {LongDistanceRouteMapSegmentsComponent} from './route/long-distance-route-map-segments.component';
+import {LongDistanceRouteMapOsmSegmentsComponent} from './route/long-distance-route-map-osm-segments.component';
 import {LongDistanceRouteMapSidebarComponent} from './route/long-distance-route-map-sidebar.component';
 import {LongDistanceRouteMapComponent} from './route/long-distance-route-map.component';
 import {LongDistanceRoutePageHeaderComponent} from './route/long-distance-route-page-header.component';
@@ -45,7 +45,7 @@ import {LongDistanceRoutesComponent} from './routes/long-distance-routes.compone
     LongDistanceExampleComponent,
     LongDistanceRoutePageHeaderComponent,
     LongDistanceRouteMapSidebarComponent,
-    LongDistanceRouteMapSegmentsComponent,
+    LongDistanceRouteMapOsmSegmentsComponent,
     LongDistanceRouteMapNokSegmentsComponent,
     LegendLineComponent,
     LongDistanceRouteMapControlComponent,

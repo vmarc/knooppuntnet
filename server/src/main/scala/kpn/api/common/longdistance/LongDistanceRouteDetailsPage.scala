@@ -14,5 +14,8 @@ case class LongDistanceRouteDetailsPage(
   wayCount: Long,
   osmDistance: Long,
   gpxDistance: Long,
-  gpxFilename: Option[String]
+  gpxFilename: Option[String],
+  happy: Boolean,
+  osmSegmentCount: Long,
+  gpxNokSegmentCount: Long
 )

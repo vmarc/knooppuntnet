@@ -10,5 +10,7 @@ case class LongDistanceRouteDetail(
   wayCount: Long,
   osmDistance: Long,
   gpxDistance: Long,
-  gpxFilename: Option[String]
+  gpxFilename: Option[String],
+  osmHappy: Boolean,
+  gpxHappy: Boolean
 )

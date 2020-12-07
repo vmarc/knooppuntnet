@@ -1,8 +1,18 @@
 package kpn.core.tools.typescript
 
+import kpn.api.common.BoundsI
+
 import java.io.File
 import java.io.PrintStream
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.longdistance.LongDistanceRoute
+import kpn.api.common.longdistance.LongDistanceRouteChangesPage
+import kpn.api.common.longdistance.LongDistanceRouteDetail
+import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
+import kpn.api.common.longdistance.LongDistanceRouteMapPage
+import kpn.api.common.longdistance.LongDistanceRouteNokSegment
+import kpn.api.common.longdistance.LongDistanceRouteSegment
+import kpn.api.common.longdistance.LongDistanceRoutesPage
 import kpn.api.common.status.ActionTimestamp
 import org.apache.commons.io.FileUtils
 
@@ -24,19 +34,40 @@ class TypescriptTool() {
   val ignoredClasses: Seq[String] = Seq(
   )
 
+  val newClasses = Seq(
+    classOf[LongDistanceRoute], // no used in API ?
+    classOf[LongDistanceRoutesPage],
+    classOf[LongDistanceRouteDetail],
+    classOf[LongDistanceRouteChangesPage],
+    classOf[LongDistanceRouteDetail],
+    classOf[LongDistanceRouteDetailsPage],
+    classOf[LongDistanceRouteMapPage],
+    classOf[LongDistanceRouteNokSegment],
+    classOf[LongDistanceRouteSegment],
+    classOf[BoundsI],
+  )
+
   def generate(): Unit = {
 
     val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
     val scalaTypes: Seq[Type] = scalaClassNames().map(className => mirror.staticClass(className).typeSignature)
     val caseClasses: Seq[Type] = scalaTypes.filter(isCaseClass)
 
+    val newClassNames = newClasses.map(_.getSimpleName)
+
     caseClasses.foreach { caseClass =>
-      val classInfo = new ClassAnalyzer().analyze(caseClass)
-      val file = new File(targetDir + "/" + classInfo.fileName)
-      file.getParentFile.mkdirs()
-      val out = new PrintStream(file)
-      new TypescriptWriter(out, classInfo).write()
-      out.close()
+      val className = caseClass.typeSymbol.name.toString
+      if (newClassNames.contains(className)) {
+        println("Generate typescript interface instead of typescript class " + className)
+      }
+      else {
+        val classInfo = new ClassAnalyzer().analyze(caseClass)
+        val file = new File(targetDir + "/" + classInfo.fileName)
+        file.getParentFile.mkdirs()
+        val out = new PrintStream(file)
+        new TypescriptWriter(out, classInfo).write()
+        out.close()
+      }
     }
 
     println("end")

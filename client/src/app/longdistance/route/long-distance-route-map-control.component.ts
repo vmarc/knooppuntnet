@@ -3,9 +3,12 @@ import {Component} from '@angular/core';
 import {MatRadioChange} from '@angular/material/radio/radio';
 import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
+import {first} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppState} from '../../core/core.state';
+import {actionLongDistanceRouteMapFocus} from '../../core/longdistance/long-distance.actions';
 import {actionLongDistanceRouteMapMode} from '../../core/longdistance/long-distance.actions';
+import {selectLongDistanceRouteMapBounds} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapMode} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteMapOsmSegmentCount} from '../../core/longdistance/long-distance.selectors';
 
@@ -29,11 +32,15 @@ import {selectLongDistanceRouteMapOsmSegmentCount} from '../../core/longdistance
 
       <kpn-long-distance-route-map-layers></kpn-long-distance-route-map-layers>
 
+      <div class="kpn-spacer-above">
+        <button mat-raised-button (click)="zoomToFitRoute()">Zoom to fit route</button>
+      </div>
+
       <kpn-long-distance-route-map-nok-segments *ngIf="mode === 'comparison'">
       </kpn-long-distance-route-map-nok-segments>
 
-      <kpn-long-distance-route-map-segments *ngIf="mode === 'osm-segments'">
-      </kpn-long-distance-route-map-segments>
+      <kpn-long-distance-route-map-osm-segments *ngIf="mode === 'osm-segments'">
+      </kpn-long-distance-route-map-osm-segments>
 
     </div>
   `,
@@ -67,4 +74,9 @@ export class LongDistanceRouteMapControlComponent {
     this.store.dispatch(actionLongDistanceRouteMapMode({mode: event.value}));
   }
 
+  zoomToFitRoute(): void {
+    this.store.select(selectLongDistanceRouteMapBounds).pipe(first()).subscribe(bounds => {
+      this.store.dispatch(actionLongDistanceRouteMapFocus({bounds: bounds}));
+    });
+  }
 }
