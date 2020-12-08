@@ -1,12 +1,8 @@
 package kpn.core.tools.longdistance
 
-import kpn.api.common.Bounds
 import kpn.api.common.BoundsI
 import kpn.api.common.longdistance.LongDistanceRoute
 import kpn.api.common.longdistance.LongDistanceRouteNokSegment
-import kpn.api.common.longdistance.LongDistanceRouteSegment
-import kpn.api.custom.Relation
-import kpn.api.custom.Tags
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.database.Database
@@ -17,18 +13,13 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.longdistance.LongDistanceRouteTool.LongDistanceRouteDefinition
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.segment.Fragment
-import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.repository.LongDistanceRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
-import org.locationtech.jts.io.geojson.GeoJsonWriter
 
 import java.io.File
 import java.nio.charset.Charset
@@ -67,6 +58,8 @@ object LongDistanceRouteTool {
 }
 
 class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, database: Database) {
+
+  import LongDistanceRouteAnalyzer._
 
   private val log = Log(classOf[LongDistanceRouteTool])
   private val routeRepository = new LongDistanceRouteRepositoryImpl(database)
@@ -160,7 +153,7 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
                 }
 
                 val xx: Seq[LongDistanceRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
-                  s.copy(id = index +1)
+                  s.copy(id = index + 1)
                 }
 
                 (Some(ok), xx)
@@ -205,10 +198,6 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
     new LongDistanceRouteGpxReader().read(filename)
   }
 
-  private def toMeters(value: Double): Double = {
-    value * (math.Pi / 180) * 6378137
-  }
-
   private def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
     list match {
       case Nil => Nil
@@ -231,10 +220,6 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
       indexes.map(index => osmCoordinates(index))
     }
     geomFactory.createLineString(coordinates.toArray)
-  }
-
-  private def toGeoJson(geometry: Geometry): String = {
-    new GeoJsonWriter().write(geometry).replaceAll("EPSG:0", "EPSG:4326")
   }
 
   private def readRouteRelationXml(routeDefinition: LongDistanceRouteDefinition): String = {
@@ -263,50 +248,6 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
       val rawData = new Parser().parse(xml.head)
       Some(new DataBuilder(rawData).data)
     }
-  }
-
-  private def toRouteSegments(routeRelation: Relation): Seq[LongDistanceRouteSegmentData] = {
-
-    val fragments: Seq[Fragment] = new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragments
-    val fragmentsCopy = fragments.map { fragment => // temporary hack to remove paved/unpaved info
-      val rawWayCopy = fragment.way.raw.copy(tags = Tags.empty)
-      val wayCopy = fragment.way.copy(raw = rawWayCopy)
-      fragment.copy(way = wayCopy)
-    }
-    val fragmentMap = fragmentsCopy.map(f => f.id -> f).toMap
-    val fragmentIds = fragmentMap.values.map(_.id).toSet
-    val segments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
-
-    segments.zipWithIndex.map { case (segment, index) =>
-
-      val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
-      val meters: Long = Math.round(toMeters(lineString.getLength))
-      val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
-      val geoJson = toGeoJson(lineString)
-
-      LongDistanceRouteSegmentData(
-        LongDistanceRouteSegment(
-          index + 1,
-          meters,
-          bounds,
-          geoJson
-        ),
-        lineString
-      )
-    }
-  }
-
-  private def toBounds(coordinates: Seq[Coordinate]): Bounds = {
-    val minLat = coordinates.map(_.getY).min
-    val maxLat = coordinates.map(_.getY).max
-    val minLon = coordinates.map(_.getX).min
-    val maxLon = coordinates.map(_.getX).max
-    new Bounds(
-      minLat,
-      minLon,
-      maxLat,
-      maxLon
-    )
   }
 
   private def mergeBounds(boundss: Seq[BoundsI]): BoundsI = {
