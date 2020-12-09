@@ -100,7 +100,7 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
             log.warn(s"Could not find route ${routeDefinition.routeId} in raw data")
             None
 
-          case Some(routeRelation) => Some(routeRelation)
+          case Some(routeRelation) =>
 
             val osmRouteSegments = toRouteSegments(routeRelation)
 

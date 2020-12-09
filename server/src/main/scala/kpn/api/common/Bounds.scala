@@ -36,7 +36,7 @@ case class Bounds(
   maxLon: Double = 0
 ) {
   def toBoundsI: BoundsI = {
-    new BoundsI(
+    BoundsI(
       minLat,
       minLon,
       maxLat,

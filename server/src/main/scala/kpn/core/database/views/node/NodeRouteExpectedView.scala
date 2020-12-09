@@ -35,7 +35,7 @@ object NodeRouteExpectedView extends View {
       val key = Fields(row.key)
       NodeRouteExpectedCount(
         key.long(1),
-        if (nodeName.length == 0) "no-name" else nodeName,
+        if (nodeName.isEmpty) "no-name" else nodeName,
         locationNames,
         row.value.toInt
       )

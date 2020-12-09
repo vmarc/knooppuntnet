@@ -55,7 +55,7 @@ class NodeUtil(networkType: NetworkType) {
     }
   }
 
-  private def isDigits(string: String): Boolean = string.nonEmpty && string.filterNot(_.isDigit).isEmpty
+  private def isDigits(string: String): Boolean = string.nonEmpty && string.forall(_.isDigit)
 
   private def name(node: Node): String = {
     NodeAnalyzer.name(networkType, node.tags)
