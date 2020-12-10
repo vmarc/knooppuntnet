@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {ViewChild} from '@angular/core';
+import {FormGroupDirective} from '@angular/forms';
 import {FormGroup} from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {Validators} from '@angular/forms';
-import {Util} from '../shared/util';
-import {MessageService} from '../shared/message.service';
 import {MatFormField} from '@angular/material/form-field';
+import {MessageService} from '../shared/message.service';
+import {Util} from '../shared/util';
 
 @Component({
   selector: 'app-page1',
@@ -30,8 +31,10 @@ import {MatFormField} from '@angular/material/form-field';
         </mat-form-field>
       </p>
 
-      <button mat-raised-button (click)="submit()" color="primary">Submit</button>
+      <button mat-raised-button (click)="submit()" color="primary" class="form-button">Submit</button>
+      <button mat-raised-button (click)="formGroupReset()" class="form-button">FormGroup Reset</button>
     </form>
+    <button mat-raised-button (click)="formDirectiveReset()" class="form-button">FormDirective Reset</button>
 
     <div class="debug">
       <p>
@@ -100,6 +103,11 @@ import {MatFormField} from '@angular/material/form-field';
       padding-top: 2em;
     }
 
+    .form-button {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+
     .classes button {
       margin-bottom: 1em;
     }
@@ -115,6 +123,8 @@ export class Page1Component {
     lastName: this.lastName,
   });
 
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+
   constructor(private messageService: MessageService) {
   }
 
@@ -124,6 +134,16 @@ export class Page1Component {
     } else {
       this.messageService.warn('cannot submit invalid form');
     }
+  }
+
+  formGroupReset(): void {
+    this.form.reset();
+  }
+
+  formDirectiveReset(): void {
+    const currentFormValues = this.form.value;
+    this.formGroupDirective.resetForm();
+    this.form.setValue(currentFormValues);
   }
 
   firstNameValidator() {
