@@ -1,5 +1,7 @@
 package kpn.server.api.longdistance
 
+import kpn.api.common.longdistance.LongDistanceRouteChangeSetPage
+import kpn.api.common.longdistance.LongDistanceRouteChangeSummary
 import kpn.api.common.longdistance.LongDistanceRouteChangesPage
 import kpn.api.common.longdistance.LongDistanceRouteDetail
 import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
@@ -108,6 +110,31 @@ class LongDistanceFacadeImpl(
   }
 
   override def routeChanges(routeId: Long): ApiResponse[LongDistanceRouteChangesPage] = {
+
+    val changes = if (routeId == 3121667L) {
+      longDistanceRouteRepository.changes().map { change =>
+        LongDistanceRouteChangeSummary(
+          change.key,
+          change.wayCount,
+          change.waysAdded,
+          change.waysRemoved,
+          change.waysUpdated,
+          change.osmDistance,
+          change.gpxDistance,
+          change.gpxFilename,
+          change.bounds,
+          change.routeSegments.size,
+          change.newNokSegments.size,
+          change.resolvedNokSegments.size,
+          change.happy,
+          change.investigate
+        )
+      }.reverse
+    }
+    else {
+      Seq()
+    }
+
     ApiResponse(
       null,
       1,
@@ -115,9 +142,36 @@ class LongDistanceFacadeImpl(
         LongDistanceRouteChangesPage(
           route.id,
           route.ref,
-          route.name
+          route.name,
+          changes
         )
       }
     )
+  }
+
+  override def routeChange(routeId: Long, changeId: Long): ApiResponse[LongDistanceRouteChangeSetPage] = {
+
+    longDistanceRouteRepository.change(routeId, changeId) match {
+      case Some(change) =>
+        ApiResponse(
+          null,
+          1,
+          longDistanceRouteRepository.routeWithId(routeId).map { route =>
+            LongDistanceRouteChangeSetPage(
+              route.id,
+              route.ref,
+              route.name,
+              change
+            )
+          }
+        )
+
+      case None =>
+        ApiResponse(
+          null,
+          1,
+          null
+        )
+    }
   }
 }

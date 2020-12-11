@@ -1,5 +1,6 @@
 package kpn.server.api.longdistance
 
+import kpn.api.common.longdistance.LongDistanceRouteChangeSetPage
 import kpn.api.common.longdistance.LongDistanceRouteChangesPage
 import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
 import kpn.api.common.longdistance.LongDistanceRouteMapPage
@@ -36,5 +37,13 @@ class LongDistanceController(facade: LongDistanceFacade) {
     @PathVariable routeId: Long
   ): ApiResponse[LongDistanceRouteChangesPage] = {
     facade.routeChanges(routeId)
+  }
+
+  @GetMapping(value = Array("/json-api/long-distance/routes/{routeId}/changes/{changeSetId}}"))
+  def routeChange(
+    @PathVariable routeId: Long,
+    @PathVariable changeSetId: Long
+  ): ApiResponse[LongDistanceRouteChangeSetPage] = {
+    facade.routeChange(changeSetId, routeId)
   }
 }

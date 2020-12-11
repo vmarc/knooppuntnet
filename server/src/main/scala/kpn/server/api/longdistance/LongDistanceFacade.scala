@@ -1,5 +1,6 @@
 package kpn.server.api.longdistance
 
+import kpn.api.common.longdistance.LongDistanceRouteChangeSetPage
 import kpn.api.common.longdistance.LongDistanceRouteChangesPage
 import kpn.api.common.longdistance.LongDistanceRouteMapPage
 import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
@@ -16,4 +17,5 @@ trait LongDistanceFacade {
 
   def routeChanges(routeId: Long): ApiResponse[LongDistanceRouteChangesPage]
 
+  def routeChange(changeSetId: Long, routeId: Long): ApiResponse[LongDistanceRouteChangeSetPage]
 }

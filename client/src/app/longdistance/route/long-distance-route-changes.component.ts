@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {Util} from '../../components/shared/util';
 import {AppState} from '../../core/core.state';
 import {selectLongDistanceRouteChanges} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
@@ -17,7 +18,9 @@ import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.s
         Route not found
       </div>
       <div *ngIf="response.result">
-        Not implemented yet
+        <pre>
+{{util.json(response)}}
+        </pre>
       </div>
     </div>
   `,
@@ -25,6 +28,8 @@ import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.s
   `]
 })
 export class LongDistanceRouteChangesComponent {
+
+  util = Util;
 
   routeId$ = this.store.select(selectLongDistanceRouteId);
   response$ = this.store.select(selectLongDistanceRouteChanges);

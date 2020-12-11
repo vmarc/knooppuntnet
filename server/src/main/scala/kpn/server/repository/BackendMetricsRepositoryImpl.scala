@@ -3,14 +3,14 @@ package kpn.server.repository
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
 import kpn.core.action.AnalysisAction
-import kpn.core.action.AnalysisActionDoc
 import kpn.core.action.ReplicationAction
-import kpn.core.action.ReplicationActionDoc
 import kpn.core.action.SystemStatus
-import kpn.core.action.SystemStatusDoc
 import kpn.core.action.UpdateAction
-import kpn.core.action.UpdateActionDoc
 import kpn.core.database.Database
+import kpn.core.database.doc.AnalysisActionDoc
+import kpn.core.database.doc.ReplicationActionDoc
+import kpn.core.database.doc.SystemStatusDoc
+import kpn.core.database.doc.UpdateActionDoc
 import kpn.core.database.views.metrics.BackendMetricsView
 import kpn.core.db.couch.Couch
 import org.springframework.stereotype.Component
@@ -42,7 +42,7 @@ object BackendMetricsRepositoryImpl {
     }
   }
 
-  private def report(title: String, used: Long, available: Long, overpass: Long): Unit ={
+  private def report(title: String, used: Long, available: Long, overpass: Long): Unit = {
     println(title)
     println("  used=" + Math.round(used.toDouble / 1024 / 1024))
     println("  available=" + Math.round(available.toDouble / 1024 / 1024))

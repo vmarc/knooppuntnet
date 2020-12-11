@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.core.action.ApiAction
-import kpn.core.action.ApiActionDoc
 import kpn.core.database.Database
+import kpn.core.database.doc.ApiActionDoc
 import org.springframework.stereotype.Component
 
 import scala.util.Random

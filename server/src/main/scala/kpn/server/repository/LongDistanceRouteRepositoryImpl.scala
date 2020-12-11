@@ -1,7 +1,10 @@
 package kpn.server.repository
 
+import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.longdistance.LongDistanceRoute
+import kpn.api.common.longdistance.LongDistanceRouteChange
 import kpn.core.database.Database
+import kpn.core.database.doc.LongDistanceRouteChangeDoc
 import kpn.core.database.doc.LongDistanceRouteDoc
 import kpn.core.database.query.Query
 import kpn.core.database.views.analyzer.AnalyzerDesign
@@ -11,15 +14,22 @@ import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 object LongDistanceRouteRepositoryImpl {
+
   case class ViewResultRow(doc: LongDistanceRouteDoc)
+
   case class ViewResult(rows: Seq[ViewResultRow])
+
+  case class ChangeViewRow(doc: LongDistanceRouteChangeDoc)
+
+  case class ChangeViewResult(total_rows: Long, offset: Option[Long], rows: Seq[ChangeViewRow])
+
 }
 
 @Component
 class LongDistanceRouteRepositoryImpl(
-  analysisDatabase: Database
+  analysisDatabase: Database,
+  longDistanceRouteChangeDatabase: Database
 ) extends LongDistanceRouteRepository {
-
 
   private val log = Log(classOf[LongDistanceRouteRepositoryImpl])
 
@@ -48,8 +58,40 @@ class LongDistanceRouteRepositoryImpl(
     result.rows.map(_.doc.route)
   }
 
+  override def saveChange(change: LongDistanceRouteChange): Unit = {
+    log.debugElapsed {
+      analysisDatabase.save(LongDistanceRouteChangeDoc(changeDocId(change.key), change))
+      (s"Save route change ${change.key}", ())
+    }
+  }
+
+  override def changes(): Seq[LongDistanceRouteChange] = {
+    val query = Query("_all_docs", classOf[LongDistanceRouteRepositoryImpl.ChangeViewResult])
+      .reduce(false)
+      .includeDocs(true)
+      .stale(true)
+    val result = longDistanceRouteChangeDatabase.execute(query)
+    result.rows.map(_.doc.longDistanceRouteChange)
+  }
+
+  override def change(changeSetId: Long, routeId: Long): Option[LongDistanceRouteChange] = {
+    val docId = changeDocId(
+      ChangeKey(
+        1,
+        null,
+        changeSetId: Long,
+        routeId
+      )
+    )
+    longDistanceRouteChangeDatabase.docWithId(docId, classOf[LongDistanceRouteChange])
+  }
+
   private def docId(routeId: Long): String = {
     s"${KeyPrefix.LongDistanceRoute}:$routeId"
+  }
+
+  private def changeDocId(key: ChangeKey): String = {
+    s"change:${key.changeSetId}:${key.replicationNumber}:long-distance-route:${key.elementId}"
   }
 
 }

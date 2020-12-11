@@ -69,4 +69,10 @@ class CouchConfiguration(
   def frontendActionsDatabase(couchConfig: CouchConfig): Database = {
     new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, frontendActionsDatabaseName))
   }
+
+  @Bean
+  def longDistanceRouteChangeDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "long-distance"))
+  }
+
 }

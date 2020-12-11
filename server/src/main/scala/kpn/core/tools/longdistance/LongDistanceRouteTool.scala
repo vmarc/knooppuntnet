@@ -1,8 +1,5 @@
 package kpn.core.tools.longdistance
 
-import kpn.api.common.BoundsI
-import kpn.api.common.longdistance.LongDistanceRoute
-import kpn.api.common.longdistance.LongDistanceRouteNokSegment
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.database.Database
@@ -15,11 +12,7 @@ import kpn.core.tools.longdistance.LongDistanceRouteTool.LongDistanceRouteDefini
 import kpn.core.util.Log
 import kpn.server.repository.LongDistanceRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
-import org.locationtech.jts.densify.Densifier
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
-import org.locationtech.jts.geom.MultiLineString
 
 import java.io.File
 import java.nio.charset.Charset
@@ -50,22 +43,24 @@ object LongDistanceRouteTool {
 
   def main(args: Array[String]): Unit = {
     val executor = new OverpassQueryExecutorImpl()
-    Couch.executeIn("kpn-database", "analysis1") { database =>
-      // new LongDistanceRouteTool(executor, database).tempWriteXmlFiles()
-      new LongDistanceRouteTool(executor, database).analyzeRoutes()
+    Couch.executeIn("kpn-database", "long-distance") { longDistanceRouteChangeDatabase =>
+      Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
+        new LongDistanceRouteTool(executor, analysisDatabase, longDistanceRouteChangeDatabase).analyzeRoutes()
+      }
     }
   }
 }
 
-class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, database: Database) {
+class LongDistanceRouteTool(
+  overpassQueryExecutor: OverpassQueryExecutor,
+  analysisDatabase: Database,
+  longDistanceRouteChangeDatabase: Database
+) {
 
   import LongDistanceRouteAnalyzer._
 
   private val log = Log(classOf[LongDistanceRouteTool])
-  private val routeRepository = new LongDistanceRouteRepositoryImpl(database)
-  private val geomFactory = new GeometryFactory
-  private val sampleDistanceMeters = 10
-  private val toleranceMeters = 10
+  private val routeRepository = new LongDistanceRouteRepositoryImpl(analysisDatabase, longDistanceRouteChangeDatabase)
 
   def tempWriteXmlFiles(): Unit = {
     LongDistanceRouteTool.routeDefinitions.foreach { routeDefinition =>
@@ -109,117 +104,19 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
               case Some(filename) => Some(readGpx(filename))
             }
 
-            val (okOption: Option[MultiLineString], nokSegments: Seq[LongDistanceRouteNokSegment]) = gpxLineStringOption match {
-              case None => (None, Seq())
+            gpxLineStringOption match {
+              case _ =>
               case Some(gpxLineString) =>
-
-                val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / toMeters(gpxLineString.getLength)
-                val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
-                val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
-
-                val distances = sampleCoordinates.toList.map { coordinate =>
-                  val point = geomFactory.createPoint(coordinate)
-                  toMeters(osmRouteSegments.map(segment => segment.lineString.distance(point)).min)
-                }
-
-                val withinTolerance = distances.map(distance => distance < toleranceMeters)
-                val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
-                val splittedOkAndIndexes = split(okAndIndexes)
-
-                val ok: MultiLineString = toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
-
-                val noks = splittedOkAndIndexes.filterNot(_.head._1)
-
-                val nok = noks.zipWithIndex.map { case (segment, segmentIndex) =>
-                  val segmentIndexes = segment.map(_._2)
-                  val maxDistance = distances.zipWithIndex.filter { case (distance, index) =>
-                    segmentIndexes.contains(index)
-                  }.map { case (distance, index) =>
-                    distance
-                  }.max
-
-                  val lineString = toLineString(sampleCoordinates, segment)
-                  val meters: Long = Math.round(toMeters(lineString.getLength))
-                  val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
-                  val geoJson = toGeoJson(lineString)
-
-                  LongDistanceRouteNokSegment(
-                    segmentIndex + 1,
-                    meters,
-                    maxDistance.toLong,
-                    bounds,
-                    geoJson
-                  )
-                }
-
-                val xx: Seq[LongDistanceRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
-                  s.copy(id = index + 1)
-                }
-
-                (Some(ok), xx)
+                val route = LongDistanceRouteAnalyzer.analyze(routeDefinition.gpxFilename.get, gpxLineString, routeRelation, osmRouteSegments)
+                routeRepository.save(route)
             }
 
-            val gpxDistance = Math.round(toMeters(gpxLineStringOption.map(_.getLength).getOrElse(0)) / 1000)
-            val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum / 1000)
-
-            val gpxGeometry = gpxLineStringOption.map(lineString => toGeoJson(lineString))
-            val okGeometry = okOption.map(geometry => toGeoJson(geometry))
-
-            // TODO merge gpx bounds + ok
-            val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))
-
-            val route = LongDistanceRoute(
-              routeDefinition.routeId,
-              routeRelation.tags("ref"),
-              routeRelation.tags("name").getOrElse(s"$routeDefinition.routeId"),
-              routeRelation.tags("name:nl"),
-              routeRelation.tags("name:en"),
-              routeRelation.tags("name:de"),
-              routeRelation.tags("name:fr"),
-              None,
-              routeRelation.tags("operator"),
-              routeRelation.tags("website"),
-              routeRelation.wayMembers.size,
-              osmDistance,
-              gpxDistance,
-              bounds,
-              routeDefinition.gpxFilename,
-              osmRouteSegments.map(_.segment),
-              gpxGeometry,
-              okGeometry,
-              nokSegments
-            )
-            routeRepository.save(route)
         }
     }
   }
 
   private def readGpx(filename: String): LineString = {
     new LongDistanceRouteGpxReader().read(filename)
-  }
-
-  private def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
-    list match {
-      case Nil => Nil
-      case head :: tail =>
-        val segment = list.takeWhile(_._1 == head._1)
-        segment +: split(list.drop(segment.length))
-    }
-  }
-
-  private def toMultiLineString(sampleCoordinates: Seq[Coordinate], segments: List[List[(Boolean, Int)]]) = {
-    geomFactory.createMultiLineString(segments.map(segment => toLineString(sampleCoordinates, segment)).toArray)
-  }
-
-  private def toLineString(osmCoordinates: Seq[Coordinate], segment: List[(Boolean, Int)]): LineString = {
-    val indexes = segment.map(_._2)
-    val coordinates = if (indexes.size == 1) {
-      Seq(osmCoordinates.head, osmCoordinates.head)
-    }
-    else {
-      indexes.map(index => osmCoordinates(index))
-    }
-    geomFactory.createLineString(coordinates.toArray)
   }
 
   private def readRouteRelationXml(routeDefinition: LongDistanceRouteDefinition): String = {
@@ -248,19 +145,6 @@ class LongDistanceRouteTool(overpassQueryExecutor: OverpassQueryExecutor, databa
       val rawData = new Parser().parse(xml.head)
       Some(new DataBuilder(rawData).data)
     }
-  }
-
-  private def mergeBounds(boundss: Seq[BoundsI]): BoundsI = {
-    val minLat = boundss.map(_.minLat).min
-    val maxLat = boundss.map(_.maxLat).max
-    val minLon = boundss.map(_.minLon).min
-    val maxLon = boundss.map(_.maxLon).max
-    BoundsI(
-      minLat,
-      minLon,
-      maxLat,
-      maxLon
-    )
   }
 
 }

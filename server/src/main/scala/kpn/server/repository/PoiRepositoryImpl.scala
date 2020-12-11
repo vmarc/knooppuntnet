@@ -2,13 +2,13 @@ package kpn.server.repository
 
 import kpn.api.common.Poi
 import kpn.core.database.Database
+import kpn.core.database.doc.PoiDoc
 import kpn.core.database.views.poi.PoiNodeIdView
 import kpn.core.database.views.poi.PoiRelationIdView
 import kpn.core.database.views.poi.PoiTileView
 import kpn.core.database.views.poi.PoiView
 import kpn.core.database.views.poi.PoiWayIdView
 import kpn.core.db.KeyPrefix
-import kpn.core.poi.PoiDoc
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
