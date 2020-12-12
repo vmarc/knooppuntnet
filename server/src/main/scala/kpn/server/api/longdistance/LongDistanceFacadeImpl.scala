@@ -1,177 +1,63 @@
 package kpn.server.api.longdistance
 
-import kpn.api.common.longdistance.LongDistanceRouteChangeSetPage
-import kpn.api.common.longdistance.LongDistanceRouteChangeSummary
+import kpn.api.common.longdistance.LongDistanceRouteChangePage
 import kpn.api.common.longdistance.LongDistanceRouteChangesPage
-import kpn.api.common.longdistance.LongDistanceRouteDetail
 import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
 import kpn.api.common.longdistance.LongDistanceRouteMapPage
 import kpn.api.common.longdistance.LongDistanceRoutesPage
 import kpn.api.custom.ApiResponse
-import kpn.server.repository.LongDistanceRouteRepository
+import kpn.core.common.TimestampLocal
+import kpn.server.api.Api
 import org.springframework.stereotype.Component
 
 @Component
 class LongDistanceFacadeImpl(
-  longDistanceRouteRepository: LongDistanceRouteRepository
+  api: Api,
+  longDistanceRoutesPageBuilder: LongDistanceRoutesPageBuilder,
+  longDistanceRouteDetailsPageBuilder: LongDistanceRouteDetailsPageBuilder,
+  longDistanceRouteMapPageBuilder: LongDistanceRouteMapPageBuilder,
+  longDistanceRouteChangesPageBuilder: LongDistanceRouteChangesPageBuilder,
+  longDistanceRouteChangePageBuilder: LongDistanceRouteChangePageBuilder
 ) extends LongDistanceFacade {
 
-  override def routes(): ApiResponse[LongDistanceRoutesPage] = {
-    val routes = longDistanceRouteRepository.all()
-    val sortedRoutes = routes.sortWith { (a, b) =>
-      val ref1 = a.ref.getOrElse("zz")
-      val ref2 = b.ref.getOrElse("zz")
-      if (ref1 == ref2) {
-        a.name < b.name
-      }
-      else {
-        ref1 < ref2
-      }
-    }
-
-    val details = sortedRoutes.map { route =>
-      LongDistanceRouteDetail(
-        route.id,
-        route.ref,
-        route.name,
-        route.description,
-        route.operator,
-        route.website,
-        route.wayCount,
-        route.osmDistance,
-        route.gpxDistance,
-        route.gpxFilename,
-        route.osmSegments.size == 1,
-        route.gpxFilename.isDefined && route.nokSegments.isEmpty
-      )
-    }
-
-    ApiResponse(
-      null,
-      1,
-      Some(
-        LongDistanceRoutesPage(
-          details
-        )
-      )
-    )
-  }
-
-  override def route(routeId: Long): ApiResponse[LongDistanceRouteDetailsPage] = {
-    ApiResponse(
-      null,
-      1,
-      longDistanceRouteRepository.routeWithId(routeId).map { route =>
-        LongDistanceRouteDetailsPage(
-          route.id,
-          route.ref,
-          route.name,
-          route.nameNl,
-          route.nameEn,
-          route.nameDe,
-          route.nameFr,
-          route.description,
-          route.operator,
-          route.website,
-          route.wayCount,
-          route.osmDistance,
-          route.gpxDistance,
-          route.gpxFilename,
-          route.gpxFilename.isDefined && route.osmSegments.size == 1 && route.nokSegments.isEmpty,
-          route.osmSegments.size,
-          route.nokSegments.size
-        )
-      }
-    )
-  }
-
-  override def routeMap(routeId: Long): ApiResponse[LongDistanceRouteMapPage] = {
-    ApiResponse(
-      null,
-      1,
-      longDistanceRouteRepository.routeWithId(routeId).map { route =>
-        LongDistanceRouteMapPage(
-          route.id,
-          route.ref,
-          route.name,
-          route.nameNl,
-          route.nameEn,
-          route.nameDe,
-          route.nameFr,
-          route.bounds,
-          route.gpxFilename,
-          route.osmSegments,
-          route.gpxGeometry,
-          route.okGeometry,
-          route.nokSegments
-        )
-      }
-    )
-  }
-
-  override def routeChanges(routeId: Long): ApiResponse[LongDistanceRouteChangesPage] = {
-
-    val changes = if (routeId == 3121667L) {
-      longDistanceRouteRepository.changes().map { change =>
-        LongDistanceRouteChangeSummary(
-          change.key,
-          change.wayCount,
-          change.waysAdded,
-          change.waysRemoved,
-          change.waysUpdated,
-          change.osmDistance,
-          change.gpxDistance,
-          change.gpxFilename,
-          change.bounds,
-          change.routeSegments.size,
-          change.newNokSegments.size,
-          change.resolvedNokSegments.size,
-          change.happy,
-          change.investigate
-        )
-      }.reverse
-    }
-    else {
-      Seq()
-    }
-
-    ApiResponse(
-      null,
-      1,
-      longDistanceRouteRepository.routeWithId(routeId).map { route =>
-        LongDistanceRouteChangesPage(
-          route.id,
-          route.ref,
-          route.name,
-          changes
-        )
-      }
-    )
-  }
-
-  override def routeChange(routeId: Long, changeId: Long): ApiResponse[LongDistanceRouteChangeSetPage] = {
-
-    longDistanceRouteRepository.change(routeId, changeId) match {
-      case Some(change) =>
-        ApiResponse(
-          null,
-          1,
-          longDistanceRouteRepository.routeWithId(routeId).map { route =>
-            LongDistanceRouteChangeSetPage(
-              route.id,
-              route.ref,
-              route.name,
-              change
-            )
-          }
-        )
-
-      case None =>
-        ApiResponse(
-          null,
-          1,
-          null
-        )
+  override def routes(user: Option[String]): ApiResponse[LongDistanceRoutesPage] = {
+    api.execute(user, "long-distance-routes", "") {
+      reply(longDistanceRoutesPageBuilder.build())
     }
   }
+
+  override def route(user: Option[String], routeId: Long): ApiResponse[LongDistanceRouteDetailsPage] = {
+    val args = s"routeId=$routeId"
+    api.execute(user, "long-distance-route", args) {
+      reply(longDistanceRouteDetailsPageBuilder.build(routeId))
+    }
+  }
+
+  override def routeMap(user: Option[String], routeId: Long): ApiResponse[LongDistanceRouteMapPage] = {
+    val args = s"routeId=$routeId"
+    api.execute(user, "long-distance-route-map", args) {
+      reply(longDistanceRouteMapPageBuilder.build(routeId))
+    }
+  }
+
+  override def routeChanges(user: Option[String], routeId: Long): ApiResponse[LongDistanceRouteChangesPage] = {
+    val args = s"routeId=$routeId"
+    api.execute(user, "long-distance-route-changes", args) {
+      reply(longDistanceRouteChangesPageBuilder.build(routeId))
+    }
+  }
+
+  override def routeChange(user: Option[String], routeId: Long, changeSetId: Long): ApiResponse[LongDistanceRouteChangePage] = {
+    val args = s"routeId=$routeId, changeSetId$changeSetId"
+    api.execute(user, "long-distance-route-change", args) {
+      reply(longDistanceRouteChangePageBuilder.build(routeId, changeSetId))
+    }
+  }
+
+  private def reply[T](result: Option[T]): ApiResponse[T] = {
+    val response = ApiResponse(null, 1, result)
+    TimestampLocal.localize(response)
+    response
+  }
+
 }

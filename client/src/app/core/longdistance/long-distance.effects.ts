@@ -14,6 +14,7 @@ import {LongDistanceRouteMapService} from '../../longdistance/route/long-distanc
 import {AppState} from '../core.state';
 import {selectUrl} from '../core.state';
 import {selectRouteParams} from '../core.state';
+import {actionLongDistanceRouteChangeLoaded} from './long-distance.actions';
 import {actionLongDistanceRouteMapFocus} from './long-distance.actions';
 import {actionLongDistanceRouteMapLoaded} from './long-distance.actions';
 import {actionLongDistanceRoutesLoaded} from './long-distance.actions';
@@ -62,7 +63,12 @@ export class LongDistanceEffects {
             map(response => actionLongDistanceRouteChangesLoaded({response}))
           );
         }
-        return this.appService.longDistanceRoute(routeId).pipe(
+        if (url.includes('/changes/')) {
+          const changeSetId = params['changeSetId'];
+          return this.appService.longDistanceRouteChange(routeId, changeSetId).pipe(
+            map(response => actionLongDistanceRouteChangeLoaded({response}))
+          );
+        }return this.appService.longDistanceRoute(routeId).pipe(
           map(response => actionLongDistanceRouteDetailsLoaded({response}))
         );
       })

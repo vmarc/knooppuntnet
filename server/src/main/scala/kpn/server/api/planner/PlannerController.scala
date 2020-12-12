@@ -10,7 +10,7 @@ import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.poi.PoiRef
-import org.springframework.security.core.context.SecurityContextHolder
+import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -26,20 +26,20 @@ class PlannerController(plannerFacade: PlannerFacade) {
     @PathVariable nodeId: Long
   ): ApiResponse[MapNodeDetail] = {
     val networkTypeValue = NetworkType.withName(networkType).get
-    plannerFacade.mapNodeDetail(user(), networkTypeValue, nodeId)
+    plannerFacade.mapNodeDetail(CurrentUser.name, networkTypeValue, nodeId)
   }
 
   @GetMapping(value = Array("/json-api/route-detail/{routeId}"))
   def mapRouteDetail(
     @PathVariable routeId: Long
   ): ApiResponse[MapRouteDetail] = {
-    plannerFacade.mapRouteDetail(user(), routeId)
+    plannerFacade.mapRouteDetail(CurrentUser.name, routeId)
   }
 
   @GetMapping(value = Array("/json-api/poi-configuration"))
   def poiConfiguration(
   ): ApiResponse[ClientPoiConfiguration] = {
-    plannerFacade.poiConfiguration(user())
+    plannerFacade.poiConfiguration(CurrentUser.name)
   }
 
   @GetMapping(value = Array("/json-api/poi/{elementType}/{elementId}"))
@@ -47,27 +47,17 @@ class PlannerController(plannerFacade: PlannerFacade) {
     @PathVariable elementType: String,
     @PathVariable elementId: Long
   ): ApiResponse[PoiPage] = {
-    plannerFacade.poi(user(), PoiRef(elementType, elementId))
+    plannerFacade.poi(CurrentUser.name, PoiRef(elementType, elementId))
   }
 
   @PostMapping(path = Array("/json-api/leg"), consumes = Array("application/json"))
   def leg(@RequestBody params: LegBuildParams): ApiResponse[PlanLegDetail] = {
-    plannerFacade.leg(user(), params)
+    plannerFacade.leg(CurrentUser.name, params)
   }
 
   @PostMapping(path = Array("/json-api/plan"), consumes = Array("application/json"))
   def plan(@RequestBody params: PlanParams): ApiResponse[PlanLegDetail] = {
-    plannerFacade.plan(user(), NetworkType.withName(params.networkType).get, params.planString)
+    plannerFacade.plan(CurrentUser.name, NetworkType.withName(params.networkType).get, params.planString)
   }
 
-  // TODO share with other controllers
-  private def user(): Option[String] = {
-    val authentication = SecurityContextHolder.getContext.getAuthentication
-    if (authentication != null) {
-      Some(authentication.getName)
-    }
-    else {
-      None
-    }
-  }
 }

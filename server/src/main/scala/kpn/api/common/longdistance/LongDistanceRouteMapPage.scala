@@ -1,6 +1,5 @@
 package kpn.api.common.longdistance
 
-import kpn.api.common.Bounds
 import kpn.api.common.BoundsI
 
 case class LongDistanceRouteMapPage(

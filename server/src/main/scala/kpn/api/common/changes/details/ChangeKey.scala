@@ -7,4 +7,13 @@ case class ChangeKey(
   timestamp: Timestamp,
   changeSetId: Long,
   elementId: Long
-)
+) {
+  def toI: ChangeKeyI = {
+    ChangeKeyI(
+      replicationNumber,
+      timestamp.yyyymmddhhmmss,
+      changeSetId,
+      elementId
+    )
+  }
+}

@@ -21,6 +21,7 @@ import {LocationNodesParameters} from './kpn/api/common/location/location-nodes-
 import {LocationRoutesPage} from './kpn/api/common/location/location-routes-page';
 import {LocationRoutesParameters} from './kpn/api/common/location/location-routes-parameters';
 import {LocationsPage} from './kpn/api/common/location/locations-page';
+import {LongDistanceRouteChangePage} from './kpn/api/common/longdistance/long-distance-route-change-page';
 import {LongDistanceRouteChangesPage} from './kpn/api/common/longdistance/long-distance-route-changes-page';
 import {LongDistanceRouteDetailsPage} from './kpn/api/common/longdistance/long-distance-route-details-page';
 import {LongDistanceRouteMapPage} from './kpn/api/common/longdistance/long-distance-route-map-page';
@@ -376,6 +377,11 @@ export class AppService {
 
   public longDistanceRouteChanges(routeId: string): Observable<ApiResponse<LongDistanceRouteChangesPage>> {
     const url = `/json-api/long-distance/routes/${routeId}/changes`;
+    return this.httpGet(url);
+  }
+
+  public longDistanceRouteChange(routeId: string, changeSetId: string): Observable<ApiResponse<LongDistanceRouteChangePage>> {
+    const url = `/json-api/long-distance/routes/${routeId}/changes/${changeSetId}`;
     return this.httpGet(url);
   }
 

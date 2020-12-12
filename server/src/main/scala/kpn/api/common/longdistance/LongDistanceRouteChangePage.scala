@@ -1,6 +1,6 @@
 package kpn.api.common.longdistance
 
-case class LongDistanceRouteChangeSetPage(
+case class LongDistanceRouteChangePage(
   id: Long,
   ref: Option[String],
   name: String,

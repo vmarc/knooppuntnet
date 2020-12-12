@@ -57,6 +57,11 @@ export const selectLongDistanceRouteChanges = createSelector(
   (state: LongDistanceState) => state.changes
 );
 
+export const selectLongDistanceRouteChange = createSelector(
+  selectLongDistanceState,
+  (state: LongDistanceState) => state.change
+);
+
 export const selectLongDistanceRouteId = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => state.routeId

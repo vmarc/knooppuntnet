@@ -6,6 +6,9 @@ import java.io.File
 import java.io.PrintStream
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.longdistance.LongDistanceRoute
+import kpn.api.common.longdistance.LongDistanceRouteChange
+import kpn.api.common.longdistance.LongDistanceRouteChangePage
+import kpn.api.common.longdistance.LongDistanceRouteChangeSummary
 import kpn.api.common.longdistance.LongDistanceRouteChangesPage
 import kpn.api.common.longdistance.LongDistanceRouteDetail
 import kpn.api.common.longdistance.LongDistanceRouteDetailsPage
@@ -44,6 +47,9 @@ class TypescriptTool() {
     classOf[LongDistanceRouteMapPage],
     classOf[LongDistanceRouteNokSegment],
     classOf[LongDistanceRouteSegment],
+    classOf[LongDistanceRouteChangePage],
+    classOf[LongDistanceRouteChange],
+    classOf[LongDistanceRouteChangeSummary],
     classOf[BoundsI],
   )
 

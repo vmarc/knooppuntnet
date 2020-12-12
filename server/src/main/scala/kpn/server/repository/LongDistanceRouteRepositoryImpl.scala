@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.longdistance.LongDistanceRoute
 import kpn.api.common.longdistance.LongDistanceRouteChange
 import kpn.core.database.Database
@@ -74,23 +74,23 @@ class LongDistanceRouteRepositoryImpl(
     result.rows.map(_.doc.longDistanceRouteChange)
   }
 
-  override def change(changeSetId: Long, routeId: Long): Option[LongDistanceRouteChange] = {
+  override def change(routeId: Long, changeSetId: Long): Option[LongDistanceRouteChange] = {
     val docId = changeDocId(
-      ChangeKey(
+      ChangeKeyI(
         1,
         null,
-        changeSetId: Long,
+        changeSetId,
         routeId
       )
     )
-    longDistanceRouteChangeDatabase.docWithId(docId, classOf[LongDistanceRouteChange])
+    longDistanceRouteChangeDatabase.docWithId(docId, classOf[LongDistanceRouteChangeDoc]).map(_.longDistanceRouteChange)
   }
 
   private def docId(routeId: Long): String = {
     s"${KeyPrefix.LongDistanceRoute}:$routeId"
   }
 
-  private def changeDocId(key: ChangeKey): String = {
+  private def changeDocId(key: ChangeKeyI): String = {
     s"change:${key.changeSetId}:${key.replicationNumber}:long-distance-route:${key.elementId}"
   }
 

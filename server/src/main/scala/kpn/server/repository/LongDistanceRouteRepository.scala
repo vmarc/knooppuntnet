@@ -15,5 +15,5 @@ trait LongDistanceRouteRepository {
 
   def changes(): Seq[LongDistanceRouteChange]
 
-  def change(changeSetId: Long, routeId: Long): Option[LongDistanceRouteChange]
+  def change(routeId: Long, changeSetId: Long): Option[LongDistanceRouteChange]
 }

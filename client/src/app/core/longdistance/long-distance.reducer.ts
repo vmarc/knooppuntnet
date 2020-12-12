@@ -1,6 +1,7 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionLongDistanceRouteChangeLoaded} from './long-distance.actions';
 import {actionLongDistanceRouteMapGpxVisible} from './long-distance.actions';
 import {actionLongDistanceRouteMapGpxOkVisible} from './long-distance.actions';
 import {actionLongDistanceRouteMapOsmRelationVisible} from './long-distance.actions';
@@ -21,6 +22,7 @@ export const longDistanceReducer = createReducer(
       routes: null,
       details: null,
       changes: null,
+      change: null,
       map: null,
       mapMode: null
     })
@@ -81,6 +83,19 @@ export const longDistanceReducer = createReducer(
         routeId,
         routeName,
         changes: response
+      };
+    }
+  ),
+  on(
+    actionLongDistanceRouteChangeLoaded,
+    (state, {response}) => {
+      const routeId = response.result?.id ?? state.routeId;
+      const routeName = response.result?.name ?? state.routeName;
+      return {
+        ...state,
+        routeId,
+        routeName,
+        change: response
       };
     }
   ),

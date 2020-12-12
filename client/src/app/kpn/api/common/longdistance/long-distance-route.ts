@@ -1,5 +1,7 @@
 // this class is generated, please do not modify
 
+// this class is generated, please do not modify
+
 import {BoundsI} from '../bounds-i';
 import {LongDistanceRouteNokSegment} from './long-distance-route-nok-segment';
 import {LongDistanceRouteSegment} from './long-distance-route-segment';

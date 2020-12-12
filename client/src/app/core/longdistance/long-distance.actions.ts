@@ -2,6 +2,7 @@ import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
 import {Bounds} from '../../kpn/api/common/bounds';
 import {BoundsI} from '../../kpn/api/common/bounds-i';
+import {LongDistanceRouteChangePage} from '../../kpn/api/common/longdistance/long-distance-route-change-page';
 import {LongDistanceRouteChangesPage} from '../../kpn/api/common/longdistance/long-distance-route-changes-page';
 import {LongDistanceRouteDetailsPage} from '../../kpn/api/common/longdistance/long-distance-route-details-page';
 import {LongDistanceRouteMapPage} from '../../kpn/api/common/longdistance/long-distance-route-map-page';
@@ -26,6 +27,11 @@ export const actionLongDistanceRouteMapLoaded = createAction(
 export const actionLongDistanceRouteChangesLoaded = createAction(
   '[Long distance] Route changes loaded',
   props<{ response: ApiResponse<LongDistanceRouteChangesPage> }>()
+);
+
+export const actionLongDistanceRouteChangeLoaded = createAction(
+  '[Long distance] Route change loaded',
+  props<{ response: ApiResponse<LongDistanceRouteChangePage> }>()
 );
 
 export const actionLongDistanceRouteMapMode = createAction(
