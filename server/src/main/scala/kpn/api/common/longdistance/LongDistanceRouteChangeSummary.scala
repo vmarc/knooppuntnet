@@ -5,6 +5,7 @@ import kpn.api.common.changes.details.ChangeKeyI
 
 case class LongDistanceRouteChangeSummary(
   key: ChangeKeyI,
+  comment: Option[String],
   wayCount: Long,
   waysAdded: Long,
   waysRemoved: Long,

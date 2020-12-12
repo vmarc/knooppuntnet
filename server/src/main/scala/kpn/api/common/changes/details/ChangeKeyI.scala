@@ -5,4 +5,14 @@ case class ChangeKeyI(
   timestamp: String,
   changeSetId: Long,
   elementId: Long
-)
+) {
+  def cleaned: ChangeKeyI = {
+    val cleanedTimestamp = timestamp.replace('T', ' ').replace("Z", "")
+    ChangeKeyI(
+      replicationNumber,
+      cleanedTimestamp,
+      changeSetId,
+      elementId
+    )
+  }
+}

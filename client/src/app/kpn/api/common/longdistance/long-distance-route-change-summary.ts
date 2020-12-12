@@ -5,6 +5,7 @@ import {ChangeKeyI} from '../changes/details/change-key-i';
 
 export interface LongDistanceRouteChangeSummary {
   readonly key: ChangeKeyI;
+  readonly comment: string;
   readonly wayCount: number;
   readonly waysAdded: number;
   readonly waysRemoved: number;

@@ -60,7 +60,7 @@ class LongDistanceRouteRepositoryImpl(
 
   override def saveChange(change: LongDistanceRouteChange): Unit = {
     log.debugElapsed {
-      analysisDatabase.save(LongDistanceRouteChangeDoc(changeDocId(change.key), change))
+      longDistanceRouteChangeDatabase.save(LongDistanceRouteChangeDoc(changeDocId(change.key), change))
       (s"Save route change ${change.key}", ())
     }
   }

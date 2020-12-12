@@ -7,6 +7,7 @@ import {LongDistanceRouteSegment} from './long-distance-route-segment';
 
 export interface LongDistanceRouteChange {
   readonly key: ChangeKeyI;
+  readonly comment: string;
   readonly wayCount: number;
   readonly waysAdded: number;
   readonly waysRemoved: number;
@@ -16,6 +17,7 @@ export interface LongDistanceRouteChange {
   readonly gpxFilename: string;
   readonly bounds: BoundsI;
   readonly referenceJson: string;
+  readonly routeSegmentCount: number;
   readonly routeSegments: LongDistanceRouteSegment[];
   readonly newNokSegments: LongDistanceRouteNokSegment[];
   readonly resolvedNokSegments: LongDistanceRouteNokSegment[];

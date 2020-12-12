@@ -11,6 +11,7 @@ import {SharedModule} from '../components/shared/shared.module';
 import {LongDistanceExampleComponent} from './example/long-distance-example.component';
 import {LongDistanceRoutingModule} from './long-distance-routing.module';
 import {LegendLineComponent} from './route/legend-line';
+import {LongDistanceRouteChangeHeaderComponent} from './route/long-distance-route-change-header.component';
 import {LongDistanceRouteChangePageComponent} from './route/long-distance-route-change-page.component';
 import {LongDistanceRouteChangesComponent} from './route/long-distance-route-changes.component';
 import {LongDistanceRouteDetailsComponent} from './route/long-distance-route-details.component';
@@ -51,7 +52,8 @@ import {LongDistanceRoutesComponent} from './routes/long-distance-routes.compone
     LegendLineComponent,
     LongDistanceRouteMapControlComponent,
     LongDistanceRouteMapLayersComponent,
-    LongDistanceRouteChangePageComponent
+    LongDistanceRouteChangePageComponent,
+    LongDistanceRouteChangeHeaderComponent,
   ],
   exports: [],
 })

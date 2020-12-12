@@ -5,6 +5,7 @@ import kpn.api.common.changes.details.ChangeKeyI
 
 case class LongDistanceRouteChange(
   key: ChangeKeyI,
+  comment: Option[String],
   wayCount: Long,
   waysAdded: Long,
   waysRemoved: Long,
@@ -14,6 +15,7 @@ case class LongDistanceRouteChange(
   gpxFilename: String,
   bounds: BoundsI,
   referenceJson: String,
+  routeSegmentCount: Long,
   routeSegments: Seq[LongDistanceRouteSegment],
   newNokSegments: Seq[LongDistanceRouteNokSegment],
   resolvedNokSegments: Seq[LongDistanceRouteNokSegment],

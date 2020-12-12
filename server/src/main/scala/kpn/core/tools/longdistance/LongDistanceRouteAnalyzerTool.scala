@@ -41,6 +41,7 @@ class LongDistanceRouteAnalyzerTool(
 ) {
 
   private val routeId = 3121667L
+  private val gpxFilename = "GR5_2020-08-01.gpx"
   private val log = Log(classOf[LongDistanceRouteAnalyzerTool])
 
   def analyze(): Unit = {
@@ -62,11 +63,11 @@ class LongDistanceRouteAnalyzerTool(
 
     val beforeRelation = readRelation(s"/kpn/wrk/$changeSetId/$routeId-before.xml")
     val beforeRouteSegments = toRouteSegments(beforeRelation)
-    val beforeRoute = LongDistanceRouteAnalyzer.analyze("gpxFilename", gpxLineString, beforeRelation, beforeRouteSegments)
+    val beforeRoute = LongDistanceRouteAnalyzer.analyze(gpxFilename, gpxLineString, beforeRelation, beforeRouteSegments)
 
     val afterRelation = readRelation(s"/kpn/wrk/$changeSetId/$routeId-after.xml")
     val afterRouteSegments = toRouteSegments(afterRelation)
-    val afterRoute = LongDistanceRouteAnalyzer.analyze("gpxFilename", gpxLineString, afterRelation, afterRouteSegments)
+    val afterRoute = LongDistanceRouteAnalyzer.analyze(gpxFilename, gpxLineString, afterRelation, afterRouteSegments)
 
     val wayIdsBefore = beforeRelation.wayMembers.map(_.way.id).toSet
     val wayIdsAfter = afterRelation.wayMembers.map(_.way.id).toSet
@@ -122,15 +123,17 @@ class LongDistanceRouteAnalyzerTool(
 
     val change = LongDistanceRouteChange(
       key,
+      None,
       afterRoute.wayCount,
       wayIdsAdded,
       wayIdsRemoved,
       wayIdsUpdated,
       afterRoute.osmDistance,
       afterRoute.gpxDistance,
-      afterRoute.gpxFilename.getOrElse("testfile.gpx"),
+      afterRoute.gpxFilename.getOrElse(gpxFilename),
       afterRoute.bounds,
       referenceJson,
+      afterRoute.osmSegments.size,
       routeSegments,
       newSegments,
       resolvedSegments,
