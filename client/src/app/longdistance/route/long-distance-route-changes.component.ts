@@ -1,9 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../core/core.state';
+import {selectLongDistanceRouteChangesFiltered} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteChanges} from '../../core/longdistance/long-distance.selectors';
 import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.selectors';
+import {actionPreferencesImpact} from '../../core/preferences/preferences.actions';
+import {selectPreferencesImpact} from '../../core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-long-distance-route-changes',
@@ -20,8 +24,10 @@ import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.s
       </div>
       <div *ngIf="response.result">
 
+        <mat-slide-toggle [checked]="impact$ | async" (change)="impactChanged($event)">Impact</mat-slide-toggle>
+
         <kpn-items>
-          <kpn-item *ngFor="let changeSet of response.result.changes; let i=index" [index]="i">
+          <kpn-item *ngFor="let changeSet of changes$ | async; let i=index" [index]="i">
 
             <div class="change-set">
 
@@ -71,10 +77,16 @@ import {selectLongDistanceRouteId} from '../../core/longdistance/long-distance.s
 })
 export class LongDistanceRouteChangesComponent {
 
-  routeId$ = this.store.select(selectLongDistanceRouteId);
-  response$ = this.store.select(selectLongDistanceRouteChanges);
+  readonly routeId$ = this.store.select(selectLongDistanceRouteId);
+  readonly response$ = this.store.select(selectLongDistanceRouteChanges);
+  readonly impact$ = this.store.select(selectPreferencesImpact);
+  readonly changes$ =  this.store.select(selectLongDistanceRouteChangesFiltered);
 
   constructor(private store: Store<AppState>) {
+  }
+
+  impactChanged(event: MatSlideToggleChange) {
+    this.store.dispatch(actionPreferencesImpact({impact: event.checked}));
   }
 
 }

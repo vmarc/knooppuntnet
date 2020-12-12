@@ -1,5 +1,6 @@
 import {createSelector} from '@ngrx/store';
 import {selectLongDistanceState} from '../core.state';
+import {selectPreferencesImpact} from '../preferences/preferences.selectors';
 import {LongDistanceState} from './long-distance.state';
 
 export const selectLongDistanceRoutes = createSelector(
@@ -60,6 +61,20 @@ export const selectLongDistanceRouteChanges = createSelector(
 export const selectLongDistanceRouteChange = createSelector(
   selectLongDistanceState,
   (state: LongDistanceState) => state.change
+);
+
+export const selectLongDistanceRouteChangesFiltered = createSelector(
+  selectLongDistanceState,
+  selectPreferencesImpact,
+  (state: LongDistanceState, impact) => {
+    const changes = state.changes?.result?.changes ?? [];
+    return changes.filter( change => {
+      if (impact) {
+        return change.happy || change.investigate;
+      }
+      return true;
+    });
+  }
 );
 
 export const selectLongDistanceRouteId = createSelector(

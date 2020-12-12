@@ -5,6 +5,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {OlModule} from '../components/ol/ol.module';
 import {SharedModule} from '../components/shared/shared.module';
@@ -37,6 +38,7 @@ import {LongDistanceRoutesComponent} from './routes/long-distance-routes.compone
     MatListModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
   ],
   declarations: [
     LongDistanceRoutesComponent,
