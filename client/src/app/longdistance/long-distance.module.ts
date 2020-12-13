@@ -13,6 +13,7 @@ import {LongDistanceExampleComponent} from './example/long-distance-example.comp
 import {LongDistanceRoutingModule} from './long-distance-routing.module';
 import {LegendLineComponent} from './route/legend-line';
 import {LongDistanceRouteChangeHeaderComponent} from './route/long-distance-route-change-header.component';
+import {LongDistanceRouteChangeMapComponent} from './route/long-distance-route-change-map.component';
 import {LongDistanceRouteChangePageComponent} from './route/long-distance-route-change-page.component';
 import {LongDistanceRouteChangesComponent} from './route/long-distance-route-changes.component';
 import {LongDistanceRouteDetailsComponent} from './route/long-distance-route-details.component';
@@ -56,6 +57,7 @@ import {LongDistanceRoutesComponent} from './routes/long-distance-routes.compone
     LongDistanceRouteMapLayersComponent,
     LongDistanceRouteChangePageComponent,
     LongDistanceRouteChangeHeaderComponent,
+    LongDistanceRouteChangeMapComponent,
   ],
   exports: [],
 })

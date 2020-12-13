@@ -2,6 +2,7 @@ package kpn.core.tools.longdistance
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
@@ -37,7 +38,7 @@ class LongDistanceRouteChangeSetTool(overpassQueryExecutor: OverpassQueryExecuto
 
   def analyze(): Unit = {
     val begin = ReplicationId(4, 131, 462)
-    val end = ReplicationId(4, 320, 1)
+    val end = ReplicationId(4, 323, 415)
 
     val timestamp = osmChangeRepository.timestamp(begin)
     val xmlString = writeXml(s"/kpn/wrk/begin/$routeId.xml", timestamp)
@@ -55,6 +56,7 @@ class LongDistanceRouteChangeSetTool(overpassQueryExecutor: OverpassQueryExecuto
             change.elements.exists {
               case node: RawNode => nodeIds.contains(node.id)
               case way: RawWay => wayIds.contains(way.id)
+              case relation: RawRelation => relation.id == routeId
               case _ => false
             }
           }

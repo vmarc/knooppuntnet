@@ -1,5 +1,6 @@
 package kpn.core.tools.longdistance
 
+import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.longdistance.LongDistanceRouteChange
 import kpn.api.custom.Relation
@@ -78,72 +79,78 @@ class LongDistanceRouteAnalyzerTool(
     val wayIdsUpdated = wayIdsAfter.intersect(wayIdsBefore).count { wayId =>
       val wayBefore = beforeRelation.wayMembers.filter(_.way.id == wayId).head.way
       val wayAfter = afterRelation.wayMembers.filter(_.way.id == wayId).head.way
-      !wayBefore.equals(wayAfter)
+      val latLonsBefore = wayBefore.nodes.map(node => LatLonImpl(node.latitude, node.longitude))
+      val latLonsAfter = wayAfter.nodes.map(node => LatLonImpl(node.latitude, node.longitude))
+      !latLonsBefore.equals(latLonsAfter)
     }
 
-    val beforeGeoJons = beforeRoute.nokSegments.map(_.geoJson)
-    val afterGeoJons = afterRoute.nokSegments.map(_.geoJson)
-
-    val newSegments = afterRoute.nokSegments.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
-    val resolvedSegments = beforeRoute.nokSegments.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
-
-    val message = s"ways=${afterRoute.wayCount} $wayIdsAdded/$wayIdsRemoved/$wayIdsUpdated," ++
-      s" osm=${afterRoute.osmDistance}," ++
-      s" gpx=${afterRoute.gpxDistance}," ++
-      s" osmSegments=${afterRoute.osmSegments.size}," ++
-      s" nokSegments=${afterRoute.nokSegments.size}," ++
-      s" new=${newSegments.size}," ++
-      s" resolved=${resolvedSegments.size}"
-
-    val timestamp = changeSetInfoRepository.get(changeSetId.toLong) match {
-      case None => Timestamp(2020, 8, 11, 0, 0, 0)
-      case Some(changeSetInfo) => changeSetInfo.createdAt
-    }
-
-    val key = ChangeKeyI(
-      1,
-      timestamp.yyyymmddhhmmss,
-      changeSetId.toLong,
-      routeId
-    )
-
-    val referenceJson = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
-      toGeoJson(gpxLineString)
+    if ((wayIdsAdded + wayIdsRemoved + wayIdsUpdated) == 0) {
+      log.info("No geometry changes, no further analysis")
     }
     else {
-      ""
+      val beforeGeoJons = beforeRoute.nokSegments.map(_.geoJson)
+      val afterGeoJons = afterRoute.nokSegments.map(_.geoJson)
+
+      val newSegments = afterRoute.nokSegments.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
+      val resolvedSegments = beforeRoute.nokSegments.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
+
+      val message = s"ways=${afterRoute.wayCount} $wayIdsAdded/$wayIdsRemoved/$wayIdsUpdated," ++
+        s" osm=${afterRoute.osmDistance}," ++
+        s" gpx=${afterRoute.gpxDistance}," ++
+        s" osmSegments=${afterRoute.osmSegments.size}," ++
+        s" nokSegments=${afterRoute.nokSegments.size}," ++
+        s" new=${newSegments.size}," ++
+        s" resolved=${resolvedSegments.size}"
+
+      val timestamp = changeSetInfoRepository.get(changeSetId.toLong) match {
+        case None => Timestamp(2020, 8, 11, 0, 0, 0)
+        case Some(changeSetInfo) => changeSetInfo.createdAt
+      }
+
+      val key = ChangeKeyI(
+        1,
+        timestamp.yyyymmddhhmmss,
+        changeSetId.toLong,
+        routeId
+      )
+
+      val referenceJson = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
+        toGeoJson(gpxLineString)
+      }
+      else {
+        ""
+      }
+
+      val routeSegments = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
+        afterRoute.osmSegments
+      }
+      else {
+        Seq()
+      }
+
+      val change = LongDistanceRouteChange(
+        key,
+        None,
+        afterRoute.wayCount,
+        wayIdsAdded,
+        wayIdsRemoved,
+        wayIdsUpdated,
+        afterRoute.osmDistance,
+        afterRoute.gpxDistance,
+        afterRoute.gpxFilename.getOrElse(gpxFilename),
+        afterRoute.bounds,
+        referenceJson,
+        afterRoute.osmSegments.size,
+        routeSegments,
+        newSegments,
+        resolvedSegments,
+        happy = resolvedSegments.nonEmpty,
+        investigate = newSegments.nonEmpty
+      )
+
+      longDistanceRouteRepository.saveChange(change)
+      log.info(message)
     }
-
-    val routeSegments = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
-      afterRoute.osmSegments
-    }
-    else {
-      Seq()
-    }
-
-    val change = LongDistanceRouteChange(
-      key,
-      None,
-      afterRoute.wayCount,
-      wayIdsAdded,
-      wayIdsRemoved,
-      wayIdsUpdated,
-      afterRoute.osmDistance,
-      afterRoute.gpxDistance,
-      afterRoute.gpxFilename.getOrElse(gpxFilename),
-      afterRoute.bounds,
-      referenceJson,
-      afterRoute.osmSegments.size,
-      routeSegments,
-      newSegments,
-      resolvedSegments,
-      happy = resolvedSegments.nonEmpty,
-      investigate = newSegments.nonEmpty
-    )
-
-    longDistanceRouteRepository.saveChange(change)
-
-    log.info(message)
   }
 
   private def readRelation(filename: String): Relation = {
