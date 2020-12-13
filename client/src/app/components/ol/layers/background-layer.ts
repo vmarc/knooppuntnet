@@ -2,6 +2,7 @@ import {LngLatLike} from 'mapbox-gl';
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
 import {Layer} from 'ol/layer';
 import {toLonLat} from 'ol/proj';
+import {Source} from 'ol/source';
 import {I18nService} from '../../../i18n/i18n.service';
 import {OsmLibertyStyle} from '../style/osm-liberty-style';
 import {Layers} from './layers';
@@ -31,8 +32,16 @@ export class BackgroundLayer {
       touchZoomRotate: false
     });
 
+    const osmAttribution = '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
+    const openMapTilesAttribution = '&#169; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a>';
+
+    const source = new Source({
+      attributions: [openMapTilesAttribution, osmAttribution]
+    });
+
     const layer = new Layer({
       zIndex: Layers.zIndexOsmLayer,
+      source: source,
       render(frameState) {
         const canvas = mbMap.getCanvas();
         const viewState = frameState.viewState;
