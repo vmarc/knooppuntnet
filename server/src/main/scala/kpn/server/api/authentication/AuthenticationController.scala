@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AuthenticationController(api: Api, authenticationFacade: AuthenticationFacade, crypto: Crypto, cryptoKey: String) {
 
-  @GetMapping(value = Array("/json-api/login"))
+  @GetMapping(value = Array("/api/login"))
   @ResponseBody def login(@RequestParam callbackUrl: String, response: HttpServletResponse): ResponseEntity[_] = {
     api.execute("login") {
       val token = authenticationFacade.login(callbackUrl)
@@ -31,7 +31,7 @@ class AuthenticationController(api: Api, authenticationFacade: AuthenticationFac
     }
   }
 
-  @GetMapping(value = Array("/json-api/authenticated"))
+  @GetMapping(value = Array("/api/authenticated"))
   @ResponseBody def authenticated(
     @RequestParam oauth_token: String,
     @RequestParam oauth_verifier: String,
@@ -57,7 +57,7 @@ class AuthenticationController(api: Api, authenticationFacade: AuthenticationFac
     new ResponseEntity[String](user, HttpStatus.OK)
   }
 
-  @GetMapping(value = Array("/json-api/logout"))
+  @GetMapping(value = Array("/api/logout"))
   @ResponseBody def logout(response: HttpServletResponse): ResponseEntity[_] = {
     api.execute("logout") {
       response.addCookie(createCookie("", 0))

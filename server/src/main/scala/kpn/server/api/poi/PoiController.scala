@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PoiController(poiFacade: PoiFacade) {
 
-  @GetMapping(value = Array("/json-api/poi/areas"))
+  @GetMapping(value = Array("/api/poi/areas"))
   def areas(): ApiResponse[String] = {
     poiFacade.areas()
   }

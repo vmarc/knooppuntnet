@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class StatusController(statusFacade: StatusFacade) {
 
-  @GetMapping(value = Array("/json-api/status"))
+  @GetMapping(value = Array("/api/status"))
   def status(): ApiResponse[Status] = {
     statusFacade.status()
   }
 
-  @GetMapping(value = Array("/json-api/status/ok"))
+  @GetMapping(value = Array("/api/status/ok"))
   def ok(): ApiResponse[String] = {
     statusFacade.statusOk()
   }
 
-  @PostMapping(value = Array("/json-api/status/replication"))
+  @PostMapping(value = Array("/api/status/replication"))
   def replicationStatus(@RequestBody parameters: PeriodParameters): ApiResponse[ReplicationStatusPage] = {
     statusFacade.replicationStatus(parameters)
   }
 
-  @PostMapping(value = Array("/json-api/status/system"))
+  @PostMapping(value = Array("/api/status/system"))
   def systemStatus(@RequestBody parameters: PeriodParameters): ApiResponse[SystemStatusPage] = {
     statusFacade.systemStatus(parameters)
   }

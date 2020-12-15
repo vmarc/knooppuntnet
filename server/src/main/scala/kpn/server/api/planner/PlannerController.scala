@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PlannerController(plannerFacade: PlannerFacade) {
 
-  @GetMapping(value = Array("/json-api/node-detail/{nodeId}/{networkType}"))
+  @GetMapping(value = Array("/api/node-detail/{nodeId}/{networkType}"))
   def mapNodeDetail(
     @PathVariable networkType: String,
     @PathVariable nodeId: Long
@@ -29,20 +29,20 @@ class PlannerController(plannerFacade: PlannerFacade) {
     plannerFacade.mapNodeDetail(CurrentUser.name, networkTypeValue, nodeId)
   }
 
-  @GetMapping(value = Array("/json-api/route-detail/{routeId}"))
+  @GetMapping(value = Array("/api/route-detail/{routeId}"))
   def mapRouteDetail(
     @PathVariable routeId: Long
   ): ApiResponse[MapRouteDetail] = {
     plannerFacade.mapRouteDetail(CurrentUser.name, routeId)
   }
 
-  @GetMapping(value = Array("/json-api/poi-configuration"))
+  @GetMapping(value = Array("/api/poi-configuration"))
   def poiConfiguration(
   ): ApiResponse[ClientPoiConfiguration] = {
     plannerFacade.poiConfiguration(CurrentUser.name)
   }
 
-  @GetMapping(value = Array("/json-api/poi/{elementType}/{elementId}"))
+  @GetMapping(value = Array("/api/poi/{elementType}/{elementId}"))
   def poi(
     @PathVariable elementType: String,
     @PathVariable elementId: Long
@@ -50,12 +50,12 @@ class PlannerController(plannerFacade: PlannerFacade) {
     plannerFacade.poi(CurrentUser.name, PoiRef(elementType, elementId))
   }
 
-  @PostMapping(path = Array("/json-api/leg"), consumes = Array("application/json"))
+  @PostMapping(path = Array("/api/leg"), consumes = Array("application/json"))
   def leg(@RequestBody params: LegBuildParams): ApiResponse[PlanLegDetail] = {
     plannerFacade.leg(CurrentUser.name, params)
   }
 
-  @PostMapping(path = Array("/json-api/plan"), consumes = Array("application/json"))
+  @PostMapping(path = Array("/api/plan"), consumes = Array("application/json"))
   def plan(@RequestBody params: PlanParams): ApiResponse[PlanLegDetail] = {
     plannerFacade.plan(CurrentUser.name, NetworkType.withName(params.networkType).get, params.planString)
   }

@@ -71,8 +71,8 @@ class CouchConfiguration(
   }
 
   @Bean
-  def longDistanceRouteChangeDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "long-distance"))
+  def monitorRouteChangeDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "monitor"))
   }
 
 }

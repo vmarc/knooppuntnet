@@ -52,12 +52,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AnalysisController(analysisFacade: AnalysisFacade) {
 
-  @GetMapping(value = Array("/json-api/overview"))
+  @GetMapping(value = Array("/api/overview"))
   def overview(): ApiResponse[Statistics] = {
     analysisFacade.overview(CurrentUser.name)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -66,7 +66,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetNetworks(CurrentUser.name, subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
   def subsetFacts(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -75,7 +75,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetFacts(CurrentUser.name, subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
   def subsetFactDetails(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
@@ -86,7 +86,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetFactDetails(CurrentUser.name, subset, f)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
   def subsetOrphanNodes(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -95,7 +95,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetOrphanNodes(CurrentUser.name, subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
   def subsetOrphanRoutes(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -104,7 +104,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetOrphanRoutes(CurrentUser.name, subset.get)
   }
 
-  @GetMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
   def subsetMap(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
@@ -113,7 +113,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetMap(CurrentUser.name, subset.get)
   }
 
-  @PostMapping(value = Array("/json-api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
+  @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
@@ -123,42 +123,42 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.subsetChanges(CurrentUser.name, p)
   }
 
-  @GetMapping(value = Array("/json-api/network/{networkId}"))
+  @GetMapping(value = Array("/api/network/{networkId}"))
   def networkDetails(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkDetailsPage] = {
     analysisFacade.networkDetails(CurrentUser.name, networkId)
   }
 
-  @GetMapping(value = Array("/json-api/network/{networkId}/map"))
+  @GetMapping(value = Array("/api/network/{networkId}/map"))
   def networkMap(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkMapPage] = {
     analysisFacade.networkMap(CurrentUser.name, networkId)
   }
 
-  @GetMapping(value = Array("/json-api/network/{networkId}/facts"))
+  @GetMapping(value = Array("/api/network/{networkId}/facts"))
   def networkFacts(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkFactsPage] = {
     analysisFacade.networkFacts(CurrentUser.name, networkId)
   }
 
-  @GetMapping(value = Array("/json-api/network/{networkId}/nodes"))
+  @GetMapping(value = Array("/api/network/{networkId}/nodes"))
   def networkNodes(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkNodesPage] = {
     analysisFacade.networkNodes(CurrentUser.name, networkId)
   }
 
-  @GetMapping(value = Array("/json-api/network/{networkId}/routes"))
+  @GetMapping(value = Array("/api/network/{networkId}/routes"))
   def networkRoutes(
     @PathVariable networkId: Long
   ): ApiResponse[NetworkRoutesPage] = {
     analysisFacade.networkRoutes(CurrentUser.name, networkId)
   }
 
-  @PostMapping(value = Array("/json-api/network/{networkId}/changes"))
+  @PostMapping(value = Array("/api/network/{networkId}/changes"))
   def networkChanges(
     @PathVariable networkId: Long,
     @RequestBody parameters: ChangesParameters
@@ -167,21 +167,21 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.networkChanges(CurrentUser.name, p)
   }
 
-  @GetMapping(value = Array("/json-api/node/{nodeId}"))
+  @GetMapping(value = Array("/api/node/{nodeId}"))
   def node(
     @PathVariable nodeId: Long
   ): ApiResponse[NodeDetailsPage] = {
     analysisFacade.nodeDetails(CurrentUser.name, nodeId)
   }
 
-  @GetMapping(value = Array("/json-api/node/{nodeId}/map"))
+  @GetMapping(value = Array("/api/node/{nodeId}/map"))
   def nodeMap(
     @PathVariable nodeId: Long
   ): ApiResponse[NodeMapPage] = {
     analysisFacade.nodeMap(CurrentUser.name, nodeId)
   }
 
-  @PostMapping(value = Array("/json-api/node/{nodeId}/changes"))
+  @PostMapping(value = Array("/api/node/{nodeId}/changes"))
   def nodeChanges(
     @PathVariable nodeId: Long,
     @RequestBody parameters: ChangesParameters
@@ -190,21 +190,21 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.nodeChanges(CurrentUser.name, nodeId, p)
   }
 
-  @GetMapping(value = Array("/json-api/route/{routeId}"))
+  @GetMapping(value = Array("/api/route/{routeId}"))
   def route(
     @PathVariable routeId: Long
   ): ApiResponse[RouteDetailsPage] = {
     analysisFacade.routeDetails(CurrentUser.name, routeId)
   }
 
-  @GetMapping(value = Array("/json-api/route/{routeId}/map"))
+  @GetMapping(value = Array("/api/route/{routeId}/map"))
   def routeMap(
     @PathVariable routeId: Long
   ): ApiResponse[RouteMapPage] = {
     analysisFacade.routeMap(CurrentUser.name, routeId)
   }
 
-  @PostMapping(value = Array("/json-api/route/{routeId}/changes"))
+  @PostMapping(value = Array("/api/route/{routeId}/changes"))
   def routeChanges(
     @PathVariable routeId: Long,
     @RequestBody parameters: ChangesParameters
@@ -213,14 +213,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.routeChanges(CurrentUser.name, routeId, p)
   }
 
-  @PostMapping(value = Array("/json-api/changes"))
+  @PostMapping(value = Array("/api/changes"))
   def changes(
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[ChangesPage] = {
     analysisFacade.changes(CurrentUser.name, parameters)
   }
 
-  @GetMapping(value = Array("/json-api/changeset/{changeSetId}/{replicationNumber}"))
+  @GetMapping(value = Array("/api/changeset/{changeSetId}/{replicationNumber}"))
   def changeSet(
     @PathVariable changeSetId: Long,
     @PathVariable replicationNumber: Int
@@ -229,12 +229,12 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.changeSet(CurrentUser.name, changeSetId, Some(replicationId))
   }
 
-  @GetMapping(value = Array("/json-api/survey-date-info"))
+  @GetMapping(value = Array("/api/survey-date-info"))
   def surveyDateInfo(): ApiResponse[SurveyDateInfo] = {
     ApiResponse(None, 1, Some(SurveyDateInfoBuilder.dateInfo))
   }
 
-  @GetMapping(value = Array("/json-api/locations/{networkType}/{country}"))
+  @GetMapping(value = Array("/api/locations/{networkType}/{country}"))
   def locations(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country
@@ -242,7 +242,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locations(CurrentUser.name, networkType, country)
   }
 
-  @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/nodes"))
+  @PostMapping(value = Array("/api/{networkType}/{country}/{location}/nodes"))
   def locationNodes(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -253,7 +253,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationNodes(CurrentUser.name, locationKey, parameters)
   }
 
-  @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/routes"))
+  @PostMapping(value = Array("/api/{networkType}/{country}/{location}/routes"))
   def locationRoutes(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -264,7 +264,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationRoutes(CurrentUser.name, locationKey, parameters)
   }
 
-  @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/facts"))
+  @GetMapping(value = Array("/api/{networkType}/{country}/{location}/facts"))
   def locationFacts(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -274,7 +274,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationFacts(CurrentUser.name, locationKey)
   }
 
-  @GetMapping(value = Array("/json-api/{networkType}/{country}/{location}/map"))
+  @GetMapping(value = Array("/api/{networkType}/{country}/{location}/map"))
   def locationMap(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -284,7 +284,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationMap(CurrentUser.name, locationKey)
   }
 
-  @PostMapping(value = Array("/json-api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es}/{location}/changes"))
+  @PostMapping(value = Array("/api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es}/{location}/changes"))
   def locationChanges(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -295,7 +295,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationChanges(CurrentUser.name, locationKey, parameters)
   }
 
-  @PostMapping(value = Array("/json-api/{networkType}/{country}/{location}/edit"))
+  @PostMapping(value = Array("/api/{networkType}/{country}/{location}/edit"))
   def locationEdit(
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,

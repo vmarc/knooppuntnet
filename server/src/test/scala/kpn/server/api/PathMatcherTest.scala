@@ -8,8 +8,8 @@ class PathMatcherTest extends UnitTest {
 
   test("subset") {
 
-    val pattern = "/json-api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"
-    val path = "/json-api/be/cycling/networks"
+    val pattern = "/api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"
+    val path = "/api/be/cycling/networks"
 
     val matcher: PathMatcher = new AntPathMatcher()
     val result = matcher.extractUriTemplateVariables(pattern, path)
