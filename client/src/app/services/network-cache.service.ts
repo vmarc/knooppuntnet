@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
+import {NetworkSummary} from '@api/common/network/network-summary';
 import {Map} from 'immutable';
-import {NetworkSummary} from '../kpn/api/common/network/network-summary';
 
 @Injectable({
   providedIn: 'root'

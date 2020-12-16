@@ -2,7 +2,7 @@ import {List} from 'immutable';
 import {Coordinate} from 'ol/coordinate';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlanNode} from '@api/common/planner/plan-node';
 import {PlannerCommandReplaceLeg} from '../../commands/planner-command-replace-leg';
 import {PlannerContext} from '../../context/planner-context';
 import {FeatureId} from '../../features/feature-id';

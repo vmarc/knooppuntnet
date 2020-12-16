@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
+import {NetworkType} from '@api/custom/network-type';
 import {ReplaySubject} from 'rxjs';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AppService} from '../../../app.service';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
 import {NodeClick} from '../domain/node-click';
 import {PoiClick} from '../domain/poi-click';
 import {RouteClick} from '../domain/route-click';

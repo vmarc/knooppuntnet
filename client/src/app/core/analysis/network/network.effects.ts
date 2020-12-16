@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {Actions} from '@ngrx/effects';
 import {createEffect} from '@ngrx/effects';
 import {ofType} from '@ngrx/effects';
@@ -9,7 +10,6 @@ import {map} from 'rxjs/operators';
 import {filter} from 'rxjs/operators';
 import {mergeMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
 import {selectUrl} from '../../core.state';
 import {selectRouteParams} from '../../core.state';
 import {AppState} from '../../core.state';

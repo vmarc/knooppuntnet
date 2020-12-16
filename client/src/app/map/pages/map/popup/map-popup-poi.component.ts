@@ -1,6 +1,10 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
+import {PoiAnalysis} from '@api/common/poi-analysis';
+import {PoiPage} from '@api/common/poi-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Tags} from '@api/custom/tags';
 import {Coordinate} from 'ol/coordinate';
 import {Observable} from 'rxjs';
 import {filter, mergeMap, tap} from 'rxjs/operators';
@@ -8,10 +12,6 @@ import {AppService} from '../../../../app.service';
 import {PoiClick} from '../../../../components/ol/domain/poi-click';
 import {MapService} from '../../../../components/ol/services/map.service';
 import {InterpretedTags} from '../../../../components/shared/tags/interpreted-tags';
-import {PoiAnalysis} from '../../../../kpn/api/common/poi-analysis';
-import {PoiPage} from '../../../../kpn/api/common/poi-page';
-import {ApiResponse} from '../../../../kpn/api/custom/api-response';
-import {Tags} from '../../../../kpn/api/custom/tags';
 import {PoiService} from '../../../../services/poi.service';
 import {PlannerService} from '../../../planner.service';
 

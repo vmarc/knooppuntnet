@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
-import {BarChart2D} from '../../../kpn/api/common/status/bar-chart2d';
+import {BarChart2D} from '@api/common/status/bar-chart2d';
 
 /* tslint:disable:template-i18n English only */
 @Component({

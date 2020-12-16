@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectionListChange} from '@angular/material/list';
+import {MonitorRouteSegment} from '@api/common/monitor/monitor-route-segment';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
 import {actionMonitorRouteMapFocus} from '../../../core/monitor/monitor.actions';
 import {selectMonitorRouteMapOsmSegments} from '../../../core/monitor/monitor.selectors';
-import {MonitorRouteSegment} from '../../../kpn/api/common/monitor/monitor-route-segment';
 import {MonitorRouteMapService} from './monitor-route-map.service';
 
 @Component({

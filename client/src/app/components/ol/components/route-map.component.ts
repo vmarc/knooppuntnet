@@ -5,7 +5,7 @@ import {List} from 'immutable';
 import {Extent} from 'ol/extent';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {RouteInfo} from '../../../kpn/api/common/route/route-info';
+import {RouteInfo} from '@api/common/route/route-info';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PageService} from '../../shared/page.service';
 import {Util} from '../../shared/util';

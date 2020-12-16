@@ -2,7 +2,7 @@ import MVT from 'ol/format/MVT';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
 import VectorTile from 'ol/source/VectorTile';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {NetworkType} from '@api/custom/network-type';
 import {ZoomLevel} from '../domain/zoom-level';
 import {NodeMapStyle} from '../style/node-map-style';
 import {Layers} from './layers';

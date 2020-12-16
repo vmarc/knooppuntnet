@@ -6,13 +6,13 @@ import {Coordinate} from 'ol/coordinate';
 import {boundingExtent} from 'ol/extent';
 import {Extent} from 'ol/extent';
 import {fromLonLat, toLonLat} from 'ol/proj';
-import {Bounds} from '../../kpn/api/common/bounds';
-import {ChangesParameters} from '../../kpn/api/common/changes/filter/changes-parameters';
-import {LatLonImpl} from '../../kpn/api/common/lat-lon-impl';
-import {Country} from '../../kpn/api/custom/country';
-import {NetworkType} from '../../kpn/api/custom/network-type';
-import {Subset} from '../../kpn/api/custom/subset';
-import {TagDiffs} from '../../kpn/api/common/diff/tag-diffs';
+import {Bounds} from '@api/common/bounds';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
+import {LatLonImpl} from '@api/common/lat-lon-impl';
+import {Country} from '@api/custom/country';
+import {NetworkType} from '@api/custom/network-type';
+import {Subset} from '@api/custom/subset';
+import {TagDiffs} from '@api/common/diff/tag-diffs';
 
 type IPropertyGetter<T> = () => T;
 

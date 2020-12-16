@@ -1,6 +1,6 @@
 import {Params} from '@angular/router';
-import {LocationKey} from '../../../kpn/api/custom/location-key';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {LocationKey} from '@api/custom/location-key';
+import {NetworkType} from '@api/custom/network-type';
 import {Countries} from '../../../kpn/common/countries';
 
 export class LocationParams {

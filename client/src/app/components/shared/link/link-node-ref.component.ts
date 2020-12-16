@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit} from '@angular/core';
-import {KnownElements} from '../../../kpn/api/common/common/known-elements';
-import {Ref} from '../../../kpn/api/common/common/ref';
+import {KnownElements} from '@api/common/common/known-elements';
+import {Ref} from '@api/common/common/ref';
 
 @Component({
   selector: 'kpn-link-node-ref',

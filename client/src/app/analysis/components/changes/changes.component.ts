@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
 import {actionPreferencesImpact} from '../../../core/preferences/preferences.actions';
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
-import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {Subscriptions} from '../../../util/Subscriptions';
 
 @Component({

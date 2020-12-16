@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {Params} from '@angular/router';
+import {LocationNodesPage} from '@api/common/location/location-nodes-page';
+import {LocationNodesParameters} from '@api/common/location/location-nodes-parameters';
+import {LocationRoutesParameters} from '@api/common/location/location-routes-parameters';
+import {ApiResponse} from '@api/custom/api-response';
 import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
 import {combineLatest} from 'rxjs';
@@ -12,10 +16,6 @@ import {switchMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {AppState} from '../../../core/core.state';
 import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
-import {LocationNodesPage} from '../../../kpn/api/common/location/location-nodes-page';
-import {LocationNodesParameters} from '../../../kpn/api/common/location/location-nodes-parameters';
-import {LocationRoutesParameters} from '../../../kpn/api/common/location/location-routes-parameters';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {LocationService} from '../location.service';
 
 @Injectable()

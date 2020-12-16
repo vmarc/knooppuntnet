@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {PlanRoute} from '@api/common/planner/plan-route';
 import {Map as TranslationMap} from 'immutable';
 import Map from 'ol/Map';
 import {BehaviorSubject} from 'rxjs';
@@ -7,16 +8,15 @@ import {MapService} from '../components/ol/services/map.service';
 import {PlannerContext} from './planner/context/planner-context';
 import {PlannerCursorImpl} from './planner/context/planner-cursor-impl';
 import {PlannerElasticBandImpl} from './planner/context/planner-elastic-band-impl';
+import {PlannerHighlightLayer} from './planner/context/planner-highlight-layer';
+import {PlannerHighlighterImpl} from './planner/context/planner-highlighter-impl';
 import {PlannerLegRepositoryImpl} from './planner/context/planner-leg-repository-impl';
 import {PlannerMarkerLayerImpl} from './planner/context/planner-marker-layer-impl';
 import {PlannerOverlayImpl} from './planner/context/planner-overlay-impl';
 import {PlannerRouteLayerImpl} from './planner/context/planner-route-layer-impl';
 import {PlannerEngine} from './planner/interaction/planner-engine';
 import {PlannerEngineImpl} from './planner/interaction/planner-engine-impl';
-import {PlanRoute} from '../kpn/api/common/planner/plan-route';
 import {PlanUtil} from './planner/plan/plan-util';
-import {PlannerHighlighterImpl} from './planner/context/planner-highlighter-impl';
-import {PlannerHighlightLayer} from './planner/context/planner-highlight-layer';
 import {ColourTranslator} from './planner/services/colour-translator';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {Check} from '@api/common/check';
 import {List} from 'immutable';
-import {Check} from '../../../kpn/api/common/check';
 
 @Component({
   selector: 'kpn-network-fact-checks',

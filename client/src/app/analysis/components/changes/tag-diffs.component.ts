@@ -3,7 +3,7 @@ import {Component, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
-import {TagDiffs} from '../../../kpn/api/common/diff/tag-diffs';
+import {TagDiffs} from '@api/common/diff/tag-diffs';
 
 @Component({
   selector: 'kpn-tag-diffs',

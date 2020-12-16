@@ -1,4 +1,4 @@
-import {Country} from '../api/custom/country';
+import {Country} from '@api/custom/country';
 
 export class Countries {
 

@@ -4,10 +4,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {flatMap} from 'rxjs/operators';
-import {LocationNode} from '../../../kpn/api/common/location/location-node';
-import {Country} from '../../../kpn/api/custom/country';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {LocationNode} from '@api/common/location/location-node';
+import {Country} from '@api/custom/country';
+import {NetworkType} from '@api/custom/network-type';
+import {Subset} from '@api/custom/subset';
 import {LocationModeService} from './location-mode.service';
 import {LocationSelectionService} from './location-selection.service';
 

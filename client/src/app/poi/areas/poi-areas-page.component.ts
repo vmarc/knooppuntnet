@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ApiResponse} from '../../kpn/api/custom/api-response';
+import {ApiResponse} from '@api/custom/api-response';
 import {AppService} from '../../app.service';
 import {PageService} from '../../components/shared/page.service';
 

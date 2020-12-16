@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {NodeInfo} from '@api/common/node-info';
+import {NetworkType} from '@api/custom/network-type';
 import {List} from 'immutable';
-import {NodeInfo} from '../../../kpn/api/common/node-info';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
 
 @Component({
   selector: 'kpn-node-summary',

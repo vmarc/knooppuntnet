@@ -15,7 +15,7 @@ import {MapZoomService} from '../../../components/ol/services/map-zoom.service';
 import {MapService} from '../../../components/ol/services/map.service';
 import {PoiTileLayerService} from '../../../components/ol/services/poi-tile-layer.service';
 import {MainMapStyle} from '../../../components/ol/style/main-map-style';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {NetworkType} from '@api/custom/network-type';
 import {PlannerService} from '../../planner.service';
 import {MapMode} from '../../../components/ol/services/map-mode';
 import {Subscriptions} from '../../../util/Subscriptions';

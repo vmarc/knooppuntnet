@@ -2,7 +2,7 @@ import {List} from 'immutable';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {I18nService} from '../../../i18n/i18n.service';
-import {NetworkInfoNode} from '../../../kpn/api/common/network/network-info-node';
+import {NetworkInfoNode} from '@api/common/network/network-info-node';
 import {Util} from '../../shared/util';
 import {Marker} from '../domain/marker';
 import {MapLayer} from './map-layer';

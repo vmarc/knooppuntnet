@@ -5,7 +5,7 @@ import {OnDestroy} from '@angular/core';
 import {AfterViewInit} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
+import {ChangeSetPage} from '@api/common/changes/change-set-page';
 import {Subscriptions} from '../../../util/Subscriptions';
 
 @Component({

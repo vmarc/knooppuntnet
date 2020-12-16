@@ -5,8 +5,8 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {LocationFactsPage} from '../../../kpn/api/common/location/location-facts-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {LocationFactsPage} from '@api/common/location/location-facts-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {LocationService} from '../location.service';
 
 @Injectable()

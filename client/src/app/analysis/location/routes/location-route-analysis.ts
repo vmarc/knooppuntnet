@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {LocationRouteInfo} from '../../../kpn/api/common/location/location-route-info';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {LocationRouteInfo} from '@api/common/location/location-route-info';
+import {NetworkType} from '@api/custom/network-type';
 
 @Component({
   selector: 'kpn-location-route-analysis',

@@ -1,4 +1,4 @@
-import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanNode} from '@api/common/planner/plan-node';
 import {PlannerContext} from '../context/planner-context';
 import {Plan} from '../plan/plan';
 import {PlanFlag} from '../plan/plan-flag';

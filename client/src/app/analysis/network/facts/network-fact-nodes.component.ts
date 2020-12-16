@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {Ref} from '@api/common/common/ref';
 import {List} from 'immutable';
-import {Ref} from '../../../kpn/api/common/common/ref';
 
 @Component({
   selector: 'kpn-network-fact-nodes',

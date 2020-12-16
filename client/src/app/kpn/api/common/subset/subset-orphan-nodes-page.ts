@@ -2,8 +2,8 @@
 
 import {List} from 'immutable';
 import {NodeInfo} from '../node-info';
-import {SubsetInfo} from './subset-info';
 import {TimeInfo} from '../time-info';
+import {SubsetInfo} from './subset-info';
 
 export class SubsetOrphanNodesPage {
 

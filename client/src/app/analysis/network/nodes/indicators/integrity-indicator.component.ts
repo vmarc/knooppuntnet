@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {NetworkInfoNode} from '../../../../kpn/api/common/network/network-info-node';
-import {NetworkType} from '../../../../kpn/api/custom/network-type';
+import {NetworkInfoNode} from '@api/common/network/network-info-node';
+import {NetworkType} from '@api/custom/network-type';
 import {IntegrityIndicatorData} from './integrity-indicator-data';
 import {IntegrityIndicatorDialogComponent} from './integrity-indicator-dialog.component';
 

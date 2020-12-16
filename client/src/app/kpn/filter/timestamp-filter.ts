@@ -1,11 +1,11 @@
 import {List} from 'immutable';
-import {TimeInfo} from '../api/common/time-info';
-import {Timestamp} from '../api/custom/timestamp';
 import {Filter} from './filter';
 import {FilterOption} from './filter-option';
 import {FilterOptionGroup} from './filter-option-group';
 import {Filters} from './filters';
 import {TimestampFilterKind} from './timestamp-filter-kind';
+import {TimeInfo} from '@api/common/time-info';
+import {Timestamp} from '@api/custom/timestamp';
 
 export class TimestampFilter<T> extends Filter<T> {
 

@@ -8,14 +8,14 @@ import {OnChanges} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {LocationRouteInfo} from '@api/common/location/location-route-info';
+import {TimeInfo} from '@api/common/time-info';
+import {NetworkType} from '@api/custom/network-type';
 import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
-import {LocationRouteInfo} from '../../../kpn/api/common/location/location-route-info';
-import {TimeInfo} from '../../../kpn/api/common/time-info';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
 
 @Component({
   selector: 'kpn-location-route-table',

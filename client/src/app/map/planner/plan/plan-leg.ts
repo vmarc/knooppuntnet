@@ -1,8 +1,8 @@
+import {LegEnd} from '@api/common/planner/leg-end';
+import {PlanNode} from '@api/common/planner/plan-node';
+import {PlanRoute} from '@api/common/planner/plan-route';
 import {List} from 'immutable';
 import {Util} from '../../../components/shared/util';
-import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
-import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
-import {PlanRoute} from '../../../kpn/api/common/planner/plan-route';
 import {PlanFlag} from './plan-flag';
 
 export class PlanLeg {

@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info';
+import {KnownElements} from '@api/common/common/known-elements';
+import {Ref} from '@api/common/common/ref';
 import {List} from 'immutable';
-import {NetworkChangeInfo} from '../../../../kpn/api/common/changes/details/network-change-info';
-import {KnownElements} from '../../../../kpn/api/common/common/known-elements';
-import {Ref} from '../../../../kpn/api/common/common/ref';
 
 @Component({
   selector: 'kpn-cs-nc-orphan-nodes-new',

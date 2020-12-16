@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NetworkRouteRow} from '../../../kpn/api/common/network/network-route-row';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {NetworkRouteRow} from '@api/common/network/network-route-row';
+import {NetworkType} from '@api/custom/network-type';
 
 @Component({
   selector: 'kpn-network-route-analysis',

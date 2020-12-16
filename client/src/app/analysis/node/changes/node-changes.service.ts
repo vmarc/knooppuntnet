@@ -9,7 +9,7 @@ import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
 import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
-import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
 
 @Injectable()

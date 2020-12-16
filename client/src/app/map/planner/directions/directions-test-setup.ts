@@ -1,5 +1,5 @@
+import {RouteLeg} from '@api/common/planner/route-leg';
 import {List} from 'immutable';
-import {RouteLeg} from '../../../kpn/api/common/planner/route-leg';
 import {Plan} from '../plan/plan';
 import {PlanFlag} from '../plan/plan-flag';
 import {PlanLeg} from '../plan/plan-leg';

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {NetworkType} from '@api/custom/network-type';
 import {Countries} from '../../../kpn/common/countries';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
 import {Stat} from '../domain/stat';
 
 @Component({

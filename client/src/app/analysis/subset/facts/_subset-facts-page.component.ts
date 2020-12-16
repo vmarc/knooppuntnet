@@ -8,14 +8,14 @@ import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
-import {SubsetFactsPage} from '../../../kpn/api/common/subset/subset-facts-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {Fact} from '../../../kpn/api/custom/fact';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {SubsetFactsPage} from '@api/common/subset/subset-facts-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Fact} from '@api/custom/fact';
+import {Subset} from '@api/custom/subset';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 import {FactLevel} from '../../fact/fact-level';
 import {Facts} from '../../fact/facts';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
+import {SubsetInfo} from '@api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-facts-page',

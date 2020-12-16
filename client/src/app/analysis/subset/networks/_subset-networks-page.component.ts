@@ -9,13 +9,13 @@ import {AppService} from '../../../app.service';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
-import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
-import {SubsetNetworksPage} from '../../../kpn/api/common/subset/subset-networks-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {NetworkAttributes} from '@api/common/network/network-attributes';
+import {SubsetNetworksPage} from '@api/common/subset/subset-networks-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Subset} from '@api/custom/subset';
 import {NetworkCacheService} from '../../../services/network-cache.service';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
+import {SubsetInfo} from '@api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-networks-page',

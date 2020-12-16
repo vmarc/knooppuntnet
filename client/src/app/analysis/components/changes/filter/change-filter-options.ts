@@ -1,8 +1,8 @@
+import {ChangesFilter} from '@api/common/changes/filter/changes-filter';
+import {ChangesFilterPeriod} from '@api/common/changes/filter/changes-filter-period';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {List} from 'immutable';
 import {Util} from '../../../../components/shared/util';
-import {ChangesFilter} from '../../../../kpn/api/common/changes/filter/changes-filter';
-import {ChangesFilterPeriod} from '../../../../kpn/api/common/changes/filter/changes-filter-period';
-import {ChangesParameters} from '../../../../kpn/api/common/changes/filter/changes-parameters';
 import {ChangeFilterOption} from './change-filter-option';
 
 export class ChangeFilterOptions {

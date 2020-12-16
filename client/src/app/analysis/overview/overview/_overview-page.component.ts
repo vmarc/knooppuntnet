@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
+import {ApiResponse} from '@api/custom/api-response';
+import {Statistics} from '@api/custom/statistics';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PageService} from '../../../components/shared/page.service';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {Statistics} from '../../../kpn/api/custom/statistics';
 
 @Component({
   selector: 'kpn-overview-page',

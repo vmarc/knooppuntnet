@@ -2,8 +2,8 @@
 
 import {List} from 'immutable';
 import {ChangesFilter} from '../changes/filter/changes-filter';
-import {NodeChangeInfo} from './node-change-info';
 import {NodeInfo} from '../node-info';
+import {NodeChangeInfo} from './node-change-info';
 
 export class NodeChangesPage {
 

@@ -1,7 +1,7 @@
-import {CountryStatistic} from '../../../kpn/api/common/statistics/country-statistic';
-import {Statistic} from '../../../kpn/api/common/statistics/statistic';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {CountryStatistic} from '@api/common/statistics/country-statistic';
+import {Statistic} from '@api/common/statistics/statistic';
+import {NetworkType} from '@api/custom/network-type';
+import {Subset} from '@api/custom/subset';
 import {StatisticConfiguration} from './statistic-configuration';
 
 export class Stat {

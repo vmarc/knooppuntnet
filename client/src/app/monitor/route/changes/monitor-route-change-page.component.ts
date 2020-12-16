@@ -5,7 +5,7 @@ import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
 import {selectMonitorRouteName} from '../../../core/monitor/monitor.selectors';
 import {selectMonitorRouteChange} from '../../../core/monitor/monitor.selectors';
-import {Timestamp} from '../../../kpn/api/custom/timestamp';
+import {Timestamp} from '@api/custom/timestamp';
 
 @Component({
   selector: 'kpn-monitor-route-change-page',

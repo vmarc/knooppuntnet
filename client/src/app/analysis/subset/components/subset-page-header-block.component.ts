@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {Util} from '../../../components/shared/util';
-import {I18nService} from '../../../i18n/i18n.service';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
-import {Subset} from '../../../kpn/api/custom/subset';
-import {SubsetCacheService} from '../../../services/subset-cache.service';
+import {OnInit} from '@angular/core';
+import {SubsetInfo} from '@api/common/subset/subset-info';
+import {Subset} from '@api/custom/subset';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {OnInit} from '@angular/core';
+import {Util} from '../../../components/shared/util';
+import {I18nService} from '../../../i18n/i18n.service';
+import {SubsetCacheService} from '../../../services/subset-cache.service';
 
 @Component({
   selector: 'kpn-subset-page-header-block',

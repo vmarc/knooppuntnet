@@ -3,13 +3,13 @@ import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 import {Params} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+import {PeriodParameters} from '@api/common/status/period-parameters';
+import {SystemStatusPage} from '@api/common/status/system-status-page';
 import {Observable} from 'rxjs';
 import {flatMap} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppService} from '../../app.service';
-import {PeriodParameters} from '../../kpn/api/common/status/period-parameters';
-import {SystemStatusPage} from '../../kpn/api/common/status/system-status-page';
 import {StatusLinks} from './status-links';
 
 /* tslint:disable:template-i18n English only */

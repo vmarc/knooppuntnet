@@ -1,6 +1,6 @@
+import {PlanNode} from '@api/common/planner/plan-node';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
 import {PlannerCommandMoveFirstLegSource} from '../../commands/planner-command-move-first-leg-source';
 import {PlannerContext} from '../../context/planner-context';
 import {PlanLeg} from '../../plan/plan-leg';

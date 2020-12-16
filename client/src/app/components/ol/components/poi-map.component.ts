@@ -12,7 +12,7 @@ import {MapLayer} from '../layers/map-layer';
 import {MapLayers} from '../layers/map-layers';
 import {MapLayerService} from '../services/map-layer.service';
 import {Util} from '../../shared/util';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {NetworkType} from '@api/custom/network-type';
 import {MapMode} from '../services/map-mode';
 
 @Component({

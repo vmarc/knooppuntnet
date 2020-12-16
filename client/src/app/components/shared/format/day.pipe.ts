@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Day} from '../../../kpn/api/custom/day';
+import {Day} from '@api/custom/day';
 import {Util} from '../util';
 
 @Pipe({

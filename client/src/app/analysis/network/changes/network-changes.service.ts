@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Observable} from 'rxjs';
 import {Util} from '../../../components/shared/util';
-import {ChangesParameters} from '../../../kpn/api/common/changes/filter/changes-parameters';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
 
 @Injectable({

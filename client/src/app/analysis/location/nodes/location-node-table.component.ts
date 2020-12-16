@@ -13,8 +13,8 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
-import {LocationNodeInfo} from '../../../kpn/api/common/location/location-node-info';
-import {TimeInfo} from '../../../kpn/api/common/time-info';
+import {LocationNodeInfo} from '@api/common/location/location-node-info';
+import {TimeInfo} from '@api/common/time-info';
 
 @Component({
   selector: 'kpn-location-node-table',

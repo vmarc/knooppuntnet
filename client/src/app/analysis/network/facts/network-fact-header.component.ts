@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NetworkFact} from '../../../kpn/api/common/network-fact';
+import {NetworkFact} from '@api/common/network-fact';
 import {FactLevel} from '../../fact/fact-level';
 import {Facts} from '../../fact/facts';
 

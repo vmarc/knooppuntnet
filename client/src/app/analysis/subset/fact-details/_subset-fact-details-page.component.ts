@@ -3,16 +3,16 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Params} from '@angular/router';
+import {SubsetFactDetailsPage} from '@api/common/subset/subset-fact-details-page';
+import {SubsetInfo} from '@api/common/subset/subset-info';
+import {ApiResponse} from '@api/custom/api-response';
+import {Subset} from '@api/custom/subset';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {map, mergeMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
-import {SubsetFactDetailsPage} from '../../../kpn/api/common/subset/subset-fact-details-page';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {Subset} from '../../../kpn/api/custom/subset';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 
 class SubsetFact {

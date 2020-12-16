@@ -5,7 +5,7 @@ import {AppState} from '../../../core/core.state';
 import {actionMonitorRouteMapFocus} from '../../../core/monitor/monitor.actions';
 import {selectMonitorRouteMapGpxEnabled} from '../../../core/monitor/monitor.selectors';
 import {selectMonitorRouteMapNokSegments} from '../../../core/monitor/monitor.selectors';
-import {MonitorRouteNokSegment} from '../../../kpn/api/common/monitor/monitor-route-nok-segment';
+import {MonitorRouteNokSegment} from '@api/common/monitor/monitor-route-nok-segment';
 
 @Component({
   selector: 'kpn-monitor-route-map-nok-segments',

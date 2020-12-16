@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Params} from '@angular/router';
+import {LocationMapPage} from '@api/common/location/location-map-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {combineLatest} from 'rxjs';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {MapService} from '../../../components/ol/services/map.service';
-import {LocationMapPage} from '../../../kpn/api/common/location/location-map-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {LocationService} from '../location.service';
 
 @Injectable()

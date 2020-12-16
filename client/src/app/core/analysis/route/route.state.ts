@@ -1,7 +1,7 @@
-import {RouteChangesPage} from '../../../kpn/api/common/route/route-changes-page';
-import {RouteDetailsPage} from '../../../kpn/api/common/route/route-details-page';
-import {RouteMapPage} from '../../../kpn/api/common/route/route-map-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {RouteChangesPage} from '@api/common/route/route-changes-page';
+import {RouteDetailsPage} from '@api/common/route/route-details-page';
+import {RouteMapPage} from '@api/common/route/route-map-page';
+import {ApiResponse} from '@api/custom/api-response';
 
 export const initialState: RouteState = {
   routeId: '',

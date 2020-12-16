@@ -1,4 +1,4 @@
-import {NetworkType} from '../../../../kpn/api/custom/network-type';
+import {NetworkType} from '@api/custom/network-type';
 
 export class RouteAccessibleData {
 

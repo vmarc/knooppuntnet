@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
-import {NodeMoved} from './node/node-moved';
 import {RawNode} from '../data/raw/raw-node';
+import {NodeMoved} from './node/node-moved';
 import {TagDiffs} from './tag-diffs';
 
 export class NodeUpdate {

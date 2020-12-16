@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {Util} from '../../../components/shared/util';
-import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
+import {ChangeSetPage} from '@api/common/changes/change-set-page';
 
 @Component({
   selector: 'kpn-change-set-header',

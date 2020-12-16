@@ -1,6 +1,6 @@
+import {PlanFragment} from '@api/common/planner/plan-fragment';
 import {List} from 'immutable';
 import {Plan} from '../plan/plan';
-import {PlanFragment} from '../../../kpn/api/common/planner/plan-fragment';
 import {PlanInstruction} from '../plan/plan-instruction';
 
 export class DirectionsAnalyzer {

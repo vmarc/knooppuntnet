@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {TagDiffs} from '../../../kpn/api/common/diff/tag-diffs';
+import {TagDiffs} from '@api/common/diff/tag-diffs';
 
 @Component({
   selector: 'kpn-tag-diffs-table',

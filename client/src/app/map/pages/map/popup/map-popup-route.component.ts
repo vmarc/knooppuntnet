@@ -1,6 +1,8 @@
 import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
+import {MapRouteDetail} from '@api/common/route/map-route-detail';
+import {ApiResponse} from '@api/custom/api-response';
 import {Coordinate} from 'ol/coordinate';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
@@ -8,8 +10,6 @@ import {filter} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {AppService} from '../../../../app.service';
 import {MapService} from '../../../../components/ol/services/map.service';
-import {MapRouteDetail} from '../../../../kpn/api/common/route/map-route-detail';
-import {ApiResponse} from '../../../../kpn/api/custom/api-response';
 import {PlannerService} from '../../../planner.service';
 
 @Component({

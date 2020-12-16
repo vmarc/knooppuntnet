@@ -1,4 +1,4 @@
-import {Day} from '../../../kpn/api/custom/day';
+import {Day} from '@api/custom/day';
 import { DayPipe } from './day.pipe';
 
 describe('DayPipe', () => {

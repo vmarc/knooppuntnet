@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {ReplaySubject} from 'rxjs';
-import {NetworkSummary} from '../../kpn/api/common/network/network-summary';
-import {NetworkCacheService} from '../../services/network-cache.service';
+import {NetworkSummary} from '@api/common/network/network-summary';
 import {Store} from '@ngrx/store';
+import {ReplaySubject} from 'rxjs';
 import {AppState} from '../../core/core.state';
 import {actionPreferencesNetworkType} from '../../core/preferences/preferences.actions';
+import {NetworkCacheService} from '../../services/network-cache.service';
 
 @Injectable({
   providedIn: 'root',

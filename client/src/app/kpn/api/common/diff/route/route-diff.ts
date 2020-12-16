@@ -2,10 +2,10 @@
 
 import {List} from 'immutable';
 import {FactDiffs} from '../common/fact-diffs';
+import {TagDiffs} from '../tag-diffs';
 import {RouteNameDiff} from './route-name-diff';
 import {RouteNodeDiff} from './route-node-diff';
 import {RouteRoleDiff} from './route-role-diff';
-import {TagDiffs} from '../tag-diffs';
 
 export class RouteDiff {
 

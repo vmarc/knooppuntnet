@@ -1,6 +1,6 @@
 import {List, Range} from 'immutable';
 import {Plan} from '../../map/planner/plan/plan';
-import {PlanRoute} from '../../kpn/api/common/planner/plan-route';
+import {PlanRoute} from '@api/common/planner/plan-route';
 import {PdfPlan} from './pdf-plan';
 import {PdfPlanNode} from './pdf-plan-node';
 

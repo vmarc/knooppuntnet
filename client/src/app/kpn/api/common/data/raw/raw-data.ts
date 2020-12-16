@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
 import {List} from 'immutable';
+import {Timestamp} from '../../../custom/timestamp';
 import {RawNode} from './raw-node';
 import {RawRelation} from './raw-relation';
 import {RawWay} from './raw-way';
-import {Timestamp} from '../../../custom/timestamp';
 
 export class RawData {
 

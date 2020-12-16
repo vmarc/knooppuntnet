@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
-import {LocationNodesPage} from '../../../kpn/api/common/location/location-nodes-page';
+import {LocationNodesPage} from '@api/common/location/location-nodes-page';
 import {LocationNodesPageService} from './location-nodes-page.service';
 
 @Component({

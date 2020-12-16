@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {AfterViewInit, ChangeDetectorRef, Component, ViewChildren} from '@angular/core';
+import {Subset} from '@api/custom/subset';
 import {List} from 'immutable';
-import {Subset} from 'src/app/kpn/api/custom/subset';
 import {OverviewService} from '../overview/overview.service';
 import {StatisticConfigurationComponent} from './statistic-configuration.component';
 

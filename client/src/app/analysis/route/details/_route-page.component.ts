@@ -12,7 +12,7 @@ import {selectRouteChangeCount} from '../../../core/analysis/route/route.selecto
 import {selectRouteName} from '../../../core/analysis/route/route.selectors';
 import {selectRouteId} from '../../../core/analysis/route/route.selectors';
 import {AppState} from '../../../core/core.state';
-import {RouteDetailsPage} from '../../../kpn/api/common/route/route-details-page';
+import {RouteDetailsPage} from '@api/common/route/route-details-page';
 import {FactInfo} from '../../fact/fact-info';
 
 @Component({

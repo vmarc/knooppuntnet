@@ -1,9 +1,9 @@
 // this class is generated, please do not modify
 
 import {List} from 'immutable';
+import {RouteMemberInfo} from '../../custom/route-member-info';
 import {RouteLocationAnalysis} from '../route-location-analysis';
 import {RouteMap} from './route-map';
-import {RouteMemberInfo} from '../../custom/route-member-info';
 
 export class RouteInfoAnalysis {
 

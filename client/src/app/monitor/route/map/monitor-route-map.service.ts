@@ -15,7 +15,7 @@ import {selectMonitorRouteMapGpxNokVisible} from '../../../core/monitor/monitor.
 import {selectMonitorRouteMapOsmRelationVisible} from '../../../core/monitor/monitor.selectors';
 import {selectMonitorRouteMapGpxVisible} from '../../../core/monitor/monitor.selectors';
 import {selectMonitorRouteMap} from '../../../core/monitor/monitor.selectors';
-import {BoundsI} from '../../../kpn/api/common/bounds-i';
+import {BoundsI} from '@api/common/bounds-i';
 import {Subscriptions} from '../../../util/Subscriptions';
 
 @Injectable({

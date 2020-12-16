@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {LocationEditPage} from '@api/common/location/location-edit-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {LocationService} from '../location.service';
 
 @Injectable()

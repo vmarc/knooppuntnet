@@ -1,13 +1,12 @@
+import {RawNode} from '@api/common/data/raw/raw-node';
 import {List} from 'immutable';
-import BaseLayer from 'ol/layer/Base';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {I18nService} from '../../../i18n/i18n.service';
-import {RawNode} from '../../../kpn/api/common/data/raw/raw-node';
 import {Util} from '../../shared/util';
 import {Marker} from '../domain/marker';
-import {MapLayer} from './map-layer';
 import {Layers} from './layers';
+import {MapLayer} from './map-layer';
 
 export class RouteNodesLayer {
 

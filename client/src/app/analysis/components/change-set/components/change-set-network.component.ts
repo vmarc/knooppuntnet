@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {ChangeSetNetwork} from '../../../../kpn/api/common/change-set-network';
-import {ChangeKey} from '../../../../kpn/api/common/changes/details/change-key';
+import {ChangeSetNetwork} from '@api/common/change-set-network';
+import {ChangeKey} from '@api/common/changes/details/change-key';
 
 export class ChangeSetNetworkAction {
   constructor(readonly changeKey: ChangeKey,

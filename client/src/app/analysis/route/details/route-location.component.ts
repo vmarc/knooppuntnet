@@ -2,9 +2,9 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
 import {List} from 'immutable';
-import {Location} from '../../../kpn/api/common/location/location';
-import {LocationCandidate} from '../../../kpn/api/common/location/location-candidate';
-import {RouteLocationAnalysis} from '../../../kpn/api/common/route-location-analysis';
+import {Location} from '@api/common/location/location';
+import {LocationCandidate} from '@api/common/location/location-candidate';
+import {RouteLocationAnalysis} from '@api/common/route-location-analysis';
 
 @Component({
   selector: 'kpn-route-location',

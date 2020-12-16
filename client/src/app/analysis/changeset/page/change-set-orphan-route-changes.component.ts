@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {List} from 'immutable';
-import {ChangeSetElementRef} from '../../../kpn/api/common/change-set-element-ref';
-import {ChangeSetSubsetElementRefs} from '../../../kpn/api/common/change-set-subset-element-refs';
-import {ChangeSetPage} from '../../../kpn/api/common/changes/change-set-page';
-import {Ref} from '../../../kpn/api/common/common/ref';
-import {RefDiffs} from '../../../kpn/api/common/diff/ref-diffs';
+import {ChangeSetElementRef} from '@api/common/change-set-element-ref';
+import {ChangeSetSubsetElementRefs} from '@api/common/change-set-subset-element-refs';
+import {ChangeSetPage} from '@api/common/changes/change-set-page';
+import {Ref} from '@api/common/common/ref';
+import {RefDiffs} from '@api/common/diff/ref-diffs';
 import {RouteDiffsData} from './route-diffs/route-diffs-data';
 
 @Component({

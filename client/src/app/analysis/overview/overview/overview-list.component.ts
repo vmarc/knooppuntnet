@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit} from '@angular/core';
+import {Statistics} from '@api/custom/statistics';
 import {List} from 'immutable';
-import {OverviewService} from './overview.service';
 import {Stat} from '../domain/stat';
-import {Statistics} from '../../../kpn/api/custom/statistics';
+import {OverviewService} from './overview.service';
 
 @Component({
   selector: 'kpn-overview-list',

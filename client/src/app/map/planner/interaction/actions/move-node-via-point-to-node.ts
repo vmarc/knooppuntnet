@@ -1,6 +1,6 @@
+import {PlanNode} from '@api/common/planner/plan-node';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
 import {PlannerCommandMoveViaPoint} from '../../commands/planner-command-move-via-point';
 import {PlannerContext} from '../../context/planner-context';
 import {FeatureId} from '../../features/feature-id';

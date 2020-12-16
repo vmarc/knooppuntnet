@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {MetaData} from '@api/common/data/meta-data';
 import {NodeDiffsData} from './node-diffs-data';
-import {MetaData} from '../../../../kpn/api/common/data/meta-data';
 
 @Component({
   selector: 'kpn-node-diffs-added',

@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NodeNetworkReference} from '../../../kpn/api/common/node/node-network-reference';
-import {Reference} from '../../../kpn/api/common/common/reference';
-import {NodeInfo} from '../../../kpn/api/common/node-info';
-import {NodeNetworkRouteReference} from '../../../kpn/api/common/node/node-network-route-reference';
+import {Reference} from '@api/common/common/reference';
+import {NodeInfo} from '@api/common/node-info';
+import {NodeNetworkReference} from '@api/common/node/node-network-reference';
+import {NodeNetworkRouteReference} from '@api/common/node/node-network-route-reference';
 
 @Component({
   selector: 'kpn-node-network-reference',

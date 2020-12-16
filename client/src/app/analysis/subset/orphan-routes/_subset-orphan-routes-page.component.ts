@@ -7,12 +7,12 @@ import {BehaviorSubject} from 'rxjs';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
-import {RouteSummary} from '../../../kpn/api/common/route-summary';
-import {SubsetOrphanRoutesPage} from '../../../kpn/api/common/subset/subset-orphan-routes-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {RouteSummary} from '@api/common/route-summary';
+import {SubsetOrphanRoutesPage} from '@api/common/subset/subset-orphan-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Subset} from '@api/custom/subset';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
-import {SubsetInfo} from '../../../kpn/api/common/subset/subset-info';
+import {SubsetInfo} from '@api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-page',

@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {MonitorRouteDetail} from '@api/common/monitor/monitor-route-detail';
+import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -10,9 +13,6 @@ import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../components/shared/page-width.service';
 import {AppState} from '../../core/core.state';
 import {selectMonitorRoutes} from '../../core/monitor/monitor.selectors';
-import {MonitorRouteDetail} from '../../kpn/api/common/monitor/monitor-route-detail';
-import {MonitorRoutesPage} from '../../kpn/api/common/monitor/monitor-routes-page';
-import {ApiResponse} from '../../kpn/api/custom/api-response';
 
 @Component({
   selector: 'kpn-monitor-routes-table',

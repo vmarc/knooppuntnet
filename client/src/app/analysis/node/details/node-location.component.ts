@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
 import {List} from 'immutable';
-import {Location} from '../../../kpn/api/common/location/location';
+import {Location} from '@api/common/location/location';
 
 @Component({
   selector: 'kpn-node-location',

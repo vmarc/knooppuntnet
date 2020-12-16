@@ -5,7 +5,7 @@ import {PlanFlag} from './plan-flag';
 import {PlanUtil} from './plan-util';
 import {PlanLeg} from './plan-leg';
 import {List} from 'immutable';
-import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
+import {LegEnd} from '@api/common/planner/leg-end';
 import {PlanFlagType} from './plan-flag-type';
 import {Observable, of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';

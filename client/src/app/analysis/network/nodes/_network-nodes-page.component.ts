@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {NetworkNodesPage} from '@api/common/network/network-nodes-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {Observable} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {NetworkNodesPage} from '../../../kpn/api/common/network/network-nodes-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {NetworkService} from '../network.service';
 
 @Component({

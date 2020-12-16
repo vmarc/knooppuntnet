@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit} from '@angular/core';
-import {NodeInfo} from '../../../kpn/api/common/node-info';
+import {NodeInfo} from '@api/common/node-info';
 import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
-import {Tags} from '../../../kpn/api/custom/tags';
+import {Tags} from '@api/custom/tags';
 
 @Component({
   selector: 'kpn-subset-orphan-node',

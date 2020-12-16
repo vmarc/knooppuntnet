@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {Params} from '@angular/router';
+import {LocationChangesPage} from '@api/common/location/location-changes-page';
+import {LocationChangesParameters} from '@api/common/location/location-changes-parameters';
+import {LocationRoutesParameters} from '@api/common/location/location-routes-parameters';
+import {ApiResponse} from '@api/custom/api-response';
 import {combineLatest} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {switchMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {LocationChangesPage} from '../../../kpn/api/common/location/location-changes-page';
-import {LocationChangesParameters} from '../../../kpn/api/common/location/location-changes-parameters';
-import {LocationRoutesParameters} from '../../../kpn/api/common/location/location-routes-parameters';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {LocationService} from '../location.service';
 
 @Injectable()

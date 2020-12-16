@@ -1,8 +1,8 @@
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
-import {NodeIntegrity} from '../../../kpn/api/common/node/node-integrity';
-import {NodeIntegrityDetail} from '../../../kpn/api/common/node/node-integrity-detail';
+import {NodeIntegrity} from '@api/common/node/node-integrity';
+import {NodeIntegrityDetail} from '@api/common/node/node-integrity-detail';
 
 @Component({
   selector: 'kpn-node-integrity',

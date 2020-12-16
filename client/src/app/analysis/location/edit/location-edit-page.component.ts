@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {LocationEditPage} from '@api/common/location/location-edit-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {Observable} from 'rxjs';
 import {first} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
-import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 import {LocationEditPageService} from './location-edit-page.service';
 
 @Component({

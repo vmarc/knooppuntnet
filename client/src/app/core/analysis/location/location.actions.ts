@@ -1,12 +1,12 @@
+import {LocationChangesPage} from '@api/common/location/location-changes-page';
+import {LocationEditPage} from '@api/common/location/location-edit-page';
+import {LocationFactsPage} from '@api/common/location/location-facts-page';
+import {LocationMapPage} from '@api/common/location/location-map-page';
+import {LocationNodesPage} from '@api/common/location/location-nodes-page';
+import {LocationRoutesPage} from '@api/common/location/location-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {props} from '@ngrx/store';
 import {createAction} from '@ngrx/store';
-import {LocationChangesPage} from '../../../kpn/api/common/location/location-changes-page';
-import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
-import {LocationFactsPage} from '../../../kpn/api/common/location/location-facts-page';
-import {LocationMapPage} from '../../../kpn/api/common/location/location-map-page';
-import {LocationNodesPage} from '../../../kpn/api/common/location/location-nodes-page';
-import {LocationRoutesPage} from '../../../kpn/api/common/location/location-routes-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
 
 export const actionLocationNodesLoaded = createAction(
   '[Location] Nodes loaded',

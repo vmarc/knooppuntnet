@@ -1,10 +1,10 @@
-import {SubsetChangesPage} from '../../../kpn/api/common/subset/subset-changes-page';
-import {SubsetFactsPage} from '../../../kpn/api/common/subset/subset-facts-page';
-import {SubsetMapPage} from '../../../kpn/api/common/subset/subset-map-page';
-import {SubsetNetworksPage} from '../../../kpn/api/common/subset/subset-networks-page';
-import {SubsetOrphanNodesPage} from '../../../kpn/api/common/subset/subset-orphan-nodes-page';
-import {SubsetOrphanRoutesPage} from '../../../kpn/api/common/subset/subset-orphan-routes-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {SubsetChangesPage} from '@api/common/subset/subset-changes-page';
+import {SubsetFactsPage} from '@api/common/subset/subset-facts-page';
+import {SubsetMapPage} from '@api/common/subset/subset-map-page';
+import {SubsetNetworksPage} from '@api/common/subset/subset-networks-page';
+import {SubsetOrphanNodesPage} from '@api/common/subset/subset-orphan-nodes-page';
+import {SubsetOrphanRoutesPage} from '@api/common/subset/subset-orphan-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
 
 export const initialState: SubsetState = {
   networks: null,

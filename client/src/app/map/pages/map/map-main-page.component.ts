@@ -1,6 +1,9 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
+import {PlanParams} from '@api/common/planner/plan-params';
+import {NetworkType} from '@api/custom/network-type';
 import {Coordinate} from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
@@ -8,6 +11,8 @@ import View from 'ol/View';
 import {combineLatest, Observable} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
+import {LegHttpErrorDialogComponent} from '../../../components/ol/components/leg-http-error.dialog';
+import {LegNotFoundDialogComponent} from '../../../components/ol/components/leg-not-found-dialog';
 import {NoRouteDialogComponent} from '../../../components/ol/components/no-route-dialog.component';
 import {MapGeocoder} from '../../../components/ol/domain/map-geocoder';
 import {ZoomLevel} from '../../../components/ol/domain/zoom-level';
@@ -20,8 +25,6 @@ import {MapService} from '../../../components/ol/services/map.service';
 import {PoiTileLayerService} from '../../../components/ol/services/poi-tile-layer.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
-import {PlanParams} from '../../../kpn/api/common/planner/plan-params';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
 import {PoiService} from '../../../services/poi.service';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PlannerService} from '../../planner.service';
@@ -29,9 +32,6 @@ import {PlannerCommandAddPlan} from '../../planner/commands/planner-command-add-
 import {PlannerInteraction} from '../../planner/interaction/planner-interaction';
 import {PlanBuilder} from '../../planner/plan/plan-builder';
 import {PlannerLayerService} from '../../planner/services/planner-layer.service';
-import {LegNotFoundDialogComponent} from '../../../components/ol/components/leg-not-found-dialog';
-import {HttpErrorResponse} from '@angular/common/http';
-import {LegHttpErrorDialogComponent} from '../../../components/ol/components/leg-http-error.dialog';
 
 @Component({
   selector: 'kpn-map-main-page',

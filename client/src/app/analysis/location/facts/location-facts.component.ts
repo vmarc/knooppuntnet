@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
+import {LocationFact} from '@api/common/location/location-fact';
+import {Fact} from '@api/custom/fact';
 import {List} from 'immutable';
-import {LocationFact} from '../../../kpn/api/common/location/location-fact';
-import {Fact} from '../../../kpn/api/custom/fact';
 import {FactLevel} from '../../fact/fact-level';
 import {Facts} from '../../fact/facts';
 

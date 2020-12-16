@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {NetworkAttributes} from '@api/common/network/network-attributes';
 import {List} from 'immutable';
-import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
 
 @Component({
   selector: 'kpn-subset-network-list',

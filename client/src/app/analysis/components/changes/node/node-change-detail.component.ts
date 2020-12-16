@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NodeChangeInfo} from '../../../../kpn/api/common/node/node-change-info';
+import {NodeChangeInfo} from '@api/common/node/node-change-info';
 import {Util} from '../../../../components/shared/util';
 
 @Component({

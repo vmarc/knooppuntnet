@@ -11,10 +11,10 @@ import {tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {AppState} from '../../../core/core.state';
 import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
-import {LocationRoutesPage} from '../../../kpn/api/common/location/location-routes-page';
-import {LocationRoutesParameters} from '../../../kpn/api/common/location/location-routes-parameters';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {LocationRoutesPage} from '@api/common/location/location-routes-page';
+import {LocationRoutesParameters} from '@api/common/location/location-routes-parameters';
+import {ApiResponse} from '@api/custom/api-response';
+import {NetworkType} from '@api/custom/network-type';
 import {LocationService} from '../location.service';
 
 @Injectable()

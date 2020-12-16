@@ -4,8 +4,8 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {LocationNode} from '../../../kpn/api/common/location/location-node';
-import {Country} from '../../../kpn/api/custom/country';
+import {LocationNode} from '@api/common/location/location-node';
+import {Country} from '@api/custom/country';
 import {LocationOption} from './location-option';
 
 @Component({

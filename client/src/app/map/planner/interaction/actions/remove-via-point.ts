@@ -2,7 +2,7 @@ import {PlannerContext} from '../../context/planner-context';
 import {PlanUtil} from '../../plan/plan-util';
 import {PlannerCommandRemoveViaPoint} from '../../commands/planner-command-remove-via-point';
 import {PlannerDragFlag} from '../planner-drag-flag';
-import {LegEnd} from '../../../../kpn/api/common/planner/leg-end';
+import {LegEnd} from '@api/common/planner/leg-end';
 import {Observable} from 'rxjs';
 import {PlanLeg} from '../../plan/plan-leg';
 import {map} from 'rxjs/operators';

@@ -4,7 +4,7 @@ import {AfterViewInit, Component, Input} from '@angular/core';
 import {List} from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {NodeMapInfo} from '../../../kpn/api/common/node-map-info';
+import {NodeMapInfo} from '@api/common/node-map-info';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PageService} from '../../shared/page.service';
 import {Util} from '../../shared/util';

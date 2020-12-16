@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {RouteDiff} from '../../../../kpn/api/common/diff/route/route-diff';
+import {RouteDiff} from '@api/common/diff/route/route-diff';
 import {Util} from '../../../../components/shared/util';
 
 @Component({

@@ -1,10 +1,10 @@
 /*
   Builds a Plan from a single PlanDetail.
  */
+import {LegEnd} from '@api/common/planner/leg-end';
+import {LegEndNode} from '@api/common/planner/leg-end-node';
+import {PlanLegDetail} from '@api/common/planner/plan-leg-detail';
 import {List} from 'immutable';
-import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
-import {LegEndNode} from '../../../kpn/api/common/planner/leg-end-node';
-import {PlanLegDetail} from '../../../kpn/api/common/planner/plan-leg-detail';
 import {FeatureId} from '../features/feature-id';
 import {Plan} from './plan';
 import {PlanFlag} from './plan-flag';

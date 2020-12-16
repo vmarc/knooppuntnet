@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {Subset} from '@api/custom/subset';
 
 @Component({
   selector: 'kpn-overview-table-header',

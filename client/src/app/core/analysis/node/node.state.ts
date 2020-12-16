@@ -1,7 +1,7 @@
-import {NodeChangesPage} from '../../../kpn/api/common/node/node-changes-page';
-import {NodeDetailsPage} from '../../../kpn/api/common/node/node-details-page';
-import {NodeMapPage} from '../../../kpn/api/common/node/node-map-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NodeChangesPage} from '@api/common/node/node-changes-page';
+import {NodeDetailsPage} from '@api/common/node/node-details-page';
+import {NodeMapPage} from '@api/common/node/node-map-page';
+import {ApiResponse} from '@api/custom/api-response';
 
 export const initialState: NodeState = {
   nodeId: '',

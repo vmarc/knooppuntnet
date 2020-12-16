@@ -1,14 +1,14 @@
-import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
-import {RouteFeature} from '../features/route-feature';
-import {PlannerHighlighter} from './planner-highlighter';
+import {PlanNode} from '@api/common/planner/plan-node';
+import {Feature} from 'ol';
 import {Point} from 'ol/geom';
 import {LineString} from 'ol/geom';
 import {MultiLineString} from 'ol/geom';
-import {Feature} from 'ol';
-import RenderFeature from 'ol/render/Feature';
-import GeometryType from 'ol/geom/GeometryType';
 import GeometryLayout from 'ol/geom/GeometryLayout';
+import GeometryType from 'ol/geom/GeometryType';
+import RenderFeature from 'ol/render/Feature';
+import {RouteFeature} from '../features/route-feature';
 import {PlannerHighlightLayer} from './planner-highlight-layer';
+import {PlannerHighlighter} from './planner-highlighter';
 
 export class PlannerHighlighterImpl implements PlannerHighlighter {
 

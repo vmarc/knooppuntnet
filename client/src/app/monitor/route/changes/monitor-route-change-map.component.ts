@@ -19,8 +19,8 @@ import {MapLayers} from '../../../components/ol/layers/map-layers';
 import {OsmLayer} from '../../../components/ol/layers/osm-layer';
 import {Util} from '../../../components/shared/util';
 import {I18nService} from '../../../i18n/i18n.service';
-import {MonitorRouteNokSegment} from '../../../kpn/api/common/monitor/monitor-route-nok-segment';
-import {MonitorRouteSegment} from '../../../kpn/api/common/monitor/monitor-route-segment';
+import {MonitorRouteNokSegment} from '@api/common/monitor/monitor-route-nok-segment';
+import {MonitorRouteSegment} from '@api/common/monitor/monitor-route-segment';
 import {Subscriptions} from '../../../util/Subscriptions';
 
 @Component({

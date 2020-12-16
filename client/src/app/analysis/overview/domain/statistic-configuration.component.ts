@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {AfterViewInit, Component, ElementRef, Input} from '@angular/core';
-import {Subset} from '../../../kpn/api/custom/subset';
+import {Subset} from '@api/custom/subset';
 import {StatisticConfiguration} from './statistic-configuration';
 
 @Component({

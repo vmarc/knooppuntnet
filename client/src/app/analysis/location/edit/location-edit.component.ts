@@ -1,6 +1,8 @@
 import {Input} from '@angular/core';
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox/checkbox';
+import {LocationEditPage} from '@api/common/location/location-edit-page';
 import {List, Range} from 'immutable';
 import {Subscription} from 'rxjs';
 import {TimeoutError} from 'rxjs';
@@ -10,8 +12,6 @@ import {Observable} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
-import {LocationEditPage} from '../../../kpn/api/common/location/location-edit-page';
-import {OnInit} from '@angular/core';
 
 @Component({
   selector: 'kpn-location-edit',

@@ -1,5 +1,5 @@
 import {List} from 'immutable';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {NetworkType} from '@api/custom/network-type';
 import {FeatureId} from '../features/feature-id';
 import {Plan} from '../plan/plan';
 import {PlanFlag} from '../plan/plan-flag';
@@ -10,8 +10,8 @@ import {PlannerElasticBandMock} from './planner-elastic-band-mock';
 import {PlannerLegRepositoryMock} from './planner-leg-repository-mock';
 import {PlannerMarkerLayerMock} from './planner-marker-layer-mock';
 import {PlannerRouteLayerMock} from './planner-route-layer-mock';
-import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
-import {PlanRoute} from '../../../kpn/api/common/planner/plan-route';
+import {PlanNode} from '@api/common/planner/plan-node';
+import {PlanRoute} from '@api/common/planner/plan-route';
 import {PlanLegData} from './plan-leg-data';
 import {PlannerHighlighterMock} from './planner-highlighter-mock';
 

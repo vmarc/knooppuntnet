@@ -1,12 +1,12 @@
+import {BoundsI} from '@api/common/bounds-i';
+import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
+import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
+import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
+import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
+import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
-import {BoundsI} from '../../kpn/api/common/bounds-i';
-import {MonitorRouteChangePage} from '../../kpn/api/common/monitor/monitor-route-change-page';
-import {MonitorRouteChangesPage} from '../../kpn/api/common/monitor/monitor-route-changes-page';
-import {MonitorRouteDetailsPage} from '../../kpn/api/common/monitor/monitor-route-details-page';
-import {MonitorRouteMapPage} from '../../kpn/api/common/monitor/monitor-route-map-page';
-import {MonitorRoutesPage} from '../../kpn/api/common/monitor/monitor-routes-page';
-import {ApiResponse} from '../../kpn/api/custom/api-response';
 
 export const actionMonitorRoutesLoaded = createAction(
   '[Monitor] Routes loaded',

@@ -1,5 +1,5 @@
 import {List} from 'immutable';
-import {ChangesFilterPeriod} from '../../../../kpn/api/common/changes/filter/changes-filter-period';
+import {ChangesFilterPeriod} from '@api/common/changes/filter/changes-filter-period';
 
 export class ChangeFilterOption {
   constructor(readonly level: string,

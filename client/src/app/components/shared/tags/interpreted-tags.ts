@@ -1,6 +1,6 @@
 import {List} from 'immutable';
-import {Tags} from '../../../kpn/api/custom/tags';
-import {Tag} from '../../../kpn/api/custom/tag';
+import {Tags} from '@api/custom/tags';
+import {Tag} from '@api/custom/tag';
 
 export class InterpretedTags {
 

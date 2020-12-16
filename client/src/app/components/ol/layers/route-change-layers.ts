@@ -1,18 +1,17 @@
+import {GeometryDiff} from '@api/common/route/geometry-diff';
+import {PointSegment} from '@api/common/route/point-segment';
 import {List} from 'immutable';
 import {Color} from 'ol/color';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
-import BaseLayer from 'ol/layer/Base';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {Stroke} from 'ol/style';
 import {Style} from 'ol/style';
 import {I18nService} from '../../../i18n/i18n.service';
-import {GeometryDiff} from '../../../kpn/api/common/route/geometry-diff';
-import {PointSegment} from '../../../kpn/api/common/route/point-segment';
 import {Util} from '../../shared/util';
-import {MapLayer} from './map-layer';
 import {Layers} from './layers';
+import {MapLayer} from './map-layer';
 
 export class RouteChangeLayers {
 

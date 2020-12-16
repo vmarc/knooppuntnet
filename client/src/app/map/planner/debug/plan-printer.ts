@@ -1,9 +1,9 @@
 import {Plan} from '../plan/plan';
 import {Printer} from './printer';
-import {PlanNode} from '../../../kpn/api/common/planner/plan-node';
+import {PlanNode} from '@api/common/planner/plan-node';
 import {PlanFlag} from '../plan/plan-flag';
-import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
-import {TrackPathKey} from '../../../kpn/api/common/common/track-path-key';
+import {LegEnd} from '@api/common/planner/leg-end';
+import {TrackPathKey} from '@api/common/common/track-path-key';
 import {List} from 'immutable';
 
 export class PlanPrinter {

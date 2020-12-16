@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {WayInfo} from '@api/common/diff/way-info';
 import {InterpretedTags} from '../../../../components/shared/tags/interpreted-tags';
-import {WayInfo} from '../../../../kpn/api/common/diff/way-info';
 
 @Component({
   selector: 'kpn-route-change-way-removed',

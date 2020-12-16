@@ -1,19 +1,19 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
+import {Ref} from '@api/common/common/ref';
+import {NodeDetailsPage} from '@api/common/node/node-details-page';
+import {Store} from '@ngrx/store';
 import {List} from 'immutable';
+import {filter} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
 import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
-import {Ref} from '../../../kpn/api/common/common/ref';
-import {NodeDetailsPage} from '../../../kpn/api/common/node/node-details-page';
-import {FactInfo} from '../../fact/fact-info';
-import {AppState} from '../../../core/core.state';
-import {Store} from '@ngrx/store';
 import {selectNodeDetails} from '../../../core/analysis/node/node.selectors';
 import {selectNodeName} from '../../../core/analysis/node/node.selectors';
 import {selectNodeId} from '../../../core/analysis/node/node.selectors';
 import {selectNodeChangeCount} from '../../../core/analysis/node/node.selectors';
-import {filter} from 'rxjs/operators';
+import {AppState} from '../../../core/core.state';
+import {FactInfo} from '../../fact/fact-info';
 
 @Component({
   selector: 'kpn-node-details-page',

@@ -1,7 +1,7 @@
 import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NetworkAttributes} from '../../../kpn/api/common/network/network-attributes';
+import {NetworkAttributes} from '@api/common/network/network-attributes';
 import {InterpretedNetworkAttributes} from './interpreted-network-attributes';
 
 @Component({

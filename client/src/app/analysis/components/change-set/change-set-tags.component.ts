@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {List} from 'immutable';
-import {Tag} from '../../../kpn/api/custom/tag';
-import {Tags} from '../../../kpn/api/custom/tags';
+import {Tag} from '@api/custom/tag';
+import {Tags} from '@api/custom/tags';
 
 @Component({
   selector: 'kpn-change-set-tags',

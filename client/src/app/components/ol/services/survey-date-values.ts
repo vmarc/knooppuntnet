@@ -1,4 +1,4 @@
-import {SurveyDateInfo} from '../../../kpn/api/common/survey-date-info';
+import {SurveyDateInfo} from '@api/common/survey-date-info';
 import {DayPipe} from '../../shared/format/day.pipe';
 
 export class SurveyDateValues {

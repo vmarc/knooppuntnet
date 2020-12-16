@@ -3,7 +3,7 @@ import {Input} from '@angular/core';
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {LocationKey} from '../../../kpn/api/custom/location-key';
+import {LocationKey} from '@api/custom/location-key';
 import {LocationService} from '../location.service';
 
 @Component({

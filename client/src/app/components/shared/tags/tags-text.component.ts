@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {Tags} from '../../../kpn/api/custom/tags';
+import {Tags} from '@api/custom/tags';
 
 @Component({
   selector: 'kpn-tags-text',

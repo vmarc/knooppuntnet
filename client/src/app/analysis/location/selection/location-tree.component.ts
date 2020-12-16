@@ -3,9 +3,9 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {AppService} from '../../../app.service';
-import {LocationNode} from '../../../kpn/api/common/location/location-node';
-import {Country} from '../../../kpn/api/custom/country';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
+import {LocationNode} from '@api/common/location/location-node';
+import {Country} from '@api/custom/country';
+import {NetworkType} from '@api/custom/network-type';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {LocationFlatNode} from './location-flat-node';
 

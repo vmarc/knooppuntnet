@@ -1,11 +1,11 @@
+import {LegEnd} from '@api/common/planner/leg-end';
+import {NetworkType} from '@api/custom/network-type';
 import {Map} from 'immutable';
 import {List} from 'immutable';
 import {Observable, of} from 'rxjs';
-import {LegEnd} from '../../../kpn/api/common/planner/leg-end';
-import {NetworkType} from '../../../kpn/api/custom/network-type';
-import {PlannerLegRepository} from './planner-leg-repository';
 import {PlanUtil} from '../plan/plan-util';
 import {PlanLegData} from './plan-leg-data';
+import {PlannerLegRepository} from './planner-leg-repository';
 
 export class PlannerLegRepositoryMock implements PlannerLegRepository {
 

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {NetworkType} from '../../../../kpn/api/custom/network-type';
+import {NetworkType} from '@api/custom/network-type';
 import {RouteAccessibleData} from './route-accessible-data';
 import {RouteAccessibleIndicatorDialogComponent} from './route-accessible-indicator-dialog.component';
 

@@ -6,8 +6,8 @@ import {shareReplay} from 'rxjs/operators';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
-import {NetworkMapPage} from '../../../kpn/api/common/network/network-map-page';
-import {ApiResponse} from '../../../kpn/api/custom/api-response';
+import {NetworkMapPage} from '@api/common/network/network-map-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {NetworkService} from '../network.service';
 
 @Component({

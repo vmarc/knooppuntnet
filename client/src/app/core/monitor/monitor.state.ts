@@ -1,9 +1,9 @@
-import {MonitorRouteChangePage} from '../../kpn/api/common/monitor/monitor-route-change-page';
-import {MonitorRouteChangesPage} from '../../kpn/api/common/monitor/monitor-route-changes-page';
-import {MonitorRouteDetailsPage} from '../../kpn/api/common/monitor/monitor-route-details-page';
-import {MonitorRouteMapPage} from '../../kpn/api/common/monitor/monitor-route-map-page';
-import {MonitorRoutesPage} from '../../kpn/api/common/monitor/monitor-routes-page';
-import {ApiResponse} from '../../kpn/api/custom/api-response';
+import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
+import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
+import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
+import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
+import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
 
 export const initialState: MonitorState = {
   routeId: 0,

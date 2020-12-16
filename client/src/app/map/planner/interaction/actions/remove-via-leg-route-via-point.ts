@@ -1,11 +1,11 @@
-import {PlanUtil} from '../../plan/plan-util';
-import {PlannerCommandRemoveViaPoint} from '../../commands/planner-command-remove-via-point';
-import {PlannerContext} from '../../context/planner-context';
-import {PlanLeg} from '../../plan/plan-leg';
-import {PlanNode} from '../../../../kpn/api/common/planner/plan-node';
+import {PlanNode} from '@api/common/planner/plan-node';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {PlannerCommandRemoveViaPoint} from '../../commands/planner-command-remove-via-point';
+import {PlannerContext} from '../../context/planner-context';
 import {PlanFlag} from '../../plan/plan-flag';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
 
 export class RemoveViaLegRouteViaPoint {
 

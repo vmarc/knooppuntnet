@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {AfterViewInit, Component, Input} from '@angular/core';
+import {NetworkMapPage} from '@api/common/network/network-map-page';
 import {List} from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {NetworkMapPage} from '../../../kpn/api/common/network/network-map-page';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PageService} from '../../shared/page.service';
 import {Util} from '../../shared/util';
