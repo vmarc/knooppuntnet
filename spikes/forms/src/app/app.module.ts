@@ -24,6 +24,7 @@ import {Page4Component} from './page4/page4.component';
 import {Sub3Component} from './page4/sub3.component';
 import {Sub2Component} from './page4/sub2.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {Page5Component} from "./page5/page5.component";
 import {Sub5Component} from "./page5/sub5.component";
 
@@ -56,6 +57,7 @@ import {Sub5Component} from "./page5/sub5.component";
     MatTableModule,
     MatSnackBarModule,
     MatRadioModule,
+    MatCheckboxModule
   ],
   providers: [
     MessageService,

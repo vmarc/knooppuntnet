@@ -41,7 +41,7 @@ export class BackgroundLayer {
 
     const layer = new Layer({
       zIndex: Layers.zIndexOsmLayer,
-      source: source,
+      source,
       render(frameState) {
         const canvas = mbMap.getCanvas();
         const viewState = frameState.viewState;

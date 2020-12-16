@@ -10,7 +10,7 @@ import {RouteEffects} from './analysis/route/route.effects';
 import {metaReducers, reducers} from './core.state';
 import {DemoEffects} from './demo/demo.effects';
 import {DemoService} from './demo/demo.service';
-import {LongDistanceEffects} from './longdistance/long-distance.effects';
+import {MonitorEffects} from './monitor/monitor.effects';
 import {SharedEffects} from './shared/shared.effects';
 
 @NgModule({
@@ -33,7 +33,7 @@ import {SharedEffects} from './shared/shared.effects';
       DemoEffects,
       NodeEffects,
       RouteEffects,
-      LongDistanceEffects
+      MonitorEffects
     ]),
     environment.production
       ? []

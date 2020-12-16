@@ -55,7 +55,7 @@ export class UserService {
   public login(): void {
 
     const languageUrlPart = this.language.length > 0 ? '/' + this.language : '';
-    const loginUrl = '/json-api/login?callbackUrl=' + window.location.origin +
+    const loginUrl = '/api/login?callbackUrl=' + window.location.origin +
       languageUrlPart + '/authenticate?page=' + this.loginCallbackPage;
 
     console.log('DEBUG UserService login loginUrl=' + loginUrl);
@@ -79,7 +79,7 @@ export class UserService {
   }
 
   public logout(): void {
-    this.http.get('/json-api/logout', {
+    this.http.get('/api/logout', {
       responseType: 'text'
     }).subscribe(r => {
         console.log('DEBUG logout success');
@@ -98,7 +98,7 @@ export class UserService {
 
   authenticated() {
     const search = decodeURIComponent(window.location.search);
-    this.http.get('/json-api/authenticated' + search, {
+    this.http.get('/api/authenticated' + search, {
       responseType: 'text'
     }).subscribe(user => {
         this.browserStorageService.set('user', user);

@@ -3,10 +3,6 @@ PROXY_CONFIG = {
     "target": "https://experimental.knooppuntnet.nl",
     "secure": false
   },
-  "/json-api/**": {
-    "target": "https://experimental.knooppuntnet.nl",
-    "secure": false
-  },
   "/tiles/**": {
     "target": "https://experimental.knooppuntnet.nl",
     "secure": false

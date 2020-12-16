@@ -18,8 +18,8 @@ import {subsetReducer} from './analysis/subset/subset.reducer';
 import {SubsetState} from './analysis/subset/subset.state';
 import {demoReducer} from './demo/demo.reducer';
 import {DemoState} from './demo/demo.state';
-import {longDistanceReducer} from './longdistance/long-distance.reducer';
-import {LongDistanceState} from './longdistance/long-distance.state';
+import {monitorReducer} from './monitor/monitor.reducer';
+import {MonitorState} from './monitor/monitor.state';
 import {preferencesReducer} from './preferences/preferences.reducer';
 import {PreferencesState} from './preferences/preferences.state';
 import {RouterStateUrl} from './router/router.state';
@@ -35,7 +35,7 @@ export interface AppState {
   network: NetworkState;
   subset: SubsetState;
   location: LocationState;
-  longDistance: LongDistanceState;
+  monitor: MonitorState;
   router: RouterReducerState<RouterStateUrl>;
 }
 
@@ -48,7 +48,7 @@ export const reducers: ActionReducerMap<AppState> = {
   network: networkReducer,
   subset: subsetReducer,
   location: locationReducer,
-  longDistance: longDistanceReducer,
+  monitor: monitorReducer,
   router: routerReducer
 };
 
@@ -74,7 +74,7 @@ export const selectSubsetState = createFeatureSelector<AppState, SubsetState>('s
 
 export const selectLocationState = createFeatureSelector<AppState, LocationState>('location');
 
-export const selectLongDistanceState = createFeatureSelector<AppState, LongDistanceState>('longDistance');
+export const selectMonitorState = createFeatureSelector<AppState, MonitorState>('monitor');
 
 export const selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>('router');
 

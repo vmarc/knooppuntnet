@@ -22,7 +22,7 @@ import {PageService} from './components/shared/page.service';
 import {SharedModule} from './components/shared/shared.module';
 import {CoreModule} from './core/core.module';
 import {I18nService} from './i18n/i18n.service';
-import {LongDistanceRouteMapService} from './longdistance/route/long-distance-route-map.service';
+import {MonitorRouteMapService} from './monitor/route/map/monitor-route-map.service';
 import {IconService} from './services/icon.service';
 import {LogUpdateService} from './services/log-update.service';
 import {PoiService} from './services/poi.service';
@@ -82,7 +82,7 @@ import {SpinnerService} from './spinner/spinner.service';
     IconService,
     PoiService,
     LogUpdateService,
-    LongDistanceRouteMapService
+    MonitorRouteMapService
   ],
   bootstrap: [
     AppComponent

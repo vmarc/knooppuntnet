@@ -54,6 +54,7 @@ Contents of download.sh:
 	wget http://download.geofabrik.de/europe/france-latest.osm.pbf
 	wget http://download.geofabrik.de/europe/austria-latest.osm.pbf
 	wget http://download.geofabrik.de/europe/spain-latest.osm.pbf
+	wget http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf
 
 Contents of merge.sh:
 
@@ -64,18 +65,21 @@ Contents of merge.sh:
 	  france-latest.osm.pbf \
 	  austria-latest.osm.pbf \
 	  spain-latest.osm.pbf \
+      luxembourg-latest.osm.pbf \
 	  -o all.osm.pbf
 
 
 ll -h *.pbf
 
-	-rw-rw-r-- 1 marcv marcv 9.8G Jul 15 17:19 all.osm.pbf
-	-rw-rw-r-- 1 marcv marcv 587M Jul 15 02:41 austria-latest.osm.pbf
-	-rw-rw-r-- 1 marcv marcv 371M Jul 15 02:17 belgium-latest.osm.pbf
-	-rw-rw-r-- 1 marcv marcv 3.7G Jul 15 02:17 france-latest.osm.pbf
-	-rw-rw-r-- 1 marcv marcv 3.2G Jul 15 02:41 germany-latest.osm.pbf
-	-rw-rw-r-- 1 marcv marcv 1.1G Jul 15 02:17 netherlands-latest.osm.pbf
-	-rw-rw-r-- 1 marcv marcv 843M Jul 15 02:17 spain-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv  11G Dec  8 16:39 all.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 601M Dec  8 02:53 austria-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 398M Dec  8 02:22 belgium-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 3.7G Dec  8 02:22 france-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 3.3G Dec  8 02:53 germany-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv  29M Dec  8 02:53 luxembourg-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 1.1G Dec  8 02:22 netherlands-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 880M Dec  8 02:22 spain-latest.osm.pbf
+
 
 
 Only first time:
@@ -94,8 +98,8 @@ Remove following line from openmaptiles.yaml:
 
 Prepare:
 
-	rm -rf data
-	mkdir -p data
+	rm data/all.osm.pbf
+	rm data/tiles.mbtiles*
 
 	mv tile-data/all.osm.pbf data/
 

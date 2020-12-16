@@ -27,8 +27,8 @@ const routes: Routes = [
     loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule)
   },
   {
-    path: 'long-distance',
-    loadChildren: () => import('./longdistance/long-distance.module').then(m => m.LongDistanceModule)
+    path: 'monitor',
+    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
   },
   {
     path: '',

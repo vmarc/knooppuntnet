@@ -17,7 +17,7 @@ export class TimestampComponent {
     if (!this.timestamp) {
       return '';
     }
-    if (this.timestamp.toString().length === "2020-12-08 18:13:36".length) {
+    if (this.timestamp.toString().length === '2020-12-08 18:13:36'.length) {
       return this.timestamp;
     }
     return this.timestamp.year.toString() + '-' +

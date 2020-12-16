@@ -17,4 +17,5 @@ object KeyPrefix {
 
   val MonitorRoute = "monitor-route"
 
+  val MonitorRouteGroup = "monitor-route-group"
 }

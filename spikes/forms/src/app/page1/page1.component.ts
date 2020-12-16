@@ -31,6 +31,12 @@ import {Util} from '../shared/util';
         </mat-form-field>
       </p>
 
+      <p>
+        <mat-checkbox [formControl]="selected">
+          Selected
+        </mat-checkbox>
+      </p>
+
       <button mat-raised-button (click)="submit()" color="primary" class="form-button">Submit</button>
       <button mat-raised-button (click)="formGroupReset()" class="form-button">FormGroup Reset</button>
     </form>
@@ -42,6 +48,8 @@ import {Util} from '../shared/util';
       </p>
       <ul>
         <li>form.valid = {{form.valid}}</li>
+        <li>form.pristine = {{form.pristine}}</li>
+        <li>form.touched = {{form.touched}}</li>
         <li>form.errors = {{util.json(form.errors)}}</li>
         <li>firstName
           <ul>
@@ -57,6 +65,14 @@ import {Util} from '../shared/util';
             <li>pristine = {{lastName.pristine}}</li>
             <li>touched = {{lastName.touched}}</li>
             <li>errors = {{util.json(lastName.errors)}}</li>
+          </ul>
+        </li>
+        <li>selected
+          <ul>
+            <li>valid = {{selected.valid}}</li>
+            <li>pristine = {{selected.pristine}}</li>
+            <li>touched = {{selected.touched}}</li>
+            <li>errors = {{util.json(selected.errors)}}</li>
           </ul>
         </li>
       </ul>
@@ -117,10 +133,12 @@ export class Page1Component {
 
   readonly firstName = new FormControl('', [this.firstNameValidator(), Validators.required]);
   readonly lastName = new FormControl('', [this.lastNameValidator(), Validators.required]);
+  readonly selected = new FormControl(null, [Validators.required]);
 
   readonly form = new FormGroup({
     firstName: this.firstName,
     lastName: this.lastName,
+    selected: this.selected
   });
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
