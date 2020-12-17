@@ -26,7 +26,7 @@ import {selectMonitorRoutes} from '../../core/monitor/monitor.selectors';
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
           <td mat-cell *matCellDef="let route">
-            <a [routerLink]="'/monitor/routes/' + route.id">{{route.id}}</a>
+            <a [routerLink]="'/monitor/long-distance-routes/' + route.id">{{route.id}}</a>
           </td>
         </ng-container>
 

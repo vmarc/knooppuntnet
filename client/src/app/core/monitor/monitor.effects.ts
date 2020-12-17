@@ -45,9 +45,9 @@ export class MonitorEffects {
         this.store.select(selectUrl),
         this.store.select(selectRouteParams)
       ),
-      filter(([action, url, params]) => url.startsWith('/monitor/routes')),
+      filter(([action, url, params]) => url.startsWith('/monitor/long-distance-routes')),
       mergeMap(([action, url, params]) => {
-        if (url.endsWith('/routes')) {
+        if (url.endsWith('/long-distance-routes')) {
           return this.appService.monitorRoutes().pipe(
             map(response => actionMonitorRoutesLoaded({response}))
           );

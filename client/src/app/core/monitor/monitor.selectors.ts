@@ -3,6 +3,11 @@ import {selectMonitorState} from '../core.state';
 import {selectPreferencesImpact} from '../preferences/preferences.selectors';
 import {MonitorState} from './monitor.state';
 
+export const selectMonitorAdmin = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.admin
+);
+
 export const selectMonitorRoutes = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routes

@@ -1,19 +1,35 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {OlModule} from '../components/ol/ol.module';
 import {SharedModule} from '../components/shared/shared.module';
-import {MonitorAboutComponent} from './about/monitor-about.component';
-import {MonitorChangesComponent} from './changes/monitor-changes.component';
-import {MonitorGroupChangesComponent} from './group/changes/monitor-group-changes.component';
-import {MonitorGroupComponent} from './group/details/monitor-group.component';
-import {MonitorGroupsComponent} from './groups/monitor-groups.component';
+import {MonitorAboutPageComponent} from './about/monitor-about-page.component';
+import {MonitorAdminGroupAddPageComponent} from './admin/group/add/monitor-admin-group-add-page.component';
+import {MonitorAdminGroupDeletePageComponent} from './admin/group/delete/monitor-admin-group-delete-page.component';
+import {MonitorAdminGroupUpdatePageComponent} from './admin/group/update/monitor-admin-group-update-page.component';
+import {MonitorAdminRouteAddPageComponent} from './admin/route/add/monitor-admin-route-add-page.component';
+import {MonitorAdminRouteSummaryComponent} from './admin/route/add/monitor-admin-route-summary.component';
+import {MonitorAdminRouteReferenceComponent} from './admin/route/components/monitor-admin-route-reference.component';
+import {MonitorAdminRouteDeletePageComponent} from './admin/route/delete/monitor-admin-route-delete-page.component';
+import {MonitorAdminRouteUpdatePageComponent} from './admin/route/update/monitor-admin-route-update-page.component';
+import {MonitorChangesPageComponent} from './changes/monitor-changes-page.component';
+import {MonitorAdminToggleComponent} from './components/monitor-admin-toggle.component';
+import {MonitorPageMenuComponent} from './components/monitor-page-menu.component';
+import {MonitorGroupChangesPageComponent} from './group/changes/monitor-group-changes-page.component';
+import {MonitorGroupPageMenuComponent} from './group/components/monitor-group-page-menu.component';
+import {MonitorGroupPageComponent} from './group/details/monitor-group-page.component';
+import {MonitorGroupRouteTableComponent} from './group/details/monitor-group-route-table.component';
+import {MonitorGroupTableComponent} from './groups/monitor-group-table.component';
+import {MonitorGroupsPageComponent} from './groups/monitor-groups-page.component';
 import {MonitorRoutingModule} from './monitor-routing.module';
 import {MonitorRouteChangeHeaderComponent} from './route/changes/monitor-route-change-header.component';
 import {MonitorRouteChangeMapComponent} from './route/changes/monitor-route-change-map.component';
@@ -44,6 +60,9 @@ import {MonitorRoutesComponent} from './routes/monitor-routes.component';
     MatRadioModule,
     MatCheckboxModule,
     MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     MonitorRoutesComponent,
@@ -61,13 +80,26 @@ import {MonitorRoutesComponent} from './routes/monitor-routes.component';
     MonitorRouteChangePageComponent,
     MonitorRouteChangeHeaderComponent,
     MonitorRouteChangeMapComponent,
-    MonitorAboutComponent,
-    MonitorChangesComponent,
-    MonitorGroupChangesComponent,
-    MonitorGroupComponent,
-    MonitorGroupsComponent
+    MonitorAboutPageComponent,
+    MonitorChangesPageComponent,
+    MonitorGroupChangesPageComponent,
+    MonitorGroupPageComponent,
+    MonitorGroupsPageComponent,
+    MonitorGroupTableComponent,
+    MonitorPageMenuComponent,
+    MonitorGroupPageMenuComponent,
+    MonitorAdminToggleComponent,
+    MonitorAdminGroupAddPageComponent,
+    MonitorAdminGroupUpdatePageComponent,
+    MonitorAdminGroupDeletePageComponent,
+    MonitorAdminRouteAddPageComponent,
+    MonitorAdminRouteUpdatePageComponent,
+    MonitorAdminRouteDeletePageComponent,
+    MonitorGroupRouteTableComponent,
+    MonitorAdminRouteSummaryComponent,
+    MonitorAdminRouteReferenceComponent,
   ],
-  exports: [],
+  exports: []
 })
 export class MonitorModule {
 }

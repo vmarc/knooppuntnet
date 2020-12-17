@@ -6,6 +6,7 @@ import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
 import {ApiResponse} from '@api/custom/api-response';
 
 export const initialState: MonitorState = {
+  admin: true,
   routeId: 0,
   routeName: '',
   routes: null,
@@ -21,6 +22,7 @@ export const initialState: MonitorState = {
 };
 
 export interface MonitorState {
+  admin: boolean;
   routeId: number;
   routeName: string;
   routes: ApiResponse<MonitorRoutesPage>;

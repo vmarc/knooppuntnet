@@ -76,7 +76,7 @@ import {selectMonitorRouteDetails} from '../../../core/monitor/monitor.selectors
           </div>
         </kpn-data>
 
-        <div class="buttons">
+        <div class="kpn-button-group">
           <button mat-raised-button color="primary" (click)="gpxDownload()">Download GPX file</button>
           <button mat-raised-button (click)="gpxUpload()">Upload GPX file</button>
         </div>
@@ -84,15 +84,6 @@ import {selectMonitorRouteDetails} from '../../../core/monitor/monitor.selectors
     </div>
   `,
   styles: [`
-    .buttons {
-      padding-top: 2em;
-      display: flex;
-    }
-
-    .buttons :not(:last-child) {
-      margin-right: 1em;
-    }
-
     .warning-line {
       padding-bottom: 1em;
     }

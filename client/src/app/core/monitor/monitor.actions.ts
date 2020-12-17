@@ -8,6 +8,11 @@ import {ApiResponse} from '@api/custom/api-response';
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
 
+export const actionMonitorAdmin = createAction(
+  '[Monitor] Admin',
+  props<{ admin: boolean }>()
+);
+
 export const actionMonitorRoutesLoaded = createAction(
   '[Monitor] Routes loaded',
   props<{ response: ApiResponse<MonitorRoutesPage> }>()

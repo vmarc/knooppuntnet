@@ -1,6 +1,7 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionMonitorAdmin} from './monitor.actions';
 import {actionMonitorRouteChangeLoaded} from './monitor.actions';
 import {actionMonitorRouteMapReferenceVisible} from './monitor.actions';
 import {actionMonitorRouteMapOkVisible} from './monitor.actions';
@@ -16,6 +17,13 @@ import {initialState} from './monitor.state';
 export const monitorReducer = createReducer(
   initialState,
   on(
+    actionMonitorAdmin,
+    (state, {admin}) => ({
+      ...state,
+      admin: admin,
+    })
+  ),
+  on(
     routerNavigationAction,
     (state, action) => ({
       ...state,
@@ -30,9 +38,9 @@ export const monitorReducer = createReducer(
   on(
     actionMonitorRoutesLoaded,
     (state, {response}) => ({
-        ...state,
-        routes: response
-      })
+      ...state,
+      routes: response
+    })
   ),
   on(
     actionMonitorRouteDetailsLoaded,
@@ -126,29 +134,29 @@ export const monitorReducer = createReducer(
   on(
     actionMonitorRouteMapReferenceVisible,
     (state, {visible}) => ({
-        ...state,
-        mapGpxVisible: visible
-      })
+      ...state,
+      mapGpxVisible: visible
+    })
   ),
   on(
     actionMonitorRouteMapOkVisible,
     (state, {visible}) => ({
-        ...state,
-        mapGpxOkVisible: visible
-      })
+      ...state,
+      mapGpxOkVisible: visible
+    })
   ),
   on(
     actionMonitorRouteMapNokVisible,
     (state, {visible}) => ({
-        ...state,
-        mapGpxNokVisible: visible
-      })
+      ...state,
+      mapGpxNokVisible: visible
+    })
   ),
   on(
     actionMonitorRouteMapOsmRelationVisible,
     (state, {visible}) => ({
-        ...state,
-        mapOsmRelationVisible: visible
-      })
+      ...state,
+      mapOsmRelationVisible: visible
+    })
   )
 );

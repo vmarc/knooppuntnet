@@ -11,7 +11,7 @@ import {selectMonitorRouteName} from '../../../core/monitor/monitor.selectors';
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
-      <li><a routerLink="/monitor/routes">Routes</a></li>
+      <li><a routerLink="/monitor/long-distance-routes">Routes</a></li>
       <li>Route</li>
     </ul>
 
@@ -21,19 +21,19 @@ import {selectMonitorRouteName} from '../../../core/monitor/monitor.selectors';
 
     <kpn-page-menu>
       <kpn-page-menu-option
-        [link]="'/monitor/routes/' + routeId"
+        [link]="'/monitor/long-distance-routes/' + routeId"
         [active]="pageName === 'details'">
         Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        [link]="'/monitor/routes/' + routeId + '/map'"
+        [link]="'/monitor/long-distance-routes/' + routeId + '/map'"
         [active]="pageName === 'map'">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        [link]="'/monitor/routes/' + routeId + '/changes'"
+        [link]="'/monitor/long-distance-routes/' + routeId + '/changes'"
         [active]="pageName === 'changes'">
         Changes
       </kpn-page-menu-option>

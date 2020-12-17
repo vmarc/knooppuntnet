@@ -427,3 +427,17 @@ markdown > p > em:after {
 .ol-attribution {
   font-size: 12px;
 }
+
+.kpn-button-group {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.kpn-comment {
+  line-height: 1.8em;
+  max-width: 50em;
+  padding-right: 3em;
+}
