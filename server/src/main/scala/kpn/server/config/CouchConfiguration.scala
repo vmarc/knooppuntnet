@@ -71,7 +71,12 @@ class CouchConfiguration(
   }
 
   @Bean
-  def monitorRouteChangeDatabase(couchConfig: CouchConfig): Database = {
+  def monitorDatabase(couchConfig: CouchConfig): Database = {
+    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "monitor"))
+  }
+
+  @Bean
+  def monitorAdminDatabase(couchConfig: CouchConfig): Database = {
     new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "monitor"))
   }
 

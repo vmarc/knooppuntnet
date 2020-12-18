@@ -26,8 +26,8 @@ object MonitorRouteAnalyzerTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "changesets2") { changeSetDatabase =>
       Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
-        Couch.executeIn("kpn-database", "monitor") { monitorRouteChangeDatabase =>
-          val monitorRouteRepository = new MonitorRouteRepositoryImpl(analysisDatabase, monitorRouteChangeDatabase)
+        Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
+          val monitorRouteRepository = new MonitorRouteRepositoryImpl(analysisDatabase, monitorDatabase)
           val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changeSetDatabase)
           new MonitorRouteAnalyzerTool(monitorRouteRepository, changeSetInfoRepository).analyze()
         }

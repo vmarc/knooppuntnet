@@ -1,10 +1,9 @@
 package kpn.core.tools.typescript
 
 import kpn.api.common.BoundsI
-
-import java.io.File
-import java.io.PrintStream
+import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.monitor.MonitorAdminRouteGroupPage
 import kpn.api.common.monitor.MonitorRoute
 import kpn.api.common.monitor.MonitorRouteChange
 import kpn.api.common.monitor.MonitorRouteChangePage
@@ -12,13 +11,15 @@ import kpn.api.common.monitor.MonitorRouteChangeSummary
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteGroup
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRoutesPage
-import kpn.api.common.status.ActionTimestamp
 import org.apache.commons.io.FileUtils
 
+import java.io.File
+import java.io.PrintStream
 import scala.jdk.CollectionConverters._
 import scala.reflect.runtime.universe._
 
@@ -38,7 +39,7 @@ class TypescriptTool() {
   )
 
   val newClasses = Seq(
-    classOf[MonitorRoute], // no used in API ?
+    classOf[MonitorRoute], // not used in API ?
     classOf[MonitorRoutesPage],
     classOf[MonitorRouteDetail],
     classOf[MonitorRouteChangesPage],
@@ -53,6 +54,7 @@ class TypescriptTool() {
     classOf[MonitorRouteGroup],
     classOf[MonitorAdminRouteGroupPage],
     classOf[BoundsI],
+    classOf[ChangeKeyI]
   )
 
   def generate(): Unit = {

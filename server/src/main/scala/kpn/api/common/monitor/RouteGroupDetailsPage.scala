@@ -1,3 +1,4 @@
 package kpn.api.common.monitor
 
-case class RouteGroupDetailsPage()
+case class RouteGroupDetailsPage(
+)

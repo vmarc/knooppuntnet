@@ -44,9 +44,9 @@ object MonitorRouteTool {
 
   def main(args: Array[String]): Unit = {
     val executor = new OverpassQueryExecutorImpl()
-    Couch.executeIn("kpn-database", "monitor") { monitorRouteChangeDatabase =>
+    Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
       Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
-        new MonitorRouteTool(executor, analysisDatabase, monitorRouteChangeDatabase).analyzeRoutes()
+        new MonitorRouteTool(executor, analysisDatabase, monitorDatabase).analyzeRoutes()
       }
     }
   }
@@ -55,13 +55,13 @@ object MonitorRouteTool {
 class MonitorRouteTool(
   overpassQueryExecutor: OverpassQueryExecutor,
   analysisDatabase: Database,
-  monitorRouteChangeDatabase: Database
+  monitorDatabase: Database
 ) {
 
   import MonitorRouteAnalyzer._
 
   private val log = Log(classOf[MonitorRouteTool])
-  private val routeRepository = new MonitorRouteRepositoryImpl(analysisDatabase, monitorRouteChangeDatabase)
+  private val routeRepository = new MonitorRouteRepositoryImpl(analysisDatabase, monitorDatabase)
 
   def tempWriteXmlFiles(): Unit = {
     MonitorRouteTool.routeDefinitions.foreach { routeDefinition =>

@@ -28,7 +28,7 @@ object MonitorRouteRepositoryImpl {
 @Component
 class MonitorRouteRepositoryImpl(
   analysisDatabase: Database,
-  monitorRouteChangeDatabase: Database
+  monitorDatabase: Database
 ) extends MonitorRouteRepository {
 
   private val log = Log(classOf[MonitorRouteRepositoryImpl])
@@ -60,7 +60,7 @@ class MonitorRouteRepositoryImpl(
 
   override def saveChange(change: MonitorRouteChange): Unit = {
     log.debugElapsed {
-      monitorRouteChangeDatabase.save(MonitorRouteChangeDoc(changeDocId(change.key), change))
+      monitorDatabase.save(MonitorRouteChangeDoc(changeDocId(change.key), change))
       (s"Save route change ${change.key}", ())
     }
   }
@@ -70,7 +70,7 @@ class MonitorRouteRepositoryImpl(
       .reduce(false)
       .includeDocs(true)
       .stale(true)
-    val result = monitorRouteChangeDatabase.execute(query)
+    val result = monitorDatabase.execute(query)
     result.rows.map(_.doc.monitorRouteChange)
   }
 
@@ -83,7 +83,7 @@ class MonitorRouteRepositoryImpl(
         routeId
       )
     )
-    monitorRouteChangeDatabase.docWithId(docId, classOf[MonitorRouteChangeDoc]).map(_.monitorRouteChange)
+    monitorDatabase.docWithId(docId, classOf[MonitorRouteChangeDoc]).map(_.monitorRouteChange)
   }
 
   private def docId(routeId: Long): String = {
