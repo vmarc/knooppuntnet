@@ -2,8 +2,8 @@
 
 import {List} from 'immutable';
 import {MetaData} from '../data/meta-data';
-import {RawNode} from '../data/raw/raw-node';
 import {NodeUpdate} from './node-update';
+import {RawNode} from '../data/raw/raw-node';
 import {TagDiffs} from './tag-diffs';
 
 export class WayUpdate {

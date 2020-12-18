@@ -1,8 +1,8 @@
 // this class is generated, please do not modify
 
+import {ChangeKey} from './change-key';
 import {NetworkType} from '../../../custom/network-type';
 import {RefDiffs} from '../../diff/ref-diffs';
-import {ChangeKey} from './change-key';
 
 export class LocationChange {
 

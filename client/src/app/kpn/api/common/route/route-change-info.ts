@@ -2,14 +2,14 @@
 
 import {List} from 'immutable';
 import {Bounds} from '../bounds';
-import {ChangeSetInfo} from '../changes/change-set-info';
 import {ChangeKey} from '../changes/details/change-key';
+import {ChangeSetInfo} from '../changes/change-set-info';
+import {GeometryDiff} from './geometry-diff';
 import {MetaData} from '../data/meta-data';
 import {RawNode} from '../data/raw/raw-node';
 import {RouteDiff} from '../diff/route/route-diff';
 import {WayInfo} from '../diff/way-info';
 import {WayUpdate} from '../diff/way-update';
-import {GeometryDiff} from './geometry-diff';
 
 export class RouteChangeInfo {
 

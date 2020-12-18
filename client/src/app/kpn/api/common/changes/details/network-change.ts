@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {Country} from '../../../custom/country';
-import {NetworkType} from '../../../custom/network-type';
-import {IdDiffs} from '../../diff/id-diffs';
-import {NetworkDataUpdate} from '../../diff/network-data-update';
-import {RefDiffs} from '../../diff/ref-diffs';
 import {ChangeKey} from './change-key';
 import {ChangeType} from './change-type';
+import {Country} from '../../../custom/country';
+import {IdDiffs} from '../../diff/id-diffs';
+import {NetworkDataUpdate} from '../../diff/network-data-update';
+import {NetworkType} from '../../../custom/network-type';
 import {RefChanges} from './ref-changes';
+import {RefDiffs} from '../../diff/ref-diffs';
 
 export class NetworkChange {
 
