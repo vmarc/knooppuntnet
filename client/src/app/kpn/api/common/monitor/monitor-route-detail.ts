@@ -11,4 +11,6 @@ export interface MonitorRouteDetail {
   readonly osmDistance: number;
   readonly gpxDistance: number;
   readonly gpxFilename: string;
+  readonly osmHappy: boolean;
+  readonly gpxHappy: boolean;
 }

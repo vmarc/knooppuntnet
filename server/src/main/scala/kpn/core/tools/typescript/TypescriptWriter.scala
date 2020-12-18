@@ -32,13 +32,31 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     writeClass()
   }
 
+  def writeInterface(): Unit = {
+    writeFileComment()
+    writeInteraceImports()
+    writeInterfaceContents()
+  }
+
   private def writeComment(): Unit = {
     out.println("// this class is generated, please do not modify")
     out.println()
   }
 
+  private def writeFileComment(): Unit = {
+    out.println("// this file is generated, please do not modify")
+    out.println()
+  }
+
   private def writeImports(): Unit = {
     val imports = listImports() ++ mapImports() ++ dependencyImports()
+    if (imports.nonEmpty) {
+      out.println(imports.mkString("", "\n", "\n"))
+    }
+  }
+
+  private def writeInteraceImports(): Unit = {
+    val imports = dependencyImports()
     if (imports.nonEmpty) {
       out.println(imports.mkString("", "\n", "\n"))
     }
@@ -139,4 +157,23 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     out.println("    );")
     out.println("  }")
   }
+
+  private def writeInterfaceContents(): Unit = {
+    out.println(s"export interface ${classInfo.className} {")
+    val fields = classInfo.fields.map { field =>
+      val typeName = field.classType.typeName
+      if (typeName.startsWith("List<")) {
+        val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]";
+        s"${field.name}: $arrayTypeName"
+      }
+      else {
+        s"${field.name}: $typeName"
+      }
+    }
+    fields.mkString("  readonly ", ";\n  readonly ", ";\n").foreach {
+      out.print
+    }
+    out.println("}")
+  }
+
 }

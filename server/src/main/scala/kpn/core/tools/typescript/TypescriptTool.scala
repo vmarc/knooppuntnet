@@ -50,6 +50,8 @@ class TypescriptTool() {
     classOf[MonitorRouteChangePage],
     classOf[MonitorRouteChange],
     classOf[MonitorRouteChangeSummary],
+    classOf[MonitorRouteGroup],
+    classOf[MonitorAdminRouteGroupPage],
     classOf[BoundsI],
   )
 
@@ -63,17 +65,17 @@ class TypescriptTool() {
 
     caseClasses.foreach { caseClass =>
       val className = caseClass.typeSymbol.name.toString
+      val classInfo = new ClassAnalyzer().analyze(caseClass)
+      val file = new File(targetDir + "/" + classInfo.fileName)
+      file.getParentFile.mkdirs()
+      val out = new PrintStream(file)
       if (newClassNames.contains(className)) {
-        println("Generate typescript interface instead of typescript class " + className)
+        new TypescriptWriter(out, classInfo).writeInterface()
       }
       else {
-        val classInfo = new ClassAnalyzer().analyze(caseClass)
-        val file = new File(targetDir + "/" + classInfo.fileName)
-        file.getParentFile.mkdirs()
-        val out = new PrintStream(file)
         new TypescriptWriter(out, classInfo).write()
-        out.close()
       }
+      out.close()
     }
 
     println("end")

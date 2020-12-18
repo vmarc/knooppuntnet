@@ -7,5 +7,4 @@ export interface MonitorRouteChangesPage {
   readonly ref: string;
   readonly name: string;
   readonly changes: MonitorRouteChangeSummary[];
-
 }
