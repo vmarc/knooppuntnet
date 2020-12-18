@@ -1,7 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
+import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {filter} from 'rxjs/operators';
 import {AppState} from '../../core/core.state';
+import {selectMonitorRouteGroups} from '../../core/monitor/monitor.selectors';
 import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
 
 @Component({
@@ -21,7 +27,14 @@ import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
 
     <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
 
-    <kpn-monitor-group-table></kpn-monitor-group-table>
+    <div *ngIf="response$ | async as response">
+      <div *ngIf="!response.result">
+        No route groups
+      </div>
+      <div *ngIf="response.result">
+        <kpn-monitor-group-table [groups]="response.result.groups"></kpn-monitor-group-table>
+      </div>
+    </div>
 
     <div *ngIf="admin$ | async" class="add-group-action">
       <button mat-stroked-button [routerLink]="'/monitor/admin/groups/add'">Add group</button>
@@ -36,6 +49,10 @@ import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
 export class MonitorGroupsPageComponent {
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
+  response$: Observable<ApiResponse<RouteGroupsPage>> = this.store.pipe(
+    select(selectMonitorRouteGroups),
+    filter(r => r != null)
+  );
 
   constructor(private store: Store<AppState>) {
   }

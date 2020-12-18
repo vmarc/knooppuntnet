@@ -1,7 +1,9 @@
+import {OnInit} from '@angular/core';
+import {Input} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
+import {RouteGroupDetail} from '@api/common/monitor/route-group-detail';
 import {Store} from '@ngrx/store';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../components/shared/page-width.service';
@@ -18,14 +20,14 @@ import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="'/monitor/groups/' + group.name">{{group.name}}</a>
+          <a [routerLink]="'/monitor/groups/' + group.groupName">{{group.groupName}}</a>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let group">
-          {{group.description}}
+          {{group.groupDescription}}
         </td>
       </ng-container>
 
@@ -48,11 +50,14 @@ import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
     }
   `]
 })
-export class MonitorGroupTableComponent {
+export class MonitorGroupTableComponent implements OnInit {
 
-  dataSource: MatTableDataSource<MonitorRouteGroup> = new MatTableDataSource();
+  @Input() groups: RouteGroupDetail[];
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
+
+  readonly dataSource: MatTableDataSource<RouteGroupDetail> = new MatTableDataSource<RouteGroupDetail>();
+
   readonly displayedColumns$ = this.admin$.pipe(
     // TODO take page width into account? = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
     map(admin => {
@@ -65,14 +70,10 @@ export class MonitorGroupTableComponent {
 
   constructor(private pageWidthService: PageWidthService,
               private store: Store<AppState>) {
+  }
 
-    this.dataSource.data = [
-      {id: '1', name: 'group-1', description: 'Group one'},
-      {id: '2', name: 'group-2', description: 'Group two'},
-      {id: '3', name: 'group-3', description: 'Group three'},
-      {id: '4', name: 'group-4', description: 'Group four'},
-      {id: '5', name: 'group-5', description: 'Group five'},
-    ];
+  ngOnInit(): void {
+    this.dataSource.data = this.groups;
   }
 
 }

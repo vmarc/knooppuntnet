@@ -16,6 +16,8 @@ import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRoutesPage
+import kpn.api.common.monitor.RouteGroupDetail
+import kpn.api.common.monitor.RouteGroupsPage
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -54,7 +56,9 @@ class TypescriptTool() {
     classOf[MonitorRouteGroup],
     classOf[MonitorAdminRouteGroupPage],
     classOf[BoundsI],
-    classOf[ChangeKeyI]
+    classOf[ChangeKeyI],
+    classOf[RouteGroupsPage],
+    classOf[RouteGroupDetail],
   )
 
   def generate(): Unit = {

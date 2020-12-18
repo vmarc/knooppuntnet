@@ -8,7 +8,7 @@ import kpn.core.util.UnitTest
 class MonitorAdminRouteGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("all/add/delete") {
-    withDatabase { database =>
+    withDatabase(true) { database =>
       val repository = new MonitorAdminRouteGroupRepositoryImpl(database)
 
       repository.all() should equal(Seq())
@@ -18,7 +18,7 @@ class MonitorAdminRouteGroupRepositoryTest extends UnitTest with SharedTestObjec
       repository.saveGroup(MonitorRouteGroup("name2", "description2"))
       repository.group("name1") should equal(Some(MonitorRouteGroup("name1", "description1")))
       repository.group("name2") should equal(Some(MonitorRouteGroup("name2", "description2")))
-      repository.all() should equal(
+      repository.all(stale = false) should equal(
         Seq(
           MonitorRouteGroup("name1", "description1"),
           MonitorRouteGroup("name2", "description2")
@@ -26,14 +26,14 @@ class MonitorAdminRouteGroupRepositoryTest extends UnitTest with SharedTestObjec
       )
 
       repository.deleteGroup("name1")
-      repository.all() should equal(
+      repository.all(stale = false) should equal(
         Seq(
           MonitorRouteGroup("name2", "description2")
         )
       )
 
       repository.deleteGroup("name2")
-      repository.all() should equal(Seq())
+      repository.all(stale = false) should equal(Seq())
 
     }
   }

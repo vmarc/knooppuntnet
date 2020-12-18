@@ -17,6 +17,7 @@ import {LocationsPage} from '@api/common/location/locations-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
+import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
 import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
 import {RouteGroupChangesPage} from '@api/common/monitor/route-group-changes-page';
@@ -401,6 +402,11 @@ export class AppService {
   public monitorRouteChange(routeId: string, changeSetId: string): Observable<ApiResponse<MonitorRouteChangePage>> {
     const url = `/api/monitor/routes/${routeId}/changes/${changeSetId}`;
     return this.httpGet(url);
+  }
+
+  public monitorAdminAddRouteGroup(group: MonitorRouteGroup): Observable<Object> {
+    const url = `/admin-api/monitor/groups`;
+    return this.http.post(url, group);
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {

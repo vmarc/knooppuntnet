@@ -8,6 +8,11 @@ export const selectMonitorAdmin = createSelector(
   (state: MonitorState) => state.admin
 );
 
+export const selectMonitorRouteGroups = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeGroups
+);
+
 export const selectMonitorRoutes = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routes

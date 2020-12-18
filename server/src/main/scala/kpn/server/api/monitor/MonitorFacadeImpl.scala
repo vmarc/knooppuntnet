@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component
 @Component
 class MonitorFacadeImpl(
   api: Api,
+  monitorRouteGroupsPageBuilder: MonitorRouteGroupsPageBuilder,
   monitorRoutesPageBuilder: MonitorRoutesPageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
@@ -25,7 +26,7 @@ class MonitorFacadeImpl(
 
   override def groups(user: Option[String]): ApiResponse[RouteGroupsPage] = {
     api.execute(user, "monitor-groups", "") {
-      reply(Some(RouteGroupsPage()))
+      reply(monitorRouteGroupsPageBuilder.build())
     }
   }
 

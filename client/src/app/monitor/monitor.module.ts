@@ -3,6 +3,9 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -62,6 +65,8 @@ import {MonitorRoutesComponent} from './routes/monitor-routes.component';
     MatSlideToggleModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
   ],
   declarations: [
@@ -99,7 +104,10 @@ import {MonitorRoutesComponent} from './routes/monitor-routes.component';
     MonitorAdminRouteSummaryComponent,
     MonitorAdminRouteReferenceComponent,
   ],
-  exports: []
+  exports: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'nl-BE'},
+  ],
 })
 export class MonitorModule {
 }

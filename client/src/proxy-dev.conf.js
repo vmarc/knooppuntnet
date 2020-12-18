@@ -3,6 +3,10 @@ PROXY_CONFIG = {
     "target": "http://localhost:9005",
     "secure": false
   },
+  "/admin-api/**": {
+    "target": "http://localhost:9005",
+    "secure": false
+  },
   "/tiles/**": {
     "target": "https://experimental.knooppuntnet.nl",
     "changeOrigin": true,

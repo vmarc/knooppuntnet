@@ -2,7 +2,6 @@ package kpn.core.test
 
 import java.util.Properties
 import java.util.concurrent.atomic.AtomicInteger
-
 import com.fasterxml.jackson.databind.ObjectMapper
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
@@ -11,6 +10,7 @@ import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.database.views.changes.ChangesDesign
 import kpn.core.database.views.location.LocationDesign
+import kpn.core.database.views.monitor.MonitorDesign
 import kpn.core.database.views.node.NodeRouteDesign
 import kpn.core.database.views.planner.PlannerDesign
 import kpn.core.database.views.poi.PoiDesign
@@ -64,6 +64,7 @@ object TestSupport extends Assertions {
       new DesignRepositoryImpl(database).save(PoiDesign)
       new DesignRepositoryImpl(database).save(TileDesign)
       new DesignRepositoryImpl(database).save(NodeRouteDesign)
+      new DesignRepositoryImpl(database).save(MonitorDesign)
 
       try {
         f(database)

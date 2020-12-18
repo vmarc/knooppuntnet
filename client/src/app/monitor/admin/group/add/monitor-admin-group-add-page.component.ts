@@ -3,6 +3,10 @@ import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {FormControl} from '@angular/forms';
+import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../core/core.state';
+import {actionMonitorAddRouteGroup} from '../../../../core/monitor/monitor.actions';
 
 @Component({
   selector: 'kpn-monitor-admin-group-add-page',
@@ -57,6 +61,7 @@ import {FormControl} from '@angular/forms';
     .description {
       width: 40em;
     }
+
     .kpn-button-group {
       padding-top: 3em;
     }
@@ -72,7 +77,11 @@ export class MonitorAdminGroupAddPageComponent {
     description: this.description
   });
 
+  constructor(private store: Store<AppState>) {
+  }
+
   add(): void {
-    console.log('Dispatch add group action');
+    const group: MonitorRouteGroup = this.form.value;
+    this.store.dispatch(actionMonitorAddRouteGroup({group: group}));
   }
 }

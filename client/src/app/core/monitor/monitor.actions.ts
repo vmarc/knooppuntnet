@@ -2,8 +2,10 @@ import {BoundsI} from '@api/common/bounds-i';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
+import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
 import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
+import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
@@ -11,6 +13,11 @@ import {props} from '@ngrx/store';
 export const actionMonitorAdmin = createAction(
   '[Monitor] Admin',
   props<{ admin: boolean }>()
+);
+
+export const actionMonitorLoaded = createAction(
+  '[Monitor] Monitor loaded',
+  props<{ response: ApiResponse<RouteGroupsPage> }>()
 );
 
 export const actionMonitorRoutesLoaded = createAction(
@@ -66,4 +73,9 @@ export const actionMonitorRouteMapNokVisible = createAction(
 export const actionMonitorRouteMapOsmRelationVisible = createAction(
   '[Monitor] Map osm relation visible',
   props<{ visible: boolean }>()
+);
+
+export const actionMonitorAddRouteGroup = createAction(
+  '[Monitor] Add route group',
+  props<{ group: MonitorRouteGroup }>()
 );

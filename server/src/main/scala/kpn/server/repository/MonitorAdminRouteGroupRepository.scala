@@ -4,7 +4,7 @@ import kpn.api.common.monitor.MonitorRouteGroup
 
 trait MonitorAdminRouteGroupRepository {
 
-  def all(): Seq[MonitorRouteGroup]
+  def all(stale: Boolean): Seq[MonitorRouteGroup]
 
   def group(groupName: String): Option[MonitorRouteGroup]
 

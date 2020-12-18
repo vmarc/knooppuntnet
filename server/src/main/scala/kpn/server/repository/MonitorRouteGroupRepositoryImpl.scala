@@ -4,11 +4,12 @@ import kpn.api.common.monitor.MonitorRouteGroup
 import kpn.core.database.Database
 import kpn.core.database.doc.MonitorRouteGroupDoc
 import kpn.core.database.query.Query
-import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.analyzer.DocumentView
+import kpn.core.database.views.monitor.MonitorDesign
 import kpn.core.db.KeyPrefix
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
+import org.springframework.web.client.HttpClientErrorException
 
 object MonitorRouteGroupRepositoryImpl {
 
@@ -23,15 +24,20 @@ class MonitorRouteGroupRepositoryImpl(monitorDatabase: Database) extends Monitor
 
   private val log = Log(classOf[MonitorRouteGroupRepositoryImpl])
 
-  def all(): Seq[MonitorRouteGroup] = {
-    val query = Query(AnalyzerDesign, DocumentView, classOf[MonitorRouteGroupRepositoryImpl.ViewResult])
+  def all(stale: Boolean = true): Seq[MonitorRouteGroup] = {
+    val query = Query(MonitorDesign, DocumentView, classOf[MonitorRouteGroupRepositoryImpl.ViewResult])
       .startKey(s""""${KeyPrefix.MonitorRouteGroup}"""")
       .endKey(s""""${KeyPrefix.MonitorRouteGroup}-"""")
       .reduce(false)
       .includeDocs(true)
-      .stale(true)
-    val result = monitorDatabase.execute(query)
-    result.rows.map(_.doc.routeGroup)
+      .stale(stale)
+    try {
+      val result = monitorDatabase.execute(query)
+      result.rows.map(_.doc.routeGroup)
+    }
+    catch {
+      case e: HttpClientErrorException.NotFound => Seq()
+    }
   }
 
   private def docId(routeGroupId: String): String = {
