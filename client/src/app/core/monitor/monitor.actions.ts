@@ -1,4 +1,5 @@
 import {BoundsI} from '@api/common/bounds-i';
+import {MonitorAdminRouteGroupPage} from '@api/common/monitor/monitor-admin-route-group-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
@@ -18,6 +19,11 @@ export const actionMonitorAdmin = createAction(
 export const actionMonitorLoaded = createAction(
   '[Monitor] Monitor loaded',
   props<{ response: ApiResponse<RouteGroupsPage> }>()
+);
+
+export const actionMonitorGroupDeleteLoaded = createAction(
+  '[Monitor] Monitor group delete loaded',
+  props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
 );
 
 export const actionMonitorRoutesLoaded = createAction(
@@ -78,4 +84,9 @@ export const actionMonitorRouteMapOsmRelationVisible = createAction(
 export const actionMonitorAddRouteGroup = createAction(
   '[Monitor] Add route group',
   props<{ group: MonitorRouteGroup }>()
+);
+
+export const actionMonitorDeleteRouteGroup = createAction(
+  '[Monitor] Delete route group',
+  props<{ groupName: string }>()
 );

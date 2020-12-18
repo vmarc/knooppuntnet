@@ -1,3 +1,4 @@
+import {MonitorAdminRouteGroupPage} from '@api/common/monitor/monitor-admin-route-group-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
@@ -20,7 +21,8 @@ export const initialState: MonitorState = {
   mapGpxOkVisible: false,
   mapGpxNokVisible: false,
   mapOsmRelationVisible: false,
-  routeGroups: null
+  routeGroups: null,
+  adminRouteGroupPage: null
 };
 
 export interface MonitorState {
@@ -38,4 +40,5 @@ export interface MonitorState {
   mapGpxNokVisible: boolean;
   mapOsmRelationVisible: boolean;
   routeGroups: ApiResponse<RouteGroupsPage>;
+  adminRouteGroupPage: ApiResponse<MonitorAdminRouteGroupPage>;
 }

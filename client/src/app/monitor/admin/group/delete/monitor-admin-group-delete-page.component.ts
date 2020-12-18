@@ -1,5 +1,9 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../core/core.state';
+import {actionMonitorDeleteRouteGroup} from '../../../../core/monitor/monitor.actions';
+import {selectMonitorAdminRouteGroupPage} from '../../../../core/monitor/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-delete-page',
@@ -21,19 +25,29 @@ import {Component} from '@angular/core';
       </span>
     </kpn-page-menu>
 
-    <p>
-      Name: group-1
-    </p>
+    <div *ngIf="response$ | async as response">
+      <div *ngIf="!response.result">
+        <p>
+          Group not found
+        </p>
+      </div>
+      <div *ngIf="response.result">
 
-    <p>
-      Description: Group One
-    </p>
+        <p>
+          Name: {{response.result.groupName}}
+        </p>
 
-    <div class="kpn-button-group">
-      <button mat-stroked-button (click)="delete()">
-        <span class="delete">Delete group</span>
-      </button>
-      <a routerLink="/monitor">Cancel</a>
+        <p>
+          Description: {{response.result.groupDescription}}
+        </p>
+
+        <div class="kpn-button-group">
+          <button mat-stroked-button (click)="delete(response.result.groupName)">
+            <span class="delete">Delete group</span>
+          </button>
+          <a routerLink="/monitor">Cancel</a>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
@@ -44,7 +58,12 @@ import {Component} from '@angular/core';
 })
 export class MonitorAdminGroupDeletePageComponent {
 
-  delete(): void {
-    console.log('Dispatch group delete action');
+  readonly response$ = this.store.select(selectMonitorAdminRouteGroupPage);
+
+  constructor(private store: Store<AppState>) {
+  }
+
+  delete(groupName: string): void {
+    this.store.dispatch(actionMonitorDeleteRouteGroup({groupName: groupName}));
   }
 }

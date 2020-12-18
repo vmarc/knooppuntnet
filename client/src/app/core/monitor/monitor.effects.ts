@@ -16,6 +16,8 @@ import {MonitorRouteMapService} from '../../monitor/route/map/monitor-route-map.
 import {AppState} from '../core.state';
 import {selectUrl} from '../core.state';
 import {selectRouteParams} from '../core.state';
+import {actionMonitorDeleteRouteGroup} from './monitor.actions';
+import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
 import {actionMonitorAddRouteGroup} from './monitor.actions';
 import {actionMonitorLoaded} from './monitor.actions';
 import {actionMonitorRouteChangeLoaded} from './monitor.actions';
@@ -54,7 +56,7 @@ export class MonitorEffects {
       ),
       filter(([action, url, params, admin]) => url.startsWith('/monitor') && !url.endsWith('/monitor/admin/groups/add')),
       mergeMap(([action, url, params, admin]) => {
-        if (url === '/monitor') {
+        if (/\/monitor$/.test(url)) {
           if (admin) {
             return this.appService.monitorAdminRouteGroups().pipe(
               map(response => actionMonitorLoaded({response}))
@@ -64,6 +66,13 @@ export class MonitorEffects {
             map(response => actionMonitorLoaded({response}))
           );
         }
+        if (/\/monitor\/admin\/groups\/.*\/delete$/.test(url)) {
+          const groupName = params['groupName'];
+          return this.appService.monitorAdminRouteGroup(groupName).pipe(
+            map(response => actionMonitorGroupDeleteLoaded({response}))
+          );
+        }
+
         if (url.startsWith('/monitor/long-distance-routes')) {
           if (url.endsWith('/long-distance-routes')) {
             return this.appService.monitorRoutes().pipe(
@@ -99,6 +108,16 @@ export class MonitorEffects {
       this.actions$.pipe(
         ofType(actionMonitorAddRouteGroup),
         concatMap((action) => this.appService.monitorAdminAddRouteGroup(action.group)),
+        tap(() => this.router.navigate(['/monitor'])
+        )
+      ),
+    {dispatch: false}
+  );
+
+  deleteGroupEffect$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(actionMonitorDeleteRouteGroup),
+        concatMap((action) => this.appService.monitorAdminDeleteRouteGroup(action.groupName)),
         tap(() => this.router.navigate(['/monitor'])
         )
       ),

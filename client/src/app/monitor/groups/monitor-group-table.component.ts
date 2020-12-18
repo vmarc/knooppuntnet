@@ -34,8 +34,8 @@ import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="'/monitor/admin/groups/group-1'">Update</a>
-          <a [routerLink]="'/monitor/admin/groups/group-1/delete'" class="delete">Delete</a>
+          <a [routerLink]="'/monitor/admin/groups/' + group.groupName">Update</a>
+          <a [routerLink]="'/monitor/admin/groups/' + group.groupName + '/delete'" class="delete">Delete</a>
         </td>
       </ng-container>
 

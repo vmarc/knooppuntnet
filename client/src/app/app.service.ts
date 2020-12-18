@@ -14,6 +14,7 @@ import {LocationNodesParameters} from '@api/common/location/location-nodes-param
 import {LocationRoutesPage} from '@api/common/location/location-routes-page';
 import {LocationRoutesParameters} from '@api/common/location/location-routes-parameters';
 import {LocationsPage} from '@api/common/location/locations-page';
+import {MonitorAdminRouteGroupPage} from '@api/common/monitor/monitor-admin-route-group-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
@@ -409,9 +410,19 @@ export class AppService {
     return this.httpGet(url);
   }
 
+  public monitorAdminRouteGroup(groupName: string): Observable<ApiResponse<MonitorAdminRouteGroupPage>> {
+    const url = '/admin-api/monitor/groups/' + groupName;
+    return this.httpGet(url);
+  }
+
   public monitorAdminAddRouteGroup(group: MonitorRouteGroup): Observable<Object> {
     const url = `/admin-api/monitor/groups`;
     return this.http.post(url, group);
+  }
+
+  public monitorAdminDeleteRouteGroup(groupName: string): Observable<Object> {
+    const url = `/admin-api/monitor/groups/${groupName}`;
+    return this.http.delete(url);
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {
