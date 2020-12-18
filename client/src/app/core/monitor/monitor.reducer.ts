@@ -1,6 +1,7 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
 import {actionMonitorLoaded} from './monitor.actions';
 import {actionMonitorAdmin} from './monitor.actions';
@@ -35,7 +36,8 @@ export const monitorReducer = createReducer(
       change: null,
       map: null,
       mapMode: null,
-      routeGroups: null
+      routeGroups: null,
+      adminRouteGroupPage: null
     })
   ),
   on(
@@ -47,6 +49,13 @@ export const monitorReducer = createReducer(
   ),
   on(
     actionMonitorGroupDeleteLoaded,
+    (state, {response}) => ({
+      ...state,
+      adminRouteGroupPage: response
+    })
+  ),
+  on(
+    actionMonitorGroupUpdateLoaded,
     (state, {response}) => ({
       ...state,
       adminRouteGroupPage: response

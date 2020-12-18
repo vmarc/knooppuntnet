@@ -46,7 +46,7 @@ import {actionMonitorAddRouteGroup} from '../../../../core/monitor/monitor.actio
       <p>
         <mat-form-field class="description">
           <mat-label>Description</mat-label>
-          <input matInput size="50" [formControl]="description">
+          <input matInput [formControl]="description">
         </mat-form-field>
       </p>
 

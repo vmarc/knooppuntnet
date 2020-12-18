@@ -425,6 +425,11 @@ export class AppService {
     return this.http.delete(url);
   }
 
+  public monitorAdminUpdateRouteGroup(group: MonitorRouteGroup): Observable<Object> {
+    const url = `/admin-api/monitor/groups/${group.name}`;
+    return this.http.put(url, group);
+  }
+
   private locationUrl(locationKey: LocationKey, target: string): string {
     return `/api/${locationKey.networkType.name}/${locationKey.country.domain}/${locationKey.name}/${target}`;
   }

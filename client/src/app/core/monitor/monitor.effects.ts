@@ -16,6 +16,8 @@ import {MonitorRouteMapService} from '../../monitor/route/map/monitor-route-map.
 import {AppState} from '../core.state';
 import {selectUrl} from '../core.state';
 import {selectRouteParams} from '../core.state';
+import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
+import {actionMonitorUpdateRouteGroup} from './monitor.actions';
 import {actionMonitorDeleteRouteGroup} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
 import {actionMonitorAddRouteGroup} from './monitor.actions';
@@ -72,6 +74,12 @@ export class MonitorEffects {
             map(response => actionMonitorGroupDeleteLoaded({response}))
           );
         }
+        if (/\/monitor\/admin\/groups\/.*$/.test(url)) {
+          const groupName = params['groupName'];
+          return this.appService.monitorAdminRouteGroup(groupName).pipe(
+            map(response => actionMonitorGroupUpdateLoaded({response}))
+          );
+        }
 
         if (url.startsWith('/monitor/long-distance-routes')) {
           if (url.endsWith('/long-distance-routes')) {
@@ -108,8 +116,7 @@ export class MonitorEffects {
       this.actions$.pipe(
         ofType(actionMonitorAddRouteGroup),
         concatMap((action) => this.appService.monitorAdminAddRouteGroup(action.group)),
-        tap(() => this.router.navigate(['/monitor'])
-        )
+        tap(() => this.router.navigate(['/monitor']))
       ),
     {dispatch: false}
   );
@@ -118,8 +125,16 @@ export class MonitorEffects {
       this.actions$.pipe(
         ofType(actionMonitorDeleteRouteGroup),
         concatMap((action) => this.appService.monitorAdminDeleteRouteGroup(action.groupName)),
-        tap(() => this.router.navigate(['/monitor'])
-        )
+        tap(() => this.router.navigate(['/monitor']))
+      ),
+    {dispatch: false}
+  );
+
+  updateGroupEffect$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(actionMonitorUpdateRouteGroup),
+        concatMap((action) => this.appService.monitorAdminUpdateRouteGroup(action.group)),
+        tap(() => this.router.navigate(['/monitor']))
       ),
     {dispatch: false}
   );

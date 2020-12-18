@@ -3,6 +3,12 @@ import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {FormControl} from '@angular/forms';
+import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
+import {Store} from '@ngrx/store';
+import {tap} from 'rxjs/operators';
+import {AppState} from '../../../../core/core.state';
+import {actionMonitorUpdateRouteGroup} from '../../../../core/monitor/monitor.actions';
+import {selectMonitorAdminRouteGroupPage} from '../../../../core/monitor/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-add-page',
@@ -20,33 +26,44 @@ import {FormControl} from '@angular/forms';
 
     <kpn-page-menu>
       <span>
-        Add group
+        Update group
       </span>
     </kpn-page-menu>
 
-    <form [formGroup]="form">
-      <p>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput [formControl]="name">
-        </mat-form-field>
-      </p>
-
-      <p>
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <input matInput [formControl]="description">
-        </mat-form-field>
-      </p>
-
-      <div class="kpn-button-group">
-        <button mat-stroked-button (click)="add()">Update group</button>
-        <a routerLink="/monitor">Cancel</a>
+    <div *ngIf="response$ | async as response">
+      <div *ngIf="!response.result">
+        <p>
+          Group not found
+        </p>
       </div>
+      <div *ngIf="response.result">
 
-    </form>
+        <form [formGroup]="form">
+
+          <p>
+            Name: {{name.value}}
+          </p>
+
+          <p>
+            <mat-form-field class="description">
+              <mat-label>Description</mat-label>
+              <input matInput [formControl]="description">
+            </mat-form-field>
+          </p>
+
+          <div class="kpn-button-group">
+            <button mat-stroked-button (click)="add()">Update group</button>
+            <a routerLink="/monitor">Cancel</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
   `,
   styles: [`
+    .description {
+      width: 40em;
+    }
     .kpn-button-group {
       padding-top: 3em;
     }
@@ -54,7 +71,7 @@ import {FormControl} from '@angular/forms';
 })
 export class MonitorAdminGroupUpdatePageComponent {
 
-  readonly name = new FormControl('', [Validators.required]);
+  readonly name = new FormControl('');
   readonly description = new FormControl('', [Validators.required]);
 
   readonly form = new FormGroup({
@@ -62,7 +79,22 @@ export class MonitorAdminGroupUpdatePageComponent {
     description: this.description
   });
 
+  readonly response$ = this.store.select(selectMonitorAdminRouteGroupPage).pipe(
+    tap(response => {
+      if (response?.result) {
+        this.form.reset({
+          name: response.result.groupName,
+          description: response.result.groupDescription,
+        })
+      }
+    })
+  );
+
+  constructor(private store: Store<AppState>) {
+  }
+
   add(): void {
-    console.log('Dispatch update group action');
+    const group: MonitorRouteGroup = this.form.value;
+    this.store.dispatch(actionMonitorUpdateRouteGroup({group: group}));
   }
 }

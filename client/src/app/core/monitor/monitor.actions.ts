@@ -26,6 +26,11 @@ export const actionMonitorGroupDeleteLoaded = createAction(
   props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
 );
 
+export const actionMonitorGroupUpdateLoaded = createAction(
+  '[Monitor] Monitor group update loaded',
+  props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
+);
+
 export const actionMonitorRoutesLoaded = createAction(
   '[Monitor] Routes loaded',
   props<{ response: ApiResponse<MonitorRoutesPage> }>()
@@ -89,4 +94,9 @@ export const actionMonitorAddRouteGroup = createAction(
 export const actionMonitorDeleteRouteGroup = createAction(
   '[Monitor] Delete route group',
   props<{ groupName: string }>()
+);
+
+export const actionMonitorUpdateRouteGroup = createAction(
+  '[Monitor] Update route group',
+  props<{ group: MonitorRouteGroup }>()
 );
