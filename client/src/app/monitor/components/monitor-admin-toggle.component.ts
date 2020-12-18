@@ -3,8 +3,8 @@ import {Component} from '@angular/core';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../core/core.state';
-import {actionMonitorAdmin} from '../../core/monitor/monitor.actions';
-import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
+import {actionMonitorAdmin} from '../store/monitor.actions';
+import {selectMonitorAdmin} from '../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-toggle',

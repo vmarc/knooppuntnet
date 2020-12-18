@@ -3,8 +3,8 @@ import {MatSelectionListChange} from '@angular/material/list';
 import {MonitorRouteSegment} from '@api/common/monitor/monitor-route-segment';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {actionMonitorRouteMapFocus} from '../../../core/monitor/monitor.actions';
-import {selectMonitorRouteMapOsmSegments} from '../../../core/monitor/monitor.selectors';
+import {actionMonitorRouteMapFocus} from '../../store/monitor.actions';
+import {selectMonitorRouteMapOsmSegments} from '../../store/monitor.selectors';
 import {MonitorRouteMapService} from './monitor-route-map.service';
 
 @Component({

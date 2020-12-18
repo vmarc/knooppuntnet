@@ -6,6 +6,7 @@ import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
 import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
 import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
 import {ApiResponse} from '@api/custom/api-response';
+import {AppState} from '../../core/core.state';
 
 export const initialState: MonitorState = {
   admin: true,
@@ -41,4 +42,10 @@ export interface MonitorState {
   mapOsmRelationVisible: boolean;
   routeGroups: ApiResponse<RouteGroupsPage>;
   adminRouteGroupPage: ApiResponse<MonitorAdminRouteGroupPage>;
+}
+
+export const monitorFeatureKey = 'monitor';
+
+export interface MonitorRootState extends AppState {
+  [monitorFeatureKey]: MonitorState;
 }

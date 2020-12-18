@@ -3,8 +3,8 @@ import {Component} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorRouteId} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteDetails} from '../../../core/monitor/monitor.selectors';
+import {selectMonitorRouteId} from '../../store/monitor.selectors';
+import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-details',

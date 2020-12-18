@@ -8,7 +8,7 @@ import {Store} from '@ngrx/store';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../components/shared/page-width.service';
 import {AppState} from '../../core/core.state';
-import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
+import {selectMonitorAdmin} from '../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-group-table',

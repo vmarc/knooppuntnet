@@ -16,10 +16,10 @@ import {OsmLayer} from '../../../components/ol/layers/osm-layer';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorRouteMap} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteId} from '../../../core/monitor/monitor.selectors';
 import {I18nService} from '../../../i18n/i18n.service';
 import {Subscriptions} from '../../../util/Subscriptions';
+import {selectMonitorRouteMap} from '../../store/monitor.selectors';
+import {selectMonitorRouteId} from '../../store/monitor.selectors';
 import {MonitorRouteMapService} from './monitor-route-map.service';
 
 @Component({

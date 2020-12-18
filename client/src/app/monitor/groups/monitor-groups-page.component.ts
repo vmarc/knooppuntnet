@@ -7,8 +7,8 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {AppState} from '../../core/core.state';
-import {selectMonitorRouteGroups} from '../../core/monitor/monitor.selectors';
-import {selectMonitorAdmin} from '../../core/monitor/monitor.selectors';
+import {selectMonitorRouteGroups} from '../store/monitor.selectors';
+import {selectMonitorAdmin} from '../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-groups',

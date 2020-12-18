@@ -12,7 +12,7 @@ import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../components/shared/page-width.service';
 import {AppState} from '../../core/core.state';
-import {selectMonitorRoutes} from '../../core/monitor/monitor.selectors';
+import {selectMonitorRoutes} from '../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-routes-table',

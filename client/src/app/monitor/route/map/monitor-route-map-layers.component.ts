@@ -6,20 +6,20 @@ import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
 import {map} from 'rxjs/operators';
 import {AppState} from '../../../core/core.state';
-import {actionMonitorRouteMapOsmRelationVisible} from '../../../core/monitor/monitor.actions';
-import {actionMonitorRouteMapNokVisible} from '../../../core/monitor/monitor.actions';
-import {actionMonitorRouteMapOkVisible} from '../../../core/monitor/monitor.actions';
-import {actionMonitorRouteMapReferenceVisible} from '../../../core/monitor/monitor.actions';
-import {actionMonitorRouteMapMode} from '../../../core/monitor/monitor.actions';
-import {selectMonitorRouteMapOsmRelationEnabled} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxNokEnabled} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxOkEnabled} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxEnabled} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapOsmRelationVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxNokVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxOkVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapMode} from '../../../core/monitor/monitor.selectors';
+import {actionMonitorRouteMapOsmRelationVisible} from '../../store/monitor.actions';
+import {actionMonitorRouteMapNokVisible} from '../../store/monitor.actions';
+import {actionMonitorRouteMapOkVisible} from '../../store/monitor.actions';
+import {actionMonitorRouteMapReferenceVisible} from '../../store/monitor.actions';
+import {actionMonitorRouteMapMode} from '../../store/monitor.actions';
+import {selectMonitorRouteMapOsmRelationEnabled} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxNokEnabled} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxOkEnabled} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxEnabled} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapOsmRelationVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxNokVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxOkVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapMode} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-layers',

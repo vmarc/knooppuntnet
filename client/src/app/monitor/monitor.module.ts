@@ -13,6 +13,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {OlModule} from '../components/ol/ol.module';
 import {SharedModule} from '../components/shared/shared.module';
 import {MonitorAboutPageComponent} from './about/monitor-about-page.component';
@@ -49,11 +51,18 @@ import {MonitorRouteMapSidebarComponent} from './route/map/monitor-route-map-sid
 import {MonitorRouteMapComponent} from './route/map/monitor-route-map.component';
 import {MonitorRoutesTableComponent} from './routes/monitor-routes-table.component';
 import {MonitorRoutesComponent} from './routes/monitor-routes.component';
+import {MonitorEffects} from './store/monitor.effects';
+import {monitorReducer} from './store/monitor.reducer';
+import {monitorFeatureKey} from './store/monitor.state';
 
 @NgModule({
   imports: [
     CommonModule,
     MonitorRoutingModule,
+    StoreModule.forFeature(monitorFeatureKey, monitorReducer),
+    EffectsModule.forFeature([
+      MonitorEffects
+    ]),
     SharedModule,
     OlModule,
     MatTableModule,

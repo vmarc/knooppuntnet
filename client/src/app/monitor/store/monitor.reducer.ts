@@ -23,7 +23,7 @@ export const monitorReducer = createReducer(
     actionMonitorAdmin,
     (state, {admin}) => ({
       ...state,
-      admin: admin,
+      admin,
     })
   ),
   on(

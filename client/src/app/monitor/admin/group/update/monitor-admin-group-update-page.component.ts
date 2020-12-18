@@ -7,8 +7,8 @@ import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
 import {Store} from '@ngrx/store';
 import {tap} from 'rxjs/operators';
 import {AppState} from '../../../../core/core.state';
-import {actionMonitorUpdateRouteGroup} from '../../../../core/monitor/monitor.actions';
-import {selectMonitorAdminRouteGroupPage} from '../../../../core/monitor/monitor.selectors';
+import {actionMonitorUpdateRouteGroup} from '../../../store/monitor.actions';
+import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-add-page',
@@ -85,7 +85,7 @@ export class MonitorAdminGroupUpdatePageComponent {
         this.form.reset({
           name: response.result.groupName,
           description: response.result.groupDescription,
-        })
+        });
       }
     })
   );
@@ -95,6 +95,6 @@ export class MonitorAdminGroupUpdatePageComponent {
 
   add(): void {
     const group: MonitorRouteGroup = this.form.value;
-    this.store.dispatch(actionMonitorUpdateRouteGroup({group: group}));
+    this.store.dispatch(actionMonitorUpdateRouteGroup({group}));
   }
 }

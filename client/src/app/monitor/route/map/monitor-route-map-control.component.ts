@@ -6,11 +6,11 @@ import {Store} from '@ngrx/store';
 import {first} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppState} from '../../../core/core.state';
-import {actionMonitorRouteMapFocus} from '../../../core/monitor/monitor.actions';
-import {actionMonitorRouteMapMode} from '../../../core/monitor/monitor.actions';
-import {selectMonitorRouteMapBounds} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapMode} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapOsmSegmentCount} from '../../../core/monitor/monitor.selectors';
+import {actionMonitorRouteMapFocus} from '../../store/monitor.actions';
+import {actionMonitorRouteMapMode} from '../../store/monitor.actions';
+import {selectMonitorRouteMapBounds} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapMode} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapOsmSegmentCount} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-control',

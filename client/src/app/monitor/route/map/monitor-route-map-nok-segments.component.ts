@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectionListChange} from '@angular/material/list';
+import {MonitorRouteNokSegment} from '@api/common/monitor/monitor-route-nok-segment';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {actionMonitorRouteMapFocus} from '../../../core/monitor/monitor.actions';
-import {selectMonitorRouteMapGpxEnabled} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapNokSegments} from '../../../core/monitor/monitor.selectors';
-import {MonitorRouteNokSegment} from '@api/common/monitor/monitor-route-nok-segment';
+import {actionMonitorRouteMapFocus} from '../../store/monitor.actions';
+import {selectMonitorRouteMapGpxEnabled} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapNokSegments} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-nok-segments',

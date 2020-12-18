@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
+import {Timestamp} from '@api/custom/timestamp';
 import {Store} from '@ngrx/store';
 import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorRouteName} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteChange} from '../../../core/monitor/monitor.selectors';
-import {Timestamp} from '@api/custom/timestamp';
+import {selectMonitorRouteName} from '../../store/monitor.selectors';
+import {selectMonitorRouteChange} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-change-page',

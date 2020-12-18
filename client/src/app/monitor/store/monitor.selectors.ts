@@ -1,7 +1,11 @@
+import {createFeatureSelector} from '@ngrx/store';
 import {createSelector} from '@ngrx/store';
-import {selectMonitorState} from '../core.state';
-import {selectPreferencesImpact} from '../preferences/preferences.selectors';
+import {selectPreferencesImpact} from '../../core/preferences/preferences.selectors';
+import {monitorFeatureKey} from './monitor.state';
+import {MonitorRootState} from './monitor.state';
 import {MonitorState} from './monitor.state';
+
+export const selectMonitorState = createFeatureSelector<MonitorRootState, MonitorState>(monitorFeatureKey);
 
 export const selectMonitorAdmin = createSelector(
   selectMonitorState,

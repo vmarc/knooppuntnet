@@ -3,11 +3,11 @@ import {Component} from '@angular/core';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorRouteChangesFiltered} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteChanges} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteId} from '../../../core/monitor/monitor.selectors';
 import {actionPreferencesImpact} from '../../../core/preferences/preferences.actions';
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
+import {selectMonitorRouteChangesFiltered} from '../../store/monitor.selectors';
+import {selectMonitorRouteChanges} from '../../store/monitor.selectors';
+import {selectMonitorRouteId} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-changes',

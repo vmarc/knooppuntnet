@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {BoundsI} from '@api/common/bounds-i';
 import {Store} from '@ngrx/store';
 import {GeoJSON} from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
@@ -8,15 +9,14 @@ import {Stroke} from 'ol/style';
 import {Style} from 'ol/style';
 import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorRouteMapGpxEnabled} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapMode} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxOkVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxNokVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapOsmRelationVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMapGpxVisible} from '../../../core/monitor/monitor.selectors';
-import {selectMonitorRouteMap} from '../../../core/monitor/monitor.selectors';
-import {BoundsI} from '@api/common/bounds-i';
 import {Subscriptions} from '../../../util/Subscriptions';
+import {selectMonitorRouteMapGpxEnabled} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapMode} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxOkVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxNokVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapOsmRelationVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapGpxVisible} from '../../store/monitor.selectors';
+import {selectMonitorRouteMap} from '../../store/monitor.selectors';
 
 @Injectable({
   providedIn: 'root'

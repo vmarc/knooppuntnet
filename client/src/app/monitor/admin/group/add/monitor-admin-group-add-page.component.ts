@@ -6,7 +6,7 @@ import {FormControl} from '@angular/forms';
 import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../core/core.state';
-import {actionMonitorAddRouteGroup} from '../../../../core/monitor/monitor.actions';
+import {actionMonitorAddRouteGroup} from '../../../store/monitor.actions';
 
 @Component({
   selector: 'kpn-monitor-admin-group-add-page',
@@ -82,6 +82,6 @@ export class MonitorAdminGroupAddPageComponent {
 
   add(): void {
     const group: MonitorRouteGroup = this.form.value;
-    this.store.dispatch(actionMonitorAddRouteGroup({group: group}));
+    this.store.dispatch(actionMonitorAddRouteGroup({group}));
   }
 }

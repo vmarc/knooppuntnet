@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../core/core.state';
-import {actionMonitorDeleteRouteGroup} from '../../../../core/monitor/monitor.actions';
-import {selectMonitorAdminRouteGroupPage} from '../../../../core/monitor/monitor.selectors';
+import {actionMonitorDeleteRouteGroup} from '../../../store/monitor.actions';
+import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-delete-page',
@@ -64,6 +64,6 @@ export class MonitorAdminGroupDeletePageComponent {
   }
 
   delete(groupName: string): void {
-    this.store.dispatch(actionMonitorDeleteRouteGroup({groupName: groupName}));
+    this.store.dispatch(actionMonitorDeleteRouteGroup({groupName}));
   }
 }

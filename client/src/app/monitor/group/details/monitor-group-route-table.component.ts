@@ -3,11 +3,10 @@ import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Store} from '@ngrx/store';
 import {of} from 'rxjs';
-import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorAdmin} from '../../../core/monitor/monitor.selectors';
+import {selectMonitorAdmin} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-group-route-table',
@@ -71,7 +70,7 @@ import {selectMonitorAdmin} from '../../../core/monitor/monitor.selectors';
 })
 export class MonitorGroupRouteTableComponent {
 
-  groupName: string = 'group-1';
+  groupName = 'group-1';
   routeId = 1111;
   readonly routeLink$ = of('/monitor/groups/' + this.groupName + '/routes/' + this.routeId);
   readonly routeUpdateLink$ = of('/monitor/admin/groups/' + this.groupName + '/routes/' + this.routeId);

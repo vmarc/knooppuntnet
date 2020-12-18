@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {selectMonitorRouteName} from '../../../core/monitor/monitor.selectors';
+import {selectMonitorRouteName} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-page-header',

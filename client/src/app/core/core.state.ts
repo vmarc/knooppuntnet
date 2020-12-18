@@ -18,8 +18,6 @@ import {subsetReducer} from './analysis/subset/subset.reducer';
 import {SubsetState} from './analysis/subset/subset.state';
 import {demoReducer} from './demo/demo.reducer';
 import {DemoState} from './demo/demo.state';
-import {monitorReducer} from './monitor/monitor.reducer';
-import {MonitorState} from './monitor/monitor.state';
 import {preferencesReducer} from './preferences/preferences.reducer';
 import {PreferencesState} from './preferences/preferences.state';
 import {RouterStateUrl} from './router/router.state';
@@ -35,7 +33,6 @@ export interface AppState {
   network: NetworkState;
   subset: SubsetState;
   location: LocationState;
-  monitor: MonitorState;
   router: RouterReducerState<RouterStateUrl>;
 }
 
@@ -48,7 +45,6 @@ export const reducers: ActionReducerMap<AppState> = {
   network: networkReducer,
   subset: subsetReducer,
   location: locationReducer,
-  monitor: monitorReducer,
   router: routerReducer
 };
 
@@ -73,8 +69,6 @@ export const selectNetworkState = createFeatureSelector<AppState, NetworkState>(
 export const selectSubsetState = createFeatureSelector<AppState, SubsetState>('subset');
 
 export const selectLocationState = createFeatureSelector<AppState, LocationState>('location');
-
-export const selectMonitorState = createFeatureSelector<AppState, MonitorState>('monitor');
 
 export const selectRouterState = createFeatureSelector<AppState, RouterReducerState<RouterStateUrl>>('router');
 
