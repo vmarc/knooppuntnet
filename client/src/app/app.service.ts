@@ -404,6 +404,11 @@ export class AppService {
     return this.httpGet(url);
   }
 
+  public monitorAdminRouteGroups(): Observable<ApiResponse<RouteGroupsPage>> {
+    const url = '/admin-api/monitor/groups';
+    return this.httpGet(url);
+  }
+
   public monitorAdminAddRouteGroup(group: MonitorRouteGroup): Observable<Object> {
     const url = `/admin-api/monitor/groups`;
     return this.http.post(url, group);

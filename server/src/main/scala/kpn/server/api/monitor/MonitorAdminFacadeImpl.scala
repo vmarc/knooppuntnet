@@ -2,6 +2,7 @@ package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorAdminRouteGroupPage
 import kpn.api.common.monitor.MonitorRouteGroup
+import kpn.api.common.monitor.RouteGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
@@ -11,8 +12,15 @@ import org.springframework.stereotype.Component
 @Component
 class MonitorAdminFacadeImpl(
   api: Api,
-  monitorAdminRouteGroupRepository: MonitorAdminRouteGroupRepository
+  monitorAdminRouteGroupRepository: MonitorAdminRouteGroupRepository,
+  monitorAdminRouteGroupsPageBuilder: MonitorAdminRouteGroupsPageBuilder
 ) extends MonitorAdminFacade {
+
+  override def groups(user: Option[String]): ApiResponse[RouteGroupsPage] = {
+    api.execute(user, "monitor-groups", "") {
+      reply(monitorAdminRouteGroupsPageBuilder.build())
+    }
+  }
 
   override def group(user: Option[String], groupName: String): ApiResponse[MonitorAdminRouteGroupPage] = {
     api.execute(user, "get-group", "") {

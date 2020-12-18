@@ -2,6 +2,7 @@ package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorAdminRouteGroupPage
 import kpn.api.common.monitor.MonitorRouteGroup
+import kpn.api.common.monitor.RouteGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -16,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping(Array("/admin-api/monitor"))
 class MonitorAdminController(facade: MonitorAdminFacade) {
+
+  @GetMapping(value = Array("groups"))
+  def groups(): ApiResponse[RouteGroupsPage] = {
+    facade.groups(CurrentUser.name)
+  }
 
   @GetMapping(value = Array("groups/{groupName}"))
   def group(@PathVariable groupName: String): ApiResponse[MonitorAdminRouteGroupPage] = {

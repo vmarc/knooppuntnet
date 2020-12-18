@@ -24,6 +24,7 @@ import {actionMonitorRouteMapLoaded} from './monitor.actions';
 import {actionMonitorRoutesLoaded} from './monitor.actions';
 import {actionMonitorRouteDetailsLoaded} from './monitor.actions';
 import {actionMonitorRouteChangesLoaded} from './monitor.actions';
+import {selectMonitorAdmin} from './monitor.selectors';
 
 @Injectable()
 export class MonitorEffects {
@@ -48,11 +49,17 @@ export class MonitorEffects {
       ofType(routerNavigatedAction),
       withLatestFrom(
         this.store.select(selectUrl),
-        this.store.select(selectRouteParams)
+        this.store.select(selectRouteParams),
+        this.store.select(selectMonitorAdmin)
       ),
-      filter(([action, url, params]) => url.startsWith('/monitor') && !url.endsWith('/monitor/admin/groups/add')),
-      mergeMap(([action, url, params]) => {
+      filter(([action, url, params, admin]) => url.startsWith('/monitor') && !url.endsWith('/monitor/admin/groups/add')),
+      mergeMap(([action, url, params, admin]) => {
         if (url === '/monitor') {
+          if (admin) {
+            return this.appService.monitorAdminRouteGroups().pipe(
+              map(response => actionMonitorLoaded({response}))
+            );
+          }
           return this.appService.monitorRouteGroups().pipe(
             map(response => actionMonitorLoaded({response}))
           );
