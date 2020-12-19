@@ -1,4 +1,9 @@
 import {BoundsI} from '@api/common/bounds-i';
+import {LongdistanceRouteChangePage} from '@api/common/monitor/longdistance-route-change-page';
+import {LongdistanceRouteChangesPage} from '@api/common/monitor/longdistance-route-changes-page';
+import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-route-details-page';
+import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
+import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminRouteGroupPage} from '@api/common/monitor/monitor-admin-route-group-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
@@ -16,7 +21,6 @@ export const actionMonitorAdmin = createAction(
   props<{ admin: boolean }>()
 );
 
-
 export const actionMonitorInit = createAction(
   '[Monitor] Init'
 );
@@ -25,7 +29,6 @@ export const actionMonitorLoaded = createAction(
   '[Monitor] Loaded',
   props<{ response: ApiResponse<RouteGroupsPage> }>()
 );
-
 
 export const actionMonitorGroupDeleteInit = createAction(
   '[Monitor group delete] Init'
@@ -36,7 +39,6 @@ export const actionMonitorGroupDeleteLoaded = createAction(
   props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
 );
 
-
 export const actionMonitorGroupUpdateInit = createAction(
   '[Monitor group update] Init'
 );
@@ -45,7 +47,6 @@ export const actionMonitorGroupUpdateLoaded = createAction(
   '[Monitor group update] Loaded',
   props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
 );
-
 
 export const actionMonitorRoutesInit = createAction(
   '[Monitor routes] Init'
@@ -56,7 +57,6 @@ export const actionMonitorRoutesLoaded = createAction(
   props<{ response: ApiResponse<MonitorRoutesPage> }>()
 );
 
-
 export const actionMonitorRouteDetailsInit = createAction(
   '[Monitor route details] Init'
 );
@@ -65,7 +65,6 @@ export const actionMonitorRouteDetailsLoaded = createAction(
   '[Monitor route details] Loaded',
   props<{ response: ApiResponse<MonitorRouteDetailsPage> }>()
 );
-
 
 export const actionMonitorRouteMapInit = createAction(
   '[Monitor route map] Init'
@@ -76,7 +75,6 @@ export const actionMonitorRouteMapLoaded = createAction(
   props<{ response: ApiResponse<MonitorRouteMapPage> }>()
 );
 
-
 export const actionMonitorRouteChangesInit = createAction(
   '[Monitor route changes] Init'
 );
@@ -86,7 +84,6 @@ export const actionMonitorRouteChangesLoaded = createAction(
   props<{ response: ApiResponse<MonitorRouteChangesPage> }>()
 );
 
-
 export const actionMonitorRouteChangeInit = createAction(
   '[Monitor route change] Init'
 );
@@ -95,7 +92,6 @@ export const actionMonitorRouteChangeLoaded = createAction(
   '[Monitor route change] Loaded',
   props<{ response: ApiResponse<MonitorRouteChangePage> }>()
 );
-
 
 export const actionMonitorRouteMapMode = createAction(
   '[Monitor] Map mode',
@@ -140,4 +136,81 @@ export const actionMonitorDeleteRouteGroup = createAction(
 export const actionMonitorUpdateRouteGroup = createAction(
   '[Monitor] Update route group',
   props<{ group: MonitorRouteGroup }>()
+);
+
+/*****************************************/
+
+export const actionLongdistanceRoutesInit = createAction(
+  '[Longdistance routes] Init'
+);
+
+export const actionLongdistanceRoutesLoaded = createAction(
+  '[Longdistance routes] Loaded',
+  props<{ response: ApiResponse<LongdistanceRoutesPage> }>()
+);
+
+export const actionLongdistanceRouteDetailsInit = createAction(
+  '[Longdistance route details] Init'
+);
+
+export const actionLongdistanceRouteDetailsLoaded = createAction(
+  '[Longdistance route details] Loaded',
+  props<{ response: ApiResponse<LongdistanceRouteDetailsPage> }>()
+);
+
+export const actionLongdistanceRouteMapInit = createAction(
+  '[Longdistance route map] Init'
+);
+
+export const actionLongdistanceRouteMapLoaded = createAction(
+  '[Longdistance route map] Loaded',
+  props<{ response: ApiResponse<LongdistanceRouteMapPage> }>()
+);
+
+export const actionLongdistanceRouteChangesInit = createAction(
+  '[Longdistance route changes] Init'
+);
+
+export const actionLongdistanceRouteChangesLoaded = createAction(
+  '[Longdistance route changes] Loaded',
+  props<{ response: ApiResponse<LongdistanceRouteChangesPage> }>()
+);
+
+export const actionLongdistanceRouteChangeInit = createAction(
+  '[Longdistance route change] Init'
+);
+
+export const actionLongdistanceRouteChangeLoaded = createAction(
+  '[Longdistance route change] Loaded',
+  props<{ response: ApiResponse<LongdistanceRouteChangePage> }>()
+);
+
+export const actionLongdistanceRouteMapMode = createAction(
+  '[Longdistance route map] Map mode',
+  props<{ mode: string }>()
+);
+
+export const actionLongdistanceRouteMapFocus = createAction(
+  '[Longdistance route map] Focus',
+  props<{ bounds: BoundsI }>()
+);
+
+export const actionLongdistanceRouteMapReferenceVisible = createAction(
+  '[Longdistance route map] Reference visible',
+  props<{ visible: boolean }>()
+);
+
+export const actionLongdistanceRouteMapOkVisible = createAction(
+  '[Longdistance route map] Ok visible',
+  props<{ visible: boolean }>()
+);
+
+export const actionLongdistanceRouteMapNokVisible = createAction(
+  '[Longdistance route map] Nok visible',
+  props<{ visible: boolean }>()
+);
+
+export const actionLongdistanceRouteMapOsmRelationVisible = createAction(
+  '[Longdistance route map] Osm relation visible',
+  props<{ visible: boolean }>()
 );

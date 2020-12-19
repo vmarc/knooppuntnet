@@ -1,5 +1,10 @@
 package kpn.server.api.monitor
 
+import kpn.api.common.monitor.LongdistanceRouteChangePage
+import kpn.api.common.monitor.LongdistanceRouteChangesPage
+import kpn.api.common.monitor.LongdistanceRouteDetailsPage
+import kpn.api.common.monitor.LongdistanceRouteMapPage
+import kpn.api.common.monitor.LongdistanceRoutesPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
@@ -17,7 +22,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(Array("/api/monitor"))
-class MonitorController(facade: MonitorFacade) {
+class MonitorController(
+  facade: MonitorFacade,
+  longdistanceFacade: LongdistanceFacade
+) {
 
   @GetMapping(value = Array("groups"))
   def groups(): ApiResponse[RouteGroupsPage] = {
@@ -71,4 +79,41 @@ class MonitorController(facade: MonitorFacade) {
   ): ApiResponse[MonitorRouteChangePage] = {
     facade.routeChange(CurrentUser.name, routeId, changeSetId)
   }
+
+  /** ******************************************************************************** */
+
+  @GetMapping(value = Array("longdistance-routes"))
+  def longdistanceRoutes(): ApiResponse[LongdistanceRoutesPage] = {
+    longdistanceFacade.longdistanceRoutes(CurrentUser.name)
+  }
+
+  @GetMapping(value = Array("longdistance-routes/{routeId}"))
+  def longdistancRoute(
+    @PathVariable routeId: Long
+  ): ApiResponse[LongdistanceRouteDetailsPage] = {
+    longdistanceFacade.longdistanceRoute(CurrentUser.name, routeId)
+  }
+
+  @GetMapping(value = Array("longdistance-routes/{routeId}/map"))
+  def longdistanceRouteMap(
+    @PathVariable routeId: Long
+  ): ApiResponse[LongdistanceRouteMapPage] = {
+    longdistanceFacade.longdistanceRouteMap(CurrentUser.name, routeId)
+  }
+
+  @GetMapping(value = Array("longdistance-routes/{routeId}/changes"))
+  def longdistanceRouteChanges(
+    @PathVariable routeId: Long
+  ): ApiResponse[LongdistanceRouteChangesPage] = {
+    longdistanceFacade.longdistanceRouteChanges(CurrentUser.name, routeId)
+  }
+
+  @GetMapping(value = Array("longdistance-routes/{routeId}/changes/{changeSetId}"))
+  def longdistanceRouteChange(
+    @PathVariable routeId: Long,
+    @PathVariable changeSetId: Long
+  ): ApiResponse[LongdistanceRouteChangePage] = {
+    longdistanceFacade.longdistanceRouteChange(CurrentUser.name, routeId, changeSetId)
+  }
+
 }

@@ -13,7 +13,19 @@ import {AppService} from '../../app.service';
 import {AppState} from '../../core/core.state';
 import {selectRouteParam} from '../../core/core.state';
 import {selectRouteParams} from '../../core/core.state';
+import {LongdistanceRouteMapService} from '../longdistance/route/map/longdistance-route-map.service';
 import {MonitorRouteMapService} from '../route/map/monitor-route-map.service';
+import {actionLongdistanceRouteMapFocus} from './monitor.actions';
+import {actionLongdistanceRouteChangeLoaded} from './monitor.actions';
+import {actionLongdistanceRouteChangesLoaded} from './monitor.actions';
+import {actionLongdistanceRouteMapLoaded} from './monitor.actions';
+import {actionLongdistanceRouteDetailsLoaded} from './monitor.actions';
+import {actionLongdistanceRoutesLoaded} from './monitor.actions';
+import {actionLongdistanceRouteChangeInit} from './monitor.actions';
+import {actionLongdistanceRouteChangesInit} from './monitor.actions';
+import {actionLongdistanceRouteMapInit} from './monitor.actions';
+import {actionLongdistanceRouteDetailsInit} from './monitor.actions';
+import {actionLongdistanceRoutesInit} from './monitor.actions';
 import {actionMonitorGroupDeleteInit} from './monitor.actions';
 import {actionMonitorGroupUpdateInit} from './monitor.actions';
 import {actionMonitorRoutesInit} from './monitor.actions';
@@ -43,7 +55,8 @@ export class MonitorEffects {
               private store: Store<AppState>,
               private router: Router,
               private appService: AppService,
-              private mapService: MonitorRouteMapService) {
+              private mapService: MonitorRouteMapService,
+              private longdistanceRouteMapService: LongdistanceRouteMapService) {
   }
 
   mapFocusEffect = createEffect(() =>
@@ -196,6 +209,84 @@ export class MonitorEffects {
         tap(() => this.router.navigate(['/monitor']))
       ),
     {dispatch: false}
+  );
+
+  /********************************************************/
+
+  longdistanceRouteMapFocusEffect = createEffect(() =>
+      this.actions$.pipe(
+        ofType(actionLongdistanceRouteMapFocus),
+        tap(action => this.longdistanceRouteMapService.focus(action.bounds))
+      ),
+    {dispatch: false}
+  );
+
+  longdistanceRoutesInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionLongdistanceRoutesInit),
+      mergeMap((action) => {
+        return this.appService.longdistanceRoutes().pipe(
+          map(response => actionLongdistanceRoutesLoaded({response}))
+        );
+      })
+    )
+  );
+
+  longdistanceRouteDetailsInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionLongdistanceRouteDetailsInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId'))
+      ),
+      mergeMap(([action, routeId]) => {
+        return this.appService.longdistanceRoute(routeId).pipe(
+          map(response => actionLongdistanceRouteDetailsLoaded({response}))
+        );
+      })
+    )
+  );
+
+  longdistanceRouteMapInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionLongdistanceRouteMapInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId'))
+      ),
+      mergeMap(([action, routeId]) => {
+        return this.appService.longdistanceRouteMap(routeId).pipe(
+          map(response => actionLongdistanceRouteMapLoaded({response}))
+        );
+      })
+    )
+  );
+
+  longdistanceRouteChangesInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionLongdistanceRouteChangesInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId'))
+      ),
+      mergeMap(([action, routeId]) => {
+        return this.appService.longdistanceRouteChanges(routeId).pipe(
+          map(response => actionLongdistanceRouteChangesLoaded({response}))
+        );
+      })
+    )
+  );
+
+  longdistanceRouteChangeInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionLongdistanceRouteChangeInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId')),
+        this.store.select(selectRouteParam('changeSetId'))
+      ),
+      mergeMap(([action, routeId, changeSetId]) => {
+        return this.appService.longdistanceRouteChange(routeId, changeSetId).pipe(
+          map(response => actionLongdistanceRouteChangeLoaded({response}))
+        );
+      })
+    )
   );
 
 }

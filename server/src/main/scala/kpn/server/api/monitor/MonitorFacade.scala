@@ -2,8 +2,8 @@ package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
-import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRoutesPage
 import kpn.api.common.monitor.RouteGroupChangesPage
 import kpn.api.common.monitor.RouteGroupDetailsPage
@@ -27,4 +27,5 @@ trait MonitorFacade {
   def routeChanges(user: Option[String], routeId: Long): ApiResponse[MonitorRouteChangesPage]
 
   def routeChange(user: Option[String], routeId: Long, changeSetId: Long): ApiResponse[MonitorRouteChangePage]
+
 }

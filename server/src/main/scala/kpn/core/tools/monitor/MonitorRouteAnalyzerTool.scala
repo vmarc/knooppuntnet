@@ -2,19 +2,19 @@ package kpn.core.tools.monitor
 
 import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.ChangeKeyI
-import kpn.api.common.monitor.MonitorRouteChange
+import kpn.api.common.monitor.LongdistanceRouteChange
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.db.couch.Couch
 import kpn.core.loadOld.Parser
-import kpn.core.tools.monitor.MonitorRouteAnalyzer.toGeoJson
-import kpn.core.tools.monitor.MonitorRouteAnalyzer.toRouteSegments
+import kpn.core.tools.monitor.LongdistanceRouteAnalyzer.toGeoJson
+import kpn.core.tools.monitor.LongdistanceRouteAnalyzer.toRouteSegments
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
-import kpn.server.repository.MonitorRouteRepository
-import kpn.server.repository.MonitorRouteRepositoryImpl
+import kpn.server.repository.LongdistanceRouteRepository
+import kpn.server.repository.LongdistanceRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.LineString
 
@@ -26,18 +26,16 @@ object MonitorRouteAnalyzerTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "changesets2") { changeSetDatabase =>
       Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
-        Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
-          val monitorRouteRepository = new MonitorRouteRepositoryImpl(analysisDatabase, monitorDatabase)
-          val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changeSetDatabase)
-          new MonitorRouteAnalyzerTool(monitorRouteRepository, changeSetInfoRepository).analyze()
-        }
+        val longdistanceRouteRepository = new LongdistanceRouteRepositoryImpl(analysisDatabase)
+        val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changeSetDatabase)
+        new MonitorRouteAnalyzerTool(longdistanceRouteRepository, changeSetInfoRepository).analyze()
       }
     }
   }
 }
 
 class MonitorRouteAnalyzerTool(
-  monitorRouteRepository: MonitorRouteRepository,
+  longdistanceRouteRepository: LongdistanceRouteRepository,
   changeSetInfoRepository: ChangeSetInfoRepository
 ) {
 
@@ -64,11 +62,11 @@ class MonitorRouteAnalyzerTool(
 
     val beforeRelation = readRelation(s"/kpn/wrk/$changeSetId/$routeId-before.xml")
     val beforeRouteSegments = toRouteSegments(beforeRelation)
-    val beforeRoute = MonitorRouteAnalyzer.analyze(gpxFilename, gpxLineString, beforeRelation, beforeRouteSegments)
+    val beforeRoute = LongdistanceRouteAnalyzer.analyze(gpxFilename, gpxLineString, beforeRelation, beforeRouteSegments)
 
     val afterRelation = readRelation(s"/kpn/wrk/$changeSetId/$routeId-after.xml")
     val afterRouteSegments = toRouteSegments(afterRelation)
-    val afterRoute = MonitorRouteAnalyzer.analyze(gpxFilename, gpxLineString, afterRelation, afterRouteSegments)
+    val afterRoute = LongdistanceRouteAnalyzer.analyze(gpxFilename, gpxLineString, afterRelation, afterRouteSegments)
 
     val wayIdsBefore = beforeRelation.wayMembers.map(_.way.id).toSet
     val wayIdsAfter = afterRelation.wayMembers.map(_.way.id).toSet
@@ -128,7 +126,7 @@ class MonitorRouteAnalyzerTool(
         Seq()
       }
 
-      val change = MonitorRouteChange(
+      val change = LongdistanceRouteChange(
         key,
         None,
         afterRoute.wayCount,
@@ -148,7 +146,7 @@ class MonitorRouteAnalyzerTool(
         investigate = newSegments.nonEmpty
       )
 
-      monitorRouteRepository.saveChange(change)
+      longdistanceRouteRepository.saveChange(change)
       log.info(message)
     }
   }

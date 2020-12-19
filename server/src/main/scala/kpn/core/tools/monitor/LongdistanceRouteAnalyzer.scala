@@ -2,9 +2,9 @@ package kpn.core.tools.monitor
 
 import kpn.api.common.Bounds
 import kpn.api.common.BoundsI
-import kpn.api.common.monitor.MonitorRoute
-import kpn.api.common.monitor.MonitorRouteNokSegment
-import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.LongdistanceRoute
+import kpn.api.common.monitor.LongdistanceRouteNokSegment
+import kpn.api.common.monitor.LongdistanceRouteSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
@@ -18,60 +18,60 @@ import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 
-object MonitorRouteAnalyzer {
+object LongdistanceRouteAnalyzer {
 
   private val geomFactory = new GeometryFactory
   private val sampleDistanceMeters = 10
   private val toleranceMeters = 10
 
-  def analyze(gpxFilename: String, gpxLineString: LineString, routeRelation: Relation, osmRouteSegments: Seq[MonitorRouteSegmentData]): MonitorRoute = {
+  def analyze(gpxFilename: String, gpxLineString: LineString, routeRelation: Relation, osmRouteSegments: Seq[LongdistanceRouteSegmentData]): LongdistanceRoute = {
 
-    val (okOption: Option[MultiLineString], nokSegments: Seq[MonitorRouteNokSegment]) = {
+    val (okOption: Option[MultiLineString], nokSegments: Seq[LongdistanceRouteNokSegment]) = {
 
-        val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / toMeters(gpxLineString.getLength)
-        val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
-        val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
+      val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / toMeters(gpxLineString.getLength)
+      val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
+      val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
 
-        val distances = sampleCoordinates.toList.map { coordinate =>
-          val point = geomFactory.createPoint(coordinate)
-          toMeters(osmRouteSegments.map(segment => segment.lineString.distance(point)).min)
-        }
+      val distances = sampleCoordinates.toList.map { coordinate =>
+        val point = geomFactory.createPoint(coordinate)
+        toMeters(osmRouteSegments.map(segment => segment.lineString.distance(point)).min)
+      }
 
-        val withinTolerance = distances.map(distance => distance < toleranceMeters)
-        val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
-        val splittedOkAndIndexes = split(okAndIndexes)
+      val withinTolerance = distances.map(distance => distance < toleranceMeters)
+      val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
+      val splittedOkAndIndexes = split(okAndIndexes)
 
-        val ok: MultiLineString = toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
+      val ok: MultiLineString = toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
 
-        val noks = splittedOkAndIndexes.filterNot(_.head._1)
+      val noks = splittedOkAndIndexes.filterNot(_.head._1)
 
-        val nok = noks.zipWithIndex.map { case (segment, segmentIndex) =>
-          val segmentIndexes = segment.map(_._2)
-          val maxDistance = distances.zipWithIndex.filter { case (distance, index) =>
-            segmentIndexes.contains(index)
-          }.map { case (distance, index) =>
-            distance
-          }.max
+      val nok = noks.zipWithIndex.map { case (segment, segmentIndex) =>
+        val segmentIndexes = segment.map(_._2)
+        val maxDistance = distances.zipWithIndex.filter { case (distance, index) =>
+          segmentIndexes.contains(index)
+        }.map { case (distance, index) =>
+          distance
+        }.max
 
-          val lineString = toLineString(sampleCoordinates, segment)
-          val meters: Long = Math.round(toMeters(lineString.getLength))
-          val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
-          val geoJson = toGeoJson(lineString)
+        val lineString = toLineString(sampleCoordinates, segment)
+        val meters: Long = Math.round(toMeters(lineString.getLength))
+        val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
+        val geoJson = toGeoJson(lineString)
 
-          MonitorRouteNokSegment(
-            segmentIndex + 1,
-            meters,
-            maxDistance.toLong,
-            bounds,
-            geoJson
-          )
-        }
+        LongdistanceRouteNokSegment(
+          segmentIndex + 1,
+          meters,
+          maxDistance.toLong,
+          bounds,
+          geoJson
+        )
+      }
 
-        val xx: Seq[MonitorRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
-          s.copy(id = index + 1)
-        }
+      val xx: Seq[LongdistanceRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
+        s.copy(id = index + 1)
+      }
 
-        (Some(ok), xx)
+      (Some(ok), xx)
     }
 
     val gpxDistance = Math.round(toMeters(gpxLineString.getLength / 1000))
@@ -83,7 +83,7 @@ object MonitorRouteAnalyzer {
     // TODO merge gpx bounds + ok
     val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))
 
-    MonitorRoute(
+    LongdistanceRoute(
       routeRelation.id,
       routeRelation.tags("ref"),
       routeRelation.tags("name").getOrElse(s"$routeRelation.id"),
@@ -108,9 +108,7 @@ object MonitorRouteAnalyzer {
   }
 
 
-
-
-  def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
+  def toRouteSegments(routeRelation: Relation): Seq[LongdistanceRouteSegmentData] = {
 
     val fragments = withoutTags(new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragments)
     val fragmentMap = fragments.map(f => f.id -> f).toMap
@@ -128,8 +126,8 @@ object MonitorRouteAnalyzer {
       val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
       val geoJson = toGeoJson(lineString)
 
-      MonitorRouteSegmentData(
-        MonitorRouteSegment(
+      LongdistanceRouteSegmentData(
+        LongdistanceRouteSegment(
           index + 1,
           meters,
           bounds,
@@ -152,7 +150,6 @@ object MonitorRouteAnalyzer {
       maxLon
     )
   }
-
 
 
   def toBounds(coordinates: Seq[Coordinate]): Bounds = {

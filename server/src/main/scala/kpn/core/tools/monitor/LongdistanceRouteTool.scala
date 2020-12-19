@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor
 
-import kpn.api.common.monitor.MonitorRoute
+import kpn.api.common.monitor.LongdistanceRoute
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.database.Database
@@ -9,9 +9,9 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
-import kpn.core.tools.monitor.MonitorRouteTool.MonitorRouteDefinition
+import kpn.core.tools.monitor.LongdistanceRouteTool.MonitorRouteDefinition
 import kpn.core.util.Log
-import kpn.server.repository.MonitorRouteRepositoryImpl
+import kpn.server.repository.LongdistanceRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.LineString
 
@@ -19,7 +19,7 @@ import java.io.File
 import java.nio.charset.Charset
 import scala.xml.XML
 
-object MonitorRouteTool {
+object LongdistanceRouteTool {
 
   case class MonitorRouteDefinition(routeId: Long, gpxFilename: Option[String])
 
@@ -39,32 +39,29 @@ object MonitorRouteTool {
     MonitorRouteDefinition(2929186L, Some("GR014_Parcours-principal_2020-06-26.gpx")), // GR14
     MonitorRouteDefinition(8613893L, Some("GR015_Parcours-principal_2019-12-05.gpx")), // GR15
     MonitorRouteDefinition(197843L, Some("GR016_Parcours-principal_2020-09-10.gpx")), //  GR16
-    MonitorRouteDefinition(2067765L, None) // GR128
+    MonitorRouteDefinition(2067765L, Some("routeyou-gr128.gpx")) // GR128
   )
 
   def main(args: Array[String]): Unit = {
     val executor = new OverpassQueryExecutorImpl()
-    Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
-      Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
-        new MonitorRouteTool(executor, analysisDatabase, monitorDatabase).analyzeRoutes()
-      }
+    Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
+      new LongdistanceRouteTool(executor, analysisDatabase).analyzeRoutes()
     }
   }
 }
 
-class MonitorRouteTool(
+class LongdistanceRouteTool(
   overpassQueryExecutor: OverpassQueryExecutor,
-  analysisDatabase: Database,
-  monitorDatabase: Database
+  analysisDatabase: Database
 ) {
 
-  import MonitorRouteAnalyzer._
+  import LongdistanceRouteAnalyzer._
 
-  private val log = Log(classOf[MonitorRouteTool])
-  private val routeRepository = new MonitorRouteRepositoryImpl(analysisDatabase, monitorDatabase)
+  private val log = Log(classOf[LongdistanceRouteTool])
+  private val routeRepository = new LongdistanceRouteRepositoryImpl(analysisDatabase)
 
   def tempWriteXmlFiles(): Unit = {
-    MonitorRouteTool.routeDefinitions.foreach { routeDefinition =>
+    LongdistanceRouteTool.routeDefinitions.foreach { routeDefinition =>
       Log.context(s"${routeDefinition.routeId}") {
         val xmlString: String = log.elapsed {
           val xml = overpassQueryExecutor.executeQuery(None, QueryRelation(routeDefinition.routeId))
@@ -76,7 +73,7 @@ class MonitorRouteTool(
   }
 
   def analyzeRoutes(): Unit = {
-    MonitorRouteTool.routeDefinitions.foreach { routeDefinition =>
+    LongdistanceRouteTool.routeDefinitions.foreach { routeDefinition =>
       Log.context(s"${routeDefinition.routeId}") {
         log.info(s"Analyze ${routeDefinition.routeId}")
         analyzeRoute(routeDefinition)
@@ -109,7 +106,7 @@ class MonitorRouteTool(
               case None =>
                 val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum / 1000)
                 val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds))
-                val route = MonitorRoute(
+                val route = LongdistanceRoute(
                   routeRelation.id,
                   routeRelation.tags("ref"),
                   routeRelation.tags("name").getOrElse(s"$routeRelation.id"),
@@ -133,7 +130,7 @@ class MonitorRouteTool(
                 routeRepository.save(route)
 
               case Some(gpxLineString) =>
-                val route = MonitorRouteAnalyzer.analyze(routeDefinition.gpxFilename.get, gpxLineString, routeRelation, osmRouteSegments)
+                val route = LongdistanceRouteAnalyzer.analyze(routeDefinition.gpxFilename.get, gpxLineString, routeRelation, osmRouteSegments)
                 routeRepository.save(route)
             }
         }

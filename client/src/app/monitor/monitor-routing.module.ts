@@ -13,6 +13,11 @@ import {MonitorChangesPageComponent} from './changes/monitor-changes-page.compon
 import {MonitorGroupChangesPageComponent} from './group/changes/monitor-group-changes-page.component';
 import {MonitorGroupPageComponent} from './group/details/monitor-group-page.component';
 import {MonitorGroupsPageComponent} from './groups/monitor-groups-page.component';
+import {LongdistanceRouteChangesComponent} from './longdistance/route/changes/longdistance-route-changes.component';
+import {LongdistanceRouteDetailsComponent} from './longdistance/route/details/longdistance-route-details.component';
+import {LongdistanceRouteMapSidebarComponent} from './longdistance/route/map/longdistance-route-map-sidebar.component';
+import {LongdistanceRouteMapComponent} from './longdistance/route/map/longdistance-route-map.component';
+import {LongdistanceRoutesComponent} from './longdistance/routes/longdistance-routes.component';
 import {MonitorRouteChangePageComponent} from './route/changes/monitor-route-change-page.component';
 import {MonitorRouteChangesComponent} from './route/changes/monitor-route-changes.component';
 import {MonitorRouteDetailsComponent} from './route/details/monitor-route-details.component';
@@ -21,10 +26,12 @@ import {MonitorRouteMapComponent} from './route/map/monitor-route-map.component'
 import {MonitorRoutesComponent} from './routes/monitor-routes.component';
 
 const routes: Routes = [
-  Util.routePath('long-distance-routes', MonitorRoutesComponent, SidebarComponent),
-  Util.routePath('long-distance-routes/:routeId', MonitorRouteDetailsComponent, SidebarComponent),
-  Util.routePath('long-distance-routes/:routeId/map', MonitorRouteMapComponent, SidebarComponent),
-  Util.routePath('long-distance-routes/:routeId/changes', MonitorRouteChangesComponent, SidebarComponent),
+
+  Util.routePath('long-distance-routes', LongdistanceRoutesComponent, SidebarComponent),
+  Util.routePath('long-distance-routes/:routeId', LongdistanceRouteDetailsComponent, SidebarComponent),
+  Util.routePath('long-distance-routes/:routeId/map', LongdistanceRouteMapComponent, LongdistanceRouteMapSidebarComponent),
+  Util.routePath('long-distance-routes/:routeId/changes', LongdistanceRouteChangesComponent, SidebarComponent),
+
   Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),
   Util.routePath('changes', MonitorChangesPageComponent, SidebarComponent),
   Util.routePath('about', MonitorAboutPageComponent, SidebarComponent),

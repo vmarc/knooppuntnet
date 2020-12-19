@@ -3,6 +3,16 @@ package kpn.core.tools.typescript
 import kpn.api.common.BoundsI
 import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.monitor.LongdistanceRouteChange
+import kpn.api.common.monitor.LongdistanceRouteChangePage
+import kpn.api.common.monitor.LongdistanceRouteChangeSummary
+import kpn.api.common.monitor.LongdistanceRouteChangesPage
+import kpn.api.common.monitor.LongdistanceRouteDetail
+import kpn.api.common.monitor.LongdistanceRouteDetailsPage
+import kpn.api.common.monitor.LongdistanceRouteMapPage
+import kpn.api.common.monitor.LongdistanceRouteNokSegment
+import kpn.api.common.monitor.LongdistanceRouteSegment
+import kpn.api.common.monitor.LongdistanceRoutesPage
 import kpn.api.common.monitor.MonitorAdminRouteGroupPage
 import kpn.api.common.monitor.MonitorRoute
 import kpn.api.common.monitor.MonitorRouteChange
@@ -59,6 +69,16 @@ class TypescriptTool() {
     classOf[ChangeKeyI],
     classOf[RouteGroupsPage],
     classOf[RouteGroupDetail],
+    classOf[LongdistanceRouteChange],
+    classOf[LongdistanceRouteChangePage],
+    classOf[LongdistanceRouteChangesPage],
+    classOf[LongdistanceRouteChangeSummary],
+    classOf[LongdistanceRouteDetail],
+    classOf[LongdistanceRouteDetailsPage],
+    classOf[LongdistanceRouteMapPage],
+    classOf[LongdistanceRouteNokSegment],
+    classOf[LongdistanceRouteSegment],
+    classOf[LongdistanceRoutesPage],
   )
 
   def generate(): Unit = {
