@@ -1,3 +1,4 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
@@ -12,6 +13,7 @@ import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../components/shared/page-width.service';
 import {AppState} from '../../core/core.state';
+import {actionMonitorRoutesInit} from '../store/monitor.actions';
 import {selectMonitorRoutes} from '../store/monitor.selectors';
 
 @Component({
@@ -109,7 +111,7 @@ import {selectMonitorRoutes} from '../store/monitor.selectors';
     </div>
   `
 })
-export class MonitorRoutesTableComponent {
+export class MonitorRoutesTableComponent implements OnInit {
 
   readonly dataSource: MatTableDataSource<MonitorRouteDetail> = new MatTableDataSource();
   readonly displayedColumns$ = this.pageWidthService.current$.pipe(map(() => this.displayedColumns()));
@@ -126,6 +128,10 @@ export class MonitorRoutesTableComponent {
 
   constructor(private pageWidthService: PageWidthService,
               private store: Store<AppState>) {
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorRoutesInit());
   }
 
   displayedColumns(): string[] {

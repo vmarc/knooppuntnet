@@ -3,19 +3,25 @@ import {Router} from '@angular/router';
 import {Actions} from '@ngrx/effects';
 import {createEffect} from '@ngrx/effects';
 import {ofType} from '@ngrx/effects';
-import {routerNavigatedAction} from '@ngrx/router-store';
 import {Store} from '@ngrx/store';
 import {concatMap} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {withLatestFrom} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
-import {filter} from 'rxjs/operators';
 import {mergeMap} from 'rxjs/operators';
 import {AppService} from '../../app.service';
 import {AppState} from '../../core/core.state';
-import {selectUrl} from '../../core/core.state';
+import {selectRouteParam} from '../../core/core.state';
 import {selectRouteParams} from '../../core/core.state';
 import {MonitorRouteMapService} from '../route/map/monitor-route-map.service';
+import {actionMonitorGroupDeleteInit} from './monitor.actions';
+import {actionMonitorGroupUpdateInit} from './monitor.actions';
+import {actionMonitorRoutesInit} from './monitor.actions';
+import {actionMonitorRouteDetailsInit} from './monitor.actions';
+import {actionMonitorRouteMapInit} from './monitor.actions';
+import {actionMonitorRouteChangesInit} from './monitor.actions';
+import {actionMonitorRouteChangeInit} from './monitor.actions';
+import {actionMonitorInit} from './monitor.actions';
 import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
 import {actionMonitorUpdateRouteGroup} from './monitor.actions';
 import {actionMonitorDeleteRouteGroup} from './monitor.actions';
@@ -48,69 +54,122 @@ export class MonitorEffects {
     {dispatch: false}
   );
 
-  pageEnter = createEffect(() =>
+  monitorInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(routerNavigatedAction),
+      ofType(actionMonitorInit),
       withLatestFrom(
-        this.store.select(selectUrl),
         this.store.select(selectRouteParams),
         this.store.select(selectMonitorAdmin)
       ),
-      filter(([action, url, params, admin]) => url.startsWith('/monitor') && !url.endsWith('/monitor/admin/groups/add')),
-      mergeMap(([action, url, params, admin]) => {
-        if (/\/monitor$/.test(url)) {
-          if (admin) {
-            return this.appService.monitorAdminRouteGroups().pipe(
-              map(response => actionMonitorLoaded({response}))
-            );
-          }
-          return this.appService.monitorRouteGroups().pipe(
+      mergeMap(([params, admin]) => {
+        if (admin) {
+          return this.appService.monitorAdminRouteGroups().pipe(
             map(response => actionMonitorLoaded({response}))
           );
         }
-        if (/\/monitor\/admin\/groups\/.*\/delete$/.test(url)) {
-          const groupName = params['groupName'];
-          return this.appService.monitorAdminRouteGroup(groupName).pipe(
-            map(response => actionMonitorGroupDeleteLoaded({response}))
-          );
-        }
-        if (/\/monitor\/admin\/groups\/.*$/.test(url)) {
-          const groupName = params['groupName'];
-          return this.appService.monitorAdminRouteGroup(groupName).pipe(
-            map(response => actionMonitorGroupUpdateLoaded({response}))
-          );
-        }
-
-        if (url.startsWith('/monitor/long-distance-routes')) {
-          if (url.endsWith('/long-distance-routes')) {
-            return this.appService.monitorRoutes().pipe(
-              map(response => actionMonitorRoutesLoaded({response}))
-            );
-          }
-          const routeId = params['routeId'];
-          if (url.endsWith('/map')) {
-            return this.appService.monitorRouteMap(routeId).pipe(
-              map(response => actionMonitorRouteMapLoaded({response}))
-            );
-          }
-          if (url.endsWith('/changes')) {
-            return this.appService.monitorRouteChanges(routeId).pipe(
-              map(response => actionMonitorRouteChangesLoaded({response}))
-            );
-          }
-          if (url.includes('/changes/')) {
-            const changeSetId = params['changeSetId'];
-            return this.appService.monitorRouteChange(routeId, changeSetId).pipe(
-              map(response => actionMonitorRouteChangeLoaded({response}))
-            );
-          }
-          return this.appService.monitorRoute(routeId).pipe(
-            map(response => actionMonitorRouteDetailsLoaded({response}))
-          );
-        }
+        return this.appService.monitorRouteGroups().pipe(
+          map(response => actionMonitorLoaded({response}))
+        );
       })
     )
   );
+
+  monitorGroupDeleteInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorGroupDeleteInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('groupName'))
+      ),
+      mergeMap(([action, groupName]) => {
+        return this.appService.monitorAdminRouteGroup(groupName).pipe(
+          map(response => actionMonitorGroupDeleteLoaded({response}))
+        );
+      })
+    )
+  );
+
+  monitorGroupUpdateInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorGroupUpdateInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('groupName'))
+      ),
+      mergeMap(([action, groupName]) => {
+        return this.appService.monitorAdminRouteGroup(groupName).pipe(
+          map(response => actionMonitorGroupUpdateLoaded({response}))
+        );
+      })
+    )
+  );
+
+  monitorRoutesInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRoutesInit),
+      mergeMap((action) => {
+        return this.appService.monitorRoutes().pipe(
+          map(response => actionMonitorRoutesLoaded({response}))
+        );
+      })
+    )
+  );
+
+  monitorRouteDetailsInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteDetailsInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId'))
+      ),
+      mergeMap(([action, routeId]) => {
+        return this.appService.monitorRoute(routeId).pipe(
+          map(response => actionMonitorRouteDetailsLoaded({response}))
+        );
+      })
+    )
+  );
+
+  monitorRouteMapInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId'))
+      ),
+      mergeMap(([action, routeId]) => {
+        return this.appService.monitorRouteMap(routeId).pipe(
+          map(response => actionMonitorRouteMapLoaded({response}))
+        );
+      })
+    )
+  );
+
+  monitorRouteChangesInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteChangesInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId'))
+      ),
+      mergeMap(([action, routeId]) => {
+        return this.appService.monitorRouteChanges(routeId).pipe(
+          map(response => actionMonitorRouteChangesLoaded({response}))
+        );
+      })
+    )
+  );
+
+  monitorRouteChangeInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteChangeInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('routeId')),
+        this.store.select(selectRouteParam('changeSetId'))
+      ),
+      mergeMap(([action, routeId, changeSetId]) => {
+        return this.appService.monitorRouteChange(routeId, changeSetId).pipe(
+          map(response => actionMonitorRouteChangeLoaded({response}))
+        );
+      })
+    )
+  );
+
 
   addGroupEffect$ = createEffect(() =>
       this.actions$.pipe(

@@ -1,7 +1,9 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../core/core.state';
+import {actionMonitorGroupDeleteInit} from '../../../store/monitor.actions';
 import {actionMonitorDeleteRouteGroup} from '../../../store/monitor.actions';
 import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors';
 
@@ -56,11 +58,15 @@ import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors
     }
   `]
 })
-export class MonitorAdminGroupDeletePageComponent {
+export class MonitorAdminGroupDeletePageComponent implements OnInit {
 
   readonly response$ = this.store.select(selectMonitorAdminRouteGroupPage);
 
   constructor(private store: Store<AppState>) {
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorGroupDeleteInit());
   }
 
   delete(groupName: string): void {

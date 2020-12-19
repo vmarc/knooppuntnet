@@ -1,8 +1,10 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
+import {actionMonitorRouteDetailsInit} from '../../store/monitor.actions';
 import {selectMonitorRouteId} from '../../store/monitor.selectors';
 import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
 
@@ -94,13 +96,17 @@ import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
     }
   `]
 })
-export class MonitorRouteDetailsComponent {
+export class MonitorRouteDetailsComponent implements OnInit {
 
   readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly response$ = this.store.select(selectMonitorRouteDetails);
 
   constructor(private snackBar: MatSnackBar,
               private store: Store<AppState>) {
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorRouteDetailsInit());
   }
 
   gpxUpload(): void {

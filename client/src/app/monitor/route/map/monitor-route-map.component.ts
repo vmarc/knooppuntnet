@@ -1,3 +1,4 @@
+import {OnInit} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {AfterViewInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
@@ -18,6 +19,7 @@ import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
 import {I18nService} from '../../../i18n/i18n.service';
 import {Subscriptions} from '../../../util/Subscriptions';
+import {actionMonitorRouteMapInit} from '../../store/monitor.actions';
 import {selectMonitorRouteMap} from '../../store/monitor.selectors';
 import {selectMonitorRouteId} from '../../store/monitor.selectors';
 import {MonitorRouteMapService} from './monitor-route-map.service';
@@ -32,7 +34,7 @@ import {MonitorRouteMapService} from './monitor-route-map.service';
     </div>
   `
 })
-export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
+export class MonitorRouteMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly response$ = this.store.select(selectMonitorRouteMap);
@@ -47,6 +49,10 @@ export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
               private mapService: MonitorRouteMapService,
               private store: Store<AppState>) {
     this.pageService.showFooter = false;
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorRouteMapInit());
   }
 
   ngAfterViewInit(): void {

@@ -1,3 +1,4 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
@@ -7,6 +8,7 @@ import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
 import {Store} from '@ngrx/store';
 import {tap} from 'rxjs/operators';
 import {AppState} from '../../../../core/core.state';
+import {actionMonitorGroupUpdateInit} from '../../../store/monitor.actions';
 import {actionMonitorUpdateRouteGroup} from '../../../store/monitor.actions';
 import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors';
 
@@ -64,12 +66,13 @@ import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors
     .description {
       width: 40em;
     }
+
     .kpn-button-group {
       padding-top: 3em;
     }
   `]
 })
-export class MonitorAdminGroupUpdatePageComponent {
+export class MonitorAdminGroupUpdatePageComponent implements OnInit {
 
   readonly name = new FormControl('');
   readonly description = new FormControl('', [Validators.required]);
@@ -91,6 +94,10 @@ export class MonitorAdminGroupUpdatePageComponent {
   );
 
   constructor(private store: Store<AppState>) {
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorGroupUpdateInit());
   }
 
   add(): void {

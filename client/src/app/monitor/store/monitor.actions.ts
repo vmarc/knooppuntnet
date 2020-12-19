@@ -16,45 +16,86 @@ export const actionMonitorAdmin = createAction(
   props<{ admin: boolean }>()
 );
 
+
+export const actionMonitorInit = createAction(
+  '[Monitor] Init'
+);
+
 export const actionMonitorLoaded = createAction(
-  '[Monitor] Monitor loaded',
+  '[Monitor] Loaded',
   props<{ response: ApiResponse<RouteGroupsPage> }>()
 );
 
+
+export const actionMonitorGroupDeleteInit = createAction(
+  '[Monitor group delete] Init'
+);
+
 export const actionMonitorGroupDeleteLoaded = createAction(
-  '[Monitor] Monitor group delete loaded',
+  '[Monitor group delete] Loaded',
   props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
+);
+
+
+export const actionMonitorGroupUpdateInit = createAction(
+  '[Monitor group update] Init'
 );
 
 export const actionMonitorGroupUpdateLoaded = createAction(
-  '[Monitor] Monitor group update loaded',
+  '[Monitor group update] Loaded',
   props<{ response: ApiResponse<MonitorAdminRouteGroupPage> }>()
 );
 
+
+export const actionMonitorRoutesInit = createAction(
+  '[Monitor routes] Init'
+);
+
 export const actionMonitorRoutesLoaded = createAction(
-  '[Monitor] Routes loaded',
+  '[Monitor routes] Loaded',
   props<{ response: ApiResponse<MonitorRoutesPage> }>()
 );
 
+
+export const actionMonitorRouteDetailsInit = createAction(
+  '[Monitor route details] Init'
+);
+
 export const actionMonitorRouteDetailsLoaded = createAction(
-  '[Monitor] Route details loaded',
+  '[Monitor route details] Loaded',
   props<{ response: ApiResponse<MonitorRouteDetailsPage> }>()
 );
 
+
+export const actionMonitorRouteMapInit = createAction(
+  '[Monitor route map] Init'
+);
+
 export const actionMonitorRouteMapLoaded = createAction(
-  '[Monitor] Route map loaded',
+  '[Monitor route map] Loaded',
   props<{ response: ApiResponse<MonitorRouteMapPage> }>()
 );
 
+
+export const actionMonitorRouteChangesInit = createAction(
+  '[Monitor route changes] Init'
+);
+
 export const actionMonitorRouteChangesLoaded = createAction(
-  '[Monitor] Route changes loaded',
+  '[Monitor route changes] Loaded',
   props<{ response: ApiResponse<MonitorRouteChangesPage> }>()
 );
 
+
+export const actionMonitorRouteChangeInit = createAction(
+  '[Monitor route change] Init'
+);
+
 export const actionMonitorRouteChangeLoaded = createAction(
-  '[Monitor] Route change loaded',
+  '[Monitor route change] Loaded',
   props<{ response: ApiResponse<MonitorRouteChangePage> }>()
 );
+
 
 export const actionMonitorRouteMapMode = createAction(
   '[Monitor] Map mode',
