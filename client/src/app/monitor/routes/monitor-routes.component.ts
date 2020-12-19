@@ -16,10 +16,7 @@ import {Component} from '@angular/core';
     </h1>
 
     <kpn-monitor-routes-table></kpn-monitor-routes-table>
-
-  `,
-  styles: [`
-  `]
+  `
 })
 export class MonitorRoutesComponent {
 }

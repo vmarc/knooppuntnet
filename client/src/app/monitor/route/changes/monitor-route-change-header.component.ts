@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MonitorRouteChangeSummary} from '@api/common/monitor/monitor-route-change-summary';
-import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 
@@ -35,12 +34,10 @@ export class MonitorRouteChangeHeaderComponent {
 
   @Input() changeSet: MonitorRouteChangeSummary;
 
-  timestampOnSameLine$: Observable<boolean>;
-  timestampOnSeparateLine$: Observable<boolean>;
+  readonly timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(map(() => this.timestampOnSeparateLine()));
+  readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map(value => !value));
 
   constructor(private pageWidthService: PageWidthService) {
-    this.timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(map(() => this.timestampOnSeparateLine()));
-    this.timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map(value => !value));
   }
 
   private timestampOnSeparateLine() {
@@ -48,7 +45,8 @@ export class MonitorRouteChangeHeaderComponent {
   }
 
   link(): string {
-    return `/monitor/routes/${this.changeSet.key.elementId}/changes/${this.changeSet.key.changeSetId}`;
+    const key = this.changeSet.key;
+    return `/monitor/routes/${key.elementId}/changes/${key.changeSetId}`;
   }
 
 }

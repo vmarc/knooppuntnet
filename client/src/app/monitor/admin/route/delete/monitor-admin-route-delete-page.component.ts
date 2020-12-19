@@ -53,9 +53,9 @@ import {of} from 'rxjs';
 })
 export class MonitorAdminRouteDeletePageComponent {
 
-  groupDescription$ = of('Group One');
-  groupLink$ = of('/monitor/groups/group-1');
-  routeName$ = of('GR05 Vlaanderen');
+  readonly groupDescription$ = of('Group One');
+  readonly groupLink$ = of('/monitor/groups/group-1');
+  readonly routeName$ = of('GR05 Vlaanderen');
 
   delete(): void {
   }

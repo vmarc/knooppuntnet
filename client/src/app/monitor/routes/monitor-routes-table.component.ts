@@ -111,10 +111,10 @@ import {selectMonitorRoutes} from '../store/monitor.selectors';
 })
 export class MonitorRoutesTableComponent {
 
-  dataSource: MatTableDataSource<MonitorRouteDetail> = new MatTableDataSource();
-  displayedColumns$: Observable<Array<string>>;
+  readonly dataSource: MatTableDataSource<MonitorRouteDetail> = new MatTableDataSource();
+  readonly displayedColumns$ = this.pageWidthService.current$.pipe(map(() => this.displayedColumns()));
 
-  response$: Observable<ApiResponse<MonitorRoutesPage>> = this.store.pipe(
+  readonly response$: Observable<ApiResponse<MonitorRoutesPage>> = this.store.pipe(
     select(selectMonitorRoutes),
     filter(r => r != null),
     tap(response => {
@@ -126,7 +126,6 @@ export class MonitorRoutesTableComponent {
 
   constructor(private pageWidthService: PageWidthService,
               private store: Store<AppState>) {
-    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   displayedColumns(): string[] {

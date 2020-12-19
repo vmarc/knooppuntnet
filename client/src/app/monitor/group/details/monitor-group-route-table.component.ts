@@ -81,7 +81,6 @@ export class MonitorGroupRouteTableComponent {
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
   readonly displayedColumns$ = this.admin$.pipe(
-    // TODO take page width into account? = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
     map(admin => {
       if (admin) {
         return ['id', 'name', 'description', 'distance', 'status', 'actions'];

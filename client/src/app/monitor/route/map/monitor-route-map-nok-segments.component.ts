@@ -67,8 +67,8 @@ import {selectMonitorRouteMapNokSegments} from '../../store/monitor.selectors';
 })
 export class MonitorRouteMapNokSegmentsComponent {
 
-  segments$ = this.store.select(selectMonitorRouteMapNokSegments);
-  gpxTraceAvailable$ = this.store.select(selectMonitorRouteMapGpxEnabled);
+  readonly segments$ = this.store.select(selectMonitorRouteMapNokSegments);
+  readonly gpxTraceAvailable$ = this.store.select(selectMonitorRouteMapGpxEnabled);
 
   constructor(private store: Store<AppState>) {
   }

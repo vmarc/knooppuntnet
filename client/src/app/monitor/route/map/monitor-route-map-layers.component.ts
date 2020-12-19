@@ -83,17 +83,17 @@ import {selectMonitorRouteMapMode} from '../../store/monitor.selectors';
 })
 export class MonitorRouteMapLayersComponent {
 
-  mode$ = this.store.select(selectMonitorRouteMapMode);
+  readonly mode$ = this.store.select(selectMonitorRouteMapMode);
 
-  gpxVisible$ = this.store.select(selectMonitorRouteMapGpxVisible);
-  gpxOkVisible$ = this.store.select(selectMonitorRouteMapGpxOkVisible);
-  gpxNokVisible$ = this.store.select(selectMonitorRouteMapGpxNokVisible);
-  osmRelationVisible$ = this.store.select(selectMonitorRouteMapOsmRelationVisible);
+  readonly gpxVisible$ = this.store.select(selectMonitorRouteMapGpxVisible);
+  readonly gpxOkVisible$ = this.store.select(selectMonitorRouteMapGpxOkVisible);
+  readonly gpxNokVisible$ = this.store.select(selectMonitorRouteMapGpxNokVisible);
+  readonly osmRelationVisible$ = this.store.select(selectMonitorRouteMapOsmRelationVisible);
 
-  gpxDisabled$ = this.store.pipe(select(selectMonitorRouteMapGpxEnabled), map(e => e === false));
-  gpxOkDisabled$ = this.store.pipe(select(selectMonitorRouteMapGpxOkEnabled), map(e => e === false));
-  gpxNokDisabled$ = this.store.pipe(select(selectMonitorRouteMapGpxNokEnabled), map(e => e === false));
-  osmRelationDisabled$ = this.store.pipe(select(selectMonitorRouteMapOsmRelationEnabled), map(e => e === false));
+  readonly gpxDisabled$ = this.store.pipe(select(selectMonitorRouteMapGpxEnabled), map(e => e === false));
+  readonly gpxOkDisabled$ = this.store.pipe(select(selectMonitorRouteMapGpxOkEnabled), map(e => e === false));
+  readonly gpxNokDisabled$ = this.store.pipe(select(selectMonitorRouteMapGpxNokEnabled), map(e => e === false));
+  readonly osmRelationDisabled$ = this.store.pipe(select(selectMonitorRouteMapOsmRelationEnabled), map(e => e === false));
 
   constructor(private store: Store<AppState>) {
   }

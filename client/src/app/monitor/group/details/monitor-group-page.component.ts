@@ -37,9 +37,9 @@ import {selectMonitorAdmin} from '../../store/monitor.selectors';
 })
 export class MonitorGroupPageComponent {
 
-  groupName$ = of('group-1');
-  groupDescription$ = of('Group One');
-  addRouteLink$ = of('/monitor/admin/groups/group-1/routes/add');
+  readonly groupName$ = of('group-1');
+  readonly groupDescription$ = of('Group One');
+  readonly addRouteLink$ = of('/monitor/admin/groups/group-1/routes/add');
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
 

@@ -213,8 +213,8 @@ export class MonitorRouteChangePageComponent {
 
   util = Util;
 
-  routeName$ = this.store.select(selectMonitorRouteName);
-  response$ = this.store.select(selectMonitorRouteChange);
+  readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly response$ = this.store.select(selectMonitorRouteChange);
 
   constructor(private store: Store<AppState>) {
   }

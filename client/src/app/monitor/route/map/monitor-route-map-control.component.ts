@@ -59,10 +59,10 @@ import {selectMonitorRouteMapOsmSegmentCount} from '../../store/monitor.selector
 })
 export class MonitorRouteMapControlComponent {
 
-  mode$ = this.store.select(selectMonitorRouteMapMode);
-  osmSegmentCount$ = this.store.select(selectMonitorRouteMapOsmSegmentCount);
+  readonly mode$ = this.store.select(selectMonitorRouteMapMode);
+  readonly osmSegmentCount$ = this.store.select(selectMonitorRouteMapOsmSegmentCount);
 
-  modeSelectionEnabled$ = this.store.pipe(
+  readonly modeSelectionEnabled$ = this.store.pipe(
     select(selectMonitorRouteMapOsmSegmentCount),
     map(osmSegmentCount => osmSegmentCount > 1)
   );

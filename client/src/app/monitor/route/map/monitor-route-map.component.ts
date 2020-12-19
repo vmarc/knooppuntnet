@@ -34,8 +34,8 @@ import {MonitorRouteMapService} from './monitor-route-map.service';
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
 
-  routeId$ = this.store.select(selectMonitorRouteId);
-  response$ = this.store.select(selectMonitorRouteMap);
+  readonly routeId$ = this.store.select(selectMonitorRouteId);
+  readonly response$ = this.store.select(selectMonitorRouteMap);
 
   mapLayers: MapLayers;
   map: Map;

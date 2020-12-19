@@ -54,7 +54,7 @@ export class MonitorRoutePageHeaderComponent {
   @Input() routeId: number;
   @Input() pageTitle: string;
 
-  routeName$ = this.store.select(selectMonitorRouteName);
+  readonly routeName$ = this.store.select(selectMonitorRouteName);
 
   constructor(private store: Store<AppState>) {
   }

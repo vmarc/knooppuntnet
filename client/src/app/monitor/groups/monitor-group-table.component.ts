@@ -6,7 +6,6 @@ import {MatTableDataSource} from '@angular/material/table';
 import {RouteGroupDetail} from '@api/common/monitor/route-group-detail';
 import {Store} from '@ngrx/store';
 import {map} from 'rxjs/operators';
-import {PageWidthService} from '../../components/shared/page-width.service';
 import {AppState} from '../../core/core.state';
 import {selectMonitorAdmin} from '../store/monitor.selectors';
 
@@ -20,7 +19,7 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="'/monitor/groups/' + group.groupName">{{group.groupName}}</a>
+          <a [routerLink]="groupLink(group)">{{group.groupName}}</a>
         </td>
       </ng-container>
 
@@ -34,8 +33,8 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="'/monitor/admin/groups/' + group.groupName">Update</a>
-          <a [routerLink]="'/monitor/admin/groups/' + group.groupName + '/delete'" class="delete">Delete</a>
+          <a [routerLink]="updateLink(group)">Update</a>
+          <a [routerLink]="deleteLink(group)" class="delete">Delete</a>
         </td>
       </ng-container>
 
@@ -54,12 +53,9 @@ export class MonitorGroupTableComponent implements OnInit {
 
   @Input() groups: RouteGroupDetail[];
 
-  readonly admin$ = this.store.select(selectMonitorAdmin);
-
   readonly dataSource: MatTableDataSource<RouteGroupDetail> = new MatTableDataSource<RouteGroupDetail>();
 
-  readonly displayedColumns$ = this.admin$.pipe(
-    // TODO take page width into account? = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
+  readonly displayedColumns$ = this.store.select(selectMonitorAdmin).pipe(
     map(admin => {
       if (admin) {
         return ['name', 'description', 'actions'];
@@ -68,12 +64,23 @@ export class MonitorGroupTableComponent implements OnInit {
     })
   );
 
-  constructor(private pageWidthService: PageWidthService,
-              private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
     this.dataSource.data = this.groups;
+  }
+
+  groupLink(group: RouteGroupDetail): string {
+    return `/monitor/groups/${group.groupName}`;
+  }
+
+  updateLink(group: RouteGroupDetail): string {
+    return `/monitor/admin/groups/${group.groupName}`;
+  }
+
+  deleteLink(group: RouteGroupDetail): string {
+    return `/monitor/admin/groups/${group.groupName}/delete`;
   }
 
 }

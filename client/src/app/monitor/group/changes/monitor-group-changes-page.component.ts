@@ -25,7 +25,7 @@ import {of} from 'rxjs';
 })
 export class MonitorGroupChangesPageComponent {
 
-  groupName$ = of('group-1');
-  groupDescription$ = of('Group One');
+  readonly groupName$ = of('group-1');
+  readonly groupDescription$ = of('Group One');
 
 }

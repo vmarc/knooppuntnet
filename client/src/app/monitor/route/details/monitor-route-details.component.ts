@@ -96,8 +96,8 @@ import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
 })
 export class MonitorRouteDetailsComponent {
 
-  routeId$ = this.store.select(selectMonitorRouteId);
-  response$ = this.store.select(selectMonitorRouteDetails);
+  readonly routeId$ = this.store.select(selectMonitorRouteId);
+  readonly response$ = this.store.select(selectMonitorRouteDetails);
 
   constructor(private snackBar: MatSnackBar,
               private store: Store<AppState>) {

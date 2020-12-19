@@ -41,7 +41,7 @@ import {MonitorRouteMapService} from './monitor-route-map.service';
 })
 export class MonitorRouteMapOsmSegmentsComponent {
 
-  segments$ = this.store.select(selectMonitorRouteMapOsmSegments);
+  readonly segments$ = this.store.select(selectMonitorRouteMapOsmSegments);
 
   constructor(private mapService: MonitorRouteMapService,
               private store: Store<AppState>) {

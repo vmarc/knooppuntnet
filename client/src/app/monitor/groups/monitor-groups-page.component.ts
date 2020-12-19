@@ -14,6 +14,7 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
   selector: 'kpn-monitor-groups',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li>Monitor</li>
@@ -37,7 +38,7 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
     </div>
 
     <div *ngIf="admin$ | async" class="add-group-action">
-      <button mat-stroked-button [routerLink]="'/monitor/admin/groups/add'">Add group</button>
+      <button mat-stroked-button routerLink="/monitor/admin/groups/add">Add group</button>
     </div>
   `,
   styles: [`
@@ -49,7 +50,8 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
 export class MonitorGroupsPageComponent {
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
-  response$: Observable<ApiResponse<RouteGroupsPage>> = this.store.pipe(
+
+  readonly response$: Observable<ApiResponse<RouteGroupsPage>> = this.store.pipe(
     select(selectMonitorRouteGroups),
     filter(r => r != null)
   );
