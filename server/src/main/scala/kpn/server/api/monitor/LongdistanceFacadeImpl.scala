@@ -8,6 +8,11 @@ import kpn.api.common.monitor.LongdistanceRoutesPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
+import kpn.server.api.monitor.longdistance.LongdistanceRouteChangePageBuilder
+import kpn.server.api.monitor.longdistance.LongdistanceRouteChangesPageBuilder
+import kpn.server.api.monitor.longdistance.LongdistanceRouteDetailsPageBuilder
+import kpn.server.api.monitor.longdistance.LongdistanceRouteMapPageBuilder
+import kpn.server.api.monitor.longdistance.LongdistanceRoutesPageBuilder
 import org.springframework.stereotype.Component
 
 @Component
