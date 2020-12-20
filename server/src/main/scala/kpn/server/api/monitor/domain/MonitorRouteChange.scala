@@ -1,21 +1,17 @@
-package kpn.api.common.monitor
+package kpn.server.api.monitor.domain
 
-import kpn.api.common.BoundsI
 import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.monitor.MonitorRouteReferenceInfo
 
-case class MonitorRouteChangePage(
+case class MonitorRouteChange(
   key: ChangeKeyI,
-  comment: Option[String],
+  groupName: String,
   wayCount: Long,
   waysAdded: Long,
   waysRemoved: Long,
   waysUpdated: Long,
   osmDistance: Long,
-  bounds: BoundsI,
   routeSegmentCount: Long,
-  routeSegments: Seq[MonitorRouteSegment],
-  newNokSegments: Seq[MonitorRouteNokSegment],
-  resolvedNokSegments: Seq[MonitorRouteNokSegment],
   reference: Option[MonitorRouteReferenceInfo],
   happy: Boolean,
   investigate: Boolean

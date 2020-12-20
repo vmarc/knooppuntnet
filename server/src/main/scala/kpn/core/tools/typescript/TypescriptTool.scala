@@ -13,21 +13,21 @@ import kpn.api.common.monitor.LongdistanceRouteMapPage
 import kpn.api.common.monitor.LongdistanceRouteNokSegment
 import kpn.api.common.monitor.LongdistanceRouteSegment
 import kpn.api.common.monitor.LongdistanceRoutesPage
-import kpn.api.common.monitor.MonitorAdminRouteGroupPage
-import kpn.api.common.monitor.MonitorRoute
-import kpn.api.common.monitor.MonitorRouteChange
+import kpn.api.common.monitor.MonitorAdminGroupPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangeSummary
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteDetailsPage
-import kpn.api.common.monitor.MonitorRouteGroup
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.common.monitor.MonitorRoutesPage
+import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.RouteGroupDetail
 import kpn.api.common.monitor.RouteGroupsPage
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteChange
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -52,7 +52,7 @@ class TypescriptTool() {
 
   val newClasses = Seq(
     classOf[MonitorRoute], // not used in API ?
-    classOf[MonitorRoutesPage],
+    classOf[MonitorGroupPage],
     classOf[MonitorRouteDetail],
     classOf[MonitorRouteChangesPage],
     classOf[MonitorRouteDetail],
@@ -63,8 +63,8 @@ class TypescriptTool() {
     classOf[MonitorRouteChangePage],
     classOf[MonitorRouteChange],
     classOf[MonitorRouteChangeSummary],
-    classOf[MonitorRouteGroup],
-    classOf[MonitorAdminRouteGroupPage],
+    classOf[MonitorGroup],
+    classOf[MonitorAdminGroupPage],
     classOf[BoundsI],
     classOf[ChangeKeyI],
     classOf[RouteGroupsPage],

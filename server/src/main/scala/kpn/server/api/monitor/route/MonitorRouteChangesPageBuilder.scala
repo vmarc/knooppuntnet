@@ -1,4 +1,4 @@
-package kpn.server.api.monitor
+package kpn.server.api.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteChangesPage
 

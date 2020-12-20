@@ -7,6 +7,7 @@ import kpn.api.common.monitor.LongdistanceRouteNokSegment
 import kpn.api.common.monitor.LongdistanceRouteSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
+import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
@@ -81,7 +82,7 @@ object LongdistanceRouteAnalyzer {
     val okGeometry = okOption.map(geometry => toGeoJson(geometry))
 
     // TODO merge gpx bounds + ok
-    val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))
+    val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))
 
     LongdistanceRoute(
       routeRelation.id,
@@ -137,20 +138,6 @@ object LongdistanceRouteAnalyzer {
       )
     }
   }
-
-  def mergeBounds(boundss: Seq[BoundsI]): BoundsI = {
-    val minLat = boundss.map(_.minLat).min
-    val maxLat = boundss.map(_.maxLat).max
-    val minLon = boundss.map(_.minLon).min
-    val maxLon = boundss.map(_.maxLon).max
-    BoundsI(
-      minLat,
-      minLon,
-      maxLat,
-      maxLon
-    )
-  }
-
 
   def toBounds(coordinates: Seq[Coordinate]): Bounds = {
     val minLat = coordinates.map(_.getY).min

@@ -1,7 +1,7 @@
 package kpn.server.api.monitor
 
-import kpn.api.common.monitor.MonitorAdminRouteGroupPage
-import kpn.api.common.monitor.MonitorRouteGroup
+import kpn.api.common.monitor.MonitorAdminGroupPage
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.RouteGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
@@ -24,17 +24,17 @@ class MonitorAdminController(facade: MonitorAdminFacade) {
   }
 
   @GetMapping(value = Array("groups/{groupName}"))
-  def group(@PathVariable groupName: String): ApiResponse[MonitorAdminRouteGroupPage] = {
+  def group(@PathVariable groupName: String): ApiResponse[MonitorAdminGroupPage] = {
     facade.group(CurrentUser.name, groupName)
   }
 
   @PostMapping(value = Array("groups"))
-  def addGroup(@RequestBody group: MonitorRouteGroup): Unit = {
+  def addGroup(@RequestBody group: MonitorGroup): Unit = {
     facade.addGroup(CurrentUser.name, group)
   }
 
   @PutMapping(value = Array("groups/{groupName}"))
-  def updateGroup(@RequestBody group: MonitorRouteGroup): Unit = {
+  def updateGroup(@RequestBody group: MonitorGroup): Unit = {
     facade.updateGroup(CurrentUser.name, group)
   }
 

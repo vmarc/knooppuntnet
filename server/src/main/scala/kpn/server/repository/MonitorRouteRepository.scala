@@ -1,19 +1,21 @@
 package kpn.server.repository
 
-import kpn.api.common.monitor.MonitorRoute
-import kpn.api.common.monitor.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteState
 
 trait MonitorRouteRepository {
 
-  def save(routeInfo: MonitorRoute): Unit
+  def route(routeId: Long): Option[MonitorRoute]
 
-  def routeWithId(routeId: Long): Option[MonitorRoute]
+  def routeState(routeId: Long): Option[MonitorRouteState]
 
-  def all(): Seq[MonitorRoute]
+  def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
 
-  def saveChange(change: MonitorRouteChange): Unit
+  def routeChange(routeId: Long, changeSetId: Long, replicationId: Long): Option[MonitorRouteChange]
 
-  def changes(): Seq[MonitorRouteChange]
+  def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationId: Long): Option[MonitorRouteChangeGeometry]
 
-  def change(routeId: Long, changeSetId: Long): Option[MonitorRouteChange]
 }

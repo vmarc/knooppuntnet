@@ -1,7 +1,8 @@
 package kpn.core.util
 
-import java.lang.management.ManagementFactory
+import kpn.api.common.BoundsI
 
+import java.lang.management.ManagementFactory
 import scala.annotation.tailrec
 
 object Util {
@@ -60,6 +61,19 @@ object Util {
 
   def classNameOf(obj: Any): String = obj.getClass.getSimpleName.filterNot(_ == '$')
 
+  def mergeBounds(boundss: Seq[BoundsI]): BoundsI = {
+    val minLat = boundss.map(_.minLat).min
+    val maxLat = boundss.map(_.maxLat).max
+    val minLon = boundss.map(_.minLon).min
+    val maxLon = boundss.map(_.maxLon).max
+    BoundsI(
+      minLat,
+      minLon,
+      maxLat,
+      maxLon
+    )
+  }
+
   def split[T](separator: T, list: Seq[T]): Seq[Seq[T]] = {
     split(separator, list, Seq())
   }
@@ -73,4 +87,8 @@ object Util {
         split(separator, s._2.tail, tmp ++ Seq(s._1))
     }
   }
+
+
+
+
 }

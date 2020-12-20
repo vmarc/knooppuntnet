@@ -1,6 +1,6 @@
 package kpn.api.common.monitor
 
-case class MonitorRouteGroup(
+case class MonitorGroup(
   name: String,
   description: String
 )

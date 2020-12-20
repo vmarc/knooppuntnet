@@ -1,16 +1,16 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.ChangeKeyI
-import kpn.api.common.monitor.MonitorRoute
-import kpn.api.common.monitor.MonitorRouteChange
 import kpn.core.database.Database
 import kpn.core.database.doc.MonitorRouteChangeDoc
+import kpn.core.database.doc.MonitorRouteChangeGeometryDoc
 import kpn.core.database.doc.MonitorRouteDoc
-import kpn.core.database.query.Query
-import kpn.core.database.views.analyzer.AnalyzerDesign
-import kpn.core.database.views.analyzer.DocumentView
-import kpn.core.db.KeyPrefix
-import kpn.core.util.Log
+import kpn.core.database.doc.MonitorRouteReferenceDoc
+import kpn.core.database.doc.MonitorRouteStateDoc
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteState
 import org.springframework.stereotype.Component
 
 object MonitorRouteRepositoryImpl {
@@ -27,71 +27,42 @@ object MonitorRouteRepositoryImpl {
 
 @Component
 class MonitorRouteRepositoryImpl(
-  analysisDatabase: Database,
   monitorDatabase: Database
 ) extends MonitorRouteRepository {
 
-  private val log = Log(classOf[MonitorRouteRepositoryImpl])
-
-  override def save(route: MonitorRoute): Unit = {
-    log.debugElapsed {
-      analysisDatabase.save(MonitorRouteDoc(docId(route.id), route))
-      (s"Save route ${route.id}", ())
-    }
+  override def route(routeId: Long): Option[MonitorRoute] = {
+    monitorDatabase.docWithId(
+      MonitorDocId.routeDocId(routeId),
+      classOf[MonitorRouteDoc]
+    ).map(_.monitorRoute)
   }
 
-  override def routeWithId(routeId: Long): Option[MonitorRoute] = {
-    analysisDatabase.docWithId(docId(routeId), classOf[MonitorRouteDoc]).map(_.monitorRoute)
+  override def routeState(routeId: Long): Option[MonitorRouteState] = {
+    monitorDatabase.docWithId(
+      MonitorDocId.routeStateDocId(routeId),
+      classOf[MonitorRouteStateDoc]
+    ).map(_.monitorRouteState)
   }
 
-  override def all(): Seq[MonitorRoute] = {
-
-    val elementType = "monitor-route"
-
-    val query = Query(AnalyzerDesign, DocumentView, classOf[MonitorRouteRepositoryImpl.ViewResult])
-      .startKey(s""""$elementType"""")
-      .endKey(s""""$elementType-"""")
-      .reduce(false)
-      .includeDocs(true)
-      .stale(true)
-    val result = analysisDatabase.execute(query)
-    result.rows.map(_.doc.monitorRoute)
+  override def routeReference(routeId: Long, key: String): Option[MonitorRouteReference] = {
+    monitorDatabase.docWithId(
+      MonitorDocId.routeReferenceDocId(routeId, key),
+      classOf[MonitorRouteReferenceDoc]
+    ).map(_.monitorRouteReference)
   }
 
-  override def saveChange(change: MonitorRouteChange): Unit = {
-    log.debugElapsed {
-      monitorDatabase.save(MonitorRouteChangeDoc(changeDocId(change.key), change))
-      (s"Save route change ${change.key}", ())
-    }
+  override def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange] = {
+    monitorDatabase.docWithId(
+      MonitorDocId.routeChangeDocId(routeId, changeSetId, replicationNumber),
+      classOf[MonitorRouteChangeDoc]
+    ).map(_.monitorRouteChange)
   }
 
-  override def changes(): Seq[MonitorRouteChange] = {
-    val query = Query("_all_docs", classOf[MonitorRouteRepositoryImpl.ChangeViewResult])
-      .reduce(false)
-      .includeDocs(true)
-      .stale(true)
-    val result = monitorDatabase.execute(query)
-    result.rows.map(_.doc.monitorRouteChange)
-  }
-
-  override def change(routeId: Long, changeSetId: Long): Option[MonitorRouteChange] = {
-    val docId = changeDocId(
-      ChangeKeyI(
-        1,
-        null,
-        changeSetId,
-        routeId
-      )
-    )
-    monitorDatabase.docWithId(docId, classOf[MonitorRouteChangeDoc]).map(_.monitorRouteChange)
-  }
-
-  private def docId(routeId: Long): String = {
-    s"${KeyPrefix.MonitorRoute}:$routeId"
-  }
-
-  private def changeDocId(key: ChangeKeyI): String = {
-    s"change:${key.changeSetId}:${key.replicationNumber}:monitor-route:${key.elementId}"
+  override def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry] = {
+    monitorDatabase.docWithId(
+      MonitorDocId.routeChangeGeometryDocId(routeId, changeSetId, replicationNumber),
+      classOf[MonitorRouteChangeGeometryDoc]
+    ).map(_.monitorRouteChangeGeometry)
   }
 
 }

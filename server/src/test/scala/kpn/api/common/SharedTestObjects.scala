@@ -32,6 +32,7 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
@@ -54,6 +55,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.api.monitor.domain.MonitorRoute
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -839,4 +841,43 @@ trait SharedTestObjects extends MockFactory {
   def legEndRoute(routeId: Long, pathId: Long): LegEndRoute = {
     LegEndRoute(List(TrackPathKey(routeId, pathId)), None)
   }
+
+  def newMonitorGroup(
+    name: String,
+    description: String
+  ): MonitorGroup ={
+    MonitorGroup(
+      name,
+      description
+    )
+  }
+
+  def newMonitorRoute(
+    id: Long,
+    groupName: String,
+    name: String,
+    nameNl: Option[String] = None,
+    nameEn: Option[String] = None,
+    nameDe: Option[String] = None,
+    nameFr: Option[String] = None,
+    ref: Option[String] = None,
+    description: Option[String] = None,
+    operator: Option[String] = None,
+    website: Option[String] = None
+  ): MonitorRoute = {
+    MonitorRoute(
+      id: Long,
+      groupName: String,
+      name: String,
+      nameNl: Option[String],
+      nameEn: Option[String],
+      nameDe: Option[String],
+      nameFr: Option[String],
+      ref: Option[String],
+      description: Option[String],
+      operator: Option[String],
+      website: Option[String]
+    )
+  }
+
 }

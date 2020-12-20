@@ -1,32 +1,33 @@
 package kpn.server.api.monitor
 
-import kpn.api.common.monitor.MonitorAdminRouteGroupPage
-import kpn.api.common.monitor.MonitorRouteGroup
+import kpn.api.common.monitor.MonitorAdminGroupPage
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.RouteGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
-import kpn.server.repository.MonitorAdminRouteGroupRepository
+import kpn.server.api.monitor.admin.MonitorAdminGroupsPageBuilder
+import kpn.server.repository.MonitorAdminGroupRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorAdminFacadeImpl(
   api: Api,
-  monitorAdminRouteGroupRepository: MonitorAdminRouteGroupRepository,
-  monitorAdminRouteGroupsPageBuilder: MonitorAdminRouteGroupsPageBuilder
+  monitorAdminGroupRepository: MonitorAdminGroupRepository,
+  monitorAdminGroupsPageBuilder: MonitorAdminGroupsPageBuilder
 ) extends MonitorAdminFacade {
 
   override def groups(user: Option[String]): ApiResponse[RouteGroupsPage] = {
-    api.execute(user, "monitor-groups", "") {
-      reply(monitorAdminRouteGroupsPageBuilder.build())
+    api.execute(user, "groups", "") {
+      reply(monitorAdminGroupsPageBuilder.build())
     }
   }
 
-  override def group(user: Option[String], groupName: String): ApiResponse[MonitorAdminRouteGroupPage] = {
-    api.execute(user, "get-group", "") {
+  override def group(user: Option[String], groupName: String): ApiResponse[MonitorAdminGroupPage] = {
+    api.execute(user, "group", "") {
       reply(
-        monitorAdminRouteGroupRepository.group(groupName).map { group =>
-          MonitorAdminRouteGroupPage(
+        monitorAdminGroupRepository.group(groupName).map { group =>
+          MonitorAdminGroupPage(
             group.name,
             group.description
           )
@@ -35,21 +36,21 @@ class MonitorAdminFacadeImpl(
     }
   }
 
-  override def addGroup(user: Option[String], group: MonitorRouteGroup): Unit = {
+  override def addGroup(user: Option[String], group: MonitorGroup): Unit = {
     api.execute(user, "add-group", group.name) {
-      monitorAdminRouteGroupRepository.saveGroup(group)
+      monitorAdminGroupRepository.saveGroup(group)
     }
   }
 
-  override def updateGroup(user: Option[String], group: MonitorRouteGroup): Unit = {
+  override def updateGroup(user: Option[String], group: MonitorGroup): Unit = {
     api.execute(user, "update-group", group.name) {
-      monitorAdminRouteGroupRepository.saveGroup(group)
+      monitorAdminGroupRepository.saveGroup(group)
     }
   }
 
   override def deleteGroup(user: Option[String], groupName: String): Unit = {
     api.execute(user, "delete-group", groupName) {
-      monitorAdminRouteGroupRepository.deleteGroup(groupName)
+      monitorAdminGroupRepository.deleteGroup(groupName)
     }
   }
 

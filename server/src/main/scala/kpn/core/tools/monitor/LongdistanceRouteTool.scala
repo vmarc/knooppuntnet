@@ -11,6 +11,7 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.monitor.LongdistanceRouteTool.MonitorRouteDefinition
 import kpn.core.util.Log
+import kpn.core.util.Util
 import kpn.server.repository.LongdistanceRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.LineString
@@ -105,7 +106,7 @@ class LongdistanceRouteTool(
             gpxLineStringOption match {
               case None =>
                 val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum / 1000)
-                val bounds = mergeBounds(osmRouteSegments.map(_.segment.bounds))
+                val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds))
                 val route = LongdistanceRoute(
                   routeRelation.id,
                   routeRelation.tags("ref"),

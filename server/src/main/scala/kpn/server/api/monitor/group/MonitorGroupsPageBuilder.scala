@@ -1,8 +1,8 @@
-package kpn.server.api.monitor
+package kpn.server.api.monitor.group
 
 import kpn.api.common.monitor.RouteGroupsPage
 
-trait MonitorRouteGroupsPageBuilder {
+trait MonitorGroupsPageBuilder {
 
   def build(): Option[RouteGroupsPage]
 
