@@ -1,8 +1,9 @@
 package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorAdminGroupPage
+import kpn.api.common.monitor.MonitorAdminGroupsPage
 import kpn.api.common.monitor.MonitorGroup
-import kpn.api.common.monitor.RouteGroupsPage
+import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
@@ -17,7 +18,7 @@ class MonitorAdminFacadeImpl(
   monitorAdminGroupsPageBuilder: MonitorAdminGroupsPageBuilder
 ) extends MonitorAdminFacade {
 
-  override def groups(user: Option[String]): ApiResponse[RouteGroupsPage] = {
+  override def groups(user: Option[String]): ApiResponse[MonitorAdminGroupsPage] = {
     api.execute(user, "groups", "") {
       reply(monitorAdminGroupsPageBuilder.build())
     }

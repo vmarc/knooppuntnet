@@ -12,6 +12,8 @@ case class MonitorRouteChange(
   waysUpdated: Long,
   osmDistance: Long,
   routeSegmentCount: Long,
+  newNokSegmentCount: Long,
+  resolvedNokSegmentCount: Long,
   reference: Option[MonitorRouteReferenceInfo],
   happy: Boolean,
   investigate: Boolean

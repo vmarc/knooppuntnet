@@ -2,6 +2,7 @@ package kpn.api.common
 
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
@@ -33,6 +34,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.monitor.MonitorGroup
+import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
@@ -56,6 +58,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteChange
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -154,6 +157,20 @@ trait SharedTestObjects extends MockFactory {
     elementId: Long = 0
   ): ChangeKey = {
     ChangeKey(
+      replicationNumber,
+      timestamp,
+      changeSetId,
+      elementId
+    )
+  }
+
+  def newChangeKeyI(
+    replicationNumber: Int = 1,
+    timestamp: String = defaultTimestamp.yyyymmddhhmmss,
+    changeSetId: Long = 123,
+    elementId: Long = 0
+  ): ChangeKeyI = {
+    ChangeKeyI(
       replicationNumber,
       timestamp,
       changeSetId,
@@ -845,7 +862,7 @@ trait SharedTestObjects extends MockFactory {
   def newMonitorGroup(
     name: String,
     description: String
-  ): MonitorGroup ={
+  ): MonitorGroup = {
     MonitorGroup(
       name,
       description
@@ -877,6 +894,38 @@ trait SharedTestObjects extends MockFactory {
       description: Option[String],
       operator: Option[String],
       website: Option[String]
+    )
+  }
+
+  def newMonitorRouteChange(
+    key: ChangeKeyI,
+    groupName: String,
+    wayCount: Long = 0,
+    waysAdded: Long = 0,
+    waysRemoved: Long = 0,
+    waysUpdated: Long = 0,
+    osmDistance: Long = 0,
+    routeSegmentCount: Long = 0,
+    newNokSegmentCount: Long = 0,
+    resolvedNokSegmentCount: Long = 0,
+    reference: Option[MonitorRouteReferenceInfo] = None,
+    happy: Boolean = false,
+    investigate: Boolean = false
+  ): MonitorRouteChange = {
+    MonitorRouteChange(
+      key,
+      groupName,
+      wayCount,
+      waysAdded,
+      waysRemoved,
+      waysUpdated,
+      osmDistance,
+      routeSegmentCount,
+      newNokSegmentCount,
+      resolvedNokSegmentCount,
+      reference,
+      happy,
+      investigate
     )
   }
 

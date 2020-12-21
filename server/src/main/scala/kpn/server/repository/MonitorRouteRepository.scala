@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -17,5 +18,11 @@ trait MonitorRouteRepository {
   def routeChange(routeId: Long, changeSetId: Long, replicationId: Long): Option[MonitorRouteChange]
 
   def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationId: Long): Option[MonitorRouteChangeGeometry]
+
+  def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+
+  def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+
+  def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
 }

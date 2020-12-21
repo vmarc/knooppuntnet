@@ -1,6 +1,6 @@
 package kpn.api.common.monitor
 
-case class MonitorAdminRouteGroupPage(
+case class MonitorAdminGroupPage(
   groupName: String,
   groupDescription: String
 )

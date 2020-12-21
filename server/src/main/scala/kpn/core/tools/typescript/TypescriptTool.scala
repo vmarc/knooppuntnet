@@ -25,7 +25,7 @@ import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.RouteGroupDetail
-import kpn.api.common.monitor.RouteGroupsPage
+import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import org.apache.commons.io.FileUtils
@@ -67,7 +67,7 @@ class TypescriptTool() {
     classOf[MonitorAdminGroupPage],
     classOf[BoundsI],
     classOf[ChangeKeyI],
-    classOf[RouteGroupsPage],
+    classOf[MonitorGroupsPage],
     classOf[RouteGroupDetail],
     classOf[LongdistanceRouteChange],
     classOf[LongdistanceRouteChangePage],

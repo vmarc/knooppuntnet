@@ -1,50 +1,46 @@
 package kpn.server.api.monitor
 
+import kpn.api.common.EN
+import kpn.api.common.monitor.MonitorChangesPage
+import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorGroupChangesPage
+import kpn.api.common.monitor.MonitorGroupPage
+import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteMapPage
-import kpn.api.common.monitor.MonitorRoutesPage
-import kpn.api.common.monitor.RouteGroupChangesPage
-import kpn.api.common.monitor.RouteGroupDetailsPage
-import kpn.api.common.monitor.RouteGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
+import kpn.server.api.monitor.group.MonitorGroupPageBuilder
+import kpn.server.api.monitor.group.MonitorGroupsPageBuilder
+import kpn.server.api.monitor.route.MonitorRouteChangePageBuilder
+import kpn.server.api.monitor.route.MonitorRouteChangesPageBuilder
+import kpn.server.api.monitor.route.MonitorRouteDetailsPageBuilder
+import kpn.server.api.monitor.route.MonitorRouteMapPageBuilder
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorFacadeImpl(
   api: Api,
-  monitorRouteGroupsPageBuilder: MonitorRouteGroupsPageBuilder,
-  monitorRoutesPageBuilder: MonitorRoutesPageBuilder,
+  monitorGroupsPageBuilder: MonitorGroupsPageBuilder,
+  monitorGroupPageBuilder: MonitorGroupPageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
   monitorRouteChangePageBuilder: MonitorRouteChangePageBuilder
 ) extends MonitorFacade {
 
-  override def groups(user: Option[String]): ApiResponse[RouteGroupsPage] = {
+  override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
     api.execute(user, "monitor-groups", "") {
-      reply(monitorRouteGroupsPageBuilder.build())
+      reply(monitorGroupsPageBuilder.build())
     }
   }
 
-  override def group(user: Option[String], groupName: String): ApiResponse[RouteGroupDetailsPage] = {
+  override def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage] = {
     api.execute(user, "monitor-group", "") {
-      reply(Some(RouteGroupDetailsPage()))
-    }
-  }
-
-  override def groupChanges(user: Option[String], groupName: String): ApiResponse[RouteGroupChangesPage] = {
-    api.execute(user, "monitor-group-changes", "") {
-      reply(Some(RouteGroupChangesPage()))
-    }
-  }
-
-  override def routes(user: Option[String]): ApiResponse[MonitorRoutesPage] = {
-    api.execute(user, "monitor-routes", "") {
-      reply(monitorRoutesPageBuilder.build())
+      reply(monitorGroupPageBuilder.build(groupName))
     }
   }
 
@@ -58,21 +54,33 @@ class MonitorFacadeImpl(
   override def routeMap(user: Option[String], routeId: Long): ApiResponse[MonitorRouteMapPage] = {
     val args = s"routeId=$routeId"
     api.execute(user, "monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(routeId))
+      reply(monitorRouteMapPageBuilder.build(routeId, EN))
     }
   }
 
-  override def routeChanges(user: Option[String], routeId: Long): ApiResponse[MonitorRouteChangesPage] = {
+  override def changes(user: Option[String], parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage] = {
+    api.execute(user, "monitor-changes", "") {
+      reply(monitorRouteChangesPageBuilder.changes(parameters))
+    }
+  }
+
+  override def groupChanges(user: Option[String], groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage] = {
+    api.execute(user, "monitor-group-changes", "") {
+      reply(monitorRouteChangesPageBuilder.groupChanges(groupName, parameters))
+    }
+  }
+
+  override def routeChanges(user: Option[String], routeId: Long, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage] = {
     val args = s"routeId=$routeId"
     api.execute(user, "monitor-route-changes", args) {
-      reply(monitorRouteChangesPageBuilder.build(routeId))
+      reply(monitorRouteChangesPageBuilder.routeChanges(routeId, parameters))
     }
   }
 
-  override def routeChange(user: Option[String], routeId: Long, changeSetId: Long): ApiResponse[MonitorRouteChangePage] = {
+  override def routeChange(user: Option[String], routeId: Long, changeSetId: Long, replicationId: Long): ApiResponse[MonitorRouteChangePage] = {
     val args = s"routeId=$routeId, changeSetId$changeSetId"
     api.execute(user, "monitor-route-change", args) {
-      reply(monitorRouteChangePageBuilder.build(routeId, changeSetId))
+      reply(monitorRouteChangePageBuilder.build(routeId, changeSetId, replicationId))
     }
   }
 

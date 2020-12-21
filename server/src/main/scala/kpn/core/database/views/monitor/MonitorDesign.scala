@@ -6,6 +6,7 @@ import kpn.core.database.views.common.View
 object MonitorDesign extends Design {
 
   val views: Seq[View] = Seq(
+    MonitorChangesView,
     MonitorRouteView
   )
 }

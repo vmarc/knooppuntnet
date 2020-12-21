@@ -3,7 +3,7 @@ package kpn.api.common.monitor
 import kpn.api.common.BoundsI
 import kpn.api.common.changes.details.ChangeKeyI
 
-case class MonitorRouteChange(
+case class MonitorRouteChangeDetail(
   key: ChangeKeyI,
   comment: Option[String],
   wayCount: Long,

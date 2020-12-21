@@ -1,11 +1,13 @@
 package kpn.server.repository
 
+import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.core.database.Database
 import kpn.core.database.doc.MonitorRouteChangeDoc
 import kpn.core.database.doc.MonitorRouteChangeGeometryDoc
 import kpn.core.database.doc.MonitorRouteDoc
 import kpn.core.database.doc.MonitorRouteReferenceDoc
 import kpn.core.database.doc.MonitorRouteStateDoc
+import kpn.core.database.views.monitor.MonitorChangesView
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -63,6 +65,18 @@ class MonitorRouteRepositoryImpl(
       MonitorDocId.routeChangeGeometryDocId(routeId, changeSetId, replicationNumber),
       classOf[MonitorRouteChangeGeometryDoc]
     ).map(_.monitorRouteChangeGeometry)
+  }
+
+  override def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
+    MonitorChangesView.changes(monitorDatabase, parameters)
+  }
+
+  override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
+    MonitorChangesView.groupChanges(monitorDatabase, groupName, parameters)
+  }
+
+  override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
+    MonitorChangesView.routeChanges(monitorDatabase, routeId, parameters)
   }
 
 }

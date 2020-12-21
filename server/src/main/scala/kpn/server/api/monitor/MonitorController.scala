@@ -9,12 +9,11 @@ import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
+import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteMapPage
-import kpn.api.common.monitor.RouteGroupDetailsPage
-import kpn.api.common.monitor.RouteGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.GetMapping
@@ -32,20 +31,15 @@ class MonitorController(
 ) {
 
   @GetMapping(value = Array("groups"))
-  def groups(): ApiResponse[RouteGroupsPage] = {
+  def groups(): ApiResponse[MonitorGroupsPage] = {
     facade.groups(CurrentUser.name)
   }
 
   @GetMapping(value = Array("groups/{groupName}"))
   def group(
     @PathVariable groupName: String
-  ): ApiResponse[RouteGroupDetailsPage] = {
+  ): ApiResponse[MonitorGroupPage] = {
     facade.group(CurrentUser.name, groupName)
-  }
-
-  @GetMapping(value = Array("routes"))
-  def routes(): ApiResponse[MonitorGroupPage] = {
-    facade.routes(CurrentUser.name)
   }
 
   @GetMapping(value = Array("routes/{routeId}"))
