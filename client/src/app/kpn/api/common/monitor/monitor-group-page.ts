@@ -2,6 +2,6 @@
 
 import {MonitorRouteDetail} from './monitor-route-detail';
 
-export interface MonitorRoutesPage {
+export interface MonitorGroupPage {
   readonly details: MonitorRouteDetail[];
 }

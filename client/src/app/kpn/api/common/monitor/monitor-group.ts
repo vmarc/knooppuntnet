@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-export interface MonitorRouteGroup {
+export interface MonitorGroup {
   readonly name: string;
   readonly description: string;
 }

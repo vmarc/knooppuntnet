@@ -19,13 +19,13 @@ import {LongdistanceRouteChangesPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-route-details-page';
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
-import {MonitorAdminRouteGroupPage} from '@api/common/monitor/monitor-admin-route-group-page';
+import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
-import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
+import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
-import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
+import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {RouteGroupChangesPage} from '@api/common/monitor/route-group-changes-page';
 import {RouteGroupDetailsPage} from '@api/common/monitor/route-group-details-page';
 import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
@@ -385,7 +385,7 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public monitorRoutes(): Observable<ApiResponse<MonitorRoutesPage>> {
+  public monitorRoutes(): Observable<ApiResponse<MonitorGroupPage>> {
     const url = '/api/monitor/routes';
     return this.httpGet(url);
   }
@@ -415,12 +415,12 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public monitorAdminRouteGroup(groupName: string): Observable<ApiResponse<MonitorAdminRouteGroupPage>> {
+  public monitorAdminRouteGroup(groupName: string): Observable<ApiResponse<MonitorAdminGroupPage>> {
     const url = '/admin-api/monitor/groups/' + groupName;
     return this.httpGet(url);
   }
 
-  public monitorAdminAddRouteGroup(group: MonitorRouteGroup): Observable<Object> {
+  public monitorAdminAddRouteGroup(group: MonitorGroup): Observable<Object> {
     const url = `/admin-api/monitor/groups`;
     return this.http.post(url, group);
   }
@@ -430,7 +430,7 @@ export class AppService {
     return this.http.delete(url);
   }
 
-  public monitorAdminUpdateRouteGroup(group: MonitorRouteGroup): Observable<Object> {
+  public monitorAdminUpdateRouteGroup(group: MonitorGroup): Observable<Object> {
     const url = `/admin-api/monitor/groups/${group.name}`;
     return this.http.put(url, group);
   }

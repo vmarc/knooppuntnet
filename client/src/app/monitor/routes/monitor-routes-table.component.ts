@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MonitorRouteDetail} from '@api/common/monitor/monitor-route-detail';
-import {MonitorRoutesPage} from '@api/common/monitor/monitor-routes-page';
+import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
@@ -116,7 +116,7 @@ export class MonitorRoutesTableComponent implements OnInit {
   readonly dataSource: MatTableDataSource<MonitorRouteDetail> = new MatTableDataSource();
   readonly displayedColumns$ = this.pageWidthService.current$.pipe(map(() => this.displayedColumns()));
 
-  readonly response$: Observable<ApiResponse<MonitorRoutesPage>> = this.store.pipe(
+  readonly response$: Observable<ApiResponse<MonitorGroupPage>> = this.store.pipe(
     select(selectMonitorRoutes),
     filter(r => r != null),
     tap(response => {

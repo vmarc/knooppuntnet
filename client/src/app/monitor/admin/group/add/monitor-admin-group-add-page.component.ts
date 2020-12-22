@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {FormControl} from '@angular/forms';
-import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
+import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../core/core.state';
 import {actionMonitorAddRouteGroup} from '../../../store/monitor.actions';
@@ -81,7 +81,7 @@ export class MonitorAdminGroupAddPageComponent {
   }
 
   add(): void {
-    const group: MonitorRouteGroup = this.form.value;
+    const group: MonitorGroup = this.form.value;
     this.store.dispatch(actionMonitorAddRouteGroup({group}));
   }
 }

@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {FormControl} from '@angular/forms';
-import {MonitorRouteGroup} from '@api/common/monitor/monitor-route-group';
+import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {Store} from '@ngrx/store';
 import {tap} from 'rxjs/operators';
 import {AppState} from '../../../../core/core.state';
@@ -101,7 +101,7 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
   }
 
   add(): void {
-    const group: MonitorRouteGroup = this.form.value;
+    const group: MonitorGroup = this.form.value;
     this.store.dispatch(actionMonitorUpdateRouteGroup({group}));
   }
 }
