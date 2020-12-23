@@ -63,14 +63,14 @@ export const monitorReducer = createReducer(
     actionMonitorGroupDeleteLoaded,
     (state, {response}) => ({
       ...state,
-      adminRouteGroupPage: response
+      adminGroupPage: response
     })
   ),
   on(
     actionMonitorGroupUpdateLoaded,
     (state, {response}) => ({
       ...state,
-      adminRouteGroupPage: response
+      adminGroupPage: response
     })
   ),
   on(

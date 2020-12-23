@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../core/core.state';
 import {actionMonitorGroupDeleteInit} from '../../../store/monitor.actions';
-import {actionMonitorDeleteRouteGroup} from '../../../store/monitor.actions';
+import {actionMonitorGroupDelete} from '../../../store/monitor.actions';
 import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
 
 @Component({
@@ -70,6 +70,6 @@ export class MonitorAdminGroupDeletePageComponent implements OnInit {
   }
 
   delete(groupName: string): void {
-    this.store.dispatch(actionMonitorDeleteRouteGroup({groupName}));
+    this.store.dispatch(actionMonitorGroupDelete({groupName}));
   }
 }

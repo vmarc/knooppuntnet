@@ -9,7 +9,7 @@ import {Store} from '@ngrx/store';
 import {tap} from 'rxjs/operators';
 import {AppState} from '../../../../core/core.state';
 import {actionMonitorGroupUpdateInit} from '../../../store/monitor.actions';
-import {actionMonitorUpdateRouteGroup} from '../../../store/monitor.actions';
+import {actionMonitorGroupUpdate} from '../../../store/monitor.actions';
 import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
 
 @Component({
@@ -102,6 +102,6 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
 
   add(): void {
     const group: MonitorGroup = this.form.value;
-    this.store.dispatch(actionMonitorUpdateRouteGroup({group}));
+    this.store.dispatch(actionMonitorGroupUpdate({group}));
   }
 }

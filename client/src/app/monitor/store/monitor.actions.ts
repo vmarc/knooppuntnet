@@ -31,20 +31,20 @@ export const actionMonitorGroupsPageLoaded = createAction(
 );
 
 export const actionMonitorGroupDeleteInit = createAction(
-  '[Monitor group delete] Init'
+  '[MonitorAdminGroupDeletePage] Init'
 );
 
 export const actionMonitorGroupDeleteLoaded = createAction(
-  '[Monitor group delete] Loaded',
+  '[MonitorAdminGroupDeletePage] Loaded',
   props<{ response: ApiResponse<MonitorAdminGroupPage> }>()
 );
 
 export const actionMonitorGroupUpdateInit = createAction(
-  '[Monitor group update] Init'
+  '[MonitorAdminGroupUpdatePage] Init'
 );
 
 export const actionMonitorGroupUpdateLoaded = createAction(
-  '[Monitor group update] Loaded',
+  '[MonitorAdminGroupUpdatePage] Loaded',
   props<{ response: ApiResponse<MonitorAdminGroupPage> }>()
 );
 
@@ -123,18 +123,18 @@ export const actionMonitorRouteMapOsmRelationVisible = createAction(
   props<{ visible: boolean }>()
 );
 
-export const actionMonitorAddRouteGroup = createAction(
-  '[Monitor] Add route group',
+export const actionMonitorGroupAdd = createAction(
+  '[MonitorAdminGroupAddPage] Add group',
   props<{ group: MonitorGroup }>()
 );
 
-export const actionMonitorDeleteRouteGroup = createAction(
-  '[Monitor] Delete route group',
+export const actionMonitorGroupDelete = createAction(
+  '[MonitorAdminGroupDeletePage] Delete',
   props<{ groupName: string }>()
 );
 
-export const actionMonitorUpdateRouteGroup = createAction(
-  '[Monitor] Update route group',
+export const actionMonitorGroupUpdate = createAction(
+  '[MonitorAdminGroupUpdatePage] Update',
   props<{ group: MonitorGroup }>()
 );
 

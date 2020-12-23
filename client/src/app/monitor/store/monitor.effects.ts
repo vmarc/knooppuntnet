@@ -35,10 +35,10 @@ import {actionMonitorRouteChangesInit} from './monitor.actions';
 import {actionMonitorRouteChangeInit} from './monitor.actions';
 import {actionMonitorGroupsPageInit} from './monitor.actions';
 import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
-import {actionMonitorUpdateRouteGroup} from './monitor.actions';
-import {actionMonitorDeleteRouteGroup} from './monitor.actions';
+import {actionMonitorGroupUpdate} from './monitor.actions';
+import {actionMonitorGroupDelete} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
-import {actionMonitorAddRouteGroup} from './monitor.actions';
+import {actionMonitorGroupAdd} from './monitor.actions';
 import {actionMonitorGroupsPageLoaded} from './monitor.actions';
 import {actionMonitorRouteChangeLoaded} from './monitor.actions';
 import {actionMonitorRouteMapFocus} from './monitor.actions';
@@ -186,7 +186,7 @@ export class MonitorEffects {
 
   addGroupEffect$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(actionMonitorAddRouteGroup),
+        ofType(actionMonitorGroupAdd),
         concatMap((action) => this.appService.monitorAdminAddRouteGroup(action.group)),
         tap(() => this.router.navigate(['/monitor']))
       ),
@@ -195,7 +195,7 @@ export class MonitorEffects {
 
   deleteGroupEffect$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(actionMonitorDeleteRouteGroup),
+        ofType(actionMonitorGroupDelete),
         concatMap((action) => this.appService.monitorAdminDeleteRouteGroup(action.groupName)),
         tap(() => this.router.navigate(['/monitor']))
       ),
@@ -204,7 +204,7 @@ export class MonitorEffects {
 
   updateGroupEffect$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(actionMonitorUpdateRouteGroup),
+        ofType(actionMonitorGroupUpdate),
         concatMap((action) => this.appService.monitorAdminUpdateRouteGroup(action.group)),
         tap(() => this.router.navigate(['/monitor']))
       ),
