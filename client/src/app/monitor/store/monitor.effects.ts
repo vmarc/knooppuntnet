@@ -33,13 +33,13 @@ import {actionMonitorRouteDetailsInit} from './monitor.actions';
 import {actionMonitorRouteMapInit} from './monitor.actions';
 import {actionMonitorRouteChangesInit} from './monitor.actions';
 import {actionMonitorRouteChangeInit} from './monitor.actions';
-import {actionMonitorInit} from './monitor.actions';
+import {actionMonitorGroupsPageInit} from './monitor.actions';
 import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
 import {actionMonitorUpdateRouteGroup} from './monitor.actions';
 import {actionMonitorDeleteRouteGroup} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
 import {actionMonitorAddRouteGroup} from './monitor.actions';
-import {actionMonitorLoaded} from './monitor.actions';
+import {actionMonitorGroupsPageLoaded} from './monitor.actions';
 import {actionMonitorRouteChangeLoaded} from './monitor.actions';
 import {actionMonitorRouteMapFocus} from './monitor.actions';
 import {actionMonitorRouteMapLoaded} from './monitor.actions';
@@ -69,19 +69,19 @@ export class MonitorEffects {
 
   monitorInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorInit),
+      ofType(actionMonitorGroupsPageInit),
       withLatestFrom(
         this.store.select(selectRouteParams),
         this.store.select(selectMonitorAdmin)
       ),
       mergeMap(([params, admin]) => {
         if (admin) {
-          return this.appService.monitorAdminRouteGroups().pipe(
-            map(response => actionMonitorLoaded({response}))
+          return this.appService.monitorAdminGroups().pipe(
+            map(response => actionMonitorGroupsPageLoaded({response}))
           );
         }
-        return this.appService.monitorRouteGroups().pipe(
-          map(response => actionMonitorLoaded({response}))
+        return this.appService.monitorGroups().pipe(
+          map(response => actionMonitorGroupsPageLoaded({response}))
         );
       })
     )

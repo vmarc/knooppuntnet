@@ -1,8 +1,6 @@
 package kpn.server.api.monitor.admin
 
-import kpn.api.common.monitor.MonitorAdminGroupDetail
-import kpn.api.common.monitor.MonitorAdminGroupsPage
-import kpn.api.common.monitor.RouteGroupDetail
+import kpn.api.common.monitor.MonitorGroupDetail
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.server.repository.MonitorAdminGroupRepository
 import org.springframework.stereotype.Component
@@ -12,13 +10,13 @@ class MonitorAdminGroupsPageBuilderImpl(
   monitorAdminGroupRepository: MonitorAdminGroupRepository
 ) extends MonitorAdminGroupsPageBuilder {
 
-  override def build(): Option[MonitorAdminGroupsPage] = {
+  override def build(): Option[MonitorGroupsPage] = {
     val groups = monitorAdminGroupRepository.groups()
     if (groups.nonEmpty) {
       Some(
-        MonitorAdminGroupsPage(
+        MonitorGroupsPage(
           groups.map { group =>
-            MonitorAdminGroupDetail(
+            MonitorGroupDetail(
               group.name,
               group.description
             )

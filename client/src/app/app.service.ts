@@ -20,15 +20,15 @@ import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
+import {MonitorGroup} from '@api/common/monitor/monitor-group';
+import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
+import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
-import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
-import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {RouteGroupChangesPage} from '@api/common/monitor/route-group-changes-page';
 import {RouteGroupDetailsPage} from '@api/common/monitor/route-group-details-page';
-import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
 import {NetworkChangesPage} from '@api/common/network/network-changes-page';
 import {NetworkDetailsPage} from '@api/common/network/network-details-page';
 import {NetworkFactsPage} from '@api/common/network/network-facts-page';
@@ -370,7 +370,7 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public monitorRouteGroups(): Observable<ApiResponse<RouteGroupsPage>> {
+  public monitorGroups(): Observable<ApiResponse<MonitorGroupsPage>> {
     const url = '/api/monitor/groups';
     return this.httpGet(url);
   }
@@ -410,7 +410,7 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public monitorAdminRouteGroups(): Observable<ApiResponse<RouteGroupsPage>> {
+  public monitorAdminGroups(): Observable<ApiResponse<MonitorGroupsPage>> {
     const url = '/admin-api/monitor/groups';
     return this.httpGet(url);
   }

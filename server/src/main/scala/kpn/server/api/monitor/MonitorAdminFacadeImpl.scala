@@ -1,7 +1,6 @@
 package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorAdminGroupPage
-import kpn.api.common.monitor.MonitorAdminGroupsPage
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.custom.ApiResponse
@@ -18,14 +17,14 @@ class MonitorAdminFacadeImpl(
   monitorAdminGroupsPageBuilder: MonitorAdminGroupsPageBuilder
 ) extends MonitorAdminFacade {
 
-  override def groups(user: Option[String]): ApiResponse[MonitorAdminGroupsPage] = {
-    api.execute(user, "groups", "") {
+  override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
+    api.execute(user, "admin-groups", "") {
       reply(monitorAdminGroupsPageBuilder.build())
     }
   }
 
   override def group(user: Option[String], groupName: String): ApiResponse[MonitorAdminGroupPage] = {
-    api.execute(user, "group", "") {
+    api.execute(user, "admin-group", "") {
       reply(
         monitorAdminGroupRepository.group(groupName).map { group =>
           MonitorAdminGroupPage(
@@ -38,19 +37,19 @@ class MonitorAdminFacadeImpl(
   }
 
   override def addGroup(user: Option[String], group: MonitorGroup): Unit = {
-    api.execute(user, "add-group", group.name) {
+    api.execute(user, "admin-add-group", group.name) {
       monitorAdminGroupRepository.saveGroup(group)
     }
   }
 
   override def updateGroup(user: Option[String], group: MonitorGroup): Unit = {
-    api.execute(user, "update-group", group.name) {
+    api.execute(user, "admin-update-group", group.name) {
       monitorAdminGroupRepository.saveGroup(group)
     }
   }
 
   override def deleteGroup(user: Option[String], groupName: String): Unit = {
-    api.execute(user, "delete-group", groupName) {
+    api.execute(user, "admin-delete-group", groupName) {
       monitorAdminGroupRepository.deleteGroup(groupName)
     }
   }

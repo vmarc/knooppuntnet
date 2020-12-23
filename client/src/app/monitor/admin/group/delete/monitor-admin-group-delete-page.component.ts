@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../../core/core.state';
 import {actionMonitorGroupDeleteInit} from '../../../store/monitor.actions';
 import {actionMonitorDeleteRouteGroup} from '../../../store/monitor.actions';
-import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors';
+import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-delete-page',
@@ -60,7 +60,7 @@ import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors
 })
 export class MonitorAdminGroupDeletePageComponent implements OnInit {
 
-  readonly response$ = this.store.select(selectMonitorAdminRouteGroupPage);
+  readonly response$ = this.store.select(selectMonitorAdminGroupPage);
 
   constructor(private store: Store<AppState>) {
   }

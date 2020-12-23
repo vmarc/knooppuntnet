@@ -13,7 +13,7 @@ import {actionLongdistanceRouteDetailsLoaded} from './monitor.actions';
 import {actionLongdistanceRoutesLoaded} from './monitor.actions';
 import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
-import {actionMonitorLoaded} from './monitor.actions';
+import {actionMonitorGroupsPageLoaded} from './monitor.actions';
 import {actionMonitorAdmin} from './monitor.actions';
 import {actionMonitorRouteChangeLoaded} from './monitor.actions';
 import {actionMonitorRouteMapReferenceVisible} from './monitor.actions';
@@ -40,21 +40,23 @@ export const monitorReducer = createReducer(
     routerNavigationAction,
     (state, action) => ({
       ...state,
-      routes: null,
       details: null,
       changes: null,
       change: null,
       map: null,
       mapMode: null,
       routeGroups: null,
-      adminRouteGroupPage: null
+
+      groupsPage: null,
+      groupPage: null,
+      adminGroupPage: null
     })
   ),
   on(
-    actionMonitorLoaded,
+    actionMonitorGroupsPageLoaded,
     (state, {response}) => ({
       ...state,
-      routeGroups: response
+      groupsPage: response
     })
   ),
   on(
@@ -131,8 +133,8 @@ export const monitorReducer = createReducer(
   on(
     actionMonitorRouteChangeLoaded,
     (state, {response}) => {
-      const routeId = response.result?.id ?? state.routeId;
-      const routeName = response.result?.name ?? state.routeName;
+      const routeId = response.result?.key.elementId ?? state.routeId;
+      const routeName = 'ROUTE-NAME'; // response.result?.name ?? state.routeName;
       return {
         ...state,
         routeId,
@@ -150,7 +152,7 @@ export const monitorReducer = createReducer(
       let mapGpxNokVisible = false;
       let mapOsmRelationVisible = false;
       if (mode === 'comparison') {
-        mapGpxOkVisible = !!(state.map?.result?.gpxGeometry);
+        mapGpxOkVisible = !!(state.map?.result?.reference.geometry);
         mapGpxNokVisible = (state.map.result?.nokSegments?.length ?? 0) > 0;
         mapOsmRelationVisible = (state.map.result?.osmSegments?.length ?? 0) > 0;
       } else if (mode === 'osm-segments') {

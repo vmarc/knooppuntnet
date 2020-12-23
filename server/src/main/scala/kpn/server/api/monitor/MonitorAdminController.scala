@@ -1,8 +1,8 @@
 package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorAdminGroupPage
-import kpn.api.common.monitor.MonitorAdminGroupsPage
 import kpn.api.common.monitor.MonitorGroup
+import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 class MonitorAdminController(facade: MonitorAdminFacade) {
 
   @GetMapping(value = Array("groups"))
-  def groups(): ApiResponse[MonitorAdminGroupsPage] = {
+  def groups(): ApiResponse[MonitorGroupsPage] = {
     facade.groups(CurrentUser.name)
   }
 

@@ -38,14 +38,14 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
             </td>
             <td>
               <div class="kpn-line">
-                <span>{{response.result.change.key.changeSetId}}</span>
-                <kpn-osm-link-change-set [changeSetId]="response.result.change.key.changeSetId"></kpn-osm-link-change-set>
+                <span>{{response.result.key.changeSetId}}</span>
+                <kpn-osm-link-change-set [changeSetId]="response.result.key.changeSetId"></kpn-osm-link-change-set>
                 <span>
                   <a
                     class="external"
                     rel="nofollow noreferrer"
                     target="_blank"
-                    [href]="'https://overpass-api.de/achavi/?changeset=' + response.result.change.key.changeSetId"
+                    [href]="'https://overpass-api.de/achavi/?changeset=' + response.result.key.changeSetId"
                     i18n="@@change-set.header.achavi">
                     achavi
                   </a>
@@ -55,7 +55,7 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
                     class="external"
                     rel="nofollow noreferrer"
                     target="_blank"
-                    [href]="'https://osmcha.org/changesets/' + response.result.change.key.changeSetId"
+                    [href]="'https://osmcha.org/changesets/' + response.result.key.changeSetId"
                     i18n="@@change-set.header.osmcha">
                     osmcha
                   </a>
@@ -68,7 +68,7 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
               Timestamp
             </td>
             <td>
-              <kpn-timestamp [timestamp]="timestamp(response.result.change.key.timestamp)"></kpn-timestamp>
+              <kpn-timestamp [timestamp]="timestamp(response.result.key.timestamp)"></kpn-timestamp>
             </td>
           </tr>
           <tr>
@@ -79,12 +79,12 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
               {{replicationName()}}
             </td>
           </tr>
-          <tr *ngIf="response.result.change.comment">
+          <tr *ngIf="response.result.comment">
             <td>
               Comment
             </td>
             <td>
-              {{response.result.change.comment}}
+              {{response.result.comment}}
             </td>
           </tr>
           <tr>
@@ -92,7 +92,7 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
               Reference
             </td>
             <td>
-              {{response.result.change.gpxFilename}}
+              {{response.result.reference.filename}}
             </td>
           </tr>
           <tr>
@@ -102,11 +102,11 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
             <td>
               <div>
                 <span class="distance-label">GPX</span>
-                <span>{{response.result.change.gpxDistance}}km</span>
+                <span>{{response.result.reference.distance}}km</span>
               </div>
               <div>
                 <span class="distance-label">OSM</span>
-                <span>{{response.result.change.osmDistance}}km</span>
+                <span>{{response.result.osmDistance}}km</span>
               </div>
             </td>
           </tr>
@@ -115,31 +115,31 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
               Analysis
             </td>
             <td>
-              <div *ngIf="response.result.change.happy" class="kpn-line">
+              <div *ngIf="response.result.happy" class="kpn-line">
                 <kpn-icon-happy></kpn-icon-happy>
                 <span i18n="@@change-set.header.analysis.happy">
                   This changeset brought improvements.
                 </span>
               </div>
 
-              <div *ngIf="response.result.change.investigate" class="kpn-line">
+              <div *ngIf="response.result.investigate" class="kpn-line">
                 <kpn-icon-investigate></kpn-icon-investigate>
                 <span i18n="@@change-set.header.analysis.investigate">
                   Maybe this changeset is worth a closer look.
                 </span>
               </div>
 
-              <div *ngIf="!(response.result.change.happy || !response.result.change.happy)" class="kpn-line">
+              <div *ngIf="!(response.result.happy || !response.result.happy)" class="kpn-line">
                 <span i18n="@@change-set.header.analysis.no-impact">
                   The changes do not seem to have an impact on the analysis result.
                 </span>
               </div>
 
-              <div *ngIf="response.result.change.routeSegmentCount !== 1" class="kpn-line route-analysis">
+              <div *ngIf="response.result.routeSegmentCount !== 1" class="kpn-line route-analysis">
                 <mat-icon svgIcon="warning"></mat-icon>
-                <span>Not OK: {{response.result.change.routeSegmentCount}} route segments</span>
+                <span>Not OK: {{response.result.routeSegmentCount}} route segments</span>
               </div>
-              <div *ngIf="response.result.change.routeSegmentCount === 1" class="kpn-line route-analysis">
+              <div *ngIf="response.result.routeSegmentCount === 1" class="kpn-line route-analysis">
                 <span>OK: 1 route segment</span>
               </div>
             </td>
@@ -148,15 +148,15 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
         </table>
 
         <p>
-          Total ways={{response.result.change.wayCount}},
-          ways added={{response.result.change.waysAdded}},
-          ways removed={{response.result.change.waysRemoved}},
-          ways updated={{response.result.change.waysUpdated}}
+          Total ways={{response.result.wayCount}},
+          ways added={{response.result.waysAdded}},
+          ways removed={{response.result.waysRemoved}},
+          ways updated={{response.result.waysUpdated}}
         </p>
 
-        <div *ngIf="response.result.change.resolvedNokSegments.length > 0">
-          <h2>Resolved deviation segments <span class="kpn-thin">({{response.result.change.resolvedNokSegments.length}})</span></h2>
-          <div *ngFor="let segment of response.result.change.resolvedNokSegments; let i=index" class="segment">
+        <div *ngIf="response.result.resolvedNokSegments.length > 0">
+          <h2>Resolved deviation segments <span class="kpn-thin">({{response.result.resolvedNokSegments.length}})</span></h2>
+          <div *ngFor="let segment of response.result.resolvedNokSegments; let i=index" class="segment">
             <p>
               Deviation length: {{segment.meters}}m
             </p>
@@ -166,17 +166,17 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
 
             <kpn-monitor-route-change-map
               [mapId]="'resolved-map-' + i + 1"
-              [referenceJson]="response.result.change.referenceJson"
-              [routeSegments]="response.result.change.routeSegments"
+              [referenceJson]="response.result.reference.geometry"
+              [routeSegments]="response.result.routeSegments"
               [nokSegment]="segment">
             </kpn-monitor-route-change-map>
 
           </div>
         </div>
 
-        <div *ngIf="response.result.change.newNokSegments.length > 0">
-          <h2>New deviation segments <span class="kpn-thin">({{response.result.change.newNokSegments.length}})</span></h2>
-          <div *ngFor="let segment of response.result.change.newNokSegments; let i=index" class="segment">
+        <div *ngIf="response.result.newNokSegments.length > 0">
+          <h2>New deviation segments <span class="kpn-thin">({{response.result.newNokSegments.length}})</span></h2>
+          <div *ngFor="let segment of response.result.newNokSegments; let i=index" class="segment">
             <p>
               Deviation length: {{segment.meters}}m
             </p>
@@ -185,8 +185,8 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
             </p>
             <kpn-monitor-route-change-map
               [mapId]="'new-map-' + i + 1"
-              [referenceJson]="response.result.change.referenceJson"
-              [routeSegments]="response.result.change.routeSegments"
+              [referenceJson]="response.result.reference.geometry"
+              [routeSegments]="response.result.routeSegments"
               [nokSegment]="segment">
             </kpn-monitor-route-change-map>
 

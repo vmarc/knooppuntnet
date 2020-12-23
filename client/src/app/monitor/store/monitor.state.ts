@@ -4,12 +4,12 @@ import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
+import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
+import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
-import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
-import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {AppState} from '../../core/core.state';
 
@@ -17,7 +17,6 @@ export const initialState: MonitorState = {
   admin: true,
   routeId: 0,
   routeName: '',
-  routes: null,
   details: null,
   changes: null,
   change: null,
@@ -27,8 +26,9 @@ export const initialState: MonitorState = {
   mapGpxOkVisible: false,
   mapGpxNokVisible: false,
   mapOsmRelationVisible: false,
-  routeGroups: null,
-  adminRouteGroupPage: null,
+  groupsPage: null,
+  groupPage: null,
+  adminGroupPage: null,
 
   longdistanceRouteId: 0,
   longdistanceRouteName: '',
@@ -48,7 +48,6 @@ export interface MonitorState {
   admin: boolean;
   routeId: number;
   routeName: string;
-  routes: ApiResponse<MonitorGroupPage>;
   details: ApiResponse<MonitorRouteDetailsPage>;
   changes: ApiResponse<MonitorRouteChangesPage>;
   change: ApiResponse<MonitorRouteChangePage>;
@@ -58,8 +57,9 @@ export interface MonitorState {
   mapGpxOkVisible: boolean;
   mapGpxNokVisible: boolean;
   mapOsmRelationVisible: boolean;
-  routeGroups: ApiResponse<RouteGroupsPage>;
-  adminRouteGroupPage: ApiResponse<MonitorAdminGroupPage>;
+  groupsPage: ApiResponse<MonitorGroupsPage>;
+  groupPage: ApiResponse<MonitorGroupPage>;
+  adminGroupPage: ApiResponse<MonitorAdminGroupPage>;
 
   longdistanceRouteId: number;
   longdistanceRouteName: string;

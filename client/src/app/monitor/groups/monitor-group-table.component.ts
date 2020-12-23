@@ -3,7 +3,7 @@ import {Input} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {RouteGroupDetail} from '@api/common/monitor/route-group-detail';
+import {MonitorGroupDetail} from '@api/common/monitor/monitor-group-detail';
 import {Store} from '@ngrx/store';
 import {map} from 'rxjs/operators';
 import {AppState} from '../../core/core.state';
@@ -19,14 +19,14 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="groupLink(group)">{{group.groupName}}</a>
+          <a [routerLink]="groupLink(group)">{{group.name}}</a>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let group">
-          {{group.groupDescription}}
+          {{group.description}}
         </td>
       </ng-container>
 
@@ -51,9 +51,9 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
 })
 export class MonitorGroupTableComponent implements OnInit {
 
-  @Input() groups: RouteGroupDetail[];
+  @Input() groups: MonitorGroupDetail[];
 
-  readonly dataSource: MatTableDataSource<RouteGroupDetail> = new MatTableDataSource<RouteGroupDetail>();
+  readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
 
   readonly displayedColumns$ = this.store.select(selectMonitorAdmin).pipe(
     map(admin => {
@@ -71,16 +71,16 @@ export class MonitorGroupTableComponent implements OnInit {
     this.dataSource.data = this.groups;
   }
 
-  groupLink(group: RouteGroupDetail): string {
-    return `/monitor/groups/${group.groupName}`;
+  groupLink(group: MonitorGroupDetail): string {
+    return `/monitor/groups/${group.name}`;
   }
 
-  updateLink(group: RouteGroupDetail): string {
-    return `/monitor/admin/groups/${group.groupName}`;
+  updateLink(group: MonitorGroupDetail): string {
+    return `/monitor/admin/groups/${group.name}`;
   }
 
-  deleteLink(group: RouteGroupDetail): string {
-    return `/monitor/admin/groups/${group.groupName}/delete`;
+  deleteLink(group: MonitorGroupDetail): string {
+    return `/monitor/admin/groups/${group.name}/delete`;
   }
 
 }

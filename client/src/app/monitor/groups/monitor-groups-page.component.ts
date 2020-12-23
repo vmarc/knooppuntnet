@@ -1,15 +1,16 @@
 import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
-import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
+import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
+import {Util} from '../../components/shared/util';
 import {AppState} from '../../core/core.state';
-import {actionMonitorInit} from '../store/monitor.actions';
-import {selectMonitorRouteGroups} from '../store/monitor.selectors';
+import {actionMonitorGroupsPageInit} from '../store/monitor.actions';
+import {selectMonitorGroupsPage} from '../store/monitor.selectors';
 import {selectMonitorAdmin} from '../store/monitor.selectors';
 
 @Component({
@@ -53,8 +54,8 @@ export class MonitorGroupsPageComponent implements OnInit {
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
 
-  readonly response$: Observable<ApiResponse<RouteGroupsPage>> = this.store.pipe(
-    select(selectMonitorRouteGroups),
+  readonly response$: Observable<ApiResponse<MonitorGroupsPage>> = this.store.pipe(
+    select(selectMonitorGroupsPage),
     filter(r => r != null)
   );
 
@@ -62,7 +63,7 @@ export class MonitorGroupsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorInit());
+    this.store.dispatch(actionMonitorGroupsPageInit());
   }
 
 }

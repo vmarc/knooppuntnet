@@ -10,7 +10,7 @@ import {tap} from 'rxjs/operators';
 import {AppState} from '../../../../core/core.state';
 import {actionMonitorGroupUpdateInit} from '../../../store/monitor.actions';
 import {actionMonitorUpdateRouteGroup} from '../../../store/monitor.actions';
-import {selectMonitorAdminRouteGroupPage} from '../../../store/monitor.selectors';
+import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-add-page',
@@ -82,7 +82,7 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
     description: this.description
   });
 
-  readonly response$ = this.store.select(selectMonitorAdminRouteGroupPage).pipe(
+  readonly response$ = this.store.select(selectMonitorAdminGroupPage).pipe(
     tap(response => {
       if (response?.result) {
         this.form.reset({

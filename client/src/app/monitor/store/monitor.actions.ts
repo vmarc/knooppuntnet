@@ -5,13 +5,13 @@ import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
+import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
 import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
 import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
-import {RouteGroupsPage} from '@api/common/monitor/route-groups-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
@@ -21,13 +21,13 @@ export const actionMonitorAdmin = createAction(
   props<{ admin: boolean }>()
 );
 
-export const actionMonitorInit = createAction(
-  '[Monitor] Init'
+export const actionMonitorGroupsPageInit = createAction(
+  '[MonitorGroupsPage] Init'
 );
 
-export const actionMonitorLoaded = createAction(
-  '[Monitor] Loaded',
-  props<{ response: ApiResponse<RouteGroupsPage> }>()
+export const actionMonitorGroupsPageLoaded = createAction(
+  '[MonitorGroupsPage] Loaded',
+  props<{ response: ApiResponse<MonitorGroupsPage> }>()
 );
 
 export const actionMonitorGroupDeleteInit = createAction(

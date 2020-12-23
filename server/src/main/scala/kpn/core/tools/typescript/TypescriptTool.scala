@@ -3,6 +3,7 @@ package kpn.core.tools.typescript
 import kpn.api.common.BoundsI
 import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.monitor.LongdistanceRoute
 import kpn.api.common.monitor.LongdistanceRouteChange
 import kpn.api.common.monitor.LongdistanceRouteChangePage
 import kpn.api.common.monitor.LongdistanceRouteChangeSummary
@@ -14,18 +15,24 @@ import kpn.api.common.monitor.LongdistanceRouteNokSegment
 import kpn.api.common.monitor.LongdistanceRouteSegment
 import kpn.api.common.monitor.LongdistanceRoutesPage
 import kpn.api.common.monitor.MonitorAdminGroupPage
+import kpn.api.common.monitor.MonitorChangesPage
+import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorGroup
+import kpn.api.common.monitor.MonitorGroupChangesPage
+import kpn.api.common.monitor.MonitorGroupDetail
+import kpn.api.common.monitor.MonitorGroupPage
+import kpn.api.common.monitor.MonitorGroupsPage
+import kpn.api.common.monitor.MonitorRouteChangeDetail
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangeSummary
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteDetailsPage
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.RouteGroupDetail
-import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import org.apache.commons.io.FileUtils
@@ -63,12 +70,19 @@ class TypescriptTool() {
     classOf[MonitorRouteChangePage],
     classOf[MonitorRouteChange],
     classOf[MonitorRouteChangeSummary],
+    classOf[MonitorRouteReferenceInfo],
     classOf[MonitorGroup],
     classOf[MonitorAdminGroupPage],
     classOf[BoundsI],
     classOf[ChangeKeyI],
     classOf[MonitorGroupsPage],
+    classOf[MonitorChangesPage],
+    classOf[MonitorChangesParameters],
+    classOf[MonitorGroupChangesPage],
+    classOf[MonitorGroupDetail],
+    classOf[MonitorRouteChangeDetail],
     classOf[RouteGroupDetail],
+    classOf[LongdistanceRoute],
     classOf[LongdistanceRouteChange],
     classOf[LongdistanceRouteChangePage],
     classOf[LongdistanceRouteChangesPage],

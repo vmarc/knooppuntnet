@@ -12,19 +12,19 @@ export const selectMonitorAdmin = createSelector(
   (state: MonitorState) => state.admin
 );
 
-export const selectMonitorRouteGroups = createSelector(
+export const selectMonitorGroupsPage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.routeGroups
+  (state: MonitorState) => state.groupsPage
 );
 
-export const selectMonitorAdminRouteGroupPage = createSelector(
+export const selectMonitorGroupPage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.adminRouteGroupPage
+  (state: MonitorState) => state.groupPage
 );
 
-export const selectMonitorRoutes = createSelector(
+export const selectMonitorAdminGroupPage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.routes
+  (state: MonitorState) => state.adminGroupPage
 );
 
 export const selectMonitorRouteDetails = createSelector(
@@ -128,7 +128,7 @@ export const selectMonitorRouteMapOsmRelationVisible = createSelector(
 
 export const selectMonitorRouteMapGpxEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => !!state.map?.result?.gpxGeometry
+  (state: MonitorState) => !!state.map?.result?.reference.geometry
 );
 
 export const selectMonitorRouteMapGpxOkEnabled = createSelector(
