@@ -7,6 +7,7 @@ import kpn.core.database.doc.MonitorRouteChangeGeometryDoc
 import kpn.core.database.doc.MonitorRouteDoc
 import kpn.core.database.doc.MonitorRouteReferenceDoc
 import kpn.core.database.doc.MonitorRouteStateDoc
+import kpn.core.database.views.monitor.MonitorRouteView
 import kpn.core.util.Log
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -21,6 +22,13 @@ class MonitorAdminRouteRepositoryImpl(
 ) extends MonitorAdminRouteRepository {
 
   private val log = Log(classOf[MonitorAdminRouteRepositoryImpl])
+
+  override def allRouteIds: Seq[Long] = {
+    log.debugElapsed {
+      val routeIds = MonitorRouteView.allRouteIds(monitorAdminDatabase, stale = false)
+      (s"admin-all-route-ids", routeIds)
+    }
+  }
 
   override def saveRoute(route: MonitorRoute): Unit = {
     log.debugElapsed {

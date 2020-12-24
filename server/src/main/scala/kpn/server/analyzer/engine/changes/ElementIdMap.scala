@@ -57,4 +57,12 @@ class ElementIdMap {
         elementIds.nodeIds.exists(value.nodeIds.contains)
     }.keySet
   }
+
+  def foreach(f: (Long, ElementIds) => Unit): Unit = {
+    ids.toSeq.sorted.foreach { key =>
+      get(key).foreach { elementIds =>
+        f(key, elementIds)
+      }
+    }
+  }
 }

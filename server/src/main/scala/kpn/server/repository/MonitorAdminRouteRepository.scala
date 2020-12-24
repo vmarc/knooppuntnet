@@ -9,6 +9,8 @@ import kpn.server.api.monitor.domain.MonitorRouteState
 
 trait MonitorAdminRouteRepository {
 
+  def allRouteIds: Seq[Long]
+
   def saveRoute(route: MonitorRoute): Unit
 
   def saveRouteState(routeState: MonitorRouteState): Unit

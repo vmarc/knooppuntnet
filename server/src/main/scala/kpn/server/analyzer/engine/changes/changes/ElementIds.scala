@@ -8,7 +8,7 @@ case class ElementIds(
 
   def isEmpty: Boolean = nodeIds.isEmpty && wayIds.isEmpty && relationIds.isEmpty
 
-  def nonEmpty: Boolean = ! isEmpty
+  def nonEmpty: Boolean = !isEmpty
 
   def intersect(other: ElementIds): ElementIds = ElementIds(
     nodeIds.intersect(other.nodeIds),
@@ -24,7 +24,7 @@ case class ElementIds(
     ).flatten.mkString(", ")
   }
 
-  private def idString(name: String, ids :Set[Long]): Option[String] = {
+  private def idString(name: String, ids: Set[Long]): Option[String] = {
     if (ids.nonEmpty) {
       val sortedIds = ids.toSeq.sorted
       Some(name + "=" + sortedIds.mkString("+"))
