@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.changes.ElementIdMap
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
-import kpn.server.analyzer.engine.monitor.MonitorChangeImpactAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorChangeImpactAnalyzerImpl
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -50,6 +50,7 @@ object MonitorRouteCreateXmlsTool {
 class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, routeIds: Seq[Long]) {
 
   private val elementIdMap = ElementIdMap()
+  private val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerImpl()
   private val osmChangeRepository = new OsmChangeRepository(new File("/kpn/replicate"))
   private val log = Log(classOf[MonitorRouteCreateXmlsTool])
 
@@ -77,7 +78,7 @@ class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, r
     val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
     changeSets.foreach { changeSet =>
       elementIdMap.foreach { (routeId, elementIds) =>
-        if (MonitorChangeImpactAnalyzer.hasImpact(changeSet, elementIds)) {
+        if (monitorChangeImpactAnalyzer.hasImpact(changeSet, routeId, elementIds)) {
           val context = ChangeSetContext(replicationId, changeSet)
           val dir = s"/kpn/wrk/${changeSet.id}"
           new File(dir).mkdir()
