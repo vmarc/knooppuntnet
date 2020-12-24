@@ -106,6 +106,16 @@ export const selectMonitorRouteName = createSelector(
   (state: MonitorState) => state.routeName
 );
 
+export const selectMonitorGroupName = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.groupName
+);
+
+export const selectMonitorGroupDescription = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.groupDescription
+);
+
 export const selectMonitorRouteMapGpxVisible = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.mapGpxVisible

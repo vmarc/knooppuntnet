@@ -4,7 +4,11 @@ import {Validators} from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {FormGroup} from '@angular/forms';
 import {MatRadioChange} from '@angular/material/radio/radio';
-import {of} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {map} from 'rxjs/operators';
+import {AppState} from '../../../../core/core.state';
+import {selectMonitorGroupDescription} from '../../../store/monitor.selectors';
+import {selectMonitorGroupName} from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-route-add-page',
@@ -86,13 +90,17 @@ import {of} from 'rxjs';
 })
 export class MonitorAdminRouteAddPageComponent {
 
-  readonly groupDescription$ = of('Group One');
-  readonly groupLink$ = of('/monitor/groups/group-1');
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
+  readonly groupLink$ = this.groupName$.pipe(map(groupName => `/monitor/groups/${groupName}`));
   readonly routeId = new FormControl('', [Validators.required]);
 
   readonly form = new FormGroup({
     routeId: this.routeId
   });
+
+  constructor(private store: Store<AppState>) {
+  }
 
   getRouteInformation(): void {
   }

@@ -3,5 +3,7 @@
 import {MonitorRouteDetail} from './monitor-route-detail';
 
 export interface MonitorGroupPage {
-  readonly details: MonitorRouteDetail[];
+  readonly groupName: string;
+  readonly groupDescription: string;
+  readonly routes: MonitorRouteDetail[];
 }

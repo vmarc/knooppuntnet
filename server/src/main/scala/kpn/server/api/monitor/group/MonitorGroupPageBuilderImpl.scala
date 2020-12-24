@@ -11,20 +11,24 @@ class MonitorGroupPageBuilderImpl(
 ) extends MonitorGroupPageBuilder {
 
   override def build(groupName: String): Option[MonitorGroupPage] = {
-    val routes = monitorGroupRepository.groupRoutes(groupName)
-    val sortedRoutes = routes.sortWith { (a, b) =>
-      val ref1 = a.ref.getOrElse("zz")
-      val ref2 = b.ref.getOrElse("zz")
-      if (ref1 == ref2) {
-        a.name < b.name
-      }
-      else {
-        ref1 < ref2
-      }
-    }
 
-    Some(
+    monitorGroupRepository.group(groupName).map { group =>
+
+      val routes = monitorGroupRepository.groupRoutes(groupName)
+      val sortedRoutes = routes.sortWith { (a, b) =>
+        val ref1 = a.ref.getOrElse("zz")
+        val ref2 = b.ref.getOrElse("zz")
+        if (ref1 == ref2) {
+          a.name < b.name
+        }
+        else {
+          ref1 < ref2
+        }
+      }
+
       MonitorGroupPage(
+        groupName,
+        group.description,
         sortedRoutes.map { route =>
           MonitorRouteDetail(
             route.id,
@@ -42,6 +46,6 @@ class MonitorGroupPageBuilderImpl(
           )
         }
       )
-    )
+    }
   }
 }

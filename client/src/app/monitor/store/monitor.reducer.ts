@@ -1,6 +1,8 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionMonitorGroupPageLoaded} from './monitor.actions';
+import {actionMonitorNavigateGroup} from './monitor.actions';
 import {actionLongdistanceRouteMapOsmRelationVisible} from './monitor.actions';
 import {actionLongdistanceRouteMapNokVisible} from './monitor.actions';
 import {actionLongdistanceRouteMapOkVisible} from './monitor.actions';
@@ -57,6 +59,23 @@ export const monitorReducer = createReducer(
     (state, {response}) => ({
       ...state,
       groupsPage: response
+    })
+  ),
+  on(
+    actionMonitorGroupPageLoaded,
+    (state, {response}) => ({
+      ...state,
+      groupName: response?.result?.groupName ?? state.groupName,
+      groupDescription: response?.result?.groupDescription ?? state.groupDescription,
+      groupPage: response
+    })
+  ),
+  on(
+    actionMonitorNavigateGroup,
+    (state, {groupName, groupDescription}) => ({
+      ...state,
+      groupName,
+      groupDescription
     })
   ),
   on(

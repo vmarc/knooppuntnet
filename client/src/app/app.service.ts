@@ -375,7 +375,7 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public monitorRouteGroup(groupName: string): Observable<ApiResponse<RouteGroupDetailsPage>> {
+  public monitorGroup(groupName: string): Observable<ApiResponse<MonitorGroupPage>> {
     const url = `/api/monitor/groups/${groupName}`;
     return this.httpGet(url);
   }

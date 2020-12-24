@@ -30,6 +30,11 @@ export const actionMonitorGroupsPageLoaded = createAction(
   props<{ response: ApiResponse<MonitorGroupsPage> }>()
 );
 
+export const actionMonitorNavigateGroup = createAction(
+  '[MonitorGroupsPage] Navigate to group',
+  props<{ groupName: string, groupDescription: string }>()
+);
+
 export const actionMonitorGroupDeleteInit = createAction(
   '[MonitorAdminGroupDeletePage] Init'
 );
@@ -47,6 +52,16 @@ export const actionMonitorGroupUpdateLoaded = createAction(
   '[MonitorAdminGroupUpdatePage] Loaded',
   props<{ response: ApiResponse<MonitorAdminGroupPage> }>()
 );
+
+export const actionMonitorGroupPageInit = createAction(
+  '[MonitorGroupPage] Init'
+);
+
+export const actionMonitorGroupPageLoaded = createAction(
+  '[MonitorGroupPage] Loaded',
+  props<{ response: ApiResponse<MonitorGroupPage> }>()
+);
+
 
 export const actionMonitorRoutesInit = createAction(
   '[Monitor routes] Init'

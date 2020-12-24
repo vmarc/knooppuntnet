@@ -121,7 +121,7 @@ export class MonitorRoutesTableComponent implements OnInit {
     filter(r => r != null),
     tap(response => {
       if (response.result) {
-        this.dataSource.data = response.result.details;
+        this.dataSource.data = response.result.routes;
       }
     })
   );

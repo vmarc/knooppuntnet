@@ -17,6 +17,8 @@ export const initialState: MonitorState = {
   admin: true,
   routeId: 0,
   routeName: '',
+  groupName: '',
+  groupDescription: '',
   details: null,
   changes: null,
   change: null,
@@ -48,6 +50,8 @@ export interface MonitorState {
   admin: boolean;
   routeId: number;
   routeName: string;
+  groupName: string;
+  groupDescription: string;
   details: ApiResponse<MonitorRouteDetailsPage>;
   changes: ApiResponse<MonitorRouteChangesPage>;
   change: ApiResponse<MonitorRouteChangePage>;

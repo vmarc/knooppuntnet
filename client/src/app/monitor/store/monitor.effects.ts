@@ -15,6 +15,8 @@ import {selectRouteParam} from '../../core/core.state';
 import {selectRouteParams} from '../../core/core.state';
 import {LongdistanceRouteMapService} from '../longdistance/route/map/longdistance-route-map.service';
 import {MonitorRouteMapService} from '../route/map/monitor-route-map.service';
+import {actionMonitorGroupPageLoaded} from './monitor.actions';
+import {actionMonitorGroupPageInit} from './monitor.actions';
 import {actionLongdistanceRouteMapFocus} from './monitor.actions';
 import {actionLongdistanceRouteChangeLoaded} from './monitor.actions';
 import {actionLongdistanceRouteChangesLoaded} from './monitor.actions';
@@ -87,6 +89,20 @@ export class MonitorEffects {
     )
   );
 
+  monitorGroupPageInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorGroupPageInit),
+      withLatestFrom(
+        this.store.select(selectRouteParam('groupName'))
+      ),
+      mergeMap(([action, groupName]) => {
+        return this.appService.monitorGroup(groupName).pipe(
+          map(response => actionMonitorGroupPageLoaded({response}))
+        );
+      })
+    )
+  );
+
   monitorGroupDeleteInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupDeleteInit),
@@ -110,17 +126,6 @@ export class MonitorEffects {
       mergeMap(([action, groupName]) => {
         return this.appService.monitorAdminRouteGroup(groupName).pipe(
           map(response => actionMonitorGroupUpdateLoaded({response}))
-        );
-      })
-    )
-  );
-
-  monitorRoutesInit = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionMonitorRoutesInit),
-      mergeMap((action) => {
-        return this.appService.monitorRoutes().pipe(
-          map(response => actionMonitorRoutesLoaded({response}))
         );
       })
     )

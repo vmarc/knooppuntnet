@@ -7,7 +7,6 @@ import {select} from '@ngrx/store';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {Util} from '../../components/shared/util';
 import {AppState} from '../../core/core.state';
 import {actionMonitorGroupsPageInit} from '../store/monitor.actions';
 import {selectMonitorGroupsPage} from '../store/monitor.selectors';
@@ -36,7 +35,8 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
         No route groups
       </div>
       <div *ngIf="response.result">
-        <kpn-monitor-group-table [groups]="response.result.groups"></kpn-monitor-group-table>
+        <kpn-monitor-group-table [groups]="response.result.groups">
+        </kpn-monitor-group-table>
       </div>
     </div>
 
