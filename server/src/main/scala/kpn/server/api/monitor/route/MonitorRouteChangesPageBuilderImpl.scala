@@ -37,13 +37,16 @@ class MonitorRouteChangesPageBuilderImpl(
 
   override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
     val changes = build(monitorRouteRepository.routeChanges(routeId, parameters))
-    monitorRouteRepository.route(routeId).map { route =>
-      MonitorRouteChangesPage(
-        route.id,
-        route.ref,
-        route.name,
-        changes
-      )
+    monitorRouteRepository.route(routeId).flatMap { route =>
+      monitorGroupRepository.group(route.groupName).map { group =>
+        MonitorRouteChangesPage(
+          route.id,
+          route.name,
+          group.name,
+          group.description,
+          changes
+        )
+      }
     }
   }
 

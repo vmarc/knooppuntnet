@@ -24,10 +24,10 @@ import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
 
         <kpn-data title="Summary">
           <p *ngIf="route.ref">{{route.ref}}</p>
-          <p>{{route.name}}</p>
+          <p>{{route.routeName}}</p>
           <p class="kpn-separated">
-            <kpn-osm-link-relation [relationId]="route.id"></kpn-osm-link-relation>
-            <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
+            <kpn-osm-link-relation [relationId]="route.routeId"></kpn-osm-link-relation>
+            <kpn-josm-relation [relationId]="route.routeId"></kpn-josm-relation>
           </p>
           <p *ngIf="route.website">
             <a href="{{route.website}}" target="_blank" rel="nofollow noreferrer" class="external">website</a>

@@ -7,7 +7,7 @@ import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
 import {actionMonitorRouteChangeInit} from '../../store/monitor.actions';
 import {selectMonitorRouteName} from '../../store/monitor.selectors';
-import {selectMonitorRouteChange} from '../../store/monitor.selectors';
+import {selectMonitorRouteChangePage} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-change-page',
@@ -92,7 +92,7 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
               Reference
             </td>
             <td>
-              {{response.result.reference.filename}}
+              {{"TODO response.result.reference.filename"}}
             </td>
           </tr>
           <tr>
@@ -102,7 +102,7 @@ import {selectMonitorRouteChange} from '../../store/monitor.selectors';
             <td>
               <div>
                 <span class="distance-label">GPX</span>
-                <span>{{response.result.reference.distance}}km</span>
+                <span>{{"TODO response.result.reference.distance"}}km</span>
               </div>
               <div>
                 <span class="distance-label">OSM</span>
@@ -216,7 +216,7 @@ export class MonitorRouteChangePageComponent implements OnInit {
   util = Util;
 
   readonly routeName$ = this.store.select(selectMonitorRouteName);
-  readonly response$ = this.store.select(selectMonitorRouteChange);
+  readonly response$ = this.store.select(selectMonitorRouteChangePage);
 
   constructor(private store: Store<AppState>) {
   }

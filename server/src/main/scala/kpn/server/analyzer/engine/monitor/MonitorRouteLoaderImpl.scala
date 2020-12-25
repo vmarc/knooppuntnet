@@ -16,7 +16,7 @@ import scala.xml.Elem
 import scala.xml.XML
 
 @Component
-class MonitorRouteLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends MonitorRouteLoader {
+class MonitorRouteLoaderImpl(nonCachingOverpassQueryExecutor: OverpassQueryExecutor) extends MonitorRouteLoader {
 
   private val log = Log(classOf[MonitorRouteLoaderImpl])
 
@@ -35,7 +35,7 @@ class MonitorRouteLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) exten
   private def load(timestamp: Timestamp, routeId: Long): Option[Relation] = {
 
     val xmlString: String = log.elapsed {
-      val xml = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
+      val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
       ("Load at " + timestamp.iso, xml)
     }
 

@@ -4,6 +4,8 @@ import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
+import {MonitorChangesPage} from '@api/common/monitor/monitor-changes-page';
+import {MonitorGroupChangesPage} from '@api/common/monitor/monitor-group-changes-page';
 import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
@@ -21,15 +23,17 @@ export const initialState: MonitorState = {
   groupDescription: '',
   details: null,
   changes: null,
-  change: null,
+  routeChangePage: null,
   map: null,
   mapMode: null,
   mapGpxVisible: false,
   mapGpxOkVisible: false,
   mapGpxNokVisible: false,
   mapOsmRelationVisible: false,
+  changesPage: null,
   groupsPage: null,
   groupPage: null,
+  groupChangesPage: null,
   adminGroupPage: null,
 
   longdistanceRouteId: 0,
@@ -54,15 +58,17 @@ export interface MonitorState {
   groupDescription: string;
   details: ApiResponse<MonitorRouteDetailsPage>;
   changes: ApiResponse<MonitorRouteChangesPage>;
-  change: ApiResponse<MonitorRouteChangePage>;
+  routeChangePage: ApiResponse<MonitorRouteChangePage>;
   map: ApiResponse<MonitorRouteMapPage>;
   mapMode: string;
   mapGpxVisible: boolean;
   mapGpxOkVisible: boolean;
   mapGpxNokVisible: boolean;
   mapOsmRelationVisible: boolean;
+  changesPage: ApiResponse<MonitorChangesPage>;
   groupsPage: ApiResponse<MonitorGroupsPage>;
   groupPage: ApiResponse<MonitorGroupPage>;
+  groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
   adminGroupPage: ApiResponse<MonitorAdminGroupPage>;
 
   longdistanceRouteId: number;

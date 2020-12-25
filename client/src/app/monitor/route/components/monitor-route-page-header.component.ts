@@ -1,7 +1,12 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {AppState} from '../../../core/core.state';
+import {selectMonitorRouteId} from '../../store/monitor.selectors';
+import {selectMonitorGroupDescription} from '../../store/monitor.selectors';
+import {selectMonitorGroupName} from '../../store/monitor.selectors';
 import {selectMonitorRouteName} from '../../store/monitor.selectors';
 
 @Component({
@@ -11,7 +16,7 @@ import {selectMonitorRouteName} from '../../store/monitor.selectors';
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
-      <li><a routerLink="/monitor/long-distance-routes">Routes</a></li>
+      <li><a [routerLink]="groupLink$ | async">{{groupDescription$ | async}}</a></li>
       <li>Route</li>
     </ul>
 
@@ -21,19 +26,19 @@ import {selectMonitorRouteName} from '../../store/monitor.selectors';
 
     <kpn-page-menu>
       <kpn-page-menu-option
-        [link]="'/monitor/long-distance-routes/' + routeId"
+        [link]="routeDetailLink$ | async"
         [active]="pageName === 'details'">
         Details
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        [link]="'/monitor/long-distance-routes/' + routeId + '/map'"
+        [link]="routeMapLink$ | async"
         [active]="pageName === 'map'">
         Map
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        [link]="'/monitor/long-distance-routes/' + routeId + '/changes'"
+        [link]="routeChangesLink$ | async"
         [active]="pageName === 'changes'">
         Changes
       </kpn-page-menu-option>
@@ -54,7 +59,25 @@ export class MonitorRoutePageHeaderComponent {
   @Input() routeId: number;
   @Input() pageTitle: string;
 
+  readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly groupLink$ = this.groupName$.pipe(map(groupName => `/monitor/groups/${groupName}`));
+
+  readonly routeDetailLink$ = combineLatest([
+    this.store.select(selectMonitorGroupName),
+    this.store.select(selectMonitorRouteId)
+  ]).pipe(map(([groupName, routeId]) => `/monitor/groups/${groupName}/routes/${routeId}`));
+
+  readonly routeMapLink$ = combineLatest([
+    this.store.select(selectMonitorGroupName),
+    this.store.select(selectMonitorRouteId)
+  ]).pipe(map(([groupName, routeId]) =>  `/monitor/groups/${groupName}/routes/${routeId}/map`));
+
+  readonly routeChangesLink$ = combineLatest([
+    this.store.select(selectMonitorGroupName),
+    this.store.select(selectMonitorRouteId)
+  ]).pipe(map(([groupName, routeId]) => `/monitor/groups/${groupName}/routes/${routeId}/changes`));
 
   constructor(private store: Store<AppState>) {
   }

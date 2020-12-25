@@ -5,6 +5,8 @@ import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
+import {MonitorChangesPage} from '@api/common/monitor/monitor-changes-page';
+import {MonitorGroupChangesPage} from '@api/common/monitor/monitor-group-changes-page';
 import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
@@ -62,6 +64,14 @@ export const actionMonitorGroupPageLoaded = createAction(
   props<{ response: ApiResponse<MonitorGroupPage> }>()
 );
 
+export const actionMonitorGroupChangesPageInit = createAction(
+  '[MonitorGroupChangesPage] Init'
+);
+
+export const actionMonitorGroupChangesPageLoaded = createAction(
+  '[MonitorGroupChangesPage] Loaded',
+  props<{ response: ApiResponse<MonitorGroupChangesPage> }>()
+);
 
 export const actionMonitorRoutesInit = createAction(
   '[Monitor routes] Init'
@@ -151,6 +161,15 @@ export const actionMonitorGroupDelete = createAction(
 export const actionMonitorGroupUpdate = createAction(
   '[MonitorAdminGroupUpdatePage] Update',
   props<{ group: MonitorGroup }>()
+);
+
+export const actionMonitorChangesPageInit = createAction(
+  '[MonitorChangesPage] Init'
+);
+
+export const actionMonitorChangesPageLoaded = createAction(
+  '[MonitorChangesPage] Loaded',
+  props<{ response: ApiResponse<MonitorChangesPage> }>()
 );
 
 /*****************************************/

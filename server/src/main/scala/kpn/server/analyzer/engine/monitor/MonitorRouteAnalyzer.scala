@@ -1,0 +1,121 @@
+package kpn.server.analyzer.engine.monitor
+
+import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.custom.Relation
+import kpn.api.custom.Tags
+import kpn.server.analyzer.engine.analysis.route.segment.Fragment
+import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
+import kpn.server.api.monitor.domain.MonitorRoute
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.io.geojson.GeoJsonWriter
+
+object MonitorRouteAnalyzer {
+
+  private val geomFactory = new GeometryFactory
+
+  def toRoute(groupName: String, relation: Relation): MonitorRoute = {
+    MonitorRoute(
+      relation.id,
+      groupName,
+      relation.tags("name").getOrElse("name"),
+      relation.tags("name:nl"),
+      relation.tags("name:en"),
+      relation.tags("name:de"),
+      relation.tags("name:fr"),
+      relation.tags("ref"),
+      relation.tags("description"),
+      relation.tags("operator"),
+      relation.tags("website")
+    )
+  }
+
+  def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
+
+    val fragments = withoutTags(new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragments)
+    val fragmentMap = fragments.map(f => f.id -> f).toMap
+    val fragmentIds = fragmentMap.values.map(_.id).toSet
+    val segments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
+
+    //    println(s"wayMembers.size=${routeRelation.wayMembers.size}")
+    //    println(s"fragments.size=${fragments.size}")
+    //    println(s"segments.size=${segments.size}")
+
+    segments.zipWithIndex.map { case (segment, index) =>
+
+      val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
+      val meters: Long = Math.round(toMeters(lineString.getLength))
+      val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
+      val geoJson = toGeoJson(lineString)
+
+      MonitorRouteSegmentData(
+        MonitorRouteSegment(
+          index + 1,
+          meters,
+          bounds,
+          geoJson
+        ),
+        lineString
+      )
+    }
+  }
+
+  private def withoutTags(fragments: Seq[Fragment]): Seq[Fragment] = {
+    fragments.map { fragment => // temporary hack to remove paved/unpaved info
+      val rawWayCopy = fragment.way.raw.copy(tags = Tags.empty)
+      val wayCopy = fragment.way.copy(raw = rawWayCopy)
+      fragment.copy(way = wayCopy)
+    }
+  }
+
+
+  def toBounds(coordinates: Seq[Coordinate]): Bounds = {
+    val minLat = coordinates.map(_.getY).min
+    val maxLat = coordinates.map(_.getY).max
+    val minLon = coordinates.map(_.getX).min
+    val maxLon = coordinates.map(_.getX).max
+    new Bounds(
+      minLat,
+      minLon,
+      maxLat,
+      maxLon
+    )
+  }
+
+  def toMeters(value: Double): Double = {
+    value * (math.Pi / 180) * 6378137
+  }
+
+  def toGeoJson(geometry: Geometry): String = {
+    new GeoJsonWriter().write(geometry).replaceAll("EPSG:0", "EPSG:4326")
+  }
+
+  def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
+    list match {
+      case Nil => Nil
+      case head :: tail =>
+        val segment = list.takeWhile(_._1 == head._1)
+        segment +: split(list.drop(segment.length))
+    }
+  }
+
+  def toMultiLineString(sampleCoordinates: Seq[Coordinate], segments: List[List[(Boolean, Int)]]) = {
+    geomFactory.createMultiLineString(segments.map(segment => toLineString(sampleCoordinates, segment)).toArray)
+  }
+
+  def toLineString(osmCoordinates: Seq[Coordinate], segment: List[(Boolean, Int)]): LineString = {
+    val indexes = segment.map(_._2)
+    val coordinates = if (indexes.size == 1) {
+      Seq(osmCoordinates.head, osmCoordinates.head)
+    }
+    else {
+      indexes.map(index => osmCoordinates(index))
+    }
+    geomFactory.createLineString(coordinates.toArray)
+  }
+
+}

@@ -1,13 +1,15 @@
 package kpn.api.common.monitor
 
 case class MonitorRouteDetailsPage(
-  id: Long,
-  ref: Option[String],
-  name: String,
+  routeId: Long,
+  routeName: String,
+  groupName: String,
+  groupDescription: String,
   nameNl: Option[String],
   nameEn: Option[String],
   nameDe: Option[String],
   nameFr: Option[String],
+  ref: Option[String],
   description: Option[String],
   operator: Option[String],
   website: Option[String],

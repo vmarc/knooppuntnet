@@ -28,6 +28,8 @@ import {MonitorAdminRouteDeletePageComponent} from './admin/route/delete/monitor
 import {MonitorAdminRouteUpdatePageComponent} from './admin/route/update/monitor-admin-route-update-page.component';
 import {MonitorChangesPageComponent} from './changes/monitor-changes-page.component';
 import {MonitorAdminToggleComponent} from './components/monitor-admin-toggle.component';
+import {MonitorChangeHeaderComponent} from './components/monitor-change-header.component';
+import {MonitorChangesComponent} from './components/monitor-changes.component';
 import {MonitorPageMenuComponent} from './components/monitor-page-menu.component';
 import {MonitorGroupChangesPageComponent} from './group/changes/monitor-group-changes-page.component';
 import {MonitorGroupPageMenuComponent} from './group/components/monitor-group-page-menu.component';
@@ -51,7 +53,6 @@ import {LongdistanceRouteMapComponent} from './longdistance/route/map/longdistan
 import {LongdistanceRoutesTableComponent} from './longdistance/routes/longdistance-routes-table.component';
 import {LongdistanceRoutesComponent} from './longdistance/routes/longdistance-routes.component';
 import {MonitorRoutingModule} from './monitor-routing.module';
-import {MonitorRouteChangeHeaderComponent} from './route/changes/monitor-route-change-header.component';
 import {MonitorRouteChangeMapComponent} from './route/changes/monitor-route-change-map.component';
 import {MonitorRouteChangePageComponent} from './route/changes/monitor-route-change-page.component';
 import {MonitorRouteChangesComponent} from './route/changes/monitor-route-changes.component';
@@ -107,7 +108,7 @@ import {monitorFeatureKey} from './store/monitor.state';
     MonitorRouteMapControlComponent,
     MonitorRouteMapLayersComponent,
     MonitorRouteChangePageComponent,
-    MonitorRouteChangeHeaderComponent,
+    MonitorChangeHeaderComponent,
     MonitorRouteChangeMapComponent,
     MonitorAboutPageComponent,
     MonitorChangesPageComponent,
@@ -127,6 +128,7 @@ import {monitorFeatureKey} from './store/monitor.state';
     MonitorGroupRouteTableComponent,
     MonitorAdminRouteSummaryComponent,
     MonitorAdminRouteReferenceComponent,
+    MonitorChangesComponent,
 
     LongdistanceRoutesComponent,
     LongdistanceRoutesTableComponent,

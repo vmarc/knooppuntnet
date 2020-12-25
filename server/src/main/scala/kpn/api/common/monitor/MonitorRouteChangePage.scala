@@ -5,6 +5,8 @@ import kpn.api.common.changes.details.ChangeKeyI
 
 case class MonitorRouteChangePage(
   key: ChangeKeyI,
+  groupName: String,
+  groupDescription: String,
   comment: Option[String],
   wayCount: Long,
   waysAdded: Long,

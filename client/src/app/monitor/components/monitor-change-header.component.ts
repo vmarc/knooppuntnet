@@ -2,10 +2,10 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MonitorRouteChangeSummary} from '@api/common/monitor/monitor-route-change-summary';
 import {map} from 'rxjs/operators';
-import {PageWidthService} from '../../../components/shared/page-width.service';
+import {PageWidthService} from '../../components/shared/page-width.service';
 
 @Component({
-  selector: 'kpn-monitor-route-change-header',
+  selector: 'kpn-monitor-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -30,7 +30,7 @@ import {PageWidthService} from '../../../components/shared/page-width.service';
     }
   `]
 })
-export class MonitorRouteChangeHeaderComponent {
+export class MonitorChangeHeaderComponent {
 
   @Input() changeSet: MonitorRouteChangeSummary;
 

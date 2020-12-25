@@ -20,15 +20,16 @@ import {LongdistanceRouteDetailsPage} from '@api/common/monitor/longdistance-rou
 import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-map-page';
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
+import {MonitorChangesPage} from '@api/common/monitor/monitor-changes-page';
+import {MonitorChangesParameters} from '@api/common/monitor/monitor-changes-parameters';
 import {MonitorGroup} from '@api/common/monitor/monitor-group';
+import {MonitorGroupChangesPage} from '@api/common/monitor/monitor-group-changes-page';
 import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
-import {RouteGroupChangesPage} from '@api/common/monitor/route-group-changes-page';
-import {RouteGroupDetailsPage} from '@api/common/monitor/route-group-details-page';
 import {NetworkChangesPage} from '@api/common/network/network-changes-page';
 import {NetworkDetailsPage} from '@api/common/network/network-details-page';
 import {NetworkFactsPage} from '@api/common/network/network-facts-page';
@@ -380,9 +381,24 @@ export class AppService {
     return this.httpGet(url);
   }
 
-  public monitorRouteGroupChanges(groupName: string): Observable<ApiResponse<RouteGroupChangesPage>> {
+  public monitorGroupChanges(groupName: string): Observable<ApiResponse<MonitorGroupChangesPage>> {
     const url = `/api/monitor/groups/${groupName}/changes`;
-    return this.httpGet(url);
+    const parameters: MonitorChangesParameters = {
+      itemsPerPage: 20,
+      pageIndex: 0,
+      impact: false
+    };
+    return this.httpPost(url, parameters);
+  }
+
+  public monitorChanges(): Observable<ApiResponse<MonitorChangesPage>> {
+    const url = `/api/monitor/changes`;
+    const parameters: MonitorChangesParameters = {
+      itemsPerPage: 20,
+      pageIndex: 0,
+      impact: false
+    };
+    return this.httpPost(url, parameters);
   }
 
   public monitorRoutes(): Observable<ApiResponse<MonitorGroupPage>> {
@@ -402,11 +418,16 @@ export class AppService {
 
   public monitorRouteChanges(routeId: string): Observable<ApiResponse<MonitorRouteChangesPage>> {
     const url = `/api/monitor/routes/${routeId}/changes`;
-    return this.httpGet(url);
+    const parameters: MonitorChangesParameters = {
+      itemsPerPage: 20,
+      pageIndex: 0,
+      impact: false
+    };
+    return this.httpPost(url, parameters);
   }
 
   public monitorRouteChange(routeId: string, changeSetId: string): Observable<ApiResponse<MonitorRouteChangePage>> {
-    const url = `/api/monitor/routes/${routeId}/changes/${changeSetId}`;
+    const url = `/api/monitor/routes/${routeId}/changes/${changeSetId}/1`;
     return this.httpGet(url);
   }
 

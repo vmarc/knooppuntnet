@@ -12,6 +12,11 @@ export const selectMonitorAdmin = createSelector(
   (state: MonitorState) => state.admin
 );
 
+export const selectMonitorChangesPage = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.changesPage
+);
+
 export const selectMonitorGroupsPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.groupsPage
@@ -20,6 +25,11 @@ export const selectMonitorGroupsPage = createSelector(
 export const selectMonitorGroupPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.groupPage
+);
+
+export const selectMonitorGroupChangesPage = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.groupChangesPage
 );
 
 export const selectMonitorAdminGroupPage = createSelector(
@@ -77,23 +87,9 @@ export const selectMonitorRouteChanges = createSelector(
   (state: MonitorState) => state.changes
 );
 
-export const selectMonitorRouteChange = createSelector(
+export const selectMonitorRouteChangePage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.change
-);
-
-export const selectMonitorRouteChangesFiltered = createSelector(
-  selectMonitorState,
-  selectPreferencesImpact,
-  (state: MonitorState, impact) => {
-    const changes = state.changes?.result?.changes ?? [];
-    return changes.filter(change => {
-      if (impact) {
-        return change.happy || change.investigate;
-      }
-      return true;
-    });
-  }
+  (state: MonitorState) => state.routeChangePage
 );
 
 export const selectMonitorRouteId = createSelector(

@@ -1,6 +1,8 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionMonitorChangesPageLoaded} from './monitor.actions';
+import {actionMonitorGroupChangesPageLoaded} from './monitor.actions';
 import {actionMonitorGroupPageLoaded} from './monitor.actions';
 import {actionMonitorNavigateGroup} from './monitor.actions';
 import {actionLongdistanceRouteMapOsmRelationVisible} from './monitor.actions';
@@ -44,14 +46,22 @@ export const monitorReducer = createReducer(
       ...state,
       details: null,
       changes: null,
-      change: null,
+      routeChangePage: null,
       map: null,
       mapMode: null,
       routeGroups: null,
 
+      changesPage: null,
       groupsPage: null,
       groupPage: null,
       adminGroupPage: null
+    })
+  ),
+  on(
+    actionMonitorChangesPageLoaded,
+    (state, {response}) => ({
+      ...state,
+      changesPage: response
     })
   ),
   on(
@@ -68,6 +78,15 @@ export const monitorReducer = createReducer(
       groupName: response?.result?.groupName ?? state.groupName,
       groupDescription: response?.result?.groupDescription ?? state.groupDescription,
       groupPage: response
+    })
+  ),
+  on(
+    actionMonitorGroupChangesPageLoaded,
+    (state, {response}) => ({
+      ...state,
+      groupName: response?.result?.groupName ?? state.groupName,
+      groupDescription: response?.result?.groupDescription ?? state.groupDescription,
+      groupChangesPage: response
     })
   ),
   on(
@@ -102,12 +121,16 @@ export const monitorReducer = createReducer(
   on(
     actionMonitorRouteDetailsLoaded,
     (state, {response}) => {
-      const routeId = response.result?.id ?? state.routeId;
-      const routeName = response.result?.name ?? state.routeName;
+      const routeId = response.result?.routeId ?? state.routeId;
+      const routeName = response.result?.routeName ?? state.routeName;
+      const groupName = response.result?.groupName ?? state.groupName;
+      const groupDescription = response.result?.groupDescription ?? state.groupDescription;
       return {
         ...state,
         routeId,
         routeName,
+        groupName,
+        groupDescription,
         details: response
       };
     }
@@ -116,8 +139,10 @@ export const monitorReducer = createReducer(
     actionMonitorRouteMapLoaded,
     (state, {response}) => {
 
-      const routeId = response.result?.id ?? state.routeId;
-      const routeName = response.result?.name ?? state.routeName;
+      const routeId = response.result?.routeId ?? state.routeId;
+      const routeName = response.result?.routeName ?? state.routeName;
+      const groupName = response.result?.groupName ?? state.groupName;
+      const groupDescription = response.result?.groupDescription ?? state.groupDescription;
       const mapGpxVisible = false;
       const mapGpxOkVisible = !!(response.result?.okGeometry);
       const mapGpxNokVisible = (response.result?.nokSegments?.length ?? 0) > 0;
@@ -127,6 +152,8 @@ export const monitorReducer = createReducer(
         ...state,
         routeId,
         routeName,
+        groupName,
+        groupDescription,
         mapGpxVisible,
         mapGpxOkVisible,
         mapGpxNokVisible,
@@ -139,12 +166,16 @@ export const monitorReducer = createReducer(
   on(
     actionMonitorRouteChangesLoaded,
     (state, {response}) => {
-      const routeId = response.result?.id ?? state.routeId;
-      const routeName = response.result?.name ?? state.routeName;
+      const routeId = response.result?.routeId ?? state.routeId;
+      const routeName = response.result?.routeName ?? state.routeName;
+      const groupName = response.result?.groupName ?? state.groupName;
+      const groupDescription = response.result?.groupDescription ?? state.groupDescription;
       return {
         ...state,
         routeId,
         routeName,
+        groupName,
+        groupDescription,
         changes: response
       };
     }
@@ -158,7 +189,7 @@ export const monitorReducer = createReducer(
         ...state,
         routeId,
         routeName,
-        change: response
+        routeChangePage: response
       };
     }
   ),

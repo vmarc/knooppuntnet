@@ -6,9 +6,10 @@ import {MonitorRouteReferenceInfo} from './monitor-route-reference-info';
 import {MonitorRouteSegment} from './monitor-route-segment';
 
 export interface MonitorRouteMapPage {
-  readonly id: number;
-  readonly ref: string;
-  readonly name: string;
+  readonly routeId: number;
+  readonly routeName: string;
+  readonly groupName: string;
+  readonly groupDescription: string;
   readonly bounds: BoundsI;
   readonly osmSegments: MonitorRouteSegment[];
   readonly okGeometry: string;

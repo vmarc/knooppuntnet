@@ -3,14 +3,15 @@ package kpn.server.api.monitor.route
 import kpn.api.common.BoundsI
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
-import kpn.api.custom.Timestamp
 import kpn.server.repository.ChangeSetInfoRepository
+import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorRouteChangePageBuilderImpl(
   monitorRouteRepository: MonitorRouteRepository,
+  monitorGroupRepository: MonitorGroupRepository,
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends MonitorRouteChangePageBuilder {
 
@@ -19,8 +20,8 @@ class MonitorRouteChangePageBuilderImpl(
     val comment = changeSetInfoRepository.get(changeSetId).flatMap(_.tags("comment"))
 
     monitorRouteRepository.routeChange(routeId, changeSetId, replicationId).flatMap { routeChange =>
-      monitorRouteRepository.routeChangeGeometry(routeId, changeSetId, replicationId).map { routeChangeGeometry =>
-
+      //      monitorRouteRepository.routeChangeGeometry(routeId, changeSetId, replicationId).map { routeChangeGeometry =>
+      monitorGroupRepository.group(routeChange.groupName).map { group =>
         val routeReference = routeChange.reference.flatMap { reference =>
           monitorRouteRepository.routeReference(routeId, reference.key).map { routeReference =>
             MonitorRouteReferenceInfo(
@@ -40,17 +41,19 @@ class MonitorRouteChangePageBuilderImpl(
 
         MonitorRouteChangePage(
           routeChange.key,
+          group.name,
+          group.description,
           comment,
           routeChange.wayCount,
           routeChange.waysAdded,
           routeChange.waysRemoved,
           routeChange.waysUpdated,
           routeChange.osmDistance,
-          routeChangeGeometry.bounds,
+          BoundsI(), // TODO routeChangeGeometry.bounds,
           routeChange.routeSegmentCount,
-          routeChangeGeometry.routeSegments,
-          routeChangeGeometry.newNokSegments,
-          routeChangeGeometry.resolvedNokSegments,
+          Seq.empty, // TODO routeChangeGeometry.routeSegments,
+          Seq.empty, // TODO routeChangeGeometry.newNokSegments,
+          Seq.empty, // TODO routeChangeGeometry.resolvedNokSegments,
           routeReference,
           routeChange.happy,
           routeChange.investigate
