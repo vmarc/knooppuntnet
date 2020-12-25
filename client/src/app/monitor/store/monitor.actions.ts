@@ -6,14 +6,14 @@ import {LongdistanceRouteMapPage} from '@api/common/monitor/longdistance-route-m
 import {LongdistanceRoutesPage} from '@api/common/monitor/longdistance-routes-page';
 import {MonitorAdminGroupPage} from '@api/common/monitor/monitor-admin-group-page';
 import {MonitorChangesPage} from '@api/common/monitor/monitor-changes-page';
+import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {MonitorGroupChangesPage} from '@api/common/monitor/monitor-group-changes-page';
+import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {MonitorGroupsPage} from '@api/common/monitor/monitor-groups-page';
 import {MonitorRouteChangePage} from '@api/common/monitor/monitor-route-change-page';
 import {MonitorRouteChangesPage} from '@api/common/monitor/monitor-route-changes-page';
 import {MonitorRouteDetailsPage} from '@api/common/monitor/monitor-route-details-page';
-import {MonitorGroup} from '@api/common/monitor/monitor-group';
 import {MonitorRouteMapPage} from '@api/common/monitor/monitor-route-map-page';
-import {MonitorGroupPage} from '@api/common/monitor/monitor-group-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {createAction} from '@ngrx/store';
 import {props} from '@ngrx/store';
@@ -73,48 +73,39 @@ export const actionMonitorGroupChangesPageLoaded = createAction(
   props<{ response: ApiResponse<MonitorGroupChangesPage> }>()
 );
 
-export const actionMonitorRoutesInit = createAction(
-  '[Monitor routes] Init'
+export const actionMonitorRouteDetailsPageInit = createAction(
+  '[MonitorRouteDetailsPage] Init'
 );
 
-export const actionMonitorRoutesLoaded = createAction(
-  '[Monitor routes] Loaded',
-  props<{ response: ApiResponse<MonitorGroupPage> }>()
-);
-
-export const actionMonitorRouteDetailsInit = createAction(
-  '[Monitor route details] Init'
-);
-
-export const actionMonitorRouteDetailsLoaded = createAction(
-  '[Monitor route details] Loaded',
+export const actionMonitorRouteDetailsPageLoaded = createAction(
+  '[MonitorRouteDetailsPage] Loaded',
   props<{ response: ApiResponse<MonitorRouteDetailsPage> }>()
 );
 
-export const actionMonitorRouteMapInit = createAction(
-  '[Monitor route map] Init'
+export const actionMonitorRouteMapPageInit = createAction(
+  '[MonitorRouteMapPage] Init'
 );
 
-export const actionMonitorRouteMapLoaded = createAction(
-  '[Monitor route map] Loaded',
+export const actionMonitorRouteMapPageLoaded = createAction(
+  '[MonitorRouteMapPage] Loaded',
   props<{ response: ApiResponse<MonitorRouteMapPage> }>()
 );
 
-export const actionMonitorRouteChangesInit = createAction(
-  '[Monitor route changes] Init'
+export const actionMonitorRouteChangesPageInit = createAction(
+  '[MonitorRouteChangesPage] Init'
 );
 
-export const actionMonitorRouteChangesLoaded = createAction(
-  '[Monitor route changes] Loaded',
+export const actionMonitorRouteChangesPageLoaded = createAction(
+  '[MonitorRouteChangesPage] Loaded',
   props<{ response: ApiResponse<MonitorRouteChangesPage> }>()
 );
 
-export const actionMonitorRouteChangeInit = createAction(
-  '[Monitor route change] Init'
+export const actionMonitorRouteChangePageInit = createAction(
+  '[MonitorRouteChangePage] Init'
 );
 
-export const actionMonitorRouteChangeLoaded = createAction(
-  '[Monitor route change] Loaded',
+export const actionMonitorRouteChangePageLoaded = createAction(
+  '[MonitorRouteChangePage] Loaded',
   props<{ response: ApiResponse<MonitorRouteChangePage> }>()
 );
 

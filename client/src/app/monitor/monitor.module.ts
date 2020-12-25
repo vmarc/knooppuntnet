@@ -65,8 +65,6 @@ import {MonitorRouteMapNokSegmentsComponent} from './route/map/monitor-route-map
 import {MonitorRouteMapOsmSegmentsComponent} from './route/map/monitor-route-map-osm-segments.component';
 import {MonitorRouteMapSidebarComponent} from './route/map/monitor-route-map-sidebar.component';
 import {MonitorRouteMapComponent} from './route/map/monitor-route-map.component';
-import {MonitorRoutesTableComponent} from './routes/monitor-routes-table.component';
-import {MonitorRoutesComponent} from './routes/monitor-routes.component';
 import {MonitorEffects} from './store/monitor.effects';
 import {monitorReducer} from './store/monitor.reducer';
 import {monitorFeatureKey} from './store/monitor.state';
@@ -95,8 +93,6 @@ import {monitorFeatureKey} from './store/monitor.state';
     ReactiveFormsModule,
   ],
   declarations: [
-    MonitorRoutesComponent,
-    MonitorRoutesTableComponent,
     MonitorRouteDetailsComponent,
     MonitorRouteMapComponent,
     MonitorRouteChangesComponent,

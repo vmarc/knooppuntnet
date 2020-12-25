@@ -16,7 +16,7 @@ import {selectMonitorRouteMapGpxOkVisible} from '../../store/monitor.selectors';
 import {selectMonitorRouteMapGpxNokVisible} from '../../store/monitor.selectors';
 import {selectMonitorRouteMapOsmRelationVisible} from '../../store/monitor.selectors';
 import {selectMonitorRouteMapGpxVisible} from '../../store/monitor.selectors';
-import {selectMonitorRouteMap} from '../../store/monitor.selectors';
+import {selectMonitorRouteMapPage} from '../../store/monitor.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class MonitorRouteMapService {
 
   private readonly osmSegmentStyles = this.colors.map(color => this.fixedStyle(color, 4));
 
-  private readonly response$ = this.store.select(selectMonitorRouteMap);
+  private readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
   private readonly gpxLayer: VectorLayer;
   private readonly gpxOkLayer: VectorLayer;

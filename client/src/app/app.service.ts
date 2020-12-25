@@ -426,8 +426,8 @@ export class AppService {
     return this.httpPost(url, parameters);
   }
 
-  public monitorRouteChange(routeId: string, changeSetId: string): Observable<ApiResponse<MonitorRouteChangePage>> {
-    const url = `/api/monitor/routes/${routeId}/changes/${changeSetId}/1`;
+  public monitorRouteChange(routeId: string, changeSetId: string, replicationNumber: string): Observable<ApiResponse<MonitorRouteChangePage>> {
+    const url = `/api/monitor/routes/${routeId}/changes/${changeSetId}/${replicationNumber}`;
     return this.httpGet(url);
   }
 

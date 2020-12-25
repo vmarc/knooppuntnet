@@ -60,6 +60,7 @@ class MonitorRouteChangesPageBuilderImpl(
 
       MonitorRouteChangeSummary(
         change.key.cleaned,
+        change.groupName,
         comment,
         change.wayCount,
         change.waysAdded,

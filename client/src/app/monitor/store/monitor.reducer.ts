@@ -19,16 +19,15 @@ import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
 import {actionMonitorGroupsPageLoaded} from './monitor.actions';
 import {actionMonitorAdmin} from './monitor.actions';
-import {actionMonitorRouteChangeLoaded} from './monitor.actions';
+import {actionMonitorRouteChangePageLoaded} from './monitor.actions';
 import {actionMonitorRouteMapReferenceVisible} from './monitor.actions';
 import {actionMonitorRouteMapOkVisible} from './monitor.actions';
 import {actionMonitorRouteMapOsmRelationVisible} from './monitor.actions';
 import {actionMonitorRouteMapNokVisible} from './monitor.actions';
 import {actionMonitorRouteMapMode} from './monitor.actions';
-import {actionMonitorRoutesLoaded} from './monitor.actions';
-import {actionMonitorRouteChangesLoaded} from './monitor.actions';
-import {actionMonitorRouteMapLoaded} from './monitor.actions';
-import {actionMonitorRouteDetailsLoaded} from './monitor.actions';
+import {actionMonitorRouteChangesPageLoaded} from './monitor.actions';
+import {actionMonitorRouteMapPageLoaded} from './monitor.actions';
+import {actionMonitorRouteDetailsPageLoaded} from './monitor.actions';
 import {initialState} from './monitor.state';
 
 export const monitorReducer = createReducer(
@@ -44,17 +43,17 @@ export const monitorReducer = createReducer(
     routerNavigationAction,
     (state, action) => ({
       ...state,
-      details: null,
-      changes: null,
-      routeChangePage: null,
-      map: null,
       mapMode: null,
       routeGroups: null,
-
       changesPage: null,
       groupsPage: null,
       groupPage: null,
-      adminGroupPage: null
+      groupChangesPage: null,
+      adminGroupPage: null,
+      routeDetailsPage: null,
+      routeMapPage: null,
+      routeChangesPage: null,
+      routeChangePage: null
     })
   ),
   on(
@@ -112,14 +111,7 @@ export const monitorReducer = createReducer(
     })
   ),
   on(
-    actionMonitorRoutesLoaded,
-    (state, {response}) => ({
-      ...state,
-      routes: response
-    })
-  ),
-  on(
-    actionMonitorRouteDetailsLoaded,
+    actionMonitorRouteDetailsPageLoaded,
     (state, {response}) => {
       const routeId = response.result?.routeId ?? state.routeId;
       const routeName = response.result?.routeName ?? state.routeName;
@@ -131,12 +123,12 @@ export const monitorReducer = createReducer(
         routeName,
         groupName,
         groupDescription,
-        details: response
+        routeDetailsPage: response
       };
     }
   ),
   on(
-    actionMonitorRouteMapLoaded,
+    actionMonitorRouteMapPageLoaded,
     (state, {response}) => {
 
       const routeId = response.result?.routeId ?? state.routeId;
@@ -159,12 +151,12 @@ export const monitorReducer = createReducer(
         mapGpxNokVisible,
         mapOsmRelationVisible,
         mapMode: 'comparison',
-        map: response
+        routeMapPage: response
       };
     }
   ),
   on(
-    actionMonitorRouteChangesLoaded,
+    actionMonitorRouteChangesPageLoaded,
     (state, {response}) => {
       const routeId = response.result?.routeId ?? state.routeId;
       const routeName = response.result?.routeName ?? state.routeName;
@@ -176,12 +168,12 @@ export const monitorReducer = createReducer(
         routeName,
         groupName,
         groupDescription,
-        changes: response
+        routeChangesPage: response
       };
     }
   ),
   on(
-    actionMonitorRouteChangeLoaded,
+    actionMonitorRouteChangePageLoaded,
     (state, {response}) => {
       const routeId = response.result?.key.elementId ?? state.routeId;
       const routeName = 'ROUTE-NAME'; // response.result?.name ?? state.routeName;
@@ -202,9 +194,9 @@ export const monitorReducer = createReducer(
       let mapGpxNokVisible = false;
       let mapOsmRelationVisible = false;
       if (mode === 'comparison') {
-        mapGpxOkVisible = !!(state.map?.result?.reference.geometry);
-        mapGpxNokVisible = (state.map.result?.nokSegments?.length ?? 0) > 0;
-        mapOsmRelationVisible = (state.map.result?.osmSegments?.length ?? 0) > 0;
+        mapGpxOkVisible = !!(state.routeMapPage?.result?.reference.geometry);
+        mapGpxNokVisible = (state.routeMapPage.result?.nokSegments?.length ?? 0) > 0;
+        mapOsmRelationVisible = (state.routeMapPage.result?.osmSegments?.length ?? 0) > 0;
       } else if (mode === 'osm-segments') {
         mapOsmRelationVisible = true;
       }

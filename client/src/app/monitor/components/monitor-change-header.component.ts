@@ -46,7 +46,8 @@ export class MonitorChangeHeaderComponent {
 
   link(): string {
     const key = this.changeSet.key;
-    return `/monitor/routes/${key.elementId}/changes/${key.changeSetId}`;
+    const groupName = this.changeSet.groupName;
+    return `/monitor/groups/${groupName}/routes/${key.elementId}/changes/${key.changeSetId}/${key.replicationNumber}`;
   }
 
 }

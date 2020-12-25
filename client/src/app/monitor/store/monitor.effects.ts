@@ -34,10 +34,10 @@ import {actionLongdistanceRouteDetailsInit} from './monitor.actions';
 import {actionLongdistanceRoutesInit} from './monitor.actions';
 import {actionMonitorGroupDeleteInit} from './monitor.actions';
 import {actionMonitorGroupUpdateInit} from './monitor.actions';
-import {actionMonitorRouteDetailsInit} from './monitor.actions';
-import {actionMonitorRouteMapInit} from './monitor.actions';
-import {actionMonitorRouteChangesInit} from './monitor.actions';
-import {actionMonitorRouteChangeInit} from './monitor.actions';
+import {actionMonitorRouteDetailsPageInit} from './monitor.actions';
+import {actionMonitorRouteMapPageInit} from './monitor.actions';
+import {actionMonitorRouteChangesPageInit} from './monitor.actions';
+import {actionMonitorRouteChangePageInit} from './monitor.actions';
 import {actionMonitorGroupsPageInit} from './monitor.actions';
 import {actionMonitorGroupUpdateLoaded} from './monitor.actions';
 import {actionMonitorGroupUpdate} from './monitor.actions';
@@ -45,11 +45,11 @@ import {actionMonitorGroupDelete} from './monitor.actions';
 import {actionMonitorGroupDeleteLoaded} from './monitor.actions';
 import {actionMonitorGroupAdd} from './monitor.actions';
 import {actionMonitorGroupsPageLoaded} from './monitor.actions';
-import {actionMonitorRouteChangeLoaded} from './monitor.actions';
+import {actionMonitorRouteChangePageLoaded} from './monitor.actions';
 import {actionMonitorRouteMapFocus} from './monitor.actions';
-import {actionMonitorRouteMapLoaded} from './monitor.actions';
-import {actionMonitorRouteDetailsLoaded} from './monitor.actions';
-import {actionMonitorRouteChangesLoaded} from './monitor.actions';
+import {actionMonitorRouteMapPageLoaded} from './monitor.actions';
+import {actionMonitorRouteDetailsPageLoaded} from './monitor.actions';
+import {actionMonitorRouteChangesPageLoaded} from './monitor.actions';
 import {selectMonitorAdmin} from './monitor.selectors';
 
 @Injectable()
@@ -71,7 +71,7 @@ export class MonitorEffects {
     {dispatch: false}
   );
 
-  monitorInit = createEffect(() =>
+  monitorGroupsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupsPageInit),
       withLatestFrom(
@@ -147,58 +147,59 @@ export class MonitorEffects {
     )
   );
 
-  monitorRouteDetailsInit = createEffect(() =>
+  monitorRouteDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorRouteDetailsInit),
+      ofType(actionMonitorRouteDetailsPageInit),
       withLatestFrom(
         this.store.select(selectRouteParam('routeId'))
       ),
       mergeMap(([action, routeId]) => {
         return this.appService.monitorRoute(routeId).pipe(
-          map(response => actionMonitorRouteDetailsLoaded({response}))
+          map(response => actionMonitorRouteDetailsPageLoaded({response}))
         );
       })
     )
   );
 
-  monitorRouteMapInit = createEffect(() =>
+  monitorRouteMapPageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorRouteMapInit),
+      ofType(actionMonitorRouteMapPageInit),
       withLatestFrom(
         this.store.select(selectRouteParam('routeId'))
       ),
       mergeMap(([action, routeId]) => {
         return this.appService.monitorRouteMap(routeId).pipe(
-          map(response => actionMonitorRouteMapLoaded({response}))
+          map(response => actionMonitorRouteMapPageLoaded({response}))
         );
       })
     )
   );
 
-  monitorRouteChangesInit = createEffect(() =>
+  monitorRouteChangesPageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorRouteChangesInit),
+      ofType(actionMonitorRouteChangesPageInit),
       withLatestFrom(
         this.store.select(selectRouteParam('routeId'))
       ),
       mergeMap(([action, routeId]) => {
         return this.appService.monitorRouteChanges(routeId).pipe(
-          map(response => actionMonitorRouteChangesLoaded({response}))
+          map(response => actionMonitorRouteChangesPageLoaded({response}))
         );
       })
     )
   );
 
-  monitorRouteChangeInit = createEffect(() =>
+  monitorRouteChangePageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorRouteChangeInit),
+      ofType(actionMonitorRouteChangePageInit),
       withLatestFrom(
         this.store.select(selectRouteParam('routeId')),
-        this.store.select(selectRouteParam('changeSetId'))
+        this.store.select(selectRouteParam('changeSetId')),
+        this.store.select(selectRouteParam('replicationNumber'))
       ),
-      mergeMap(([action, routeId, changeSetId]) => {
-        return this.appService.monitorRouteChange(routeId, changeSetId).pipe(
-          map(response => actionMonitorRouteChangeLoaded({response}))
+      mergeMap(([action, routeId, changeSetId, replicationNumber]) => {
+        return this.appService.monitorRouteChange(routeId, changeSetId, replicationNumber).pipe(
+          map(response => actionMonitorRouteChangePageLoaded({response}))
         );
       })
     )

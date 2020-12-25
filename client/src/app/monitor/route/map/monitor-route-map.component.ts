@@ -19,8 +19,8 @@ import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
 import {I18nService} from '../../../i18n/i18n.service';
 import {Subscriptions} from '../../../util/Subscriptions';
-import {actionMonitorRouteMapInit} from '../../store/monitor.actions';
-import {selectMonitorRouteMap} from '../../store/monitor.selectors';
+import {actionMonitorRouteMapPageInit} from '../../store/monitor.actions';
+import {selectMonitorRouteMapPage} from '../../store/monitor.selectors';
 import {selectMonitorRouteId} from '../../store/monitor.selectors';
 import {MonitorRouteMapService} from './monitor-route-map.service';
 
@@ -37,7 +37,7 @@ import {MonitorRouteMapService} from './monitor-route-map.service';
 export class MonitorRouteMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readonly routeId$ = this.store.select(selectMonitorRouteId);
-  readonly response$ = this.store.select(selectMonitorRouteMap);
+  readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
   mapLayers: MapLayers;
   map: Map;
@@ -52,7 +52,7 @@ export class MonitorRouteMapComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteMapInit());
+    this.store.dispatch(actionMonitorRouteMapPageInit());
   }
 
   ngAfterViewInit(): void {

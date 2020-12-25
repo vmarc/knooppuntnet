@@ -6,8 +6,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
 import {actionPreferencesImpact} from '../../../core/preferences/preferences.actions';
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
-import {actionMonitorRouteChangesInit} from '../../store/monitor.actions';
-import {selectMonitorRouteChanges} from '../../store/monitor.selectors';
+import {actionMonitorRouteChangesPageInit} from '../../store/monitor.actions';
+import {selectMonitorRouteChangesPage} from '../../store/monitor.selectors';
 import {selectMonitorRouteId} from '../../store/monitor.selectors';
 
 @Component({
@@ -33,14 +33,14 @@ import {selectMonitorRouteId} from '../../store/monitor.selectors';
 export class MonitorRouteChangesComponent implements OnInit {
 
   readonly routeId$ = this.store.select(selectMonitorRouteId);
-  readonly response$ = this.store.select(selectMonitorRouteChanges);
+  readonly response$ = this.store.select(selectMonitorRouteChangesPage);
   readonly impact$ = this.store.select(selectPreferencesImpact);
 
   constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteChangesInit());
+    this.store.dispatch(actionMonitorRouteChangesPageInit());
   }
 
   impactChanged(event: MatSlideToggleChange) {

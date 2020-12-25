@@ -21,10 +21,6 @@ export const initialState: MonitorState = {
   routeName: '',
   groupName: '',
   groupDescription: '',
-  details: null,
-  changes: null,
-  routeChangePage: null,
-  map: null,
   mapMode: null,
   mapGpxVisible: false,
   mapGpxOkVisible: false,
@@ -35,6 +31,10 @@ export const initialState: MonitorState = {
   groupPage: null,
   groupChangesPage: null,
   adminGroupPage: null,
+  routeDetailsPage: null,
+  routeMapPage: null,
+  routeChangesPage: null,
+  routeChangePage: null,
 
   longdistanceRouteId: 0,
   longdistanceRouteName: '',
@@ -56,10 +56,6 @@ export interface MonitorState {
   routeName: string;
   groupName: string;
   groupDescription: string;
-  details: ApiResponse<MonitorRouteDetailsPage>;
-  changes: ApiResponse<MonitorRouteChangesPage>;
-  routeChangePage: ApiResponse<MonitorRouteChangePage>;
-  map: ApiResponse<MonitorRouteMapPage>;
   mapMode: string;
   mapGpxVisible: boolean;
   mapGpxOkVisible: boolean;
@@ -70,6 +66,10 @@ export interface MonitorState {
   groupPage: ApiResponse<MonitorGroupPage>;
   groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
   adminGroupPage: ApiResponse<MonitorAdminGroupPage>;
+  routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
+  routeMapPage: ApiResponse<MonitorRouteMapPage>;
+  routeChangesPage: ApiResponse<MonitorRouteChangesPage>;
+  routeChangePage: ApiResponse<MonitorRouteChangePage>;
 
   longdistanceRouteId: number;
   longdistanceRouteName: string;

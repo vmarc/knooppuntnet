@@ -23,7 +23,6 @@ import {MonitorRouteChangesComponent} from './route/changes/monitor-route-change
 import {MonitorRouteDetailsComponent} from './route/details/monitor-route-details.component';
 import {MonitorRouteMapSidebarComponent} from './route/map/monitor-route-map-sidebar.component';
 import {MonitorRouteMapComponent} from './route/map/monitor-route-map.component';
-import {MonitorRoutesComponent} from './routes/monitor-routes.component';
 
 const routes: Routes = [
 
@@ -37,11 +36,10 @@ const routes: Routes = [
   Util.routePath('about', MonitorAboutPageComponent, SidebarComponent),
   Util.routePath('groups/:groupName', MonitorGroupPageComponent, SidebarComponent),
   Util.routePath('groups/:groupName/changes', MonitorGroupChangesPageComponent, SidebarComponent),
-  Util.routePath('groups/:groupName/routes', MonitorRoutesComponent, SidebarComponent),
   Util.routePath('groups/:groupName/routes/:routeId', MonitorRouteDetailsComponent, SidebarComponent),
   Util.routePath('groups/:groupName/routes/:routeId/map', MonitorRouteMapComponent, MonitorRouteMapSidebarComponent),
   Util.routePath('groups/:groupName/routes/:routeId/changes', MonitorRouteChangesComponent, SidebarComponent),
-  Util.routePath('groups/:groupName/routes/:routeId/changes/:changeSetId', MonitorRouteChangePageComponent, SidebarComponent),
+  Util.routePath('groups/:groupName/routes/:routeId/changes/:changeSetId/:replicationNumber', MonitorRouteChangePageComponent, SidebarComponent),
   Util.routePath('admin/groups/add', MonitorAdminGroupAddPageComponent, SidebarComponent),
   Util.routePath('admin/groups/:groupName', MonitorAdminGroupUpdatePageComponent, SidebarComponent),
   Util.routePath('admin/groups/:groupName/delete', MonitorAdminGroupDeletePageComponent, SidebarComponent),

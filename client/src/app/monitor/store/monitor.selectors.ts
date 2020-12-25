@@ -37,14 +37,14 @@ export const selectMonitorAdminGroupPage = createSelector(
   (state: MonitorState) => state.adminGroupPage
 );
 
-export const selectMonitorRouteDetails = createSelector(
+export const selectMonitorRouteDetailsPage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.details
+  (state: MonitorState) => state.routeDetailsPage
 );
 
-export const selectMonitorRouteMap = createSelector(
+export const selectMonitorRouteMapPage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.map
+  (state: MonitorState) => state.routeMapPage
 );
 
 export const selectMonitorRouteMapMode = createSelector(
@@ -54,14 +54,14 @@ export const selectMonitorRouteMapMode = createSelector(
 
 export const selectMonitorRouteMapBounds = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.map.result.bounds
+  (state: MonitorState) => state.routeMapPage.result.bounds
 );
 
 export const selectMonitorRouteMapOsmSegments = createSelector(
   selectMonitorState,
   (state: MonitorState) => {
-    if (state.map && state.map.result && state.map.result.osmSegments) {
-      return state.map.result.osmSegments;
+    if (state.routeMapPage && state.routeMapPage.result && state.routeMapPage.result.osmSegments) {
+      return state.routeMapPage.result.osmSegments;
     }
     return [];
   }
@@ -69,22 +69,22 @@ export const selectMonitorRouteMapOsmSegments = createSelector(
 
 export const selectMonitorRouteMapOsmSegmentCount = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.map?.result?.osmSegments?.length ?? 0
+  (state: MonitorState) => state.routeMapPage?.result?.osmSegments?.length ?? 0
 );
 
 export const selectMonitorRouteMapNokSegments = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.map?.result?.nokSegments ?? []
+  (state: MonitorState) => state.routeMapPage?.result?.nokSegments ?? []
 );
 
 export const selectMonitorRouteMapNokSegmentsCount = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.map?.result?.nokSegments?.length ?? 0
+  (state: MonitorState) => state.routeMapPage?.result?.nokSegments?.length ?? 0
 );
 
-export const selectMonitorRouteChanges = createSelector(
+export const selectMonitorRouteChangesPage = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.changes
+  (state: MonitorState) => state.routeChangesPage
 );
 
 export const selectMonitorRouteChangePage = createSelector(
@@ -134,22 +134,22 @@ export const selectMonitorRouteMapOsmRelationVisible = createSelector(
 
 export const selectMonitorRouteMapGpxEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => !!state.map?.result?.reference.geometry
+  (state: MonitorState) => !!state.routeMapPage?.result?.reference.geometry
 );
 
 export const selectMonitorRouteMapGpxOkEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.mapMode === 'comparison' && !!state.map?.result?.okGeometry
+  (state: MonitorState) => state.mapMode === 'comparison' && !!state.routeMapPage?.result?.okGeometry
 );
 
 export const selectMonitorRouteMapGpxNokEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.mapMode === 'comparison' && (state.map?.result?.nokSegments?.length ?? 0) > 0
+  (state: MonitorState) => state.mapMode === 'comparison' && (state.routeMapPage?.result?.nokSegments?.length ?? 0) > 0
 );
 
 export const selectMonitorRouteMapOsmRelationEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => (state.map?.result?.osmSegments?.length ?? 0) > 0
+  (state: MonitorState) => (state.routeMapPage?.result?.osmSegments?.length ?? 0) > 0
 );
 
 /*************************************/

@@ -4,9 +4,9 @@ import {Component} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
-import {actionMonitorRouteDetailsInit} from '../../store/monitor.actions';
+import {actionMonitorRouteDetailsPageInit} from '../../store/monitor.actions';
 import {selectMonitorRouteId} from '../../store/monitor.selectors';
-import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
+import {selectMonitorRouteDetailsPage} from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-details',
@@ -99,14 +99,14 @@ import {selectMonitorRouteDetails} from '../../store/monitor.selectors';
 export class MonitorRouteDetailsComponent implements OnInit {
 
   readonly routeId$ = this.store.select(selectMonitorRouteId);
-  readonly response$ = this.store.select(selectMonitorRouteDetails);
+  readonly response$ = this.store.select(selectMonitorRouteDetailsPage);
 
   constructor(private snackBar: MatSnackBar,
               private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteDetailsInit());
+    this.store.dispatch(actionMonitorRouteDetailsPageInit());
   }
 
   gpxUpload(): void {

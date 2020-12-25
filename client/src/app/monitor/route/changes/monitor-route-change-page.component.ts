@@ -5,7 +5,7 @@ import {Timestamp} from '@api/custom/timestamp';
 import {Store} from '@ngrx/store';
 import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
-import {actionMonitorRouteChangeInit} from '../../store/monitor.actions';
+import {actionMonitorRouteChangePageInit} from '../../store/monitor.actions';
 import {selectMonitorRouteName} from '../../store/monitor.selectors';
 import {selectMonitorRouteChangePage} from '../../store/monitor.selectors';
 
@@ -222,7 +222,7 @@ export class MonitorRouteChangePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteChangeInit());
+    this.store.dispatch(actionMonitorRouteChangePageInit());
   }
 
   timestamp(timestampString: string): Timestamp {
