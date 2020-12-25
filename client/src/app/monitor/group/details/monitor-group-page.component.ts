@@ -41,13 +41,13 @@ import {selectMonitorAdmin} from '../../store/monitor.selectors';
           [groupName]="groupName$ | async"
           [routes]="response.result.routes">
         </kpn-monitor-group-route-table>
-      </div>
-    </div>
 
-    <div *ngIf="admin$ | async" class="add-route-action">
-      <button mat-stroked-button [routerLink]="addRouteLink$ | async" type="button">
-        Add route
-      </button>
+        <div *ngIf="admin$ | async" class="add-route-action">
+          <button mat-stroked-button [routerLink]="addRouteLink$ | async" type="button">
+            Add route
+          </button>
+        </div>
+      </div>
     </div>
   `,
   styles: [`

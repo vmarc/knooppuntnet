@@ -26,6 +26,7 @@ import {selectMonitorChangesPage} from '../store/monitor.selectors';
     </h1>
 
     <kpn-monitor-page-menu pageName="changes"></kpn-monitor-page-menu>
+    <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response">
       <p *ngIf="!response.result">

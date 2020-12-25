@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
-import {AppService} from '../../../app.service';
-import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../core/core.state';
+import {selectSharedHttpError} from '../../../core/shared/shared.selectors';
 
 @Component({
   selector: 'kpn-error',
@@ -37,10 +38,9 @@ import {Observable} from 'rxjs';
 })
 export class ErrorComponent {
 
-  httpError$: Observable<string>;
+  readonly httpError$ = this.store.select(selectSharedHttpError);
 
-  constructor(private appService: AppService) {
-    this.httpError$ = appService.httpError$;
+  constructor(private store: Store<AppState>) {
   }
 
 }

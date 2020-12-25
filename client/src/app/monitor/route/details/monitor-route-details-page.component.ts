@@ -5,14 +5,13 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/core.state';
 import {actionMonitorRouteDetailsPageInit} from '../../store/monitor.actions';
-import {selectMonitorRouteId} from '../../store/monitor.selectors';
 import {selectMonitorRouteDetailsPage} from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-route-details',
+  selector: 'kpn-monitor-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header pageName="details" [routeId]="routeId$ | async"></kpn-monitor-route-page-header>
+    <kpn-monitor-route-page-header pageName="details"></kpn-monitor-route-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
 
@@ -96,9 +95,8 @@ import {selectMonitorRouteDetailsPage} from '../../store/monitor.selectors';
     }
   `]
 })
-export class MonitorRouteDetailsComponent implements OnInit {
+export class MonitorRouteDetailsPageComponent implements OnInit {
 
-  readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);
 
   constructor(private snackBar: MatSnackBar,

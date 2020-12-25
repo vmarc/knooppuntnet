@@ -24,6 +24,8 @@ import {selectMonitorRouteChangePage} from '../../store/monitor.selectors';
       {{routeName$ | async}}
     </h1>
 
+    <kpn-error></kpn-error>
+
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
         Route/changeset not found

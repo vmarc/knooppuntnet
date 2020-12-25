@@ -53,18 +53,19 @@ import {LongdistanceRouteMapComponent} from './longdistance/route/map/longdistan
 import {LongdistanceRoutesTableComponent} from './longdistance/routes/longdistance-routes-table.component';
 import {LongdistanceRoutesComponent} from './longdistance/routes/longdistance-routes.component';
 import {MonitorRoutingModule} from './monitor-routing.module';
+import {MonitorService} from './monitor.service';
 import {MonitorRouteChangeMapComponent} from './route/changes/monitor-route-change-map.component';
 import {MonitorRouteChangePageComponent} from './route/changes/monitor-route-change-page.component';
-import {MonitorRouteChangesComponent} from './route/changes/monitor-route-changes.component';
+import {MonitorRouteChangesPageComponent} from './route/changes/monitor-route-changes-page.component';
 import {MonitorRoutePageHeaderComponent} from './route/components/monitor-route-page-header.component';
-import {MonitorRouteDetailsComponent} from './route/details/monitor-route-details.component';
+import {MonitorRouteDetailsPageComponent} from './route/details/monitor-route-details-page.component';
 import {LegendLineComponent} from './route/map/legend-line';
 import {MonitorRouteMapControlComponent} from './route/map/monitor-route-map-control.component';
 import {MonitorRouteMapLayersComponent} from './route/map/monitor-route-map-layers.component';
 import {MonitorRouteMapNokSegmentsComponent} from './route/map/monitor-route-map-nok-segments.component';
 import {MonitorRouteMapOsmSegmentsComponent} from './route/map/monitor-route-map-osm-segments.component';
 import {MonitorRouteMapSidebarComponent} from './route/map/monitor-route-map-sidebar.component';
-import {MonitorRouteMapComponent} from './route/map/monitor-route-map.component';
+import {MonitorRouteMapPageComponent} from './route/map/monitor-route-map-page.component';
 import {MonitorEffects} from './store/monitor.effects';
 import {monitorReducer} from './store/monitor.reducer';
 import {monitorFeatureKey} from './store/monitor.state';
@@ -93,9 +94,9 @@ import {monitorFeatureKey} from './store/monitor.state';
     ReactiveFormsModule,
   ],
   declarations: [
-    MonitorRouteDetailsComponent,
-    MonitorRouteMapComponent,
-    MonitorRouteChangesComponent,
+    MonitorRouteDetailsPageComponent,
+    MonitorRouteMapPageComponent,
+    MonitorRouteChangesPageComponent,
     MonitorRoutePageHeaderComponent,
     MonitorRouteMapSidebarComponent,
     MonitorRouteMapOsmSegmentsComponent,
@@ -145,6 +146,7 @@ import {monitorFeatureKey} from './store/monitor.state';
   exports: [],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'nl-BE'},
+    MonitorService
   ],
 })
 export class MonitorModule {

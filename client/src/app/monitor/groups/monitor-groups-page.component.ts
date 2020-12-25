@@ -27,21 +27,20 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
     </h1>
 
     <kpn-monitor-page-menu pageName="groups"></kpn-monitor-page-menu>
-
-    <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
+    <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response">
       <div *ngIf="!response.result">
         No route groups
       </div>
       <div *ngIf="response.result">
+        <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
         <kpn-monitor-group-table [groups]="response.result.groups">
         </kpn-monitor-group-table>
+        <div *ngIf="admin$ | async" class="add-group-action">
+          <button mat-stroked-button routerLink="/monitor/admin/groups/add">Add group</button>
+        </div>
       </div>
-    </div>
-
-    <div *ngIf="admin$ | async" class="add-group-action">
-      <button mat-stroked-button routerLink="/monitor/admin/groups/add">Add group</button>
     </div>
   `,
   styles: [`

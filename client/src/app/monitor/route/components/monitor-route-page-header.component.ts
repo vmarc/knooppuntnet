@@ -44,6 +44,8 @@ import {selectMonitorRouteName} from '../../store/monitor.selectors';
       </kpn-page-menu-option>
 
     </kpn-page-menu>
+
+    <kpn-error></kpn-error>
   `,
   styles: [`
     .title {
@@ -56,7 +58,6 @@ import {selectMonitorRouteName} from '../../store/monitor.selectors';
 export class MonitorRoutePageHeaderComponent {
 
   @Input() pageName: string;
-  @Input() routeId: number;
   @Input() pageTitle: string;
 
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
@@ -72,7 +73,7 @@ export class MonitorRoutePageHeaderComponent {
   readonly routeMapLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
     this.store.select(selectMonitorRouteId)
-  ]).pipe(map(([groupName, routeId]) =>  `/monitor/groups/${groupName}/routes/${routeId}/map`));
+  ]).pipe(map(([groupName, routeId]) => `/monitor/groups/${groupName}/routes/${routeId}/map`));
 
   readonly routeChangesLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),

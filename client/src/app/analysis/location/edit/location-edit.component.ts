@@ -3,6 +3,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox/checkbox';
 import {LocationEditPage} from '@api/common/location/location-edit-page';
+import {Store} from '@ngrx/store';
 import {List, Range} from 'immutable';
 import {Subscription} from 'rxjs';
 import {TimeoutError} from 'rxjs';
@@ -12,6 +13,8 @@ import {Observable} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
+import {AppState} from '../../../core/core.state';
+import {actionSharedHttpError} from '../../../core/shared/shared.actions';
 
 @Component({
   selector: 'kpn-location-edit',
@@ -117,7 +120,7 @@ export class LocationEditComponent implements OnInit {
   private readonly josmUrl = 'http://localhost:8111/';
   private readonly apiUrl = this.josmUrl + 'import?url=https://api.openstreetmap.org/api/0.6';
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -140,6 +143,8 @@ export class LocationEditComponent implements OnInit {
   }
 
   edit(): void {
+
+    this.store.dispatch(actionSharedHttpError({httpError: null}));
 
     this.error$.next(false);
     this.timeout$.next(false);

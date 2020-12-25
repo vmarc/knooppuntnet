@@ -21,22 +21,27 @@ import {I18nService} from '../../../i18n/i18n.service';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {actionMonitorRouteMapPageInit} from '../../store/monitor.actions';
 import {selectMonitorRouteMapPage} from '../../store/monitor.selectors';
-import {selectMonitorRouteId} from '../../store/monitor.selectors';
 import {MonitorRouteMapService} from './monitor-route-map.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map',
+  selector: 'kpn-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header pageName="map" [routeId]="routeId$ | async"></kpn-monitor-route-page-header>
-    <div id="monitor-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
+    <kpn-monitor-route-page-header pageName="map"></kpn-monitor-route-page-header>
+    <div *ngIf="response$ | async as response">
+      <div *ngIf="!response.result">
+        Route not found
+      </div>
+      <div *ngIf="response.result as route">
+        <div id="monitor-map" class="kpn-map">
+          <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
+        </div>
+      </div>
     </div>
   `
 })
-export class MonitorRouteMapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MonitorRouteMapPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
   mapLayers: MapLayers;

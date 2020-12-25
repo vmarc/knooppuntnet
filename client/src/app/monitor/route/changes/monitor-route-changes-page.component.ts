@@ -8,16 +8,13 @@ import {actionPreferencesImpact} from '../../../core/preferences/preferences.act
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
 import {actionMonitorRouteChangesPageInit} from '../../store/monitor.actions';
 import {selectMonitorRouteChangesPage} from '../../store/monitor.selectors';
-import {selectMonitorRouteId} from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-route-changes',
+  selector: 'kpn-monitor-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <kpn-monitor-route-page-header pageName="changes" [routeId]="routeId$ | async"></kpn-monitor-route-page-header>
-
-    <kpn-error></kpn-error>
+    <kpn-monitor-route-page-header pageName="changes"></kpn-monitor-route-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
@@ -30,9 +27,8 @@ import {selectMonitorRouteId} from '../../store/monitor.selectors';
     </div>
   `
 })
-export class MonitorRouteChangesComponent implements OnInit {
+export class MonitorRouteChangesPageComponent implements OnInit {
 
-  readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly response$ = this.store.select(selectMonitorRouteChangesPage);
   readonly impact$ = this.store.select(selectPreferencesImpact);
 

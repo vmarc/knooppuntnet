@@ -19,10 +19,10 @@ import {LongdistanceRouteMapSidebarComponent} from './longdistance/route/map/lon
 import {LongdistanceRouteMapComponent} from './longdistance/route/map/longdistance-route-map.component';
 import {LongdistanceRoutesComponent} from './longdistance/routes/longdistance-routes.component';
 import {MonitorRouteChangePageComponent} from './route/changes/monitor-route-change-page.component';
-import {MonitorRouteChangesComponent} from './route/changes/monitor-route-changes.component';
-import {MonitorRouteDetailsComponent} from './route/details/monitor-route-details.component';
+import {MonitorRouteChangesPageComponent} from './route/changes/monitor-route-changes-page.component';
+import {MonitorRouteDetailsPageComponent} from './route/details/monitor-route-details-page.component';
 import {MonitorRouteMapSidebarComponent} from './route/map/monitor-route-map-sidebar.component';
-import {MonitorRouteMapComponent} from './route/map/monitor-route-map.component';
+import {MonitorRouteMapPageComponent} from './route/map/monitor-route-map-page.component';
 
 const routes: Routes = [
 
@@ -36,9 +36,9 @@ const routes: Routes = [
   Util.routePath('about', MonitorAboutPageComponent, SidebarComponent),
   Util.routePath('groups/:groupName', MonitorGroupPageComponent, SidebarComponent),
   Util.routePath('groups/:groupName/changes', MonitorGroupChangesPageComponent, SidebarComponent),
-  Util.routePath('groups/:groupName/routes/:routeId', MonitorRouteDetailsComponent, SidebarComponent),
-  Util.routePath('groups/:groupName/routes/:routeId/map', MonitorRouteMapComponent, MonitorRouteMapSidebarComponent),
-  Util.routePath('groups/:groupName/routes/:routeId/changes', MonitorRouteChangesComponent, SidebarComponent),
+  Util.routePath('groups/:groupName/routes/:routeId', MonitorRouteDetailsPageComponent, SidebarComponent),
+  Util.routePath('groups/:groupName/routes/:routeId/map', MonitorRouteMapPageComponent, MonitorRouteMapSidebarComponent),
+  Util.routePath('groups/:groupName/routes/:routeId/changes', MonitorRouteChangesPageComponent, SidebarComponent),
   Util.routePath('groups/:groupName/routes/:routeId/changes/:changeSetId/:replicationNumber', MonitorRouteChangePageComponent, SidebarComponent),
   Util.routePath('admin/groups/add', MonitorAdminGroupAddPageComponent, SidebarComponent),
   Util.routePath('admin/groups/:groupName', MonitorAdminGroupUpdatePageComponent, SidebarComponent),
