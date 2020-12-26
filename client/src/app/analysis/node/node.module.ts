@@ -1,6 +1,8 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {MarkdownModule} from 'ngx-markdown';
 import {OlModule} from '../../components/ol/ol.module';
 import {SharedModule} from '../../components/shared/shared.module';
@@ -13,6 +15,7 @@ import {NodeChangesService} from './changes/node-changes.service';
 import {NodePageHeaderComponent} from './components/node-page-header.component';
 import {NodeDetailsPageComponent} from './details/_node-details-page.component';
 import {NodeDetailsSidebarComponent} from './details/node-details-sidebar.component';
+import {NodeIntegrityComponent} from './details/node-integrity.component';
 import {NodeLocationComponent} from './details/node-location.component';
 import {NodeNetworkReferenceStatementComponent} from './details/node-network-reference-statement.component';
 import {NodeNetworkReferenceComponent} from './details/node-network-reference.component';
@@ -21,17 +24,23 @@ import {NodeOrphanRouteReferencesComponent} from './details/node-orphan-route-re
 import {NodeSummaryComponent} from './details/node-summary.component';
 import {NodeMapPageComponent} from './map/_node-map-page.component';
 import {NodeRoutingModule} from './node-routing.module';
-import {NodeIntegrityComponent} from './details/node-integrity.component';
+import {NodeEffects} from './store/node.effects';
+import {nodeReducer} from './store/node.reducer';
+import {nodeFeatureKey} from './store/node.state';
 
 @NgModule({
   imports: [
+    NodeRoutingModule,
     CommonModule,
+    StoreModule.forFeature(nodeFeatureKey, nodeReducer),
+    EffectsModule.forFeature([
+      NodeEffects
+    ]),
     MarkdownModule,
     OlModule,
     SharedModule,
     AnalysisComponentsModule,
     FactModule,
-    NodeRoutingModule,
     MatPaginatorModule
   ],
   declarations: [

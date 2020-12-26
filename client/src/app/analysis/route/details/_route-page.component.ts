@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
+import {RouteDetailsPage} from '@api/common/route/route-details-page';
 import {Store} from '@ngrx/store';
 import {List} from 'immutable';
 import {Observable} from 'rxjs';
@@ -7,13 +8,13 @@ import {map} from 'rxjs/operators';
 import {PageWidth} from '../../../components/shared/page-width';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
-import {selectRouteDetails} from '../../../core/analysis/route/route.selectors';
-import {selectRouteChangeCount} from '../../../core/analysis/route/route.selectors';
-import {selectRouteName} from '../../../core/analysis/route/route.selectors';
-import {selectRouteId} from '../../../core/analysis/route/route.selectors';
 import {AppState} from '../../../core/core.state';
-import {RouteDetailsPage} from '@api/common/route/route-details-page';
 import {FactInfo} from '../../fact/fact-info';
+import {actionRouteDetailsPageInit} from '../store/route.actions';
+import {selectRouteDetailsPage} from '../store/route.selectors';
+import {selectRouteChangeCount} from '../store/route.selectors';
+import {selectRouteName} from '../store/route.selectors';
+import {selectRouteId} from '../store/route.selectors';
 
 @Component({
   selector: 'kpn-route-page',
@@ -116,7 +117,7 @@ export class RoutePageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);
   readonly routeName$ = this.store.select(selectRouteName);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly response$ = this.store.select(selectRouteDetails);
+  readonly response$ = this.store.select(selectRouteDetailsPage);
 
   showRouteDetails$: Observable<boolean>;
 
@@ -125,6 +126,7 @@ export class RoutePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(actionRouteDetailsPageInit());
     this.showRouteDetails$ = this.pageWidthService.current$.pipe(
       map(pageWidth => pageWidth !== PageWidth.small && pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall)
     );

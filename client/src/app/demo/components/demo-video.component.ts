@@ -6,16 +6,16 @@ import {ElementRef} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
-import {PageService} from '../../components/shared/page.service';
-import {DemoService} from '../../core/demo/demo.service';
-import {actionDemoVideoPlayerAvailable} from '../../core/demo/demo.actions';
-import {actionDemoEnd} from '../../core/demo/demo.actions';
-import {actionDemoCanPlay} from '../../core/demo/demo.actions';
-import {actionDemoTimeUpdate} from '../../core/demo/demo.actions';
-import {actionDemoPlayingChanged} from '../../core/demo/demo.actions';
 import {Observable} from 'rxjs';
-import {selectDemoEnabled} from '../../core/demo/demo.selectors';
 import {map} from 'rxjs/operators';
+import {PageService} from '../../components/shared/page.service';
+import {DemoService} from '../demo.service';
+import {actionDemoVideoPlayerAvailable} from '../store/demo.actions';
+import {actionDemoEnd} from '../store/demo.actions';
+import {actionDemoCanPlay} from '../store/demo.actions';
+import {actionDemoTimeUpdate} from '../store/demo.actions';
+import {actionDemoPlayingChanged} from '../store/demo.actions';
+import {selectDemoEnabled} from '../store/demo.selectors';
 
 @Component({
   selector: 'kpn-video',

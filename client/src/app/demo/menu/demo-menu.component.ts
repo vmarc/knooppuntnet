@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
-import {PageService} from '../../components/shared/page.service';
 import {Store} from '@ngrx/store';
-import {selectDemoEnabled} from '../../core/demo/demo.selectors';
+import {PageService} from '../../components/shared/page.service';
+import {selectDemoEnabled} from '../store/demo.selectors';
 
 @Component({
   selector: 'kpn-demo-menu',

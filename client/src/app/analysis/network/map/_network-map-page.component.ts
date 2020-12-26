@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {NetworkMapPage} from '@api/common/network/network-map-page';
+import {ApiResponse} from '@api/custom/api-response';
 import {Observable} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
-import {NetworkMapPage} from '@api/common/network/network-map-page';
-import {ApiResponse} from '@api/custom/api-response';
 import {NetworkService} from '../network.service';
 
 @Component({

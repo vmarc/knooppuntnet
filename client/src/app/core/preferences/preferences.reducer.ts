@@ -1,10 +1,10 @@
 import {routerNavigatedAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionRouteChangesPageLoaded} from '../../analysis/route/store/route.actions';
+import {actionRouteMapPageLoaded} from '../../analysis/route/store/route.actions';
+import {actionRouteDetailsPageLoaded} from '../../analysis/route/store/route.actions';
 import {Util} from '../../components/shared/util';
-import {actionRouteChangesLoaded} from '../analysis/route/route.actions';
-import {actionRouteMapLoaded} from '../analysis/route/route.actions';
-import {actionRouteDetailsLoaded} from '../analysis/route/route.actions';
 import {actionPreferencesImpact} from './preferences.actions';
 import {actionPreferencesItemsPerPage} from './preferences.actions';
 import {actionPreferencesNetworkType} from './preferences.actions';
@@ -46,7 +46,7 @@ export const preferencesReducer = createReducer(
     (state, action) => ({...state, impact: action.impact})
   ),
   on(
-    actionRouteDetailsLoaded,
+    actionRouteDetailsPageLoaded,
     (state, {response}) => {
       const networkType = response?.result.route.summary.networkType.name ?? state.networkType;
       return {
@@ -56,7 +56,7 @@ export const preferencesReducer = createReducer(
     }
   ),
   on(
-    actionRouteMapLoaded,
+    actionRouteMapPageLoaded,
     (state, {response}) => {
       const networkType = response?.result.route.summary.networkType.name ?? state.networkType;
       return {
@@ -66,7 +66,7 @@ export const preferencesReducer = createReducer(
     }
   ),
   on(
-    actionRouteChangesLoaded,
+    actionRouteChangesPageLoaded,
     (state, {response}) => {
       const networkType = response?.result.route.summary.networkType.name ?? state.networkType;
       return {

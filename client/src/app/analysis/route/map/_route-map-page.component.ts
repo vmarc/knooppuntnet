@@ -1,13 +1,15 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {PageService} from '../../../components/shared/page.service';
-import {selectRouteMap} from '../../../core/analysis/route/route.selectors';
-import {selectRouteChangeCount} from '../../../core/analysis/route/route.selectors';
-import {selectRouteName} from '../../../core/analysis/route/route.selectors';
-import {selectRouteId} from '../../../core/analysis/route/route.selectors';
 import {AppState} from '../../../core/core.state';
+import {actionRouteMapPageInit} from '../store/route.actions';
+import {selectRouteMapPage} from '../store/route.selectors';
+import {selectRouteChangeCount} from '../store/route.selectors';
+import {selectRouteName} from '../store/route.selectors';
+import {selectRouteId} from '../store/route.selectors';
 
 @Component({
   selector: 'kpn-route-changes-page',
@@ -36,16 +38,20 @@ import {AppState} from '../../../core/core.state';
     </div>
   `
 })
-export class RouteMapPageComponent implements OnDestroy {
+export class RouteMapPageComponent implements OnInit, OnDestroy {
 
   readonly routeId$ = this.store.select(selectRouteId);
   readonly routeName$ = this.store.select(selectRouteName);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly response$ = this.store.select(selectRouteMap);
+  readonly response$ = this.store.select(selectRouteMapPage);
 
   constructor(private pageService: PageService,
               private store: Store<AppState>) {
     this.pageService.showFooter = false;
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionRouteMapPageInit());
   }
 
   ngOnDestroy(): void {

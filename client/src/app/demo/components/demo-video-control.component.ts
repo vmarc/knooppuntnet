@@ -1,13 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {actionDemoControlPlay} from '../../core/demo/demo.actions';
-import {selectDemoVideo} from '../../core/demo/demo.selectors';
-import {selectDemoPlaying} from '../../core/demo/demo.selectors';
-import {selectDemoEnabled} from '../../core/demo/demo.selectors';
 import {Observable} from 'rxjs';
 import {combineLatest} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {actionDemoControlPlay} from '../store/demo.actions';
+import {selectDemoVideo} from '../store/demo.selectors';
+import {selectDemoPlaying} from '../store/demo.selectors';
+import {selectDemoEnabled} from '../store/demo.selectors';
 
 @Component({
   selector: 'kpn-demo-video-control',

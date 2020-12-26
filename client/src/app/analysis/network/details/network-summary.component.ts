@@ -6,7 +6,7 @@ import {NetworkDetailsPage} from '@api/common/network/network-details-page';
   selector: 'kpn-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p  class="kpn-km">
+    <p class="kpn-km">
       {{page.attributes.km}}
     </p>
     <p>

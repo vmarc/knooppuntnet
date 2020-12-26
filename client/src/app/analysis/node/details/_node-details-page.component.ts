@@ -8,12 +8,13 @@ import {List} from 'immutable';
 import {filter} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
 import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
-import {selectNodeDetails} from '../../../core/analysis/node/node.selectors';
-import {selectNodeName} from '../../../core/analysis/node/node.selectors';
-import {selectNodeId} from '../../../core/analysis/node/node.selectors';
-import {selectNodeChangeCount} from '../../../core/analysis/node/node.selectors';
 import {AppState} from '../../../core/core.state';
 import {FactInfo} from '../../fact/fact-info';
+import {actionNodeDetailsPageInit} from '../store/node.actions';
+import {selectNodeDetailsPage} from '../store/node.selectors';
+import {selectNodeName} from '../store/node.selectors';
+import {selectNodeId} from '../store/node.selectors';
+import {selectNodeChangeCount} from '../store/node.selectors';
 
 @Component({
   selector: 'kpn-node-details-page',
@@ -91,13 +92,14 @@ export class NodeDetailsPageComponent implements OnInit {
   nodeName$ = this.store.select(selectNodeName);
   changeCount$ = this.store.select(selectNodeChangeCount);
 
-  response$ = this.store.select(selectNodeDetails).pipe(filter(x => x !== null));
+  response$ = this.store.select(selectNodeDetailsPage).pipe(filter(x => x !== null));
 
   constructor(private pageService: PageService,
               private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(actionNodeDetailsPageInit());
     this.pageService.showFooter = true;
   }
 

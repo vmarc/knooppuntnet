@@ -5,11 +5,7 @@ import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../../environments/environment';
-import {NodeEffects} from './analysis/node/node.effects';
-import {RouteEffects} from './analysis/route/route.effects';
 import {metaReducers, reducers} from './core.state';
-import {DemoEffects} from './demo/demo.effects';
-import {DemoService} from './demo/demo.service';
 import {SharedEffects} from './shared/shared.effects';
 
 @NgModule({
@@ -28,19 +24,13 @@ import {SharedEffects} from './shared/shared.effects';
     }),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([
-      SharedEffects,
-      DemoEffects,
-      NodeEffects,
-      RouteEffects
+      SharedEffects
     ]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
         name: 'Knooppuntnet'
       })
-  ],
-  providers: [
-    DemoService
   ]
 })
 export class CoreModule {

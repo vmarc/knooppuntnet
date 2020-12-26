@@ -1,6 +1,8 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {MarkdownModule} from 'ngx-markdown';
 import {OlModule} from '../../components/ol/ol.module';
 import {SharedModule} from '../../components/shared/shared.module';
@@ -23,10 +25,17 @@ import {RouteStructureComponent} from './details/route-structure.component';
 import {RouteSummaryComponent} from './details/route-summary.component';
 import {RouteMapPageComponent} from './map/_route-map-page.component';
 import {RouteRoutingModule} from './route-routing.module';
+import {RouteEffects} from './store/route.effects';
+import {routeReducer} from './store/route.reducer';
+import {routeFeatureKey} from './store/route.state';
 
 @NgModule({
   imports: [
     CommonModule,
+    StoreModule.forFeature(routeFeatureKey, routeReducer),
+    EffectsModule.forFeature([
+      RouteEffects
+    ]),
     MarkdownModule,
     MatIconModule,
     SharedModule,

@@ -1,13 +1,14 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnDestroy} from '@angular/core';
+import {Store} from '@ngrx/store';
 import {filter} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
-import {selectNodeId} from '../../../core/analysis/node/node.selectors';
-import {selectNodeName} from '../../../core/analysis/node/node.selectors';
-import {selectNodeChangeCount} from '../../../core/analysis/node/node.selectors';
-import {selectNodeMap} from '../../../core/analysis/node/node.selectors';
 import {AppState} from '../../../core/core.state';
-import {Store} from '@ngrx/store';
+import {actionNodeMapPageInit} from '../store/node.actions';
+import {selectNodeId} from '../store/node.selectors';
+import {selectNodeName} from '../store/node.selectors';
+import {selectNodeChangeCount} from '../store/node.selectors';
+import {selectNodeMapPage} from '../store/node.selectors';
 
 @Component({
   selector: 'kpn-node-map-page',
@@ -44,11 +45,15 @@ export class NodeMapPageComponent implements OnDestroy {
   nodeName$ = this.store.select(selectNodeName);
   changeCount$ = this.store.select(selectNodeChangeCount);
 
-  response$ = this.store.select(selectNodeMap).pipe(filter(x => x !== null));
+  response$ = this.store.select(selectNodeMapPage).pipe(filter(x => x !== null));
 
   constructor(private pageService: PageService,
               private store: Store<AppState>) {
     this.pageService.showFooter = false;
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(actionNodeMapPageInit());
   }
 
   ngOnDestroy(): void {

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Input} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {actionRouteLink} from '../../../core/analysis/route/route.actions';
+import {actionRouteLink} from '../../../analysis/route/store/route.actions';
 import {AppState} from '../../../core/core.state';
 
 @Component({

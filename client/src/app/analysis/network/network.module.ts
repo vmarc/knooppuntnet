@@ -7,6 +7,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {MarkdownModule} from 'ngx-markdown';
 import {OlModule} from '../../components/ol/ol.module';
 import {SharedModule} from '../../components/shared/shared.module';
@@ -52,10 +54,18 @@ import {NetworkRoutesPageComponent} from './routes/_network-routes-page.componen
 import {NetworkRouteAnalysisComponent} from './routes/network-route-analysis.component';
 import {NetworkRouteTableComponent} from './routes/network-route-table.component';
 import {NetworkRoutesSidebarComponent} from './routes/network-routes-sidebar.component';
+import {NetworkEffects} from './store/network.effects';
+import {networkReducer} from './store/network.reducer';
+import {networkFeatureKey} from './store/network.state';
 
 @NgModule({
   imports: [
+    NetworkRoutingModule,
     CommonModule,
+    StoreModule.forFeature(networkFeatureKey, networkReducer),
+    EffectsModule.forFeature([
+      NetworkEffects
+    ]),
     MarkdownModule,
     MatDialogModule,
     MatDividerModule,
@@ -65,7 +75,6 @@ import {NetworkRoutesSidebarComponent} from './routes/network-routes-sidebar.com
     MatTableModule,
     SharedModule,
     AnalysisComponentsModule,
-    NetworkRoutingModule,
     MatSlideToggleModule,
     FactModule,
     OlModule

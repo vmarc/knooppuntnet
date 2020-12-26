@@ -7,12 +7,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {MarkdownModule} from 'ngx-markdown';
 import {OlModule} from '../../components/ol/ol.module';
 import {SharedModule} from '../../components/shared/shared.module';
 import {AnalysisComponentsModule} from '../components/analysis-components.module';
 import {FactModule} from '../fact/fact.module';
-import {SubsetRoutingModule} from './subset-routing.module';
 import {SubsetChangesPageComponent} from './changes/_subset-changes-page.component';
 import {SubsetChangesSidebarComponent} from './changes/subset-changes-sidebar.component';
 import {SubsetChangesService} from './changes/subset-changes.service';
@@ -36,10 +37,19 @@ import {SubsetOrphanRouteComponent} from './orphan-routes/subset-orphan-route.co
 import {SubsetOrphanRoutesSidebarComponent} from './orphan-routes/subset-orphan-routes-sidebar.component';
 import {SubsetOrphanRoutesTableComponent} from './orphan-routes/subset-orphan-routes-table.component';
 import {SubsetOrphanRoutesService} from './orphan-routes/subset-orphan-routes.service';
+import {SubsetEffects} from './store/subset.effects';
+import {subsetReducer} from './store/subset.reducer';
+import {subsetFeatureKey} from './store/subset.state';
+import {SubsetRoutingModule} from './subset-routing.module';
 
 @NgModule({
   imports: [
+    SubsetRoutingModule,
     CommonModule,
+    StoreModule.forFeature(subsetFeatureKey, subsetReducer),
+    EffectsModule.forFeature([
+      SubsetEffects
+    ]),
     MatDividerModule,
     MatIconModule,
     MatPaginatorModule,
@@ -47,7 +57,6 @@ import {SubsetOrphanRoutesService} from './orphan-routes/subset-orphan-routes.se
     MatTableModule,
     SharedModule,
     FactModule,
-    SubsetRoutingModule,
     AnalysisComponentsModule,
     OlModule,
     MarkdownModule,

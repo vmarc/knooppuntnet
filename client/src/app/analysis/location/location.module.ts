@@ -10,9 +10,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTreeModule} from '@angular/material/tree';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
 import {OlModule} from '../../components/ol/ol.module';
 import {SharedModule} from '../../components/shared/shared.module';
 import {AnalysisComponentsModule} from '../components/analysis-components.module';
@@ -43,12 +46,18 @@ import {LocationSelectionPageComponent} from './selection/location-selection-pag
 import {LocationSelectionService} from './selection/location-selection.service';
 import {LocationSelectorComponent} from './selection/location-selector.component';
 import {LocationTreeComponent} from './selection/location-tree.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {LocationEffects} from './store/location.effects';
+import {locationReducer} from './store/location.reducer';
+import {locationFeatureKey} from './store/location.state';
 
 @NgModule({
   imports: [
     LocationRoutingModule,
     CommonModule,
+    StoreModule.forFeature(locationFeatureKey, locationReducer),
+    EffectsModule.forFeature([
+      LocationEffects
+    ]),
     SharedModule,
     MatDividerModule,
     MatTableModule,

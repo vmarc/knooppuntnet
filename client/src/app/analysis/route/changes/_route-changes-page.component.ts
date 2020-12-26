@@ -1,6 +1,10 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
+import {RouteChangesPage} from '@api/common/route/route-changes-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Store} from '@ngrx/store';
 import {ReplaySubject} from 'rxjs';
 import {combineLatest} from 'rxjs';
 import {Observable} from 'rxjs';
@@ -12,17 +16,13 @@ import {map} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {AppState} from '../../../core/core.state';
+import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
 import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
-import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
-import {RouteChangesPage} from '@api/common/route/route-changes-page';
-import {ApiResponse} from '@api/custom/api-response';
 import {UserService} from '../../../services/user.service';
 import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
 import {RouteChangesService} from './route-changes.service';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../core/core.state';
-import {actionPreferencesNetworkType} from '../../../core/preferences/preferences.actions';
 
 @Component({
   selector: 'kpn-route-changes-page',

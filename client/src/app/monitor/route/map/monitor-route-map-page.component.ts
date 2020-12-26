@@ -28,15 +28,8 @@ import {MonitorRouteMapService} from './monitor-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-monitor-route-page-header pageName="map"></kpn-monitor-route-page-header>
-    <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result">
-        Route not found
-      </div>
-      <div *ngIf="response.result as route">
-        <div id="monitor-map" class="kpn-map">
-          <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
-        </div>
-      </div>
+    <div id="monitor-map" class="kpn-map">
+      <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
     </div>
   `
 })
