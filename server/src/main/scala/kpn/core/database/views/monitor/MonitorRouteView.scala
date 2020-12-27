@@ -59,5 +59,16 @@ object MonitorRouteView extends View {
     result.rows.map(_.doc.monitorRoute)
   }
 
+  def routes(database: Database, stale: Boolean = true): Seq[MonitorRoute] = {
+    val query = Query(MonitorDesign, MonitorRouteView, classOf[RouteViewResult])
+      .startKey(s"""["group-route"]""")
+      .endKey(s"""["group-route",{}]""")
+      .reduce(false)
+      .includeDocs(true)
+      .stale(stale)
+    val result = database.execute(query)
+    result.rows.map(_.doc.monitorRoute)
+  }
+
   override val reduce: Option[String] = Some("_count")
 }

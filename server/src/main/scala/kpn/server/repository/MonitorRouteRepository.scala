@@ -31,4 +31,5 @@ trait MonitorRouteRepository {
 
   def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
+  def routes(): Seq[MonitorRoute]
 }

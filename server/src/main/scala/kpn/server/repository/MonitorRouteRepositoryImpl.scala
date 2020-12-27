@@ -8,6 +8,7 @@ import kpn.core.database.doc.MonitorRouteDoc
 import kpn.core.database.doc.MonitorRouteReferenceDoc
 import kpn.core.database.doc.MonitorRouteStateDoc
 import kpn.core.database.views.monitor.MonitorChangesView
+import kpn.core.database.views.monitor.MonitorRouteView
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -89,6 +90,10 @@ class MonitorRouteRepositoryImpl(
 
   override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
     MonitorChangesView.routeChanges(monitorDatabase, routeId, parameters)
+  }
+
+  override def routes(): Seq[MonitorRoute] = {
+    MonitorRouteView.routes(monitorDatabase)
   }
 
 }

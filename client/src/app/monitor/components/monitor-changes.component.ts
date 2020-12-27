@@ -9,44 +9,52 @@ import {MonitorRouteChangeSummary} from '@api/common/monitor/monitor-route-chang
   template: `
 
     <kpn-items>
-      <kpn-item *ngFor="let changeSet of changes; let i=index" [index]="rowIndex(i)">
+      <kpn-item *ngFor="let change of changes; let i=index" [index]="rowIndex(i)">
 
         <div class="change-set">
 
-          <kpn-monitor-change-header [changeSet]="changeSet"></kpn-monitor-change-header>
+          <kpn-monitor-change-header [changeSet]="change"></kpn-monitor-change-header>
 
           <div>
+            <p *ngIf="change.groupDescription">
+              <span class="kpn-label">Group</span>
+              <a [routerLink]="'/monitor/groups/' + change.groupName">{{change.groupDescription}}</a>
+            </p>
+            <p *ngIf="change.routeName">
+              <span class="kpn-label">Route</span>
+              <a [routerLink]="'/monitor/groups/' + change.groupName + '/routes/' + change.key.elementId">{{change.routeName}}</a>
+            </p>
             <p>
-              Reference: {{changeSet.gpxFilename}}
+              Reference: {{change.gpxFilename}}
             </p>
             <table>
               <tr>
                 <td>GPX</td>
-                <td>{{changeSet.gpxDistance}}km</td>
+                <td>{{change.gpxDistance}}km</td>
               </tr>
               <tr>
                 <td>OSM</td>
-                <td>{{changeSet.osmDistance}}km</td>
+                <td>{{change.osmDistance}}km</td>
               </tr>
             </table>
             <p>
-              ways={{changeSet.wayCount}},
-              added={{changeSet.waysAdded}},
-              removed={{changeSet.waysRemoved}},
-              updated={{changeSet.waysUpdated}}
+              ways={{change.wayCount}},
+              added={{change.waysAdded}},
+              removed={{change.waysRemoved}},
+              updated={{change.waysUpdated}}
             </p>
-            <p *ngIf="changeSet.routeSegmentCount !== 1">
-              Not OK: {{changeSet.routeSegmentCount}} route segments
+            <p *ngIf="change.routeSegmentCount !== 1">
+              Not OK: {{change.routeSegmentCount}} route segments
             </p>
-            <p *ngIf="changeSet.routeSegmentCount === 1">
+            <p *ngIf="change.routeSegmentCount === 1">
               OK: 1 route segment
             </p>
-            <p *ngIf="changeSet.resolvedNokSegmentCount > 0" class="kpn-line">
-              <span>Resolved deviations: {{changeSet.resolvedNokSegmentCount}}</span>
+            <p *ngIf="change.resolvedNokSegmentCount > 0" class="kpn-line">
+              <span>Resolved deviations: {{change.resolvedNokSegmentCount}}</span>
               <kpn-icon-happy></kpn-icon-happy>
             </p>
-            <p *ngIf="changeSet.newNokSegmentCount > 0" class="kpn-line">
-              <span>New deviations: {{changeSet.newNokSegmentCount}}</span>
+            <p *ngIf="change.newNokSegmentCount > 0" class="kpn-line">
+              <span>New deviations: {{change.newNokSegmentCount}}</span>
               <kpn-icon-investigate></kpn-icon-investigate>
             </p>
           </div>

@@ -6,6 +6,8 @@ import {ChangeKeyI} from '../changes/details/change-key-i';
 export interface MonitorRouteChangeSummary {
   readonly key: ChangeKeyI;
   readonly groupName: string;
+  readonly routeName: string;
+  readonly groupDescription: string;
   readonly comment: string;
   readonly wayCount: number;
   readonly waysAdded: number;

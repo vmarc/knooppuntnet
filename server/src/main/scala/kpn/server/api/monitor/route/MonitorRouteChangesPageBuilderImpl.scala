@@ -1,6 +1,7 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.common.BoundsI
+import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
@@ -22,13 +23,21 @@ class MonitorRouteChangesPageBuilderImpl(
   override def changes(parameters: MonitorChangesParameters): Option[MonitorChangesPage] = {
     val changes = build(monitorRouteRepository.changes(parameters))
     val totalChangeCount = monitorRouteRepository.changesCount(parameters)
+    val groupMap = monitorGroupRepository.groups().map(group => group.name -> group.description).toMap
+    val routeMap = monitorRouteRepository.routes().map(route => route.id -> route.translatedName(EN)).toMap
+    val enrichedChanges = changes.map { change =>
+      change.copy(
+        groupDescription = groupMap.get(change.groupName),
+        routeName = routeMap.get(change.key.elementId)
+      )
+    }
     Some(
       MonitorChangesPage(
         parameters.impact,
         parameters.pageIndex,
         parameters.itemsPerPage,
         totalChangeCount,
-        changes
+        enrichedChanges
       )
     )
   }
@@ -36,6 +45,12 @@ class MonitorRouteChangesPageBuilderImpl(
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Option[MonitorGroupChangesPage] = {
     val changes = build(monitorRouteRepository.groupChanges(groupName, parameters))
     val totalChangeCount = monitorRouteRepository.groupChangesCount(groupName, parameters)
+    val routeMap = monitorRouteRepository.routes().map(route => route.id -> route.translatedName(EN)).toMap
+    val enrichedChanges = changes.map { change =>
+      change.copy(
+        routeName = routeMap.get(change.key.elementId)
+      )
+    }
     monitorGroupRepository.group(groupName).map { group =>
       MonitorGroupChangesPage(
         group.name,
@@ -44,7 +59,7 @@ class MonitorRouteChangesPageBuilderImpl(
         parameters.pageIndex,
         parameters.itemsPerPage,
         totalChangeCount,
-        changes
+        enrichedChanges
       )
     }
   }
@@ -80,6 +95,8 @@ class MonitorRouteChangesPageBuilderImpl(
       MonitorRouteChangeSummary(
         change.key.cleaned,
         change.groupName,
+        None,
+        None,
         comment,
         change.wayCount,
         change.waysAdded,
