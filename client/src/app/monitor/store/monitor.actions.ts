@@ -68,6 +68,11 @@ export const actionMonitorGroupChangesPageInit = createAction(
   '[MonitorGroupChangesPage] Init'
 );
 
+export const actionMonitorGroupChangesPageIndex = createAction(
+  '[MonitorGroupChangesPage] Page index',
+  props<{ pageIndex: number }>()
+);
+
 export const actionMonitorGroupChangesPageLoaded = createAction(
   '[MonitorGroupChangesPage] Loaded',
   props<{ response: ApiResponse<MonitorGroupChangesPage> }>()
@@ -93,6 +98,11 @@ export const actionMonitorRouteMapPageLoaded = createAction(
 
 export const actionMonitorRouteChangesPageInit = createAction(
   '[MonitorRouteChangesPage] Init'
+);
+
+export const actionMonitorRouteChangesPageIndex = createAction(
+  '[MonitorRouteChangesPage] Page index',
+  props<{ pageIndex: number }>()
 );
 
 export const actionMonitorRouteChangesPageLoaded = createAction(
@@ -156,6 +166,11 @@ export const actionMonitorGroupUpdate = createAction(
 
 export const actionMonitorChangesPageInit = createAction(
   '[MonitorChangesPage] Init'
+);
+
+export const actionMonitorChangesPageIndex = createAction(
+  '[MonitorChangesPage] Page index',
+  props<{ pageIndex: number }>()
 );
 
 export const actionMonitorChangesPageLoaded = createAction(

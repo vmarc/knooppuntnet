@@ -26,13 +26,16 @@ export const initialState: MonitorState = {
   mapGpxOkVisible: false,
   mapGpxNokVisible: false,
   mapOsmRelationVisible: false,
+  changesPageIndex: 0,
   changesPage: null,
   groupsPage: null,
   groupPage: null,
+  groupChangesPageIndex: 0,
   groupChangesPage: null,
   adminGroupPage: null,
   routeDetailsPage: null,
   routeMapPage: null,
+  routeChangesPageIndex: 0,
   routeChangesPage: null,
   routeChangePage: null,
 
@@ -61,13 +64,16 @@ export interface MonitorState {
   mapGpxOkVisible: boolean;
   mapGpxNokVisible: boolean;
   mapOsmRelationVisible: boolean;
+  changesPageIndex: number,
   changesPage: ApiResponse<MonitorChangesPage>;
   groupsPage: ApiResponse<MonitorGroupsPage>;
   groupPage: ApiResponse<MonitorGroupPage>;
+  groupChangesPageIndex: number,
   groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
   adminGroupPage: ApiResponse<MonitorAdminGroupPage>;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;
+  routeChangesPageIndex: number,
   routeChangesPage: ApiResponse<MonitorRouteChangesPage>;
   routeChangePage: ApiResponse<MonitorRouteChangePage>;
 

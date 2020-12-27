@@ -7,5 +7,9 @@ export interface MonitorRouteChangesPage {
   readonly routeName: string;
   readonly groupName: string;
   readonly groupDescription: string;
+  readonly impact: boolean;
+  readonly pageIndex: number;
+  readonly itemsPerPage: number;
+  readonly totalChangeCount: number;
   readonly changes: MonitorRouteChangeSummary[];
 }

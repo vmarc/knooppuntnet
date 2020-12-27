@@ -33,7 +33,7 @@ import {selectLongdistanceRouteId} from '../../../store/monitor.selectors';
 
             <div class="change-set">
 
-              <kpn-monitor-change-header [changeSet]="changeSet"></kpn-monitor-change-header>
+<!--              <kpn-monitor-change-header [changeSet]="changeSet"></kpn-monitor-change-header>-->
 
               <div>
                 <p>

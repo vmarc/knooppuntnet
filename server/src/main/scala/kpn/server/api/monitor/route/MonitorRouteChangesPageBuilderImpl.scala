@@ -21,15 +21,29 @@ class MonitorRouteChangesPageBuilderImpl(
 
   override def changes(parameters: MonitorChangesParameters): Option[MonitorChangesPage] = {
     val changes = build(monitorRouteRepository.changes(parameters))
-    Some(MonitorChangesPage(changes))
+    val totalChangeCount = monitorRouteRepository.changesCount(parameters)
+    Some(
+      MonitorChangesPage(
+        parameters.impact,
+        parameters.pageIndex,
+        parameters.itemsPerPage,
+        totalChangeCount,
+        changes
+      )
+    )
   }
 
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Option[MonitorGroupChangesPage] = {
     val changes = build(monitorRouteRepository.groupChanges(groupName, parameters))
+    val totalChangeCount = monitorRouteRepository.groupChangesCount(groupName, parameters)
     monitorGroupRepository.group(groupName).map { group =>
       MonitorGroupChangesPage(
         group.name,
         group.description,
+        parameters.impact,
+        parameters.pageIndex,
+        parameters.itemsPerPage,
+        totalChangeCount,
         changes
       )
     }
@@ -37,6 +51,7 @@ class MonitorRouteChangesPageBuilderImpl(
 
   override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
     val changes = build(monitorRouteRepository.routeChanges(routeId, parameters))
+    val totalChangeCount = monitorRouteRepository.routeChangesCount(routeId, parameters)
     monitorRouteRepository.route(routeId).flatMap { route =>
       monitorGroupRepository.group(route.groupName).map { group =>
         MonitorRouteChangesPage(
@@ -44,6 +59,10 @@ class MonitorRouteChangesPageBuilderImpl(
           route.name,
           group.name,
           group.description,
+          parameters.impact,
+          parameters.pageIndex,
+          parameters.itemsPerPage,
+          totalChangeCount,
           changes
         )
       }

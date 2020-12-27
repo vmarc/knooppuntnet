@@ -67,12 +67,24 @@ class MonitorRouteRepositoryImpl(
     ).map(_.monitorRouteChangeGeometry)
   }
 
+  override def changesCount(parameters: MonitorChangesParameters): Long = {
+    MonitorChangesView.changesCount(monitorDatabase, parameters)
+  }
+
   override def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
     MonitorChangesView.changes(monitorDatabase, parameters)
   }
 
+  override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {
+    MonitorChangesView.groupChangesCount(monitorDatabase, groupName, parameters)
+  }
+
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
     MonitorChangesView.groupChanges(monitorDatabase, groupName, parameters)
+  }
+
+  override def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long = {
+    MonitorChangesView.routeChangesCount(monitorDatabase, routeId, parameters)
   }
 
   override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {

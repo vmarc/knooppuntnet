@@ -35,23 +35,13 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public monitorGroupChanges(groupName: string): Observable<ApiResponse<MonitorGroupChangesPage>> {
+  public monitorGroupChanges(groupName: string, parameters: MonitorChangesParameters): Observable<ApiResponse<MonitorGroupChangesPage>> {
     const url = `/api/monitor/groups/${groupName}/changes`;
-    const parameters: MonitorChangesParameters = {
-      itemsPerPage: 20,
-      pageIndex: 0,
-      impact: false
-    };
     return this.http.post(url, parameters);
   }
 
-  public monitorChanges(): Observable<ApiResponse<MonitorChangesPage>> {
+  public monitorChanges(parameters: MonitorChangesParameters): Observable<ApiResponse<MonitorChangesPage>> {
     const url = `/api/monitor/changes`;
-    const parameters: MonitorChangesParameters = {
-      itemsPerPage: 20,
-      pageIndex: 0,
-      impact: false
-    };
     return this.http.post(url, parameters);
   }
 
@@ -70,13 +60,8 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public monitorRouteChanges(routeId: string): Observable<ApiResponse<MonitorRouteChangesPage>> {
+  public monitorRouteChanges(routeId: string, parameters: MonitorChangesParameters): Observable<ApiResponse<MonitorRouteChangesPage>> {
     const url = `/api/monitor/routes/${routeId}/changes`;
-    const parameters: MonitorChangesParameters = {
-      itemsPerPage: 20,
-      pageIndex: 0,
-      impact: false
-    };
     return this.http.post(url, parameters);
   }
 

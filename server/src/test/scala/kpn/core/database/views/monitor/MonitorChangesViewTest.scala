@@ -27,6 +27,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
       groupRepository.saveRouteChange(change4)
       groupRepository.saveRouteChange(change5)
 
+      MonitorChangesView.changesCount(database, MonitorChangesParameters(), stale = false) should equal(5)
       MonitorChangesView.changes(database, MonitorChangesParameters(), stale = false) should equal(
         Seq(
           change5,
@@ -37,6 +38,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      MonitorChangesView.changesCount(database, MonitorChangesParameters(impact = true), stale = false) should equal(2)
       MonitorChangesView.changes(database, MonitorChangesParameters(impact = true), stale = false) should equal(
         Seq(
           change5,
@@ -44,6 +46,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      MonitorChangesView.groupChangesCount(database, "group-1", MonitorChangesParameters(), stale = false) should equal(3)
       MonitorChangesView.groupChanges(database, "group-1", MonitorChangesParameters(), stale = false) should equal(
         Seq(
           change3,
@@ -52,12 +55,22 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      MonitorChangesView.groupChangesCount(database, "group-1", MonitorChangesParameters(impact = true), stale = false) should equal(1)
       MonitorChangesView.groupChanges(database, "group-1", MonitorChangesParameters(impact = true), stale = false) should equal(
         Seq(
           change2
         )
       )
 
+      MonitorChangesView.routeChangesCount(database, 101L, MonitorChangesParameters(), stale = false) should equal(2)
+      MonitorChangesView.routeChanges(database, 101L, MonitorChangesParameters(), stale = false) should equal(
+        Seq(
+          change2,
+          change1
+        )
+      )
+
+      MonitorChangesView.routeChangesCount(database, 101L, MonitorChangesParameters(impact = true), stale = false) should equal(1)
       MonitorChangesView.routeChanges(database, 101L, MonitorChangesParameters(impact = true), stale = false) should equal(
         Seq(
           change2

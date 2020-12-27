@@ -13,9 +13,18 @@ object MonitorChangesView extends View {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
+  private case class CountViewResultRow(value: Long)
+
+  private case class CountViewResult(rows: Seq[CountViewResultRow])
+
   def changes(database: Database, parameters: MonitorChangesParameters, stale: Boolean = true): Seq[MonitorRouteChange] = {
     val key = if (parameters.impact) """"impacted:change"""" else """"change""""
     doChanges(database, key, parameters, stale)
+  }
+
+  def changesCount(database: Database, parameters: MonitorChangesParameters, stale: Boolean = true): Long = {
+    val key = if (parameters.impact) """"impacted:change"""" else """"change""""
+    doChangesCount(database, key, parameters, stale)
   }
 
   def groupChanges(database: Database, groupName: String, parameters: MonitorChangesParameters, stale: Boolean = true): Seq[MonitorRouteChange] = {
@@ -24,10 +33,22 @@ object MonitorChangesView extends View {
     doChanges(database, key, parameters, stale)
   }
 
+  def groupChangesCount(database: Database, groupName: String, parameters: MonitorChangesParameters, stale: Boolean = true): Long = {
+    val prefix = if (parameters.impact) "impacted:group" else "group"
+    val key = s""""$prefix","$groupName""""
+    doChangesCount(database, key, parameters, stale)
+  }
+
   def routeChanges(database: Database, routeId: Long, parameters: MonitorChangesParameters, stale: Boolean = true): Seq[MonitorRouteChange] = {
     val prefix = if (parameters.impact) "impacted:route" else "route"
     val key = s""""$prefix",$routeId"""
     doChanges(database, key, parameters, stale)
+  }
+
+  def routeChangesCount(database: Database, routeId: Long, parameters: MonitorChangesParameters, stale: Boolean = true): Long = {
+    val prefix = if (parameters.impact) "impacted:route" else "route"
+    val key = s""""$prefix",$routeId"""
+    doChangesCount(database, key, parameters, stale)
   }
 
   private def doChanges(database: Database, key: String, parameters: MonitorChangesParameters, stale: Boolean = true): Seq[MonitorRouteChange] = {
@@ -44,6 +65,16 @@ object MonitorChangesView extends View {
       .stale(stale)
     val result = database.execute(query)
     result.rows.map(_.doc.monitorRouteChange)
+  }
+
+  private def doChangesCount(database: Database, key: String, parameters: MonitorChangesParameters, stale: Boolean = true): Long = {
+    val query = Query(MonitorDesign, MonitorChangesView, classOf[CountViewResult])
+      .startKey(s"[$key]")
+      .endKey(s"[$key,{}]")
+      .reduce(true)
+      .stale(stale)
+    val result = database.execute(query)
+    result.rows.map(_.value).sum
   }
 
   override val reduce: Option[String] = Some("_count")

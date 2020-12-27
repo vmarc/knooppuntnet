@@ -19,9 +19,15 @@ trait MonitorRouteRepository {
 
   def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationId: Long): Option[MonitorRouteChangeGeometry]
 
+  def changesCount(parameters: MonitorChangesParameters): Long
+
   def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
+  def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long
+
   def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+
+  def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long
 
   def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 

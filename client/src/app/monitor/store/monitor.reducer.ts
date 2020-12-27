@@ -1,6 +1,12 @@
 import {routerNavigationAction} from '@ngrx/router-store';
 import {createReducer} from '@ngrx/store';
 import {on} from '@ngrx/store';
+import {actionMonitorGroupChangesPageInit} from './monitor.actions';
+import {actionMonitorChangesPageInit} from './monitor.actions';
+import {actionMonitorRouteChangesPageInit} from './monitor.actions';
+import {actionMonitorRouteChangesPageIndex} from './monitor.actions';
+import {actionMonitorGroupChangesPageIndex} from './monitor.actions';
+import {actionMonitorChangesPageIndex} from './monitor.actions';
 import {actionMonitorChangesPageLoaded} from './monitor.actions';
 import {actionMonitorGroupChangesPageLoaded} from './monitor.actions';
 import {actionMonitorGroupPageLoaded} from './monitor.actions';
@@ -57,10 +63,24 @@ export const monitorReducer = createReducer(
     })
   ),
   on(
+    actionMonitorChangesPageInit,
+    (state) => ({
+      ...state,
+      changesPageIndex: 0
+    })
+  ),
+  on(
     actionMonitorChangesPageLoaded,
     (state, {response}) => ({
       ...state,
       changesPage: response
+    })
+  ),
+  on(
+    actionMonitorChangesPageIndex,
+    (state, action) => ({
+      ...state,
+      changesPageIndex: action.pageIndex
     })
   ),
   on(
@@ -80,12 +100,26 @@ export const monitorReducer = createReducer(
     })
   ),
   on(
+    actionMonitorGroupChangesPageInit,
+    (state) => ({
+      ...state,
+      groupChangesPageIndex: 0
+    })
+  ),
+  on(
     actionMonitorGroupChangesPageLoaded,
     (state, {response}) => ({
       ...state,
       groupName: response?.result?.groupName ?? state.groupName,
       groupDescription: response?.result?.groupDescription ?? state.groupDescription,
       groupChangesPage: response
+    })
+  ),
+  on(
+    actionMonitorGroupChangesPageIndex,
+    (state, action) => ({
+      ...state,
+      groupChangesPageIndex: action.pageIndex
     })
   ),
   on(
@@ -156,6 +190,15 @@ export const monitorReducer = createReducer(
     }
   ),
   on(
+    actionMonitorRouteChangesPageInit,
+    (state) => {
+      return {
+        ...state,
+        routeChangesPageIndex: 0
+      };
+    }
+  ),
+  on(
     actionMonitorRouteChangesPageLoaded,
     (state, {response}) => {
       const routeId = response.result?.routeId ?? state.routeId;
@@ -171,6 +214,13 @@ export const monitorReducer = createReducer(
         routeChangesPage: response
       };
     }
+  ),
+  on(
+    actionMonitorRouteChangesPageIndex,
+    (state, action) => ({
+      ...state,
+      routeChangesPageIndex: action.pageIndex
+    })
   ),
   on(
     actionMonitorRouteChangePageLoaded,

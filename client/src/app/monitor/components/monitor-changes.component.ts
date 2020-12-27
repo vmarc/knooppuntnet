@@ -9,7 +9,7 @@ import {MonitorRouteChangeSummary} from '@api/common/monitor/monitor-route-chang
   template: `
 
     <kpn-items>
-      <kpn-item *ngFor="let changeSet of changes; let i=index" [index]="i">
+      <kpn-item *ngFor="let changeSet of changes; let i=index" [index]="rowIndex(i)">
 
         <div class="change-set">
 
@@ -63,6 +63,11 @@ import {MonitorRouteChangeSummary} from '@api/common/monitor/monitor-route-chang
 })
 export class MonitorChangesComponent {
 
+  @Input() pageIndex: number;
+  @Input() itemsPerPage: number;
   @Input() changes: MonitorRouteChangeSummary[];
 
+  rowIndex(index: number): number {
+    return this.pageIndex * this.itemsPerPage + index;
+  }
 }

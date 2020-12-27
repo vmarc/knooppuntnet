@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {MonitorChangesParameters} from '@api/common/monitor/monitor-changes-parameters';
 import {Actions} from '@ngrx/effects';
 import {createEffect} from '@ngrx/effects';
 import {ofType} from '@ngrx/effects';
@@ -12,9 +13,14 @@ import {mergeMap} from 'rxjs/operators';
 import {AppState} from '../../core/core.state';
 import {selectRouteParam} from '../../core/core.state';
 import {selectRouteParams} from '../../core/core.state';
+import {selectPreferencesItemsPerPage} from '../../core/preferences/preferences.selectors';
+import {selectPreferencesImpact} from '../../core/preferences/preferences.selectors';
 import {LongdistanceRouteMapService} from '../longdistance/route/map/longdistance-route-map.service';
 import {MonitorService} from '../monitor.service';
 import {MonitorRouteMapService} from '../route/map/monitor-route-map.service';
+import {actionMonitorChangesPageIndex} from './monitor.actions';
+import {actionMonitorRouteChangesPageIndex} from './monitor.actions';
+import {actionMonitorGroupChangesPageIndex} from './monitor.actions';
 import {actionMonitorChangesPageLoaded} from './monitor.actions';
 import {actionMonitorChangesPageInit} from './monitor.actions';
 import {actionMonitorGroupChangesPageLoaded} from './monitor.actions';
@@ -50,6 +56,8 @@ import {actionMonitorRouteMapFocus} from './monitor.actions';
 import {actionMonitorRouteMapPageLoaded} from './monitor.actions';
 import {actionMonitorRouteDetailsPageLoaded} from './monitor.actions';
 import {actionMonitorRouteChangesPageLoaded} from './monitor.actions';
+import {selectMonitorChangesPageIndex} from './monitor.selectors';
+import {selectMonitorGroupChangesPageIndex} from './monitor.selectors';
 import {selectMonitorAdmin} from './monitor.selectors';
 
 @Injectable()
@@ -107,12 +115,20 @@ export class MonitorEffects {
 
   monitorGroupChangesPageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorGroupChangesPageInit),
+      ofType(actionMonitorGroupChangesPageInit, actionMonitorGroupChangesPageIndex),
       withLatestFrom(
-        this.store.select(selectRouteParam('groupName'))
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectMonitorGroupChangesPageIndex),
+        this.store.select(selectPreferencesImpact)
       ),
-      mergeMap(([action, groupName]) => {
-        return this.monitorService.monitorGroupChanges(groupName).pipe(
+      mergeMap(([action, groupName, itemsPerPage, pageIndex, impact]) => {
+        const parameters: MonitorChangesParameters = {
+          itemsPerPage: itemsPerPage,
+          pageIndex: pageIndex,
+          impact: impact
+        };
+        return this.monitorService.monitorGroupChanges(groupName, parameters).pipe(
           map(response => actionMonitorGroupChangesPageLoaded({response}))
         );
       })
@@ -177,12 +193,20 @@ export class MonitorEffects {
 
   monitorRouteChangesPageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorRouteChangesPageInit),
+      ofType(actionMonitorRouteChangesPageInit, actionMonitorRouteChangesPageIndex),
       withLatestFrom(
-        this.store.select(selectRouteParam('routeId'))
+        this.store.select(selectRouteParam('routeId')),
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectMonitorGroupChangesPageIndex),
+        this.store.select(selectPreferencesImpact)
       ),
-      mergeMap(([action, routeId]) => {
-        return this.monitorService.monitorRouteChanges(routeId).pipe(
+      mergeMap(([action, routeId, itemsPerPage, pageIndex, impact]) => {
+        const parameters: MonitorChangesParameters = {
+          itemsPerPage: itemsPerPage,
+          pageIndex: pageIndex,
+          impact: impact
+        };
+        return this.monitorService.monitorRouteChanges(routeId, parameters).pipe(
           map(response => actionMonitorRouteChangesPageLoaded({response}))
         );
       })
@@ -234,9 +258,19 @@ export class MonitorEffects {
 
   monitorChangesPageInit = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionMonitorChangesPageInit),
-      mergeMap((action) => {
-        return this.monitorService.monitorChanges().pipe(
+      ofType(actionMonitorChangesPageInit, actionMonitorChangesPageIndex),
+      withLatestFrom(
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectMonitorChangesPageIndex),
+        this.store.select(selectPreferencesImpact)
+      ),
+      mergeMap(([action, itemsPerPage, pageIndex, impact]) => {
+        const parameters: MonitorChangesParameters = {
+          itemsPerPage: itemsPerPage,
+          pageIndex: pageIndex,
+          impact: impact
+        };
+        return this.monitorService.monitorChanges(parameters).pipe(
           map(response => actionMonitorChangesPageLoaded({response}))
         );
       })

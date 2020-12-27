@@ -17,6 +17,11 @@ export const selectMonitorChangesPage = createSelector(
   (state: MonitorState) => state.changesPage
 );
 
+export const selectMonitorChangesPageIndex = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.changesPageIndex
+);
+
 export const selectMonitorGroupsPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.groupsPage
@@ -30,6 +35,11 @@ export const selectMonitorGroupPage = createSelector(
 export const selectMonitorGroupChangesPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.groupChangesPage
+);
+
+export const selectMonitorGroupChangesPageIndex = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.groupChangesPageIndex
 );
 
 export const selectMonitorAdminGroupPage = createSelector(
@@ -85,6 +95,11 @@ export const selectMonitorRouteMapNokSegmentsCount = createSelector(
 export const selectMonitorRouteChangesPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeChangesPage
+);
+
+export const selectMonitorRouteChangesPageIndex = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeChangesPageIndex
 );
 
 export const selectMonitorRouteChangePage = createSelector(
