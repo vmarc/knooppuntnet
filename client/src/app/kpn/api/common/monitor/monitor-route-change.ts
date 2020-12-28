@@ -13,10 +13,6 @@ export interface MonitorRouteChange {
   readonly waysRemoved: number;
   readonly waysUpdated: number;
   readonly osmDistance: number;
-  readonly gpxDistance: number;
-  readonly gpxFilename: string;
-  readonly bounds: BoundsI;
-  readonly referenceJson: string;
   readonly routeSegmentCount: number;
   readonly routeSegments: MonitorRouteSegment[];
   readonly newNokSegments: MonitorRouteNokSegment[];

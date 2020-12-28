@@ -1,6 +1,5 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.common.BoundsI
 import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -103,9 +102,6 @@ class MonitorRouteChangesPageBuilderImpl(
         change.waysRemoved,
         change.waysUpdated,
         change.osmDistance,
-        change.reference.map(_.distance).getOrElse(0),
-        change.reference.flatMap(_.filename).getOrElse(""),
-        change.reference.map(_.bounds).getOrElse(BoundsI()),
         change.routeSegmentCount,
         change.newNokSegmentCount,
         change.resolvedNokSegmentCount,

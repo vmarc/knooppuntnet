@@ -24,14 +24,14 @@ import {MonitorRouteChangeSummary} from '@api/common/monitor/monitor-route-chang
               <span class="kpn-label">Route</span>
               <a [routerLink]="'/monitor/groups/' + change.groupName + '/routes/' + change.key.elementId">{{change.routeName}}</a>
             </p>
-            <p>
-              Reference: {{change.gpxFilename}}
-            </p>
+<!--            <p>-->
+<!--              Reference: {{change.gpxFilename}}-->
+<!--            </p>-->
             <table>
-              <tr>
-                <td>GPX</td>
-                <td>{{change.gpxDistance}}km</td>
-              </tr>
+<!--              <tr>-->
+<!--                <td>GPX</td>-->
+<!--                <td>{{change.gpxDistance}}km</td>-->
+<!--              </tr>-->
               <tr>
                 <td>OSM</td>
                 <td>{{change.osmDistance}}km</td>

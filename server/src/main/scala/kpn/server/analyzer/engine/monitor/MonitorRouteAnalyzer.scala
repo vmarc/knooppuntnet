@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
@@ -17,6 +18,7 @@ import org.locationtech.jts.io.geojson.GeoJsonWriter
 object MonitorRouteAnalyzer {
 
   private val geomFactory = new GeometryFactory
+  private val log = Log(classOf[MonitorRouteAnalyzer])
 
   def toRoute(groupName: String, relation: Relation): MonitorRoute = {
     MonitorRoute(
@@ -36,11 +38,17 @@ object MonitorRouteAnalyzer {
 
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
-    val fragments = withoutTags(new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragments)
+    val originalFragments = log.elapsed {
+      ("fragment analyzer", new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragments)
+    }
+
+    val fragments = withoutTags(originalFragments)
     val fragmentMap = fragments.map(f => f.id -> f).toMap
     val fragmentIds = fragmentMap.values.map(_.id).toSet
-    val segments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
 
+    val segments = log.elapsed {
+      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentIds))
+    }
     //    println(s"wayMembers.size=${routeRelation.wayMembers.size}")
     //    println(s"fragments.size=${fragments.size}")
     //    println(s"segments.size=${segments.size}")
@@ -117,5 +125,7 @@ object MonitorRouteAnalyzer {
     }
     geomFactory.createLineString(coordinates.toArray)
   }
+}
 
+class MonitorRouteAnalyzer {
 }

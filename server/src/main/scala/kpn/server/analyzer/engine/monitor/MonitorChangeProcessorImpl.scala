@@ -11,6 +11,7 @@ import kpn.server.analyzer.engine.changes.ElementIdMap
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer.toMeters
 import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.repository.MonitorAdminRouteRepository
 import org.locationtech.jts.densify.Densifier
@@ -55,45 +56,69 @@ class MonitorChangeProcessorImpl(
   }
 
   override def process(changeSetContext: ChangeSetContext): Unit = {
-
     elementIdMap.foreach { (routeId, elementIds) =>
-
       if (monitorChangeImpactAnalyzer.hasImpact(changeSetContext.changeSet, routeId, elementIds)) {
-
-        monitorAdminRouteRepository.routeState(routeId) match {
-          case None => log.warn(s"$routeId TODO routeState not available ")
-          case Some(routeState) =>
-
-            val referenceOption: Option[MonitorRouteReference] = routeState.referenceKey.flatMap { referenceKey =>
-              monitorAdminRouteRepository.routeReference(routeId, referenceKey)
-            }
-
-            monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
-              case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
-              case Some(beforeRelation) =>
-
-                monitorRouteLoader.loadAfter(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampAfter, routeId) match {
-                  case None => log.warn(s"$routeId TODO route did not exist anymore after --> delete change ???")
-                  case Some(afterRelation) =>
-
-                    referenceOption match {
-                      case None => log.warn(s"$routeId TODO geen reference --> alleen andere changes loggen ???")
-                      case Some(reference) => analyze(changeSetContext, routeId, beforeRelation, afterRelation, reference)
-                    }
-                }
-            }
+        Log.context(routeId.toString) {
+          log.elapsed {
+            processRoute(changeSetContext, routeId)
+            ("process route", ())
+          }
         }
       }
     }
   }
 
+  private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Unit = {
+    monitorAdminRouteRepository.routeState(routeId) match {
+      case None => log.warn(s"$routeId TODO routeState not available ")
+      case Some(routeState) =>
+
+        val referenceOption: Option[MonitorRouteReference] = routeState.referenceKey.flatMap { referenceKey =>
+          monitorAdminRouteRepository.routeReference(routeId, referenceKey)
+        }
+
+        monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
+          case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
+          case Some(beforeRelation) =>
+
+            monitorRouteLoader.loadAfter(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampAfter, routeId) match {
+              case None => log.warn(s"$routeId TODO route did not exist anymore after --> delete change ???")
+              case Some(afterRelation) =>
+
+                referenceOption match {
+                  case None => log.warn(s"$routeId TODO geen reference --> alleen andere changes loggen ???")
+                  case Some(reference) =>
+                    log.elapsed {
+                      analyze(
+                        changeSetContext,
+                        routeId,
+                        beforeRelation,
+                        afterRelation,
+                        reference
+                      )
+                      ("analyze", ())
+                    }
+                }
+            }
+        }
+    }
+  }
+
   private def analyze(context: ChangeSetContext, routeId: Long, beforeRelation: Relation, afterRelation: Relation, reference: MonitorRouteReference): Unit = {
 
-    val beforeRouteSegments = MonitorRouteAnalyzer.toRouteSegments(beforeRelation)
-    val beforeRoute = analyzeChange(reference, beforeRelation, beforeRouteSegments)
+    val beforeRouteSegments = log.elapsed {
+      ("toRouteSegments before", MonitorRouteAnalyzer.toRouteSegments(beforeRelation))
+    }
+    val beforeRoute = log.elapsed {
+      ("analyze change before", analyzeChange(reference, beforeRelation, beforeRouteSegments))
+    }
 
-    val afterRouteSegments = MonitorRouteAnalyzer.toRouteSegments(afterRelation)
-    val afterRoute = analyzeChange(reference, afterRelation, afterRouteSegments)
+    val afterRouteSegments = log.elapsed {
+      ("toRouteSegments after", MonitorRouteAnalyzer.toRouteSegments(afterRelation))
+    }
+    val afterRoute = log.elapsed {
+      ("analyze change after", analyzeChange(reference, afterRelation, afterRouteSegments))
+    }
 
     val wayIdsBefore = beforeRelation.wayMembers.map(_.way.id).toSet
     val wayIdsAfter = afterRelation.wayMembers.map(_.way.id).toSet
@@ -129,13 +154,6 @@ class MonitorChangeProcessorImpl(
 
       val key = context.buildChangeKeyI(routeId)
 
-      val referenceJson = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
-        reference.geometry
-      }
-      else {
-        ""
-      }
-
       val routeSegments = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
         afterRoute.osmSegments
       }
@@ -143,9 +161,11 @@ class MonitorChangeProcessorImpl(
         Seq()
       }
 
+      val groupName = monitorAdminRouteRepository.route(routeId).map(_.groupName).getOrElse("")
+
       val change = MonitorRouteChange(
         key,
-        "example", // TODO
+        groupName,
         afterRoute.wayCount,
         wayIdsAdded,
         wayIdsRemoved,
@@ -154,12 +174,21 @@ class MonitorChangeProcessorImpl(
         afterRoute.osmSegments.size,
         afterRoute.nokSegments.size,
         resolvedSegments.size,
-        None, // reference: Option[MonitorRouteReferenceInfo],
+        reference.key,
         happy = resolvedSegments.nonEmpty,
         investigate = newSegments.nonEmpty
       )
 
       monitorAdminRouteRepository.saveRouteChange(change)
+
+      val routeChangeGeometry = MonitorRouteChangeGeometry(
+        key,
+        routeSegments,
+        newSegments,
+        resolvedSegments,
+      )
+      monitorAdminRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
+
       log.info(message)
     }
   }

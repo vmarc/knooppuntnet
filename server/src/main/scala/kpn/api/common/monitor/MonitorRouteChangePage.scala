@@ -18,7 +18,7 @@ case class MonitorRouteChangePage(
   routeSegments: Seq[MonitorRouteSegment],
   newNokSegments: Seq[MonitorRouteNokSegment],
   resolvedNokSegments: Seq[MonitorRouteNokSegment],
-  reference: Option[MonitorRouteReferenceInfo],
+  reference: MonitorRouteReferenceInfo,
   happy: Boolean,
   investigate: Boolean
 )

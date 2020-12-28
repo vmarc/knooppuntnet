@@ -1,8 +1,12 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.common.BoundsI
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
+import kpn.core.util.Log
+import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -15,50 +19,77 @@ class MonitorRouteChangePageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends MonitorRouteChangePageBuilder {
 
-  override def build(routeId: Long, changeSetId: Long, replicationId: Long): Option[MonitorRouteChangePage] = {
+  private val log = Log(classOf[MonitorRouteChangePageBuilderImpl])
+
+  override def build(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangePage] = {
 
     val comment = changeSetInfoRepository.get(changeSetId).flatMap(_.tags("comment"))
 
-    monitorRouteRepository.routeChange(routeId, changeSetId, replicationId).flatMap { routeChange =>
-      //      monitorRouteRepository.routeChangeGeometry(routeId, changeSetId, replicationId).map { routeChangeGeometry =>
-      monitorGroupRepository.group(routeChange.groupName).map { group =>
-        val routeReference = routeChange.reference.flatMap { reference =>
-          monitorRouteRepository.routeReference(routeId, reference.key).map { routeReference =>
-            MonitorRouteReferenceInfo(
-              routeReference.key,
-              routeReference.created,
-              routeReference.user,
-              routeReference.bounds,
-              0, // TODO distance
-              routeReference.referenceType,
-              routeReference.referenceTimestamp,
-              routeReference.segmentCount,
-              routeReference.filename,
-              routeReference.geometry
-            )
-          }
-        }
+    monitorRouteRepository.routeChange(routeId, changeSetId, replicationNumber) match {
+      case None =>
+        log.warn(s"Could not read routeChange routeId=$routeId, changeSetId=$changeSetId, replicationNumber=$replicationNumber")
+        None
 
-        MonitorRouteChangePage(
-          routeChange.key,
-          group.name,
-          group.description,
-          comment,
-          routeChange.wayCount,
-          routeChange.waysAdded,
-          routeChange.waysRemoved,
-          routeChange.waysUpdated,
-          routeChange.osmDistance,
-          BoundsI(), // TODO routeChangeGeometry.bounds,
-          routeChange.routeSegmentCount,
-          Seq.empty, // TODO routeChangeGeometry.routeSegments,
-          Seq.empty, // TODO routeChangeGeometry.newNokSegments,
-          Seq.empty, // TODO routeChangeGeometry.resolvedNokSegments,
-          routeReference,
-          routeChange.happy,
-          routeChange.investigate
-        )
-      }
+      case Some(routeChange) =>
+        monitorRouteRepository.routeChangeGeometry(routeId, changeSetId, replicationNumber) match {
+          case None =>
+            log.warn(s"Could not read routeChangeGeometry routeId=$routeId, changeSetId=$changeSetId, replicationNumber=$replicationNumber")
+            None
+
+          case Some(routeChangeGeometry) =>
+            monitorGroupRepository.group(routeChange.groupName) match {
+              case None =>
+                log.warn(s"Could not read group ${routeChange.groupName}")
+                None
+
+              case Some(group) =>
+                monitorRouteRepository.routeReference(routeId, routeChange.referenceKey) match {
+                  case None =>
+                    log.warn(s"Could not routeReference routeId=$routeId, referenceKey=${routeChange.referenceKey}")
+                    None
+
+                  case Some(routeReference) =>
+                    buildPage(comment, routeChange, routeChangeGeometry, group, routeReference)
+                }
+            }
+        }
     }
+  }
+
+  private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, routeReference: MonitorRouteReference) = {
+    val reference = MonitorRouteReferenceInfo(
+      routeReference.key,
+      routeReference.created,
+      routeReference.user,
+      routeReference.bounds,
+      0, // TODO distance
+      routeReference.referenceType,
+      routeReference.referenceTimestamp,
+      routeReference.segmentCount,
+      routeReference.filename,
+      routeReference.geometry
+    )
+
+    Some(
+      MonitorRouteChangePage(
+        routeChange.key,
+        group.name,
+        group.description,
+        comment,
+        routeChange.wayCount,
+        routeChange.waysAdded,
+        routeChange.waysRemoved,
+        routeChange.waysUpdated,
+        routeChange.osmDistance,
+        routeReference.bounds,
+        routeChange.routeSegmentCount,
+        routeChangeGeometry.routeSegments,
+        routeChangeGeometry.newNokSegments,
+        routeChangeGeometry.resolvedNokSegments,
+        reference,
+        routeChange.happy,
+        routeChange.investigate
+      )
+    )
   }
 }
