@@ -34,6 +34,8 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.monitor.MonitorGroup
+import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
@@ -58,6 +60,7 @@ import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteState
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -925,6 +928,32 @@ trait SharedTestObjects extends MockFactory {
       referenceKey,
       happy,
       investigate
+    )
+  }
+
+  def newMonitorRouteState(
+    routeId: Long,
+    timestamp: Timestamp = defaultTimestamp,
+    wayCount: Long = 0,
+    osmDistance: Long = 0,
+    gpxDistance: Long = 0,
+    bounds: BoundsI = BoundsI(),
+    referenceKey: Option[String] = None,
+    osmSegments: Seq[MonitorRouteSegment] = Seq.empty,
+    okGeometry: Option[String] = None,
+    nokSegments: Seq[MonitorRouteNokSegment] = Seq.empty
+  ): MonitorRouteState = {
+    MonitorRouteState(
+      routeId,
+      timestamp,
+      wayCount,
+      osmDistance,
+      gpxDistance,
+      bounds,
+      referenceKey,
+      osmSegments,
+      okGeometry,
+      nokSegments
     )
   }
 

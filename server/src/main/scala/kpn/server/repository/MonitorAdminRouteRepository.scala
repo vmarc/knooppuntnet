@@ -30,4 +30,7 @@ trait MonitorAdminRouteRepository {
   def routeChange(changeKey: ChangeKeyI): Option[MonitorRouteChange]
 
   def routeChangeGeometry(changeKey: ChangeKeyI): Option[MonitorRouteChangeGeometry]
+
+  def routeReferenceKey(routeId: Long): Option[String]
+
 }

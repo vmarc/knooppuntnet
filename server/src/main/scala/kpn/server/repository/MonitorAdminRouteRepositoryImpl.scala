@@ -7,6 +7,7 @@ import kpn.core.database.doc.MonitorRouteChangeGeometryDoc
 import kpn.core.database.doc.MonitorRouteDoc
 import kpn.core.database.doc.MonitorRouteReferenceDoc
 import kpn.core.database.doc.MonitorRouteStateDoc
+import kpn.core.database.views.monitor.MonitorRouteReferenceView
 import kpn.core.database.views.monitor.MonitorRouteView
 import kpn.core.util.Log
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -103,6 +104,10 @@ class MonitorAdminRouteRepositoryImpl(
       MonitorDocId.routeChangeDocId(changeKey),
       classOf[MonitorRouteChangeGeometryDoc]
     ).map(_.monitorRouteChangeGeometry)
+  }
+
+  def routeReferenceKey(routeId: Long): Option[String] = {
+    MonitorRouteReferenceView.reference(monitorAdminDatabase, routeId)
   }
 
 }

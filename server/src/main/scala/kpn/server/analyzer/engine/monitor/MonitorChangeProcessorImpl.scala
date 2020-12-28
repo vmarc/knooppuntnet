@@ -69,14 +69,11 @@ class MonitorChangeProcessorImpl(
   }
 
   private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Unit = {
-    monitorAdminRouteRepository.routeState(routeId) match {
-      case None => log.warn(s"$routeId TODO routeState not available ")
-      case Some(routeState) =>
+    monitorAdminRouteRepository.routeReferenceKey(routeId) match {
+      case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
+      case Some(referenceKey) =>
 
-        val referenceOption: Option[MonitorRouteReference] = routeState.referenceKey.flatMap { referenceKey =>
-          monitorAdminRouteRepository.routeReference(routeId, referenceKey)
-        }
-
+        val referenceOption = monitorAdminRouteRepository.routeReference(routeId, referenceKey)
         monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
           case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
           case Some(beforeRelation) =>
