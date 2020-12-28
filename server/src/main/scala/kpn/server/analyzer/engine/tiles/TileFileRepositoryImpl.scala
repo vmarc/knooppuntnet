@@ -61,7 +61,7 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
       val file = new File(filename)
       file.delete()
       val fileDir = file.getParentFile
-      if (fileDir.list().isEmpty) {
+      if (fileDir != null && fileDir.list() != null && fileDir.list().isEmpty) {
         fileDir.delete()
       }
     }

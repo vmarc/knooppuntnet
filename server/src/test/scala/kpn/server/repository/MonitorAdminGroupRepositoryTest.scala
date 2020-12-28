@@ -8,7 +8,7 @@ import kpn.core.util.UnitTest
 class MonitorAdminGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("all/add/delete") {
-    withDatabase(true) { database =>
+    withDatabase { database =>
       val repository = new MonitorAdminGroupRepositoryImpl(database)
 
       repository.groups() should equal(Seq())
