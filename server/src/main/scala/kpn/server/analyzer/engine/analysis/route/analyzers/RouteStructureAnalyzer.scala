@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteSortingOrderAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
+import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinderAbort
@@ -40,30 +41,27 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   facts ++= context.facts
 
   def analyze: RouteAnalysisContext = {
-    val fragments = context.fragments.toSeq.flatten
-    val fragmentMap = fragments.map(f => f.id -> f).toMap
+    val fragmentMap = contextFragmentMap()
     val structure = analyzeStructure(fragmentMap, context.routeNodeAnalysis.get)
-    analyzeStructure2(context.routeNodeAnalysis.get, structure, fragments)
+    analyzeStructure2(context.routeNodeAnalysis.get, structure, fragmentMap.all)
     context.copy(structure = Some(structure), facts = facts.toSeq)
   }
 
-  private def analyzeStructure(fragmentMap: Map[Int, Fragment], routeNodeAnalysis: RouteNodeAnalysis) = {
-
-    val fragmentIds = fragmentMap.values.map(_.id).toSet
+  private def analyzeStructure(fragmentMap: FragmentMap, routeNodeAnalysis: RouteNodeAnalysis) = {
 
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
       )
     }
     else if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
       )
     }
     else if (routeNodeAnalysis.redundantNodes.size > 3) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentIds)
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
       )
     }
     else {
@@ -152,6 +150,10 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         }
       }
     }
+  }
+
+  private def contextFragmentMap(): FragmentMap = {
+    context.fragmentMap.getOrElse(throw new IllegalStateException("fragmentMap required before route structure analysis"))
   }
 
 }

@@ -34,7 +34,6 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.monitor.MonitorGroup
-import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
@@ -908,7 +907,7 @@ trait SharedTestObjects extends MockFactory {
     routeSegmentCount: Long = 0,
     newNokSegmentCount: Long = 0,
     resolvedNokSegmentCount: Long = 0,
-    reference: Option[MonitorRouteReferenceInfo] = None,
+    referenceKey: String = "",
     happy: Boolean = false,
     investigate: Boolean = false
   ): MonitorRouteChange = {
@@ -923,7 +922,7 @@ trait SharedTestObjects extends MockFactory {
       routeSegmentCount,
       newNokSegmentCount,
       resolvedNokSegmentCount,
-      reference,
+      referenceKey,
       happy,
       investigate
     )

@@ -15,7 +15,7 @@ class SegmentAnalyzer(
   networkType: NetworkType,
   routeId: Long,
   loop: Boolean,
-  fragmentMap: Map[Int, Fragment],
+  fragmentMap: FragmentMap,
   routeNodeAnalysis: RouteNodeAnalysis
 ) {
 
@@ -25,7 +25,7 @@ class SegmentAnalyzer(
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
   private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes, loop)
-  private val allFragmentIds = fragmentMap.values.map(_.id).toSet
+  private val allFragmentIds = fragmentMap.ids.toSet
 
   def structure: RouteStructure = {
 
@@ -37,7 +37,7 @@ class SegmentAnalyzer(
     val backwardPath = findBackwardPath()
     val usedSegments = forwardPath.toSeq.flatMap(_.segments) ++ backwardPath.toSeq.flatMap(_.segments)
     val usedFragmentIds = usedSegments.flatMap(_.fragments).map(_.fragment.id).toSet
-    val availableFragmentIds = allFragmentIds -- usedFragmentIds
+    val availableFragmentIds = allFragmentIds.diff(usedFragmentIds)
     val startTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.startNodes.map(_.node)).findTentacles
     val endTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.endNodes.map(_.node)).findTentacles
     val unusedSegments = {
@@ -94,7 +94,7 @@ class SegmentAnalyzer(
     val b = new StringBuilder
     b.append("Start\n")
     b.append(s"  fragments (${fragmentMap.size}):\n")
-    fragmentMap.values.foreach { f =>
+    fragmentMap.all.foreach { f =>
       b.append(s"    ${new FragmentFormatter(f).string}\n")
     }
     b.append(s"  nodes=${new RouteNodeAnalysisFormatter(routeNodeAnalysis).string}\n")

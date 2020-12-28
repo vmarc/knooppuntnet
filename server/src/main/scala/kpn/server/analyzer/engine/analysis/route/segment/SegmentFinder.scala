@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.data.Node
+import kpn.api.common.route.Both
 import kpn.api.custom.NetworkType
 import kpn.core.common.Timer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.api.common.route.Both
 
 class SegmentFinderAbort() extends RuntimeException
 
@@ -24,11 +24,12 @@ case class SegmentFinderContext(
 )
 
 class SegmentFinder(
-  fragmentMap: Map[Int, Fragment],
+  fragmentMap: FragmentMap,
   networkType: NetworkType,
   allRouteNodes: Set[RouteNode],
   allNodes: Set[Node],
-  loop: Boolean) {
+  loop: Boolean
+) {
 
   private val maxSolutionCount = 1000
   private val timeout = 10000L
@@ -125,7 +126,7 @@ class SegmentFinder(
           throw new SegmentFinderAbort()
         }
 
-        val passedNodes = context.usedFragmentIds.map(fragmentMap).flatMap(fragment => fragment.nodes).filterNot(_ == context.node)
+        val passedNodes = context.usedFragmentIds.map(id => fragmentMap(id)).flatMap(fragment => fragment.nodes).filterNot(_ == context.node)
 
         val paths: Seq[Path] = connectableFragments.flatMap { segmentFragment =>
 

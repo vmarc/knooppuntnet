@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 
 object RouteFragmentAnalyzer extends RouteAnalyzer {
@@ -13,8 +12,8 @@ object RouteFragmentAnalyzer extends RouteAnalyzer {
 class RouteFragmentAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val fragments: Seq[Fragment] = new FragmentAnalyzer(context.routeNodeAnalysis.get.usedNodes, context.loadedRoute.relation.wayMembers).fragments
-    context.copy(fragments = Some(fragments))
+    val fragmentMap = new FragmentAnalyzer(context.routeNodeAnalysis.get.usedNodes, context.loadedRoute.relation.wayMembers).fragmentMap
+    context.copy(fragmentMap = Some(fragmentMap))
   }
 
 }

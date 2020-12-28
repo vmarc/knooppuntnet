@@ -24,7 +24,7 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
   private val routeNodeIds = routeNodes.map(_.id)
 
-  def fragments: Seq[Fragment] = {
+  def fragmentMap: FragmentMap = {
     val result = wayMembers.flatMap { wayMember =>
       fragmentsIn(wayMember)
     }
@@ -33,7 +33,7 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
       log.debug(s"${wayMembers.size} ways splitted up in ${result.size} fragments")
     }
 
-    result
+    FragmentMap(result)
   }
 
   private def fragmentsIn(wayMember: WayMember): Seq[Fragment] = {
@@ -57,67 +57,57 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
   }
 
   private def indexesAtWhichToSplit(wayMember: WayMember): Seq[Int] = {
-    val splitNodes = nodesAtWhichToSplit(wayMember)
+    val splitNodeIds = nodesAtWhichToSplit(wayMember)
     val indexes = wayMember.way.nodes.zipWithIndex.filter { case (node, index) =>
-      splitNodes.contains(node)
+      splitNodeIds.contains(node.id)
     }.map { case (node, index) => index }
     if (indexes.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       (indexes.toSet ++ Set(0, wayMember.way.nodes.size - 1)).toSeq.sorted
     }
   }
 
-  private def nodesAtWhichToSplit(wayMember: WayMember): Set[Node] = {
-    val candidates = candidateSplitNodes(wayMember.way)
-    val nodesWithRouteNode = findNodesWithRouteNode(wayMember.way, candidates)
-    val nodesTouchingOtherWays = findNodesTouchingOtherWays(wayMember, candidates)
-    nodesWithRouteNode ++ nodesTouchingOtherWays
-  }
-
-  private def findNodesWithRouteNode(way: Way, candidates: Set[Node]): Set[Node] = {
-    val nodes = candidates.filter(node => routeNodeIds.contains(node.id))
-    if (log.isDebugEnabled) {
-      if (nodes.nonEmpty) {
-        log.debug(s"way ${way.id} splitted up at network nodes ${nodes.map(_.id)}")
-      }
-    }
-    nodes
-  }
-
-  private def findNodesTouchingOtherWays(wayMember: WayMember, candidates: Set[Node]): Set[Node] = {
-    val otherWayMembers = findOtherWayMembers(wayMember)
-    otherWayMembers.flatMap { otherWayMember =>
-      val otherWayNodeIds = otherWayMember.way.nodes.map(_.id).toSet
-      val touchingNodeIds = candidates.filter(node => otherWayNodeIds.contains(node.id))
-      if (log.isDebugEnabled) {
-        if (touchingNodeIds.nonEmpty) {
-          val wayId = wayMember.way.id
-          val otherWayId = otherWayMember.way.id
-          val touchingNodes = touchingNodeIds.mkString(",")
-          //noinspection SideEffectsInMonadicTransformation
-          log.debug(s"way $wayId splitted where it touches way $otherWayId at node(s): $touchingNodes")
-        }
-      }
-      touchingNodeIds
-    }.toSet
-  }
-
-  /*
-   Finds all way members other than given waymember.
-   Also excludes way members containing the same way as given member.
-  */
-  private def findOtherWayMembers(wayMember: WayMember): Seq[WayMember] = {
-    wayMembers.filterNot(m => m.way.id == wayMember.way.id)
-  }
-
-  private def candidateSplitNodes(way: Way): Set[Node] = {
-    if (isLoop(way)) {
-      way.nodes.toSet // all nodes
+  private def nodesAtWhichToSplit(wayMember: WayMember): Seq[Long] = {
+    val candidateNodeIds = candidateSplitNodes(wayMember.way)
+    if (candidateNodeIds.isEmpty) {
+      Seq.empty
     }
     else {
-      way.nodes.tail.dropRight(1).toSet // all nodes except first and last
+      val nodesWithRouteNode = findNodesWithRouteNode(wayMember.way, candidateNodeIds)
+      val nodesTouchingOtherWays = findNodesTouchingOtherWays(wayMember, candidateNodeIds)
+      (nodesWithRouteNode ++ nodesTouchingOtherWays).distinct
+    }
+  }
+
+  private def findNodesWithRouteNode(way: Way, candidateNodeIds: Seq[Long]): Seq[Long] = {
+    val nodeIds = candidateNodeIds.filter(routeNodeIds.contains)
+    if (log.isDebugEnabled) {
+      if (nodeIds.nonEmpty) {
+        log.debug(s"way ${way.id} splitted up at network nodes $nodeIds")
+      }
+    }
+    nodeIds
+  }
+
+  private def findNodesTouchingOtherWays(wayMember: WayMember, candidateNodeIds: Seq[Long]): Seq[Long] = {
+    wayMembers.flatMap { m =>
+      if (m.way.id != wayMember.way.id) {
+        m.way.nodes.filter(node => candidateNodeIds.contains(node.id)).map(_.id)
+      }
+      else {
+        Seq.empty
+      }
+    }
+  }
+
+  private def candidateSplitNodes(way: Way): Seq[Long] = {
+    if (isLoop(way)) {
+      way.nodes.map(_.id) // all nodes
+    }
+    else {
+      way.nodes.tail.dropRight(1).map(_.id) // all nodes except first and last
     }
   }
 

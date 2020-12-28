@@ -139,6 +139,15 @@ class FragmentAnalyzerTest extends UnitTest {
     fragments(d) should equal("<10(1-2-3)><10(3-4-5)><11>")
   }
 
+  test("a 2 node way will not be split") {
+
+    val d = new RouteTestData("01-02") {
+      memberWay(10, "", 1, 2)
+    }
+
+    fragments(d) should equal("<10>")
+  }
+
   private def fragments(d: RouteTestData): String = {
     val data = d.data
     val relation = data.relations(d.routeRelationId)
@@ -156,7 +165,7 @@ class FragmentAnalyzerTest extends UnitTest {
     )
     val context2 = new RouteNameAnalyzer(context1).analyze
     val context3 = new RouteNodeAnalyzer(context2).analyze
-    val fragments = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragments
-    fragments.map(fragment => new FragmentFormatter(fragment).string).mkString
+    val fragmentMap = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragmentMap
+    fragmentMap.all.map(fragment => new FragmentFormatter(fragment).string).mkString
   }
 }

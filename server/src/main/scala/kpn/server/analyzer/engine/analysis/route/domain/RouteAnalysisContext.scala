@@ -12,7 +12,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.analyzers.Overlap
-import kpn.server.analyzer.engine.analysis.route.segment.Fragment
+import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 
@@ -28,7 +28,7 @@ case class RouteAnalysisContext(
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
   overlappingWays: Option[Seq[Overlap]] = None,
-  fragments: Option[Seq[Fragment]] = None,
+  fragmentMap: Option[FragmentMap] = None,
   structure: Option[RouteStructure] = None,
   routeMembers: Option[Seq[RouteMember]] = None,
   routeMap: Option[RouteMap] = None,

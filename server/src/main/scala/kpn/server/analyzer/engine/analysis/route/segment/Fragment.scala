@@ -5,7 +5,6 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import org.apache.commons.lang.builder.HashCodeBuilder
 
 object Fragment {
   def create(
@@ -15,14 +14,7 @@ object Fragment {
     nodeSubset: Seq[Node] = Seq.empty,
     role: Option[String] = None
   ): Fragment = {
-    val hashCodeBuilder = new HashCodeBuilder()
-    hashCodeBuilder.append(start)
-    hashCodeBuilder.append(end)
-    hashCodeBuilder.append(way)
-    hashCodeBuilder.append(nodeSubset)
-    hashCodeBuilder.append(role)
-    val id = hashCodeBuilder.toHashCode
-    Fragment(id, start, end, way, nodeSubset, role)
+    Fragment(-1, start, end, way, nodeSubset, role)
   }
 }
 

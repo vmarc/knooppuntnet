@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.segment.Fragment
+import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFragment
@@ -18,7 +18,7 @@ object SplitNodeRouteAnalyzer extends RouteAnalyzer {
 
 class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
 
-  private val fragmentMap: Map[Int, Fragment] = fragments.map(f => f.id -> f).toMap
+  private val fragmentMap: FragmentMap = contextFragmentMap()
 
   def analyze: RouteAnalysisContext = {
 
@@ -62,7 +62,7 @@ class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
 
   private def determineAvailableFragmentIds(foundPaths: Seq[Path]): Seq[Int] = {
     val usedFragmentIds = foundPaths.flatMap(path => path.segments.flatMap(_.fragments.map(_.fragment.id)))
-    fragments.map(_.id).filterNot(usedFragmentIds.contains)
+    contextFragmentMap.ids.filterNot(usedFragmentIds.contains)
   }
 
   private def findPathInFragments(availableFragmentIds: Seq[Int]): Option[Path] = {
@@ -121,8 +121,8 @@ class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
     context.routeNodeAnalysis.getOrElse(throw new IllegalStateException("RouteNodeAnalysis required before circular route analysis"))
   }
 
-  private def fragments: Seq[Fragment] = {
-    context.fragments.getOrElse(throw new IllegalStateException("fragments required before circular route analysis"))
+  private def contextFragmentMap(): FragmentMap = {
+    context.fragmentMap.getOrElse(throw new IllegalStateException("fragmentMap required before circular route analysis"))
   }
 
 }

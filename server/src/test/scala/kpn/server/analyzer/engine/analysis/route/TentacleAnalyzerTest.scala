@@ -6,6 +6,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentBuilder
+import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
 
@@ -44,10 +45,9 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val nodes: Seq[Node] = Seq(n1, n3, n9)
 
-    val fragmentMap = b.fragments.map(f => f.id -> f).toMap
-    val fragmentIds = b.fragments.map(_.id).toSet
+    val fragmentMap = FragmentMap(b.fragments.toSeq)
     val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.hiking, allRouteNodes, allNodes, false)
-    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentIds, nodes).findTentacles
+    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentMap.ids.toSet, nodes).findTentacles
 
     Path.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 9), Seq(3, 4, 9)))
   }
@@ -76,10 +76,9 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val nodes: Seq[Node] = Seq(n1, n3, n5)
 
-    val fragmentMap = b.fragments.map(f => f.id -> f).toMap
-    val fragmentIds = b.fragments.map(_.id).toSet
+    val fragmentMap = FragmentMap(b.fragments.toVector)
     val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.hiking, allRouteNodes, allNodes, false)
-    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentIds, nodes).findTentacles
+    val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentMap.ids.toSet, nodes).findTentacles
 
     Path.toNodeIds(tentacles) should equal(Set(Seq(1, 2, 3), Seq(3, 4, 5)))
   }
@@ -108,8 +107,8 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val nodes: Seq[Node] = Seq(n1, n3, n5)
 
-    val fragmentMap = b.fragments.map(f => f.id -> f).toMap
-    val fragmentIds = b.fragments.map(_.id).toSet
+    val fragmentMap = FragmentMap(b.fragments.toVector)
+    val fragmentIds = fragmentMap.ids.toSet
     val segmentFinder: SegmentFinder = new SegmentFinder(fragmentMap, NetworkType.cycling, allRouteNodes, allNodes, false)
     val tentacles: Seq[Path] = new TentacleAnalyzer(segmentFinder, fragmentIds, nodes).findTentacles
 

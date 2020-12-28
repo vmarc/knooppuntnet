@@ -68,8 +68,8 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
   }
 
   private def assertSegments(fragments: Seq[Fragment], expectedSegmentNodeIds: String*): Unit = {
-    val fragmentMap = fragments.map(f => f.id -> f).toMap
-    val segments = new SegmentBuilder(fragmentMap).segments(fragments.map(_.id).toSet)
+    val fragmentsMap = FragmentMap(fragments)
+    val segments = new SegmentBuilder(fragmentsMap).segments(fragmentsMap.ids)
     segments.map(_.nodes.map(_.id).mkString("-")).toSet should equal(expectedSegmentNodeIds.toSet)
   }
 }

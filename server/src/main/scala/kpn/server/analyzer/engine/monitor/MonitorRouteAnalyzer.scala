@@ -5,8 +5,8 @@ import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
 import org.locationtech.jts.geom.Coordinate
@@ -38,16 +38,14 @@ object MonitorRouteAnalyzer {
 
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
-    val originalFragments = log.elapsed {
-      ("fragment analyzer", new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragments)
+    val originalFragmentMap = log.elapsed {
+      ("fragment analyzer", new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragmentMap)
     }
 
-    val fragments = withoutTags(originalFragments)
-    val fragmentMap = fragments.map(f => f.id -> f).toMap
-    val fragmentIds = fragmentMap.values.map(_.id).toSet
+    val fragmentMap = withoutTags(originalFragmentMap)
 
     val segments = log.elapsed {
-      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentIds))
+      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
     }
     //    println(s"wayMembers.size=${routeRelation.wayMembers.size}")
     //    println(s"fragments.size=${fragments.size}")
@@ -72,12 +70,14 @@ object MonitorRouteAnalyzer {
     }
   }
 
-  private def withoutTags(fragments: Seq[Fragment]): Seq[Fragment] = {
-    fragments.map { fragment => // temporary hack to remove paved/unpaved info
-      val rawWayCopy = fragment.way.raw.copy(tags = Tags.empty)
-      val wayCopy = fragment.way.copy(raw = rawWayCopy)
-      fragment.copy(way = wayCopy)
-    }
+  private def withoutTags(fragmentMap: FragmentMap): FragmentMap = {
+    new FragmentMap(
+      fragmentMap.all.map { fragment => // temporary hack to remove paved/unpaved info
+        val rawWayCopy = fragment.way.raw.copy(tags = Tags.empty)
+        val wayCopy = fragment.way.copy(raw = rawWayCopy)
+        fragment.copy(way = wayCopy)
+      }
+    )
   }
 
 

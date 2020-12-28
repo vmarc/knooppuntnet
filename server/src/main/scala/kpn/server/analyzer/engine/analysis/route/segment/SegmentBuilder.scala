@@ -7,21 +7,21 @@ import scala.annotation.tailrec
 /*
  * Builds segments consisting of adjacent fragments.
  */
-class SegmentBuilder(fragmentMap: Map[Int, Fragment]) {
+class SegmentBuilder(fragmentMap: FragmentMap) {
 
-  def segments(availableFragmentIds: Set[Int]): Seq[Segment] = {
+  def segments(availableFragmentIds: Seq[Int]): Seq[Segment] = {
     val optimize = fragmentMap.size < 50
     findSegments(optimize, Seq(), availableFragmentIds)
   }
 
   @tailrec
-  private def findSegments(optimize: Boolean, foundSegments: Seq[Segment], availableFragmentIds: Set[Int]): Seq[Segment] = {
+  private def findSegments(optimize: Boolean, foundSegments: Seq[Segment], availableFragmentIds: Seq[Int]): Seq[Segment] = {
     if (availableFragmentIds.isEmpty) {
       foundSegments
     }
     else {
       val segmentFragment = SegmentFragment(fragmentMap(availableFragmentIds.head))
-      val remainingFragmentIds = availableFragmentIds - segmentFragment.fragment.id
+      val remainingFragmentIds = availableFragmentIds.filterNot(id => id == segmentFragment.fragment.id)
 
       val sfs1 = findFragments(optimize, Seq(segmentFragment), remainingFragmentIds, segmentFragment.endNode)
       val sfs2 = findFragments(optimize, Seq(), remaining(remainingFragmentIds, sfs1), segmentFragment.startNode)
@@ -35,13 +35,13 @@ class SegmentBuilder(fragmentMap: Map[Int, Fragment]) {
     }
   }
 
-  private def remaining(availableFragmentIds: Set[Int], segmentFragments: Seq[SegmentFragment]): Set[Int] = {
+  private def remaining(availableFragmentIds: Seq[Int], segmentFragments: Seq[SegmentFragment]): Seq[Int] = {
     val usedFragments = segmentFragments.map(_.fragment.id).toSet
-    availableFragmentIds -- usedFragments
+    availableFragmentIds.filterNot(usedFragments.contains)
   }
 
-  private def findFragments(optimize: Boolean, segmentFragments: Seq[SegmentFragment], availableFragmentIds: Set[Int], node: Node): Seq[SegmentFragment] = {
-    val visitedNodeIds = segmentFragments.flatMap(sf => List(sf.startNode, sf.endNode)).map(_.id).toSet
+  private def findFragments(optimize: Boolean, segmentFragments: Seq[SegmentFragment], availableFragmentIds: Seq[Int], node: Node): Seq[SegmentFragment] = {
+    val visitedNodeIds = segmentFragments.flatMap(sf => List(sf.startNode, sf.endNode)).map(_.id)
     val connectableFragmentIds = availableFragmentIds.filter(fragmentId => canConnect(visitedNodeIds, node, fragmentId))
     if (connectableFragmentIds.isEmpty) {
       segmentFragments
@@ -69,11 +69,11 @@ class SegmentBuilder(fragmentMap: Map[Int, Fragment]) {
     sfs.reverse.map(sf => SegmentFragment(sf.fragment, !sf.reversed))
   }
 
-  private def canConnect(visitedNodeIds: Set[Long], node: Node, fragmentId: Int): Boolean = {
+  private def canConnect(visitedNodeIds: Seq[Long], node: Node, fragmentId: Int): Boolean = {
     val fragment = fragmentMap(fragmentId)
-    val start = fragment.nodes.head.id
-    val end = fragment.nodes.last.id
-    node.id == start && (!visitedNodeIds.contains(end)) ||
-      node.id == end && (!visitedNodeIds.contains(start))
+    val startNodeId = fragment.nodes.head.id
+    val endNodeId = fragment.nodes.last.id
+    node.id == startNodeId && (!visitedNodeIds.contains(endNodeId)) ||
+      node.id == endNodeId && (!visitedNodeIds.contains(startNodeId))
   }
 }
