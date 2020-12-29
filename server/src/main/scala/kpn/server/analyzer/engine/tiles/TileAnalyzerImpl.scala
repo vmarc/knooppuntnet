@@ -34,7 +34,7 @@ class TileAnalyzerImpl(
       }
     }
 
-    val nodes = details.flatMap(_.nodes).map(node => new TileDataNodeBuilder().build(node))
+    val nodes = details.flatMap(_.nodes).map(node => new TileDataNodeBuilder().build(networkType, node))
 
     val routeInfos = Log.context("network-routes") {
       val routeIds = details.flatMap(_.routes.map(_.id))

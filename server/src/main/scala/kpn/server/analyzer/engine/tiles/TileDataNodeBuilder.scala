@@ -15,6 +15,32 @@ class TileDataNodeBuilder {
 
   def build(networkType: NetworkType, node: NodeInfo): TileDataNode = {
 
+    val refOption = node.tags(s"r${networkType.letter}n_ref").filterNot(_ == "o")
+
+    val nameOption = node.tags(s"r${networkType.letter}n_name") match {
+      case Some(value) => Some(value)
+      case None =>
+        node.tags(s"r${networkType.letter}n:name") match {
+          case Some(value) => Some(value)
+          case None => None
+        }
+    }
+
+    val (ref, name) = refOption match {
+      case Some(refValue) => (Some(refValue), nameOption)
+      case None =>
+        nameOption match {
+          case None => (None, None)
+          case Some(nameValue) =>
+            if (nameValue.length <= 3) {
+              (nameOption, None)
+            }
+            else {
+              (None, nameOption)
+            }
+        }
+    }
+
     val surveyDateTry = SurveyDateAnalyzer.analyze(node.tags)
     val surveyDate = surveyDateTry match {
       case Success(surveyDate) => surveyDate
@@ -23,7 +49,8 @@ class TileDataNodeBuilder {
 
     TileDataNode(
       node.id,
-      node.name(networkType),
+      ref,
+      name,
       node.latitude,
       node.longitude,
       layer(node.orphan, node.facts),
@@ -31,7 +58,34 @@ class TileDataNodeBuilder {
     )
   }
 
-  def build(node: NetworkInfoNode): TileDataNode = {
+  def build(networkType: NetworkType, node: NetworkInfoNode): TileDataNode = {
+
+    val refOption = node.tags(s"r${networkType.letter}n_ref")
+
+    val nameOption = node.tags(s"r${networkType.letter}n_name") match {
+      case Some(value) => Some(value)
+      case None =>
+        node.tags(s"r${networkType.letter}n:name") match {
+          case Some(value) => Some(value)
+          case None => None
+        }
+    }
+
+    val (ref, name) = refOption match {
+      case Some(refValue) => (Some(refValue), nameOption)
+      case None =>
+        nameOption match {
+          case None => (None, None)
+          case Some(nameValue) =>
+            if (nameValue.length <= 3) {
+              (nameOption, None)
+            }
+            else {
+              (None, nameOption)
+            }
+        }
+    }
+
     val surveyDateTry = SurveyDateAnalyzer.analyze(node.tags)
     val surveyDate = surveyDateTry match {
       case Success(surveyDate) => surveyDate
@@ -40,7 +94,8 @@ class TileDataNodeBuilder {
 
     TileDataNode(
       node.id,
-      node.name,
+      ref,
+      name,
       node.latitude,
       node.longitude,
       layer(isOrphan(node), node.facts),

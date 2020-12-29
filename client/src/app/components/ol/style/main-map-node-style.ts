@@ -9,6 +9,8 @@ import {MapService} from '../services/map.service';
 import {MainStyleColors} from './main-style-colors';
 import {NodeStyle} from './node-style';
 import {SurveyDateStyle} from './survey-date-style';
+import Stroke from 'ol/style/Stroke';
+import Text from 'ol/style/Text';
 
 export class MainMapNodeStyle {
 
@@ -24,10 +26,47 @@ export class MainMapNodeStyle {
 
   public nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
     const featureId = feature.get('id');
+    let ref = feature.get('ref');
+    const name = feature.get('name');
+
+    if (name && ref === "o") {
+      ref = null;
+    }
+
     const large = zoom >= this.largeMinZoomLevel;
+    const styles = [];
     const selectedStyle = this.determineNodeSelectedStyle(featureId, large);
-    const style = this.determineNodeMainStyle(feature, large);
-    return selectedStyle ? [selectedStyle, style] : [style];
+    if (selectedStyle) {
+      styles.push(selectedStyle);
+    }
+    const style = this.determineNodeMainStyle(feature, large, ref);
+    styles.push(style);
+
+    if (name) {
+      let offsetY = 0;
+      if (ref) {
+        offsetY = 18;
+      }
+      const extraTextStyle = new Style({
+        text: new Text({
+          text: name,
+          textAlign: 'center',
+          textBaseline: 'middle',
+          offsetY: offsetY,
+          font: '14px Arial, Verdana, Helvetica, sans-serif',
+          fill: new Fill({
+            color: 'blue'
+          }),
+          stroke: new Stroke({
+            color: MainStyleColors.white,
+            width: 4
+          })
+        })
+      });
+      styles.push(extraTextStyle);
+    }
+
+    return styles;
   }
 
   private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
@@ -42,23 +81,23 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineNodeMainStyle(feature: FeatureLike, large: boolean): Style {
+  private determineNodeMainStyle(feature: FeatureLike, large: boolean, ref: string): Style {
     let style: Style;
-    if (large && '*' != feature.get('name')) {
-      style = this.determineLargeNodeStyle(feature);
+    if (large && '*' != ref) {
+      style = this.determineLargeNodeStyle(feature, ref);
     } else {
       style = this.determineSmallNodeStyle(feature);
     }
     return style;
   }
 
-  private determineLargeNodeStyle(feature: FeatureLike): Style {
+  private determineLargeNodeStyle(feature: FeatureLike, ref: string): Style {
 
     const color = this.nodeColor(feature);
 
     const circleStyle: CircleStyle = this.largeNodeStyle.getImage() as CircleStyle;
 
-    this.largeNodeStyle.getText().setText(feature.get('name'));
+    this.largeNodeStyle.getText().setText(ref);
     circleStyle.getStroke().setColor(color);
 
     if (this.mapService.highlightedNodeId && feature.get('id') === this.mapService.highlightedNodeId) {

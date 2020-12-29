@@ -24,9 +24,12 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
     val tags = if (name == "") Tags.empty else Tags.from(ScopedNetworkType(NetworkScope.regional, networkType).nodeTagKey -> name, "network:type" -> "node_network")
-    val n = newRawNode(id, lattitude.toString, longitude.toString, tags = tags)
-    nodeBuffer += n
-    n
+    rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = tags))
+  }
+
+  def rawNode(rawNode: RawNode): RawNode = {
+    nodeBuffer += rawNode
+    rawNode
   }
 
   def way(wayId: Long, nodeIds: Long*): RawWay = {

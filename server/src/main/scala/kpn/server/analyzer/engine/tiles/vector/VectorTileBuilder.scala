@@ -29,20 +29,14 @@ class VectorTileBuilder() extends TileBuilder {
     data.nodes.foreach { node =>
       val point: Point = geomFactory.createPoint(new Coordinate(scaleLon(node.lon), scaleLat(node.lat)))
 
-      val userData: ListMap[String, String] = node.surveyDate match {
-        case Some(surveyDate) =>
-          ListMap(
-            "id" -> node.id.toString,
-            "name" -> node.name,
-            "survey" -> surveyDate.yyyymm
-          )
-        case None =>
-          ListMap(
-            "id" -> node.id.toString,
-            "name" -> node.name
-          )
-      }
+      val values = Seq(
+        Some("id" -> node.id.toString),
+        node.ref.map(ref => "ref" -> ref),
+        node.name.map(name => "name" -> name),
+        node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm)
+      ).flatten
 
+      val userData: ListMap[String, String] = ListMap[String, String](values: _*)
       encoder.addPointFeature(node.layer, userData, point)
     }
 

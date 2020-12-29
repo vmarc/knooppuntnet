@@ -5,7 +5,8 @@ import kpn.api.custom.Day
 
 case class TileDataNode(
   id: Long,
-  name: String,
+  ref: Option[String],
+  name: Option[String],
   latitude: String,
   longitude: String,
   layer: String,

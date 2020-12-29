@@ -32,8 +32,26 @@ class NodeNameTool(database: Database) {
       nodeRepository.nodeWithId(nodeId) match {
         case None =>
         case Some(node) =>
-          if (node.names.exists(_.name == "*")) {
-            println(node.id)
+
+          if (node.active) {
+            node.tags("rwn:name") match {
+              case None =>
+                node.tags("rcn:name") match {
+                  case None =>
+                  case Some(name) =>
+                    node.tags("rcn_ref") match {
+                      case None =>
+                      case Some(ref) =>
+                        println(s"rcn $nodeId\t$ref\t$name")
+                    }
+                }
+              case Some(name) =>
+                node.tags("rwn_ref") match {
+                  case None =>
+                  case Some(ref) =>
+                    println(s"rwn $nodeId\t$ref\t$name")
+                }
+            }
           }
       }
     }
