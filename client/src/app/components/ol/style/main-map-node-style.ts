@@ -19,6 +19,7 @@ export class MainMapNodeStyle {
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
   private readonly largeNodeStyle = NodeStyle.largeGreen;
   private readonly surveyDateStyle: SurveyDateStyle;
+  private readonly nameStyle = NodeStyle.nameStyle();
 
   constructor(private mapService: MapService) {
     this.surveyDateStyle = new SurveyDateStyle(mapService);
@@ -42,28 +43,14 @@ export class MainMapNodeStyle {
     const style = this.determineNodeMainStyle(feature, large, ref);
     styles.push(style);
 
-    if (name) {
+    if (large && name) {
       let offsetY = 0;
       if (ref) {
         offsetY = 18;
       }
-      const extraTextStyle = new Style({
-        text: new Text({
-          text: name,
-          textAlign: 'center',
-          textBaseline: 'middle',
-          offsetY: offsetY,
-          font: '14px Arial, Verdana, Helvetica, sans-serif',
-          fill: new Fill({
-            color: 'blue'
-          }),
-          stroke: new Stroke({
-            color: MainStyleColors.white,
-            width: 4
-          })
-        })
-      });
-      styles.push(extraTextStyle);
+      this.nameStyle.getText().setText(name);
+      this.nameStyle.getText().setOffsetY(offsetY);
+      styles.push(this.nameStyle);
     }
 
     return styles;
@@ -164,11 +151,11 @@ export class MainMapNodeStyle {
     const layer = feature.get('layer');
     let style: Style;
     if ('error-node' === layer) {
-      style = NodeStyle.smallBlue;
+      style = NodeStyle.smallRed;
     } else if ('orphan-node' === layer) {
       style = NodeStyle.smallDarkGreen;
     } else if ('error-orphan-node' === layer) {
-      style = NodeStyle.smallDarkBlue;
+      style = NodeStyle.smallDarkRed;
     } else {
       style = NodeStyle.smallGreen;
     }

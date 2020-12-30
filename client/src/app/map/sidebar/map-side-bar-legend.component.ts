@@ -54,8 +54,16 @@ import {MapService} from '../../components/ol/services/map.service';
             <span i18n="@@planner.legend.analysis.ok">OK</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(150, 0, 0)"></kpn-legend-icon>
+            <kpn-legend-icon color="rgb(0, 150, 0)"></kpn-legend-icon>
+            <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(255, 0, 0)"></kpn-legend-icon>
             <span i18n="@@planner.legend.survey.review">Review</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(187, 0, 0)"></kpn-legend-icon>
+            <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
           </div>
         </div>
 

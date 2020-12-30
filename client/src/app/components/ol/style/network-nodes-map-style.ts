@@ -14,6 +14,7 @@ export class NetworkNodesMapStyle {
 
   private readonly largeNodeStyle = NodeStyle.largeGreen;
   private readonly largeNodeStyleGray = NodeStyle.largeGray;
+  private readonly nameStyle = NodeStyle.nameStyle();
 
   private readonly routeStyle = new RouteStyle();
 
@@ -39,8 +40,22 @@ export class NetworkNodesMapStyle {
     const zoom = this.map.getView().getZoom();
     const nodeId = +feature.get('id');
     if (zoom >= 13) {
+      let ref = feature.get('ref');
+      const name = feature.get('name');
+      if (name && ref === "o") {
+        ref = null;
+      }
       const style = this.networkNodeIds.contains(nodeId) ? this.largeNodeStyle : this.largeNodeStyleGray;
-      style.getText().setText(feature.get('name'));
+      style.getText().setText(ref);
+      if (name) {
+        let offsetY = 0;
+        if (ref) {
+          offsetY = 18;
+        }
+        this.nameStyle.getText().setText(name);
+        this.nameStyle.getText().setOffsetY(offsetY);
+        return [style, this.nameStyle];
+      }
       return style;
     }
     return this.networkNodeIds.contains(nodeId) ? this.smallNodeStyle : this.smallNodeStyleGray;

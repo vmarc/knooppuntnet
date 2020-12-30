@@ -8,6 +8,7 @@ export class NodeMapStyle {
 
   private readonly smallNodeStyle = NodeStyle.smallGreen;
   private readonly largeNodeStyle = NodeStyle.largeGreen;
+  private readonly nameStyle = NodeStyle.nameStyle();
   private readonly routeStyle = new RouteStyle();
 
   constructor(private map: Map) {
@@ -20,7 +21,25 @@ export class NodeMapStyle {
         const layer = feature.get('layer');
         if (layer.includes('node')) {
           if (zoom >= 13) {
-            this.largeNodeStyle.getText().setText(feature.get('name'));
+
+            let ref = feature.get('ref');
+            const name = feature.get('name');
+
+            if (name && ref === 'o') {
+              ref = null;
+            }
+
+            this.largeNodeStyle.getText().setText(ref);
+
+            if (name) {
+              let offsetY = 0;
+              if (ref) {
+                offsetY = 18;
+              }
+              this.nameStyle.getText().setText(name);
+              this.nameStyle.getText().setOffsetY(offsetY);
+              return [this.largeNodeStyle, this.nameStyle];
+            }
             return this.largeNodeStyle;
           }
           return this.smallNodeStyle;

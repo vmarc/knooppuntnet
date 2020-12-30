@@ -12,6 +12,7 @@ export class NodeStyle {
   public static readonly smallGreen = NodeStyle.small(MainStyleColors.green);
   public static readonly smallDarkGreen = NodeStyle.small(MainStyleColors.darkGreen);
   public static readonly smallVeryDarkGreen = NodeStyle.small(MainStyleColors.veryDarkGreen);
+  public static readonly smallRed = NodeStyle.small(MainStyleColors.red);
   public static readonly smallDarkRed = NodeStyle.small(MainStyleColors.darkRed);
   public static readonly smallGray = NodeStyle.small(MainStyleColors.gray);
   public static readonly smallBlue = NodeStyle.small(MainStyleColors.blue);
@@ -19,6 +20,25 @@ export class NodeStyle {
 
   public static readonly largeGreen = NodeStyle.large(MainStyleColors.green);
   public static readonly largeGray = NodeStyle.large(MainStyleColors.gray);
+
+  public static nameStyle(): Style {
+    return new Style({
+      text: new Text({
+        text: '',
+        textAlign: 'center',
+        textBaseline: 'middle',
+        offsetY: 0,
+        font: '14px Arial, Verdana, Helvetica, sans-serif',
+        fill: new Fill({
+          color: 'blue'
+        }),
+        stroke: new Stroke({
+          color: MainStyleColors.white,
+          width: 4
+        })
+      })
+    });
+  }
 
   private static small(color: Color): Style {
     return new Style({
