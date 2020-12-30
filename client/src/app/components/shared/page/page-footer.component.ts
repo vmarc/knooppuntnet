@@ -1,3 +1,4 @@
+import {Input} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {I18nService} from '../../../i18n/i18n.service';
@@ -27,7 +28,7 @@ import {I18nService} from '../../../i18n/i18n.service';
           issues
         </a>
       </li>
-      <li>
+      <li *ngIf="settings">
         <a
           routerLink="/settings"
           i18n="@@footer.settings">
@@ -47,6 +48,8 @@ import {I18nService} from '../../../i18n/i18n.service';
   `]
 })
 export class PageFooterComponent {
+
+  @Input() settings = false;
 
   constructor(private i18nService: I18nService) {
   }
