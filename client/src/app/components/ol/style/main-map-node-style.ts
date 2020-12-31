@@ -30,7 +30,7 @@ export class MainMapNodeStyle {
     let ref = feature.get('ref');
     const name = feature.get('name');
 
-    if (name && ref === "o") {
+    if (name && ref === 'o') {
       ref = null;
     }
 

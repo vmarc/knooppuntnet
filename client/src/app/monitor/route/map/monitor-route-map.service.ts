@@ -174,7 +174,7 @@ export class MonitorRouteMapService {
   private buildGpxLayer(): VectorLayer {
 
     const layerStyle = this.fixedStyle('blue', 4);
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return layerStyle;
     };
 
@@ -189,7 +189,7 @@ export class MonitorRouteMapService {
 
     const layerStyle = this.fixedStyle('green', 4);
 
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return layerStyle;
     };
 
@@ -204,7 +204,7 @@ export class MonitorRouteMapService {
 
     const layerStyle = this.fixedStyle('red', 4);
 
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return layerStyle;
     };
 
@@ -220,7 +220,7 @@ export class MonitorRouteMapService {
     const self = this;
     const thinStyle = this.fixedStyle('yellow', 4);
     const thickStyle = this.fixedStyle('yellow', 10);
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       if (self.mode === 'osm-segments') {
         const segmentId = feature.get('segmentId');
         return self.styleForSegmentId(segmentId);

@@ -191,12 +191,10 @@ export const monitorReducer = createReducer(
   ),
   on(
     actionMonitorRouteChangesPageInit,
-    (state) => {
-      return {
+    (state) => ({
         ...state,
         routeChangesPageIndex: 0
-      };
-    }
+      })
   ),
   on(
     actionMonitorRouteChangesPageLoaded,
@@ -291,12 +289,10 @@ export const monitorReducer = createReducer(
   ),
   on(
     actionLongdistanceRoutesLoaded,
-    (state, {response}) => {
-      return {
+    (state, {response}) => ({
         ...state,
         longdistanceRoutesPage: response
-      };
-    }
+      })
   ),
   on(
     actionLongdistanceRouteDetailsLoaded,

@@ -88,7 +88,7 @@ export class LongdistanceRouteChangeMapComponent implements AfterViewInit, OnDes
   private buildReferenceLayer(): MapLayer {
 
     const layerStyle = this.fixedStyle('blue', 4);
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return layerStyle;
     };
 
@@ -107,7 +107,7 @@ export class LongdistanceRouteChangeMapComponent implements AfterViewInit, OnDes
 
     const layerStyle = this.fixedStyle('red', 4);
 
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return layerStyle;
     };
 
@@ -125,7 +125,7 @@ export class LongdistanceRouteChangeMapComponent implements AfterViewInit, OnDes
   private buildOsmRelationLayer(): MapLayer {
 
     const thickStyle = this.fixedStyle('yellow', 10);
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return thickStyle;
     };
 

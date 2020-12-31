@@ -29,7 +29,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
             httpError = 'error-' + error.status;
           }
         }
-        this.store.dispatch(actionSharedHttpError({httpError: httpError}));
+        this.store.dispatch(actionSharedHttpError({httpError}));
         return of(null);
       }),
       finalize(() => this.spinnerService.end(action))

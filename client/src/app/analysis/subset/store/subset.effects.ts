@@ -59,11 +59,9 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
       withLatestFrom(this.subset$),
-      mergeMap(([action, subset]) => {
-        return this.appService.subsetFacts(subset).pipe(
+      mergeMap(([action, subset]) => this.appService.subsetFacts(subset).pipe(
           map(response => actionSubsetFactsPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -71,11 +69,9 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
       withLatestFrom(this.subset$),
-      mergeMap(([action, subset]) => {
-        return this.appService.subsetOrphanNodes(subset).pipe(
+      mergeMap(([action, subset]) => this.appService.subsetOrphanNodes(subset).pipe(
           map(response => actionSubsetOrphanNodesPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -83,11 +79,9 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
       withLatestFrom(this.subset$),
-      mergeMap(([action, subset]) => {
-        return this.appService.subsetOrphanRoutes(subset).pipe(
+      mergeMap(([action, subset]) => this.appService.subsetOrphanRoutes(subset).pipe(
           map(response => actionSubsetOrphanRoutesPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -95,11 +89,9 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
       withLatestFrom(this.subset$),
-      mergeMap(([action, subset]) => {
-        return this.appService.subsetMap(subset).pipe(
+      mergeMap(([action, subset]) => this.appService.subsetMap(subset).pipe(
           map(response => actionSubsetMapPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 

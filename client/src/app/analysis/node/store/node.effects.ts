@@ -30,11 +30,9 @@ export class NodeEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('nodeId'))
       ),
-      mergeMap(([action, nodeId]) => {
-        return this.appService.nodeDetails(nodeId).pipe(
+      mergeMap(([action, nodeId]) => this.appService.nodeDetails(nodeId).pipe(
           map(response => actionNodeDetailsPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -44,11 +42,9 @@ export class NodeEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('nodeId'))
       ),
-      mergeMap(([action, nodeId]) => {
-        return this.appService.nodeMap(nodeId).pipe(
+      mergeMap(([action, nodeId]) => this.appService.nodeMap(nodeId).pipe(
           map(response => actionNodeMapPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -58,11 +54,9 @@ export class NodeEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('nodeId'))
       ),
-      mergeMap(([action, nodeId]) => {
-        return this.appService.nodeChanges(nodeId, null /* TODO PARAMETERS */).pipe(
+      mergeMap(([action, nodeId]) => this.appService.nodeChanges(nodeId, null /* TODO PARAMETERS */).pipe(
           map(response => actionNodeChangesPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 

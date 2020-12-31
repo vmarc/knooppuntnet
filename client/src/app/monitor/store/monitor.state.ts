@@ -64,16 +64,16 @@ export interface MonitorState {
   mapGpxOkVisible: boolean;
   mapGpxNokVisible: boolean;
   mapOsmRelationVisible: boolean;
-  changesPageIndex: number,
+  changesPageIndex: number;
   changesPage: ApiResponse<MonitorChangesPage>;
   groupsPage: ApiResponse<MonitorGroupsPage>;
   groupPage: ApiResponse<MonitorGroupPage>;
-  groupChangesPageIndex: number,
+  groupChangesPageIndex: number;
   groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
   adminGroupPage: ApiResponse<MonitorAdminGroupPage>;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;
-  routeChangesPageIndex: number,
+  routeChangesPageIndex: number;
   routeChangesPage: ApiResponse<MonitorRouteChangesPage>;
   routeChangePage: ApiResponse<MonitorRouteChangePage>;
 

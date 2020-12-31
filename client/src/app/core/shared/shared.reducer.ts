@@ -15,11 +15,9 @@ export const sharedReducer = createReducer(
   ),
   on(
     actionSharedHttpError,
-    (state, {httpError}) => {
-      return {
+    (state, {httpError}) => ({
         ...state,
         httpError
-      };
-    }
+      })
   )
 );

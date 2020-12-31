@@ -34,7 +34,7 @@ export const actionMonitorGroupsPageLoaded = createAction(
 
 export const actionMonitorNavigateGroup = createAction(
   '[MonitorGroupsPage] Navigate to group',
-  props<{ groupName: string, groupDescription: string }>()
+  props<{ groupName: string; groupDescription: string }>()
 );
 
 export const actionMonitorGroupDeleteInit = createAction(

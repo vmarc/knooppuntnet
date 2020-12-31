@@ -37,11 +37,9 @@ export class NetworkEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('networkId'))
       ),
-      mergeMap(([action, networkId]) => {
-        return this.appService.networkDetails(+networkId).pipe(
+      mergeMap(([action, networkId]) => this.appService.networkDetails(+networkId).pipe(
           map(response => actionNetworkDetailsPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -51,11 +49,9 @@ export class NetworkEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('networkId'))
       ),
-      mergeMap(([action, networkId]) => {
-        return this.appService.networkNodes(+networkId).pipe(
+      mergeMap(([action, networkId]) => this.appService.networkNodes(+networkId).pipe(
           map(response => actionNetworkNodesPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -65,11 +61,9 @@ export class NetworkEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('networkId'))
       ),
-      mergeMap(([action, networkId]) => {
-        return this.appService.networkRoutes(+networkId).pipe(
+      mergeMap(([action, networkId]) => this.appService.networkRoutes(+networkId).pipe(
           map(response => actionNetworkRoutesPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -79,11 +73,9 @@ export class NetworkEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('networkId'))
       ),
-      mergeMap(([action, networkId]) => {
-        return this.appService.networkFacts(+networkId).pipe(
+      mergeMap(([action, networkId]) => this.appService.networkFacts(+networkId).pipe(
           map(response => actionNetworkFactsPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -93,11 +85,9 @@ export class NetworkEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('networkId'))
       ),
-      mergeMap(([action, networkId]) => {
-        return this.appService.networkMap(+networkId).pipe(
+      mergeMap(([action, networkId]) => this.appService.networkMap(+networkId).pipe(
           map(response => actionNetworkMapPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 

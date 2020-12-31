@@ -30,11 +30,9 @@ export class RouteEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('routeId'))
       ),
-      mergeMap(([action, routeId]) => {
-        return this.appService.routeDetails(routeId).pipe(
+      mergeMap(([action, routeId]) => this.appService.routeDetails(routeId).pipe(
           map(response => actionRouteDetailsPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -44,11 +42,9 @@ export class RouteEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('routeId'))
       ),
-      mergeMap(([action, routeId]) => {
-        return this.appService.routeMap(routeId).pipe(
+      mergeMap(([action, routeId]) => this.appService.routeMap(routeId).pipe(
           map(response => actionRouteMapPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
@@ -58,11 +54,9 @@ export class RouteEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('routeId'))
       ),
-      mergeMap(([action, routeId]) => {
-        return this.appService.routeChanges(routeId, null /* TODO PARAMETERS */).pipe(
+      mergeMap(([action, routeId]) => this.appService.routeChanges(routeId, null /* TODO PARAMETERS */).pipe(
           map(response => actionRouteChangesPageLoaded({response}))
-        );
-      })
+        ))
     )
   );
 
