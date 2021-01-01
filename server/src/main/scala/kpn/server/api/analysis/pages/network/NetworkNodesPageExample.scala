@@ -1,8 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.common.Ref
-import kpn.api.common.network.NetworkInfoNode
+import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
@@ -24,8 +23,8 @@ object NetworkNodesPageExample {
     routeIds = Seq(1L, 2L, 3L)
   )
 
-  private def node1(): NetworkInfoNode = {
-    NetworkInfoNode(
+  private def node1(): NetworkNodeDetail = {
+    NetworkNodeDetail(
       1,
       "01 nummer die heel lang is",
       "1",
@@ -37,6 +36,7 @@ object NetworkNodesPageExample {
       definedInRoute = true,
       timestamp = Timestamp(2020, 1, 1),
       lastSurvey = None,
+      expectedRouteCount = "3",
       routeReferences = Seq(
         Ref(11, "01-02"),
         Ref(12, "01-03"),
@@ -46,22 +46,13 @@ object NetworkNodesPageExample {
         Ref(16, "01-07"),
         Ref(17, "01-08")
       ),
-      integrityCheck = Some(
-        NodeIntegrityCheck(
-          "01",
-          1,
-          actual = 3,
-          expected = 3,
-          failed = false
-        )
-      ),
       facts = Seq(),
       tags = Tags.empty
     )
   }
 
-  private def node2(): NetworkInfoNode = {
-    NetworkInfoNode(
+  private def node2(): NetworkNodeDetail = {
+    NetworkNodeDetail(
       2,
       "02",
       "2",
@@ -73,19 +64,11 @@ object NetworkNodesPageExample {
       definedInRoute = false,
       timestamp = Timestamp(2020, 1, 1),
       lastSurvey = None,
+      expectedRouteCount = "3",
       routeReferences = Seq(
         Ref(11, "01-02"),
         Ref(12, "01-03"),
         Ref(13, "01-04")
-      ),
-      integrityCheck = Some(
-        NodeIntegrityCheck(
-          "01",
-          1,
-          actual = 2,
-          expected = 3,
-          failed = true
-        )
       ),
       facts = Seq(),
       tags = Tags.empty

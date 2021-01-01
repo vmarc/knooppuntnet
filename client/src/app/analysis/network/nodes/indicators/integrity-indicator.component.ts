@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {NetworkInfoNode} from '@api/common/network/network-info-node';
+import {NetworkNodeDetail} from '@api/common/network/network-node-detail';
 import {NetworkType} from '@api/custom/network-type';
 import {IntegrityIndicatorData} from './integrity-indicator-data';
 import {IntegrityIndicatorDialogComponent} from './integrity-indicator-dialog.component';
@@ -22,7 +22,7 @@ import {IntegrityIndicatorDialogComponent} from './integrity-indicator-dialog.co
 export class IntegrityIndicatorComponent implements OnInit {
 
   @Input() networkType: NetworkType;
-  @Input() node: NetworkInfoNode;
+  @Input() node: NetworkNodeDetail;
   color: string;
 
   constructor(private dialog: MatDialog) {
@@ -36,16 +36,16 @@ export class IntegrityIndicatorComponent implements OnInit {
     const indicatorData = new IntegrityIndicatorData(
       this.color,
       this.networkType,
-      this.node.integrityCheck ? this.node.integrityCheck.actual : 0,
-      this.node.integrityCheck ? this.node.integrityCheck.expected : 0
+      this.node.routeReferences.size,
+      this.node.expectedRouteCount
     );
     this.dialog.open(IntegrityIndicatorDialogComponent, {data: indicatorData, maxWidth: 600});
   }
 
   private determineColor() {
     let color;
-    if (this.node.integrityCheck) {
-      if (this.node.integrityCheck.failed) {
+    if (this.node.expectedRouteCount !== '-') {
+      if (+this.node.expectedRouteCount !== this.node.routeReferences.size) {
         color = 'red';
       } else {
         color = 'green';

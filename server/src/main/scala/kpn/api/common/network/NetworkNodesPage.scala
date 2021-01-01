@@ -9,6 +9,6 @@ case class NetworkNodesPage(
   surveyDateInfo: SurveyDateInfo,
   networkSummary: NetworkSummary,
   networkType: NetworkType,
-  nodes: Seq[NetworkInfoNode],
+  nodes: Seq[NetworkNodeDetail],
   routeIds: Seq[Long]
 )

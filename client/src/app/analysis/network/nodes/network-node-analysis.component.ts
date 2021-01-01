@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {NetworkInfoNode} from '@api/common/network/network-info-node';
+import {NetworkNodeDetail} from '@api/common/network/network-node-detail';
 import {NetworkType} from '@api/custom/network-type';
 
 @Component({
@@ -23,7 +23,7 @@ import {NetworkType} from '@api/custom/network-type';
 })
 export class NetworkNodeAnalysisComponent {
 
-  @Input() node: NetworkInfoNode;
+  @Input() node: NetworkNodeDetail;
   @Input() networkType: NetworkType;
 
 }

@@ -2,7 +2,7 @@ import {OnDestroy} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {NetworkInfoNode} from '@api/common/network/network-info-node';
+import {NetworkNodeDetail} from '@api/common/network/network-node-detail';
 import {SurveyDateInfo} from '@api/common/survey-date-info';
 import {TimeInfo} from '@api/common/time-info';
 import {NetworkType} from '@api/custom/network-type';
@@ -64,7 +64,7 @@ import {NetworkNodesService} from './network-nodes.service';
       <ng-container matColumnDef="routes-expected">
         <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.expected">Expected</th>
         <td mat-cell *matCellDef="let node">
-          {{expectedRouteCount(node)}}
+          {{node.expectedRouteCount}}
         </td>
       </ng-container>
 
@@ -126,11 +126,11 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
   @Input() surveyDateInfo: SurveyDateInfo;
-  @Input() nodes: List<NetworkInfoNode> = List();
+  @Input() nodes: List<NetworkNodeDetail> = List();
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
-  dataSource: MatTableDataSource<NetworkInfoNode>;
+  dataSource: MatTableDataSource<NetworkNodeDetail>;
   headerColumns1$: Observable<Array<string>>;
   headerColumns2$: Observable<Array<string>>;
   displayedColumns$: Observable<Array<string>>;
@@ -145,7 +145,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<NetworkInfoNode>();
+    this.dataSource = new MatTableDataSource<NetworkNodeDetail>();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.pipe(
       map(criteria => new NetworkNodeFilter(this.timeInfo, this.surveyDateInfo, criteria, this.filterCriteria)),
@@ -164,14 +164,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     return this.paginator.rowNumber(index);
   }
 
-  expectedRouteCount(node: NetworkInfoNode): string {
-    if (node.integrityCheck && node.integrityCheck.expected) {
-      return node.integrityCheck.expected.toString();
-    }
-    return '-';
-  }
-
-  name(node: NetworkInfoNode): string {
+  name(node: NetworkNodeDetail): string {
     const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
     if (node.tags) {
       const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
