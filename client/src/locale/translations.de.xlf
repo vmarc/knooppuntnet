@@ -1745,10 +1745,6 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <source>Key</source>
         <target>Schlüssel</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-table.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">22</context>
         </context-group>
@@ -1764,14 +1760,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">100</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.before" datatype="html">
         <source>Before</source>
         <target>Vorher</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-table.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">76</context>
@@ -1780,14 +1776,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">106</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.after" datatype="html">
         <source>After</source>
         <target>Nachher</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-table.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">82</context>
@@ -1795,6 +1791,10 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-text.component.ts</context>
           <context context-type="linenumber">112</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs-table.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.table" datatype="html">
@@ -4691,7 +4691,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Routenkarte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.title" datatype="html">
@@ -4884,7 +4884,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Routendetails</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.version" datatype="html">
@@ -4932,7 +4932,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.group.amenity" datatype="html">
@@ -5049,7 +5049,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Zusammenfassung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.situation-on" datatype="html">
@@ -5057,7 +5057,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Situation am</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.last-updated" datatype="html">
@@ -5065,7 +5065,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.relation-last-updated" datatype="html">
@@ -5073,7 +5073,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Relation zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.network" datatype="html">
@@ -5081,7 +5081,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Netzwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.start-node" datatype="html">
@@ -5089,7 +5089,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Startknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.end-node" datatype="html">
@@ -5097,7 +5097,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Endknoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.redundant-node" datatype="html">
@@ -5105,7 +5105,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Redundanter Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.number-of-ways" datatype="html">
@@ -5113,7 +5113,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Anzahl der Wege</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.tags" datatype="html">
@@ -5121,7 +5121,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.location" datatype="html">
@@ -5129,7 +5129,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Ort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.structure" datatype="html">
@@ -5137,7 +5137,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Struktur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.facts" datatype="html">
@@ -5145,7 +5145,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Fakten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-changes.title" datatype="html">
@@ -5459,6 +5459,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">27,28</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">52,53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.replication-number" datatype="html">
         <source>Minute diff</source>
@@ -5466,6 +5474,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">53,54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">76,77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.comment" datatype="html">
@@ -5483,6 +5499,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">69,70</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">117,118</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">115,116</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.analysis.happy" datatype="html">
         <source>This changeset brought improvements.</source>
@@ -5490,6 +5514,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">13,14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">123,124</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">121,122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.analysis.investigate" datatype="html">
@@ -5499,6 +5531,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">20,21</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">130,131</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">128,129</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.analysis.no-impact" datatype="html">
         <source>The changes do not seem to have an impact on the analysis result.</source>
@@ -5506,6 +5546,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-analysis.component.ts</context>
           <context context-type="linenumber">26,27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">136,137</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">134,135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.network-changes.network" datatype="html">
@@ -5906,7 +5954,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Zusammenfassung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.situation-on" datatype="html">
@@ -5914,7 +5962,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Situation am</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.last-updated" datatype="html">
@@ -5922,7 +5970,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.tags" datatype="html">
@@ -5930,7 +5978,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.location" datatype="html">
@@ -5938,7 +5986,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Ort</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.networks" datatype="html">
@@ -5946,7 +5994,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Netzwerke</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
@@ -5954,7 +6002,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Verwaiste Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
@@ -5962,7 +6010,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Fakten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
@@ -6010,11 +6058,11 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Route nicht gefunden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">38,39</context>
+          <context context-type="linenumber">39,40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
@@ -6418,50 +6466,6 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-selection-page.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/network/components/network-page-header.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
@@ -6478,8 +6482,116 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/network/components/network-page-header.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-selection-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
           <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/routes/longdistance-routes.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/components/longdistance-route-page-header.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/changes/monitor-changes-page.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-page.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/changes/monitor-group-changes-page.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/route/update/monitor-admin-route-update-page.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/route/delete/monitor-admin-route-delete-page.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/route/add/monitor-admin-route-add-page.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/group/update/monitor-admin-group-update-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/group/delete/monitor-admin-group-delete-page.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/group/add/monitor-admin-group-add-page.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.analysis" datatype="html">
@@ -6514,40 +6626,12 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-selection-page.component.ts</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">26</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/components/network-page-header.component.ts</context>
@@ -6558,8 +6642,36 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-selection-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
           <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="analysis-page.title" datatype="html">
@@ -6593,6 +6705,10 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">15,16</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/route/components/monitor-admin-route-reference.component.ts</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="analysis.by-location" datatype="html">
         <source>Explore by location</source>
@@ -6600,6 +6716,10 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">21,22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/admin/route/components/monitor-admin-route-reference.component.ts</context>
+          <context context-type="linenumber">36,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="analysis.location.search-by-name" datatype="html">
@@ -7051,7 +7171,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-investigate-indicator.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-investigate-indicator-dialog.component.ts</context>
@@ -7232,7 +7352,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knoten Karte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.node-not-found" datatype="html">
@@ -7240,11 +7360,11 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knoten nicht gefunden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">34,35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">39,40</context>
+          <context context-type="linenumber">40,41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
@@ -7377,6 +7497,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">45,46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">68,69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="timeout.message-1" datatype="html">
@@ -7996,7 +8124,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Bearbeiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.nodes" datatype="html">
@@ -8004,7 +8132,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Knoten (schnell)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.routes" datatype="html">
@@ -8012,7 +8140,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Routenrelationen (schnell)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.time-warning" datatype="html">
@@ -8020,7 +8148,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Wir schätzen, dass das Laden aller Knoten und Routen im Editor etwa <x equiv-text="{{seconds}}" id="INTERPOLATION"/> Sekunden dauern wird.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">42,44</context>
+          <context context-type="linenumber">45,47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.ready" datatype="html">
@@ -8028,7 +8156,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Fertig</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">50,51</context>
+          <context context-type="linenumber">53,54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.error" datatype="html">
@@ -8036,7 +8164,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Fehler</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">53,54</context>
+          <context context-type="linenumber">56,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.timeout" datatype="html">
@@ -8044,7 +8172,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Timeout: JOSM nicht gestartet oder JOSM-Fernbedienung nicht aktiviert?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">62,63</context>
+          <context context-type="linenumber">65,66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.cancel" datatype="html">
@@ -8052,7 +8180,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target><x ctype="x-button" equiv-text="&lt;button&gt;" id="START_TAG_BUTTON"/>Abbrechen<x ctype="x-button" equiv-text="&lt;/button&gt;" id="CLOSE_TAG_BUTTON"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.full-routes" datatype="html">
@@ -8060,7 +8188,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Routen mit Wegen (dauert länger)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.follow-colour" datatype="html">
@@ -8447,6 +8575,14 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-header.component.ts</context>
           <context context-type="linenumber">37,38</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/changes/monitor-route-change-page.component.ts</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/longdistance/route/changes/longdistance-route-change-page.component.ts</context>
+          <context context-type="linenumber">60,61</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="footer.settings" datatype="html">
         <source>settings</source>
@@ -8469,7 +8605,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>This location contains more than the maximum number of nodes (<x equiv-text="of nodes ({{response.result." id="INTERPOLATION"/>) that can be loaded in the editor in one go. This limitation is to avoid overloading the OpenStreetMap api while loading the node and route details from JOSM.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit-page.component.ts</context>
-          <context context-type="linenumber">24,28</context>
+          <context context-type="linenumber">27,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.too-many-nodes.2" datatype="html">
@@ -8477,7 +8613,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Please select a location with less nodes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit-page.component.ts</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.analyzing" datatype="html">
@@ -8485,7 +8621,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Analyzing location nodes and routes, please wait...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit-page.component.ts</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.boundary-stone" datatype="html">
@@ -8653,7 +8789,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Review</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.start-node" datatype="html">
@@ -8661,7 +8797,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Start node icon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.start-node" datatype="html">
@@ -8669,7 +8805,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Start node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.end-node" datatype="html">
@@ -8677,7 +8813,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>End node icon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.end-node" datatype="html">
@@ -8685,7 +8821,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>End node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.via-node" datatype="html">
@@ -8693,7 +8829,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Via node icon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.via-node" datatype="html">
@@ -8701,7 +8837,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Via node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi-areas.title" datatype="html">
@@ -8733,7 +8869,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Laden in JOSM-Editor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">76,77</context>
+          <context context-type="linenumber">79,80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.submit.tooltip" datatype="html">
@@ -8741,7 +8877,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="leg-not-found-dialog.title" datatype="html">
@@ -8794,15 +8930,15 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">error.http.text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3cd06369a4ae048bc4aaa888c65d462bb7dba31f" datatype="html">
@@ -8811,7 +8947,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">error.502.code</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="a53236a47a1cf0aef396311e4c78cac5bffaf77e" datatype="html">
@@ -8820,7 +8956,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">error.504.code</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2e10bc770645eb082da0e9b59cdad723165ab6fe" datatype="html">
@@ -8829,7 +8965,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">error.0.code</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="aa88186200a658058508de5196a58608c17e0551" datatype="html">
@@ -8838,7 +8974,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">error.404.text</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3488e33744e35be82564551d591ecc912094b2d4" datatype="html">
@@ -8847,7 +8983,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <note priority="1" from="description">error.404.code</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/error/error.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="leg-http-error-dialog.title" datatype="html">
@@ -9051,7 +9187,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <target>Integrität</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.integrity.none" datatype="html">
@@ -9132,6 +9268,22 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem _&quot;route&q
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
           <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.legend.survey.ok-orphan" datatype="html">
+        <source>OK Orphan</source>
+        <target>OK Orphan</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.legend.survey.review-orphan" datatype="html">
+        <source>Review Orphan</source>
+        <target>Review Orphan</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
     </body>
