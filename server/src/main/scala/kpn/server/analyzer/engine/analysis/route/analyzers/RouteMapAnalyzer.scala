@@ -81,7 +81,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
 
   private def toTrackPath(pathIdIterator: Iterator[Long], path: Path, oneWay: Boolean = false): TrackPath = {
     val trackSegments = path.segments.map(toTrackSegment)
-    TrackPath(pathIdIterator.next(), path.startNodeId, path.endNodeId, path.meters, path.oneWay || oneWay, trackSegments)
+    TrackPath(pathIdIterator.next(), path.startNodeId, path.endNodeId, path.meters, /*path.oneWay ||*/ oneWay, trackSegments)
   }
 
   private def toTrackSegment(segment: Segment): TrackSegment = {

@@ -50,11 +50,20 @@ export class Features {
       }
       if (layer.endsWith('node')) {
         const nodeId = feature.get('id');
+        let nodeRef = feature.get('ref');
         const nodeName = feature.get('name');
+        if (nodeName && nodeRef == 'o') {
+          nodeRef = null;
+        }
+        let name = nodeRef;
+        if (!name) {
+          name = nodeName;
+        }
+
         const point: Point = feature.getGeometry() as Point;
         const extent = point.getExtent();
         const coordinate: Coordinate = [extent[0], extent[1]];
-        return NetworkNodeFeature.create(nodeId, nodeName, coordinate);
+        return NetworkNodeFeature.create(nodeId, name, coordinate);
       }
 
       const layerType = feature.get('type');
