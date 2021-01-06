@@ -57,4 +57,5 @@ object ReferenceView extends View {
     }
   }
 
+  override val reduce: Option[String] = None
 }
