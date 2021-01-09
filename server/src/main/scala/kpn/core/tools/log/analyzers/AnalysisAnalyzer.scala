@@ -1,7 +1,7 @@
 package kpn.core.tools.log.analyzers
 
+import kpn.core.tools.log.LogAnalysisContext
 import kpn.core.tools.log.LogRecord
-import kpn.core.tools.log.LogRecordAnalysis
 
 object AnalysisAnalyzer extends LogRecordAnalyzer {
 
@@ -39,12 +39,13 @@ object AnalysisAnalyzer extends LogRecordAnalyzer {
     """/(nl|en|fr|de)/map/(cycling|hiking|horse-riding|motorboat|canoe|inline-skating)""".r, // planner
   )
 
-  def analyze(record: LogRecord, analysis: LogRecordAnalysis): LogRecordAnalysis = {
+  def analyze(record: LogRecord, context: LogAnalysisContext): LogAnalysisContext = {
     if (patterns.exists(pattern => pattern.matches(record.path))) {
-      analysis.copy(analysis = true)
+      val key = if (context.recordAnalysis.robot) "analysis-robot" else "analysis"
+      context.withValue(key).copy(recordAnalysis = context.recordAnalysis.copy(analysis = true))
     }
     else {
-      analysis
+      context
     }
   }
 

@@ -1,16 +1,17 @@
 package kpn.core.tools.log.analyzers
 
+import kpn.core.tools.log.LogAnalysisContext
 import kpn.core.tools.log.LogRecord
-import kpn.core.tools.log.LogRecordAnalysis
 
 object TileAnalyzer extends LogRecordAnalyzer {
 
-  def analyze(record: LogRecord, analysis: LogRecordAnalysis): LogRecordAnalysis = {
+  def analyze(record: LogRecord, context: LogAnalysisContext): LogAnalysisContext = {
     if (record.path.startsWith("/tiles/")) {
-      analysis.copy(tile = true)
+      val key = if (context.recordAnalysis.robot) "tile-robot" else "tile"
+      context.withValue(key).copy(recordAnalysis = context.recordAnalysis.copy(tile = true))
     }
     else {
-      analysis
+      context
     }
   }
 

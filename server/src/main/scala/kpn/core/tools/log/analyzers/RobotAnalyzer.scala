@@ -1,16 +1,16 @@
 package kpn.core.tools.log.analyzers
 
+import kpn.core.tools.log.LogAnalysisContext
 import kpn.core.tools.log.LogRecord
-import kpn.core.tools.log.LogRecordAnalysis
 
 object RobotAnalyzer extends LogRecordAnalyzer {
 
-  def analyze(record: LogRecord, analysis: LogRecordAnalysis): LogRecordAnalysis = {
+  def analyze(record: LogRecord, context: LogAnalysisContext): LogAnalysisContext = {
     if (isRobot(record)) {
-      analysis.copy(robot = true)
+      context.withValue("robot").copy(recordAnalysis = context.recordAnalysis.copy(robot = true))
     }
     else {
-      analysis
+      context.withValue("non-robot")
     }
   }
 
