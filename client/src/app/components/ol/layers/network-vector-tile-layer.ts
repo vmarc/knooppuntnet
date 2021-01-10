@@ -1,4 +1,4 @@
-import MVT from 'ol/format/MVT';
+import {MVT} from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
 import VectorTile from 'ol/source/VectorTile';

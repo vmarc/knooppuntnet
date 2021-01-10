@@ -13,7 +13,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
 import {QriousModule} from 'angular-qrious';
 import {ClipboardModule} from 'ngx-clipboard';
-import {NetworkModule} from '../analysis/network/network.module';
 import {OlModule} from '../components/ol/ol.module';
 import {SharedModule} from '../components/shared/shared.module';
 import {PdfModule} from '../pdf/pdf.module';
@@ -82,16 +81,15 @@ import {PlanComponent} from './sidebar/plan.component';
     MatDialogModule,
     MatExpansionModule,
     MatDividerModule,
+    MatInputModule,
     MapRoutingModule,
+    MatProgressBarModule,
+    MatAutocompleteModule,
     SharedModule,
     OlModule,
     PdfModule,
-    MatProgressBarModule,
-    MatAutocompleteModule,
-    NetworkModule,
     ClipboardModule,
     QriousModule,
-    MatInputModule
   ],
   declarations: [
     MapPageComponent,
