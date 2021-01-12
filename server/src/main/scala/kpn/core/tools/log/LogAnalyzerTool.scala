@@ -8,6 +8,7 @@ import kpn.core.tools.log.analyzers.LogRecordAnalyzer
 import kpn.core.tools.log.analyzers.RobotAnalyzer
 import kpn.core.tools.log.analyzers.TileAnalyzer
 import nl.basjes.parse.core.Parser
+import nl.basjes.parse.core.exceptions.DissectionFailure
 import nl.basjes.parse.httpdlog.HttpdLoglineParser
 
 import scala.annotation.tailrec
@@ -17,7 +18,8 @@ import scala.jdk.CollectionConverters._
 object LogAnalyzerTool {
   def main(args: Array[String]): Unit = {
     //new LogAnalyzerTool().printPossiblePaths()
-    new LogAnalyzerTool().analyze("/kpn/logs/tmp.log")
+    //new LogAnalyzerTool().analyze("/kpn/logs/tmp.log")
+    new LogAnalyzerTool().findUserAgents("/kpn/logs/ningx-nl-access.log")
   }
 }
 
@@ -26,10 +28,37 @@ class LogAnalyzerTool {
   private val LOG_FORMAT = "$remote_addr - $remote_user [$time_local] \"$host\" \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"rt=$request_time uct=\"upstream_connect_time\" uht=\"upstream_header_time\" urt=\"$upstream_response_time\""
 
   def printPossiblePaths(): Unit = {
-    val dummyParser: Parser[Object] = new HttpdLoglineParser[Object](classOf[Object], LOG_FORMAT)
+    val dummyParser = new HttpdLoglineParser[Object](classOf[Object], LOG_FORMAT)
     val possiblePaths = dummyParser.getPossiblePaths.asScala
     for (path <- possiblePaths) {
       println(path)
+    }
+  }
+
+  def findUserAgents(filename: String): Unit = {
+    val parser = new HttpdLoglineParser[LogRecord](classOf[LogRecord], LOG_FORMAT)
+    val source = Source.fromFile(filename)
+
+    var frequency: Map[String, Int] = Map.empty
+    source.getLines.foreach { line =>
+      try {
+        val record = parser.parse(line)
+        if (record.userAgent != null) {
+          frequency = frequency.updated(record.userAgent, frequency.getOrElse(record.userAgent, 0) + 1)
+        }
+      }
+      catch {
+        case e: DissectionFailure => println("ERROR: " + line)
+      }
+    }
+    source.close()
+
+//    frequency.keys.toSeq.sorted.foreach { key =>
+//      println(key + "   " + frequency(key))
+//    }
+
+    frequency.toSeq.sortBy(_._2).reverse.take(100).foreach { case(key, value) =>
+      println(key + "   " + value)
     }
   }
 
