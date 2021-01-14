@@ -19,6 +19,16 @@ object Timestamp {
     Timestamp(year, month, day, hour, minute, second)
   }
 
+  def fromLogKey(key: String): Timestamp = {
+    require(key.length == "yyyy-MM-dd HH:mm".length)
+    val year = key.substring(0, 4).toInt
+    val month = key.substring(5, 7).toInt
+    val day = key.substring(8, 10).toInt
+    val hour = key.substring(11, 13).toInt
+    val minute = key.substring(14, 16).toInt
+    Timestamp(year, month, day, hour, minute, 0)
+  }
+
   def fromIso(iso: String): Timestamp = {
     val year = iso.substring(0, 4).toInt
     val month = iso.substring(5, 7).toInt

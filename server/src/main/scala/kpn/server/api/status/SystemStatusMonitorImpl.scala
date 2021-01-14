@@ -6,7 +6,7 @@ import kpn.core.action.SystemStatus
 import kpn.core.action.SystemStatusValue
 import kpn.core.util.Log
 import kpn.server.json.Json
-import kpn.server.repository.BackendActionsRepository
+import kpn.server.repository.BackendMetricsRepository
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -28,7 +28,7 @@ case class DatabaseSampleConfig(
 @Component
 class SystemStatusMonitorImpl(
   systemMetricsEnabled: Boolean,
-  backendActionsRepository: BackendActionsRepository
+  backendActionsRepository: BackendMetricsRepository
 ) extends SystemStatusMonitor {
 
   private val log = Log(classOf[SystemStatusMonitorImpl])

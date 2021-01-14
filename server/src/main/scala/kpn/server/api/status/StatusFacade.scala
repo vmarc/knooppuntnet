@@ -1,5 +1,6 @@
 package kpn.server.api.status
 
+import kpn.api.common.status.LogPage
 import kpn.api.common.status.PeriodParameters
 import kpn.api.common.status.ReplicationStatusPage
 import kpn.api.common.status.Status
@@ -15,5 +16,7 @@ trait StatusFacade {
   def replicationStatus(parameters: PeriodParameters): ApiResponse[ReplicationStatusPage]
 
   def systemStatus(parameters: PeriodParameters): ApiResponse[SystemStatusPage]
+
+  def logStatus(parameters: PeriodParameters): ApiResponse[LogPage]
 
 }

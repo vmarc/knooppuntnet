@@ -11,7 +11,7 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.OsmChangeReader
-import kpn.server.repository.BackendActionsRepository
+import kpn.server.repository.BackendMetricsRepository
 import kpn.server.repository.BackendMetricsRepositoryImpl
 
 object ReplicatorTool {
@@ -86,7 +86,7 @@ class ReplicatorTool(
   statusRepository: StatusRepositoryImpl,
   replicationStateRepository: ReplicationStateRepository,
   replicationRequestExecutor: ReplicationRequestExecutor,
-  actionsRepository: BackendActionsRepository
+  actionsRepository: BackendMetricsRepository
 ) {
 
   private val log = ReplicatorTool.log

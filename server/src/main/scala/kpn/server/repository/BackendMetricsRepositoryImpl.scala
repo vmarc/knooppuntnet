@@ -52,7 +52,7 @@ object BackendMetricsRepositoryImpl {
 }
 
 @Component
-class BackendMetricsRepositoryImpl(backendActionsDatabase: Database) extends BackendActionsRepository {
+class BackendMetricsRepositoryImpl(backendActionsDatabase: Database) extends BackendMetricsRepository {
 
   override def saveReplicationAction(replicationAction: ReplicationAction): Unit = {
     val id = s"replication-${replicationAction.minuteDiff.id}"

@@ -1,5 +1,6 @@
 package kpn.server.api.status
 
+import kpn.api.common.status.LogPage
 import kpn.api.common.status.PeriodParameters
 import kpn.api.common.status.ReplicationStatusPage
 import kpn.api.common.status.Status
@@ -31,6 +32,11 @@ class StatusController(statusFacade: StatusFacade) {
   @PostMapping(value = Array("/api/status/system"))
   def systemStatus(@RequestBody parameters: PeriodParameters): ApiResponse[SystemStatusPage] = {
     statusFacade.systemStatus(parameters)
+  }
+
+  @PostMapping(value = Array("/api/status/log"))
+  def logStatus(@RequestBody parameters: PeriodParameters): ApiResponse[LogPage] = {
+    statusFacade.logStatus(parameters)
   }
 
 }

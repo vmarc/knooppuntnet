@@ -5,6 +5,7 @@ import kpn.api.common.status.BarChart
 import kpn.api.common.status.BarChart2D
 import kpn.api.common.status.BarChart2dValue
 import kpn.api.common.status.DiskUsage
+import kpn.api.common.status.LogPage
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
 import kpn.api.common.status.ReplicationStatusPage
@@ -13,13 +14,15 @@ import kpn.api.common.status.SystemStatusPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.BackendActionsRepository
+import kpn.server.repository.BackendMetricsRepository
+import kpn.server.repository.FrontendMetricsRepository
 import org.springframework.stereotype.Component
 
 @Component
 class StatusFacadeImpl(
   analysisRepository: AnalysisRepository,
-  backendActionsRepository: BackendActionsRepository
+  backendActionsRepository: BackendMetricsRepository,
+  frontendActionsRepository: FrontendMetricsRepository
 ) extends StatusFacade {
 
   override def status(): ApiResponse[Status] = {
@@ -227,6 +230,67 @@ class StatusFacadeImpl(
           changesDiskSize,
           changesDiskSizeExternal,
           changesDataSize
+        )
+      )
+    )
+  }
+
+  override def logStatus(parameters: PeriodParameters): ApiResponse[LogPage] = {
+
+    val tile = BarChart(parameters.period, frontendActionsRepository.query(parameters, "tile", average = false))
+    val tileRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "tile-robot", average = false))
+    val api = BarChart(parameters.period, frontendActionsRepository.query(parameters, "api", average = false))
+    val apiRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "api-robot", average = false))
+    val analysis = BarChart(parameters.period, frontendActionsRepository.query(parameters, "analysis", average = false))
+    val analysisRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "analysis-robot", average = false))
+    val robot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "robot", average = false))
+    val nonRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "non-robot", average = false))
+
+    val periodTitle = parameters.period match {
+      case "year" => parameters.year.toString
+      case "month" => f"${parameters.year} ${parameters.month.get}"
+      case "week" => f"${parameters.year} ${parameters.week.get}"
+      case "day" => f"${parameters.year}-${parameters.month.get}-${parameters.day.get}"
+      case "hour" => f"${parameters.year}-${parameters.month.get}-${parameters.day.get} hour: ${parameters.hour.get}"
+      case _ => ""
+    }
+
+    val previous = parameters.period match {
+      case "year" => "previous-yearlink"
+      case "month" => "previous-monthlink"
+      case "week" => "previous-weeklink"
+      case "day" => "previous-daylink"
+      case "hour" => "previous-hourlink"
+      case _ => ""
+    }
+
+    val next = parameters.period match {
+      case "year" => "next-yearlink"
+      case "month" => "next-monthlink"
+      case "week" => "next-weeklink"
+      case "day" => "next-daylink"
+      case "hour" => "next-hourlink"
+      case _ => ""
+    }
+
+    ApiResponse(
+      None,
+      1,
+      Some(
+        LogPage(
+          ActionTimestamp.now(),
+          parameters.period,
+          periodTitle,
+          previous,
+          next,
+          tile,
+          tileRobot,
+          api,
+          apiRobot,
+          analysis,
+          analysisRobot,
+          robot,
+          nonRobot
         )
       )
     )

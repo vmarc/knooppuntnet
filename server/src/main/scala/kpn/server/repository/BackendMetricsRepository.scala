@@ -7,7 +7,7 @@ import kpn.core.action.ReplicationAction
 import kpn.core.action.SystemStatus
 import kpn.core.action.UpdateAction
 
-trait BackendActionsRepository {
+trait BackendMetricsRepository {
 
   def saveReplicationAction(replicationAction: ReplicationAction): Unit
 

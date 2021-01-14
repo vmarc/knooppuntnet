@@ -1,5 +1,10 @@
 package kpn.core.tools.log
 
+import kpn.api.common.status.ActionTimestamp
+import kpn.api.custom.Timestamp
+import kpn.core.action.LogAction
+import kpn.core.action.LogValue
+import kpn.core.db.couch.Couch
 import kpn.core.tools.log.analyzers.AnalysisAnalyzer
 import kpn.core.tools.log.analyzers.ApiAnalyzer
 import kpn.core.tools.log.analyzers.ApplicationAnalyzer
@@ -7,6 +12,8 @@ import kpn.core.tools.log.analyzers.AssetAnalyzer
 import kpn.core.tools.log.analyzers.LogRecordAnalyzer
 import kpn.core.tools.log.analyzers.RobotAnalyzer
 import kpn.core.tools.log.analyzers.TileAnalyzer
+import kpn.server.repository.FrontendMetricsRepository
+import kpn.server.repository.FrontendMetricsRepositoryImpl
 import nl.basjes.parse.core.Parser
 import nl.basjes.parse.core.exceptions.DissectionFailure
 import nl.basjes.parse.httpdlog.HttpdLoglineParser
@@ -17,13 +24,17 @@ import scala.jdk.CollectionConverters._
 
 object LogAnalyzerTool {
   def main(args: Array[String]): Unit = {
-    //new LogAnalyzerTool().printPossiblePaths()
-    //new LogAnalyzerTool().analyze("/kpn/logs/tmp.log")
-    new LogAnalyzerTool().findUserAgents("/kpn/logs/ningx-nl-access.log")
+    // new LogAnalyzerTool().printPossiblePaths()
+    // new LogAnalyzerTool().findUserAgents("/kpn/logs/ningx-nl-access.log")
+
+    Couch.executeIn("localhost", "frontend-actions") { database =>
+      val repo = new FrontendMetricsRepositoryImpl(database)
+      new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-access.log")
+    }
   }
 }
 
-class LogAnalyzerTool {
+class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
 
   private val LOG_FORMAT = "$remote_addr - $remote_user [$time_local] \"$host\" \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"rt=$request_time uct=\"upstream_connect_time\" uht=\"upstream_header_time\" urt=\"$upstream_response_time\""
 
@@ -53,11 +64,11 @@ class LogAnalyzerTool {
     }
     source.close()
 
-//    frequency.keys.toSeq.sorted.foreach { key =>
-//      println(key + "   " + frequency(key))
-//    }
+    //    frequency.keys.toSeq.sorted.foreach { key =>
+    //      println(key + "   " + frequency(key))
+    //    }
 
-    frequency.toSeq.sortBy(_._2).reverse.take(100).foreach { case(key, value) =>
+    frequency.toSeq.sortBy(_._2).reverse.take(100).foreach { case (key, value) =>
       println(key + "   " + value)
     }
   }
@@ -65,7 +76,16 @@ class LogAnalyzerTool {
   def analyze(filename: String): Unit = {
     val parser: Parser[LogRecord] = new HttpdLoglineParser[LogRecord](classOf[LogRecord], LOG_FORMAT)
     val source = Source.fromFile(filename)
-    val records = source.getLines.map(line => parser.parse(line))
+    val records = source.getLines.flatMap { line =>
+      try {
+        Some(parser.parse(line))
+      }
+      catch {
+        case e: DissectionFailure =>
+          println("ERROR: " + line)
+          None
+      }
+    }
 
     process(records)
     source.close()
@@ -86,11 +106,8 @@ class LogAnalyzerTool {
             nextContext
           }
           else {
-            // TODO save previous context
-            val nonRobotValues = context.values.filter { case (key, value) => !key.endsWith("robot") }
-            if (nonRobotValues.nonEmpty) {
-              println(context.key + " " + nonRobotValues)
-            }
+            save(context)
+            // printNonRobotValues(context)
             val newContext = LogAnalysisContext(record.key)
             analyze(record, newContext)
           }
@@ -122,4 +139,17 @@ class LogAnalyzerTool {
     }
   }
 
+  private def printNonRobotValues(context: LogAnalysisContext): Unit = {
+    val nonRobotValues = context.values.filter { case (key, value) => !key.endsWith("robot") }
+    if (nonRobotValues.nonEmpty) {
+      println(context.key + " " + nonRobotValues)
+    }
+  }
+
+  private def save(context: LogAnalysisContext): Unit = {
+    val actionTimestamp = ActionTimestamp.from(Timestamp.fromLogKey(context.key))
+    val values = context.values.toSeq.map { case (key, value) => LogValue(key, value) }
+    val logAction = LogAction(actionTimestamp, "test", values)
+    frontendMetricsRepository.saveLogAction(logAction)
+  }
 }

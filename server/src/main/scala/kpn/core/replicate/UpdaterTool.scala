@@ -13,7 +13,7 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
-import kpn.server.repository.BackendActionsRepository
+import kpn.server.repository.BackendMetricsRepository
 import kpn.server.repository.BackendMetricsRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
@@ -79,7 +79,7 @@ object UpdaterTool {
 class UpdaterTool(
   options: UpdaterToolOptions,
   statusRepository: StatusRepository,
-  actionsRepository: BackendActionsRepository,
+  actionsRepository: BackendMetricsRepository,
   replicationStateRepository: ReplicationStateRepository
 ) {
 
