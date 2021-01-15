@@ -31,6 +31,7 @@ import {MapRouteDetail} from '@api/common/route/map-route-detail';
 import {RouteChangesPage} from '@api/common/route/route-changes-page';
 import {RouteDetailsPage} from '@api/common/route/route-details-page';
 import {RouteMapPage} from '@api/common/route/route-map-page';
+import {LogPage} from '@api/common/status/log-page';
 import {PeriodParameters} from '@api/common/status/period-parameters';
 import {ReplicationStatusPage} from '@api/common/status/replication-status-page';
 import {Status} from '@api/common/status/status';
@@ -332,6 +333,13 @@ export class AppService {
     const url = '/api/status/system';
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, SystemStatusPage.fromJSON))
+    );
+  }
+
+  public logStatus(parameters: PeriodParameters): Observable<ApiResponse<LogPage>> {
+    const url = '/api/status/log';
+    return this.http.post(url, parameters).pipe(
+      map(response => ApiResponse.fromJSON(response, LogPage.fromJSON))
     );
   }
 

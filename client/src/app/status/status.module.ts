@@ -7,6 +7,14 @@ import {ActionBarChartStackedComponent} from './status/charts/action-bar-chart-s
 import {ActionBarChartComponent} from './status/charts/action-bar-chart.component';
 import {AnalysisDelayChartComponent} from './status/charts/analysis-delay-chart.component';
 import {DelayChartComponent} from './status/charts/delay-chart.component';
+import {LogAnalysisChartComponent} from './status/charts/log/log-analysis-chart.component';
+import {LogAnalysisRobotChartComponent} from './status/charts/log/log-analysis-robot-chart.component';
+import {LogApiChartComponent} from './status/charts/log/log-api-chart.component';
+import {LogApiRobotChartComponent} from './status/charts/log/log-api-robot-chart.component';
+import {LogNonRobotChartComponent} from './status/charts/log/log-non-robot-chart.component';
+import {LogRobotChartComponent} from './status/charts/log/log-robot-chart.component';
+import {LogTileChartComponent} from './status/charts/log/log-tile-chart.component';
+import {LogTileRobotChartComponent} from './status/charts/log/log-tile-robot-chart.component';
 import {ReplicationBytesChartComponent} from './status/charts/replication-bytes-chart.component';
 import {ReplicationChangesetsChartComponent} from './status/charts/replication-changesets-chart.component';
 import {ReplicationDelayChartComponent} from './status/charts/replication-delay-chart.component';
@@ -22,6 +30,7 @@ import {DiskSpaceOverpassChartComponent} from './status/charts/system/disk-space
 import {DiskSpaceUsedChartComponent} from './status/charts/system/disk-space-used-chart.component';
 import {DocsChartComponent} from './status/charts/system/docs-chart.component';
 import {UpdateDelayChartComponent} from './status/charts/update-delay-chart.component';
+import {LogPageComponent} from './status/log-page.component';
 import {ReplicationStatusPageComponent} from './status/replication-status-page.component';
 import {StatusLinksComponent} from './status/status-links.component';
 import {StatusPageMenuComponent} from './status/status-page-menu.component';
@@ -30,6 +39,12 @@ import {StatusSidebarComponent} from './status/status-sidebar.component';
 import {SystemStatusPageComponent} from './status/system-status-page.component';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    StatusRoutingModule,
+    SharedModule,
+    NgxChartsModule
+  ],
   declarations: [
     StatusPageComponent,
     StatusSidebarComponent,
@@ -55,13 +70,16 @@ import {SystemStatusPageComponent} from './status/system-status-page.component';
     StatusPageMenuComponent,
     ServerDiskUsagePieChartComponent,
     ServerDiskUsageComponent,
-    ServerDiskUsageLegendComponent
-  ],
-  imports: [
-    CommonModule,
-    StatusRoutingModule,
-    SharedModule,
-    NgxChartsModule
+    ServerDiskUsageLegendComponent,
+    LogPageComponent,
+    LogAnalysisChartComponent,
+    LogAnalysisRobotChartComponent,
+    LogApiChartComponent,
+    LogApiRobotChartComponent,
+    LogNonRobotChartComponent,
+    LogRobotChartComponent,
+    LogTileChartComponent,
+    LogTileRobotChartComponent,
   ]
 })
 export class StatusModule {

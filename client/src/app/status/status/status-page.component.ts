@@ -26,6 +26,10 @@ import {StatusLinks} from './status-links';
         <span class="kpn-label">System details</span>
         <kpn-status-links [links]="systemLinks"></kpn-status-links>
       </p>
+      <p>
+        <span class="kpn-label">Log analysis</span>
+        <kpn-status-links [links]="logLinks"></kpn-status-links>
+      </p>
       <kpn-server-disk-usage [diskUsage]="response.result.diskUsage"></kpn-server-disk-usage>
     </div>
   `
@@ -36,6 +40,7 @@ export class StatusPageComponent implements OnInit {
 
   replicationLinks: StatusLinks;
   systemLinks: StatusLinks;
+  logLinks: StatusLinks;
 
   constructor(private readonly appService: AppService) {
   }
@@ -47,6 +52,7 @@ export class StatusPageComponent implements OnInit {
           const timestamp = response.result.timestamp;
           this.replicationLinks = new StatusLinks(timestamp, '/status/replication');
           this.systemLinks = new StatusLinks(timestamp, '/status/system');
+          this.logLinks = new StatusLinks(timestamp, '/status/log');
         }
       })
     );
