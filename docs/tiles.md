@@ -39,10 +39,10 @@ Documented on https://openmaptiles.org/docs/generate/generate-openmaptiles/
 
 Download OpenStreetMap data from geofabrik:
 
-    mkdir ~/tile-data // if not exists
-    cd ~/tile-data
-    mkdir old
-    mv *.pbf old
+    cd /kpn/openmaptiles
+    mkdir tile-data // if not exists
+    cd tile-data
+    rm *.pbf
     ./download.sh    # 3 minutes
     ./merge.sh       # 10 minutes
 
@@ -71,14 +71,14 @@ Contents of merge.sh:
 
 ll -h *.pbf
 
-    -rw-rw-r-- 1 marcv marcv  11G Dec  8 16:39 all.osm.pbf
-    -rw-rw-r-- 1 marcv marcv 601M Dec  8 02:53 austria-latest.osm.pbf
-    -rw-rw-r-- 1 marcv marcv 398M Dec  8 02:22 belgium-latest.osm.pbf
-    -rw-rw-r-- 1 marcv marcv 3.7G Dec  8 02:22 france-latest.osm.pbf
-    -rw-rw-r-- 1 marcv marcv 3.3G Dec  8 02:53 germany-latest.osm.pbf
-    -rw-rw-r-- 1 marcv marcv  29M Dec  8 02:53 luxembourg-latest.osm.pbf
-    -rw-rw-r-- 1 marcv marcv 1.1G Dec  8 02:22 netherlands-latest.osm.pbf
-    -rw-rw-r-- 1 marcv marcv 880M Dec  8 02:22 spain-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv  11G Jan 16 09:27 all.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 606M Jan 16 02:19 austria-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 404M Jan 16 02:13 belgium-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 3.7G Jan 16 02:13 france-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 3.3G Jan 16 02:19 germany-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv  30M Jan 16 02:19 luxembourg-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 1.1G Jan 16 02:13 netherlands-latest.osm.pbf
+    -rw-rw-r-- 1 marcv marcv 890M Jan 16 02:13 spain-latest.osm.pbf
 
 
 
@@ -96,8 +96,13 @@ Remove following line from openmaptiles.yaml:
 
 	layers/poi/poi.yaml
 
+Add in layers/place/mapping.yaml at line 177:
+
+    - quarter
+
 Prepare:
 
+    cd /kpn/openmaptiles
 	rm data/all.osm.pbf
 	rm data/tiles.mbtiles*
 

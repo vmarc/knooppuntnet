@@ -1,6 +1,7 @@
 package kpn.core.tools.log
 
 case class LogAnalysisContext(
+  logfile: String,
   key: String,
   recordAnalysis: LogRecordAnalysis = LogRecordAnalysis(),
   values: Map[String, Int] = Map.empty

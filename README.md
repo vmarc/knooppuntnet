@@ -22,8 +22,6 @@ analysis and quality assurance of these networks.
 
 - [knooppuntnet.nl](https://knooppuntnet.nl)
 
-- [experimental.knooppuntnet.nl](https://experimental.knooppuntnet.nl) (upcoming new version that includes route planner)
-
 - [wiki documentation](https://wiki.openstreetmap.org/wiki/Knooppuntnet)
 
 ## How to contribute?
@@ -101,7 +99,7 @@ Note: changes to the English texts have to be done directly in the application c
 
 ### Install application locally
 
-These are the instructions for installing the client application on your local computer.
+These are the instructions for installing the client application on your local computer (for development purposes).
 
 
 #### yarn
@@ -179,7 +177,7 @@ at their web-site.
 
 All map data is coming from [OpenStreetMap](http://www.openstreetmap.org).
 
-Background map tiles are created with [OpenMapTiles](https://openmaptiles.org).
+Background map tiles are created with [OpenMapTiles](https://openmaptiles.org) using OpenStreetMap data extracts provided by [Geofabrik](https://www.geofabrik.de/).
 
 The client is using [Angular](https://angular.io/), [Typescript](https://www.typescriptlang.org/) and [OpenLayers](https://openlayers.org/).
 

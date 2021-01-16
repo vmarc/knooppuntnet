@@ -29,7 +29,9 @@ object LogAnalyzerTool {
 
     Couch.executeIn("localhost", "frontend-actions") { database =>
       val repo = new FrontendMetricsRepositoryImpl(database)
-      new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-access.log")
+      //new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-access.log", "test")
+      new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-be-access.log", "be")
+      new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-experimental-access.log", "nl-experimental")
     }
   }
 }
@@ -73,7 +75,7 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
     }
   }
 
-  def analyze(filename: String): Unit = {
+  def analyze(filename: String, logfile: String): Unit = {
     val parser: Parser[LogRecord] = new HttpdLoglineParser[LogRecord](classOf[LogRecord], LOG_FORMAT)
     val source = Source.fromFile(filename)
     val records = source.getLines.flatMap { line =>
@@ -87,17 +89,17 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
       }
     }
 
-    process(records)
+    process(logfile, records)
     source.close()
   }
 
   @tailrec
-  private def process(records: Iterator[LogRecord], contextOption: Option[LogAnalysisContext] = None): Unit = {
+  private def process(logfile: String, records: Iterator[LogRecord], contextOption: Option[LogAnalysisContext] = None): Unit = {
     if (records.hasNext) {
       val record = records.next
       val nextContext = contextOption match {
         case None =>
-          val context = LogAnalysisContext(record.key)
+          val context = LogAnalysisContext(logfile, record.key)
           analyze(record, context)
 
         case Some(context) =>
@@ -108,11 +110,11 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
           else {
             save(context)
             // printNonRobotValues(context)
-            val newContext = LogAnalysisContext(record.key)
+            val newContext = LogAnalysisContext(logfile, record.key)
             analyze(record, newContext)
           }
       }
-      process(records, Some(nextContext))
+      process(logfile, records, Some(nextContext))
     }
   }
 
@@ -149,7 +151,7 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
   private def save(context: LogAnalysisContext): Unit = {
     val actionTimestamp = ActionTimestamp.from(Timestamp.fromLogKey(context.key))
     val values = context.values.toSeq.map { case (key, value) => LogValue(key, value) }
-    val logAction = LogAction(actionTimestamp, "test", values)
+    val logAction = LogAction(actionTimestamp, context.logfile, values)
     frontendMetricsRepository.saveLogAction(logAction)
   }
 }
