@@ -13,10 +13,16 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
   private val log = Log(classOf[NodeRouteUpdaterImpl])
 
   override def update(): Unit = {
-    NetworkType.all.foreach { networkType =>
-      Log.context(s"node-route/${networkType.name}") {
-        updateNetworkType(networkType)
+    log.debugElapsed {
+      NetworkType.all.foreach { networkType =>
+        Log.context(s"node-route/${networkType.name}") {
+          log.debugElapsed {
+            updateNetworkType(networkType)
+            (s"update ${networkType.name}", ())
+          }
+        }
       }
+      ("complete update", ())
     }
   }
 
@@ -30,6 +36,8 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     val nodeRoutesChanged = analyzeNodeRoutesChanged(networkType, nodeRoutes, obsoleteIds, actual, expected)
     val nodeRoutesAdded = analyzeNodeRoutesAdded(networkType, nodeRoutes, actual, expected)
 
+    log.debug(s"obsolete=${obsoleteIds.size}, changed=${nodeRoutesChanged.size}, added=${nodeRoutesAdded.size}")
+
     deleteObsoleteNodeRoutes(networkType, obsoleteIds)
     updateNodeRoutes(nodeRoutesChanged ++ nodeRoutesAdded)
   }
@@ -38,7 +46,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     log.debugElapsed {
       val counts = nodeRouteRepository.actualNodeRouteCounts(networkType)
       val map = counts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount.routeCount).toMap
-      ("read actual node route counts", map)
+      (s"read actual node route counts (${counts.size} nodes)", map)
     }
   }
 
@@ -46,14 +54,15 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     log.debugElapsed {
       val counts = nodeRouteRepository.expectedNodeRouteCounts(networkType)
       val map = counts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount).toMap
-      ("read expected node route counts", map)
+      (s"read expected node route counts (${counts.size} nodes)", map)
     }
   }
 
   private def readNodeRoutes(networkType: NetworkType): Seq[NodeRoute] = {
-    log.debugElapsed(
-      ("read node routes", nodeRouteRepository.nodeRoutes(networkType))
-    )
+    log.debugElapsed {
+      val nodeRoutes = nodeRouteRepository.nodeRoutes(networkType)
+      (s"read node routes (${nodeRoutes.size} nodes)", nodeRoutes)
+    }
   }
 
   private def updateNodeRoutes(modifiedNodeRoutes: Seq[NodeRoute]): Unit = {

@@ -8,7 +8,7 @@ import kpn.server.repository.NodeRouteRepositoryImpl
 
 object NodeRouteReferenceDemo {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-database", "analysis1") { database =>
+    Couch.executeIn("localhost", "analysis") { database =>
       new NodeRouteReferenceDemo(database).update()
     }
   }
