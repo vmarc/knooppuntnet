@@ -4,7 +4,11 @@ import {Component} from '@angular/core';
   selector: 'app-feature-4',
   template: `
     <div class="feature">
-      Feature 4
+      <span>Feature 4</span>
+      <app-feature-4-a></app-feature-4-a>
+      <app-feature-4-b></app-feature-4-b>
+      <app-feature-4-c></app-feature-4-c>
+      <app-feature-4-d></app-feature-4-d>
     </div>
   `
 })
