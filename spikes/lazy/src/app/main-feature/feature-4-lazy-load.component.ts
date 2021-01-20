@@ -6,15 +6,15 @@ import {ViewChild} from '@angular/core';
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-feature-4-container',
+  selector: 'app-feature-4-lazy-load',
   template: `
     <div class="feature-container">
-      Feature 4 container
+      Feature 4 lazy load container
       <ng-template #container></ng-template>
     </div>
   `
 })
-export class Feature4ContainerComponent implements OnInit {
+export class Feature4LazyLoadComponent implements OnInit {
 
   @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 

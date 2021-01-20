@@ -14,10 +14,10 @@ import {Component} from '@angular/core';
         <a [routerLink]="" (click)="selection = 'feature4'">Feature 4</a>
       </p>
       <p *ngIf="selection.length === 0">Click feature link</p>
-      <app-feature-1-container *ngIf="selection === 'feature1'"></app-feature-1-container>
-      <app-feature-2-container *ngIf="selection === 'feature2'"></app-feature-2-container>
-      <app-feature-3-container *ngIf="selection === 'feature3'"></app-feature-3-container>
-      <app-feature-4-container *ngIf="selection === 'feature4'"></app-feature-4-container>
+      <app-feature-1-lazy-load *ngIf="selection === 'feature1'"></app-feature-1-lazy-load>
+      <app-feature-2-lazy-load *ngIf="selection === 'feature2'"></app-feature-2-lazy-load>
+      <app-feature-3-lazy-load *ngIf="selection === 'feature3'"></app-feature-3-lazy-load>
+      <app-feature-4-lazy-load *ngIf="selection === 'feature4'"></app-feature-4-lazy-load>
     </div>
   `
 })

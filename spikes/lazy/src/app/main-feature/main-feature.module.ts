@@ -1,9 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {Feature1ContainerComponent} from './feature-1-container.component';
-import {Feature2ContainerComponent} from './feature-2-container.component';
-import {Feature3ContainerComponent} from './feature-3-container.component';
-import {Feature4ContainerComponent} from './feature-4-container.component';
+import {Feature1LazyLoadComponent} from './feature-1-lazy-load.component';
+import {Feature2LazyLoadComponent} from './feature-2-lazy-load.component';
+import {Feature3LazyLoadComponent} from './feature-3-lazy-load.component';
+import {Feature4LazyLoadComponent} from './feature-4-lazy-load.component';
 import {MainFeatureRoutingModule} from './main-feature-routing.module';
 import {MainFeatureComponent} from './main-feature.component';
 
@@ -14,10 +14,10 @@ import {MainFeatureComponent} from './main-feature.component';
   ],
   declarations: [
     MainFeatureComponent,
-    Feature1ContainerComponent,
-    Feature2ContainerComponent,
-    Feature3ContainerComponent,
-    Feature4ContainerComponent,
+    Feature1LazyLoadComponent,
+    Feature2LazyLoadComponent,
+    Feature3LazyLoadComponent,
+    Feature4LazyLoadComponent,
   ]
 })
 export class MainFeatureModule {
