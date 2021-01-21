@@ -16,6 +16,7 @@ import {FeatureId} from '../features/feature-id';
 import {FlagFeature} from '../features/flag-feature';
 import {MapFeature} from '../features/map-feature';
 import {NetworkNodeFeature} from '../features/network-node-feature';
+import {PoiFeature} from '../features/poi-feature';
 import {RouteFeature} from '../features/route-feature';
 import {PlanFlag} from '../plan/plan-flag';
 import {PlanFlagType} from '../plan/plan-flag-type';
@@ -47,114 +48,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   private viaRouteDrag: PlannerDragViaRouteFlag = null;
 
   constructor(private context: PlannerContext) {
-  }
-
-  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
-
-    if (features.isEmpty()) {
-      this.context.closeOverlay();
-      return false;
-    }
-
-    const flag = Features.findFlag(features);
-    if (flag != null) {
-      if (this.flagDragStarted(flag, coordinate)) {
-        return true;
-      }
-    }
-
-    const networkNode = Features.findNetworkNode(features);
-    if (networkNode != null) {
-
-      this.breadcrumb(
-        'down event network node',
-        {
-          modifierKeyOnly,
-          'feature-id': networkNode?.node?.featureId,
-          'node-id': networkNode?.node?.nodeId,
-          'node-name': networkNode?.node?.nodeName,
-          coordinate: Util.coordinateToString(networkNode?.node?.coordinate),
-          plan: this.planSummary()
-        }
-      );
-
-      if (modifierKeyOnly) {
-        this.context.overlay.nodeClicked(new NodeClick(coordinate, networkNode));
-      } else {
-        this.nodeSelected(networkNode);
-      }
-      return true;
-    }
-
-    const leg = Features.findLeg(features);
-    if (leg != null) {
-
-      this.breadcrumb(
-        'down event leg',
-        {
-          modifierKeyOnly,
-          'feature-id': leg?.id,
-          plan: this.planSummary()
-        }
-      );
-
-      if (this.legDragStarted(leg.id, coordinate)) {
-        return true;
-      }
-    }
-
-
-    if (modifierKeyOnly === true) {
-      const route = Features.findRoute(features);
-      if (route != null) {
-        this.breadcrumb(
-          'down event route',
-          {
-            modifierKeyOnly,
-            routeId: route?.routeId,
-            pathId: route?.pathId,
-            routeName: route?.routeName,
-            oneWay: route?.oneWay,
-            plan: this.planSummary()
-          }
-        );
-        this.context.overlay.routeClicked(new RouteClick(coordinate, route));
-        return true;
-      }
-    } else if (this.context.plan.sourceNode !== null) {
-      const routes = Features.findRoutes(features);
-      if (!routes.isEmpty()) {
-        this.breadcrumb(
-          'down event routes',
-          {
-            modifierKeyOnly,
-            routeIds: routes?.map(route => route?.routeId).join(', '),
-            plan: this.planSummary()
-          }
-        );
-        new AddViaRouteLeg(this.context).add(routes, coordinate);
-        return true;
-      }
-    }
-
-    const poiFeature = Features.findPoi(features);
-    if (poiFeature != null) {
-      this.breadcrumb(
-        'down event poi',
-        {
-          modifierKeyOnly,
-          poiId: poiFeature.poiId,
-          poiType: poiFeature.poiType,
-          layer: poiFeature.layer,
-          coordinate: Util.coordinateToString(poiFeature.coordinate),
-          plan: this.planSummary()
-        }
-      );
-      this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
-      return true;
-    }
-
-    return false;
   }
 
   handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
@@ -207,17 +100,16 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
+  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     if (this.isDraggingNode()) {
-
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null && networkNodeFeature.node.nodeName != '*') {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, networkNodeFeature.node.coordinate);
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
-        return true;
+        return false;
       }
 
       if (!this.isDraggingStartNode()) {
@@ -231,18 +123,17 @@ export class PlannerEngineImpl implements PlannerEngine {
 
       this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, coordinate);
       this.context.elasticBand.updatePosition(coordinate);
-      return true;
+      return false;
     }
 
     if (this.isDraggingViaRouteFlag()) {
-
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.markerLayer.updateFlagCoordinate(this.viaRouteDrag.planFlag.featureId, networkNodeFeature.node.coordinate);
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
-        return true;
+        return false;
       }
 
       const routeFeature = Features.findRoute(features);
@@ -250,23 +141,22 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.highlighter.highlightRoute(routeFeature);
         this.context.markerLayer.updateFlagCoordinate(this.viaRouteDrag.planFlag.featureId, coordinate);
         this.context.elasticBand.updatePosition(coordinate);
-        return true;
+        return false;
       }
 
       this.context.highlighter.reset();
       this.context.markerLayer.updateFlagCoordinate(this.viaRouteDrag.planFlag.featureId, coordinate);
       this.context.elasticBand.updatePosition(coordinate);
-      return true;
+      return false;
     }
 
     if (this.isDraggingLeg()) {
-
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.elasticBand.updatePosition(networkNodeFeature.node.coordinate);
-        return true;
+        return false;
       }
 
       const routeFeature = Features.findRoute(features);
@@ -276,27 +166,39 @@ export class PlannerEngineImpl implements PlannerEngine {
         this.context.highlighter.reset();
       }
       this.context.elasticBand.updatePosition(coordinate);
-      return true;
+      return false;
     }
 
-    return false;
+    // not currently dragging yet, start drag?
+
+    const flag = Features.findFlag(features);
+    if (flag != null) {
+      if (this.flagDragStarted(flag, coordinate)) {
+        return false; // prevent propagation
+      }
+    }
+
+    const leg = Features.findLeg(features);
+    if (leg != null) {
+      this.breadcrumb(
+        'down event leg',
+        {
+          'feature-id': leg?.id,
+          plan: this.planSummary()
+        }
+      );
+
+      if (this.legDragStarted(leg.id, coordinate)) {
+        return false; // prevent propagation
+      }
+    }
+
+    return true; // propagate further: panning map itself?
   }
 
-  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate, singleClick: boolean, modifierKeyOnly: boolean): boolean {
+  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
 
     this.context.highlighter.reset();
-
-    if (this.isViaFlagClicked(singleClick)) {
-      new RemoveViaPoint(this.context).remove(this.nodeDrag);
-      this.dragCancel();
-      return true;
-    }
-
-    if (this.isViaRouteFlagClicked(singleClick)) {
-      this.removeRouteViaPoint();
-      this.dragCancel();
-      return true;
-    }
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
 
@@ -309,7 +211,7 @@ export class PlannerEngineImpl implements PlannerEngine {
           this.dropNodeOnNode(networkNode.node);
           this.dragCancel();
         }
-        return true;
+        return false;
       }
 
       if (!this.isDraggingStartNode()) {
@@ -321,7 +223,7 @@ export class PlannerEngineImpl implements PlannerEngine {
             this.dropNodeOnRoute(routeFeatures, coordinate);
           }
           this.dragCancel();
-          return true;
+          return false;
         }
       }
 
@@ -342,7 +244,7 @@ export class PlannerEngineImpl implements PlannerEngine {
           new MoveRouteViaPointToNode(this.context).viaRouteDragMove(this.viaRouteDrag, networkNodeFeature.node, oldLeg);
         }
         this.dragCancel();
-        return true;
+        return false;
       }
 
       const routeFeatures = Features.findRoutes(features);
@@ -352,29 +254,166 @@ export class PlannerEngineImpl implements PlannerEngine {
           new DropViaRouteOnRoute(this.context).drop(oldLeg, routeFeatures, coordinate);
         }
         this.dragCancel();
-        return true;
+        return false;
       }
 
       this.dragCancel();
       return true;
     }
 
-    return false;
+    return true;
   }
 
   handleMouseLeave(): void {
     this.context.highlighter.reset();
   }
 
-  private removeRouteViaPoint(): void {
-    const clickedLeg = this.context.plan.legs.find(leg => leg.featureId === this.viaRouteDrag.legFeatureId);
-    if (clickedLeg != null) {
-      if (clickedLeg.sinkFlag.flagType === PlanFlagType.End) {
-        new RemoveEndLegRouteViaPoint(this.context).remove(clickedLeg);
-      } else {
-        new RemoveViaLegRouteViaPoint(this.context).remove(clickedLeg);
+  handleSingleClickEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
+
+    if (features.isEmpty()) {
+      this.context.highlighter.reset();
+      this.context.closeOverlay();
+      return false; // prevent further propagation
+    }
+
+    const networkNode = Features.findNetworkNode(features);
+    if (networkNode != null) {
+      return this.singleClickNetworkNode(networkNode, coordinate, modifierKeyOnly);
+    }
+
+    const flag = Features.findFlag(features);
+    if (flag != null) {
+      return this.singleClickFlag(flag, coordinate);
+    }
+
+    if (modifierKeyOnly === true) {
+      const route = Features.findRoute(features);
+      if (route != null) {
+        return this.ctrlSingleClickRoute(route, coordinate);
+      }
+    } else if (this.context.plan.sourceNode !== null) {
+      const routes = Features.findRoutes(features);
+      if (!routes.isEmpty()) {
+        return this.singleClickRoutes(routes, coordinate);
       }
     }
+
+    const poiFeature = Features.findPoi(features);
+    if (poiFeature != null) {
+      return this.singleClickPoi(poiFeature, modifierKeyOnly);
+    }
+
+    return false; // prevent further propagation
+  }
+
+  private singleClickNetworkNode(networkNode: NetworkNodeFeature, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
+
+    this.breadcrumb(
+      'single click event network node',
+      {
+        modifierKeyOnly,
+        'feature-id': networkNode?.node?.featureId,
+        'node-id': networkNode?.node?.nodeId,
+        'node-name': networkNode?.node?.nodeName,
+        coordinate: Util.coordinateToString(networkNode?.node?.coordinate),
+        plan: this.planSummary()
+      }
+    );
+
+    if (modifierKeyOnly) {
+      this.context.overlay.nodeClicked(new NodeClick(coordinate, networkNode));
+    } else {
+      this.nodeSelected(networkNode);
+    }
+    return false; // prevent further propagation
+  }
+
+  private singleClickFlag(flag: FlagFeature, coordinate: Coordinate): boolean {
+
+    const localNodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
+    if (localNodeDrag !== null) {
+      this.breadcrumb(
+        'single click node flag',
+        {
+          'flag-type': flag.flagType,
+          'flag-feature-id': flag.id,
+          coordinate: Util.coordinateToString(coordinate),
+          plan: this.planSummary()
+        }
+      );
+      if (this.nodeDrag.planFlag.flagType === PlanFlagType.Via) {
+        new RemoveViaPoint(this.context).remove(localNodeDrag);
+      }
+      return false; // prevent further propagation
+    }
+
+    const localViaRouteDrag = new PlannerDragViaRouteFlagAnalyzer(this.context.plan).dragStarted(flag);
+    if (localViaRouteDrag !== null) {
+
+      this.breadcrumb(
+        'single click route flag',
+        {
+          'flag-type': flag.flagType,
+          'flag-feature-id': flag.id,
+          coordinate: Util.coordinateToString(coordinate),
+          plan: this.planSummary()
+        }
+      );
+
+      const clickedLeg = this.context.plan.legs.find(leg => leg.featureId === localViaRouteDrag.legFeatureId);
+      if (clickedLeg != null) {
+        if (clickedLeg.sinkFlag.flagType === PlanFlagType.End) {
+          new RemoveEndLegRouteViaPoint(this.context).remove(clickedLeg);
+        } else {
+          new RemoveViaLegRouteViaPoint(this.context).remove(clickedLeg);
+        }
+      }
+      return false; // prevent further propagation
+    }
+    return false; // prevent further propagation
+  }
+
+  private ctrlSingleClickRoute(route: RouteFeature, coordinate: Coordinate): boolean {
+    this.breadcrumb(
+      'ctrl single click route',
+      {
+        routeId: route?.routeId,
+        pathId: route?.pathId,
+        routeName: route?.routeName,
+        oneWay: route?.oneWay,
+        plan: this.planSummary()
+      }
+    );
+    this.context.overlay.routeClicked(new RouteClick(coordinate, route));
+    return false; // prevent further propagation
+  }
+
+  private singleClickRoutes(routes: List<RouteFeature>, coordinate: Coordinate): boolean {
+    this.breadcrumb(
+      'single click routes',
+      {
+        routeIds: routes?.map(route => route?.routeId).join(', '),
+        plan: this.planSummary()
+      }
+    );
+    new AddViaRouteLeg(this.context).add(routes, coordinate);
+    return false; // prevent further propagation
+  }
+
+  private singleClickPoi(poiFeature: PoiFeature, modifierKeyOnly: boolean): boolean {
+    this.breadcrumb(
+      'single click event poi',
+      {
+        modifierKeyOnly,
+        poiId: poiFeature.poiId,
+        poiType: poiFeature.poiType,
+        layer: poiFeature.layer,
+        coordinate: Util.coordinateToString(poiFeature.coordinate),
+        plan: this.planSummary()
+      }
+    );
+    this.context.overlay.poiClicked(new PoiClick(poiFeature.coordinate, new PoiId(poiFeature.poiType, +poiFeature.poiId)));
+    return false; // prevent further propagation
   }
 
   private nodeSelected(networkNode: NetworkNodeFeature): void {
@@ -451,14 +490,6 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private isDraggingViaRouteFlag(): boolean {
     return this.viaRouteDrag !== null;
-  }
-
-  private isViaFlagClicked(singleClick: boolean): boolean {
-    return singleClick === true && this.nodeDrag !== null && (this.nodeDrag.planFlag.flagType === PlanFlagType.Via);
-  }
-
-  private isViaRouteFlagClicked(singleClick: boolean): boolean {
-    return singleClick === true && this.viaRouteDrag !== null;
   }
 
   private dropNodeOnNode(targetNode: PlanNode): void {
