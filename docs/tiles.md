@@ -2,16 +2,25 @@
 
 ## docker
 
-Install docker: (instructions from https://linuxize.com/post/how-to-install-and-use-docker-on-ubuntu-18-04/)
+Install docker: (instructions from https://docs.docker.com/engine/install/ubuntu/)
 
-  sudo apt update
-  sudo apt upgrade
-  sudo apt install apt-transport-https ca-certificates curl software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  sudo apt update
-  sudo apt install docker-ce
-  sudo apt install docker-compose
+    sudo apt-get update
+    sudo apt-get install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg-agent \
+      software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo apt-key fingerprint 0EBFCD88
+    sudo add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) \
+      stable"
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo apt install docker-compose
+
 
   view status:
     sudo systemctl status docker
@@ -19,6 +28,16 @@ Install docker: (instructions from https://linuxize.com/post/how-to-install-and-
 
   sudo usermod -aG docker marcv
   docker container run hello-world
+
+Install bc (arbitrary precision calculator language - called from quickstart.sh):
+
+    sudo apt-get install bc
+
+Install osmium (used to merge pbf files and to calculate bounds):
+
+    sudo apt install osmium-tool
+
+
 
 ## openmaptiles
 
@@ -87,7 +106,23 @@ Only first time:
     Get bounding box:
     
         osmium fileinfo -eg data.bbox all.osm.pbf
+
+        (-20.0712,27.6272,29.9753,62.5147)
+        LONG1,LAT1,LONG2,LAT2
+
+        https://www.latlong.net/c/?lat=27.6&long=-20
+        https://www.latlong.net/c/?lat=62.5&long=30
+
+        cannot use this bounding box: too wide (caused by overseas parts of France?)
     
+        use this manually determined BBOX instead:
+
+        left -9.3 bottom 36.0 right 17.3 top 55.15
+        BBOX=-9.3,36.0,17.3,55.15
+        https://www.latlong.net/c/?lat=36.0&long=-9.3
+        https://www.latlong.net/c/?lat=55.15&long=17.3
+
+
     Update .env file with bounding box.
     
     Update .env file with max zoom level 14.
@@ -95,10 +130,6 @@ Only first time:
 Remove following line from openmaptiles.yaml:
 
 	layers/poi/poi.yaml
-
-Add in layers/place/mapping.yaml at line 177:
-
-    - quarter
 
 Prepare:
 
@@ -124,7 +155,7 @@ Import OSM data:
 
 (Re-)Create sql scripts:
 
-	/kpn/scripts/06-import-sql.sh  # 3 hours
+	/kpn/scripts/06-import-sql.sh  # 3 hours   ---> last time 15 hours (TODO increase swap?)
 
 Change MIN_ZOOM to 4 and MAX_ZOOM to 12 in
 
@@ -132,7 +163,7 @@ Change MIN_ZOOM to 4 and MAX_ZOOM to 12 in
 
 Determine bounding box (data/all.dc-config.yml) and prepare for generating tiles:
 
-	# not needed anymore?, using configuration files on /kpn/conf
+	# not needed trueanymore?, using configuration files on /kpn/conf
 	/kpn/scripts/07-generate-dc-config.sh  # 5 minutes
 
 Adapt data/all.dc-config.yml, default zoom levels:
@@ -143,11 +174,11 @@ Adapt data/all.dc-config.yml, default zoom levels:
 
 Generate tiles:
 
-	/kpn/scripts/08-generate-tiles-12.sh     # 6 hours
+	/kpn/scripts/08-generate-tiles-12.sh     # 6 hours / last time: 19 hours
 
 Generate zoom level 13:
 
-	/kpn/scripts/09-generate-tiles-13.sh     # 22 hours
+	/kpn/scripts/09-generate-tiles-13.sh     # 22 hours / last time: 20 hours (swapfile 10G)
 
 Generate zoom level 14:
 

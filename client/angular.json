@@ -28,7 +28,6 @@
           "style": "scss",
           "inlineStyle": true,
           "inlineTemplate": true,
-          "lintFix": true,
           "skipTests": true,
           "flat": true
         },
