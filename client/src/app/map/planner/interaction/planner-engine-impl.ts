@@ -211,7 +211,7 @@ export class PlannerEngineImpl implements PlannerEngine {
           this.dropNodeOnNode(networkNode.node);
           this.dragCancel();
         }
-        return false;
+        return false; // do not propagate
       }
 
       if (!this.isDraggingStartNode()) {
@@ -223,7 +223,7 @@ export class PlannerEngineImpl implements PlannerEngine {
             this.dropNodeOnRoute(routeFeatures, coordinate);
           }
           this.dragCancel();
-          return false;
+          return false; // do not propagate
         }
       }
 
@@ -233,6 +233,8 @@ export class PlannerEngineImpl implements PlannerEngine {
       }
 
       this.dragCancel();
+
+      return false; // do not propagate
     }
 
     if (this.isDraggingViaRouteFlag()) {
@@ -244,7 +246,7 @@ export class PlannerEngineImpl implements PlannerEngine {
           new MoveRouteViaPointToNode(this.context).viaRouteDragMove(this.viaRouteDrag, networkNodeFeature.node, oldLeg);
         }
         this.dragCancel();
-        return false;
+        return false; // do not propagate
       }
 
       const routeFeatures = Features.findRoutes(features);
@@ -254,14 +256,14 @@ export class PlannerEngineImpl implements PlannerEngine {
           new DropViaRouteOnRoute(this.context).drop(oldLeg, routeFeatures, coordinate);
         }
         this.dragCancel();
-        return false;
+        return false; // do not propagate
       }
 
       this.dragCancel();
-      return true;
+      return false; // do not propagate
     }
 
-    return true;
+    return true; // propagate
   }
 
   handleMouseLeave(): void {
@@ -330,21 +332,34 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private singleClickFlag(flag: FlagFeature, coordinate: Coordinate): boolean {
 
-    const localNodeDrag = new PlannerDragFlagAnalyzer(this.context.plan).dragStarted(flag);
-    if (localNodeDrag !== null) {
-      this.breadcrumb(
-        'single click node flag',
-        {
-          'flag-type': flag.flagType,
-          'flag-feature-id': flag.id,
-          coordinate: Util.coordinateToString(coordinate),
-          plan: this.planSummary()
+    if (flag.flagType === PlanFlagType.Via) {
+
+      const legs = this.context.plan.legs;
+      if (!legs.isEmpty()) {
+        const legIndex = legs.findIndex(leg => flag.id === leg.sinkFlag?.featureId);
+        if (legIndex >= 0) {
+          this.breadcrumb(
+            'single click via flag',
+            {
+              'flag-type': flag.flagType,
+              'flag-feature-id': flag.id,
+              coordinate: Util.coordinateToString(coordinate),
+              plan: this.planSummary()
+            }
+          );
+          const previousLeg = legs.get(legIndex);
+          const nextLeg = legs.get(legIndex + 1);
+          const plannerDragFlag = new PlannerDragFlag(
+            previousLeg.sinkFlag,
+            nextLeg.featureId,
+            previousLeg.sourceNode.coordinate,
+            nextLeg.sinkNode.coordinate,
+            nextLeg.sourceNode
+          );
+          new RemoveViaPoint(this.context).remove(plannerDragFlag);
+          return false; // do not propagate
         }
-      );
-      if (this.nodeDrag.planFlag.flagType === PlanFlagType.Via) {
-        new RemoveViaPoint(this.context).remove(localNodeDrag);
       }
-      return false; // prevent further propagation
     }
 
     const localViaRouteDrag = new PlannerDragViaRouteFlagAnalyzer(this.context.plan).dragStarted(flag);

@@ -1,15 +1,15 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
+import {Bounds} from '@api/common/bounds';
+import {SubsetMapNetwork} from '@api/common/subset/subset-map-network';
 import {List} from 'immutable';
 import {MapBrowserEvent} from 'ol';
 import {FeatureLike} from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
-import PointerInteraction from 'ol/interaction/Pointer';
 import Map from 'ol/Map';
+import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
-import {Bounds} from '@api/common/bounds';
-import {SubsetMapNetwork} from '@api/common/subset/subset-map-network';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PageService} from '../../shared/page.service';
 import {Util} from '../../shared/util';
@@ -90,30 +90,39 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildInteraction(): Interaction {
-    return new PointerInteraction({
-      handleDownEvent: (evt: MapBrowserEvent) => {
-        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
-        if (features) {
-          const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
-          if (index >= 0) {
-            const networkId = features[index].get(NetworkMarkerLayer.networkId);
-            this.networkClicked.emit(+networkId);
-            return true;
-          }
+    return new Interaction({
+      handleEvent: (event: MapBrowserEvent) => {
+        if (MapBrowserEventType.SINGLECLICK === event.type) {
+          return this.handleSingleClickEvent(event);
         }
-        return false;
-      },
-      handleMoveEvent: (evt: MapBrowserEvent) => {
-        const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
-        if (features) {
-          const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
-          evt.map.getTargetElement().style.cursor = index >= 0 ? 'pointer' : 'default';
+        if (MapBrowserEventType.POINTERMOVE === event.type) {
+          return this.handleMoveEvent(event);
         }
-        return false;
-      },
-      handleDragEvent: (evt: MapBrowserEvent) => false,
-      handleUpEvent: (evt: MapBrowserEvent) => false
+        return true; // propagate event
+      }
     });
+  }
+
+  private handleSingleClickEvent(evt: MapBrowserEvent): boolean {
+    const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
+    if (features) {
+      const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
+      if (index >= 0) {
+        const networkId = features[index].get(NetworkMarkerLayer.networkId);
+        this.networkClicked.emit(+networkId);
+        return false; // do not propagate event
+      }
+    }
+    return true; // propagate event
+  }
+
+  private handleMoveEvent(evt: MapBrowserEvent): boolean {
+    const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
+    if (features) {
+      const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
+      evt.map.getTargetElement().style.cursor = index >= 0 ? 'pointer' : 'default';
+    }
+    return true; // propagate event
   }
 
 }

@@ -4,8 +4,8 @@ import {MapBrowserEvent} from 'ol';
 import {platformModifierKeyOnly} from 'ol/events/condition';
 import {FeatureLike} from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
-import PointerInteraction from 'ol/interaction/Pointer';
 import Map from 'ol/Map';
+import MapBrowserEventType from 'ol/MapBrowserEventType';
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
@@ -27,26 +27,33 @@ export class MapClickService {
   }
 
   private buildInteraction(): Interaction {
-    return new PointerInteraction({
-      handleDownEvent: (e) => this.handleDownEvent(e),
-      handleMoveEvent: (e) => this.handleMoveEvent(e)
+    return new Interaction({
+      handleEvent: (event: MapBrowserEvent) => {
+        if (MapBrowserEventType.SINGLECLICK === event.type) {
+          return this.handleSingleClickEvent(event);
+        }
+        if (MapBrowserEventType.POINTERMOVE === event.type) {
+          return this.handleMoveEvent(event);
+        }
+        return true; // propagate event
+      }
     });
   }
 
-  private handleDownEvent(evt: MapBrowserEvent): boolean {
+  private handleSingleClickEvent(evt: MapBrowserEvent): boolean {
     const features = this.getFeatures(evt);
     const nodeFeature = this.findFeature(features, this.isNode);
     const openNewTab = platformModifierKeyOnly(evt);
     if (nodeFeature) {
       this.handleNodeClicked(nodeFeature, openNewTab);
-      return false;
+      return true; // do not propagate event
     }
     const routeFeature = this.findFeature(features, this.isRoute);
     if (routeFeature) {
       this.handleRouteClicked(routeFeature, openNewTab);
-      return true;
+      return true; // do not propagate event
     }
-    return false;
+    return true; // propagate event
   }
 
   private handleMoveEvent(evt: MapBrowserEvent): boolean {
@@ -55,7 +62,7 @@ export class MapClickService {
       cursorStyle = 'pointer';
     }
     evt.map.getTargetElement().style.cursor = cursorStyle;
-    return true;
+    return true; // propagate event
   }
 
   private getFeatures(evt: MapBrowserEvent): Array<FeatureLike> {
