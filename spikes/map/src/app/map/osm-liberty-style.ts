@@ -1,3 +1,12 @@
+/*
+  style object copied from osm-liberty project style.json
+
+  json-to-typescript conversion: https://csvjson.com/json_beautifier
+   - No quotes on keys
+   - inline short arrays
+
+*/
+
 export class OsmLibertyStyle {
 
   static readonly osmLibertyStyle = {
@@ -13,9 +22,7 @@ export class OsmLibertyStyle {
         type: 'vector',
         url: 'assets/tiles.json',
         maxzoom: 14, // vmarc: important addition to make overzoom work ok !!!
-        tiles: [
-          window.location.origin + '/tiles/osm/{z}/{x}/{y}.pbf'
-        ]
+        tiles: ['https://experimental.knooppuntnet.nl/t12/{z}/{x}/{y}.pbf']
       }
     },
     sprite: window.location.origin + '/assets/sprites/osm-liberty',
@@ -749,7 +756,39 @@ export class OsmLibertyStyle {
           'line-color': '#fea',
           'line-width': {
             base: 1.2,
-            stops: [[12.5, 0], [13, 1.5], [14, 2.5], [20, 11.5]]
+            stops: [
+              [ 12.5, 0 ],
+              [ 13, 1.5 ],
+              [ 14, 2.5 ],
+              [ 20, 11.5 ]
+            ]
+          }
+        }
+      },
+      {
+        id: 'road_minor',
+        type: 'line',
+        source: 'openmaptiles',
+        'source-layer': 'transportation',
+        filter: [
+          'all',
+          [ '==', '$type', 'LineString' ],
+          [ '!in', 'brunnel', 'bridge', 'tunnel' ],
+          [ 'in', 'class', 'minor' ]
+        ],
+        layout: {
+          'line-cap': 'round',
+          'line-join': 'round'
+        },
+        paint: {
+          'line-color': '#fff',
+          'line-width': {
+            base: 1.2,
+            stops: [
+              [ 13.5, 0 ],
+              [ 14, 2.5 ],
+              [ 20, 18 ]
+            ]
           }
         }
       },
@@ -865,24 +904,14 @@ export class OsmLibertyStyle {
         paint: {
           'line-color': '#bbb',
           'line-dasharray': [0.2, 8],
-          'line-width': {base: 1.4, stops: [[14.5, 0], [15, 3], [20, 8]]}
-        }
-      },
-      {
-        id: 'road_minor',
-        type: 'line',
-        source: 'openmaptiles',
-        'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', '$type', 'LineString'],
-          ['!in', 'brunnel', 'bridge', 'tunnel'],
-          ['in', 'class', 'minor']
-        ],
-        layout: {'line-cap': 'round', 'line-join': 'round'},
-        paint: {
-          'line-color': '#fff',
-          'line-width': {base: 1.2, stops: [[13.5, 0], [14, 2.5], [20, 18]]}
+          'line-width': {
+            base: 1.4,
+            stops: [
+              [ 14.5, 0 ],
+              [ 15, 3 ],
+              [ 20, 8 ]
+            ]
+          }
         }
       },
       {
@@ -1254,7 +1283,6 @@ export class OsmLibertyStyle {
         source: 'openmaptiles',
         'source-layer': 'building',
         minzoom: 13,
-        maxzoom: 20,
         paint: {
           'fill-color': 'hsl(35, 8%, 85%)',
           'fill-outline-color': {
@@ -1389,7 +1417,7 @@ export class OsmLibertyStyle {
         'source-layer': 'place',
         filter: [
           'all',
-          ['in', 'class', 'hamlet', 'island', 'islet', 'neighbourhood', 'suburb']
+          ['in', 'class', 'hamlet', 'island', 'islet', 'neighbourhood', 'quarter', 'suburb']
         ],
         layout: {
           'text-field': '{name_en}',
@@ -1565,6 +1593,24 @@ export class OsmLibertyStyle {
           'text-color': '#633',
           'text-halo-color': 'rgba(255,255,255,0.7)',
           'text-halo-width': 1
+        }
+      },
+      {
+        id: 'housenumber',
+        type: 'symbol',
+        source: 'openmaptiles',
+        'source-layer': 'housenumber',
+        minzoom: 17,
+        filter: ['==', '$type', 'Point'],
+        layout: {
+          'text-field': '{housenumber}',
+          'text-font': ['Roboto Regular'],
+          'text-size': 11
+        },
+        'paint': {
+          'text-color': 'rgba(173,104,104,0.8)',
+          'text-halo-color': 'rgba(255,255,255,0.3)',
+          'text-halo-width': 2
         }
       }
     ],

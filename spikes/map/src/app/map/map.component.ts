@@ -9,7 +9,6 @@ import {fromLonLat} from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import {OsmLibertyStyle} from './osm-liberty-style';
 
-
 @Component({
   selector: 'app-map',
   template: `
