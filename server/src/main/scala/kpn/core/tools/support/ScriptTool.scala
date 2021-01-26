@@ -1,11 +1,10 @@
 package kpn.core.tools.support
 
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-
 import kpn.core.common.Elapsed
 import kpn.core.common.Time
+
+import java.io.IOException
+import java.lang.ProcessBuilder.Redirect
 
 object ScriptTool {
   def main(args: Array[String]): Unit = {
@@ -47,23 +46,11 @@ class ScriptTool(name: String) {
     println(s"Elapsed: $elapsed")
   }
 
-  private def executeCommand(command: String): Unit = {
-
-    val p = Runtime.getRuntime.exec(Array("bash", "-c", command))
-    val inputStream = new BufferedReader(new InputStreamReader(p.getInputStream))
-    val errorStream = new BufferedReader(new InputStreamReader(p.getErrorStream))
-
-    var line = inputStream.readLine()
-    while (line != null) {
-      println(line)
-      line = inputStream.readLine()
-    }
-
-    var errorLine = errorStream.readLine()
-    while (errorLine != null) {
-      println("ERROR " + errorLine)
-      errorLine = inputStream.readLine()
-    }
+  private def executeCommand(command: String): Int = {
+    val processBuilder = new java.lang.ProcessBuilder("bash", "-c", command)
+    processBuilder.redirectOutput(Redirect.INHERIT)
+    processBuilder.redirectError(Redirect.INHERIT)
+    val process = processBuilder.start
+    process.waitFor()
   }
-
 }
