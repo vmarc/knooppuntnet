@@ -22,7 +22,7 @@ export class OsmLibertyStyle {
         type: 'vector',
         url: 'assets/tiles.json',
         maxzoom: 14, // vmarc: important addition to make overzoom work ok !!!
-        tiles: ['https://experimental.knooppuntnet.nl/t12/{z}/{x}/{y}.pbf']
+        tiles: [window.location.origin + '/tiles/osm/{z}/{x}/{y}.pbf']
       }
     },
     sprite: window.location.origin + '/assets/sprites/osm-liberty',

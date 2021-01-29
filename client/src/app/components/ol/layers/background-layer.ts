@@ -1,5 +1,5 @@
-import {LngLatLike} from 'mapbox-gl';
-import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl-dev';
+import {LngLatLike} from 'maplibre-gl';
+import * as maplibre from 'maplibre-gl/dist/mapbox-gl-dev';
 import {Layer} from 'ol/layer';
 import {toLonLat} from 'ol/proj';
 import {Source} from 'ol/source';
@@ -17,7 +17,7 @@ export class BackgroundLayer {
 
     // see: https://openlayers.org/en/latest/examples/mapbox-layer.html
 
-    const mbMap = new mapboxgl.Map({
+    const mbMap = new maplibre.Map({
       style: OsmLibertyStyle.osmLibertyStyle,
       attributionControl: false,
       boxZoom: false,

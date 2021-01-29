@@ -39,6 +39,8 @@ export class NetworkVectorTileLayer {
 
     const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
+      className: `${networkType.name}-network`,
+      declutter: true,
       source,
       renderMode: 'image'
     });

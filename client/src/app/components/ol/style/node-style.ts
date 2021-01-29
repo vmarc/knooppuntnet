@@ -59,12 +59,12 @@ export class NodeStyle {
     return new Style({
       image: new Circle({
         radius: 14,
-        fill: new Fill({
-          color: MainStyleColors.white
-        }),
-        stroke: new Stroke({
-          color,
-          width: 3
+      fill: new Fill({
+        color: MainStyleColors.white
+      }),
+      stroke: new Stroke({
+        color,
+        width: 3
         })
       }),
       text: new Text({

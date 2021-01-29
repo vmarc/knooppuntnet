@@ -70,6 +70,7 @@ export class NetworkNodesTileLayer {
 
     return new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
+      className: 'network-layer',
       source,
       renderMode: 'image'
     });

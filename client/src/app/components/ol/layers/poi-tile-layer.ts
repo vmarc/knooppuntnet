@@ -17,6 +17,9 @@ export class PoiTileLayer {
 
     return new VectorTileLayer({
       source,
+      renderBuffer: 40,
+      declutter: false,
+      className: 'poi',
       renderMode: 'image'
     });
   }

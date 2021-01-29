@@ -92,6 +92,13 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  private buildExtent(): Extent {
+    const bounds = this.routeInfo.analysis.map.bounds;
+    const min = Util.toCoordinate(bounds.latMin, bounds.lonMin);
+    const max = Util.toCoordinate(bounds.latMax, bounds.lonMax);
+    return [min[0], min[1], max[0], max[1]];
+  }
+
   private buildLayers(): MapLayers {
     this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(this.routeInfo.summary.networkType);
     let mapLayers: List<MapLayer> = List();
@@ -100,13 +107,6 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map));
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);
-  }
-
-  private buildExtent(): Extent {
-    const bounds = this.routeInfo.analysis.map.bounds;
-    const min = Util.toCoordinate(bounds.latMin, bounds.lonMin);
-    const max = Util.toCoordinate(bounds.latMax, bounds.lonMax);
-    return [min[0], min[1], max[0], max[1]];
   }
 
 }

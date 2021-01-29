@@ -120,7 +120,8 @@ export class RouteLayers {
     const startTentacleNodeMarkers = this.buildMarkers(this.routeMap.startTentacleNodes, 'orange', '@@map.start-tentacle-node');
     const endTentacleNodeMarkers = this.buildMarkers(this.routeMap.endTentacleNodes, 'purple', '@@map.end-tentacle-node');
     const redundantNodeMarkers = this.buildMarkers(this.routeMap.redundantNodes, 'yellow', '@@map.redundant-node');
-    const markers: List<Feature> = startNodeMarkers.concat(endNodeMarkers)
+    const markers: List<Feature> = startNodeMarkers
+      .concat(endNodeMarkers)
       .concat(startTentacleNodeMarkers)
       .concat(endTentacleNodeMarkers)
       .concat(redundantNodeMarkers);
@@ -128,6 +129,7 @@ export class RouteLayers {
     const source = new VectorSource();
     const layer = new VectorLayer({
       zIndex: Layers.zIndexNetworkNodesLayer,
+      className: 'route-marker',
       source
     });
 
