@@ -43,24 +43,29 @@ Install osmium (used to merge pbf files and to calculate bounds):
 
 Documented on https://openmaptiles.org/docs/generate/generate-openmaptiles/
 
-  cd /kpn
-  git clone https://github.com/openmaptiles/openmaptiles.git
-  cd openmaptiles
+Reset previous installation:
 
-  // Add tile-data to .gitignore
+    cd /kpn/openmaptiles
+    make destroy-db
+    cd ..
+    rm -rf /kpn/openmaptiles
 
-  git checkout  6ac544fc9610b5 // older version to avoid memory problem (https://github.com/openmaptiles/openmaptiles/issues/938)
+Installation:
 
-  docker-compose pull
-  ./quickstart.sh ==> to test
+      cd /kpn
+      git clone https://github.com/vmarc/openmaptiles.git
+      cd openmaptiles
+      mkdir data
+    
+      docker-compose pull
+      ./quickstart.sh ==> to test
 
 ## Update procedure
 
 Download OpenStreetMap data from geofabrik:
 
-    cd /kpn/openmaptiles
-    mkdir tile-data // if not exists
-    cd tile-data
+    mkdir /kpn/tile-data // if not exists
+    cd /kpn/tile-data
     rm *.pbf
     ./download.sh    # 3 minutes
     ./merge.sh       # 10 minutes
@@ -127,17 +132,13 @@ Only first time:
     
     Update .env file with max zoom level 14.
 
-Remove following line from openmaptiles.yaml:
-
-	layers/poi/poi.yaml
-
 Prepare:
 
     cd /kpn/openmaptiles
 	rm data/all.osm.pbf
 	rm data/tiles.mbtiles*
 
-	mv tile-data/all.osm.pbf data/
+	mv /kpn/tile-data/all.osm.pbf data/
 
 Start up the database container:
 
@@ -153,9 +154,10 @@ Import OSM data:
 	/kpn/scripts/04-import-borders.sh   # 6 minutes
 	/kpn/scripts/05-import-wikidata.sh  # 4 minutes
 
-(Re-)Create sql scripts:
+(Re-)Execute sql scripts:
 
-	/kpn/scripts/06-import-sql.sh  # 3 hours   ---> last time 15 hours (TODO increase swap?)
+	/kpn/scripts/06-import-sql.sh  # 3 hours   ---> last time 14 hours (TODO increase swap?)
+
 
 Change MIN_ZOOM to 4 and MAX_ZOOM to 12 in
 
@@ -187,34 +189,21 @@ Generate zoom level 14:
 Copy tiles to kpn server, on kpn server:
 
 	cd /kpn/tiles-install
-	scp kpn-tiles:/kpn/openmaptiles/data/tiles.mbtiles.12 .
-	scp kpn-tiles:/kpn/openmaptiles/data/tiles.mbtiles.13 .
-	scp kpn-tiles:/kpn/openmaptiles/data/tiles.mbtiles.14 .
+	scp kpn-tiles:/kpn/openmaptiles/data/tiles.mbtiles .
 
 On kpn server:
 
-	/kpn/soft/mbutil/mb-util tiles.mbtiles.12 t12 --image_format=pbf >> /kpn/logs/mbutil-12.log 2>&1 
-	/kpn/soft/mbutil/mb-util tiles.mbtiles.13 t13 --image_format=pbf >> /kpn/logs/mbutil-13.log 2>&1 
-	/kpn/soft/mbutil/mb-util tiles.mbtiles.14 t14 --image_format=pbf >> /kpn/logs/mbutil-14.log 2>&1 
+	cd /kpn/tiles-install
+	/kpn/soft/mbutil/mb-util tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
 	mkdir osm
 	mv t12/? osm
-	mv t12/?? osm
-	mv t13/13 osm
-	mv t14/14 osm
-
-
-nohup rsync -r /kpn/tiles-install/osm/* /kpn/tiles/osm/ >> /kpn/logs/tiles-rsync.log 2>&1 &
-
-	for file in */*.pbf; do mv -- "${file}" "${file/%pbf/mvt}";done
-
 
 Make productive:
 
-	somehow stop lsyncd daemon
-	mv /kpn/tiles/osm dir away to backup location
-	mv /kpn/tile-install/ new osm dir to /kpn/tiles
-
-	also make same mv on kpn machine
-
-	restart lsyncd daemon
+    find /kpn/tiles-install/osm -type f | wc -l
+    find /kpn/tiles/osm -type f | wc -l
+    nohup rsync -av  --human-readable --progress --delete  \
+      /kpn/tiles-install/osm/ \ # note: the slash at the end is important
+      /kpn/tiles/osm >> /kpn/logs/tiles-rsync.log 2>&1 &
+    find /kpn/tiles/osm -type f | wc -l
