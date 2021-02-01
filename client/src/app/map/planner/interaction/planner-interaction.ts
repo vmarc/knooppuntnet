@@ -53,6 +53,10 @@ export class PlannerInteraction {
           return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate);
         }
 
+        if (MapBrowserEventType.POINTERDOWN === evt.type) {
+          return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
+        }
+
         // known unhandled events, propagated to other interactions
 
         if (MapBrowserEventType.CLICK === evt.type) {
@@ -60,10 +64,6 @@ export class PlannerInteraction {
         }
 
         if (MapBrowserEventType.DBLCLICK === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.POINTERDOWN === evt.type) {
           return true;
         }
 

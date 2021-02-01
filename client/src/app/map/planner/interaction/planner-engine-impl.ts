@@ -50,6 +50,35 @@ export class PlannerEngineImpl implements PlannerEngine {
   constructor(private context: PlannerContext) {
   }
 
+  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+
+    const networkNodeFeature = Features.findNetworkNode(features);
+    if (networkNodeFeature != null) {
+      this.context.highlighter.mouseDown(coordinate);
+      return true;
+    }
+
+    const route = Features.findRoute(features);
+    if (route != null) {
+      this.context.highlighter.mouseDown(coordinate);
+      return true;
+    }
+
+    const poiFeature = Features.findPoi(features);
+    if (poiFeature != null) {
+      this.context.highlighter.mouseDown(coordinate);
+      return true;
+    }
+
+    const flag = Features.findFlag(features);
+    if (flag != null) {
+      this.context.highlighter.mouseDown(coordinate);
+      return true;
+    }
+
+    return true; // propagate
+  }
+
   handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean {
 
     if (features.isEmpty()) {
@@ -197,8 +226,6 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
-
-    this.context.highlighter.reset();
 
     if (this.isDraggingLeg() || this.isDraggingNode()) {
 

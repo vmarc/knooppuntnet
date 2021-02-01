@@ -174,9 +174,13 @@ export class MapPopupPoiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.response$ = this.mapService.poiClicked$.pipe(
       filter(poiClick => poiClick !== null),
-      tap(poiClick => this.poiClick = poiClick),
+      tap(poiClick => {
+        this.plannerService.context.cursor.setStyleWait();
+        this.poiClick = poiClick;
+      }),
       mergeMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId)),
       tap(response => {
         if (response.result) {
@@ -189,6 +193,8 @@ export class MapPopupPoiComponent implements OnInit {
           this.tags = null;
         }
         this.openPopup(this.poiClick.coordinate);
+        this.plannerService.context.cursor.setStyleDefault();
+        this.plannerService.context.highlighter.reset();
       })
     );
   }

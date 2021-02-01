@@ -5,5 +5,6 @@ export class Layers {
   static zIndexNetworkNodesLayer = 65;
   static zIndexNetworkLayer = 60;
   static zIndexPlannerRouteLayer = 50;
-  static zIndexHighlightLayer = 40;
+  static zIndexPoiLayer = 40;
+  static zIndexHighlightLayer = 30;
 }

@@ -1,5 +1,6 @@
 import {PlanNode} from '@api/common/planner/plan-node';
 import {Feature} from 'ol';
+import {Coordinate} from 'ol/coordinate';
 import {Point} from 'ol/geom';
 import {LineString} from 'ol/geom';
 import {MultiLineString} from 'ol/geom';
@@ -13,6 +14,13 @@ import {PlannerHighlighter} from './planner-highlighter';
 export class PlannerHighlighterImpl implements PlannerHighlighter {
 
   constructor(private readonly layer: PlannerHighlightLayer) {
+  }
+
+  mouseDown(coordinate: Coordinate): void {
+    const point = new Point(coordinate);
+    const feature = new Feature(point);
+    feature.set('mouse-down', 'true');
+    this.layer.highlightFeature(feature);
   }
 
   highlightNode(node: PlanNode): void {

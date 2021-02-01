@@ -4,6 +4,8 @@ import {MapFeature} from '../features/map-feature';
 
 export interface PlannerEngine {
 
+  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean;
+
   handleSingleClickEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean;
 
   handleMoveEvent(features: List<MapFeature>, coordinate: Coordinate, modifierKeyOnly: boolean): boolean;

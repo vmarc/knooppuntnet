@@ -15,9 +15,13 @@ export class PlannerHighlightLayer {
 
   private readonly largeMinZoomLevel = 13;
   private readonly yellow = 'rgba(255, 255, 0, 0.8)';
-  private readonly routeStyle = this.buildRouteStyle();
-  private readonly smallNodeStyle = this.buildNodeStyle(12);
-  private readonly largeNodeStyle = this.buildNodeStyle(22);
+  private readonly blue = 'rgba(0, 0, 255, 0.5)';
+
+  private readonly routeStyle = PlannerHighlightLayer.buildRouteStyle(this.yellow);
+  private readonly smallNodeStyle = PlannerHighlightLayer.buildNodeStyle(12, this.yellow);
+  private readonly largeNodeStyle = PlannerHighlightLayer.buildNodeStyle(22, this.yellow);
+
+  private readonly mouseDownStyle = PlannerHighlightLayer.buildNodeStyle(30, this.blue);
 
   private map: Map;
 
@@ -41,6 +45,9 @@ export class PlannerHighlightLayer {
     return (feature: FeatureLike) => {
       if (feature.getGeometry().getType() === GeometryType.POINT) {
         const zoom = this.map.getView().getZoom();
+        if ('true' === feature.get('mouse-down')) {
+          return this.mouseDownStyle;
+        }
         return zoom >= this.largeMinZoomLevel ? this.largeNodeStyle : this.smallNodeStyle;
       }
       return this.routeStyle;
@@ -58,21 +65,21 @@ export class PlannerHighlightLayer {
     this.layer.changed();
   }
 
-  private buildNodeStyle(radius: number): Style {
+  private static buildNodeStyle(radius: number, color: string): Style {
     return new Style({
       image: new Circle({
         radius,
         fill: new Fill({
-          color: this.yellow
+          color: color
         })
       })
     });
   }
 
-  private buildRouteStyle(): Style {
+  private static buildRouteStyle(color: string): Style {
     return new Style({
       stroke: new Stroke({
-        color: this.yellow,
+        color: color,
         width: 18
       })
     });

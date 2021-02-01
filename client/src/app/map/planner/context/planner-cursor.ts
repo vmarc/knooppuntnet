@@ -7,4 +7,6 @@ export interface PlannerCursor {
   setStyleGrab(): void;
 
   setStyleGrabbing(): void;
+
+  setStyleWait(): void;
 }

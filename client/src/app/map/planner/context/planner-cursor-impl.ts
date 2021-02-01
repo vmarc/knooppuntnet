@@ -25,6 +25,10 @@ export class PlannerCursorImpl implements PlannerCursor {
     this.setStyle('default');
   }
 
+  setStyleWait(): void {
+    this.setStyle('wait');
+  }
+
   private setStyle(style: string): void {
     this.viewPort.style.cursor = style;
   }

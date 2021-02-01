@@ -2,6 +2,7 @@ import {LegEnd} from '@api/common/planner/leg-end';
 import {NetworkType} from '@api/custom/network-type';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Subject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import {PlannerCommand} from '../commands/planner-command';
 import {PlannerCommandStack} from '../commands/planner-command-stack';
 import {PlannerDragFlag} from '../interaction/planner-drag-flag';
@@ -115,7 +116,13 @@ export class PlannerContext {
   }
 
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
-    return this.legRepository.planLeg(this.networkType, source, sink);
+    this.cursor.setStyleWait();
+    return this.legRepository.planLeg(this.networkType, source, sink).pipe(
+      tap(() => {
+        this.cursor.setStyleDefault();
+        this.highlighter.reset();
+      })
+    );
   }
 
   debug(message: string): void {

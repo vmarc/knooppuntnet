@@ -2,6 +2,7 @@ import {MVT} from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import {ZoomLevel} from '../domain/zoom-level';
+import {Layers} from './layers';
 
 export class PoiTileLayer {
 
@@ -16,6 +17,7 @@ export class PoiTileLayer {
     });
 
     return new VectorTileLayer({
+      zIndex: Layers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
       declutter: false,
