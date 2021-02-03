@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Issue} from '../store/issue/issue.state';
 import {Store} from '@ngrx/store';
 import {select} from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {AppState} from '../store/app.state';
 import {selectIssueActive} from '../store/issue/issue.selectors';
+import {Issue} from '../store/issue/issue.state';
 
 @Component({
   selector: 'app-issue-detail',
@@ -23,9 +23,7 @@ import {selectIssueActive} from '../store/issue/issue.selectors';
 })
 export class IssueDetailComponent {
 
-  readonly issue$: Observable<Issue> = this.store.pipe(
-    select(selectIssueActive)
-  );
+  readonly issue$: Observable<Issue> = this.store.select(selectIssueActive);
 
   constructor(private store: Store<AppState>) {
   }

@@ -24,7 +24,7 @@ import {AppService} from '../app.service';
 })
 export class NodeComponent {
 
-  response$ = this.appService.nodeDetails('1');
+  readonly response$ = this.appService.nodeDetails('1');
 
   constructor(private appService: AppService) {
   }

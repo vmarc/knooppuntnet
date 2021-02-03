@@ -34,15 +34,10 @@ import {selectIssues} from '../store/issue/issue.selectors';
 })
 export class IssueListComponent {
 
-  issues$: Observable<Issue[]> = this.store.pipe(
-    select(selectIssues)
-  );
+  @Output() search = new EventEmitter<string>();
+  @Output() resolve = new EventEmitter<Issue>();
 
-  @Output()
-  search = new EventEmitter<string>();
-
-  @Output()
-  resolve = new EventEmitter<Issue>();
+  readonly issues$: Observable<Issue[]> = this.store.select(selectIssues);
 
   constructor(private store: Store<AppState>) {
   }

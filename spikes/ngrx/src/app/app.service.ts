@@ -12,10 +12,11 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class AppService {
 
-  private _httpError$ = new BehaviorSubject(null);
-  readonly httpError$: Observable<string> = this._httpError$.asObservable();
+  readonly httpError$: Observable<string>;
+  private myHttpError$ = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {
+    this.httpError$ = this.myHttpError$.asObservable();
   }
 
   public nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
@@ -27,7 +28,7 @@ export class AppService {
   }
 
   private httpGet(url: string): Observable<ApiResponse<any>> {
-    this._httpError$.next(null);
+    this.myHttpError$.next(null);
     return this.http.get(url).pipe(
       map(r => r as ApiResponse<any>),
       catchError((error) => this.handleError(error))
@@ -37,12 +38,12 @@ export class AppService {
   private handleError(error: any): Observable<ApiResponse<any>> {
     if (error instanceof HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
-        this._httpError$.next('error-event');
+        this.myHttpError$.next('error-event');
       } else {
-        this._httpError$.next('error-' + error.status);
+        this.myHttpError$.next('error-' + error.status);
       }
     } else {
-      this._httpError$.next('error');
+      this.myHttpError$.next('error');
     }
     return of(null /*new ApiResponse<any>()*/);
   }

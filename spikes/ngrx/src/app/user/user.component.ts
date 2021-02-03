@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {select} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {AppState} from '../store/app.state';
 import {actionUserAdd} from '../store/user/user.actions';
@@ -53,9 +52,7 @@ import {User} from '../store/user/user.state';
 })
 export class UserComponent {
 
-  users$: Observable<User[]> = this.store.pipe(
-    select(selectUsers)
-  );
+  readonly users$: Observable<User[]> = this.store.select(selectUsers);
 
   constructor(private store: Store<AppState>) {
   }

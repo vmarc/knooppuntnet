@@ -97,7 +97,6 @@ describe('typescript concepts', () => {
 
     expect(timestamp2 < timestamp1).toEqual(false);
 
-    expect(timestamp2 == timestamp3).toEqual(true);
     expect(timestamp2 === timestamp3).toEqual(true);
   });
 

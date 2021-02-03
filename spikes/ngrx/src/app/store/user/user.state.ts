@@ -12,8 +12,8 @@ export interface Users {
 }
 
 export interface UserState {
-  id: number,
-  users: Users
+  id: number;
+  users: Users;
 }
 
 const users: Users = {

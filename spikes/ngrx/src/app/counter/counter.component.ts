@@ -39,10 +39,9 @@ import {AppState} from '../store/app.state';
 })
 export class CounterComponent {
 
-  count$: Observable<number>;
+  readonly count$: Observable<number> = this.store.select(selectCounterValue);
 
   constructor(private store: Store<AppState>) {
-    this.count$ = store.select(selectCounterValue);
   }
 
   increment() {

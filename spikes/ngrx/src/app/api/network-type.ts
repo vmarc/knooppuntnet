@@ -1,1 +1,1 @@
-export type NetworkType = 'hiking' | 'cyclinXg' | 'horseRiding' | 'motorboat' | 'canoe' | 'inlineSkating';
+export type NetworkType = 'hiking' | 'cycling' | 'horseRiding' | 'motorboat' | 'canoe' | 'inlineSkating';
