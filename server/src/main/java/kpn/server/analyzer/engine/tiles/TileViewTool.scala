@@ -16,7 +16,7 @@ object TileViewTool {
   private val geomFactory = new GeometryFactory()
 
   def main(args: Array[String]): Unit = {
-    new TileViewTool().print("/tmp/test/osm-1.pbf")
+    new TileViewTool().print("/home/marcv/Downloads/14_8390_5401.mvt")
     println("Done")
   }
 }
