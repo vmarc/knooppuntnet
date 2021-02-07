@@ -14,8 +14,8 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {HeaderComponent} from './header.component';
 import {NzCascaderModule} from 'ng-zorro-antd/cascader';
 import {FormsModule} from '@angular/forms';
-import {NzBadgeModule} from "ng-zorro-antd/badge";
-import {BadgeComponent} from "./badge.component";
+import {NzBadgeModule} from 'ng-zorro-antd/badge';
+import {BadgeComponent} from './badge.component';
 
 @NgModule({
   imports: [
