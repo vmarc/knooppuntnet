@@ -87,7 +87,7 @@ export class SubsetChangesPageComponent implements OnInit {
     }
   }
 
-  get page(): ChangesPage {
+  get page(): SubsetChangesPage {
     return this.response.result;
   }
 

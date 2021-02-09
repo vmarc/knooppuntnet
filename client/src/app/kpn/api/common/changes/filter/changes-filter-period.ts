@@ -1,7 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-
 export class ChangesFilterPeriod {
 
   constructor(readonly name: string,
@@ -9,7 +7,7 @@ export class ChangesFilterPeriod {
               readonly impactedCount: number,
               readonly current: boolean,
               readonly selected: boolean,
-              readonly periods: List<ChangesFilterPeriod>) {
+              readonly periods: Array<ChangesFilterPeriod>) {
   }
 
   public static fromJSON(jsonObject: any): ChangesFilterPeriod {
@@ -22,7 +20,7 @@ export class ChangesFilterPeriod {
       jsonObject.impactedCount,
       jsonObject.current,
       jsonObject.selected,
-      jsonObject.periods ? List(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : List()
+      jsonObject.periods ? Array(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : Array()
     );
   }
 }

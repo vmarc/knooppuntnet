@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {ChangeKey} from './changes/details/change-key';
 import {ChangeSetSubsetAnalysis} from './change-set-subset-analysis';
 import {ChangeSetSubsetElementRefs} from './change-set-subset-element-refs';
@@ -11,13 +10,13 @@ import {Timestamp} from '../custom/timestamp';
 export class ChangeSetSummary {
 
   constructor(readonly key: ChangeKey,
-              readonly subsets: List<Subset>,
+              readonly subsets: Array<Subset>,
               readonly timestampFrom: Timestamp,
               readonly timestampUntil: Timestamp,
               readonly networkChanges: NetworkChanges,
-              readonly orphanRouteChanges: List<ChangeSetSubsetElementRefs>,
-              readonly orphanNodeChanges: List<ChangeSetSubsetElementRefs>,
-              readonly subsetAnalyses: List<ChangeSetSubsetAnalysis>,
+              readonly orphanRouteChanges: Array<ChangeSetSubsetElementRefs>,
+              readonly orphanNodeChanges: Array<ChangeSetSubsetElementRefs>,
+              readonly subsetAnalyses: Array<ChangeSetSubsetAnalysis>,
               readonly happy: boolean,
               readonly investigate: boolean) {
   }
@@ -28,13 +27,13 @@ export class ChangeSetSummary {
     }
     return new ChangeSetSummary(
       ChangeKey.fromJSON(jsonObject.key),
-      jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
+      jsonObject.subsets ? Array(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : Array(),
       Timestamp.fromJSON(jsonObject.timestampFrom),
       Timestamp.fromJSON(jsonObject.timestampUntil),
       NetworkChanges.fromJSON(jsonObject.networkChanges),
-      jsonObject.orphanRouteChanges ? List(jsonObject.orphanRouteChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
-      jsonObject.orphanNodeChanges ? List(jsonObject.orphanNodeChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
-      jsonObject.subsetAnalyses ? List(jsonObject.subsetAnalyses.map((json: any) => ChangeSetSubsetAnalysis.fromJSON(json))) : List(),
+      jsonObject.orphanRouteChanges ? Array(jsonObject.orphanRouteChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : Array(),
+      jsonObject.orphanNodeChanges ? Array(jsonObject.orphanNodeChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : Array(),
+      jsonObject.subsetAnalyses ? Array(jsonObject.subsetAnalyses.map((json: any) => ChangeSetSubsetAnalysis.fromJSON(json))) : Array(),
       jsonObject.happy,
       jsonObject.investigate
     );

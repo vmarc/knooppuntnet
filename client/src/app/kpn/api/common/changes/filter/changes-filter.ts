@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {ChangesFilterPeriod} from './changes-filter-period';
 
 export class ChangesFilter {
 
-  constructor(readonly periods: List<ChangesFilterPeriod>) {
+  constructor(readonly periods: Array<ChangesFilterPeriod>) {
   }
 
   public static fromJSON(jsonObject: any): ChangesFilter {
@@ -13,7 +12,7 @@ export class ChangesFilter {
       return undefined;
     }
     return new ChangesFilter(
-      jsonObject.periods ? List(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : List()
+      jsonObject.periods ? Array(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : Array()
     );
   }
 }

@@ -1,13 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {ChangeSetSummaryInfo} from './change-set-summary-info';
 import {ChangesFilter} from './changes/filter/changes-filter';
 
 export class ChangesPage {
 
   constructor(readonly filter: ChangesFilter,
-              readonly changes: List<ChangeSetSummaryInfo>,
+              readonly changes: Array<ChangeSetSummaryInfo>,
               readonly changeCount: number) {
   }
 
@@ -17,7 +16,7 @@ export class ChangesPage {
     }
     return new ChangesPage(
       ChangesFilter.fromJSON(jsonObject.filter),
-      jsonObject.changes ? List(jsonObject.changes.map((json: any) => ChangeSetSummaryInfo.fromJSON(json))) : List(),
+      jsonObject.changes ? Array(jsonObject.changes.map((json: any) => ChangeSetSummaryInfo.fromJSON(json))) : Array(),
       jsonObject.changeCount
     );
   }

@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 import {ChangeSetElementRef} from '@api/common/change-set-element-ref';
 import {ChangeSetSubsetElementRefs} from '@api/common/change-set-subset-element-refs';
 import {ChangeSetPage} from '@api/common/changes/change-set-page';
 import {Ref} from '@api/common/common/ref';
 import {RefDiffs} from '@api/common/diff/ref-diffs';
+import {List} from 'immutable';
 import {RouteDiffsData} from './route-diffs/route-diffs-data';
 
 @Component({
@@ -31,24 +31,20 @@ export class ChangeSetOrphanRouteChangesComponent {
   routeDiffs(refs: ChangeSetSubsetElementRefs): RouteDiffsData {
 
     const refDiffs = new RefDiffs(
-      this.toRefs(refs.elementRefs.removed),
-      this.toRefs(refs.elementRefs.added),
-      this.toRefs(refs.elementRefs.updated)
+      List(this.toRefs(refs.elementRefs.removed)),
+      List(this.toRefs(refs.elementRefs.added)),
+      List(this.toRefs(refs.elementRefs.updated))
     );
 
     return new RouteDiffsData(
       refDiffs,
       this.page.summary.key.changeSetId,
       this.page.knownElements,
-      this.page.routeChanges);
+      List(this.page.routeChanges));
   }
 
-  private toRefs(refs: List<ChangeSetElementRef>): List<Ref> {
-    return refs.map(r => this.toRef(r));
-  }
-
-  private toRef(ref: ChangeSetElementRef): Ref {
-    return new Ref(ref.id, ref.name);
+  private toRefs(refs: ChangeSetElementRef[]): Ref[] {
+    return refs.map(r => new Ref(r.id, r.name));
   }
 
 }

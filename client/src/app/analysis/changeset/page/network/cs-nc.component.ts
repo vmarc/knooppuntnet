@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {ChangeSetPage} from '@api/common/changes/change-set-page';
 import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info';
+import {List} from 'immutable';
 import {NodeDiffsData} from '../node-diffs/node-diffs-data';
 import {RouteDiffsData} from '../route-diffs/route-diffs-data';
 
@@ -48,7 +49,7 @@ export class CsNcComponent {
       networkChangeInfo.networkNodes,
       this.page.summary.key.changeSetId,
       this.page.knownElements,
-      this.page.nodeChanges);
+      List(this.page.nodeChanges));
   }
 
   routeDiffs(networkChangeInfo: NetworkChangeInfo): RouteDiffsData {
@@ -56,7 +57,7 @@ export class CsNcComponent {
       networkChangeInfo.routes,
       this.page.summary.key.changeSetId,
       this.page.knownElements,
-      this.page.routeChanges);
+      List(this.page.routeChanges));
   }
 
 }

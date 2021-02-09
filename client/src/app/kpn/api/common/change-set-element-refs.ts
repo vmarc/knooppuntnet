@@ -1,13 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {ChangeSetElementRef} from './change-set-element-ref';
 
 export class ChangeSetElementRefs {
 
-  constructor(readonly removed: List<ChangeSetElementRef>,
-              readonly added: List<ChangeSetElementRef>,
-              readonly updated: List<ChangeSetElementRef>) {
+  constructor(readonly removed: Array<ChangeSetElementRef>,
+              readonly added: Array<ChangeSetElementRef>,
+              readonly updated: Array<ChangeSetElementRef>) {
   }
 
   public static fromJSON(jsonObject: any): ChangeSetElementRefs {
@@ -15,9 +14,9 @@ export class ChangeSetElementRefs {
       return undefined;
     }
     return new ChangeSetElementRefs(
-      jsonObject.removed ? List(jsonObject.removed.map((json: any) => ChangeSetElementRef.fromJSON(json))) : List(),
-      jsonObject.added ? List(jsonObject.added.map((json: any) => ChangeSetElementRef.fromJSON(json))) : List(),
-      jsonObject.updated ? List(jsonObject.updated.map((json: any) => ChangeSetElementRef.fromJSON(json))) : List()
+      jsonObject.removed ? Array(jsonObject.removed.map((json: any) => ChangeSetElementRef.fromJSON(json))) : Array(),
+      jsonObject.added ? Array(jsonObject.added.map((json: any) => ChangeSetElementRef.fromJSON(json))) : Array(),
+      jsonObject.updated ? Array(jsonObject.updated.map((json: any) => ChangeSetElementRef.fromJSON(json))) : Array()
     );
   }
 }

@@ -34,7 +34,7 @@ export class ChangeFilterOptions {
         return new ChangeFilterOption(
           'month',
           month,
-          days,
+          List(days),
           () => update(this.updatedParameters(parameters, true, year.name, month.name)),
           () => update(this.updatedParameters(parameters, false, year.name, month.name))
         );
@@ -43,14 +43,14 @@ export class ChangeFilterOptions {
       return new ChangeFilterOption(
         'year',
         year,
-        months,
+        List(months),
         () => update(this.updatedParameters(parameters, true, year.name)),
         () => update(this.updatedParameters(parameters, false, year.name))
       );
     });
 
-    const flatOptions: Array<ChangeFilterOption> = [];
-    if (!options.isEmpty()) {
+    const flatOptions: ChangeFilterOption[] = [];
+    if (options.length > 0) {
       flatOptions.push(all);
       options.forEach(year => {
         flatOptions.push(year);
@@ -93,8 +93,8 @@ export class ChangeFilterOptions {
     update: (changesParameters: ChangesParameters) => void
   ): ChangeFilterOption {
 
-    const totalCount = Util.sum(filter.periods.map(period => period.totalCount));
-    const impactedCount = Util.sum(filter.periods.map(period => period.impactedCount));
+    const totalCount = Util.sum(List(filter.periods.map(period => period.totalCount)));
+    const impactedCount = Util.sum(List(filter.periods.map(period => period.impactedCount)));
 
     const all = new ChangesFilterPeriod(
       'All',
@@ -102,7 +102,7 @@ export class ChangeFilterOptions {
       impactedCount,
       false,
       false,
-      List()
+      []
     );
 
     return new ChangeFilterOption(

@@ -1,15 +1,14 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {BarChart2dValue} from './bar-chart2d-value';
 
 export class BarChart2D {
 
   constructor(readonly xAxisLabel: string,
               readonly yAxisLabel: string,
-              readonly xAxisTicks: List<number>,
+              readonly xAxisTicks: Array<number>,
               readonly legendTitle: string,
-              readonly data: List<BarChart2dValue>) {
+              readonly data: Array<BarChart2dValue>) {
   }
 
   public static fromJSON(jsonObject: any): BarChart2D {
@@ -19,9 +18,9 @@ export class BarChart2D {
     return new BarChart2D(
       jsonObject.xAxisLabel,
       jsonObject.yAxisLabel,
-      jsonObject.xAxisTicks ? List(jsonObject.xAxisTicks) : List(),
+      jsonObject.xAxisTicks ? Array(jsonObject.xAxisTicks) : Array(),
       jsonObject.legendTitle,
-      jsonObject.data ? List(jsonObject.data.map((json: any) => BarChart2dValue.fromJSON(json))) : List()
+      jsonObject.data ? Array(jsonObject.data.map((json: any) => BarChart2dValue.fromJSON(json))) : Array()
     );
   }
 }

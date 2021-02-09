@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
 import {NameValue} from '@api/common/status/name-value';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-server-disk-usage-pie-chart',
@@ -15,7 +14,7 @@ import {List} from 'immutable';
         [customColors]="customColors"
         [margins]="[0, 0, 0, 0]"
         [view]="view"
-        [results]="data.toArray()">
+        [results]="data">
       </ngx-charts-pie-chart>
       <span>{{total}}</span>
     </div>
@@ -39,7 +38,7 @@ import {List} from 'immutable';
 export class ServerDiskUsagePieChartComponent {
 
   @Input() title: string;
-  @Input() data: List<NameValue>;
+  @Input() data: NameValue[];
   @Input() total: string;
 
   view: [number, number] = [100, 100];

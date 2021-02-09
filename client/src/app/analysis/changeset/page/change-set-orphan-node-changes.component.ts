@@ -31,24 +31,20 @@ export class ChangeSetOrphanNodeChangesComponent {
   nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
 
     const refDiffs = new RefDiffs(
-      this.toRefs(refs.elementRefs.removed),
-      this.toRefs(refs.elementRefs.added),
-      this.toRefs(refs.elementRefs.updated)
+      List(this.toRefs(refs.elementRefs.removed)),
+      List(this.toRefs(refs.elementRefs.added)),
+      List(this.toRefs(refs.elementRefs.updated))
     );
 
     return new NodeDiffsData(
       refDiffs,
       this.page.summary.key.changeSetId,
       this.page.knownElements,
-      this.page.nodeChanges);
+      List(this.page.nodeChanges));
   }
 
-  private toRefs(refs: List<ChangeSetElementRef>): List<Ref> {
-    return refs.map(r => this.toRef(r));
-  }
-
-  private toRef(ref: ChangeSetElementRef): Ref {
-    return new Ref(ref.id, ref.name);
+  private toRefs(refs: ChangeSetElementRef[]): Ref[] {
+    return refs.map(r => new Ref(r.id, r.name));
   }
 
 }
