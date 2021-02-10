@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
-import {List} from 'immutable';
 import {Location} from '@api/common/location/location';
 
 @Component({
@@ -19,15 +18,15 @@ export class NodeLocationComponent {
   @Input() location: Location;
 
   hasLocation() {
-    return this.location && !this.location.names.isEmpty();
+    return this.location && this.location.names.length > 0;
   }
 
-  locationNames(): List<string> {
+  locationNames(): string[] {
     if (this.location) {
-      const country = this.location.names.get(0).toUpperCase();
-      const names = this.location.names.set(0, country);
+      const country = this.location.names[0].toUpperCase();
+      const names = [country].concat(this.location.names.slice(1));
       return names.reverse();
     }
-    return List();
+    return [];
   }
 }

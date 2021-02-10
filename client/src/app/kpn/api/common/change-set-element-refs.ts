@@ -14,9 +14,9 @@ export class ChangeSetElementRefs {
       return undefined;
     }
     return new ChangeSetElementRefs(
-      jsonObject.removed ? Array(jsonObject.removed.map((json: any) => ChangeSetElementRef.fromJSON(json))) : Array(),
-      jsonObject.added ? Array(jsonObject.added.map((json: any) => ChangeSetElementRef.fromJSON(json))) : Array(),
-      jsonObject.updated ? Array(jsonObject.updated.map((json: any) => ChangeSetElementRef.fromJSON(json))) : Array()
+      jsonObject.removed?.map((json: any) => ChangeSetElementRef.fromJSON(json)),
+      jsonObject.added?.map((json: any) => ChangeSetElementRef.fromJSON(json)),
+      jsonObject.updated?.map((json: any) => ChangeSetElementRef.fromJSON(json))
     );
   }
 }

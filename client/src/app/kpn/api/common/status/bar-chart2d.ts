@@ -18,9 +18,9 @@ export class BarChart2D {
     return new BarChart2D(
       jsonObject.xAxisLabel,
       jsonObject.yAxisLabel,
-      jsonObject.xAxisTicks ? Array(jsonObject.xAxisTicks) : Array(),
+      jsonObject.xAxisTicks,
       jsonObject.legendTitle,
-      jsonObject.data ? Array(jsonObject.data.map((json: any) => BarChart2dValue.fromJSON(json))) : Array()
+      jsonObject.data?.map((json: any) => BarChart2dValue.fromJSON(json))
     );
   }
 }

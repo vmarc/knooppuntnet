@@ -27,13 +27,13 @@ export class ChangeSetSummary {
     }
     return new ChangeSetSummary(
       ChangeKey.fromJSON(jsonObject.key),
-      jsonObject.subsets ? Array(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : Array(),
+      jsonObject.subsets?.map((json: any) => Subset.fromJSON(json)),
       Timestamp.fromJSON(jsonObject.timestampFrom),
       Timestamp.fromJSON(jsonObject.timestampUntil),
       NetworkChanges.fromJSON(jsonObject.networkChanges),
-      jsonObject.orphanRouteChanges ? Array(jsonObject.orphanRouteChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : Array(),
-      jsonObject.orphanNodeChanges ? Array(jsonObject.orphanNodeChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : Array(),
-      jsonObject.subsetAnalyses ? Array(jsonObject.subsetAnalyses.map((json: any) => ChangeSetSubsetAnalysis.fromJSON(json))) : Array(),
+      jsonObject.orphanRouteChanges?.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json)),
+      jsonObject.orphanNodeChanges?.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json)),
+      jsonObject.subsetAnalyses?.map((json: any) => ChangeSetSubsetAnalysis.fromJSON(json)),
       jsonObject.happy,
       jsonObject.investigate
     );

@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {flatMap} from 'rxjs/operators';
 import {LocationNode} from '@api/common/location/location-node';
 import {Country} from '@api/custom/country';
 import {NetworkType} from '@api/custom/network-type';
 import {Subset} from '@api/custom/subset';
+import {Observable} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {LocationModeService} from './location-mode.service';
 import {LocationSelectionService} from './location-selection.service';
 
@@ -102,7 +102,7 @@ export class LocationSelectionPageComponent implements OnInit {
         this.country = new Country(params['country']);
         return new Subset(this.country, this.networkType);
       }),
-      flatMap(subset => this.locationSelectionService.locations(subset.networkType, subset.country))
+      mergeMap(subset => this.locationSelectionService.locations(subset.networkType, subset.country))
     );
   }
 

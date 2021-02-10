@@ -8,13 +8,12 @@ import {Input} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {List} from 'immutable';
+import {LocationNodeInfo} from '@api/common/location/location-node-info';
+import {TimeInfo} from '@api/common/time-info';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
-import {LocationNodeInfo} from '@api/common/location/location-node-info';
-import {TimeInfo} from '@api/common/time-info';
 
 @Component({
   selector: 'kpn-location-node-table',
@@ -31,11 +30,11 @@ import {TimeInfo} from '@api/common/time-info';
     -->
 
     <kpn-paginator
-      (page)="page.emit($event)"
-      [length]="nodeCount"
-      [pageIndex]="0"
-      [showPageSizeSelection]="true"
-      [showFirstLastButtons]="true">
+        (page)="page.emit($event)"
+        [length]="nodeCount"
+        [pageIndex]="0"
+        [showPageSizeSelection]="true"
+        [showFirstLastButtons]="true">
     </kpn-paginator>
 
     <table mat-table [dataSource]="dataSource">
@@ -45,12 +44,12 @@ import {TimeInfo} from '@api/common/time-info';
         <td mat-cell *matCellDef="let i=index">{{rowNumber(i)}}</td>
       </ng-container>
 
-<!--      <ng-container matColumnDef="analysis">-->
-<!--        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.analysis">Analysis</th>-->
-<!--        <td mat-cell *matCellDef="let node">-->
-<!--          &lt;!&ndash; kpn-network-node-analysis [node]="node" [networkType]="networkType"></kpn-network-node-analysis &ndash;&gt;-->
-<!--        </td>-->
-<!--      </ng-container>-->
+      <!--      <ng-container matColumnDef="analysis">-->
+      <!--        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.analysis">Analysis</th>-->
+      <!--        <td mat-cell *matCellDef="let node">-->
+      <!--          &lt;!&ndash; kpn-network-node-analysis [node]="node" [networkType]="networkType"></kpn-network-node-analysis &ndash;&gt;-->
+      <!--        </td>-->
+      <!--      </ng-container>-->
 
       <ng-container matColumnDef="node">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.node">Node</th>
@@ -110,7 +109,7 @@ import {TimeInfo} from '@api/common/time-info';
 export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   @Input() timeInfo: TimeInfo;
-  @Input() nodes: List<LocationNodeInfo> = List();
+  @Input() nodes: LocationNodeInfo[];
   @Input() nodeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
 
@@ -125,12 +124,12 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.dataSource.data = this.nodes.toArray();
+    this.dataSource.data = this.nodes;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['nodes']) {
-      this.dataSource.data = this.nodes.toArray();
+      this.dataSource.data = this.nodes;
     }
   }
 

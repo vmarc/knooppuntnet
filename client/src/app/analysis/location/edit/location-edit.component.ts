@@ -4,7 +4,7 @@ import {OnInit} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox/checkbox';
 import {LocationEditPage} from '@api/common/location/location-edit-page';
 import {Store} from '@ngrx/store';
-import {List, Range} from 'immutable';
+import {Range} from 'immutable';
 import {Subscription} from 'rxjs';
 import {TimeoutError} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
@@ -155,12 +155,11 @@ export class LocationEditComponent implements OnInit {
     const fullRouteEdits = this.buildFullRouteEdits();
     const edits = nodeEdits.concat(routeEdits).concat(fullRouteEdits);
     const setBounds = this.buildSetBounds();
-    const steps = setBounds === null ? edits : edits.push(setBounds);
+    const steps = setBounds === null ? edits : edits.concat(setBounds);
 
-    this.progressSteps = steps.size;
+    this.progressSteps = steps.length;
     this.showProgress$.next(true);
-
-    this.subscription = concat(...steps.toArray()).subscribe(
+    this.subscription = concat(...steps).subscribe(
       result => {
       },
       err => {
@@ -196,7 +195,7 @@ export class LocationEditComponent implements OnInit {
   }
 
   buildSetBounds(): Observable<Object> {
-    if (!this.page.nodeIds.isEmpty()) {
+    if (this.page.nodeIds.length > 0) {
       const zoomUrl = this.josmUrl + `zoom?left=${this.page.bounds.minLon}&right=${this.page.bounds.maxLon}&top=${this.page.bounds.maxLat}&bottom=${this.page.bounds.minLat}`;
       return this.appService.edit(zoomUrl).pipe(
         tap(() => this.updateProgress())
@@ -208,17 +207,17 @@ export class LocationEditComponent implements OnInit {
   private updateExpectation(): void {
     let nodeStepCount = 0;
     if (this.nodeSelection === true) {
-      nodeStepCount += (this.page.nodeIds.size / this.nodeChunkSize) + 1;
+      nodeStepCount += (this.page.nodeIds.length / this.nodeChunkSize) + 1;
     }
 
     let routeStepCount = 0;
     if (this.routeRelationsSelection === true) {
-      routeStepCount += (this.page.routeIds.size / this.routeChunkSize) + 1;
+      routeStepCount += (this.page.routeIds.length / this.routeChunkSize) + 1;
     }
 
     let fullRouteStepCount = 0;
     if (this.fullRouteSelection === true) {
-      fullRouteStepCount += this.page.routeIds.size;
+      fullRouteStepCount += this.page.routeIds.length;
     }
 
     const stepCount = nodeStepCount + routeStepCount + fullRouteStepCount;
@@ -228,13 +227,13 @@ export class LocationEditComponent implements OnInit {
     this.timeout$.next(false);
   }
 
-  private buildNodeEdits(): List<Observable<Object>> {
+  private buildNodeEdits(): Observable<Object>[] {
     if (!this.nodeSelection) {
-      return List();
+      return [];
     }
-    const nodeBatches = Range(0, this.page.nodeIds.count(), this.nodeChunkSize)
+    const nodeBatches = Range(0, this.page.nodeIds.length, this.nodeChunkSize)
       .map(chunkStart => this.page.nodeIds.slice(chunkStart, chunkStart + this.nodeChunkSize))
-      .toList();
+      .toArray();
     return nodeBatches.map(nodeIds => {
       const nodeIdString = nodeIds.join(',');
       const url = `${this.apiUrl}/nodes?nodes=${nodeIdString}`;
@@ -245,13 +244,13 @@ export class LocationEditComponent implements OnInit {
     });
   }
 
-  private buildRouteEdits(): List<Observable<Object>> {
+  private buildRouteEdits(): Observable<Object>[] {
     if (!this.routeRelationsSelection || this.fullRouteSelection) {
-      return List();
+      return [];
     }
-    const routeBatches = Range(0, this.page.routeIds.count(), this.routeChunkSize)
+    const routeBatches = Range(0, this.page.routeIds.length, this.routeChunkSize)
       .map(chunkStart => this.page.routeIds.slice(chunkStart, chunkStart + this.routeChunkSize))
-      .toList();
+      .toArray();
     return routeBatches.map(routeIds => {
       const routeIdString = routeIds.join(',');
       const url = `${this.apiUrl}/relations?relations=${routeIdString}`;
@@ -262,9 +261,9 @@ export class LocationEditComponent implements OnInit {
     });
   }
 
-  private buildFullRouteEdits(): List<Observable<Object>> {
+  private buildFullRouteEdits(): Observable<Object>[] {
     if (!this.fullRouteSelection) {
-      return List();
+      return [];
     }
     return this.page.routeIds.map(routeId => {
       const url = `${this.apiUrl}/relation/${routeId}/full`;

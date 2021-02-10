@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {List} from 'immutable';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {LocationNode} from '@api/common/location/location-node';
 import {Country} from '@api/custom/country';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import {LocationOption} from './location-option';
 
 @Component({
@@ -56,7 +55,7 @@ export class LocationSelectorComponent implements OnInit {
   @Output() selection = new EventEmitter<string>();
 
   warningSelectionMandatory = false;
-  options: List<LocationOption> = List();
+  options: LocationOption[] = [];
   locationInputControl = new FormControl();
   filteredOptions: Observable<LocationOption[]>;
   readonly formGroup: FormGroup;
@@ -70,7 +69,7 @@ export class LocationSelectorComponent implements OnInit {
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(''),
       map(value => typeof value === 'string' ? value : value.locationName),
-      map(name => name ? this._filter(name) : this.options.toArray())
+      map(name => name ? this._filter(name) : this.options)
     );
   }
 
@@ -93,12 +92,20 @@ export class LocationSelectorComponent implements OnInit {
 
   private _filter(value: string): LocationOption[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.locationName.toLowerCase().indexOf(filterValue) >= 0).toArray();
+    return this.options.filter(option => option.locationName.toLowerCase().indexOf(filterValue) >= 0);
   }
 
-  private toOptions(location: LocationNode): List<LocationOption> {
-    return List([new LocationOption(location.name, location.nodeCount)])
-      .concat(location.children.flatMap(child => this.toOptions(child)))
-      .sortBy(locationOption => locationOption.locationName);
+  private toOptions(location: LocationNode): LocationOption[] {
+    const locations: LocationOption[] = [];
+    locations.push(new LocationOption(location.name, location.nodeCount));
+    if (location.children) {
+      location.children.forEach(child => {
+        this.toOptions(child).forEach(xx => {
+          locations.push(xx);
+        });
+      });
+    }
+    locations.sort((a, b) => (a.locationName > b.locationName) ? 1 : -1);
+    return locations;
   }
 }

@@ -11,7 +11,6 @@ import {MatTableDataSource} from '@angular/material/table';
 import {LocationRouteInfo} from '@api/common/location/location-route-info';
 import {TimeInfo} from '@api/common/time-info';
 import {NetworkType} from '@api/custom/network-type';
-import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
@@ -93,7 +92,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
-  @Input() routes: List<LocationRouteInfo> = List();
+  @Input() routes: LocationRouteInfo[];
   @Input() routeCount: number;
   @Output() page = new EventEmitter<PageEvent>();
 
@@ -108,12 +107,12 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.dataSource.data = this.routes.toArray();
+    this.dataSource.data = this.routes;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['routes']) {
-      this.dataSource.data = this.routes.toArray();
+      this.dataSource.data = this.routes;
     }
   }
 

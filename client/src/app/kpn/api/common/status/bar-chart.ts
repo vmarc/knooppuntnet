@@ -13,8 +13,8 @@ export class BarChart {
       return undefined;
     }
     return new BarChart(
-      jsonObject.xAxisTicks ? Array(jsonObject.xAxisTicks) : Array(),
-      jsonObject.data ? Array(jsonObject.data.map((json: any) => NameValue.fromJSON(json))) : Array()
+      jsonObject.xAxisTicks,
+      jsonObject.data?.map((json: any) => NameValue.fromJSON(json))
     );
   }
 }

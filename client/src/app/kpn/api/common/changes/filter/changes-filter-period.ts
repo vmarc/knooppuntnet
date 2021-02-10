@@ -20,7 +20,7 @@ export class ChangesFilterPeriod {
       jsonObject.impactedCount,
       jsonObject.current,
       jsonObject.selected,
-      jsonObject.periods ? Array(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : Array()
+      jsonObject.periods?.map((json: any) => ChangesFilterPeriod.fromJSON(json))
     );
   }
 }

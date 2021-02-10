@@ -2,7 +2,6 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {AppService} from '../../../app.service';
 import {LocationNode} from '@api/common/location/location-node';
 import {Country} from '@api/custom/country';
 import {NetworkType} from '@api/custom/network-type';
@@ -83,12 +82,9 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   all = false;
 
   treeControl = new FlatTreeControl<LocationFlatNode>(node => node.level, node => node.expandable);
-  treeFlattener = new MatTreeFlattener(this.transformer(), node => node.level, node => node.expandable, node => node.children.toArray());
+  treeFlattener = new MatTreeFlattener(this.transformer(), node => node.level, node => node.expandable, node => node.children);
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   private readonly subscriptions = new Subscriptions();
-
-  constructor(private appService: AppService) {
-  }
 
   hasChild = (_: number, node: LocationFlatNode) => node.expandable;
 
@@ -119,11 +115,11 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   private transformer() {
     return (node: LocationNode, level: number) => new LocationFlatNode(
-        !!node.children && node.children.size > 0,
-        node.name,
-        node.nodeCount,
-        level
-      );
+      !!node.children && node.children.length > 0,
+      node.name,
+      node.nodeCount,
+      level
+    );
   }
 
 }

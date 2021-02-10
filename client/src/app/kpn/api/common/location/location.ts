@@ -1,10 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-
 export class Location {
 
-  constructor(readonly names: List<string>) {
+  constructor(readonly names: Array<string>) {
   }
 
   public static fromJSON(jsonObject: any): Location {
@@ -12,7 +10,7 @@ export class Location {
       return undefined;
     }
     return new Location(
-      jsonObject.names ? List(jsonObject.names) : List()
+      jsonObject.names
     );
   }
 }

@@ -7,11 +7,11 @@ import {LocationNodeInfo} from '@api/common/location/location-node-info';
   selector: 'kpn-location-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span *ngIf="node.routeReferences.isEmpty()" class="no-routes" i18n="@@location-nodes.no-routes">
+    <span *ngIf="!hasRouteReferences()" class="no-routes" i18n="@@location-nodes.no-routes">
       no routes
     </span>
 
-    <div *ngIf="node.routeReferences.size > 0" class="kpn-comma-list route-list">
+    <div *ngIf="hasRouteReferences()" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
         <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
       </span>
@@ -28,5 +28,11 @@ import {LocationNodeInfo} from '@api/common/location/location-node-info';
   `]
 })
 export class LocationNodeRoutesComponent {
+
   @Input() node: LocationNodeInfo;
+
+  hasRouteReferences(): boolean {
+    return this.node.routeReferences && this.node.routeReferences.length > 0;
+  }
+
 }

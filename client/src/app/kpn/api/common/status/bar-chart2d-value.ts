@@ -14,7 +14,7 @@ export class BarChart2dValue {
     }
     return new BarChart2dValue(
       jsonObject.name,
-      jsonObject.series ? Array(jsonObject.series.map((json: any) => NameValue.fromJSON(json))) : Array()
+      jsonObject.series?.map((json: any) => NameValue.fromJSON(json))
     );
   }
 }

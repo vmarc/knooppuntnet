@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Input} from '@angular/core';
 import {Component} from '@angular/core';
-import {List} from 'immutable';
 import {Location} from '@api/common/location/location';
 import {LocationCandidate} from '@api/common/location/location-candidate';
 import {RouteLocationAnalysis} from '@api/common/route-location-analysis';
@@ -35,9 +34,9 @@ export class RouteLocationComponent {
 
   @Input() locationAnalysis: RouteLocationAnalysis;
 
-  locationNames(location: Location): List<string> {
-    const country = location.names.get(0).toUpperCase();
-    const names = location.names.set(0, country);
+  locationNames(location: Location): string[] {
+    const country = location.names[0].toUpperCase();
+    const names = [country].concat(location.names.slice(1));
     return names.reverse();
   }
 

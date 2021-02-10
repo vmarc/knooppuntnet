@@ -16,7 +16,7 @@ export class ChangesPage {
     }
     return new ChangesPage(
       ChangesFilter.fromJSON(jsonObject.filter),
-      jsonObject.changes ? Array(jsonObject.changes.map((json: any) => ChangeSetSummaryInfo.fromJSON(json))) : Array(),
+      jsonObject.changes?.map((json: any) => ChangeSetSummaryInfo.fromJSON(json)),
       jsonObject.changeCount
     );
   }

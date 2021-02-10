@@ -24,9 +24,9 @@ export class ChangeSetPage {
     return new ChangeSetPage(
       ChangeSetSummary.fromJSON(jsonObject.summary),
       ChangeSetInfo.fromJSON(jsonObject.changeSetInfo),
-      jsonObject.networkChanges ? Array(jsonObject.networkChanges.map((json: any) => NetworkChangeInfo.fromJSON(json))) : Array(),
-      jsonObject.routeChanges ? Array(jsonObject.routeChanges.map((json: any) => RouteChangeInfo.fromJSON(json))) : Array(),
-      jsonObject.nodeChanges ? Array(jsonObject.nodeChanges.map((json: any) => NodeChangeInfo.fromJSON(json))) : Array(),
+      jsonObject.networkChanges?.map((json: any) => NetworkChangeInfo.fromJSON(json)),
+      jsonObject.routeChanges?.map((json: any) => RouteChangeInfo.fromJSON(json)),
+      jsonObject.nodeChanges?.map((json: any) => NodeChangeInfo.fromJSON(json)),
       KnownElements.fromJSON(jsonObject.knownElements)
     );
   }

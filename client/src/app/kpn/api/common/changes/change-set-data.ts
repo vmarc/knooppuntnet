@@ -19,9 +19,9 @@ export class ChangeSetData {
     }
     return new ChangeSetData(
       ChangeSetSummary.fromJSON(jsonObject.summary),
-      jsonObject.networkChanges ? Array(jsonObject.networkChanges.map((json: any) => NetworkChange.fromJSON(json))) : Array(),
-      jsonObject.routeChanges ? Array(jsonObject.routeChanges.map((json: any) => RouteChange.fromJSON(json))) : Array(),
-      jsonObject.nodeChanges ? Array(jsonObject.nodeChanges.map((json: any) => NodeChange.fromJSON(json))) : Array()
+      jsonObject.networkChanges?.map((json: any) => NetworkChange.fromJSON(json)),
+      jsonObject.routeChanges?.map((json: any) => RouteChange.fromJSON(json)),
+      jsonObject.nodeChanges?.map((json: any) => NodeChange.fromJSON(json))
     );
   }
 }

@@ -1,9 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Bounds} from '../bounds';
-import {LocationSummary} from './location-summary';
 import {TimeInfo} from '../time-info';
+import {LocationSummary} from './location-summary';
 
 export class LocationEditPage {
 
@@ -12,8 +11,8 @@ export class LocationEditPage {
               readonly tooManyNodes: boolean,
               readonly maxNodes: number,
               readonly bounds: Bounds,
-              readonly nodeIds: List<number>,
-              readonly routeIds: List<number>) {
+              readonly nodeIds: Array<number>,
+              readonly routeIds: Array<number>) {
   }
 
   public static fromJSON(jsonObject: any): LocationEditPage {
@@ -26,8 +25,8 @@ export class LocationEditPage {
       jsonObject.tooManyNodes,
       jsonObject.maxNodes,
       Bounds.fromJSON(jsonObject.bounds),
-      jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
-      jsonObject.routeIds ? List(jsonObject.routeIds) : List()
+      jsonObject.nodeIds,
+      jsonObject.routeIds
     );
   }
 }

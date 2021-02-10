@@ -12,7 +12,7 @@ export class ChangesFilter {
       return undefined;
     }
     return new ChangesFilter(
-      jsonObject.periods ? Array(jsonObject.periods.map((json: any) => ChangesFilterPeriod.fromJSON(json))) : Array()
+      jsonObject.periods?.map((json: any) => ChangesFilterPeriod.fromJSON(json))
     );
   }
 }

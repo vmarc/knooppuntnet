@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {LocationChangesTreeNode} from './location-changes-tree-node';
 import {NetworkType} from '../custom/network-type';
 
@@ -10,7 +9,7 @@ export class LocationChangesTree {
               readonly locationName: string,
               readonly happy: boolean,
               readonly investigate: boolean,
-              readonly children: List<LocationChangesTreeNode>) {
+              readonly children: Array<LocationChangesTreeNode>) {
   }
 
   public static fromJSON(jsonObject: any): LocationChangesTree {
@@ -22,7 +21,7 @@ export class LocationChangesTree {
       jsonObject.locationName,
       jsonObject.happy,
       jsonObject.investigate,
-      jsonObject.children ? List(jsonObject.children.map((json: any) => LocationChangesTreeNode.fromJSON(json))) : List()
+      jsonObject.children?.map((json: any) => LocationChangesTreeNode.fromJSON(json))
     );
   }
 }

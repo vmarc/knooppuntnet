@@ -8,11 +8,11 @@ import {LocationRoutesPageService} from './location-routes-page.service';
   selector: 'kpn-location-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="page.routes.isEmpty()" class="kpn-spacer-above" i18n="@@location-routes.no-routes">
+    <div *ngIf="page.routes.length === 0" class="kpn-spacer-above" i18n="@@location-routes.no-routes">
       No routes
     </div>
     <kpn-location-route-table
-      *ngIf="!page.routes.isEmpty()"
+      *ngIf="page.routes.length > 0"
       (page)="service.pageChanged($event)"
       [networkType]="service.networkType()"
       [timeInfo]="page.timeInfo"
