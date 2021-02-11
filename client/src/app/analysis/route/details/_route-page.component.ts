@@ -136,8 +136,8 @@ export class RoutePageComponent implements OnInit {
     return InterpretedTags.routeTags(page.route.tags);
   }
 
-  factInfos(page: RouteDetailsPage): List<FactInfo> {
-    return page.route.facts.map(fact => new FactInfo(fact));
+  factInfos(page: RouteDetailsPage): FactInfo[] {
+    return page.route.facts.map(fact => new FactInfo(fact)).toArray();
   }
 
 }

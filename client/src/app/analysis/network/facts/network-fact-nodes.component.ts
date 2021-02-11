@@ -1,16 +1,15 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {Ref} from '@api/common/common/ref';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-network-fact-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span *ngIf="nodes.size == 1" class="title" i18n="@@network-facts.node">
+    <span *ngIf="nodes.length == 1" class="title" i18n="@@network-facts.node">
       Node:
     </span>
-    <span *ngIf="nodes.size > 1" class="title" i18n="@@network-facts.nodes">
+    <span *ngIf="nodes.length > 1" class="title" i18n="@@network-facts.nodes">
       Nodes:
     </span>
     <div class="kpn-comma-list">
@@ -23,5 +22,5 @@ import {List} from 'immutable';
   `
 })
 export class NetworkFactNodesComponent {
-  @Input() nodes: List<Ref>;
+  @Input() nodes: Ref[];
 }

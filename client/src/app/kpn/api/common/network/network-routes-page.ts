@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {NetworkRouteRow} from './network-route-row';
 import {NetworkSummary} from './network-summary';
 import {NetworkType} from '../../custom/network-type';
@@ -13,7 +12,7 @@ export class NetworkRoutesPage {
               readonly surveyDateInfo: SurveyDateInfo,
               readonly networkType: NetworkType,
               readonly networkSummary: NetworkSummary,
-              readonly routes: List<NetworkRouteRow>) {
+              readonly routes: Array<NetworkRouteRow>) {
   }
 
   public static fromJSON(jsonObject: any): NetworkRoutesPage {
@@ -25,7 +24,7 @@ export class NetworkRoutesPage {
       SurveyDateInfo.fromJSON(jsonObject.surveyDateInfo),
       NetworkType.fromJSON(jsonObject.networkType),
       NetworkSummary.fromJSON(jsonObject.networkSummary),
-      jsonObject.routes ? List(jsonObject.routes.map((json: any) => NetworkRouteRow.fromJSON(json))) : List()
+      jsonObject.routes.map((json: any) => NetworkRouteRow.fromJSON(json))
     );
   }
 }

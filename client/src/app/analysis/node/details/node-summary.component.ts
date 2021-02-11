@@ -67,7 +67,7 @@ export class NodeSummaryComponent {
   @Input() nodeInfo: NodeInfo;
 
   hasMultipleNames(): boolean {
-    return this.nodeInfo.names.size > 1;
+    return this.nodeInfo.names.length > 1;
   }
 
   networkTypes(): List<NetworkType> {

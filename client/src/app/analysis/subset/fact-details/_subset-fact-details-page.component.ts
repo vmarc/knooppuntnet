@@ -78,7 +78,7 @@ class SubsetFact {
               </div>
               <div class="fact-detail">
                 <span i18n="@@subset-facts.routes"
-                      class="kpn-label">{networkFactRefs.factRefs.size, plural, one {1 route} other {{{networkFactRefs.factRefs.size}} routes}}</span>
+                      class="kpn-label">{networkFactRefs.factRefs.length, plural, one {1 route} other {{{networkFactRefs.factRefs.length}} routes}}</span>
               </div>
               <div class="kpn-comma-list fact-detail">
               <span *ngFor="let ref of networkFactRefs.factRefs">
@@ -165,6 +165,6 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   }
 
   private calculateRefCount(response: ApiResponse<SubsetFactDetailsPage>): number {
-    return Util.sum(response.result.networks.map(n => n.factRefs.size));
+    return Util.sum(response.result.networks.map(n => n.factRefs.length));
   }
 }

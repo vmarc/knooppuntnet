@@ -72,7 +72,7 @@ export class MapLayerService {
     return NodeMovedLayer.build(nodeMoved);
   }
 
-  networkLayers(networkTypes: List<NetworkType>): List<MapLayer> {
+  networkLayers(networkTypes: NetworkType[]): MapLayer[] {
     return networkTypes.map(networkType => this.networkVectorTileLayer(networkType));
   }
 
@@ -106,11 +106,11 @@ export class MapLayerService {
     return new NetworkMarkerLayer(this.i18nService).build(networks);
   }
 
-  networkNodesMarkerLayer(nodes: List<NetworkMapNode>): MapLayer {
+  networkNodesMarkerLayer(nodes: NetworkMapNode[]): MapLayer {
     return new NetworkNodesMarkerLayer(this.i18nService).build(nodes);
   }
 
-  networkNodesTileLayer(networkType: NetworkType, nodeIds: List<number>, routeIds: List<number>): MapLayer {
+  networkNodesTileLayer(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
     const layer = NetworkNodesTileLayer.build(networkType, nodeIds, routeIds);
     const layerName = this.i18nService.translation('@@map.layer.' + networkType.name);
     layer.layer.set('name', layerName);

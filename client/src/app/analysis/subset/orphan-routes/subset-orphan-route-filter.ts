@@ -43,10 +43,10 @@ export class SubsetOrphanRouteFilter {
     return routes.filter(route => this.allFilters.passes(route));
   }
 
-  filterOptions(routes: List<RouteSummary>): FilterOptions {
+  filterOptions(routes: RouteSummary[]): FilterOptions {
 
-    const totalCount = routes.size;
-    const filteredCount = routes.count(route => this.allFilters.passes(route));
+    const totalCount = routes.length;
+    const filteredCount = routes.filter(route => this.allFilters.passes(route)).length;
 
     const broken = this.brokenFilter.filterOptions(this.allFilters, routes);
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);

@@ -24,7 +24,7 @@ import {NetworkNodesService} from './network-nodes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      [length]="nodes?.size"
+      [length]="nodes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true">
     </kpn-paginator>
@@ -126,7 +126,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
   @Input() surveyDateInfo: SurveyDateInfo;
-  @Input() nodes: List<NetworkNodeDetail> = List();
+  @Input() nodes: NetworkNodeDetail[];
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
@@ -149,7 +149,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.pipe(
       map(criteria => new NetworkNodeFilter(this.timeInfo, this.surveyDateInfo, criteria, this.filterCriteria)),
-      tap(filter => this.dataSource.data = filter.filter(this.nodes).toArray()),
+      tap(filter => this.dataSource.data = filter.filter(this.nodes)),
       delay(0)
     ).subscribe(filter => {
       this.networkNodesService.setFilterOptions(filter.filterOptions(this.nodes));

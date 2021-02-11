@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Country} from '../custom/country';
 import {Day} from '../custom/day';
 import {Fact} from '../custom/fact';
@@ -16,15 +15,15 @@ export class NodeInfo {
               readonly orphan: boolean,
               readonly country: Country,
               readonly name: string,
-              readonly names: List<NodeName>,
+              readonly names: Array<NodeName>,
               readonly latitude: string,
               readonly longitude: string,
               readonly lastUpdated: Timestamp,
               readonly lastSurvey: Day,
               readonly tags: Tags,
-              readonly facts: List<Fact>,
+              readonly facts: Array<Fact>,
               readonly location: Location,
-              readonly tiles: List<string>) {
+              readonly tiles: Array<string>) {
   }
 
   public static fromJSON(jsonObject: any): NodeInfo {
@@ -37,15 +36,15 @@ export class NodeInfo {
       jsonObject.orphan,
       Country.fromJSON(jsonObject.country),
       jsonObject.name,
-      jsonObject.names ? List(jsonObject.names.map((json: any) => NodeName.fromJSON(json))) : List(),
+      jsonObject.names.map((json: any) => NodeName.fromJSON(json)),
       jsonObject.latitude,
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Day.fromJSON(jsonObject.lastSurvey),
       Tags.fromJSON(jsonObject.tags),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       Location.fromJSON(jsonObject.location),
-      jsonObject.tiles ? List(jsonObject.tiles) : List()
+      jsonObject.tiles
     );
   }
 }

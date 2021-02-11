@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {NodeIntegrityDetail} from './node-integrity-detail';
 
 export class NodeIntegrity {
 
-  constructor(readonly details: List<NodeIntegrityDetail>) {
+  constructor(readonly details: Array<NodeIntegrityDetail>) {
   }
 
   public static fromJSON(jsonObject: any): NodeIntegrity {
@@ -13,7 +12,7 @@ export class NodeIntegrity {
       return undefined;
     }
     return new NodeIntegrity(
-      jsonObject.details ? List(jsonObject.details.map((json: any) => NodeIntegrityDetail.fromJSON(json))) : List()
+      jsonObject.details.map((json: any) => NodeIntegrityDetail.fromJSON(json))
     );
   }
 }

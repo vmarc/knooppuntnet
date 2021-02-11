@@ -34,10 +34,10 @@ export class SubsetOrphanNodeFilter {
     return nodes.filter(node => this.allFilters.passes(node));
   }
 
-  filterOptions(nodes: List<NodeInfo>): FilterOptions {
+  filterOptions(nodes: NodeInfo[]): FilterOptions {
 
-    const totalCount = nodes.size;
-    const filteredCount = nodes.count(node => this.allFilters.passes(node));
+    const totalCount = nodes.length;
+    const filteredCount = nodes.filter(node => this.allFilters.passes(node)).length;
 
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
 

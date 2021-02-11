@@ -1,19 +1,18 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Fact} from '../../custom/fact';
+import {Tags} from '../../custom/tags';
 import {NetworkAttributes} from './network-attributes';
 import {NetworkInfoDetail} from './network-info-detail';
-import {Tags} from '../../custom/tags';
 
 export class NetworkInfo {
 
   constructor(readonly attributes: NetworkAttributes,
               readonly active: boolean,
-              readonly nodeRefs: List<number>,
-              readonly routeRefs: List<number>,
-              readonly networkRefs: List<number>,
-              readonly facts: List<Fact>,
+              readonly nodeRefs: Array<number>,
+              readonly routeRefs: Array<number>,
+              readonly networkRefs: Array<number>,
+              readonly facts: Array<Fact>,
               readonly tags: Tags,
               readonly detail: NetworkInfoDetail) {
   }
@@ -25,10 +24,10 @@ export class NetworkInfo {
     return new NetworkInfo(
       NetworkAttributes.fromJSON(jsonObject.attributes),
       jsonObject.active,
-      jsonObject.nodeRefs ? List(jsonObject.nodeRefs) : List(),
-      jsonObject.routeRefs ? List(jsonObject.routeRefs) : List(),
-      jsonObject.networkRefs ? List(jsonObject.networkRefs) : List(),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.nodeRefs,
+      jsonObject.routeRefs,
+      jsonObject.networkRefs,
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       Tags.fromJSON(jsonObject.tags),
       NetworkInfoDetail.fromJSON(jsonObject.detail)
     );

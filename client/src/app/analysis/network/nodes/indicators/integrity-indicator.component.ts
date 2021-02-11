@@ -36,7 +36,7 @@ export class IntegrityIndicatorComponent implements OnInit {
     const indicatorData = new IntegrityIndicatorData(
       this.color,
       this.networkType,
-      this.node.routeReferences.size,
+      this.node.routeReferences.length,
       this.node.expectedRouteCount
     );
     this.dialog.open(IntegrityIndicatorDialogComponent, {data: indicatorData, maxWidth: 600});
@@ -45,7 +45,7 @@ export class IntegrityIndicatorComponent implements OnInit {
   private determineColor() {
     let color;
     if (this.node.expectedRouteCount !== '-') {
-      if (+this.node.expectedRouteCount !== this.node.routeReferences.size) {
+      if (+this.node.expectedRouteCount !== this.node.routeReferences.length) {
         color = 'red';
       } else {
         color = 'green';

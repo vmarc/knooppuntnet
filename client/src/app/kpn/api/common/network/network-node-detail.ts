@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Day} from '../../custom/day';
 import {Fact} from '../../custom/fact';
-import {Ref} from '../common/ref';
 import {Tags} from '../../custom/tags';
 import {Timestamp} from '../../custom/timestamp';
+import {Ref} from '../common/ref';
 
 export class NetworkNodeDetail {
 
@@ -21,8 +20,8 @@ export class NetworkNodeDetail {
               readonly timestamp: Timestamp,
               readonly lastSurvey: Day,
               readonly expectedRouteCount: string,
-              readonly routeReferences: List<Ref>,
-              readonly facts: List<Fact>,
+              readonly routeReferences: Array<Ref>,
+              readonly facts: Array<Fact>,
               readonly tags: Tags) {
   }
 
@@ -43,8 +42,8 @@ export class NetworkNodeDetail {
       Timestamp.fromJSON(jsonObject.timestamp),
       Day.fromJSON(jsonObject.lastSurvey),
       jsonObject.expectedRouteCount,
-      jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       Tags.fromJSON(jsonObject.tags)
     );
   }

@@ -1,10 +1,16 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {AfterViewInit, Component, Input} from '@angular/core';
+import {NodeMapInfo} from '@api/common/node-map-info';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
 import {List} from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {NodeMapInfo} from '@api/common/node-map-info';
+import {Observable} from 'rxjs';
+import {take} from 'rxjs/operators';
+import {AppState} from '../../../core/core.state';
+import {selectPreferencesNetworkType} from '../../../core/preferences/preferences.selectors';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PageService} from '../../shared/page.service';
 import {Util} from '../../shared/util';
@@ -14,12 +20,6 @@ import {MapLayer} from '../layers/map-layer';
 import {MapLayers} from '../layers/map-layers';
 import {MapClickService} from '../services/map-click.service';
 import {MapLayerService} from '../services/map-layer.service';
-import {AppState} from '../../../core/core.state';
-import {Store} from '@ngrx/store';
-import {select} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {take} from 'rxjs/operators';
-import {selectPreferencesNetworkType} from '../../../core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-node-map',
@@ -88,7 +88,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
 
     const networkLayers = this.mapLayerService.networkLayers(this.nodeMapInfo.networkTypes);
-    if (networkLayers.size > 1) {
+    if (networkLayers.length > 1) {
       this.defaultNetworkType$.pipe(take(1)).subscribe(defaultNetworkType => {
         networkLayers.forEach(networkLayer => {
           if (defaultNetworkType != null && networkLayer.name != defaultNetworkType) {
@@ -100,7 +100,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
 
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
-    mapLayers = mapLayers.concat(networkLayers.toArray());
+    mapLayers = mapLayers.concat(networkLayers);
     mapLayers = mapLayers.push(this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo));
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);

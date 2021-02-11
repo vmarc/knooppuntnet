@@ -6,7 +6,6 @@ import {NetworkRouteRow} from '@api/common/network/network-route-row';
 import {SurveyDateInfo} from '@api/common/survey-date-info';
 import {TimeInfo} from '@api/common/time-info';
 import {NetworkType} from '@api/custom/network-type';
-import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -25,7 +24,7 @@ import {NetworkRoutesService} from './network-routes.service';
   template: `
 
     <kpn-paginator
-      [length]="routes?.size"
+      [length]="routes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true">
     </kpn-paginator>
@@ -100,7 +99,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   @Input() timeInfo: TimeInfo;
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() networkType: NetworkType;
-  @Input() routes: List<NetworkRouteRow>;
+  @Input() routes: NetworkRouteRow[];
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
@@ -119,7 +118,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria$.pipe(
       map(criteria => new NetworkRouteFilter(this.timeInfo, this.surveyDateInfo, criteria, this.filterCriteria$)),
-      tap(filter => this.dataSource.data = filter.filter(this.routes).toArray()),
+      tap(filter => this.dataSource.data = filter.filter(this.routes)),
       delay(0)
     ).subscribe(filter => {
       this.networkRoutesService.setFilterOptions(filter.filterOptions(this.routes));

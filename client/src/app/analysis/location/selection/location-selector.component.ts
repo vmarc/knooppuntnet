@@ -96,15 +96,8 @@ export class LocationSelectorComponent implements OnInit {
   }
 
   private toOptions(location: LocationNode): LocationOption[] {
-    const locations: LocationOption[] = [];
-    locations.push(new LocationOption(location.name, location.nodeCount));
-    if (location.children) {
-      location.children.forEach(child => {
-        this.toOptions(child).forEach(xx => {
-          locations.push(xx);
-        });
-      });
-    }
+    const locations = [new LocationOption(location.name, location.nodeCount)]
+      .concat(location.children.flatMap(child => this.toOptions(child)));
     locations.sort((a, b) => (a.locationName > b.locationName) ? 1 : -1);
     return locations;
   }

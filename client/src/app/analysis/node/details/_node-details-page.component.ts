@@ -4,7 +4,6 @@ import {Component} from '@angular/core';
 import {Ref} from '@api/common/common/ref';
 import {NodeDetailsPage} from '@api/common/node/node-details-page';
 import {Store} from '@ngrx/store';
-import {List} from 'immutable';
 import {filter} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
 import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
@@ -107,7 +106,7 @@ export class NodeDetailsPageComponent implements OnInit {
     return InterpretedTags.nodeTags(page.nodeInfo.tags);
   }
 
-  buildFactInfos(page: NodeDetailsPage): List<FactInfo> {
+  buildFactInfos(page: NodeDetailsPage): FactInfo[] {
     const nodeFacts = page.nodeInfo.facts.map(fact => new FactInfo(fact));
     const extraFacts = page.references.networkReferences.flatMap(networkReference => networkReference.facts.map(fact => {
       const networkRef = new Ref(networkReference.networkId, networkReference.networkName);

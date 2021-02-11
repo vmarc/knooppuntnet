@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-network-fact-relation-ids',
@@ -15,5 +14,5 @@ import {List} from 'immutable';
   `
 })
 export class NetworkFactRelationIdsComponent {
-  @Input() elementIds: List<number>;
+  @Input() elementIds: number[];
 }

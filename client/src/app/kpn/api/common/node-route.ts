@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {NetworkType} from '../custom/network-type';
 
 export class NodeRoute {
@@ -8,7 +7,7 @@ export class NodeRoute {
   constructor(readonly id: number,
               readonly name: string,
               readonly networkType: NetworkType,
-              readonly locationNames: List<string>,
+              readonly locationNames: Array<string>,
               readonly expectedRouteCount: number,
               readonly actualRouteCount: number) {
   }
@@ -21,7 +20,7 @@ export class NodeRoute {
       jsonObject.id,
       jsonObject.name,
       NetworkType.fromJSON(jsonObject.networkType),
-      jsonObject.locationNames ? List(jsonObject.locationNames) : List(),
+      jsonObject.locationNames,
       jsonObject.expectedRouteCount,
       jsonObject.actualRouteCount
     );

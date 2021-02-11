@@ -13,11 +13,11 @@ export class Filters<T> {
     return this.passesAll(element, this.filters);
   }
 
-  filterExcept(elements: List<T>, filter: Filter<T>): List<T> {
+  filterExcept(elements: T[], filter: Filter<T>): T[] {
     return this.filtered(elements, this.filters.filterNot(f => f.name === filter.name));
   }
 
-  private filtered(elements: List<T>, filterCollection: List<Filter<T>>): List<T> {
+  private filtered(elements: T[], filterCollection: List<Filter<T>>): T[] {
     return elements.filter(element => this.passesAll(element, filterCollection));
   }
 

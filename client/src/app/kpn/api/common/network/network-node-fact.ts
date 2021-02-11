@@ -1,13 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Fact} from '../../custom/fact';
 import {Ref} from '../common/ref';
 
 export class NetworkNodeFact {
 
   constructor(readonly fact: Fact,
-              readonly nodes: List<Ref>) {
+              readonly nodes: Array<Ref>) {
   }
 
   public static fromJSON(jsonObject: any): NetworkNodeFact {
@@ -16,7 +15,7 @@ export class NetworkNodeFact {
     }
     return new NetworkNodeFact(
       Fact.fromJSON(jsonObject.fact),
-      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => Ref.fromJSON(json))) : List()
+      jsonObject.nodes.map((json: any) => Ref.fromJSON(json))
     );
   }
 }

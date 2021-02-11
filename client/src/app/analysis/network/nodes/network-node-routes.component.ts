@@ -8,11 +8,11 @@ import {NetworkNodeDetail} from '@api/common/network/network-node-detail';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <span *ngIf="node.routeReferences.isEmpty()" class="no-routes" i18n="@@network-nodes.no-routes">
+    <span *ngIf="node.routeReferences.length === 0" class="no-routes" i18n="@@network-nodes.no-routes">
       no routes
     </span>
 
-    <div *ngIf="node.routeReferences.size > 0" class="kpn-comma-list route-list">
+    <div *ngIf="node.routeReferences.length > 0" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
         <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
       </span>

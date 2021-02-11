@@ -1,6 +1,5 @@
 import {SurveyDateInfo} from '@api/common/survey-date-info';
 import {Day} from '@api/custom/day';
-import {List} from 'immutable';
 import {Filter} from './filter';
 import {FilterOption} from './filter-option';
 import {FilterOptionGroup} from './filter-option-group';
@@ -49,20 +48,20 @@ export class SurveyDateFilter<T> extends Filter<T> {
     return false;
   }
 
-  filterOptions(allFilters: Filters<T>, elements: List<T>): FilterOptionGroup {
-    if (elements.isEmpty()) {
+  filterOptions(allFilters: Filters<T>, elements: T[]): FilterOptionGroup {
+    if (elements.length === 0) {
       return null;
     }
 
     const filteredElements = allFilters.filterExcept(elements, this);
 
-    const allCount = filteredElements.size;
-    const unknownCount = filteredElements.count(e => !this.getter(e));
-    const lastMonthCount = filteredElements.count(e => this.sameAsOrYoungerThan(e, this.surveyDateInfo.lastMonthStart));
-    const lastHalfYearCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastMonthStart, this.surveyDateInfo.lastHalfYearStart));
-    const lastYearCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastHalfYearStart, this.surveyDateInfo.lastYearStart));
-    const lastTwoYearsCount = filteredElements.count(e => this.isBetween(e, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart));
-    const olderCount = filteredElements.count(e => !!this.getter(e) && this.getter(e).olderThan(this.surveyDateInfo.lastTwoYearsStart));
+    const allCount = filteredElements.length;
+    const unknownCount = filteredElements.filter(e => !this.getter(e)).length;
+    const lastMonthCount = filteredElements.filter(e => this.sameAsOrYoungerThan(e, this.surveyDateInfo.lastMonthStart)).length;
+    const lastHalfYearCount = filteredElements.filter(e => this.isBetween(e, this.surveyDateInfo.lastMonthStart, this.surveyDateInfo.lastHalfYearStart)).length;
+    const lastYearCount = filteredElements.filter(e => this.isBetween(e, this.surveyDateInfo.lastHalfYearStart, this.surveyDateInfo.lastYearStart)).length;
+    const lastTwoYearsCount = filteredElements.filter(e => this.isBetween(e, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart)).length;
+    const olderCount = filteredElements.filter(e => !!this.getter(e) && this.getter(e).olderThan(this.surveyDateInfo.lastTwoYearsStart)).length;
 
     const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
     const unknown = new FilterOption('unknown', unknownCount, this.isUnknown(), this.selectUnknown);

@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {RouteSummary} from '@api/common/route-summary';
+import {TimeInfo} from '@api/common/time-info';
 import {List} from 'immutable';
 import {BehaviorSubject} from 'rxjs';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
-import {RouteSummary} from '@api/common/route-summary';
-import {TimeInfo} from '@api/common/time-info';
 import {SubsetOrphanRouteFilter} from './subset-orphan-route-filter';
 import {SubsetOrphanRouteFilterCriteria} from './subset-orphan-route-filter-criteria';
 import {SubsetOrphanRoutesService} from './subset-orphan-routes.service';
@@ -83,7 +83,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanRouteFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.orphanRoutes).toArray();
-      this.subsetOrphanRoutesService.filterOptions.next(filter.filterOptions(this.orphanRoutes));
+      this.subsetOrphanRoutesService.filterOptions.next(filter.filterOptions(this.orphanRoutes.toArray()));
     });
   }
 

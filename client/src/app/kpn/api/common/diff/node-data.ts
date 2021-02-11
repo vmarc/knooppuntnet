@@ -1,12 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {RawNode} from '../data/raw/raw-node';
 import {Subset} from '../../custom/subset';
 
 export class NodeData {
 
-  constructor(readonly subsets: List<Subset>,
+  constructor(readonly subsets: Array<Subset>,
               readonly name: string,
               readonly node: RawNode) {
   }
@@ -16,7 +15,7 @@ export class NodeData {
       return undefined;
     }
     return new NodeData(
-      jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
+      jsonObject.subsets.map((json: any) => Subset.fromJSON(json)),
       jsonObject.name,
       RawNode.fromJSON(jsonObject.node)
     );

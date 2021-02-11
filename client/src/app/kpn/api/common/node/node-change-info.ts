@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {ChangeKey} from '../changes/details/change-key';
 import {Fact} from '../../custom/fact';
 import {FactDiffs} from '../diff/common/fact-diffs';
@@ -20,17 +19,17 @@ export class NodeChangeInfo {
               readonly comment: string,
               readonly before: MetaData,
               readonly after: MetaData,
-              readonly connectionChanges: List<RefBooleanChange>,
-              readonly roleConnectionChanges: List<RefBooleanChange>,
-              readonly definedInNetworkChanges: List<RefBooleanChange>,
+              readonly connectionChanges: Array<RefBooleanChange>,
+              readonly roleConnectionChanges: Array<RefBooleanChange>,
+              readonly definedInNetworkChanges: Array<RefBooleanChange>,
               readonly tagDiffs: TagDiffs,
               readonly nodeMoved: NodeMoved,
-              readonly addedToRoute: List<Ref>,
-              readonly removedFromRoute: List<Ref>,
-              readonly addedToNetwork: List<Ref>,
-              readonly removedFromNetwork: List<Ref>,
+              readonly addedToRoute: Array<Ref>,
+              readonly removedFromRoute: Array<Ref>,
+              readonly addedToNetwork: Array<Ref>,
+              readonly removedFromNetwork: Array<Ref>,
               readonly factDiffs: FactDiffs,
-              readonly facts: List<Fact>,
+              readonly facts: Array<Fact>,
               readonly happy: boolean,
               readonly investigate: boolean) {
   }
@@ -47,17 +46,17 @@ export class NodeChangeInfo {
       jsonObject.comment,
       MetaData.fromJSON(jsonObject.before),
       MetaData.fromJSON(jsonObject.after),
-      jsonObject.connectionChanges ? List(jsonObject.connectionChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
-      jsonObject.roleConnectionChanges ? List(jsonObject.roleConnectionChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
-      jsonObject.definedInNetworkChanges ? List(jsonObject.definedInNetworkChanges.map((json: any) => RefBooleanChange.fromJSON(json))) : List(),
+      jsonObject.connectionChanges.map((json: any) => RefBooleanChange.fromJSON(json)),
+      jsonObject.roleConnectionChanges.map((json: any) => RefBooleanChange.fromJSON(json)),
+      jsonObject.definedInNetworkChanges.map((json: any) => RefBooleanChange.fromJSON(json)),
       TagDiffs.fromJSON(jsonObject.tagDiffs),
       NodeMoved.fromJSON(jsonObject.nodeMoved),
-      jsonObject.addedToRoute ? List(jsonObject.addedToRoute.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.removedFromRoute ? List(jsonObject.removedFromRoute.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.addedToRoute.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.removedFromRoute.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json)),
       FactDiffs.fromJSON(jsonObject.factDiffs),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       jsonObject.happy,
       jsonObject.investigate
     );

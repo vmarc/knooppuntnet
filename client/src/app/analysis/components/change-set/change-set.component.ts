@@ -43,13 +43,13 @@ import {ChangeSetNetworkAction} from './components/change-set-network.component'
 export class ChangesSetComponent implements OnInit {
 
   @Input() changeSet: ChangeSetSummaryInfo;
-  networkActions: List<ChangeSetNetworkAction>;
+  networkActions: ChangeSetNetworkAction[];
 
   ngOnInit(): void {
     this.networkActions = this.buildNetworkActions();
   }
 
-  private buildNetworkActions(): List<ChangeSetNetworkAction> {
+  private buildNetworkActions(): ChangeSetNetworkAction[] {
     const networkChanges = this.changeSet.summary.networkChanges;
     const creates = this.toNetworkActions('C', networkChanges.creates);
     const updates = this.toNetworkActions('U', networkChanges.updates);
@@ -57,7 +57,7 @@ export class ChangesSetComponent implements OnInit {
     return creates.concat(updates).concat(deletes);
   }
 
-  private toNetworkActions(action: string, networks: List<ChangeSetNetwork>) {
+  private toNetworkActions(action: string, networks: ChangeSetNetwork[]) {
     return networks.map(nc => new ChangeSetNetworkAction(this.changeSet.summary.key, action, nc));
   }
 

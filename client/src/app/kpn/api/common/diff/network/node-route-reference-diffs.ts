@@ -1,13 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Ref} from '../../common/ref';
 
 export class NodeRouteReferenceDiffs {
 
-  constructor(readonly removed: List<Ref>,
-              readonly added: List<Ref>,
-              readonly remaining: List<Ref>) {
+  constructor(readonly removed: Array<Ref>,
+              readonly added: Array<Ref>,
+              readonly remaining: Array<Ref>) {
   }
 
   public static fromJSON(jsonObject: any): NodeRouteReferenceDiffs {
@@ -15,9 +14,9 @@ export class NodeRouteReferenceDiffs {
       return undefined;
     }
     return new NodeRouteReferenceDiffs(
-      jsonObject.removed ? List(jsonObject.removed.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.added ? List(jsonObject.added.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.remaining ? List(jsonObject.remaining.map((json: any) => Ref.fromJSON(json))) : List()
+      jsonObject.removed.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.added.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.remaining.map((json: any) => Ref.fromJSON(json))
     );
   }
 }

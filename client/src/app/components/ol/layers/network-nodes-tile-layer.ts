@@ -14,7 +14,7 @@ import {Layers} from './layers';
 
 export class NetworkNodesTileLayer {
 
-  public static build(networkType: NetworkType, nodeIds: List<number>, routeIds: List<number>): MapLayer {
+  public static build(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
 
     const bitmapLayer = this.buildBitmapLayer(networkType);
     const vectorLayer = this.buildVectorLayer(networkType);

@@ -79,14 +79,14 @@ export class NetworkRouteFilter {
               private filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>) {
   }
 
-  filter(routes: List<NetworkRouteRow>): List<NetworkRouteRow> {
+  filter(routes: NetworkRouteRow[]): NetworkRouteRow[] {
     return routes.filter(r => this.allFilters.passes(r));
   }
 
-  filterOptions(routes: List<NetworkRouteRow>): FilterOptions {
+  filterOptions(routes: NetworkRouteRow[]): FilterOptions {
 
-    const totalCount = routes.size;
-    const filteredCount = routes.count(route => this.allFilters.passes(route));
+    const totalCount = routes.length;
+    const filteredCount = routes.filter(route => this.allFilters.passes(route)).length;
 
     const investigate = this.investigateFilter.filterOptions(this.allFilters, routes);
     const accessible = this.accessibleFilter.filterOptions(this.allFilters, routes);

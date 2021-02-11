@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {NodeChangeInfo} from './node-change-info';
 
 export class NodeChangeInfos {
 
-  constructor(readonly changes: List<NodeChangeInfo>,
+  constructor(readonly changes: Array<NodeChangeInfo>,
               readonly incompleteWarning: boolean) {
   }
 
@@ -14,7 +13,7 @@ export class NodeChangeInfos {
       return undefined;
     }
     return new NodeChangeInfos(
-      jsonObject.changes ? List(jsonObject.changes.map((json: any) => NodeChangeInfo.fromJSON(json))) : List(),
+      jsonObject.changes.map((json: any) => NodeChangeInfo.fromJSON(json)),
       jsonObject.incompleteWarning
     );
   }

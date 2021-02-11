@@ -8,7 +8,7 @@ import {NodeIntegrityDetail} from '@api/common/node/node-integrity-detail';
   selector: 'kpn-node-integrity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="integrity.details.isEmpty()" i18n="@@node.integrity.none">
+    <p *ngIf="integrity.details.length === 0" i18n="@@node.integrity.none">
       There is no integrity information for this node
       (no expected_rXn_route_relations tag).
     </p>
@@ -21,7 +21,7 @@ import {NodeIntegrityDetail} from '@api/common/node/node-integrity-detail';
             The expected number of routes ({{detail.expectedRouteCount}}) matches the number of routes found.
           </span>
           <span *ngIf="!happy(detail)" i18n="@@node.integrity.not-ok">
-            The actual number of routes in this node ({{detail.routeRefs.size}})
+            The actual number of routes in this node ({{detail.routeRefs.length}})
             does not match the expected number of routes ({{detail.expectedRouteCount}}).
           </span>
           <kpn-icon-happy *ngIf="happy(detail)"></kpn-icon-happy>
@@ -77,7 +77,7 @@ export class NodeIntegrityComponent {
   @Input() integrity: NodeIntegrity;
 
   happy(detail: NodeIntegrityDetail): boolean {
-    return detail.expectedRouteCount === detail.routeRefs.size;
+    return detail.expectedRouteCount === detail.routeRefs.length;
   }
 
 }

@@ -28,7 +28,7 @@ import {NetworkFact} from '@api/common/network-fact';
       <kpn-network-fact-routes [routes]="fact.elements"></kpn-network-fact-routes>
     </div>
 
-    <div *ngIf="!fact.checks.isEmpty()">
+    <div *ngIf="fact.checks.length > 0">
       <kpn-network-fact-checks [checks]="fact.checks"></kpn-network-fact-checks>
     </div>
   `

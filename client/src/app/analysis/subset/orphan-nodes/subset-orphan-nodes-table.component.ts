@@ -82,7 +82,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria);
       this.dataSource.data = filter.filter(this.nodes).toArray();
-      this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes));
+      this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes.toArray()));
     });
   }
 

@@ -35,7 +35,7 @@ export class NetworkNodeFilter {
   private readonly referencedInRouteFilter = new BooleanFilter<NetworkNodeDetail>(
     'referencedInRoute',
     this.criteria.referencedInRoute,
-    (row) => !row.routeReferences.isEmpty(),
+    (row) => row.routeReferences.length > 0,
     this.update({...this.criteria, referencedInRoute: null}),
     this.update({...this.criteria, referencedInRoute: true}),
     this.update({...this.criteria, referencedInRoute: false})
@@ -71,7 +71,7 @@ export class NetworkNodeFilter {
   private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkNodeDetail>(
     'integrityCheckFailed',
     this.criteria.integrityCheckFailed,
-    (row) => row.expectedRouteCount === '-' ? false : (+row.expectedRouteCount !== row.routeReferences.size),
+    (row) => row.expectedRouteCount === '-' ? false : (+row.expectedRouteCount !== row.routeReferences.length),
     this.update({...this.criteria, integrityCheckFailed: null}),
     this.update({...this.criteria, integrityCheckFailed: true}),
     this.update({...this.criteria, integrityCheckFailed: false})
@@ -119,14 +119,14 @@ export class NetworkNodeFilter {
               private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria>) {
   }
 
-  filter(nodes: List<NetworkNodeDetail>): List<NetworkNodeDetail> {
+  filter(nodes: NetworkNodeDetail[]): NetworkNodeDetail[] {
     return nodes.filter(node => this.allFilters.passes(node));
   }
 
-  filterOptions(nodes: List<NetworkNodeDetail>): FilterOptions {
+  filterOptions(nodes: NetworkNodeDetail[]): FilterOptions {
 
-    const totalCount = nodes.size;
-    const filteredCount = nodes.count(node => this.allFilters.passes(node));
+    const totalCount = nodes.length;
+    const filteredCount = nodes.filter(node => this.allFilters.passes(node)).length;
 
     const definedInNetworkRelation = this.definedInNetworkRelationFilter.filterOptions(this.allFilters, nodes);
     const definedInRouteRelation = this.definedInRouteRelationFilter.filterOptions(this.allFilters, nodes);

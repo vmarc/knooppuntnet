@@ -1,12 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Day} from '../../custom/day';
 import {Fact} from '../../custom/fact';
-import {NodeIntegrityCheck} from '../node-integrity-check';
-import {Ref} from '../common/ref';
 import {Tags} from '../../custom/tags';
 import {Timestamp} from '../../custom/timestamp';
+import {Ref} from '../common/ref';
+import {NodeIntegrityCheck} from '../node-integrity-check';
 
 export class NetworkInfoNode {
 
@@ -21,9 +20,9 @@ export class NetworkInfoNode {
               readonly definedInRoute: boolean,
               readonly timestamp: Timestamp,
               readonly lastSurvey: Day,
-              readonly routeReferences: List<Ref>,
+              readonly routeReferences: Array<Ref>,
               readonly integrityCheck: NodeIntegrityCheck,
-              readonly facts: List<Fact>,
+              readonly facts: Array<Fact>,
               readonly tags: Tags) {
   }
 
@@ -43,9 +42,9 @@ export class NetworkInfoNode {
       jsonObject.definedInRoute,
       Timestamp.fromJSON(jsonObject.timestamp),
       Day.fromJSON(jsonObject.lastSurvey),
-      jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json)),
       NodeIntegrityCheck.fromJSON(jsonObject.integrityCheck),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       Tags.fromJSON(jsonObject.tags)
     );
   }

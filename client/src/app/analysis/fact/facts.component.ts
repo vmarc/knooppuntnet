@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component} from '@angular/core';
 import {Input} from '@angular/core';
-import {List} from 'immutable';
 import {FactInfo} from './fact-info';
 import {FactLevel} from './fact-level';
 import {Facts} from './facts';
@@ -11,7 +10,7 @@ import {Facts} from './facts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <div *ngIf="filteredFactInfos.isEmpty()" i18n="@@facts.none">
+    <div *ngIf="filteredFactInfos.length === 0" i18n="@@facts.none">
       None
     </div>
 
@@ -68,10 +67,10 @@ import {Facts} from './facts';
 })
 export class FactsComponent {
 
-  @Input() factInfos: List<FactInfo>;
+  @Input() factInfos: FactInfo[];
 
-  get filteredFactInfos(): List<FactInfo> {
-    return this.factInfos.filterNot(factInfo => factInfo.fact.name === 'RouteBroken');
+  get filteredFactInfos(): FactInfo[] {
+    return this.factInfos.filter(factInfo => factInfo.fact.name !== 'RouteBroken');
   }
 
   factLevel(factInfo: FactInfo): FactLevel {

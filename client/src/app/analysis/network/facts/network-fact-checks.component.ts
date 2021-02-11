@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {Check} from '@api/common/check';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-network-fact-checks',
@@ -33,5 +32,5 @@ import {List} from 'immutable';
   `
 })
 export class NetworkFactChecksComponent {
-  @Input() checks: List<Check>;
+  @Input() checks: Check[];
 }

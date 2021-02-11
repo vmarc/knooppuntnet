@@ -1,5 +1,4 @@
 import {NetworkMapNode} from '@api/common/network/network-map-node';
-import {List} from 'immutable';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {I18nService} from '../../../i18n/i18n.service';
@@ -13,7 +12,7 @@ export class NetworkNodesMarkerLayer {
   constructor(private i18nService: I18nService) {
   }
 
-  build(nodes: List<NetworkMapNode>): MapLayer {
+  build(nodes: NetworkMapNode[]): MapLayer {
 
     const markers = nodes.map(node => {
       const color = node.roleConnection ? 'green' : 'blue';

@@ -25,31 +25,31 @@ export class BooleanFilter<T> extends Filter<T> {
     return !this.getter(element);
   }
 
-  filterOptions(allFilters: Filters<T>, elements: List<T>): FilterOptionGroup {
+  filterOptions(allFilters: Filters<T>, elements: T[]): FilterOptionGroup {
 
     const filteredElements = allFilters.filterExcept(elements, this);
     const yesElements = filteredElements.filter(e => this.getter(e));
-    const noElements = filteredElements.filterNot(e => this.getter(e));
-    const active = !filteredElements.isEmpty() && !yesElements.isEmpty() && !noElements.isEmpty();
+    const noElements = filteredElements.filter(e => !this.getter(e));
+    const active = filteredElements.length > 0 && yesElements.length > 0 && noElements.length > 0;
 
     if (active) {
       const allOption = new FilterOption(
         'all',
-        filteredElements.size,
+        filteredElements.length,
         this.criterium == null,
         this.all
       );
 
       const yesOption = new FilterOption(
         'yes',
-        yesElements.size,
+        yesElements.length,
         this.criterium === true,
         this.yes
       );
 
       const noOption = new FilterOption(
         'no',
-        noElements.size,
+        noElements.length,
         this.criterium === false,
         this.no
       );
