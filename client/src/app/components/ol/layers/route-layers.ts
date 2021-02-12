@@ -1,3 +1,8 @@
+import {TrackPath} from '@api/common/common/track-path';
+import {TrackPoint} from '@api/common/common/track-point';
+import {TrackSegment} from '@api/common/common/track-segment';
+import {RouteMap} from '@api/common/route/route-map';
+import {RouteNetworkNodeInfo} from '@api/common/route/route-network-node-info';
 import {List} from 'immutable';
 import {Color} from 'ol/color';
 import Feature from 'ol/Feature';
@@ -7,15 +12,10 @@ import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import {I18nService} from '../../../i18n/i18n.service';
-import {TrackPath} from '@api/common/common/track-path';
-import {TrackPoint} from '@api/common/common/track-point';
-import {TrackSegment} from '@api/common/common/track-segment';
-import {RouteMap} from '@api/common/route/route-map';
-import {RouteNetworkNodeInfo} from '@api/common/route/route-network-node-info';
 import {Util} from '../../shared/util';
 import {Marker} from '../domain/marker';
-import {MapLayer} from './map-layer';
 import {Layers} from './layers';
+import {MapLayer} from './map-layer';
 
 export class RouteLayers {
 
@@ -35,7 +35,7 @@ export class RouteLayers {
 
   private buildForwardLayer(): MapLayer {
     const path = this.routeMap.forwardPath;
-    if (path && !path.segments.isEmpty()) {
+    if (path && path.segments.length > 0) {
       const title = this.i18nService.translation('@@map.layer.forward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
@@ -65,7 +65,7 @@ export class RouteLayers {
 
   private buildStartTentaclesLayer(): MapLayer {
     const paths = this.routeMap.startTentaclePaths;
-    if (paths && !paths.isEmpty()) {
+    if (paths && paths.length > 0) {
       const title = this.i18nService.translation('@@map.layer.start-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
@@ -82,7 +82,7 @@ export class RouteLayers {
 
   private buildEndTentaclesLayer(): MapLayer {
     const paths = this.routeMap.endTentaclePaths;
-    if (paths && !paths.isEmpty()) {
+    if (paths && paths.length > 0) {
       const title = this.i18nService.translation('@@map.layer.end-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
@@ -99,7 +99,7 @@ export class RouteLayers {
 
   private buildUnusedSegmentsLayer(): MapLayer {
     const segments = this.routeMap.unusedSegments;
-    if (segments && !segments.isEmpty()) {
+    if (segments && segments.length > 0) {
       const title = this.i18nService.translation('@@map.layer.unused');
       const source = new VectorSource();
       const layer = new VectorLayer({
@@ -120,7 +120,7 @@ export class RouteLayers {
     const startTentacleNodeMarkers = this.buildMarkers(this.routeMap.startTentacleNodes, 'orange', '@@map.start-tentacle-node');
     const endTentacleNodeMarkers = this.buildMarkers(this.routeMap.endTentacleNodes, 'purple', '@@map.end-tentacle-node');
     const redundantNodeMarkers = this.buildMarkers(this.routeMap.redundantNodes, 'yellow', '@@map.redundant-node');
-    const markers: List<Feature> = startNodeMarkers
+    const markers: Feature[] = startNodeMarkers
       .concat(endNodeMarkers)
       .concat(startTentacleNodeMarkers)
       .concat(endTentacleNodeMarkers)
@@ -133,13 +133,13 @@ export class RouteLayers {
       source
     });
 
-    source.addFeatures(markers.toArray());
+    source.addFeatures(markers);
     const layerName = this.i18nService.translation('@@map.layer.nodes');
     layer.set('name', layerName);
     return new MapLayer('route-marker-layer', layer);
   }
 
-  private buildMarkers(nodes: List<RouteNetworkNodeInfo>, color: string, nodeType: string): List<Feature> {
+  private buildMarkers(nodes: RouteNetworkNodeInfo[], color: string, nodeType: string): Feature[] {
     const translatedNodeType = this.i18nService.translation(nodeType);
     return nodes.map(node => {
       const coordinate = Util.toCoordinate(node.lat, node.lon);
@@ -150,7 +150,7 @@ export class RouteLayers {
   }
 
   private pathToFeature(title: string, color: Color, path: TrackPath): Feature {
-    const trackPoints = List([path.segments.get(0).source]).concat(
+    const trackPoints = List([path.segments[0].source]).concat(
       path.segments.flatMap(segment => segment.fragments.map(fragment => fragment.trackPoint))
     );
     return this.trackPointsToFeature(title, color, trackPoints);

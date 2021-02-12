@@ -8,7 +8,6 @@ import {SubsetMapNetwork} from '@api/common/subset/subset-map-network';
 import {SubsetMapPage} from '@api/common/subset/subset-map-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {Subset} from '@api/custom/subset';
-import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {map, mergeMap, tap} from 'rxjs/operators';
@@ -49,7 +48,7 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
   response$: Observable<ApiResponse<SubsetMapPage>>;
 
   bounds: Bounds;
-  networks: List<SubsetMapNetwork>;
+  networks: SubsetMapNetwork[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

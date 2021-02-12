@@ -1,7 +1,11 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {List} from 'immutable';
+import {NetworkAttributes} from '@api/common/network/network-attributes';
+import {SubsetInfo} from '@api/common/subset/subset-info';
+import {SubsetNetworksPage} from '@api/common/subset/subset-networks-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Subset} from '@api/custom/subset';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {map, mergeMap, tap} from 'rxjs/operators';
@@ -9,13 +13,8 @@ import {AppService} from '../../../app.service';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
-import {NetworkAttributes} from '@api/common/network/network-attributes';
-import {SubsetNetworksPage} from '@api/common/subset/subset-networks-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {Subset} from '@api/custom/subset';
 import {NetworkCacheService} from '../../../services/network-cache.service';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
-import {SubsetInfo} from '@api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-networks-page',
@@ -33,10 +32,10 @@ import {SubsetInfo} from '@api/common/subset/subset-info';
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div *ngIf="networks.isEmpty()" i18n="@@subset-networks.no-networks">
+      <div *ngIf="networks.length === 0" i18n="@@subset-networks.no-networks">
         No networks
       </div>
-      <div *ngIf="!networks.isEmpty()">
+      <div *ngIf="networks.length > 0">
         <p>
           <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
         </p>
@@ -65,7 +64,7 @@ export class SubsetNetworksPageComponent implements OnInit {
   response$: Observable<ApiResponse<SubsetNetworksPage>>;
 
   page: SubsetNetworksPage;
-  networks: List<NetworkAttributes> = List();
+  networks: NetworkAttributes[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

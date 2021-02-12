@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {MetaData} from '../data/meta-data';
 import {NodeUpdate} from './node-update';
 import {RawNode} from '../data/raw/raw-node';
@@ -11,9 +10,9 @@ export class WayUpdate {
   constructor(readonly id: number,
               readonly before: MetaData,
               readonly after: MetaData,
-              readonly removedNodes: List<RawNode>,
-              readonly addedNodes: List<RawNode>,
-              readonly updatedNodes: List<NodeUpdate>,
+              readonly removedNodes: Array<RawNode>,
+              readonly addedNodes: Array<RawNode>,
+              readonly updatedNodes: Array<NodeUpdate>,
               readonly directionReversed: boolean,
               readonly tagDiffs: TagDiffs) {
   }
@@ -26,9 +25,9 @@ export class WayUpdate {
       jsonObject.id,
       MetaData.fromJSON(jsonObject.before),
       MetaData.fromJSON(jsonObject.after),
-      jsonObject.removedNodes ? List(jsonObject.removedNodes.map((json: any) => RawNode.fromJSON(json))) : List(),
-      jsonObject.addedNodes ? List(jsonObject.addedNodes.map((json: any) => RawNode.fromJSON(json))) : List(),
-      jsonObject.updatedNodes ? List(jsonObject.updatedNodes.map((json: any) => NodeUpdate.fromJSON(json))) : List(),
+      jsonObject.removedNodes.map((json: any) => RawNode.fromJSON(json)),
+      jsonObject.addedNodes.map((json: any) => RawNode.fromJSON(json)),
+      jsonObject.updatedNodes.map((json: any) => NodeUpdate.fromJSON(json)),
       jsonObject.directionReversed,
       TagDiffs.fromJSON(jsonObject.tagDiffs)
     );

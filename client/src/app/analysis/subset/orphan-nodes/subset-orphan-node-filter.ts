@@ -30,7 +30,7 @@ export class SubsetOrphanNodeFilter {
               private readonly filterCriteria: BehaviorSubject<SubsetOrphanNodeFilterCriteria>) {
   }
 
-  filter(nodes: List<NodeInfo>): List<NodeInfo> {
+  filter(nodes: NodeInfo[]): NodeInfo[] {
     return nodes.filter(node => this.allFilters.passes(node));
   }
 

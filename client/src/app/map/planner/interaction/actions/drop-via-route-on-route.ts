@@ -31,7 +31,7 @@ export class DropViaRouteOnRoute {
   private buildViaRouteLeg(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): Observable<PlanLeg> {
 
     const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
-    const sink = PlanUtil.legEndRoutes(routeFeatures);
+    const sink = PlanUtil.legEndRoutes(routeFeatures.toArray());
     const viaFlag = PlanUtil.viaFlag(coordinate);
     const sinkFlag = PlanUtil.invisibleFlag(coordinate);
 

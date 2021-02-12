@@ -34,6 +34,6 @@ export class RouteDiffsRemovedComponent implements OnInit {
   refs: Array<RefRouteChangeInfo>;
 
   ngOnInit(): void {
-    this.refs = this.data.refDiffs.removed.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref))).toArray();
+    this.refs = this.data.refDiffs.removed.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref)));
   }
 }

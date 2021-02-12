@@ -1,12 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Ref} from '../../common/ref';
 
 export class RefChanges {
 
-  constructor(readonly oldRefs: List<Ref>,
-              readonly newRefs: List<Ref>) {
+  constructor(readonly oldRefs: Array<Ref>,
+              readonly newRefs: Array<Ref>) {
   }
 
   public static fromJSON(jsonObject: any): RefChanges {
@@ -14,8 +13,8 @@ export class RefChanges {
       return undefined;
     }
     return new RefChanges(
-      jsonObject.oldRefs ? List(jsonObject.oldRefs.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.newRefs ? List(jsonObject.newRefs.map((json: any) => Ref.fromJSON(json))) : List()
+      jsonObject.oldRefs.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.newRefs.map((json: any) => Ref.fromJSON(json))
     );
   }
 }

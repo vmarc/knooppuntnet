@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Ref} from './common/ref';
 
 export class RoutesFact {
 
-  constructor(readonly routes: List<Ref>) {
+  constructor(readonly routes: Array<Ref>) {
   }
 
   public static fromJSON(jsonObject: any): RoutesFact {
@@ -13,7 +12,7 @@ export class RoutesFact {
       return undefined;
     }
     return new RoutesFact(
-      jsonObject.routes ? List(jsonObject.routes.map((json: any) => Ref.fromJSON(json))) : List()
+      jsonObject.routes.map((json: any) => Ref.fromJSON(json))
     );
   }
 }

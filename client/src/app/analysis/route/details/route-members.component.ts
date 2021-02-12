@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 import {NetworkType} from '@api/custom/network-type';
 import {RouteMemberInfo} from '@api/custom/route-member-info';
 
@@ -10,10 +9,10 @@ import {RouteMemberInfo} from '@api/custom/route-member-info';
   template: `
     <div>
       <h4 i18n="@@route.members.title">Route Members</h4>
-      <div *ngIf="members.isEmpty()">
+      <div *ngIf="members.length === 0">
         <span i18n="@@route.members.none">None</span>
       </div>
-      <div *ngIf="!members.isEmpty()">
+      <div *ngIf="members.length > 0">
 
         <table class="kpn-table">
           <thead>
@@ -42,9 +41,9 @@ import {RouteMemberInfo} from '@api/custom/route-member-info';
             <td>
               <div class="kpn-comma-list">
                 <kpn-link-node
-                  *ngFor="let node of member.nodes"
-                  [nodeId]="node.id"
-                  [nodeName]="node.alternateName">
+                    *ngFor="let node of member.nodes"
+                    [nodeId]="node.id"
+                    [nodeName]="node.alternateName">
                 </kpn-link-node>
               </div>
             </td>
@@ -104,5 +103,5 @@ import {RouteMemberInfo} from '@api/custom/route-member-info';
 })
 export class RouteMembersComponent {
   @Input() networkType: NetworkType;
-  @Input() members: List<RouteMemberInfo>;
+  @Input() members: RouteMemberInfo[];
 }

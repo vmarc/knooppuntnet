@@ -31,8 +31,8 @@ export class RouteChangeLayers {
     ]).filter(layer => layer !== null);
   }
 
-  private segmentLayer(name: string, segments: List<PointSegment>, width: number, color: Color): MapLayer {
-    if (segments.isEmpty()) {
+  private segmentLayer(name: string, segments: PointSegment[], width: number, color: Color): MapLayer {
+    if (segments.length === 0) {
       return null;
     }
 

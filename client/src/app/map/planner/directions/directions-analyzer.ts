@@ -30,7 +30,7 @@ export class DirectionsAnalyzer {
 
               let street = '';
               if (fragment.streetIndex != null) {
-                street = route.streets.get(fragment.streetIndex);
+                street = route.streets[fragment.streetIndex];
               }
 
               let command = 'continue';

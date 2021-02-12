@@ -15,8 +15,8 @@ export class PlanBuilder {
 
   static build(planDetail: PlanLegDetail, planString: string): Plan {
     const planLegFeatureId = FeatureId.next();
-    const sourceNode = planDetail.routes.get(0).sourceNode;
-    const sinkNode = planDetail.routes.last(null).sinkNode;
+    const sourceNode = planDetail.routes[0].sourceNode;
+    const sinkNode = planDetail.routes[planDetail.routes.length - 1].sinkNode;
     const source = new LegEnd(new LegEndNode(+sourceNode.nodeId), null);
     const sourceFlag = new PlanFlag(PlanFlagType.Start, FeatureId.next(), sourceNode.coordinate);
     const sink = new LegEnd(new LegEndNode(+sinkNode.nodeId), null);
@@ -29,7 +29,7 @@ export class PlanBuilder {
       sink,
       sinkFlag,
       viaFlag,
-      planDetail.routes
+      List(planDetail.routes)
     );
     return new Plan(sourceNode, sourceFlag, List([planLeg]));
   }

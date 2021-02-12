@@ -31,9 +31,9 @@ export class ChangeSetOrphanNodeChangesComponent {
   nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
 
     const refDiffs = new RefDiffs(
-      List(this.toRefs(refs.elementRefs.removed)),
-      List(this.toRefs(refs.elementRefs.added)),
-      List(this.toRefs(refs.elementRefs.updated))
+      this.toRefs(refs.elementRefs.removed),
+      this.toRefs(refs.elementRefs.added),
+      this.toRefs(refs.elementRefs.updated)
     );
 
     return new NodeDiffsData(

@@ -19,6 +19,6 @@ export class LinkRouteRefComponent implements OnInit {
   known: boolean;
 
   ngOnInit(): void {
-    this.known = this.knownElements.routeIds.contains(this.ref.id);
+    this.known = this.knownElements.routeIds.includes(this.ref.id);
   }
 }

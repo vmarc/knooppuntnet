@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Tags} from '../custom/tags';
 
 export class PoiAnalysis {
 
-  constructor(readonly layers: List<string>,
+  constructor(readonly layers: Array<string>,
               readonly mainTags: Tags,
               readonly extraTags: Tags,
               readonly name: string,
@@ -40,7 +39,7 @@ export class PoiAnalysis {
       return undefined;
     }
     return new PoiAnalysis(
-      jsonObject.layers ? List(jsonObject.layers) : List(),
+      jsonObject.layers,
       Tags.fromJSON(jsonObject.mainTags),
       Tags.fromJSON(jsonObject.extraTags),
       jsonObject.name,

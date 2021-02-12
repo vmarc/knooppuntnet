@@ -57,11 +57,11 @@ export class PlanUtil {
     return new LegEnd(new LegEndNode(nodeId), null);
   }
 
-  static legEndRoute(trackPathKeys: List<TrackPathKey>): LegEnd {
+  static legEndRoute(trackPathKeys: TrackPathKey[]): LegEnd {
     return new LegEnd(null, new LegEndRoute(trackPathKeys, null));
   }
 
-  static legEndRoutes(routeFeatures: List<RouteFeature>): LegEnd {
+  static legEndRoutes(routeFeatures: RouteFeature[]): LegEnd {
     const trackPathKeys = routeFeatures.map(routeFeature => routeFeature.toTrackPathKey());
     return new LegEnd(null, new LegEndRoute(trackPathKeys, null));
   }
@@ -147,8 +147,8 @@ export class PlanUtil {
     const legKey = sourceNode.nodeId + '-' + sinkNode.nodeId;
 
     const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, '', null, List([fragment]));
-    const route = new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
+    const segment = new PlanSegment(0, '', null, [fragment]);
+    const route = new PlanRoute(sourceNode, sinkNode, 0, [segment], []);
     return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
   }
 
@@ -159,8 +159,8 @@ export class PlanUtil {
 
   static planRoute(sourceNode: PlanNode, sinkNode: PlanNode): PlanRoute {
     const fragment = new PlanFragment(0, 0, -1, sinkNode.coordinate, sinkNode.latLon);
-    const segment = new PlanSegment(0, '', null, List([fragment]));
-    return new PlanRoute(sourceNode, sinkNode, 0, List([segment]), List());
+    const segment = new PlanSegment(0, '', null, [fragment]);
+    return new PlanRoute(sourceNode, sinkNode, 0, [segment], []);
   }
 
 }

@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-route-structure',
@@ -20,7 +19,7 @@ import {List} from 'immutable';
 })
 export class RouteStructureComponent {
 
-  @Input() structureStrings: List<string>;
+  @Input() structureStrings: string[];
 
   constructor(private sanitizer: DomSanitizer) {
   }

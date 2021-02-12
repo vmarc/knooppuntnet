@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {NetworkAttributes} from '../network/network-attributes';
 import {SubsetInfo} from './subset-info';
 
@@ -17,7 +16,7 @@ export class SubsetNetworksPage {
               readonly brokenRoutePercentage: string,
               readonly unaccessibleRouteCount: number,
               readonly analysisUpdatedTime: string,
-              readonly networks: List<NetworkAttributes>) {
+              readonly networks: Array<NetworkAttributes>) {
   }
 
   public static fromJSON(jsonObject: any): SubsetNetworksPage {
@@ -36,7 +35,7 @@ export class SubsetNetworksPage {
       jsonObject.brokenRoutePercentage,
       jsonObject.unaccessibleRouteCount,
       jsonObject.analysisUpdatedTime,
-      jsonObject.networks ? List(jsonObject.networks.map((json: any) => NetworkAttributes.fromJSON(json))) : List()
+      jsonObject.networks.map((json: any) => NetworkAttributes.fromJSON(json))
     );
   }
 }

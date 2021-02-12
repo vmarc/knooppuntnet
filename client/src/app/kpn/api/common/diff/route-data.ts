@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Country} from '../../custom/country';
 import {Fact} from '../../custom/fact';
 import {NetworkType} from '../../custom/network-type';
@@ -14,11 +13,11 @@ export class RouteData {
               readonly networkType: NetworkType,
               readonly relation: RawRelation,
               readonly name: string,
-              readonly networkNodes: List<RawNode>,
-              readonly nodes: List<RawNode>,
-              readonly ways: List<RawWay>,
-              readonly relations: List<RawRelation>,
-              readonly facts: List<Fact>) {
+              readonly networkNodes: Array<RawNode>,
+              readonly nodes: Array<RawNode>,
+              readonly ways: Array<RawWay>,
+              readonly relations: Array<RawRelation>,
+              readonly facts: Array<Fact>) {
   }
 
   public static fromJSON(jsonObject: any): RouteData {
@@ -30,11 +29,11 @@ export class RouteData {
       NetworkType.fromJSON(jsonObject.networkType),
       RawRelation.fromJSON(jsonObject.relation),
       jsonObject.name,
-      jsonObject.networkNodes ? List(jsonObject.networkNodes.map((json: any) => RawNode.fromJSON(json))) : List(),
-      jsonObject.nodes ? List(jsonObject.nodes.map((json: any) => RawNode.fromJSON(json))) : List(),
-      jsonObject.ways ? List(jsonObject.ways.map((json: any) => RawWay.fromJSON(json))) : List(),
-      jsonObject.relations ? List(jsonObject.relations.map((json: any) => RawRelation.fromJSON(json))) : List(),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List()
+      jsonObject.networkNodes.map((json: any) => RawNode.fromJSON(json)),
+      jsonObject.nodes.map((json: any) => RawNode.fromJSON(json)),
+      jsonObject.ways.map((json: any) => RawWay.fromJSON(json)),
+      jsonObject.relations.map((json: any) => RawRelation.fromJSON(json)),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json))
     );
   }
 }

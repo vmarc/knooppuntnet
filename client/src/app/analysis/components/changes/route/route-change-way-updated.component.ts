@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 import {RawNode} from '@api/common/data/raw/raw-node';
 import {NodeUpdate} from '@api/common/diff/node-update';
 import {WayUpdate} from '@api/common/diff/way-update';
@@ -33,17 +32,17 @@ import {Util} from '../../../../components/shared/util';
           Direction reversed
         </div>
 
-        <div *ngIf="!wayUpdate.removedNodes.isEmpty()" class="kpn-detail">
+        <div *ngIf="wayUpdate.removedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes">Removed node(s)</span>
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.removedNodes)"></kpn-node-list>
         </div>
 
-        <div *ngIf="!wayUpdate.addedNodes.isEmpty()" class="kpn-detail">
+        <div *ngIf="wayUpdate.addedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.added-nodes">Added node(s)</span>
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)"></kpn-node-list>
         </div>
 
-        <div *ngIf="!wayUpdate.updatedNodes.isEmpty()" class="kpn-detail">
+        <div *ngIf="wayUpdate.updatedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes">Updated node(s)</span>
           <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)"></kpn-node-list>
         </div>
@@ -59,11 +58,11 @@ export class RouteChangeWayUpdatedComponent {
 
   @Input() wayUpdate: WayUpdate;
 
-  nodeIds(nodes: List<RawNode>): List<number> {
+  nodeIds(nodes: RawNode[]): number[] {
     return nodes.map(node => node.id);
   }
 
-  nodeUpdateIds(nodes: List<NodeUpdate>): List<number> {
+  nodeUpdateIds(nodes: NodeUpdate[]): number[] {
     return nodes.map(node => node.after.id);
   }
 

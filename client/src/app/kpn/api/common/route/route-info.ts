@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Day} from '../../custom/day';
 import {Fact} from '../../custom/fact';
 import {RouteInfoAnalysis} from './route-info-analysis';
@@ -18,9 +17,9 @@ export class RouteInfo {
               readonly lastUpdated: Timestamp,
               readonly lastSurvey: Day,
               readonly tags: Tags,
-              readonly facts: List<Fact>,
+              readonly facts: Array<Fact>,
               readonly analysis: RouteInfoAnalysis,
-              readonly tiles: List<string>) {
+              readonly tiles: Array<string>) {
   }
 
   public static fromJSON(jsonObject: any): RouteInfo {
@@ -36,9 +35,9 @@ export class RouteInfo {
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Day.fromJSON(jsonObject.lastSurvey),
       Tags.fromJSON(jsonObject.tags),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       RouteInfoAnalysis.fromJSON(jsonObject.analysis),
-      jsonObject.tiles ? List(jsonObject.tiles) : List()
+      jsonObject.tiles
     );
   }
 }

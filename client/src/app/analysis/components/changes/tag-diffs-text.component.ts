@@ -2,18 +2,17 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit} from '@angular/core';
 import {TagDetail} from '@api/common/diff/tag-detail';
 import {TagDiffs} from '@api/common/diff/tag-diffs';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-tag-diffs-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 
-    <div *ngIf="!deletedTagDetails.isEmpty()">
-      <div *ngIf="deletedTagDetails.size == 1" class="important-title">
+    <div *ngIf="deletedTagDetails.length > 0">
+      <div *ngIf="deletedTagDetails.length === 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.deleted-tag">Deleted tag</span>
       </div>
-      <div *ngIf="deletedTagDetails.size > 1" class="important-title">
+      <div *ngIf="deletedTagDetails.length > 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.deleted-tags">Deleted tags</span>
       </div>
       <div *ngFor="let tagDetail of deletedTagDetails" class="tag-detail">
@@ -33,11 +32,11 @@ import {List} from 'immutable';
     </div>
 
 
-    <div *ngIf="!addedTagDetails.isEmpty()">
-      <div *ngIf="addedTagDetails.size == 1" class="important-title">
+    <div *ngIf="addedTagDetails.length > 0">
+      <div *ngIf="addedTagDetails.length === 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.added-tag">Added tag</span>
       </div>
-      <div *ngIf="addedTagDetails.size > 1" class="important-title">
+      <div *ngIf="addedTagDetails.length > 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.added-tags">Added tags</span>
       </div>
       <div *ngFor="let tagDetail of addedTagDetails" class="tag-detail">
@@ -57,11 +56,11 @@ import {List} from 'immutable';
     </div>
 
 
-    <div *ngIf="!updatedTagDetails.isEmpty()">
-      <div *ngIf="updatedTagDetails.size == 1" class="important-title">
+    <div *ngIf="updatedTagDetails.length > 0">
+      <div *ngIf="updatedTagDetails.length === 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.updated-tag">Updated tag</span>
       </div>
-      <div *ngIf="updatedTagDetails.size > 1" class="important-title">
+      <div *ngIf="updatedTagDetails.length > 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.updated-tags">Updated tags</span>
       </div>
       <div *ngFor="let tagDetail of updatedTagDetails" class="tag-detail">
@@ -87,11 +86,11 @@ import {List} from 'immutable';
     </div>
 
 
-    <div *ngIf="!sameTagDetails.isEmpty()">
-      <div *ngIf="sameTagDetails.size == 1" class="title">
+    <div *ngIf="sameTagDetails.length > 0">
+      <div *ngIf="sameTagDetails.length === 1" class="title">
         <span class="kpn-label" i18n="@@tag-diffs.same-tag">Same tag</span>
       </div>
-      <div *ngIf="sameTagDetails.size > 1" class="important-title">
+      <div *ngIf="sameTagDetails.length > 1" class="important-title">
         <span class="kpn-label" i18n="@@tag-diffs.same-tags">Same tags</span>
       </div>
       <div *ngFor="let tagDetail of sameTagDetails" class="tag-detail">
@@ -115,7 +114,6 @@ import {List} from 'immutable';
         </div>
       </div>
     </div>
-
   `,
   styles: [`
 
@@ -153,10 +151,10 @@ export class TagDiffsTextComponent implements OnInit {
 
   @Input() tagDiffs: TagDiffs;
 
-  deletedTagDetails: List<TagDetail>;
-  addedTagDetails: List<TagDetail>;
-  updatedTagDetails: List<TagDetail>;
-  sameTagDetails: List<TagDetail>;
+  deletedTagDetails: TagDetail[];
+  addedTagDetails: TagDetail[];
+  updatedTagDetails: TagDetail[];
+  sameTagDetails: TagDetail[];
 
   ngOnInit(): void {
     const allTagDetails = this.tagDiffs.mainTags.concat(this.tagDiffs.extraTags);

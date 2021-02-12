@@ -64,7 +64,7 @@ import {SubsetOrphanRoutesService} from './subset-orphan-routes.service';
 export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   @Input() timeInfo: TimeInfo;
-  @Input() orphanRoutes: List<RouteSummary> = List();
+  @Input() orphanRoutes: RouteSummary[];
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
 
@@ -82,8 +82,8 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanRouteFilter(this.timeInfo, criteria, this.filterCriteria);
-      this.dataSource.data = filter.filter(this.orphanRoutes).toArray();
-      this.subsetOrphanRoutesService.filterOptions.next(filter.filterOptions(this.orphanRoutes.toArray()));
+      this.dataSource.data = filter.filter(this.orphanRoutes);
+      this.subsetOrphanRoutesService.filterOptions.next(filter.filterOptions(this.orphanRoutes));
     });
   }
 

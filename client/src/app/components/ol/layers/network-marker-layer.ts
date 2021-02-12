@@ -1,5 +1,4 @@
 import {SubsetMapNetwork} from '@api/common/subset/subset-map-network';
-import {List} from 'immutable';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {I18nService} from '../../../i18n/i18n.service';
@@ -16,7 +15,7 @@ export class NetworkMarkerLayer {
   constructor(private i18nService: I18nService) {
   }
 
-  build(networks: List<SubsetMapNetwork>): MapLayer {
+  build(networks: SubsetMapNetwork[]): MapLayer {
 
     const markers = networks.map(network => {
       const coordinate = Util.toCoordinate(network.center.latitude, network.center.longitude);

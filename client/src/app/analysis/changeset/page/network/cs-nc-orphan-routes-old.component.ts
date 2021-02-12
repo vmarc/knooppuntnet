@@ -1,6 +1,6 @@
+import {OnInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info';
 import {KnownElements} from '@api/common/common/known-elements';
 import {Ref} from '@api/common/common/ref';
@@ -9,12 +9,12 @@ import {Ref} from '@api/common/common/ref';
   selector: 'kpn-cs-nc-orphan-routes-old',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="!refs().isEmpty()" class="kpn-detail">
+    <div *ngIf="refs.length > 0" class="kpn-detail">
       <span i18n="@@change-set.network-changes.orphan-routes-added" class="kpn-label">
         Orphan routes added to this network</span>
       <div class="kpn-comma-list">
         <kpn-link-route-ref
-          *ngFor="let ref of refs()"
+          *ngFor="let ref of refs"
           [ref]="ref"
           [knownElements]="knownElements">
         </kpn-link-route-ref>
@@ -23,13 +23,15 @@ import {Ref} from '@api/common/common/ref';
     </div>
   `
 })
-export class CsNcOrphanRoutesOldComponent {
+export class CsNcOrphanRoutesOldComponent implements OnInit {
 
   @Input() networkChangeInfo: NetworkChangeInfo;
   @Input() knownElements: KnownElements;
 
-  refs(): List<Ref> {
-    return this.networkChangeInfo.orphanRoutes.oldRefs;
+  refs: Ref[];
+
+  ngOnInit(): void {
+    this.refs = this.networkChangeInfo.orphanRoutes.oldRefs;
   }
 
 }

@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit} from '@angular/core';
-import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
 import {RouteSummary} from '@api/common/route-summary';
 import {Tags} from '@api/custom/tags';
+import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
 
 @Component({
   selector: 'kpn-subset-orphan-route',
@@ -17,7 +17,7 @@ import {Tags} from '@api/custom/tags';
     <p *ngIf="route.isBroken" i18n="@@subset-orphan-routes.route-is-broken">
       route is broken
     </p>
-    <p *ngIf="!route.nodeNames.isEmpty()" class="kpn-comma-list">
+    <p *ngIf="route.nodeNames.length > 0" class="kpn-comma-list">
       <span *ngFor="let name of route.nodeNames">
         {{name}}
       </span>

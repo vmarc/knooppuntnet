@@ -41,7 +41,7 @@ export class RouteLocationComponent {
   }
 
   hasLocations(): boolean {
-    return this.locationAnalysis && this.locationAnalysis.candidates && !this.locationAnalysis.candidates.isEmpty();
+    return this.locationAnalysis && this.locationAnalysis.candidates && this.locationAnalysis.candidates.length > 0;
   }
 
   percentage(locationCandidate: LocationCandidate): string {

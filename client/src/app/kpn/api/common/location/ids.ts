@@ -1,10 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-
 export class Ids {
 
-  constructor(readonly ids: List<number>) {
+  constructor(readonly ids: Array<number>) {
   }
 
   public static fromJSON(jsonObject: any): Ids {
@@ -12,7 +10,7 @@ export class Ids {
       return undefined;
     }
     return new Ids(
-      jsonObject.ids ? List(jsonObject.ids) : List()
+      jsonObject.ids
     );
   }
 }

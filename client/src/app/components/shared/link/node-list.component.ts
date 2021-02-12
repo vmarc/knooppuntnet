@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 
 @Component({
   selector: 'kpn-node-list',
@@ -12,5 +11,5 @@ import {List} from 'immutable';
   `
 })
 export class NodeListComponent {
-  @Input() nodeIds: List<number>;
+  @Input() nodeIds: number[];
 }

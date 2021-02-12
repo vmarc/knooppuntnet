@@ -1,12 +1,11 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {TagDetail} from './tag-detail';
 
 export class TagDiffs {
 
-  constructor(readonly mainTags: List<TagDetail>,
-              readonly extraTags: List<TagDetail>) {
+  constructor(readonly mainTags: Array<TagDetail>,
+              readonly extraTags: Array<TagDetail>) {
   }
 
   public static fromJSON(jsonObject: any): TagDiffs {
@@ -14,8 +13,8 @@ export class TagDiffs {
       return undefined;
     }
     return new TagDiffs(
-      jsonObject.mainTags ? List(jsonObject.mainTags.map((json: any) => TagDetail.fromJSON(json))) : List(),
-      jsonObject.extraTags ? List(jsonObject.extraTags.map((json: any) => TagDetail.fromJSON(json))) : List()
+      jsonObject.mainTags.map((json: any) => TagDetail.fromJSON(json)),
+      jsonObject.extraTags.map((json: any) => TagDetail.fromJSON(json))
     );
   }
 }

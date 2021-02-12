@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PlanRoute} from '@api/common/planner/plan-route';
+import {List} from 'immutable';
 import {Map as TranslationMap} from 'immutable';
 import Map from 'ol/Map';
 import {BehaviorSubject} from 'rxjs';
@@ -83,12 +84,12 @@ export class PlannerService {
   }
 
   hasColour(planRoute: PlanRoute): boolean {
-    return planRoute.segments.filter(segment => !!segment.colour).size > 0;
+    return planRoute.segments.filter(segment => !!segment.colour).length > 0;
   }
 
   colours(planRoute: PlanRoute): string {
     const colourValues = planRoute.segments.filter(segment => !!segment.colour).map(segment => segment.colour);
-    const distinctColours = PlanUtil.distinctColours(colourValues);
+    const distinctColours = PlanUtil.distinctColours(List(colourValues));
     const colourGroups = distinctColours.map(colour => this.colour(colour));
     return colourGroups.join(' > ');
   }

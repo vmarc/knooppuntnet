@@ -1,3 +1,5 @@
+import {RouteSummary} from '@api/common/route-summary';
+import {TimeInfo} from '@api/common/time-info';
 import {List} from 'immutable';
 import {BehaviorSubject} from 'rxjs';
 import {BooleanFilter} from '../../../kpn/filter/boolean-filter';
@@ -5,8 +7,6 @@ import {FilterOptions} from '../../../kpn/filter/filter-options';
 import {Filters} from '../../../kpn/filter/filters';
 import {TimestampFilter} from '../../../kpn/filter/timestamp-filter';
 import {TimestampFilterKind} from '../../../kpn/filter/timestamp-filter-kind';
-import {RouteSummary} from '@api/common/route-summary';
-import {TimeInfo} from '@api/common/time-info';
 import {SubsetOrphanRouteFilterCriteria} from './subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRouteFilter {
@@ -39,7 +39,7 @@ export class SubsetOrphanRouteFilter {
               private readonly filterCriteria: BehaviorSubject<SubsetOrphanRouteFilterCriteria>) {
   }
 
-  filter(routes: List<RouteSummary>): List<RouteSummary> {
+  filter(routes: RouteSummary[]): RouteSummary[] {
     return routes.filter(route => this.allFilters.passes(route));
   }
 

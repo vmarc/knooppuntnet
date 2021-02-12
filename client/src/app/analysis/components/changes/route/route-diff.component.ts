@@ -27,14 +27,14 @@ import {Util} from '../../../../components/shared/util';
     <kpn-fact-diffs [factDiffs]="diffs.factDiffs"></kpn-fact-diffs>
 
     <ng-container *ngFor="let nodeDiff of diffs.nodeDiffs">
-      <div *ngIf="!nodeDiff.added.isEmpty()" class="kpn-detail">
+      <div *ngIf="nodeDiff.added.length > 0" class="kpn-detail">
         <kpn-route-node-diff
           action="added"
           [title]="nodeDiff.title"
           [nodeRefs]="nodeDiff.added">
         </kpn-route-node-diff>
       </div>
-      <div *ngIf="!nodeDiff.removed.isEmpty()" class="kpn-detail">
+      <div *ngIf="nodeDiff.removed.length > 0" class="kpn-detail">
         <kpn-route-node-diff
           action="removed"
           [title]="nodeDiff.title"

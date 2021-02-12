@@ -1,10 +1,9 @@
-import {Plan} from '../plan/plan';
-import {Printer} from './printer';
-import {PlanNode} from '@api/common/planner/plan-node';
-import {PlanFlag} from '../plan/plan-flag';
-import {LegEnd} from '@api/common/planner/leg-end';
 import {TrackPathKey} from '@api/common/common/track-path-key';
-import {List} from 'immutable';
+import {LegEnd} from '@api/common/planner/leg-end';
+import {PlanNode} from '@api/common/planner/plan-node';
+import {Plan} from '../plan/plan';
+import {PlanFlag} from '../plan/plan-flag';
+import {Printer} from './printer';
 
 export class PlanPrinter {
 
@@ -59,7 +58,7 @@ export class PlanPrinter {
     return 'none';
   }
 
-  private static trackPathKeys(keys: List<TrackPathKey>): string {
+  private static trackPathKeys(keys: TrackPathKey[]): string {
     return keys.map(key => PlanPrinter.trackPathKey(key)).join('|');
   }
 

@@ -61,7 +61,7 @@ export class TagDiffsTableComponent {
   @Input() tagDiffs: TagDiffs;
 
   hasSeparator(): boolean {
-    return !this.tagDiffs.mainTags.isEmpty() && !this.tagDiffs.extraTags.isEmpty();
+    return this.tagDiffs.mainTags.length > 0 && this.tagDiffs.extraTags.length > 0;
   }
 
 }

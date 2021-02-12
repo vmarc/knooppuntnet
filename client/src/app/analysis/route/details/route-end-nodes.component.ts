@@ -7,7 +7,7 @@ import {RouteInfoAnalysis} from '@api/common/route/route-info-analysis';
   selector: 'kpn-route-end-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="analysis.map.endNodes.isEmpty()">?</p>
+    <p *ngIf="analysis.map.endNodes.length === 0">?</p>
     <p *ngFor="let node of analysis.map.endNodes">
       <kpn-route-node [node]="node" title="marker-icon-red-small.png"></kpn-route-node>
     </p>

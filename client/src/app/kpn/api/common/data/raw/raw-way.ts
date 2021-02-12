@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Tags} from '../../../custom/tags';
 import {Timestamp} from '../../../custom/timestamp';
 
@@ -10,7 +9,7 @@ export class RawWay {
               readonly version: number,
               readonly timestamp: Timestamp,
               readonly changeSetId: number,
-              readonly nodeIds: List<number>,
+              readonly nodeIds: Array<number>,
               readonly tags: Tags) {
   }
 
@@ -23,7 +22,7 @@ export class RawWay {
       jsonObject.version,
       Timestamp.fromJSON(jsonObject.timestamp),
       jsonObject.changeSetId,
-      jsonObject.nodeIds ? List(jsonObject.nodeIds) : List(),
+      jsonObject.nodeIds,
       Tags.fromJSON(jsonObject.tags)
     );
   }

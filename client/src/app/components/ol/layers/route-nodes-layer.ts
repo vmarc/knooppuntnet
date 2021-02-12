@@ -1,5 +1,4 @@
 import {RawNode} from '@api/common/data/raw/raw-node';
-import {List} from 'immutable';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {I18nService} from '../../../i18n/i18n.service';
@@ -13,9 +12,9 @@ export class RouteNodesLayer {
   constructor(private i18nService: I18nService) {
   }
 
-  build(nodes: List<RawNode>): MapLayer {
+  build(nodes: RawNode[]): MapLayer {
 
-    if (nodes.isEmpty()) {
+    if (nodes.length === 0) {
       return null;
     }
 

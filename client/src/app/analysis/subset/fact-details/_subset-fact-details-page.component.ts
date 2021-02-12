@@ -7,6 +7,7 @@ import {SubsetFactDetailsPage} from '@api/common/subset/subset-fact-details-page
 import {SubsetInfo} from '@api/common/subset/subset-info';
 import {ApiResponse} from '@api/custom/api-response';
 import {Subset} from '@api/custom/subset';
+import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
@@ -123,9 +124,9 @@ export class SubsetFactDetailsPageComponent implements OnInit {
       mergeMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset, subsetFact.factName).pipe(
         tap(response => {
           if (response.result) {
-            this.hasFacts = response.result && response.result.networks.size > 0;
+            this.hasFacts = response.result && response.result.networks.length > 0;
             this.refCount = this.calculateRefCount(response);
-            this.networkCount = response.result.networks.size;
+            this.networkCount = response.result.networks.length;
             this.subsetCacheService.setSubsetInfo(subsetFact.subset.key(), response.result.subsetInfo);
             this.subsetInfo$.next(response.result.subsetInfo);
           }
@@ -165,6 +166,6 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   }
 
   private calculateRefCount(response: ApiResponse<SubsetFactDetailsPage>): number {
-    return Util.sum(response.result.networks.map(n => n.factRefs.length));
+    return Util.sum(List(response.result.networks.map(n => n.factRefs.length)));
   }
 }

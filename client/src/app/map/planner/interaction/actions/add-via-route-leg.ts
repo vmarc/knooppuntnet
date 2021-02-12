@@ -1,15 +1,15 @@
-import {PlannerContext} from '../../context/planner-context';
-import {List} from 'immutable';
-import {RouteFeature} from '../../features/route-feature';
-import {Coordinate} from 'ol/coordinate';
-import {PlanUtil} from '../../plan/plan-util';
-import {LegEnd} from '@api/common/planner/leg-end';
 import {TrackPathKey} from '@api/common/common/track-path-key';
+import {LegEnd} from '@api/common/planner/leg-end';
 import {LegEndRoute} from '@api/common/planner/leg-end-route';
-import {PlannerCommandAddLeg} from '../../commands/planner-command-add-leg';
+import {List} from 'immutable';
+import {Coordinate} from 'ol/coordinate';
 import {Observable} from 'rxjs';
-import {PlanLeg} from '../../plan/plan-leg';
 import {map} from 'rxjs/operators';
+import {PlannerCommandAddLeg} from '../../commands/planner-command-add-leg';
+import {PlannerContext} from '../../context/planner-context';
+import {RouteFeature} from '../../features/route-feature';
+import {PlanLeg} from '../../plan/plan-leg';
+import {PlanUtil} from '../../plan/plan-util';
 
 export class AddViaRouteLeg {
 
@@ -31,7 +31,7 @@ export class AddViaRouteLeg {
       return List([trackPathKey, extraTrackPathKey]);
     });
 
-    const sink = new LegEnd(null, new LegEndRoute(trackPathKeys, null));
+    const sink = new LegEnd(null, new LegEndRoute(trackPathKeys.toArray(), null));
 
     this.buildLeg(source, sink, coordinate).pipe(
       map(leg => new PlannerCommandAddLeg(leg))

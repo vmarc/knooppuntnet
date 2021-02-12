@@ -1,15 +1,14 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeKey} from './change-key';
-import {ChangeType} from './change-type';
 import {Fact} from '../../../custom/fact';
-import {RawWay} from '../../data/raw/raw-way';
 import {Ref} from '../../common/ref';
+import {RawWay} from '../../data/raw/raw-way';
 import {RouteData} from '../../diff/route-data';
 import {RouteDiff} from '../../diff/route/route-diff';
-import {RouteLocationAnalysis} from '../../route-location-analysis';
 import {WayUpdate} from '../../diff/way-update';
+import {RouteLocationAnalysis} from '../../route-location-analysis';
+import {ChangeKey} from './change-key';
+import {ChangeType} from './change-type';
 
 export class RouteChange {
 
@@ -17,15 +16,15 @@ export class RouteChange {
               readonly changeType: ChangeType,
               readonly name: string,
               readonly locationAnalysis: RouteLocationAnalysis,
-              readonly addedToNetwork: List<Ref>,
-              readonly removedFromNetwork: List<Ref>,
+              readonly addedToNetwork: Array<Ref>,
+              readonly removedFromNetwork: Array<Ref>,
               readonly before: RouteData,
               readonly after: RouteData,
-              readonly removedWays: List<RawWay>,
-              readonly addedWays: List<RawWay>,
-              readonly updatedWays: List<WayUpdate>,
+              readonly removedWays: Array<RawWay>,
+              readonly addedWays: Array<RawWay>,
+              readonly updatedWays: Array<WayUpdate>,
               readonly diffs: RouteDiff,
-              readonly facts: List<Fact>,
+              readonly facts: Array<Fact>,
               readonly happy: boolean,
               readonly investigate: boolean,
               readonly locationHappy: boolean,
@@ -41,15 +40,15 @@ export class RouteChange {
       ChangeType.fromJSON(jsonObject.changeType),
       jsonObject.name,
       RouteLocationAnalysis.fromJSON(jsonObject.locationAnalysis),
-      jsonObject.addedToNetwork ? List(jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
-      jsonObject.removedFromNetwork ? List(jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json))) : List(),
+      jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json)),
       RouteData.fromJSON(jsonObject.before),
       RouteData.fromJSON(jsonObject.after),
-      jsonObject.removedWays ? List(jsonObject.removedWays.map((json: any) => RawWay.fromJSON(json))) : List(),
-      jsonObject.addedWays ? List(jsonObject.addedWays.map((json: any) => RawWay.fromJSON(json))) : List(),
-      jsonObject.updatedWays ? List(jsonObject.updatedWays.map((json: any) => WayUpdate.fromJSON(json))) : List(),
+      jsonObject.removedWays.map((json: any) => RawWay.fromJSON(json)),
+      jsonObject.addedWays.map((json: any) => RawWay.fromJSON(json)),
+      jsonObject.updatedWays.map((json: any) => WayUpdate.fromJSON(json)),
       RouteDiff.fromJSON(jsonObject.diffs),
-      jsonObject.facts ? List(jsonObject.facts.map((json: any) => Fact.fromJSON(json))) : List(),
+      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
       jsonObject.happy,
       jsonObject.investigate,
       jsonObject.locationHappy,

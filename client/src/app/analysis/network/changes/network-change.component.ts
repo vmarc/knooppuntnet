@@ -27,7 +27,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- networkNodesAdded -->
-    <div *ngIf="!networkChangeInfo.networkNodes.added.isEmpty()" class="kpn-line">
+    <div *ngIf="networkChangeInfo.networkNodes.added.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.network-nodes.added">Added node(s)</span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
@@ -37,7 +37,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- routesAdded -->
-    <div *ngIf="!networkChangeInfo.routes.added.isEmpty()" class="kpn-line">
+    <div *ngIf="networkChangeInfo.routes.added.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.routes.added">Added route(s)</span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.added">
@@ -47,21 +47,21 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- nodesAdded -->
-    <div *ngIf="!networkChangeInfo.nodes.added.isEmpty()">
+    <div *ngIf="networkChangeInfo.nodes.added.length > 0">
       <span i18n="@@network-changes.nodes.added">
         Added non-network node member(s) in network relation
       </span>
     </div>
 
     <!-- waysAdded -->
-    <div *ngIf="!networkChangeInfo.ways.added.isEmpty()">
+    <div *ngIf="networkChangeInfo.ways.added.length > 0">
       <span i18n="@@network-changes.ways.added">
         Added way member(s) in network relation
       </span>
     </div>
 
     <!-- relationsAdded -->
-    <div *ngIf="!networkChangeInfo.relations.added.isEmpty()">
+    <div *ngIf="networkChangeInfo.relations.added.length > 0">
       <span i18n="@@network-changes.relations.added">
         Added non-route relation(s) in network relation
       </span>
@@ -75,7 +75,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- networkNodesUpdated -->
-    <div *ngIf="!networkChangeInfo.networkNodes.updated.isEmpty()" class="kpn-line">
+    <div *ngIf="networkChangeInfo.networkNodes.updated.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.network-nodes.updated">
         Updated network node(s)
       </span>
@@ -87,7 +87,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- routesUpdated -->
-    <div *ngIf="!networkChangeInfo.routes.updated.isEmpty()" class="kpn-line">
+    <div *ngIf="networkChangeInfo.routes.updated.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.routes.updated">
         Updated route(s)
       </span>
@@ -99,28 +99,28 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- nodesUpdated -->
-    <div *ngIf="!networkChangeInfo.nodes.updated.isEmpty()">
+    <div *ngIf="networkChangeInfo.nodes.updated.length > 0">
       <span i18n="@@network-changes.nodes.updated">
         Updated non-network node(s)
       </span>
     </div>
 
     <!-- waysUpdated -->
-    <div *ngIf="!networkChangeInfo.ways.updated.isEmpty()">
+    <div *ngIf="networkChangeInfo.ways.updated.length > 0">
       <span i18n="@@network-changes.ways.updated">
         Updated way member(s)
       </span>
     </div>
 
     <!-- relationsUpdated -->
-    <div *ngIf="!networkChangeInfo.relations.updated.isEmpty()">
+    <div *ngIf="networkChangeInfo.relations.updated.length > 0">
       <span i18n="@@network-changes.relations.updated">
         Updated non-route relation(s)
       </span>
     </div>
 
     <!-- networkNodesRemoved -->
-    <div *ngIf="!networkChangeInfo.networkNodes.removed.isEmpty()" class="kpn-line">
+    <div *ngIf="networkChangeInfo.networkNodes.removed.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.network-nodes.removed">
         Removed network node(s)
       </span>
@@ -132,7 +132,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- routesRemoved -->
-    <div *ngIf="!networkChangeInfo.routes.removed.isEmpty()" class="kpn-line">
+    <div *ngIf="networkChangeInfo.routes.removed.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.routes.removed">
         Removed route(s)
       </span>
@@ -144,21 +144,21 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- nodesRemoved -->
-    <div *ngIf="!networkChangeInfo.nodes.removed.isEmpty()">
+    <div *ngIf="networkChangeInfo.nodes.removed.length > 0">
       <span i18n="@@network-changes.nodes.removed">
         Removed non-network node member(s) from network relation
       </span>
     </div>
 
     <!-- waysRemoved -->
-    <div *ngIf="!networkChangeInfo.ways.removed.isEmpty()">
+    <div *ngIf="networkChangeInfo.ways.removed.length > 0">
       <span i18n="@@network-changes.ways.removed">
         Removed way member(s) from network relation
       </span>
     </div>
 
     <!-- relationsRemoved -->
-    <div *ngIf="!networkChangeInfo.relations.removed.isEmpty()">
+    <div *ngIf="networkChangeInfo.relations.removed.length > 0">
       <span i18n="@@network-changes.relations.removed">
         Removed non-route relation(s) from network relation
       </span>

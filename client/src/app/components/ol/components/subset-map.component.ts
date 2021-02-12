@@ -31,7 +31,7 @@ import {MapLayerService} from '../services/map-layer.service';
 export class SubsetMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() bounds: Bounds;
-  @Input() networks: List<SubsetMapNetwork>;
+  @Input() networks: SubsetMapNetwork[];
   @Output() networkClicked = new EventEmitter<number>();
 
   layers: MapLayers;

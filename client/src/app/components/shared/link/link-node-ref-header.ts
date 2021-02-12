@@ -24,6 +24,6 @@ export class LinkNodeRefHeaderComponent implements OnInit {
   known: boolean;
 
   ngOnInit(): void {
-    this.known = this.knownElements.nodeIds.contains(this.ref.id);
+    this.known = this.knownElements.nodeIds.includes(this.ref.id);
   }
 }

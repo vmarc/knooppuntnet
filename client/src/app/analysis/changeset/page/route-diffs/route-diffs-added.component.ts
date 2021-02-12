@@ -19,7 +19,7 @@ import {RouteDiffsData} from './route-diffs-data';
           <div class="kpn-line kpn-level-3-header">
             <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements"></kpn-link-route-ref-header>
           </div>
-          <div  *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
+          <div *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
             <div *ngIf="ref.routeChangeInfo.after">
               <div class="kpn-thin">
                 <ng-container *ngIf="ref.routeChangeInfo.after.changeSetId == data.changeSetId">
@@ -50,6 +50,6 @@ export class RouteDiffsAddedComponent implements OnInit {
   refs: Array<RefRouteChangeInfo>;
 
   ngOnInit(): void {
-    this.refs = this.data.refDiffs.added.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref))).toArray();
+    this.refs = this.data.refDiffs.added.map(ref => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref)));
   }
 }

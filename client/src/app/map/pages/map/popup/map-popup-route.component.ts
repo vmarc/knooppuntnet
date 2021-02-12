@@ -22,9 +22,9 @@ import {PlannerService} from '../../../planner.service';
       </h2>
 
       <div>
-        <span *ngIf="response.result.networkReferences.size === 1" class="kpn-label" i18n="@@map.route-popup.network">Network</span>
-        <span *ngIf="response.result.networkReferences.size !== 1" class="kpn-label" i18n="@@map.route-popup.networks">Networks</span>
-        <span *ngIf="response.result.networkReferences.isEmpty()" i18n="@@map.route-popup.no-networks">None</span>
+        <span *ngIf="response.result.networkReferences.length === 1" class="kpn-label" i18n="@@map.route-popup.network">Network</span>
+        <span *ngIf="response.result.networkReferences.length !== 1" class="kpn-label" i18n="@@map.route-popup.networks">Networks</span>
+        <span *ngIf="response.result.networkReferences.length === 0" i18n="@@map.route-popup.no-networks">None</span>
         <div *ngFor="let ref of response.result.networkReferences" class="reference">
           <a [routerLink]="'/analysis/network/' + ref.id">{{ref.name}}</a>
         </div>

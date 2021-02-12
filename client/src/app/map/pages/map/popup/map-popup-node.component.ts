@@ -31,17 +31,17 @@ import {PlannerService} from '../../../planner.service';
       </p>
 
       <div>
-        <span *ngIf="response.result.networkReferences.size === 1" class="kpn-label" i18n="@@map.node-popup.network">Network</span>
-        <span *ngIf="response.result.networkReferences.size !== 1" class="kpn-label" i18n="@@map.node-popup.networks">Networks</span>
-        <span *ngIf="response.result.networkReferences.isEmpty()" i18n="@@map.node-popup.no-networks">None</span>
+        <span *ngIf="response.result.networkReferences.length === 1" class="kpn-label" i18n="@@map.node-popup.network">Network</span>
+        <span *ngIf="response.result.networkReferences.length !== 1" class="kpn-label" i18n="@@map.node-popup.networks">Networks</span>
+        <span *ngIf="response.result.networkReferences.length === 0" i18n="@@map.node-popup.no-networks">None</span>
         <div *ngFor="let ref of response.result.networkReferences" class="reference">
           <a [routerLink]="'/analysis/network/' + ref.id">{{ref.name}}</a>
         </div>
       </div>
 
-      <div *ngIf="!response.result.routeReferences.isEmpty()">
+      <div *ngIf="response.result.routeReferences.length > 0">
         <span class="kpn-label" i18n="@@map.node-popup.routes">Routes</span>
-        <span *ngIf="response.result.routeReferences.isEmpty()" i18n="@@map.node-popup.routes.none">None</span>
+        <span *ngIf="response.result.routeReferences.length === 0" i18n="@@map.node-popup.routes.none">None</span>
         <div *ngFor="let ref of response.result.routeReferences" class="reference">
           <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
         </div>

@@ -1,17 +1,16 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {RouteLocationAnalysis} from '../route-location-analysis';
 import {RouteMap} from './route-map';
 import {RouteMemberInfo} from '../../custom/route-member-info';
 
 export class RouteInfoAnalysis {
 
-  constructor(readonly unexpectedNodeIds: List<number>,
-              readonly members: List<RouteMemberInfo>,
+  constructor(readonly unexpectedNodeIds: Array<number>,
+              readonly members: Array<RouteMemberInfo>,
               readonly expectedName: string,
               readonly map: RouteMap,
-              readonly structureStrings: List<string>,
+              readonly structureStrings: Array<string>,
               readonly geometryDigest: string,
               readonly locationAnalysis: RouteLocationAnalysis) {
   }
@@ -21,11 +20,11 @@ export class RouteInfoAnalysis {
       return undefined;
     }
     return new RouteInfoAnalysis(
-      jsonObject.unexpectedNodeIds ? List(jsonObject.unexpectedNodeIds) : List(),
-      jsonObject.members ? List(jsonObject.members.map((json: any) => RouteMemberInfo.fromJSON(json))) : List(),
+      jsonObject.unexpectedNodeIds,
+      jsonObject.members.map((json: any) => RouteMemberInfo.fromJSON(json)),
       jsonObject.expectedName,
       RouteMap.fromJSON(jsonObject.map),
-      jsonObject.structureStrings ? List(jsonObject.structureStrings) : List(),
+      jsonObject.structureStrings,
       jsonObject.geometryDigest,
       RouteLocationAnalysis.fromJSON(jsonObject.locationAnalysis)
     );

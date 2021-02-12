@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {TrackSegment} from './track-segment';
 
 export class TrackPath {
@@ -10,7 +9,7 @@ export class TrackPath {
               readonly endNodeId: number,
               readonly meters: number,
               readonly oneWay: boolean,
-              readonly segments: List<TrackSegment>) {
+              readonly segments: Array<TrackSegment>) {
   }
 
   public static fromJSON(jsonObject: any): TrackPath {
@@ -23,7 +22,7 @@ export class TrackPath {
       jsonObject.endNodeId,
       jsonObject.meters,
       jsonObject.oneWay,
-      jsonObject.segments ? List(jsonObject.segments.map((json: any) => TrackSegment.fromJSON(json))) : List()
+      jsonObject.segments.map((json: any) => TrackSegment.fromJSON(json))
     );
   }
 }

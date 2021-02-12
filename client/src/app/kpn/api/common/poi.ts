@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Tags} from '../custom/tags';
 
 export class Poi {
@@ -9,9 +8,9 @@ export class Poi {
               readonly elementId: number,
               readonly latitude: string,
               readonly longitude: string,
-              readonly layers: List<string>,
+              readonly layers: Array<string>,
               readonly tags: Tags,
-              readonly tiles: List<string>) {
+              readonly tiles: Array<string>) {
   }
 
   public static fromJSON(jsonObject: any): Poi {
@@ -23,9 +22,9 @@ export class Poi {
       jsonObject.elementId,
       jsonObject.latitude,
       jsonObject.longitude,
-      jsonObject.layers ? List(jsonObject.layers) : List(),
+      jsonObject.layers,
       Tags.fromJSON(jsonObject.tags),
-      jsonObject.tiles ? List(jsonObject.tiles) : List()
+      jsonObject.tiles
     );
   }
 }

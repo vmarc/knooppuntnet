@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {RouteDetailsPage} from '@api/common/route/route-details-page';
 import {Store} from '@ngrx/store';
-import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PageWidth} from '../../../components/shared/page-width';
@@ -73,7 +72,7 @@ import {selectRouteId} from '../store/route.selectors';
             <kpn-route-end-nodes [analysis]="analysis"></kpn-route-end-nodes>
           </kpn-data>
 
-          <div *ngIf="!analysis.map.redundantNodes.isEmpty()">
+          <div *ngIf="analysis.map.redundantNodes.length > 0">
             <kpn-data title="Redundant node" i18n-title="@@route.redundant-node">
               <kpn-route-redundant-nodes [analysis]="analysis"></kpn-route-redundant-nodes>
             </kpn-data>
@@ -137,7 +136,7 @@ export class RoutePageComponent implements OnInit {
   }
 
   factInfos(page: RouteDetailsPage): FactInfo[] {
-    return page.route.facts.map(fact => new FactInfo(fact)).toArray();
+    return page.route.facts.map(fact => new FactInfo(fact));
   }
 
 }

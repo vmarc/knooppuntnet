@@ -56,10 +56,10 @@ import {PlannerService} from '../../../planner.service';
 
         <div *ngIf="poi.facebook || poi.twitter" class="item">
           <a *ngIf="poi.facebook" [href]="poi.facebook" target="_blank" rel="nofollow noreferrer">
-            <img src="/assets/images/icons/facebook.png" class="image" title="Facebook">
+            <img src="/assets/images/icons/facebook.png" class="image" alt="Facebook" title="Facebook">
           </a>
           <a *ngIf="poi.twitter" [href]="poi.twitter" target="_blank" rel="nofollow noreferrer">
-            <img src="/assets/images/icons/twitter.png" class="image" title="Twitter">
+            <img src="/assets/images/icons/twitter.png" class="image" alt="Twitter" title="Twitter">
           </a>
         </div>
 
@@ -200,7 +200,7 @@ export class MapPopupPoiComponent implements OnInit {
   }
 
   layerName(): string {
-    const layer = this.poi.layers.get(0);
+    const layer = this.poi.layers[0];
     return this.poiService.name(layer);
   }
 

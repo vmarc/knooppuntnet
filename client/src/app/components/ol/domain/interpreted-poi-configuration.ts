@@ -1,7 +1,7 @@
 import {ClientPoiConfiguration} from '@api/common/tiles/client-poi-configuration';
 import {ClientPoiDefinition} from '@api/common/tiles/client-poi-definition';
 import {ClientPoiGroupDefinition} from '@api/common/tiles/client-poi-group-definition';
-import {List, Map} from 'immutable';
+import {Map} from 'immutable';
 
 export class InterpretedPoiConfiguration {
 
@@ -24,7 +24,7 @@ export class InterpretedPoiConfiguration {
     return this.poiDefinitionMap;
   }
 
-  getGroupDefinitions(): List<ClientPoiGroupDefinition> {
+  getGroupDefinitions(): ClientPoiGroupDefinition[] {
     return this.configuration.groupDefinitions;
   }
 }

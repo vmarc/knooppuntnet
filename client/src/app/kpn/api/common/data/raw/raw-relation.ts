@@ -1,9 +1,8 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {RawMember} from './raw-member';
 import {Tags} from '../../../custom/tags';
 import {Timestamp} from '../../../custom/timestamp';
+import {RawMember} from './raw-member';
 
 export class RawRelation {
 
@@ -11,7 +10,7 @@ export class RawRelation {
               readonly version: number,
               readonly timestamp: Timestamp,
               readonly changeSetId: number,
-              readonly members: List<RawMember>,
+              readonly members: Array<RawMember>,
               readonly tags: Tags) {
   }
 
@@ -24,7 +23,7 @@ export class RawRelation {
       jsonObject.version,
       Timestamp.fromJSON(jsonObject.timestamp),
       jsonObject.changeSetId,
-      jsonObject.members ? List(jsonObject.members.map((json: any) => RawMember.fromJSON(json))) : List(),
+      jsonObject.members.map((json: any) => RawMember.fromJSON(json)),
       Tags.fromJSON(jsonObject.tags)
     );
   }

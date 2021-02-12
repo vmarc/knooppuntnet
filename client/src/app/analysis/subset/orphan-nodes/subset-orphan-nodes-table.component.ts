@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {List} from 'immutable';
-import {BehaviorSubject} from 'rxjs';
-import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
 import {NodeInfo} from '@api/common/node-info';
 import {TimeInfo} from '@api/common/time-info';
+import {BehaviorSubject} from 'rxjs';
+import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
 import {SubsetOrphanNodeFilter} from './subset-orphan-node-filter';
 import {SubsetOrphanNodeFilterCriteria} from './subset-orphan-node-filter-criteria';
 import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
@@ -64,7 +63,7 @@ import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
 export class SubsetOrphanNodesTableComponent implements OnInit {
 
   @Input() timeInfo: TimeInfo;
-  @Input() nodes: List<NodeInfo>;
+  @Input() nodes: NodeInfo[];
 
   @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
   dataSource: MatTableDataSource<NodeInfo>;
@@ -81,8 +80,8 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria.subscribe(criteria => {
       const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria);
-      this.dataSource.data = filter.filter(this.nodes).toArray();
-      this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes.toArray()));
+      this.dataSource.data = filter.filter(this.nodes);
+      this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes));
     });
   }
 

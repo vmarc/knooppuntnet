@@ -29,7 +29,7 @@ import {OnDestroy} from '@angular/core';
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
 
   @Input() geometryDiff: GeometryDiff;
-  @Input() nodes: List<RawNode>;
+  @Input() nodes: RawNode[];
   @Input() bounds: Bounds;
 
   mapId = UniqueId.get();

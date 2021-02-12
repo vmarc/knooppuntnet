@@ -139,7 +139,7 @@ export class Util {
   }
 
   static hasTagDiffs(tagDiffs: TagDiffs): boolean {
-    return tagDiffs && !(tagDiffs.mainTags.isEmpty() && tagDiffs.extraTags.isEmpty());
+    return tagDiffs && (tagDiffs.mainTags.length > 0 || tagDiffs.extraTags.length > 0);
   }
 
   static twoDigits(value: number): string {

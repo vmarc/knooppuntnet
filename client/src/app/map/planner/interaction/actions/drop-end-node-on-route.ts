@@ -39,7 +39,7 @@ export class DropEndNodeOnRoute {
   private buildNewLeg(sourceNode: PlanNode, routeFeatures: List<RouteFeature>, coordinate: Coordinate): Observable<PlanLeg> {
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = PlanUtil.legEndRoutes(routeFeatures);
+    const sink = PlanUtil.legEndRoutes(routeFeatures.toArray());
 
     return this.context.fetchLeg(source, sink).pipe(
       map(data => {

@@ -90,7 +90,7 @@ export class MapLayerService {
     return layer;
   }
 
-  routeNodeLayer(nodes: List<RawNode>): MapLayer {
+  routeNodeLayer(nodes: RawNode[]): MapLayer {
     return new RouteNodesLayer(this.i18nService).build(nodes);
   }
 
@@ -102,7 +102,7 @@ export class MapLayerService {
     return new RouteLayers(this.i18nService, routeMap).build();
   }
 
-  networkMarkerLayer(networks: List<SubsetMapNetwork>): MapLayer {
+  networkMarkerLayer(networks: SubsetMapNetwork[]): MapLayer {
     return new NetworkMarkerLayer(this.i18nService).build(networks);
   }
 

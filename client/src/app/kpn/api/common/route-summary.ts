@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Country} from '../custom/country';
 import {NetworkType} from '../custom/network-type';
 import {Tags} from '../custom/tags';
@@ -16,7 +15,7 @@ export class RouteSummary {
               readonly isBroken: boolean,
               readonly wayCount: number,
               readonly timestamp: Timestamp,
-              readonly nodeNames: List<string>,
+              readonly nodeNames: Array<string>,
               readonly tags: Tags) {
   }
 
@@ -33,7 +32,7 @@ export class RouteSummary {
       jsonObject.isBroken,
       jsonObject.wayCount,
       Timestamp.fromJSON(jsonObject.timestamp),
-      jsonObject.nodeNames ? List(jsonObject.nodeNames) : List(),
+      jsonObject.nodeNames,
       Tags.fromJSON(jsonObject.tags)
     );
   }

@@ -1,6 +1,5 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Fact} from '../../custom/fact';
 import {NetworkFactRefs} from './network-fact-refs';
 import {SubsetInfo} from './subset-info';
@@ -9,7 +8,7 @@ export class SubsetNodeFactDetailsPage {
 
   constructor(readonly subsetInfo: SubsetInfo,
               readonly fact: Fact,
-              readonly networks: List<NetworkFactRefs>) {
+              readonly networks: Array<NetworkFactRefs>) {
   }
 
   public static fromJSON(jsonObject: any): SubsetNodeFactDetailsPage {
@@ -19,7 +18,7 @@ export class SubsetNodeFactDetailsPage {
     return new SubsetNodeFactDetailsPage(
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
       Fact.fromJSON(jsonObject.fact),
-      jsonObject.networks ? List(jsonObject.networks.map((json: any) => NetworkFactRefs.fromJSON(json))) : List()
+      jsonObject.networks.map((json: any) => NetworkFactRefs.fromJSON(json))
     );
   }
 }

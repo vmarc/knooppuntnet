@@ -6,7 +6,6 @@ import {SubsetInfo} from '@api/common/subset/subset-info';
 import {SubsetOrphanNodesPage} from '@api/common/subset/subset-orphan-nodes-page';
 import {ApiResponse} from '@api/custom/api-response';
 import {Subset} from '@api/custom/subset';
-import {List} from 'immutable';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {map, mergeMap, tap} from 'rxjs/operators';
@@ -33,11 +32,11 @@ import {SubsetCacheService} from '../../../services/subset-cache.service';
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
-      <p *ngIf="nodes.isEmpty()" class="kpn-line">
+      <p *ngIf="nodes.length === 0" class="kpn-line">
         <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
       </p>
-      <div *ngIf="!nodes.isEmpty()">
+      <div *ngIf="nodes.length > 0">
         <kpn-subset-orphan-nodes-table
           [timeInfo]="response.result.timeInfo"
           [nodes]="nodes">
@@ -52,7 +51,7 @@ export class SubsetOrphanNodesPageComponent implements OnInit {
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanNodesPage>>;
 
-  nodes: List<NodeInfo> = List();
+  nodes: NodeInfo[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

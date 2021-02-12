@@ -1,18 +1,17 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {List} from 'immutable';
+import {RouteSummary} from '@api/common/route-summary';
+import {SubsetInfo} from '@api/common/subset/subset-info';
+import {SubsetOrphanRoutesPage} from '@api/common/subset/subset-orphan-routes-page';
+import {ApiResponse} from '@api/custom/api-response';
+import {Subset} from '@api/custom/subset';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
-import {RouteSummary} from '@api/common/route-summary';
-import {SubsetOrphanRoutesPage} from '@api/common/subset/subset-orphan-routes-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {Subset} from '@api/custom/subset';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
-import {SubsetInfo} from '@api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-page',
@@ -33,11 +32,11 @@ import {SubsetInfo} from '@api/common/subset/subset-info';
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
-      <p *ngIf="routes.isEmpty()" class="kpn-line">
+      <p *ngIf="routes.length === 0" class="kpn-line">
         <kpn-icon-happy></kpn-icon-happy>
         <span i18n="@@subset-orphan-routes.no-routes">No orphan routes</span>
       </p>
-      <div *ngIf="!routes.isEmpty()">
+      <div *ngIf="routes.length > 0">
         <kpn-subset-orphan-routes-table
           [timeInfo]="response.result.timeInfo"
           [orphanRoutes]="response.result.rows">
@@ -52,7 +51,7 @@ export class SubsetOrphanRoutesPageComponent implements OnInit {
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanRoutesPage>>;
 
-  routes: List<RouteSummary> = List();
+  routes: RouteSummary[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,

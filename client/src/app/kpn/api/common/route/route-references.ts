@@ -1,11 +1,10 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
 import {Reference} from '../common/reference';
 
 export class RouteReferences {
 
-  constructor(readonly networkReferences: List<Reference>) {
+  constructor(readonly networkReferences: Array<Reference>) {
   }
 
   public static fromJSON(jsonObject: any): RouteReferences {
@@ -13,7 +12,7 @@ export class RouteReferences {
       return undefined;
     }
     return new RouteReferences(
-      jsonObject.networkReferences ? List(jsonObject.networkReferences.map((json: any) => Reference.fromJSON(json))) : List()
+      jsonObject.networkReferences.map((json: any) => Reference.fromJSON(json))
     );
   }
 }
