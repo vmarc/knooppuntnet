@@ -1,6 +1,11 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {SubsetFactsPage} from '@api/common/subset/subset-facts-page';
+import {SubsetInfo} from '@api/common/subset/subset-info';
+import {ApiResponse} from '@api/custom/api-response';
+import {Fact} from '@api/custom/fact';
+import {Subset} from '@api/custom/subset';
 import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
@@ -8,14 +13,10 @@ import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
-import {SubsetFactsPage} from '@api/common/subset/subset-facts-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {Fact} from '@api/custom/fact';
-import {Subset} from '@api/custom/subset';
+import {Subsets} from '../../../kpn/common/subsets';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 import {FactLevel} from '../../fact/fact-level';
 import {Facts} from '../../fact/facts';
-import {SubsetInfo} from '@api/common/subset/subset-info';
 
 @Component({
   selector: 'kpn-subset-facts-page',
@@ -71,14 +72,14 @@ export class SubsetFactsPageComponent implements OnInit {
   ngOnInit(): void {
     this.subset$ = this.activatedRoute.params.pipe(
       map(params => Util.subsetInRoute(params)),
-      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(Subsets.key(subset))))
     );
     this.response$ = this.subset$.pipe(
       mergeMap(subset => this.appService.subsetFacts(subset).pipe(
         tap(response => {
           if (response.result) {
             this.hasFacts = response.result && response.result.subsetInfo.factCount > 0;
-            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetCacheService.setSubsetInfo(Subsets.key(subset), response.result.subsetInfo);
             this.subsetInfo$.next(response.result.subsetInfo);
           }
         })

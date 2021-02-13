@@ -14,6 +14,7 @@ import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {Subsets} from '../../../kpn/common/subsets';
 import {NetworkCacheService} from '../../../services/network-cache.service';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 import {SubsetMapNetworkDialogComponent} from './subset-map-network-dialog.component';
@@ -62,7 +63,7 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subset$ = this.activatedRoute.params.pipe(
       map(params => Util.subsetInRoute(params)),
-      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(Subsets.key(subset))))
     );
     this.response$ = this.subset$.pipe(
       mergeMap(subset => this.appService.subsetMap(subset).pipe(
@@ -70,7 +71,7 @@ export class SubsetMapPageComponent implements OnInit, OnDestroy {
           if (response.result) {
             this.bounds = response.result.bounds;
             this.networks = response.result.networks;
-            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetCacheService.setSubsetInfo(Subsets.key(subset), response.result.subsetInfo);
             this.subsetInfo$.next(response.result.subsetInfo);
             response.result.networks.forEach(networkAttributes => {
               this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);

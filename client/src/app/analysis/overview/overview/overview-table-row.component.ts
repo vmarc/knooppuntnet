@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {Subset} from '@api/custom/subset';
+import {Subsets} from '../../../kpn/common/subsets';
 import {Stat} from '../domain/stat';
 
 @Component({
@@ -42,7 +42,7 @@ export class OverviewTableRowComponent {
   @Input() stat: Stat;
 
   subsets() {
-    return Subset.all;
+    return Subsets.all;
   }
 
   total() {

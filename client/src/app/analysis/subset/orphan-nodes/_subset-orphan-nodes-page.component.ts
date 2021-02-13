@@ -11,6 +11,7 @@ import {BehaviorSubject} from 'rxjs';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
+import {Subsets} from '../../../kpn/common/subsets';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 
 @Component({
@@ -61,14 +62,14 @@ export class SubsetOrphanNodesPageComponent implements OnInit {
   ngOnInit(): void {
     this.subset$ = this.activatedRoute.params.pipe(
       map(params => Util.subsetInRoute(params)),
-      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(Subsets.key(subset))))
     );
     this.response$ = this.subset$.pipe(
       mergeMap(subset => this.appService.subsetOrphanNodes(subset).pipe(
         tap(response => {
           if (response.result) {
             this.nodes = response.result.rows;
-            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetCacheService.setSubsetInfo(Subsets.key(subset), response.result.subsetInfo);
             this.subsetInfo$.next(response.result.subsetInfo);
           }
         })

@@ -39,7 +39,6 @@ object Json {
     b.serializerByType(classOf[NetworkScope], new NetworkScopeJsonSerializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
-    b.serializerByType(classOf[Subset], new SubsetJsonSerializer())
 
     b.deserializerByType(classOf[Tags], new TagsJsonDeserializer())
 

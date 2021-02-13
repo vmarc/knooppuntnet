@@ -13,6 +13,7 @@ import {AppService} from '../../../app.service';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {Subsets} from '../../../kpn/common/subsets';
 import {NetworkCacheService} from '../../../services/network-cache.service';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 
@@ -78,7 +79,7 @@ export class SubsetNetworksPageComponent implements OnInit {
   ngOnInit(): void {
     this.subset$ = this.activatedRoute.params.pipe(
       map(params => Util.subsetInRoute(params)),
-      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subset.key())))
+      tap(subset => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(Subsets.key(subset))))
     );
     this.response$ = this.subset$.pipe(
       mergeMap(subset => this.appService.subsetNetworks(subset).pipe(
@@ -86,7 +87,7 @@ export class SubsetNetworksPageComponent implements OnInit {
           if (response.result) {
             this.page = response.result;
             this.networks = response.result.networks;
-            this.subsetCacheService.setSubsetInfo(subset.key(), response.result.subsetInfo);
+            this.subsetCacheService.setSubsetInfo(Subsets.key(subset), response.result.subsetInfo);
             this.subsetInfo$.next(response.result.subsetInfo);
             response.result.networks.forEach(networkAttributes => {
               this.networkCacheService.setNetworkName(networkAttributes.id, networkAttributes.name);

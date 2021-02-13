@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ChangesPage} from '@api/common/changes-page';
 import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {SubsetChangesPage} from '@api/common/subset/subset-changes-page';
 import {SubsetInfo} from '@api/common/subset/subset-info';
@@ -16,6 +15,7 @@ import {Util} from '../../../components/shared/util';
 import {AppState} from '../../../core/core.state';
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
 import {selectPreferencesItemsPerPage} from '../../../core/preferences/preferences.selectors';
+import {Subsets} from '../../../kpn/common/subsets';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 import {UserService} from '../../../services/user.service';
 import {ChangeFilterOptions} from '../../components/changes/filter/change-filter-options';
@@ -114,7 +114,7 @@ export class SubsetChangesPageComponent implements OnInit {
   private reload() {
     this.appService.subsetChanges(this.subset, this.parameters).subscribe(response => {
       this.response = response;
-      this.subsetCacheService.setSubsetInfo(this.subset.key(), response.result.subsetInfo);
+      this.subsetCacheService.setSubsetInfo(Subsets.key(this.subset), response.result.subsetInfo);
       this.subsetInfo$.next(response.result.subsetInfo);
       this.subsetChangesService.setFilterOptions(
         ChangeFilterOptions.from(

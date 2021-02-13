@@ -14,6 +14,7 @@ import {tap} from 'rxjs/operators';
 import {map, mergeMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {Util} from '../../../components/shared/util';
+import {Subsets} from '../../../kpn/common/subsets';
 import {SubsetCacheService} from '../../../services/subset-cache.service';
 
 class SubsetFact {
@@ -118,7 +119,7 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   ngOnInit(): void {
     this.subsetFact$ = this.activatedRoute.params.pipe(
       map(params => this.interpreteParams(params)),
-      tap(subsetFact => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(subsetFact.subset.key())))
+      tap(subsetFact => this.subsetInfo$.next(this.subsetCacheService.getSubsetInfo(Subsets.key(subsetFact.subset))))
     );
     this.response$ = this.subsetFact$.pipe(
       mergeMap(subsetFact => this.appService.subsetFactDetails(subsetFact.subset, subsetFact.factName).pipe(
@@ -127,7 +128,7 @@ export class SubsetFactDetailsPageComponent implements OnInit {
             this.hasFacts = response.result && response.result.networks.length > 0;
             this.refCount = this.calculateRefCount(response);
             this.networkCount = response.result.networks.length;
-            this.subsetCacheService.setSubsetInfo(subsetFact.subset.key(), response.result.subsetInfo);
+            this.subsetCacheService.setSubsetInfo(Subsets.key(subsetFact.subset), response.result.subsetInfo);
             this.subsetInfo$.next(response.result.subsetInfo);
           }
         })
