@@ -2,20 +2,13 @@ import {NetworkType} from '@api/custom/network-type';
 
 export class NetworkTypes {
 
-  static cycling: NetworkType = 'cycling';
-  static hiking: NetworkType = 'hiking';
-  static horseRiding: NetworkType = 'horse-riding';
-  static motorboat: NetworkType = 'motorboat';
-  static canoe: NetworkType = 'canoe';
-  static inlineSkating: NetworkType = 'inline-skating';
-
   static all: NetworkType[] = [
-    NetworkTypes.cycling,
-    NetworkTypes.hiking,
-    NetworkTypes.horseRiding,
-    NetworkTypes.motorboat,
-    NetworkTypes.canoe,
-    NetworkTypes.inlineSkating
+    NetworkType.cycling,
+    NetworkType.hiking,
+    NetworkType.horseRiding,
+    NetworkType.motorboat,
+    NetworkType.canoe,
+    NetworkType.inlineSkating
   ];
 
   static withName(name: string): NetworkType {
@@ -23,27 +16,28 @@ export class NetworkTypes {
   }
 
   static tagValue(networkType: NetworkType): string {
-    if (networkType === 'cycling') {
+
+    if (networkType === NetworkType.cycling) {
       return 'rcn';
     }
 
-    if (networkType === 'hiking') {
+    if (networkType === NetworkType.hiking) {
       return 'rwn';
     }
 
-    if (networkType === 'horse-riding') {
+    if (networkType === NetworkType.horseRiding) {
       return 'rhn';
     }
 
-    if (networkType === 'motorboat') {
+    if (networkType === NetworkType.motorboat) {
       return 'rmn';
     }
 
-    if (networkType === 'canoe') {
+    if (networkType === NetworkType.canoe) {
       return 'rpn';
     }
 
-    if (networkType === 'inline-skating') {
+    if (networkType === NetworkType.inlineSkating) {
       return 'rin';
     }
 
@@ -51,27 +45,27 @@ export class NetworkTypes {
   }
 
   static letter(networkType: NetworkType): string {
-    if (networkType === 'cycling') {
+    if (networkType === NetworkType.cycling) {
       return 'c';
     }
 
-    if (networkType === 'hiking') {
+    if (networkType === NetworkType.hiking) {
       return 'w';
     }
 
-    if (networkType === 'horse-riding') {
+    if (networkType === NetworkType.horseRiding) {
       return 'h';
     }
 
-    if (networkType === 'motorboat') {
+    if (networkType === NetworkType.motorboat) {
       return 'm';
     }
 
-    if (networkType === 'canoe') {
+    if (networkType === NetworkType.canoe) {
       return 'p';
     }
 
-    if (networkType === 'inline-skating') {
+    if (networkType === NetworkType.inlineSkating) {
       return 'i';
     }
 

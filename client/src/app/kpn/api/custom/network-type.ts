@@ -1,1 +1,8 @@
-export type NetworkType = 'cycling' | 'hiking' | 'horse-riding' | 'motorboat' | 'canoe' | 'inline-skating';
+export enum NetworkType {
+  cycling = 'cycling',
+  hiking = 'hiking',
+  horseRiding = 'horse-riding',
+  motorboat = 'motorboat',
+  canoe = 'canoe',
+  inlineSkating = 'inline-skating'
+}

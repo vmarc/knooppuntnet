@@ -39,24 +39,23 @@ import {RouteAccessibleData} from './route-accessible-data';
         This route is completely accessible for canoe.
       </div>
 
-
       <span dialog-title *ngIf="isRed()" i18n="@@route-accessible-indicator.red.title">
         Not OK - Not Accessible
       </span>
 
-      <div dialog-body *ngIf="isRed() && isCycling() " i18n="@@route-accessible-indicator.red.text.cycling">
+      <div dialog-body *ngIf="isRed() && isCycling()" i18n="@@route-accessible-indicator.red.text.cycling">
         This route is not completely accessible for bicycle.
       </div>
 
-      <div dialog-body *ngIf="isRed() && isHiking() " i18n="@@route-accessible-indicator.red.text.hiking">
+      <div dialog-body *ngIf="isRed() && isHiking()" i18n="@@route-accessible-indicator.red.text.hiking">
         This route is not completely accessible for hiking.
       </div>
 
-      <div dialog-body *ngIf="isRed() && isMotorboat() " i18n="@@route-accessible-indicator.red.text.motorboat">
+      <div dialog-body *ngIf="isRed() && isMotorboat()" i18n="@@route-accessible-indicator.red.text.motorboat">
         This route is not completely accessible for motorboat.
       </div>
 
-      <div dialog-body *ngIf="isRed() && isCanoe() " i18n="@@route-accessible-indicator.red.text.canoe">
+      <div dialog-body *ngIf="isRed() && isCanoe()" i18n="@@route-accessible-indicator.red.text.canoe">
         This route is not completely accessible for canoe.
       </div>
 
@@ -85,19 +84,19 @@ export class RouteAccessibleIndicatorDialogComponent {
   }
 
   isCycling(): boolean {
-    return this.isNetworkType('cycling');
+    return this.isNetworkType(NetworkType.cycling);
   }
 
   isHiking(): boolean {
-    return this.isNetworkType('hiking');
+    return this.isNetworkType(NetworkType.hiking);
   }
 
   isMotorboat(): boolean {
-    return this.isNetworkType('motorboat');
+    return this.isNetworkType(NetworkType.motorboat);
   }
 
   isCanoe(): boolean {
-    return this.isNetworkType('canoe');
+    return this.isNetworkType(NetworkType.canoe);
   }
 
   private isNetworkType(networkType: NetworkType): boolean {

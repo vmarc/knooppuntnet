@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {OnDestroy} from '@angular/core';
 import {AfterViewInit, Component, Input} from '@angular/core';
+import {NetworkType} from '@api/custom/network-type';
 import {List} from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -73,7 +74,7 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
-    mapLayers = mapLayers.push(this.mapLayerService.networkBitmapTileLayer('cycling', MapMode.analysis));
+    mapLayers = mapLayers.push(this.mapLayerService.networkBitmapTileLayer(NetworkType.cycling, MapMode.analysis));
     mapLayers = mapLayers.concat(this.mapLayerService.poiAreasLayer(this.geoJson));
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);
