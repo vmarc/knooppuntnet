@@ -33,7 +33,7 @@ export class LocationPageBreadcrumbComponent {
   }
 
   countryLink(): string {
-    return `/analysis/${this.locationKey.networkType.name}/${this.locationKey.country.domain}`;
+    return `/analysis/${this.locationKey.networkType.name}/${this.locationKey.country}`;
   }
 
 }

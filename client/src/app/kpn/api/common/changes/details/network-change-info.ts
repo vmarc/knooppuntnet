@@ -40,7 +40,7 @@ export class NetworkChangeInfo {
       jsonObject.comment,
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
-      Country.fromJSON(jsonObject.country),
+      jsonObject.country,
       NetworkType.fromJSON(jsonObject.networkType),
       jsonObject.networkId,
       jsonObject.networkName,

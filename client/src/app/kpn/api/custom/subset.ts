@@ -32,13 +32,13 @@ export class Subset {
     }
     const splitted = jsonObject.split(':');
     return new Subset(
-      Country.fromJSON(splitted[0]),
+      splitted[0],
       NetworkType.fromJSON(splitted[1])
     );
   }
 
   public key(): string {
-    return this.networkType.name + '/' + this.country.domain;
+    return this.networkType.name + '/' + this.country;
   }
 
 }

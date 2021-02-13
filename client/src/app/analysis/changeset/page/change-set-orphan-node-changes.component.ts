@@ -15,7 +15,7 @@ import {NodeDiffsData} from './node-diffs/node-diffs-data';
     <div *ngFor="let refs of page.summary.orphanNodeChanges" class="kpn-level-1">
       <div class="kpn-level-1-header kpn-line">
         <kpn-network-type-icon [networkType]="refs.subset.networkType"></kpn-network-type-icon>
-        <span>{{refs.subset.country.domain.toUpperCase()}}</span>
+        <span>{{refs.subset.country.toUpperCase()}}</span>
         <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
       </div>
       <div class="kpn-level-1-body">

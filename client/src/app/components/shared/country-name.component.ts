@@ -22,7 +22,7 @@ export class CountryNameComponent {
   }
 
   countryName(): string {
-    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country.domain));
+    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country));
   }
 
 }

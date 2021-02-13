@@ -32,7 +32,7 @@ export class ChangesSetNetworkComponent {
 
   domain() {
     if (this.changeSetNetworkAction.network.country) {
-      return this.changeSetNetworkAction.network.country.domain.toUpperCase();
+      return this.changeSetNetworkAction.network.country.toUpperCase();
     }
     return '??';
   }

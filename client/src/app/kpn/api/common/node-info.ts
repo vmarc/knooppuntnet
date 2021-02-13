@@ -34,7 +34,7 @@ export class NodeInfo {
       jsonObject.id,
       jsonObject.active,
       jsonObject.orphan,
-      Country.fromJSON(jsonObject.country),
+      jsonObject.country,
       jsonObject.name,
       jsonObject.names.map((json: any) => NodeName.fromJSON(json)),
       jsonObject.latitude,

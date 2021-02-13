@@ -13,6 +13,7 @@ import {Country} from '@api/custom/country';
 import {NetworkType} from '@api/custom/network-type';
 import {Subset} from '@api/custom/subset';
 import {TagDiffs} from '@api/common/diff/tag-diffs';
+import {Countries} from '../../kpn/common/countries';
 
 type IPropertyGetter<T> = () => T;
 
@@ -58,9 +59,9 @@ export class Util {
   }
 
   public static subsetInRoute(params: Params): Subset {
-    const country = params['country'];
-    const networkType = params['networkType'];
-    return new Subset(new Country(country), NetworkType.withName(networkType));
+    const country = Countries.withDomain(params['country']);
+    const networkType = NetworkType.withName(params['networkType']);
+    return new Subset(country, networkType);
   }
 
   public static replicationName(replicationNumber: number): string {

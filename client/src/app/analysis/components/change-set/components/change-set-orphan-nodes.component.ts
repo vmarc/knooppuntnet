@@ -21,7 +21,7 @@ export class ChangesSetOrphanNodesComponent {
 
   domain() {
     if (this.subsetElementRefs.subset.country) {
-      return this.subsetElementRefs.subset.country.domain.toUpperCase();
+      return this.subsetElementRefs.subset.country.toUpperCase();
     }
     return '';
   }

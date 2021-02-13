@@ -15,7 +15,7 @@ import {RouteDiffsData} from './route-diffs/route-diffs-data';
     <div *ngFor="let refs of page.summary.orphanRouteChanges" class="kpn-level-1">
       <div class="kpn-level-1-header kpn-line">
         <kpn-network-type-icon [networkType]="refs.subset.networkType"></kpn-network-type-icon>
-        <span>{{refs.subset.country.domain.toUpperCase()}}</span>
+        <span>{{refs.subset.country.toUpperCase()}}</span>
         <span i18n="@@change-set.orphan-routes.title">Orphan routes</span>
       </div>
       <div class="kpn-level-1-body">

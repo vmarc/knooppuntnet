@@ -16,7 +16,7 @@ export class LocationSelectionService {
   }
 
   locations(networkType: NetworkType, country: Country): Observable<LocationNode> {
-    const key = `${networkType.name}:${country.domain}`;
+    const key = `${networkType.name}:${country}`;
     if (!this.locationsCache.has(key)) {
       const res = this.appService.locations(networkType, country).pipe(
         map(response => response.result.locationNode),

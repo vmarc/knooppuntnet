@@ -32,7 +32,7 @@ export class NetworkAttributes {
     }
     return new NetworkAttributes(
       jsonObject.id,
-      Country.fromJSON(jsonObject.country),
+      jsonObject.country,
       NetworkType.fromJSON(jsonObject.networkType),
       jsonObject.name,
       jsonObject.km,

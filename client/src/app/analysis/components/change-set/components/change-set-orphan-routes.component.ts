@@ -23,7 +23,7 @@ export class ChangesSetOrphanRoutesComponent {
 
   domain() {
     if (this.subsetElementRefs.subset.country) {
-      return this.subsetElementRefs.subset.country.domain.toUpperCase();
+      return this.subsetElementRefs.subset.country.toUpperCase();
     }
     return '??country??';
   }

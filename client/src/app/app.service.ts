@@ -267,7 +267,7 @@ export class AppService {
   }
 
   public locations(networkType: NetworkType, country: Country): Observable<ApiResponse<LocationsPage>> {
-    const url = `/api/locations/${networkType.name}/${country.domain}`;
+    const url = `/api/locations/${networkType.name}/${country}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, LocationsPage.fromJSON))
     );
@@ -356,11 +356,11 @@ export class AppService {
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {
-    return `/api/${locationKey.networkType.name}/${locationKey.country.domain}/${locationKey.name}/${target}`;
+    return `/api/${locationKey.networkType.name}/${locationKey.country}/${locationKey.name}/${target}`;
   }
 
   private subsetUrl(subset: Subset, target: string): string {
-    return `/api/${subset.country.domain}/${subset.networkType.name}/${target}`;
+    return `/api/${subset.country}/${subset.networkType.name}/${target}`;
   }
 
 }

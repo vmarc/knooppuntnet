@@ -21,7 +21,7 @@ export class ChangeSetNetwork {
       return undefined;
     }
     return new ChangeSetNetwork(
-      Country.fromJSON(jsonObject.country),
+      jsonObject.country,
       NetworkType.fromJSON(jsonObject.networkType),
       jsonObject.networkId,
       jsonObject.networkName,

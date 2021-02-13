@@ -23,17 +23,17 @@ export class Stat {
     }
 
     let countryStatistic: CountryStatistic = null;
-    if (subset.country.domain === 'nl') {
+    if (subset.country === 'nl') {
       countryStatistic = this.figures.nl;
-    } else if (subset.country.domain === 'be') {
+    } else if (subset.country === 'be') {
       countryStatistic = this.figures.be;
-    } else if (subset.country.domain === 'de') {
+    } else if (subset.country === 'de') {
       countryStatistic = this.figures.de;
-    } else if (subset.country.domain === 'fr') {
+    } else if (subset.country === 'fr') {
       countryStatistic = this.figures.fr;
-    } else if (subset.country.domain === 'at') {
+    } else if (subset.country === 'at') {
       countryStatistic = this.figures.at;
-    } else if (subset.country.domain === 'es') {
+    } else if (subset.country === 'es') {
       countryStatistic = this.figures.es;
     } else {
       return '-';

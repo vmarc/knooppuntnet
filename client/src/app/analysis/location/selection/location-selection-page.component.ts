@@ -91,7 +91,7 @@ export class LocationSelectionPageComponent implements OnInit {
   }
 
   selected(locationName: string): void {
-    const url = `/analysis/${this.networkType.name}/${this.country.domain}/${locationName}/nodes`;
+    const url = `/analysis/${this.networkType.name}/${this.country}/${locationName}/nodes`;
     this.router.navigateByUrl(url);
   }
 
@@ -99,7 +99,7 @@ export class LocationSelectionPageComponent implements OnInit {
     this.locationNode$ = this.activatedRoute.params.pipe(
       map(params => {
         this.networkType = NetworkType.withName(params['networkType']);
-        this.country = new Country(params['country']);
+        this.country = params['country'];
         return new Subset(this.country, this.networkType);
       }),
       mergeMap(subset => this.locationSelectionService.locations(subset.networkType, subset.country))

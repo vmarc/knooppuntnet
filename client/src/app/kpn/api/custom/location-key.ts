@@ -14,12 +14,12 @@ export class LocationKey {
     }
     return new LocationKey(
       NetworkType.fromJSON(jsonObject.networkType),
-      Country.fromJSON(jsonObject.country),
+      jsonObject.country,
       jsonObject.name
     );
   }
 
   public key(): string {
-    return `${this.networkType.name}/${this.country.domain}/${this.name}`;
+    return `${this.networkType.name}/${this.country}/${this.name}`;
   }
 }

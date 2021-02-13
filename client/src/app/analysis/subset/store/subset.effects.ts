@@ -14,6 +14,7 @@ import {mergeMap} from 'rxjs/operators';
 import {AppService} from '../../../app.service';
 import {selectRouteParam} from '../../../core/core.state';
 import {AppState} from '../../../core/core.state';
+import {Countries} from '../../../kpn/common/countries';
 import {actionSubsetFactsPageInit} from './subset.actions';
 import {actionSubsetOrphanRoutesPageInit} from './subset.actions';
 import {actionSubsetOrphanNodesPageInit} from './subset.actions';
@@ -39,7 +40,7 @@ export class SubsetEffects {
     this.store.select(selectRouteParam('country')),
     this.store.select(selectRouteParam('networkType'))
   ]).pipe(
-    map(([country, networkType]) => new Subset(new Country(country), NetworkType.withName(networkType)))
+    map(([country, networkType]) => new Subset(Countries.withDomain(country), NetworkType.withName(networkType)))
   );
 
   networksPage = createEffect(() =>
