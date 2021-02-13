@@ -31,7 +31,7 @@ export class MainMapLayer {
     layer.set('name', layerName);
     // TODO need to unsubscribe
     this.mapService.mapMode$.subscribe(() => this.vectorTileLayer.getSource().changed());
-    return new MapLayer(`network-${networkType.name}-layer`, layer, this.applyMap());
+    return new MapLayer(`network-${networkType}-layer`, layer, this.applyMap());
   }
 
   private applyMap() {

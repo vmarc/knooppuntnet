@@ -14,7 +14,7 @@ export class NodeOrphanRouteReference {
       return undefined;
     }
     return new NodeOrphanRouteReference(
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.routeId,
       jsonObject.routeName
     );

@@ -116,19 +116,19 @@ export class SubsetPageHeaderBlockComponent implements OnInit {
   }
 
   networkTypeLink(): string {
-    const networkType = Util.safeGet(() => this.subset.networkType.name);
+    const networkType = Util.safeGet(() => this.subset.networkType);
     return `/analysis/${networkType}`;
   }
 
   countryLink(): string {
-    const networkType = Util.safeGet(() => this.subset.networkType.name);
+    const networkType = Util.safeGet(() => this.subset.networkType);
     const country = Util.safeGet(() => this.subset.country);
     return `/analysis/${networkType}/${country}`;
   }
 
   link(targetPageName: string) {
     if (this.subset != null) {
-      const networkType = Util.safeGet(() => this.subset.networkType.name);
+      const networkType = Util.safeGet(() => this.subset.networkType);
       const country = Util.safeGet(() => this.subset.country);
       return `/analysis/${networkType}/${country}/${targetPageName}`;
     }
@@ -136,7 +136,7 @@ export class SubsetPageHeaderBlockComponent implements OnInit {
   }
 
   subsetName(): string {
-    const networkType = this.i18nService.translation('@@network-type.' + this.subset.networkType.name);
+    const networkType = this.i18nService.translation('@@network-type.' + this.subset.networkType);
     const country = this.i18nService.translation('@@country.' + this.subset.country);
     const inWord = this.i18nService.translation('@@subset.in');
     return `${networkType} ${inWord} ${country}`;

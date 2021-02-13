@@ -29,11 +29,11 @@ export class LocationPageBreadcrumbComponent {
   @Input() locationKey: LocationKey;
 
   networkTypeLink(): string {
-    return `/analysis/${this.locationKey.networkType.name}`;
+    return `/analysis/${this.locationKey.networkType}`;
   }
 
   countryLink(): string {
-    return `/analysis/${this.locationKey.networkType.name}/${this.locationKey.country}`;
+    return `/analysis/${this.locationKey.networkType}/${this.locationKey.country}`;
   }
 
 }

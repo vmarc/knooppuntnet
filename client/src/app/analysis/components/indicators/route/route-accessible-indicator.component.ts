@@ -38,12 +38,12 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color = 'gray';
-    if (NetworkType.horseRiding.name === this.networkType.name || NetworkType.inlineSkating.name === this.networkType.name) {
+    if ('horse-riding' === this.networkType || 'inline-skating' === this.networkType) {
       color = 'gray';
-    } else if (NetworkType.cycling.name === this.networkType.name ||
-      NetworkType.hiking.name === this.networkType.name ||
-      NetworkType.motorboat.name === this.networkType.name ||
-      NetworkType.canoe.name === this.networkType.name) {
+    } else if ('cycling' === this.networkType ||
+      'hiking' === this.networkType ||
+      'motorboat' === this.networkType ||
+      'canoe' === this.networkType) {
       color = this.accessible ? 'green' : 'red';
     }
     return color;

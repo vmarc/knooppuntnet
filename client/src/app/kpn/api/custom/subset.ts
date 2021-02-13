@@ -1,25 +1,24 @@
-import {Countries} from '../../common/countries';
 import {Country} from './country';
 import {NetworkType} from './network-type';
 
 export class Subset {
 
   static all = [
-    new Subset(Countries.nl, NetworkType.cycling),
-    new Subset(Countries.nl, NetworkType.hiking),
-    new Subset(Countries.nl, NetworkType.horseRiding),
-    new Subset(Countries.nl, NetworkType.motorboat),
-    new Subset(Countries.nl, NetworkType.canoe),
-    new Subset(Countries.nl, NetworkType.inlineSkating),
-    new Subset(Countries.be, NetworkType.cycling),
-    new Subset(Countries.be, NetworkType.hiking),
-    new Subset(Countries.be, NetworkType.horseRiding),
-    new Subset(Countries.de, NetworkType.cycling),
-    new Subset(Countries.de, NetworkType.hiking),
-    new Subset(Countries.fr, NetworkType.cycling),
-    new Subset(Countries.fr, NetworkType.hiking),
-    new Subset(Countries.at, NetworkType.cycling),
-    new Subset(Countries.es, NetworkType.cycling)
+    new Subset('nl', 'cycling'),
+    new Subset('nl', 'hiking'),
+    new Subset('nl', 'horse-riding'),
+    new Subset('nl', 'motorboat'),
+    new Subset('nl', 'canoe'),
+    new Subset('nl', 'inline-skating'),
+    new Subset('be', 'cycling'),
+    new Subset('be', 'hiking'),
+    new Subset('be', 'horse-riding'),
+    new Subset('de', 'cycling'),
+    new Subset('de', 'hiking'),
+    new Subset('fr', 'cycling'),
+    new Subset('fr', 'hiking'),
+    new Subset('at', 'cycling'),
+    new Subset('es', 'cycling')
   ];
 
   constructor(readonly country: Country,
@@ -33,12 +32,12 @@ export class Subset {
     const splitted = jsonObject.split(':');
     return new Subset(
       splitted[0],
-      NetworkType.fromJSON(splitted[1])
+      splitted[1]
     );
   }
 
   public key(): string {
-    return this.networkType.name + '/' + this.country;
+    return this.networkType + '/' + this.country;
   }
 
 }

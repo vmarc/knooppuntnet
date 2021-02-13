@@ -22,7 +22,7 @@ export class NetworkRoutesPage {
     return new NetworkRoutesPage(
       TimeInfo.fromJSON(jsonObject.timeInfo),
       SurveyDateInfo.fromJSON(jsonObject.surveyDateInfo),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       NetworkSummary.fromJSON(jsonObject.networkSummary),
       jsonObject.routes.map((json: any) => NetworkRouteRow.fromJSON(json))
     );

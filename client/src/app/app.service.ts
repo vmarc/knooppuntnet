@@ -225,7 +225,7 @@ export class AppService {
   }
 
   public mapNodeDetail(networkType: NetworkType, nodeId: number): Observable<ApiResponse<MapNodeDetail>> {
-    const url = `/api/node-detail/${nodeId}/${networkType.name}`;
+    const url = `/api/node-detail/${nodeId}/${networkType}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, MapNodeDetail.fromJSON))
     );
@@ -267,7 +267,7 @@ export class AppService {
   }
 
   public locations(networkType: NetworkType, country: Country): Observable<ApiResponse<LocationsPage>> {
-    const url = `/api/locations/${networkType.name}/${country}`;
+    const url = `/api/locations/${networkType}/${country}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, LocationsPage.fromJSON))
     );
@@ -356,11 +356,11 @@ export class AppService {
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {
-    return `/api/${locationKey.networkType.name}/${locationKey.country}/${locationKey.name}/${target}`;
+    return `/api/${locationKey.networkType}/${locationKey.country}/${locationKey.name}/${target}`;
   }
 
   private subsetUrl(subset: Subset, target: string): string {
-    return `/api/${subset.country}/${subset.networkType.name}/${target}`;
+    return `/api/${subset.country}/${subset.networkType}/${target}`;
   }
 
 }

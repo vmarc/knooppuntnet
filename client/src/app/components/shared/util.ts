@@ -1,19 +1,18 @@
 import {Params, Route} from '@angular/router';
 import {ActivatedRouteSnapshot} from '@angular/router';
+import {Bounds} from '@api/common/bounds';
+import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
+import {TagDiffs} from '@api/common/diff/tag-diffs';
+import {LatLonImpl} from '@api/common/lat-lon-impl';
+import {Subset} from '@api/custom/subset';
 import {List} from 'immutable';
 import {Map} from 'immutable';
 import {Coordinate} from 'ol/coordinate';
 import {boundingExtent} from 'ol/extent';
 import {Extent} from 'ol/extent';
 import {fromLonLat, toLonLat} from 'ol/proj';
-import {Bounds} from '@api/common/bounds';
-import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
-import {LatLonImpl} from '@api/common/lat-lon-impl';
-import {Country} from '@api/custom/country';
-import {NetworkType} from '@api/custom/network-type';
-import {Subset} from '@api/custom/subset';
-import {TagDiffs} from '@api/common/diff/tag-diffs';
 import {Countries} from '../../kpn/common/countries';
+import {NetworkTypes} from '../../kpn/common/network-types';
 
 type IPropertyGetter<T> = () => T;
 
@@ -60,7 +59,7 @@ export class Util {
 
   public static subsetInRoute(params: Params): Subset {
     const country = Countries.withDomain(params['country']);
-    const networkType = NetworkType.withName(params['networkType']);
+    const networkType = NetworkTypes.withName(params['networkType']);
     return new Subset(country, networkType);
   }
 

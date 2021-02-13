@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input, OnInit} from '@angular/core';
 import {NodeInfo} from '@api/common/node-info';
 import {NodeNetworkReference} from '@api/common/node/node-network-reference';
+import {NetworkTypes} from '../../../kpn/common/network-types';
 
 @Component({
   selector: 'kpn-node-network-reference-statement',
@@ -42,7 +43,8 @@ export class NodeNetworkReferenceStatementComponent implements OnInit {
   }
 
   get expectedRouteRelationsTag() {
-    return `expected_${this.reference.networkType.id}_route_relations`;
+    const tagValue = NetworkTypes.tagValue(this.reference.networkType);
+    return `expected_${tagValue}_route_relations`;
   }
 
   private hasExpectedRouteRelationsTag() {

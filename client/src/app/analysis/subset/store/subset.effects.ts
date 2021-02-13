@@ -15,6 +15,7 @@ import {AppService} from '../../../app.service';
 import {selectRouteParam} from '../../../core/core.state';
 import {AppState} from '../../../core/core.state';
 import {Countries} from '../../../kpn/common/countries';
+import {NetworkTypes} from '../../../kpn/common/network-types';
 import {actionSubsetFactsPageInit} from './subset.actions';
 import {actionSubsetOrphanRoutesPageInit} from './subset.actions';
 import {actionSubsetOrphanNodesPageInit} from './subset.actions';
@@ -40,7 +41,7 @@ export class SubsetEffects {
     this.store.select(selectRouteParam('country')),
     this.store.select(selectRouteParam('networkType'))
   ]).pipe(
-    map(([country, networkType]) => new Subset(Countries.withDomain(country), NetworkType.withName(networkType)))
+    map(([country, networkType]) => new Subset(Countries.withDomain(country), NetworkTypes.withName(networkType)))
   );
 
   networksPage = createEffect(() =>

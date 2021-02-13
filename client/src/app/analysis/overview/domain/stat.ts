@@ -40,22 +40,22 @@ export class Stat {
     }
 
     if (countryStatistic !== null) {
-      if (subset.networkType === NetworkType.cycling) {
+      if (subset.networkType === 'cycling') {
         return countryStatistic.rcn;
       }
-      if (subset.networkType === NetworkType.hiking) {
+      if (subset.networkType === 'hiking') {
         return countryStatistic.rwn;
       }
-      if (subset.networkType === NetworkType.horseRiding) {
+      if (subset.networkType === 'horse-riding') {
         return countryStatistic.rhn;
       }
-      if (subset.networkType === NetworkType.motorboat) {
+      if (subset.networkType === 'motorboat') {
         return countryStatistic.rmn;
       }
-      if (subset.networkType === NetworkType.canoe) {
+      if (subset.networkType === 'canoe') {
         return countryStatistic.rpn;
       }
-      if (subset.networkType === NetworkType.inlineSkating) {
+      if (subset.networkType === 'inline-skating') {
         return countryStatistic.rin;
       }
     }

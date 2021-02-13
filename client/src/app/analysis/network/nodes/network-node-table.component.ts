@@ -14,6 +14,7 @@ import {delay} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {PageWidthService} from '../../../components/shared/page-width.service';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
+import {NetworkTypes} from '../../../kpn/common/network-types';
 import {FilterOptions} from '../../../kpn/filter/filter-options';
 import {NetworkNodeFilter} from './network-node-filter';
 import {NetworkNodeFilterCriteria} from './network-node-filter-criteria';
@@ -165,7 +166,8 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   name(node: NetworkNodeDetail): string {
-    const nameTagKeys = List([`${this.networkType.id}:name`, `name:${this.networkType.id}_ref`]);
+    const tagValue = NetworkTypes.tagValue(this.networkType);
+    const nameTagKeys = List([`${tagValue}:name`, `name:${tagValue}_ref`]);
     if (node.tags) {
       const nameTag = node.tags.tags.find(tag => nameTagKeys.contains(tag.key));
       if (nameTag) {

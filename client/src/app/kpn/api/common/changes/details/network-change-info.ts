@@ -41,7 +41,7 @@ export class NetworkChangeInfo {
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
       jsonObject.country,
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.networkId,
       jsonObject.networkName,
       MetaData.fromJSON(jsonObject.before),

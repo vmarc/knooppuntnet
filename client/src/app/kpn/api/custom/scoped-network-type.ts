@@ -1,10 +1,11 @@
+import {NetworkTypes} from '../../common/network-types';
 import {NetworkScope} from './network-scope';
 import {NetworkType} from './network-type';
 import {List} from 'immutable';
 
 export class ScopedNetworkType {
 
-  public static all: List<ScopedNetworkType> = List(NetworkType.all.flatMap(networkType =>
+  public static all: List<ScopedNetworkType> = List(List(NetworkTypes.all).flatMap(networkType =>
     NetworkScope.all.map(scope => ScopedNetworkType.create(scope, networkType))
   ));
 
@@ -15,7 +16,8 @@ export class ScopedNetworkType {
 
   public static create(networkScope: NetworkScope,
                        networkType: NetworkType): ScopedNetworkType {
-    const key = networkScope.letter + networkType.letter + 'n';
+    const letter = NetworkTypes.letter(networkType);
+    const key = networkScope.letter + letter + 'n';
     return new ScopedNetworkType(networkScope, networkType, key);
   }
 
@@ -25,7 +27,7 @@ export class ScopedNetworkType {
     }
     return new ScopedNetworkType(
       NetworkScope.fromJSON(jsonObject.networkScope),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.key
     );
   }

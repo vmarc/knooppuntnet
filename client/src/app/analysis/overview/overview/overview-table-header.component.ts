@@ -19,7 +19,7 @@ import {Subset} from '@api/custom/subset';
     </tr>
     <tr>
       <th class="value-cell" *ngFor="let subset of subsets()">
-        <mat-icon [svgIcon]="subset.networkType.name"></mat-icon>
+        <mat-icon [svgIcon]="subset.networkType"></mat-icon>
       </th>
     </tr>
   `,

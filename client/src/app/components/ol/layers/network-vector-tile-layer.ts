@@ -17,7 +17,7 @@ export class NetworkVectorTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: '/tiles/' + networkType.name + '/{z}/{x}/{y}.mvt'
+      url: '/tiles/' + networkType + '/{z}/{x}/{y}.mvt'
     });
 
     return new VectorTileLayer({
@@ -34,12 +34,12 @@ export class NetworkVectorTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: '/tiles/' + networkType.name + '/{z}/{x}/{y}.mvt'
+      url: '/tiles/' + networkType + '/{z}/{x}/{y}.mvt'
     });
 
     const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
-      className: `${networkType.name}-network`,
+      className: `${networkType}-network`,
       declutter: true,
       source,
       renderMode: 'image'
@@ -50,7 +50,7 @@ export class NetworkVectorTileLayer {
       layer.setStyle(nodeMapStyle);
     };
 
-    return new MapLayer(`${networkType.name}`, layer, applyMap);
+    return new MapLayer(`${networkType}`, layer, applyMap);
   }
 
 }

@@ -22,7 +22,7 @@ export class ChangeSetNetwork {
     }
     return new ChangeSetNetwork(
       jsonObject.country,
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.networkId,
       jsonObject.networkName,
       ChangeSetElementRefs.fromJSON(jsonObject.routeChanges),

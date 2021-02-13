@@ -1,4 +1,7 @@
 import {Injectable} from '@angular/core';
+import {NetworkType} from '@api/custom/network-type';
+import {Store} from '@ngrx/store';
+import {select} from '@ngrx/store';
 import {List, Map as ImmutableMap} from 'immutable';
 import VectorLayer from 'ol/layer/Vector';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -11,18 +14,16 @@ import {MapLayer} from '../../../components/ol/layers/map-layer';
 import {MapLayerChange} from '../../../components/ol/layers/map-layer-change';
 import {MapLayers} from '../../../components/ol/layers/map-layers';
 import {MapLayerService} from '../../../components/ol/services/map-layer.service';
+import {MapMode} from '../../../components/ol/services/map-mode';
 import {MapZoomService} from '../../../components/ol/services/map-zoom.service';
 import {MapService} from '../../../components/ol/services/map.service';
 import {PoiTileLayerService} from '../../../components/ol/services/poi-tile-layer.service';
 import {MainMapStyle} from '../../../components/ol/style/main-map-style';
-import {NetworkType} from '@api/custom/network-type';
-import {PlannerService} from '../../planner.service';
-import {MapMode} from '../../../components/ol/services/map-mode';
-import {Subscriptions} from '../../../util/Subscriptions';
 import {AppState} from '../../../core/core.state';
-import {Store} from '@ngrx/store';
-import {select} from '@ngrx/store';
 import {selectPreferencesExtraLayers} from '../../../core/preferences/preferences.selectors';
+import {NetworkTypes} from '../../../kpn/common/network-types';
+import {Subscriptions} from '../../../util/Subscriptions';
+import {PlannerService} from '../../planner.service';
 
 @Injectable()
 export class PlannerLayerService {
@@ -155,12 +156,12 @@ export class PlannerLayerService {
   }
 
   private buildBitmapLayers(mapMode: MapMode): ImmutableMap<NetworkType, MapLayer> {
-    const keysAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(networkType => [networkType, this.mapLayerService.networkBitmapTileLayer(networkType, mapMode)]);
+    const keysAndValues: List<[NetworkType, MapLayer]> = List(NetworkTypes.all).map(networkType => [networkType, this.mapLayerService.networkBitmapTileLayer(networkType, mapMode)]);
     return ImmutableMap<NetworkType, MapLayer>(keysAndValues.toArray());
   }
 
   private buildVectorLayers(): ImmutableMap<NetworkType, MapLayer> {
-    const keyAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(networkType => [networkType, this.mapLayerService.networkVectorTileLayer(networkType)]);
+    const keyAndValues: List<[NetworkType, MapLayer]> = List(NetworkTypes.all).map(networkType => [networkType, this.mapLayerService.networkVectorTileLayer(networkType)]);
     return ImmutableMap<NetworkType, MapLayer>(keyAndValues.toArray());
   }
 }

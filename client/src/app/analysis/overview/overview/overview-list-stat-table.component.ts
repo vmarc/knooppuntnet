@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {Country} from '@api/custom/country';
 import {NetworkType} from '@api/custom/network-type';
-import {Countries} from '../../../kpn/common/countries';
 import {Stat} from '../domain/stat';
 
 @Component({
@@ -57,52 +57,52 @@ export class OverviewListStatTableComponent {
 
   @Input() stat: Stat;
 
-  nl() {
-    return Countries.nl;
+  nl(): Country {
+    return 'nl';
   }
 
-  be() {
-    return Countries.be;
+  be(): Country {
+    return 'be';
   }
 
-  de() {
-    return Countries.de;
+  de(): Country {
+    return 'de';
   }
 
-  fr() {
-    return Countries.fr;
+  fr(): Country {
+    return 'fr';
   }
 
-  at() {
-    return Countries.at;
+  at(): Country {
+    return 'at';
   }
 
-  es() {
-    return Countries.es;
+  es(): Country {
+    return 'es';
   }
 
   cycling(): NetworkType {
-    return NetworkType.cycling;
+    return 'cycling';
   }
 
   hiking(): NetworkType {
-    return NetworkType.hiking;
+    return 'hiking';
   }
 
   horse(): NetworkType {
-    return NetworkType.horseRiding;
+    return 'horse-riding';
   }
 
   motorboat(): NetworkType {
-    return NetworkType.motorboat;
+    return 'motorboat';
   }
 
   canoe(): NetworkType {
-    return NetworkType.canoe;
+    return 'canoe';
   }
 
   inlineSkating(): NetworkType {
-    return NetworkType.inlineSkating;
+    return 'inline-skating';
   }
 
 }

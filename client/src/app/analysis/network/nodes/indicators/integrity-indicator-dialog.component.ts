@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {NetworkTypes} from '../../../../kpn/common/network-types';
 import {IntegrityIndicatorData} from './integrity-indicator-data';
 
 @Component({
@@ -46,7 +47,8 @@ export class IntegrityIndicatorDialogComponent {
   }
 
   get tag() {
-    return `expected_${this.indicatorData.networkType.id}_route_relations`;
+    const tagValue = NetworkTypes.tagValue(this.indicatorData.networkType);
+    return `expected_${tagValue}_route_relations`;
   }
 
   get actual() {

@@ -33,7 +33,7 @@ export class NetworkAttributes {
     return new NetworkAttributes(
       jsonObject.id,
       jsonObject.country,
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.name,
       jsonObject.km,
       jsonObject.meters,

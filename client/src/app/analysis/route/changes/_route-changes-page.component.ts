@@ -119,7 +119,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
                     this.page = Util.safeGet(() => response.result);
                     this.routeName$.next(Util.safeGet(() => response.result.route.summary.name));
                     this.changeCount$.next(Util.safeGet(() => response.result.changeCount));
-                    this.store.dispatch(actionPreferencesNetworkType({networkType: this.page.route.summary.networkType.name}));
+                    this.store.dispatch(actionPreferencesNetworkType({networkType: this.page.route.summary.networkType}));
                     this.routeChangesService.setFilterOptions(
                       ChangeFilterOptions.from(
                         this.parameters,

@@ -3,7 +3,6 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PlanParams} from '@api/common/planner/plan-params';
-import {NetworkType} from '@api/custom/network-type';
 import {Coordinate} from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
@@ -25,6 +24,7 @@ import {MapService} from '../../../components/ol/services/map.service';
 import {PoiTileLayerService} from '../../../components/ol/services/poi-tile-layer.service';
 import {PageService} from '../../../components/shared/page.service';
 import {Util} from '../../../components/shared/util';
+import {NetworkTypes} from '../../../kpn/common/network-types';
 import {PoiService} from '../../../services/poi.service';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PlannerService} from '../../planner.service';
@@ -93,7 +93,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.add(
       this.activatedRoute.params.subscribe(params => {
         const networkTypeName = params['networkType'];
-        const networkType = NetworkType.withName(networkTypeName);
+        const networkType = NetworkTypes.withName(networkTypeName);
         this.mapService.nextNetworkType(networkType);
         this.plannerService.context.nextNetworkType(networkType);
       })
@@ -101,7 +101,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.subscriptions.add(
       this.mapService.networkType$.subscribe(networkType => {
-        this.pageService.nextToolbarBackgroundColor('toolbar-style-' + networkType.name);
+        this.pageService.nextToolbarBackgroundColor('toolbar-style-' + networkType);
       })
     );
 
@@ -109,7 +109,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       combineLatest([this.plannerService.context.networkType$, this.activatedRoute.fragment])
         .subscribe(([networkType, fragment]) => {
           if (fragment) {
-            const planParams = new PlanParams(networkType.name, fragment);
+            const planParams = new PlanParams(networkType, fragment);
             this.appService.plan(planParams).subscribe(response => {
               const plan = PlanBuilder.build(response.result, fragment);
               const command = new PlannerCommandAddPlan(plan);
@@ -161,7 +161,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   geolocation(coordinate: Coordinate): void {
     this.map.getView().setCenter(coordinate);
     let zoomLevel = 15;
-    if (NetworkType.cycling === this.mapService.networkType()) {
+    if ('cycling' === this.mapService.networkType()) {
       zoomLevel = 13;
     }
     this.map.getView().setZoom(zoomLevel);

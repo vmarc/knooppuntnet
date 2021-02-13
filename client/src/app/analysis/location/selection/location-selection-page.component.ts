@@ -8,6 +8,7 @@ import {Subset} from '@api/custom/subset';
 import {Observable} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
+import {NetworkTypes} from '../../../kpn/common/network-types';
 import {LocationModeService} from './location-mode.service';
 import {LocationSelectionService} from './location-selection.service';
 
@@ -91,14 +92,14 @@ export class LocationSelectionPageComponent implements OnInit {
   }
 
   selected(locationName: string): void {
-    const url = `/analysis/${this.networkType.name}/${this.country}/${locationName}/nodes`;
+    const url = `/analysis/${this.networkType}/${this.country}/${locationName}/nodes`;
     this.router.navigateByUrl(url);
   }
 
   ngOnInit() {
     this.locationNode$ = this.activatedRoute.params.pipe(
       map(params => {
-        this.networkType = NetworkType.withName(params['networkType']);
+        this.networkType = NetworkTypes.withName(params['networkType']);
         this.country = params['country'];
         return new Subset(this.country, this.networkType);
       }),
@@ -107,7 +108,7 @@ export class LocationSelectionPageComponent implements OnInit {
   }
 
   networkTypeLink(): string {
-    return `/analysis/${this.networkType.name}`;
+    return `/analysis/${this.networkType}`;
   }
 
 }

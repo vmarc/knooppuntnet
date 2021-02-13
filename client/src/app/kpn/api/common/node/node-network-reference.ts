@@ -23,7 +23,7 @@ export class NodeNetworkReference {
       return undefined;
     }
     return new NodeNetworkReference(
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.networkId,
       jsonObject.networkName,
       jsonObject.nodeDefinedInRelation,

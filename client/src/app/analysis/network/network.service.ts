@@ -28,6 +28,6 @@ export class NetworkService {
     this.networkCacheService.setNetworkSummary(networkId, networkSummary);
     this.networkName$.next(networkSummary.name);
     this.networkSummary$.next(networkSummary);
-    this.store.dispatch(actionPreferencesNetworkType({networkType: networkSummary.networkType.name}));
+    this.store.dispatch(actionPreferencesNetworkType({networkType: networkSummary.networkType}));
   }
 }

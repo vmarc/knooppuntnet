@@ -24,7 +24,7 @@ export class NetworkNodesPage {
       TimeInfo.fromJSON(jsonObject.timeInfo),
       SurveyDateInfo.fromJSON(jsonObject.surveyDateInfo),
       NetworkSummary.fromJSON(jsonObject.networkSummary),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.nodes.map((json: any) => NetworkNodeDetail.fromJSON(json)),
       jsonObject.routeIds
     );

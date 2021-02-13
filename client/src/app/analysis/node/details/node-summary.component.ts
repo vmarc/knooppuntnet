@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {NodeInfo} from '@api/common/node-info';
 import {NetworkType} from '@api/custom/network-type';
-import {List} from 'immutable';
+import {NetworkTypes} from '../../../kpn/common/network-types';
 
 @Component({
   selector: 'kpn-node-summary',
@@ -70,12 +70,12 @@ export class NodeSummaryComponent {
     return this.nodeInfo.names.length > 1;
   }
 
-  networkTypes(): List<NetworkType> {
-    return NetworkType.all.filter(networkType => this.networkName(networkType));
+  networkTypes(): NetworkType[] {
+    return NetworkTypes.all.filter(networkType => this.networkName(networkType));
   }
 
   networkName(networkType: NetworkType): string {
-    const nodeName = this.nodeInfo.names.find(name => name.scopedNetworkType.networkType.id === networkType.id);
+    const nodeName = this.nodeInfo.names.find(name => name.scopedNetworkType.networkType === networkType);
     if (nodeName) {
       return nodeName.name;
     }

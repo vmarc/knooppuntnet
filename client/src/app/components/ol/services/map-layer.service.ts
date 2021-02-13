@@ -78,14 +78,14 @@ export class MapLayerService {
 
   networkVectorTileLayer(networkType: NetworkType): MapLayer {
     const layer = NetworkVectorTileLayer.build(networkType);
-    const layerName = this.i18nService.translation('@@map.layer.' + networkType.name);
+    const layerName = this.i18nService.translation('@@map.layer.' + networkType);
     layer.layer.set('name', layerName);
     return layer;
   }
 
   networkBitmapTileLayer(networkType: NetworkType, mapMode: MapMode): MapLayer {
     const layer = NetworkBitmapTileLayer.build(networkType, mapMode);
-    const layerName = this.i18nService.translation('@@map.layer.' + networkType.name);
+    const layerName = this.i18nService.translation('@@map.layer.' + networkType);
     layer.layer.set('name', layerName);
     return layer;
   }
@@ -112,7 +112,7 @@ export class MapLayerService {
 
   networkNodesTileLayer(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
     const layer = NetworkNodesTileLayer.build(networkType, nodeIds, routeIds);
-    const layerName = this.i18nService.translation('@@map.layer.' + networkType.name);
+    const layerName = this.i18nService.translation('@@map.layer.' + networkType);
     layer.layer.set('name', layerName);
     return layer;
   }

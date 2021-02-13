@@ -26,7 +26,7 @@ import {RouteMemberInfo} from '@api/custom/route-member-info';
             <th i18n="@@route.members.table.node-count">#Nodes</th>
             <th i18n="@@route.members.table.name">Name</th>
             <th i18n="@@route.members.table.unaccessible">Unaccessible</th>
-            <th colSpan="2" *ngIf="networkType.name == 'cycling'" i18n="@@route.members.table.one-way">One Way</th>
+            <th colSpan="2" *ngIf="networkType === 'cycling'" i18n="@@route.members.table.one-way">One Way</th>
           </tr>
           </thead>
 
@@ -73,11 +73,11 @@ import {RouteMemberInfo} from '@api/custom/route-member-info';
                 <mat-icon svgIcon="warning"></mat-icon>
               </div>
             </td>
-            <td *ngIf="networkType.name == 'cycling'">
+            <td *ngIf="networkType === 'cycling'">
               <div *ngIf="member.oneWay == 'Forward'" i18n="@@route.members.table.one-way.yes">Yes</div>
               <div *ngIf="member.oneWay == 'Backward'" i18n="@@route.members.table.one-way.reverse">Reverse</div>
             </td>
-            <td *ngIf="networkType.name == 'cycling'">
+            <td *ngIf="networkType === 'cycling'">
               <kpn-tags-text *ngIf="!member.oneWayTags.isEmpty()" [tags]="member.oneWayTags"></kpn-tags-text>
             </td>
           </tr>

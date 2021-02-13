@@ -18,7 +18,7 @@ export class NodeMapInfo {
     return new NodeMapInfo(
       jsonObject.id,
       jsonObject.name,
-      jsonObject.networkTypes.map((json: any) => NetworkType.fromJSON(json)),
+      jsonObject.networkTypes,
       jsonObject.latitude,
       jsonObject.longitude
     );

@@ -14,7 +14,7 @@ import {RouteAccessibleData} from './route-accessible-data';
       <span dialog-title *ngIf="isGray()" i18n="@@route-accessible-indicator.gray.title">
         OK - Accessibility unknown
       </span>
-      <!--@@ Route toegankelijkheid gegevens zijn onbekend voor dit type route. -->
+
       <div dialog-body *ngIf="isGray()" i18n="@@route-accessible-indicator.gray.text">
         Accessibility information is unknown for this type of route.
       </div>
@@ -85,23 +85,23 @@ export class RouteAccessibleIndicatorDialogComponent {
   }
 
   isCycling(): boolean {
-    return this.isNetworkType(NetworkType.cycling);
+    return this.isNetworkType('cycling');
   }
 
   isHiking(): boolean {
-    return this.isNetworkType(NetworkType.hiking);
+    return this.isNetworkType('hiking');
   }
 
   isMotorboat(): boolean {
-    return this.isNetworkType(NetworkType.motorboat);
+    return this.isNetworkType('motorboat');
   }
 
   isCanoe(): boolean {
-    return this.isNetworkType(NetworkType.canoe);
+    return this.isNetworkType('canoe');
   }
 
   private isNetworkType(networkType: NetworkType): boolean {
-    return networkType.name === this.data.networkType.name;
+    return networkType === this.data.networkType;
   }
 
 }

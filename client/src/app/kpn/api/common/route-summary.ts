@@ -26,7 +26,7 @@ export class RouteSummary {
     return new RouteSummary(
       jsonObject.id,
       jsonObject.country,
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.name,
       jsonObject.meters,
       jsonObject.isBroken,

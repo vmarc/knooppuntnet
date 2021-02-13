@@ -17,7 +17,7 @@ export class Reference {
     return new Reference(
       jsonObject.id,
       jsonObject.name,
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.connection
     );
   }

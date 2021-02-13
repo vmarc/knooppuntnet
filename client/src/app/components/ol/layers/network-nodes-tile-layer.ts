@@ -45,7 +45,7 @@ export class NetworkNodesTileLayer {
       return true;
     };
 
-    return new MapLayer(`network-nodes-${networkType.name}-layer`, layer, applyMap);
+    return new MapLayer(`network-nodes-${networkType}-layer`, layer, applyMap);
   }
 
   private static buildBitmapLayer(networkType: NetworkType): TileLayer {
@@ -53,7 +53,7 @@ export class NetworkNodesTileLayer {
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: `/tiles/${networkType.name}/analysis/{z}/{x}/{y}.png`
+        url: `/tiles/${networkType}/analysis/{z}/{x}/{y}.png`
       })
     });
   }
@@ -65,7 +65,7 @@ export class NetworkNodesTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: '/tiles/' + networkType.name + '/{z}/{x}/{y}.mvt'
+      url: '/tiles/' + networkType + '/{z}/{x}/{y}.mvt'
     });
 
     return new VectorTileLayer({

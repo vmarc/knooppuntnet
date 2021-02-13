@@ -18,7 +18,7 @@ export class NetworkSummary {
       return undefined;
     }
     return new NetworkSummary(
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.name,
       jsonObject.factCount,
       jsonObject.nodeCount,

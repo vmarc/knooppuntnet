@@ -6,13 +6,12 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import {Subscriptions} from '../../../util/Subscriptions';
 import {PageService} from '../../shared/page.service';
+import {Util} from '../../shared/util';
 import {ZoomLevel} from '../domain/zoom-level';
 import {MapControls} from '../layers/map-controls';
 import {MapLayer} from '../layers/map-layer';
 import {MapLayers} from '../layers/map-layers';
 import {MapLayerService} from '../services/map-layer.service';
-import {Util} from '../../shared/util';
-import {NetworkType} from '@api/custom/network-type';
 import {MapMode} from '../services/map-mode';
 
 @Component({
@@ -74,7 +73,7 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
-    mapLayers = mapLayers.push(this.mapLayerService.networkBitmapTileLayer(NetworkType.cycling, MapMode.analysis));
+    mapLayers = mapLayers.push(this.mapLayerService.networkBitmapTileLayer('cycling', MapMode.analysis));
     mapLayers = mapLayers.concat(this.mapLayerService.poiAreasLayer(this.geoJson));
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);
