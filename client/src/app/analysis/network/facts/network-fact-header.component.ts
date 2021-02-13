@@ -12,13 +12,13 @@ import {Facts} from '../../fact/facts';
       <span class="kpn-thick">
         <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
       </span>
-      <span *ngIf="fact.elements.length > 0">
+      <span *ngIf="fact.elements && fact.elements.length > 0">
         ({{fact.elements.length}})
       </span>
-      <span *ngIf="fact.elementIds.length > 0">
+      <span *ngIf="fact.elementIds && fact.elementIds.length > 0">
         ({{fact.elementIds.length}})
       </span>
-      <span *ngIf="fact.checks.length > 0">
+      <span *ngIf="fact.checks && fact.checks.length > 0">
         ({{fact.checks.length}})
       </span>
       <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>

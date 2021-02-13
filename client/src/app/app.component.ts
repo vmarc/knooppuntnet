@@ -1,16 +1,16 @@
 import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
+import {setTag} from '@sentry/angular';
 import {map} from 'rxjs/operators';
 import {PageWidth} from './components/shared/page-width';
 import {PageWidthService} from './components/shared/page-width.service';
 import {PageService} from './components/shared/page.service';
 import {IconService} from './services/icon.service';
 import {UserService} from './services/user.service';
+import {VersionService} from './services/version.service';
 import {SpinnerService} from './spinner/spinner.service';
 import {Subscriptions} from './util/Subscriptions';
-import {VersionService} from './services/version.service';
-import * as Sentry from '@sentry/angular';
 
 @Component({
   selector: 'app-root',
@@ -85,21 +85,19 @@ export class AppComponent implements OnInit {
               private versionService: VersionService,
               router: Router) {
 
-    Sentry.setTag('knooppuntnet-version', versionService.version);
+    setTag('knooppuntnet-version', versionService.version);
 
     this.subscriptions.add(
       router.events.subscribe(event => {
-        if (event instanceof RouteConfigLoadStart) {
-          console.log(`AppComponent.RouteConfigLoadStart: ${event.route.path}`);
-          this.spinnerService.start(`lazy-load-${event.route.path}`);
-        } else if (event instanceof RouteConfigLoadEnd) {
-          console.log(`AppComponent.RouteConfigLoadEnd: ${event.route.path}`);
-          this.spinnerService.end(`lazy-load-${event.route.path}`);
-        }
-      },
-      error => {
-        console.log('AppComponent router event error: ' + error.toString());
-      })
+          if (event instanceof RouteConfigLoadStart) {
+            this.spinnerService.start(`lazy-load-${event.route.path}`);
+          } else if (event instanceof RouteConfigLoadEnd) {
+            this.spinnerService.end(`lazy-load-${event.route.path}`);
+          }
+        },
+        error => {
+          console.log('AppComponent router event error: ' + error.toString());
+        })
     );
   }
 
