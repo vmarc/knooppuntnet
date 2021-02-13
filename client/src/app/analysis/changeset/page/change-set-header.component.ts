@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {Util} from '../../../components/shared/util';
 import {ChangeSetPage} from '@api/common/changes/change-set-page';
+import {Util} from '../../../components/shared/util';
 
 @Component({
   selector: 'kpn-change-set-header',
@@ -85,10 +85,10 @@ export class ChangeSetHeaderComponent {
   }
 
   hasComment() {
-    return this.page.changeSetInfo && this.page.changeSetInfo.tags.has('comment');
+    return this.page.changeSetInfo && this.page.changeSetInfo.tags.tags.filter(t => t.key === 'comment').length > 0;
   }
 
   comment() {
-    return this.page.changeSetInfo.tags.get('comment');
+    return Util.tagWithKey(this.page.changeSetInfo.tags, 'comment');
   }
 }

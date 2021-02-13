@@ -42,7 +42,6 @@ object Json {
     b.serializerByType(classOf[Subset], new SubsetJsonSerializer())
 
     b.deserializerByType(classOf[Tags], new TagsJsonDeserializer())
-    b.serializerByType(classOf[Tags], new TagsJsonSerializer())
 
     b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())

@@ -78,7 +78,7 @@ import {RouteMemberInfo} from '@api/custom/route-member-info';
               <div *ngIf="member.oneWay == 'Backward'" i18n="@@route.members.table.one-way.reverse">Reverse</div>
             </td>
             <td *ngIf="networkType === 'cycling'">
-              <kpn-tags-text *ngIf="!member.oneWayTags.isEmpty()" [tags]="member.oneWayTags"></kpn-tags-text>
+              <kpn-tags-text *ngIf="member.oneWayTags.tags.length > 0" [tags]="member.oneWayTags"></kpn-tags-text>
             </td>
           </tr>
           </tbody>

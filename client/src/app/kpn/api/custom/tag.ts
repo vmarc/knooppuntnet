@@ -9,8 +9,8 @@ export class Tag {
       return undefined;
     }
     return new Tag(
-      jsonObject[0],
-      jsonObject[1]
+      jsonObject.key,
+      jsonObject.value
     );
   }
 }

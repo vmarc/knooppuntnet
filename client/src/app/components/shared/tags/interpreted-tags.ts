@@ -5,7 +5,7 @@ import {Tag} from '@api/custom/tag';
 export class InterpretedTags {
 
   static nodeTags(tags: Tags): InterpretedTags {
-    const standardTagKeys = List([
+    const standardTagKeys = [
       'rwn_ref',
       'rcn_ref',
       'expected_rwn_route_relations',
@@ -15,59 +15,59 @@ export class InterpretedTags {
       'expected_rpn_route_relations',
       'expected_rin_route_relations',
       'network:type'
-    ]);
+    ];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   static routeTags(tags: Tags): InterpretedTags {
-    const standardTagKeys = List([
+    const standardTagKeys = [
       'ref',
       'note',
       'network',
       'type',
       'route',
       'network:type'
-    ]);
+    ];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   static networkTags(tags: Tags): InterpretedTags {
-    const standardTagKeys = List([
+    const standardTagKeys = [
       'network',
       'type',
       'name',
       'network:type'
-    ]);
+    ];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   static all(tags: Tags): InterpretedTags {
-    const standardTagKeys = List([]);
+    const standardTagKeys = [];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  private constructor(private standardTagKeys: List<string>, private tags: Tags) {
+  private constructor(private standardTagKeys: string[], private tags: Tags) {
   }
 
   isEmpty(): boolean {
-    return this.tags.isEmpty();
+    return this.tags.tags.length === 0;
   }
 
-  standardTags(): List<Tag> {
-    return this.standardTagKeys.flatMap(key => this.tags.tagsWithKey(key));
+  standardTags(): Tag[] {
+    return this.standardTagKeys.flatMap(key => this.tags.tags.filter(t => t.key === key));
   }
 
-  extraTags(): List<Tag> {
-    const tags = this.tags.tags.filter(tag => !this.standardTagKeys.contains(tag.key));
-    return tags.sortBy((tag) => tag.key);
+  extraTags(): Tag[] {
+    const tags = this.tags.tags.filter(tag => !this.standardTagKeys.includes(tag.key));
+    return List(tags).sortBy((tag) => tag.key).toArray();
   }
 
   hasStandardTags(): boolean {
-    return this.tags.tags.find(tag => this.standardTagKeys.contains(tag.key)) !== undefined;
+    return this.tags.tags.find(tag => this.standardTagKeys.includes(tag.key)) !== undefined;
   }
 
   hasExtraTags(): boolean {
-    return this.tags.tags.find(tag => !this.standardTagKeys.contains(tag.key)) !== undefined;
+    return this.tags.tags.find(tag => !this.standardTagKeys.includes(tag.key)) !== undefined;
   }
 
 }

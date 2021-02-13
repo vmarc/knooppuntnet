@@ -5,6 +5,7 @@ import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
 import {TagDiffs} from '@api/common/diff/tag-diffs';
 import {LatLonImpl} from '@api/common/lat-lon-impl';
 import {Subset} from '@api/custom/subset';
+import {Tags} from '@api/custom/tags';
 import {List} from 'immutable';
 import {Map} from 'immutable';
 import {Coordinate} from 'ol/coordinate';
@@ -159,4 +160,13 @@ export class Util {
   static json(object: any): string {
     return JSON.stringify(object, null, 2);
   }
+
+  static tagWithKey(tags: Tags, key: string): string {
+    const values = tags.tags.filter(t => t.key === key).map(x => x.value);
+    if (values.length > 0) {
+      return values[0];
+    }
+    return null;
+  }
+
 }

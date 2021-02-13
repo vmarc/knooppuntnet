@@ -120,11 +120,11 @@ import {PlannerService} from '../../../planner.service';
           </a>
         </div>
 
-        <div *ngIf="poi.mainTags && !poi.mainTags.tags.isEmpty()" class="item">
+        <div *ngIf="poi.mainTags && poi.mainTags.tags.length > 0" class="item">
           <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
         </div>
 
-        <div *ngIf="poi.extraTags && !poi.extraTags.tags.isEmpty()" class="item">
+        <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
           <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
         </div>
 

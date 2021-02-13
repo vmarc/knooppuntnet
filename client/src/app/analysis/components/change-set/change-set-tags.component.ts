@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 import {Tag} from '@api/custom/tag';
 import {Tags} from '@api/custom/tags';
 
@@ -38,15 +37,15 @@ export class ChangeSetTagsComponent {
 
   @Input() changeSetTags: Tags;
 
-  tags(): List<Tag> {
+  tags(): Tag[] {
     if (this.changeSetTags && this.changeSetTags.tags) {
-      return this.changeSetTags.tags.filterNot(tag => tag.key === 'comment');
+      return this.changeSetTags.tags.filter(tag => tag.key !== 'comment');
     }
-    return List();
+    return [];
   }
 
   hasTags(): boolean {
-    return !this.tags().isEmpty();
+    return this.tags().length > 0;
   }
 
 }

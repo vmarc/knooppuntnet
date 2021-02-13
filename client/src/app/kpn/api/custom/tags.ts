@@ -1,15 +1,8 @@
-import {List} from 'immutable';
 import {Tag} from './tag';
 
 export class Tags {
-  readonly tags: List<Tag>;
 
-  constructor(tags: List<Tag>) {
-    this.tags = tags;
-  }
-
-  static fromArray(array: Array<Array<string>>): Tags {
-    return new Tags(List(array.map(row => new Tag(row[0], row[1]))));
+  constructor(readonly tags: Tag[]) {
   }
 
   static fromJSON(jsonObject: any): Tags {
@@ -17,28 +10,8 @@ export class Tags {
       return undefined;
     }
     return new Tags(
-      List(jsonObject.map((json: any) => Tag.fromJSON(json)))
+      jsonObject.tags.map((json: any) => Tag.fromJSON(json))
     );
-  }
-
-  isEmpty() {
-    return this.tags.isEmpty();
-  }
-
-  has(key: string) {
-    return this.tags.filter(t => t.key === key).size > 0;
-  }
-
-  get(key: string) {
-    const values = this.tags.filter(t => t.key === key).map(x => x.value);
-    if (values.size > 0) {
-      return values.get(0);
-    }
-    return null;
-  }
-
-  tagsWithKey(key: string): List<Tag> {
-    return this.tags.filter(t => t.key === key);
   }
 
 }

@@ -6,9 +6,9 @@ import {Tags} from '@api/custom/tags';
   selector: 'kpn-tags-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="tags.isEmpty()" i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
+    <ng-container *ngIf="tags.tags.length === 0" i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
 
-    <div *ngIf="!tags.isEmpty()">
+    <div *ngIf="tags.tags.length > 0">
       <div *ngFor="let tag of tags.tags">
         {{tag.key}} = {{tag.value}}
       </div>

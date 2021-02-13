@@ -47,8 +47,4 @@ export class NodeNetworkReferenceStatementComponent implements OnInit {
     return `expected_${tagValue}_route_relations`;
   }
 
-  private hasExpectedRouteRelationsTag() {
-    return this.nodeInfo.tags.has(this.expectedRouteRelationsTag);
-  }
-
 }
