@@ -40,7 +40,7 @@ export class PlannerTestSetup {
   readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
 
   constructor() {
-    this.context.nextNetworkType(NetworkType.hiking);
+    this.context.nextNetworkType('hiking');
   }
 
   createPlanWithStartPointOnly(): Plan {
@@ -115,7 +115,7 @@ export class PlannerTestSetup {
   createPlanLegData(node1: PlanNode, node2: PlanNode): PlanLegData {
     const source = PlanUtil.legEndNode(+node1.nodeId);
     const sink = PlanUtil.legEndNode(+node2.nodeId);
-    const planRoute = new PlanRoute(node1, node2, 0, List(), List());
+    const planRoute = new PlanRoute(node1, node2, 0, [], []);
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
     this.legRepository.add(planLegData);
     return planLegData;

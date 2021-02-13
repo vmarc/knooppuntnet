@@ -3,12 +3,12 @@ import {Country} from '@api/custom/country';
 export class Countries {
 
   static all: Array<Country> = [
-    'nl',
-    'be',
-    'de',
-    'fr',
-    'at',
-    'es'
+    Country.nl,
+    Country.be,
+    Country.de,
+    Country.fr,
+    Country.at,
+    Country.es
   ];
 
   public static withDomain(domain: string): Country {

@@ -19,7 +19,7 @@ export class NodeRoute {
     return new NodeRoute(
       jsonObject.id,
       jsonObject.name,
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.locationNames,
       jsonObject.expectedRouteCount,
       jsonObject.actualRouteCount

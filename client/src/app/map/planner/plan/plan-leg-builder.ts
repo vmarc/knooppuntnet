@@ -35,12 +35,12 @@ export class PlanLegBuilder {
     const source = this.toPlanNode(route.source);
     const sink = this.toPlanNode(route.sink);
     const segments: List<PlanSegment> = route.segments.map(s => this.toPlanSegment(s));
-    return new PlanRoute(source, sink, route.meters, segments, route.streets);
+    return new PlanRoute(source, sink, route.meters, segments.toArray(), route.streets.toArray());
   }
 
   private static toPlanSegment(segment: RouteLegSegment): PlanSegment {
     const fragments = segment.fragments.map(f => this.toPlanFragment(f));
-    return new PlanSegment(segment.meters, segment.surface, segment.colour, fragments);
+    return new PlanSegment(segment.meters, segment.surface, segment.colour, fragments.toArray());
   }
 
   private static toPlanFragment(fragment: RouteLegFragment): PlanFragment {

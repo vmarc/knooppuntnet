@@ -1,4 +1,3 @@
-import {List} from 'immutable';
 import {TimeInfo} from '@api/common/time-info';
 import {Timestamp} from '@api/custom/timestamp';
 import {Filters} from './filters';
@@ -14,7 +13,7 @@ describe('TimestampFilter', () => {
     expect(filter.passes(new Timestamp(2020, 5, 6, 0, 0, 0))).toBeTruthy();
     expect(filter.passes(new Timestamp(2020, 4, 1, 0, 0, 0))).toBeFalsy();
 
-    const filterOptionGroup = filter.filterOptions(new Filters(), List([new Timestamp(2020, 5, 6, 0, 0, 0)]));
+    const filterOptionGroup = filter.filterOptions(new Filters(), [new Timestamp(2020, 5, 6, 0, 0, 0)]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(1); // last week
     expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
@@ -30,7 +29,7 @@ describe('TimestampFilter', () => {
     expect(filter.passes(new Timestamp(2020, 4, 8, 0, 0, 0))).toBeTruthy();
     expect(filter.passes(new Timestamp(2020, 4, 6, 0, 0, 0))).toBeFalsy();
 
-    const filterOptionGroup = filter.filterOptions(new Filters(), List([new Timestamp(2020, 4, 8, 0, 0, 0)]));
+    const filterOptionGroup = filter.filterOptions(new Filters(), [new Timestamp(2020, 4, 8, 0, 0, 0)]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // last week
     expect(filterOptionGroup.options.get(2).count).toEqual(1); // last month
@@ -46,7 +45,7 @@ describe('TimestampFilter', () => {
     expect(filter.passes(new Timestamp(2019, 5, 8, 0, 0, 0))).toBeTruthy();
     expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeFalsy();
 
-    const filterOptionGroup = filter.filterOptions(new Filters(), List([new Timestamp(2019, 5, 8, 0, 0, 0)]));
+    const filterOptionGroup = filter.filterOptions(new Filters(), [new Timestamp(2019, 5, 8, 0, 0, 0)]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // last week
     expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
@@ -61,7 +60,7 @@ describe('TimestampFilter', () => {
     expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeTruthy();
     expect(filter.passes(new Timestamp(2019, 5, 8, 0, 0, 0))).toBeFalsy();
 
-    const filterOptionGroup = filter.filterOptions(new Filters(), List([new Timestamp(2019, 5, 6, 0, 0, 0)]));
+    const filterOptionGroup = filter.filterOptions(new Filters(), [new Timestamp(2019, 5, 6, 0, 0, 0)]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // last week
     expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month

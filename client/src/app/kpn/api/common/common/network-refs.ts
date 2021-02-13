@@ -18,8 +18,8 @@ export class NetworkRefs {
       return undefined;
     }
     return new NetworkRefs(
-      Country.fromJSON(jsonObject.country),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.country,
+      jsonObject.networkType,
       Ref.fromJSON(jsonObject.networkRef),
       jsonObject.refType,
       jsonObject.refs.map((json: any) => Ref.fromJSON(json))

@@ -21,7 +21,7 @@ export class LocationChange {
     }
     return new LocationChange(
       ChangeKey.fromJSON(jsonObject.key),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.locationName,
       RefDiffs.fromJSON(jsonObject.nodes),
       RefDiffs.fromJSON(jsonObject.routes),

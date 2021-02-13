@@ -17,7 +17,7 @@ export class LocationChangesTree {
       return undefined;
     }
     return new LocationChangesTree(
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.locationName,
       jsonObject.happy,
       jsonObject.investigate,

@@ -26,9 +26,9 @@ describe('PlanUtil', () => {
     const viaNode2 = PlanUtil.planNode('12', '', new LatLonImpl('', ''));
     const endNode = PlanUtil.planNode('13', '', new LatLonImpl('', ''));
 
-    const route1 = new PlanRoute(startNode, viaNode1, 0, List(), List());
-    const route2 = new PlanRoute(viaNode1, viaNode2, 0, List(), List());
-    const route3 = new PlanRoute(viaNode2, endNode, 0, List(), List());
+    const route1 = new PlanRoute(startNode, viaNode1, 0, [], []);
+    const route2 = new PlanRoute(viaNode1, viaNode2, 0, [], []);
+    const route3 = new PlanRoute(viaNode2, endNode, 0, [], []);
 
     const startLegEnd = PlanUtil.legEndNode(10);
     const viaLegEnd1 = PlanUtil.legEndNode(11);
@@ -66,9 +66,9 @@ describe('PlanUtil', () => {
 
   it('total distance', () => {
 
-    const route1 = new PlanRoute(null, null, 1000, List(), List());
-    const route2 = new PlanRoute(null, null, 2000, List(), List());
-    const route3 = new PlanRoute(null, null, 4000, List(), List());
+    const route1 = new PlanRoute(null, null, 1000, [], []);
+    const route2 = new PlanRoute(null, null, 2000, [], []);
+    const route3 = new PlanRoute(null, null, 4000, [], []);
 
     const leg1 = new PlanLeg('1', '', null, null, null, null, List([route1, route2]));
     const leg2 = new PlanLeg('2', '', null, null, null, null, List([route3]));

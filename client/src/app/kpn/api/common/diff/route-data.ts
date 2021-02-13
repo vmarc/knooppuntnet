@@ -25,8 +25,8 @@ export class RouteData {
       return undefined;
     }
     return new RouteData(
-      Country.fromJSON(jsonObject.country),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.country,
+      jsonObject.networkType,
       RawRelation.fromJSON(jsonObject.relation),
       jsonObject.name,
       jsonObject.networkNodes.map((json: any) => RawNode.fromJSON(json)),

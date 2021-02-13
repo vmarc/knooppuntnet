@@ -15,7 +15,7 @@ export class NodeIntegrityCheckChange {
       return undefined;
     }
     return new NodeIntegrityCheckChange(
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       NodeIntegrityCheck.fromJSON(jsonObject.before),
       NodeIntegrityCheck.fromJSON(jsonObject.after)
     );

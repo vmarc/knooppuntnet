@@ -1,25 +1,27 @@
-export class PlannerCursorMock {
+import {PlannerCursor} from './planner-cursor';
+
+export class PlannerCursorMock implements PlannerCursor {
 
   style = 'default';
 
   setStyleGrab(): void {
-    this.setStyle('grab');
+    this.style = 'grab';
   }
 
   setStyleGrabbing(): void {
-    this.setStyle('grabbing');
+    this.style = 'grabbing';
   }
 
   setStylePointer(): void {
-    this.setStyle('pointer');
+    this.style = 'pointer';
   }
 
   setStyleDefault(): void {
-    this.setStyle('default');
+    this.style = 'default';
   }
 
-  private setStyle(style: string): void {
-    this.style = style;
+  setStyleWait(): void {
+    this.style = 'wait';
   }
 
   expectStyle(style: string): void {

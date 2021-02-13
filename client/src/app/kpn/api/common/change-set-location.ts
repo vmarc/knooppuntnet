@@ -18,7 +18,7 @@ export class ChangeSetLocation {
       return undefined;
     }
     return new ChangeSetLocation(
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.networkType,
       jsonObject.locationName,
       ChangeSetElementRefs.fromJSON(jsonObject.routeChanges),
       ChangeSetElementRefs.fromJSON(jsonObject.nodeChanges),

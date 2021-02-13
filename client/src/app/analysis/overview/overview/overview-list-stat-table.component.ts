@@ -58,27 +58,27 @@ export class OverviewListStatTableComponent {
   @Input() stat: Stat;
 
   nl(): Country {
-    return 'nl';
+    return Country.nl;
   }
 
   be(): Country {
-    return 'be';
+    return Country.be;
   }
 
   de(): Country {
-    return 'de';
+    return Country.de;
   }
 
   fr(): Country {
-    return 'fr';
+    return Country.fr;
   }
 
   at(): Country {
-    return 'at';
+    return Country.at;
   }
 
   es(): Country {
-    return 'es';
+    return Country.es;
   }
 
   cycling(): NetworkType {

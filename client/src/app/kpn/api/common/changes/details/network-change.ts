@@ -36,8 +36,8 @@ export class NetworkChange {
     return new NetworkChange(
       ChangeKey.fromJSON(jsonObject.key),
       ChangeType.fromJSON(jsonObject.changeType),
-      Country.fromJSON(jsonObject.country),
-      NetworkType.fromJSON(jsonObject.networkType),
+      jsonObject.country,
+      jsonObject.networkType,
       jsonObject.networkId,
       jsonObject.networkName,
       RefChanges.fromJSON(jsonObject.orphanRoutes),

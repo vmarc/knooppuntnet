@@ -50,7 +50,7 @@
     "ngrx-store-localstorage": "^10.1.1",
     "ngx-clipboard": "^14.0.1",
     "ngx-i18nsupport": "^0.17.1",
-    "ngx-markdown": "10.1.0",
+    "ngx-markdown": "11.0.1",
     "ol": "^6.5.1-dev.1611925430698",
     "ol-geocoder": "4.1.2",
     "qrious": "^4.0.2",
