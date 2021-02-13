@@ -9,12 +9,12 @@ import {NetworkNameMissing} from './network-name-missing';
 
 export class NetworkFacts {
 
-  constructor(readonly networkExtraMemberNode: Array<NetworkExtraMemberNode>,
-              readonly networkExtraMemberWay: Array<NetworkExtraMemberWay>,
-              readonly networkExtraMemberRelation: Array<NetworkExtraMemberRelation>,
-              readonly integrityCheck: NetworkIntegrityCheck,
-              readonly integrityCheckFailed: NetworkIntegrityCheckFailed,
-              readonly nameMissing: NetworkNameMissing) {
+  constructor(readonly networkExtraMemberNode: Array<NetworkExtraMemberNode> | undefined,
+              readonly networkExtraMemberWay: Array<NetworkExtraMemberWay> | undefined,
+              readonly networkExtraMemberRelation: Array<NetworkExtraMemberRelation> | undefined,
+              readonly integrityCheck: NetworkIntegrityCheck | undefined,
+              readonly integrityCheckFailed: NetworkIntegrityCheckFailed | undefined,
+              readonly nameMissing: NetworkNameMissing | undefined) {
   }
 
   public static fromJSON(jsonObject: any): NetworkFacts {

@@ -93,7 +93,7 @@ class ClassAnalyzer {
   }
 
   @scala.annotation.tailrec
-  private def buildClassType(fieldTypeString: String): ClassType = {
+  private def buildClassType(fieldTypeString: String, optional: Boolean = false): ClassType = {
 
     fieldTypeString match {
 
@@ -102,32 +102,36 @@ class ClassAnalyzer {
         val typescriptType2 = fieldTypeToTypescript(type2)
         ClassType(
           s"Map<${typescriptType1.typeName}, ${typescriptType2.typeName}>",
-          mapTypes = Some((typescriptType1, typescriptType2))
+          mapTypes = Some((typescriptType1, typescriptType2)),
+          optional = optional
         )
 
       case setSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1)
         ClassType(
           s"List<${typescriptType1.typeName}>",
-          arrayType = Some(typescriptType1)
+          arrayType = Some(typescriptType1),
+          optional = optional
         )
 
       case seqSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1)
         ClassType(
-          s"List<${typescriptType1.typeName}>",
-          arrayType = Some(typescriptType1)
+          s"Array<${typescriptType1.typeName}>",
+          arrayType = Some(typescriptType1),
+          optional = optional
         )
 
       case arraySignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1)
         ClassType(
           s"Array<${typescriptType1.typeName}>",
-          arrayType = Some(typescriptType1)
+          arrayType = Some(typescriptType1),
+          optional = optional
         )
 
       case optionSignature(type1) =>
-        buildClassType(type1)
+        buildClassType(type1, optional = true)
 
       case _ =>
         fieldTypeToTypescript(fieldTypeString)

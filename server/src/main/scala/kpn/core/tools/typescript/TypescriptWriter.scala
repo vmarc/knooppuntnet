@@ -63,12 +63,12 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   }
 
   private def listImports(): Seq[String] = {
-    if (classInfo.fields.exists(field => field.classType.isArray && !field.classType.typeName.contains("Array"))) {
-      Seq("import {List} from 'immutable';")
-    }
-    else {
-      Seq()
-    }
+    //    if (classInfo.fields.exists(field => field.classType.isArray && !field.classType.typeName.contains("Array"))) {
+    //      Seq("import {List} from 'immutable';")
+    //    }
+    //    else {
+    Seq()
+    //    }
   }
 
   private def mapImports(): Seq[String] = {
@@ -106,7 +106,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
         s"${field.name}: Coordinate"
       }
       else {
-        s"${field.name}: $typeName"
+        s"${field.name}: $typeName" + (if (field.classType.optional) " | undefined" else "")
       }
     }
     out.print(s"  constructor(")
@@ -161,14 +161,21 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   private def writeInterfaceContents(): Unit = {
     out.println(s"export interface ${classInfo.className} {")
     val fields = classInfo.fields.map { field =>
-      val typeName = field.classType.typeName
-      if (typeName.startsWith("List<")) {
-        val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]";
-        s"${field.name}: $arrayTypeName"
+      val fieldType = {
+        val typeName = field.classType.typeName
+        if (typeName.startsWith("List<")) {
+          val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]";
+          s"${field.name}: $arrayTypeName"
+        }
+        else if (typeName.startsWith("Array<")) {
+          val arrayTypeName = typeName.drop("Array<".length).dropRight(1) + "[]";
+          s"${field.name}: $arrayTypeName"
+        }
+        else {
+          s"${field.name}: $typeName"
+        }
       }
-      else {
-        s"${field.name}: $typeName"
-      }
+      fieldType + (if (field.classType.optional) " | undefined" else "")
     }
     fields.mkString("  readonly ", ";\n  readonly ", ";\n").foreach {
       out.print

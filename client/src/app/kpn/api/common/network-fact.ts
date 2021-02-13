@@ -6,10 +6,10 @@ import {Ref} from './common/ref';
 export class NetworkFact {
 
   constructor(readonly name: string,
-              readonly elementType: string,
-              readonly elementIds: Array<number>,
-              readonly elements: Array<Ref>,
-              readonly checks: Array<Check>) {
+              readonly elementType: string | undefined,
+              readonly elementIds: Array<number> | undefined,
+              readonly elements: Array<Ref> | undefined,
+              readonly checks: Array<Check> | undefined) {
   }
 
   public static fromJSON(jsonObject: any): NetworkFact {
@@ -20,8 +20,8 @@ export class NetworkFact {
       jsonObject.name,
       jsonObject.elementType,
       jsonObject.elementIds,
-      jsonObject.elements.map((json: any) => Ref.fromJSON(json)),
-      jsonObject.checks.map((json: any) => Check.fromJSON(json))
+      jsonObject.elements?.map((json: any) => Ref.fromJSON(json)),
+      jsonObject.checks?.map((json: any) => Check.fromJSON(json))
     );
   }
 }
