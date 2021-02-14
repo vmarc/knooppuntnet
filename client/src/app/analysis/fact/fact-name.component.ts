@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
+import {Fact} from '@api/custom/fact';
 
 @Component({
   selector: 'kpn-fact-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container [ngSwitch]="factName">
+    <ng-container [ngSwitch]="fact">
       <ng-container i18n="@@fact.name.added" *ngSwitchCase="'Added'">Added</ng-container>
       <ng-container i18n="@@fact.name.become-orphan" *ngSwitchCase="'BecomeOrphan'">BecomeOrphan</ng-container>
       <ng-container i18n="@@fact.name.deleted" *ngSwitchCase="'Deleted'">Deleted</ng-container>
@@ -49,10 +50,10 @@ import {Component, Input} from '@angular/core';
       <ng-container i18n="@@fact.name.was-orphan" *ngSwitchCase="'WasOrphan'">WasOrphan</ng-container>
       <ng-container i18n="@@fact.name.node-invalid-survey-date" *ngSwitchCase="'NodeInvalidSurveyDate'">NodeInvalidSurveyDate</ng-container>
       <ng-container i18n="@@fact.name.route-invalid-survey-date" *ngSwitchCase="'RouteInvalidSurveyDate'">RouteInvalidSurveyDate</ng-container>
-      <ng-container *ngSwitchDefault>?{{factName}}?</ng-container>
+      <ng-container *ngSwitchDefault>?{{fact}}?</ng-container>
     </ng-container>
   `
 })
 export class FactNameComponent {
-  @Input() factName: string;
+  @Input() fact: Fact;
 }

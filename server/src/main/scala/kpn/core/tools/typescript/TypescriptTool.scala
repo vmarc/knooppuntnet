@@ -219,6 +219,7 @@ class TypescriptTool() {
     classOf[ClientPoiConfiguration].getSimpleName,
     classOf[ClientPoiGroupDefinition].getSimpleName,
     classOf[FactDiffs].getSimpleName,
+    classOf[Fact].getSimpleName,
     classOf[GeometryDiff].getSimpleName,
     classOf[IdDiffs].getSimpleName,
     classOf[Ids].getSimpleName,

@@ -44,12 +44,12 @@ import {Facts} from '../../fact/facts';
       <div *ngIf="hasFacts" class="kpn-line">
         <kpn-items>
           <kpn-item *ngFor="let factCount of response.result.factCounts; let i=index" [index]="i">
-            <a [routerLink]="factCount.fact.name">
-              <kpn-fact-name [factName]="factCount.fact.name"></kpn-fact-name>
+            <a [routerLink]="factCount.fact">
+              <kpn-fact-name [fact]="factCount.fact"></kpn-fact-name>
             </a>
             ({{factCount.count}})
             <kpn-fact-level [factLevel]="factLevel(factCount.fact)"></kpn-fact-level>
-            <kpn-fact-description [factName]="factCount.fact.name"></kpn-fact-description>
+            <kpn-fact-description [factName]="factCount.fact"></kpn-fact-description>
           </kpn-item>
         </kpn-items>
       </div>
@@ -88,7 +88,7 @@ export class SubsetFactsPageComponent implements OnInit {
   }
 
   factLevel(fact: Fact): FactLevel {
-    return Facts.factLevels.get(fact.name);
+    return Facts.factLevels.get(fact);
   }
 
 }

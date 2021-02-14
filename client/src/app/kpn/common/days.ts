@@ -42,11 +42,11 @@ export class Days {
   }
 
   static sameAsOrYoungerThan(some: Day, other: Day): boolean {
-    return some.sameAs(other) || some.youngerThan(other);
+    return Days.sameAs(some, other) || Days.youngerThan(some, other);
   }
 
   static olderThan(some: Day, other: Day): boolean {
-    return !some.sameAsOrYoungerThan(other);
+    return !Days.sameAsOrYoungerThan(some, other);
   }
 
 }

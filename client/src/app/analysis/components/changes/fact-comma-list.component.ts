@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
-import {List} from 'immutable';
 import {Fact} from '@api/custom/fact';
 
 @Component({
@@ -11,7 +10,7 @@ import {Fact} from '@api/custom/fact';
       {{title}}:&nbsp;
       <div class="kpn-comma-list">
         <span *ngFor="let fact of facts">
-          <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
+          <kpn-fact-name [fact]="fact"></kpn-fact-name>
         </span>
       </div>
       <kpn-icon-happy *ngIf="icon == 'happy'"></kpn-icon-happy>
@@ -22,11 +21,11 @@ import {Fact} from '@api/custom/fact';
 export class FactCommaListComponent {
 
   @Input() title: string;
-  @Input() facts: List<Fact>;
+  @Input() facts: Fact[];
   @Input() icon: string;
 
   hasFacts(): boolean {
-    return this.facts && !this.facts.isEmpty();
+    return this.facts && this.facts.length > 0;
   }
 
 }

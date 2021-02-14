@@ -43,7 +43,7 @@ export class NetworkNodeDetail {
       Day.fromJSON(jsonObject.lastSurvey),
       jsonObject.expectedRouteCount,
       jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json)),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
+      jsonObject.facts,
       Tags.fromJSON(jsonObject.tags)
     );
   }

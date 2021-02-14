@@ -16,7 +16,7 @@ export class LocationFact {
     }
     return new LocationFact(
       jsonObject.elementType,
-      Fact.fromJSON(jsonObject.fact),
+      jsonObject.fact,
       jsonObject.refs?.map((json: any) => Ref.fromJSON(json))
     );
   }

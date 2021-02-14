@@ -18,8 +18,4 @@ export class LocationKey {
       jsonObject.name
     );
   }
-
-  public key(): string {
-    return `${this.networkType}/${this.country}/${this.name}`;
-  }
 }

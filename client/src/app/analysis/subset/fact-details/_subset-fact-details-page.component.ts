@@ -30,14 +30,14 @@ class SubsetFact {
 
     <div *ngIf="subsetFact$ | async as subsetFact">
       <kpn-subset-page-header-block
-        [subset]="subsetFact.subset"
-        [subsetInfo$]="subsetInfo$"
-        pageName="facts"
-        pageTitle="Facts"
-        i18n-pageTitle="@@subset-facts.title">
+          [subset]="subsetFact.subset"
+          [subsetInfo$]="subsetInfo$"
+          pageName="facts"
+          pageTitle="Facts"
+          i18n-pageTitle="@@subset-facts.title">
       </kpn-subset-page-header-block>
       <h2>
-        <kpn-fact-name [factName]="subsetFact.factName"></kpn-fact-name>
+        <kpn-fact-name [fact]="subsetFact.factName"></kpn-fact-name>
       </h2>
     </div>
 
@@ -66,7 +66,7 @@ class SubsetFact {
             <span *ngIf="hasOsmRelationRefs()"
                   i18n="@@subset-facts.osm-relation-refs">{refCount, plural, one {relation} other {relations}}</span>
             <span
-              i18n="@@subset-facts.in-networks">{networkCount, plural, one {in 1 network} other {in {{networkCount}} networks}}</span>
+                i18n="@@subset-facts.in-networks">{networkCount, plural, one {in 1 network} other {in {{networkCount}} networks}}</span>
           </div>
 
           <kpn-items>

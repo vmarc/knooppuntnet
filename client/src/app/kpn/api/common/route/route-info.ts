@@ -35,7 +35,7 @@ export class RouteInfo {
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Day.fromJSON(jsonObject.lastSurvey),
       Tags.fromJSON(jsonObject.tags),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
+      jsonObject.facts,
       RouteInfoAnalysis.fromJSON(jsonObject.analysis),
       jsonObject.tiles
     );

@@ -49,11 +49,11 @@ export class RouteSummaryComponent {
   @Input() route: RouteInfo;
 
   isRouteBroken() {
-    return this.route.facts.map(fact => fact.name).includes('RouteBroken');
+    return this.route.facts.includes('RouteBroken');
   }
 
   isRouteIncomplete() {
-    return this.route.facts.map(fact => fact.name).includes('RouteIncomplete');
+    return this.route.facts.includes('RouteIncomplete');
   }
 
 }

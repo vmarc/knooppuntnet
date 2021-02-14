@@ -10,7 +10,7 @@ import {Facts} from '../../fact/facts';
   template: `
     <div class="kpn-line">
       <span class="kpn-thick">
-        <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
+        <kpn-fact-name [fact]="fact.name"></kpn-fact-name>
       </span>
       <span *ngIf="fact.elements && fact.elements.length > 0">
         ({{fact.elements.length}})

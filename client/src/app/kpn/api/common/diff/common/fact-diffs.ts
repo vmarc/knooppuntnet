@@ -14,9 +14,9 @@ export class FactDiffs {
       return undefined;
     }
     return new FactDiffs(
-      jsonObject.resolved.map((json: any) => Fact.fromJSON(json)),
-      jsonObject.introduced.map((json: any) => Fact.fromJSON(json)),
-      jsonObject.remaining.map((json: any) => Fact.fromJSON(json))
+      jsonObject.resolved,
+      jsonObject.introduced,
+      jsonObject.remaining
     );
   }
 }

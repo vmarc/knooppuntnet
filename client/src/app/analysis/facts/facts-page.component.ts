@@ -13,7 +13,7 @@ import {Facts} from '../fact/facts';
     <kpn-items>
       <kpn-item *ngFor="let factName of allFactNames(); let i=index" [index]="i">
         <p>
-          <kpn-fact-name [factName]="factName"></kpn-fact-name>
+          <kpn-fact-name [fact]="factName"></kpn-fact-name>
         </p>
         <kpn-fact-description [factName]="factName"></kpn-fact-description>
       </kpn-item>

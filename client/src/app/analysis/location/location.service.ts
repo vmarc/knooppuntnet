@@ -44,7 +44,8 @@ export class LocationService {
 
   get key(): string {
     if (this._locationKey$.getValue()) {
-      return this._locationKey$.getValue().key();
+      const key = this._locationKey$.getValue();
+      return `${key.networkType}/${key.country}/${key.name}`;
     }
     return null;
   }

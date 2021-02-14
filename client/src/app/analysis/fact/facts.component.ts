@@ -17,7 +17,7 @@ import {Facts} from './facts';
     <div *ngFor="let factInfo of filteredFactInfos" class="fact">
       <div>
         <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level"></kpn-fact-level>
-        <kpn-fact-name [factName]="factInfo.fact.name"></kpn-fact-name>
+        <kpn-fact-name [fact]="factInfo.fact"></kpn-fact-name>
         <div *ngIf="factInfo.networkRef" class="reference">
           <kpn-brackets>
             <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{factInfo.networkRef.name}}</a>
@@ -35,7 +35,7 @@ import {Facts} from './facts';
         </div>
       </div>
       <div class="description">
-        <kpn-fact-description [factName]="factInfo.fact.name"></kpn-fact-description>
+        <kpn-fact-description [factName]="factInfo.fact"></kpn-fact-description>
       </div>
     </div>
   `,
@@ -70,11 +70,11 @@ export class FactsComponent {
   @Input() factInfos: FactInfo[];
 
   get filteredFactInfos(): FactInfo[] {
-    return this.factInfos.filter(factInfo => factInfo.fact.name !== 'RouteBroken');
+    return this.factInfos.filter(factInfo => factInfo.fact !== 'RouteBroken');
   }
 
   factLevel(factInfo: FactInfo): FactLevel {
-    return Facts.factLevels.get(factInfo.fact.name);
+    return Facts.factLevels.get(factInfo.fact);
   }
 
 }

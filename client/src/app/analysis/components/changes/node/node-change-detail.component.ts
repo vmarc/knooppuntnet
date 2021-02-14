@@ -9,7 +9,7 @@ import {Util} from '../../../../components/shared/util';
   template: `
 
     <div *ngFor="let fact of nodeChangeInfo.facts" class="kpn-detail">
-      <kpn-fact-name [factName]="fact.name"></kpn-fact-name>
+      <kpn-fact-name [fact]="fact"></kpn-fact-name>
     </div>
 
     <div *ngFor="let change of nodeChangeInfo.connectionChanges" class="kpn-detail">

@@ -19,25 +19,25 @@ import {Facts} from '../../fact/facts';
     <kpn-items *ngIf="locationFacts.length > 0">
       <kpn-item *ngFor="let locationFact of locationFacts; let i=index" [index]="i">
         <div class="kpn-line">
-          <kpn-fact-name [factName]="locationFact.fact.name"></kpn-fact-name>
+          <kpn-fact-name [fact]="locationFact.fact"></kpn-fact-name>
           <kpn-brackets>{{locationFact.refs.length}}</kpn-brackets>
           <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level"></kpn-fact-level>
         </div>
         <div class="description">
-          <kpn-fact-description [factName]="locationFact.fact.name"></kpn-fact-description>
+          <kpn-fact-description [factName]="locationFact.fact"></kpn-fact-description>
         </div>
         <div *ngIf="locationFact.elementType == 'route'" class="elements kpn-comma-list">
           <kpn-link-route
-              *ngFor="let ref of locationFact.refs"
-              [routeId]="ref.id"
-              [title]="ref.name">
+            *ngFor="let ref of locationFact.refs"
+            [routeId]="ref.id"
+            [title]="ref.name">
           </kpn-link-route>
         </div>
         <div *ngIf="locationFact.elementType == 'node'" class="elements kpn-comma-list">
           <kpn-link-node
-              *ngFor="let ref of locationFact.refs"
-              [nodeId]="ref.id"
-              [nodeName]="ref.name">
+            *ngFor="let ref of locationFact.refs"
+            [nodeId]="ref.id"
+            [nodeName]="ref.name">
           </kpn-link-node>
         </div>
       </kpn-item>
@@ -62,7 +62,7 @@ export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
   factLevel(fact: Fact): FactLevel {
-    return Facts.factLevels.get(fact.name);
+    return Facts.factLevels.get(fact);
   }
 
 }
