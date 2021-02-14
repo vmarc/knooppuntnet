@@ -1,5 +1,6 @@
 import {SurveyDateInfo} from '@api/common/survey-date-info';
 import {Day} from '@api/custom/day';
+import {Days} from '../common/days';
 import {Filter} from './filter';
 import {FilterOption} from './filter-option';
 import {FilterOptionGroup} from './filter-option-group';
@@ -61,7 +62,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
     const lastHalfYearCount = filteredElements.filter(e => this.isBetween(e, this.surveyDateInfo.lastMonthStart, this.surveyDateInfo.lastHalfYearStart)).length;
     const lastYearCount = filteredElements.filter(e => this.isBetween(e, this.surveyDateInfo.lastHalfYearStart, this.surveyDateInfo.lastYearStart)).length;
     const lastTwoYearsCount = filteredElements.filter(e => this.isBetween(e, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart)).length;
-    const olderCount = filteredElements.filter(e => !!this.getter(e) && this.getter(e).olderThan(this.surveyDateInfo.lastTwoYearsStart)).length;
+    const olderCount = filteredElements.filter(e => !!this.getter(e) && Days.olderThan(this.getter(e), this.surveyDateInfo.lastTwoYearsStart)).length;
 
     const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
     const unknown = new FilterOption('unknown', unknownCount, this.isUnknown(), this.selectUnknown);
@@ -88,7 +89,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
     if (!value) {
       return false;
     }
-    return value.sameAsOrYoungerThan(day);
+    return Days.sameAsOrYoungerThan(value, day);
   }
 
   private isBetween(element: T, from: Day, to: Day): boolean {
@@ -96,7 +97,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
     if (!value) {
       return false;
     }
-    return value.olderThan(from) && value.sameAsOrYoungerThan(to);
+    return Days.olderThan(value, from) && Days.sameAsOrYoungerThan(value, to);
   }
 
   private olderThan(element: T, day: Day): boolean {
@@ -104,7 +105,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
     if (!value) {
       return false;
     }
-    return value.olderThan(day);
+    return Days.olderThan(value, day);
   }
 
   private isAll(): boolean {
