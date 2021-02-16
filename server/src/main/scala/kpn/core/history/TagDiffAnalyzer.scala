@@ -4,21 +4,21 @@ import kpn.api.common.data.Tagable
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 
 object NodeTagDiffAnalyzer {
-  val mainTagKeys: Seq[String] = Seq(
-    "rcn_ref",
-    "expected_rcn_route_relations",
-    "rwn_ref",
-    "expected_rwn_route_relations",
-    "rhn_ref",
-    "expected_rhn_route_relations",
-    "rmn_ref",
-    "expected_rmn_route_relations",
-    "rpn_ref",
-    "expected_rpn_route_relations",
-    "rin_ref",
-    "expected_rin_route_relations",
+  val mainTagKeys: Seq[String] = NetworkScope.all.flatMap { networkScope =>
+    NetworkType.all.flatMap { networkType =>
+      val prefix = networkScope.letter + networkType.letter
+      Seq(
+        s"${prefix}n_ref",
+        s"expected_${prefix}n_route_relations",
+        s"${prefix}n_name",
+        s"${prefix}n:name",
+      )
+    }
+  } ++ Seq(
     "fixme",
     "fixmetodo",
     "network:type"
@@ -32,6 +32,8 @@ object RouteTagDiffAnalyzer {
     "network",
     "type",
     "route",
+    "ref",
+    "name",
     "note",
     "network:type"
   )

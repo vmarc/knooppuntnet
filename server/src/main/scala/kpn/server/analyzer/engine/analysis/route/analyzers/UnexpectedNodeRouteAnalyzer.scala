@@ -18,8 +18,7 @@ class UnexpectedNodeRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def findUnexpectedNodeIds: Seq[Long] = {
-    // TODO ROUTE could/should move isUnexpectedNode into this class???
-    routeNodes.filter(n => context.analysisContext.isUnexpectedNode(context.networkType, n)).map(_.id)
+    routeNodes.filter(n => context.analysisContext.isUnexpectedNode(context.scopedNetworkType, n)).map(_.id)
   }
 
   private def routeNodes: Seq[Node] = {

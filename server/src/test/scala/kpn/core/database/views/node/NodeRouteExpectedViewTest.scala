@@ -3,6 +3,7 @@ package kpn.core.database.views.node
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.common.location.Location
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
@@ -17,12 +18,12 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
       val nodeRepository = new NodeRepositoryImpl(database)
 
-      def node(nodeId: Long, nodeName: String, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
+      def node(nodeId: Long, nodeName: String, networkScope: NetworkScope, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
         nodeRepository.save(
           newNodeInfo(
             id = nodeId,
             tags = Tags.from(
-              s"expected_r${networkType.letter}n_route_relations" -> expectedRouteRelations.toString,
+              s"expected_${networkScope.letter}${networkType.letter}n_route_relations" -> expectedRouteRelations.toString,
               s"r${networkType.letter}n_ref" -> nodeName
             ),
             location = Some(Location(Seq("a", "b")))
@@ -34,18 +35,18 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
         NodeRouteExpectedView.query(database, networkType, stale = false)
       }
 
-      node(1001, "01", NetworkType.hiking, 1)
-      node(1002, "02", NetworkType.hiking, 2)
-      node(1003, "03", NetworkType.cycling, 3)
-      node(1004, "04", NetworkType.cycling, 4)
-      node(1005, "05", NetworkType.horseRiding, 5)
-      node(1006, "06", NetworkType.horseRiding, 6)
-      node(1007, "07", NetworkType.canoe, 7)
-      node(1008, "08", NetworkType.canoe, 8)
-      node(1009, "09", NetworkType.motorboat, 9)
-      node(1010, "10", NetworkType.motorboat, 10)
-      node(1011, "11", NetworkType.inlineSkating, 11)
-      node(1012, "12", NetworkType.inlineSkating, 12)
+      node(1001, "01", NetworkScope.local, NetworkType.hiking, 1)
+      node(1002, "02", NetworkScope.regional, NetworkType.hiking, 2)
+      node(1003, "03", NetworkScope.national, NetworkType.cycling, 3)
+      node(1004, "04", NetworkScope.local, NetworkType.cycling, 4)
+      node(1005, "05", NetworkScope.regional, NetworkType.horseRiding, 5)
+      node(1006, "06", NetworkScope.national, NetworkType.horseRiding, 6)
+      node(1007, "07", NetworkScope.local, NetworkType.canoe, 7)
+      node(1008, "08", NetworkScope.regional, NetworkType.canoe, 8)
+      node(1009, "09", NetworkScope.national, NetworkType.motorboat, 9)
+      node(1010, "10", NetworkScope.local, NetworkType.motorboat, 10)
+      node(1011, "11", NetworkScope.regional, NetworkType.inlineSkating, 11)
+      node(1012, "12", NetworkScope.national, NetworkType.inlineSkating, 12)
 
       nodeRepository.save(newNodeInfo(id = 1013))
 

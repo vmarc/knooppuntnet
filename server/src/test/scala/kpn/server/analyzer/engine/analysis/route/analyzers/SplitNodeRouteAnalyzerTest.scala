@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNode
@@ -17,7 +17,7 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
 
   test("split node route") {
 
-    val d = new RouteTestData("01-01", networkType = NetworkType.cycling) {
+    val d = new RouteTestData("01-01") {
       node(1, "01")
       node(2, "01")
       node(3, "01")
@@ -131,7 +131,7 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
 
     val loadedRoute = LoadedRoute(
       country = None,
-      networkType = NetworkType.cycling,
+      scopedNetworkType = ScopedNetworkType.rwn,
       "",
       data,
       data.relations(1L)

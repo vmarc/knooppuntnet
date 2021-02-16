@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNode
@@ -233,7 +233,7 @@ class SegmentAnalyzerTest extends UnitTest {
 
   test("start at roundabout - bicycle") {
 
-    val d = new RouteTestData("01-02", NetworkType.cycling) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn) {
       node(2, "01")
       node(6, "02")
       memberWay(10, Tags.from("junction" -> "roundabout"), "", 1, 2, 3, 4, 1)
@@ -248,7 +248,7 @@ class SegmentAnalyzerTest extends UnitTest {
 
   test("start at roundabout - hiking") {
 
-    val d = new RouteTestData("01-02", NetworkType.hiking) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rwn) {
       node(2, "01")
       node(6, "02")
       memberWay(10, Tags.from("junction" -> "roundabout"), "", 1, 2, 3, 4, 1)
@@ -263,7 +263,7 @@ class SegmentAnalyzerTest extends UnitTest {
 
   test("start at roundabout with forward and backward roles - this is an error situation") {
 
-    val d = new RouteTestData("01-02", NetworkType.cycling) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn) {
       node(2, "01")
       node(13, "02")
       memberWay(10, Tags.from("junction" -> "roundabout"), "backward", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
@@ -454,7 +454,7 @@ class SegmentAnalyzerTest extends UnitTest {
 
   test("for hiking route, choose shortest path through roundabout") {
 
-    def testData(networkType: NetworkType) = new RouteTestData("01-02", networkType) {
+    def testData(scopedNetworkType: ScopedNetworkType) = new RouteTestData("01-02", scopedNetworkType) {
       node(1, "", 1, 0)
       node(2, "01", 1, 1)
       node(3, "", 0, 1)
@@ -468,12 +468,12 @@ class SegmentAnalyzerTest extends UnitTest {
       memberWay(11, "", 8, 9)
     }
 
-    assertSegments(testData(NetworkType.hiking),
+    assertSegments(testData(ScopedNetworkType.rwn),
       "forward=(01-02 via -<-01 10(1-2)>-<10(8-1)>+<-02 11>)," + // shortest path
         "backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
     )
 
-    assertSegments(testData(NetworkType.cycling),
+    assertSegments(testData(ScopedNetworkType.rcn),
       "forward=(01-02 via +<01- 10(2-3-4-5-6-7-8)>+<-02 11>)," + // follows roundabout direction
         "backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
     )
@@ -511,7 +511,7 @@ class SegmentAnalyzerTest extends UnitTest {
       analysisContext,
       loadedRoute = LoadedRoute(
         country = None,
-        networkType = d.networkType,
+        scopedNetworkType = d.scopedNetworkType,
         "",
         data = data,
         relation = routeRelation
@@ -525,7 +525,7 @@ class SegmentAnalyzerTest extends UnitTest {
     val fragmentMap = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, routeRelation.wayMembers).fragmentMap
 
     val structure: RouteStructure = new SegmentAnalyzer(
-      d.networkType,
+      d.scopedNetworkType.networkType,
       1,
       false,
       FragmentMap(FragmentFilter.filter(fragmentMap.all)),

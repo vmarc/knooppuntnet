@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
@@ -119,11 +119,12 @@ class RouteNameAnalyzerTest extends UnitTest {
 
   private def analyze(name: String): RouteNameAnalysis = {
 
-    val data = new RouteTestData(name).data
+    val routeTestData = new RouteTestData(name)
+    val data = routeTestData.data
 
     val loadedRoute = LoadedRoute(
       country = None,
-      networkType = NetworkType.hiking,
+      routeTestData.scopedNetworkType,
       name,
       data,
       data.relations(1L)
@@ -149,7 +150,7 @@ class RouteNameAnalyzerTest extends UnitTest {
 
     val loadedRoute = LoadedRoute(
       country = None,
-      networkType = NetworkType.hiking,
+      scopedNetworkType = ScopedNetworkType.rwn,
       ref,
       data,
       data.relations(1L)

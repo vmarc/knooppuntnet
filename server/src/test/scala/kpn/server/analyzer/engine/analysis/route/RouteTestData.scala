@@ -1,20 +1,18 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.core.data.Data
-import kpn.core.data.DataBuilder
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tags
+import kpn.core.data.Data
+import kpn.core.data.DataBuilder
 
 import scala.collection.mutable.ListBuffer
 
-class RouteTestData(val routeName: String, val networkType: NetworkType = NetworkType.hiking, val routeTags: Tags = Tags.empty) extends SharedTestObjects {
+class RouteTestData(val routeName: String, val scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn, val routeTags: Tags = Tags.empty) extends SharedTestObjects {
 
   private val nodeBuffer = ListBuffer[RawNode]()
   private val wayBuffer = ListBuffer[RawWay]()
@@ -23,7 +21,7 @@ class RouteTestData(val routeName: String, val networkType: NetworkType = Networ
   def routeRelationId = 1L
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    val tags = if (name == "") Tags.empty else Tags.from(ScopedNetworkType(NetworkScope.regional, networkType).nodeTagKey -> name, "network:type" -> "node_network")
+    val tags = if (name == "") Tags.empty else Tags.from(scopedNetworkType.nodeTagKey -> name, "network:type" -> "node_network")
     rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = tags))
   }
 

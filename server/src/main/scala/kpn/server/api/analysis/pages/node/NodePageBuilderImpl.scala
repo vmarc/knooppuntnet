@@ -11,7 +11,6 @@ import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
@@ -110,13 +109,13 @@ class NodePageBuilderImpl(
 
   private def buildNodeIntegrity(nodeInfo: NodeInfo): NodeIntegrity = {
     NodeIntegrity(
-      NetworkType.all.flatMap { networkType =>
-        val tagKey = s"expected_r${networkType.letter}n_route_relations"
+      nodeInfo.names.flatMap { nodeName =>
+        val tagKey = nodeName.scopedNetworkType.expectedRouteRelationsTag
         nodeInfo.tags(tagKey).map { tagValue =>
           val expectedRouteCount: Int = tagValue.toInt
-          val routeRefs = nodeRouteRepository.nodeRouteReferences(networkType, nodeInfo.id)
+          val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType.networkType, nodeInfo.id)
           NodeIntegrityDetail(
-            networkType,
+            nodeName.scopedNetworkType.networkType,
             expectedRouteCount,
             routeRefs
           )

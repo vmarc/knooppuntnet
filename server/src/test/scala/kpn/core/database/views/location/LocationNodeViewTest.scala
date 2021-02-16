@@ -26,7 +26,10 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
           latitude = "1",
           longitude = "2",
           lastUpdated = Timestamp(2019, 8, 11, 12, 34, 56),
-          tags = Tags.from("rcn_ref" -> "01"),
+          tags = Tags.from(
+            "lcn_ref" -> "01",
+            "expected_lcn_route_relations" -> "3"
+          ),
           location = Some(
             Location(Seq("nl", "province", "municipality"))
           )

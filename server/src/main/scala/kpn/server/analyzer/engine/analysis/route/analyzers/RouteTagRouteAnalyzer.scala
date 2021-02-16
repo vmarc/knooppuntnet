@@ -26,7 +26,7 @@ class RouteTagRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def isValid(routeTagValue: String): Boolean = {
-    context.networkType.routeTagValues.contains(routeTagValue)
+    context.scopedNetworkType.networkType.routeTagValues.contains(routeTagValue)
   }
 
 }

@@ -136,6 +136,7 @@ import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.common.tiles.ClientPoiGroupDefinition
+import kpn.api.custom.Fact
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import org.apache.commons.io.FileUtils

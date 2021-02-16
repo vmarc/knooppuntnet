@@ -8,13 +8,13 @@ class TagsJsonTest extends UnitTest {
   test("serializer") {
     val tags = Tags.from("key1" -> "value1", "key2" -> "value2", "key3" -> "value3")
     val json = Json.string(tags)
-    json should equal("""{"tags":[{"key":"key1","value":"value1"},{"key":"key2","value":"value2"},{"key":"key3","value":"value3"}],"empty":false}""")
+    json should equal("""{"tags":[{"key":"key1","value":"value1"},{"key":"key2","value":"value2"},{"key":"key3","value":"value3"}]}""")
   }
 
   test("quotes should be escaped") {
     val tags = Tags.from("key1" -> """a "b" c""")
     val json = Json.string(tags)
-    json should equal("""{"tags":[{"key":"key1","value":"a \"b\" c"}],"empty":false}""")
+    json should equal("""{"tags":[{"key":"key1","value":"a \"b\" c"}]}""")
   }
 
   test("deserializer") {
@@ -23,8 +23,8 @@ class TagsJsonTest extends UnitTest {
   }
 
   test("keys and values are unescaped") {
-    val tags = Json.value("""{"tags":[{"key":"key1","value":"a \"b\" c"}],"empty":false}""", classOf[Tags])
-    tags should equal(Tags.from("""a "b" c""" -> """d "e" f"""))
+    val tags = Json.value("""{"tags":[{"key":"key1","value":"a \"b\" c"}]}""", classOf[Tags])
+    tags should equal(Tags.from("key1" -> """a "b" c"""))
   }
 
   test("backward compatible deserializer") {

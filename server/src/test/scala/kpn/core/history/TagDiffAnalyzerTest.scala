@@ -48,4 +48,38 @@ class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     new TagDiffAnalyzer(before, after, Seq()).diffs should equal(Some(expected))
   }
+
+  test("node tag diff analyzer main tags") {
+    assertNodeTagDiffAnalyzerMainTag("rcn_ref")
+    assertNodeTagDiffAnalyzerMainTag("expected_lwn_route_relations")
+    assertNodeTagDiffAnalyzerMainTag("iin_name")
+    assertNodeTagDiffAnalyzerMainTag("ncn:name")
+    assertNodeTagDiffAnalyzerMainTag("fixme")
+    assertNodeTagDiffAnalyzerMainTag("fixmetodo")
+    assertNodeTagDiffAnalyzerMainTag("network:type")
+  }
+
+  test("route tag diff analyzer main tags") {
+    assertRouteTagDiffAnalyzerMainTag("network")
+    assertRouteTagDiffAnalyzerMainTag("type")
+    assertRouteTagDiffAnalyzerMainTag("route")
+    assertRouteTagDiffAnalyzerMainTag("name")
+    assertRouteTagDiffAnalyzerMainTag("note")
+    assertRouteTagDiffAnalyzerMainTag("network:type")
+  }
+
+  private def assertNodeTagDiffAnalyzerMainTag(tagKey: String) {
+    val before = newNode(1, tags = Tags.from(tagKey -> ""))
+    val after = newNode(1, tags = Tags.empty)
+    val diffs = new TagDiffAnalyzer(before, after, NodeTagDiffAnalyzer.mainTagKeys).diffs
+    diffs.get.mainTags.map(_.key) should contain(tagKey)
+  }
+
+  private def assertRouteTagDiffAnalyzerMainTag(tagKey: String) {
+    val before = newNode(1, tags = Tags.from(tagKey -> ""))
+    val after = newNode(1, tags = Tags.empty)
+    val diffs = new TagDiffAnalyzer(before, after, RouteTagDiffAnalyzer.mainTagKeys).diffs
+    diffs.get.mainTags.map(_.key) should contain(tagKey)
+  }
+
 }

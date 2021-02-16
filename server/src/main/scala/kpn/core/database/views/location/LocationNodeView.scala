@@ -67,8 +67,21 @@ object LocationNodeView extends View {
     result.rows.map { row =>
       val key = Fields(row.key)
 
-      val expectedRoutesTagKey = s"expected_r${locationKey.networkType.letter}n_route_relations"
-      val expectedRouteCount = row.doc.node.tags(expectedRoutesTagKey).filter(_.forall(Character.isDigit)).getOrElse("-")
+      val expectedRouteCounts = row.doc.node.names.flatMap { nodeName =>
+        if (nodeName.scopedNetworkType.networkType == locationKey.networkType) {
+          row.doc.node.tags(nodeName.scopedNetworkType.expectedRouteRelationsTag)
+        }
+        else {
+          None
+        }
+      }
+
+      val expectedRouteCount = if (expectedRouteCounts.isEmpty) {
+        "-"
+      }
+      else {
+        expectedRouteCounts.head
+      }
 
       LocationNodeInfo(
         id = key.long(4),

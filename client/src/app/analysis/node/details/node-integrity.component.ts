@@ -10,7 +10,7 @@ import {NodeIntegrityDetail} from '@api/common/node/node-integrity-detail';
   template: `
     <p *ngIf="integrity.details.length === 0" i18n="@@node.integrity.none">
       There is no integrity information for this node
-      (no expected_rXn_route_relations tag).
+      (no expected_??n_route_relations tag).
     </p>
 
     <div *ngFor="let detail of integrity.details" class="detail">
