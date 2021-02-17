@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -96,7 +96,7 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val loadedRoute = LoadedRoute(
       country = None,
-      networkType = NetworkType.hiking,
+      routeTestData.scopedNetworkType,
       "01-02",
       data,
       data.relations(1L)

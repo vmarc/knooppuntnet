@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
@@ -99,7 +99,7 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val loadedRoute = LoadedRoute(
       country = None,
-      networkType = NetworkType.hiking,
+      scopedNetworkType = ScopedNetworkType.rwn,
       "",
       data,
       data.relations(1L)

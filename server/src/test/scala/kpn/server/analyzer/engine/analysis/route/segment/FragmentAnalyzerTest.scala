@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -156,7 +156,7 @@ class FragmentAnalyzerTest extends UnitTest {
       analysisContext,
       loadedRoute = LoadedRoute(
         country = None,
-        networkType = NetworkType.hiking,
+        scopedNetworkType = ScopedNetworkType.rwn,
         "",
         data = data,
         relation = relation

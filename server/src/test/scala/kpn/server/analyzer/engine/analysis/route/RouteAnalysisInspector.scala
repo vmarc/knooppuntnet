@@ -4,8 +4,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
@@ -55,8 +53,8 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
   def analyze(d: RouteTestData): Unit = {
     val tags = Tags.from(
       "type" -> "route",
-      "network" -> ScopedNetworkType(NetworkScope.regional, d.networkType).key,
-      "route" -> d.networkType.routeTagValues.head,
+      "network" -> d.scopedNetworkType.key,
+      "route" -> d.scopedNetworkType.networkType.routeTagValues.head,
       "note" -> d.routeName
     ) ++ d.routeTags
     val rr: RawRelation = newRawRelation(10, members = d.members, tags = tags)
@@ -73,7 +71,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val analysis = routeAnalyzer.analyze(LoadedRoute(None, d.networkType, "", data, relation), orphan = false)
+    val analysis = routeAnalyzer.analyze(LoadedRoute(None, d.scopedNetworkType, "", data, relation), orphan = false)
 
     val report = new RouteAnalysisReport(analysis).report
     if (report.nonEmpty) {

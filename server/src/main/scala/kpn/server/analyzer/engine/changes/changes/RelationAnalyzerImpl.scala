@@ -92,18 +92,18 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
   }
 
   override def referencedNetworkNodes(relation: Relation): Set[Node] = {
-    RelationAnalyzer.networkType(relation.raw) match {
-      case Some(networkType) =>
-        RelationAnalyzerHelper.referencedNodes(relation).filter(n => analysisContext.isReferencedNetworkNode(networkType, n.raw))
+    RelationAnalyzer.scopedNetworkType(relation.raw) match {
+      case Some(scopedNetworkType) =>
+        RelationAnalyzerHelper.referencedNodes(relation).filter(n => analysisContext.isReferencedNetworkNode(scopedNetworkType, n.raw))
       case None => Set()
     }
   }
 
   override def referencedRoutes(relation: Relation): Set[Relation] = {
-    RelationAnalyzer.networkType(relation.raw) match {
+    RelationAnalyzer.scopedNetworkType(relation.raw) match {
       case None => Set()
-      case Some(networkType) =>
-        referencedRelations(relation).filter(r => analysisContext.isReferencedRouteRelation(networkType, r.raw))
+      case Some(scopedNetworkType) =>
+        referencedRelations(relation).filter(r => analysisContext.isReferencedRouteRelation(scopedNetworkType, r.raw))
     }
   }
 

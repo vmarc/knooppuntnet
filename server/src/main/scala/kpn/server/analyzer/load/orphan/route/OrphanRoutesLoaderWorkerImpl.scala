@@ -43,7 +43,7 @@ class OrphanRoutesLoaderWorkerImpl(
             )
           )
 
-          val allNodes = networkNodeAnalyzer.analyze(loadedRoute.networkType, loadedRoute.data)
+          val allNodes = networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
 
           allNodes.values.foreach { networkNode =>
             analysisRepository.saveNode(

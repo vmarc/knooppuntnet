@@ -6,7 +6,7 @@ import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -40,7 +40,7 @@ case class RouteAnalysisContext(
   lastSurvey: Option[Day] = None
 ) {
 
-  def networkType: NetworkType = loadedRoute.networkType
+  def scopedNetworkType: ScopedNetworkType = loadedRoute.scopedNetworkType
 
   def withFact(fact: Fact): RouteAnalysisContext = {
     copy(facts = facts :+ fact)

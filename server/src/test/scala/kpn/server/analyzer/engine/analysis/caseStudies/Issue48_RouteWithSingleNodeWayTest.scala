@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -41,7 +41,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
     val analysisContext = new AnalysisContext(oldTagging = true)
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val name = relationAnalyzer.routeName(routeRelation)
-    LoadedRoute(Some(Country.nl), NetworkType.hiking, name, data, routeRelation)
+    LoadedRoute(Some(Country.nl), ScopedNetworkType.rwn, name, data, routeRelation)
   }
 
   private def readData(): Data = {

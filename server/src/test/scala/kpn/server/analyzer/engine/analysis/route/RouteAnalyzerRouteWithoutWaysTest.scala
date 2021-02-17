@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteWithoutWays
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -23,7 +23,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
 
     val loadedRoute = LoadedRoute(
       country = None,
-      networkType = NetworkType.hiking,
+      scopedNetworkType = ScopedNetworkType.rwn,
       "01-02",
       data,
       data.relations(1L)
