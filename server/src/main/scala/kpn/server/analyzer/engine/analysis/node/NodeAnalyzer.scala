@@ -35,4 +35,8 @@ object NodeAnalyzer {
     }.mkString(" / ")
   }
 
+  def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): String = {
+    tags(scopedNetworkType.nodeTagKey).getOrElse("no-name")
+  }
+
 }

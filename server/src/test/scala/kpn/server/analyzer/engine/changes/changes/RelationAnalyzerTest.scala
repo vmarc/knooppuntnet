@@ -1,10 +1,21 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.context.AnalysisContext
 
-class RelationAnalyzerTest extends UnitTest {
+class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
+
+  test("scopedNetworkType") {
+    testScopedNetworkType("rwn", NetworkScope.regional, NetworkType.hiking)
+    testScopedNetworkType("lcn", NetworkScope.local, NetworkType.cycling)
+    testScopedNetworkType("iin", NetworkScope.international, NetworkType.inlineSkating)
+  }
 
   test("referenced nodes, ways and relations") {
 
@@ -40,6 +51,11 @@ class RelationAnalyzerTest extends UnitTest {
     }.data.relations(11)
 
     relationAnalyzer().referencedNodes(network).map(_.id) should equal(Set(1001L))
+  }
+
+  private def testScopedNetworkType(networkTagValue: String, expectedNetworkScope: NetworkScope, expectedNetworkType: NetworkType) {
+    val relation = newRawRelation(tags = Tags.from("network" -> networkTagValue, "type" -> "network", "name" -> "name", "network:type" -> "node_network"))
+    RelationAnalyzer.scopedNetworkType(relation) should equal(Some(ScopedNetworkType(expectedNetworkScope, expectedNetworkType)))
   }
 
   private def relationAnalyzer(): RelationAnalyzer = {

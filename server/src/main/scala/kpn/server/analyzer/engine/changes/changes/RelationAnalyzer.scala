@@ -14,6 +14,12 @@ object RelationAnalyzer {
       ScopedNetworkType.all.find(_.key == tagValue).map(_.networkType)
     }
   }
+
+  def scopedNetworkType(relation: RawRelation): Option[ScopedNetworkType] = {
+    relation.tags("network").flatMap { tagValue =>
+      ScopedNetworkType.all.find(_.key == tagValue)
+    }
+  }
 }
 
 trait RelationAnalyzer {

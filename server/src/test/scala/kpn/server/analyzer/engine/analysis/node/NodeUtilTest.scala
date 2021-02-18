@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.node
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
@@ -11,7 +11,7 @@ import scala.collection.mutable.ListBuffer
 
 class NodeUtilTest extends UnitTest with SharedTestObjects {
 
-  private val util = new NodeUtil(NetworkType.hiking)
+  private val util = new NodeUtil(ScopedNetworkType.rwn)
 
   test("sortNames") {
     // string sort when not all numeric
@@ -27,7 +27,7 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
     // string sort when not all numeric
     util.sortByName(Seq(node("B"), node("C"), node("A"))) should equal(Seq(node("A"), node("B"), node("C")))
     util.sortByName(Seq(node("B"), node("A"), node("30"), node("100"), node("01"))) should equal(Seq(node("01"), node("100"), node("30"), node("A"), node("B")))
-    util.sortByName(Seq(newNode(0), node("30"), node("100"), node("01"))) should equal(Seq(newNode(0), node("01"), node("100"), node("30")))
+    util.sortByName(Seq(newNode(0), node("30"), node("100"), node("01"))) should equal(Seq(node("01"), node("100"), node("30"), newNode(0)))
 
     // numeric sort
     util.sortByName(Seq(node("30"), node("100"), node("01"))) should equal(Seq(node("01"), node("30"), node("100")))

@@ -7,7 +7,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Fact._
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
@@ -311,9 +311,11 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
 
   private def member(node: RawNode): RawMember = RawMember("node", node.id, None)
 
-  private def analyzeRoute(d: TData,
-                           name: String,
-                           members: Seq[RawMember]): RouteAnalysis = {
+  private def analyzeRoute(
+    d: TData,
+    name: String,
+    members: Seq[RawMember]
+  ): RouteAnalysis = {
     val relation = routeRelation(100, name, members)
     analyzeRoute(d, relation)
   }
@@ -345,6 +347,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(LoadedRoute(None, NetworkType.hiking, "", data, routeRelation), orphan = false)
+    routeAnalyzer.analyze(LoadedRoute(None, ScopedNetworkType.rwn, "", data, routeRelation), orphan = false)
   }
 }

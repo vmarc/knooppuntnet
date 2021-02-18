@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeIntegrityCheck
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
 
-class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAnalysis, networkNode: NetworkNode) {
+class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysis: NetworkAnalysis, networkNode: NetworkNode) {
 
   def analysis: Option[NodeIntegrityCheck] = {
     if (referencedInNetworkRelation && hasIntegrityCheck) {
@@ -18,12 +18,11 @@ class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAn
   }
 
   private def hasIntegrityCheck: Boolean = {
-    networkType.scopedNetworkTypes.exists(n => networkNode.node.tags.has(n.expectedRouteRelationsTag))
+    networkNode.node.tags.has(scopedNetworkType.expectedRouteRelationsTag)
   }
 
   private def expectedRouteRelationCount: Int = {
-    // picks the first scoped networkType when there is more than one --> this is not entirely correct
-    networkType.scopedNetworkTypes.flatMap(n => networkNode.node.tags(n.expectedRouteRelationsTag)).headOption match {
+    networkNode.node.tags(scopedNetworkType.expectedRouteRelationsTag) match {
       case None => 0
       case Some(value) =>
         if (!value.forall(_.isDigit)) {

@@ -8,7 +8,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestData
@@ -473,7 +473,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
       networkRouteAnalyzer
     )
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))
-    val loadedNetwork = LoadedNetwork(1, NetworkType.hiking, "name", data, data.relations(1))
+    val loadedNetwork = LoadedNetwork(1, ScopedNetworkType.rwn, "name", data, data.relations(1))
     val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
     NetworkSnapshot(Timestamp(2015, 1, 1), data, network)
   }

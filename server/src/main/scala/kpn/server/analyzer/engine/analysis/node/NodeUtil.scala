@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.data.Node
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 
 import scala.collection.mutable.ListBuffer
 
@@ -17,7 +17,7 @@ object NodeUtil {
   }
 }
 
-class NodeUtil(networkType: NetworkType) {
+class NodeUtil(scopedNetworkType: ScopedNetworkType) {
 
   def sortNames(nodeNames: Iterable[String]): Seq[String] = {
     if (nodeNames.exists(nodeName => !isDigits(nodeName))) {
@@ -58,7 +58,7 @@ class NodeUtil(networkType: NetworkType) {
   private def isDigits(string: String): Boolean = string.nonEmpty && string.forall(_.isDigit)
 
   private def name(node: Node): String = {
-    NodeAnalyzer.name(networkType, node.tags)
+    NodeAnalyzer.scopedName(scopedNetworkType, node.tags)
   }
 
 }

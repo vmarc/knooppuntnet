@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.network
 import kpn.api.common.NetworkExtraMemberNode
 import kpn.api.common.NetworkExtraMemberRelation
 import kpn.api.common.NetworkExtraMemberWay
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.analysis.Network
 import kpn.core.test.TestData
@@ -12,7 +12,6 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -118,7 +117,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
   private def analyze(d: TestData, oldTagging: Boolean = false): Network = {
     val data = d.data
     val networkRelation = data.relations(1)
-    val loadedNetwork = LoadedNetwork(1, NetworkType.hiking, "name", data, networkRelation)
+    val loadedNetwork = LoadedNetwork(1, ScopedNetworkType.rwn, "name", data, networkRelation)
     val countryAnalyzer = stub[CountryAnalyzer]
     (countryAnalyzer.country _).when(*).returns(None)
     (countryAnalyzer.relationCountry _).when(*).returns(None)

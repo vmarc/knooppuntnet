@@ -36,7 +36,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map()
     val nodeNumberIterator = (1 to 10000).iterator
     val validRouteMembers: Seq[Member] = context.loadedRoute.relation.members.filter { member =>
-      context.analysisContext.isValidNetworkMember(context.loadedRoute.networkType, member)
+      context.analysisContext.isValidNetworkMember(context.loadedRoute.scopedNetworkType, member)
     }
 
     val wayRelationMembers = validRouteMembers.flatMap {
@@ -56,7 +56,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
         val node = nodeMember.node
 
-        val name = NodeAnalyzer.name(context.loadedRoute.networkType, node.tags)
+        val name = NodeAnalyzer.scopedName(context.loadedRoute.scopedNetworkType, node.tags)
 
         val number = if (nodeMap.isDefinedAt(node.id)) {
           nodeMap(node.id)
@@ -80,7 +80,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         // relationMember.isWay)
         val link = linkIterator.next()
         val way = wayMember.way
-        val wayNetworkNodes = way.nodes.filter(n => context.analysisContext.isReferencedNetworkNode(context.networkType, n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
+        val wayNetworkNodes = way.nodes.filter(n => context.analysisContext.isReferencedNetworkNode(context.scopedNetworkType, n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
           .id == n.id))
         val name = way.tags("name").getOrElse("")
 
@@ -105,7 +105,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           n
         }
 
-        val accessible = new AccessibilityAnalyzerImpl().accessible(context.networkType, way)
+        val accessible = new AccessibilityAnalyzerImpl().accessible(context.scopedNetworkType.networkType, way)
 
         // way.tags.has("route", "ferry") TODO draw boat icon?
 

@@ -7,7 +7,7 @@ import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
@@ -554,7 +554,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("oneway route -> oneway=yes") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("oneway" -> "yes")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes")) {
 
       node(1, "01")
       node(3, "02")
@@ -578,7 +578,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("oneway route -> comment indicates oneway") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("comment" -> "to be used in one direction")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("comment" -> "to be used in one direction")) {
 
       node(1, "01")
       node(3, "02")
@@ -602,7 +602,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("oneway route -> direction=forward") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("direction" -> "forward")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward")) {
 
       node(1, "01")
       node(3, "02")
@@ -626,7 +626,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("oneway route -> direction=backward") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("direction" -> "backward")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "backward")) {
 
       node(1, "01")
       node(3, "02")
@@ -650,7 +650,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("not a oneway route if both directions ok") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("oneway" -> "yes")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes")) {
 
       node(1, "01")
       node(2, "02")
@@ -675,7 +675,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("route with direction=forward, but forward not ok") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("direction" -> "forward")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward")) {
 
       node(1, "01")
       node(3, "02")
@@ -701,7 +701,7 @@ class RouteAnalysisTest extends UnitTest {
   }
 
   test("route with direction=backward, but backward not ok") {
-    val d = new RouteTestData("01-02", NetworkType.cycling, Tags.from("direction" -> "backward")) {
+    val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "backward")) {
 
       node(1, "01")
       node(3, "02")
