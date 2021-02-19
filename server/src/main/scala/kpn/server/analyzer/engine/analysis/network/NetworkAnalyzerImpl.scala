@@ -32,7 +32,7 @@ class NetworkAnalyzerImpl(
 
   def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
 
-    val allNodes = networkNodeAnalyzer.analyze(loadedNetwork.networkType, loadedNetwork.data)
+    val allNodes = networkNodeAnalyzer.analyze(loadedNetwork.scopedNetworkType, loadedNetwork.data)
     val allRouteAnalyses: Map[Long, RouteAnalysis] = networkRouteAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
 
     val extraWayMembers = loadedNetwork.relation.wayMembers
@@ -96,7 +96,7 @@ class NetworkAnalyzerImpl(
           None
         }
         else {
-          new NodeIntegrityAnalyzer(loadedNetwork.networkType, analysis, networkNode).analysis
+          new NodeIntegrityAnalyzer(loadedNetwork.scopedNetworkType, analysis, networkNode).analysis
         }
 
         val connection: Boolean = {
@@ -164,7 +164,7 @@ class NetworkAnalyzerImpl(
 
     Network(
       networkRelationAnalysis.country,
-      loadedNetwork.networkType,
+      loadedNetwork.scopedNetworkType.networkType,
       loadedNetwork.relation,
       loadedNetwork.name,
       networkNodes,

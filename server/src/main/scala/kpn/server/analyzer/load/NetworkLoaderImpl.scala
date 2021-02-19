@@ -76,17 +76,17 @@ class NetworkLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) ext
         )
       }
 
-      RelationAnalyzer.networkType(rawRelation) match {
+      RelationAnalyzer.scopedNetworkType(rawRelation) match {
         case None =>
           log.error(s"Network type not found for network with id $networkId\n$xmlString")
           None
 
-        case Some(networkType) =>
+        case Some(scopedNetworkType) =>
 
           val data = new DataBuilder(improvedRawData).data
           val relation = data.relations(networkId)
           val networkName = new NetworkNameAnalyzer(relation).name
-          Some(LoadedNetwork(networkId, networkType, networkName, data, relation))
+          Some(LoadedNetwork(networkId, scopedNetworkType, networkName, data, relation))
       }
     }
 

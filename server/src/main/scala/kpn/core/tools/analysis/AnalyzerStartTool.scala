@@ -170,7 +170,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         )
         loadOrphanRouteChange(analysis)
 
-        val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.networkType, loadedRoute.data)
+        val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
 
         allNodes.values.foreach { networkNode =>
           config.analysisRepository.saveNode(

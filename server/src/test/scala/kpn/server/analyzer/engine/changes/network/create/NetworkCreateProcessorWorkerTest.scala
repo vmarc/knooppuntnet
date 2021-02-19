@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.network.create
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSet
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.test.TestData
 import kpn.core.util.Log
 import kpn.core.util.MockLog
@@ -46,7 +46,7 @@ class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with Sh
       }
       LoadedNetwork(
         t.networkId,
-        networkType = NetworkType.hiking,
+        scopedNetworkType = ScopedNetworkType.rwn,
         name = "",
         data = d.data,
         relation = d.data.relations(t.networkId)

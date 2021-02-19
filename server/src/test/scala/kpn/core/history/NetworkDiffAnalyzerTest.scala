@@ -7,7 +7,7 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.network.NetworkNodeDiff
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestData
@@ -20,7 +20,6 @@ import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -439,7 +438,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))
-    val loadedNetwork = LoadedNetwork(1, NetworkType.hiking, "name", data, data.relations(1))
+    val loadedNetwork = LoadedNetwork(1, ScopedNetworkType.rwn, "name", data, data.relations(1))
     val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
     NetworkSnapshot(Timestamp(2015, 1, 1, 0, 0, 0), data, network)
   }
