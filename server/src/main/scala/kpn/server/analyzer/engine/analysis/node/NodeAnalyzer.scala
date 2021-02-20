@@ -7,23 +7,17 @@ import kpn.api.custom.Tags
 
 object NodeAnalyzer {
 
-  def hasNodeTag(tags: Tags): Boolean = {
-    ScopedNetworkType.all.exists { scopedNetworkType =>
-      tags.has(scopedNetworkType.nodeTagKey)
-    }
-  }
-
   def networkTypes(tags: Tags): Seq[NetworkType] = {
-    ScopedNetworkType.all.filter(n => tags.has(n.nodeTagKey)).map(_.networkType).distinct
+    ScopedNetworkType.all.filter(n => tags.has(n.nodeRefTagKey)).map(_.networkType).distinct
   }
 
   def name(tags: Tags): String = {
-    ScopedNetworkType.all.flatMap(n => tags(n.nodeTagKey)).mkString(" / ")
+    ScopedNetworkType.all.flatMap(n => tags(n.nodeRefTagKey)).mkString(" / ")
   }
 
   def names(tags: Tags): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      tags(scopedNetworkType.nodeTagKey).map { name =>
+      tags(scopedNetworkType.nodeRefTagKey).map { name =>
         NodeName(scopedNetworkType, name)
       }
     }
@@ -31,12 +25,12 @@ object NodeAnalyzer {
 
   def name(networkType: NetworkType, tags: Tags): String = {
     networkType.scopedNetworkTypes.flatMap { scopedNetworkType =>
-      tags(scopedNetworkType.nodeTagKey)
+      tags(scopedNetworkType.nodeRefTagKey)
     }.mkString(" / ")
   }
 
   def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): String = {
-    tags(scopedNetworkType.nodeTagKey).getOrElse("no-name")
+    tags(scopedNetworkType.nodeRefTagKey).getOrElse("no-name")
   }
 
 }

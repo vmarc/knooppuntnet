@@ -3,10 +3,9 @@ package kpn.server.analyzer.engine.changes.node
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.context.AnalysisContext
 
-class NodeChangeFactAnalyzer(analysisData: AnalysisData) {
+class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
 
   def facts(before: RawNode, after: RawNode): Seq[Fact] = {
     Seq(
@@ -20,16 +19,15 @@ class NodeChangeFactAnalyzer(analysisData: AnalysisData) {
     ).flatten
   }
 
-  private def hasLostNodeTag(networkType: NetworkType, before: RawNode, after: RawNode) = {
-    hasNodeTag(networkType, before) && !hasNodeTag(networkType, after)
-  }
-
-  private def hasNodeTag(networkType: NetworkType, node: RawNode): Boolean = {
-    networkType.scopedNetworkTypes.exists(s => node.tags.has(s.nodeRefTagKey))
+  private def hasLostNodeTag(networkType: NetworkType, before: RawNode, after: RawNode): Boolean = {
+    val nodeTagBefore: Boolean = analysisContext.isValidNetworkNode(networkType, before)
+    val nodeTagAfter: Boolean = analysisContext.isValidNetworkNode(networkType, after)
+    nodeTagBefore && !nodeTagAfter
   }
 
   private def wasOrphan(before: RawNode, after: RawNode) = {
-    !NodeAnalyzer.hasNodeTag(after.tags) && analysisData.orphanNodes.watched.contains(before.id)
+    !analysisContext.isValidNetworkNode(after) &&
+      analysisContext.data.orphanNodes.watched.contains(before.id)
   }
 
   private def test(fact: Fact, exists: Boolean): Seq[Fact] = {

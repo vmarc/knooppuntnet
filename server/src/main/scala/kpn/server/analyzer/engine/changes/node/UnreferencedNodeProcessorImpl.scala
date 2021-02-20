@@ -70,7 +70,7 @@ class UnreferencedNodeProcessorImpl(
     val after = nodeAfter.node.raw
 
     val facts = {
-      val ff = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
+      val ff = new NodeChangeFactAnalyzer(analysisContext).facts(before, after)
       if (ff.contains(Fact.LostHikingNodeTag) || ff.contains(Fact.LostHikingNodeTag)) {
         ff
       }
@@ -79,7 +79,7 @@ class UnreferencedNodeProcessorImpl(
       }
     }
 
-    if (facts.isEmpty || NodeAnalyzer.hasNodeTag(after.tags)) {
+    if (facts.isEmpty || analysisContext.isValidNetworkNode(after)) {
       furtherProcess(context, nodeBefore, nodeAfter, facts)
     }
     else {

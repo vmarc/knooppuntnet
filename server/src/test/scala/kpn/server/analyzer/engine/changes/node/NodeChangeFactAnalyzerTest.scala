@@ -4,16 +4,16 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.context.AnalysisContext
 
 class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no facts") {
-    val analysisData = AnalysisData()
+    val context = new AnalysisContext()
     val before = newRawNode()
     val after = newRawNode()
 
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
+    val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after) should equal(
       Seq()
     )
@@ -22,11 +22,11 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
   test("lost node tag") {
 
     def doTestLostNodeTag(tagKey: String, expectedFact: Fact): Unit = {
-      val analysisData = AnalysisData()
-      val before = newRawNode(tags = Tags.from(tagKey -> "01", "network:type" -> "node_network"))
+      val context = new AnalysisContext()
+      val before = newRawNode(tags = Tags.from("network:type" -> "node_network", tagKey -> "01"))
       val after = newRawNode()
 
-      val analyzer = new NodeChangeFactAnalyzer(analysisData)
+      val analyzer = new NodeChangeFactAnalyzer(context)
       analyzer.facts(before, after) should equal(
         Seq(expectedFact)
       )
@@ -40,27 +40,56 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     doTestLostNodeTag("rmn_ref", Fact.LostMotorboatNodeTag)
     doTestLostNodeTag("rpn_ref", Fact.LostCanoeNodeTag)
     doTestLostNodeTag("rin_ref", Fact.LostInlineSkateNodeTag)
+
+    doTestLostNodeTag("rwn_name", Fact.LostHikingNodeTag)
+    doTestLostNodeTag("lwn_name", Fact.LostHikingNodeTag)
+    doTestLostNodeTag("iwn_name", Fact.LostHikingNodeTag)
+    doTestLostNodeTag("rcn_name", Fact.LostBicycleNodeTag)
+    doTestLostNodeTag("rhn_name", Fact.LostHorseNodeTag)
+    doTestLostNodeTag("rmn_name", Fact.LostMotorboatNodeTag)
+    doTestLostNodeTag("rpn_name", Fact.LostCanoeNodeTag)
+    doTestLostNodeTag("rin_name", Fact.LostInlineSkateNodeTag)
+  }
+
+  test("lost node tag fact - old tagging") {
+
+    val context = new AnalysisContext(oldTagging = true)
+    val before = newRawNode(tags = Tags.from("rwn_ref" -> "01"))
+    val after = newRawNode()
+
+    val analyzer = new NodeChangeFactAnalyzer(context)
+    analyzer.facts(before, after) should equal(Seq(Fact.LostHikingNodeTag))
+  }
+
+  test("no lost node tag fact when switching network scope only") {
+
+    val context = new AnalysisContext()
+    val before = newRawNode(tags = Tags.from("network:type" -> "node_network", "rwn_name" -> "name"))
+    val after = newRawNode(tags = Tags.from("network:type" -> "node_network", "lwn_name" -> "name"))
+
+    val analyzer = new NodeChangeFactAnalyzer(context)
+    analyzer.facts(before, after) should equal(Seq())
   }
 
   test("WasOrphan") {
-    val analysisData = AnalysisData()
-    analysisData.orphanNodes.watched.add(1)
+    val context = new AnalysisContext()
+    context.data.orphanNodes.watched.add(1)
     val before = newRawNode()
     val after = newRawNode()
 
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
+    val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after) should equal(
       Seq(Fact.WasOrphan)
     )
   }
 
   test("Orphan node that remains orphan") {
-    val analysisData = AnalysisData()
-    analysisData.orphanNodes.watched.add(1001)
+    val context = new AnalysisContext()
+    context.data.orphanNodes.watched.add(1001)
     val before = newRawNodeWithName(1001, "01")
     val after = newRawNodeWithName(1001, "01")
 
-    val analyzer = new NodeChangeFactAnalyzer(analysisData)
+    val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after) should equal(Seq())
   }
 

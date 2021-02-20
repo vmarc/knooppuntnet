@@ -110,7 +110,7 @@ class NodeChangeBuilderImpl(
 
           val before = nodeBefore.node.raw
           val after = nodeAfter.networkNode.node.raw
-          val facts = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
+          val facts = new NodeChangeFactAnalyzer(analysisContext).facts(before, after)
           val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
           val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
@@ -221,7 +221,7 @@ class NodeChangeBuilderImpl(
 
           val before = nodeBefore.networkNode.node.raw
           val after = nodeAfter.node.raw
-          val nodeFacts = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
+          val nodeFacts = new NodeChangeFactAnalyzer(analysisContext).facts(before, after)
           val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
           val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
@@ -322,7 +322,7 @@ class NodeChangeBuilderImpl(
         val removedFromRoute = determineRemovedFromRoutes(context, nodeId)
         val before = nodeBefore.networkNode.node.raw
         val after = nodeAfter.networkNode.node.raw
-        val facts = new NodeChangeFactAnalyzer(analysisContext.data).facts(before, after)
+        val facts = new NodeChangeFactAnalyzer(analysisContext).facts(before, after)
         val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
         val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
