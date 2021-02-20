@@ -1607,7 +1607,7 @@ export class OsmLibertyStyle {
           'text-font': ['Roboto Regular'],
           'text-size': 11
         },
-        'paint': {
+        paint: {
           'text-color': 'rgba(173,104,104,0.8)',
           'text-halo-color': 'rgba(255,255,255,0.3)',
           'text-halo-width': 2

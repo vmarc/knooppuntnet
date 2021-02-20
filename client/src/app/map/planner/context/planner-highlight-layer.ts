@@ -70,7 +70,7 @@ export class PlannerHighlightLayer {
       image: new Circle({
         radius,
         fill: new Fill({
-          color: color
+          color
         })
       })
     });
@@ -79,7 +79,7 @@ export class PlannerHighlightLayer {
   private static buildRouteStyle(color: string): Style {
     return new Style({
       stroke: new Stroke({
-        color: color,
+        color,
         width: 18
       })
     });
