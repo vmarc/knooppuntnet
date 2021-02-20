@@ -54,7 +54,9 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val nodes = findNodes()
 
-    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter(node => context.analysisContext.isReferencedNetworkNode(node.raw))
+    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter { node =>
+      context.analysisContext.isReferencedNetworkNode(context.loadedRoute.scopedNetworkType, node.raw)
+    }
 
     val nodesInWays = findNodesInWays()
 
@@ -162,7 +164,9 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private def findNodesInWays(): Seq[Node] = {
     val ways = context.loadedRoute.relation.wayMembers.map(member => member.way)
     val nodes = ways.flatMap(_.nodes)
-    nodes.filter(node => context.analysisContext.isReferencedNetworkNode(node.raw))
+    nodes.filter { node =>
+      context.analysisContext.isReferencedNetworkNode(context.loadedRoute.scopedNetworkType, node.raw)
+    }
   }
 
   private def findNodes(): Seq[Node] = {

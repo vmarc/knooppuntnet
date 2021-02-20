@@ -110,7 +110,7 @@ class FactsPerNetworkViewTest extends UnitTest {
         node(
           1001,
           Country.nl,
-          tags = Tags.from(scopedNetworkType.nodeTagKey -> "01", "network:type" -> "node_network"),
+          tags = Tags.from(scopedNetworkType.nodeRefTagKey -> "01", "network:type" -> "node_network"),
           orphan = true,
           facts = Seq(Fact.IntegrityCheck)
         )

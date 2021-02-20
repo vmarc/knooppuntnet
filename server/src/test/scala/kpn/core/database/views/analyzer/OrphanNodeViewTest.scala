@@ -24,7 +24,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   private def doOrphanNodeTest(subset: Subset): Unit = {
     withDatabase { database =>
       val b = new TestDocBuilder(database)
-      val nodeTagKey = ScopedNetworkType(NetworkScope.regional, subset.networkType).nodeTagKey
+      val nodeTagKey = ScopedNetworkType(NetworkScope.regional, subset.networkType).nodeRefTagKey
       b.node(1001, Country.nl, tags = Tags.from(nodeTagKey -> "01"), orphan = true)
 
       val nodeInfos = OrphanNodeView.query(database, subset, stale = false)

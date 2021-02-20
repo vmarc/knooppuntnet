@@ -21,7 +21,7 @@ class RouteTestData(val routeName: String, val scopedNetworkType: ScopedNetworkT
   def routeRelationId = 1L
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    val tags = if (name == "") Tags.empty else Tags.from(scopedNetworkType.nodeTagKey -> name, "network:type" -> "node_network")
+    val tags = if (name == "") Tags.empty else Tags.from(scopedNetworkType.nodeRefTagKey -> name, "network:type" -> "node_network")
     rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = tags))
   }
 

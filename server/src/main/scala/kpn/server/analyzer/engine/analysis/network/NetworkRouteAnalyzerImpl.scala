@@ -24,7 +24,7 @@ class NetworkRouteAnalyzerImpl(
   override def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Map[Long, RouteAnalysis] = {
 
     val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
-      analysisContext.isReferencedRouteRelation(loadedNetwork.networkType, rel.raw)
+      analysisContext.isReferencedRouteRelation(loadedNetwork.scopedNetworkType, rel.raw)
     }
 
     val routeAnalyses = routeRelations.flatMap { routeRelation =>
@@ -47,16 +47,16 @@ class NetworkRouteAnalyzerImpl(
       case Some(e) => Some(e)
     }
 
-    RelationAnalyzer.networkType(routeRelation.raw) match {
-      case Some(routeNetworkType) =>
-        if (loadedNetwork.networkType == routeNetworkType) {
+    RelationAnalyzer.scopedNetworkType(routeRelation.raw) match {
+      case Some(routeScopedNetworkType) =>
+        if (loadedNetwork.scopedNetworkType == routeScopedNetworkType) {
           val name = relationAnalyzer.routeName(routeRelation)
-          val loadedRoute = LoadedRoute(country, routeNetworkType, name, loadedNetwork.data, routeRelation)
+          val loadedRoute = LoadedRoute(country, routeScopedNetworkType, name, loadedNetwork.data, routeRelation)
           val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
           Some(routeAnalysis)
         }
         else {
-          val msg = s"Route networkType (${routeNetworkType.name}) does not match the network relation networkType ${loadedNetwork.name}."
+          val msg = s"Route scopedNetworkType (${routeScopedNetworkType.key}) does not match the network relation networkType ${loadedNetwork.name}."
           val programmingError = "This is an unexpected programming error."
           //noinspection SideEffectsInMonadicTransformation
           log.error(s"$msg $programmingError")

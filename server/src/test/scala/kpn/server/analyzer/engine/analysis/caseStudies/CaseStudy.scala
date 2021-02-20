@@ -1,14 +1,15 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -21,7 +22,7 @@ object CaseStudy {
 
   def routeAnalysis(name: String): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
-    val (data, networkType, routeRelation) = load(filename)
+    val (data, scopedNetworkType, routeRelation) = load(filename)
     val analysisContext = new AnalysisContext(oldTagging = true)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
@@ -31,10 +32,11 @@ object CaseStudy {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(LoadedRoute(Some(Country.nl), networkType, "", data, routeRelation), orphan = false)
+    val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, "", data, routeRelation)
+    routeAnalyzer.analyze(loadedRoute, orphan = false)
   }
 
-  private def load(filename: String): (Data, NetworkType, Relation) = {
+  private def load(filename: String): (Data, ScopedNetworkType, Relation) = {
 
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
@@ -55,15 +57,10 @@ object CaseStudy {
       throw new IllegalArgumentException(s"Relation does not have expected tag type=route in file $filename")
     }
 
-    val networkType = rawRouteRelation.tags("network") match {
-      case Some("rcn") => NetworkType.cycling
-      case Some("rwn") => NetworkType.hiking
-      case Some("rpn") => NetworkType.canoe
-      case _ => throw new IllegalArgumentException("Network type not found in file " + filename)
-    }
+    val scopedNetworkType = RelationAnalyzer.scopedNetworkType(rawRouteRelation).get
 
     val data = new DataBuilder(rawData).data
     val routeRelation = data.relations(rawRouteRelation.id)
-    (data, networkType, routeRelation)
+    (data, scopedNetworkType, routeRelation)
   }
 }

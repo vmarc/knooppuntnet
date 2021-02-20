@@ -25,7 +25,7 @@ class NodeChangeFactAnalyzer(analysisData: AnalysisData) {
   }
 
   private def hasNodeTag(networkType: NetworkType, node: RawNode): Boolean = {
-    networkType.scopedNetworkTypes.exists(s => node.tags.has(s.nodeTagKey))
+    networkType.scopedNetworkTypes.exists(s => node.tags.has(s.nodeRefTagKey))
   }
 
   private def wasOrphan(before: RawNode, after: RawNode) = {
