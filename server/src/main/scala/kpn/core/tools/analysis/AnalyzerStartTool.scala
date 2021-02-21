@@ -1,19 +1,18 @@
 package kpn.core.tools.analysis
 
-import java.util.concurrent.CompletableFuture.allOf
-import java.util.concurrent.CompletableFuture.supplyAsync
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
-
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
+import kpn.api.common.data.Node
+import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -31,6 +30,9 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
+import java.util.concurrent.CompletableFuture.allOf
+import java.util.concurrent.CompletableFuture.supplyAsync
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.io.Source
 import scala.xml.XML
 
@@ -210,7 +212,11 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             case None => log.error("Node not found")
             case Some(node) =>
               val countries = config.countryAnalyzer.countries(node)
-              val loadedNode = LoadedNode.from(countries.headOption, node.raw)
+              val networkTypes = NetworkType.all.filter { networkType =>
+                config.analysisContext.isValidNetworkNode(networkType, node.raw)
+              }
+              val name = NodeAnalyzer.name(node.tags) // TODO change to use analysisContext also
+              val loadedNode = LoadedNode(countries.headOption, networkTypes, name, node)
               val nodeInfo = config.nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
               config.analysisContext.data.orphanNodes.watched.add(nodeId)
               config.analysisRepository.saveNode(nodeInfo)
@@ -294,7 +300,9 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     network.nodes.foreach { node =>
 
       val subsets: Seq[Subset] = {
-        val networkTypes: Seq[NetworkType] = NodeAnalyzer.networkTypes(node.networkNode.tags)
+        val networkTypes = NetworkType.all.filter { networkType =>
+          config.analysisContext.isValidNetworkNode(networkType, node.networkNode.node.raw)
+        }
         node.networkNode.country.toSeq.flatMap {
           c => networkTypes.flatMap(n => Subset.of(c, n))
         }
@@ -356,8 +364,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     def subsets: Seq[Subset] = {
       networkNode.country match {
-        case Some(c) => NodeAnalyzer.networkTypes(networkNode.tags).map(n => Subset(c, n))
         case None => Seq()
+        case Some(c) =>
+          val networkTypes = NetworkType.all.filter { networkType =>
+            config.analysisContext.isValidNetworkNode(networkType, networkNode.node.raw)
+          }
+          networkTypes.map(n => Subset(c, n))
       }
     }
 

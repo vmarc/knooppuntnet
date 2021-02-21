@@ -1,17 +1,22 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
+import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawNode
+import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanNodeChangeProcessorImpl(
+  analysisContext: AnalysisContext,
   changeAnalyzer: OrphanNodeChangeAnalyzer,
   createProcessor: OrphanNodeCreateProcessor,
   updateProcessor: OrphanNodeUpdateProcessor,
@@ -56,8 +61,12 @@ class OrphanNodeChangeProcessorImpl(
     }
   }
 
-  private def toLoadedNode(node: RawNode): LoadedNode = {
-    val country = countryAnalyzer.country(Seq(node))
-    LoadedNode.from(country, node)
+  private def toLoadedNode(rawNode: RawNode): LoadedNode = {
+    val country = countryAnalyzer.country(Seq(rawNode))
+    val networkTypes = NetworkType.all.filter { networkType =>
+      analysisContext.isValidNetworkNode(networkType, rawNode)
+    }
+    val name = NodeAnalyzer.name(rawNode.tags) // TODO change to use analysisContext also
+    LoadedNode(country, networkTypes, name, Node(rawNode))
   }
 }

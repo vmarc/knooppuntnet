@@ -1,8 +1,5 @@
 package kpn.core.tools.analysis
 
-import java.io.File
-import java.util.concurrent.Executor
-
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
@@ -59,6 +56,9 @@ import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
+
+import java.io.File
+import java.util.concurrent.Executor
 
 class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: AnalyzerStartToolOptions) {
 
@@ -123,6 +123,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val factRepository = new FactRepositoryImpl(analysisDatabase)
 
   val nodeLoader = new NodeLoaderImpl(
+    analysisContext,
     nonCachingExecutor,
     countryAnalyzer
   )

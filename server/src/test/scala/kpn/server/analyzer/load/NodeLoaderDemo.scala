@@ -12,6 +12,7 @@ object NodeLoaderDemo {
 
   def main(args: Array[String]): Unit = {
 
+    val analysisContext = new AnalysisContext()
     val executor = new OverpassQueryExecutorImpl()
 
     val countryAnalyzer = {
@@ -29,7 +30,7 @@ object NodeLoaderDemo {
     val log = Log(classOf[NodeLoaderDemo])
 
     val loadedNodes: Seq[LoadedNode] = log.elapsed {
-      ("done", new NodeLoaderImpl(executor, countryAnalyzer).loadNodes(Timestamp(2015, 1, 1, 0, 0, 0), ids))
+      ("done", new NodeLoaderImpl(analysisContext, executor, countryAnalyzer).loadNodes(Timestamp(2015, 1, 1, 0, 0, 0), ids))
     }
 
     loadedNodes.foreach(println)

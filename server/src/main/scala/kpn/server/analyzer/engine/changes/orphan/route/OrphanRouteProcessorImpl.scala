@@ -1,7 +1,9 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
+import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -44,7 +46,11 @@ class OrphanRouteProcessorImpl(
           )
           analysis.routeNodeAnalysis.routeNodes.foreach { routeNode =>
             val country = countryAnalyzer.country(Seq(routeNode.node))
-            val loadedNode = LoadedNode.from(country, routeNode.node.raw)
+            val networkTypes = NetworkType.all.filter { networkType =>
+              analysisContext.isValidNetworkNode(networkType, routeNode.node.raw)
+            }
+            val name = NodeAnalyzer.name(routeNode.node.tags) // TODO change to use analysisContext also
+            val loadedNode = LoadedNode(country, networkTypes, name, routeNode.node)
             val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode)
             analysisRepository.saveNode(nodeInfo)
           }

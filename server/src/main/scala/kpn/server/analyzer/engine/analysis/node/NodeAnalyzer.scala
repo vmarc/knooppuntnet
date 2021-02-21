@@ -7,10 +7,6 @@ import kpn.api.custom.Tags
 
 object NodeAnalyzer {
 
-  def networkTypes(tags: Tags): Seq[NetworkType] = {
-    ScopedNetworkType.all.filter(n => tags.has(n.nodeRefTagKey)).map(_.networkType).distinct
-  }
-
   def name(tags: Tags): String = {
     ScopedNetworkType.all.flatMap(n => tags(n.nodeRefTagKey)).mkString(" / ")
   }

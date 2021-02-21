@@ -115,7 +115,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]
     (() => blackListRepository.get).when().returns(BlackList())
 
-    private val nodeLoader = new NodeLoaderImpl(overpassQueryExecutor, countryAnalyzer)
+    private val nodeLoader = new NodeLoaderImpl(analysisContext, overpassQueryExecutor, countryAnalyzer)
     private val routeLoader = new RouteLoaderImpl(overpassQueryExecutor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
     private val tileCalculator = new TileCalculatorImpl()
@@ -315,6 +315,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
 
       new OrphanNodeChangeProcessorImpl(
+        analysisContext,
         orphanNodeChangeAnalyzer,
         orphanNodeCreateProcessor,
         orphanNodeUpdateProcessor,

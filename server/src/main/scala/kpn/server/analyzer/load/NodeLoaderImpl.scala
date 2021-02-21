@@ -2,6 +2,7 @@ package kpn.server.analyzer.load
 
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawData
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
@@ -10,6 +11,8 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNodes
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
@@ -19,6 +22,7 @@ import scala.xml.XML
 
 @Component
 class NodeLoaderImpl(
+  analysisContext: AnalysisContext,
   nonCachingOverpassQueryExecutor: OverpassQueryExecutor,
   countryAnalyzer: CountryAnalyzer
 ) extends NodeLoader {
@@ -36,7 +40,11 @@ class NodeLoaderImpl(
       val rawData = RawData.merge(datas: _*)
       rawData.nodes.map { node =>
         val countries = countryAnalyzer.countries(node)
-        LoadedNode.from(countries.headOption, node)
+        val networkTypes = NetworkType.all.filter { networkType =>
+          analysisContext.isValidNetworkNode(networkType, node)
+        }
+        val name = NodeAnalyzer.name(node.tags) // TODO change to use analysisContext also
+        LoadedNode(countries.headOption, networkTypes, name, Node(node))
       }
     }
   }
@@ -102,7 +110,11 @@ class NodeLoaderImpl(
     val nodes = nodeOptions.flatMap(_._2)
     nodes.map { node =>
       val countries = countryAnalyzer.countries(node)
-      LoadedNode.from(countries.headOption, node.raw)
+      val networkTypes = NetworkType.all.filter { networkType =>
+        analysisContext.isValidNetworkNode(networkType, node.raw)
+      }
+      val name = NodeAnalyzer.name(node.tags) // TODO change to use analysisContext also
+      LoadedNode(countries.headOption, networkTypes, name, node)
     }
   }
 

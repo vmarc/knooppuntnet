@@ -4,13 +4,13 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
@@ -86,9 +86,7 @@ class UnreferencedNodeProcessorImpl(
       val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = false)
       analysisRepository.saveNode(nodeInfo)
 
-      val subsets = NodeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
-        nodeBefore.networkNode.country.flatMap(country => Subset.of(country, networkType))
-      }
+      val subsets = subsetsIn(nodeBefore)
 
       val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
       val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
@@ -127,9 +125,7 @@ class UnreferencedNodeProcessorImpl(
     val nodeInfo = nodeInfoBuilder.fromNetworkNodeInfo(nodeBefore, active = false, facts = Seq(Fact.Deleted))
     analysisRepository.saveNode(nodeInfo)
 
-    val subsets = NodeAnalyzer.networkTypes(nodeBefore.networkNode.tags).flatMap { networkType =>
-      nodeBefore.networkNode.country.flatMap(country => Subset.of(country, networkType))
-    }
+    val subsets = subsetsIn(nodeBefore)
 
     // TODO CHANGE remove from orphan/ignored node lists? + add in test
 
@@ -206,6 +202,15 @@ class UnreferencedNodeProcessorImpl(
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {
     new NodeChangeAnalyzer(nodeChange).analyzed()
+  }
+
+  private def subsetsIn(node: NetworkNodeInfo): Seq[Subset] = {
+    val networkTypes = NetworkType.all.filter { networkType =>
+      analysisContext.isValidNetworkNode(networkType, node.networkNode.node.raw)
+    }
+    networkTypes.flatMap { networkType =>
+      node.networkNode.country.flatMap(country => Subset.of(country, networkType))
+    }
   }
 
 }

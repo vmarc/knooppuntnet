@@ -67,14 +67,4 @@ class NodeAnalyzerTest extends UnitTest {
     NodeAnalyzer.name(NetworkType.cycling, tags) should equal(".")
   }
 
-  test("networkTypes") {
-    NodeAnalyzer.networkTypes(Tags.from("rwn_ref" -> "01", "lhn_ref" -> "02")) should equal(
-      Seq(NetworkType.hiking, NetworkType.horseRiding)
-    )
-  }
-
-  test("networkTypes - no tags") {
-    NodeAnalyzer.networkTypes(Tags.empty) should equal(Seq())
-  }
-
 }
