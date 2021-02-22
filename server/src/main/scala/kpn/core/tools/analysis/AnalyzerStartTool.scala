@@ -6,13 +6,10 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
-import kpn.api.common.data.Node
-import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -22,7 +19,6 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.QueryNode
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
@@ -215,7 +211,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
               val networkTypes = NetworkType.all.filter { networkType =>
                 config.analysisContext.isValidNetworkNode(networkType, node.raw)
               }
-              val name = NodeAnalyzer.name(node.tags) // TODO change to use analysisContext also
+              val name = config.nodeAnalyzer.name(node.tags)
               val loadedNode = LoadedNode(countries.headOption, networkTypes, name, node)
               val nodeInfo = config.nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
               config.analysisContext.data.orphanNodes.watched.add(nodeId)

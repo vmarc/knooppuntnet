@@ -34,6 +34,7 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
       null,
       null,
       orphan = false,
+      Map.empty,
       allWayNodes = Some(
         Seq(
           node1,

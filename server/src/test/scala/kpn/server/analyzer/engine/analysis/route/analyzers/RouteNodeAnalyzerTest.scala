@@ -5,6 +5,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 
@@ -275,10 +276,17 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     val analysisContext = new AnalysisContext()
 
+    val routeNodeInfos = data.nodes.values.flatMap { node =>
+      node.tags(d.scopedNetworkType.nodeRefTagKey).map { ref =>
+        node.id -> RouteNodeInfo(ref)
+      }
+    }.toMap
+
     val context = RouteAnalysisContext(
       analysisContext,
       loadedRoute,
-      orphan = false
+      orphan = false,
+      routeNodeInfos
     )
 
     val newContext = RouteNodeAnalyzer.analyze(RouteNameAnalyzer.analyze(context))

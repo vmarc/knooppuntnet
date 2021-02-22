@@ -15,6 +15,8 @@ import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -692,11 +694,12 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val nodeLoader: NodeLoader = stub[NodeLoader]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
+    val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
     val tileCalculator = new TileCalculatorImpl()
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
     (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
-    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
+    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
 
     val processor = new UnreferencedNodeProcessorImpl(
       analysisContext,

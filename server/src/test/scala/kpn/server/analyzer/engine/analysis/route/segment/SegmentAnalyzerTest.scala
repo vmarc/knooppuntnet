@@ -11,6 +11,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 
@@ -507,6 +508,13 @@ class SegmentAnalyzerTest extends UnitTest {
     val data = d.data
     val routeRelation = data.relations(1)
     val analysisContext = new AnalysisContext()
+
+    val routeNodeInfos = data.nodes.values.flatMap { node =>
+      node.tags(d.scopedNetworkType.nodeRefTagKey).map { ref =>
+        node.id -> RouteNodeInfo(ref)
+      }
+    }.toMap
+
     val context1 = RouteAnalysisContext(
       analysisContext,
       loadedRoute = LoadedRoute(
@@ -516,7 +524,8 @@ class SegmentAnalyzerTest extends UnitTest {
         data = data,
         relation = routeRelation
       ),
-      orphan = false
+      orphan = false,
+      routeNodeInfos
     )
     val context2 = new RouteNameAnalyzer(context1).analyze
     val context3 = new RouteNodeAnalyzer(context2).analyze

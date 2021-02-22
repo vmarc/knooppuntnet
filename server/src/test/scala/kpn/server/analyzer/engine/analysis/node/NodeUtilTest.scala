@@ -25,19 +25,19 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
 
   test("sortByName") {
     // string sort when not all numeric
-    util.sortByName(Seq(node("B"), node("C"), node("A"))) should equal(Seq(node("A"), node("B"), node("C")))
-    util.sortByName(Seq(node("B"), node("A"), node("30"), node("100"), node("01"))) should equal(Seq(node("01"), node("100"), node("30"), node("A"), node("B")))
-    util.sortByName(Seq(newNode(0), node("30"), node("100"), node("01"))) should equal(Seq(node("01"), node("100"), node("30"), newNode(0)))
+    util.sortByName(Seq(node("B"), node("C"), node("A")), toName) should equal(Seq(node("A"), node("B"), node("C")))
+    util.sortByName(Seq(node("B"), node("A"), node("30"), node("100"), node("01")), toName) should equal(Seq(node("01"), node("100"), node("30"), node("A"), node("B")))
+    util.sortByName(Seq(newNode(0), node("30"), node("100"), node("01")), toName) should equal(Seq(newNode(0), node("01"), node("100"), node("30")))
 
     // numeric sort
-    util.sortByName(Seq(node("30"), node("100"), node("01"))) should equal(Seq(node("01"), node("30"), node("100")))
+    util.sortByName(Seq(node("30"), node("100"), node("01")), toName) should equal(Seq(node("01"), node("30"), node("100")))
   }
 
   test("alternateNames") {
     val facts = ListBuffer[Fact]()
-    util.alternateNames(facts, Seq()) should equal(Map())
+    util.alternateNames(facts, Seq(), toName) should equal(Map())
     val nodes = Seq(node(1, "01"), node(2, "01"), node(3, "01"))
-    util.alternateNames(facts, nodes) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
+    util.alternateNames(facts, nodes, toName) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
   }
 
   test("alternateNames for more than 2 * 26 nodes") {
@@ -98,7 +98,7 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
     )
 
     val facts = ListBuffer[Fact]()
-    util.alternateNames(facts, nodes)
+    util.alternateNames(facts, nodes, toName)
     facts.head should equal(Fact.RouteAnalysisFailed)
   }
 
@@ -107,4 +107,9 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
   private def node(id: Long, name: String): Node = {
     newNode(id, tags = Tags.from("rwn_ref" -> name))
   }
+
+  private def toName(node: Node): String = {
+    node.tags("rwn_ref").getOrElse("")
+  }
+
 }

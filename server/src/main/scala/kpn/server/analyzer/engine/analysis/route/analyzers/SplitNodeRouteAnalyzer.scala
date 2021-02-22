@@ -27,7 +27,7 @@ class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
     }
     else {
       val nodes = routeNodeAnalysis.routeNodes
-      val nodeNames = nodes.map(_.name)
+      val nodeNames = nodes.flatMap(node => context.routeNodeInfos.get(node.id))
       val allNodesIdentical = nodeNames.forall(_ == nodeNames.head)
       if (nodes.size < 2 || !allNodesIdentical) {
         context

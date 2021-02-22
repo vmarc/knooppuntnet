@@ -11,14 +11,15 @@ import org.springframework.stereotype.Component
 @Component
 class NetworkNodeAnalyzerImpl(
   analysisContext: AnalysisContext,
-  mainNodeAnalyzer: MainNodeAnalyzer
+  mainNodeAnalyzer: MainNodeAnalyzer,
+  nodeAnalyzer: NodeAnalyzer
 ) extends NetworkNodeAnalyzer {
 
   override def analyze(scopedNetworkType: ScopedNetworkType, data: Data): Map[Long, NetworkNode] = {
     val nodes = data.nodes.values.toSeq.filter(node => analysisContext.isReferencedNetworkNode(scopedNetworkType, node.raw))
     val nodeAnalyses = nodes.map(mainNodeAnalyzer.analyze)
     val networkNodes = nodeAnalyses.map { a =>
-      val name = NodeAnalyzer.scopedName(scopedNetworkType, a.node.tags)
+      val name = nodeAnalyzer.scopedName(scopedNetworkType, a.node.tags).get
       NetworkNode(
         a.node,
         name,

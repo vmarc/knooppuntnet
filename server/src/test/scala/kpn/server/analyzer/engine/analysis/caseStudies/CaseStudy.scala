@@ -6,6 +6,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -27,10 +28,12 @@ object CaseStudy {
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
+    val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileAnalyzer
+      routeTileAnalyzer,
+      nodeAnalyzer
     )
     val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, "", data, routeRelation)
     routeAnalyzer.analyze(loadedRoute, orphan = false)

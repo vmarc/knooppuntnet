@@ -6,6 +6,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
@@ -24,7 +25,13 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
       memberWay(4, "", 1, 2, 3)
     }.data
 
-    val context = analyze(d)
+    val routeNodeInfos = Map(
+      1L -> RouteNodeInfo("01"),
+      2L -> RouteNodeInfo("01"),
+      3L -> RouteNodeInfo("01")
+    )
+
+    val context = analyze(d, routeNodeInfos)
     val splitNodePaths = context.structure.get.splitNodePaths
 
     val expectedRouteNode1 = RouteNode(
@@ -127,7 +134,7 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
     )
   }
 
-  private def analyze(data: Data): RouteAnalysisContext = {
+  private def analyze(data: Data, routeNodeInfos: Map[Long, RouteNodeInfo]): RouteAnalysisContext = {
 
     val loadedRoute = LoadedRoute(
       country = None,
@@ -140,7 +147,8 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       new AnalysisContext(),
       loadedRoute,
-      orphan = false
+      orphan = false,
+      routeNodeInfos
     )
 
     SplitNodeRouteAnalyzer.analyze(

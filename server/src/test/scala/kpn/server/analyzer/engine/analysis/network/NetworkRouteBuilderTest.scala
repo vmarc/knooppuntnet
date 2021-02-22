@@ -11,6 +11,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -342,10 +343,12 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
+    val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileAnalyzer
+      routeTileAnalyzer,
+      nodeAnalyzer
     )
     routeAnalyzer.analyze(LoadedRoute(None, ScopedNetworkType.rwn, "", data, routeRelation), orphan = false)
   }

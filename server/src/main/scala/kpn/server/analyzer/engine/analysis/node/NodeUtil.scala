@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.node
 import kpn.api.common.data.Node
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
+import kpn.core.util.Util
 
 import scala.collection.mutable.ListBuffer
 
@@ -20,7 +21,7 @@ object NodeUtil {
 class NodeUtil(scopedNetworkType: ScopedNetworkType) {
 
   def sortNames(nodeNames: Iterable[String]): Seq[String] = {
-    if (nodeNames.exists(nodeName => !isDigits(nodeName))) {
+    if (nodeNames.exists(nodeName => !Util.isDigits(nodeName))) {
       // string sort
       nodeNames.toSeq.sorted
     }
@@ -30,17 +31,17 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
     }
   }
 
-  def sortByName(nodes: Iterable[Node]): Seq[Node] = {
-    val nodeNames = nodes.map(name)
-    if (nodeNames.exists(n => !isDigits(n))) {
-      nodes.toSeq.sortBy(name)
+  def sortByName(nodes: Iterable[Node], nameGetter: Node => String): Seq[Node] = {
+    val nodeNames = nodes.map(node => nameGetter(node))
+    if (nodeNames.exists(n => !Util.isDigits(n))) {
+      nodes.toSeq.sortBy(node => nameGetter(node))
     }
     else {
-      nodes.toSeq.sortBy(n => name(n).toInt)
+      nodes.toSeq.sortBy(node => nameGetter(node).toInt)
     }
   }
 
-  def alternateNames(facts: ListBuffer[Fact], nodes: Seq[Node]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
+  def alternateNames(facts: ListBuffer[Fact], nodes: Seq[Node], nameGetter: Node => String): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
     if (nodes.size < 2) {
       Map()
     }
@@ -50,15 +51,9 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
         facts.addOne(Fact.RouteAnalysisFailed)
       }
       nodes.zip(suffixes).map { case (node, letter) =>
-        node.id -> (name(node) + "." + letter)
+        node.id -> (nameGetter(node) + "." + letter)
       }.toMap
     }
-  }
-
-  private def isDigits(string: String): Boolean = string.nonEmpty && string.forall(_.isDigit)
-
-  private def name(node: Node): String = {
-    NodeAnalyzer.scopedName(scopedNetworkType, node.tags)
   }
 
 }

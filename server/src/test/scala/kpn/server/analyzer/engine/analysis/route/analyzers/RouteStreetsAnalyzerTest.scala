@@ -28,6 +28,7 @@ class RouteStreetsAnalyzerTest extends UnitTest {
       analysisContext,
       loadedRoute = null,
       orphan = false,
+      Map.empty,
       ways = Some(ways)
     )
 

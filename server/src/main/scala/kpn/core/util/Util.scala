@@ -7,6 +7,8 @@ import scala.annotation.tailrec
 
 object Util {
 
+  def isDigits(string: String): Boolean = string.nonEmpty && string.forall(_.isDigit)
+
   def withoutQuotes(string: String): String = {
     if (string.startsWith("\"") && string.endsWith("\"")) {
       string.substring(1, string.length - 1)
@@ -87,8 +89,6 @@ object Util {
         split(separator, s._2.tail, tmp ++ Seq(s._1))
     }
   }
-
-
 
 
 }

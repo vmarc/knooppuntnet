@@ -25,7 +25,8 @@ class OrphanRouteProcessorImpl(
   countryAnalyzer: CountryAnalyzer,
   routeRepository: RouteRepository,
   routeAnalyzer: MasterRouteAnalyzer,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeInfoBuilder: NodeInfoBuilder,
+  nodeAnalyzer: NodeAnalyzer
 ) extends OrphanRouteProcessor {
 
   private val log = Log(classOf[OrphanRouteProcessorImpl])
@@ -49,7 +50,7 @@ class OrphanRouteProcessorImpl(
             val networkTypes = NetworkType.all.filter { networkType =>
               analysisContext.isValidNetworkNode(networkType, routeNode.node.raw)
             }
-            val name = NodeAnalyzer.name(routeNode.node.tags) // TODO change to use analysisContext also
+            val name = nodeAnalyzer.name(routeNode.node.tags)
             val loadedNode = LoadedNode(country, networkTypes, name, routeNode.node)
             val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode)
             analysisRepository.saveNode(nodeInfo)

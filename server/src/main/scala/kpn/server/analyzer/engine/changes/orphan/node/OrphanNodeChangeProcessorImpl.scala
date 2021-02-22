@@ -22,6 +22,7 @@ class OrphanNodeChangeProcessorImpl(
   updateProcessor: OrphanNodeUpdateProcessor,
   deleteProcessor: OrphanNodeDeleteProcessor,
   countryAnalyzer: CountryAnalyzer,
+  nodeAnalyzer: NodeAnalyzer,
   nodeLoader: NodeLoader
 ) extends OrphanNodeChangeProcessor {
 
@@ -66,7 +67,7 @@ class OrphanNodeChangeProcessorImpl(
     val networkTypes = NetworkType.all.filter { networkType =>
       analysisContext.isValidNetworkNode(networkType, rawNode)
     }
-    val name = NodeAnalyzer.name(rawNode.tags) // TODO change to use analysisContext also
+    val name = nodeAnalyzer.name(rawNode.tags)
     LoadedNode(country, networkTypes, name, Node(rawNode))
   }
 }

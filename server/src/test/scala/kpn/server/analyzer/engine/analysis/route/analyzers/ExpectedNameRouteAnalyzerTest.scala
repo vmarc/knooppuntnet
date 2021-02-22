@@ -4,6 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -110,7 +111,8 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     RouteAnalysisContext(
       analysisContext,
       loadedRoute,
-      orphan = false
+      orphan = false,
+      Map.empty
     )
   }
 

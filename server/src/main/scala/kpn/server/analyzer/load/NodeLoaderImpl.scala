@@ -24,7 +24,8 @@ import scala.xml.XML
 class NodeLoaderImpl(
   analysisContext: AnalysisContext,
   nonCachingOverpassQueryExecutor: OverpassQueryExecutor,
-  countryAnalyzer: CountryAnalyzer
+  countryAnalyzer: CountryAnalyzer,
+  nodeAnalyzer: NodeAnalyzer
 ) extends NodeLoader {
 
   private val log = Log(classOf[NodeLoader])
@@ -43,7 +44,7 @@ class NodeLoaderImpl(
         val networkTypes = NetworkType.all.filter { networkType =>
           analysisContext.isValidNetworkNode(networkType, node)
         }
-        val name = NodeAnalyzer.name(node.tags) // TODO change to use analysisContext also
+        val name = nodeAnalyzer.name(node.tags)
         LoadedNode(countries.headOption, networkTypes, name, Node(node))
       }
     }
@@ -113,7 +114,7 @@ class NodeLoaderImpl(
       val networkTypes = NetworkType.all.filter { networkType =>
         analysisContext.isValidNetworkNode(networkType, node.raw)
       }
-      val name = NodeAnalyzer.name(node.tags) // TODO change to use analysisContext also
+      val name = nodeAnalyzer.name(node.tags)
       LoadedNode(countries.headOption, networkTypes, name, node)
     }
   }

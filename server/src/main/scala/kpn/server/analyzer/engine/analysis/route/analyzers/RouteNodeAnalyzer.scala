@@ -7,7 +7,6 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteNodeMissingInWays
 import kpn.api.custom.Fact.RouteRedundantNodes
 import kpn.core.util.Unique
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -133,12 +132,13 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val endNodes = if (reversed) allEndNodes.reverse else allEndNodes
 
     val alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
-      nodeUtil.alternateNames(facts, startNodes) ++
-        nodeUtil.alternateNames(facts, endNodes)
+      nodeUtil.alternateNames(facts, startNodes, nameOf) ++
+        nodeUtil.alternateNames(facts, endNodes, nameOf)
     }
 
     val redundantNodes = nodeUtil.sortByName(
-      (nodes.toSet -- (startNodes ++ endNodes).toSet).filter(node => nameOf(node) != "*")
+      (nodes.toSet -- (startNodes ++ endNodes).toSet).filter(node => nameOf(node) != "*"),
+      nameOf
     )
 
     def toRouteNodes(nodes: Seq[Node]): Seq[RouteNode] = {
@@ -187,7 +187,10 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def nameOf(node: Node): String = {
-    NodeAnalyzer.scopedName(context.scopedNetworkType, node.tags)
+    context.routeNodeInfos.get(node.id) match {
+      case Some(routeNodeInfo) => routeNodeInfo.name
+      case None => ""
+    }
   }
 
 }

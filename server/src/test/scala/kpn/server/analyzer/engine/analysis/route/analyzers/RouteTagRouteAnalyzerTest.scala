@@ -60,7 +60,8 @@ class RouteTagRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = RouteAnalysisContext(
       new AnalysisContext(),
       loadedRoute,
-      orphan = false
+      orphan = false,
+      Map.empty
     )
 
     RouteTagRouteAnalyzer.analyze(context)

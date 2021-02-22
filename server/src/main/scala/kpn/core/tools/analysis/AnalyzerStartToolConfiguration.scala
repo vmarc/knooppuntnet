@@ -21,6 +21,8 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
@@ -77,6 +79,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
+  val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
+
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
@@ -88,7 +92,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-  val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
+  val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
   private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
@@ -125,7 +129,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val nodeLoader = new NodeLoaderImpl(
     analysisContext,
     nonCachingExecutor,
-    countryAnalyzer
+    countryAnalyzer,
+    nodeAnalyzer
   )
 
   val routeLoader: RouteLoader = new RouteLoaderImpl(
@@ -141,7 +146,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val routeAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,
     routeLocationAnalyzer,
-    routeTileAnalyzer
+    routeTileAnalyzer,
+    nodeAnalyzer
   )
 
   val networkLoader = new NetworkLoaderImpl(cachingExecutor)
@@ -152,7 +158,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     nodeLocationAnalyzer
   )
 
-  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer)
+  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer, nodeAnalyzer)
 
   val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
     analysisContext,

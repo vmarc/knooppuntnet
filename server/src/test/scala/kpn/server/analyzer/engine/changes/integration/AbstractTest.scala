@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import java.io.PrintWriter
 import java.io.StringWriter
-
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
@@ -27,6 +26,8 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -102,6 +103,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock(relationAnalyzer)
+    val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
@@ -115,7 +117,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]
     (() => blackListRepository.get).when().returns(BlackList())
 
-    private val nodeLoader = new NodeLoaderImpl(analysisContext, overpassQueryExecutor, countryAnalyzer)
+    private val nodeLoader = new NodeLoaderImpl(analysisContext, overpassQueryExecutor, countryAnalyzer, nodeAnalyzer)
     private val routeLoader = new RouteLoaderImpl(overpassQueryExecutor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
     private val tileCalculator = new TileCalculatorImpl()
@@ -125,7 +127,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileAnalyzer
+      routeTileAnalyzer,
+      nodeAnalyzer
     )
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
 
@@ -137,7 +140,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       nodeLocationAnalyzer
     )
 
-    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer)
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer, nodeAnalyzer)
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
       analysisContext,
@@ -152,7 +155,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       networkRouteAnalyzer
     )
 
-    private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeTileAnalyzer, nodeLocationAnalyzer)
+    private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
       analysisContext,
@@ -268,7 +271,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         countryAnalyzer,
         routeRepository,
         masterRouteAnalyzer,
-        nodeInfoBuilder
+        nodeInfoBuilder,
+        nodeAnalyzer
       )
 
       val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
@@ -321,6 +325,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         orphanNodeUpdateProcessor,
         orphanNodeDeleteProcessor,
         countryAnalyzer,
+        nodeAnalyzer,
         nodeLoader
       )
     }

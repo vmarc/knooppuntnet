@@ -21,8 +21,8 @@ import scala.util.Success
 
 @Component
 class NodeInfoBuilderImpl(
+  nodeAnalyzer: NodeAnalyzer,
   nodeTileAnalyzer: NodeTileAnalyzer,
-  //  countryAnalyzer: CountryAnalyzer,
   nodeLocationAnalyzer: NodeLocationAnalyzer
 ) extends NodeInfoBuilder {
 
@@ -38,7 +38,7 @@ class NodeInfoBuilderImpl(
     facts: Seq[Fact]
   ): NodeInfo = {
 
-    val nodeNames = NodeAnalyzer.names(tags)
+    val nodeNames = nodeAnalyzer.names(tags)
 
     //val country = countryAnalyzer.country(Seq(LatLonImpl(latitude, longitude)))
     val location = nodeLocationAnalyzer.locate(latitude, longitude)
@@ -70,7 +70,7 @@ class NodeInfoBuilderImpl(
       active,
       orphan,
       country,
-      NodeAnalyzer.name(tags),
+      nodeAnalyzer.name(tags),
       nodeNames,
       latitude,
       longitude,

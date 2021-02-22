@@ -1,7 +1,5 @@
 package kpn.core.history
 
-import java.io.File
-
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
@@ -13,6 +11,7 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
@@ -21,6 +20,8 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.NetworkLoaderImpl
+
+import java.io.File
 
 object NetworkDiffAnalyzerDemo {
 
@@ -37,11 +38,13 @@ object NetworkDiffAnalyzerDemo {
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer: RouteLocationAnalyzer = null
+    val nodeAnalyzer = new NodeAnalyzerImpl()
 
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileAnalyzer
+      routeTileAnalyzer,
+      nodeAnalyzer
     )
 
     val locationConfiguration: LocationConfiguration = new LocationConfigurationReader().read()
@@ -58,7 +61,8 @@ object NetworkDiffAnalyzerDemo {
 
     val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
       analysisContext,
-      mainNodeAnalyzer
+      mainNodeAnalyzer,
+      nodeAnalyzer
     )
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(

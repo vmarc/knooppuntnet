@@ -68,7 +68,8 @@ class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = RouteAnalysisContext(
       analysisContext = analysisContext,
       loadedRoute = loadedRoute,
-      orphan = false
+      orphan = false,
+      Map.empty
     )
 
     RouteLastSurveyAnalyzer.analyze(context).lastSurvey
