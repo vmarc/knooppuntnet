@@ -1,8 +1,5 @@
 package kpn.server.config
 
-import java.util.concurrent.Executor
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
-
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
@@ -10,7 +7,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
-import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
 import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
 import org.springframework.beans.factory.annotation.Value
@@ -18,6 +14,9 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+
+import java.util.concurrent.Executor
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 
 @Configuration
 class ServerConfiguration() {
@@ -66,6 +65,11 @@ class ServerConfiguration() {
 
   @Bean
   def analyzerHistory(@Value("${app.analyzer-history:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def analyzerTileUpdateEnabled(@Value("${app.analyzer-tile-update-enabled:false}") value: Boolean): Boolean = {
     value
   }
 

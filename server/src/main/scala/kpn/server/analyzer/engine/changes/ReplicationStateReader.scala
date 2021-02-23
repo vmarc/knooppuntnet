@@ -18,8 +18,8 @@ class ReplicationStateReader(replicationDir: File) {
     val file = new File(filename)
     if (file.exists) {
       val lines = Source.fromFile(new File(filename)).getLines().toSeq
-      if (lines.size < 5) {
-        log.debug(s"$filename contains less than 5 lines")
+      if (lines.size < 2) {
+        log.debug(s"$filename contains less than 2 lines")
         None
       }
       else {

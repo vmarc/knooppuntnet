@@ -12,6 +12,19 @@ class ReplicationStateReaderTest extends UnitTest {
   test("read timestamp") {
 
     val contents =
+      """sequenceNumber=1443999
+        |timestamp=2015-06-17T18\:19\:02Z""".stripMargin
+
+    new File("/tmp/001/002").mkdirs()
+    val file = new File("/tmp/001/002/003.state.txt")
+    FileUtils.writeStringToFile(file, contents, Charset.defaultCharset)
+
+    read(ReplicationId(1, 2, 3)) should equal(Some("2015-06-17T18:19:02Z"))
+  }
+
+  test("read timestamp old file contents") {
+
+    val contents =
       """#Wed Jun 17 18:19:04 UTC 2015
         |sequenceNumber=1443999
         |txnMaxQueried=699414186
@@ -26,6 +39,8 @@ class ReplicationStateReaderTest extends UnitTest {
 
     read(ReplicationId(1, 2, 3)) should equal(Some("2015-06-17T18:19:02Z"))
   }
+
+
 
   test("state file absent") {
     new File("/tmp/001/002").mkdirs()

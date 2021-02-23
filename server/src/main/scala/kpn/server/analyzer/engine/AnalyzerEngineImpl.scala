@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component
 class AnalyzerEngineImpl(
   analysisContext: AnalysisContext,
   analyzerHistory: Boolean,
+  analyzerTileUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
   analysisDataLoader: AnalysisDataLoader,
@@ -37,7 +38,13 @@ class AnalyzerEngineImpl(
 
   def load(replicationId: ReplicationId): Unit = {
     val beginOsmChange = osmChangeRepository.get(replicationId)
-    val timestampAfter = TimestampUtil.relativeSeconds(beginOsmChange.timestampUntil.get, 1)
+    val timestampAfter = if (beginOsmChange.actions.isEmpty) {
+      osmChangeRepository.timestamp(replicationId)
+    }
+    else {
+      TimestampUtil.relativeSeconds(beginOsmChange.timestampUntil.get, 1)
+    }
+
     if (analyzerReload) {
       analysisDataLoader.load(timestampAfter)
     }
@@ -63,6 +70,9 @@ class AnalyzerEngineImpl(
 
         if (!analyzerHistory) {
           nodeRouteUpdater.update()
+        }
+
+        if (analyzerTileUpdateEnabled) {
           tileUpdater.update(11)
           poiChangeAnalyzer.analyze(osmChange)
           poiTileUpdater.update()
