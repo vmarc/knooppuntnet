@@ -68,14 +68,14 @@ class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     assertRouteTagDiffAnalyzerMainTag("network:type")
   }
 
-  private def assertNodeTagDiffAnalyzerMainTag(tagKey: String) {
+  private def assertNodeTagDiffAnalyzerMainTag(tagKey: String): Unit = {
     val before = newNode(1, tags = Tags.from(tagKey -> ""))
     val after = newNode(1, tags = Tags.empty)
     val diffs = new TagDiffAnalyzer(before, after, NodeTagDiffAnalyzer.mainTagKeys).diffs
     diffs.get.mainTags.map(_.key) should contain(tagKey)
   }
 
-  private def assertRouteTagDiffAnalyzerMainTag(tagKey: String) {
+  private def assertRouteTagDiffAnalyzerMainTag(tagKey: String): Unit = {
     val before = newNode(1, tags = Tags.from(tagKey -> ""))
     val after = newNode(1, tags = Tags.empty)
     val diffs = new TagDiffAnalyzer(before, after, RouteTagDiffAnalyzer.mainTagKeys).diffs

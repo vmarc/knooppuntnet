@@ -243,7 +243,7 @@ class MonitorChangeProcessorImpl(
     }
 
     val gpxDistance = Math.round(toMeters(gpxLineString.getLength / 1000))
-    val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum / 1000)
+    val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum.toDouble / 1000)
 
     val gpxGeometry = MonitorRouteAnalyzer.toGeoJson(gpxLineString)
     val okGeometry = okOption.map(geometry => MonitorRouteAnalyzer.toGeoJson(geometry))

@@ -125,7 +125,7 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
   }
 
   override def listFiles(dir: String): Seq[FsFile] = {
-    FsUtils.sortFiles(client.listFiles(fullPath(dir)).map(file => new FtpFileSystem.FtpFile(file)))
+    FsUtils.sortFiles(client.listFiles(fullPath(dir)).toIndexedSeq.map(file => new FtpFileSystem.FtpFile(file)))
   }
 
   override def close(): Unit = {

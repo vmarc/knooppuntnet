@@ -1,8 +1,5 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import java.io.File
-import java.nio.charset.Charset
-
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.core.util.Log
 import org.apache.commons.io.FileUtils
@@ -15,6 +12,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import org.xml.sax.SAXParseException
 
+import java.io.File
+import java.nio.charset.Charset
 import scala.xml.XML
 
 class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
@@ -25,8 +24,7 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
 
     val idString = changeSetId.toString
     val id = idString.substring(idString.length - 2)
-    val filename = directory + "/" + id + "/" + changeSetId + ".xml"
-    val cachedChangeSetInfoFile = new File(filename)
+    val cachedChangeSetInfoFile = new File(directory, "" + id + "/" + changeSetId + ".xml")
 
     if (cachedChangeSetInfoFile.exists) {
       log.debug(s"Changeset $changeSetId resolved from cache")

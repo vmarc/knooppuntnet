@@ -75,7 +75,7 @@ object LongdistanceRouteAnalyzer {
     }
 
     val gpxDistance = Math.round(toMeters(gpxLineString.getLength / 1000))
-    val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum / 1000)
+    val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum.toDouble / 1000)
 
     val gpxGeometry = toGeoJson(gpxLineString)
     val okGeometry = okOption.map(geometry => toGeoJson(geometry))

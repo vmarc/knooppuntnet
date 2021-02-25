@@ -44,7 +44,7 @@ class LocalFileSystem(val baseDir: String) extends FileSystem {
   override def listFiles(dir: String): Seq[FsFile] = {
     val files = file(dir).listFiles()
     if (files != null) {
-      FsUtils.sortFiles(files.map(file => new LocalFileSystem.LocalFile(file)))
+      FsUtils.sortFiles(files.toIndexedSeq.map(file => new LocalFileSystem.LocalFile(file)))
     }
     else {
       Seq()

@@ -53,7 +53,7 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
     val source = Source.fromFile(filename)
 
     var frequency: Map[String, Int] = Map.empty
-    source.getLines.foreach { line =>
+    source.getLines().foreach { line =>
       try {
         val record = parser.parse(line)
         if (record.userAgent != null) {
@@ -78,7 +78,7 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
   def analyze(filename: String, logfile: String): Unit = {
     val parser: Parser[LogRecord] = new HttpdLoglineParser[LogRecord](classOf[LogRecord], LOG_FORMAT)
     val source = Source.fromFile(filename)
-    val records = source.getLines.flatMap { line =>
+    val records = source.getLines().flatMap { line =>
       try {
         Some(parser.parse(line))
       }
@@ -96,7 +96,7 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
   @tailrec
   private def process(logfile: String, records: Iterator[LogRecord], contextOption: Option[LogAnalysisContext] = None): Unit = {
     if (records.hasNext) {
-      val record = records.next
+      val record = records.next()
       val nextContext = contextOption match {
         case None =>
           val context = LogAnalysisContext(logfile, record.key)

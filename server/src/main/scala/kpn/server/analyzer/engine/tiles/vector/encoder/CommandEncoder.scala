@@ -22,7 +22,7 @@ class CommandEncoder {
     geometry match {
       case polygon: Polygon => processPolygon(polygon)
       case multiLineString: MultiLineString => processMultiLineString(multiLineString)
-      case _ => makeCommands3(geometry.getCoordinates, shouldClosePath(geometry), geometry.isInstanceOf[MultiPoint])
+      case _ => makeCommands3(geometry.getCoordinates.toIndexedSeq, shouldClosePath(geometry), geometry.isInstanceOf[MultiPoint])
     }
   }
 
@@ -119,7 +119,7 @@ class CommandEncoder {
 
   private def processMultiLineString(geometry: MultiLineString): Seq[Int] = {
     GeometryUtil.childGeometries(geometry).flatMap { childGeometry =>
-      makeCommands2(childGeometry.getCoordinates, closePathAtEnd = false)
+      makeCommands2(childGeometry.getCoordinates.toIndexedSeq, closePathAtEnd = false)
     }
   }
 
@@ -135,15 +135,15 @@ class CommandEncoder {
     // So, the code below will make sure that exterior ring is in counter-clockwise order
     // and interior ring in clockwise order.
     var exteriorRing = polygon.getExteriorRing
-    if (!CGAlgorithms.isCCW(exteriorRing.getCoordinates)) exteriorRing = exteriorRing.reverse.asInstanceOf[LineString]
-    commands ++= makeCommands2(exteriorRing.getCoordinates, closePathAtEnd = true)
+    if (!CGAlgorithms.isCCW(exteriorRing.getCoordinates)) exteriorRing = exteriorRing.reverse
+    commands ++= makeCommands2(exteriorRing.getCoordinates.toIndexedSeq, closePathAtEnd = true)
     var i = 0
     while ( {
       i < polygon.getNumInteriorRing
     }) {
       var interiorRing = polygon.getInteriorRingN(i)
-      if (CGAlgorithms.isCCW(interiorRing.getCoordinates)) interiorRing = interiorRing.reverse.asInstanceOf[LineString]
-      commands ++= makeCommands2(interiorRing.getCoordinates, closePathAtEnd = true)
+      if (CGAlgorithms.isCCW(interiorRing.getCoordinates)) interiorRing = interiorRing.reverse
+      commands ++= makeCommands2(interiorRing.getCoordinates.toIndexedSeq, closePathAtEnd = true)
 
       {
         i += 1

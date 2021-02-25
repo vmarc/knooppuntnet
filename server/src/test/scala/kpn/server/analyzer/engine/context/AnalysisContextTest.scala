@@ -12,7 +12,7 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
   test("isReferencedNetworkNode") {
 
-    def doTest(tags: Tags, expected: Boolean) {
+    def doTest(tags: Tags, expected: Boolean): Unit = {
       val context = new AnalysisContext()
       val node = newRawNode(tags = tags)
       context.isReferencedNetworkNode(ScopedNetworkType.rwn, node) should equal(expected)
@@ -31,7 +31,7 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
   test("isReferencedNetworkNode old tagging") {
 
-    def doTest(tags: Tags, expected: Boolean) {
+    def doTest(tags: Tags, expected: Boolean): Unit = {
       val context = new AnalysisContext(oldTagging = true)
       val node = newRawNode(tags = tags)
       context.isReferencedNetworkNode(ScopedNetworkType.rwn, node) should equal(expected)
@@ -50,7 +50,7 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
   test("isValidNetworkNode") {
 
-    def doTest(tags: Tags, expected: Boolean) {
+    def doTest(tags: Tags, expected: Boolean): Unit = {
       val context = new AnalysisContext()
       val node = newRawNode(tags = tags)
       context.isValidNetworkNode(NetworkType.hiking, node) should equal(expected)
@@ -70,7 +70,7 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
   test("isValidNetworkNode old tagging") {
 
-    def doTest(tags: Tags, expected: Boolean) {
+    def doTest(tags: Tags, expected: Boolean): Unit = {
       val context = new AnalysisContext(oldTagging = true)
       val node = newRawNode(tags = tags)
       context.isValidNetworkNode(NetworkType.hiking, node) should equal(expected)
@@ -86,7 +86,7 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
   test("isValidNetworkNode beforeNetworkTypeTaggingStart") {
 
-    def doTest(tags: Tags, knownNode: Boolean, expected: Boolean) {
+    def doTest(tags: Tags, knownNode: Boolean, expected: Boolean): Unit = {
       val context = new AnalysisContext(beforeNetworkTypeTaggingStart = true)
       val node = newRawNode(tags = tags)
       if (knownNode) {

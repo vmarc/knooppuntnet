@@ -62,7 +62,7 @@ class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
 
   private def determineAvailableFragmentIds(foundPaths: Seq[Path]): Seq[Int] = {
     val usedFragmentIds = foundPaths.flatMap(path => path.segments.flatMap(_.fragments.map(_.fragment.id)))
-    contextFragmentMap.ids.filterNot(usedFragmentIds.contains)
+    contextFragmentMap().ids.filterNot(usedFragmentIds.contains)
   }
 
   private def findPathInFragments(availableFragmentIds: Seq[Int]): Option[Path] = {

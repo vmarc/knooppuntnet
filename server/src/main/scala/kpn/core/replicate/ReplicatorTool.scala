@@ -193,7 +193,7 @@ class ReplicatorTool(
         ReplicationResult(NotFound)
 
       case Some(changesString) =>
-        val file = new File(replicateDir + "/" + replicationId.name + ".osc.gz")
+        val file = new File(replicateDir, replicationId.name + ".osc.gz")
         file.getParentFile.mkdirs()
         GZipFile.write(file.getAbsolutePath, changesString)
         try {

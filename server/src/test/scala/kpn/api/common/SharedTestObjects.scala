@@ -57,7 +57,6 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -299,8 +298,8 @@ trait SharedTestObjects extends MockFactory {
       active,
       orphan,
       country,
-      NodeAnalyzer.name(tags),
-      NodeAnalyzer.names(tags),
+      "", // NodeAnalyzer.name(tags),
+      Seq.empty, // NodeAnalyzer.names(tags),
       latitude,
       longitude,
       lastUpdated,
