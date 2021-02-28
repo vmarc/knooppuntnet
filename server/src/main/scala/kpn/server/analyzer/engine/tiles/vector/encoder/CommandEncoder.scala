@@ -1,15 +1,14 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
-import java.util
-
-import org.locationtech.jts.algorithm.CGAlgorithms
+import org.locationtech.jts.algorithm.Orientation
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
-import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.LinearRing
 import org.locationtech.jts.geom.MultiLineString
 import org.locationtech.jts.geom.MultiPoint
 import org.locationtech.jts.geom.Polygon
+
+import java.util
 
 class CommandEncoder {
 
@@ -135,14 +134,14 @@ class CommandEncoder {
     // So, the code below will make sure that exterior ring is in counter-clockwise order
     // and interior ring in clockwise order.
     var exteriorRing = polygon.getExteriorRing
-    if (!CGAlgorithms.isCCW(exteriorRing.getCoordinates)) exteriorRing = exteriorRing.reverse
+    if (!Orientation.isCCW(exteriorRing.getCoordinates)) exteriorRing = exteriorRing.reverse
     commands ++= makeCommands2(exteriorRing.getCoordinates.toIndexedSeq, closePathAtEnd = true)
     var i = 0
     while ( {
       i < polygon.getNumInteriorRing
     }) {
       var interiorRing = polygon.getInteriorRingN(i)
-      if (CGAlgorithms.isCCW(interiorRing.getCoordinates)) interiorRing = interiorRing.reverse
+      if (Orientation.isCCW(interiorRing.getCoordinates)) interiorRing = interiorRing.reverse
       commands ++= makeCommands2(interiorRing.getCoordinates.toIndexedSeq, closePathAtEnd = true)
 
       {

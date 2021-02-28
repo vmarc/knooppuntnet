@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
 import kpn.core.util.UnitTest
-import org.locationtech.jts.algorithm.CGAlgorithms
+import org.locationtech.jts.algorithm.Orientation
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 
@@ -55,7 +55,7 @@ class CommandEncoderTest extends UnitTest {
       new Coordinate(20, 34),
       new Coordinate(3, 6)
     )
-    CGAlgorithms.isCCW(coordinates.toArray) should equal(true)
+    Orientation.isCCW(coordinates.toArray) should equal(true)
     val polygon = gf.createPolygon(coordinates.toArray)
     val commands = new CommandEncoder().makeCommands1(polygon)
     commands should equal(Seq(9, 6, 12, 18, 10, 12, 24, 44, 15))
@@ -68,7 +68,7 @@ class CommandEncoderTest extends UnitTest {
       new Coordinate(8, 12),
       new Coordinate(3, 6)
     )
-    CGAlgorithms.isCCW(coordinates.toArray) should equal(false)
+    Orientation.isCCW(coordinates.toArray) should equal(false)
     val polygon = gf.createPolygon(coordinates.toArray)
     val commands = new CommandEncoder().makeCommands1(polygon)
     commands should equal(Seq(9, 6, 12, 18, 10, 12, 24, 44, 15))

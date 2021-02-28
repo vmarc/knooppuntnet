@@ -43,9 +43,11 @@ class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
 
   private def findFragment(availableFragmentIds: Seq[Int], nodeId: Long): Option[SegmentFragment] = {
     val id = availableFragmentIds.find { fragmentId =>
-      fragmentMap(fragmentId) match {
-        case fragment => fragment.nodes.head.id == nodeId
-        case _ => false
+      if (fragmentId < fragmentMap.size) {
+        fragmentMap(fragmentId).nodes.head.id == nodeId
+      }
+      else {
+        false
       }
     }
     id.map(fragmentId => SegmentFragment(fragmentMap(fragmentId) /* TODO handle reversed */))
@@ -109,9 +111,11 @@ class SplitNodeRouteAnalyzer(context: RouteAnalysisContext) {
 
   private def findStartFragment(availableFragmentIds: Seq[Int]): Option[SegmentFragment] = {
     val id = availableFragmentIds.find { fragmentId =>
-      fragmentMap(fragmentId) match {
-        case fragment => fragment.start.isDefined
-        case _ => false
+      if (fragmentId < fragmentMap.size) {
+        fragmentMap(fragmentId).start.isDefined
+      }
+      else {
+        false
       }
     }
     id.map(fragmentId => SegmentFragment(fragmentMap(fragmentId) /* TODO handle reversed */))
