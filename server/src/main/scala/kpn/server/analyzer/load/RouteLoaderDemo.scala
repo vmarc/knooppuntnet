@@ -28,7 +28,7 @@ class RouteLoaderDemo() {
     log.unitElapsed {
       routeLoader.loadRoute(Timestamp(2018, 5, 17, 3, 19, 24), 8305522L) match {
         case Some(route) =>
-          println(route.name)
+          println(route.id)
         case _ =>
           println("could not load route")
       }

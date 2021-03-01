@@ -56,8 +56,7 @@ class Issue109_RoundaboutRoute extends UnitTest {
 
     val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val name = relationAnalyzer.routeName(routeRelation)
-    LoadedRoute(Some(Country.nl), ScopedNetworkType.rcn, name, data, routeRelation)
+    LoadedRoute(Some(Country.nl), ScopedNetworkType.rcn, data, routeRelation)
   }
 
   private def readData(routeId: Long): RawData = {

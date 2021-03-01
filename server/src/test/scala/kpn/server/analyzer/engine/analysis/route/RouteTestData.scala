@@ -74,7 +74,7 @@ class RouteTestData(val routeName: String, val scopedNetworkType: ScopedNetworkT
 
   def data: Data = {
     val standardRouteTags = Tags.from(
-      "note" -> routeName,
+      "ref" -> routeName,
       "network" -> "rwn",
       "type" -> "route",
       "route" -> "foot",

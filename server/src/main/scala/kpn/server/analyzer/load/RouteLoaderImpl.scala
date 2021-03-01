@@ -66,8 +66,7 @@ class RouteLoaderImpl(
               val data = new DataBuilder(rawData).data
               val relation = data.relations(routeId)
               val country = countryAnalyzer.relationCountry(relation)
-              val name = relation.tags("note").getOrElse("no-name")
-              Some(LoadedRoute(country, scopedNetworkType, name, data, relation))
+              Some(LoadedRoute(country, scopedNetworkType, data, relation))
             case None =>
               log.warn(s"Route $routeId load at ${timestamp.iso} does not contain networkType (tag 'network'), continue processing\n---\n$xmlString\n---")
               None

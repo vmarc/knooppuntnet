@@ -34,7 +34,6 @@ class RouteLoaderTest extends UnitTest with MockFactory {
 
   private def assertRoute(loadedRoute: LoadedRoute, id: Long, name: String, startNodeName: String, endNodeName: String): Unit = {
     loadedRoute.id should equal(id)
-    loadedRoute.name should equal(name)
     nodeName(loadedRoute.relation.members.head) should equal(Some(startNodeName))
     nodeName(loadedRoute.relation.members.last) should equal(Some(endNodeName))
   }

@@ -165,7 +165,6 @@ class FragmentAnalyzerTest extends UnitTest {
       loadedRoute = LoadedRoute(
         country = None,
         scopedNetworkType = ScopedNetworkType.rwn,
-        "",
         data = data,
         relation = relation
       ),

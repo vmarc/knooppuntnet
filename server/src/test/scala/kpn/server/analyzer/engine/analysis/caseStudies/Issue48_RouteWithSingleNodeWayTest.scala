@@ -43,8 +43,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
     val routeRelation = data.relations(2941800L)
     val analysisContext = new AnalysisContext(oldTagging = true)
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val name = relationAnalyzer.routeName(routeRelation)
-    LoadedRoute(Some(Country.nl), ScopedNetworkType.rwn, name, data, routeRelation)
+    LoadedRoute(Some(Country.nl), ScopedNetworkType.rwn, data, routeRelation)
   }
 
   private def readData(): Data = {

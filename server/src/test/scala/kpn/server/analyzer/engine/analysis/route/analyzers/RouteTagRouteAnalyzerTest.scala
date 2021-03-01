@@ -52,7 +52,6 @@ class RouteTagRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     val loadedRoute = LoadedRoute(
       country = None,
       scopedNetworkType,
-      "",
       data,
       data.relations(1L)
     )

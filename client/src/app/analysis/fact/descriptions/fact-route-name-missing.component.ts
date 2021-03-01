@@ -6,7 +6,9 @@ import {Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-name-missing">
-      The route relation does not have a _"note"_ or _"ref"_ tag with the route name.
+      Could not determine the route name. The route relation does not have a _"ref"_, _"name"_
+      or _"note"_ tag with the route name, and also no _"from"_ and _"to"_ tags from which
+      the route name can be derived.
     </markdown>
   `
 })

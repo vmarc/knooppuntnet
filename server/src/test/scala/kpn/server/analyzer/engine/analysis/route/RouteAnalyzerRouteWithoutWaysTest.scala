@@ -25,7 +25,6 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
     val loadedRoute = LoadedRoute(
       country = None,
       scopedNetworkType = ScopedNetworkType.rwn,
-      "01-02",
       data,
       data.relations(1L)
     )

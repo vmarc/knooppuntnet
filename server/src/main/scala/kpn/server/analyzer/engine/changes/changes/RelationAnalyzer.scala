@@ -24,8 +24,6 @@ object RelationAnalyzer {
 
 trait RelationAnalyzer {
 
-  def routeName(relation: Relation): String
-
   def toElementIds(relation: Relation): ElementIds
 
   def referencedNetworkNodes(relation: Relation): Set[Node]

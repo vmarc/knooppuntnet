@@ -1,133 +1,68 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.raw.RawData
+import kpn.api.custom.Fact.RouteNameMissing
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
+import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 
-class RouteNameAnalyzerTest extends UnitTest {
+class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("regular route name") {
-
-    val analysis = analyze("01-02")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
+  test("route name base on 'ref' tag") {
+    val name = analyzeName(Tags.from("ref" -> "01-02"))
+    name should equal(Some("01-02"))
   }
 
-  test("nodes in reversed order in route name") {
-
-    val analysis = analyze("02-01")
-
-    analysis.name should equal(Some("02-01"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(true)
+  test("route name base on 'name' tag") {
+    val name = analyzeName(Tags.from("name" -> "01-02"))
+    name should equal(Some("01-02"))
   }
 
-  test("node ordering is number based (not string based)") {
-
-    val analysis = analyze("100-20")
-
-    analysis.name should equal(Some("100-20"))
-    analysis.startNodeName should equal(Some("20"))
-    analysis.endNodeName should equal(Some("100"))
-    analysis.reversed should equal(true)
+  test("route name base on 'note' tag") {
+    val name = analyzeName(Tags.from("note" -> "01-02"))
+    name should equal(Some("01-02"))
   }
 
-  test("non numeric node names in route name") {
-
-    val analysis = analyze("1A-2A")
-
-    analysis.name should equal(Some("1A-2A"))
-    analysis.startNodeName should equal(Some("1A"))
-    analysis.endNodeName should equal(Some("2A"))
-    analysis.reversed should equal(false)
+  test("route name base on 'note' tag with ignored comment") {
+    val name = analyzeName(Tags.from("note" -> "01-02;ignored comment"))
+    name should equal(Some("01-02"))
   }
 
-  test("non numeric node names in route name in reversed order are not reversed") {
-
-    val analysis = analyze("2A-1A")
-
-    analysis.name should equal(Some("2A-1A"))
-    analysis.startNodeName should equal(Some("2A"))
-    analysis.endNodeName should equal(Some("1A"))
-    analysis.reversed should equal(false)
+  test("route name missing") {
+    val context = analyze(Tags.empty)
+    context.routeNameAnalysis.get.name should equal(None)
+    context.facts should equal(Seq(RouteNameMissing))
   }
 
-  test("route name without node separator") {
-
-    val analysis = analyzeNameInRefTag("UNEXPECTED", "")
-
-    analysis.name should equal(Some("UNEXPECTED"))
-    analysis.startNodeName should equal(None)
-    analysis.endNodeName should equal(None)
-    analysis.reversed should equal(false)
+  private def analyzeName(tags: Tags): Option[String] = {
+    val newContext = analyze(tags)
+    newContext.routeNameAnalysis.get.name
   }
 
-  test("route name without start node") {
+  private def analyze(tags: Tags): RouteAnalysisContext = {
 
-    val analysis = analyze("-01")
+    val standardRouteTags = Tags.from(
+      "network" -> "rwn",
+      "type" -> "route",
+      "route" -> "foot",
+      "network:type" -> "node_network"
+    )
 
-    analysis.name should equal(Some("-01"))
-    analysis.startNodeName should equal(None)
-    analysis.endNodeName should equal(Some("01"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name without end node") {
-
-    val analysis = analyze("01-")
-
-    analysis.name should equal(Some("01-"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(None)
-    analysis.reversed should equal(false)
-  }
-
-  test("ignore comment after semi-colon in the 'note' tag") {
-
-    val analysis = analyze("01-02; canoe")
-
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("route name in ref tag") {
-    val analysis = analyzeNameInRefTag("01-02", "this is note for the note tag")
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  test("prefer ref tag over note tag to detemine the route name") {
-    val analysis = analyzeNameInRefTag("01-02", "03-04")
-    analysis.name should equal(Some("01-02"))
-    analysis.startNodeName should equal(Some("01"))
-    analysis.endNodeName should equal(Some("02"))
-    analysis.reversed should equal(false)
-  }
-
-  private def analyze(name: String): RouteNameAnalysis = {
-
-    val routeTestData = new RouteTestData(name)
-    val data = routeTestData.data
+    val allTags = standardRouteTags ++ tags
+    val relation = newRawRelation(11L, members = Seq.empty, tags = allTags)
+    val rawData = RawData(None, Seq.empty, Seq.empty, Seq(relation))
+    val data = new DataBuilder(rawData).data
 
     val loadedRoute = LoadedRoute(
       country = None,
-      routeTestData.scopedNetworkType,
-      name,
+      ScopedNetworkType.rwn,
       data,
-      data.relations(1L)
+      data.relations(11L)
     )
 
     val analysisContext = new AnalysisContext()
@@ -139,36 +74,7 @@ class RouteNameAnalyzerTest extends UnitTest {
       Map.empty
     )
 
-    val newContext = RouteNameAnalyzer.analyze(context)
-
-    newContext.routeNameAnalysis.get
-
+    RouteNameAnalyzer.analyze(context)
   }
 
-  private def analyzeNameInRefTag(ref: String, note: String): RouteNameAnalysis = {
-
-    val data = new RouteTestData(note, routeTags = Tags.from("ref" -> ref)).data
-
-    val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = ScopedNetworkType.rwn,
-      ref,
-      data,
-      data.relations(1L)
-    )
-
-    val analysisContext = new AnalysisContext()
-
-    val context = RouteAnalysisContext(
-      analysisContext,
-      loadedRoute,
-      orphan = false,
-      Map.empty
-    )
-
-    val newContext = RouteNameAnalyzer.analyze(context)
-
-    newContext.routeNameAnalysis.get
-
-  }
 }

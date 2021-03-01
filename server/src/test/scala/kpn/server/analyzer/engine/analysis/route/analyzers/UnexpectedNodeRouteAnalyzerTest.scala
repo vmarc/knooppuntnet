@@ -78,7 +78,6 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val loadedRoute = LoadedRoute(
       country = None,
       scopedNetworkType = routeTestData.scopedNetworkType,
-      "",
       data,
       data.relations(1L)
     )

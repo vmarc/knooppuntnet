@@ -350,6 +350,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
       routeTileAnalyzer,
       nodeAnalyzer
     )
-    routeAnalyzer.analyze(LoadedRoute(None, ScopedNetworkType.rwn, "", data, routeRelation), orphan = false)
+    routeAnalyzer.analyze(LoadedRoute(None, ScopedNetworkType.rwn, data, routeRelation), orphan = false)
   }
 }

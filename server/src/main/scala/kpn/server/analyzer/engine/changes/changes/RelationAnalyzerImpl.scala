@@ -81,11 +81,8 @@ object RelationAnalyzerHelper {
 
 }
 
-
 @Component
 class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAnalyzer {
-
-  override def routeName(relation: Relation): String = relation.tags("note").getOrElse("no-name")
 
   override def toElementIds(relation: Relation): ElementIds = {
     RelationAnalyzerHelper.toElementIds(relation)

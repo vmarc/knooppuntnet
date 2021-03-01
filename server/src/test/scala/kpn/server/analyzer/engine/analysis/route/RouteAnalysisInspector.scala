@@ -74,7 +74,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       routeTileAnalyzer,
       nodeAnalyzer
     )
-    val analysis = routeAnalyzer.analyze(LoadedRoute(None, d.scopedNetworkType, "", data, relation), orphan = false)
+    val analysis = routeAnalyzer.analyze(LoadedRoute(None, d.scopedNetworkType, data, relation), orphan = false)
 
     val report = new RouteAnalysisReport(analysis).report
     if (report.nonEmpty) {

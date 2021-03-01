@@ -35,7 +35,7 @@ object CaseStudy {
       routeTileAnalyzer,
       nodeAnalyzer
     )
-    val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, "", data, routeRelation)
+    val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, data, routeRelation)
     routeAnalyzer.analyze(loadedRoute, orphan = false)
   }
 

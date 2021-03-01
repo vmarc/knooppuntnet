@@ -5,6 +5,6 @@ import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 
-case class LoadedRoute(country: Option[Country], scopedNetworkType: ScopedNetworkType, name: String, data: Data, relation: Relation) {
+case class LoadedRoute(country: Option[Country], scopedNetworkType: ScopedNetworkType, data: Data, relation: Relation) {
   def id: Long = relation.id
 }

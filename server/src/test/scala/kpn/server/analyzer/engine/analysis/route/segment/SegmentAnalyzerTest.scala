@@ -520,7 +520,6 @@ class SegmentAnalyzerTest extends UnitTest {
       loadedRoute = LoadedRoute(
         country = None,
         scopedNetworkType = d.scopedNetworkType,
-        "",
         data = data,
         relation = routeRelation
       ),
@@ -559,9 +558,5 @@ class SegmentAnalyzerTest extends UnitTest {
 
   private def formatRouteNode(routeNode: RouteNode): String = {
     new RouteNodeFormatter(routeNode).shortString
-  }
-
-  private def formatSegments(segments: Set[String]): String = {
-    segments.toSeq.sorted.mkString("    ", "\n    ", "")
   }
 }

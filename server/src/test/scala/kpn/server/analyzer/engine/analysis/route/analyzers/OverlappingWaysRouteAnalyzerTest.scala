@@ -97,7 +97,6 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     val loadedRoute = LoadedRoute(
       country = None,
       routeTestData.scopedNetworkType,
-      "01-02",
       data,
       data.relations(1L)
     )
