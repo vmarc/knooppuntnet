@@ -6,6 +6,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
 import scala.collection.mutable.ListBuffer
 
@@ -35,70 +36,19 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
 
   test("alternateNames") {
     val facts = ListBuffer[Fact]()
-    util.alternateNames(facts, Seq(), toName) should equal(Map())
-    val nodes = Seq(node(1, "01"), node(2, "01"), node(3, "01"))
-    util.alternateNames(facts, nodes, toName) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
+    util.alternateNames(facts, Seq()) should equal(Map())
+    val routeNodeInfos = Seq(
+      RouteNodeInfo(node(1, "01"), "01"),
+      RouteNodeInfo(node(2, "01"), "01"),
+      RouteNodeInfo(node(3, "01"), "01")
+    )
+    util.alternateNames(facts, routeNodeInfos) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
   }
 
   test("alternateNames for more than 2 * 26 nodes") {
-    val nodes = Seq(
-      node(1, "01"),
-      node(2, "01"),
-      node(3, "01"),
-      node(4, "01"),
-      node(5, "01"),
-      node(6, "01"),
-      node(7, "01"),
-      node(8, "01"),
-      node(9, "01"),
-      node(10, "01"),
-      node(11, "01"),
-      node(12, "01"),
-      node(13, "01"),
-      node(14, "01"),
-      node(15, "01"),
-      node(16, "01"),
-      node(17, "01"),
-      node(18, "01"),
-      node(19, "01"),
-      node(20, "01"),
-      node(21, "01"),
-      node(22, "01"),
-      node(23, "01"),
-      node(24, "01"),
-      node(25, "01"),
-      node(26, "01"),
-      node(27, "01"),
-      node(28, "01"),
-      node(29, "01"),
-      node(30, "01"),
-      node(31, "01"),
-      node(32, "01"),
-      node(33, "01"),
-      node(34, "01"),
-      node(35, "01"),
-      node(36, "01"),
-      node(37, "01"),
-      node(38, "01"),
-      node(39, "01"),
-      node(40, "01"),
-      node(41, "01"),
-      node(42, "01"),
-      node(43, "01"),
-      node(44, "01"),
-      node(45, "01"),
-      node(46, "01"),
-      node(47, "01"),
-      node(48, "01"),
-      node(49, "01"),
-      node(50, "01"),
-      node(51, "01"),
-      node(52, "01"),
-      node(53, "01")
-    )
-
+    val routeNodeInfos = (1 to 53).map(id => RouteNodeInfo(node(id, "01"), "01"))
     val facts = ListBuffer[Fact]()
-    util.alternateNames(facts, nodes, toName)
+    util.alternateNames(facts, routeNodeInfos)
     facts.head should equal(Fact.RouteAnalysisFailed)
   }
 

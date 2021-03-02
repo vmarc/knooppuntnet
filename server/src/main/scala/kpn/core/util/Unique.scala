@@ -24,8 +24,6 @@ object Unique {
     }
   }
 
-
-
   def filter[A](objects: Seq[A], f: (A, A) => Boolean): Seq[A] = {
     recursivelyFilter(Seq(), objects, f)
   }

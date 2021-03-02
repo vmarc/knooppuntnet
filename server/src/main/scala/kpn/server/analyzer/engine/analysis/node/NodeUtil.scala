@@ -4,6 +4,7 @@ import kpn.api.common.data.Node
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.Util
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
 import scala.collection.mutable.ListBuffer
 
@@ -41,17 +42,17 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
     }
   }
 
-  def alternateNames(facts: ListBuffer[Fact], nodes: Seq[Node], nameGetter: Node => String): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
-    if (nodes.size < 2) {
+  def alternateNames(facts: ListBuffer[Fact], routeNodeInfos: Seq[RouteNodeInfo]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
+    if (routeNodeInfos.size < 2) {
       Map()
     }
     else {
       val suffixes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      if (nodes.size > suffixes.length) {
+      if (routeNodeInfos.size > suffixes.length) {
         facts.addOne(Fact.RouteAnalysisFailed)
       }
-      nodes.zip(suffixes).map { case (node, letter) =>
-        node.id -> (nameGetter(node) + "." + letter)
+      routeNodeInfos.zip(suffixes).map { case (routeNodeInfo, letter) =>
+        routeNodeInfo.node.id -> (routeNodeInfo.name + "." + letter)
       }.toMap
     }
   }

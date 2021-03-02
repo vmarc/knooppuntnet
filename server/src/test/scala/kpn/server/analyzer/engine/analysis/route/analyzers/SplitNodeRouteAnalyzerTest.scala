@@ -26,9 +26,9 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
     }.data
 
     val routeNodeInfos = Map(
-      1L -> RouteNodeInfo("01"),
-      2L -> RouteNodeInfo("01"),
-      3L -> RouteNodeInfo("01")
+      1L -> RouteNodeInfo(d.nodes(1), "01"),
+      2L -> RouteNodeInfo(d.nodes(2), "01"),
+      3L -> RouteNodeInfo(d.nodes(3), "01")
     )
 
     val context = analyze(d, routeNodeInfos)

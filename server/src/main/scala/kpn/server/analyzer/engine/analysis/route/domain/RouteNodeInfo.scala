@@ -1,3 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
-case class RouteNodeInfo(name: String)
+import kpn.api.common.data.Node
+
+case class RouteNodeInfo(node: Node, name: String)
