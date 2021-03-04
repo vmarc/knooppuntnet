@@ -27,7 +27,7 @@ export class NetworkInfo {
       jsonObject.nodeRefs,
       jsonObject.routeRefs,
       jsonObject.networkRefs,
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
+      jsonObject.facts,
       Tags.fromJSON(jsonObject.tags),
       NetworkInfoDetail.fromJSON(jsonObject.detail)
     );

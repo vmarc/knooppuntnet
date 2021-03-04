@@ -2,6 +2,11 @@ import {routerNavigationAction} from '@ngrx/router-store';
 import {on} from '@ngrx/store';
 import {createReducer} from '@ngrx/store';
 import {actionNetworkDetailsPageLoaded} from './network.actions';
+import {actionNetworkNodesPageLoaded} from './network.actions';
+import {actionNetworkRoutesPageLoaded} from './network.actions';
+import {actionNetworkFactsPageLoaded} from './network.actions';
+import {actionNetworkMapPageLoaded} from './network.actions';
+import {actionNetworkChangesPageLoaded} from './network.actions';
 import {initialState} from './network.state';
 
 export const networkReducer = createReducer(
@@ -26,35 +31,35 @@ export const networkReducer = createReducer(
     })
   ),
   on(
-    actionNetworkDetailsPageLoaded,
+    actionNetworkNodesPageLoaded,
     (state, {response}) => ({
       ...state,
       nodesPage: response
     })
   ),
   on(
-    actionNetworkDetailsPageLoaded,
+    actionNetworkRoutesPageLoaded,
     (state, {response}) => ({
       ...state,
       routesPage: response
     })
   ),
   on(
-    actionNetworkDetailsPageLoaded,
+    actionNetworkFactsPageLoaded,
     (state, {response}) => ({
       ...state,
       factsPage: response
     })
   ),
   on(
-    actionNetworkDetailsPageLoaded,
+    actionNetworkMapPageLoaded,
     (state, {response}) => ({
       ...state,
       mapPage: response
     })
   ),
   on(
-    actionNetworkDetailsPageLoaded,
+    actionNetworkChangesPageLoaded,
     (state, {response}) => ({
       ...state,
       changesPage: response

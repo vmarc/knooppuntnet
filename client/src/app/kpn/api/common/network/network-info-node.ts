@@ -44,7 +44,7 @@ export class NetworkInfoNode {
       Day.fromJSON(jsonObject.lastSurvey),
       jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json)),
       NodeIntegrityCheck.fromJSON(jsonObject.integrityCheck),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
+      jsonObject.facts,
       Tags.fromJSON(jsonObject.tags)
     );
   }

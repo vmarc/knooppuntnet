@@ -14,7 +14,7 @@ export class NetworkRouteFact {
       return undefined;
     }
     return new NetworkRouteFact(
-      Fact.fromJSON(jsonObject.fact),
+      jsonObject.fact,
       jsonObject.routes.map((json: any) => Ref.fromJSON(json))
     );
   }

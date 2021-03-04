@@ -48,7 +48,7 @@ export class RouteChange {
       jsonObject.addedWays.map((json: any) => RawWay.fromJSON(json)),
       jsonObject.updatedWays.map((json: any) => WayUpdate.fromJSON(json)),
       RouteDiff.fromJSON(jsonObject.diffs),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
+      jsonObject.facts,
       jsonObject.happy,
       jsonObject.investigate,
       jsonObject.locationHappy,

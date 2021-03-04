@@ -33,7 +33,7 @@ export class RouteData {
       jsonObject.nodes.map((json: any) => RawNode.fromJSON(json)),
       jsonObject.ways.map((json: any) => RawWay.fromJSON(json)),
       jsonObject.relations.map((json: any) => RawRelation.fromJSON(json)),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json))
+      jsonObject.facts
     );
   }
 }

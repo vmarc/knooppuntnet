@@ -14,7 +14,7 @@ export class NetworkNodeFact {
       return undefined;
     }
     return new NetworkNodeFact(
-      Fact.fromJSON(jsonObject.fact),
+      jsonObject.fact,
       jsonObject.nodes.map((json: any) => Ref.fromJSON(json))
     );
   }

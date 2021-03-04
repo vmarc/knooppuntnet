@@ -60,7 +60,7 @@ export class NodeChange {
       jsonObject.addedToNetwork.map((json: any) => Ref.fromJSON(json)),
       jsonObject.removedFromNetwork.map((json: any) => Ref.fromJSON(json)),
       FactDiffs.fromJSON(jsonObject.factDiffs),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json)),
+      jsonObject.facts,
       jsonObject.happy,
       jsonObject.investigate,
       jsonObject.locationHappy,

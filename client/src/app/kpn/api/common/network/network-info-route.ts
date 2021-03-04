@@ -30,7 +30,7 @@ export class NetworkInfoRoute {
       Timestamp.fromJSON(jsonObject.relationLastUpdated),
       Timestamp.fromJSON(jsonObject.lastUpdated),
       Day.fromJSON(jsonObject.lastSurvey),
-      jsonObject.facts.map((json: any) => Fact.fromJSON(json))
+      jsonObject.facts
     );
   }
 }
