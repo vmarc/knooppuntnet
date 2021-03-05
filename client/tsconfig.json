@@ -27,13 +27,13 @@
       "dom"
     ]
   },
-  "include": [ // added for OpenLayers; see https://github.com/openlayers/openlayers
-    "**/*.ts",
-    "node_modules/ol/**/*"
-  ],
-  "typeAcquisition": { // added for OpenLayers; see https://github.com/openlayers/openlayers
-    "exclude": ["ol"]
-  },
+//  "include": [ // added for OpenLayers; see https://github.com/openlayers/openlayers
+//    "**/*.ts",
+//    "node_modules/ol/**/*"
+//  ],
+//  "typeAcquisition": { // added for OpenLayers; see https://github.com/openlayers/openlayers
+//    "exclude": ["ol"]
+//  },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,

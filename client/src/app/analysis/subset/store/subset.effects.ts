@@ -47,7 +47,6 @@ export class SubsetEffects {
       ofType(actionSubsetNetworksPageInit),
       withLatestFrom(this.subset$),
       mergeMap(([action, subset]) => {
-        Subset;
         return this.appService.subsetNetworks(subset).pipe(
           map(response => actionSubsetNetworksPageLoaded({response}))
         );

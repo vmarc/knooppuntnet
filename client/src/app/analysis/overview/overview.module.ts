@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 import {MarkdownModule} from 'ngx-markdown';
 import {SharedModule} from '../../components/shared/shared.module';
 import {OverviewPageComponent} from './overview/_overview-page.component';
@@ -23,7 +24,8 @@ import {StatisticConfigurationsComponent} from './domain/statistic-configuration
     MarkdownModule,
     MatIconModule,
     SharedModule,
-    OverviewRoutingModule
+    OverviewRoutingModule,
+    MatListModule
   ],
   declarations: [
     OverviewListComponent,
