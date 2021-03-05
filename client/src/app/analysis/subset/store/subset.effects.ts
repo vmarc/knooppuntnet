@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ChangesParameters} from '@api/common/changes/filter/changes-parameters';
-import {Country} from '@api/custom/country';
-import {NetworkType} from '@api/custom/network-type';
 import {Subset} from '@api/custom/subset';
 import {Actions} from '@ngrx/effects';
 import {createEffect} from '@ngrx/effects';
@@ -62,8 +60,8 @@ export class SubsetEffects {
       ofType(actionSubsetFactsPageInit),
       withLatestFrom(this.subset$),
       mergeMap(([action, subset]) => this.appService.subsetFacts(subset).pipe(
-          map(response => actionSubsetFactsPageLoaded({response}))
-        ))
+        map(response => actionSubsetFactsPageLoaded({response}))
+      ))
     )
   );
 
@@ -72,8 +70,8 @@ export class SubsetEffects {
       ofType(actionSubsetOrphanNodesPageInit),
       withLatestFrom(this.subset$),
       mergeMap(([action, subset]) => this.appService.subsetOrphanNodes(subset).pipe(
-          map(response => actionSubsetOrphanNodesPageLoaded({response}))
-        ))
+        map(response => actionSubsetOrphanNodesPageLoaded({response}))
+      ))
     )
   );
 
@@ -82,8 +80,8 @@ export class SubsetEffects {
       ofType(actionSubsetOrphanRoutesPageInit),
       withLatestFrom(this.subset$),
       mergeMap(([action, subset]) => this.appService.subsetOrphanRoutes(subset).pipe(
-          map(response => actionSubsetOrphanRoutesPageLoaded({response}))
-        ))
+        map(response => actionSubsetOrphanRoutesPageLoaded({response}))
+      ))
     )
   );
 
@@ -92,8 +90,8 @@ export class SubsetEffects {
       ofType(actionSubsetMapPageInit),
       withLatestFrom(this.subset$),
       mergeMap(([action, subset]) => this.appService.subsetMap(subset).pipe(
-          map(response => actionSubsetMapPageLoaded({response}))
-        ))
+        map(response => actionSubsetMapPageLoaded({response}))
+      ))
     )
   );
 

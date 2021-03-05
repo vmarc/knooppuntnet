@@ -1,4 +1,3 @@
-import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, Input} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {PoiService} from '../../../../services/poi.service';

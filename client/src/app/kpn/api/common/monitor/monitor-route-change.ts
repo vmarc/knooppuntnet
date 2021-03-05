@@ -1,6 +1,5 @@
 // this file is generated, please do not modify
 
-import {BoundsI} from '../bounds-i';
 import {ChangeKeyI} from '../changes/details/change-key-i';
 import {MonitorRouteNokSegment} from './monitor-route-nok-segment';
 import {MonitorRouteSegment} from './monitor-route-segment';

@@ -9,8 +9,6 @@ import {MapService} from '../services/map.service';
 import {MainStyleColors} from './main-style-colors';
 import {NodeStyle} from './node-style';
 import {SurveyDateStyle} from './survey-date-style';
-import Stroke from 'ol/style/Stroke';
-import Text from 'ol/style/Text';
 
 export class MainMapNodeStyle {
 

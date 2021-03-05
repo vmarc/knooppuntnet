@@ -9,7 +9,6 @@ import {actionPreferencesImpact} from '../../../core/preferences/preferences.act
 import {selectPreferencesImpact} from '../../../core/preferences/preferences.selectors';
 import {actionMonitorRouteChangesPageIndex} from '../../store/monitor.actions';
 import {actionMonitorRouteChangesPageInit} from '../../store/monitor.actions';
-import {selectMonitorRouteChangesPageIndex} from '../../store/monitor.selectors';
 import {selectMonitorRouteChangesPage} from '../../store/monitor.selectors';
 
 @Component({

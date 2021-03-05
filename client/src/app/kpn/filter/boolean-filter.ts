@@ -1,8 +1,7 @@
 import {Filter} from './filter';
-import {Filters} from './filters';
-import {List} from 'immutable';
-import {FilterOptionGroup} from './filter-option-group';
 import {FilterOption} from './filter-option';
+import {FilterOptionGroup} from './filter-option-group';
+import {Filters} from './filters';
 
 export class BooleanFilter<T> extends Filter<T> {
 

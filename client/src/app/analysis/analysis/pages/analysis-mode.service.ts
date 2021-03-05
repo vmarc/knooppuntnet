@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BrowserStorageService} from '../../../services/browser-storage.service';
 import {BehaviorSubject} from 'rxjs';
 import {Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {BrowserStorageService} from '../../../services/browser-storage.service';
 
 @Injectable()
 export class AnalysisModeService {

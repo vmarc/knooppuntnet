@@ -1,16 +1,15 @@
-import {List} from 'immutable';
-import TileLayer from 'ol/layer/Tile';
-import XYZ from 'ol/source/XYZ';
+import {NetworkType} from '@api/custom/network-type';
 import {MVT} from 'ol/format';
+import LayerGroup from 'ol/layer/Group';
+import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
 import VectorTile from 'ol/source/VectorTile';
-import {NetworkType} from '@api/custom/network-type';
+import XYZ from 'ol/source/XYZ';
 import {ZoomLevel} from '../domain/zoom-level';
 import {NetworkNodesMapStyle} from '../style/network-nodes-map-style';
-import {MapLayer} from './map-layer';
-import LayerGroup from 'ol/layer/Group';
 import {Layers} from './layers';
+import {MapLayer} from './map-layer';
 
 export class NetworkNodesTileLayer {
 

@@ -3,7 +3,6 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {RouteSummary} from '@api/common/route-summary';
 import {TimeInfo} from '@api/common/time-info';
-import {List} from 'immutable';
 import {BehaviorSubject} from 'rxjs';
 import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
 import {SubsetOrphanRouteFilter} from './subset-orphan-route-filter';

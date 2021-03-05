@@ -1,7 +1,6 @@
 import {GeoJSON} from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import {Fill} from 'ol/style';
 import {Stroke} from 'ol/style';
 import {Style} from 'ol/style';
 import {I18nService} from '../../../i18n/i18n.service';
@@ -27,7 +26,7 @@ export class PoiAreasLayer {
       })
     });
 
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return lineStyle;
     };
 

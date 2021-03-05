@@ -1,6 +1,5 @@
 import {CountryStatistic} from '@api/common/statistics/country-statistic';
 import {Statistic} from '@api/common/statistics/statistic';
-import {NetworkType} from '@api/custom/network-type';
 import {Subset} from '@api/custom/subset';
 import {StatisticConfiguration} from './statistic-configuration';
 
