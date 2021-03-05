@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {PeriodParameters} from '@api/common/status/period-parameters';
 import {SystemStatusPage} from '@api/common/status/system-status-page';
 import {Observable} from 'rxjs';
-import {flatMap} from 'rxjs/operators';
+import {mergeMap} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppService} from '../../app.service';
@@ -99,7 +99,7 @@ export class SystemStatusPageComponent implements OnInit {
           this.xAxisLabel = 'minutes';
         }
       }),
-      flatMap(parameters => this.appService.systemStatus(parameters).pipe(
+      mergeMap(parameters => this.appService.systemStatus(parameters).pipe(
         map(r => r.result),
         tap(page => this.statusLinks = new StatusLinks(page.timestamp, '/status/system'))
       ))

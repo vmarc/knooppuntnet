@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {LogPage} from '@api/common/status/log-page';
 import {PeriodParameters} from '@api/common/status/period-parameters';
 import {Observable} from 'rxjs';
-import {flatMap} from 'rxjs/operators';
+import {mergeMap} from 'rxjs/operators';
 import {tap} from 'rxjs/operators';
 import {map} from 'rxjs/operators';
 import {AppService} from '../../app.service';
@@ -88,7 +88,7 @@ export class LogPageComponent implements OnInit {
           this.xAxisLabel = 'minutes';
         }
       }),
-      flatMap(parameters => this.appService.logStatus(parameters).pipe(
+      mergeMap(parameters => this.appService.logStatus(parameters).pipe(
         map(r => r.result),
         tap(page => this.statusLinks = new StatusLinks(page.timestamp, '/status/log'))
       ))
