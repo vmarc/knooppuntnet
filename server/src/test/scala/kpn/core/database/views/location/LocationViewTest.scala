@@ -9,7 +9,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 

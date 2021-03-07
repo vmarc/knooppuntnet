@@ -27,9 +27,14 @@ if (doc._id.indexOf("change:") === 0) {
         if (subsetAnalysis.happy || subsetAnalysis.investigate) {
           subsetImpacted = 1;
         }
-        emit([subsetAnalysis.subset + ":change-set", year, month, day, time, changeSetId, replicationNumber], [1, subsetImpacted]);
+        var subset = subsetAnalysis.subset;
+        var subsetString = subset; // for backward compatibility of Subset serialization
+        if (subset.country) {
+          subsetString = subset.country + ":" + subset.networkType;
+        }
+        emit([subsetString + ":change-set", year, month, day, time, changeSetId, replicationNumber], [1, subsetImpacted]);
         if (subsetImpacted > 0) {
-          emit([subsetAnalysis.subset + ":impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, subsetImpacted]);
+          emit([subsetString + ":impacted:change-set", year, month, day, time, changeSetId, replicationNumber], [1, subsetImpacted]);
         }
       }
     }

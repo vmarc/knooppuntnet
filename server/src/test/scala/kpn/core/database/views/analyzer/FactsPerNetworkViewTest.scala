@@ -22,7 +22,7 @@ class FactsPerNetworkViewTest extends UnitTest {
       val networkId = 5L
 
       new TestDocBuilder(database) {
-        val detail = Some(
+        private val detail = Some(
           networkInfoDetail(
             nodes = Seq(
               newNetworkInfoNode(
@@ -106,7 +106,7 @@ class FactsPerNetworkViewTest extends UnitTest {
     withDatabase { database =>
 
       new TestDocBuilder(database) {
-        val scopedNetworkType = ScopedNetworkType(NetworkScope.regional, networkType)
+        private val scopedNetworkType = ScopedNetworkType(NetworkScope.regional, networkType)
         node(
           1001,
           Country.nl,
