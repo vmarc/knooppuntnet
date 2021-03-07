@@ -77,9 +77,31 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   private def toRouteNameAnalysis(routeName: String): RouteNameAnalysis = {
     if (routeName.contains("-")) {
       val nameParts = routeName.split("-")
-      val startNodeName = nameParts.head
-      val endNodeName = nameParts(1)
-      toRouteNameAnalysisFromNodeNames(routeName, startNodeName, endNodeName)
+      val firstPart = nameParts.head.trim
+      val startNodeNameOption = if (firstPart.nonEmpty) Some(firstPart) else None
+      val endNodeNameOption = if (nameParts.size > 1) {
+        val secondPart = nameParts(1).trim
+        if (secondPart.nonEmpty) Some(secondPart) else None
+      }
+      else {
+        None
+      }
+
+      val startNodeName = startNodeNameOption.getOrElse("")
+      val endNodeName = endNodeNameOption.getOrElse("")
+
+      val trimmedRouteName = s"$startNodeName-$endNodeName"
+
+      if (startNodeNameOption.nonEmpty && endNodeNameOption.nonEmpty) {
+        toRouteNameAnalysisFromNodeNames(trimmedRouteName, startNodeNameOption.get, endNodeNameOption.get)
+      }
+      else {
+        RouteNameAnalysis(
+          Some(trimmedRouteName),
+          startNodeNameOption,
+          endNodeNameOption
+        )
+      }
     }
     else {
       RouteNameAnalysis(

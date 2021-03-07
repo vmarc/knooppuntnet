@@ -145,6 +145,45 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
+  test("route name containing spaces") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> " 01 - 02 "))
+    routeNameAnalysis should equal(
+      Some(
+        RouteNameAnalysis(
+          Some("01-02"),
+          Some("01"),
+          Some("02")
+        )
+      )
+    )
+  }
+
+  test("route name with start node name only") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-"))
+    routeNameAnalysis should equal(
+      Some(
+        RouteNameAnalysis(
+          Some("01-"),
+          Some("01"),
+          None
+        )
+      )
+    )
+  }
+
+  test("route name with end node name only") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "-02"))
+    routeNameAnalysis should equal(
+      Some(
+        RouteNameAnalysis(
+          Some("-02"),
+          None,
+          Some("02")
+        )
+      )
+    )
+  }
+
   test("route name missing") {
     val context = analyze(Tags.empty)
     context.routeNameAnalysis should equal(None)

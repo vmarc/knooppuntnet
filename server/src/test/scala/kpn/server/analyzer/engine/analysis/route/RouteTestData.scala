@@ -73,14 +73,21 @@ class RouteTestData(val routeName: String, val scopedNetworkType: ScopedNetworkT
   def members: Seq[RawMember] = memberBuffer.toSeq
 
   def data: Data = {
+
+    val routeNameTags = if (routeName.nonEmpty) {
+      Tags.from("ref" -> routeName)
+    }
+    else {
+      Tags.empty
+    }
+
     val standardRouteTags = Tags.from(
-      "ref" -> routeName,
       "network" -> "rwn",
       "type" -> "route",
       "route" -> "foot",
       "network:type" -> "node_network"
     )
-    val allRouteTags = Tags(routeTags.tags ++ standardRouteTags.tags)
+    val allRouteTags = Tags(routeNameTags.tags ++ routeTags.tags ++ standardRouteTags.tags)
     val relation = newRawRelation(routeRelationId, members = memberBuffer.toSeq, tags = allRouteTags)
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new DataBuilder(rawData).data

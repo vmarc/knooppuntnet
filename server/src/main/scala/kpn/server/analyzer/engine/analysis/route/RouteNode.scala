@@ -18,6 +18,8 @@ case class RouteNode(
 
   def lon: String = node.longitude
 
+  def missingInWays: Boolean = !definedInWay
+
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("nodeType", nodeType).
     field("node", node).
