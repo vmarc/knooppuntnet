@@ -146,7 +146,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                     startNodeId = 1001,
                     endNodeId = 1002,
                     meters = 0,
-                    oneWay = true,
+                    oneWay = false,
                     segments = Seq(
                       TrackSegment(
                         "paved",
@@ -166,7 +166,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                     startNodeId = 1002,
                     endNodeId = 1001,
                     meters = 0,
-                    oneWay = true,
+                    oneWay = false,
                     segments = Seq(
                       TrackSegment(
                         "paved",
