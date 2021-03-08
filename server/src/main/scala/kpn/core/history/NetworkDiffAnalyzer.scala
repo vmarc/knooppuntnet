@@ -152,16 +152,6 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
       removedRelations.nonEmpty // no need for this, will already be reported in network facts?
   }
 
-  private val investigate: Boolean = {
-    (networkDataUpdate.isDefined && networkDataUpdate.get.investigate) ||
-      removedNetworkNodes.nonEmpty ||
-      removedRoutes.nonEmpty ||
-      updatedRoutes.exists(_.investigate) ||
-      addedNodes.nonEmpty || // no need for this, will already be reported in network facts?
-      addedWays.nonEmpty ||
-      addedRelations.nonEmpty
-  }
-
   def diff: NetworkDiff = NetworkDiff(
     after.network.country,
     after.network.networkType,
@@ -174,8 +164,18 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
     IdDiffs(removedWays, addedWays, updatedWays),
     IdDiffs(removedRelations, addedRelations, updatedRelations),
     happy,
-    investigate
+    investigate()
   )
+
+  private def investigate(): Boolean = {
+    (networkDataUpdate.isDefined && networkDataUpdate.get.investigate) ||
+      removedNetworkNodes.nonEmpty ||
+      removedRoutes.nonEmpty ||
+      updatedRoutes.exists(_.investigate) ||
+      addedNodes.nonEmpty || // no need for this, will already be reported in network facts?
+      addedWays.nonEmpty ||
+      addedRelations.nonEmpty
+  }
 
   private def nodeBefore(id: Long): Option[NetworkNodeInfo] = before.network.nodes.find(_.networkNode.id == id)
 

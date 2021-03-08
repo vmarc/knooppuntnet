@@ -125,8 +125,8 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
             tagDiffs = Some(
               TagDiffs(
                 mainTags = Seq(
-                  TagDetail(Same, "rcn_ref", Some("02"), Some("02")),
                   TagDetail(Delete, "rwn_ref", Some("01"), None),
+                  TagDetail(Same, "rcn_ref", Some("02"), Some("02")),
                   TagDetail(Same, "network:type", Some("node_network"), Some("node_network"))
                 )
               )
