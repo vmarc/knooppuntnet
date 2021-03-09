@@ -11,6 +11,8 @@ case class PlanLegDetail(
   def meters: Long = routes.map(_.meters).sum
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("source", source).
+    field("sink", sink).
     field("routes", routes).
     build
 

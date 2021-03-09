@@ -13,7 +13,7 @@ case class RouteNodeAnalysis(
 
   def nodesInRelation: Seq[RouteNode] = routeNodes.filter(_.definedInRelation)
 
-  def usedNodes: Seq[RouteNode] = routeNodes.filter(_.nodeType != RouteNodeType.Redundant)
+  def usedNodes: Seq[RouteNode] = startNodes ++ endNodes
 
   def hasStartAndEndNode: Boolean = startNodes.nonEmpty && endNodes.nonEmpty
 }

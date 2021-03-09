@@ -10,7 +10,6 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -36,8 +35,8 @@ class Issue109_SplitNodeRoute extends UnitTest {
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
 
-    routeAnalysis.route.facts.isEmpty should equal(true)
-    routeAnalysis.structure.unusedSegments.isEmpty should equal(true)
+    routeAnalysis.route.facts should equal(Seq.empty)
+    routeAnalysis.structure.unusedSegments should equal(Seq.empty)
 
     val paths = routeAnalysis.structure.splitNodePaths
 
@@ -62,6 +61,8 @@ class Issue109_SplitNodeRoute extends UnitTest {
   }
 
   private def readRoute(): LoadedRoute = {
+
+    // Following two routes merged together form a circular route (see issue #109)
     val rawData1 = readData(11512870L)
     val rawData2 = readData(11512871L)
     val rawData = RawData.merge(rawData1, rawData2)
@@ -76,8 +77,6 @@ class Issue109_SplitNodeRoute extends UnitTest {
       routeRelation1.members ++ routeRelation2.members
     )
 
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     LoadedRoute(Some(Country.nl), ScopedNetworkType.rcn, data, routeRelation)
   }
 

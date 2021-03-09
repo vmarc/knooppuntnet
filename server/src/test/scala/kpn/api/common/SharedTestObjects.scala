@@ -54,6 +54,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -293,13 +294,20 @@ trait SharedTestObjects extends MockFactory {
     tiles: Seq[String] = Seq.empty
   ): NodeInfo = {
 
+    val name = ScopedNetworkType.all.flatMap(n => tags(n.nodeRefTagKey)).mkString(" / ")
+    val names = ScopedNetworkType.all.flatMap { scopedNetworkType =>
+      tags(scopedNetworkType.nodeRefTagKey).map { name =>
+        NodeName(scopedNetworkType, name)
+      }
+    }
+
     NodeInfo(
       id,
       active,
       orphan,
       country,
-      "", // NodeAnalyzer.name(tags),
-      Seq.empty, // NodeAnalyzer.names(tags),
+      name,
+      names,
       latitude,
       longitude,
       lastUpdated,

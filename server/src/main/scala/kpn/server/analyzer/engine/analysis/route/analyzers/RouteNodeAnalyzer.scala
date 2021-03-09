@@ -237,11 +237,11 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     routeNodeInfos.filter(routeNodeInfo => normalize(routeNodeInfo.name).equals(nodeName))
   }
 
-  def toRouteNodes(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfos: Seq[RouteNodeInfo]): Seq[RouteNode] = {
+  private def toRouteNodes(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfos: Seq[RouteNodeInfo]): Seq[RouteNode] = {
     routeNodeInfos.map(routeNodeInfo => toRouteNode(alternateNameMap, routeNodeInfo))
   }
 
-  def toRouteNode(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfo: RouteNodeInfo): RouteNode = {
+  private def toRouteNode(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfo: RouteNodeInfo): RouteNode = {
     val alternateName = alternateNameMap.getOrElse(routeNodeInfo.node.id, routeNodeInfo.name)
     val definedInRelation = nodesInRelation.contains(routeNodeInfo)
     val definedInWay = nodesInWays.contains(routeNodeInfo)

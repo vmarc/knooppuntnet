@@ -7,6 +7,7 @@ case class LegEndRoute(trackPathKeys: Seq[TrackPathKey], selection: Option[Track
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("trackPathKeys", trackPathKeys).
+    field("selection", selection).
     build
 
 }
