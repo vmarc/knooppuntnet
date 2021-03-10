@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-03-10T18:31:41Z"/>
+
+  <node id="42784877" lat="51.4931067" lon="6.1466897" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42784896" lat="51.4931305" lon="6.1462026" version="7" timestamp="2019-09-13T07:29:32Z" changeset="74421242" uid="7103674" user="Peter Elderson">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="53"/>
+  </node>
+  <node id="42784971" lat="51.4931669" lon="6.1478980" version="4" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42785259" lat="51.4932470" lon="6.1484706" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42785397" lat="51.4933063" lon="6.1487120" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42785685" lat="51.4933965" lon="6.1489803" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42786212" lat="51.4934925" lon="6.1491787" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42786737" lat="51.4937351" lon="6.1496992" version="3" timestamp="2020-11-05T20:19:07Z" changeset="93623093" uid="553736" user="A67-A67"/>
+  <node id="42787233" lat="51.4938263" lon="6.1499021" version="4" timestamp="2020-11-05T20:19:07Z" changeset="93623093" uid="553736" user="A67-A67"/>
+  <node id="42787630" lat="51.4939153" lon="6.1501555" version="4" timestamp="2020-11-05T20:19:07Z" changeset="93623093" uid="553736" user="A67-A67"/>
+  <node id="42787862" lat="51.4939796" lon="6.1504378" version="4" timestamp="2020-11-05T20:19:07Z" changeset="93623093" uid="553736" user="A67-A67"/>
+  <node id="42788616" lat="51.4941505" lon="6.1516088" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42788719" lat="51.4942273" lon="6.1519307" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42789035" lat="51.4942916" lon="6.1521788" version="4" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42790740" lat="51.4947775" lon="6.1538914" version="3" timestamp="2019-09-29T14:03:13Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42792147" lat="51.4951816" lon="6.1552526" version="3" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42792529" lat="51.4953454" lon="6.1561096" version="10" timestamp="2021-03-07T09:55:01Z" changeset="100566530" uid="10582822" user="Ut Fietsmenneke"/>
+  <node id="42792790" lat="51.4953469" lon="6.1558320" version="6" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42792912" lat="51.4954163" lon="6.1561599" version="4" timestamp="2020-11-05T20:11:31Z" changeset="93622888" uid="553736" user="A67-A67"/>
+  <node id="42794103" lat="51.4956500" lon="6.1566000" version="2" timestamp="2009-12-23T19:52:16Z" changeset="3437226" uid="12946" user="AND"/>
+  <node id="42794355" lat="51.4957200" lon="6.1566904" version="3" timestamp="2020-11-05T19:56:48Z" changeset="93622385" uid="553736" user="A67-A67"/>
+  <node id="42794602" lat="51.4957900" lon="6.1567700" version="2" timestamp="2009-12-23T19:52:16Z" changeset="3437226" uid="12946" user="AND"/>
+  <node id="42795779" lat="51.4960800" lon="6.1568600" version="2" timestamp="2009-12-23T19:52:16Z" changeset="3437226" uid="12946" user="AND"/>
+  <node id="42796742" lat="51.4963000" lon="6.1567900" version="2" timestamp="2009-12-23T19:52:16Z" changeset="3437226" uid="12946" user="AND"/>
+  <node id="42797301" lat="51.4965217" lon="6.1566327" version="3" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42797966" lat="51.4966720" lon="6.1565749" version="3" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42799687" lat="51.4970961" lon="6.1565602" version="3" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42802129" lat="51.4976555" lon="6.1566326" version="4" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42805475" lat="51.4984127" lon="6.1567909" version="4" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="42809146" lat="51.4989972" lon="6.1568646" version="4" timestamp="2019-09-29T14:03:14Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="1230759120" lat="51.5006660" lon="6.1569429" version="1" timestamp="2011-04-03T13:06:33Z" changeset="7753915" uid="424172" user="JanWandelaar"/>
+  <node id="1230759322" lat="51.5001101" lon="6.1569291" version="1" timestamp="2011-04-03T13:06:38Z" changeset="7753915" uid="424172" user="JanWandelaar"/>
+  <node id="4253227247" lat="51.4935682" lon="6.1493478" version="2" timestamp="2020-11-05T20:19:07Z" changeset="93623093" uid="553736" user="A67-A67"/>
+  <node id="6501260771" lat="51.5011670" lon="6.1568482" version="1" timestamp="2019-05-26T00:38:11Z" changeset="70621961" uid="553736" user="A67-A67"/>
+  <node id="6501260775" lat="51.5010583" lon="6.1568693" version="1" timestamp="2019-05-26T00:38:11Z" changeset="70621961" uid="553736" user="A67-A67"/>
+  <node id="6834948524" lat="51.4931151" lon="6.1471577" version="1" timestamp="2019-09-29T14:03:11Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="6834948525" lat="51.4953578" lon="6.1559325" version="1" timestamp="2019-09-29T14:03:11Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="6834948547" lat="51.4988026" lon="6.1568552" version="1" timestamp="2019-09-29T14:03:11Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="6834948548" lat="51.4968548" lon="6.1565508" version="1" timestamp="2019-09-29T14:03:11Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="6834948549" lat="51.4961919" lon="6.1568472" version="1" timestamp="2019-09-29T14:03:11Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="6834948550" lat="51.4958600" lon="6.1568100" version="1" timestamp="2019-09-29T14:03:11Z" changeset="75063347" uid="1707814" user="de vries"/>
+  <node id="7667573680" lat="51.5012355" lon="6.1572255" version="1" timestamp="2020-06-29T19:40:16Z" changeset="87311147" uid="424172" user="JanWandelaar"/>
+  <node id="7667573681" lat="51.5012906" lon="6.1573449" version="2" timestamp="2020-11-05T20:20:29Z" changeset="93623128" uid="553736" user="A67-A67"/>
+  <node id="7741672259" lat="51.5013812" lon="6.1574157" version="3" timestamp="2021-03-07T09:55:01Z" changeset="100566530" uid="10582822" user="Ut Fietsmenneke">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="09"/>
+  </node>
+  <node id="7741672262" lat="51.5015039" lon="6.1570131" version="2" timestamp="2020-07-26T15:36:08Z" changeset="88524578" uid="10582822" user="Ut Fietsmenneke"/>
+  <node id="7741672263" lat="51.5014474" lon="6.1572107" version="2" timestamp="2020-07-26T15:36:08Z" changeset="88524578" uid="10582822" user="Ut Fietsmenneke"/>
+  <node id="7751484677" lat="51.5011600" lon="6.1569367" version="1" timestamp="2020-07-26T15:36:08Z" changeset="88524578" uid="10582822" user="Ut Fietsmenneke"/>
+  <node id="7751484678" lat="51.5013659" lon="6.1567825" version="2" timestamp="2021-03-07T09:55:01Z" changeset="100566530" uid="10582822" user="Ut Fietsmenneke">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="09"/>
+  </node>
+  <node id="7751484679" lat="51.5014398" lon="6.1568335" version="1" timestamp="2020-07-26T15:36:08Z" changeset="88524578" uid="10582822" user="Ut Fietsmenneke"/>
+  <node id="7751484680" lat="51.5014924" lon="6.1568896" version="2" timestamp="2020-12-22T12:39:01Z" changeset="96259180" uid="424172" user="JanWandelaar"/>
+  <node id="8085909549" lat="51.4939479" lon="6.1502777" version="1" timestamp="2020-11-05T20:19:07Z" changeset="93623093" uid="553736" user="A67-A67"/>
+  <node id="8085933748" lat="51.4954865" lon="6.1562634" version="1" timestamp="2020-11-05T20:11:31Z" changeset="93622888" uid="553736" user="A67-A67"/>
+  <way id="6700466" version="7" timestamp="2021-02-06T14:01:04Z" changeset="98814571" uid="9176" user="Maarten Deen">
+    <nd ref="42784896"/>
+    <nd ref="42784877"/>
+    <nd ref="6834948524"/>
+    <nd ref="42784971"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="60"/>
+    <tag k="name" v="Swolgenseweg"/>
+  </way>
+  <way id="6700488" version="10" timestamp="2020-11-05T20:11:31Z" changeset="93622888" uid="553736" user="A67-A67">
+    <nd ref="42788719"/>
+    <nd ref="42789035"/>
+    <nd ref="42790740"/>
+    <nd ref="42792147"/>
+    <nd ref="42792790"/>
+    <nd ref="6834948525"/>
+    <nd ref="42792529"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Swolgenseweg"/>
+  </way>
+  <way id="6700499" version="6" timestamp="2020-11-05T20:11:31Z" changeset="93622888" uid="553736" user="A67-A67">
+    <nd ref="42794355"/>
+    <nd ref="42794602"/>
+    <nd ref="6834948550"/>
+    <nd ref="42795779"/>
+    <nd ref="6834948549"/>
+    <nd ref="42796742"/>
+    <nd ref="42797301"/>
+    <nd ref="42797966"/>
+    <nd ref="6834948548"/>
+    <nd ref="42799687"/>
+    <nd ref="42802129"/>
+    <nd ref="42805475"/>
+    <nd ref="6834948547"/>
+    <nd ref="42809146"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Ooijenseweg"/>
+  </way>
+  <way id="6700504" version="6" timestamp="2021-02-06T14:01:05Z" changeset="98814571" uid="9176" user="Maarten Deen">
+    <nd ref="42792529"/>
+    <nd ref="42792912"/>
+    <nd ref="8085933748"/>
+    <nd ref="42794103"/>
+    <nd ref="42794355"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Kerkstraat"/>
+  </way>
+  <way id="107353002" version="6" timestamp="2021-02-06T14:01:05Z" changeset="98814571" uid="9176" user="Maarten Deen">
+    <nd ref="42784971"/>
+    <nd ref="42785259"/>
+    <nd ref="42785397"/>
+    <nd ref="42785685"/>
+    <nd ref="42786212"/>
+    <nd ref="4253227247"/>
+    <nd ref="42786737"/>
+    <nd ref="42787233"/>
+    <nd ref="42787630"/>
+    <nd ref="8085909549"/>
+    <nd ref="42787862"/>
+    <nd ref="42788616"/>
+    <nd ref="42788719"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="60"/>
+    <tag k="name" v="Swolgenseweg"/>
+  </way>
+  <way id="692503013" version="2" timestamp="2019-05-26T06:28:55Z" changeset="70624625" uid="294028" user="dvdhoven">
+    <nd ref="42809146"/>
+    <nd ref="1230759322"/>
+    <nd ref="1230759120"/>
+    <nd ref="6501260775"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="60"/>
+    <tag k="name" v="Ooijenseweg"/>
+  </way>
+  <way id="829410723" version="4" timestamp="2020-07-28T19:19:39Z" changeset="88638023" uid="10582822" user="Ut Fietsmenneke">
+    <nd ref="7741672259"/>
+    <nd ref="7741672263"/>
+    <nd ref="7741672262"/>
+    <nd ref="7751484680"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+  </way>
+  <way id="830352615" version="1" timestamp="2020-07-26T15:36:08Z" changeset="88524578" uid="10582822" user="Ut Fietsmenneke">
+    <nd ref="7751484677"/>
+    <nd ref="7667573680"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="830352616" version="2" timestamp="2020-07-27T05:32:12Z" changeset="88542522" uid="294028" user="dvdhoven">
+    <nd ref="7751484680"/>
+    <nd ref="7751484679"/>
+    <nd ref="7751484678"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="830613615" version="1" timestamp="2020-07-27T05:32:12Z" changeset="88542522" uid="294028" user="dvdhoven">
+    <nd ref="7751484678"/>
+    <nd ref="6501260771"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="830613620" version="1" timestamp="2020-07-27T05:32:12Z" changeset="88542522" uid="294028" user="dvdhoven">
+    <nd ref="7667573680"/>
+    <nd ref="7667573681"/>
+    <nd ref="7741672259"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Ooijenseweg"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+  </way>
+  <way id="830613621" version="1" timestamp="2020-07-27T05:32:12Z" changeset="88542522" uid="294028" user="dvdhoven">
+    <nd ref="6501260771"/>
+    <nd ref="6501260775"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="60"/>
+    <tag k="name" v="Ooijenseweg"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="830613622" version="1" timestamp="2020-07-27T05:32:12Z" changeset="88542522" uid="294028" user="dvdhoven">
+    <nd ref="6501260775"/>
+    <nd ref="7751484677"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="60"/>
+    <tag k="name" v="Ooijenseweg"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <relation id="1029893" version="12" timestamp="2021-03-07T11:36:30Z" changeset="100570313" uid="10582822" user="Ut Fietsmenneke">
+    <member type="way" ref="829410723" role="forward"/>
+    <member type="way" ref="830352616" role="forward"/>
+    <member type="way" ref="830613615" role="forward"/>
+    <member type="way" ref="830613621" role="forward"/>
+    <member type="way" ref="830613620" role="forward"/>
+    <member type="way" ref="830352615" role="forward"/>
+    <member type="way" ref="830613622" role="forward"/>
+    <member type="way" ref="692503013" role=""/>
+    <member type="way" ref="6700499" role=""/>
+    <member type="way" ref="6700504" role=""/>
+    <member type="way" ref="6700488" role=""/>
+    <member type="way" ref="107353002" role=""/>
+    <member type="way" ref="6700466" role=""/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="09-53"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>
