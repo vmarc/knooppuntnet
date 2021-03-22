@@ -11,7 +11,7 @@ import {Stat} from '../domain/stat';
 
       <div class="header">
         <div (click)="toggleOpen()" class="title">
-          <div class="icon">
+          <div class="expand-collapse-icon">
             <mat-icon svgIcon="expand" *ngIf="open" mat-list-icon></mat-icon>
             <mat-icon svgIcon="collapse" *ngIf="!open" mat-list-icon></mat-icon>
           </div>
@@ -65,11 +65,11 @@ import {Stat} from '../domain/stat';
       vertical-align: middle;
     }
 
-    .icon {
+    .expand-collapse-icon {
       display: inline-block;
     }
 
-    ::ng-deep .icon svg {
+    ::ng-deep .expand-collapse-icon svg {
       width: 12px;
       height: 12px;
       vertical-align: middle;
