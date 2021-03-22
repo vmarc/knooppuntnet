@@ -1,5 +1,5 @@
-import * as JsPdf from 'jspdf';
-import * as QRious from 'qrious';
+import {jsPDF} from 'jspdf';
+import QRious from 'qrious';
 import {Plan} from '../../map/planner/plan/plan';
 import {PdfDocumentModel} from './pdf-document-model';
 import {PdfFooter} from './pdf-footer';
@@ -11,7 +11,7 @@ export class PdfDocument {
 
   private readonly model: PdfDocumentModel;
 
-  private readonly doc = new JsPdf();
+  private readonly doc = new jsPDF();
 
   constructor(plan: Plan, private planUrl: string, private name: string) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
@@ -100,7 +100,7 @@ export class PdfDocument {
             node.nodeName,
             xNodeNumberText,
             yNodeNumberText,
-            {align: 'center', baseline: 'middle', lineHeightFactor: '1'}
+            {align: 'center', baseline: 'middle', lineHeightFactor: 1}
           );
 
           const yCumulativeDistance = yBottom - (this.model.cumulativeDistanceHeight / 2);
@@ -109,14 +109,14 @@ export class PdfDocument {
             node.cumulativeDistance,
             xNodeNumberText,
             yCumulativeDistance,
-            {align: 'center', baseline: 'middle', lineHeightFactor: '1'}
+            {align: 'center', baseline: 'middle', lineHeightFactor: 1}
           );
 
           const xLegDistance = xLegDistanceLeft + (this.model.legDistanceWidth / 2);
           this.doc.setFontSize(8);
           const widthLegDistanceText = this.doc.getTextWidth('1200 m');
           const yLegDistance = yTop + (this.model.rowHeight / 2) + (widthLegDistanceText / 2);
-          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {angle: 90, lineHeightFactor: '1'});
+          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {angle: 90, lineHeightFactor: 1});
         }
       }
     }

@@ -1,4 +1,4 @@
-import {saveAs} from 'file-saver';
+import {saveAs} from 'file-saver-es';
 import {List} from 'immutable';
 import {LatLonImpl} from '@api/common/lat-lon-impl';
 import {Plan} from '../../map/planner/plan/plan';

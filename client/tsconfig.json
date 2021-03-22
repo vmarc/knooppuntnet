@@ -1,13 +1,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "allowJs": true, // added for OpenLayers; see https://github.com/openlayers/openlayers
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
       "@api/*": ["src/app/kpn/api/*"],
-      "ol": ["node_modules/ol/src"], // added for OpenLayers; see https://github.com/openlayers/openlayers
-      "ol/*": ["node_modules/ol/src/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -27,13 +24,6 @@
       "dom"
     ]
   },
-//  "include": [ // added for OpenLayers; see https://github.com/openlayers/openlayers
-//    "**/*.ts",
-//    "node_modules/ol/**/*"
-//  ],
-//  "typeAcquisition": { // added for OpenLayers; see https://github.com/openlayers/openlayers
-//    "exclude": ["ol"]
-//  },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,

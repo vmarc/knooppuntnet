@@ -1,10 +1,10 @@
-import * as JsPdf from 'jspdf';
+import {jsPDF} from 'jspdf';
 import {PdfPage} from './pdf-page';
 import {Util} from '../../components/shared/util';
 
 export class PdfFooter {
 
-  constructor(private doc: JsPdf) {
+  constructor(private doc: jsPDF) {
   }
 
   print(pageCount: number, pageIndex: number): void {

@@ -47,7 +47,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "ol-geocoder"
+              "ol-geocoder",
+              "pbf",
+              "@babel/runtime-corejs3/*"
             ],
             "assets": [
               "src/favicon.ico",

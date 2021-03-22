@@ -1,9 +1,9 @@
-import * as JsPdf from 'jspdf';
+import {jsPDF} from 'jspdf';
 import {PdfPage} from './pdf-page';
 
 export class PdfSideBar {
 
-  constructor(private doc: JsPdf, private name: string) {
+  constructor(private doc: jsPDF, private name: string) {
   }
 
   print(): void {

@@ -1,16 +1,16 @@
-import * as JsPdf from 'jspdf';
+import {jsPDF} from 'jspdf';
 import {Plan} from '../../map/planner/plan/plan';
+import {BitmapIconService} from '../bitmap-icon.service';
+import {PdfFooter} from './pdf-footer';
 import {PdfPage} from './pdf-page';
 import {PdfPlanBuilder} from './pdf-plan-builder';
-import {PdfSideBar} from './pdf-side-bar';
-import {PdfFooter} from './pdf-footer';
 import {PdfPlanNode} from './pdf-plan-node';
-import {BitmapIconService} from '../bitmap-icon.service';
+import {PdfSideBar} from './pdf-side-bar';
 import {PdfStripDocumentModel} from './pdf-strip-document-model';
 
 export class PdfStripDocument {
 
-  private readonly doc = new JsPdf();
+  private readonly doc = new jsPDF();
 
   private readonly model: PdfStripDocumentModel;
 
@@ -70,20 +70,20 @@ export class PdfStripDocument {
     this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius, 'S');
 
     this.doc.setFontSize(12);
-    this.doc.text(node.nodeName, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: '1'});
+    this.doc.text(node.nodeName, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: 1});
 
     this.doc.setFontSize(8);
-    this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {baseline: 'middle', lineHeightFactor: '1'});
-    this.doc.text(node.distance, xCircleCenter, yDistance, {align: 'center', baseline: 'top', lineHeightFactor: '1'});
+    this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {baseline: 'middle', lineHeightFactor: 1});
+    this.doc.text(node.distance, xCircleCenter, yDistance, {align: 'center', baseline: 'top', lineHeightFactor: 1});
   }
 
   private drawLaneLine(x: number): void {
     const y = PdfPage.height - PdfPage.marginBottom;
     this.doc.setDrawColor(180);
     this.doc.setLineWidth(0.1);
-    this.doc.setLineDash([2, 2]);
+    this.doc.setLineDashPattern([2, 2], 0);
     this.doc.line(x, PdfPage.yContentsTop, x, y);
-    this.doc.setLineDash([]);
+    this.doc.setLineDashPattern([], 0);
 
     this.iconService.getIcon('scissors').subscribe(icon => {
       this.doc.addImage(icon, 'PNG', x - 3, y - 10, 6, 6, '', 'FAST');

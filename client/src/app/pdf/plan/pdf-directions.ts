@@ -1,5 +1,5 @@
 import {List} from 'immutable';
-import * as JsPdf from 'jspdf';
+import {jsPDF} from 'jspdf';
 import {PlannerService} from '../../map/planner.service';
 import {PlanInstruction} from '../../map/planner/plan/plan-instruction';
 import {BitmapIconService} from '../bitmap-icon.service';
@@ -13,7 +13,7 @@ export class PdfDirections {
   private readonly leftMargin = 30;
   private readonly nodeCircleRadius = 5;
 
-  private readonly doc = new JsPdf();
+  private readonly doc = new jsPDF();
 
   constructor(private instructions: List<PlanInstruction>,
               private iconService: BitmapIconService,
@@ -94,7 +94,7 @@ export class PdfDirections {
     this.doc.setLineWidth(0.4);
     this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius, 'S');
     this.doc.setFontSize(12);
-    this.doc.text(node, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: '1'});
+    this.doc.text(node, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: 1});
   }
 
   private instructionText(instruction: PlanInstruction): string {
@@ -128,8 +128,8 @@ export class PdfDirections {
     this.doc.setFontSize(10);
     const left = this.leftMargin + (this.nodeCircleRadius * 2) + PdfPage.spacer;
     const text = this.instructionText(instruction);
-    this.doc.text(text, left, y, {baseline: 'top', lineHeightFactor: '1'});
-    this.doc.text(instruction.distance + ' m', left, y + 5, {baseline: 'top', lineHeightFactor: '1'});
+    this.doc.text(text, left, y, {baseline: 'top', lineHeightFactor: 1});
+    this.doc.text(instruction.distance + ' m', left, y + 5, {baseline: 'top', lineHeightFactor: 1});
   }
 
   private printColour(y: number, colour: string): void {
@@ -143,6 +143,6 @@ export class PdfDirections {
     texts = texts.push(' ');
     texts = texts.push(translatedColour);
     const text = texts.join('');
-    this.doc.text(text, this.leftMargin, y + 5, {baseline: 'top', lineHeightFactor: '1'});
+    this.doc.text(text, this.leftMargin, y + 5, {baseline: 'top', lineHeightFactor: 1});
   }
 }

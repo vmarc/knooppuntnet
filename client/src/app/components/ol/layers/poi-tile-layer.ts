@@ -20,7 +20,7 @@ export class PoiTileLayer {
       zIndex: Layers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
-      declutter: false,
+      declutter: true,
       className: 'poi',
       renderMode: 'image'
     });
