@@ -23,7 +23,7 @@ export class MainMapNodeStyle {
     this.surveyDateStyle = new SurveyDateStyle(mapService);
   }
 
-  public nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
+  nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
     const featureId = feature.get('id');
     let ref = feature.get('ref');
     const name = feature.get('name');
@@ -68,7 +68,7 @@ export class MainMapNodeStyle {
 
   private determineNodeMainStyle(feature: FeatureLike, large: boolean, ref: string): Style {
     let style: Style;
-    if (large && '*' != ref) {
+    if (large && '*' !== ref) {
       style = this.determineLargeNodeStyle(feature, ref);
     } else {
       style = this.determineSmallNodeStyle(feature);

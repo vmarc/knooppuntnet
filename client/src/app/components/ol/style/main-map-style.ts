@@ -14,7 +14,7 @@ export class MainMapStyle {
     this.mainMapRouteStyle = new MainMapRouteStyle(mapService);
   }
 
-  public styleFunction(): StyleFunction {
+  styleFunction(): StyleFunction {
     return (feature, resolution) => {
       const zoom = this.map.getView().getZoom();
       const layer = feature.get('layer');

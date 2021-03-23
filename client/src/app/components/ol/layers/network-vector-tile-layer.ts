@@ -42,7 +42,7 @@ export class NetworkVectorTileLayer {
       className: `${networkType}-network`,
       declutter: true,
       source,
-      renderMode: 'image'
+      renderMode: 'vector'
     });
 
     const applyMap = (map: Map) => {
