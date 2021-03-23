@@ -46,11 +46,10 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
       withLatestFrom(this.subset$),
-      mergeMap(([action, subset]) => {
-        return this.appService.subsetNetworks(subset).pipe(
+      mergeMap(([action, subset]) => this.appService.subsetNetworks(subset).pipe(
           map(response => actionSubsetNetworksPageLoaded({response}))
-        );
-      })
+        )
+      )
     )
   );
 

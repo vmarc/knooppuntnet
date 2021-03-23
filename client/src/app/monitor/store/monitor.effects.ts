@@ -63,14 +63,6 @@ import {selectMonitorAdmin} from './monitor.selectors';
 @Injectable()
 export class MonitorEffects {
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private router: Router,
-              private monitorService: MonitorService,
-              private mapService: MonitorRouteMapService,
-              private longdistanceRouteMapService: LongdistanceRouteMapService) {
-  }
-
   mapFocusEffect = createEffect(() =>
       this.actions$.pipe(
         ofType(actionMonitorRouteMapFocus),
@@ -332,5 +324,13 @@ export class MonitorEffects {
         ))
     )
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,
+              private router: Router,
+              private monitorService: MonitorService,
+              private mapService: MonitorRouteMapService,
+              private longdistanceRouteMapService: LongdistanceRouteMapService) {
+  }
 
 }

@@ -1,5 +1,6 @@
 export class Directions5TestSetup {
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   static json_11_91() {
     return {
       legId: '284',

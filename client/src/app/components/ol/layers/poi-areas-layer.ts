@@ -26,7 +26,7 @@ export class PoiAreasLayer {
       })
     });
 
-    const styleFunction = function (feature) {
+    const styleFunction = function(feature) {
       return lineStyle;
     };
 

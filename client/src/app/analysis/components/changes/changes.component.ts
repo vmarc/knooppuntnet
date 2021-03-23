@@ -1,3 +1,4 @@
+import {OnDestroy} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PageEvent} from '@angular/material/paginator';
@@ -39,7 +40,7 @@ import {Subscriptions} from '../../../util/Subscriptions';
     </div>
   `
 })
-export class ChangesComponent {
+export class ChangesComponent implements OnDestroy {
 
   @Input() changeCount: number;
   @Input() totalCount: number;

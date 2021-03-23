@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {filter} from 'rxjs/operators';
 import {PageService} from '../../../components/shared/page.service';
@@ -39,7 +39,7 @@ import {selectNodeMapPage} from '../store/node.selectors';
     </div>
   `
 })
-export class NodeMapPageComponent implements OnDestroy {
+export class NodeMapPageComponent implements OnInit, OnDestroy {
 
   nodeId$ = this.store.select(selectNodeId);
   nodeName$ = this.store.select(selectNodeName);
