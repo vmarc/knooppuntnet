@@ -22,7 +22,7 @@ export class RouteInfo {
               readonly tiles: Array<string>) {
   }
 
-  public static fromJSON(jsonObject: any): RouteInfo {
+  static fromJSON(jsonObject: any): RouteInfo {
     if (!jsonObject) {
       return undefined;
     }

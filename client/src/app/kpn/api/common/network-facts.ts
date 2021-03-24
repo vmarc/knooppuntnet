@@ -17,7 +17,7 @@ export class NetworkFacts {
               readonly nameMissing: NetworkNameMissing | undefined) {
   }
 
-  public static fromJSON(jsonObject: any): NetworkFacts {
+  static fromJSON(jsonObject: any): NetworkFacts {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class ChangeSetElementRefs {
               readonly updated: Array<ChangeSetElementRef>) {
   }
 
-  public static fromJSON(jsonObject: any): ChangeSetElementRefs {
+  static fromJSON(jsonObject: any): ChangeSetElementRefs {
     if (!jsonObject) {
       return undefined;
     }

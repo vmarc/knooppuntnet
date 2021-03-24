@@ -14,7 +14,7 @@ export class MapNodeDetail {
               readonly routeReferences: Array<Ref>) {
   }
 
-  public static fromJSON(jsonObject: any): MapNodeDetail {
+  static fromJSON(jsonObject: any): MapNodeDetail {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class NetworkChanges {
               readonly deletes: Array<ChangeSetNetwork>) {
   }
 
-  public static fromJSON(jsonObject: any): NetworkChanges {
+  static fromJSON(jsonObject: any): NetworkChanges {
     if (!jsonObject) {
       return undefined;
     }

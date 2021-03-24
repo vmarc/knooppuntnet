@@ -8,7 +8,7 @@ export class RefChanges {
               readonly newRefs: Array<Ref>) {
   }
 
-  public static fromJSON(jsonObject: any): RefChanges {
+  static fromJSON(jsonObject: any): RefChanges {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class RouteLegFragment {
               readonly streetIndex: number) {
   }
 
-  public static fromJSON(jsonObject: any): RouteLegFragment {
+  static fromJSON(jsonObject: any): RouteLegFragment {
     if (!jsonObject) {
       return undefined;
     }

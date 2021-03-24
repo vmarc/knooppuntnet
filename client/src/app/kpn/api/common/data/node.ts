@@ -7,7 +7,7 @@ export class Node {
   constructor(readonly raw: RawNode) {
   }
 
-  public static fromJSON(jsonObject: any): Node {
+  static fromJSON(jsonObject: any): Node {
     if (!jsonObject) {
       return undefined;
     }

@@ -64,153 +64,153 @@ export class AppService {
     markdownService.renderer.link = (href: string, title: string, text: string) => `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
   }
 
-  public edit(url: string): Observable<Object> {
+  edit(url: string): Observable<Object> {
     return this.http.get(url, {responseType: 'text'}).pipe(
       timeout(5000)
     );
   }
 
-  public overview(): Observable<ApiResponse<Statistics>> {
+  overview(): Observable<ApiResponse<Statistics>> {
     const url = '/api/overview';
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, Statistics.fromJSON))
     );
   }
 
-  public subsetNetworks(subset: Subset): Observable<ApiResponse<SubsetNetworksPage>> {
+  subsetNetworks(subset: Subset): Observable<ApiResponse<SubsetNetworksPage>> {
     const url = this.subsetUrl(subset, 'networks');
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetNetworksPage.fromJSON))
     );
   }
 
-  public subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
+  subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
     const url = this.subsetUrl(subset, 'facts');
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetFactsPage.fromJSON))
     );
   }
 
-  public subsetFactDetails(subset: Subset, factName: string): Observable<ApiResponse<SubsetFactDetailsPage>> {
+  subsetFactDetails(subset: Subset, factName: string): Observable<ApiResponse<SubsetFactDetailsPage>> {
     const url = this.subsetUrl(subset, factName);
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetFactDetailsPage.fromJSON))
     );
   }
 
-  public subsetOrphanNodes(subset: Subset): Observable<ApiResponse<SubsetOrphanNodesPage>> {
+  subsetOrphanNodes(subset: Subset): Observable<ApiResponse<SubsetOrphanNodesPage>> {
     const url = this.subsetUrl(subset, 'orphan-nodes');
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanNodesPage.fromJSON))
     );
   }
 
-  public subsetOrphanRoutes(subset: Subset): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
+  subsetOrphanRoutes(subset: Subset): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
     const url = this.subsetUrl(subset, 'orphan-routes');
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetOrphanRoutesPage.fromJSON))
     );
   }
 
-  public subsetMap(subset: Subset): Observable<ApiResponse<SubsetMapPage>> {
+  subsetMap(subset: Subset): Observable<ApiResponse<SubsetMapPage>> {
     const url = this.subsetUrl(subset, 'map');
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetMapPage.fromJSON))
     );
   }
 
-  public subsetChanges(subset: Subset, parameters: ChangesParameters): Observable<ApiResponse<SubsetChangesPage>> {
+  subsetChanges(subset: Subset, parameters: ChangesParameters): Observable<ApiResponse<SubsetChangesPage>> {
     const url = this.subsetUrl(subset, 'changes');
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, SubsetChangesPage.fromJSON))
     );
   }
 
-  public networkDetails(networkId: number): Observable<ApiResponse<NetworkDetailsPage>> {
+  networkDetails(networkId: number): Observable<ApiResponse<NetworkDetailsPage>> {
     const url = `/api/network/${networkId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkDetailsPage.fromJSON))
     );
   }
 
-  public networkMap(networkId: number): Observable<ApiResponse<NetworkMapPage>> {
+  networkMap(networkId: number): Observable<ApiResponse<NetworkMapPage>> {
     const url = `/api/network/${networkId}/map`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkMapPage.fromJSON))
     );
   }
 
-  public networkFacts(networkId: number): Observable<ApiResponse<NetworkFactsPage>> {
+  networkFacts(networkId: number): Observable<ApiResponse<NetworkFactsPage>> {
     const url = `/api/network/${networkId}/facts`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkFactsPage.fromJSON))
     );
   }
 
-  public networkNodes(networkId: number): Observable<ApiResponse<NetworkNodesPage>> {
+  networkNodes(networkId: number): Observable<ApiResponse<NetworkNodesPage>> {
     const url = `/api/network/${networkId}/nodes`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkNodesPage.fromJSON))
     );
   }
 
-  public networkRoutes(networkId: number): Observable<ApiResponse<NetworkRoutesPage>> {
+  networkRoutes(networkId: number): Observable<ApiResponse<NetworkRoutesPage>> {
     const url = `/api/network/${networkId}/routes`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkRoutesPage.fromJSON))
     );
   }
 
-  public networkChanges(networkId: number, parameters: ChangesParameters): Observable<ApiResponse<NetworkChangesPage>> {
+  networkChanges(networkId: number, parameters: ChangesParameters): Observable<ApiResponse<NetworkChangesPage>> {
     const url = `/api/network/${networkId}/changes`;
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, NetworkChangesPage.fromJSON))
     );
   }
 
-  public nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
+  nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
     const url = `/api/node/${nodeId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NodeDetailsPage.fromJSON))
     );
   }
 
-  public nodeMap(nodeId: string): Observable<ApiResponse<NodeMapPage>> {
+  nodeMap(nodeId: string): Observable<ApiResponse<NodeMapPage>> {
     const url = `/api/node/${nodeId}/map`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, NodeMapPage.fromJSON))
     );
   }
 
-  public nodeChanges(nodeId: string, parameters: ChangesParameters): Observable<ApiResponse<NodeChangesPage>> {
+  nodeChanges(nodeId: string, parameters: ChangesParameters): Observable<ApiResponse<NodeChangesPage>> {
     const url = `/api/node/${nodeId}/changes`;
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, NodeChangesPage.fromJSON))
     );
   }
 
-  public routeDetails(routeId: string): Observable<ApiResponse<RouteDetailsPage>> {
+  routeDetails(routeId: string): Observable<ApiResponse<RouteDetailsPage>> {
     const url = `/api/route/${routeId}`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, RouteDetailsPage.fromJSON))
     );
   }
 
-  public routeMap(routeId: string): Observable<ApiResponse<RouteMapPage>> {
+  routeMap(routeId: string): Observable<ApiResponse<RouteMapPage>> {
     const url = `/api/route/${routeId}/map`;
     return this.http.get(url).pipe(
       map(response => ApiResponse.fromJSON(response, RouteMapPage.fromJSON))
     );
   }
 
-  public routeChanges(routeId: string, parameters: ChangesParameters): Observable<ApiResponse<RouteChangesPage>> {
+  routeChanges(routeId: string, parameters: ChangesParameters): Observable<ApiResponse<RouteChangesPage>> {
     const url = `/api/route/${routeId}/changes`;
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, RouteChangesPage.fromJSON))
     );
   }
 
-  public changes(parameters: ChangesParameters): Observable<ApiResponse<ChangesPage>> {
+  changes(parameters: ChangesParameters): Observable<ApiResponse<ChangesPage>> {
     const url = '/api/changes';
     return this.http.post(url, parameters).pipe(
       map(response => ApiResponse.fromJSON(response, ChangesPage.fromJSON))

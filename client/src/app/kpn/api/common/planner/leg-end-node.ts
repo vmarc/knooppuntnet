@@ -5,7 +5,7 @@ export class LegEndNode {
   constructor(readonly nodeId: number) {
   }
 
-  public static fromJSON(jsonObject: any): LegEndNode {
+  static fromJSON(jsonObject: any): LegEndNode {
     if (!jsonObject) {
       return undefined;
     }

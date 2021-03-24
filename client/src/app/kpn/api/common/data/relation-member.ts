@@ -8,7 +8,7 @@ export class RelationMember {
               readonly role: string) {
   }
 
-  public static fromJSON(jsonObject: any): RelationMember {
+  static fromJSON(jsonObject: any): RelationMember {
     if (!jsonObject) {
       return undefined;
     }

@@ -31,7 +31,7 @@ export class RouteChange {
               readonly locationInvestigate: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): RouteChange {
+  static fromJSON(jsonObject: any): RouteChange {
     if (!jsonObject) {
       return undefined;
     }

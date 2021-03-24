@@ -24,7 +24,7 @@ export class RouteMap {
               readonly streets: Array<string>) {
   }
 
-  public static fromJSON(jsonObject: any): RouteMap {
+  static fromJSON(jsonObject: any): RouteMap {
     if (!jsonObject) {
       return undefined;
     }

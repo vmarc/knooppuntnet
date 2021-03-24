@@ -8,7 +8,7 @@ export class WayMember {
               readonly role: string) {
   }
 
-  public static fromJSON(jsonObject: any): WayMember {
+  static fromJSON(jsonObject: any): WayMember {
     if (!jsonObject) {
       return undefined;
     }

@@ -8,7 +8,7 @@ export class NodeChangeInfos {
               readonly incompleteWarning: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): NodeChangeInfos {
+  static fromJSON(jsonObject: any): NodeChangeInfos {
     if (!jsonObject) {
       return undefined;
     }

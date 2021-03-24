@@ -10,7 +10,7 @@ export class RouteDetailsPage {
               readonly changeCount: number) {
   }
 
-  public static fromJSON(jsonObject: any): RouteDetailsPage {
+  static fromJSON(jsonObject: any): RouteDetailsPage {
     if (!jsonObject) {
       return undefined;
     }

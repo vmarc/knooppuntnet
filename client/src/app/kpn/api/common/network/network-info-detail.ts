@@ -13,7 +13,7 @@ export class NetworkInfoDetail {
               readonly shape: NetworkShape) {
   }
 
-  public static fromJSON(jsonObject: any): NetworkInfoDetail {
+  static fromJSON(jsonObject: any): NetworkInfoDetail {
     if (!jsonObject) {
       return undefined;
     }

@@ -8,7 +8,7 @@ export class MapBounds {
               readonly lonMax: string) {
   }
 
-  public static fromJSON(jsonObject: any): MapBounds {
+  static fromJSON(jsonObject: any): MapBounds {
     if (!jsonObject) {
       return undefined;
     }

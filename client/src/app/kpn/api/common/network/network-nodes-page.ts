@@ -16,7 +16,7 @@ export class NetworkNodesPage {
               readonly routeIds: Array<number>) {
   }
 
-  public static fromJSON(jsonObject: any): NetworkNodesPage {
+  static fromJSON(jsonObject: any): NetworkNodesPage {
     if (!jsonObject) {
       return undefined;
     }

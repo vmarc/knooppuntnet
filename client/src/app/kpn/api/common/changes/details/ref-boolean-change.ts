@@ -8,7 +8,7 @@ export class RefBooleanChange {
               readonly after: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): RefBooleanChange {
+  static fromJSON(jsonObject: any): RefBooleanChange {
     if (!jsonObject) {
       return undefined;
     }

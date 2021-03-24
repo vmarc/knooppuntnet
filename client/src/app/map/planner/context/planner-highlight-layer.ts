@@ -41,7 +41,7 @@ export class PlannerHighlightLayer {
     map.addLayer(this.layer);
   }
 
-  public styleFunction(): StyleFunction {
+  styleFunction(): StyleFunction {
     return (feature: FeatureLike) => {
       if (feature.getGeometry().getType() === GeometryType.POINT) {
         const zoom = this.map.getView().getZoom();

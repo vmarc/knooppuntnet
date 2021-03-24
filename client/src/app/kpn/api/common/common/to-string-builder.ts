@@ -6,7 +6,7 @@ export class ToStringBuilder {
               readonly strings: Array<string>) {
   }
 
-  public static fromJSON(jsonObject: any): ToStringBuilder {
+  static fromJSON(jsonObject: any): ToStringBuilder {
     if (!jsonObject) {
       return undefined;
     }

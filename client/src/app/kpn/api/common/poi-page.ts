@@ -11,7 +11,7 @@ export class PoiPage {
               readonly analysis: PoiAnalysis) {
   }
 
-  public static fromJSON(jsonObject: any): PoiPage {
+  static fromJSON(jsonObject: any): PoiPage {
     if (!jsonObject) {
       return undefined;
     }

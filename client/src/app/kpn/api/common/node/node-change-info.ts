@@ -34,7 +34,7 @@ export class NodeChangeInfo {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): NodeChangeInfo {
+  static fromJSON(jsonObject: any): NodeChangeInfo {
     if (!jsonObject) {
       return undefined;
     }

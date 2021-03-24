@@ -6,7 +6,7 @@ export class PageInfo {
               readonly networkType: string) {
   }
 
-  public static fromJSON(jsonObject: any): PageInfo {
+  static fromJSON(jsonObject: any): PageInfo {
     if (!jsonObject) {
       return undefined;
     }

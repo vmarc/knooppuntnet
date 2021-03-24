@@ -9,7 +9,7 @@ export class NodeRouteReferenceDiffs {
               readonly remaining: Array<Ref>) {
   }
 
-  public static fromJSON(jsonObject: any): NodeRouteReferenceDiffs {
+  static fromJSON(jsonObject: any): NodeRouteReferenceDiffs {
     if (!jsonObject) {
       return undefined;
     }

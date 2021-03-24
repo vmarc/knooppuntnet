@@ -5,7 +5,7 @@ export class ChangeType {
   constructor(readonly name: string) {
   }
 
-  public static fromJSON(jsonObject: any): ChangeType {
+  static fromJSON(jsonObject: any): ChangeType {
     if (!jsonObject) {
       return undefined;
     }

@@ -8,7 +8,7 @@ export class NodeRouteRefs {
               readonly routeRefs: Array<Ref>) {
   }
 
-  public static fromJSON(jsonObject: any): NodeRouteRefs {
+  static fromJSON(jsonObject: any): NodeRouteRefs {
     if (!jsonObject) {
       return undefined;
     }

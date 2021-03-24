@@ -14,7 +14,7 @@ export class LocationChangeSetSummary {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): LocationChangeSetSummary {
+  static fromJSON(jsonObject: any): LocationChangeSetSummary {
     if (!jsonObject) {
       return undefined;
     }

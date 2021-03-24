@@ -9,7 +9,7 @@ export class NodeReferences {
               readonly routeReferences: Array<NodeOrphanRouteReference>) {
   }
 
-  public static fromJSON(jsonObject: any): NodeReferences {
+  static fromJSON(jsonObject: any): NodeReferences {
     if (!jsonObject) {
       return undefined;
     }

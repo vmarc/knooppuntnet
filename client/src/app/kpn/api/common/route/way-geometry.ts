@@ -8,7 +8,7 @@ export class WayGeometry {
               readonly nodes: Array<LatLonImpl>) {
   }
 
-  public static fromJSON(jsonObject: any): WayGeometry {
+  static fromJSON(jsonObject: any): WayGeometry {
     if (!jsonObject) {
       return undefined;
     }

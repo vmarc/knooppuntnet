@@ -9,7 +9,7 @@ export class MetaData {
               readonly changeSetId: number) {
   }
 
-  public static fromJSON(jsonObject: any): MetaData {
+  static fromJSON(jsonObject: any): MetaData {
     if (!jsonObject) {
       return undefined;
     }

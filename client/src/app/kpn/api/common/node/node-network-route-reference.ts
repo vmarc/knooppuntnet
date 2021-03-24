@@ -7,7 +7,7 @@ export class NodeNetworkRouteReference {
               readonly routeRole: string) {
   }
 
-  public static fromJSON(jsonObject: any): NodeNetworkRouteReference {
+  static fromJSON(jsonObject: any): NodeNetworkRouteReference {
     if (!jsonObject) {
       return undefined;
     }

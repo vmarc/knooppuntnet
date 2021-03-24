@@ -8,7 +8,7 @@ export class NodeRouteExpectedCount {
               readonly routeCount: number) {
   }
 
-  public static fromJSON(jsonObject: any): NodeRouteExpectedCount {
+  static fromJSON(jsonObject: any): NodeRouteExpectedCount {
     if (!jsonObject) {
       return undefined;
     }

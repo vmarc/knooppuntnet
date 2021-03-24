@@ -13,7 +13,7 @@ export class NetworkRefs {
               readonly refs: Array<Ref>) {
   }
 
-  public static fromJSON(jsonObject: any): NetworkRefs {
+  static fromJSON(jsonObject: any): NetworkRefs {
     if (!jsonObject) {
       return undefined;
     }

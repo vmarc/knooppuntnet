@@ -12,7 +12,7 @@ export class PlanRoute {
               readonly streets: Array<string>) {
   }
 
-  public static fromJSON(jsonObject: any): PlanRoute {
+  static fromJSON(jsonObject: any): PlanRoute {
     if (!jsonObject) {
       return undefined;
     }

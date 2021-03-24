@@ -7,7 +7,7 @@ export class NodeIntegrity {
   constructor(readonly details: Array<NodeIntegrityDetail>) {
   }
 
-  public static fromJSON(jsonObject: any): NodeIntegrity {
+  static fromJSON(jsonObject: any): NodeIntegrity {
     if (!jsonObject) {
       return undefined;
     }

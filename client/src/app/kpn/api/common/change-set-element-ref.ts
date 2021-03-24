@@ -8,7 +8,7 @@ export class ChangeSetElementRef {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): ChangeSetElementRef {
+  static fromJSON(jsonObject: any): ChangeSetElementRef {
     if (!jsonObject) {
       return undefined;
     }

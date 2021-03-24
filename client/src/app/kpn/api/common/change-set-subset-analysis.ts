@@ -9,7 +9,7 @@ export class ChangeSetSubsetAnalysis {
               readonly investigate: boolean) {
   }
 
-  public static fromJSON(jsonObject: any): ChangeSetSubsetAnalysis {
+  static fromJSON(jsonObject: any): ChangeSetSubsetAnalysis {
     if (!jsonObject) {
       return undefined;
     }

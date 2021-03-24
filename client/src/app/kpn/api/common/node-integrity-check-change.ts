@@ -10,7 +10,7 @@ export class NodeIntegrityCheckChange {
               readonly after: NodeIntegrityCheck) {
   }
 
-  public static fromJSON(jsonObject: any): NodeIntegrityCheckChange {
+  static fromJSON(jsonObject: any): NodeIntegrityCheckChange {
     if (!jsonObject) {
       return undefined;
     }

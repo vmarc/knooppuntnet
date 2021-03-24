@@ -10,7 +10,7 @@ export class Way {
               readonly length: number) {
   }
 
-  public static fromJSON(jsonObject: any): Way {
+  static fromJSON(jsonObject: any): Way {
     if (!jsonObject) {
       return undefined;
     }

@@ -10,7 +10,7 @@ export class TrackSegmentFragment {
               readonly streetIndex: number) {
   }
 
-  public static fromJSON(jsonObject: any): TrackSegmentFragment {
+  static fromJSON(jsonObject: any): TrackSegmentFragment {
     if (!jsonObject) {
       return undefined;
     }
