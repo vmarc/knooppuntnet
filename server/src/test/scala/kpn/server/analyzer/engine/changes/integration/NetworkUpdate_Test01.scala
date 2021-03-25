@@ -133,7 +133,8 @@ class NetworkUpdate_Test01 extends AbstractTest {
               updated = Seq(
                 Ref(11, "01-02")
               )
-            )
+            ),
+            investigate = true
           )
         )
         true
@@ -202,7 +203,11 @@ class NetworkUpdate_Test01 extends AbstractTest {
                   )
                 ),
                 facts = Seq(
-                  Fact.RouteNodeNameMismatch
+                  Fact.RouteRedundantNodes,
+                  Fact.RouteNotForward,
+                  Fact.RouteNotBackward,
+                  Fact.RouteNotContinious,
+                  Fact.RouteBroken
                 )
               )
             ),
@@ -227,7 +232,8 @@ class NetworkUpdate_Test01 extends AbstractTest {
               factDiffs = Some(
                 FactDiffs(introduced = Set(Fact.RouteNodeNameMismatch))
               )
-            )
+            ),
+            investigate = true
           )
         )
         true

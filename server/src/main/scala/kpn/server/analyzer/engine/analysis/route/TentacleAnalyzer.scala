@@ -13,7 +13,8 @@ class TentacleAnalyzer(segmentFinder: SegmentFinder, availableFragmentIds: Set[I
       val pathOption = segmentFinder.find(availableFragmentIds, SegmentDirection.Forward, start, end)
       if (pathOption.isEmpty || pathOption.get.broken) {
         segmentFinder.find(availableFragmentIds, SegmentDirection.Forward, end, start) match {
-          case Some(segment) => Some(segment)
+          case Some(segment) =>
+            Some(segment)
           case _ => pathOption
         }
       }
