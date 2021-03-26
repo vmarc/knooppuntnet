@@ -26,6 +26,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RoutePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
@@ -69,13 +70,14 @@ class MasterRouteAnalyzerImpl(
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer,
         RouteNameAnalyzer,
-        RouteNodeAnalyzer,
-        ExpectedNameRouteAnalyzer,
-        SuspiciousWaysRouteAnalyzer,
+        RouteNodeAnalyzer, // <== needs further updating
+        ExpectedNameRouteAnalyzer, // <== needs further updating
+        SuspiciousWaysRouteAnalyzer, // OK
         // OverlappingWaysRouteAnalyzer,
         RouteFragmentAnalyzer,
         // SplitNodeRouteAnalyzer,
         RouteStructureAnalyzer,
+        RoutePathAnalyzer,
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,
@@ -109,8 +111,7 @@ class MasterRouteAnalyzerImpl(
     }
     Unique.filter(nodes).flatMap { node =>
       nodeAnalyzer.scopedName(loadedRoute.scopedNetworkType, node.tags).map { name =>
-        node.id -> RouteNodeInfo(name)
-
+        node.id -> RouteNodeInfo(node, name)
       }
     }.toMap
   }

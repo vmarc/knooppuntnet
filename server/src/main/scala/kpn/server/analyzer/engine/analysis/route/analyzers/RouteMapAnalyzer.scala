@@ -60,6 +60,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
     val forwardPathTrackPoints = structure.forwardPath.toSeq.flatMap(_.trackPoints)
     val backwardPathTrackPoints = structure.backwardPath.toSeq.flatMap(_.trackPoints)
     val same = forwardPathTrackPoints == backwardPathTrackPoints.reverse
+    val trackPaths = structure.paths.toSeq.flatten.map(path => toTrackPath(pathIdIterator, path))
 
     RouteMap(
       bounds,
@@ -75,7 +76,8 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       startTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.size <= 1) Seq() else routeNodeAnalysis.startNodes.tail),
       endTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.size <= 1) Seq() else routeNodeAnalysis.endNodes.tail),
       redundantNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.redundantNodes),
-      streets = context.streets.toSeq.flatten
+      streets = context.streets.toSeq.flatten,
+      trackPaths = trackPaths
     )
   }
 

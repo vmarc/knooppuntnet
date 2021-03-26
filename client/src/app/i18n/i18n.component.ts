@@ -38,6 +38,7 @@ import {I18nService} from './i18n.service';
       <span id="@@map.layer.nodes" i18n="@@map.layer.nodes">Nodes</span>
       <span id="@@map.layer.network" i18n="@@map.layer.network">Network</span>
       <span id="@@map.layer.networks" i18n="@@map.layer.networks">Networks</span>
+      <span id="@@map.layer.path" i18n="@@map.layer.path">Path</span>
 
       <span id="@@map.layer.unchanged" i18n="@@map.layer.unchanged">Unchanged</span>
       <span id="@@map.layer.added" i18n="@@map.layer.added">Added</span>

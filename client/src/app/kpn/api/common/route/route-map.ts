@@ -1,10 +1,10 @@
 // this class is generated, please do not modify
 
 import {MapBounds} from '../common/map-bounds';
-import {RouteNetworkNodeInfo} from './route-network-node-info';
 import {TrackPath} from '../common/track-path';
 import {TrackPoint} from '../common/track-point';
 import {TrackSegment} from '../common/track-segment';
+import {RouteNetworkNodeInfo} from './route-network-node-info';
 
 export class RouteMap {
 
@@ -21,7 +21,8 @@ export class RouteMap {
               readonly startTentacleNodes: Array<RouteNetworkNodeInfo>,
               readonly endTentacleNodes: Array<RouteNetworkNodeInfo>,
               readonly redundantNodes: Array<RouteNetworkNodeInfo>,
-              readonly streets: Array<string>) {
+              readonly streets: Array<string>,
+              readonly trackPaths: Array<TrackPath>) {
   }
 
   static fromJSON(jsonObject: any): RouteMap {
@@ -42,7 +43,8 @@ export class RouteMap {
       jsonObject.startTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json)),
       jsonObject.endTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json)),
       jsonObject.redundantNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json)),
-      jsonObject.streets
+      jsonObject.streets,
+      jsonObject.trackPaths.map((json: any) => TrackPath.fromJSON(json)),
     );
   }
 }

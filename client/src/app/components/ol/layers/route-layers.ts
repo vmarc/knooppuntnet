@@ -23,14 +23,16 @@ export class RouteLayers {
   }
 
   build(): List<MapLayer> {
-    return List([
+    let layers = List([
       this.buildMarkerLayer(),
       this.buildForwardLayer(),
       this.buildBackwardLayer(),
       this.buildStartTentaclesLayer(),
       this.buildEndTentaclesLayer(),
       this.buildUnusedSegmentsLayer()
-    ]).filter(layer => layer !== null);
+    ]);
+    layers = layers.merge(List(this.buildTrackPathLayers()));
+    return layers.filter(layer => layer !== null);
   }
 
   private buildForwardLayer(): MapLayer {
@@ -95,6 +97,22 @@ export class RouteLayers {
       return new MapLayer('route-end-tentacles-layer', layer);
     }
     return null;
+  }
+
+  private buildTrackPathLayers(): MapLayer[] {
+    const paths = this.routeMap.trackPaths;
+    return paths.map(path => {
+      const title = this.i18nService.translation('@@map.layer.path');
+      const source = new VectorSource();
+      const layer = new VectorLayer({
+        source
+      });
+        source.addFeature(this.pathToFeature(title, [255, 0, 0, 0.3], path));
+      const name = `${title} ${path.pathId}`;
+      layer.set('name', name);
+      layer.setVisible(false);
+      return new MapLayer(name, layer);
+    });
   }
 
   private buildUnusedSegmentsLayer(): MapLayer {
