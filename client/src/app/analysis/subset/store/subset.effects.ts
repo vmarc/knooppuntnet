@@ -30,11 +30,6 @@ import {actionSubsetNetworksPageLoaded} from './subset.actions';
 @Injectable()
 export class SubsetEffects {
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private appService: AppService) {
-  }
-
   subset$ = combineLatest([
     this.store.select(selectRouteParam('country')),
     this.store.select(selectRouteParam('networkType'))
@@ -105,4 +100,10 @@ export class SubsetEffects {
       })
     )
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,
+              private appService: AppService) {
+  }
+
 }

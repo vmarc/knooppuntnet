@@ -19,11 +19,6 @@ import {actionNodeDetailsPageLoaded} from './node.actions';
 @Injectable()
 export class NodeEffects {
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private appService: AppService) {
-  }
-
   nodeDetailsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
@@ -59,5 +54,10 @@ export class NodeEffects {
         ))
     )
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,
+              private appService: AppService) {
+  }
 
 }

@@ -27,11 +27,6 @@ import {actionLocationNodesPageLoaded} from './location.actions';
 @Injectable()
 export class LocationEffects {
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private appService: AppService) {
-  }
-
   locationNodesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationNodesPageInit),
@@ -127,5 +122,10 @@ export class LocationEffects {
       })
     )
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,
+              private appService: AppService) {
+  }
 
 }

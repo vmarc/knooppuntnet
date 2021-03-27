@@ -26,11 +26,6 @@ import {actionNetworkNodesPageLoaded} from './network.actions';
 @Injectable()
 export class NetworkEffects {
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private appService: AppService) {
-  }
-
   networkDetailsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
@@ -105,5 +100,10 @@ export class NetworkEffects {
       })
     )
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,
+              private appService: AppService) {
+  }
 
 }

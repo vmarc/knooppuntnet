@@ -19,11 +19,6 @@ import {actionRouteMapPageLoaded} from './route.actions';
 @Injectable()
 export class RouteEffects {
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private appService: AppService) {
-  }
-
   routeDetails = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
@@ -59,5 +54,10 @@ export class RouteEffects {
         ))
     )
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<AppState>,
+              private appService: AppService) {
+  }
 
 }

@@ -25,11 +25,6 @@ import {State} from './demo.state';
 
 @Injectable()
 export class DemoEffects {
-  constructor(private actions$: Actions,
-              private store: Store<State>,
-              private router: Router,
-              private demoService: DemoService) {
-  }
 
   startVideo = createEffect(
     () =>
@@ -121,5 +116,11 @@ export class DemoEffects {
       ),
     {dispatch: false}
   );
+
+  constructor(private actions$: Actions,
+              private store: Store<State>,
+              private router: Router,
+              private demoService: DemoService) {
+  }
 
 }
