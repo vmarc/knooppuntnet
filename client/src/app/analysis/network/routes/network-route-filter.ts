@@ -45,24 +45,24 @@ export class NetworkRouteFilter {
     this.criteria.lastSurvey,
     (row) => row.lastSurvey,
     this.surveyDateInfo,
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.ALL}),
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.UNKNOWN}),
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_MONTH}),
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_HALF_YEAR}),
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_YEAR}),
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.LAST_TWO_YEARS}),
-    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.OLDER})
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.all}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.unknown}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.lastMonth}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.lastHalfYear}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.lastYear}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.lastTwoYears}),
+    this.update({...this.criteria, lastSurvey: SurveyDateFilterKind.older})
   );
 
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkRouteRow>(
     this.criteria.relationLastUpdated,
     (row) => row.lastUpdated,
     this.timeInfo,
-    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.ALL}),
-    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_WEEK}),
-    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_MONTH}),
-    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.LAST_YEAR}),
-    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.OLDER})
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.all}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.lastWeek}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.lastMonth}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.lastYear}),
+    this.update({...this.criteria, relationLastUpdated: TimestampFilterKind.older})
   );
 
   private readonly allFilters = new Filters<NetworkRouteRow>(

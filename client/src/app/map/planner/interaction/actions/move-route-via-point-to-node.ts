@@ -43,7 +43,7 @@ export class MoveRouteViaPointToNode {
   private buildNewLeg1(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const sinkFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), sinkNode.coordinate);
+    const sinkFlag = new PlanFlag(PlanFlagType.via, FeatureId.next(), sinkNode.coordinate);
     return this.context.fetchLeg(source, sink).pipe(
       map(data => PlanUtil.leg(data, sinkFlag, null))
     );

@@ -9,31 +9,31 @@ export class PlanFlag {
   }
 
   static start(featureId: string, coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.Start, featureId, coordinate);
+    return new PlanFlag(PlanFlagType.start, featureId, coordinate);
   }
 
   static end(featureId: string, coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.End, featureId, coordinate);
+    return new PlanFlag(PlanFlagType.end, featureId, coordinate);
   }
 
   static via(featureId: string, coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.Via, featureId, coordinate);
+    return new PlanFlag(PlanFlagType.via, featureId, coordinate);
   }
 
   static invisible(featureId: string, coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.Invisible, featureId, coordinate);
+    return new PlanFlag(PlanFlagType.invisible, featureId, coordinate);
   }
 
   toVia(): PlanFlag {
-    return this.to(PlanFlagType.Via);
+    return this.to(PlanFlagType.via);
   }
 
   toEnd(): PlanFlag {
-    return this.to(PlanFlagType.End);
+    return this.to(PlanFlagType.end);
   }
 
   toInvisible(): PlanFlag {
-    return this.to(PlanFlagType.Invisible);
+    return this.to(PlanFlagType.invisible);
   }
 
   to(planFlagType: PlanFlagType): PlanFlag {

@@ -109,30 +109,30 @@ export class SurveyDateFilter<T> extends Filter<T> {
   }
 
   private isAll(): boolean {
-    return this.kind === SurveyDateFilterKind.ALL;
+    return this.kind === SurveyDateFilterKind.all;
   }
 
   private isUnknown(): boolean {
-    return this.kind === SurveyDateFilterKind.UNKNOWN;
+    return this.kind === SurveyDateFilterKind.unknown;
   }
 
   private isLastMonth(): boolean {
-    return this.kind === SurveyDateFilterKind.LAST_MONTH;
+    return this.kind === SurveyDateFilterKind.lastMonth;
   }
 
   private isLastHalfYear(): boolean {
-    return this.kind === SurveyDateFilterKind.LAST_HALF_YEAR;
+    return this.kind === SurveyDateFilterKind.lastHalfYear;
   }
 
   private isLastYear(): boolean {
-    return this.kind === SurveyDateFilterKind.LAST_YEAR;
+    return this.kind === SurveyDateFilterKind.lastYear;
   }
 
   private isLastTwoYears(): boolean {
-    return this.kind === SurveyDateFilterKind.LAST_TWO_YEARS;
+    return this.kind === SurveyDateFilterKind.lastTwoYears;
   }
 
   private isOlder(): boolean {
-    return this.kind === SurveyDateFilterKind.OLDER;
+    return this.kind === SurveyDateFilterKind.older;
   }
 }

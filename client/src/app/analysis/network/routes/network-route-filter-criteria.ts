@@ -6,7 +6,7 @@ export class NetworkRouteFilterCriteria {
   constructor(readonly investigate: boolean = null,
               readonly accessible: boolean = null,
               readonly roleConnection: boolean = null,
-              readonly relationLastUpdated: TimestampFilterKind = TimestampFilterKind.ALL,
-              readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.ALL) {
+              readonly relationLastUpdated: TimestampFilterKind = TimestampFilterKind.all,
+              readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.all) {
   }
 }

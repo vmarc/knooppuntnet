@@ -50,19 +50,19 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
   }
 
   expectStartFlagExists(featureId: string, coordinate: Coordinate): void {
-    this.expectFlagExists(PlanFlagType.Start, featureId, coordinate);
+    this.expectFlagExists(PlanFlagType.start, featureId, coordinate);
   }
 
   expectViaFlagExists(featureId: string, coordinate: Coordinate): void {
-    this.expectFlagExists(PlanFlagType.Via, featureId, coordinate);
+    this.expectFlagExists(PlanFlagType.via, featureId, coordinate);
   }
 
   expectEndFlagExists(featureId: string, coordinate: Coordinate): void {
-    this.expectFlagExists(PlanFlagType.End, featureId, coordinate);
+    this.expectFlagExists(PlanFlagType.end, featureId, coordinate);
   }
 
   expectInvisibleFlagExists(featureId: string, coordinate: Coordinate): void {
-    this.expectFlagExists(PlanFlagType.Invisible, featureId, coordinate);
+    this.expectFlagExists(PlanFlagType.invisible, featureId, coordinate);
   }
 
   expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate: Coordinate): void {
@@ -75,13 +75,13 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
         message += ', route-layer contains following flags:';
         for (const feature of this.flags.values()) {
           message += `\n  featureId="${feature.featureId}", type=`;
-          if (feature.flagType === PlanFlagType.Start) {
+          if (feature.flagType === PlanFlagType.start) {
             message += 'Start';
-          } else if (feature.flagType === PlanFlagType.Via) {
+          } else if (feature.flagType === PlanFlagType.via) {
             message += 'Via';
-          } else if (feature.flagType === PlanFlagType.End) {
+          } else if (feature.flagType === PlanFlagType.end) {
             message += 'End';
-          } else if (feature.flagType === PlanFlagType.Invisible) {
+          } else if (feature.flagType === PlanFlagType.invisible) {
             message += 'Invisible';
           }
           message += `, coordinate=[${feature.coordinate[0]}, ${feature.coordinate[0]}]`;
@@ -95,19 +95,19 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
   }
 
   expectStartFlagCoordinateExists(coordinate: Coordinate): void {
-    this.expectFlagCoordinateExists(PlanFlagType.Start, coordinate);
+    this.expectFlagCoordinateExists(PlanFlagType.start, coordinate);
   }
 
   expectViaFlagCoordinateExists(coordinate: Coordinate): void {
-    this.expectFlagCoordinateExists(PlanFlagType.Via, coordinate);
+    this.expectFlagCoordinateExists(PlanFlagType.via, coordinate);
   }
 
   expectEndFlagCoordinateExists(coordinate: Coordinate): void {
-    this.expectFlagCoordinateExists(PlanFlagType.End, coordinate);
+    this.expectFlagCoordinateExists(PlanFlagType.end, coordinate);
   }
 
   expectInvisibleCoordinateFlagExists(coordinate: Coordinate): void {
-    this.expectFlagCoordinateExists(PlanFlagType.Invisible, coordinate);
+    this.expectFlagCoordinateExists(PlanFlagType.invisible, coordinate);
   }
 
   expectFlagCoordinateExists(flagType: PlanFlagType, coordinate: Coordinate): void {

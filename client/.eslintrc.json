@@ -48,6 +48,10 @@
             "prefix": "kpn",
             "style": "kebab-case"
           }
+        ],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": [
+          "error"
         ]
       }
     },

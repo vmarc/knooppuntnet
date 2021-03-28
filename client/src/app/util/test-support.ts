@@ -14,19 +14,19 @@ export const expectCoordinates = (planLeg: PlanLeg, ...expected: Array<Coordinat
 };
 
 export const expectStartFlag = (planFlag: PlanFlag, featureId: string, coordinate) => {
-  expectFlag(planFlag, PlanFlagType.Start, featureId, coordinate);
+  expectFlag(planFlag, PlanFlagType.start, featureId, coordinate);
 };
 
 export const expectViaFlag = (planFlag: PlanFlag, featureId: string, coordinate) => {
-  expectFlag(planFlag, PlanFlagType.Via, featureId, coordinate);
+  expectFlag(planFlag, PlanFlagType.via, featureId, coordinate);
 };
 
 export const expectEndFlag = (planFlag: PlanFlag, featureId: string, coordinate) => {
-  expectFlag(planFlag, PlanFlagType.End, featureId, coordinate);
+  expectFlag(planFlag, PlanFlagType.end, featureId, coordinate);
 };
 
 export const expectInvisibleFlag = (planFlag: PlanFlag, featureId: string, coordinate) => {
-  expectFlag(planFlag, PlanFlagType.Invisible, featureId, coordinate);
+  expectFlag(planFlag, PlanFlagType.invisible, featureId, coordinate);
 };
 
 export const expectFlagCoordinate = (planFlag: PlanFlag, flagType: PlanFlagType, coordinate) => {
@@ -35,19 +35,19 @@ export const expectFlagCoordinate = (planFlag: PlanFlag, flagType: PlanFlagType,
 };
 
 export const expectStartFlagCoordinate = (planFlag: PlanFlag, coordinate) => {
-  expectFlagCoordinate(planFlag, PlanFlagType.Start, coordinate);
+  expectFlagCoordinate(planFlag, PlanFlagType.start, coordinate);
 };
 
 export const expectViaFlagCoordinate = (planFlag: PlanFlag, coordinate) => {
-  expectFlagCoordinate(planFlag, PlanFlagType.Via, coordinate);
+  expectFlagCoordinate(planFlag, PlanFlagType.via, coordinate);
 };
 
 export const expectEndFlagCoordinate = (planFlag: PlanFlag, coordinate) => {
-  expectFlagCoordinate(planFlag, PlanFlagType.End, coordinate);
+  expectFlagCoordinate(planFlag, PlanFlagType.end, coordinate);
 };
 
 export const expectInvisibleFlagCoordinate = (planFlag: PlanFlag, coordinate) => {
-  expectFlagCoordinate(planFlag, PlanFlagType.Invisible, coordinate);
+  expectFlagCoordinate(planFlag, PlanFlagType.invisible, coordinate);
 };
 
 export const expectFlag = (planFlag: PlanFlag, flagType: PlanFlagType, featureId: string, coordinate) => {

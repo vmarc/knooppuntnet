@@ -9,15 +9,15 @@ export class FlagFeature extends MapFeature {
   }
 
   static start(id: string): FlagFeature {
-    return new FlagFeature(PlanFlagType.Start, id);
+    return new FlagFeature(PlanFlagType.start, id);
   }
 
   static via(id: string): FlagFeature {
-    return new FlagFeature(PlanFlagType.Via, id);
+    return new FlagFeature(PlanFlagType.via, id);
   }
 
   static end(id: string): FlagFeature {
-    return new FlagFeature(PlanFlagType.End, id);
+    return new FlagFeature(PlanFlagType.end, id);
   }
 
 }

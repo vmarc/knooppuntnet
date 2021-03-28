@@ -26,11 +26,11 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   }
 
   addFlag(flag: PlanFlag): void {
-    if (flag !== null && flag.flagType !== PlanFlagType.Invisible) {
+    if (flag !== null && flag.flagType !== PlanFlagType.invisible) {
       let markerColor = 'blue';
-      if (flag.flagType === PlanFlagType.End) {
+      if (flag.flagType === PlanFlagType.end) {
         markerColor = 'green';
-      } else if (flag.flagType === PlanFlagType.Via) {
+      } else if (flag.flagType === PlanFlagType.via) {
         markerColor = 'orange';
       }
       const marker = Marker.create(markerColor, flag.coordinate);

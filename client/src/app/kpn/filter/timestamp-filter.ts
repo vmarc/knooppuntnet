@@ -74,23 +74,23 @@ export class TimestampFilter<T> extends Filter<T> {
   }
 
   private isAll(): boolean {
-    return this.kind === TimestampFilterKind.ALL;
+    return this.kind === TimestampFilterKind.all;
   }
 
   private isLastWeek(): boolean {
-    return this.kind === TimestampFilterKind.LAST_WEEK;
+    return this.kind === TimestampFilterKind.lastWeek;
   }
 
   private isLastMonth(): boolean {
-    return this.kind === TimestampFilterKind.LAST_MONTH;
+    return this.kind === TimestampFilterKind.lastMonth;
   }
 
   private isLastYear(): boolean {
-    return this.kind === TimestampFilterKind.LAST_YEAR;
+    return this.kind === TimestampFilterKind.lastYear;
   }
 
   private isOlder(): boolean {
-    return this.kind === TimestampFilterKind.OLDER;
+    return this.kind === TimestampFilterKind.older;
   }
 
 }

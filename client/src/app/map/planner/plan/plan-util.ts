@@ -97,19 +97,19 @@ export class PlanUtil {
   }
 
   static startFlag(coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.Start, FeatureId.next(), coordinate);
+    return new PlanFlag(PlanFlagType.start, FeatureId.next(), coordinate);
   }
 
   static viaFlag(coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+    return new PlanFlag(PlanFlagType.via, FeatureId.next(), coordinate);
   }
 
   static endFlag(coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.End, FeatureId.next(), coordinate);
+    return new PlanFlag(PlanFlagType.end, FeatureId.next(), coordinate);
   }
 
   static invisibleFlag(coordinate: Coordinate): PlanFlag {
-    return new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
+    return new PlanFlag(PlanFlagType.invisible, FeatureId.next(), coordinate);
   }
 
   static planNode(nodeId: string, nodeName: string, latLon: LatLonImpl): PlanNode {

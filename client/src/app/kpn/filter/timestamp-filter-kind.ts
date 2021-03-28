@@ -1,7 +1,7 @@
 export enum TimestampFilterKind {
-  ALL,
-  LAST_WEEK,
-  LAST_MONTH,
-  LAST_YEAR,
-  OLDER
+  all,
+  lastWeek,
+  lastMonth,
+  lastYear,
+  older
 }

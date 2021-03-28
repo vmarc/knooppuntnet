@@ -8,7 +8,7 @@ describe('TimestampFilter', () => {
 
   it('last week', () => {
 
-    const filter = buildFilter(TimestampFilterKind.LAST_WEEK);
+    const filter = buildFilter(TimestampFilterKind.lastWeek);
 
     expect(filter.passes(new Timestamp(2020, 5, 6, 0, 0, 0))).toBeTruthy();
     expect(filter.passes(new Timestamp(2020, 4, 1, 0, 0, 0))).toBeFalsy();
@@ -23,7 +23,7 @@ describe('TimestampFilter', () => {
 
   it('last month', () => {
 
-    const filter = buildFilter(TimestampFilterKind.LAST_MONTH);
+    const filter = buildFilter(TimestampFilterKind.lastMonth);
 
     expect(filter.passes(new Timestamp(2020, 5, 2, 0, 0, 0))).toBeFalsy();
     expect(filter.passes(new Timestamp(2020, 4, 8, 0, 0, 0))).toBeTruthy();
@@ -39,7 +39,7 @@ describe('TimestampFilter', () => {
 
   it('last year', () => {
 
-    const filter = buildFilter(TimestampFilterKind.LAST_YEAR);
+    const filter = buildFilter(TimestampFilterKind.lastYear);
 
     expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeFalsy();
     expect(filter.passes(new Timestamp(2019, 5, 8, 0, 0, 0))).toBeTruthy();
@@ -55,7 +55,7 @@ describe('TimestampFilter', () => {
 
   it('older', () => {
 
-    const filter = buildFilter(TimestampFilterKind.OLDER);
+    const filter = buildFilter(TimestampFilterKind.older);
 
     expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeTruthy();
     expect(filter.passes(new Timestamp(2019, 5, 8, 0, 0, 0))).toBeFalsy();

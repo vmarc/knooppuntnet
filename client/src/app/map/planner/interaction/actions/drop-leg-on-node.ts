@@ -47,7 +47,7 @@ export class DropLegOnNode {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const isLastLeg = sinkNode.featureId === this.context.plan.sinkNode().featureId;
-    const sinkFlagType = isLastLeg ? PlanFlagType.End : PlanFlagType.Via;
+    const sinkFlagType = isLastLeg ? PlanFlagType.end : PlanFlagType.via;
     const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(

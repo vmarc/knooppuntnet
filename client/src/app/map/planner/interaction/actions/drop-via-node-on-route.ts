@@ -44,8 +44,8 @@ export class DropViaNodeOnRoute {
 
     const source = PlanUtil.legEndNode(+oldLeg1.sourceNode.nodeId);
     const sink = PlanUtil.legEndRoutes(routeFeatures.toArray());
-    const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
-    const sinkFlag = new PlanFlag(PlanFlagType.Invisible, FeatureId.next(), coordinate);
+    const viaFlag = new PlanFlag(PlanFlagType.via, FeatureId.next(), coordinate);
+    const sinkFlag = new PlanFlag(PlanFlagType.invisible, FeatureId.next(), coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(
       map(data => PlanUtil.leg(data, sinkFlag, viaFlag))
@@ -56,7 +56,7 @@ export class DropViaNodeOnRoute {
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const viaFlag = new PlanFlag(PlanFlagType.Via, FeatureId.next(), coordinate);
+    const viaFlag = new PlanFlag(PlanFlagType.via, FeatureId.next(), coordinate);
 
     return this.context.fetchLeg(source, sink).pipe(
       map(data => PlanUtil.leg(data, sinkFlag, viaFlag))

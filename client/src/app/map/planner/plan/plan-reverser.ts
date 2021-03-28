@@ -55,11 +55,11 @@ export class PlanReverser {
     return firstLeg$.pipe(
       switchMap(firstLeg => {
 
-        let sinkFlagType = PlanFlagType.Via;
+        let sinkFlagType = PlanFlagType.via;
         if (oldLegs.size === 1) {
-          sinkFlagType = PlanFlagType.End;
+          sinkFlagType = PlanFlagType.end;
         } else if (oldLeg.viaFlag) {
-          sinkFlagType = PlanFlagType.Invisible;
+          sinkFlagType = PlanFlagType.invisible;
         }
 
         if (!oldLeg.viaFlag) {
@@ -72,10 +72,10 @@ export class PlanReverser {
           return of(List([updatedFirstLeg]));
         }
 
-        let firstLegSinkFlagType = PlanFlagType.Invisible;
+        let firstLegSinkFlagType = PlanFlagType.invisible;
         if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
           // this is the last leg, we have reached the end of the plan
-          firstLegSinkFlagType = PlanFlagType.End;
+          firstLegSinkFlagType = PlanFlagType.end;
         }
 
         const updatedFirstLeg = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(firstLegSinkFlagType));

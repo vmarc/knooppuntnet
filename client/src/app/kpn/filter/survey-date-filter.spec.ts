@@ -8,7 +8,7 @@ describe('SurveyDateFilter', () => {
 
   it('unknown', () => {
 
-    const filter = buildFilter(SurveyDateFilterKind.UNKNOWN);
+    const filter = buildFilter(SurveyDateFilterKind.unknown);
 
     expect(filter.passes(null)).toBeTruthy();
     expect(filter.passes(new Day(2020, 4, 1))).toBeFalsy();
@@ -25,7 +25,7 @@ describe('SurveyDateFilter', () => {
 
   it('last month', () => {
 
-    const filter = buildFilter(SurveyDateFilterKind.LAST_MONTH);
+    const filter = buildFilter(SurveyDateFilterKind.lastMonth);
 
     expect(filter.passes(new Day(2020, 5, 1))).toBeTruthy();
     expect(filter.passes(new Day(2020, 4, 1))).toBeFalsy();
@@ -42,7 +42,7 @@ describe('SurveyDateFilter', () => {
 
   it('last half year', () => {
 
-    const filter = buildFilter(SurveyDateFilterKind.LAST_HALF_YEAR);
+    const filter = buildFilter(SurveyDateFilterKind.lastHalfYear);
 
     expect(filter.passes(new Day(2020, 4, 8))).toBeFalsy();
     expect(filter.passes(new Day(2019, 11, 8))).toBeTruthy();
@@ -60,7 +60,7 @@ describe('SurveyDateFilter', () => {
 
   it('last year', () => {
 
-    const filter = buildFilter(SurveyDateFilterKind.LAST_YEAR);
+    const filter = buildFilter(SurveyDateFilterKind.lastYear);
 
     expect(filter.passes(new Day(2020, 4, 8))).toBeFalsy();
     expect(filter.passes(new Day(2019, 5, 8))).toBeTruthy();
@@ -78,7 +78,7 @@ describe('SurveyDateFilter', () => {
 
   it('last two years', () => {
 
-    const filter = buildFilter(SurveyDateFilterKind.LAST_TWO_YEARS);
+    const filter = buildFilter(SurveyDateFilterKind.lastTwoYears);
 
     expect(filter.passes(new Day(2019, 5, 8))).toBeFalsy();
     expect(filter.passes(new Day(2018, 5, 8))).toBeTruthy();
@@ -96,7 +96,7 @@ describe('SurveyDateFilter', () => {
 
   it('older', () => {
 
-    const filter = buildFilter(SurveyDateFilterKind.OLDER);
+    const filter = buildFilter(SurveyDateFilterKind.older);
 
     expect(filter.passes(new Day(2018, 5, 8))).toBeFalsy();
     expect(filter.passes(new Day(2018, 5, 6))).toBeTruthy();

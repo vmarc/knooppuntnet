@@ -10,8 +10,8 @@ export class NetworkNodeFilterCriteria {
               readonly roleConnection: boolean = null,
               readonly integrityCheck: boolean = null,
               readonly integrityCheckFailed: boolean = null,
-              readonly lastUpdated: TimestampFilterKind = TimestampFilterKind.ALL,
-              readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.ALL) {
+              readonly lastUpdated: TimestampFilterKind = TimestampFilterKind.all,
+              readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.all) {
   }
 
 }

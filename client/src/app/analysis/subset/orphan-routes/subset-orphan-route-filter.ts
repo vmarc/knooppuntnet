@@ -23,11 +23,11 @@ export class SubsetOrphanRouteFilter {
     this.criteria.lastUpdated,
     (row) => row.timestamp,
     this.timeInfo,
-    this.update({...this.criteria, lastUpdated: TimestampFilterKind.ALL}),
-    this.update({...this.criteria, lastUpdated: TimestampFilterKind.LAST_WEEK}),
-    this.update({...this.criteria, lastUpdated: TimestampFilterKind.LAST_MONTH}),
-    this.update({...this.criteria, lastUpdated: TimestampFilterKind.LAST_YEAR}),
-    this.update({...this.criteria, lastUpdated: TimestampFilterKind.OLDER})
+    this.update({...this.criteria, lastUpdated: TimestampFilterKind.all}),
+    this.update({...this.criteria, lastUpdated: TimestampFilterKind.lastWeek}),
+    this.update({...this.criteria, lastUpdated: TimestampFilterKind.lastMonth}),
+    this.update({...this.criteria, lastUpdated: TimestampFilterKind.lastYear}),
+    this.update({...this.criteria, lastUpdated: TimestampFilterKind.older})
   );
   private readonly allFilters = new Filters<RouteSummary>(
     this.brokenFilter,
