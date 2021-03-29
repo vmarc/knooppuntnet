@@ -1,3 +1,4 @@
+import {OnDestroy} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
@@ -13,7 +14,7 @@ import {SpinnerService} from './spinner/spinner.service';
 import {Subscriptions} from './util/Subscriptions';
 
 @Component({
-  selector: 'app-root',
+  selector: 'kpn-root',
   template: `
     <mat-sidenav-container>
 
@@ -33,7 +34,6 @@ import {Subscriptions} from './util/Subscriptions';
         <div class="page-contents">
           <main>
             <router-outlet></router-outlet>
-            <kpn-i18n></kpn-i18n>
           </main>
           <footer *ngIf="isShowFooter()">
             <kpn-page-footer></kpn-page-footer>
@@ -72,7 +72,7 @@ import {Subscriptions} from './util/Subscriptions';
 
   `]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   smallPage = false;
   private readonly subscriptions = new Subscriptions();

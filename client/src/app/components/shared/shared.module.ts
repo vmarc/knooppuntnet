@@ -8,13 +8,13 @@ import {MatListModule} from '@angular/material/list';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
-import {I18nComponent} from '../../i18n/i18n.component';
 import {SpinnerModule} from '../../spinner/spinner.module';
 import {CountryNameComponent} from './country-name.component';
 import {DataComponent} from './data/data.component';
 import {DayComponent} from './day/day.component';
 import {DialogComponent} from './dialog/dialog.component';
 import {WarningDialogComponent} from './dialog/warning-dialog.component';
+import {ErrorComponent} from './error/error.component';
 import {DayPipe} from './format/day.pipe';
 import {DistancePipe} from './format/distance.pipe';
 import {IntegerFormatPipe} from './format/integer-format.pipe';
@@ -41,8 +41,10 @@ import {LinkFactComponent} from './link/link-fact.component';
 import {LinkLoginComponent} from './link/link-login.component';
 import {LinkLogoutComponent} from './link/link-logout.component';
 import {LinkNetworkDetailsComponent} from './link/link-network-details.component';
+import {LinkNodeRefHeaderComponent} from './link/link-node-ref-header';
 import {LinkNodeRefComponent} from './link/link-node-ref.component';
 import {LinkNodeComponent} from './link/link-node.component';
+import {LinkRouteRefHeaderComponent} from './link/link-route-ref-header';
 import {LinkRouteRefComponent} from './link/link-route-ref.component';
 import {LinkRouteComponent} from './link/link-route.component';
 import {NodeListComponent} from './link/node-list.component';
@@ -73,9 +75,6 @@ import {TagsTextComponent} from './tags/tags-text.component';
 import {SituationOnComponent} from './timestamp/situation-on.component';
 import {TimestampComponent} from './timestamp/timestamp.component';
 import {ToolbarComponent} from './toolbar/toolbar.component';
-import {LinkNodeRefHeaderComponent} from './link/link-node-ref-header';
-import {LinkRouteRefHeaderComponent} from './link/link-route-ref-header';
-import {ErrorComponent} from './error/error.component';
 
 @NgModule({
   imports: [
@@ -140,7 +139,6 @@ import {ErrorComponent} from './error/error.component';
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
-    I18nComponent,
     AnalysisSidebarComponent,
     IconHappyComponent,
     IconInvestigateComponent,
@@ -208,7 +206,6 @@ import {ErrorComponent} from './error/error.component';
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
-    I18nComponent,
     TagsTextComponent,
     AnalysisSidebarComponent,
     IconHappyComponent,
