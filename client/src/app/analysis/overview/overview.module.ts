@@ -15,8 +15,6 @@ import {OverviewTableHeaderComponent} from './overview/overview-table-header.com
 import {OverviewTableRowComponent} from './overview/overview-table-row.component';
 import {OverviewTableComponent} from './overview/overview-table.component';
 import {OverviewService} from './overview/overview.service';
-import {StatisticConfigurationComponent} from './domain/statistic-configuration.component';
-import {StatisticConfigurationsComponent} from './domain/statistic-configurations.component';
 
 @NgModule({
   imports: [
@@ -25,7 +23,7 @@ import {StatisticConfigurationsComponent} from './domain/statistic-configuration
     MatIconModule,
     SharedModule,
     OverviewRoutingModule,
-    MatListModule
+    MatListModule,
   ],
   declarations: [
     OverviewListComponent,
@@ -37,11 +35,9 @@ import {StatisticConfigurationsComponent} from './domain/statistic-configuration
     OverviewTableComponent,
     OverviewTableHeaderComponent,
     OverviewTableRowComponent,
-    StatisticConfigurationComponent,
-    StatisticConfigurationsComponent
   ],
   providers: [
-    OverviewService
+    OverviewService,
   ]
 })
 export class OverviewModule {

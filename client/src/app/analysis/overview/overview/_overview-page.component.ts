@@ -21,8 +21,6 @@ import {PageService} from '../../../components/shared/page.service';
 
     <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">Overview</kpn-page-header>
 
-    <kpn-statistic-configurations></kpn-statistic-configurations>
-
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
