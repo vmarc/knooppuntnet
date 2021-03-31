@@ -4,6 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 import {AppService} from '../app.service';
 import {InterpretedPoiConfiguration} from '../components/ol/domain/interpreted-poi-configuration';
 import {BrowserStorageService} from './browser-storage.service';
+import {PoiNameService} from './poi-name.service';
 import {PoiGroupPreference, PoiPreference, PoiPreferences} from './poi-preferences';
 import {Observable} from 'rxjs';
 
@@ -17,29 +18,14 @@ export class PoiService {
   poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(null);
   private zoomLevel: number;
   private poiPreferences: PoiPreferences;
-  private poiNames: Map<string, string> = null;
+  private readonly poiNames: Map<string, string> = this.poiNameService.buildPoiNames();
 
   constructor(private appService: AppService,
+              private poiNameService: PoiNameService,
               private browserStorageService: BrowserStorageService) {
     this.loadPoiConfiguration();
     this._enabled = new BehaviorSubject<boolean>(this.isEnabled());
     this.enabled = this._enabled.asObservable();
-  }
-
-  updatePoiNameRegistry(poiElements: HTMLCollection) {
-    if (this.poiNames === null) {
-      const keysAndValues: Array<[string, string]> = [];
-      Array.from(poiElements).forEach(span => {
-        const id = span.getAttribute('id');
-        const translation = span.textContent;
-        keysAndValues.push([id, translation]);
-      });
-      this.poiNames = Map<string, string>(keysAndValues);
-    }
-  }
-
-  isPoiNameRegistryUpdated() {
-    return this.poiNames !== null;
   }
 
   name(poiId: string): string {

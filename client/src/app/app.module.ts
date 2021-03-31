@@ -25,6 +25,7 @@ import {I18nService} from './i18n/i18n.service';
 import {MonitorRouteMapService} from './monitor/route/map/monitor-route-map.service';
 import {IconService} from './services/icon.service';
 import {LogUpdateService} from './services/log-update.service';
+import {PoiNameService} from './services/poi-name.service';
 import {PoiService} from './services/poi.service';
 import {UserService} from './services/user.service';
 import {VersionService} from './services/version.service';
@@ -81,6 +82,7 @@ import {SpinnerService} from './spinner/spinner.service';
     MatIconRegistry,
     IconService,
     PoiService,
+    PoiNameService,
     LogUpdateService,
     MonitorRouteMapService
   ],

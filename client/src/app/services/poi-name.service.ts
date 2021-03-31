@@ -1,6 +1,8 @@
+import {Map} from 'immutable';
+
 export class PoiNameService {
 
-  xxx() {
+  buildPoiNames(): Map<string, string> {
 
     const keysAndValues: Array<[string, string]> = [];
     keysAndValues.push(['alcohol', $localize`:@@poi.alcohol:Alcohol`]);
@@ -136,10 +138,8 @@ export class PoiNameService {
     keysAndValues.push(['windmill', $localize`:@@poi.windmill:Windmill`]);
     keysAndValues.push(['wine', $localize`:@@poi.wine:Wine`]);
     keysAndValues.push(['zoo', $localize`:@@poi.zoo:Zoo`]);
-// <!-- "school-college', $localize`:@@poi.school-college" -->
-// <!-- "spa', $localize`:@@poi.spa" -->
 
-    return null;
+    return Map<string, string>(keysAndValues);
   }
 
 }

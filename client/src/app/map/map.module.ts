@@ -38,7 +38,6 @@ import {PoiGroupShopsComponent} from './pages/map/poi/poi-group-shops.component'
 import {PoiGroupSportsComponent} from './pages/map/poi/poi-group-sports.component';
 import {PoiGroupTourismComponent} from './pages/map/poi/poi-group-tourism.component';
 import {PoiGroupComponent} from './pages/map/poi/poi-group.component';
-import {PoiNamesComponent} from './pages/map/poi/poi-names.component';
 import {MapPopupContentsComponent} from './pages/map/popup/map-popup-contents.component';
 import {MapPopupNodeComponent} from './pages/map/popup/map-popup-node.component';
 import {MapPopupPoiComponent} from './pages/map/popup/map-popup-poi.component';
@@ -113,7 +112,6 @@ import {PlanComponent} from './sidebar/plan.component';
     PoiGroupHikingBikingComponent,
     PoiGroupLandmarksComponent,
     PoiConfigComponent,
-    PoiNamesComponent,
     MapPopupPoiComponent,
     PlanInstructionComponent,
     PlanInstructionCommandComponent,

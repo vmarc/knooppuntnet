@@ -5,7 +5,6 @@ import {Component} from '@angular/core';
   selector: 'kpn-map-poi-config',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-names></kpn-poi-names>
     <kpn-poi-group-hiking-biking></kpn-poi-group-hiking-biking>
     <kpn-poi-group-landmarks></kpn-poi-group-landmarks>
     <kpn-poi-group-restaurants></kpn-poi-group-restaurants>
