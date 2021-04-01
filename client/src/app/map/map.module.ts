@@ -66,7 +66,6 @@ import {PlanOutputDialogComponent} from './sidebar/plan-output-dialog.component'
 import {PlanResultMenuComponent} from './sidebar/plan-result-menu.component';
 import {PlanResultComponent} from './sidebar/plan-result.component';
 import {PlanTipComponent} from './sidebar/plan-tip.component';
-import {PlanTranslationsComponent} from './sidebar/plan-translations.component';
 import {PlanComponent} from './sidebar/plan.component';
 
 @NgModule({
@@ -120,7 +119,6 @@ import {PlanComponent} from './sidebar/plan.component';
     PlanCompactComponent,
     PlanDetailedComponent,
     PlanInstructionsComponent,
-    PlanTranslationsComponent,
     MapPopupComponent,
     ElevationProfileComponent,
     MapPopupContentsComponent,
