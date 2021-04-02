@@ -20,7 +20,7 @@ import {StatusLinks} from './status-links';
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
-      <li i18n="@@breadcrumb.system">Log analysis</li>
+      <li>Log analysis</li>
     </ul>
 
     <h1>Log analysis</h1>

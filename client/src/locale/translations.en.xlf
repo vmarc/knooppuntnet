@@ -1523,75 +1523,75 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.networks" datatype="html">
-        <source>Networks</source>
-        <target state="final">Networks</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="subset-page.menu.facts" datatype="html">
-        <source>Facts</source>
-        <target state="final">Facts</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">59</context>
-        </context-group>
+        <source> Networks </source>
+        <target state="final"> Networks </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="subset-page.menu.orphan-nodes" datatype="html">
-        <source>Orphan nodes</source>
-        <target state="final">Orphan nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">67</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="subset-page.menu.orphan-routes" datatype="html">
-        <source>Orphan routes</source>
-        <target state="final">Orphan routes</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">75</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="subset-page.menu.map" datatype="html">
-        <source>Map</source>
-        <target state="final">Map</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">82</context>
-        </context-group>
+      <trans-unit id="subset-page.menu.facts" datatype="html">
+        <source> Facts </source>
+        <target state="final"> Facts </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">35</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="subset-page.menu.changes" datatype="html">
-        <source>Changes</source>
-        <target state="final">Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.orphan-nodes" datatype="html">
+        <source> Orphan nodes </source>
+        <target state="final"> Orphan nodes </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.orphan-routes" datatype="html">
+        <source> Orphan routes </source>
+        <target state="final"> Orphan routes </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.map" datatype="html">
+        <source> Map </source>
+        <target state="final"> Map </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-page.menu.changes" datatype="html">
+        <source> Changes </source>
+        <target state="final"> Changes </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="authenticate-page.title" datatype="html">
@@ -3519,12 +3519,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.system" datatype="html">
-        <source>Log analysis</source>
-        <target state="final">Log analysis</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/status/status/log-page.component.ts</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
+        <source>System</source>
+        <target state="final">System</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/status/status/system-status-page.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -7403,10 +7399,6 @@
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/admin/route/components/monitor-admin-route-reference.component.ts</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="analysis.by-location" datatype="html">
         <source> Explore by location </source>
@@ -7414,10 +7406,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-mode.component.ts</context>
           <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/admin/route/components/monitor-admin-route-reference.component.ts</context>
-          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="analysis.location.search-by-name" datatype="html">

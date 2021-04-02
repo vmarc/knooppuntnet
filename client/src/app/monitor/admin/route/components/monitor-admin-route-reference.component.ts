@@ -15,8 +15,7 @@ import {MatRadioChange} from '@angular/material/radio/radio';
       <mat-radio-group [value]="'osm'" (change)="referenceTypeChanged($event)">
         <mat-radio-button
           value="osm"
-          title="OpenStreetMap"
-          i18n="@@analysis.by-network">
+          title="OpenStreetMap">
           OpenStreetMap route relation
         </mat-radio-button>
 
@@ -31,8 +30,7 @@ import {MatRadioChange} from '@angular/material/radio/radio';
 
         <mat-radio-button
           value="gpx"
-          title="GPX"
-          i18n="@@analysis.by-location">
+          title="GPX">
           GPX trace
         </mat-radio-button>
 
