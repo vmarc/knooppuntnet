@@ -134,11 +134,6 @@ export class Util {
     return yyyy + '-' + mm + '-' + dd;
   }
 
-  private static format(level: number): string {
-    const integer = Math.floor(level);
-    return (integer + 1000).toString().substr(1, 3);
-  }
-
   static hasTagDiffs(tagDiffs: TagDiffs): boolean {
     return tagDiffs && (tagDiffs.mainTags.length > 0 || tagDiffs.extraTags.length > 0);
   }
@@ -167,6 +162,11 @@ export class Util {
       return values[0];
     }
     return null;
+  }
+
+  private static format(level: number): string {
+    const integer = Math.floor(level);
+    return (integer + 1000).toString().substr(1, 3);
   }
 
 }

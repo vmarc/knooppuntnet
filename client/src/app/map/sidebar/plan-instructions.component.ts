@@ -1,3 +1,4 @@
+import {OnChanges} from '@angular/core';
 import {ChangeDetectionStrategy, Component, Input, SimpleChanges} from '@angular/core';
 import {List} from 'immutable';
 import {DirectionsAnalyzer} from '../planner/directions/directions-analyzer';
@@ -16,7 +17,7 @@ import {PlanInstruction} from '../planner/plan/plan-instruction';
   styles: [`
   `]
 })
-export class PlanInstructionsComponent {
+export class PlanInstructionsComponent implements OnChanges {
 
   @Input() plan: Plan;
   instructions: List<PlanInstruction>;

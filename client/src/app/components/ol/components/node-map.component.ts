@@ -91,7 +91,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
     if (networkLayers.length > 1) {
       this.defaultNetworkType$.pipe(take(1)).subscribe(defaultNetworkType => {
         networkLayers.forEach(networkLayer => {
-          if (defaultNetworkType != null && networkLayer.name != defaultNetworkType) {
+          if (defaultNetworkType != null && networkLayer.name !== defaultNetworkType) {
             networkLayer.layer.setVisible(false);
           }
         });

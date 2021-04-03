@@ -6,6 +6,33 @@ import {SurveyDateFilterKind} from './survey-date-filter-kind';
 
 describe('SurveyDateFilter', () => {
 
+  const doNothing = (): void => {
+  };
+
+  const buildFilter = (kind: SurveyDateFilterKind): SurveyDateFilter<Day> => {
+
+    const surveyDateInfo = new SurveyDateInfo(
+      new Day(2020, 5, 7),
+      new Day(2020, 4, 7),
+      new Day(2019, 11, 7),
+      new Day(2019, 5, 7),
+      new Day(2018, 5, 7)
+    );
+
+    return new SurveyDateFilter(
+      kind,
+      (arg: Day) => arg,
+      surveyDateInfo,
+      doNothing,
+      doNothing,
+      doNothing,
+      doNothing,
+      doNothing,
+      doNothing,
+      doNothing
+    );
+  };
+
   it('unknown', () => {
 
     const filter = buildFilter(SurveyDateFilterKind.unknown);
@@ -111,31 +138,5 @@ describe('SurveyDateFilter', () => {
     expect(filterOptionGroup.options.get(6).count).toEqual(1); // older
   });
 
-  function doNothing(): void {
-  }
-
-  function buildFilter(kind: SurveyDateFilterKind): SurveyDateFilter<Day> {
-
-    const surveyDateInfo = new SurveyDateInfo(
-      new Day(2020, 5, 7),
-      new Day(2020, 4, 7),
-      new Day(2019, 11, 7),
-      new Day(2019, 5, 7),
-      new Day(2018, 5, 7)
-    );
-
-    return new SurveyDateFilter(
-      kind,
-      (arg: Day) => arg,
-      surveyDateInfo,
-      doNothing,
-      doNothing,
-      doNothing,
-      doNothing,
-      doNothing,
-      doNothing,
-      doNothing
-    );
-  }
 
 });

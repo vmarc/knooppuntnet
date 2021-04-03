@@ -112,9 +112,9 @@ import {AppState} from '../../core/core.state';
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('routename') input: ElementRef;
   name = '';
   planUrl = '';
-  @ViewChild('routename') input: ElementRef;
 
   readonly instructions$ = this.store.pipe(select(selectPreferencesInstructions));
 

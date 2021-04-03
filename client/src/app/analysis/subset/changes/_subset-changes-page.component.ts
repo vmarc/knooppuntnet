@@ -62,6 +62,7 @@ export class SubsetChangesPageComponent implements OnInit {
   subset: Subset;
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response: ApiResponse<SubsetChangesPage>;
+  private _parameters: ChangesParameters;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appService: AppService,
@@ -71,8 +72,6 @@ export class SubsetChangesPageComponent implements OnInit {
               private subsetCacheService: SubsetCacheService,
               private store: Store<AppState>) {
   }
-
-  private _parameters: ChangesParameters;
 
   get parameters() {
     return this._parameters;

@@ -52,7 +52,7 @@ export class Features {
         const nodeId = feature.get('id');
         let nodeRef = feature.get('ref');
         const nodeName = feature.get('name');
-        if (nodeName && nodeRef == 'o') {
+        if (nodeName && nodeRef === 'o') {
           nodeRef = null;
         }
         let name = nodeRef;

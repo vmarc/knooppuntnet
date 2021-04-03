@@ -58,13 +58,15 @@ export class Facts {
     new FactDefinition('RouteInvalidSurveyDate', FactLevel.error),
   ]);
 
-  private static readonly keyValues: List<[string, FactLevel]> = Facts.facts.map(f => {
-    const row: [string, FactLevel] = [f.name, f.level];
-    return row;
-  });
-
-  static readonly factLevels: Map<string, FactLevel> = Map(Facts.keyValues);
+  static readonly factLevels: Map<string, FactLevel> = Map(Facts.keyValues());
 
   static readonly allFactNames = Facts.facts.map(f => f.name);
+
+  private static keyValues(): List<[string, FactLevel]> {
+    return Facts.facts.map(f => {
+      const row: [string, FactLevel] = [f.name, f.level];
+      return row;
+    });
+  }
 
 }

@@ -95,7 +95,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
-      if (modifierKeyOnly || networkNodeFeature.node.nodeName != '*') {
+      if (modifierKeyOnly || networkNodeFeature.node.nodeName !== '*') {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         this.context.cursor.setStylePointer();
         return true;
@@ -133,7 +133,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingNode()) {
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (networkNodeFeature != null && networkNodeFeature.node.nodeName != '*') {
+      if (networkNodeFeature != null && networkNodeFeature.node.nodeName !== '*') {
         this.context.highlighter.highlightNode(networkNodeFeature.node);
         // snap to node position
         this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, networkNodeFeature.node.coordinate);
@@ -461,7 +461,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   private nodeSelected(networkNode: NetworkNodeFeature): void {
     if (this.context.plan.sourceNode) {
       const sinkNode = this.context.plan.sinkNode();
-      if (sinkNode && sinkNode.nodeId == networkNode.node.nodeId) {
+      if (sinkNode && sinkNode.nodeId === networkNode.node.nodeId) {
         // we are already at that node, no need to add an extra leg here
       } else {
         new AddLeg(this.context).add(networkNode.node);

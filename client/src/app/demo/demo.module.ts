@@ -8,7 +8,7 @@ import {SharedModule} from '../components/shared/shared.module';
 import {DemoDisabledComponent} from './components/demo-disabled.component';
 import {DemoSidebarComponent} from './components/demo-sidebar.component';
 import {DemoVideoControlComponent} from './components/demo-video-control.component';
-import {DemoVideoPlayButton} from './components/demo-video-play-button';
+import {DemoVideoPlayButtonComponent} from './components/demo-video-play-button.component';
 import {DemoVideoProgressComponent} from './components/demo-video-progress.component';
 import {DemoVideoComponent} from './components/demo-video.component';
 import {VideoCoverComponent} from './components/video-cover.component';
@@ -39,7 +39,7 @@ import {demoFeatureKey} from './store/demo.state';
     VideoCoverComponent,
     DemoSidebarComponent,
     DemoVideoControlComponent,
-    DemoVideoPlayButton
+    DemoVideoPlayButtonComponent
   ],
   providers: [
     DemoService

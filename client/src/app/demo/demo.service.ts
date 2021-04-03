@@ -13,7 +13,7 @@ export class DemoService {
 
   constructor(private store: Store, private pageWidthService: PageWidthService) {
     pageWidthService.current$.pipe(
-      map(pageWidth => pageWidth == PageWidth.veryLarge)
+      map(pageWidth => pageWidth === PageWidth.veryLarge)
     ).subscribe(enabled => {
       this.store.dispatch(actionDemoEnabledChanged({enabled}));
     });

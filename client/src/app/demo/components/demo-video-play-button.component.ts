@@ -47,7 +47,7 @@ import {selectDemoVideoPlayButtonEnabled} from '../store/demo.selectors';
     }
   `]
 })
-export class DemoVideoPlayButton {
+export class DemoVideoPlayButtonComponent {
 
   videoPlayButtonEnabled$: Observable<boolean>;
 

@@ -83,7 +83,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.plannerService.context.error$.subscribe(error => {
       if (error instanceof HttpErrorResponse) {
         this.dialog.open(LegHttpErrorDialogComponent, {maxWidth: 600});
-      } else if ('leg-not-found' == error.message) {
+      } else if ('leg-not-found' === error.message) {
         this.dialog.open(LegNotFoundDialogComponent, {maxWidth: 600});
       }
     });

@@ -7,11 +7,11 @@ export class ApiResponse<T> {
               public result?: T) {
   }
 
-  public static fromJSON<T>(jsonObject: any, resultsFromJSON: (jsonObject2: any) => T): ApiResponse<T> {
+  public static fromJSON<R>(jsonObject: any, resultsFromJSON: (jsonObject2: any) => R): ApiResponse<R> {
     if (!jsonObject) {
       return undefined;
     }
-    const instance = new ApiResponse<T>();
+    const instance = new ApiResponse<R>();
     instance.situationOn = Timestamp.fromJSON(jsonObject.situationOn);
     instance.version = jsonObject.version;
     instance.result = resultsFromJSON(jsonObject.result);

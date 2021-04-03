@@ -103,7 +103,7 @@ export class DemoEffects {
         ofType(actionDemoControlPlay),
         withLatestFrom(this.store.pipe(select(selectCurrentVideoState))),
         tap(([action, videoState]) => {
-          if (action.video == videoState.video) {
+          if (action.video === videoState.video) {
             if (videoState.playing) {
               this.demoService.pause();
             } else {

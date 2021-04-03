@@ -40,13 +40,13 @@ export class LongdistanceRouteChangeHeaderComponent {
   constructor(private pageWidthService: PageWidthService) {
   }
 
-  private timestampOnSeparateLine() {
-    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall();
-  }
-
   link(): string {
     const key = this.changeSet.key;
     return `/monitor/longdistance-routes/${key.elementId}/changes/${key.changeSetId}`;
+  }
+
+  private timestampOnSeparateLine() {
+    return this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall();
   }
 
 }

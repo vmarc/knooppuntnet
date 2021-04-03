@@ -105,7 +105,7 @@ export class DemoVideoControlComponent {
 
   readonly selected$: Observable<boolean> = this.store.pipe(
     select(selectDemoVideo),
-    map(current => current == this.name)
+    map(current => current === this.name)
   );
 
   readonly playing$: Observable<boolean> = combineLatest([this.selected$, this.store.pipe(select(selectDemoPlaying))]).pipe(
