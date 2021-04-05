@@ -44,7 +44,7 @@ export class RouteMap {
       jsonObject.endTentacleNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json)),
       jsonObject.redundantNodes.map((json: any) => RouteNetworkNodeInfo.fromJSON(json)),
       jsonObject.streets,
-      jsonObject.trackPaths.map((json: any) => TrackPath.fromJSON(json)),
+      !!jsonObject.trackPaths ? jsonObject.trackPaths.map((json: any) => TrackPath.fromJSON(json)) : []
     );
   }
 }

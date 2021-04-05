@@ -89,11 +89,11 @@ export class MapClickService {
     const routeName = feature.get('name');
     const routeId = featureId.substring(0, featureId.indexOf('-'));
     let url = `/analysis/route/${routeId}`;
-    const language = this.windowService.language();
-    if (language.length > 0) {
-      url = `/${language}${url}`;
-    }
     if (openNewTab) {
+      const language = this.windowService.language();
+      if (language.length > 0) {
+        url = `/${language}${url}`;
+      }
       window.open(url);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
@@ -105,11 +105,11 @@ export class MapClickService {
     const nodeId = feature.get('id');
     const nodeName = feature.get('name');
     let url = `/analysis/node/${nodeId}`;
-    const language = this.windowService.language();
-    if (language.length > 0) {
-      url = `/${language}${url}`;
-    }
     if (openNewTab) {
+      const language = this.windowService.language();
+      if (language.length > 0) {
+        url = `/${language}${url}`;
+      }
       window.open(url);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
