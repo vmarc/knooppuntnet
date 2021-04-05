@@ -37,7 +37,7 @@
     "@ngrx/router-store": "^11.0.1",
     "@ngrx/store": "^11.0.1",
     "@ngrx/store-devtools": "^11.0.1",
-    "@sentry/angular": "^6.1.0",
+    "@sentry/angular": "^6.2.5",
     "@swimlane/ngx-charts": "^16.0.0",
     "@types/file-saver": "^2.0.0",
     "angular-qrious": "9.0.0",

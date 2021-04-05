@@ -1,6 +1,6 @@
-import {List} from 'immutable';
-import {Tags} from '@api/custom/tags';
 import {Tag} from '@api/custom/tag';
+import {Tags} from '@api/custom/tags';
+import {List} from 'immutable';
 
 export class InterpretedTags {
 
@@ -54,7 +54,11 @@ export class InterpretedTags {
   }
 
   standardTags(): Tag[] {
-    return this.standardTagKeys.flatMap(key => this.tags.tags.filter(t => t.key === key));
+    const tagArray: Array<Tag> = [];
+    this.standardTagKeys.forEach(key => {
+      this.tags.tags.filter(t => t.key === key).forEach(x => tagArray.push(x));
+    });
+    return tagArray;
   }
 
   extraTags(): Tag[] {

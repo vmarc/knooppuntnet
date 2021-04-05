@@ -131,13 +131,17 @@ export class PlanUtil {
   }
 
   static planRouteLatLons(planRoute: PlanRoute): List<LatLonImpl> {
-    return List([planRoute.sourceNode.latLon])
-      .concat(planRoute.segments.flatMap(segment => segment.fragments.map(fragment => fragment.latLon)));
+    const latLons: Array<LatLonImpl> = [];
+    latLons.push(planRoute.sourceNode.latLon);
+    planRoute.segments.forEach(segment => segment.fragments.forEach(fragment => latLons.push(fragment.latLon)));
+    return List(latLons);
   }
 
   static planRouteCoordinates(planRoute: PlanRoute): List<Coordinate> {
-    return List([planRoute.sourceNode.coordinate])
-      .concat(planRoute.segments.flatMap(segment => segment.fragments.map(fragment => fragment.coordinate)));
+    const coordinates: Array<Coordinate> = [];
+    coordinates.push(planRoute.sourceNode.coordinate);
+    planRoute.segments.forEach(segment => segment.fragments.forEach(fragment => coordinates.push(fragment.coordinate)));
+    return List(coordinates);
   }
 
   static singleRoutePlanLeg(featureId: string, sourceNode: PlanNode, sinkNode: PlanNode, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {

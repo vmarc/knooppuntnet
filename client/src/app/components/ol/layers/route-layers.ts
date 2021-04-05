@@ -107,7 +107,7 @@ export class RouteLayers {
       const layer = new VectorLayer({
         source
       });
-        source.addFeature(this.pathToFeature(title, [255, 0, 0, 0.3], path));
+      source.addFeature(this.pathToFeature(title, [255, 0, 0, 0.3], path));
       const name = `${title} ${path.pathId}`;
       layer.set('name', name);
       layer.setVisible(false);
@@ -168,9 +168,12 @@ export class RouteLayers {
   }
 
   private pathToFeature(title: string, color: Color, path: TrackPath): Feature {
-    const trackPoints = List([path.segments[0].source]).concat(
-      path.segments.flatMap(segment => segment.fragments.map(fragment => fragment.trackPoint))
-    );
+    const trackPointArray: Array<TrackPoint> = [];
+    trackPointArray.push(path.segments[0].source);
+    path.segments.forEach(segment => {
+      segment.fragments.forEach(fragment => trackPointArray.push(fragment.trackPoint));
+    });
+    const trackPoints = List(trackPointArray);
     return this.trackPointsToFeature(title, color, trackPoints);
   }
 

@@ -108,11 +108,13 @@ export class NodeDetailsPageComponent implements OnInit {
 
   buildFactInfos(page: NodeDetailsPage): FactInfo[] {
     const nodeFacts = page.nodeInfo.facts.map(fact => new FactInfo(fact));
-    const extraFacts = page.references.networkReferences.flatMap(networkReference => networkReference.facts.map(fact => {
-      const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
-      return new FactInfo(fact, networkRef, null, null);
-    }));
-    return nodeFacts.concat(extraFacts);
+    page.references.networkReferences.forEach(networkReference => {
+      networkReference.facts.forEach(fact => {
+        const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
+        nodeFacts.push(new FactInfo(fact, networkRef, null, null));
+      });
+    });
+    return nodeFacts;
   }
 
 }
