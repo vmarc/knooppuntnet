@@ -1,5 +1,5 @@
 import {LngLatLike} from 'maplibre-gl';
-import * as maplibre from 'maplibre-gl/dist/mapbox-gl-dev';
+import * as maplibre from 'maplibre-gl/dist/maplibre-gl-dev';
 import {Layer} from 'ol/layer';
 import {toLonLat} from 'ol/proj';
 import {Source} from 'ol/source';
