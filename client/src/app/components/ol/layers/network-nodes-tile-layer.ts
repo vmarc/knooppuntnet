@@ -13,7 +13,7 @@ import {MapLayer} from './map-layer';
 
 export class NetworkNodesTileLayer {
 
-  public static build(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
+  static build(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
 
     const bitmapLayer = this.buildBitmapLayer(networkType);
     const vectorLayer = this.buildVectorLayer(networkType);
@@ -71,7 +71,7 @@ export class NetworkNodesTileLayer {
       zIndex: Layers.zIndexNetworkLayer,
       className: 'network-layer',
       source,
-      renderMode: 'image'
+      renderMode: 'vector'
     });
   }
 }

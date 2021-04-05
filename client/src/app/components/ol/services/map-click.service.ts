@@ -6,6 +6,7 @@ import {FeatureLike} from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
+import {WindowService} from '../../../services/window.service';
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
@@ -14,8 +15,10 @@ import MapBrowserEventType from 'ol/MapBrowserEventType';
 export class MapClickService {
 
   private interaction: Interaction = this.buildInteraction();
+  private ctrl = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private windowService: WindowService) {
   }
 
   installOn(map: Map): void {
@@ -29,6 +32,10 @@ export class MapClickService {
   private buildInteraction(): Interaction {
     return new Interaction({
       handleEvent: (event: MapBrowserEvent) => {
+        const ctrlState = platformModifierKeyOnly(event);
+        if (ctrlState === true || ctrlState === false) {
+          this.ctrl = ctrlState;
+        }
         if (MapBrowserEventType.SINGLECLICK === event.type) {
           return this.handleSingleClickEvent(event);
         }
@@ -43,14 +50,13 @@ export class MapClickService {
   private handleSingleClickEvent(evt: MapBrowserEvent): boolean {
     const features = this.getFeatures(evt);
     const nodeFeature = this.findFeature(features, this.isNode);
-    const openNewTab = platformModifierKeyOnly(evt);
     if (nodeFeature) {
-      this.handleNodeClicked(nodeFeature, openNewTab);
+      this.handleNodeClicked(nodeFeature, this.ctrl);
       return true; // do not propagate event
     }
     const routeFeature = this.findFeature(features, this.isRoute);
     if (routeFeature) {
-      this.handleRouteClicked(routeFeature, openNewTab);
+      this.handleRouteClicked(routeFeature, this.ctrl);
       return true; // do not propagate event
     }
     return true; // propagate event
@@ -82,7 +88,11 @@ export class MapClickService {
     const featureId = feature.get('id');
     const routeName = feature.get('name');
     const routeId = featureId.substring(0, featureId.indexOf('-'));
-    const url = `/analysis/route/${routeId}`;
+    let url = `/analysis/route/${routeId}`;
+    const language = this.windowService.language();
+    if (language.length > 0) {
+      url = `/${language}${url}`;
+    }
     if (openNewTab) {
       window.open(url);
     } else {
@@ -94,7 +104,11 @@ export class MapClickService {
   private handleNodeClicked(feature: FeatureLike, openNewTab: boolean): void {
     const nodeId = feature.get('id');
     const nodeName = feature.get('name');
-    const url = `/analysis/node/${nodeId}`;
+    let url = `/analysis/node/${nodeId}`;
+    const language = this.windowService.language();
+    if (language.length > 0) {
+      url = `/${language}${url}`;
+    }
     if (openNewTab) {
       window.open(url);
     } else {

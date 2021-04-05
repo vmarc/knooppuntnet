@@ -29,6 +29,7 @@ import {PoiNameService} from './services/poi-name.service';
 import {PoiService} from './services/poi.service';
 import {UserService} from './services/user.service';
 import {VersionService} from './services/version.service';
+import {WindowService} from './services/window.service';
 import {SpinnerInterceptor} from './spinner/spinner-interceptor';
 import {SpinnerModule} from './spinner/spinner.module';
 import {SpinnerService} from './spinner/spinner.service';
@@ -73,6 +74,7 @@ import {SpinnerService} from './spinner/spinner.service';
     },
     {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},
     UserService,
+    WindowService,
     VersionService,
     AppService,
     I18nService,

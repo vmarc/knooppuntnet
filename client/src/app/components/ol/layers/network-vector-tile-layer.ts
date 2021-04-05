@@ -23,7 +23,7 @@ export class NetworkVectorTileLayer {
     return new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
       source,
-      renderMode: 'image'
+      renderMode: 'vector'
     });
   }
 

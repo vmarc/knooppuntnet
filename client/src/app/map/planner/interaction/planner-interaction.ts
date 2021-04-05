@@ -1,9 +1,9 @@
 import {List} from 'immutable';
-import {Interaction} from 'ol/interaction';
 import {platformModifierKeyOnly} from 'ol/events/condition';
-import MapBrowserEventType from 'ol/MapBrowserEventType';
+import {Interaction} from 'ol/interaction';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
+import MapBrowserEventType from 'ol/MapBrowserEventType';
 import {MapFeature} from '../features/map-feature';
 import {Features} from './features';
 import {PlannerEngine} from './planner-engine';
@@ -14,6 +14,8 @@ export class PlannerInteraction {
   private readonly eventDebugLogEnabled = false;
 
   private readonly interaction: Interaction;
+
+  private ctrl = false;
 
   constructor(private engine: PlannerEngine) {
     this.interaction = this.buildInteraction();
@@ -35,14 +37,19 @@ export class PlannerInteraction {
 
       handleEvent: (evt: MapBrowserEvent) => {
 
-        this.eventDebugLog(evt.type);
+        this.eventDebugLog(evt.type + ', platformModifierKeyOnly=' + platformModifierKeyOnly(evt));
+
+        const ctrlState = platformModifierKeyOnly(evt);
+        if (ctrlState === true || ctrlState === false) {
+          this.ctrl = ctrlState;
+        }
 
         if (MapBrowserEventType.SINGLECLICK === evt.type) {
-          return this.engine.handleSingleClickEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
+          return this.engine.handleSingleClickEvent(this.getFeaturesAt(evt), evt.coordinate, this.ctrl);
         }
 
         if (MapBrowserEventType.POINTERMOVE === evt.type) {
-          return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
+          return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, this.ctrl);
         }
 
         if (MapBrowserEventType.POINTERDRAG === evt.type) {
