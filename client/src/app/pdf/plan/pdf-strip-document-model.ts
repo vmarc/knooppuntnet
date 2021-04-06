@@ -4,12 +4,10 @@ import {List} from 'immutable';
 
 export class PdfStripDocumentModel {
 
-  private readonly textHeight = 8;
-
+  readonly textHeight = 8;
   readonly circleRadius = 5;
   readonly columnWidth = PdfPage.spacer + this.circleRadius + PdfPage.spacer + 20;
   readonly rowHeight = this.circleRadius + PdfPage.spacer + PdfPage.spacer + this.textHeight;
-
   readonly xContentsLeftWithExtraMargin = PdfPage.xContentsLeft + 14;
 
   private readonly maxRowCount = Math.floor((PdfPage.yContentsBottom - PdfPage.yContentsTop) / this.rowHeight);

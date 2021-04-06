@@ -15,19 +15,19 @@ describe('PlannerCommandReset', () => {
     const sinkFlag1 = PlanFlag.via('viaFlag', [2, 2]);
     const sinkFlag2 = PlanFlag.end('endFlag', [3, 3]);
 
-    const leg1 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag1, null);
-    const leg2 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag2, null);
+    const leg12 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag1, null);
+    const leg23 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag2, null);
 
     setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
-    setup.context.execute(new PlannerCommandAddLeg(leg1));
-    setup.context.execute(new PlannerCommandAddLeg(leg2));
+    setup.context.execute(new PlannerCommandAddLeg(leg12));
+    setup.context.execute(new PlannerCommandAddLeg(leg23));
 
     setup.markerLayer.expectFlagCount(3);
     setup.markerLayer.expectStartFlagExists('sourceFlag', [1, 1]);
     setup.markerLayer.expectViaFlagExists('viaFlag', [2, 2]);
     setup.markerLayer.expectEndFlagExists('endFlag', [3, 3]);
-    setup.routeLayer.expectRouteLegExists('12', leg1);
-    setup.routeLayer.expectRouteLegExists('23', leg2);
+    setup.routeLayer.expectRouteLegExists('12', leg12);
+    setup.routeLayer.expectRouteLegExists('23', leg23);
 
     {
       const legs = setup.context.plan.legs;
@@ -57,8 +57,8 @@ describe('PlannerCommandReset', () => {
     setup.markerLayer.expectStartFlagExists('sourceFlag', [1, 1]);
     setup.markerLayer.expectViaFlagExists('viaFlag', [2, 2]);
     setup.markerLayer.expectEndFlagExists('endFlag', [3, 3]);
-    setup.routeLayer.expectRouteLegExists('12', leg1);
-    setup.routeLayer.expectRouteLegExists('23', leg2);
+    setup.routeLayer.expectRouteLegExists('12', leg12);
+    setup.routeLayer.expectRouteLegExists('23', leg23);
 
     {
       const legs = setup.context.plan.legs;

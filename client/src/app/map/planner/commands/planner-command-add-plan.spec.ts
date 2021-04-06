@@ -32,10 +32,10 @@ describe('PlannerCommandAddPlan', () => {
       const legs = setup.context.plan.legs;
       expect(legs.size).toEqual(1);
 
-      const leg = legs.get(0);
-      expect(leg.featureId).toEqual('12');
-      expectEndFlag(leg.sinkFlag, 'sinkFlag', [2, 2]);
-      expect(leg.viaFlag).toEqual(null);
+      const leg1 = legs.get(0);
+      expect(leg1.featureId).toEqual('12');
+      expectEndFlag(leg1.sinkFlag, 'sinkFlag', [2, 2]);
+      expect(leg1.viaFlag).toEqual(null);
     }
 
     command.undo(setup.context);
@@ -56,10 +56,10 @@ describe('PlannerCommandAddPlan', () => {
       const legs = setup.context.plan.legs;
       expect(legs.size).toEqual(1);
 
-      const leg = legs.get(0);
-      expect(leg.featureId).toEqual('12');
-      expectEndFlag(leg.sinkFlag, 'sinkFlag', [2, 2]);
-      expect(leg.viaFlag).toEqual(null);
+      const leg1 = legs.get(0);
+      expect(leg1.featureId).toEqual('12');
+      expectEndFlag(leg1.sinkFlag, 'sinkFlag', [2, 2]);
+      expect(leg1.viaFlag).toEqual(null);
     }
   });
 

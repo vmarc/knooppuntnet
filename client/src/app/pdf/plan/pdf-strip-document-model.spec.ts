@@ -1,10 +1,10 @@
-import {PdfStripDocumentModel} from './pdf-strip-document-model';
-import {PdfPlanNode} from './pdf-plan-node';
 import {List} from 'immutable';
+import {PdfPlanNode} from './pdf-plan-node';
+import {PdfStripDocumentModel} from './pdf-strip-document-model';
 
 describe('PdfStripDocumentModel', () => {
 
-  function createModel(nodeCount: number): PdfStripDocumentModel {
+  const createModel = (nodeCount: number): PdfStripDocumentModel => {
     const nodes = new Array<PdfPlanNode>();
     for (let i = 0; i < nodeCount; i++) {
       const nodeName = (i + 1).toString();
@@ -13,7 +13,7 @@ describe('PdfStripDocumentModel', () => {
       nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance));
     }
     return new PdfStripDocumentModel(List(nodes));
-  }
+  };
 
   it('pageCount', () => {
     expect(createModel(1).pageCount()).toEqual(1);

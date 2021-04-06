@@ -8,17 +8,17 @@ export class PlannerCommandReverse implements PlannerCommand {
               private readonly newPlan: Plan) {
   }
 
-  public do(context: PlannerContext) {
+  do(context: PlannerContext) {
     context.debug('PlannerCommandReverse');
-    PlannerCommandReverse.updatePlan(context, this.oldPlan, this.newPlan);
+    this.updatePlan(context, this.oldPlan, this.newPlan);
   }
 
-  public undo(context: PlannerContext) {
+  undo(context: PlannerContext) {
     context.debug('PlannerCommandReverse undo');
-    PlannerCommandReverse.updatePlan(context, this.newPlan, this.oldPlan);
+    this.updatePlan(context, this.newPlan, this.oldPlan);
   }
 
-  private static updatePlan(context: PlannerContext, fromPlan: Plan, toPlan: Plan) {
+  private updatePlan(context: PlannerContext, fromPlan: Plan, toPlan: Plan) {
     context.routeLayer.removePlan(fromPlan);
     context.markerLayer.removePlan(fromPlan);
     context.routeLayer.addPlan(toPlan);

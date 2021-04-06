@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {List} from 'immutable';
+import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
@@ -7,10 +8,13 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class SpinnerService {
 
+  readonly spinnerState$: Observable<boolean>;
   private readonly _spinnerState$ = new BehaviorSubject<boolean>(false);
   private activeActions: List<string> = List();
 
-  readonly spinnerState$ = this._spinnerState$.asObservable();
+  constructor() {
+    this.spinnerState$ = this._spinnerState$.asObservable();
+  }
 
   start(action: string): void {
     this.activeActions = this.activeActions.push(action);
