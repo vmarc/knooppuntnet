@@ -14,7 +14,7 @@ export class PlanPrinter {
     this.out.println(`sourceFlag=${this.flag(plan.sourceFlag)}`);
     plan.legs.forEach(leg => {
       this.out.println(`  leg featureId=${leg.featureId}, key=${leg.key}`);
-      this.out.println(`    sink=${PlanPrinter.sink(leg.sink)}`);
+      this.out.println(`    sink=${this.sink(leg.sink)}`);
       if (leg.viaFlag !== null) {
         this.out.println(`    viaFlag=${this.flag(leg.viaFlag)}`);
       } else {
@@ -41,28 +41,28 @@ export class PlanPrinter {
     return 'none';
   }
 
-  private static sink(legEnd: LegEnd): string {
+  private sink(legEnd: LegEnd): string {
     if (legEnd) {
       if (legEnd.node) {
         return `${legEnd.node.nodeId}`;
       }
       if (legEnd.route && legEnd.route.selection) {
-        const selection = PlanPrinter.trackPathKey(legEnd.route.selection);
-        const trackPathKeys = PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
+        const selection = this.trackPathKey(legEnd.route.selection);
+        const trackPathKeys = this.trackPathKeys(legEnd.route.trackPathKeys);
         return `${trackPathKeys}, selection=${selection}`;
       }
       if (legEnd.route) {
-        return PlanPrinter.trackPathKeys(legEnd.route.trackPathKeys);
+        return this.trackPathKeys(legEnd.route.trackPathKeys);
       }
     }
     return 'none';
   }
 
-  private static trackPathKeys(keys: TrackPathKey[]): string {
-    return keys.map(key => PlanPrinter.trackPathKey(key)).join('|');
+  private trackPathKeys(keys: TrackPathKey[]): string {
+    return keys.map(key => this.trackPathKey(key)).join('|');
   }
 
-  private static trackPathKey(key: TrackPathKey): string {
+  private trackPathKey(key: TrackPathKey): string {
     return `${key.routeId}.${key.pathId}`;
   }
 

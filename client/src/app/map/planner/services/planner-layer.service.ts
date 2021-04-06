@@ -156,7 +156,9 @@ export class PlannerLayerService {
   }
 
   private buildBitmapLayers(mapMode: MapMode): ImmutableMap<NetworkType, MapLayer> {
-    const keysAndValues: List<[NetworkType, MapLayer]> = List(NetworkTypes.all).map(networkType => [networkType, this.mapLayerService.networkBitmapTileLayer(networkType, mapMode)]);
+    const keysAndValues: List<[NetworkType, MapLayer]> = List(NetworkTypes.all).map(networkType =>
+      [networkType, this.mapLayerService.networkBitmapTileLayer(networkType, mapMode)]
+    );
     return ImmutableMap<NetworkType, MapLayer>(keysAndValues.toArray());
   }
 

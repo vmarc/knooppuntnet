@@ -72,7 +72,9 @@ export class Plan {
   }
 
   unpavedPercentage(): string {
-    const distances: List<number> = this.legs.flatMap(leg => leg.routes.flatMap(route => route.segments.filter(segment => segment.surface === 'unpaved').map(segment => segment.meters)));
+    const distances: List<number> = this.legs.flatMap(leg =>
+      leg.routes.flatMap(route => route.segments.filter(segment => segment.surface === 'unpaved').map(segment => segment.meters))
+    );
     const unpavedMeters = Util.sum(distances);
     const percentage = Math.round(100 * unpavedMeters / this.meters());
     return `${percentage}%`;

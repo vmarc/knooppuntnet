@@ -1,8 +1,8 @@
+import {LatLonImpl} from '@api/common/lat-lon-impl';
+import {PlanNode} from '@api/common/planner/plan-node';
 import {saveAs} from 'file-saver-es';
 import {List} from 'immutable';
-import {LatLonImpl} from '@api/common/lat-lon-impl';
 import {Plan} from '../../map/planner/plan/plan';
-import {PlanNode} from '@api/common/planner/plan-node';
 import {PlanUtil} from '../../map/planner/plan/plan-util';
 
 export class GpxWriter {
@@ -17,7 +17,8 @@ export class GpxWriter {
   private header(): List<string> {
     return List([
       `<?xml version="1.0" encoding="UTF-8" standalone="no"?>`,
-      `<gpx creator="knooppuntnet" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">`
+      `<gpx creator="knooppuntnet" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"`,
+      `  xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">`
     ]);
   }
 
@@ -32,7 +33,7 @@ export class GpxWriter {
   }
 
   private wayPoints(plan: Plan): List<string> {
-    const nodes = List([plan.sourceNode]).concat(plan.legs.flatMap(leg => leg.routes.map(r=> r.sinkNode)));
+    const nodes = List([plan.sourceNode]).concat(plan.legs.flatMap(leg => leg.routes.map(r => r.sinkNode)));
     return nodes.flatMap(node => this.wayPoint(node));
   }
 

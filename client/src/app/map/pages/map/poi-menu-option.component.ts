@@ -1,5 +1,5 @@
 import {Input} from '@angular/core';
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatCheckboxChange} from '@angular/material/checkbox';
 import {PoiService} from '../../../services/poi.service';
 
@@ -24,14 +24,11 @@ import {PoiService} from '../../../services/poi.service';
     }
   `]
 })
-export class PoiMenuOptionComponent implements OnInit {
+export class PoiMenuOptionComponent {
 
   @Input() groupName: string;
 
   constructor(public service: PoiService) {
-  }
-
-  ngOnInit(): void {
   }
 
   enabledChanged(event: MatCheckboxChange): void {

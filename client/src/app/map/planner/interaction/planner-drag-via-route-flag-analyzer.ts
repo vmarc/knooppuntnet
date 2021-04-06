@@ -11,7 +11,7 @@ export class PlannerDragViaRouteFlagAnalyzer {
 
   dragStarted(flag: FlagFeature): PlannerDragFlag {
     if (flag.flagType === PlanFlagType.via) {
-      const leg = this.plan.legs.find(leg => leg.viaFlag?.featureId === flag.id);
+      const leg = this.plan.legs.find(l => l.viaFlag?.featureId === flag.id);
       if (leg) {
         return new PlannerDragViaRouteFlag(
           leg.viaFlag,
