@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {Fact} from '../../custom/fact';
-import {NetworkFactRefs} from './network-fact-refs';
-import {SubsetInfo} from './subset-info';
+import { Fact } from '../../custom/fact';
+import { NetworkFactRefs } from './network-fact-refs';
+import { SubsetInfo } from './subset-info';
 
 export class SubsetFactDetailsPage {
-
-  constructor(readonly subsetInfo: SubsetInfo,
-              readonly fact: Fact,
-              readonly networks: Array<NetworkFactRefs>) {
-  }
+  constructor(
+    readonly subsetInfo: SubsetInfo,
+    readonly fact: Fact,
+    readonly networks: Array<NetworkFactRefs>
+  ) {}
 
   public static fromJSON(jsonObject: any): SubsetFactDetailsPage {
     if (!jsonObject) {

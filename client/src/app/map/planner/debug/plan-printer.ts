@@ -1,18 +1,17 @@
-import {TrackPathKey} from '@api/common/common/track-path-key';
-import {LegEnd} from '@api/common/planner/leg-end';
-import {PlanNode} from '@api/common/planner/plan-node';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {Printer} from './printer';
+import { TrackPathKey } from '@api/common/common/track-path-key';
+import { LegEnd } from '@api/common/planner/leg-end';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { Printer } from './printer';
 
 export class PlanPrinter {
-
   private out = new Printer();
 
   plan(plan: Plan): Printer {
     this.out.println(`sourceNode=${this.node(plan.sourceNode)}`);
     this.out.println(`sourceFlag=${this.flag(plan.sourceFlag)}`);
-    plan.legs.forEach(leg => {
+    plan.legs.forEach((leg) => {
       this.out.println(`  leg featureId=${leg.featureId}, key=${leg.key}`);
       this.out.println(`    sink=${this.sink(leg.sink)}`);
       if (leg.viaFlag !== null) {
@@ -29,7 +28,9 @@ export class PlanPrinter {
 
   private node(planNode: PlanNode): string {
     if (planNode) {
-      return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(planNode.coordinate)}`;
+      return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(
+        planNode.coordinate
+      )}`;
     }
     return 'none';
   }
@@ -59,11 +60,10 @@ export class PlanPrinter {
   }
 
   private trackPathKeys(keys: TrackPathKey[]): string {
-    return keys.map(key => this.trackPathKey(key)).join('|');
+    return keys.map((key) => this.trackPathKey(key)).join('|');
   }
 
   private trackPathKey(key: TrackPathKey): string {
     return `${key.routeId}.${key.pathId}`;
   }
-
 }

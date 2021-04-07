@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {Ref} from '../../common/ref';
+import { Ref } from '../../common/ref';
 
 export class RefChanges {
-
-  constructor(readonly oldRefs: Array<Ref>,
-              readonly newRefs: Array<Ref>) {
-  }
+  constructor(readonly oldRefs: Array<Ref>, readonly newRefs: Array<Ref>) {}
 
   static fromJSON(jsonObject: any): RefChanges {
     if (!jsonObject) {

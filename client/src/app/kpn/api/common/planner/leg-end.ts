@@ -1,13 +1,10 @@
 // this class is generated, please do not modify
 
-import {LegEndNode} from './leg-end-node';
-import {LegEndRoute} from './leg-end-route';
+import { LegEndNode } from './leg-end-node';
+import { LegEndRoute } from './leg-end-route';
 
 export class LegEnd {
-
-  constructor(readonly node: LegEndNode,
-              readonly route: LegEndRoute) {
-  }
+  constructor(readonly node: LegEndNode, readonly route: LegEndRoute) {}
 
   public static fromJSON(jsonObject: any): LegEnd {
     if (!jsonObject) {

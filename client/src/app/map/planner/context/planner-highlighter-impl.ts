@@ -1,20 +1,18 @@
-import {PlanNode} from '@api/common/planner/plan-node';
-import {Feature} from 'ol';
-import {Coordinate} from 'ol/coordinate';
-import {Point} from 'ol/geom';
-import {LineString} from 'ol/geom';
-import {MultiLineString} from 'ol/geom';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { Feature } from 'ol';
+import { Coordinate } from 'ol/coordinate';
+import { Point } from 'ol/geom';
+import { LineString } from 'ol/geom';
+import { MultiLineString } from 'ol/geom';
 import GeometryLayout from 'ol/geom/GeometryLayout';
 import GeometryType from 'ol/geom/GeometryType';
 import RenderFeature from 'ol/render/Feature';
-import {RouteFeature} from '../features/route-feature';
-import {PlannerHighlightLayer} from './planner-highlight-layer';
-import {PlannerHighlighter} from './planner-highlighter';
+import { RouteFeature } from '../features/route-feature';
+import { PlannerHighlightLayer } from './planner-highlight-layer';
+import { PlannerHighlighter } from './planner-highlighter';
 
 export class PlannerHighlighterImpl implements PlannerHighlighter {
-
-  constructor(private readonly layer: PlannerHighlightLayer) {
-  }
+  constructor(private readonly layer: PlannerHighlightLayer) {}
 
   mouseDown(coordinate: Coordinate): void {
     const point = new Point(coordinate);
@@ -41,12 +39,16 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
       } else if (geometryType === GeometryType.MULTI_LINE_STRING) {
         const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
         const ends: number[] = [];
-        renderFeature.getEnds().forEach(num => {
+        renderFeature.getEnds().forEach((num) => {
           if (typeof num === 'number') {
             ends.push(num);
           }
         });
-        const lineString = new MultiLineString(coordinates, GeometryLayout.XY, ends);
+        const lineString = new MultiLineString(
+          coordinates,
+          GeometryLayout.XY,
+          ends
+        );
         const feature = new Feature(lineString);
         this.layer.highlightFeature(feature);
       } else {
@@ -58,5 +60,4 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
   reset(): void {
     this.layer.reset();
   }
-
 }

@@ -1,13 +1,15 @@
-import {Params} from '@angular/router';
-import {createFeatureSelector} from '@ngrx/store';
-import {createSelector} from '@ngrx/store';
-import {selectRouteParams} from '../../core/core.state';
-import {DemoRootState} from './demo.state';
-import {demoFeatureKey} from './demo.state';
-import {DemoState} from './demo.state';
-import {VideoState} from './demo.state';
+import { Params } from '@angular/router';
+import { createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
+import { selectRouteParams } from '../../core/core.state';
+import { DemoRootState } from './demo.state';
+import { demoFeatureKey } from './demo.state';
+import { DemoState } from './demo.state';
+import { VideoState } from './demo.state';
 
-export const selectDemoState = createFeatureSelector<DemoRootState, DemoState>(demoFeatureKey);
+export const selectDemoState = createFeatureSelector<DemoRootState, DemoState>(
+  demoFeatureKey
+);
 
 export const selectDemo = createSelector(
   selectDemoState,

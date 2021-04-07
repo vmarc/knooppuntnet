@@ -6,7 +6,7 @@
     "ng": "ng",
     "build": "ng build",
     "test": "ng test",
-    "lint": "node --max_old_space_size=8192 ./node_modules/.bin/ng lint --fix",
+    "lint": "node --max_old_space_size=8192 ./node_modules/.bin/ng lint",
     "extract-i18n": "ng extract-i18n --ivy --output-path src/locale && xliffmerge --profile xliffmerge.json",
     "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --proxy-config src/proxy-dev.conf.js",
     "start:nl": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=nl --proxy-config src/proxy.conf.js",

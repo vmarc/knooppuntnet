@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
 export class ChangeSetElementRef {
-
-  constructor(readonly id: number,
-              readonly name: string,
-              readonly happy: boolean,
-              readonly investigate: boolean) {
-  }
+  constructor(
+    readonly id: number,
+    readonly name: string,
+    readonly happy: boolean,
+    readonly investigate: boolean
+  ) {}
 
   static fromJSON(jsonObject: any): ChangeSetElementRef {
     if (!jsonObject) {

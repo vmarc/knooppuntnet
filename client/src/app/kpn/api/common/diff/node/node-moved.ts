@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {LatLonImpl} from '../../lat-lon-impl';
+import { LatLonImpl } from '../../lat-lon-impl';
 
 export class NodeMoved {
-
-  constructor(readonly before: LatLonImpl,
-              readonly after: LatLonImpl,
-              readonly distance: number) {
-  }
+  constructor(
+    readonly before: LatLonImpl,
+    readonly after: LatLonImpl,
+    readonly distance: number
+  ) {}
 
   public static fromJSON(jsonObject: any): NodeMoved {
     if (!jsonObject) {

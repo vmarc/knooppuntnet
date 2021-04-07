@@ -1,35 +1,35 @@
 // this class is generated, please do not modify
 
-import {Fact} from '../../../custom/fact';
-import {Ref} from '../../common/ref';
-import {RawWay} from '../../data/raw/raw-way';
-import {RouteData} from '../../diff/route-data';
-import {RouteDiff} from '../../diff/route/route-diff';
-import {WayUpdate} from '../../diff/way-update';
-import {RouteLocationAnalysis} from '../../route-location-analysis';
-import {ChangeKey} from './change-key';
-import {ChangeType} from './change-type';
+import { Fact } from '../../../custom/fact';
+import { Ref } from '../../common/ref';
+import { RawWay } from '../../data/raw/raw-way';
+import { RouteData } from '../../diff/route-data';
+import { RouteDiff } from '../../diff/route/route-diff';
+import { WayUpdate } from '../../diff/way-update';
+import { RouteLocationAnalysis } from '../../route-location-analysis';
+import { ChangeKey } from './change-key';
+import { ChangeType } from './change-type';
 
 export class RouteChange {
-
-  constructor(readonly key: ChangeKey,
-              readonly changeType: ChangeType,
-              readonly name: string,
-              readonly locationAnalysis: RouteLocationAnalysis,
-              readonly addedToNetwork: Array<Ref>,
-              readonly removedFromNetwork: Array<Ref>,
-              readonly before: RouteData,
-              readonly after: RouteData,
-              readonly removedWays: Array<RawWay>,
-              readonly addedWays: Array<RawWay>,
-              readonly updatedWays: Array<WayUpdate>,
-              readonly diffs: RouteDiff,
-              readonly facts: Array<Fact>,
-              readonly happy: boolean,
-              readonly investigate: boolean,
-              readonly locationHappy: boolean,
-              readonly locationInvestigate: boolean) {
-  }
+  constructor(
+    readonly key: ChangeKey,
+    readonly changeType: ChangeType,
+    readonly name: string,
+    readonly locationAnalysis: RouteLocationAnalysis,
+    readonly addedToNetwork: Array<Ref>,
+    readonly removedFromNetwork: Array<Ref>,
+    readonly before: RouteData,
+    readonly after: RouteData,
+    readonly removedWays: Array<RawWay>,
+    readonly addedWays: Array<RawWay>,
+    readonly updatedWays: Array<WayUpdate>,
+    readonly diffs: RouteDiff,
+    readonly facts: Array<Fact>,
+    readonly happy: boolean,
+    readonly investigate: boolean,
+    readonly locationHappy: boolean,
+    readonly locationInvestigate: boolean
+  ) {}
 
   static fromJSON(jsonObject: any): RouteChange {
     if (!jsonObject) {

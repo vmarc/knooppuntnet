@@ -1,10 +1,13 @@
-import {createFeatureSelector} from '@ngrx/store';
-import {createSelector} from '@ngrx/store';
-import {LocationRootState} from './location.state';
-import {locationFeatureKey} from './location.state';
-import {LocationState} from './location.state';
+import { createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
+import { LocationRootState } from './location.state';
+import { locationFeatureKey } from './location.state';
+import { LocationState } from './location.state';
 
-export const selectLocationState = createFeatureSelector<LocationRootState, LocationState>(locationFeatureKey);
+export const selectLocationState = createFeatureSelector<
+  LocationRootState,
+  LocationState
+>(locationFeatureKey);
 
 export const selectLocationNodesPage = createSelector(
   selectLocationState,

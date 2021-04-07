@@ -2,17 +2,8 @@
   "tilejson": "2.0.0",
   "id": "openmaptiles",
   "name": "OpenMapTiles",
-  "bounds": [
-    -180,
-    -85.0511,
-    180,
-    85.0511
-  ],
-  "center": [
-    -12.2168,
-    28.6135,
-    4
-  ],
+  "bounds": [-180, -85.0511, 180, 85.0511],
+  "center": [-12.2168, 28.6135, 4],
   "format": "pbf",
   "maxzoom": 14,
   "minzoom": 0,

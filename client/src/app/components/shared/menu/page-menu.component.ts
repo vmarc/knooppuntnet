@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-page-menu',
@@ -10,19 +10,18 @@ import {Component} from '@angular/core';
     </div>
     <mat-divider></mat-divider>
   `,
-  styles: [`
+  styles: [
+    `
+      .menu {
+        line-height: 30px;
+      }
 
-    .menu {
-      line-height: 30px;
-    }
-
-    ::ng-deep .menu :not(:last-child):after {
-      content: " | ";
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-  `]
-
+      ::ng-deep .menu :not(:last-child):after {
+        content: ' | ';
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    `,
+  ],
 })
-export class PageMenuComponent {
-}
+export class PageMenuComponent {}

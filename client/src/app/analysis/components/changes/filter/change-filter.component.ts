@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {ChangeFilterOptions} from './change-filter-options';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ChangeFilterOptions } from './change-filter-options';
 
 @Component({
   selector: 'kpn-change-filter',
@@ -18,7 +18,7 @@ import {ChangeFilterOptions} from './change-filter-options';
       </div>
     </div>
   `,
-  styleUrls: ['../../filter/filter.scss']
+  styleUrls: ['../../filter/filter.scss'],
 })
 export class ChangeFilterComponent {
   @Input() filterOptions: ChangeFilterOptions;

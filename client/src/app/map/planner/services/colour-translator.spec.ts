@@ -1,9 +1,11 @@
-import {Map as TranslationMap} from 'immutable';
-import {ColourTranslator} from './colour-translator';
+import { Map as TranslationMap } from 'immutable';
+import { ColourTranslator } from './colour-translator';
 
 describe('ColourTranslator', () => {
-
-  const translations = TranslationMap([['white', 'wit'], ['red', 'rood']]);
+  const translations = TranslationMap([
+    ['white', 'wit'],
+    ['red', 'rood'],
+  ]);
 
   it('translate', () => {
     expectTranslation('white', 'wit');
@@ -16,7 +18,8 @@ describe('ColourTranslator', () => {
   });
 
   function expectTranslation(source: string, expected: string) {
-    expect(new ColourTranslator(translations).translate(source)).toEqual(expected);
+    expect(new ColourTranslator(translations).translate(source)).toEqual(
+      expected
+    );
   }
-
 });

@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
 export class NodeRouteExpectedCount {
-
-  constructor(readonly nodeId: number,
-              readonly nodeName: string,
-              readonly locationNames: Array<string>,
-              readonly routeCount: number) {
-  }
+  constructor(
+    readonly nodeId: number,
+    readonly nodeName: string,
+    readonly locationNames: Array<string>,
+    readonly routeCount: number
+  ) {}
 
   static fromJSON(jsonObject: any): NodeRouteExpectedCount {
     if (!jsonObject) {

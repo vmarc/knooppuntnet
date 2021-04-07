@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {Timestamp} from '../custom/timestamp';
+import { Timestamp } from '../custom/timestamp';
 
 export class TimeInfo {
-
-  constructor(readonly now: Timestamp,
-              readonly lastWeekStart: Timestamp,
-              readonly lastMonthStart: Timestamp,
-              readonly lastYearStart: Timestamp) {
-  }
+  constructor(
+    readonly now: Timestamp,
+    readonly lastWeekStart: Timestamp,
+    readonly lastMonthStart: Timestamp,
+    readonly lastYearStart: Timestamp
+  ) {}
 
   public static fromJSON(jsonObject: any): TimeInfo {
     if (!jsonObject) {

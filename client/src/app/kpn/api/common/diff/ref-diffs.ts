@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {Ref} from '../common/ref';
+import { Ref } from '../common/ref';
 
 export class RefDiffs {
-
-  constructor(readonly removed: Array<Ref>,
-              readonly added: Array<Ref>,
-              readonly updated: Array<Ref>) {
-  }
+  constructor(
+    readonly removed: Array<Ref>,
+    readonly added: Array<Ref>,
+    readonly updated: Array<Ref>
+  ) {}
 
   public static fromJSON(jsonObject: any): RefDiffs {
     if (!jsonObject) {

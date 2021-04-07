@@ -1,11 +1,9 @@
 // this class is generated, please do not modify
 
-import {Ref} from './common/ref';
+import { Ref } from './common/ref';
 
 export class RoutesFact {
-
-  constructor(readonly routes: Array<Ref>) {
-  }
+  constructor(readonly routes: Array<Ref>) {}
 
   public static fromJSON(jsonObject: any): RoutesFact {
     if (!jsonObject) {

@@ -1,15 +1,13 @@
-import {List} from 'immutable';
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerCommandAddPlan} from './planner-command-add-plan';
-import {PlannerCommandMoveViaPoint} from './planner-command-move-via-point';
+import { List } from 'immutable';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerCommandAddPlan } from './planner-command-add-plan';
+import { PlannerCommandMoveViaPoint } from './planner-command-move-via-point';
 
 describe('PlannerCommandMoveViaPoint', () => {
-
   it('move via point - do, undo and redo', () => {
-
     const setup = new PlannerTestSetup();
 
     const sourceFlag = PlanFlag.start('sourceFlag', [1, 1]);
@@ -17,15 +15,44 @@ describe('PlannerCommandMoveViaPoint', () => {
     const newViaFlag = PlanFlag.via('newViaFlag', [4, 4]);
     const sinkFlag = PlanFlag.end('sinkFlag', [3, 3]);
 
-    const oldLeg1 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, oldViaFlag, null);
-    const oldLeg2 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag, null);
-    const newLeg1 = PlanUtil.singleRoutePlanLeg('14', setup.node1, setup.node4, newViaFlag, null);
-    const newLeg2 = PlanUtil.singleRoutePlanLeg('43', setup.node4, setup.node3, sinkFlag, null);
+    const oldLeg1 = PlanUtil.singleRoutePlanLeg(
+      '12',
+      setup.node1,
+      setup.node2,
+      oldViaFlag,
+      null
+    );
+    const oldLeg2 = PlanUtil.singleRoutePlanLeg(
+      '23',
+      setup.node2,
+      setup.node3,
+      sinkFlag,
+      null
+    );
+    const newLeg1 = PlanUtil.singleRoutePlanLeg(
+      '14',
+      setup.node1,
+      setup.node4,
+      newViaFlag,
+      null
+    );
+    const newLeg2 = PlanUtil.singleRoutePlanLeg(
+      '43',
+      setup.node4,
+      setup.node3,
+      sinkFlag,
+      null
+    );
 
     const plan = new Plan(setup.node1, sourceFlag, List([oldLeg1, oldLeg2]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
-    const command = new PlannerCommandMoveViaPoint(oldLeg1, oldLeg2, newLeg1, newLeg2);
+    const command = new PlannerCommandMoveViaPoint(
+      oldLeg1,
+      oldLeg2,
+      newLeg1,
+      newLeg2
+    );
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(3);
@@ -70,7 +97,5 @@ describe('PlannerCommandMoveViaPoint', () => {
     expect(setup.context.plan.legs.size).toEqual(2);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('14');
     expect(setup.context.plan.legs.get(1).featureId).toEqual('43');
-
   });
-
 });

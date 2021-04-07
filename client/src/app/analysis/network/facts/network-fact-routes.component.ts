@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {Ref} from '@api/common/common/ref';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Ref } from '@api/common/common/ref';
 
 @Component({
   selector: 'kpn-network-fact-routes',
@@ -16,10 +16,11 @@ import {Ref} from '@api/common/common/ref';
       <kpn-link-route
         *ngFor="let route of routes"
         [routeId]="route.id"
-        [title]="route.name">
+        [title]="route.name"
+      >
       </kpn-link-route>
     </div>
-  `
+  `,
 })
 export class NetworkFactRoutesComponent {
   @Input() routes: Ref[];

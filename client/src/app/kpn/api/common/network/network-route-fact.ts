@@ -1,13 +1,10 @@
 // this class is generated, please do not modify
 
-import {Fact} from '../../custom/fact';
-import {Ref} from '../common/ref';
+import { Fact } from '../../custom/fact';
+import { Ref } from '../common/ref';
 
 export class NetworkRouteFact {
-
-  constructor(readonly fact: Fact,
-              readonly routes: Array<Ref>) {
-  }
+  constructor(readonly fact: Fact, readonly routes: Array<Ref>) {}
 
   public static fromJSON(jsonObject: any): NetworkRouteFact {
     if (!jsonObject) {

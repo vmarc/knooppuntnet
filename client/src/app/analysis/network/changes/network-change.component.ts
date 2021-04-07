@@ -1,47 +1,61 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
 
 @Component({
   selector: 'kpn-network-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <!-- changeType -->
     <div *ngIf="networkChangeInfo.changeType.name === 'Create'">
-      <b i18n="@@network-changes.network-created">
-        Network created
-      </b>
+      <b i18n="@@network-changes.network-created"> Network created </b>
     </div>
     <div *ngIf="networkChangeInfo.changeType.name === 'Delete'">
-      <b i18n="@@network-changes.network-deleted">
-        Network deleted
-      </b>
+      <b i18n="@@network-changes.network-deleted"> Network deleted </b>
     </div>
 
     <div *ngIf="networkChangeInfo.changeType.name === 'InitialValue'">
       <span i18n="@@network-changes.network-initial-value">
         Oldest known state of network (at date of
-        <a class="external" href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License" target="_blank" rel="nofollow noreferrer">license change</a>).
+        <a
+          class="external"
+          href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License"
+          target="_blank"
+          rel="nofollow noreferrer"
+          >license change</a
+        >).
       </span>
     </div>
 
     <!-- networkNodesAdded -->
-    <div *ngIf="networkChangeInfo.networkNodes.added.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.network-nodes.added">Added node(s)</span>
+    <div
+      *ngIf="networkChangeInfo.networkNodes.added.length > 0"
+      class="kpn-line"
+    >
+      <span class="kpn-label" i18n="@@network-changes.network-nodes.added"
+        >Added node(s)</span
+      >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
-          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
+          <kpn-link-node
+            [nodeId]="ref.id"
+            [nodeName]="ref.name"
+          ></kpn-link-node>
         </span>
       </div>
     </div>
 
     <!-- routesAdded -->
     <div *ngIf="networkChangeInfo.routes.added.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.routes.added">Added route(s)</span>
+      <span class="kpn-label" i18n="@@network-changes.routes.added"
+        >Added route(s)</span
+      >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.added">
-          <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
+          <kpn-link-route
+            [routeId]="ref.id"
+            [title]="ref.name"
+          ></kpn-link-route>
         </span>
       </div>
     </div>
@@ -75,13 +89,19 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- networkNodesUpdated -->
-    <div *ngIf="networkChangeInfo.networkNodes.updated.length > 0" class="kpn-line">
+    <div
+      *ngIf="networkChangeInfo.networkNodes.updated.length > 0"
+      class="kpn-line"
+    >
       <span class="kpn-label" i18n="@@network-changes.network-nodes.updated">
         Updated network node(s)
       </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.updated">
-          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
+          <kpn-link-node
+            [nodeId]="ref.id"
+            [nodeName]="ref.name"
+          ></kpn-link-node>
         </span>
       </div>
     </div>
@@ -93,7 +113,10 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
       </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.updated">
-          <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
+          <kpn-link-route
+            [routeId]="ref.id"
+            [title]="ref.name"
+          ></kpn-link-route>
         </span>
       </div>
     </div>
@@ -107,9 +130,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
 
     <!-- waysUpdated -->
     <div *ngIf="networkChangeInfo.ways.updated.length > 0">
-      <span i18n="@@network-changes.ways.updated">
-        Updated way member(s)
-      </span>
+      <span i18n="@@network-changes.ways.updated"> Updated way member(s) </span>
     </div>
 
     <!-- relationsUpdated -->
@@ -120,13 +141,19 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
     </div>
 
     <!-- networkNodesRemoved -->
-    <div *ngIf="networkChangeInfo.networkNodes.removed.length > 0" class="kpn-line">
+    <div
+      *ngIf="networkChangeInfo.networkNodes.removed.length > 0"
+      class="kpn-line"
+    >
       <span class="kpn-label" i18n="@@network-changes.network-nodes.removed">
         Removed network node(s)
       </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.removed">
-          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
+          <kpn-link-node
+            [nodeId]="ref.id"
+            [nodeName]="ref.name"
+          ></kpn-link-node>
         </span>
       </div>
     </div>
@@ -138,7 +165,10 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
       </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.removed">
-          <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
+          <kpn-link-route
+            [routeId]="ref.id"
+            [title]="ref.name"
+          ></kpn-link-route>
         </span>
       </div>
     </div>
@@ -163,7 +193,7 @@ import {NetworkChangeInfo} from '@api/common/changes/details/network-change-info
         Removed non-route relation(s) from network relation
       </span>
     </div>
-  `
+  `,
 })
 export class NetworkChangeComponent {
   @Input() networkChangeInfo: NetworkChangeInfo;

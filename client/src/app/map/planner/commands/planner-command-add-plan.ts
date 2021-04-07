@@ -1,11 +1,9 @@
-import {PlannerContext} from '../context/planner-context';
-import {Plan} from '../plan/plan';
-import {PlannerCommand} from './planner-command';
+import { PlannerContext } from '../context/planner-context';
+import { Plan } from '../plan/plan';
+import { PlannerCommand } from './planner-command';
 
 export class PlannerCommandAddPlan implements PlannerCommand {
-
-  constructor(private plan: Plan) {
-  }
+  constructor(private plan: Plan) {}
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandAddPlan');
@@ -20,5 +18,4 @@ export class PlannerCommandAddPlan implements PlannerCommand {
     context.markerLayer.removePlan(this.plan);
     context.updatePlan(Plan.empty);
   }
-
 }

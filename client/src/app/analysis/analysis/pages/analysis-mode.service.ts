@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {BrowserStorageService} from '../../../services/browser-storage.service';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BrowserStorageService } from '../../../services/browser-storage.service';
 
 @Injectable()
 export class AnalysisModeService {
-
   private readonly localStorageKey = 'analysis-mode';
   private readonly modeSubject: BehaviorSubject<string>;
 
@@ -30,7 +29,8 @@ export class AnalysisModeService {
 
   link(networkType: string, country: string): Observable<string> {
     const url = '/analysis/' + networkType + '/' + country;
-    return this.modeSubject.pipe(map(e => url + (e === 'network' ? '/networks' : '')));
+    return this.modeSubject.pipe(
+      map((e) => url + (e === 'network' ? '/networks' : ''))
+    );
   }
-
 }

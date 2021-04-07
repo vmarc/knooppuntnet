@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
 export class ReplicationId {
-
-  constructor(readonly level1: number,
-              readonly level2: number,
-              readonly level3: number) {
-  }
+  constructor(
+    readonly level1: number,
+    readonly level2: number,
+    readonly level3: number
+  ) {}
 
   static fromJSON(jsonObject: any): ReplicationId {
     if (!jsonObject) {

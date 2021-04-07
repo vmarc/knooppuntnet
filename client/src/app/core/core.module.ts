@@ -1,12 +1,12 @@
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {EffectsModule} from '@ngrx/effects';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
-import {StoreModule} from '@ngrx/store';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {environment} from '../../environments/environment';
-import {metaReducers, reducers} from './core.state';
-import {SharedEffects} from './shared/shared.effects';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../environments/environment';
+import { metaReducers, reducers } from './core.state';
+import { SharedEffects } from './shared/shared.effects';
 
 @NgModule({
   imports: [
@@ -19,19 +19,16 @@ import {SharedEffects} from './shared/shared.effects';
         strictStateSerializability: false,
         strictActionSerializability: false,
         strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true
-      }
+        strictActionTypeUniqueness: true,
+      },
     }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([
-      SharedEffects
-    ]),
+    EffectsModule.forRoot([SharedEffects]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-        name: 'Knooppuntnet'
-      })
-  ]
+          name: 'Knooppuntnet',
+        }),
+  ],
 })
-export class CoreModule {
-}
+export class CoreModule {}

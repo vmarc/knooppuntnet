@@ -1,11 +1,15 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-poi-group-landmarks',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="landmarks" title="Landmarks" i18n-title="@@poi.group.landmarks">
+    <kpn-poi-group
+      name="landmarks"
+      title="Landmarks"
+      i18n-title="@@poi.group.landmarks"
+    >
       <kpn-poi-config poiId="windmill"></kpn-poi-config>
       <kpn-poi-config poiId="watermill"></kpn-poi-config>
       <kpn-poi-config poiId="place-of-worship"></kpn-poi-config>
@@ -23,7 +27,6 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="statue"></kpn-poi-config>
       <kpn-poi-config poiId="zoo"></kpn-poi-config>
     </kpn-poi-group>
-  `
+  `,
 })
-export class PoiGroupLandmarksComponent {
-}
+export class PoiGroupLandmarksComponent {}

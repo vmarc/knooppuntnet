@@ -1,10 +1,9 @@
-import {Color} from 'ol/color';
+import { Color } from 'ol/color';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import {MainStyleColors} from './main-style-colors';
+import { MainStyleColors } from './main-style-colors';
 
 export class RouteStyle {
-
   private defaultRouteStyle = this.initRouteStyle();
 
   style(color: Color, zoom: number, highlighted: boolean): Style {
@@ -29,9 +28,8 @@ export class RouteStyle {
     return new Style({
       stroke: new Stroke({
         color: MainStyleColors.green,
-        width: 1
-      })
+        width: 1,
+      }),
     });
   }
-
 }

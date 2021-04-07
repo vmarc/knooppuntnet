@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {Subsets} from '../../../kpn/common/subsets';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Subsets } from '../../../kpn/common/subsets';
 
 @Component({
   selector: 'kpn-overview-table-header',
@@ -23,11 +23,13 @@ import {Subsets} from '../../../kpn/common/subsets';
       </th>
     </tr>
   `,
-  styles: [`
-    :host {
-      display: table-header-group;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: table-header-group;
+      }
+    `,
+  ],
 })
 export class OverviewTableHeaderComponent {
   subsets() {

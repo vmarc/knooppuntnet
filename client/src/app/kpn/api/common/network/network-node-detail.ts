@@ -1,29 +1,29 @@
 // this class is generated, please do not modify
 
-import {Day} from '../../custom/day';
-import {Fact} from '../../custom/fact';
-import {Tags} from '../../custom/tags';
-import {Timestamp} from '../../custom/timestamp';
-import {Ref} from '../common/ref';
+import { Day } from '../../custom/day';
+import { Fact } from '../../custom/fact';
+import { Tags } from '../../custom/tags';
+import { Timestamp } from '../../custom/timestamp';
+import { Ref } from '../common/ref';
 
 export class NetworkNodeDetail {
-
-  constructor(readonly id: number,
-              readonly name: string,
-              readonly number: string,
-              readonly latitude: string,
-              readonly longitude: string,
-              readonly connection: boolean,
-              readonly roleConnection: boolean,
-              readonly definedInRelation: boolean,
-              readonly definedInRoute: boolean,
-              readonly timestamp: Timestamp,
-              readonly lastSurvey: Day,
-              readonly expectedRouteCount: string,
-              readonly routeReferences: Array<Ref>,
-              readonly facts: Array<Fact>,
-              readonly tags: Tags) {
-  }
+  constructor(
+    readonly id: number,
+    readonly name: string,
+    readonly number: string,
+    readonly latitude: string,
+    readonly longitude: string,
+    readonly connection: boolean,
+    readonly roleConnection: boolean,
+    readonly definedInRelation: boolean,
+    readonly definedInRoute: boolean,
+    readonly timestamp: Timestamp,
+    readonly lastSurvey: Day,
+    readonly expectedRouteCount: string,
+    readonly routeReferences: Array<Ref>,
+    readonly facts: Array<Fact>,
+    readonly tags: Tags
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkNodeDetail {
     if (!jsonObject) {

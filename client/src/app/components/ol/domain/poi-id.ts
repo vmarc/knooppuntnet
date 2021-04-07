@@ -1,5 +1,3 @@
 export class PoiId {
-  constructor(readonly elementType: string,
-              readonly elementId: number) {
-  }
+  constructor(readonly elementType: string, readonly elementId: number) {}
 }

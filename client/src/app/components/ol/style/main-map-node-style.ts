@@ -1,17 +1,16 @@
-import {Color} from 'ol/color';
-import {FeatureLike} from 'ol/Feature';
+import { Color } from 'ol/color';
+import { FeatureLike } from 'ol/Feature';
 import CircleStyle from 'ol/style/Circle';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Style from 'ol/style/Style';
-import {MapMode} from '../services/map-mode';
-import {MapService} from '../services/map.service';
-import {MainStyleColors} from './main-style-colors';
-import {NodeStyle} from './node-style';
-import {SurveyDateStyle} from './survey-date-style';
+import { MapMode } from '../services/map-mode';
+import { MapService } from '../services/map.service';
+import { MainStyleColors } from './main-style-colors';
+import { NodeStyle } from './node-style';
+import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapNodeStyle {
-
   private readonly largeMinZoomLevel = 13;
   private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
@@ -56,7 +55,11 @@ export class MainMapNodeStyle {
 
   private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
     let style = null;
-    if (this.mapService.selectedNodeId && featureId && featureId === this.mapService.selectedNodeId) {
+    if (
+      this.mapService.selectedNodeId &&
+      featureId &&
+      featureId === this.mapService.selectedNodeId
+    ) {
       if (large) {
         style = this.largeNodeSelectedStyle;
       } else {
@@ -66,7 +69,11 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineNodeMainStyle(feature: FeatureLike, large: boolean, ref: string): Style {
+  private determineNodeMainStyle(
+    feature: FeatureLike,
+    large: boolean,
+    ref: string
+  ): Style {
     let style: Style;
     if (large && '*' !== ref) {
       style = this.determineLargeNodeStyle(feature, ref);
@@ -77,7 +84,6 @@ export class MainMapNodeStyle {
   }
 
   private determineLargeNodeStyle(feature: FeatureLike, ref: string): Style {
-
     const color = this.nodeColor(feature);
 
     const circleStyle: CircleStyle = this.largeNodeStyle.getImage() as CircleStyle;
@@ -85,7 +91,10 @@ export class MainMapNodeStyle {
     this.largeNodeStyle.getText().setText(ref);
     circleStyle.getStroke().setColor(color);
 
-    if (this.mapService.highlightedNodeId && feature.get('id') === this.mapService.highlightedNodeId) {
+    if (
+      this.mapService.highlightedNodeId &&
+      feature.get('id') === this.mapService.highlightedNodeId
+    ) {
       circleStyle.getStroke().setWidth(5);
       circleStyle.setRadius(16);
     } else {
@@ -112,9 +121,9 @@ export class MainMapNodeStyle {
       image: new Circle({
         radius,
         fill: new Fill({
-          color: MainStyleColors.yellow
-        })
-      })
+          color: MainStyleColors.yellow,
+        }),
+      }),
     });
   }
 

@@ -1,16 +1,19 @@
-import {OnInit} from '@angular/core';
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MatButtonToggleChange} from '@angular/material/button-toggle';
-import {ActivatedRoute} from '@angular/router';
-import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-network-type-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-button-toggle-group [value]="networkType$ | async" (change)="networkTypeChanged($event)">
+    <mat-button-toggle-group
+      [value]="networkType$ | async"
+      (change)="networkTypeChanged($event)"
+    >
       <mat-button-toggle value="cycling">
         <mat-icon svgIcon="cycling"></mat-icon>
       </mat-button-toggle>
@@ -31,37 +34,42 @@ import {map} from 'rxjs/operators';
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,
-  styles: [`
-    mat-button-toggle-group {
-      margin-left: 100px;
-    }
+  styles: [
+    `
+      mat-button-toggle-group {
+        margin-left: 100px;
+      }
 
-    ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
-      width: 34px;
-      height: 34px;
-    }
+      ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
+        width: 34px;
+        height: 34px;
+      }
 
-    ::ng-deep .mat-button-toggle > .mat-button-toggle-button > .mat-button-toggle-label-content {
-      line-height: 34px;
-      color: rgba(0, 0, 0, 0.8);
-      padding: 0;
-    }
-  `]
+      ::ng-deep
+        .mat-button-toggle
+        > .mat-button-toggle-button
+        > .mat-button-toggle-label-content {
+        line-height: 34px;
+        color: rgba(0, 0, 0, 0.8);
+        padding: 0;
+      }
+    `,
+  ],
 })
 export class NetworkTypeSelectorComponent implements OnInit {
-
   networkType$: Observable<string>;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-  }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.networkType$ = this.activatedRoute.params.pipe(
-      map(params => params['networkType'])
+      map((params) => params['networkType'])
     );
   }
 
   networkTypeChanged(event: MatButtonToggleChange) {
-    this.router.navigate(['../../' + event.value], {relativeTo: this.activatedRoute});
+    this.router.navigate(['../../' + event.value], {
+      relativeTo: this.activatedRoute,
+    });
   }
 }

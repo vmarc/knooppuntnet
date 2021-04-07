@@ -1,9 +1,9 @@
-import {Routes} from '@angular/router';
-import {RouterModule} from '@angular/router';
-import {NgModule} from '@angular/core';
-import {DemoMenuComponent} from './menu/demo-menu.component';
-import {DemoSidebarComponent} from './components/demo-sidebar.component';
-import {DemoVideoComponent} from './components/demo-video.component';
+import { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { DemoMenuComponent } from './menu/demo-menu.component';
+import { DemoSidebarComponent } from './components/demo-sidebar.component';
+import { DemoVideoComponent } from './components/demo-video.component';
 
 const routes: Routes = [
   {
@@ -11,38 +11,33 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DemoVideoComponent
+        component: DemoVideoComponent,
       },
       {
         path: '',
         component: DemoSidebarComponent,
-        outlet: 'sidebar'
-      }
-    ]
+        outlet: 'sidebar',
+      },
+    ],
   },
   {
     path: '',
     children: [
       {
         path: '',
-        component: DemoMenuComponent
+        component: DemoMenuComponent,
       },
       {
         path: '',
         component: DemoSidebarComponent,
-        outlet: 'sidebar'
-      }
-    ]
+        outlet: 'sidebar',
+      },
+    ],
   },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class DemoRoutingModule {
-}
+export class DemoRoutingModule {}

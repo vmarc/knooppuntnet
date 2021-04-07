@@ -1,7 +1,6 @@
-import {Color} from 'ol/color';
+import { Color } from 'ol/color';
 
 export class MainStyleColors {
-
   public static readonly lightGreen: Color = [0, 255, 0]; // regular nodes and routes
   public static readonly green: Color = [0, 200, 0]; // regular nodes and routes
   public static readonly darkGreen: Color = [0, 150, 0]; // orphan nodes and routes
@@ -16,5 +15,4 @@ export class MainStyleColors {
   public static readonly yellow: Color = [255, 255, 0]; // selected color
   public static readonly white: Color = [255, 255, 255]; // node inner color
   public static readonly orange: Color = [255, 165, 0];
-
 }

@@ -1,7 +1,6 @@
-import {SubscriptionLike} from 'rxjs';
+import { SubscriptionLike } from 'rxjs';
 
 export class Subscriptions {
-
   protected subscriptions: SubscriptionLike[] = [];
 
   add(...subscriptions: SubscriptionLike[]) {
@@ -9,7 +8,7 @@ export class Subscriptions {
   }
 
   unsubscribe() {
-    this.subscriptions.forEach(sub => sub && sub.unsubscribe());
+    this.subscriptions.forEach((sub) => sub && sub.unsubscribe());
     this.subscriptions = [];
   }
 }

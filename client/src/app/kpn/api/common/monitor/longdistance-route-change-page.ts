@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import {LongdistanceRouteChange} from './longdistance-route-change';
+import { LongdistanceRouteChange } from './longdistance-route-change';
 
 export interface LongdistanceRouteChangePage {
   readonly id: number;

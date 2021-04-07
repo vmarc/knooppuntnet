@@ -1,8 +1,8 @@
-@import "variables";
+@import 'variables';
 
 body {
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
 h1 {
@@ -25,11 +25,13 @@ a:visited {
 }
 
 a.external {
-  background: white url('/assets/images/external.png') no-repeat scroll right center;
+  background: white url('/assets/images/external.png') no-repeat scroll right
+    center;
   padding-right: 13px;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
   text-decoration: underline;
 }
 
@@ -59,7 +61,6 @@ strong {
   }
 }
 
-
 .warning {
   color: red;
 }
@@ -69,7 +70,8 @@ strong {
   border-spacing: 0;
 }
 
-.kpn-table th, .kpn-table td {
+.kpn-table th,
+.kpn-table td {
   text-align: left;
   vertical-align: top;
   padding: 5px;
@@ -86,7 +88,6 @@ strong {
 }
 
 table.kpn-columns-table {
-
   > thead > tr > th:not(:first-child) {
     border-left: 1px solid rgba(0, 0, 0, 0.12);
     padding-left: 10px !important;
@@ -101,7 +102,6 @@ table.kpn-columns-table {
 }
 
 table.kpn-bordered-table {
-
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 
   > thead > tr > th {
@@ -120,7 +120,6 @@ table.kpn-bordered-table {
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
-
 }
 
 .mat-list .mat-list-item {
@@ -170,7 +169,6 @@ table.kpn-bordered-table {
   }
 }
 
-
 .kpn-level-1 {
   margin-top: 36px;
   margin-bottom: 20px;
@@ -183,7 +181,8 @@ table.kpn-bordered-table {
 }
 
 .kpn-level-1-header {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: 768px) {
+    // media.maxWidth(PageWidth.SmallMaxWidth.px)
     padding-bottom: 20px;
     font-size: 1.3em;
   }
@@ -198,7 +197,6 @@ table.kpn-bordered-table {
   padding-bottom: 20px;
 }
 
-
 .kpn-level-2 {
   margin: 0;
   padding-top: 0.5em;
@@ -212,7 +210,8 @@ table.kpn-bordered-table {
 }
 
 .kpn-level-2-body {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: 768px) {
+    // media.maxWidth(PageWidth.SmallMaxWidth.px)
     padding-bottom: 0.5em;
   }
   @media (min-width: 769px) {
@@ -220,7 +219,6 @@ table.kpn-bordered-table {
     padding-bottom: 0.5em;
   }
 }
-
 
 .kpn-level-3 {
   margin: 0; // TODO really needed?
@@ -233,7 +231,8 @@ table.kpn-bordered-table {
 }
 
 .kpn-level-3-body {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: 768px) {
+    // media.maxWidth(PageWidth.SmallMaxWidth.px)
     padding-bottom: 0.5em;
   }
   @media (min-width: 769px) {
@@ -242,8 +241,8 @@ table.kpn-bordered-table {
   }
 }
 
-
-.kpn-level-4 { // same as .kpn-detail
+.kpn-level-4 {
+  // same as .kpn-detail
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
@@ -253,7 +252,8 @@ table.kpn-bordered-table {
 }
 
 .kpn-level-4-body {
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: 768px) {
+    // media.maxWidth(PageWidth.SmallMaxWidth.px)
     padding-left: 5px;
   }
   @media (min-width: 769px) {
@@ -265,7 +265,7 @@ table.kpn-bordered-table {
   display: inline-block;
 
   :not(:last-child):after {
-    content: ", ";
+    content: ', ';
   }
 }
 
@@ -273,40 +273,40 @@ table.kpn-bordered-table {
   display: inline-block;
 
   :not(:last-child):after {
-    content: " ";
+    content: ' ';
   }
 }
 
 .kpn-brackets::before {
-  content: "(";
+  content: '(';
   padding-left: 5px;
 }
 
 .kpn-brackets::after {
-  content: ")";
+  content: ')';
 }
 
 .kpn-brackets-link a::before {
-  content: "(";
+  content: '(';
   color: grey;
   padding-left: 5px;
 }
 
 .kpn-brackets-link a::after {
-  content: ")";
+  content: ')';
   color: grey;
 }
 
 .kpn-label::after {
-  content: ": ";
+  content: ': ';
 }
 
 .kpn-km::after {
-  content: " km";
+  content: ' km';
 }
 
 .kpn-meters::after {
-  content: "m";
+  content: 'm';
 }
 
 ul.breadcrumb {
@@ -323,7 +323,7 @@ ul.breadcrumb li {
 ul.breadcrumb li + li:before {
   padding: 0.3em;
   color: black;
-  content: ">";
+  content: '>';
 }
 
 ul.links {
@@ -340,11 +340,12 @@ ul.links li {
 ul.links li + li:before {
   padding: 0.3em;
   color: black;
-  content: "|";
+  content: '|';
 }
 
 .sidebar-logo {
-  background: rgba(254, 254, 254, 255) url('/assets/images/logo.svg') no-repeat center;
+  background: rgba(254, 254, 254, 255) url('/assets/images/logo.svg') no-repeat
+    center;
   background-position-y: 30px;
 }
 

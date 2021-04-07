@@ -1,13 +1,11 @@
-import {List} from 'immutable';
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlannerCommandMoveStartPoint} from './planner-command-move-start-point';
+import { List } from 'immutable';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlannerCommandMoveStartPoint } from './planner-command-move-start-point';
 
 describe('PlannerCommandMoveStartPoint', () => {
-
   it('move start point - do and undo', () => {
-
     const setup = new PlannerTestSetup();
 
     const sourceFlag = PlanFlag.start('sourceFlag', [1, 1]);
@@ -36,5 +34,4 @@ describe('PlannerCommandMoveStartPoint', () => {
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists('sourceFlag', [2, 2]);
   });
-
 });

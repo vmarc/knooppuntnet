@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {NetworkSummary} from '@api/common/network/network-summary';
-import {Map} from 'immutable';
+import { Injectable } from '@angular/core';
+import { NetworkSummary } from '@api/common/network/network-summary';
+import { Map } from 'immutable';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NetworkCacheService {
-
   private networkNames = Map<number, string>();
   private networkSummaries = Map<number, NetworkSummary>();
 
@@ -23,7 +22,9 @@ export class NetworkCacheService {
   }
 
   setNetworkSummary(networkId: number, networkSummary: NetworkSummary) {
-    this.networkSummaries = this.networkSummaries.set(networkId, networkSummary);
+    this.networkSummaries = this.networkSummaries.set(
+      networkId,
+      networkSummary
+    );
   }
-
 }

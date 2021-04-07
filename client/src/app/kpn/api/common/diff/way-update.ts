@@ -1,21 +1,21 @@
 // this class is generated, please do not modify
 
-import {MetaData} from '../data/meta-data';
-import {NodeUpdate} from './node-update';
-import {RawNode} from '../data/raw/raw-node';
-import {TagDiffs} from './tag-diffs';
+import { MetaData } from '../data/meta-data';
+import { NodeUpdate } from './node-update';
+import { RawNode } from '../data/raw/raw-node';
+import { TagDiffs } from './tag-diffs';
 
 export class WayUpdate {
-
-  constructor(readonly id: number,
-              readonly before: MetaData,
-              readonly after: MetaData,
-              readonly removedNodes: Array<RawNode>,
-              readonly addedNodes: Array<RawNode>,
-              readonly updatedNodes: Array<NodeUpdate>,
-              readonly directionReversed: boolean,
-              readonly tagDiffs: TagDiffs) {
-  }
+  constructor(
+    readonly id: number,
+    readonly before: MetaData,
+    readonly after: MetaData,
+    readonly removedNodes: Array<RawNode>,
+    readonly addedNodes: Array<RawNode>,
+    readonly updatedNodes: Array<NodeUpdate>,
+    readonly directionReversed: boolean,
+    readonly tagDiffs: TagDiffs
+  ) {}
 
   public static fromJSON(jsonObject: any): WayUpdate {
     if (!jsonObject) {

@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-fact-route-suspicious-ways',
@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
     <p i18n="@@fact.description.route-suspicious-ways">
       Route with funny ways (for example ways with only 1 node).
     </p>
-  `
+  `,
 })
-export class FactRouteSuspiciousWaysComponent {
-}
+export class FactRouteSuspiciousWaysComponent {}

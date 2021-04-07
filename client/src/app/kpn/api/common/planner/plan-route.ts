@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
-import {PlanNode} from './plan-node';
-import {PlanSegment} from './plan-segment';
+import { PlanNode } from './plan-node';
+import { PlanSegment } from './plan-segment';
 
 export class PlanRoute {
-
-  constructor(readonly sourceNode: PlanNode,
-              readonly sinkNode: PlanNode,
-              readonly meters: number,
-              readonly segments: Array<PlanSegment>,
-              readonly streets: Array<string>) {
-  }
+  constructor(
+    readonly sourceNode: PlanNode,
+    readonly sinkNode: PlanNode,
+    readonly meters: number,
+    readonly segments: Array<PlanSegment>,
+    readonly streets: Array<string>
+  ) {}
 
   static fromJSON(jsonObject: any): PlanRoute {
     if (!jsonObject) {

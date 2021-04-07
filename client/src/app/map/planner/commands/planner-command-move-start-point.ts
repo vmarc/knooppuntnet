@@ -1,14 +1,14 @@
-import {PlanNode} from '@api/common/planner/plan-node';
-import {List} from 'immutable';
-import {PlannerContext} from '../context/planner-context';
-import {Plan} from '../plan/plan';
-import {PlannerCommand} from './planner-command';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { List } from 'immutable';
+import { PlannerContext } from '../context/planner-context';
+import { Plan } from '../plan/plan';
+import { PlannerCommand } from './planner-command';
 
 export class PlannerCommandMoveStartPoint implements PlannerCommand {
-
-  constructor(private readonly oldNode: PlanNode,
-              private readonly newNode: PlanNode) {
-  }
+  constructor(
+    private readonly oldNode: PlanNode,
+    private readonly newNode: PlanNode
+  ) {}
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandMoveStartPoint');
@@ -27,5 +27,4 @@ export class PlannerCommandMoveStartPoint implements PlannerCommand {
     const newPlan = new Plan(toNode, newFlag, List());
     context.updatePlan(newPlan);
   }
-
 }

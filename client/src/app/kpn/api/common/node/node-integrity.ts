@@ -1,11 +1,9 @@
 // this class is generated, please do not modify
 
-import {NodeIntegrityDetail} from './node-integrity-detail';
+import { NodeIntegrityDetail } from './node-integrity-detail';
 
 export class NodeIntegrity {
-
-  constructor(readonly details: Array<NodeIntegrityDetail>) {
-  }
+  constructor(readonly details: Array<NodeIntegrityDetail>) {}
 
   static fromJSON(jsonObject: any): NodeIntegrity {
     if (!jsonObject) {

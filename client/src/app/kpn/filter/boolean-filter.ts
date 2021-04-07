@@ -1,16 +1,17 @@
-import {Filter} from './filter';
-import {FilterOption} from './filter-option';
-import {FilterOptionGroup} from './filter-option-group';
-import {Filters} from './filters';
+import { Filter } from './filter';
+import { FilterOption } from './filter-option';
+import { FilterOptionGroup } from './filter-option-group';
+import { Filters } from './filters';
 
 export class BooleanFilter<T> extends Filter<T> {
-
-  constructor(name: string,
-              private readonly criterium: boolean,
-              private readonly getter: (row: T) => boolean,
-              private readonly all: () => void,
-              private readonly yes: () => void,
-              private readonly no: () => void) {
+  constructor(
+    name: string,
+    private readonly criterium: boolean,
+    private readonly getter: (row: T) => boolean,
+    private readonly all: () => void,
+    private readonly yes: () => void,
+    private readonly no: () => void
+  ) {
     super(name);
   }
 
@@ -25,11 +26,13 @@ export class BooleanFilter<T> extends Filter<T> {
   }
 
   filterOptions(allFilters: Filters<T>, elements: T[]): FilterOptionGroup {
-
     const filteredElements = allFilters.filterExcept(elements, this);
-    const yesElements = filteredElements.filter(e => this.getter(e));
-    const noElements = filteredElements.filter(e => !this.getter(e));
-    const active = filteredElements.length > 0 && yesElements.length > 0 && noElements.length > 0;
+    const yesElements = filteredElements.filter((e) => this.getter(e));
+    const noElements = filteredElements.filter((e) => !this.getter(e));
+    const active =
+      filteredElements.length > 0 &&
+      yesElements.length > 0 &&
+      noElements.length > 0;
 
     if (active) {
       const allOption = new FilterOption(
@@ -57,5 +60,4 @@ export class BooleanFilter<T> extends Filter<T> {
     }
     return null;
   }
-
 }

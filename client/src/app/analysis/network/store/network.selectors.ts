@@ -1,10 +1,13 @@
-import {createFeatureSelector} from '@ngrx/store';
-import {createSelector} from '@ngrx/store';
-import {NetworkRootState} from './network.state';
-import {networkFeatureKey} from './network.state';
-import {NetworkState} from './network.state';
+import { createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
+import { NetworkRootState } from './network.state';
+import { networkFeatureKey } from './network.state';
+import { NetworkState } from './network.state';
 
-export const selectNetworkState = createFeatureSelector<NetworkRootState, NetworkState>(networkFeatureKey);
+export const selectNetworkState = createFeatureSelector<
+  NetworkRootState,
+  NetworkState
+>(networkFeatureKey);
 
 export const selectNetworkDetailsPage = createSelector(
   selectNetworkState,

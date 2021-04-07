@@ -1,10 +1,7 @@
 // this class is generated, please do not modify
 
 export class LocationChangesParameters {
-
-  constructor(readonly itemsPerPage: number,
-              readonly pageIndex: number) {
-  }
+  constructor(readonly itemsPerPage: number, readonly pageIndex: number) {}
 
   public static fromJSON(jsonObject: any): LocationChangesParameters {
     if (!jsonObject) {

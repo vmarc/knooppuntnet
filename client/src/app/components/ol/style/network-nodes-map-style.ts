@@ -1,13 +1,12 @@
-import {FeatureLike} from 'ol/Feature';
+import { FeatureLike } from 'ol/Feature';
 import Map from 'ol/Map';
-import {Style} from 'ol/style';
-import {StyleFunction} from 'ol/style/Style';
-import {MainStyleColors} from './main-style-colors';
-import {NodeStyle} from './node-style';
-import {RouteStyle} from './route-style';
+import { Style } from 'ol/style';
+import { StyleFunction } from 'ol/style/Style';
+import { MainStyleColors } from './main-style-colors';
+import { NodeStyle } from './node-style';
+import { RouteStyle } from './route-style';
 
 export class NetworkNodesMapStyle {
-
   private readonly smallNodeStyle = NodeStyle.smallGreen;
   private readonly smallNodeStyleGray = NodeStyle.smallGray;
 
@@ -17,10 +16,11 @@ export class NetworkNodesMapStyle {
 
   private readonly routeStyle = new RouteStyle();
 
-  constructor(private map: Map,
-              private networkNodeIds: number[],
-              private networkRouteIds: number[]) {
-  }
+  constructor(
+    private map: Map,
+    private networkNodeIds: number[],
+    private networkRouteIds: number[]
+  ) {}
 
   public styleFunction(): StyleFunction {
     return (feature, resolution) => {
@@ -44,7 +44,9 @@ export class NetworkNodesMapStyle {
       if (name && ref === 'o') {
         ref = null;
       }
-      const style = this.networkNodeIds.includes(nodeId) ? this.largeNodeStyle : this.largeNodeStyleGray;
+      const style = this.networkNodeIds.includes(nodeId)
+        ? this.largeNodeStyle
+        : this.largeNodeStyleGray;
       style.getText().setText(ref);
       if (name) {
         let offsetY = 0;
@@ -57,14 +59,18 @@ export class NetworkNodesMapStyle {
       }
       return style;
     }
-    return this.networkNodeIds.includes(nodeId) ? this.smallNodeStyle : this.smallNodeStyleGray;
+    return this.networkNodeIds.includes(nodeId)
+      ? this.smallNodeStyle
+      : this.smallNodeStyleGray;
   }
 
   private buildRouteStyle(feature: FeatureLike): Style {
     const zoom = this.map.getView().getZoom();
     const featureId = feature.get('id');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
-    const routeColor = this.networkRouteIds.includes(routeId) ? MainStyleColors.green : MainStyleColors.gray;
+    const routeColor = this.networkRouteIds.includes(routeId)
+      ? MainStyleColors.green
+      : MainStyleColors.gray;
     return this.routeStyle.style(routeColor, zoom, false);
   }
 }

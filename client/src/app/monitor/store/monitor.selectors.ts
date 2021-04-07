@@ -1,11 +1,14 @@
-import {createFeatureSelector} from '@ngrx/store';
-import {createSelector} from '@ngrx/store';
-import {selectPreferencesImpact} from '../../core/preferences/preferences.selectors';
-import {monitorFeatureKey} from './monitor.state';
-import {MonitorRootState} from './monitor.state';
-import {MonitorState} from './monitor.state';
+import { createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
+import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
+import { monitorFeatureKey } from './monitor.state';
+import { MonitorRootState } from './monitor.state';
+import { MonitorState } from './monitor.state';
 
-export const selectMonitorState = createFeatureSelector<MonitorRootState, MonitorState>(monitorFeatureKey);
+export const selectMonitorState = createFeatureSelector<
+  MonitorRootState,
+  MonitorState
+>(monitorFeatureKey);
 
 export const selectMonitorAdmin = createSelector(
   selectMonitorState,
@@ -70,7 +73,11 @@ export const selectMonitorRouteMapBounds = createSelector(
 export const selectMonitorRouteMapOsmSegments = createSelector(
   selectMonitorState,
   (state: MonitorState) => {
-    if (state.routeMapPage && state.routeMapPage.result && state.routeMapPage.result.osmSegments) {
+    if (
+      state.routeMapPage &&
+      state.routeMapPage.result &&
+      state.routeMapPage.result.osmSegments
+    ) {
       return state.routeMapPage.result.osmSegments;
     }
     return [];
@@ -154,17 +161,21 @@ export const selectMonitorRouteMapGpxEnabled = createSelector(
 
 export const selectMonitorRouteMapGpxOkEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.mapMode === 'comparison' && !!state.routeMapPage?.result?.okGeometry
+  (state: MonitorState) =>
+    state.mapMode === 'comparison' && !!state.routeMapPage?.result?.okGeometry
 );
 
 export const selectMonitorRouteMapGpxNokEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.mapMode === 'comparison' && (state.routeMapPage?.result?.nokSegments?.length ?? 0) > 0
+  (state: MonitorState) =>
+    state.mapMode === 'comparison' &&
+    (state.routeMapPage?.result?.nokSegments?.length ?? 0) > 0
 );
 
 export const selectMonitorRouteMapOsmRelationEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => (state.routeMapPage?.result?.osmSegments?.length ?? 0) > 0
+  (state: MonitorState) =>
+    (state.routeMapPage?.result?.osmSegments?.length ?? 0) > 0
 );
 
 /*************************************/
@@ -196,22 +207,26 @@ export const selectLongdistanceRouteMapBounds = createSelector(
 
 export const selectLongdistanceRouteMapOsmSegments = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.longdistanceRouteMapPage?.result?.osmSegments ?? []
+  (state: MonitorState) =>
+    state.longdistanceRouteMapPage?.result?.osmSegments ?? []
 );
 
 export const selectLongdistanceRouteMapOsmSegmentCount = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.longdistanceRouteMapPage?.result?.osmSegments?.length ?? 0
+  (state: MonitorState) =>
+    state.longdistanceRouteMapPage?.result?.osmSegments?.length ?? 0
 );
 
 export const selectLongdistanceRouteMapNokSegments = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.longdistanceRouteMapPage?.result?.nokSegments ?? []
+  (state: MonitorState) =>
+    state.longdistanceRouteMapPage?.result?.nokSegments ?? []
 );
 
 export const selectLongdistanceRouteMapNokSegmentsCount = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.longdistanceRouteMapPage?.result?.nokSegments?.length ?? 0
+  (state: MonitorState) =>
+    state.longdistanceRouteMapPage?.result?.nokSegments?.length ?? 0
 );
 
 export const selectLongdistanceRouteChangesPage = createSelector(
@@ -229,7 +244,7 @@ export const selectLongdistanceRouteChangesFiltered = createSelector(
   selectPreferencesImpact,
   (state: MonitorState, impact) => {
     const changes = state.longdistanceRouteChangesPage?.result?.changes ?? [];
-    return changes.filter(change => {
+    return changes.filter((change) => {
       if (impact) {
         return change.happy || change.investigate;
       }
@@ -275,15 +290,20 @@ export const selectLongdistanceRouteMapGpxEnabled = createSelector(
 
 export const selectLongdistanceRouteMapGpxOkEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.longdistanceRouteMapMode === 'comparison' && !!state.longdistanceRouteMapPage?.result?.okGeometry
+  (state: MonitorState) =>
+    state.longdistanceRouteMapMode === 'comparison' &&
+    !!state.longdistanceRouteMapPage?.result?.okGeometry
 );
 
 export const selectLongdistanceRouteMapGpxNokEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => state.longdistanceRouteMapMode === 'comparison' && (state.longdistanceRouteMapPage?.result?.nokSegments?.length ?? 0) > 0
+  (state: MonitorState) =>
+    state.longdistanceRouteMapMode === 'comparison' &&
+    (state.longdistanceRouteMapPage?.result?.nokSegments?.length ?? 0) > 0
 );
 
 export const selectLongdistanceRouteMapOsmRelationEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => (state.longdistanceRouteMapPage?.result?.osmSegments?.length ?? 0) > 0
+  (state: MonitorState) =>
+    (state.longdistanceRouteMapPage?.result?.osmSegments?.length ?? 0) > 0
 );

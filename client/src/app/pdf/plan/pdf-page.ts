@@ -1,5 +1,4 @@
 export class PdfPage {
-
   // A4 page size
   static width = 210;
   static height = 297;
@@ -14,9 +13,10 @@ export class PdfPage {
 
   static spacer = 3;
 
-  static xContentsLeft = PdfPage.marginLeft + PdfPage.sidebarWidth + PdfPage.spacer;
+  static xContentsLeft =
+    PdfPage.marginLeft + PdfPage.sidebarWidth + PdfPage.spacer;
   static xContentsRight = PdfPage.width - PdfPage.marginRight;
   static yContentsTop = PdfPage.marginTop;
-  static yContentsBottom = PdfPage.height - PdfPage.marginBottom - PdfPage.footerHeight;
-
+  static yContentsBottom =
+    PdfPage.height - PdfPage.marginBottom - PdfPage.footerHeight;
 }

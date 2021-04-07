@@ -1,21 +1,20 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Input} from '@angular/core';
-import {Component} from '@angular/core';
-import {BarChart} from '@api/common/status/bar-chart';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { BarChart } from '@api/common/status/bar-chart';
 
 /* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-docs-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h2>
-      Document count
-    </h2>
+    <h2>Document count</h2>
     <div class="chart">
       <kpn-action-bar-chart
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
-        yAxisLabel="documents">
+        yAxisLabel="documents"
+      >
       </kpn-action-bar-chart>
     </div>
 
@@ -31,15 +30,15 @@ import {BarChart} from '@api/common/status/bar-chart';
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="'documents'"
         [legend]="false"
-        [roundDomains]="false">
+        [roundDomains]="false"
+      >
       </ngx-charts-line-chart>
     </div>
-  `
+  `,
 })
 export class DocsChartComponent {
   @Input() barChart: BarChart;
   @Input() xAxisLabel: string;
-
 
   view: [number, number] = [700, 300];
 
@@ -47,9 +46,8 @@ export class DocsChartComponent {
     return [
       {
         name: 'Lesotho',
-        series: this.barChart.data
-      }
+        series: this.barChart.data,
+      },
     ];
   }
-
 }

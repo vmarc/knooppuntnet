@@ -1,25 +1,22 @@
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {MapBrowserEvent} from 'ol';
-import {platformModifierKeyOnly} from 'ol/events/condition';
-import {FeatureLike} from 'ol/Feature';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { MapBrowserEvent } from 'ol';
+import { platformModifierKeyOnly } from 'ol/events/condition';
+import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
-import {WindowService} from '../../../services/window.service';
+import { WindowService } from '../../../services/window.service';
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
  */
 @Injectable()
 export class MapClickService {
-
   private interaction: Interaction = this.buildInteraction();
   private ctrl = false;
 
-  constructor(private router: Router,
-              private windowService: WindowService) {
-  }
+  constructor(private router: Router, private windowService: WindowService) {}
 
   installOn(map: Map): void {
     map.addInteraction(this.interaction);
@@ -43,7 +40,7 @@ export class MapClickService {
           return this.handleMoveEvent(event);
         }
         return true; // propagate event
-      }
+      },
     });
   }
 
@@ -72,10 +69,13 @@ export class MapClickService {
   }
 
   private getFeatures(evt: MapBrowserEvent): Array<FeatureLike> {
-    return evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
+    return evt.map.getFeaturesAtPixel(evt.pixel, { hitTolerance: 10 });
   }
 
-  private findFeature(features: Array<FeatureLike>, predicate: (feature: FeatureLike) => boolean): FeatureLike {
+  private findFeature(
+    features: Array<FeatureLike>,
+    predicate: (feature: FeatureLike) => boolean
+  ): FeatureLike {
     for (const feature of features) {
       if (predicate(feature)) {
         return feature;
@@ -97,7 +97,10 @@ export class MapClickService {
       window.open(url);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
-      setTimeout(() => this.router.navigateByUrl(url, {state: {routeName}}), 250);
+      setTimeout(
+        () => this.router.navigateByUrl(url, { state: { routeName } }),
+        250
+      );
     }
   }
 
@@ -113,7 +116,10 @@ export class MapClickService {
       window.open(url);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
-      setTimeout(() => this.router.navigateByUrl(url, {state: {nodeName}}), 250);
+      setTimeout(
+        () => this.router.navigateByUrl(url, { state: { nodeName } }),
+        250
+      );
     }
   }
 
@@ -138,5 +144,4 @@ export class MapClickService {
     const layer = feature.get('layer');
     return layer && layer.endsWith('route');
   }
-
 }

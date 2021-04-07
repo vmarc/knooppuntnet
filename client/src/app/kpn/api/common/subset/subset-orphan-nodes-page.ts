@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {NodeInfo} from '../node-info';
-import {SubsetInfo} from './subset-info';
-import {TimeInfo} from '../time-info';
+import { NodeInfo } from '../node-info';
+import { SubsetInfo } from './subset-info';
+import { TimeInfo } from '../time-info';
 
 export class SubsetOrphanNodesPage {
-
-  constructor(readonly timeInfo: TimeInfo,
-              readonly subsetInfo: SubsetInfo,
-              readonly rows: Array<NodeInfo>) {
-  }
+  constructor(
+    readonly timeInfo: TimeInfo,
+    readonly subsetInfo: SubsetInfo,
+    readonly rows: Array<NodeInfo>
+  ) {}
 
   public static fromJSON(jsonObject: any): SubsetOrphanNodesPage {
     if (!jsonObject) {

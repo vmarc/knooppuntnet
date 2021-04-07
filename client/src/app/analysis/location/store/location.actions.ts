@@ -1,12 +1,12 @@
-import {LocationChangesPage} from '@api/common/location/location-changes-page';
-import {LocationEditPage} from '@api/common/location/location-edit-page';
-import {LocationFactsPage} from '@api/common/location/location-facts-page';
-import {LocationMapPage} from '@api/common/location/location-map-page';
-import {LocationNodesPage} from '@api/common/location/location-nodes-page';
-import {LocationRoutesPage} from '@api/common/location/location-routes-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {props} from '@ngrx/store';
-import {createAction} from '@ngrx/store';
+import { LocationChangesPage } from '@api/common/location/location-changes-page';
+import { LocationEditPage } from '@api/common/location/location-edit-page';
+import { LocationFactsPage } from '@api/common/location/location-facts-page';
+import { LocationMapPage } from '@api/common/location/location-map-page';
+import { LocationNodesPage } from '@api/common/location/location-nodes-page';
+import { LocationRoutesPage } from '@api/common/location/location-routes-page';
+import { ApiResponse } from '@api/custom/api-response';
+import { props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
 export const actionLocationNodesPageInit = createAction(
   '[LocationNodesPage] Init'
@@ -35,9 +35,7 @@ export const actionLocationFactsPageLoaded = createAction(
   props<{ response: ApiResponse<LocationFactsPage> }>()
 );
 
-export const actionLocationMapPageInit = createAction(
-  '[LocationMapPage] Init'
-);
+export const actionLocationMapPageInit = createAction('[LocationMapPage] Init');
 
 export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',

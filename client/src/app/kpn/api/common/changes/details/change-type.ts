@@ -1,16 +1,12 @@
 // this class is generated, please do not modify
 
 export class ChangeType {
-
-  constructor(readonly name: string) {
-  }
+  constructor(readonly name: string) {}
 
   static fromJSON(jsonObject: any): ChangeType {
     if (!jsonObject) {
       return undefined;
     }
-    return new ChangeType(
-      jsonObject.name
-    );
+    return new ChangeType(jsonObject.name);
   }
 }

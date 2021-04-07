@@ -1,9 +1,8 @@
-import {Coordinate} from 'ol/coordinate';
-import {expectCoordinate} from '../../../util/test-support';
-import {PlannerElasticBand} from './planner-elastic-band';
+import { Coordinate } from 'ol/coordinate';
+import { expectCoordinate } from '../../../util/test-support';
+import { PlannerElasticBand } from './planner-elastic-band';
 
 export class PlannerElasticBandMock implements PlannerElasticBand {
-
   private _anchor1: Coordinate;
   private _anchor2: Coordinate;
   private _position: Coordinate;
@@ -43,5 +42,4 @@ export class PlannerElasticBandMock implements PlannerElasticBand {
   expectVisible(visible: boolean): void {
     expect(this._visible).toEqual(visible);
   }
-
 }

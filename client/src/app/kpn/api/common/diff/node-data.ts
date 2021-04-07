@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {RawNode} from '../data/raw/raw-node';
-import {Subset} from '../../custom/subset';
+import { RawNode } from '../data/raw/raw-node';
+import { Subset } from '../../custom/subset';
 
 export class NodeData {
-
-  constructor(readonly subsets: Array<Subset>,
-              readonly name: string,
-              readonly node: RawNode) {
-  }
+  constructor(
+    readonly subsets: Array<Subset>,
+    readonly name: string,
+    readonly node: RawNode
+  ) {}
 
   public static fromJSON(jsonObject: any): NodeData {
     if (!jsonObject) {

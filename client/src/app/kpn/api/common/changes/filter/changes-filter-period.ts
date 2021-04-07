@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
 export class ChangesFilterPeriod {
-
-  constructor(readonly name: string,
-              readonly totalCount: number,
-              readonly impactedCount: number,
-              readonly current: boolean,
-              readonly selected: boolean,
-              readonly periods: Array<ChangesFilterPeriod>) {
-  }
+  constructor(
+    readonly name: string,
+    readonly totalCount: number,
+    readonly impactedCount: number,
+    readonly current: boolean,
+    readonly selected: boolean,
+    readonly periods: Array<ChangesFilterPeriod>
+  ) {}
 
   public static fromJSON(jsonObject: any): ChangesFilterPeriod {
     if (!jsonObject) {

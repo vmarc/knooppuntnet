@@ -1,17 +1,17 @@
 // this class is generated, please do not modify
 
-import {Tags} from '../../custom/tags';
-import {Timestamp} from '../../custom/timestamp';
+import { Tags } from '../../custom/tags';
+import { Timestamp } from '../../custom/timestamp';
 
 export class ChangeSetInfo {
-
-  constructor(readonly id: number,
-              readonly createdAt: Timestamp,
-              readonly closedAt: Timestamp,
-              readonly open: boolean,
-              readonly commentsCount: number,
-              readonly tags: Tags) {
-  }
+  constructor(
+    readonly id: number,
+    readonly createdAt: Timestamp,
+    readonly closedAt: Timestamp,
+    readonly open: boolean,
+    readonly commentsCount: number,
+    readonly tags: Tags
+  ) {}
 
   public static fromJSON(jsonObject: any): ChangeSetInfo {
     if (!jsonObject) {

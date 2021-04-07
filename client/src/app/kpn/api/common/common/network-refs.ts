@@ -1,17 +1,17 @@
 // this class is generated, please do not modify
 
-import {Country} from '../../custom/country';
-import {NetworkType} from '../../custom/network-type';
-import {Ref} from './ref';
+import { Country } from '../../custom/country';
+import { NetworkType } from '../../custom/network-type';
+import { Ref } from './ref';
 
 export class NetworkRefs {
-
-  constructor(readonly country: Country,
-              readonly networkType: NetworkType,
-              readonly networkRef: Ref,
-              readonly refType: string,
-              readonly refs: Array<Ref>) {
-  }
+  constructor(
+    readonly country: Country,
+    readonly networkType: NetworkType,
+    readonly networkRef: Ref,
+    readonly refType: string,
+    readonly refs: Array<Ref>
+  ) {}
 
   static fromJSON(jsonObject: any): NetworkRefs {
     if (!jsonObject) {

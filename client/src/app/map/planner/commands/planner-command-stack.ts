@@ -1,5 +1,5 @@
-import {List} from 'immutable';
-import {PlannerCommand} from './planner-command';
+import { List } from 'immutable';
+import { PlannerCommand } from './planner-command';
 
 /*
   Collection with planner commands that have been executed. We keep the details of these
@@ -22,7 +22,6 @@ import {PlannerCommand} from './planner-command';
 
 */
 export class PlannerCommandStack {
-
   private _commands: List<PlannerCommand> = List();
 
   private _commandCount = 0;
@@ -108,5 +107,4 @@ export class PlannerCommandStack {
   private updateCanRedo() {
     this._canRedo = this._commands.size > this.commandCount;
   }
-
 }

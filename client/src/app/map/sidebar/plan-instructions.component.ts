@@ -1,9 +1,14 @@
-import {OnChanges} from '@angular/core';
-import {ChangeDetectionStrategy, Component, Input, SimpleChanges} from '@angular/core';
-import {List} from 'immutable';
-import {DirectionsAnalyzer} from '../planner/directions/directions-analyzer';
-import {Plan} from '../planner/plan/plan';
-import {PlanInstruction} from '../planner/plan/plan-instruction';
+import { OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  SimpleChanges,
+} from '@angular/core';
+import { List } from 'immutable';
+import { DirectionsAnalyzer } from '../planner/directions/directions-analyzer';
+import { Plan } from '../planner/plan/plan';
+import { PlanInstruction } from '../planner/plan/plan-instruction';
 
 @Component({
   selector: 'kpn-plan-instructions',
@@ -14,11 +19,9 @@ import {PlanInstruction} from '../planner/plan/plan-instruction';
       <mat-divider></mat-divider>
     </div>
   `,
-  styles: [`
-  `]
+  styles: [``],
 })
 export class PlanInstructionsComponent implements OnChanges {
-
   @Input() plan: Plan;
   instructions: List<PlanInstruction>;
 

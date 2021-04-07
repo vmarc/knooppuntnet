@@ -1,28 +1,27 @@
-import {Injectable} from '@angular/core';
-import {BoundsI} from '@api/common/bounds-i';
-import {Store} from '@ngrx/store';
-import {GeoJSON} from 'ol/format';
+import { Injectable } from '@angular/core';
+import { BoundsI } from '@api/common/bounds-i';
+import { Store } from '@ngrx/store';
+import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
-import {Stroke} from 'ol/style';
-import {Style} from 'ol/style';
-import {Util} from '../../../../components/shared/util';
-import {AppState} from '../../../../core/core.state';
-import {Subscriptions} from '../../../../util/Subscriptions';
-import {selectLongdistanceRouteMapOsmRelationVisible} from '../../../store/monitor.selectors';
-import {selectLongdistanceRouteMapGpxNokVisible} from '../../../store/monitor.selectors';
-import {selectLongdistanceRouteMapGpxOkVisible} from '../../../store/monitor.selectors';
-import {selectLongdistanceRouteMapGpxVisible} from '../../../store/monitor.selectors';
-import {selectLongdistanceRouteMapGpxEnabled} from '../../../store/monitor.selectors';
-import {selectLongdistanceRouteMapMode} from '../../../store/monitor.selectors';
-import {selectLongdistanceRouteMapPage} from '../../../store/monitor.selectors';
+import { Stroke } from 'ol/style';
+import { Style } from 'ol/style';
+import { Util } from '../../../../components/shared/util';
+import { AppState } from '../../../../core/core.state';
+import { Subscriptions } from '../../../../util/Subscriptions';
+import { selectLongdistanceRouteMapOsmRelationVisible } from '../../../store/monitor.selectors';
+import { selectLongdistanceRouteMapGpxNokVisible } from '../../../store/monitor.selectors';
+import { selectLongdistanceRouteMapGpxOkVisible } from '../../../store/monitor.selectors';
+import { selectLongdistanceRouteMapGpxVisible } from '../../../store/monitor.selectors';
+import { selectLongdistanceRouteMapGpxEnabled } from '../../../store/monitor.selectors';
+import { selectLongdistanceRouteMapMode } from '../../../store/monitor.selectors';
+import { selectLongdistanceRouteMapPage } from '../../../store/monitor.selectors';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LongdistanceRouteMapService {
-
   private readonly colors = [
     'red',
     'yellow',
@@ -34,12 +33,16 @@ export class LongdistanceRouteMapService {
     'fuchsia',
     'olive',
     'purple',
-    'teal'
+    'teal',
   ];
 
-  private readonly osmSegmentStyles = this.colors.map(color => this.fixedStyle(color, 4));
+  private readonly osmSegmentStyles = this.colors.map((color) =>
+    this.fixedStyle(color, 4)
+  );
 
-  private readonly response$ = this.store.select(selectLongdistanceRouteMapPage);
+  private readonly response$ = this.store.select(
+    selectLongdistanceRouteMapPage
+  );
 
   private readonly gpxLayer: VectorLayer;
   private readonly gpxOkLayer: VectorLayer;
@@ -61,16 +64,18 @@ export class LongdistanceRouteMapService {
     this.initialize();
 
     this.subscriptions.add(
-      this.store.select(selectLongdistanceRouteMapMode).subscribe(mode => {
+      this.store.select(selectLongdistanceRouteMapMode).subscribe((mode) => {
         this.mode = mode;
         this.osmRelationLayer.changed();
       })
     );
 
     this.subscriptions.add(
-      this.store.select(selectLongdistanceRouteMapGpxEnabled).subscribe(enabled => {
-        this.gpxTraceAvailable = enabled;
-      })
+      this.store
+        .select(selectLongdistanceRouteMapGpxEnabled)
+        .subscribe((enabled) => {
+          this.gpxTraceAvailable = enabled;
+        })
     );
   }
 
@@ -89,7 +94,7 @@ export class LongdistanceRouteMapService {
       this.gpxLayer,
       this.gpxOkLayer,
       this.gpxNokLayer,
-      this.osmRelationLayer
+      this.osmRelationLayer,
     ];
   }
 
@@ -108,50 +113,65 @@ export class LongdistanceRouteMapService {
   }
 
   private initialize(): void {
-
     this.subscriptions.add(
-      this.store.select(selectLongdistanceRouteMapGpxVisible).subscribe(visible => {
-        this.gpxLayer.setVisible(visible);
-      })
+      this.store
+        .select(selectLongdistanceRouteMapGpxVisible)
+        .subscribe((visible) => {
+          this.gpxLayer.setVisible(visible);
+        })
     );
 
     this.subscriptions.add(
-      this.store.select(selectLongdistanceRouteMapGpxOkVisible).subscribe(visible => {
-        this.gpxOkLayer.setVisible(visible);
-      })
+      this.store
+        .select(selectLongdistanceRouteMapGpxOkVisible)
+        .subscribe((visible) => {
+          this.gpxOkLayer.setVisible(visible);
+        })
     );
 
     this.subscriptions.add(
-      this.store.select(selectLongdistanceRouteMapGpxNokVisible).subscribe(visible => {
-        this.gpxNokLayer.setVisible(visible);
-      })
+      this.store
+        .select(selectLongdistanceRouteMapGpxNokVisible)
+        .subscribe((visible) => {
+          this.gpxNokLayer.setVisible(visible);
+        })
     );
 
     this.subscriptions.add(
-      this.store.select(selectLongdistanceRouteMapOsmRelationVisible).subscribe(visible => {
-        this.osmRelationLayer.setVisible(visible);
-      })
+      this.store
+        .select(selectLongdistanceRouteMapOsmRelationVisible)
+        .subscribe((visible) => {
+          this.osmRelationLayer.setVisible(visible);
+        })
     );
 
     this.subscriptions.add(
-      this.response$.subscribe(response => {
+      this.response$.subscribe((response) => {
         this.gpxLayer.getSource().clear();
         if (response?.result?.gpxGeometry) {
-          const features = new GeoJSON().readFeatures(response.result.gpxGeometry, {featureProjection: 'EPSG:3857'});
+          const features = new GeoJSON().readFeatures(
+            response.result.gpxGeometry,
+            { featureProjection: 'EPSG:3857' }
+          );
           this.gpxLayer.getSource().addFeatures(features);
         }
 
         this.gpxOkLayer.getSource().clear();
         if (response?.result?.okGeometry) {
-          const features = new GeoJSON().readFeatures(response.result.okGeometry, {featureProjection: 'EPSG:3857'});
+          const features = new GeoJSON().readFeatures(
+            response.result.okGeometry,
+            { featureProjection: 'EPSG:3857' }
+          );
           this.gpxOkLayer.getSource().addFeatures(features);
         }
 
         this.gpxNokLayer.getSource().clear();
         if (response?.result?.nokSegments) {
           const features = [];
-          response.result.nokSegments.forEach(segment => {
-            new GeoJSON().readFeatures(segment.geoJson, {featureProjection: 'EPSG:3857'}).forEach(feature => features.push(feature));
+          response.result.nokSegments.forEach((segment) => {
+            new GeoJSON()
+              .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
+              .forEach((feature) => features.push(feature));
           });
           this.gpxNokLayer.getSource().addFeatures(features);
         }
@@ -159,11 +179,13 @@ export class LongdistanceRouteMapService {
         this.osmRelationLayer.getSource().clear();
         if (response?.result?.osmSegments) {
           const features = [];
-          response.result.osmSegments.forEach(segment => {
-            new GeoJSON().readFeatures(segment.geoJson, {featureProjection: 'EPSG:3857'}).forEach(feature => {
-              feature.set('segmentId', segment.id);
-              features.push(feature);
-            });
+          response.result.osmSegments.forEach((segment) => {
+            new GeoJSON()
+              .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
+              .forEach((feature) => {
+                feature.set('segmentId', segment.id);
+                features.push(feature);
+              });
           });
           this.osmRelationLayer.getSource().addFeatures(features);
         }
@@ -172,9 +194,8 @@ export class LongdistanceRouteMapService {
   }
 
   private buildGpxLayer(): VectorLayer {
-
     const layerStyle = this.fixedStyle('blue', 4);
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return layerStyle;
     };
 
@@ -186,41 +207,38 @@ export class LongdistanceRouteMapService {
   }
 
   private buildGpxOkLayer(): VectorLayer {
-
     const layerStyle = this.fixedStyle('green', 4);
 
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return layerStyle;
     };
 
     return new VectorLayer({
       zIndex: 60,
       source: new VectorSource(),
-      style: styleFunction
+      style: styleFunction,
     });
   }
 
   private buildGpxNokLayer(): VectorLayer {
-
     const layerStyle = this.fixedStyle('red', 4);
 
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return layerStyle;
     };
 
     return new VectorLayer({
       zIndex: 70,
       source: new VectorSource(),
-      style: styleFunction
+      style: styleFunction,
     });
   }
 
   private buildOsmRelationLayer(): VectorLayer {
-
     const self = this;
     const thinStyle = this.fixedStyle('yellow', 4);
     const thickStyle = this.fixedStyle('yellow', 10);
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       if (self.mode === 'osm-segments') {
         const segmentId = feature.get('segmentId');
         return self.styleForSegmentId(segmentId);
@@ -235,7 +253,7 @@ export class LongdistanceRouteMapService {
     return new VectorLayer({
       zIndex: 40,
       source: new VectorSource(),
-      style: styleFunction
+      style: styleFunction,
     });
   }
 
@@ -243,9 +261,8 @@ export class LongdistanceRouteMapService {
     return new Style({
       stroke: new Stroke({
         color,
-        width
-      })
+        width,
+      }),
     });
   }
-
 }

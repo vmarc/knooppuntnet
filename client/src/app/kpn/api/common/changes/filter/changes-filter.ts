@@ -1,11 +1,9 @@
 // this class is generated, please do not modify
 
-import {ChangesFilterPeriod} from './changes-filter-period';
+import { ChangesFilterPeriod } from './changes-filter-period';
 
 export class ChangesFilter {
-
-  constructor(readonly periods: Array<ChangesFilterPeriod>) {
-  }
+  constructor(readonly periods: Array<ChangesFilterPeriod>) {}
 
   public static fromJSON(jsonObject: any): ChangesFilter {
     if (!jsonObject) {

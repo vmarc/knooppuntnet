@@ -1,15 +1,14 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {NodeInfo} from '@api/common/node-info';
-import {NetworkType} from '@api/custom/network-type';
-import {NetworkTypes} from '../../../kpn/common/network-types';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NodeInfo } from '@api/common/node-info';
+import { NetworkType } from '@api/custom/network-type';
+import { NetworkTypes } from '../../../kpn/common/network-types';
 
 @Component({
   selector: 'kpn-node-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-
       <p>
         <kpn-osm-link-node [nodeId]="nodeInfo.id"></kpn-osm-link-node>
         <span class="kpn-brackets-link">
@@ -24,7 +23,7 @@ import {NetworkTypes} from '../../../kpn/common/network-types';
       <table *ngIf="hasMultipleNames()">
         <tr *ngFor="let networkType of networkTypes()">
           <td class="network-name">
-            {{networkName(networkType)}}
+            {{ networkName(networkType) }}
           </td>
           <td>
             <kpn-network-type [networkType]="networkType">
@@ -49,21 +48,21 @@ import {NetworkTypes} from '../../../kpn/common/network-types';
       <p *ngIf="nodeInfo.active && nodeInfo.orphan" i18n="@@node.orphan">
         This network node does not belong to a known node network (orphan).
       </p>
-
     </div>
   `,
-  styles: [`
-    .network-name {
-      padding-right: 1em;
-    }
+  styles: [
+    `
+      .network-name {
+        padding-right: 1em;
+      }
 
-    .network-type {
-      padding-left: 0.4em;
-    }
-  `]
+      .network-type {
+        padding-left: 0.4em;
+      }
+    `,
+  ],
 })
 export class NodeSummaryComponent {
-
   @Input() nodeInfo: NodeInfo;
 
   hasMultipleNames(): boolean {
@@ -71,15 +70,18 @@ export class NodeSummaryComponent {
   }
 
   networkTypes(): NetworkType[] {
-    return NetworkTypes.all.filter(networkType => this.networkName(networkType));
+    return NetworkTypes.all.filter((networkType) =>
+      this.networkName(networkType)
+    );
   }
 
   networkName(networkType: NetworkType): string {
-    const nodeName = this.nodeInfo.names.find(name => name.scopedNetworkType.networkType === networkType);
+    const nodeName = this.nodeInfo.names.find(
+      (name) => name.scopedNetworkType.networkType === networkType
+    );
     if (nodeName) {
       return nodeName.name;
     }
     return undefined;
   }
-
 }

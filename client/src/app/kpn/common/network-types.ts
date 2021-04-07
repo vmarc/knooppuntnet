@@ -1,22 +1,20 @@
-import {NetworkType} from '@api/custom/network-type';
+import { NetworkType } from '@api/custom/network-type';
 
 export class NetworkTypes {
-
   static all: NetworkType[] = [
     NetworkType.cycling,
     NetworkType.hiking,
     NetworkType.horseRiding,
     NetworkType.motorboat,
     NetworkType.canoe,
-    NetworkType.inlineSkating
+    NetworkType.inlineSkating,
   ];
 
   static withName(name: string): NetworkType {
-    return NetworkTypes.all.find(networkType => networkType === name);
+    return NetworkTypes.all.find((networkType) => networkType === name);
   }
 
   static tagValue(networkType: NetworkType): string {
-
     if (networkType === NetworkType.cycling) {
       return 'rcn';
     }
@@ -71,5 +69,4 @@ export class NetworkTypes {
 
     return '?';
   }
-
 }

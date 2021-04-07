@@ -3,5 +3,5 @@ export enum PlanPhase {
   clickEndNode = 'click-end-node',
   zoomInClickStartNode = 'zoom-in-click-start-node',
   zoomInClickEndNode = 'zoom-in-click-end-node',
-  extendRoute = 'extend-route'
+  extendRoute = 'extend-route',
 }

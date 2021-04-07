@@ -1,15 +1,12 @@
-import {FlagFeature} from '../features/flag-feature';
-import {Plan} from '../plan/plan';
-import {PlanFlagType} from '../plan/plan-flag-type';
-import {PlannerDragFlag} from './planner-drag-flag';
+import { FlagFeature } from '../features/flag-feature';
+import { Plan } from '../plan/plan';
+import { PlanFlagType } from '../plan/plan-flag-type';
+import { PlannerDragFlag } from './planner-drag-flag';
 
 export class PlannerDragFlagAnalyzer {
-
-  constructor(private plan: Plan) {
-  }
+  constructor(private plan: Plan) {}
 
   dragStarted(flag: FlagFeature): PlannerDragFlag {
-
     if (flag.flagType === PlanFlagType.start) {
       const sourceNode = this.plan.sourceNode;
       const sourceFlag = this.plan.sourceFlag;
@@ -29,7 +26,9 @@ export class PlannerDragFlagAnalyzer {
       return null;
     }
 
-    const legIndex = legs.findIndex(leg => flag.id === leg.sinkFlag?.featureId);
+    const legIndex = legs.findIndex(
+      (leg) => flag.id === leg.sinkFlag?.featureId
+    );
     if (legIndex >= 0) {
       const previousLeg = legs.get(legIndex);
       const nextLeg = legs.get(legIndex + 1);
@@ -44,5 +43,4 @@ export class PlannerDragFlagAnalyzer {
 
     return null;
   }
-
 }

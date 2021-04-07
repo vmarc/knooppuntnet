@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {Ref} from '../common/ref';
+import { Ref } from '../common/ref';
 
 export class NetworkFactRefs {
-
-  constructor(readonly networkId: number,
-              readonly networkName: string,
-              readonly factRefs: Array<Ref>) {
-  }
+  constructor(
+    readonly networkId: number,
+    readonly networkName: string,
+    readonly factRefs: Array<Ref>
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkFactRefs {
     if (!jsonObject) {

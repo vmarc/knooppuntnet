@@ -1,8 +1,8 @@
 .meta {
-
   color: gray;
 
-  @media (max-width: 768px) { // media.maxWidth(PageWidth.SmallMaxWidth.px)
+  @media (max-width: 768px) {
+    // media.maxWidth(PageWidth.SmallMaxWidth.px)
     padding-left: 5px;
     border-left-style: dotted;
     border-left-width: 1px;
@@ -13,10 +13,10 @@
   @media (min-width: 769px) {
     display: inline-block;
     &:before {
-      content: "[";
+      content: '[';
     }
     &:after {
-      content: "]";
+      content: ']';
     }
     > div {
       display: inline-block;

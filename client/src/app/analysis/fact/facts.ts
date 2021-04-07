@@ -1,13 +1,11 @@
-import {List, Map} from 'immutable';
-import {FactLevel} from './fact-level';
+import { List, Map } from 'immutable';
+import { FactLevel } from './fact-level';
 
 class FactDefinition {
-  constructor(public name: string, public level: FactLevel) {
-  }
+  constructor(public name: string, public level: FactLevel) {}
 }
 
 export class Facts {
-
   static readonly facts = List<FactDefinition>([
     new FactDefinition('Added', FactLevel.other),
     new FactDefinition('BecomeOrphan', FactLevel.other),
@@ -60,13 +58,12 @@ export class Facts {
 
   static readonly factLevels: Map<string, FactLevel> = Map(Facts.keyValues());
 
-  static readonly allFactNames = Facts.facts.map(f => f.name);
+  static readonly allFactNames = Facts.facts.map((f) => f.name);
 
   private static keyValues(): List<[string, FactLevel]> {
-    return Facts.facts.map(f => {
+    return Facts.facts.map((f) => {
       const row: [string, FactLevel] = [f.name, f.level];
       return row;
     });
   }
-
 }

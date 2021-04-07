@@ -4,5 +4,5 @@ export enum NetworkType {
   horseRiding = 'horse-riding',
   motorboat = 'motorboat',
   canoe = 'canoe',
-  inlineSkating = 'inline-skating'
+  inlineSkating = 'inline-skating',
 }

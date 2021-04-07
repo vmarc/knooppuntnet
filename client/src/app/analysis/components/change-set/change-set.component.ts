@@ -1,46 +1,55 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
-import {ChangeSetNetwork} from '@api/common/change-set-network';
-import {ChangeSetSummaryInfo} from '@api/common/change-set-summary-info';
-import {ChangeSetNetworkAction} from './components/change-set-network.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChangeSetNetwork } from '@api/common/change-set-network';
+import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
+import { ChangeSetNetworkAction } from './components/change-set-network.component';
 
 @Component({
   selector: 'kpn-change-set',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <div class="change-set">
-
       <kpn-change-header
         [changeKey]="changeSet.summary.key"
         [happy]="changeSet.summary.happy"
         [investigate]="changeSet.summary.investigate"
-        [comment]="changeSet.comment">
+        [comment]="changeSet.comment"
+      >
       </kpn-change-header>
 
       <div *ngFor="let action of networkActions">
-        <kpn-change-set-network [changeSetNetworkAction]="action"></kpn-change-set-network>
+        <kpn-change-set-network
+          [changeSetNetworkAction]="action"
+        ></kpn-change-set-network>
       </div>
 
-      <div *ngFor="let orphanNodeChanges of changeSet.summary.orphanNodeChanges">
-        <kpn-change-set-orphan-nodes [subsetElementRefs]="orphanNodeChanges"></kpn-change-set-orphan-nodes>
+      <div
+        *ngFor="let orphanNodeChanges of changeSet.summary.orphanNodeChanges"
+      >
+        <kpn-change-set-orphan-nodes
+          [subsetElementRefs]="orphanNodeChanges"
+        ></kpn-change-set-orphan-nodes>
       </div>
 
-      <div *ngFor="let orphanRouteChanges of changeSet.summary.orphanRouteChanges">
-        <kpn-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges"></kpn-change-set-orphan-routes>
+      <div
+        *ngFor="let orphanRouteChanges of changeSet.summary.orphanRouteChanges"
+      >
+        <kpn-change-set-orphan-routes
+          [subsetElementRefs]="orphanRouteChanges"
+        ></kpn-change-set-orphan-routes>
       </div>
-
     </div>
   `,
-  styles: [`
-    .change-set {
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-  `]
+  styles: [
+    `
+      .change-set {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    `,
+  ],
 })
 export class ChangesSetComponent implements OnInit {
-
   @Input() changeSet: ChangeSetSummaryInfo;
   networkActions: ChangeSetNetworkAction[];
 
@@ -57,7 +66,8 @@ export class ChangesSetComponent implements OnInit {
   }
 
   private toNetworkActions(action: string, networks: ChangeSetNetwork[]) {
-    return networks.map(nc => new ChangeSetNetworkAction(this.changeSet.summary.key, action, nc));
+    return networks.map(
+      (nc) => new ChangeSetNetworkAction(this.changeSet.summary.key, action, nc)
+    );
   }
-
 }

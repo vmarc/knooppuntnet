@@ -1,11 +1,15 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-poi-group-foodshops',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="foodshops" title="Foodshops" i18n-title="@@poi.group.foodshops">
+    <kpn-poi-group
+      name="foodshops"
+      title="Foodshops"
+      i18n-title="@@poi.group.foodshops"
+    >
       <kpn-poi-config poiId="alcohol"></kpn-poi-config>
       <kpn-poi-config poiId="bakery"></kpn-poi-config>
       <kpn-poi-config poiId="beverages"></kpn-poi-config>
@@ -22,7 +26,6 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="supermarket"></kpn-poi-config>
       <kpn-poi-config poiId="wine"></kpn-poi-config>
     </kpn-poi-group>
-  `
+  `,
 })
-export class PoiGroupFoodshopsComponent {
-}
+export class PoiGroupFoodshopsComponent {}

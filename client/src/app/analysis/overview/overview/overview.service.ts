@@ -1,22 +1,26 @@
-import {Injectable} from '@angular/core';
-import {Subset} from '@api/custom/subset';
-import {List} from 'immutable';
-import {Subsets} from '../../../kpn/common/subsets';
-import {StatisticConfiguration} from '../domain/statistic-configuration';
+import { Injectable } from '@angular/core';
+import { Subset } from '@api/custom/subset';
+import { List } from 'immutable';
+import { Subsets } from '../../../kpn/common/subsets';
+import { StatisticConfiguration } from '../domain/statistic-configuration';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OverviewService {
-
-  statisticConfigurations: List<StatisticConfiguration> = List(this.buildStatisticConfigurations());
+  statisticConfigurations: List<StatisticConfiguration> = List(
+    this.buildStatisticConfigurations()
+  );
 
   private buildStatisticConfigurations(): StatisticConfiguration[] {
-
-    const networks = (factId: string, subset: Subset) => Subsets.key(subset) + '/networks';
-    const orphanNodes = (factId: string, subset: Subset) => Subsets.key(subset) + '/orphan-nodes';
-    const orphanRoutes = (factId: string, subset: Subset) => Subsets.key(subset) + '/orphan-routes';
-    const factDetailCounts = (factId: string, subset: Subset) => Subsets.key(subset) + '/facts/' + factId;
+    const networks = (factId: string, subset: Subset) =>
+      Subsets.key(subset) + '/networks';
+    const orphanNodes = (factId: string, subset: Subset) =>
+      Subsets.key(subset) + '/orphan-nodes';
+    const orphanRoutes = (factId: string, subset: Subset) =>
+      Subsets.key(subset) + '/orphan-routes';
+    const factDetailCounts = (factId: string, subset: Subset) =>
+      Subsets.key(subset) + '/facts/' + factId;
 
     const configurations: StatisticConfiguration[] = [];
 
@@ -480,5 +484,4 @@ export class OverviewService {
 
     return configurations;
   }
-
 }

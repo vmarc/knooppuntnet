@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {TagDetail} from './tag-detail';
+import { TagDetail } from './tag-detail';
 
 export class TagDiffs {
-
-  constructor(readonly mainTags: Array<TagDetail>,
-              readonly extraTags: Array<TagDetail>) {
-  }
+  constructor(
+    readonly mainTags: Array<TagDetail>,
+    readonly extraTags: Array<TagDetail>
+  ) {}
 
   public static fromJSON(jsonObject: any): TagDiffs {
     if (!jsonObject) {

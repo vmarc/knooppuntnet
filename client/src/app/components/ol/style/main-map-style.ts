@@ -1,11 +1,10 @@
 import Map from 'ol/Map';
-import {StyleFunction} from 'ol/style/Style';
-import {MapService} from '../services/map.service';
-import {MainMapNodeStyle} from './main-map-node-style';
-import {MainMapRouteStyle} from './main-map-route-style';
+import { StyleFunction } from 'ol/style/Style';
+import { MapService } from '../services/map.service';
+import { MainMapNodeStyle } from './main-map-node-style';
+import { MainMapRouteStyle } from './main-map-route-style';
 
 export class MainMapStyle {
-
   private readonly mainMapNodeStyle: MainMapNodeStyle;
   private readonly mainMapRouteStyle: MainMapRouteStyle;
 

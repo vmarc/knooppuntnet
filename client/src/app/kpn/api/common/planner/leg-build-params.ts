@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {LegEnd} from './leg-end';
+import { LegEnd } from './leg-end';
 
 export class LegBuildParams {
-
-  constructor(readonly networkType: string,
-              readonly source: LegEnd,
-              readonly sink: LegEnd) {
-  }
+  constructor(
+    readonly networkType: string,
+    readonly source: LegEnd,
+    readonly sink: LegEnd
+  ) {}
 
   public static fromJSON(jsonObject: any): LegBuildParams {
     if (!jsonObject) {

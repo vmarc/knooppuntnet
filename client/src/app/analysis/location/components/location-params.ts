@@ -1,7 +1,7 @@
-import {Params} from '@angular/router';
-import {LocationKey} from '@api/custom/location-key';
-import {Countries} from '../../../kpn/common/countries';
-import {NetworkTypes} from '../../../kpn/common/network-types';
+import { Params } from '@angular/router';
+import { LocationKey } from '@api/custom/location-key';
+import { Countries } from '../../../kpn/common/countries';
+import { NetworkTypes } from '../../../kpn/common/network-types';
 
 export class LocationParams {
   static toKey(params: Params): LocationKey {

@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import {ChangeKeyI} from '../changes/details/change-key-i';
-import {MonitorRouteNokSegment} from './monitor-route-nok-segment';
-import {MonitorRouteSegment} from './monitor-route-segment';
+import { ChangeKeyI } from '../changes/details/change-key-i';
+import { MonitorRouteNokSegment } from './monitor-route-nok-segment';
+import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteChange {
   readonly key: ChangeKeyI;

@@ -1,18 +1,18 @@
 // this class is generated, please do not modify
 
-import {Tags} from '../../../custom/tags';
-import {Timestamp} from '../../../custom/timestamp';
-import {RawMember} from './raw-member';
+import { Tags } from '../../../custom/tags';
+import { Timestamp } from '../../../custom/timestamp';
+import { RawMember } from './raw-member';
 
 export class RawRelation {
-
-  constructor(readonly id: number,
-              readonly version: number,
-              readonly timestamp: Timestamp,
-              readonly changeSetId: number,
-              readonly members: Array<RawMember>,
-              readonly tags: Tags) {
-  }
+  constructor(
+    readonly id: number,
+    readonly version: number,
+    readonly timestamp: Timestamp,
+    readonly changeSetId: number,
+    readonly members: Array<RawMember>,
+    readonly tags: Tags
+  ) {}
 
   public static fromJSON(jsonObject: any): RawRelation {
     if (!jsonObject) {

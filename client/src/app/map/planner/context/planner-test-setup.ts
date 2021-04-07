@@ -1,22 +1,21 @@
-import {List} from 'immutable';
-import {NetworkType} from '@api/custom/network-type';
-import {FeatureId} from '../features/feature-id';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerContext} from './planner-context';
-import {PlannerCursorMock} from './planner-cursor-mock';
-import {PlannerElasticBandMock} from './planner-elastic-band-mock';
-import {PlannerLegRepositoryMock} from './planner-leg-repository-mock';
-import {PlannerMarkerLayerMock} from './planner-marker-layer-mock';
-import {PlannerRouteLayerMock} from './planner-route-layer-mock';
-import {PlanNode} from '@api/common/planner/plan-node';
-import {PlanRoute} from '@api/common/planner/plan-route';
-import {PlanLegData} from './plan-leg-data';
-import {PlannerHighlighterMock} from './planner-highlighter-mock';
+import { List } from 'immutable';
+import { NetworkType } from '@api/custom/network-type';
+import { FeatureId } from '../features/feature-id';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerContext } from './planner-context';
+import { PlannerCursorMock } from './planner-cursor-mock';
+import { PlannerElasticBandMock } from './planner-elastic-band-mock';
+import { PlannerLegRepositoryMock } from './planner-leg-repository-mock';
+import { PlannerMarkerLayerMock } from './planner-marker-layer-mock';
+import { PlannerRouteLayerMock } from './planner-route-layer-mock';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { PlanLegData } from './plan-leg-data';
+import { PlannerHighlighterMock } from './planner-highlighter-mock';
 
 export class PlannerTestSetup {
-
   readonly routeLayer = new PlannerRouteLayerMock();
   readonly markerLayer = new PlannerMarkerLayerMock();
   readonly cursor = new PlannerCursorMock();
@@ -52,10 +51,15 @@ export class PlannerTestSetup {
   }
 
   createOneLegPlan(): Plan {
-
     const sourceFlag = PlanFlag.start('sourceFlag', this.node1.coordinate);
     const sinkFlag = PlanFlag.end('sinkFlag', this.node2.coordinate);
-    const leg = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag, null);
+    const leg = PlanUtil.singleRoutePlanLeg(
+      FeatureId.next(),
+      this.node1,
+      this.node2,
+      sinkFlag,
+      null
+    );
     const plan = new Plan(this.node1, sourceFlag, List([leg]));
     this.context.updatePlan(plan);
 
@@ -67,13 +71,24 @@ export class PlannerTestSetup {
   }
 
   createTwoLegPlan(): Plan {
-
     const sourceFlag = PlanFlag.start('sourceFlag', this.node1.coordinate);
     const sinkFlag1 = PlanFlag.via('sinkFlag1', this.node2.coordinate);
     const sinkFlag2 = PlanFlag.end('sinkFlag2', this.node3.coordinate);
 
-    const leg1 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag1, null);
-    const leg2 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node2, this.node3, sinkFlag2, null);
+    const leg1 = PlanUtil.singleRoutePlanLeg(
+      FeatureId.next(),
+      this.node1,
+      this.node2,
+      sinkFlag1,
+      null
+    );
+    const leg2 = PlanUtil.singleRoutePlanLeg(
+      FeatureId.next(),
+      this.node2,
+      this.node3,
+      sinkFlag2,
+      null
+    );
 
     const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2]));
     this.context.updatePlan(plan);
@@ -88,15 +103,32 @@ export class PlannerTestSetup {
   }
 
   createThreeLegPlan(): Plan {
-
     const sourceFlag = PlanFlag.start('sourceFlag', this.node1.coordinate);
     const sinkFlag1 = PlanFlag.via('sinkFlag1', this.node2.coordinate);
     const sinkFlag2 = PlanFlag.via('sinkFlag2', this.node3.coordinate);
     const sinkFlag3 = PlanFlag.end('sinkFlag3', this.node4.coordinate);
 
-    const leg1 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node1, this.node2, sinkFlag1, null);
-    const leg2 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node2, this.node3, sinkFlag2, null);
-    const leg3 = PlanUtil.singleRoutePlanLeg(FeatureId.next(), this.node3, this.node4, sinkFlag3, null);
+    const leg1 = PlanUtil.singleRoutePlanLeg(
+      FeatureId.next(),
+      this.node1,
+      this.node2,
+      sinkFlag1,
+      null
+    );
+    const leg2 = PlanUtil.singleRoutePlanLeg(
+      FeatureId.next(),
+      this.node2,
+      this.node3,
+      sinkFlag2,
+      null
+    );
+    const leg3 = PlanUtil.singleRoutePlanLeg(
+      FeatureId.next(),
+      this.node3,
+      this.node4,
+      sinkFlag3,
+      null
+    );
 
     const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2, leg3]));
     this.context.updatePlan(plan);
@@ -120,5 +152,4 @@ export class PlannerTestSetup {
     this.legRepository.add(planLegData);
     return planLegData;
   }
-
 }

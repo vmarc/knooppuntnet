@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {NameValue} from './name-value';
+import { NameValue } from './name-value';
 
 export class BarChart {
-
-  constructor(readonly xAxisTicks: Array<number>,
-              readonly data: Array<NameValue>) {
-  }
+  constructor(
+    readonly xAxisTicks: Array<number>,
+    readonly data: Array<NameValue>
+  ) {}
 
   public static fromJSON(jsonObject: any): BarChart {
     if (!jsonObject) {

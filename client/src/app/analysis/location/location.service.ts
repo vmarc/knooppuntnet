@@ -1,17 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Params} from '@angular/router';
-import {Map} from 'immutable';
-import {ReplaySubject} from 'rxjs';
-import {BehaviorSubject} from 'rxjs';
-import {Observable} from 'rxjs';
-import {LocationSummary} from '@api/common/location/location-summary';
-import {LocationKey} from '@api/custom/location-key';
-import {NetworkType} from '@api/custom/network-type';
-import {LocationParams} from './components/location-params';
+import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
+import { Map } from 'immutable';
+import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { LocationSummary } from '@api/common/location/location-summary';
+import { LocationKey } from '@api/custom/location-key';
+import { NetworkType } from '@api/custom/network-type';
+import { LocationParams } from './components/location-params';
 
 @Injectable()
 export class LocationService {
-
   readonly summary$: Observable<LocationSummary>;
   readonly locationKey$: Observable<LocationKey>;
 
@@ -25,9 +24,11 @@ export class LocationService {
     this.locationKey$ = this._locationKey$.asObservable();
     this._summary$ = new ReplaySubject<LocationSummary>(1);
     this.summary$ = this._summary$.asObservable();
-    this.locationKey$.subscribe(locationKey => {
+    this.locationKey$.subscribe((locationKey) => {
       if (locationKey !== null) {
-        const locationSummary = this.locationSummaries.get(this._locationKey$.getValue().name);
+        const locationSummary = this.locationSummaries.get(
+          this._locationKey$.getValue().name
+        );
         if (locationSummary) {
           this._summary$.next(locationSummary);
         }
@@ -58,7 +59,10 @@ export class LocationService {
   }
 
   nextSummary(locationName: string, locationSummary: LocationSummary) {
-    this.locationSummaries = this.locationSummaries.set(locationName, locationSummary);
+    this.locationSummaries = this.locationSummaries.set(
+      locationName,
+      locationSummary
+    );
     this._summary$.next(locationSummary);
   }
 

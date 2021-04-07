@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {NetworkType} from '../../custom/network-type';
+import { NetworkType } from '../../custom/network-type';
 
 export class NodeOrphanRouteReference {
-
-  constructor(readonly networkType: NetworkType,
-              readonly routeId: number,
-              readonly routeName: string) {
-  }
+  constructor(
+    readonly networkType: NetworkType,
+    readonly routeId: number,
+    readonly routeName: string
+  ) {}
 
   static fromJSON(jsonObject: any): NodeOrphanRouteReference {
     if (!jsonObject) {

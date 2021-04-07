@@ -1,26 +1,26 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 /* tslint:disable:template-i18n */
 @Component({
   selector: 'kpn-json',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <br/>
-    <br/>
+    <br />
+    <br />
     <button (click)="toggleVisible()">JSON</button>
     <div *ngIf="visible">
-      <br/>
-<pre>
-{{contents}}
-</pre>
+      <br />
+      <pre
+        >{{ contents }}
+</pre
+      >
     </div>
-    <br/>
-    <br/>
-  `
+    <br />
+    <br />
+  `,
 })
 export class JsonComponent implements OnInit {
-
   @Input() object: any;
   contents = '';
   visible = false;

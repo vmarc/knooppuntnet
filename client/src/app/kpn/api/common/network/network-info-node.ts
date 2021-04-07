@@ -1,30 +1,30 @@
 // this class is generated, please do not modify
 
-import {Day} from '../../custom/day';
-import {Fact} from '../../custom/fact';
-import {Tags} from '../../custom/tags';
-import {Timestamp} from '../../custom/timestamp';
-import {Ref} from '../common/ref';
-import {NodeIntegrityCheck} from '../node-integrity-check';
+import { Day } from '../../custom/day';
+import { Fact } from '../../custom/fact';
+import { Tags } from '../../custom/tags';
+import { Timestamp } from '../../custom/timestamp';
+import { Ref } from '../common/ref';
+import { NodeIntegrityCheck } from '../node-integrity-check';
 
 export class NetworkInfoNode {
-
-  constructor(readonly id: number,
-              readonly name: string,
-              readonly number: string,
-              readonly latitude: string,
-              readonly longitude: string,
-              readonly connection: boolean,
-              readonly roleConnection: boolean,
-              readonly definedInRelation: boolean,
-              readonly definedInRoute: boolean,
-              readonly timestamp: Timestamp,
-              readonly lastSurvey: Day,
-              readonly routeReferences: Array<Ref>,
-              readonly integrityCheck: NodeIntegrityCheck,
-              readonly facts: Array<Fact>,
-              readonly tags: Tags) {
-  }
+  constructor(
+    readonly id: number,
+    readonly name: string,
+    readonly number: string,
+    readonly latitude: string,
+    readonly longitude: string,
+    readonly connection: boolean,
+    readonly roleConnection: boolean,
+    readonly definedInRelation: boolean,
+    readonly definedInRoute: boolean,
+    readonly timestamp: Timestamp,
+    readonly lastSurvey: Day,
+    readonly routeReferences: Array<Ref>,
+    readonly integrityCheck: NodeIntegrityCheck,
+    readonly facts: Array<Fact>,
+    readonly tags: Tags
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkInfoNode {
     if (!jsonObject) {

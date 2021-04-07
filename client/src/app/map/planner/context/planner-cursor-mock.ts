@@ -1,7 +1,6 @@
-import {PlannerCursor} from './planner-cursor';
+import { PlannerCursor } from './planner-cursor';
 
 export class PlannerCursorMock implements PlannerCursor {
-
   style = 'default';
 
   setStyleGrab(): void {

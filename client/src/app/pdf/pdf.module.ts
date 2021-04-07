@@ -1,20 +1,13 @@
-import {NgModule} from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {PlannerService} from '../map/planner.service';
-import {BitmapIconService} from './bitmap-icon.service';
-import {PdfService} from './pdf.service';
+import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { PlannerService } from '../map/planner.service';
+import { BitmapIconService } from './bitmap-icon.service';
+import { PdfService } from './pdf.service';
 
 @NgModule({
-  imports: [
-    MatIconModule
-  ],
+  imports: [MatIconModule],
   declarations: [],
   exports: [],
-  providers: [
-    PdfService,
-    BitmapIconService,
-    PlannerService
-  ]
+  providers: [PdfService, BitmapIconService, PlannerService],
 })
-export class PdfModule {
-}
+export class PdfModule {}

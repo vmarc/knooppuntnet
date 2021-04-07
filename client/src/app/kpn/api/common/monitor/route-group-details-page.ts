@@ -1,4 +1,3 @@
 // this file is generated, please do not modify
 
-export interface RouteGroupDetailsPage {
-}
+export interface RouteGroupDetailsPage {}

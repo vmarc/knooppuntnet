@@ -1,12 +1,11 @@
-import {List} from 'immutable';
-import {FlagFeature} from '../features/flag-feature';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerDragFlagAnalyzer} from './planner-drag-flag-analyzer';
+import { List } from 'immutable';
+import { FlagFeature } from '../features/flag-feature';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerDragFlagAnalyzer } from './planner-drag-flag-analyzer';
 
 describe('PlannerDragFlagAnalyzer', () => {
-
   const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 0]);
   const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 0]);
   const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 0]);
@@ -17,12 +16,29 @@ describe('PlannerDragFlagAnalyzer', () => {
   const sinkFlag2 = PlanFlag.via('sinkFlag2', node3.coordinate);
   const sinkFlag3 = PlanFlag.end('sinkFlag3', node4.coordinate);
 
-  const leg12 = PlanUtil.singleRoutePlanLeg('12', node1, node2, sinkFlag1, null);
-  const leg23 = PlanUtil.singleRoutePlanLeg('23', node2, node3, sinkFlag2, null);
-  const leg34 = PlanUtil.singleRoutePlanLeg('34', node3, node4, sinkFlag3, null);
+  const leg12 = PlanUtil.singleRoutePlanLeg(
+    '12',
+    node1,
+    node2,
+    sinkFlag1,
+    null
+  );
+  const leg23 = PlanUtil.singleRoutePlanLeg(
+    '23',
+    node2,
+    node3,
+    sinkFlag2,
+    null
+  );
+  const leg34 = PlanUtil.singleRoutePlanLeg(
+    '34',
+    node3,
+    node4,
+    sinkFlag3,
+    null
+  );
 
   it('start start-point drag', () => {
-
     const plan = new Plan(node1, sourceFlag, List([leg12, leg23, leg34]));
     const flag = FlagFeature.start(sourceFlag.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
@@ -33,7 +49,6 @@ describe('PlannerDragFlagAnalyzer', () => {
   });
 
   it('start sinkFlag1 drag', () => {
-
     const plan = new Plan(node1, sourceFlag, List([leg12, leg23, leg34]));
     const flag = FlagFeature.via(sinkFlag1.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
@@ -44,7 +59,6 @@ describe('PlannerDragFlagAnalyzer', () => {
   });
 
   it('start sinkFlag2 drag', () => {
-
     const plan = new Plan(node1, sourceFlag, List([leg12, leg23, leg34]));
     const flag = FlagFeature.via(sinkFlag2.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
@@ -62,7 +76,6 @@ describe('PlannerDragFlagAnalyzer', () => {
   });
 
   it('end-point', () => {
-
     const plan = new Plan(node1, sourceFlag, List([leg12, leg23, leg34]));
     const flag = FlagFeature.end(sinkFlag3.featureId);
     const drag = new PlannerDragFlagAnalyzer(plan).dragStarted(flag);
@@ -71,5 +84,4 @@ describe('PlannerDragFlagAnalyzer', () => {
     expect(drag.anchor2).toEqual(node4.coordinate);
     expect(drag.oldNode.nodeId).toEqual('1004');
   });
-
 });

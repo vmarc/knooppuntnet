@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
-import {NodeInfo} from '@api/common/node-info';
-import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
-import {Tags} from '@api/custom/tags';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NodeInfo } from '@api/common/node-info';
+import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
+import { Tags } from '@api/custom/tags';
 
 @Component({
   selector: 'kpn-subset-orphan-node',
@@ -22,15 +22,15 @@ import {Tags} from '@api/custom/tags';
       <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
       <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
     </p>
-  `
+  `,
 })
 export class SubsetOrphanNodeComponent implements OnInit {
-
   @Input() node: NodeInfo;
   extraTags: InterpretedTags;
 
   ngOnInit(): void {
-    this.extraTags = InterpretedTags.all(new Tags(InterpretedTags.nodeTags(this.node.tags).extraTags()));
+    this.extraTags = InterpretedTags.all(
+      new Tags(InterpretedTags.nodeTags(this.node.tags).extraTags())
+    );
   }
-
 }

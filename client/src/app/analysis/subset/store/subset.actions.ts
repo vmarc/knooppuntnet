@@ -1,12 +1,12 @@
-import {SubsetChangesPage} from '@api/common/subset/subset-changes-page';
-import {SubsetFactsPage} from '@api/common/subset/subset-facts-page';
-import {SubsetMapPage} from '@api/common/subset/subset-map-page';
-import {SubsetNetworksPage} from '@api/common/subset/subset-networks-page';
-import {SubsetOrphanNodesPage} from '@api/common/subset/subset-orphan-nodes-page';
-import {SubsetOrphanRoutesPage} from '@api/common/subset/subset-orphan-routes-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {props} from '@ngrx/store';
-import {createAction} from '@ngrx/store';
+import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
+import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
+import { SubsetMapPage } from '@api/common/subset/subset-map-page';
+import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
+import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-page';
+import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
+import { ApiResponse } from '@api/custom/api-response';
+import { props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
 export const actionSubsetNetworksPageInit = createAction(
   '[SubsetNetworksPage] Init'
@@ -17,9 +17,7 @@ export const actionSubsetNetworksPageLoaded = createAction(
   props<{ response: ApiResponse<SubsetNetworksPage> }>()
 );
 
-export const actionSubsetFactsPageInit = createAction(
-  '[SubsetFactsPage] Init'
-);
+export const actionSubsetFactsPageInit = createAction('[SubsetFactsPage] Init');
 
 export const actionSubsetFactsPageLoaded = createAction(
   '[SubsetFactsPage] Loaded',
@@ -44,9 +42,7 @@ export const actionSubsetOrphanRoutesPageLoaded = createAction(
   props<{ response: ApiResponse<SubsetOrphanRoutesPage> }>()
 );
 
-export const actionSubsetMapPageInit = createAction(
-  '[SubsetMapPage] Init'
-);
+export const actionSubsetMapPageInit = createAction('[SubsetMapPage] Init');
 
 export const actionSubsetMapPageLoaded = createAction(
   '[SubsetMapPage] Loaded',

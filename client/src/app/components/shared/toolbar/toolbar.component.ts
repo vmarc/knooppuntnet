@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PageService} from '../page.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PageService } from '../page.service';
 
 @Component({
   selector: 'kpn-toolbar',
@@ -11,59 +11,61 @@ import {PageService} from '../page.service';
       <button mat-icon-button (click)="toggleSidebarOpen()">
         <mat-icon svgIcon="menu"></mat-icon>
       </button>
-      <button mat-button routerLink="/" class="toolbar-app-name"><h1 i18n="@@toolbar.title">knooppuntnet</h1></button>
+      <button mat-button routerLink="/" class="toolbar-app-name">
+        <h1 i18n="@@toolbar.title">knooppuntnet</h1>
+      </button>
       <kpn-spinner></kpn-spinner>
       <span class="toolbar-spacer"></span>
       <router-outlet name="toolbar"></router-outlet>
     </mat-toolbar>
   `,
-  styles: [`
+  styles: [
+    `
+      :host {
+        display: block;
+        border-bottom: solid 1px lightgray;
+      }
 
-    :host {
-      display: block;
-      border-bottom: solid 1px lightgray;
-    }
+      .toolbar-spacer {
+        flex: 1 1 auto;
+      }
 
-    .toolbar-spacer {
-      flex: 1 1 auto;
-    }
+      .toolbar-app-name {
+        margin-left: 8px;
+      }
 
-    .toolbar-app-name {
-      margin-left: 8px;
-    }
+      .mat-toolbar-row,
+      .mat-toolbar-single-row {
+        height: 47px;
+      }
 
-    .mat-toolbar-row, .mat-toolbar-single-row {
-      height: 47px;
-    }
+      .toolbar-style-cycling {
+        background-color: rgba(144, 238, 144, 0.3);
+      }
 
-    .toolbar-style-cycling {
-      background-color: rgba(144, 238, 144, 0.3);
-    }
+      .toolbar-style-hiking {
+        background-color: rgba(252, 185, 128, 0.3);
+      }
 
-    .toolbar-style-hiking {
-      background-color: rgba(252, 185, 128, 0.3);
-    }
+      .toolbar-style-horse-riding {
+        background-color: rgba(250, 97, 41, 0.3);
+      }
 
-    .toolbar-style-horse-riding {
-      background-color: rgba(250, 97, 41, 0.3);
-    }
+      .toolbar-style-motorboat {
+        background-color: rgba(135, 181, 250, 0.3);
+      }
 
-    .toolbar-style-motorboat {
-      background-color: rgba(135, 181, 250, 0.3);
-    }
+      .toolbar-style-canoe {
+        background-color: rgba(20, 178, 252, 0.3);
+      }
 
-    .toolbar-style-canoe {
-      background-color: rgba(20, 178, 252, 0.3);
-    }
-
-    .toolbar-style-inline-skating {
-      background-color: rgba(255, 182, 193, 0.3);
-    }
-
-  `]
+      .toolbar-style-inline-skating {
+        background-color: rgba(255, 182, 193, 0.3);
+      }
+    `,
+  ],
 })
 export class ToolbarComponent {
-
   toolbarBackgroundColor$: Observable<string>;
 
   constructor(private pageService: PageService) {
@@ -73,5 +75,4 @@ export class ToolbarComponent {
   toggleSidebarOpen() {
     this.pageService.toggleSidebarOpen();
   }
-
 }

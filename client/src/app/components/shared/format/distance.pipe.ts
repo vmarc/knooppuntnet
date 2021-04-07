@@ -1,10 +1,9 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'distance'
+  name: 'distance',
 })
 export class DistancePipe implements PipeTransform {
-
   transform(meters: number): string {
     if (!meters) {
       return `-`;
@@ -17,5 +16,4 @@ export class DistancePipe implements PipeTransform {
     }
     return `${+(meters / 1000).toFixed()}km`;
   }
-
 }

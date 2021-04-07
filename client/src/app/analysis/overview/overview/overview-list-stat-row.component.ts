@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {Country} from '@api/custom/country';
-import {NetworkType} from '@api/custom/network-type';
-import {Subset} from '@api/custom/subset';
-import {Stat} from '../domain/stat';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Country } from '@api/custom/country';
+import { NetworkType } from '@api/custom/network-type';
+import { Subset } from '@api/custom/subset';
+import { Stat } from '../domain/stat';
 
 @Component({
   selector: 'kpn-overview-list-stat-row',
@@ -14,27 +14,33 @@ import {Stat} from '../domain/stat';
         <kpn-country-name [country]="country"></kpn-country-name>
       </td>
       <td>
-        <kpn-network-type-icon [networkType]="networkType"></kpn-network-type-icon>
+        <kpn-network-type-icon
+          [networkType]="networkType"
+        ></kpn-network-type-icon>
       </td>
       <td class="value">
-        <kpn-overview-value [stat]="stat" [subset]="subset(country, networkType)"></kpn-overview-value>
+        <kpn-overview-value
+          [stat]="stat"
+          [subset]="subset(country, networkType)"
+        ></kpn-overview-value>
       </td>
     </tr>
   `,
-  styles: [`
-    :host {
-      display: contents;
-    }
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
 
-    .value {
-      text-align: right;
-      vertical-align: middle;
-      width: 3.5em;
-    }
-  `]
+      .value {
+        text-align: right;
+        vertical-align: middle;
+        width: 3.5em;
+      }
+    `,
+  ],
 })
 export class OverviewListStatRowComponent {
-
   @Input() rowspan: number = null;
   @Input() country: Country;
   @Input() networkType: NetworkType;
@@ -43,5 +49,4 @@ export class OverviewListStatRowComponent {
   subset(country: Country, networkType: NetworkType): Subset {
     return new Subset(country, networkType);
   }
-
 }

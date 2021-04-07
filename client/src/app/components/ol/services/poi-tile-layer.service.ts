@@ -1,21 +1,22 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
-import {StyleFunction} from 'ol/style/Style';
-import {PoiService} from '../../../services/poi.service';
-import {ZoomLevel} from '../domain/zoom-level';
-import {MapLayer} from '../layers/map-layer';
-import {PoiStyleMap} from '../style/poi-style-map';
-import {MapLayerService} from './map-layer.service';
+import { StyleFunction } from 'ol/style/Style';
+import { PoiService } from '../../../services/poi.service';
+import { ZoomLevel } from '../domain/zoom-level';
+import { MapLayer } from '../layers/map-layer';
+import { PoiStyleMap } from '../style/poi-style-map';
+import { MapLayerService } from './map-layer.service';
 
 @Injectable()
 export class PoiTileLayerService {
-
   poiStyleMap: PoiStyleMap;
 
-  constructor(private mapLayerService: MapLayerService,
-              private poiService: PoiService) {
-    poiService.poiConfiguration.subscribe(configuration => {
+  constructor(
+    private mapLayerService: MapLayerService,
+    private poiService: PoiService
+  ) {
+    poiService.poiConfiguration.subscribe((configuration) => {
       if (configuration !== null) {
         this.poiStyleMap = new PoiStyleMap(configuration);
       }
@@ -31,8 +32,12 @@ export class PoiTileLayerService {
 
   private applyMap(layer: BaseLayer) {
     return (map: Map) => {
-      map.getView().on('change:resolution', () => this.zoom(layer, map.getView().getZoom()));
-      this.poiService.enabled.subscribe(enabled => {
+      map
+        .getView()
+        .on('change:resolution', () =>
+          this.zoom(layer, map.getView().getZoom())
+        );
+      this.poiService.enabled.subscribe((enabled) => {
         this.updateLayerVisibility(layer, map.getView().getZoom());
       });
       this.updateLayerVisibility(layer, map.getView().getZoom());
@@ -47,7 +52,9 @@ export class PoiTileLayerService {
 
   private updateLayerVisibility(layer: BaseLayer, zoomLevel: number) {
     const zoom = Math.round(zoomLevel);
-    layer.setVisible(zoom > ZoomLevel.poiTileMinZoom && this.poiService._enabled.getValue());
+    layer.setVisible(
+      zoom > ZoomLevel.poiTileMinZoom && this.poiService._enabled.getValue()
+    );
   }
 
   private poiStyleFunction(): StyleFunction {
@@ -66,5 +73,4 @@ export class PoiTileLayerService {
       return null;
     };
   }
-
 }

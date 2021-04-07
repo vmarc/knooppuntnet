@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {MatRadioChange} from '@angular/material/radio';
-import {GPX} from 'ol/format';
-import {MapMode} from '../../components/ol/services/map-mode';
-import {MapService} from '../../components/ol/services/map.service';
-import {PlannerLayerService} from '../planner/services/planner-layer.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatRadioChange } from '@angular/material/radio';
+import { GPX } from 'ol/format';
+import { MapMode } from '../../components/ol/services/map-mode';
+import { MapService } from '../../components/ol/services/map.service';
+import { PlannerLayerService } from '../planner/services/planner-layer.service';
 
 @Component({
   selector: 'kpn-map-sidebar-appearance',
@@ -16,13 +16,25 @@ import {PlannerLayerService} from '../planner/services/planner-layer.service';
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-radio-group [value]="mapMode()" (change)="modeChanged($event)">
-          <mat-radio-button value="surface" class="mode-radio-button" i18n="@@planner.surface">
+          <mat-radio-button
+            value="surface"
+            class="mode-radio-button"
+            i18n="@@planner.surface"
+          >
             Surface
           </mat-radio-button>
-          <mat-radio-button value="survey" class="mode-radio-button" i18n="@@planner.survey">
+          <mat-radio-button
+            value="survey"
+            class="mode-radio-button"
+            i18n="@@planner.survey"
+          >
             Date last survey
           </mat-radio-button>
-          <mat-radio-button value="analysis" class="mode-radio-button" i18n="@@planner.quality">
+          <mat-radio-button
+            value="analysis"
+            class="mode-radio-button"
+            i18n="@@planner.quality"
+          >
             Node and route quality status
           </mat-radio-button>
         </mat-radio-group>
@@ -40,34 +52,39 @@ import {PlannerLayerService} from '../planner/services/planner-layer.service';
       </ng-template>
     </mat-expansion-panel>
   `,
-  styles: [`
-    mat-radio-button {
-      display: block;
-      margin: 10px;
-    }
+  styles: [
+    `
+      mat-radio-button {
+        display: block;
+        margin: 10px;
+      }
 
-    .file-input {
-      display: none;
-    }
+      .file-input {
+        display: none;
+      }
 
-    .file-button {
-      background-color: lightgreen;
-    }
-
-  `]
+      .file-button {
+        background-color: lightgreen;
+      }
+    `,
+  ],
 })
 export class MapSidebarAppearanceComponent {
-
-  constructor(private mapService: MapService,
-              private plannerLayerService: PlannerLayerService) {
-  }
+  constructor(
+    private mapService: MapService,
+    private plannerLayerService: PlannerLayerService
+  ) {}
 
   fileChanged(event) {
     const file = event.target.files[0];
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
-      const gpxFeatures = new GPX().readFeatures(fileReader.result, {featureProjection: 'EPSG:3857'});
-      this.plannerLayerService.gpxVectorLayer.getSource().addFeatures(gpxFeatures);
+      const gpxFeatures = new GPX().readFeatures(fileReader.result, {
+        featureProjection: 'EPSG:3857',
+      });
+      this.plannerLayerService.gpxVectorLayer
+        .getSource()
+        .addFeatures(gpxFeatures);
     };
     fileReader.readAsText(file);
   }

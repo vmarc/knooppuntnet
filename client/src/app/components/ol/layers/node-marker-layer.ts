@@ -1,26 +1,26 @@
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import {I18nService} from '../../../i18n/i18n.service';
-import {NodeMapInfo} from '@api/common/node-map-info';
-import {Util} from '../../shared/util';
-import {Marker} from '../domain/marker';
-import {MapLayer} from './map-layer';
-import {Layers} from './layers';
+import { I18nService } from '../../../i18n/i18n.service';
+import { NodeMapInfo } from '@api/common/node-map-info';
+import { Util } from '../../shared/util';
+import { Marker } from '../domain/marker';
+import { MapLayer } from './map-layer';
+import { Layers } from './layers';
 
 export class NodeMarkerLayer {
-
-  constructor(private i18nService: I18nService) {
-  }
+  constructor(private i18nService: I18nService) {}
 
   build(nodeMapInfo: NodeMapInfo): MapLayer {
-
-    const coordinate = Util.toCoordinate(nodeMapInfo.latitude, nodeMapInfo.longitude);
+    const coordinate = Util.toCoordinate(
+      nodeMapInfo.latitude,
+      nodeMapInfo.longitude
+    );
     const marker = Marker.create('blue', coordinate);
 
     const source = new VectorSource();
     const layer = new VectorLayer({
       zIndex: Layers.zIndexNetworkNodesLayer,
-      source
+      source,
     });
 
     source.addFeature(marker);
@@ -30,5 +30,4 @@ export class NodeMarkerLayer {
 
     return new MapLayer('node-marker-layer', layer);
   }
-
 }

@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
-import {MatIconRegistry} from '@angular/material/icon';
+import { Injectable } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
 import * as canvg from 'canvg';
-import {Map} from 'immutable';
-import {Observable, of} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import { Map } from 'immutable';
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class BitmapIconService {
-
   icons: Map<string, string> = Map();
 
-  constructor(private iconRegistry: MatIconRegistry) {
-  }
+  constructor(private iconRegistry: MatIconRegistry) {}
 
   public getIcon(iconName: string): Observable<string> {
     const icon = this.icons.get(iconName);
@@ -23,17 +21,16 @@ export class BitmapIconService {
 
   private createIcon(iconName: string): Observable<string> {
     return this.iconRegistry.getNamedSvgIcon(iconName).pipe(
-      map(svgElement => {
+      map((svgElement) => {
         const str: string = svgElement.outerHTML;
         const canvas: HTMLCanvasElement = document.createElement('canvas');
         // @ts-ignore
         canvg(canvas, str);
         return canvas.toDataURL('image/png');
       }),
-      tap(icon => {
+      tap((icon) => {
         this.icons = this.icons.set(iconName, icon);
       })
     );
   }
-
 }

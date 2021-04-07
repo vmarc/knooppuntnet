@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {RouteChangeInfo} from './route-change-info';
+import { RouteChangeInfo } from './route-change-info';
 
 export class RouteChangeInfos {
-
-  constructor(readonly changes: Array<RouteChangeInfo>,
-              readonly incompleteWarning: boolean) {
-  }
+  constructor(
+    readonly changes: Array<RouteChangeInfo>,
+    readonly incompleteWarning: boolean
+  ) {}
 
   public static fromJSON(jsonObject: any): RouteChangeInfos {
     if (!jsonObject) {

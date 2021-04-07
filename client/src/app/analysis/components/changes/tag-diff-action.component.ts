@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {TagDetailType} from '@api/common/diff/tag-detail-type';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TagDetailType } from '@api/common/diff/tag-detail-type';
 
 @Component({
   selector: 'kpn-tag-diff-action',
@@ -9,10 +9,9 @@ import {TagDetailType} from '@api/common/diff/tag-detail-type';
     <mat-icon *ngIf="isAdd()" svgIcon="add"></mat-icon>
     <mat-icon *ngIf="isUpdate()" svgIcon="update"></mat-icon>
     <mat-icon *ngIf="isDelete()" svgIcon="remove"></mat-icon>
-  `
+  `,
 })
 export class TagDiffActionComponent {
-
   @Input() action: TagDetailType;
 
   isAdd(): boolean {
@@ -30,5 +29,4 @@ export class TagDiffActionComponent {
   isSame(): boolean {
     return this.action.name === 'Same';
   }
-
 }

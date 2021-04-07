@@ -1,17 +1,17 @@
 // this class is generated, please do not modify
 
-import {CountryStatistic} from './country-statistic';
+import { CountryStatistic } from './country-statistic';
 
 export class Statistic {
-
-  constructor(readonly total: string,
-              readonly nl: CountryStatistic,
-              readonly be: CountryStatistic,
-              readonly de: CountryStatistic,
-              readonly fr: CountryStatistic,
-              readonly at: CountryStatistic,
-              readonly es: CountryStatistic) {
-  }
+  constructor(
+    readonly total: string,
+    readonly nl: CountryStatistic,
+    readonly be: CountryStatistic,
+    readonly de: CountryStatistic,
+    readonly fr: CountryStatistic,
+    readonly at: CountryStatistic,
+    readonly es: CountryStatistic
+  ) {}
 
   public static fromJSON(jsonObject: any): Statistic {
     if (!jsonObject) {

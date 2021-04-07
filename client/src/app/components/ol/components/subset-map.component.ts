@@ -1,23 +1,29 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {OnDestroy} from '@angular/core';
-import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
-import {Bounds} from '@api/common/bounds';
-import {SubsetMapNetwork} from '@api/common/subset/subset-map-network';
-import {List} from 'immutable';
-import {MapBrowserEvent} from 'ol';
-import {FeatureLike} from 'ol/Feature';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { Bounds } from '@api/common/bounds';
+import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
+import { List } from 'immutable';
+import { MapBrowserEvent } from 'ol';
+import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
-import {Subscriptions} from '../../../util/Subscriptions';
-import {PageService} from '../../shared/page.service';
-import {Util} from '../../shared/util';
-import {ZoomLevel} from '../domain/zoom-level';
-import {MapControls} from '../layers/map-controls';
-import {MapLayers} from '../layers/map-layers';
-import {NetworkMarkerLayer} from '../layers/network-marker-layer';
-import {MapLayerService} from '../services/map-layer.service';
+import { Subscriptions } from '../../../util/Subscriptions';
+import { PageService } from '../../shared/page.service';
+import { Util } from '../../shared/util';
+import { ZoomLevel } from '../domain/zoom-level';
+import { MapControls } from '../layers/map-controls';
+import { MapLayers } from '../layers/map-layers';
+import { NetworkMarkerLayer } from '../layers/network-marker-layer';
+import { MapLayerService } from '../services/map-layer.service';
 
 @Component({
   selector: 'kpn-subset-map',
@@ -26,10 +32,9 @@ import {MapLayerService} from '../services/map-layer.service';
     <div id="subset-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
     </div>
-  `
+  `,
 })
 export class SubsetMapComponent implements AfterViewInit, OnDestroy {
-
   @Input() bounds: Bounds;
   @Input() networks: SubsetMapNetwork[];
   @Output() networkClicked = new EventEmitter<number>();
@@ -40,12 +45,12 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   private readonly mapId = 'subset-map';
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private mapLayerService: MapLayerService,
-              private pageService: PageService) {
-  }
+  constructor(
+    private mapLayerService: MapLayerService,
+    private pageService: PageService
+  ) {}
 
   ngAfterViewInit(): void {
-
     this.layers = this.buildLayers();
 
     this.map = new Map({
@@ -54,8 +59,8 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
       controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom
-      })
+        maxZoom: ZoomLevel.maxZoom,
+      }),
     });
 
     this.layers.applyMap(this.map);
@@ -65,7 +70,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     this.map.addInteraction(this.buildInteraction());
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
+      this.pageService.sidebarOpen.subscribe((state) => {
         if (this.map) {
           setTimeout(() => this.map.updateSize(), 250);
         }
@@ -84,7 +89,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     return new MapLayers(
       List([
         this.mapLayerService.backgroundLayer(this.mapId),
-        this.mapLayerService.networkMarkerLayer(this.networks)
+        this.mapLayerService.networkMarkerLayer(this.networks),
       ])
     );
   }
@@ -99,14 +104,20 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
           return this.handleMoveEvent(event);
         }
         return true; // propagate event
-      }
+      },
     });
   }
 
   private handleSingleClickEvent(evt: MapBrowserEvent): boolean {
-    const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
+    const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {
+      hitTolerance: 10,
+    });
     if (features) {
-      const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
+      const index = features.findIndex(
+        (feature) =>
+          NetworkMarkerLayer.networkMarker ===
+          feature.get(NetworkMarkerLayer.layer)
+      );
       if (index >= 0) {
         const networkId = features[index].get(NetworkMarkerLayer.networkId);
         this.networkClicked.emit(+networkId);
@@ -117,12 +128,18 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private handleMoveEvent(evt: MapBrowserEvent): boolean {
-    const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {hitTolerance: 10});
+    const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {
+      hitTolerance: 10,
+    });
     if (features) {
-      const index = features.findIndex(feature => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer));
-      evt.map.getTargetElement().style.cursor = index >= 0 ? 'pointer' : 'default';
+      const index = features.findIndex(
+        (feature) =>
+          NetworkMarkerLayer.networkMarker ===
+          feature.get(NetworkMarkerLayer.layer)
+      );
+      evt.map.getTargetElement().style.cursor =
+        index >= 0 ? 'pointer' : 'default';
     }
     return true; // propagate event
   }
-
 }

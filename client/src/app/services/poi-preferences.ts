@@ -1,30 +1,29 @@
-import {Map} from 'immutable';
+import { Map } from 'immutable';
 
 export class PoiPreference {
-
-  constructor(public minLevel: number) {
-  }
+  constructor(public minLevel: number) {}
 
   public static fromJSON(jsonObject: any): PoiPreference {
     if (!jsonObject) {
       return undefined;
     }
-    return new PoiPreference(
-      jsonObject.minLevel
-    );
+    return new PoiPreference(jsonObject.minLevel);
   }
 }
 
 export class PoiGroupPreference {
-  constructor(public enabled: boolean,
-              public pois: Map<string, PoiPreference>) {
-  }
+  constructor(
+    public enabled: boolean,
+    public pois: Map<string, PoiPreference>
+  ) {}
 
   public static fromJSON(jsonObject: any): PoiGroupPreference {
     if (!jsonObject) {
       return undefined;
     }
-    const poiEntries: Array<[string, PoiPreference]> = Object.keys(jsonObject.pois).map(poiName => {
+    const poiEntries: Array<[string, PoiPreference]> = Object.keys(
+      jsonObject.pois
+    ).map((poiName) => {
       const poiPreference = PoiPreference.fromJSON(jsonObject.pois[poiName]);
       return [poiName, poiPreference];
     });
@@ -34,26 +33,23 @@ export class PoiGroupPreference {
 }
 
 export class PoiPreferences {
-
-  constructor(readonly groups: Map<string, PoiGroupPreference>,
-              public enabled: boolean) {
-  }
+  constructor(
+    readonly groups: Map<string, PoiGroupPreference>,
+    public enabled: boolean
+  ) {}
 
   public static fromJSON(jsonObject: any): PoiPreferences {
     if (!jsonObject) {
       return undefined;
     }
     const groups: Map<string, PoiGroupPreference> = Map(
-      Object.keys(jsonObject.groups).map(groupName => {
+      Object.keys(jsonObject.groups).map((groupName) => {
         const groupJson = jsonObject.groups[groupName];
         const group = PoiGroupPreference.fromJSON(groupJson);
         return [groupName, group];
       })
     );
-    return new PoiPreferences(
-      groups,
-      jsonObject.enabled
-    );
+    return new PoiPreferences(groups, jsonObject.enabled);
   }
 
   poi(poiName: string): PoiPreference {
@@ -67,5 +63,4 @@ export class PoiPreferences {
     });
     return result;
   }
-
 }

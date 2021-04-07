@@ -1,24 +1,36 @@
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerCommandAddLeg} from './planner-command-add-leg';
-import {PlannerCommandAddStartPoint} from './planner-command-add-start-point';
-import {PlannerCommandReset} from './planner-command-reset';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerCommandAddLeg } from './planner-command-add-leg';
+import { PlannerCommandAddStartPoint } from './planner-command-add-start-point';
+import { PlannerCommandReset } from './planner-command-reset';
 
 describe('PlannerCommandReset', () => {
-
   it('do and undo', () => {
-
     const setup = new PlannerTestSetup();
 
     const sourceFlag = PlanFlag.start('sourceFlag', [1, 1]);
     const sinkFlag1 = PlanFlag.via('viaFlag', [2, 2]);
     const sinkFlag2 = PlanFlag.end('endFlag', [3, 3]);
 
-    const leg12 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag1, null);
-    const leg23 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag2, null);
+    const leg12 = PlanUtil.singleRoutePlanLeg(
+      '12',
+      setup.node1,
+      setup.node2,
+      sinkFlag1,
+      null
+    );
+    const leg23 = PlanUtil.singleRoutePlanLeg(
+      '23',
+      setup.node2,
+      setup.node3,
+      sinkFlag2,
+      null
+    );
 
-    setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
+    setup.context.execute(
+      new PlannerCommandAddStartPoint(setup.node1, sourceFlag)
+    );
     setup.context.execute(new PlannerCommandAddLeg(leg12));
     setup.context.execute(new PlannerCommandAddLeg(leg23));
 
@@ -75,5 +87,4 @@ describe('PlannerCommandReset', () => {
       expect(leg2.viaFlag).toEqual(null);
     }
   });
-
 });

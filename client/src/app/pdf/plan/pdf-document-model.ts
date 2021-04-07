@@ -1,27 +1,28 @@
-import {PdfPage} from './pdf-page';
-import {PdfPlanNode} from './pdf-plan-node';
-import {List} from 'immutable';
+import { PdfPage } from './pdf-page';
+import { PdfPlanNode } from './pdf-plan-node';
+import { List } from 'immutable';
 
 export class PdfDocumentModel {
-
   private readonly maxRowsPerPage = 14;
   private readonly maxColumnCount = 7;
 
-  readonly totalColumnWidth = (PdfPage.xContentsRight - PdfPage.xContentsLeft) / this.maxColumnCount;
+  readonly totalColumnWidth =
+    (PdfPage.xContentsRight - PdfPage.xContentsLeft) / this.maxColumnCount;
 
   readonly legDistanceWidth = 5;
   readonly cumulativeDistanceHeight = 5;
-  readonly totalRowHeight = (PdfPage.yContentsBottom - PdfPage.yContentsTop + PdfPage.spacer) / this.maxRowsPerPage;
+  readonly totalRowHeight =
+    (PdfPage.yContentsBottom - PdfPage.yContentsTop + PdfPage.spacer) /
+    this.maxRowsPerPage;
   readonly rowHeight = this.totalRowHeight - PdfPage.spacer;
   readonly nodeNumberHeight = this.rowHeight - this.cumulativeDistanceHeight;
 
-  constructor(private nodes: List<PdfPlanNode>) {
-  }
+  constructor(private nodes: List<PdfPlanNode>) {}
 
   pageCount(): number {
     const maxNodesPerPage = this.maxRowsPerPage * this.maxColumnCount;
     let pageCount = Math.floor(this.nodes.size / maxNodesPerPage);
-    if ((this.nodes.size % maxNodesPerPage) > 0) {
+    if (this.nodes.size % maxNodesPerPage > 0) {
       pageCount++;
     }
     return pageCount;
@@ -51,7 +52,7 @@ export class PdfDocumentModel {
     } else {
       const pageNodeCount = this.pageNodeCount(pageIndex);
       rowCount = Math.floor(pageNodeCount / this.maxColumnCount);
-      if ((pageNodeCount % this.maxColumnCount) > 0) {
+      if (pageNodeCount % this.maxColumnCount > 0) {
         rowCount++;
       }
     }
@@ -74,8 +75,10 @@ export class PdfDocumentModel {
 
   node(pageIndex: number, rowIndex: number, columnIndex: number): PdfPlanNode {
     const maxNodesPerPage = this.maxRowsPerPage * this.maxColumnCount;
-    const nodeIndex = (pageIndex * maxNodesPerPage) + (rowIndex * this.maxColumnCount) + columnIndex;
+    const nodeIndex =
+      pageIndex * maxNodesPerPage +
+      rowIndex * this.maxColumnCount +
+      columnIndex;
     return this.nodes.get(nodeIndex);
   }
-
 }

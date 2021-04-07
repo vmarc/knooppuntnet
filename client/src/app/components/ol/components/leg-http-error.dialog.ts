@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-leg-http-error-dialog',
@@ -12,7 +12,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
         The planner could not contact the server, please try again later.
       </div>
     </kpn-dialog>
-  `
+  `,
 })
-export class LegHttpErrorDialogComponent {
-}
+export class LegHttpErrorDialogComponent {}

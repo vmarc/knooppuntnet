@@ -1,2 +1,1 @@
-export class MapFeature {
-}
+export class MapFeature {}

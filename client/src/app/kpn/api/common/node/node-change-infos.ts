@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {NodeChangeInfo} from './node-change-info';
+import { NodeChangeInfo } from './node-change-info';
 
 export class NodeChangeInfos {
-
-  constructor(readonly changes: Array<NodeChangeInfo>,
-              readonly incompleteWarning: boolean) {
-  }
+  constructor(
+    readonly changes: Array<NodeChangeInfo>,
+    readonly incompleteWarning: boolean
+  ) {}
 
   static fromJSON(jsonObject: any): NodeChangeInfos {
     if (!jsonObject) {

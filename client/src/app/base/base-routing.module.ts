@@ -1,52 +1,47 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {BaseSidebarComponent} from './base-sidebar.component';
-import {AuthenticatePageComponent} from './pages/authenticate/authenticate-page.component';
-import {HomePageComponent} from './pages/home/home-page.component';
-import {LoginPageComponent} from './pages/login/login-page.component';
-import {LogoutPageComponent} from './pages/logout/logout-page.component';
-import {NotFoundPageComponent} from './pages/not-found/not-found-page.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { BaseSidebarComponent } from './base-sidebar.component';
+import { AuthenticatePageComponent } from './pages/authenticate/authenticate-page.component';
+import { HomePageComponent } from './pages/home/home-page.component';
+import { LoginPageComponent } from './pages/login/login-page.component';
+import { LogoutPageComponent } from './pages/logout/logout-page.component';
+import { NotFoundPageComponent } from './pages/not-found/not-found-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent
+    component: HomePageComponent,
   },
   {
     path: '',
     component: BaseSidebarComponent,
-    outlet: 'sidebar'
+    outlet: 'sidebar',
   },
   {
     path: 'authenticate',
-    component: AuthenticatePageComponent
+    component: AuthenticatePageComponent,
   },
   {
     path: 'login',
-    component: LoginPageComponent
+    component: LoginPageComponent,
   },
   {
     path: 'logout',
-    component: LogoutPageComponent
+    component: LogoutPageComponent,
   },
   {
     path: 'not-found',
-    component: NotFoundPageComponent
+    component: NotFoundPageComponent,
   },
   {
     path: '**',
     redirectTo: '/home',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class BaseRoutingModule {
-}
+export class BaseRoutingModule {}

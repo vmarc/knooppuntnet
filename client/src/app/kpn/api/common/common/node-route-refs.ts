@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {Ref} from './ref';
+import { Ref } from './ref';
 
 export class NodeRouteRefs {
-
-  constructor(readonly nodeId: number,
-              readonly routeRefs: Array<Ref>) {
-  }
+  constructor(readonly nodeId: number, readonly routeRefs: Array<Ref>) {}
 
   static fromJSON(jsonObject: any): NodeRouteRefs {
     if (!jsonObject) {

@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 /* tslint:disable:template-i18n English only */
 @Component({
@@ -7,13 +7,18 @@ import {Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-
-      <div id="extraFunctions" (click)="toggleExtraFunctions()" class="extra-functions"></div>
+      <div
+        id="extraFunctions"
+        (click)="toggleExtraFunctions()"
+        class="extra-functions"
+      ></div>
 
       <ul *ngIf="extraFunctionsEnabled">
         <li>
           <p>
-            <a routerLink="/monitor/long-distance-routes">Long distance routes</a>
+            <a routerLink="/monitor/long-distance-routes"
+              >Long distance routes</a
+            >
           </p>
         </li>
         <li>
@@ -34,20 +39,20 @@ import {Component} from '@angular/core';
       </ul>
     </kpn-sidebar>
   `,
-  styles: [`
-    .extra-functions {
-      float: right;
-      width: 20px;
-      height: 20px;
-    }
-  `]
+  styles: [
+    `
+      .extra-functions {
+        float: right;
+        width: 20px;
+        height: 20px;
+      }
+    `,
+  ],
 })
 export class BaseSidebarComponent {
-
   extraFunctionsEnabled = false;
 
   toggleExtraFunctions(): void {
     this.extraFunctionsEnabled = !this.extraFunctionsEnabled;
   }
-
 }

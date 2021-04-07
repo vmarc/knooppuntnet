@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {PoiService} from '../../services/poi.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { PoiService } from '../../services/poi.service';
 
 @Component({
   selector: 'kpn-map-sidebar-poi-configuration',
@@ -11,10 +11,16 @@ import {PoiService} from '../../services/poi.service';
       <mat-expansion-panel-header>
         <span i18n="@@planner.pois.title">Points of interest</span>
         &nbsp;&nbsp;
-        <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled">(Enabled/Disabled)</span>
+        <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled"
+          >(Enabled/Disabled)</span
+        >
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-checkbox [checked]="isEnabled()" (change)="enabledChanged($event)" i18n="@@planner.pois.enabled">
+        <mat-checkbox
+          [checked]="isEnabled()"
+          (change)="enabledChanged($event)"
+          i18n="@@planner.pois.enabled"
+        >
           Show points of interest on the map
         </mat-checkbox>
 
@@ -26,16 +32,15 @@ import {PoiService} from '../../services/poi.service';
         </p>
 
         <kpn-map-poi-config></kpn-map-poi-config>
-        <button mat-stroked-button i18n="@@planner.pois.reset">Reset configuration to default</button>
-
+        <button mat-stroked-button i18n="@@planner.pois.reset">
+          Reset configuration to default
+        </button>
       </ng-template>
     </mat-expansion-panel>
-  `
+  `,
 })
 export class MapSidebarPoiConfigurationComponent {
-
-  constructor(private poiService: PoiService) {
-  }
+  constructor(private poiService: PoiService) {}
 
   enabledChanged(event: MatCheckboxChange) {
     this.poiService.updateEnabled(event.checked);
@@ -44,5 +49,4 @@ export class MapSidebarPoiConfigurationComponent {
   isEnabled() {
     return this.poiService.isEnabled();
   }
-
 }

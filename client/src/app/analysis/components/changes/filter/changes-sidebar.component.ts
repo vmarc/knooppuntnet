@@ -1,17 +1,18 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {ChangesService} from './changes.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { ChangesService } from './changes.service';
 
 @Component({
   selector: 'kpn-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-change-filter [filterOptions]="changesService.filterOptions$ | async"></kpn-change-filter>
+      <kpn-change-filter
+        [filterOptions]="changesService.filterOptions$ | async"
+      ></kpn-change-filter>
     </kpn-sidebar>
-  `
+  `,
 })
 export class ChangesSidebarComponent {
-  constructor(public changesService: ChangesService) {
-  }
+  constructor(public changesService: ChangesService) {}
 }

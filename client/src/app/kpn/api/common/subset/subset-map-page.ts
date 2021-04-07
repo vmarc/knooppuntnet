@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {Bounds} from '../bounds';
-import {SubsetInfo} from './subset-info';
-import {SubsetMapNetwork} from './subset-map-network';
+import { Bounds } from '../bounds';
+import { SubsetInfo } from './subset-info';
+import { SubsetMapNetwork } from './subset-map-network';
 
 export class SubsetMapPage {
-
-  constructor(readonly subsetInfo: SubsetInfo,
-              readonly networks: Array<SubsetMapNetwork>,
-              readonly bounds: Bounds) {
-  }
+  constructor(
+    readonly subsetInfo: SubsetInfo,
+    readonly networks: Array<SubsetMapNetwork>,
+    readonly bounds: Bounds
+  ) {}
 
   public static fromJSON(jsonObject: any): SubsetMapPage {
     if (!jsonObject) {

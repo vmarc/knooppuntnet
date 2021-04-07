@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {View} from 'ol';
-import {BehaviorSubject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { View } from 'ol';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MapZoomService {
-
   private _zoomLevel = 0;
   private _zoomLevel$ = new BehaviorSubject<number>(null);
   zoomLevel$ = this._zoomLevel$.asObservable();

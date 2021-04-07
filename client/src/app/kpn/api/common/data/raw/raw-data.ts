@@ -1,17 +1,17 @@
 // this class is generated, please do not modify
 
-import {Timestamp} from '../../../custom/timestamp';
-import {RawNode} from './raw-node';
-import {RawRelation} from './raw-relation';
-import {RawWay} from './raw-way';
+import { Timestamp } from '../../../custom/timestamp';
+import { RawNode } from './raw-node';
+import { RawRelation } from './raw-relation';
+import { RawWay } from './raw-way';
 
 export class RawData {
-
-  constructor(readonly timestamp: Timestamp,
-              readonly nodes: Array<RawNode>,
-              readonly ways: Array<RawWay>,
-              readonly relations: Array<RawRelation>) {
-  }
+  constructor(
+    readonly timestamp: Timestamp,
+    readonly nodes: Array<RawNode>,
+    readonly ways: Array<RawWay>,
+    readonly relations: Array<RawRelation>
+  ) {}
 
   public static fromJSON(jsonObject: any): RawData {
     if (!jsonObject) {

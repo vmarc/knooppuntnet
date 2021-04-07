@@ -1,26 +1,24 @@
-import {TrackPath} from '@api/common/common/track-path';
-import {TrackPoint} from '@api/common/common/track-point';
-import {TrackSegment} from '@api/common/common/track-segment';
-import {RouteMap} from '@api/common/route/route-map';
-import {RouteNetworkNodeInfo} from '@api/common/route/route-network-node-info';
-import {List} from 'immutable';
-import {Color} from 'ol/color';
+import { TrackPath } from '@api/common/common/track-path';
+import { TrackPoint } from '@api/common/common/track-point';
+import { TrackSegment } from '@api/common/common/track-segment';
+import { RouteMap } from '@api/common/route/route-map';
+import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
+import { List } from 'immutable';
+import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import {I18nService} from '../../../i18n/i18n.service';
-import {Util} from '../../shared/util';
-import {Marker} from '../domain/marker';
-import {Layers} from './layers';
-import {MapLayer} from './map-layer';
+import { I18nService } from '../../../i18n/i18n.service';
+import { Util } from '../../shared/util';
+import { Marker } from '../domain/marker';
+import { Layers } from './layers';
+import { MapLayer } from './map-layer';
 
 export class RouteLayers {
-
-  constructor(private i18nService: I18nService, private routeMap: RouteMap) {
-  }
+  constructor(private i18nService: I18nService, private routeMap: RouteMap) {}
 
   build(): List<MapLayer> {
     let layers = List([
@@ -29,10 +27,10 @@ export class RouteLayers {
       this.buildBackwardLayer(),
       this.buildStartTentaclesLayer(),
       this.buildEndTentaclesLayer(),
-      this.buildUnusedSegmentsLayer()
+      this.buildUnusedSegmentsLayer(),
     ]);
     layers = layers.merge(List(this.buildTrackPathLayers()));
-    return layers.filter(layer => layer !== null);
+    return layers.filter((layer) => layer !== null);
   }
 
   private buildForwardLayer(): MapLayer {
@@ -41,7 +39,7 @@ export class RouteLayers {
       const title = this.i18nService.translation('@@map.layer.forward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source
+        source,
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set('name', title);
@@ -56,7 +54,7 @@ export class RouteLayers {
       const title = this.i18nService.translation('@@map.layer.backward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source
+        source,
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set('name', title);
@@ -71,9 +69,9 @@ export class RouteLayers {
       const title = this.i18nService.translation('@@map.layer.start-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source
+        source,
       });
-      paths.forEach(path => {
+      paths.forEach((path) => {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set('name', title);
@@ -88,9 +86,9 @@ export class RouteLayers {
       const title = this.i18nService.translation('@@map.layer.end-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source
+        source,
       });
-      paths.forEach(path => {
+      paths.forEach((path) => {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set('name', title);
@@ -101,11 +99,11 @@ export class RouteLayers {
 
   private buildTrackPathLayers(): MapLayer[] {
     const paths = this.routeMap.trackPaths;
-    return paths.map(path => {
+    return paths.map((path) => {
       const title = this.i18nService.translation('@@map.layer.path');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source
+        source,
       });
       source.addFeature(this.pathToFeature(title, [255, 0, 0, 0.3], path));
       const name = `${title} ${path.pathId}`;
@@ -121,10 +119,12 @@ export class RouteLayers {
       const title = this.i18nService.translation('@@map.layer.unused');
       const source = new VectorSource();
       const layer = new VectorLayer({
-        source
+        source,
       });
-      segments.forEach(segment => {
-        source.addFeature(this.segmentToFeature(title, [255, 0, 0, 0.3], segment));
+      segments.forEach((segment) => {
+        source.addFeature(
+          this.segmentToFeature(title, [255, 0, 0, 0.3], segment)
+        );
       });
       layer.set('name', title);
       return new MapLayer('route-unused-segment-layer', layer);
@@ -133,11 +133,31 @@ export class RouteLayers {
   }
 
   private buildMarkerLayer(): MapLayer {
-    const startNodeMarkers = this.buildMarkers(this.routeMap.startNodes, 'green', '@@map.start-node');
-    const endNodeMarkers = this.buildMarkers(this.routeMap.endNodes, 'red', '@@map.end-node');
-    const startTentacleNodeMarkers = this.buildMarkers(this.routeMap.startTentacleNodes, 'orange', '@@map.start-tentacle-node');
-    const endTentacleNodeMarkers = this.buildMarkers(this.routeMap.endTentacleNodes, 'purple', '@@map.end-tentacle-node');
-    const redundantNodeMarkers = this.buildMarkers(this.routeMap.redundantNodes, 'yellow', '@@map.redundant-node');
+    const startNodeMarkers = this.buildMarkers(
+      this.routeMap.startNodes,
+      'green',
+      '@@map.start-node'
+    );
+    const endNodeMarkers = this.buildMarkers(
+      this.routeMap.endNodes,
+      'red',
+      '@@map.end-node'
+    );
+    const startTentacleNodeMarkers = this.buildMarkers(
+      this.routeMap.startTentacleNodes,
+      'orange',
+      '@@map.start-tentacle-node'
+    );
+    const endTentacleNodeMarkers = this.buildMarkers(
+      this.routeMap.endTentacleNodes,
+      'purple',
+      '@@map.end-tentacle-node'
+    );
+    const redundantNodeMarkers = this.buildMarkers(
+      this.routeMap.redundantNodes,
+      'yellow',
+      '@@map.redundant-node'
+    );
     const markers: Feature[] = startNodeMarkers
       .concat(endNodeMarkers)
       .concat(startTentacleNodeMarkers)
@@ -148,7 +168,7 @@ export class RouteLayers {
     const layer = new VectorLayer({
       zIndex: Layers.zIndexNetworkNodesLayer,
       className: 'route-marker',
-      source
+      source,
     });
 
     source.addFeatures(markers);
@@ -157,9 +177,13 @@ export class RouteLayers {
     return new MapLayer('route-marker-layer', layer);
   }
 
-  private buildMarkers(nodes: RouteNetworkNodeInfo[], color: string, nodeType: string): Feature[] {
+  private buildMarkers(
+    nodes: RouteNetworkNodeInfo[],
+    color: string,
+    nodeType: string
+  ): Feature[] {
     const translatedNodeType = this.i18nService.translation(nodeType);
-    return nodes.map(node => {
+    return nodes.map((node) => {
       const coordinate = Util.toCoordinate(node.lat, node.lon);
       const marker = Marker.create(color, coordinate);
       marker.set('name', translatedNodeType);
@@ -170,31 +194,44 @@ export class RouteLayers {
   private pathToFeature(title: string, color: Color, path: TrackPath): Feature {
     const trackPointArray: Array<TrackPoint> = [];
     trackPointArray.push(path.segments[0].source);
-    path.segments.forEach(segment => {
-      segment.fragments.forEach(fragment => trackPointArray.push(fragment.trackPoint));
+    path.segments.forEach((segment) => {
+      segment.fragments.forEach((fragment) =>
+        trackPointArray.push(fragment.trackPoint)
+      );
     });
     const trackPoints = List(trackPointArray);
     return this.trackPointsToFeature(title, color, trackPoints);
   }
 
-  private segmentToFeature(title: string, color: Color, segment: TrackSegment): Feature {
+  private segmentToFeature(
+    title: string,
+    color: Color,
+    segment: TrackSegment
+  ): Feature {
     let trackPoints = List<TrackPoint>([segment.source]);
-    trackPoints = trackPoints.concat(segment.fragments.map(fragment => fragment.trackPoint));
+    trackPoints = trackPoints.concat(
+      segment.fragments.map((fragment) => fragment.trackPoint)
+    );
     return this.trackPointsToFeature(title, color, trackPoints);
   }
 
-  private trackPointsToFeature(title: string, color: Color, trackPoints: List<TrackPoint>): Feature {
-    const coordinates = trackPoints.map(trackPoint => Util.toCoordinate(trackPoint.lat, trackPoint.lon));
+  private trackPointsToFeature(
+    title: string,
+    color: Color,
+    trackPoints: List<TrackPoint>
+  ): Feature {
+    const coordinates = trackPoints.map((trackPoint) =>
+      Util.toCoordinate(trackPoint.lat, trackPoint.lon)
+    );
     const polygon = new LineString(coordinates.toArray());
     const feature = new Feature(polygon);
     const style = new Style({
       stroke: new Stroke({
         color,
-        width: 15
-      })
+        width: 15,
+      }),
     });
     feature.setStyle(style);
     return feature;
   }
-
 }

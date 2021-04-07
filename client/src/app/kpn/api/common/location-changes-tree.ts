@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
-import {LocationChangesTreeNode} from './location-changes-tree-node';
-import {NetworkType} from '../custom/network-type';
+import { LocationChangesTreeNode } from './location-changes-tree-node';
+import { NetworkType } from '../custom/network-type';
 
 export class LocationChangesTree {
-
-  constructor(readonly networkType: NetworkType,
-              readonly locationName: string,
-              readonly happy: boolean,
-              readonly investigate: boolean,
-              readonly children: Array<LocationChangesTreeNode>) {
-  }
+  constructor(
+    readonly networkType: NetworkType,
+    readonly locationName: string,
+    readonly happy: boolean,
+    readonly investigate: boolean,
+    readonly children: Array<LocationChangesTreeNode>
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationChangesTree {
     if (!jsonObject) {
@@ -21,7 +21,9 @@ export class LocationChangesTree {
       jsonObject.locationName,
       jsonObject.happy,
       jsonObject.investigate,
-      jsonObject.children?.map((json: any) => LocationChangesTreeNode.fromJSON(json))
+      jsonObject.children?.map((json: any) =>
+        LocationChangesTreeNode.fromJSON(json)
+      )
     );
   }
 }

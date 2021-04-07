@@ -1,14 +1,12 @@
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerCommandAddLeg} from './planner-command-add-leg';
-import {PlannerCommandAddStartPoint} from './planner-command-add-start-point';
-import {PlannerCommandMoveViaPointToViaRoute} from './planner-command-move-via-point-to-via-route';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerCommandAddLeg } from './planner-command-add-leg';
+import { PlannerCommandAddStartPoint } from './planner-command-add-start-point';
+import { PlannerCommandMoveViaPointToViaRoute } from './planner-command-move-via-point-to-via-route';
 
 describe('PlannerCommandMoveViaPointToViaRoute', () => {
-
   it('do and undo', () => {
-
     const setup = new PlannerTestSetup();
 
     const sourceFlag = PlanFlag.start('sourceFlag', [1, 1]);
@@ -18,12 +16,38 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
     const newViaFlag = PlanFlag.via('newViaFlag', [4.5, 4.5]);
     const newLeg1SinkFlag = PlanFlag.via('newLeg1SinkFlag', [4, 4]);
 
-    const oldLeg1 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, oldViaFlag, null);
-    const oldLeg2 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag, null);
-    const newLeg1 = PlanUtil.singleRoutePlanLeg('14', setup.node1, setup.node4, newLeg1SinkFlag, newViaFlag);
-    const newLeg2 = PlanUtil.singleRoutePlanLeg('43', setup.node4, setup.node3, sinkFlag, null);
+    const oldLeg1 = PlanUtil.singleRoutePlanLeg(
+      '12',
+      setup.node1,
+      setup.node2,
+      oldViaFlag,
+      null
+    );
+    const oldLeg2 = PlanUtil.singleRoutePlanLeg(
+      '23',
+      setup.node2,
+      setup.node3,
+      sinkFlag,
+      null
+    );
+    const newLeg1 = PlanUtil.singleRoutePlanLeg(
+      '14',
+      setup.node1,
+      setup.node4,
+      newLeg1SinkFlag,
+      newViaFlag
+    );
+    const newLeg2 = PlanUtil.singleRoutePlanLeg(
+      '43',
+      setup.node4,
+      setup.node3,
+      sinkFlag,
+      null
+    );
 
-    setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
+    setup.context.execute(
+      new PlannerCommandAddStartPoint(setup.node1, sourceFlag)
+    );
     setup.context.execute(new PlannerCommandAddLeg(oldLeg1));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg2));
 
@@ -49,7 +73,12 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
       expect(leg2.sinkNode.nodeId).toEqual('1003');
     }
 
-    const command = new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2);
+    const command = new PlannerCommandMoveViaPointToViaRoute(
+      oldLeg1,
+      oldLeg2,
+      newLeg1,
+      newLeg2
+    );
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(4);
@@ -91,7 +120,5 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
       expect(legs.get(0).featureId).toEqual('12');
       expect(legs.get(1).featureId).toEqual('23');
     }
-
   });
-
 });

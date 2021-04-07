@@ -1,12 +1,11 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Day} from '@api/custom/day';
-import {Util} from '../util';
+import { Pipe, PipeTransform } from '@angular/core';
+import { Day } from '@api/custom/day';
+import { Util } from '../util';
 
 @Pipe({
-  name: 'day'
+  name: 'day',
 })
 export class DayPipe implements PipeTransform {
-
   transform(day: Day): string {
     if (day) {
       let result = day.year.toString();
@@ -20,5 +19,4 @@ export class DayPipe implements PipeTransform {
     }
     return '-';
   }
-
 }

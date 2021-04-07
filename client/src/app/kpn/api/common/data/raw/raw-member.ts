@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
 export class RawMember {
-
-  constructor(readonly memberType: string,
-              readonly ref: number,
-              readonly role: string) {
-  }
+  constructor(
+    readonly memberType: string,
+    readonly ref: number,
+    readonly role: string
+  ) {}
 
   public static fromJSON(jsonObject: any): RawMember {
     if (!jsonObject) {

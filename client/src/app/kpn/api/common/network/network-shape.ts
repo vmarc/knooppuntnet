@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {Bounds} from '../bounds';
+import { Bounds } from '../bounds';
 
 export class NetworkShape {
-
-  constructor(readonly bounds: Bounds,
-              readonly coordinates: string) {
-  }
+  constructor(readonly bounds: Bounds, readonly coordinates: string) {}
 
   static fromJSON(jsonObject: any): NetworkShape {
     if (!jsonObject) {

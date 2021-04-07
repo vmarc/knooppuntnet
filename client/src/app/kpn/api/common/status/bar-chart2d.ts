@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {BarChart2dValue} from './bar-chart2d-value';
+import { BarChart2dValue } from './bar-chart2d-value';
 
 export class BarChart2D {
-
-  constructor(readonly xAxisLabel: string,
-              readonly yAxisLabel: string,
-              readonly xAxisTicks: Array<number>,
-              readonly legendTitle: string,
-              readonly data: Array<BarChart2dValue>) {
-  }
+  constructor(
+    readonly xAxisLabel: string,
+    readonly yAxisLabel: string,
+    readonly xAxisTicks: Array<number>,
+    readonly legendTitle: string,
+    readonly data: Array<BarChart2dValue>
+  ) {}
 
   public static fromJSON(jsonObject: any): BarChart2D {
     if (!jsonObject) {

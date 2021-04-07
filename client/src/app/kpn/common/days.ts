@@ -1,9 +1,7 @@
-import {Day} from '@api/custom/day';
+import { Day } from '@api/custom/day';
 
 export class Days {
-
   static youngerThan(some: Day, other: Day): boolean {
-
     if (some.year > other.year) {
       return true;
     }
@@ -36,9 +34,11 @@ export class Days {
   }
 
   static sameAs(some: Day, other: Day): boolean {
-    return some.year === other.year &&
+    return (
+      some.year === other.year &&
       some.month === other.month &&
-      some.day === other.day;
+      some.day === other.day
+    );
   }
 
   static sameAsOrYoungerThan(some: Day, other: Day): boolean {
@@ -48,5 +48,4 @@ export class Days {
   static olderThan(some: Day, other: Day): boolean {
     return !Days.sameAsOrYoungerThan(some, other);
   }
-
 }

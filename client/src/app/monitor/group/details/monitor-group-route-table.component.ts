@@ -1,47 +1,45 @@
-import {OnInit} from '@angular/core';
-import {Input} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MonitorRouteDetail} from '@api/common/monitor/monitor-route-detail';
-import {Store} from '@ngrx/store';
-import {map} from 'rxjs/operators';
-import {PageWidthService} from '../../../components/shared/page-width.service';
-import {AppState} from '../../../core/core.state';
-import {selectMonitorAdmin} from '../../store/monitor.selectors';
+import { OnInit } from '@angular/core';
+import { Input } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { PageWidthService } from '../../../components/shared/page-width.service';
+import { AppState } from '../../../core/core.state';
+import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-group-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <table mat-table [dataSource]="dataSource">
-
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeLink(route)">{{route.id}}</a>
+          <a [routerLink]="routeLink(route)">{{ route.id }}</a>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let route">
-          {{route.name}}
+          {{ route.name }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let route">
-          {{route.description}}
+          {{ route.description }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="distance">
         <th mat-header-cell *matHeaderCellDef>Distance</th>
         <td mat-cell *matCellDef="let route">
-          {{route.distance}}
+          {{ route.distance }}
         </td>
       </ng-container>
 
@@ -61,18 +59,22 @@ import {selectMonitorAdmin} from '../../store/monitor.selectors';
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns$ | async;"></tr>
+      <tr
+        mat-row
+        *matRowDef="let group; columns: displayedColumns$ | async"
+      ></tr>
     </table>
   `,
-  styles: [`
-    .delete {
-      padding-left: 1em;
-      color: red;
-    }
-  `]
+  styles: [
+    `
+      .delete {
+        padding-left: 1em;
+        color: red;
+      }
+    `,
+  ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {
-
   @Input() routes: MonitorRouteDetail[];
   @Input() groupName: string;
 
@@ -81,7 +83,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 
   readonly displayedColumns$ = this.admin$.pipe(
-    map(admin => {
+    map((admin) => {
       if (admin) {
         return ['id', 'name', 'description', 'distance', 'status', 'actions'];
       }
@@ -89,9 +91,10 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     })
   );
 
-  constructor(private pageWidthService: PageWidthService,
-              private store: Store<AppState>) {
-  }
+  constructor(
+    private pageWidthService: PageWidthService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.routes;

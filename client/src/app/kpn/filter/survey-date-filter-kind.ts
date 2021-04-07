@@ -5,5 +5,5 @@ export enum SurveyDateFilterKind {
   lastHalfYear,
   lastYear,
   lastTwoYears,
-  older
+  older,
 }

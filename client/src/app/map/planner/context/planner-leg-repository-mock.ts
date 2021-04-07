@@ -1,17 +1,20 @@
-import {LegEnd} from '@api/common/planner/leg-end';
-import {NetworkType} from '@api/custom/network-type';
-import {Map} from 'immutable';
-import {List} from 'immutable';
-import {Observable, of} from 'rxjs';
-import {PlanUtil} from '../plan/plan-util';
-import {PlanLegData} from './plan-leg-data';
-import {PlannerLegRepository} from './planner-leg-repository';
+import { LegEnd } from '@api/common/planner/leg-end';
+import { NetworkType } from '@api/custom/network-type';
+import { Map } from 'immutable';
+import { List } from 'immutable';
+import { Observable, of } from 'rxjs';
+import { PlanUtil } from '../plan/plan-util';
+import { PlanLegData } from './plan-leg-data';
+import { PlannerLegRepository } from './planner-leg-repository';
 
 export class PlannerLegRepositoryMock implements PlannerLegRepository {
-
   private planLegDetails: Map<string, PlanLegData> = Map();
 
-  planLeg(networkType: NetworkType, source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
+  planLeg(
+    networkType: NetworkType,
+    source: LegEnd,
+    sink: LegEnd
+  ): Observable<PlanLegData> {
     const key = PlanUtil.key(source, sink);
     const data = this.planLegDetails.get(key);
     if (!data) {
@@ -31,5 +34,4 @@ export class PlannerLegRepositoryMock implements PlannerLegRepository {
     const key = PlanUtil.key(planLegData.source, planLegData.sink);
     this.planLegDetails = this.planLegDetails.set(key, planLegData);
   }
-
 }

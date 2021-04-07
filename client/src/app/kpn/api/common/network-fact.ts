@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
-import {Check} from './check';
-import {Ref} from './common/ref';
+import { Check } from './check';
+import { Ref } from './common/ref';
 
 export class NetworkFact {
-
-  constructor(readonly name: string,
-              readonly elementType: string | undefined,
-              readonly elementIds: Array<number> | undefined,
-              readonly elements: Array<Ref> | undefined,
-              readonly checks: Array<Check> | undefined) {
-  }
+  constructor(
+    readonly name: string,
+    readonly elementType: string | undefined,
+    readonly elementIds: Array<number> | undefined,
+    readonly elements: Array<Ref> | undefined,
+    readonly checks: Array<Check> | undefined
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkFact {
     if (!jsonObject) {

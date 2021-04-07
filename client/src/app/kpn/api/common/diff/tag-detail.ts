@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {TagDetailType} from './tag-detail-type';
+import { TagDetailType } from './tag-detail-type';
 
 export class TagDetail {
-
-  constructor(readonly action: TagDetailType,
-              readonly key: string,
-              readonly valueBefore: string,
-              readonly valueAfter: string) {
-  }
+  constructor(
+    readonly action: TagDetailType,
+    readonly key: string,
+    readonly valueBefore: string,
+    readonly valueAfter: string
+  ) {}
 
   public static fromJSON(jsonObject: any): TagDetail {
     if (!jsonObject) {

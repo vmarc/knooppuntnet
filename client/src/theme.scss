@@ -2,7 +2,7 @@
 @include mat-core();
 
 $app-primary: mat-palette($mat-indigo);
-$app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$app-accent: mat-palette($mat-pink, A200, A100, A400);
 $background-color: map_get($mat-grey, A100);
 
 $app-warn: mat-palette($mat-red);
@@ -10,7 +10,17 @@ $app-warn: mat-palette($mat-red);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 $background: map-get($app-theme, background);
-$background: map_merge($background, (background: $background-color));
-$app-theme: map_merge($app-theme, (background: $background));
+$background: map_merge(
+  $background,
+  (
+    background: $background-color,
+  )
+);
+$app-theme: map_merge(
+  $app-theme,
+  (
+    background: $background,
+  )
+);
 
 @include angular-material-theme($app-theme);

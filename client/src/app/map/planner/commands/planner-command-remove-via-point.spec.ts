@@ -1,17 +1,15 @@
-import {expectEndFlag} from '../../../util/test-support';
-import {expectInvisibleFlag} from '../../../util/test-support';
-import {expectViaFlag} from '../../../util/test-support';
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerCommandAddLeg} from './planner-command-add-leg';
-import {PlannerCommandAddStartPoint} from './planner-command-add-start-point';
-import {PlannerCommandRemoveViaPoint} from './planner-command-remove-via-point';
+import { expectEndFlag } from '../../../util/test-support';
+import { expectInvisibleFlag } from '../../../util/test-support';
+import { expectViaFlag } from '../../../util/test-support';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerCommandAddLeg } from './planner-command-add-leg';
+import { PlannerCommandAddStartPoint } from './planner-command-add-start-point';
+import { PlannerCommandRemoveViaPoint } from './planner-command-remove-via-point';
 
 describe('PlannerCommandRemoveViaPoint', () => {
-
   it('do and undo', () => {
-
     const setup = new PlannerTestSetup();
 
     const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
@@ -23,9 +21,27 @@ describe('PlannerCommandRemoveViaPoint', () => {
     const oldSinkFlag2 = PlanFlag.end('oldSinkFlag2', [3, 3]);
     const newSinkFlag = PlanFlag.end('newSinkFlag', [3, 3]);
 
-    const oldLeg1 = PlanUtil.singleRoutePlanLeg('12', node1, node2, oldSinkFlag1, null);
-    const oldLeg2 = PlanUtil.singleRoutePlanLeg('23', node2, node3, oldSinkFlag2, null);
-    const newLeg = PlanUtil.singleRoutePlanLeg('13', node1, node3, newSinkFlag, null);
+    const oldLeg1 = PlanUtil.singleRoutePlanLeg(
+      '12',
+      node1,
+      node2,
+      oldSinkFlag1,
+      null
+    );
+    const oldLeg2 = PlanUtil.singleRoutePlanLeg(
+      '23',
+      node2,
+      node3,
+      oldSinkFlag2,
+      null
+    );
+    const newLeg = PlanUtil.singleRoutePlanLeg(
+      '13',
+      node1,
+      node3,
+      newSinkFlag,
+      null
+    );
 
     setup.context.execute(new PlannerCommandAddStartPoint(node1, startFlag));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg1));
@@ -105,7 +121,6 @@ describe('PlannerCommandRemoveViaPoint', () => {
   });
 
   it('do and undo - via route', () => {
-
     const setup = new PlannerTestSetup();
 
     const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
@@ -118,9 +133,27 @@ describe('PlannerCommandRemoveViaPoint', () => {
     const oldSinkFlag2 = PlanFlag.end('oldSinkFlag2', [3, 3]);
     const newSinkFlag = PlanFlag.end('newSinkFlag', [3, 3]);
 
-    const oldLeg1 = PlanUtil.singleRoutePlanLeg('12', node1, node2, oldSinkFlag1, oldViaFlag);
-    const oldLeg2 = PlanUtil.singleRoutePlanLeg('23', node2, node3, oldSinkFlag2, null);
-    const newLeg = PlanUtil.singleRoutePlanLeg('13', node1, node3, newSinkFlag, null);
+    const oldLeg1 = PlanUtil.singleRoutePlanLeg(
+      '12',
+      node1,
+      node2,
+      oldSinkFlag1,
+      oldViaFlag
+    );
+    const oldLeg2 = PlanUtil.singleRoutePlanLeg(
+      '23',
+      node2,
+      node3,
+      oldSinkFlag2,
+      null
+    );
+    const newLeg = PlanUtil.singleRoutePlanLeg(
+      '13',
+      node1,
+      node3,
+      newSinkFlag,
+      null
+    );
 
     setup.context.execute(new PlannerCommandAddStartPoint(node1, startFlag));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg1));
@@ -202,5 +235,4 @@ describe('PlannerCommandRemoveViaPoint', () => {
       expectEndFlag(leg2.sinkFlag, 'oldSinkFlag2', [3, 3]);
     }
   });
-
 });

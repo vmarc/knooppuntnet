@@ -1,6 +1,14 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {PageService} from '../page.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { PageService } from '../page.service';
 
 @Component({
   selector: 'kpn-page-header',
@@ -13,28 +21,27 @@ import {PageService} from '../page.service';
       <kpn-doc-link *ngIf="subject" [subject]="subject"></kpn-doc-link>
     </div>
   `,
-  styles: [`
+  styles: [
+    `
+      .header {
+        display: flex;
+      }
 
-    .header {
-      display: flex;
-    }
-
-    .header h1 {
-      display: inline-block;
-      flex: 1;
-    }
-
-  `]
+      .header h1 {
+        display: inline-block;
+        flex: 1;
+      }
+    `,
+  ],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
-
   @Input() subject: string;
   @Input() pageTitle: string;
 
-  @ViewChild('title', { read: ElementRef, static: true }) renderedTitle: ElementRef;
+  @ViewChild('title', { read: ElementRef, static: true })
+  renderedTitle: ElementRef;
 
-  constructor(private pageService: PageService) {
-  }
+  constructor(private pageService: PageService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pageTitle']) {
@@ -54,5 +61,4 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
       this.pageService.setTitle(titleFromPage);
     }
   }
-
 }

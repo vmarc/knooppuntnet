@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import {BoundsI} from '../bounds-i';
-import {ChangeKeyI} from '../changes/details/change-key-i';
+import { BoundsI } from '../bounds-i';
+import { ChangeKeyI } from '../changes/details/change-key-i';
 
 export interface LongdistanceRouteChangeSummary {
   readonly key: ChangeKeyI;

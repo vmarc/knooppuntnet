@@ -1,18 +1,25 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
-import {KnownElements} from '@api/common/common/known-elements';
-import {Ref} from '@api/common/common/ref';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { KnownElements } from '@api/common/common/known-elements';
+import { Ref } from '@api/common/common/ref';
 
 @Component({
   selector: 'kpn-link-node-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-link-node *ngIf="known" [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
-    <kpn-osm-link-node *ngIf="!known" [nodeId]="ref.id" [title]="ref.name"></kpn-osm-link-node>
-  `
+    <kpn-link-node
+      *ngIf="known"
+      [nodeId]="ref.id"
+      [nodeName]="ref.name"
+    ></kpn-link-node>
+    <kpn-osm-link-node
+      *ngIf="!known"
+      [nodeId]="ref.id"
+      [title]="ref.name"
+    ></kpn-osm-link-node>
+  `,
 })
 export class LinkNodeRefComponent implements OnInit {
-
   @Input() ref: Ref;
   @Input() knownElements: KnownElements;
 
@@ -22,5 +29,3 @@ export class LinkNodeRefComponent implements OnInit {
     this.known = this.knownElements.nodeIds.includes(this.ref.id);
   }
 }
-
-

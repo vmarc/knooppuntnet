@@ -11,5 +11,5 @@ export const initialState: PreferencesState = {
   instructions: false,
   extraLayers: false,
   itemsPerPage: 25,
-  impact: true
+  impact: true,
 };

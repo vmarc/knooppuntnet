@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {Ref} from '../../common/ref';
+import { Ref } from '../../common/ref';
 
 export class RouteNodeDiff {
-
-  constructor(readonly title: string,
-              readonly added: Array<Ref>,
-              readonly removed: Array<Ref>) {
-  }
+  constructor(
+    readonly title: string,
+    readonly added: Array<Ref>,
+    readonly removed: Array<Ref>
+  ) {}
 
   public static fromJSON(jsonObject: any): RouteNodeDiff {
     if (!jsonObject) {

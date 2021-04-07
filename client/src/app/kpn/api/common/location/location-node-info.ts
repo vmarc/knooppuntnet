@@ -1,21 +1,21 @@
 // this class is generated, please do not modify
 
-import {Day} from '../../custom/day';
-import {Ref} from '../common/ref';
-import {Timestamp} from '../../custom/timestamp';
+import { Day } from '../../custom/day';
+import { Ref } from '../common/ref';
+import { Timestamp } from '../../custom/timestamp';
 
 export class LocationNodeInfo {
-
-  constructor(readonly id: number,
-              readonly name: string,
-              readonly latitude: string,
-              readonly longitude: string,
-              readonly lastUpdated: Timestamp,
-              readonly lastSurvey: Day,
-              readonly factCount: number,
-              readonly expectedRouteCount: string,
-              readonly routeReferences: Array<Ref>) {
-  }
+  constructor(
+    readonly id: number,
+    readonly name: string,
+    readonly latitude: string,
+    readonly longitude: string,
+    readonly lastUpdated: Timestamp,
+    readonly lastSurvey: Day,
+    readonly factCount: number,
+    readonly expectedRouteCount: string,
+    readonly routeReferences: Array<Ref>
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationNodeInfo {
     if (!jsonObject) {

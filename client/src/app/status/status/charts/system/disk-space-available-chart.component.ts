@@ -1,21 +1,20 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Input} from '@angular/core';
-import {Component} from '@angular/core';
-import {BarChart} from '@api/common/status/bar-chart';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { BarChart } from '@api/common/status/bar-chart';
 
 /* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-disk-space-available-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h2>
-      Disk space available
-    </h2>
+    <h2>Disk space available</h2>
     <div class="chart">
       <kpn-action-bar-chart
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
-        yAxisLabel="TODO bytes?">
+        yAxisLabel="TODO bytes?"
+      >
       </kpn-action-bar-chart>
     </div>
     <div class="chart">
@@ -30,15 +29,15 @@ import {BarChart} from '@api/common/status/bar-chart';
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="'bytes'"
         [legend]="false"
-        [roundDomains]="false">
+        [roundDomains]="false"
+      >
       </ngx-charts-line-chart>
     </div>
-  `
+  `,
 })
 export class DiskSpaceAvailableChartComponent {
   @Input() barChart: BarChart;
   @Input() xAxisLabel: string;
-
 
   view: [number, number] = [700, 300];
 
@@ -46,8 +45,8 @@ export class DiskSpaceAvailableChartComponent {
     return [
       {
         name: 'Lesotho',
-        series: this.barChart.data
-      }
+        series: this.barChart.data,
+      },
     ];
   }
 }

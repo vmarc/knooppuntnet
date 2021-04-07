@@ -1,8 +1,7 @@
 import Map from 'ol/Map';
-import {PlannerCursor} from './planner-cursor';
+import { PlannerCursor } from './planner-cursor';
 
 export class PlannerCursorImpl implements PlannerCursor {
-
   viewPort: HTMLElement;
 
   addToMap(map: Map) {
@@ -32,5 +31,4 @@ export class PlannerCursorImpl implements PlannerCursor {
   private setStyle(style: string): void {
     this.viewPort.style.cursor = style;
   }
-
 }

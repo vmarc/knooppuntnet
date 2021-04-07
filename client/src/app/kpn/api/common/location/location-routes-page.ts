@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {LocationRouteInfo} from './location-route-info';
-import {LocationSummary} from './location-summary';
-import {TimeInfo} from '../time-info';
+import { LocationRouteInfo } from './location-route-info';
+import { LocationSummary } from './location-summary';
+import { TimeInfo } from '../time-info';
 
 export class LocationRoutesPage {
-
-  constructor(readonly timeInfo: TimeInfo,
-              readonly summary: LocationSummary,
-              readonly routes: Array<LocationRouteInfo>) {
-  }
+  constructor(
+    readonly timeInfo: TimeInfo,
+    readonly summary: LocationSummary,
+    readonly routes: Array<LocationRouteInfo>
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationRoutesPage {
     if (!jsonObject) {

@@ -1,9 +1,7 @@
-import {AppState} from '../../core/core.state';
+import { AppState } from '../../core/core.state';
 
 export class VideoState {
-  constructor(public video: string,
-              public playing: boolean) {
-  }
+  constructor(public video: string, public playing: boolean) {}
 }
 
 export interface DemoState {

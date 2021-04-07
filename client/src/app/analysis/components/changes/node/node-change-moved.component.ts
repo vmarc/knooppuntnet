@@ -1,19 +1,25 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {NodeChangeInfo} from '@api/common/node/node-change-info';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NodeChangeInfo } from '@api/common/node/node-change-info';
 
 @Component({
   selector: 'kpn-node-change-moved',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <div *ngIf="!!nodeMoved">
-
-      <div *ngIf="nodeMoved.distance > 0" class="kpn-detail" i18n="@@node-change.moved.meters">
-        The node has moved {{nodeMoved.distance}} meters.
+      <div
+        *ngIf="nodeMoved.distance > 0"
+        class="kpn-detail"
+        i18n="@@node-change.moved.meters"
+      >
+        The node has moved {{ nodeMoved.distance }} meters.
       </div>
 
-      <div *ngIf="nodeMoved.distance == 0" class="kpn-detail" i18n="@@node-change.moved.less-than-1-meter">
+      <div
+        *ngIf="nodeMoved.distance == 0"
+        class="kpn-detail"
+        i18n="@@node-change.moved.less-than-1-meter"
+      >
         The node has moved less than 1 meter.
       </div>
 
@@ -23,26 +29,27 @@ import {NodeChangeInfo} from '@api/common/node/node-change-info';
         <span i18n="@@node-change.moved.note.1">
           Note: Node position is shown as it was at
         </span>
-        <kpn-timestamp [timestamp]="nodeChangeInfo.changeKey.timestamp"></kpn-timestamp>
+        <kpn-timestamp
+          [timestamp]="nodeChangeInfo.changeKey.timestamp"
+        ></kpn-timestamp>
         <span i18n="@@node-change.moved.note.2">
           , while the map background is shown as it is today.
         </span>
       </div>
-
     </div>
   `,
-  styles: [`
-    .note {
-      margin-top: 5px;
-    }
-  `]
+  styles: [
+    `
+      .note {
+        margin-top: 5px;
+      }
+    `,
+  ],
 })
 export class NodeChangeMovedComponent {
-
   @Input() nodeChangeInfo: NodeChangeInfo;
 
   get nodeMoved() {
     return this.nodeChangeInfo.nodeMoved;
   }
-
 }

@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {NameValue} from './name-value';
+import { NameValue } from './name-value';
 
 export class BarChart2dValue {
-
-  constructor(readonly name: string,
-              readonly series: Array<NameValue>) {
-  }
+  constructor(readonly name: string, readonly series: Array<NameValue>) {}
 
   public static fromJSON(jsonObject: any): BarChart2dValue {
     if (!jsonObject) {

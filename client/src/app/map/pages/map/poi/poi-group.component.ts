@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {PoiService} from '../../../../services/poi.service';
+import { Component, Input } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { PoiService } from '../../../../services/poi.service';
 
 @Component({
   selector: 'kpn-poi-group',
@@ -10,23 +10,40 @@ import {PoiService} from '../../../../services/poi.service';
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-checkbox
-            (click)="$event.stopPropagation();"
+            (click)="$event.stopPropagation()"
             [checked]="isEnabled()"
-            (change)="groupEnabledChanged($event)">
+            (change)="groupEnabledChanged($event)"
+          >
           </mat-checkbox>
-          <span class="title">{{title}}</span>
+          <span class="title">{{ title }}</span>
           <span class="kpn-thin">(10/10)</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
+        <div></div>
 
         <div>
-        </div>
-
-        <div>
-          <button mat-stroked-button (click)="showAllClicked()" i18n="@@planner.pois.show-all">Show all</button>
-          <button mat-stroked-button (click)="hideAllClicked()" i18n="@@planner.pois.hide-all">Hide all</button>
-          <button mat-stroked-button (click)="defaultClicked()" i18n="@@planner.pois.default">Default</button>
+          <button
+            mat-stroked-button
+            (click)="showAllClicked()"
+            i18n="@@planner.pois.show-all"
+          >
+            Show all
+          </button>
+          <button
+            mat-stroked-button
+            (click)="hideAllClicked()"
+            i18n="@@planner.pois.hide-all"
+          >
+            Hide all
+          </button>
+          <button
+            mat-stroked-button
+            (click)="defaultClicked()"
+            i18n="@@planner.pois.default"
+          >
+            Default
+          </button>
         </div>
 
         <div>
@@ -42,20 +59,20 @@ import {PoiService} from '../../../../services/poi.service';
       </ng-template>
     </mat-expansion-panel>
   `,
-  styles: [`
-    .title {
-      padding-left: 10px;
-      padding-right: 20px;
-    }
-  `]
+  styles: [
+    `
+      .title {
+        padding-left: 10px;
+        padding-right: 20px;
+      }
+    `,
+  ],
 })
 export class PoiGroupComponent {
-
   @Input() name: string;
   @Input() title: string;
 
-  constructor(private poiService: PoiService) {
-  }
+  constructor(private poiService: PoiService) {}
 
   isEnabled(): boolean {
     return this.poiService.isGroupEnabled(this.name);
@@ -63,7 +80,6 @@ export class PoiGroupComponent {
 
   groupEnabledChanged(event: MatCheckboxChange) {
     this.poiService.updateGroupEnabled(this.name, event.checked);
-
   }
 
   showAllClicked() {
@@ -77,5 +93,4 @@ export class PoiGroupComponent {
   defaultClicked() {
     this.poiService.updateGroupDefault(this.name);
   }
-
 }

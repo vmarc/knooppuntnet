@@ -1,5 +1,5 @@
 export const initialSharedState: SharedState = {
-  httpError: null
+  httpError: null,
 };
 
 export interface SharedState {

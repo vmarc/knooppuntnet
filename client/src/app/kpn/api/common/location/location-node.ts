@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
 export class LocationNode {
-
-  constructor(readonly name: string,
-              readonly nodeCount: number,
-              readonly children: Array<LocationNode>) {
-  }
+  constructor(
+    readonly name: string,
+    readonly nodeCount: number,
+    readonly children: Array<LocationNode>
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationNode {
     if (!jsonObject) {

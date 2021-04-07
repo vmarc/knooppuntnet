@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {BarChart} from './bar-chart';
+import { BarChart } from './bar-chart';
 
 export class DiskUsage {
-
-  constructor(readonly frontend: BarChart,
-              readonly database: BarChart,
-              readonly backend: BarChart) {
-  }
+  constructor(
+    readonly frontend: BarChart,
+    readonly database: BarChart,
+    readonly backend: BarChart
+  ) {}
 
   public static fromJSON(jsonObject: any): DiskUsage {
     if (!jsonObject) {

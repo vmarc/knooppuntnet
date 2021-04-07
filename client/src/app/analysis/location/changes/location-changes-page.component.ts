@@ -1,9 +1,9 @@
-import {OnInit} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {first} from 'rxjs/operators';
-import {LocationChangesPageService} from './location-changes-page.service';
+import { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { LocationChangesPageService } from './location-changes-page.service';
 
 @Component({
   selector: 'kpn-location-changes-page',
@@ -12,7 +12,8 @@ import {LocationChangesPageService} from './location-changes-page.service';
     <kpn-location-page-header
       pageName="changes"
       pageTitle="Changes"
-      i18n-pageTitle="@@location-changes.title">
+      i18n-pageTitle="@@location-changes.title"
+    >
     </kpn-location-page-header>
 
     <kpn-error></kpn-error>
@@ -23,18 +24,17 @@ import {LocationChangesPageService} from './location-changes-page.service';
       </kpn-location-response>
     </div>
   `,
-  providers: [
-    LocationChangesPageService
-  ]
+  providers: [LocationChangesPageService],
 })
 export class LocationChangesPageComponent implements OnInit {
-
-  constructor(public service: LocationChangesPageService,
-              private activatedRoute: ActivatedRoute) {
-  }
+  constructor(
+    public service: LocationChangesPageService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.pipe(first()).subscribe(params => this.service.params(params));
+    this.activatedRoute.params
+      .pipe(first())
+      .subscribe((params) => this.service.params(params));
   }
-
 }

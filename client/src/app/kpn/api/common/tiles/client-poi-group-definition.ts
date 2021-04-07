@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {ClientPoiDefinition} from './client-poi-definition';
+import { ClientPoiDefinition } from './client-poi-definition';
 
 export class ClientPoiGroupDefinition {
-
-  constructor(readonly name: string,
-              readonly enabledDefault: boolean,
-              readonly poiDefinitions: Array<ClientPoiDefinition>) {
-  }
+  constructor(
+    readonly name: string,
+    readonly enabledDefault: boolean,
+    readonly poiDefinitions: Array<ClientPoiDefinition>
+  ) {}
 
   public static fromJSON(jsonObject: any): ClientPoiGroupDefinition {
     if (!jsonObject) {
@@ -16,7 +16,9 @@ export class ClientPoiGroupDefinition {
     return new ClientPoiGroupDefinition(
       jsonObject.name,
       jsonObject.enabledDefault,
-      jsonObject.poiDefinitions.map((json: any) => ClientPoiDefinition.fromJSON(json))
+      jsonObject.poiDefinitions.map((json: any) =>
+        ClientPoiDefinition.fromJSON(json)
+      )
     );
   }
 }

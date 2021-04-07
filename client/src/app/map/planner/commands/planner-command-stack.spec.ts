@@ -1,21 +1,16 @@
-import {PlannerContext} from '../context/planner-context';
-import {PlannerCommand} from './planner-command';
-import {PlannerCommandStack} from './planner-command-stack';
+import { PlannerContext } from '../context/planner-context';
+import { PlannerCommand } from './planner-command';
+import { PlannerCommandStack } from './planner-command-stack';
 
 class TestCommand implements PlannerCommand {
+  constructor(public name: string) {}
 
-  constructor(public name: string) {
-  }
+  do(context: PlannerContext) {}
 
-  do(context: PlannerContext) {
-  }
-
-  undo(context: PlannerContext) {
-  }
+  undo(context: PlannerContext) {}
 }
 
 describe('PlannerCommandStack', () => {
-
   let stack: PlannerCommandStack;
 
   beforeEach(() => {
@@ -32,7 +27,6 @@ describe('PlannerCommandStack', () => {
   });
 
   it('push/pop command', () => {
-
     const command = new TestCommand('a');
 
     stack.push(command);
@@ -49,7 +43,6 @@ describe('PlannerCommandStack', () => {
   });
 
   it('undo/redo', () => {
-
     const command1 = new TestCommand('1');
     const command2 = new TestCommand('2');
 
@@ -72,11 +65,9 @@ describe('PlannerCommandStack', () => {
     expect(stack.size).toEqual(2);
     expect(stack.canUndo).toEqual(true);
     expect(stack.canRedo).toEqual(false);
-
   });
 
   it('undo/push', () => {
-
     const command1 = new TestCommand('1');
     const command2 = new TestCommand('2');
     const command3 = new TestCommand('3');
@@ -94,7 +85,5 @@ describe('PlannerCommandStack', () => {
 
     expect(stack.undo()).toEqual(command3);
     expect(stack.undo()).toEqual(command1);
-
   });
-
 });

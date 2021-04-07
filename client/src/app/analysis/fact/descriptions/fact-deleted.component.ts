@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-fact-deleted',
@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
     <p i18n="@@fact.description.deleted">
       Deleted from the OpenStreetMap database.
     </p>
-  `
+  `,
 })
-export class FactDeletedComponent {
-}
+export class FactDeletedComponent {}

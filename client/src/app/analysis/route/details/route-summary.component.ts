@@ -1,25 +1,28 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {RouteInfo} from '@api/common/route/route-info';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RouteInfo } from '@api/common/route/route-info';
 
 @Component({
   selector: 'kpn-route-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-
-      <p i18n="@@route.meters">
-        {{route.summary.meters}} m
-      </p>
+      <p i18n="@@route.meters">{{ route.summary.meters }} m</p>
 
       <p>
-        <kpn-osm-link-relation [relationId]="route.summary.id"></kpn-osm-link-relation>
+        <kpn-osm-link-relation
+          [relationId]="route.summary.id"
+        ></kpn-osm-link-relation>
         <span class="kpn-brackets-link">
-          <kpn-josm-relation [relationId]="route.summary.id"></kpn-josm-relation>
+          <kpn-josm-relation
+            [relationId]="route.summary.id"
+          ></kpn-josm-relation>
         </span>
       </p>
 
-      <kpn-network-type [networkType]="route.summary.networkType"></kpn-network-type>
+      <kpn-network-type
+        [networkType]="route.summary.networkType"
+      ></kpn-network-type>
 
       <p *ngIf="route.summary.country">
         <kpn-country-name [country]="route.summary.country"></kpn-country-name>
@@ -40,12 +43,10 @@ import {RouteInfo} from '@api/common/route/route-info';
       <p *ngIf="!route.active" class="warning" i18n="@@route.not-active">
         This route is not active anymore.
       </p>
-
     </div>
-  `
+  `,
 })
 export class RouteSummaryComponent {
-
   @Input() route: RouteInfo;
 
   isRouteBroken() {
@@ -55,5 +56,4 @@ export class RouteSummaryComponent {
   isRouteIncomplete() {
     return this.route.facts.includes('RouteIncomplete');
   }
-
 }

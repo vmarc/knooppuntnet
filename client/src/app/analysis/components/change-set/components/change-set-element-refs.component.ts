@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
-import {ChangeSetElementRef} from '@api/common/change-set-element-ref';
-import {ChangeSetElementRefs} from '@api/common/change-set-element-refs';
-import {ChangeSetElement} from './change-set-element-ref.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
+import { ChangeSetElementRefs } from '@api/common/change-set-element-refs';
+import { ChangeSetElement } from './change-set-element-ref.component';
 
 @Component({
   selector: 'kpn-change-set-element-refs',
@@ -11,13 +11,13 @@ import {ChangeSetElement} from './change-set-element-ref.component';
     <div>
       <kpn-change-set-element-ref
         *ngFor="let element of elements"
-        [element]="element">
+        [element]="element"
+      >
       </kpn-change-set-element-ref>
     </div>
-  `
+  `,
 })
 export class ChangesSetElementRefsComponent implements OnInit {
-
   @Input() elementType: string;
   @Input() changeSetElementRefs: ChangeSetElementRefs;
 
@@ -34,12 +34,17 @@ export class ChangesSetElementRefsComponent implements OnInit {
     return removed.concat(added).concat(updated);
   }
 
-  private buildElements(action: string, refs: ChangeSetElementRef[]): ChangeSetElement[] {
-    return refs.map(ref => this.buildElement(action, ref));
+  private buildElements(
+    action: string,
+    refs: ChangeSetElementRef[]
+  ): ChangeSetElement[] {
+    return refs.map((ref) => this.buildElement(action, ref));
   }
 
-  private buildElement(action: string, ref: ChangeSetElementRef): ChangeSetElement {
+  private buildElement(
+    action: string,
+    ref: ChangeSetElementRef
+  ): ChangeSetElement {
     return new ChangeSetElement(action, this.elementType, ref);
   }
-
 }

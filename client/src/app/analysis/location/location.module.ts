@@ -1,63 +1,61 @@
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatSortModule} from '@angular/material/sort';
-import {MatTableModule} from '@angular/material/table';
-import {MatTreeModule} from '@angular/material/tree';
-import {EffectsModule} from '@ngrx/effects';
-import {StoreModule} from '@ngrx/store';
-import {OlModule} from '../../components/ol/ol.module';
-import {SharedModule} from '../../components/shared/shared.module';
-import {AnalysisComponentsModule} from '../components/analysis-components.module';
-import {FactModule} from '../fact/fact.module';
-import {LocationChangesPageComponent} from './changes/location-changes-page.component';
-import {LocationChangesComponent} from './changes/location-changes.component';
-import {LocationPageBreadcrumbComponent} from './components/location-page-breadcrumb.component';
-import {LocationPageHeaderComponent} from './components/location-page-header.component';
-import {LocationResponseComponent} from './components/location-response.component';
-import {LocationEditPageComponent} from './edit/location-edit-page.component';
-import {LocationEditComponent} from './edit/location-edit.component';
-import {LocationFactsPageComponent} from './facts/location-facts-page.component';
-import {LocationFactsComponent} from './facts/location-facts.component';
-import {LocationRoutingModule} from './location-routing.module';
-import {LocationService} from './location.service';
-import {LocationMapPageComponent} from './map/location-map-page.component';
-import {LocationNodeRoutesComponent} from './nodes/location-node-routes.component';
-import {LocationNodeTableComponent} from './nodes/location-node-table.component';
-import {LocationNodesPageComponent} from './nodes/location-nodes-page.component';
-import {LocationNodesComponent} from './nodes/location-nodes.component';
-import {LocationRouteAnalysisComponent} from './routes/location-route-analysis';
-import {LocationRouteTableComponent} from './routes/location-route-table.component';
-import {LocationRoutesPageComponent} from './routes/location-routes-page.component';
-import {LocationRoutesComponent} from './routes/location-routes.component';
-import {LocationModeComponent} from './selection/location-mode.component';
-import {LocationModeService} from './selection/location-mode.service';
-import {LocationSelectionPageComponent} from './selection/location-selection-page.component';
-import {LocationSelectionService} from './selection/location-selection.service';
-import {LocationSelectorComponent} from './selection/location-selector.component';
-import {LocationTreeComponent} from './selection/location-tree.component';
-import {LocationEffects} from './store/location.effects';
-import {locationReducer} from './store/location.reducer';
-import {locationFeatureKey} from './store/location.state';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTreeModule } from '@angular/material/tree';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { OlModule } from '../../components/ol/ol.module';
+import { SharedModule } from '../../components/shared/shared.module';
+import { AnalysisComponentsModule } from '../components/analysis-components.module';
+import { FactModule } from '../fact/fact.module';
+import { LocationChangesPageComponent } from './changes/location-changes-page.component';
+import { LocationChangesComponent } from './changes/location-changes.component';
+import { LocationPageBreadcrumbComponent } from './components/location-page-breadcrumb.component';
+import { LocationPageHeaderComponent } from './components/location-page-header.component';
+import { LocationResponseComponent } from './components/location-response.component';
+import { LocationEditPageComponent } from './edit/location-edit-page.component';
+import { LocationEditComponent } from './edit/location-edit.component';
+import { LocationFactsPageComponent } from './facts/location-facts-page.component';
+import { LocationFactsComponent } from './facts/location-facts.component';
+import { LocationRoutingModule } from './location-routing.module';
+import { LocationService } from './location.service';
+import { LocationMapPageComponent } from './map/location-map-page.component';
+import { LocationNodeRoutesComponent } from './nodes/location-node-routes.component';
+import { LocationNodeTableComponent } from './nodes/location-node-table.component';
+import { LocationNodesPageComponent } from './nodes/location-nodes-page.component';
+import { LocationNodesComponent } from './nodes/location-nodes.component';
+import { LocationRouteAnalysisComponent } from './routes/location-route-analysis';
+import { LocationRouteTableComponent } from './routes/location-route-table.component';
+import { LocationRoutesPageComponent } from './routes/location-routes-page.component';
+import { LocationRoutesComponent } from './routes/location-routes.component';
+import { LocationModeComponent } from './selection/location-mode.component';
+import { LocationModeService } from './selection/location-mode.service';
+import { LocationSelectionPageComponent } from './selection/location-selection-page.component';
+import { LocationSelectionService } from './selection/location-selection.service';
+import { LocationSelectorComponent } from './selection/location-selector.component';
+import { LocationTreeComponent } from './selection/location-tree.component';
+import { LocationEffects } from './store/location.effects';
+import { locationReducer } from './store/location.reducer';
+import { locationFeatureKey } from './store/location.state';
 
 @NgModule({
   imports: [
     LocationRoutingModule,
     CommonModule,
     StoreModule.forFeature(locationFeatureKey, locationReducer),
-    EffectsModule.forFeature([
-      LocationEffects
-    ]),
+    EffectsModule.forFeature([LocationEffects]),
     SharedModule,
     MatDividerModule,
     MatTableModule,
@@ -75,7 +73,7 @@ import {locationFeatureKey} from './store/location.state';
     OlModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    AnalysisComponentsModule
+    AnalysisComponentsModule,
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -99,13 +97,8 @@ import {locationFeatureKey} from './store/location.state';
     LocationSelectorComponent,
     LocationTreeComponent,
     LocationEditPageComponent,
-    LocationEditComponent
+    LocationEditComponent,
   ],
-  providers: [
-    LocationService,
-    LocationModeService,
-    LocationSelectionService
-  ]
+  providers: [LocationService, LocationModeService, LocationSelectionService],
 })
-export class LocationModule {
-}
+export class LocationModule {}

@@ -1,10 +1,13 @@
-import {createFeatureSelector} from '@ngrx/store';
-import {createSelector} from '@ngrx/store';
-import {SubsetRootState} from './subset.state';
-import {subsetFeatureKey} from './subset.state';
-import {SubsetState} from './subset.state';
+import { createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
+import { SubsetRootState } from './subset.state';
+import { subsetFeatureKey } from './subset.state';
+import { SubsetState } from './subset.state';
 
-export const selectSubsetState = createFeatureSelector<SubsetRootState, SubsetState>(subsetFeatureKey);
+export const selectSubsetState = createFeatureSelector<
+  SubsetRootState,
+  SubsetState
+>(subsetFeatureKey);
 
 export const selectSubsetNetworksPage = createSelector(
   selectSubsetState,

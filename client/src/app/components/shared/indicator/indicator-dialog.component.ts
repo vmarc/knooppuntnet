@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-indicator-dialog',
@@ -7,7 +7,10 @@ import {Component, Input} from '@angular/core';
   template: `
     <kpn-dialog>
       <div mat-dialog-title class="title">
-        <kpn-indicator-icon [letter]="letter" [color]="color"></kpn-indicator-icon>
+        <kpn-indicator-icon
+          [letter]="letter"
+          [color]="color"
+        ></kpn-indicator-icon>
         <div class="title-text">
           <ng-content select="[dialog-title]"></ng-content>
         </div>
@@ -17,19 +20,20 @@ import {Component, Input} from '@angular/core';
       </div>
     </kpn-dialog>
   `,
-  styles: [`
+  styles: [
+    `
+      .title {
+        display: flex;
+        align-items: center;
+      }
 
-    .title {
-      display: flex;
-      align-items: center;
-    }
-
-    .title-text {
-      display: inline-block;
-      padding-top: 5px;
-      padding-left: 20px;
-    }
-  `]
+      .title-text {
+        display: inline-block;
+        padding-top: 5px;
+        padding-left: 20px;
+      }
+    `,
+  ],
 })
 export class IndicatorDialogComponent {
   @Input() letter: string;

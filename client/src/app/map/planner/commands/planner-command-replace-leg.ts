@@ -1,12 +1,12 @@
-import {PlannerContext} from '../context/planner-context';
-import {PlannerCommand} from './planner-command';
-import {PlanLeg} from '../plan/plan-leg';
+import { PlannerContext } from '../context/planner-context';
+import { PlannerCommand } from './planner-command';
+import { PlanLeg } from '../plan/plan-leg';
 
 export class PlannerCommandReplaceLeg implements PlannerCommand {
-
-  constructor(private readonly oldLeg: PlanLeg,
-              private readonly newLeg: PlanLeg) {
-  }
+  constructor(
+    private readonly oldLeg: PlanLeg,
+    private readonly newLeg: PlanLeg
+  ) {}
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandMoveEndPoint');
@@ -19,7 +19,6 @@ export class PlannerCommandReplaceLeg implements PlannerCommand {
   }
 
   private update(context: PlannerContext, fromLeg: PlanLeg, toLeg: PlanLeg) {
-
     context.markerLayer.removeFlag(fromLeg.viaFlag);
     context.markerLayer.removeFlag(fromLeg.sinkFlag);
     context.routeLayer.removePlanLeg(fromLeg.featureId);
@@ -28,9 +27,10 @@ export class PlannerCommandReplaceLeg implements PlannerCommand {
     context.markerLayer.addFlag(toLeg.sinkFlag);
     context.routeLayer.addPlanLeg(toLeg);
 
-    const newLegs = context.plan.legs.map(leg => leg.featureId === fromLeg.featureId ? toLeg : leg);
+    const newLegs = context.plan.legs.map((leg) =>
+      leg.featureId === fromLeg.featureId ? toLeg : leg
+    );
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);
   }
-
 }

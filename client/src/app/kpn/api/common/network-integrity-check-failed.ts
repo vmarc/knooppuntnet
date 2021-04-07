@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {NodeIntegrityCheck} from './node-integrity-check';
+import { NodeIntegrityCheck } from './node-integrity-check';
 
 export class NetworkIntegrityCheckFailed {
-
-  constructor(readonly count: number,
-              readonly checks: Array<NodeIntegrityCheck>) {
-  }
+  constructor(
+    readonly count: number,
+    readonly checks: Array<NodeIntegrityCheck>
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkIntegrityCheckFailed {
     if (!jsonObject) {

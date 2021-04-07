@@ -1,34 +1,40 @@
-import {List, Range} from 'immutable';
-import {Plan} from '../../map/planner/plan/plan';
-import {PlanRoute} from '@api/common/planner/plan-route';
-import {PdfPlan} from './pdf-plan';
-import {PdfPlanNode} from './pdf-plan-node';
+import { List, Range } from 'immutable';
+import { Plan } from '../../map/planner/plan/plan';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { PdfPlan } from './pdf-plan';
+import { PdfPlanNode } from './pdf-plan-node';
 
 export class PdfPlanBuilder {
-
   static fromPlan(plan: Plan): PdfPlan {
-
-    const allRoutes: List<PlanRoute> = plan.legs.flatMap(leg => leg.routes);
-    const allMeters = allRoutes.map(route => route.meters);
+    const allRoutes: List<PlanRoute> = plan.legs.flatMap((leg) => leg.routes);
+    const allMeters = allRoutes.map((route) => route.meters);
 
     let cumul = 0;
-    const cumulativeDistances = allMeters.map(distance => {
+    const cumulativeDistances = allMeters.map((distance) => {
       cumul += distance;
       return cumul;
     });
 
-    const nodes = Range(0, allRoutes.size + 1).map(nodeIndex => {
+    const nodes = Range(0, allRoutes.size + 1).map((nodeIndex) => {
       if (nodeIndex === 0) {
-        return new PdfPlanNode(plan.sourceNode.nodeName, PdfPlanBuilder.distanceToString(allMeters.get(0)), 'START');
+        return new PdfPlanNode(
+          plan.sourceNode.nodeName,
+          PdfPlanBuilder.distanceToString(allMeters.get(0)),
+          'START'
+        );
       }
       const routeIndex = nodeIndex - 1;
 
       const route = allRoutes.get(routeIndex);
       const nodeName = route.sinkNode.nodeName;
-      const cumulativeDistance = PdfPlanBuilder.distanceToString(cumulativeDistances.get(routeIndex));
+      const cumulativeDistance = PdfPlanBuilder.distanceToString(
+        cumulativeDistances.get(routeIndex)
+      );
       let distance = 'END';
       if (routeIndex < allRoutes.size - 1) {
-        distance = PdfPlanBuilder.distanceToString(allMeters.get(routeIndex + 1));
+        distance = PdfPlanBuilder.distanceToString(
+          allMeters.get(routeIndex + 1)
+        );
       }
 
       return new PdfPlanNode(nodeName, distance, cumulativeDistance);
@@ -44,5 +50,4 @@ export class PdfPlanBuilder {
     }
     return `${distance} m`;
   }
-
 }

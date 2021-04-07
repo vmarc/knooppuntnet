@@ -1,10 +1,10 @@
 export class MapPosition {
-
-  constructor(readonly zoom: number,
-              readonly x: number,
-              readonly y: number,
-              readonly rotation: number) {
-  }
+  constructor(
+    readonly zoom: number,
+    readonly x: number,
+    readonly y: number,
+    readonly rotation: number
+  ) {}
 
   public static fromJSON(jsonObject: any): MapPosition {
     if (!jsonObject) {
@@ -17,5 +17,4 @@ export class MapPosition {
       jsonObject.rotation
     );
   }
-
 }

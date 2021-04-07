@@ -1,12 +1,13 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {ChangeSetElementRef} from '@api/common/change-set-element-ref';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
 
 export class ChangeSetElement {
-  constructor(readonly action: string,
-              readonly elementType: string,
-              readonly ref: ChangeSetElementRef) {
-  }
+  constructor(
+    readonly action: string,
+    readonly elementType: string,
+    readonly ref: ChangeSetElementRef
+  ) {}
 }
 
 @Component({
@@ -14,19 +15,16 @@ export class ChangeSetElement {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngClass]="['ref-block', borderStyle()]">
-      <div [ngClass]="['icon', element.action]">
-      </div>
-      <div [ngClass]="['icon', element.elementType]">
-      </div>
+      <div [ngClass]="['icon', element.action]"></div>
+      <div [ngClass]="['icon', element.elementType]"></div>
       <div class="ref">
-        {{element.ref.name}}
+        {{ element.ref.name }}
       </div>
     </div>
   `,
-  styleUrls: ['./change-set-element-ref.component.scss']
+  styleUrls: ['./change-set-element-ref.component.scss'],
 })
 export class ChangesSetElementRefComponent {
-
   @Input() element: ChangeSetElement;
 
   borderStyle() {
@@ -38,5 +36,4 @@ export class ChangesSetElementRefComponent {
     }
     return 'border-normal';
   }
-
 }

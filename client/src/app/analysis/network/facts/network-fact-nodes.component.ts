@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {Ref} from '@api/common/common/ref';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Ref } from '@api/common/common/ref';
 
 @Component({
   selector: 'kpn-network-fact-nodes',
@@ -16,10 +16,11 @@ import {Ref} from '@api/common/common/ref';
       <kpn-link-node
         *ngFor="let node of nodes"
         [nodeId]="node.id"
-        [nodeName]="node.name">
+        [nodeName]="node.name"
+      >
       </kpn-link-node>
     </div>
-  `
+  `,
 })
 export class NetworkFactNodesComponent {
   @Input() nodes: Ref[];

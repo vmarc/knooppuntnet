@@ -1,10 +1,12 @@
-import {createFeatureSelector} from '@ngrx/store';
-import {createSelector} from '@ngrx/store';
-import {NodeRootState} from './node.state';
-import {nodeFeatureKey} from './node.state';
-import {NodeState} from './node.state';
+import { createFeatureSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
+import { NodeRootState } from './node.state';
+import { nodeFeatureKey } from './node.state';
+import { NodeState } from './node.state';
 
-export const selectNodeState = createFeatureSelector<NodeRootState, NodeState>(nodeFeatureKey);
+export const selectNodeState = createFeatureSelector<NodeRootState, NodeState>(
+  nodeFeatureKey
+);
 
 export const selectNodeDetailsPage = createSelector(
   selectNodeState,

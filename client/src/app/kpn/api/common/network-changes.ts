@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {ChangeSetNetwork} from './change-set-network';
+import { ChangeSetNetwork } from './change-set-network';
 
 export class NetworkChanges {
-
-  constructor(readonly creates: Array<ChangeSetNetwork>,
-              readonly updates: Array<ChangeSetNetwork>,
-              readonly deletes: Array<ChangeSetNetwork>) {
-  }
+  constructor(
+    readonly creates: Array<ChangeSetNetwork>,
+    readonly updates: Array<ChangeSetNetwork>,
+    readonly deletes: Array<ChangeSetNetwork>
+  ) {}
 
   static fromJSON(jsonObject: any): NetworkChanges {
     if (!jsonObject) {

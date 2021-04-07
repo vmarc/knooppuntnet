@@ -1,12 +1,13 @@
-import {SurveyDateInfo} from '@api/common/survey-date-info';
-import {DayPipe} from '../../shared/format/day.pipe';
+import { SurveyDateInfo } from '@api/common/survey-date-info';
+import { DayPipe } from '../../shared/format/day.pipe';
 
 export class SurveyDateValues {
-  constructor(readonly lastMonthStart: string,
-              readonly lastHalfYearStart: string,
-              readonly lastYearStart: string,
-              readonly lastTwoYearsStart: string) {
-  }
+  constructor(
+    readonly lastMonthStart: string,
+    readonly lastHalfYearStart: string,
+    readonly lastYearStart: string,
+    readonly lastTwoYearsStart: string
+  ) {}
 
   static from(surveyDateInfo: SurveyDateInfo): SurveyDateValues {
     const pipe = new DayPipe();

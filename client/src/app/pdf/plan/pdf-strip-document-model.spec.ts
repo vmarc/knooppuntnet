@@ -1,14 +1,13 @@
-import {List} from 'immutable';
-import {PdfPlanNode} from './pdf-plan-node';
-import {PdfStripDocumentModel} from './pdf-strip-document-model';
+import { List } from 'immutable';
+import { PdfPlanNode } from './pdf-plan-node';
+import { PdfStripDocumentModel } from './pdf-strip-document-model';
 
 describe('PdfStripDocumentModel', () => {
-
   const createModel = (nodeCount: number): PdfStripDocumentModel => {
     const nodes = new Array<PdfPlanNode>();
     for (let i = 0; i < nodeCount; i++) {
       const nodeName = (i + 1).toString();
-      const distance = i === (nodeCount - 1) ? 'END' : '10 m';
+      const distance = i === nodeCount - 1 ? 'END' : '10 m';
       const cumulativeDistance = i === 0 ? 'START' : `${i * 10} m`;
       nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance));
     }
@@ -60,7 +59,6 @@ describe('PdfStripDocumentModel', () => {
   });
 
   it('calculateRowCount', () => {
-
     const model = createModel(80);
 
     expect(model.calculateRowCount(1, 1, 0)).toEqual(1);
@@ -79,5 +77,4 @@ describe('PdfStripDocumentModel', () => {
     expect(model.node(0, 2, 0).nodeName).toEqual('29');
     expect(model.node(1, 0, 0).nodeName).toEqual('71');
   });
-
 });

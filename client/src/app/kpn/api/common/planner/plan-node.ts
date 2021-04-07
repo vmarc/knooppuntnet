@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
-import {LatLonImpl} from '../lat-lon-impl';
-import {Coordinate} from 'ol/coordinate';
+import { LatLonImpl } from '../lat-lon-impl';
+import { Coordinate } from 'ol/coordinate';
 
 export class PlanNode {
-
-  constructor(readonly featureId: string,
-              readonly nodeId: string,
-              readonly nodeName: string,
-              readonly coordinate: Coordinate,
-              readonly latLon: LatLonImpl) {
-  }
+  constructor(
+    readonly featureId: string,
+    readonly nodeId: string,
+    readonly nodeName: string,
+    readonly coordinate: Coordinate,
+    readonly latLon: LatLonImpl
+  ) {}
 
   public static fromJSON(jsonObject: any): PlanNode {
     if (!jsonObject) {

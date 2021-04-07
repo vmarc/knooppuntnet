@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-plan',
@@ -7,7 +7,6 @@ import {Component} from '@angular/core';
     <kpn-plan-tip></kpn-plan-tip>
     <kpn-plan-result-menu></kpn-plan-result-menu>
     <kpn-plan-result></kpn-plan-result>
-  `
+  `,
 })
-export class PlanComponent {
-}
+export class PlanComponent {}

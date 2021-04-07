@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {PoiAnalysis} from './poi-analysis';
+import { PoiAnalysis } from './poi-analysis';
 
 export class PoiPage {
-
-  constructor(readonly elementType: string,
-              readonly elementId: number,
-              readonly latitude: string,
-              readonly longitude: string,
-              readonly analysis: PoiAnalysis) {
-  }
+  constructor(
+    readonly elementType: string,
+    readonly elementId: number,
+    readonly latitude: string,
+    readonly longitude: string,
+    readonly analysis: PoiAnalysis
+  ) {}
 
   static fromJSON(jsonObject: any): PoiPage {
     if (!jsonObject) {

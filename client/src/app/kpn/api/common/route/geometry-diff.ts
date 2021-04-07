@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {PointSegment} from './point-segment';
+import { PointSegment } from './point-segment';
 
 export class GeometryDiff {
-
-  constructor(readonly common: Array<PointSegment>,
-              readonly before: Array<PointSegment>,
-              readonly after: Array<PointSegment>) {
-  }
+  constructor(
+    readonly common: Array<PointSegment>,
+    readonly before: Array<PointSegment>,
+    readonly after: Array<PointSegment>
+  ) {}
 
   public static fromJSON(jsonObject: any): GeometryDiff {
     if (!jsonObject) {

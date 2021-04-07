@@ -1,11 +1,9 @@
 // this class is generated, please do not modify
 
-import {Reference} from '../common/reference';
+import { Reference } from '../common/reference';
 
 export class RouteReferences {
-
-  constructor(readonly networkReferences: Array<Reference>) {
-  }
+  constructor(readonly networkReferences: Array<Reference>) {}
 
   public static fromJSON(jsonObject: any): RouteReferences {
     if (!jsonObject) {

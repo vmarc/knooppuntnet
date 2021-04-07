@@ -1,22 +1,25 @@
-import {Injectable} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {Observable} from 'rxjs';
-import {BehaviorSubject} from 'rxjs';
-import {PageWidthService} from './page-width.service';
+import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { PageWidthService } from './page-width.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PageService {
-
   readonly toolbarBackgroundColor$: Observable<string>;
   readonly defaultTitle = 'knooppuntnet';
-  readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(this.sidebarOpenInitialState());
+  readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(
+    this.sidebarOpenInitialState()
+  );
   showFooter = true;
   private _toolbarBackgroundColor$: BehaviorSubject<string>;
 
-  constructor(private pageWidthService: PageWidthService,
-              private titleService: Title) {
+  constructor(
+    private pageWidthService: PageWidthService,
+    private titleService: Title
+  ) {
     pageWidthService.current$.subscribe(() => this.pageWidthChanged());
     this._toolbarBackgroundColor$ = new BehaviorSubject<string>(null);
     this.toolbarBackgroundColor$ = this._toolbarBackgroundColor$.asObservable();
@@ -41,7 +44,9 @@ export class PageService {
   }
 
   setTitle(prefix: string): void {
-    const title = prefix ? prefix + ' | ' + this.defaultTitle : this.defaultTitle;
+    const title = prefix
+      ? prefix + ' | ' + this.defaultTitle
+      : this.defaultTitle;
     this.titleService.setTitle(title);
   }
 
@@ -57,7 +62,10 @@ export class PageService {
   }
 
   private sidebarOpenInitialState(): boolean {
-    return !(this.pageWidthService.isSmall() || this.pageWidthService.isVerySmall() || this.pageWidthService.isVeryVerySmall());
+    return !(
+      this.pageWidthService.isSmall() ||
+      this.pageWidthService.isVerySmall() ||
+      this.pageWidthService.isVeryVerySmall()
+    );
   }
-
 }

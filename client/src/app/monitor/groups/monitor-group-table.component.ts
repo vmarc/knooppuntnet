@@ -1,33 +1,33 @@
-import {OnInit} from '@angular/core';
-import {Input} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MonitorGroupDetail} from '@api/common/monitor/monitor-group-detail';
-import {Store} from '@ngrx/store';
-import {map} from 'rxjs/operators';
-import {AppState} from '../../core/core.state';
-import {actionMonitorNavigateGroup} from '../store/monitor.actions';
-import {selectMonitorAdmin} from '../store/monitor.selectors';
+import { OnInit } from '@angular/core';
+import { Input } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MonitorGroupDetail } from '@api/common/monitor/monitor-group-detail';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { AppState } from '../../core/core.state';
+import { actionMonitorNavigateGroup } from '../store/monitor.actions';
+import { selectMonitorAdmin } from '../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-group-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <table mat-table [dataSource]="dataSource">
-
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="groupLink(group)" (click)="navigateGroup(group)">{{group.name}}</a>
+          <a [routerLink]="groupLink(group)" (click)="navigateGroup(group)">{{
+            group.name
+          }}</a>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let group">
-          {{group.description}}
+          {{ group.description }}
         </td>
       </ng-container>
 
@@ -40,24 +40,28 @@ import {selectMonitorAdmin} from '../store/monitor.selectors';
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns$ | async;"></tr>
+      <tr
+        mat-row
+        *matRowDef="let group; columns: displayedColumns$ | async"
+      ></tr>
     </table>
   `,
-  styles: [`
-    .delete {
-      padding-left: 1em;
-      color: red;
-    }
-  `]
+  styles: [
+    `
+      .delete {
+        padding-left: 1em;
+        color: red;
+      }
+    `,
+  ],
 })
 export class MonitorGroupTableComponent implements OnInit {
-
   @Input() groups: MonitorGroupDetail[];
 
   readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
 
   readonly displayedColumns$ = this.store.select(selectMonitorAdmin).pipe(
-    map(admin => {
+    map((admin) => {
       if (admin) {
         return ['name', 'description', 'actions'];
       }
@@ -65,8 +69,7 @@ export class MonitorGroupTableComponent implements OnInit {
     })
   );
 
-  constructor(private store: Store<AppState>) {
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.groups;
@@ -85,8 +88,12 @@ export class MonitorGroupTableComponent implements OnInit {
   }
 
   navigateGroup(group: MonitorGroupDetail): void {
-    this.store.dispatch(actionMonitorNavigateGroup({groupName: group.name, groupDescription: group.description}));
+    this.store.dispatch(
+      actionMonitorNavigateGroup({
+        groupName: group.name,
+        groupDescription: group.description,
+      })
+    );
     // TODO navigeren hier of in effect in plaats van routerLink ???
   }
-
 }

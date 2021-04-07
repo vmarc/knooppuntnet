@@ -6,8 +6,5 @@
     "experimentalDecorators": true,
     "types": []
   },
-  "files": [
-    "main.ts",
-    "polyfills.ts"
-  ]
+  "files": ["main.ts", "polyfills.ts"]
 }

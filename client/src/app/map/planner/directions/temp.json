@@ -263,12 +263,7 @@
             ]
           }
         ],
-        "streets": [
-          "Essenseweg",
-          "Grensstraat",
-          "Kerkplein",
-          "Kloosterweg"
-        ],
+        "streets": ["Essenseweg", "Grensstraat", "Kerkplein", "Kloosterweg"],
         "meters": 2286
       }
     ]

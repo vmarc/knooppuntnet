@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-fact-node-member-missing',
@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
     <p i18n="@@fact.description.node-member-missing">
       The node is not member of the network relation.
     </p>
-  `
+  `,
 })
-export class FactNodeMemberMissingComponent {
-}
+export class FactNodeMemberMissingComponent {}

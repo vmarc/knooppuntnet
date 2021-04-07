@@ -1,11 +1,15 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-poi-group-amenity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="amenity" title="Amenity" i18n-title="@@poi.group.amenity">
+    <kpn-poi-group
+      name="amenity"
+      title="Amenity"
+      i18n-title="@@poi.group.amenity"
+    >
       <kpn-poi-config poiId="atm"></kpn-poi-config>
       <kpn-poi-config poiId="bank"></kpn-poi-config>
       <kpn-poi-config poiId="cinema"></kpn-poi-config>
@@ -28,7 +32,6 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="cemetery"></kpn-poi-config>
       <kpn-poi-config poiId="busstop"></kpn-poi-config>
     </kpn-poi-group>
-  `
+  `,
 })
-export class PoiGroupAmenityComponent {
-}
+export class PoiGroupAmenityComponent {}

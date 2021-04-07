@@ -1,25 +1,30 @@
-import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {map} from 'rxjs/operators';
-import {PageWidth} from '../components/shared/page-width';
-import {PageWidthService} from '../components/shared/page-width.service';
-import {actionDemoEnabledChanged} from './store/demo.actions';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { PageWidth } from '../components/shared/page-width';
+import { PageWidthService } from '../components/shared/page-width.service';
+import { actionDemoEnabledChanged } from './store/demo.actions';
 
 @Injectable()
 export class DemoService {
-
   private videoElement: HTMLVideoElement;
   private sourceElement: HTMLSourceElement;
 
-  constructor(private store: Store, private pageWidthService: PageWidthService) {
-    pageWidthService.current$.pipe(
-      map(pageWidth => pageWidth === PageWidth.veryLarge)
-    ).subscribe(enabled => {
-      this.store.dispatch(actionDemoEnabledChanged({enabled}));
-    });
+  constructor(
+    private store: Store,
+    private pageWidthService: PageWidthService
+  ) {
+    pageWidthService.current$
+      .pipe(map((pageWidth) => pageWidth === PageWidth.veryLarge))
+      .subscribe((enabled) => {
+        this.store.dispatch(actionDemoEnabledChanged({ enabled }));
+      });
   }
 
-  setVideoElement(videoElement: HTMLVideoElement, sourceElement: HTMLSourceElement): void {
+  setVideoElement(
+    videoElement: HTMLVideoElement,
+    sourceElement: HTMLSourceElement
+  ): void {
     this.videoElement = videoElement;
     this.sourceElement = sourceElement;
   }
@@ -47,11 +52,13 @@ export class DemoService {
     if (this.videoElement) {
       const promise = this.videoElement.play();
       if (promise !== undefined) {
-        promise.then(_ => {
-          // Autoplay started
-        }).catch(error => {
-          // Autoplay was prevented
-        });
+        promise
+          .then((_) => {
+            // Autoplay started
+          })
+          .catch((error) => {
+            // Autoplay was prevented
+          });
       }
     }
   }
@@ -79,5 +86,4 @@ export class DemoService {
     }
     return 0;
   }
-
 }

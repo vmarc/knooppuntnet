@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
-import {KnownElements} from '@api/common/common/known-elements';
-import {Ref} from '@api/common/common/ref';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { KnownElements } from '@api/common/common/known-elements';
+import { Ref } from '@api/common/common/ref';
 
 @Component({
   selector: 'kpn-link-node-ref-header',
@@ -9,15 +9,21 @@ import {Ref} from '@api/common/common/ref';
   template: `
     <div class="kpn-line">
       <div class="kpn-thick">
-        <kpn-link-node *ngIf="known" [nodeId]="ref.id" [nodeName]="ref.name"></kpn-link-node>
-        <span *ngIf="!known">{{ref.name}}</span>
+        <kpn-link-node
+          *ngIf="known"
+          [nodeId]="ref.id"
+          [nodeName]="ref.name"
+        ></kpn-link-node>
+        <span *ngIf="!known">{{ ref.name }}</span>
       </div>
-      <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.id.toString()"></kpn-osm-link-node>
+      <kpn-osm-link-node
+        [nodeId]="ref.id"
+        [title]="ref.id.toString()"
+      ></kpn-osm-link-node>
     </div>
-  `
+  `,
 })
 export class LinkNodeRefHeaderComponent implements OnInit {
-
   @Input() ref: Ref;
   @Input() knownElements: KnownElements;
 
