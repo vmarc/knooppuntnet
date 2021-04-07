@@ -8,7 +8,7 @@ export class Timestamp {
     readonly second: number
   ) {}
 
-  public static fromJSON(jsonObject: any): Timestamp {
+  static fromJSON(jsonObject: any): Timestamp {
     if (!jsonObject) {
       return undefined;
     }

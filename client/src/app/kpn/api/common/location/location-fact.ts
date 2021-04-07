@@ -10,7 +10,7 @@ export class LocationFact {
     readonly refs: Array<Ref>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationFact {
+  static fromJSON(jsonObject: any): LocationFact {
     if (!jsonObject) {
       return undefined;
     }

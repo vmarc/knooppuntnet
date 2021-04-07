@@ -5,7 +5,7 @@ import { Ref } from './common/ref';
 export class RoutesFact {
   constructor(readonly routes: Array<Ref>) {}
 
-  public static fromJSON(jsonObject: any): RoutesFact {
+  static fromJSON(jsonObject: any): RoutesFact {
     if (!jsonObject) {
       return undefined;
     }

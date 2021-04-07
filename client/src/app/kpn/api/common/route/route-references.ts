@@ -5,7 +5,7 @@ import { Reference } from '../common/reference';
 export class RouteReferences {
   constructor(readonly networkReferences: Array<Reference>) {}
 
-  public static fromJSON(jsonObject: any): RouteReferences {
+  static fromJSON(jsonObject: any): RouteReferences {
     if (!jsonObject) {
       return undefined;
     }

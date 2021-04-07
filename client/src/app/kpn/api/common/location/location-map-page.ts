@@ -10,7 +10,7 @@ export class LocationMapPage {
     readonly geoJson: string
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationMapPage {
+  static fromJSON(jsonObject: any): LocationMapPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -11,7 +11,7 @@ export class BarChart2D {
     readonly data: Array<BarChart2dValue>
   ) {}
 
-  public static fromJSON(jsonObject: any): BarChart2D {
+  static fromJSON(jsonObject: any): BarChart2D {
     if (!jsonObject) {
       return undefined;
     }

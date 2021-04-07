@@ -9,7 +9,7 @@ export class RouteNodeDiff {
     readonly removed: Array<Ref>
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteNodeDiff {
+  static fromJSON(jsonObject: any): RouteNodeDiff {
     if (!jsonObject) {
       return undefined;
     }

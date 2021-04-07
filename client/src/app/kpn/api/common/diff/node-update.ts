@@ -12,7 +12,7 @@ export class NodeUpdate {
     readonly nodeMoved: NodeMoved
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeUpdate {
+  static fromJSON(jsonObject: any): NodeUpdate {
     if (!jsonObject) {
       return undefined;
     }

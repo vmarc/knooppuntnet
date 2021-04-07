@@ -13,7 +13,7 @@ export class ActionTimestamp {
     readonly weekDay: number
   ) {}
 
-  public static fromJSON(jsonObject: any): ActionTimestamp {
+  static fromJSON(jsonObject: any): ActionTimestamp {
     if (!jsonObject) {
       return undefined;
     }

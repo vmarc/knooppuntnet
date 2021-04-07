@@ -9,7 +9,7 @@ export class NetworkFactsPage {
     readonly facts: Array<NetworkFact>
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkFactsPage {
+  static fromJSON(jsonObject: any): NetworkFactsPage {
     if (!jsonObject) {
       return undefined;
     }

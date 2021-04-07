@@ -10,7 +10,7 @@ export class TrackSegment {
     readonly fragments: Array<TrackSegmentFragment>
   ) {}
 
-  public static fromJSON(jsonObject: any): TrackSegment {
+  static fromJSON(jsonObject: any): TrackSegment {
     if (!jsonObject) {
       return undefined;
     }

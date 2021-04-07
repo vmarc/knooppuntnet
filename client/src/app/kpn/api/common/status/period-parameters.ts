@@ -10,7 +10,7 @@ export class PeriodParameters {
     readonly hour: number
   ) {}
 
-  public static fromJSON(jsonObject: any): PeriodParameters {
+  static fromJSON(jsonObject: any): PeriodParameters {
     if (!jsonObject) {
       return undefined;
     }

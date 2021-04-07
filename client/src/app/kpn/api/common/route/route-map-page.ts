@@ -5,7 +5,7 @@ import { RouteInfo } from './route-info';
 export class RouteMapPage {
   constructor(readonly route: RouteInfo, readonly changeCount: number) {}
 
-  public static fromJSON(jsonObject: any): RouteMapPage {
+  static fromJSON(jsonObject: any): RouteMapPage {
     if (!jsonObject) {
       return undefined;
     }

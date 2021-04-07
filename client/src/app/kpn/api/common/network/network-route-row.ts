@@ -16,7 +16,7 @@ export class NetworkRouteRow {
     readonly lastSurvey: Day
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkRouteRow {
+  static fromJSON(jsonObject: any): NetworkRouteRow {
     if (!jsonObject) {
       return undefined;
     }

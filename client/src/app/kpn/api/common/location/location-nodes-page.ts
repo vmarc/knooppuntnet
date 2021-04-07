@@ -11,7 +11,7 @@ export class LocationNodesPage {
     readonly nodes: Array<LocationNodeInfo>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationNodesPage {
+  static fromJSON(jsonObject: any): LocationNodesPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -8,7 +8,7 @@ export class RouteChangeInfos {
     readonly incompleteWarning: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteChangeInfos {
+  static fromJSON(jsonObject: any): RouteChangeInfos {
     if (!jsonObject) {
       return undefined;
     }

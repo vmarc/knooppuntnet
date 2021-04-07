@@ -17,7 +17,7 @@ export class NetworkInfo {
     readonly detail: NetworkInfoDetail
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkInfo {
+  static fromJSON(jsonObject: any): NetworkInfo {
     if (!jsonObject) {
       return undefined;
     }

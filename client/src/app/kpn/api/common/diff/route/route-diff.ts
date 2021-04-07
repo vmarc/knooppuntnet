@@ -16,7 +16,7 @@ export class RouteDiff {
     readonly tagDiffs: TagDiffs
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteDiff {
+  static fromJSON(jsonObject: any): RouteDiff {
     if (!jsonObject) {
       return undefined;
     }

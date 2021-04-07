@@ -17,7 +17,7 @@ export class ChangesParameters {
     readonly impact: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangesParameters {
+  static fromJSON(jsonObject: any): ChangesParameters {
     if (!jsonObject) {
       return undefined;
     }

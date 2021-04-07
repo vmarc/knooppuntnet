@@ -11,7 +11,7 @@ export class NodeMapInfo {
     readonly longitude: string
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeMapInfo {
+  static fromJSON(jsonObject: any): NodeMapInfo {
     if (!jsonObject) {
       return undefined;
     }

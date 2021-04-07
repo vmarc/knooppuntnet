@@ -12,7 +12,7 @@ export class NodeRoute {
     readonly actualRouteCount: number
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeRoute {
+  static fromJSON(jsonObject: any): NodeRoute {
     if (!jsonObject) {
       return undefined;
     }

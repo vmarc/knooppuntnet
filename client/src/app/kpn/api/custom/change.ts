@@ -1,7 +1,7 @@
 export class Change {
   constructor(readonly action: number, readonly elements: any[]) {}
 
-  public static fromJSON(jsonObject: any): Change {
+  static fromJSON(jsonObject: any): Change {
     if (!jsonObject) {
       return undefined;
     }

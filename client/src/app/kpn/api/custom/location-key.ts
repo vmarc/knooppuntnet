@@ -8,7 +8,7 @@ export class LocationKey {
     readonly name: string
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationKey {
+  static fromJSON(jsonObject: any): LocationKey {
     if (!jsonObject) {
       return undefined;
     }

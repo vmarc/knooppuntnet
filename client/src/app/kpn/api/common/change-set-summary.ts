@@ -21,7 +21,7 @@ export class ChangeSetSummary {
     readonly investigate: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangeSetSummary {
+  static fromJSON(jsonObject: any): ChangeSetSummary {
     if (!jsonObject) {
       return undefined;
     }

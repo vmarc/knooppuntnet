@@ -3,7 +3,7 @@
 export class PlanParams {
   constructor(readonly networkType: string, readonly planString: string) {}
 
-  public static fromJSON(jsonObject: any): PlanParams {
+  static fromJSON(jsonObject: any): PlanParams {
     if (!jsonObject) {
       return undefined;
     }

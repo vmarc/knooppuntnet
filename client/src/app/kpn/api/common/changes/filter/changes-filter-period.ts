@@ -10,7 +10,7 @@ export class ChangesFilterPeriod {
     readonly periods: Array<ChangesFilterPeriod>
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangesFilterPeriod {
+  static fromJSON(jsonObject: any): ChangesFilterPeriod {
     if (!jsonObject) {
       return undefined;
     }

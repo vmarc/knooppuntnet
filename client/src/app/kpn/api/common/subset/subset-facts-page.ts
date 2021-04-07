@@ -9,7 +9,7 @@ export class SubsetFactsPage {
     readonly factCounts: Array<FactCount>
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetFactsPage {
+  static fromJSON(jsonObject: any): SubsetFactsPage {
     if (!jsonObject) {
       return undefined;
     }

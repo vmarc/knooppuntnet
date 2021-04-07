@@ -9,7 +9,7 @@ export class FactDiffs {
     readonly remaining: Fact[]
   ) {}
 
-  public static fromJSON(jsonObject: any): FactDiffs {
+  static fromJSON(jsonObject: any): FactDiffs {
     if (!jsonObject) {
       return undefined;
     }

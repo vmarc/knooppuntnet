@@ -13,7 +13,7 @@ export class ChangeSetData {
     readonly nodeChanges: Array<NodeChange>
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangeSetData {
+  static fromJSON(jsonObject: any): ChangeSetData {
     if (!jsonObject) {
       return undefined;
     }

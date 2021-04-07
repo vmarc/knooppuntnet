@@ -5,7 +5,7 @@ import { ChangesFilterPeriod } from './changes-filter-period';
 export class ChangesFilter {
   constructor(readonly periods: Array<ChangesFilterPeriod>) {}
 
-  public static fromJSON(jsonObject: any): ChangesFilter {
+  static fromJSON(jsonObject: any): ChangesFilter {
     if (!jsonObject) {
       return undefined;
     }

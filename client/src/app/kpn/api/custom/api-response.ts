@@ -7,7 +7,7 @@ export class ApiResponse<T> {
     public result?: T
   ) {}
 
-  public static fromJSON<R>(
+  static fromJSON<R>(
     jsonObject: any,
     resultsFromJSON: (jsonObject2: any) => R
   ): ApiResponse<R> {

@@ -10,7 +10,7 @@ export class NodeIntegrityDetail {
     readonly routeRefs: Array<Ref>
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeIntegrityDetail {
+  static fromJSON(jsonObject: any): NodeIntegrityDetail {
     if (!jsonObject) {
       return undefined;
     }

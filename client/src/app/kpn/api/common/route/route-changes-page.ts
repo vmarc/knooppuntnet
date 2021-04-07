@@ -15,7 +15,7 @@ export class RouteChangesPage {
     readonly changeCount: number
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteChangesPage {
+  static fromJSON(jsonObject: any): RouteChangesPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -30,7 +30,7 @@ export class RouteChangeInfo {
     readonly investigate: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteChangeInfo {
+  static fromJSON(jsonObject: any): RouteChangeInfo {
     if (!jsonObject) {
       return undefined;
     }

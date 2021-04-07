@@ -7,7 +7,7 @@ export class LocationNode {
     readonly children: Array<LocationNode>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationNode {
+  static fromJSON(jsonObject: any): LocationNode {
     if (!jsonObject) {
       return undefined;
     }

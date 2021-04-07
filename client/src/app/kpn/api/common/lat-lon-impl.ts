@@ -3,7 +3,7 @@
 export class LatLonImpl {
   constructor(readonly latitude: string, readonly longitude: string) {}
 
-  public static fromJSON(jsonObject: any): LatLonImpl {
+  static fromJSON(jsonObject: any): LatLonImpl {
     if (!jsonObject) {
       return undefined;
     }

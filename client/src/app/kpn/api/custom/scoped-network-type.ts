@@ -27,7 +27,7 @@ export class ScopedNetworkType {
     return new ScopedNetworkType(networkScope, networkType, key);
   }
 
-  public static fromJSON(jsonObject: any): ScopedNetworkType {
+  static fromJSON(jsonObject: any): ScopedNetworkType {
     if (!jsonObject) {
       return undefined;
     }

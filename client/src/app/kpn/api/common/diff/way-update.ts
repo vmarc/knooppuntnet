@@ -17,7 +17,7 @@ export class WayUpdate {
     readonly tagDiffs: TagDiffs
   ) {}
 
-  public static fromJSON(jsonObject: any): WayUpdate {
+  static fromJSON(jsonObject: any): WayUpdate {
     if (!jsonObject) {
       return undefined;
     }

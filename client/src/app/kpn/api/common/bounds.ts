@@ -8,7 +8,7 @@ export class Bounds {
     readonly maxLon: number
   ) {}
 
-  public static fromJSON(jsonObject: any): Bounds {
+  static fromJSON(jsonObject: any): Bounds {
     if (!jsonObject) {
       return undefined;
     }

@@ -20,7 +20,7 @@ export class LogPage {
     readonly nonRobot: BarChart
   ) {}
 
-  public static fromJSON(jsonObject: any): LogPage {
+  static fromJSON(jsonObject: any): LogPage {
     if (!jsonObject) {
       return undefined;
     }

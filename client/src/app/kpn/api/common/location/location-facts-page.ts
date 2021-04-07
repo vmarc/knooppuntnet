@@ -9,7 +9,7 @@ export class LocationFactsPage {
     readonly locationFacts: Array<LocationFact>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationFactsPage {
+  static fromJSON(jsonObject: any): LocationFactsPage {
     if (!jsonObject) {
       return undefined;
     }

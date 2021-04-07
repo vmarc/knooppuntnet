@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 export class PoiPreference {
   constructor(public minLevel: number) {}
 
-  public static fromJSON(jsonObject: any): PoiPreference {
+  static fromJSON(jsonObject: any): PoiPreference {
     if (!jsonObject) {
       return undefined;
     }
@@ -17,7 +17,7 @@ export class PoiGroupPreference {
     public pois: Map<string, PoiPreference>
   ) {}
 
-  public static fromJSON(jsonObject: any): PoiGroupPreference {
+  static fromJSON(jsonObject: any): PoiGroupPreference {
     if (!jsonObject) {
       return undefined;
     }
@@ -38,7 +38,7 @@ export class PoiPreferences {
     public enabled: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): PoiPreferences {
+  static fromJSON(jsonObject: any): PoiPreferences {
     if (!jsonObject) {
       return undefined;
     }

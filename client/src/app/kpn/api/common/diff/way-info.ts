@@ -12,7 +12,7 @@ export class WayInfo {
     readonly tags: Tags
   ) {}
 
-  public static fromJSON(jsonObject: any): WayInfo {
+  static fromJSON(jsonObject: any): WayInfo {
     if (!jsonObject) {
       return undefined;
     }

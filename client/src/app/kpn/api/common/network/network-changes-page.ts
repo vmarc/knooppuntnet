@@ -13,7 +13,7 @@ export class NetworkChangesPage {
     readonly totalCount: number
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkChangesPage {
+  static fromJSON(jsonObject: any): NetworkChangesPage {
     if (!jsonObject) {
       return undefined;
     }

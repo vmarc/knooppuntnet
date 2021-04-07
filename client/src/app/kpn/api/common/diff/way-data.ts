@@ -6,7 +6,7 @@ import { RawWay } from '../data/raw/raw-way';
 export class WayData {
   constructor(readonly way: RawWay, readonly nodes: Array<RawNode>) {}
 
-  public static fromJSON(jsonObject: any): WayData {
+  static fromJSON(jsonObject: any): WayData {
     if (!jsonObject) {
       return undefined;
     }

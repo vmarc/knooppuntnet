@@ -10,7 +10,7 @@ export class NodeData {
     readonly node: RawNode
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeData {
+  static fromJSON(jsonObject: any): NodeData {
     if (!jsonObject) {
       return undefined;
     }

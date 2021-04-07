@@ -20,7 +20,7 @@ export class RouteData {
     readonly facts: Array<Fact>
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteData {
+  static fromJSON(jsonObject: any): RouteData {
     if (!jsonObject) {
       return undefined;
     }

@@ -17,7 +17,7 @@ export class LocationNodeInfo {
     readonly routeReferences: Array<Ref>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationNodeInfo {
+  static fromJSON(jsonObject: any): LocationNodeInfo {
     if (!jsonObject) {
       return undefined;
     }

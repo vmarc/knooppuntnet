@@ -11,7 +11,7 @@ export class SubsetOrphanRoutesPage {
     readonly rows: Array<RouteSummary>
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetOrphanRoutesPage {
+  static fromJSON(jsonObject: any): SubsetOrphanRoutesPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -10,7 +10,7 @@ export class PlanSegment {
     readonly fragments: Array<PlanFragment>
   ) {}
 
-  public static fromJSON(jsonObject: any): PlanSegment {
+  static fromJSON(jsonObject: any): PlanSegment {
     if (!jsonObject) {
       return undefined;
     }

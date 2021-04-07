@@ -6,7 +6,7 @@ import { Ref } from '../common/ref';
 export class LocationPage {
   constructor(readonly routeRefs: List<Ref>) {}
 
-  public static fromJSON(jsonObject: any): LocationPage {
+  static fromJSON(jsonObject: any): LocationPage {
     if (!jsonObject) {
       return undefined;
     }

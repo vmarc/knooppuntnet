@@ -12,7 +12,7 @@ export class LocationChangesTree {
     readonly children: Array<LocationChangesTreeNode>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationChangesTree {
+  static fromJSON(jsonObject: any): LocationChangesTree {
     if (!jsonObject) {
       return undefined;
     }

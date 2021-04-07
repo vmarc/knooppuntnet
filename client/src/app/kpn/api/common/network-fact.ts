@@ -12,7 +12,7 @@ export class NetworkFact {
     readonly checks: Array<Check> | undefined
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkFact {
+  static fromJSON(jsonObject: any): NetworkFact {
     if (!jsonObject) {
       return undefined;
     }

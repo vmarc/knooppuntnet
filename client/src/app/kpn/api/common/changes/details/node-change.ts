@@ -38,7 +38,7 @@ export class NodeChange {
     readonly locationInvestigate: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeChange {
+  static fromJSON(jsonObject: any): NodeChange {
     if (!jsonObject) {
       return undefined;
     }

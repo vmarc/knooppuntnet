@@ -9,7 +9,7 @@ export class GeometryDiff {
     readonly after: Array<PointSegment>
   ) {}
 
-  public static fromJSON(jsonObject: any): GeometryDiff {
+  static fromJSON(jsonObject: any): GeometryDiff {
     if (!jsonObject) {
       return undefined;
     }

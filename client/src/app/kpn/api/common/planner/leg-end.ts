@@ -6,7 +6,7 @@ import { LegEndRoute } from './leg-end-route';
 export class LegEnd {
   constructor(readonly node: LegEndNode, readonly route: LegEndRoute) {}
 
-  public static fromJSON(jsonObject: any): LegEnd {
+  static fromJSON(jsonObject: any): LegEnd {
     if (!jsonObject) {
       return undefined;
     }

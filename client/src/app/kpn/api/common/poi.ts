@@ -13,7 +13,7 @@ export class Poi {
     readonly tiles: Array<string>
   ) {}
 
-  public static fromJSON(jsonObject: any): Poi {
+  static fromJSON(jsonObject: any): Poi {
     if (!jsonObject) {
       return undefined;
     }

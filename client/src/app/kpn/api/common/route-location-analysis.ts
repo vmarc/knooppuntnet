@@ -10,7 +10,7 @@ export class RouteLocationAnalysis {
     readonly locationNames: Array<string>
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteLocationAnalysis {
+  static fromJSON(jsonObject: any): RouteLocationAnalysis {
     if (!jsonObject) {
       return undefined;
     }

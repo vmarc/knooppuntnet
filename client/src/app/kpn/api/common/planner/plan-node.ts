@@ -12,7 +12,7 @@ export class PlanNode {
     readonly latLon: LatLonImpl
   ) {}
 
-  public static fromJSON(jsonObject: any): PlanNode {
+  static fromJSON(jsonObject: any): PlanNode {
     if (!jsonObject) {
       return undefined;
     }

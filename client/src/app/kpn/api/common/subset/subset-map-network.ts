@@ -12,7 +12,7 @@ export class SubsetMapNetwork {
     readonly center: LatLonImpl
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetMapNetwork {
+  static fromJSON(jsonObject: any): SubsetMapNetwork {
     if (!jsonObject) {
       return undefined;
     }

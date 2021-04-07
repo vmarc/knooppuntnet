@@ -15,7 +15,7 @@ export class NetworkRoutesPage {
     readonly routes: Array<NetworkRouteRow>
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkRoutesPage {
+  static fromJSON(jsonObject: any): NetworkRoutesPage {
     if (!jsonObject) {
       return undefined;
     }

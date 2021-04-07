@@ -15,7 +15,7 @@ export class RouteInfoAnalysis {
     readonly locationAnalysis: RouteLocationAnalysis
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteInfoAnalysis {
+  static fromJSON(jsonObject: any): RouteInfoAnalysis {
     if (!jsonObject) {
       return undefined;
     }

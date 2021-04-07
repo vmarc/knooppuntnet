@@ -6,7 +6,7 @@ import { Ref } from '../common/ref';
 export class NetworkNodeFact {
   constructor(readonly fact: Fact, readonly nodes: Array<Ref>) {}
 
-  public static fromJSON(jsonObject: any): NetworkNodeFact {
+  static fromJSON(jsonObject: any): NetworkNodeFact {
     if (!jsonObject) {
       return undefined;
     }

@@ -5,7 +5,7 @@ import { RawRelation } from '../data/raw/raw-relation';
 export class NetworkData {
   constructor(readonly relation: RawRelation, readonly name: string) {}
 
-  public static fromJSON(jsonObject: any): NetworkData {
+  static fromJSON(jsonObject: any): NetworkData {
     if (!jsonObject) {
       return undefined;
     }

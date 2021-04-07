@@ -5,7 +5,7 @@ import { NetworkData } from './network-data';
 export class NetworkDataUpdate {
   constructor(readonly before: NetworkData, readonly after: NetworkData) {}
 
-  public static fromJSON(jsonObject: any): NetworkDataUpdate {
+  static fromJSON(jsonObject: any): NetworkDataUpdate {
     if (!jsonObject) {
       return undefined;
     }

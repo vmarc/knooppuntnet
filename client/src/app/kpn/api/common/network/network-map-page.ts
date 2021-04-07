@@ -13,7 +13,7 @@ export class NetworkMapPage {
     readonly bounds: Bounds
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkMapPage {
+  static fromJSON(jsonObject: any): NetworkMapPage {
     if (!jsonObject) {
       return undefined;
     }

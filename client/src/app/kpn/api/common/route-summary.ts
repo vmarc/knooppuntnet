@@ -19,7 +19,7 @@ export class RouteSummary {
     readonly tags: Tags
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteSummary {
+  static fromJSON(jsonObject: any): RouteSummary {
     if (!jsonObject) {
       return undefined;
     }

@@ -20,7 +20,7 @@ export class ReplicationStatusPage {
     readonly replicationChangeSets: BarChart
   ) {}
 
-  public static fromJSON(jsonObject: any): ReplicationStatusPage {
+  static fromJSON(jsonObject: any): ReplicationStatusPage {
     if (!jsonObject) {
       return undefined;
     }

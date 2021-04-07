@@ -7,7 +7,7 @@ export class IdDiffs {
     readonly updated: Array<number>
   ) {}
 
-  public static fromJSON(jsonObject: any): IdDiffs {
+  static fromJSON(jsonObject: any): IdDiffs {
     if (!jsonObject) {
       return undefined;
     }

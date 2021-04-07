@@ -17,7 +17,7 @@ export class NetworkInfoRoute {
     readonly facts: Array<Fact>
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkInfoRoute {
+  static fromJSON(jsonObject: any): NetworkInfoRoute {
     if (!jsonObject) {
       return undefined;
     }

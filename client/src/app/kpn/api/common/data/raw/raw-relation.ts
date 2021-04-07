@@ -14,7 +14,7 @@ export class RawRelation {
     readonly tags: Tags
   ) {}
 
-  public static fromJSON(jsonObject: any): RawRelation {
+  static fromJSON(jsonObject: any): RawRelation {
     if (!jsonObject) {
       return undefined;
     }

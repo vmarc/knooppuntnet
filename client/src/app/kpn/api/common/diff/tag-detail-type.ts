@@ -3,7 +3,7 @@
 export class TagDetailType {
   constructor(readonly name: string) {}
 
-  public static fromJSON(jsonObject: any): TagDetailType {
+  static fromJSON(jsonObject: any): TagDetailType {
     if (!jsonObject) {
       return undefined;
     }

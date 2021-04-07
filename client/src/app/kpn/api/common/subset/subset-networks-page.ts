@@ -19,7 +19,7 @@ export class SubsetNetworksPage {
     readonly networks: Array<NetworkAttributes>
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetNetworksPage {
+  static fromJSON(jsonObject: any): SubsetNetworksPage {
     if (!jsonObject) {
       return undefined;
     }

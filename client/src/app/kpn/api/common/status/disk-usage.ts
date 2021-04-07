@@ -9,7 +9,7 @@ export class DiskUsage {
     readonly backend: BarChart
   ) {}
 
-  public static fromJSON(jsonObject: any): DiskUsage {
+  static fromJSON(jsonObject: any): DiskUsage {
     if (!jsonObject) {
       return undefined;
     }

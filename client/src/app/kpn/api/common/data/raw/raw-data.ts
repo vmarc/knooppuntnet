@@ -13,7 +13,7 @@ export class RawData {
     readonly relations: Array<RawRelation>
   ) {}
 
-  public static fromJSON(jsonObject: any): RawData {
+  static fromJSON(jsonObject: any): RawData {
     if (!jsonObject) {
       return undefined;
     }

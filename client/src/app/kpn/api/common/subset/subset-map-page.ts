@@ -11,7 +11,7 @@ export class SubsetMapPage {
     readonly bounds: Bounds
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetMapPage {
+  static fromJSON(jsonObject: any): SubsetMapPage {
     if (!jsonObject) {
       return undefined;
     }

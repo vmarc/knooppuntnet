@@ -9,7 +9,7 @@ export class NodeMoved {
     readonly distance: number
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeMoved {
+  static fromJSON(jsonObject: any): NodeMoved {
     if (!jsonObject) {
       return undefined;
     }

@@ -3,7 +3,7 @@
 export class NameValue {
   constructor(readonly name: string, readonly value: number) {}
 
-  public static fromJSON(jsonObject: any): NameValue {
+  static fromJSON(jsonObject: any): NameValue {
     if (!jsonObject) {
       return undefined;
     }

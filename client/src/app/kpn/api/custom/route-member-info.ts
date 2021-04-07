@@ -26,7 +26,7 @@ export class RouteMemberInfo {
     readonly oneWayTags: Tags
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteMemberInfo {
+  static fromJSON(jsonObject: any): RouteMemberInfo {
     if (!jsonObject) {
       return undefined;
     }

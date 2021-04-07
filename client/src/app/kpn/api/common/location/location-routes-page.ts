@@ -11,7 +11,7 @@ export class LocationRoutesPage {
     readonly routes: Array<LocationRouteInfo>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationRoutesPage {
+  static fromJSON(jsonObject: any): LocationRoutesPage {
     if (!jsonObject) {
       return undefined;
     }

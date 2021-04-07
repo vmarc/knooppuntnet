@@ -4,7 +4,7 @@ import { Statistic } from '../common/statistics/statistic';
 export class Statistics {
   constructor(readonly map: Map<string, Statistic>) {}
 
-  public static fromJSON(jsonObject: any): Statistics {
+  static fromJSON(jsonObject: any): Statistics {
     if (!jsonObject) {
       return undefined;
     }

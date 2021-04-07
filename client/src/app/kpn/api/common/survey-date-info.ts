@@ -11,7 +11,7 @@ export class SurveyDateInfo {
     readonly lastTwoYearsStart: Day
   ) {}
 
-  public static fromJSON(jsonObject: any): SurveyDateInfo {
+  static fromJSON(jsonObject: any): SurveyDateInfo {
     if (!jsonObject) {
       return undefined;
     }

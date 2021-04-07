@@ -16,7 +16,7 @@ export class ChangeSetNetwork {
     readonly investigate: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangeSetNetwork {
+  static fromJSON(jsonObject: any): ChangeSetNetwork {
     if (!jsonObject) {
       return undefined;
     }

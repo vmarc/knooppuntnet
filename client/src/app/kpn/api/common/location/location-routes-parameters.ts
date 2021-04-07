@@ -3,7 +3,7 @@
 export class LocationRoutesParameters {
   constructor(readonly itemsPerPage: number, readonly pageIndex: number) {}
 
-  public static fromJSON(jsonObject: any): LocationRoutesParameters {
+  static fromJSON(jsonObject: any): LocationRoutesParameters {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class Status {
     readonly diskUsage: DiskUsage
   ) {}
 
-  public static fromJSON(jsonObject: any): Status {
+  static fromJSON(jsonObject: any): Status {
     if (!jsonObject) {
       return undefined;
     }

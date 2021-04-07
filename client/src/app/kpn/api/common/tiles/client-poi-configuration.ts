@@ -5,7 +5,7 @@ import { ClientPoiGroupDefinition } from './client-poi-group-definition';
 export class ClientPoiConfiguration {
   constructor(readonly groupDefinitions: Array<ClientPoiGroupDefinition>) {}
 
-  public static fromJSON(jsonObject: any): ClientPoiConfiguration {
+  static fromJSON(jsonObject: any): ClientPoiConfiguration {
     if (!jsonObject) {
       return undefined;
     }

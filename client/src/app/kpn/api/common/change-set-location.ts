@@ -13,7 +13,7 @@ export class ChangeSetLocation {
     readonly investigate: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangeSetLocation {
+  static fromJSON(jsonObject: any): ChangeSetLocation {
     if (!jsonObject) {
       return undefined;
     }

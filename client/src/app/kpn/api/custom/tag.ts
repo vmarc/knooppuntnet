@@ -1,7 +1,7 @@
 export class Tag {
   constructor(readonly key: string, readonly value: string) {}
 
-  public static fromJSON(jsonObject: any): Tag {
+  static fromJSON(jsonObject: any): Tag {
     if (!jsonObject) {
       return undefined;
     }

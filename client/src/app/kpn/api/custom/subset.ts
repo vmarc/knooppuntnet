@@ -4,7 +4,7 @@ import { NetworkType } from './network-type';
 export class Subset {
   constructor(readonly country: Country, readonly networkType: NetworkType) {}
 
-  public static fromJSON(jsonObject: any): Subset {
+  static fromJSON(jsonObject: any): Subset {
     if (!jsonObject) {
       return undefined;
     }

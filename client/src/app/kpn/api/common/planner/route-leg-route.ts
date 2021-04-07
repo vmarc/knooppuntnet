@@ -13,7 +13,7 @@ export class RouteLegRoute {
     readonly streets: List<string>
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteLegRoute {
+  static fromJSON(jsonObject: any): RouteLegRoute {
     if (!jsonObject) {
       return undefined;
     }

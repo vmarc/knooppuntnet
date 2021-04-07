@@ -15,7 +15,7 @@ export class NetworkScope {
 
   private constructor(readonly name: string, readonly letter: string) {}
 
-  public static fromJSON(jsonObject: any): NetworkScope {
+  static fromJSON(jsonObject: any): NetworkScope {
     if (!jsonObject) {
       return undefined;
     }

@@ -15,7 +15,7 @@ export class LocationEditPage {
     readonly routeIds: Array<number>
   ) {}
 
-  public static fromJSON(jsonObject: any): LocationEditPage {
+  static fromJSON(jsonObject: any): LocationEditPage {
     if (!jsonObject) {
       return undefined;
     }

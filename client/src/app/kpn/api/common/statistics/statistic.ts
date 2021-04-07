@@ -13,7 +13,7 @@ export class Statistic {
     readonly es: CountryStatistic
   ) {}
 
-  public static fromJSON(jsonObject: any): Statistic {
+  static fromJSON(jsonObject: any): Statistic {
     if (!jsonObject) {
       return undefined;
     }

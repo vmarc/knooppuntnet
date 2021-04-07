@@ -8,7 +8,7 @@ export class LegEndRoute {
     readonly selection: TrackPathKey
   ) {}
 
-  public static fromJSON(jsonObject: any): LegEndRoute {
+  static fromJSON(jsonObject: any): LegEndRoute {
     if (!jsonObject) {
       return undefined;
     }

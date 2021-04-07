@@ -26,7 +26,7 @@ export class NetworkAttributes {
     readonly center: LatLonImpl
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkAttributes {
+  static fromJSON(jsonObject: any): NetworkAttributes {
     if (!jsonObject) {
       return undefined;
     }

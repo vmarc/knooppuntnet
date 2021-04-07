@@ -3,7 +3,7 @@
 export class NetworkExtraMemberRelation {
   constructor(readonly memberId: number) {}
 
-  public static fromJSON(jsonObject: any): NetworkExtraMemberRelation {
+  static fromJSON(jsonObject: any): NetworkExtraMemberRelation {
     if (!jsonObject) {
       return undefined;
     }

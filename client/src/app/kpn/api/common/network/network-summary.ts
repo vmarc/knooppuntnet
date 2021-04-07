@@ -13,7 +13,7 @@ export class NetworkSummary {
     readonly active: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkSummary {
+  static fromJSON(jsonObject: any): NetworkSummary {
     if (!jsonObject) {
       return undefined;
     }

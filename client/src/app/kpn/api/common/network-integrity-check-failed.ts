@@ -8,7 +8,7 @@ export class NetworkIntegrityCheckFailed {
     readonly checks: Array<NodeIntegrityCheck>
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkIntegrityCheckFailed {
+  static fromJSON(jsonObject: any): NetworkIntegrityCheckFailed {
     if (!jsonObject) {
       return undefined;
     }

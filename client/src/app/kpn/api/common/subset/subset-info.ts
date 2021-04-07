@@ -11,7 +11,7 @@ export class SubsetInfo {
     readonly orphanRouteCount: number
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetInfo {
+  static fromJSON(jsonObject: any): SubsetInfo {
     if (!jsonObject) {
       return undefined;
     }

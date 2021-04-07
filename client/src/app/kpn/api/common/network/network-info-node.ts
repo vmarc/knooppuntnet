@@ -26,7 +26,7 @@ export class NetworkInfoNode {
     readonly tags: Tags
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkInfoNode {
+  static fromJSON(jsonObject: any): NetworkInfoNode {
     if (!jsonObject) {
       return undefined;
     }

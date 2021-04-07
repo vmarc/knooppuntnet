@@ -34,7 +34,7 @@ export class PoiAnalysis {
     readonly denomination: string
   ) {}
 
-  public static fromJSON(jsonObject: any): PoiAnalysis {
+  static fromJSON(jsonObject: any): PoiAnalysis {
     if (!jsonObject) {
       return undefined;
     }

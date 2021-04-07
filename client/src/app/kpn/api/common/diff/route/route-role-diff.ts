@@ -3,7 +3,7 @@
 export class RouteRoleDiff {
   constructor(readonly before: string, readonly after: string) {}
 
-  public static fromJSON(jsonObject: any): RouteRoleDiff {
+  static fromJSON(jsonObject: any): RouteRoleDiff {
     if (!jsonObject) {
       return undefined;
     }

@@ -3,7 +3,7 @@
 export class TrackPoint {
   constructor(readonly lat: string, readonly lon: string) {}
 
-  public static fromJSON(jsonObject: any): TrackPoint {
+  static fromJSON(jsonObject: any): TrackPoint {
     if (!jsonObject) {
       return undefined;
     }

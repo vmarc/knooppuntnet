@@ -23,7 +23,7 @@ export class SystemStatusPage {
     readonly changesDataSize: BarChart
   ) {}
 
-  public static fromJSON(jsonObject: any): SystemStatusPage {
+  static fromJSON(jsonObject: any): SystemStatusPage {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class NetworkMapNode {
     readonly roleConnection: boolean
   ) {}
 
-  public static fromJSON(jsonObject: any): NetworkMapNode {
+  static fromJSON(jsonObject: any): NetworkMapNode {
     if (!jsonObject) {
       return undefined;
     }

@@ -9,7 +9,7 @@ export class ClientPoiGroupDefinition {
     readonly poiDefinitions: Array<ClientPoiDefinition>
   ) {}
 
-  public static fromJSON(jsonObject: any): ClientPoiGroupDefinition {
+  static fromJSON(jsonObject: any): ClientPoiGroupDefinition {
     if (!jsonObject) {
       return undefined;
     }

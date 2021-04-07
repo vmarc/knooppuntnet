@@ -8,7 +8,7 @@ export class BarChart {
     readonly data: Array<NameValue>
   ) {}
 
-  public static fromJSON(jsonObject: any): BarChart {
+  static fromJSON(jsonObject: any): BarChart {
     if (!jsonObject) {
       return undefined;
     }

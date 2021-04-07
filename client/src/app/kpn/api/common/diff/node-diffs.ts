@@ -10,7 +10,7 @@ export class NodeDiffs {
     readonly updated: Array<NodeDataUpdate>
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeDiffs {
+  static fromJSON(jsonObject: any): NodeDiffs {
     if (!jsonObject) {
       return undefined;
     }

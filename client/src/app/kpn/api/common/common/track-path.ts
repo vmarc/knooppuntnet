@@ -12,7 +12,7 @@ export class TrackPath {
     readonly segments: Array<TrackSegment>
   ) {}
 
-  public static fromJSON(jsonObject: any): TrackPath {
+  static fromJSON(jsonObject: any): TrackPath {
     if (!jsonObject) {
       return undefined;
     }

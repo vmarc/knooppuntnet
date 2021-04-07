@@ -26,7 +26,7 @@ export class NodeInfo {
     readonly tiles: Array<string>
   ) {}
 
-  public static fromJSON(jsonObject: any): NodeInfo {
+  static fromJSON(jsonObject: any): NodeInfo {
     if (!jsonObject) {
       return undefined;
     }

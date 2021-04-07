@@ -3,7 +3,7 @@
 export class LocationChangesParameters {
   constructor(readonly itemsPerPage: number, readonly pageIndex: number) {}
 
-  public static fromJSON(jsonObject: any): LocationChangesParameters {
+  static fromJSON(jsonObject: any): LocationChangesParameters {
     if (!jsonObject) {
       return undefined;
     }

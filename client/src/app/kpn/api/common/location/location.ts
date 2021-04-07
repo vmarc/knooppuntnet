@@ -3,7 +3,7 @@
 export class Location {
   constructor(readonly names: Array<string>) {}
 
-  public static fromJSON(jsonObject: any): Location {
+  static fromJSON(jsonObject: any): Location {
     if (!jsonObject) {
       return undefined;
     }

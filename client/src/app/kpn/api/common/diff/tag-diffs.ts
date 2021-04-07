@@ -8,7 +8,7 @@ export class TagDiffs {
     readonly extraTags: Array<TagDetail>
   ) {}
 
-  public static fromJSON(jsonObject: any): TagDiffs {
+  static fromJSON(jsonObject: any): TagDiffs {
     if (!jsonObject) {
       return undefined;
     }

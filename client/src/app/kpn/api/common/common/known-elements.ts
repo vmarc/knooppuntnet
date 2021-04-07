@@ -6,7 +6,7 @@ export class KnownElements {
     readonly routeIds: Array<number>
   ) {}
 
-  public static fromJSON(jsonObject: any): KnownElements {
+  static fromJSON(jsonObject: any): KnownElements {
     if (!jsonObject) {
       return undefined;
     }

@@ -13,7 +13,7 @@ export class SubsetChangesPage {
     readonly changeCount: number
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetChangesPage {
+  static fromJSON(jsonObject: any): SubsetChangesPage {
     if (!jsonObject) {
       return undefined;
     }

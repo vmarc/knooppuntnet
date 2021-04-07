@@ -5,7 +5,7 @@ import { Location } from './location';
 export class LocationCandidate {
   constructor(readonly location: Location, readonly percentage: number) {}
 
-  public static fromJSON(jsonObject: any): LocationCandidate {
+  static fromJSON(jsonObject: any): LocationCandidate {
     if (!jsonObject) {
       return undefined;
     }

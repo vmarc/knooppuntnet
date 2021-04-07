@@ -5,7 +5,7 @@ export class Day {
     readonly day: number
   ) {}
 
-  public static fromJSON(jsonObject: any): Day {
+  static fromJSON(jsonObject: any): Day {
     if (!jsonObject) {
       return undefined;
     }

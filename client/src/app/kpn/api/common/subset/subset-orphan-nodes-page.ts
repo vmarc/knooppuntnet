@@ -11,7 +11,7 @@ export class SubsetOrphanNodesPage {
     readonly rows: Array<NodeInfo>
   ) {}
 
-  public static fromJSON(jsonObject: any): SubsetOrphanNodesPage {
+  static fromJSON(jsonObject: any): SubsetOrphanNodesPage {
     if (!jsonObject) {
       return undefined;
     }

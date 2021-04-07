@@ -10,7 +10,7 @@ export class TagDetail {
     readonly valueAfter: string
   ) {}
 
-  public static fromJSON(jsonObject: any): TagDetail {
+  static fromJSON(jsonObject: any): TagDetail {
     if (!jsonObject) {
       return undefined;
     }

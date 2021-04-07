@@ -9,7 +9,7 @@ export class RefDiffs {
     readonly updated: Array<Ref>
   ) {}
 
-  public static fromJSON(jsonObject: any): RefDiffs {
+  static fromJSON(jsonObject: any): RefDiffs {
     if (!jsonObject) {
       return undefined;
     }

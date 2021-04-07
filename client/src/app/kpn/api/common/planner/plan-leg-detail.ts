@@ -10,7 +10,7 @@ export class PlanLegDetail {
     readonly routes: Array<PlanRoute>
   ) {}
 
-  public static fromJSON(jsonObject: any): PlanLegDetail {
+  static fromJSON(jsonObject: any): PlanLegDetail {
     if (!jsonObject) {
       return undefined;
     }

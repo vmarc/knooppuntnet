@@ -10,7 +10,7 @@ export class ChangesPage {
     readonly changeCount: number
   ) {}
 
-  public static fromJSON(jsonObject: any): ChangesPage {
+  static fromJSON(jsonObject: any): ChangesPage {
     if (!jsonObject) {
       return undefined;
     }

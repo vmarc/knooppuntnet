@@ -5,7 +5,7 @@ import { RawNode } from '../data/raw/raw-node';
 export class NetworkNodeData {
   constructor(readonly node: RawNode, readonly name: string) {}
 
-  public static fromJSON(jsonObject: any): NetworkNodeData {
+  static fromJSON(jsonObject: any): NetworkNodeData {
     if (!jsonObject) {
       return undefined;
     }

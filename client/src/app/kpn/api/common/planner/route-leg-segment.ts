@@ -11,7 +11,7 @@ export class RouteLegSegment {
     readonly fragments: List<RouteLegFragment>
   ) {}
 
-  public static fromJSON(jsonObject: any): RouteLegSegment {
+  static fromJSON(jsonObject: any): RouteLegSegment {
     if (!jsonObject) {
       return undefined;
     }

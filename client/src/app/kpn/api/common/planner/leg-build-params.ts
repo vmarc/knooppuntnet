@@ -9,7 +9,7 @@ export class LegBuildParams {
     readonly sink: LegEnd
   ) {}
 
-  public static fromJSON(jsonObject: any): LegBuildParams {
+  static fromJSON(jsonObject: any): LegBuildParams {
     if (!jsonObject) {
       return undefined;
     }
