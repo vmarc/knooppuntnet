@@ -13,6 +13,7 @@ import { AppService } from '../../../app.service';
 import { PageService } from '../../../components/shared/page.service';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { Subsets } from '../../../kpn/common/subsets';
@@ -136,7 +137,12 @@ export class SubsetChangesPageComponent implements OnInit {
           ChangeFilterOptions.from(
             this.parameters,
             this.response.result.filter,
-            (parameters: ChangesParameters) => (this.parameters = parameters)
+            (parameters: ChangesParameters) => {
+              this.store.dispatch(
+                actionPreferencesImpact({ impact: parameters.impact })
+              );
+              this.parameters = parameters;
+            }
           )
         );
       });

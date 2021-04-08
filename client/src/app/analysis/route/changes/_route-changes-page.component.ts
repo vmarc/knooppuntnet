@@ -17,6 +17,7 @@ import { AppService } from '../../../app.service';
 import { PageService } from '../../../components/shared/page.service';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesNetworkType } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
@@ -149,8 +150,14 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
                         ChangeFilterOptions.from(
                           this.parameters,
                           response.result.filter,
-                          (parameters: ChangesParameters) =>
-                            (this.parameters = parameters)
+                          (parameters: ChangesParameters) => {
+                            this.store.dispatch(
+                              actionPreferencesImpact({
+                                impact: parameters.impact,
+                              })
+                            );
+                            this.parameters = parameters;
+                          }
                         )
                       );
                     }

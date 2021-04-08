@@ -14,6 +14,7 @@ import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../core/core.state';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { NetworkCacheService } from '../../../services/network-cache.service';
@@ -133,8 +134,12 @@ export class NetworkChangesPageComponent implements OnInit {
                     ChangeFilterOptions.from(
                       this.parameters,
                       response.result.filter,
-                      (parameters: ChangesParameters) =>
-                        (this.parameters = parameters)
+                      (parameters: ChangesParameters) => {
+                        this.store.dispatch(
+                          actionPreferencesImpact({ impact: parameters.impact })
+                        );
+                        this.parameters = parameters;
+                      }
                     )
                   );
                 }

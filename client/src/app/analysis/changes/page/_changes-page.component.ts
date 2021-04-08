@@ -11,6 +11,7 @@ import { AppService } from '../../../app.service';
 import { PageService } from '../../../components/shared/page.service';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { UserService } from '../../../services/user.service';
@@ -29,9 +30,9 @@ import { ChangesService } from '../../components/changes/filter/changes.service'
       <li i18n="@@breadcrumb.changes">Changes</li>
     </ul>
 
-    <kpn-page-header subject="changes-page" i18n="@@changes-page.title"
-      >Changes</kpn-page-header
-    >
+    <kpn-page-header subject="changes-page" i18n="@@changes-page.title">
+      Changes
+    </kpn-page-header>
 
     <div
       *ngIf="!isLoggedIn()"
@@ -141,7 +142,12 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
           ChangeFilterOptions.from(
             this.parameters,
             this.response.result.filter,
-            (parameters: ChangesParameters) => (this.parameters = parameters)
+            (parameters: ChangesParameters) => {
+              this.store.dispatch(
+                actionPreferencesImpact({ impact: parameters.impact })
+              );
+              this.parameters = parameters;
+            }
           )
         );
       }
