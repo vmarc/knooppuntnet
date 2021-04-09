@@ -5,11 +5,13 @@ import { Component, Input } from '@angular/core';
   selector: 'kpn-node-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngFor="let nodeId of nodeIds" class="kpn-comma-list">
-      <kpn-osm-link-node
-        [nodeId]="nodeId"
-        [title]="nodeId.toString()"
-      ></kpn-osm-link-node>
+    <div class="kpn-comma-list">
+      <span *ngFor="let nodeId of nodeIds">
+        <kpn-osm-link-node
+          [nodeId]="nodeId"
+          [title]="nodeId.toString()"
+        ></kpn-osm-link-node>
+      </span>
     </div>
   `,
 })
