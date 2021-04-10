@@ -1,28 +1,25 @@
-import {Component} from '@angular/core';
-import {OnDestroy} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Validators} from '@angular/forms';
-import {ControlContainer} from '@angular/forms';
-import {FormGroup} from '@angular/forms';
+import { Component } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { ControlContainer } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sub-1',
   template: `
     <div class="fields">
-
       <label>Field 11</label>
-      <input ourOwnInput [formControl]="field11">
+      <input appInput [formControl]="field11" />
       <app-field-errors [control]="field11"></app-field-errors>
 
       <label>Field 12</label>
-      <input ourOwnInput #last [formControl]="field12">
+      <input appInput #last [formControl]="field12" />
       <app-field-errors [control]="field12"></app-field-errors>
-
     </div>
-  `
+  `,
 })
 export class Sub1Component implements OnDestroy {
-
   readonly field11 = new FormControl('', Validators.required);
   readonly field12 = new FormControl('', Validators.required);
   private readonly formGroup: FormGroup;

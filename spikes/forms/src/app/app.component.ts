@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +7,12 @@ import {Component} from '@angular/core';
       <router-outlet></router-outlet>
     </div>
   `,
-  styles: [`
-    .page {
-      margin: 1em;
-    }
-  `]
+  styles: [
+    `
+      .page {
+        margin: 1em;
+      }
+    `,
+  ],
 })
-export class AppComponent {
-}
+export class AppComponent {}

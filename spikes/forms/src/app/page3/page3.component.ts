@@ -1,14 +1,13 @@
-import {Component} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {ValidatorFn} from '@angular/forms';
-import {MatTableDataSource} from '@angular/material/table';
-import {Util} from '../shared/util';
-import {MessageService} from '../shared/message.service';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+import { Util } from '../shared/util';
+import { MessageService } from '../shared/message.service';
 
 class Row {
-  constructor(readonly name: string) {
-  }
+  constructor(readonly name: string) {}
 }
 
 @Component({
@@ -25,59 +24,62 @@ class Row {
 
     <div>
       <form [formGroup]="form">
-
         <table mat-table [dataSource]="dataSource">
-
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
 
         <app-form-errors [form]="form"></app-form-errors>
 
-        <button mat-raised-button type="submit" (click)="submit()" color="primary">Submit</button>
-
+        <button
+          mat-raised-button
+          type="submit"
+          (click)="submit()"
+          color="primary"
+        >
+          Submit
+        </button>
       </form>
     </div>
 
     <div class="debug">
-      <p>
-        Debug:
-      </p>
+      <p>Debug:</p>
       <ul>
-        <li>form.valid = {{form.valid}}</li>
+        <li>form.valid = {{ form.valid }}</li>
       </ul>
       <ul>
-        <li>form.errors = {{util.toMessages(form.errors).join(", ")}}</li>
+        <li>form.errors = {{ util.toMessages(form.errors).join(', ') }}</li>
       </ul>
     </div>
   `,
-  styles: [`
-    .buttons {
-      padding-top: 2em;
-      padding-bottom: 1em;
-    }
+  styles: [
+    `
+      .buttons {
+        padding-top: 2em;
+        padding-bottom: 1em;
+      }
 
-    .buttons button {
-      margin-right: 1em;
-    }
+      .buttons button {
+        margin-right: 1em;
+      }
 
-    form button {
-      margin-top: 2em;
-    }
+      form button {
+        margin-top: 2em;
+      }
 
-    .debug {
-      padding-top: 4em;
-      font-family: monospace;
-    }
-  `]
+      .debug {
+        padding-top: 4em;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class Page3Component implements OnInit {
-
   readonly displayedColumns: string[] = ['name'];
   readonly dataSource: MatTableDataSource<Row> = new MatTableDataSource();
   readonly form = new FormGroup({}, this.tableValidator(this.dataSource));
@@ -86,8 +88,7 @@ export class Page3Component implements OnInit {
 
   private id = 1;
 
-  constructor(private messageService: MessageService) {
-  }
+  constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.dataSource.data = [];
@@ -105,7 +106,9 @@ export class Page3Component implements OnInit {
   }
 
   add() {
-    this.dataSource.data = this.dataSource.data.concat(new Row(`row ${this.id}`));
+    this.dataSource.data = this.dataSource.data.concat(
+      new Row(`row ${this.id}`)
+    );
     this.form.updateValueAndValidity();
     this.id = this.id + 1;
   }
@@ -120,7 +123,8 @@ export class Page3Component implements OnInit {
       if (dataSource.data.length === 3) {
         return null;
       }
-      return {'Table should contain 3 elements': true};
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      return { 'Table should contain 3 elements': true };
     };
   }
 }

@@ -1,7 +1,6 @@
-import {ValidationErrors} from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 
 export class Util {
-
   public static json(object: any): string {
     return JSON.stringify(object);
   }
@@ -15,5 +14,4 @@ export class Util {
     }
     return messages;
   }
-
 }

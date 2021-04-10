@@ -1,17 +1,17 @@
-import {Directive, ElementRef} from '@angular/core';
-import {DoCheck} from '@angular/core';
-import {FormGroupDirective} from '@angular/forms';
+import { Directive, ElementRef } from '@angular/core';
+import { DoCheck } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 
 @Directive({
-  selector: '[ourOwnInput]'
+  selector: '[appInput]',
 })
 export class InputDirective implements DoCheck {
-
   private submitted = false;
 
-  constructor(private elementRef: ElementRef,
-              private parentFormGroup: FormGroupDirective) {
-  }
+  constructor(
+    private elementRef: ElementRef,
+    private parentFormGroup: FormGroupDirective
+  ) {}
 
   ngDoCheck(): void {
     const formGroupSubmitted = this.parentFormGroup.submitted;
@@ -24,5 +24,4 @@ export class InputDirective implements DoCheck {
       }
     }
   }
-
 }

@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {ElementRef} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {FormControl} from '@angular/forms';
-import {Validators} from '@angular/forms';
-import {Util} from '../shared/util';
-import {MessageService} from '../shared/message.service';
+import { Component } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { MessageService } from '../shared/message.service';
+import { Util } from '../shared/util';
 
 @Component({
   selector: 'app-page2',
@@ -15,43 +15,42 @@ import {MessageService} from '../shared/message.service';
     <app-menu></app-menu>
 
     <form [formGroup]="form">
-
       <div class="fields">
-
         <label>First name</label>
-        <input ourOwnInput #first [formControl]="firstName">
+        <input appInput #first [formControl]="firstName" />
         <app-field-errors [control]="firstName"></app-field-errors>
 
         <label>Last name</label>
-        <input ourOwnInput #last [formControl]="lastName">
+        <input appInput #last [formControl]="lastName" />
         <app-field-errors [control]="lastName"></app-field-errors>
-
       </div>
 
-      <button mat-raised-button (click)="submit()" color="primary">Submit</button>
+      <button mat-raised-button (click)="submit()" color="primary">
+        Submit
+      </button>
     </form>
 
     <div class="debug">
-      <p>
-        Debug:
-      </p>
+      <p>Debug:</p>
       <ul>
-        <li>form.valid = {{form.valid}}</li>
-        <li>form.errors = {{util.json(form.errors)}}</li>
-        <li>firstName
+        <li>form.valid = {{ form.valid }}</li>
+        <li>form.errors = {{ util.json(form.errors) }}</li>
+        <li>
+          firstName
           <ul>
-            <li>valid = {{firstName.valid}}</li>
-            <li>pristine = {{firstName.pristine}}</li>
-            <li>touched = {{firstName.touched}}</li>
-            <li>errors = {{util.json(firstName.errors)}}</li>
+            <li>valid = {{ firstName.valid }}</li>
+            <li>pristine = {{ firstName.pristine }}</li>
+            <li>touched = {{ firstName.touched }}</li>
+            <li>errors = {{ util.json(firstName.errors) }}</li>
           </ul>
         </li>
-        <li>lastName
+        <li>
+          lastName
           <ul>
-            <li>valid = {{lastName.valid}}</li>
-            <li>pristine = {{lastName.pristine}}</li>
-            <li>touched = {{lastName.touched}}</li>
-            <li>errors = {{util.json(lastName.errors)}}</li>
+            <li>valid = {{ lastName.valid }}</li>
+            <li>pristine = {{ lastName.pristine }}</li>
+            <li>touched = {{ lastName.touched }}</li>
+            <li>errors = {{ util.json(lastName.errors) }}</li>
           </ul>
         </li>
       </ul>
@@ -82,9 +81,17 @@ import {MessageService} from '../shared/message.service';
         </div>
       </div>
     </div>
-  `
+  `,
 })
 export class Page2Component {
+  @ViewChild('first') firstNameInput: ElementRef;
+  @ViewChild('last') lastNameInput: ElementRef;
+
+  readonly util = Util;
+  firstNameClasses1 = '';
+  lastNameClasses1 = '';
+  firstNameClasses2 = '';
+  lastNameClasses2 = '';
 
   readonly firstName = new FormControl('', Validators.required);
   readonly lastName = new FormControl('', Validators.required);
@@ -94,8 +101,7 @@ export class Page2Component {
     lastName: this.lastName,
   });
 
-  constructor(private messageService: MessageService) {
-  }
+  constructor(private messageService: MessageService) {}
 
   submit(): void {
     if (this.form.valid) {
@@ -104,17 +110,6 @@ export class Page2Component {
       this.messageService.warn('Cannot submit invalid form');
     }
   }
-
-  // ***************************** debug *****************************
-
-  util = Util;
-  firstNameClasses1 = '';
-  lastNameClasses1 = '';
-  firstNameClasses2 = '';
-  lastNameClasses2 = '';
-
-  @ViewChild('first') firstNameInput: ElementRef;
-  @ViewChild('last') lastNameInput: ElementRef;
 
   updateClasses1(): void {
     this.firstNameClasses1 = this.firstNameInput.nativeElement.classList.value;
@@ -125,5 +120,4 @@ export class Page2Component {
     this.firstNameClasses2 = this.firstNameInput.nativeElement.classList.value;
     this.lastNameClasses2 = this.lastNameInput.nativeElement.classList.value;
   }
-
 }

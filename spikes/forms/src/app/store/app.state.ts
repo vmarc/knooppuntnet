@@ -1,7 +1,6 @@
-import {ActionReducerMap} from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 
-export interface AppState {
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AppState {}
 
-export const reducers: ActionReducerMap<AppState> = {
-};
+export const reducers: ActionReducerMap<AppState> = {};

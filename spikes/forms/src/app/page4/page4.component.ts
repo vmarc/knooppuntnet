@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {ChangeDetectorRef} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {FormControl} from '@angular/forms';
-import {Validators} from '@angular/forms';
-import {Util} from '../shared/util';
-import {MessageService} from '../shared/message.service';
-import {MatRadioChange} from '@angular/material/radio';
+import { Component } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { Util } from '../shared/util';
+import { MessageService } from '../shared/message.service';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-page4',
@@ -15,15 +15,13 @@ import {MatRadioChange} from '@angular/material/radio';
     <app-menu></app-menu>
 
     <form [formGroup]="form">
-
       <div class="fields">
-
         <label>First name</label>
-        <input ourOwnInput #first [formControl]="firstName">
+        <input appInput #first [formControl]="firstName" />
         <app-field-errors [control]="firstName"></app-field-errors>
 
         <label>Last name</label>
-        <input ourOwnInput #last [formControl]="lastName">
+        <input appInput #last [formControl]="lastName" />
         <app-field-errors [control]="lastName"></app-field-errors>
       </div>
 
@@ -39,49 +37,46 @@ import {MatRadioChange} from '@angular/material/radio';
       <app-sub-2 *ngIf="sub === 'sub2'"></app-sub-2>
       <app-sub-3 *ngIf="sub === 'sub3'"></app-sub-3>
 
-      <button mat-raised-button (click)="submit()" color="primary">Submit</button>
+      <button mat-raised-button (click)="submit()" color="primary">
+        Submit
+      </button>
     </form>
 
     <div class="debug">
-      <p>
-        Debug:
-      </p>
+      <p>Debug:</p>
       <ul>
-        <li>form.valid = {{form.valid}}</li>
-        <li>form.errors = {{util.json(form.errors)}}</li>
-        <li>
-          form.controls = {{controlNames()}}
-        </li>
+        <li>form.valid = {{ form.valid }}</li>
+        <li>form.errors = {{ util.json(form.errors) }}</li>
+        <li>form.controls = {{ controlNames() }}</li>
       </ul>
     </div>
   `,
-  styles: [`
+  styles: [
+    `
+      .select-sub {
+        margin: 1em;
+      }
 
-    .select-sub {
-      margin: 1em;
-    }
+      mat-radio-group :not(:last-child) {
+        padding-right: 1em;
+      }
 
-    mat-radio-group :not(:last-child) {
-      padding-right: 1em;
-    }
+      button {
+        margin-top: 1em;
+      }
 
-    button {
-      margin-top: 1em;
-    }
+      form {
+        padding-top: 2em;
+      }
 
-    form {
-      padding-top: 2em;
-    }
-
-    .debug {
-      padding-top: 4em;
-      font-family: monospace;
-    }
-
-  `]
+      .debug {
+        padding-top: 4em;
+        font-family: monospace;
+      }
+    `,
+  ],
 })
 export class Page4Component {
-
   readonly util = Util;
   readonly firstName = new FormControl('', Validators.required);
   readonly lastName = new FormControl('', Validators.required);
@@ -93,9 +88,10 @@ export class Page4Component {
 
   sub = 'sub1';
 
-  constructor(private messageService: MessageService,
-              private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    private messageService: MessageService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   submit(): void {
     if (this.form.valid) {
@@ -124,5 +120,4 @@ export class Page4Component {
     }
     return controls.join(', ');
   }
-
 }
