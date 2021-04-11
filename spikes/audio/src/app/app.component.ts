@@ -1,61 +1,70 @@
-import {Component, OnInit} from "@angular/core";
-import {Range} from "immutable";
-import {MatRadioChange} from "@angular/material/radio";
+import { Component, OnInit } from '@angular/core';
+import { Range } from 'immutable';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   template: `
     <div class="actions">
       <button mat-stroked-button (click)="one()">One</button>
       <button mat-stroked-button (click)="two()">Two</button>
       <button mat-stroked-button (click)="ten()">Ten</button>
-      <button mat-stroked-button (click)="startCounting()">Start counting</button>
+      <button mat-stroked-button (click)="startCounting()">
+        Start counting
+      </button>
       <button mat-stroked-button (click)="stopCounting()">Stop counting</button>
-      <mat-radio-group value="1000" (change)="delayChanged($event)" class="delay">
+      <mat-radio-group
+        value="1000"
+        (change)="delayChanged($event)"
+        class="delay"
+      >
         <mat-radio-button value="1000">1 second</mat-radio-button>
         <mat-radio-button value="10000">10 seconds</mat-radio-button>
         <mat-radio-button value="600000">1 minute</mat-radio-button>
       </mat-radio-group>
     </div>
-  `, styles: [`
+  `,
+  styles: [
+    `
+      .actions {
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-    .actions {
-      margin: 1em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+      .actions button {
+        width: 15em;
+        margin: 0.5em;
+      }
 
-    .actions button {
-      width: 15em;
-      margin: 0.5em;
-    }
+      .delay {
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+      }
 
-    .delay {
-      margin: 1em;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .delay mat-radio-button {
-      margin: 0.3em;
-    }
-  `]
+      .delay mat-radio-button {
+        margin: 0.3em;
+      }
+    `,
+  ],
 })
 export class AppComponent implements OnInit {
-
   countingDelay = 1000;
   private numberClips: HTMLAudioElement[];
   private currentClipIndex = 0;
   private countingInterval: number = null;
 
   ngOnInit(): void {
-    this.numberClips = Range(1, 10 + 1).map(name => {
-      let audio = new Audio();
-      audio.src = `/assets/${name}.mp3`;
-      audio.load();
-      return audio;
-    }).toArray();
+    this.numberClips = Range(1, 10 + 1)
+      .map((name) => {
+        let audio = new Audio();
+        audio.src = `/assets/${name}.mp3`;
+        audio.load();
+        return audio;
+      })
+      .toArray();
   }
 
   one(): void {
@@ -74,16 +83,13 @@ export class AppComponent implements OnInit {
     this.stopCounting();
     this.currentClipIndex = 0;
     this.play(this.currentClipIndex);
-    this.countingInterval = setInterval(
-      () => {
-        this.currentClipIndex++;
-        if (this.currentClipIndex > this.numberClips.length) {
-          this.currentClipIndex = 0;
-        }
-        this.play(this.currentClipIndex);
-      },
-      this.countingDelay
-    );
+    this.countingInterval = setInterval(() => {
+      this.currentClipIndex++;
+      if (this.currentClipIndex > this.numberClips.length) {
+        this.currentClipIndex = 0;
+      }
+      this.play(this.currentClipIndex);
+    }, this.countingDelay);
   }
 
   stopCounting(): void {
@@ -101,5 +107,4 @@ export class AppComponent implements OnInit {
   private play(clipNumber: number): void {
     this.numberClips[clipNumber].play();
   }
-
 }
