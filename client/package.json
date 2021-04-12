@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -50,7 +50,7 @@
     "ngx-clipboard": "^14.0.1",
     "ngx-i18nsupport": "^0.17.1",
     "ngx-markdown": "11.0.1",
-    "ol": "^6.5.1-dev.1611925430698",
+    "ol": "^6.5.1-dev.1617840589399",
     "ol-geocoder": "4.1.2",
     "qrious": "^4.0.2",
     "canvg": "^1.5.3",

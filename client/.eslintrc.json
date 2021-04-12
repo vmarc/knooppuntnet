@@ -17,15 +17,7 @@
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates"
-      ],
-      "rules": {
-        "max-len": [
-          "error",
-          {
-            "code": 180 // default max-len is 140
-          }
-        ]
-      }
+      ]
     },
     {
       "files": [
