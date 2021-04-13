@@ -87,17 +87,13 @@ export class MonitorRouteChangeMapComponent
 
   private buildReferenceLayer(): MapLayer {
     const layerStyle = this.fixedStyle('blue', 4);
-    const styleFunction = function (feature) {
-      return layerStyle;
-    };
-
     const features = new GeoJSON().readFeatures(this.referenceJson, {
       featureProjection: 'EPSG:3857',
     });
     const layer = new VectorLayer({
       zIndex: 50,
       source: new VectorSource({ features }),
-      style: styleFunction,
+      style: (feature) => layerStyle,
     });
 
     layer.set('name', 'GPX reference');
@@ -106,11 +102,6 @@ export class MonitorRouteChangeMapComponent
 
   private buildNokSegmentLayer(): MapLayer {
     const layerStyle = this.fixedStyle('red', 4);
-
-    const styleFunction = function (feature) {
-      return layerStyle;
-    };
-
     const features = new GeoJSON().readFeatures(this.nokSegment.geoJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -118,7 +109,7 @@ export class MonitorRouteChangeMapComponent
     const layer = new VectorLayer({
       zIndex: 70,
       source: new VectorSource({ features }),
-      style: styleFunction,
+      style: (feature) => layerStyle,
     });
     layer.set('name', 'Not OK segment');
     return new MapLayer('not-ok-layer', layer);
@@ -126,10 +117,6 @@ export class MonitorRouteChangeMapComponent
 
   private buildOsmRelationLayer(): MapLayer {
     const thickStyle = this.fixedStyle('yellow', 10);
-    const styleFunction = function (feature) {
-      return thickStyle;
-    };
-
     const features = [];
     this.routeSegments.forEach((segment) => {
       new GeoJSON()
@@ -143,7 +130,7 @@ export class MonitorRouteChangeMapComponent
     const layer = new VectorLayer({
       zIndex: 40,
       source: new VectorSource({ features }),
-      style: styleFunction,
+      style: (feature) => thickStyle,
     });
     layer.set('name', 'OSM Relation');
     return new MapLayer('osm-relation-layer', layer);

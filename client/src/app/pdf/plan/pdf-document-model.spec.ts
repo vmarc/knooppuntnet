@@ -1,9 +1,9 @@
-import { PdfPlanNode } from './pdf-plan-node';
 import { List } from 'immutable';
 import { PdfDocumentModel } from './pdf-document-model';
+import { PdfPlanNode } from './pdf-plan-node';
 
 describe('PdfDocumentModel', () => {
-  function createModel(nodeCount: number): PdfDocumentModel {
+  const createModel = (nodeCount: number): PdfDocumentModel => {
     const nodes = new Array<PdfPlanNode>();
     for (let i = 0; i < nodeCount; i++) {
       const nodeName = (i + 1).toString();
@@ -12,7 +12,7 @@ describe('PdfDocumentModel', () => {
       nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance));
     }
     return new PdfDocumentModel(List(nodes));
-  }
+  };
 
   it('pageCount', () => {
     expect(createModel(1).pageCount()).toEqual(1);

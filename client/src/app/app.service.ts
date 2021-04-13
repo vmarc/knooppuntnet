@@ -67,7 +67,7 @@ export class AppService {
       `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
   }
 
-  edit(url: string): Observable<Object> {
+  edit(url: string): Observable<string> {
     return this.http.get(url, { responseType: 'text' }).pipe(timeout(5000));
   }
 

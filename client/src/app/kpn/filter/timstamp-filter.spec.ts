@@ -5,6 +5,30 @@ import { TimestampFilter } from './timestamp-filter';
 import { TimestampFilterKind } from './timestamp-filter-kind';
 
 describe('TimestampFilter', () => {
+  const doNothing = (): void => {};
+
+  const buildFilter = (
+    kind: TimestampFilterKind
+  ): TimestampFilter<Timestamp> => {
+    const timeInfo = new TimeInfo(
+      new Timestamp(2020, 5, 7, 0, 0, 0),
+      new Timestamp(2020, 5, 1, 0, 0, 0),
+      new Timestamp(2020, 4, 7, 0, 0, 0),
+      new Timestamp(2019, 5, 7, 0, 0, 0)
+    );
+
+    return new TimestampFilter(
+      kind,
+      (arg: Timestamp) => arg,
+      timeInfo,
+      doNothing,
+      doNothing,
+      doNothing,
+      doNothing,
+      doNothing
+    );
+  };
+
   it('last week', () => {
     const filter = buildFilter(TimestampFilterKind.lastWeek);
 
@@ -70,26 +94,4 @@ describe('TimestampFilter', () => {
     expect(filterOptionGroup.options.get(3).count).toEqual(0); // last year
     expect(filterOptionGroup.options.get(4).count).toEqual(1); // older
   });
-
-  function doNothing(): void {}
-
-  function buildFilter(kind: TimestampFilterKind): TimestampFilter<Timestamp> {
-    const timeInfo = new TimeInfo(
-      new Timestamp(2020, 5, 7, 0, 0, 0),
-      new Timestamp(2020, 5, 1, 0, 0, 0),
-      new Timestamp(2020, 4, 7, 0, 0, 0),
-      new Timestamp(2019, 5, 7, 0, 0, 0)
-    );
-
-    return new TimestampFilter(
-      kind,
-      (arg: Timestamp) => arg,
-      timeInfo,
-      doNothing,
-      doNothing,
-      doNothing,
-      doNothing,
-      doNothing
-    );
-  }
 });

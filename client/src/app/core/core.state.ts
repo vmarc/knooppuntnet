@@ -24,11 +24,10 @@ export const reducers: ActionReducerMap<AppState> = {
   router: routerReducer,
 };
 
-export function localStorageSyncReducer(
+export const localStorageSyncReducer = (
   reducer: ActionReducer<any>
-): ActionReducer<any> {
-  return localStorageSync({ keys: ['preferences'], rehydrate: true })(reducer);
-}
+): ActionReducer<any> =>
+  localStorageSync({ keys: ['preferences'], rehydrate: true })(reducer);
 
 export const metaReducers: MetaReducer<AppState>[] = [localStorageSyncReducer];
 

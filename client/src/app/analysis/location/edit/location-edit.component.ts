@@ -202,7 +202,7 @@ export class LocationEditComponent implements OnInit {
     }
   }
 
-  buildSetBounds(): Observable<Object> {
+  buildSetBounds(): Observable<string> {
     if (this.page.nodeIds.length > 0) {
       const zoomUrl =
         this.josmUrl +
@@ -237,7 +237,7 @@ export class LocationEditComponent implements OnInit {
     this.timeout$.next(false);
   }
 
-  private buildNodeEdits(): Observable<Object>[] {
+  private buildNodeEdits(): Observable<string>[] {
     if (!this.nodeSelection) {
       return [];
     }
@@ -256,7 +256,7 @@ export class LocationEditComponent implements OnInit {
     });
   }
 
-  private buildRouteEdits(): Observable<Object>[] {
+  private buildRouteEdits(): Observable<string>[] {
     if (!this.routeRelationsSelection || this.fullRouteSelection) {
       return [];
     }
@@ -279,7 +279,7 @@ export class LocationEditComponent implements OnInit {
     });
   }
 
-  private buildFullRouteEdits(): Observable<Object>[] {
+  private buildFullRouteEdits(): Observable<string>[] {
     if (!this.fullRouteSelection) {
       return [];
     }

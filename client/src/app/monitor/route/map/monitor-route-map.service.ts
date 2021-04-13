@@ -193,42 +193,28 @@ export class MonitorRouteMapService {
 
   private buildGpxLayer(): VectorLayer {
     const layerStyle = this.fixedStyle('blue', 4);
-    const styleFunction = function (feature) {
-      return layerStyle;
-    };
-
     return new VectorLayer({
       zIndex: 50,
       source: new VectorSource(),
-      style: styleFunction,
+      style: (feature) => layerStyle,
     });
   }
 
   private buildGpxOkLayer(): VectorLayer {
     const layerStyle = this.fixedStyle('green', 4);
-
-    const styleFunction = function (feature) {
-      return layerStyle;
-    };
-
     return new VectorLayer({
       zIndex: 60,
       source: new VectorSource(),
-      style: styleFunction,
+      style: (feature) => layerStyle,
     });
   }
 
   private buildGpxNokLayer(): VectorLayer {
     const layerStyle = this.fixedStyle('red', 4);
-
-    const styleFunction = function (feature) {
-      return layerStyle;
-    };
-
     return new VectorLayer({
       zIndex: 70,
       source: new VectorSource(),
-      style: styleFunction,
+      style: (feature) => layerStyle,
     });
   }
 
@@ -236,7 +222,8 @@ export class MonitorRouteMapService {
     const self = this;
     const thinStyle = this.fixedStyle('yellow', 4);
     const thickStyle = this.fixedStyle('yellow', 10);
-    const styleFunction = function (feature) {
+
+    const styleFunction = (feature) => {
       if (self.mode === 'osm-segments') {
         const segmentId = feature.get('segmentId');
         return self.styleForSegmentId(segmentId);
@@ -244,7 +231,6 @@ export class MonitorRouteMapService {
       if (self.gpxTraceAvailable) {
         return thickStyle;
       }
-
       return thinStyle;
     };
 

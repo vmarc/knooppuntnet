@@ -10,6 +10,7 @@ export class NetworkNodeDetail {
   constructor(
     readonly id: number,
     readonly name: string,
+    // eslint-disable-next-line id-blacklist
     readonly number: string,
     readonly latitude: string,
     readonly longitude: string,

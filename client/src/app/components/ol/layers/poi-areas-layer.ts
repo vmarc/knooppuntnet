@@ -25,13 +25,9 @@ export class PoiAreasLayer {
       }),
     });
 
-    const styleFunction = function (feature) {
-      return lineStyle;
-    };
-
     const layer = new VectorLayer({
       source: vectorSource,
-      style: styleFunction,
+      style: (feature) => lineStyle,
     });
 
     const layerName = this.i18nService.translation('@@map.layer.poi-areas');

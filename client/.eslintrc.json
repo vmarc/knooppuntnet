@@ -16,8 +16,21 @@
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/ng-cli-compat",
         "plugin:@angular-eslint/template/process-inline-templates"
-      ]
+      ],
+      "rules": {
+        "no-underscore-dangle": "off",
+        "@typescript-eslint/dot-notation": "off",
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "kpn",
+            "style": "kebab-case"
+          }
+        ]
+      }
     },
     {
       "files": [

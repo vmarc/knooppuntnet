@@ -7,6 +7,12 @@ describe('ColourTranslator', () => {
     ['red', 'rood'],
   ]);
 
+  const expectTranslation = (source: string, expected: string) => {
+    expect(new ColourTranslator(translations).translate(source)).toEqual(
+      expected
+    );
+  };
+
   it('translate', () => {
     expectTranslation('white', 'wit');
     expectTranslation('red', 'rood');
@@ -16,10 +22,4 @@ describe('ColourTranslator', () => {
     expectTranslation('red-blue', 'rood-blue');
     expectTranslation('white-red;red-blue', 'wit-rood / rood-blue');
   });
-
-  function expectTranslation(source: string, expected: string) {
-    expect(new ColourTranslator(translations).translate(source)).toEqual(
-      expected
-    );
-  }
 });

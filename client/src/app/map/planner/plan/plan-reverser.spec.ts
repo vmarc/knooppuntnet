@@ -133,28 +133,7 @@ describe('PlanReverser', () => {
     });
   });
 
-  it('reverse plan with single via-route leg', () => {
-    const setup = new PlannerTestSetup();
-
-    buildExpectedSingleViaRouteLeg(setup);
-    const oldPlan = buildSingleViaRoutePlan(setup);
-
-    new PlanReverser(setup.context).reverse(oldPlan).subscribe((newPlan) => {
-      expect(newPlan.sourceNode.nodeId).toEqual('1003');
-      expectStartFlagCoordinate(newPlan.sourceFlag, [3, 3]);
-
-      expect(newPlan.legs.size).toEqual(1);
-      const leg = newPlan.legs.get(0);
-      expect(leg.source.node.nodeId).toEqual(1003);
-      expect(leg.sink.route.trackPathKeys.length).toEqual(1);
-      expect(leg.sink.route.trackPathKeys[0].routeId).toEqual(10);
-      expect(leg.sink.route.trackPathKeys[0].pathId).toEqual(1);
-      expectViaFlagCoordinate(leg.viaFlag, [2, 2]);
-      expectEndFlagCoordinate(leg.sinkFlag, [1, 1]);
-    });
-  });
-
-  function buildExpectedSingleViaRouteLeg(setup: PlannerTestSetup): void {
+  const buildExpectedSingleViaRouteLeg = (setup: PlannerTestSetup): void => {
     const sourceNode = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
     const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
 
@@ -166,9 +145,9 @@ describe('PlanReverser', () => {
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
-  }
+  };
 
-  function buildSingleViaRoutePlan(setup: PlannerTestSetup): Plan {
+  const buildSingleViaRoutePlan = (setup: PlannerTestSetup): Plan => {
     const sourceNode = setup.node1;
     const viaNode = setup.node2;
     const sinkNode = setup.node3;
@@ -209,37 +188,30 @@ describe('PlanReverser', () => {
     setup.routeLayer.addPlanLeg(leg);
 
     return oldPlan;
-  }
+  };
 
-  it('reverse plan with node-to-node leg and via-route leg', () => {
+  it('reverse plan with single via-route leg', () => {
     const setup = new PlannerTestSetup();
-    buildExpectedViaRouteLeg(setup);
-    buildExpectedNodeToNodeLeg(setup);
-    const oldPlan = buildPlan(setup);
+
+    buildExpectedSingleViaRouteLeg(setup);
+    const oldPlan = buildSingleViaRoutePlan(setup);
 
     new PlanReverser(setup.context).reverse(oldPlan).subscribe((newPlan) => {
-      expect(newPlan.sourceNode.nodeId).toEqual('1004');
-      expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
+      expect(newPlan.sourceNode.nodeId).toEqual('1003');
+      expectStartFlagCoordinate(newPlan.sourceFlag, [3, 3]);
 
-      expect(newPlan.legs.size).toEqual(2);
-
-      const leg1 = newPlan.legs.get(0);
-      expect(leg1.source.node.nodeId).toEqual(1004);
-      expect(leg1.sink.route.trackPathKeys.length).toEqual(1);
-      expect(leg1.sink.route.trackPathKeys[0].routeId).toEqual(10);
-      expect(leg1.sink.route.trackPathKeys[0].pathId).toEqual(1);
-      expectViaFlagCoordinate(leg1.viaFlag, [3, 3]);
-      expectInvisibleFlagCoordinate(leg1.sinkFlag, [2, 2]);
-
-      const leg2 = newPlan.legs.get(1);
-      expect(leg2.source.node.nodeId).toEqual(1002);
-      expect(leg2.sink.node.nodeId).toEqual(1001);
-      expect(leg2.viaFlag).toEqual(null);
-      expectEndFlagCoordinate(leg2.sinkFlag, [1, 1]);
+      expect(newPlan.legs.size).toEqual(1);
+      const leg = newPlan.legs.get(0);
+      expect(leg.source.node.nodeId).toEqual(1003);
+      expect(leg.sink.route.trackPathKeys.length).toEqual(1);
+      expect(leg.sink.route.trackPathKeys[0].routeId).toEqual(10);
+      expect(leg.sink.route.trackPathKeys[0].pathId).toEqual(1);
+      expectViaFlagCoordinate(leg.viaFlag, [2, 2]);
+      expectEndFlagCoordinate(leg.sinkFlag, [1, 1]);
     });
   });
 
-  function buildExpectedViaRouteLeg(setup: PlannerTestSetup): void {
+  const buildExpectedViaRouteLeg = (setup: PlannerTestSetup): void => {
     const sourceNode = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
     const sinkNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
@@ -249,9 +221,9 @@ describe('PlanReverser', () => {
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
-  }
+  };
 
-  function buildExpectedNodeToNodeLeg(setup: PlannerTestSetup): void {
+  const buildExpectedNodeToNodeLeg = (setup: PlannerTestSetup): void => {
     const sourceNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
     const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
@@ -261,9 +233,9 @@ describe('PlanReverser', () => {
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
-  }
+  };
 
-  function buildPlan(setup: PlannerTestSetup): Plan {
+  const buildPlan = (setup: PlannerTestSetup): Plan => {
     /*
       1  -----  2  --via3--  4
     */
@@ -302,5 +274,33 @@ describe('PlanReverser', () => {
     setup.routeLayer.addPlanLeg(leg);
 
     return oldPlan;
-  }
+  };
+
+  it('reverse plan with node-to-node leg and via-route leg', () => {
+    const setup = new PlannerTestSetup();
+    buildExpectedViaRouteLeg(setup);
+    buildExpectedNodeToNodeLeg(setup);
+    const oldPlan = buildPlan(setup);
+
+    new PlanReverser(setup.context).reverse(oldPlan).subscribe((newPlan) => {
+      expect(newPlan.sourceNode.nodeId).toEqual('1004');
+      expectStartFlagCoordinate(newPlan.sourceFlag, [4, 4]);
+
+      expect(newPlan.legs.size).toEqual(2);
+
+      const leg1 = newPlan.legs.get(0);
+      expect(leg1.source.node.nodeId).toEqual(1004);
+      expect(leg1.sink.route.trackPathKeys.length).toEqual(1);
+      expect(leg1.sink.route.trackPathKeys[0].routeId).toEqual(10);
+      expect(leg1.sink.route.trackPathKeys[0].pathId).toEqual(1);
+      expectViaFlagCoordinate(leg1.viaFlag, [3, 3]);
+      expectInvisibleFlagCoordinate(leg1.sinkFlag, [2, 2]);
+
+      const leg2 = newPlan.legs.get(1);
+      expect(leg2.source.node.nodeId).toEqual(1002);
+      expect(leg2.sink.node.nodeId).toEqual(1001);
+      expect(leg2.viaFlag).toEqual(null);
+      expectEndFlagCoordinate(leg2.sinkFlag, [1, 1]);
+    });
+  });
 });
