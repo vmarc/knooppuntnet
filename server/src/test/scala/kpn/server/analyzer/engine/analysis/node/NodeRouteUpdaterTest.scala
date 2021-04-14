@@ -86,11 +86,11 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(Seq())
+      nodeRouteRepository.nodeRoutes(NetworkType.hiking) shouldBe empty
 
       nodeRouteUpdater.update()
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
+      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
         Seq(
           NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 2), // route 01-02 and 01-03
           NodeRoute(1002, "02", NetworkType.hiking, Seq(), 2, 1), // route 01-02
@@ -105,7 +105,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       nodeRouteUpdater.update()
 
       // route 01-03 [id=12] disappears from actual route count for node 1001 and 1003
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
+      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
         Seq(
           NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 1), // route 01-02
           NodeRoute(1002, "02", NetworkType.hiking, Seq(), 2, 1), // route 01-02
@@ -121,7 +121,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       nodeRouteUpdater.update()
 
       // no more NodeRoute document for nodes 1002 and 1004
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
+      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
         Seq(
           NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 1), // route 01-02
           NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 0)
@@ -138,7 +138,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       nodeRouteRepository.save(NodeRoute(1001, "01", NetworkType.hiking, Seq(), 4, 3))
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(
+      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
         Seq(
           NodeRoute(1001, "01", NetworkType.hiking, Seq(), 4, 3)
         )
@@ -146,7 +146,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       nodeRouteUpdater.update()
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should equal(Seq())
+      nodeRouteRepository.nodeRoutes(NetworkType.hiking) shouldBe empty
     }
   }
 }

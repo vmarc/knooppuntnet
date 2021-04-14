@@ -116,7 +116,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(ReplicationId(0, 0, 1), newChangeSet(), changes)
 
-    locationChangeSetSummary should equal(
+    locationChangeSetSummary should matchTo(
       LocationChangeSetSummary(
         key = newChangeKey(),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
@@ -249,7 +249,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(ReplicationId(0, 0, 1), newChangeSet(), changes)
 
-    locationChangeSetSummary should equal(
+    locationChangeSetSummary should matchTo(
       LocationChangeSetSummary(
         key = newChangeKey(),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),

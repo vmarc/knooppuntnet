@@ -22,7 +22,7 @@ class OverviewTest extends UnitTest {
       b.network(2, Subset.nlHiking, meters = 21, nodeCount = 22, routeCount = 23)
       b.network(3, Subset.deBicycle, meters = 31, nodeCount = 32, routeCount = 33)
 
-      queryRows(database) should equal(
+      queryRows(database) should matchTo(
         Seq(
           Figure("MeterCount", 63, Map(Subset.deBicycle -> 31, Subset.nlHiking -> 32)),
           Figure("NetworkCount", 3, Map(Subset.deBicycle -> 1, Subset.nlHiking -> 2)),
@@ -101,7 +101,7 @@ class OverviewTest extends UnitTest {
       b.network(1, Subset.nlHiking, meters = 11, nodeCount = 12, routeCount = 13, active = false)
       b.network(2, Subset.nlHiking, meters = 21, nodeCount = 22, routeCount = 23)
 
-      queryRows(database) should equal(
+      queryRows(database) should matchTo(
         Seq(
           Figure("MeterCount", 21, Map(Subset.nlHiking -> 21)),
           Figure("NetworkCount", 1, Map(Subset.nlHiking -> 1)),
@@ -122,7 +122,7 @@ class OverviewTest extends UnitTest {
       b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true)
       b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true)
 
-      queryRows(database) should equal(
+      queryRows(database) should matchTo(
         Seq(
           Figure("OrphanNodeCount", 3, Map(Subset.nlBicycle -> 1, Subset.nlHiking -> 2))
         )
@@ -140,7 +140,7 @@ class OverviewTest extends UnitTest {
       b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true, active = false)
       b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true, active = false)
 
-      queryRows(database) should equal(
+      queryRows(database) should matchTo(
         Seq(
           Figure("OrphanNodeCount", 1, Map(Subset.nlHiking -> 1))
         )

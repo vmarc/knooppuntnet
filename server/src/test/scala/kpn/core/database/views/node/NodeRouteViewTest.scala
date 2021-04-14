@@ -22,7 +22,7 @@ class NodeRouteViewTest extends UnitTest with SharedTestObjects {
 
       val nodeRoutes = NodeRouteView.query(database, NetworkType.hiking, stale = false)
 
-      nodeRoutes should equal(
+      nodeRoutes should matchTo(
         Seq(
           NodeRoute(1001, "01", NetworkType.hiking, Seq(), 2, 3),
           NodeRoute(1002, "02", NetworkType.hiking, Seq(), 4, 5),

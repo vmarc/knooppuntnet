@@ -12,10 +12,10 @@ class RedundantNodeTest extends UnitTest {
 
     val route = CaseStudy.routeAnalysis("2614657").route
 
-    route.facts.contains(RouteRedundantNodes) should equal(true)
+    route.facts should contain(RouteRedundantNodes)
 
-    route.facts.contains(RouteNotBackward) should equal(false)
-    route.facts.contains(RouteNotForward) should equal(false)
-    route.facts.contains(RouteNotContinious) should equal(false)
+    route.facts should not contain(RouteNotBackward)
+    route.facts should not contain(RouteNotForward)
+    route.facts should not contain(RouteNotContinious)
   }
 }

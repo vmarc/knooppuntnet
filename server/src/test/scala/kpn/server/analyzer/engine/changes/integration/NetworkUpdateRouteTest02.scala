@@ -105,7 +105,7 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             networkChanges = NetworkChanges(
@@ -142,7 +142,7 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
       where { networkChange: NetworkChange =>
-        networkChange should equal(
+        networkChange should matchTo(
           newNetworkChange(
             newChangeKey(elementId = 1),
             ChangeType.Update,
@@ -224,7 +224,7 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
           )
         )
 
-        routeChange should equal(
+        routeChange should matchTo(
           newRouteChange(
             newChangeKey(elementId = 11),
             ChangeType.Update,

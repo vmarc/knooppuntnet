@@ -27,19 +27,19 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      LocationView.query(database, "node", NetworkType.cycling, "country", stale = false) should equal(
+      LocationView.query(database, "node", NetworkType.cycling, "country", stale = false) should matchTo(
         Seq(
           Ref(1001, "01")
         )
       )
 
-      LocationView.query(database, "node", NetworkType.cycling, "province", stale = false) should equal(
+      LocationView.query(database, "node", NetworkType.cycling, "province", stale = false) should matchTo(
         Seq(
           Ref(1001, "01")
         )
       )
 
-      LocationView.query(database, "node", NetworkType.cycling, "municipality", stale = false) should equal(
+      LocationView.query(database, "node", NetworkType.cycling, "municipality", stale = false) should matchTo(
         Seq(
           Ref(1001, "01")
         )
@@ -96,40 +96,40 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
         LocationView.query(database, "route", NetworkType.hiking, locationName, stale = false)
       }
 
-      query("country") should equal(
+      query("country") should matchTo(
         Seq(
           Ref(11, "01-02"),
           Ref(12, "02-03")
         )
       )
 
-      query("province1") should equal(
+      query("province1") should matchTo(
         Seq(
           Ref(11, "01-02"),
           Ref(12, "02-03")
         )
       )
 
-      query("province2") should equal(
+      query("province2") should matchTo(
         Seq(
           Ref(11, "01-02")
         )
       )
 
-      query("municipality1") should equal(
+      query("municipality1") should matchTo(
         Seq(
           Ref(11, "01-02"),
           Ref(12, "02-03")
         )
       )
 
-      query("municipality2") should equal(
+      query("municipality2") should matchTo(
         Seq(
           Ref(11, "01-02")
         )
       )
 
-      query("municipality3") should equal(
+      query("municipality3") should matchTo(
         Seq(
           Ref(11, "01-02")
         )

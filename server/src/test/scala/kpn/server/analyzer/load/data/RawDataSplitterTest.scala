@@ -65,8 +65,8 @@ class RawDataSplitterTest extends UnitTest with SharedTestObjects {
       val rawData = new RawDataSplitter(log).extractRelation(d, 2)
       log.messages should be(empty)
 
-      rawData.nodes.map(_.id) should equal(Seq())
-      rawData.ways.map(_.id) should equal(Seq())
+      rawData.nodes.map(_.id) shouldBe empty
+      rawData.ways.map(_.id) shouldBe empty
       rawData.relations.map(_.id) should equal(Seq(2))
     }
   }

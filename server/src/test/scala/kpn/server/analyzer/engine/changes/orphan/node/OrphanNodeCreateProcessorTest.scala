@@ -28,7 +28,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
         nodeInfo.id should equal(d.loadedNode.id)
         nodeInfo.orphan should equal(true)
         nodeInfo.name should equal(d.loadedNode.name)
-        nodeInfo.facts should equal(Seq())
+        nodeInfo.facts shouldBe empty
         true
       }
     )

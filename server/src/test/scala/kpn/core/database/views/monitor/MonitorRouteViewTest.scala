@@ -22,7 +22,7 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
       groupRepository.saveGroup(group2)
       groupRepository.saveGroup(group3)
 
-      MonitorRouteView.groups(database, stale = false) should equal(
+      MonitorRouteView.groups(database, stale = false) should matchTo(
         Seq(
           group1,
           group2,
@@ -45,8 +45,8 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRoute(route2)
       routeRepository.saveRoute(route3)
 
-      MonitorRouteView.groupRoutes(database, "group-1", stale = false) should equal(Seq(route1, route2))
-      MonitorRouteView.groupRoutes(database, "group-2", stale = false) should equal(Seq(route3))
+      MonitorRouteView.groupRoutes(database, "group-1", stale = false) should matchTo(Seq(route1, route2))
+      MonitorRouteView.groupRoutes(database, "group-2", stale = false) should matchTo(Seq(route3))
     }
   }
 

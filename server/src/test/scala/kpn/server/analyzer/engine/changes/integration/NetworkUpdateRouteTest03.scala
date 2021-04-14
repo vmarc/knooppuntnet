@@ -88,7 +88,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.analysisRepository.saveRoute _).verify(
       where { routeInfo: RouteInfo =>
-        routeInfo should equal(
+        routeInfo should matchTo(
           newRouteInfo(
             newRouteSummary(
               12,
@@ -109,7 +109,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should equal(
+        nodeInfo.copy(tiles = Seq()) should matchTo(
           newNodeInfo(
             1003,
             active = false,
@@ -124,7 +124,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             networkChanges = NetworkChanges(
@@ -157,7 +157,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
       where { networkChange: NetworkChange =>
-        networkChange should equal(
+        networkChange should matchTo(
           newNetworkChange(
             newChangeKey(elementId = 1),
             ChangeType.Update,
@@ -212,7 +212,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.changeSetRepository.saveRouteChange _).verify(
       where { routeChange: RouteChange =>
-        routeChange should equal(
+        routeChange should matchTo(
           newRouteChange(
             newChangeKey(elementId = 12),
             ChangeType.Delete,
@@ -261,7 +261,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
           case 1002 =>
 
-            nodeChange should equal(
+            nodeChange should matchTo(
               newNodeChange(
                 key = newChangeKey(elementId = 1002),
                 changeType = ChangeType.Update,
@@ -282,7 +282,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
           case 1003 =>
 
-            nodeChange should equal(
+            nodeChange should matchTo(
               newNodeChange(
                 key = newChangeKey(elementId = 1003),
                 changeType = ChangeType.Delete,

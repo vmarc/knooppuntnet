@@ -61,9 +61,9 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
         accessible = true
       )
 
-      query("country") should equal(Seq(expectedRouteInfo))
-      query("province") should equal(Seq(expectedRouteInfo))
-      query("municipality") should equal(Seq(expectedRouteInfo))
+      query("country") should matchTo(Seq(expectedRouteInfo))
+      query("province") should matchTo(Seq(expectedRouteInfo))
+      query("municipality") should matchTo(Seq(expectedRouteInfo))
 
       queryCount("country") should equal(1)
       queryCount("province") should equal(1)
@@ -75,7 +75,7 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
       val key = LocationKey(NetworkType.hiking, Country.nl, "unknown")
       val parameters = LocationRoutesParameters()
-      LocationRouteView.query(database, key, parameters, stale = false) should equal(Seq())
+      LocationRouteView.query(database, key, parameters, stale = false) shouldBe empty
       LocationRouteView.queryCount(database, key, stale = false) should equal(0)
     }
   }

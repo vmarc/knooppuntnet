@@ -35,8 +35,8 @@ class Issue109_SplitNodeRoute extends UnitTest {
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
 
-    routeAnalysis.route.facts should equal(Seq.empty)
-    routeAnalysis.structure.unusedSegments should equal(Seq.empty)
+    routeAnalysis.route.facts shouldBe empty
+    routeAnalysis.structure.unusedSegments shouldBe empty
 
     val paths = routeAnalysis.structure.splitNodePaths
 

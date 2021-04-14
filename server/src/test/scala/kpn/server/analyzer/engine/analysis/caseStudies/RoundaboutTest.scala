@@ -6,6 +6,6 @@ class RoundaboutTest extends UnitTest {
 
   test("roundabout in the middle") {
     val analysis = CaseStudy.routeAnalysis("1193198")
-    analysis.route.facts.isEmpty should equal(true)
+    analysis.route.facts shouldBe empty
   }
 }

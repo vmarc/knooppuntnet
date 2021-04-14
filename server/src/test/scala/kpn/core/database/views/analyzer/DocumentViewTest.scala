@@ -62,7 +62,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
 
-      DocumentView.counts(database, AnalyzerDesign) should equal(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
+      DocumentView.counts(database, AnalyzerDesign) should matchTo(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
     }
   }
 

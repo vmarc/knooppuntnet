@@ -6,11 +6,11 @@ import kpn.core.util.UnitTest
 class LegEndTest extends UnitTest {
 
   test("start node only") {
-    LegEnd.fromPlanString("a") should equal(Seq(LegEnd.node(10)))
+    LegEnd.fromPlanString("a") should matchTo(Seq(LegEnd.node(10)))
   }
 
   test("node-node") {
-    LegEnd.fromPlanString("a-b") should equal(
+    LegEnd.fromPlanString("a-b") should matchTo(
       Seq(
         LegEnd.node(10),
         LegEnd.node(11)
@@ -19,7 +19,7 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-node-node") {
-    LegEnd.fromPlanString("a-b-c") should equal(
+    LegEnd.fromPlanString("a-b-c") should matchTo(
       Seq(
         LegEnd.node(10),
         LegEnd.node(11),
@@ -29,7 +29,7 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-route") {
-    LegEnd.fromPlanString("a-b.1") should equal(
+    LegEnd.fromPlanString("a-b.1") should matchTo(
       Seq(
         LegEnd.node(10),
         LegEnd.route(List(TrackPathKey(11, 1)))
@@ -38,7 +38,7 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-route-node") {
-    LegEnd.fromPlanString("a-b.1-c") should equal(
+    LegEnd.fromPlanString("a-b.1-c") should matchTo(
       Seq(
         LegEnd.node(10),
         LegEnd.route(List(TrackPathKey(11, 1))),
@@ -48,7 +48,7 @@ class LegEndTest extends UnitTest {
   }
 
   test("route-node") {
-    LegEnd.fromPlanString("a.1-b") should equal(
+    LegEnd.fromPlanString("a.1-b") should matchTo(
       Seq(
         LegEnd.route(List(TrackPathKey(10, 1))),
         LegEnd.node(11)
@@ -63,7 +63,7 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-routes") {
-    LegEnd.fromPlanString("a-b.1|c.1") should equal(
+    LegEnd.fromPlanString("a-b.1|c.1") should matchTo(
       Seq(
         LegEnd.node(10),
         LegEnd.route(List(TrackPathKey(11, 1), TrackPathKey(12, 1))),

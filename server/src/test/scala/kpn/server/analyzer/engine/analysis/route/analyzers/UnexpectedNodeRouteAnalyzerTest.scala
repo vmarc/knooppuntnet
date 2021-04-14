@@ -19,7 +19,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
     val context = analyze(d)
 
-    context.facts should equal(Seq())
+    context.facts shouldBe empty
     context.unexpectedNodeIds should equal(Some(Seq()))
   }
 
@@ -66,7 +66,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
     val context = analyze(d)
 
-    context.facts should equal(Seq())
+    context.facts shouldBe empty
     context.unexpectedNodeIds should equal(Some(Seq()))
   }
 

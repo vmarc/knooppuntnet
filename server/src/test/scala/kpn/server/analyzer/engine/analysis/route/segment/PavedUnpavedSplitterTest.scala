@@ -45,7 +45,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should equal(
+    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2)),
         Segment("unpaved", Seq(fragment3, fragment4)),
@@ -56,7 +56,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
   }
 
   test("nothing to split") {
-    PavedUnpavedSplitter.split(Seq()) should equal(Seq())
+    PavedUnpavedSplitter.split(Seq()) shouldBe empty
   }
 
   test("single fragment") {
@@ -76,7 +76,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment1
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should equal(
+    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
       Seq(
         Segment("paved", Seq(fragment1))
       )
@@ -123,7 +123,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should equal(
+    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2, fragment3, fragment4, fragment5))
       )
@@ -170,7 +170,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should equal(
+    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
       Seq(
         Segment("paved", Seq(fragment1)),
         Segment("unpaved", Seq(fragment2)),

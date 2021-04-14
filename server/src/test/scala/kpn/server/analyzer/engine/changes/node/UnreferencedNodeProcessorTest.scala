@@ -48,7 +48,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId))
 
     val nodeChanges = t.processor.process(t.context, candidateUnreferencedNodes)
-    nodeChanges should equal(Seq())
+    nodeChanges shouldBe empty
   }
 
   test("no updates when node is still referenced by orphan route") {
@@ -63,7 +63,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId))
 
     val nodeChanges = t.processor.process(t.context, candidateUnreferencedNodes)
-    nodeChanges should equal(Seq())
+    nodeChanges shouldBe empty
   }
 
   test("unreferenced node for which the 'after' cannot be loaded is marked as non-active") {
@@ -79,12 +79,12 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    val nodeChanges = t.processor.process(t.context, candidateUnreferencedNodes)
     //
-    //    unreferencedNodes.oldOrphanNodes should equal(Seq())
-    //    unreferencedNodes.newOrphanNodes should equal(Seq())
-    //    unreferencedNodes.oldIgnoredNodes should equal(Seq())
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.oldOrphanNodes shouldBe empty
+    //    unreferencedNodes.newOrphanNodes shouldBe empty
+    //    unreferencedNodes.oldIgnoredNodes shouldBe empty
+    //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
     //        NodeChange(
     //          key = t.context.buildChangeKey(nodeId),
@@ -120,7 +120,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    (t.analysisRepository.saveNode _).verify(
     //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
+    //        nodeInfo should matchTo(
     //          NodeInfo(
     //            id = nodeId,
     //            active = false,
@@ -166,11 +166,11 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
     //
     //    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "01")))
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
     //    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(true)
     //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
     //        NodeChange(
     //          key = t.context.buildChangeKey(nodeId),
@@ -223,7 +223,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    (t.analysisRepository.saveNode _).verify(
     //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
+    //        nodeInfo should matchTo(
     //          NodeInfo(
     //            id = nodeId,
     //            active = true,
@@ -276,10 +276,10 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
     //
-    //    unreferencedNodes.newOrphanNodes should equal(Seq())
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.newOrphanNodes shouldBe empty
+    //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
     //        NodeChange(
     //          key = t.context.buildChangeKey(nodeId),
@@ -336,7 +336,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    (t.analysisRepository.saveNode _).verify(
     //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
+    //        nodeInfo should matchTo(
     //          NodeInfo(
     //            id = nodeId,
     //            active = false,
@@ -380,9 +380,9 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
     //
     //    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "55")))
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
     //        NodeChange(
     //          key = t.context.buildChangeKey(nodeId),
@@ -443,7 +443,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    (t.analysisRepository.saveNode _).verify(
     //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
+    //        nodeInfo should matchTo(
     //          NodeInfo(
     //            id = nodeId,
     //            active = true,
@@ -490,15 +490,15 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
     //
-    //    unreferencedNodes.newOrphanNodes should equal(Seq())
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.newOrphanNodes shouldBe empty
+    //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
     //    unreferencedNodes.oldOrphanNodes should equal(Seq(Ref(nodeId, "01")))
-    //    unreferencedNodes.oldIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.oldIgnoredNodes shouldBe empty
     //
     //    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
     //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
     //        NodeChange(
     //          key = t.context.buildChangeKey(nodeId),
@@ -555,7 +555,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    (t.analysisRepository.saveNode _).verify(
     //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
+    //        nodeInfo should matchTo(
     //          NodeInfo(
     //            id = nodeId,
     //            active = false,
@@ -599,15 +599,15 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //    val unreferencedNodes = t.processor.process(t.context, candidateUnreferencedNodes)
     //
 
-    //    unreferencedNodes.newOrphanNodes should equal(Seq())
-    //    unreferencedNodes.newIgnoredNodes should equal(Seq())
+    //    unreferencedNodes.newOrphanNodes shouldBe empty
+    //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
-    //    unreferencedNodes.oldOrphanNodes should equal(Seq())
+    //    unreferencedNodes.oldOrphanNodes shouldBe empty
     //    unreferencedNodes.oldIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
     //
     //    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(false)
     //
-    //    t.context._oldNodeChanges._oldGet(nodeId) should equal(
+    //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
     //        NodeChange(
     //          key = t.context.buildChangeKey(nodeId),
@@ -664,7 +664,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //
     //    (t.analysisRepository.saveNode _).verify(
     //      where { nodeInfo: NodeInfo =>
-    //        nodeInfo should equal(
+    //        nodeInfo should matchTo(
     //          NodeInfo(
     //            id = nodeId,
     //            active = false,

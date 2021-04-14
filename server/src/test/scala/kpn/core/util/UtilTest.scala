@@ -10,7 +10,7 @@ class UtilTest extends UnitTest {
   }
 
   test("withoutSuccessiveDuplicates") {
-    Util.withoutSuccessiveDuplicates(Seq()) should equal(Seq())
+    Util.withoutSuccessiveDuplicates(Seq()) shouldBe empty
     Util.withoutSuccessiveDuplicates(Seq(1)) should equal(Seq(1))
     Util.withoutSuccessiveDuplicates(Seq(1, 2)) should equal(Seq(1, 2))
     Util.withoutSuccessiveDuplicates(Seq(1, 1, 1, 2, 2, 3, 3, 4, 5, 5, 5)) should equal(Seq(1, 2, 3, 4, 5))

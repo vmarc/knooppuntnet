@@ -5,6 +5,6 @@ import kpn.core.util.UnitTest
 class CanoeRouteAccessibilityTest extends UnitTest {
   test("canoe route accessible") {
     val route = CaseStudy.routeAnalysis("8473146").route
-    route.facts should equal(Seq())
+    route.facts shouldBe empty
   }
 }

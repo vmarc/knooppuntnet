@@ -27,7 +27,7 @@ class OrphanNodeTest04 extends AbstractTest {
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo should equal(
+        nodeInfo should matchTo(
           NodeInfo(
             1001,
             active = false, // <-- !!

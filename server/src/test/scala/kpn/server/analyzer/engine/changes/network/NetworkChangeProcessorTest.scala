@@ -25,7 +25,7 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     val changeSetChanges = t.processor.process(t.context)
 
-    changeSetChanges should equal(t.createChangeSetChanges)
+    changeSetChanges should matchTo(t.createChangeSetChanges)
 
     (t.updateProcessor.process _).verify(*, *).never()
     (t.deleteProcessor.process _).verify(*, *).never()
@@ -38,7 +38,7 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     val changeSetChanges = t.processor.process(t.context)
 
-    changeSetChanges should equal(t.updateChangeSetChanges)
+    changeSetChanges should matchTo(t.updateChangeSetChanges)
 
     (t.createProcessor.process _).verify(*, *).never()
     (t.deleteProcessor.process _).verify(*, *).never()
@@ -51,7 +51,7 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     val changeSetChanges = t.processor.process(t.context)
 
-    changeSetChanges should equal(t.deleteChangeSetChanges)
+    changeSetChanges should matchTo(t.deleteChangeSetChanges)
 
     (t.createProcessor.process _).verify(*, *).never()
     (t.updateProcessor.process _).verify(*, *).never()

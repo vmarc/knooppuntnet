@@ -25,7 +25,7 @@ class TrackPathTest extends UnitTest {
       )
     )
 
-    trackPath.trackPoints should equal(
+    trackPath.trackPoints should matchTo(
       Seq(
         TrackPoint("1", "1"),
         TrackPoint("2", "2"),
@@ -37,7 +37,7 @@ class TrackPathTest extends UnitTest {
 
   test("trackPoints - path without segments") {
     val trackPath = TrackPath(0L, 0L, 0L, 0L, oneWay = false, segments = Seq())
-    trackPath.trackPoints should equal(Seq())
+    trackPath.trackPoints shouldBe empty
   }
 
 }

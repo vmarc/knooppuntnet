@@ -70,7 +70,7 @@ class OrphanRouteTest05 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             orphanRouteChanges = Seq(
@@ -93,7 +93,7 @@ class OrphanRouteTest05 extends AbstractTest {
 
     (tc.changeSetRepository.saveRouteChange _).verify(
       where { routeChange: RouteChange =>
-        routeChange should equal(
+        routeChange should matchTo(
           newRouteChange(
             newChangeKey(elementId = 11),
             ChangeType.Update,

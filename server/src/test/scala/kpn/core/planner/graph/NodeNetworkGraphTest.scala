@@ -24,16 +24,14 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
     graph.add(GraphEdge(1, 3, 1, leg13))
     graph.add(GraphEdge(3, 4, 1, leg34))
 
-    graph.findPath("1", "4") should equal(
-      Some(
-        GraphPath(
-          source = "1",
-          segments = Seq(
-            GraphPathSegment("13.1", leg13),
-            GraphPathSegment("3", leg13),
-            GraphPathSegment("34.1", leg34),
-            GraphPathSegment("4", leg34)
-          )
+    graph.findPath("1", "4").value should matchTo(
+      GraphPath(
+        source = "1",
+        segments = Seq(
+          GraphPathSegment("13.1", leg13),
+          GraphPathSegment("3", leg13),
+          GraphPathSegment("34.1", leg34),
+          GraphPathSegment("4", leg34)
         )
       )
     )

@@ -32,13 +32,13 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
   test("happy path") {
     val newContext = doTest(Some("01-02"), Some("01"), Some("02"))
     newContext.expectedName should equal(Some("01-02"))
-    newContext.facts should equal(Seq.empty)
+    newContext.facts shouldBe empty
   }
 
   test("route name reversed") {
     val newContext = doTest(Some("02-01"), Some("01"), Some("02"))
     newContext.expectedName should equal(Some("01-02"))
-    newContext.facts should equal(Seq.empty)
+    newContext.facts shouldBe empty
   }
 
   test("unexpected route name - start node does not match") {
@@ -56,19 +56,19 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
   test("no fact when route name unknown") {
     val newContext = doTest(None, Some("01"), Some("02"))
     newContext.expectedName should equal(Some(""))
-    newContext.facts should equal(Seq.empty)
+    newContext.facts shouldBe empty
   }
 
   test("no fact when start node unknown") {
     val newContext = doTest(Some("01-02"), None, Some("02"))
     newContext.expectedName should equal(Some(""))
-    newContext.facts should equal(Seq.empty)
+    newContext.facts shouldBe empty
   }
 
   test("no fact when end node unknown") {
     val newContext = doTest(Some("01-02"), Some("01"), None)
     newContext.expectedName should equal(Some(""))
-    newContext.facts should equal(Seq.empty)
+    newContext.facts shouldBe empty
   }
 
   private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteAnalysisContext = {

@@ -48,7 +48,7 @@ class NodeAnalyzerTest extends UnitTest {
 
   test("names - empty collection when no names") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    nodeAnalyzer.names(Tags.empty) should equal(Seq.empty)
+    nodeAnalyzer.names(Tags.empty) shouldBe empty
   }
 
   test("name - for specific networkType") {

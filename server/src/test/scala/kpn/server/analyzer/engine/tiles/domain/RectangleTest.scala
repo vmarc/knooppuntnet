@@ -12,11 +12,11 @@ class RectangleTest extends UnitTest {
 
   test("contains") {
     val rectangle = Rectangle(0, 10, 0, 20)
-    rectangle.contains(5, 5) should equal(true)
-    rectangle.contains(0, 0) should equal(true)
-    rectangle.contains(0, 5) should equal(true)
-    rectangle.contains(10, 5) should equal(true)
-    rectangle.contains(5, 0) should equal(true)
-    rectangle.contains(5, 20) should equal(true)
+    assert(rectangle.contains(5, 5))
+    assert(rectangle.contains(0, 0))
+    assert(rectangle.contains(0, 5))
+    assert(rectangle.contains(10, 5))
+    assert(rectangle.contains(5, 0))
+    assert(rectangle.contains(5, 20))
   }
 }

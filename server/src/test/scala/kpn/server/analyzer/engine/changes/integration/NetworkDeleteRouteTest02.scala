@@ -57,7 +57,7 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
 
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>
-        networkInfo should equal(
+        networkInfo should matchTo(
           newNetworkInfo(
             newNetworkAttributes(
               1,
@@ -76,7 +76,7 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             networkChanges = NetworkChanges(
@@ -102,7 +102,7 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
       where { networkChange: NetworkChange =>
-        networkChange should equal(
+        networkChange should matchTo(
           newNetworkChange(
             newChangeKey(elementId = 1),
             ChangeType.Delete,
@@ -148,7 +148,7 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
           )
         )
 
-        routeChange should equal(
+        routeChange should matchTo(
           newRouteChange(
             newChangeKey(elementId = 11),
             ChangeType.Update,
@@ -168,7 +168,7 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
       where { nodeChange: NodeChange =>
 
         if (nodeChange.id == 1001) {
-          nodeChange should equal(
+          nodeChange should matchTo(
             newNodeChange(
               key = newChangeKey(elementId = 1001),
               changeType = ChangeType.Update,
@@ -188,7 +188,7 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
           )
         }
         else if (nodeChange.id == 1002) {
-          nodeChange should equal(
+          nodeChange should matchTo(
             newNodeChange(
               key = newChangeKey(elementId = 1002),
               changeType = ChangeType.Update,

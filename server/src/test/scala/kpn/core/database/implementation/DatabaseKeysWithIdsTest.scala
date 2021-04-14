@@ -25,7 +25,7 @@ class DatabaseKeysWithIdsTest extends UnitTest with TestObjects {
   test("keysWithIds - no results") {
     withDatabase(database => {
       val keys = database.keysWithIds(Seq("node:1001", "node:1002"), stale = false)
-      keys should equal(Seq())
+      keys shouldBe empty
     });
   }
 

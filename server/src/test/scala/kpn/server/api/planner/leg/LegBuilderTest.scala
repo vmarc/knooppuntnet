@@ -32,16 +32,14 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     val sink = LegEnd.node(data.node4.id)
     val params = LegBuildParams(NetworkType.hiking.name, source, sink)
 
-    legBuilder().leg(params) should equal(
-      Some(
-        PlanLegDetail(
-          source,
-          sink,
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 2)),
-            planRoute(planNode("10003", 2), planNode("10004", 3)),
-            planRoute(planNode("10005", 3), planNode("10006", 4))
-          )
+    legBuilder().leg(params).value should matchTo(
+      PlanLegDetail(
+        source,
+        sink,
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 2)),
+          planRoute(planNode("10003", 2), planNode("10004", 3)),
+          planRoute(planNode("10005", 3), planNode("10006", 4))
         )
       )
     )
@@ -53,16 +51,14 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     val sink = LegEnd.route(data.legEndRoute3)
     val params = LegBuildParams(NetworkType.hiking.name, source, sink)
 
-    legBuilder().leg(params) should equal(
-      Some(
-        PlanLegDetail(
-          source,
-          sink,
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 2)),
-            planRoute(planNode("10003", 2), planNode("10004", 3)),
-            planRoute(planNode("10005", 3), planNode("10006", 4))
-          )
+    legBuilder().leg(params).value should matchTo(
+      PlanLegDetail(
+        source,
+        sink.copy(route = Some(sink.route.get.copy(selection = Some(sink.route.get.trackPathKeys.head)))),
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 2)),
+          planRoute(planNode("10003", 2), planNode("10004", 3)),
+          planRoute(planNode("10005", 3), planNode("10006", 4))
         )
       )
     )
@@ -74,16 +70,14 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     val sink = LegEnd.route(data.legEndRoute3)
     val params = LegBuildParams(NetworkType.hiking.name, source, sink)
 
-    legBuilder().leg(params) should equal(
-      Some(
-        PlanLegDetail(
-          source,
-          sink,
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 2)),
-            planRoute(planNode("10003", 2), planNode("10004", 3)),
-            planRoute(planNode("10005", 3), planNode("10006", 4))
-          )
+    legBuilder().leg(params).value should matchTo(
+      PlanLegDetail(
+        source,
+        sink.copy(route = Some(sink.route.get.copy(selection = Some(sink.route.get.trackPathKeys.head)))),
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 2)),
+          planRoute(planNode("10003", 2), planNode("10004", 3)),
+          planRoute(planNode("10005", 3), planNode("10006", 4))
         )
       )
     )
@@ -95,15 +89,13 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     val sink = LegEnd.route(data.legEndRoute3)
     val params = LegBuildParams(NetworkType.hiking.name, source, sink)
 
-    legBuilder().leg(params) should equal(
-      Some(
-        PlanLegDetail(
-          source,
-          sink,
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 3)),
-            planRoute(planNode("10003", 3), planNode("10004", 4)),
-          )
+    legBuilder().leg(params).value should matchTo(
+      PlanLegDetail(
+        source,
+        sink.copy(route = Some(sink.route.get.copy(selection = Some(sink.route.get.trackPathKeys.head)))),
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 3)),
+          planRoute(planNode("10003", 3), planNode("10004", 4)),
         )
       )
     )
@@ -115,14 +107,12 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     val sink = LegEnd.route(data.legEndRoute1)
     val params = LegBuildParams(NetworkType.hiking.name, source, sink)
 
-    legBuilder().leg(params) should equal(
-      Some(
-        PlanLegDetail(
-          source,
-          sink,
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 2)),
-          )
+    legBuilder().leg(params).value should matchTo(
+      PlanLegDetail(
+        source,
+        sink.copy(route = Some(sink.route.get.copy(selection = Some(sink.route.get.trackPathKeys.head)))),
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 2)),
         )
       )
     )
@@ -134,14 +124,12 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
     val sink = LegEnd.route(data.legEndRoute4)
     val params = LegBuildParams(NetworkType.hiking.name, source, sink)
 
-    legBuilder().leg(params) should equal(
-      Some(
-        PlanLegDetail(
-          source,
-          sink,
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 3)),
-          )
+    legBuilder().leg(params).value should matchTo(
+      PlanLegDetail(
+        source,
+        sink.copy(route = Some(sink.route.get.copy(selection = Some(sink.route.get.trackPathKeys.head)))),
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 3)),
         )
       )
     )
@@ -149,14 +137,12 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("load node1 > node2") {
 
-    legBuilder().plan(NetworkType.hiking, "1001-1002", encoded = false) should equal(
-      Some(
-        PlanLegDetail(
-          source = LegEnd.node(1001),
-          sink = LegEnd.node(1002),
-          routes = Seq(
-            planRoute(planNode("10001", 1), planNode("10002", 2)),
-          )
+    legBuilder().plan(NetworkType.hiking, "1001-1002", encoded = false).value should matchTo(
+      PlanLegDetail(
+        source = LegEnd.node(1001),
+        sink = LegEnd.node(1002),
+        routes = Seq(
+          planRoute(planNode("10001", 1), planNode("10002", 2)),
         )
       )
     )
@@ -164,7 +150,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("load node1 > route4 > node4") {
 
-    //    legBuilder().load(NetworkType.hiking, "1001-14.1-1004", encoded = false) should equal(
+    //    legBuilder().load(NetworkType.hiking, "1001-14.1-1004", encoded = false) should matchTo(
     //      Some(
     //        Seq(
     //          RouteLeg(

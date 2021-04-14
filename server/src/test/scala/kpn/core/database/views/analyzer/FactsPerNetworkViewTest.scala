@@ -58,19 +58,19 @@ class FactsPerNetworkViewTest extends UnitTest {
       }
 
       val nameMissingRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.NameMissing, stale = false)
-      nameMissingRefs should equal(Seq(NetworkFactRefs(networkId, "network-name")))
+      nameMissingRefs should matchTo(Seq(NetworkFactRefs(networkId, "network-name")))
 
       val networkExtraMemberNodeRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.NameMissing, stale = false)
-      networkExtraMemberNodeRefs should equal(Seq(NetworkFactRefs(networkId, "network-name")))
+      networkExtraMemberNodeRefs should matchTo(Seq(NetworkFactRefs(networkId, "network-name")))
 
       val nodeMemberMissingRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.NodeMemberMissing, stale = false)
-      nodeMemberMissingRefs should equal(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(1001, "01")))))
+      nodeMemberMissingRefs should matchTo(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(1001, "01")))))
 
       val routeBrokenRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteBroken, stale = false)
-      routeBrokenRefs should equal(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(10, "01-02")))))
+      routeBrokenRefs should matchTo(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(10, "01-02")))))
 
       val routeNameMissingRefs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteNameMissing, stale = false)
-      routeNameMissingRefs should equal(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(10, "01-02")))))
+      routeNameMissingRefs should matchTo(Seq(NetworkFactRefs(networkId, "network-name", Seq(Ref(10, "01-02")))))
     }
   }
 
@@ -88,7 +88,7 @@ class FactsPerNetworkViewTest extends UnitTest {
       }
 
       val refs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteBroken, stale = false)
-      refs should equal(Seq(NetworkFactRefs(0, "OrphanRoutes", Seq(Ref(11, "01-02")))))
+      refs should matchTo(Seq(NetworkFactRefs(0, "OrphanRoutes", Seq(Ref(11, "01-02")))))
     }
   }
 
@@ -117,7 +117,7 @@ class FactsPerNetworkViewTest extends UnitTest {
       }
 
       val refs = FactsPerNetworkView.query(database, Subset.of(Country.nl, networkType).get, Fact.IntegrityCheck, stale = false)
-      refs should equal(Seq(NetworkFactRefs(0, "OrphanNodes", Seq(Ref(1001, "01")))))
+      refs should matchTo(Seq(NetworkFactRefs(0, "OrphanNodes", Seq(Ref(1001, "01")))))
     }
   }
 }

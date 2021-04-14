@@ -72,7 +72,7 @@ class SplitNodeRouteAnalyzerTest extends UnitTest {
       )
     }
 
-    splitNodePathsWithoutFragmentIds should equal(
+    splitNodePathsWithoutFragmentIds should matchTo(
       Seq(
         Path(
           start = Some(expectedRouteNode1),

@@ -32,28 +32,28 @@ class IdCacheTest extends UnitTest {
 
     val cache = new IdCache(3)
 
-    cache.contains(1L) should equal(false)
+    assert(!cache.contains(1L))
 
     cache.put(1L)
-    cache.contains(1L) should equal(true)
+    assert(cache.contains(1L))
 
     cache.put(2L)
     cache.put(3L)
     cache.put(4L)
 
     // 1 was the oldest entry, and has been removed from the cache
-    cache.contains(1L) should equal(false)
+    assert(!cache.contains(1L))
 
     // by accessing 2, 2 is not the oldest entry anymore now, 3 is becoming the oldest entry
-    cache.contains(2L) should equal(true)
+    assert(cache.contains(2L))
 
     cache.put(5L)
 
     // oldest entry 3 has been removed
-    cache.contains(3L) should equal(false)
+    assert(!cache.contains(3L))
 
-    cache.contains(2L) should equal(true)
-    cache.contains(4L) should equal(true)
-    cache.contains(5L) should equal(true)
+    assert(cache.contains(2L))
+    assert(cache.contains(4L))
+    assert(cache.contains(5L))
   }
 }

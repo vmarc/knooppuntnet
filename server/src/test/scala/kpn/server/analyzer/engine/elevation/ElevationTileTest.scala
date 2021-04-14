@@ -6,8 +6,8 @@ import kpn.server.analyzer.engine.tiles.domain.Point
 class ElevationTileTest extends UnitTest {
 
   ignore("constructor") {
-    ElevationTile(Point(51, 4)) should equal(ElevationTile(51, 4, 1201, 0))
-    ElevationTile(Point(51.0 + (1199.0 / 1200), 4.0 + (1199.0 / 1200))) should equal(ElevationTile(51, 4, 2, 1199))
+    ElevationTile(Point(51, 4)) should matchTo(ElevationTile(51, 4, 1201, 0))
+    ElevationTile(Point(51.0 + (1199.0 / 1200), 4.0 + (1199.0 / 1200))) should matchTo(ElevationTile(51, 4, 2, 1199))
   }
 
   ignore("bounding rectangle") {

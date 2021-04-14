@@ -12,8 +12,8 @@ class WayAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
     val way = d.ways.values.head
 
-    WayAnalyzer.isClosedLoop(way) should equal(false)
-    WayAnalyzer.isSelfIntersecting(way) should equal(false)
+    assert(!WayAnalyzer.isClosedLoop(way))
+    assert(!WayAnalyzer.isSelfIntersecting(way))
   }
 
   test("a self intersecting way is not necessarily a closed loop") {
@@ -23,8 +23,8 @@ class WayAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
     val way = d.ways.values.head
 
-    WayAnalyzer.isClosedLoop(way) should equal(false)
-    WayAnalyzer.isSelfIntersecting(way) should equal(true)
+    assert(!WayAnalyzer.isClosedLoop(way))
+    assert(WayAnalyzer.isSelfIntersecting(way))
   }
 
   test("closed loop when begin and endnode the same; do not consider this 'self intersecting'") {
@@ -34,8 +34,8 @@ class WayAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
     val way = d.ways.values.head
 
-    WayAnalyzer.isClosedLoop(way) should equal(true)
-    WayAnalyzer.isSelfIntersecting(way) should equal(false)
+    assert(WayAnalyzer.isClosedLoop(way))
+    assert(!WayAnalyzer.isSelfIntersecting(way))
   }
 
   test("way with single segment cannot be closed loop or self intersecting") {
@@ -45,8 +45,8 @@ class WayAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
     val way = d.ways.values.head
 
-    WayAnalyzer.isClosedLoop(way) should equal(false)
-    WayAnalyzer.isSelfIntersecting(way) should equal(false)
+    assert(!WayAnalyzer.isClosedLoop(way))
+    assert(!WayAnalyzer.isSelfIntersecting(way))
   }
 
   test("way without nodes cannot be closed loop or self intersecting") {
@@ -56,8 +56,8 @@ class WayAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
     val way = d.ways.values.head
 
-    WayAnalyzer.isClosedLoop(way) should equal(false)
-    WayAnalyzer.isSelfIntersecting(way) should equal(false)
+    assert(!WayAnalyzer.isClosedLoop(way))
+    assert(!WayAnalyzer.isSelfIntersecting(way))
   }
 
 }

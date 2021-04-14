@@ -19,9 +19,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeInfo(102))
       nodeRepository.save(newNodeInfo(103))
 
-      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101)))
-      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102)))
-      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103)))
+      nodeRepository.nodeWithId(101).value should matchTo(newNodeInfo(101))
+      nodeRepository.nodeWithId(102).value should matchTo(newNodeInfo(102))
+      nodeRepository.nodeWithId(103).value should matchTo(newNodeInfo(103))
       nodeRepository.nodeWithId(104) should equal(None)
     }
   }
@@ -35,7 +35,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(102))
 
-      nodeRepository.nodesWithIds(Seq(101, 102, 103), stale = false) should equal(Seq(newNodeInfo(101), newNodeInfo(102)))
+      nodeRepository.nodesWithIds(Seq(101, 102, 103), stale = false) should matchTo(Seq(newNodeInfo(101), newNodeInfo(102)))
     }
   }
 
@@ -51,9 +51,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))
       ) should equal(true)
 
-      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))))
+      nodeRepository.nodeWithId(101).value should matchTo(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.nodeWithId(102).value should matchTo(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.nodeWithId(103).value should matchTo(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03")))
       nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.save(
@@ -62,9 +62,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))
       ) should equal(false)
 
-      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03"))))
+      nodeRepository.nodeWithId(101).value should matchTo(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.nodeWithId(102).value should matchTo(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.nodeWithId(103).value should matchTo(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03")))
       nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.save(
@@ -73,9 +73,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33"))
       ) should equal(true)
 
-      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01"))))
-      nodeRepository.nodeWithId(102) should equal(Some(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02"))))
-      nodeRepository.nodeWithId(103) should equal(Some(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33")))) // updated
+      nodeRepository.nodeWithId(101).value should matchTo(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.nodeWithId(102).value should matchTo(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.nodeWithId(103).value should matchTo(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "33"))) // updated
       nodeRepository.nodeWithId(104) should equal(None)
     }
   }
@@ -90,7 +90,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(101))
 
-      nodeRepository.nodeWithId(101) should equal(Some(newNodeInfo(101)))
+      nodeRepository.nodeWithId(101).value should matchTo(newNodeInfo(101))
     }
   }
 
@@ -130,7 +130,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.nodeNetworkReferences(1001, stale = false) should equal(
+      nodeRepository.nodeNetworkReferences(1001, stale = false) should matchTo(
         Seq(
           NodeNetworkReference(
             NetworkType.hiking,

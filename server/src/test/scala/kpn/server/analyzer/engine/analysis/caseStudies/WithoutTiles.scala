@@ -6,6 +6,6 @@ class WithoutTiles extends UnitTest {
 
   test("problem introduced with SplitNodeRouteAnalyzer is gone") {
     val analysis = CaseStudy.routeAnalysis("11525591")
-    analysis.route.tiles.isEmpty should equal(false)
+    analysis.route.tiles should not be empty
   }
 }

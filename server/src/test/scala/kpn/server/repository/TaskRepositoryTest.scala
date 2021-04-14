@@ -15,12 +15,12 @@ class TaskRepositoryTest extends UnitTest {
 
       repository.all("test") should equal(Seq("test1", "test2", "test3", "testa", "testb"))
 
-      repository.exists("test1") should equal(true)
-      repository.exists("test2") should equal(true)
-      repository.exists("test3") should equal(true)
-      repository.exists("testa") should equal(true)
-      repository.exists("testb") should equal(true)
-      repository.exists("test4") should equal(false)
+      assert(repository.exists("test1"))
+      assert(repository.exists("test2"))
+      assert(repository.exists("test3"))
+      assert(repository.exists("testa"))
+      assert(repository.exists("testb"))
+      assert(!repository.exists("test4"))
 
       repository.delete("test1")
       repository.all("test") should equal(Seq("test2", "test3", "testa", "testb"))

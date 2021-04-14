@@ -39,7 +39,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
       )
 
       MonitorChangesView.changesCount(database, MonitorChangesParameters(impact = true), stale = false) should equal(2)
-      MonitorChangesView.changes(database, MonitorChangesParameters(impact = true), stale = false) should equal(
+      MonitorChangesView.changes(database, MonitorChangesParameters(impact = true), stale = false) should matchTo(
         Seq(
           change5,
           change2
@@ -47,7 +47,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
       )
 
       MonitorChangesView.groupChangesCount(database, "group-1", MonitorChangesParameters(), stale = false) should equal(3)
-      MonitorChangesView.groupChanges(database, "group-1", MonitorChangesParameters(), stale = false) should equal(
+      MonitorChangesView.groupChanges(database, "group-1", MonitorChangesParameters(), stale = false) should matchTo(
         Seq(
           change3,
           change2,
@@ -56,14 +56,14 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
       )
 
       MonitorChangesView.groupChangesCount(database, "group-1", MonitorChangesParameters(impact = true), stale = false) should equal(1)
-      MonitorChangesView.groupChanges(database, "group-1", MonitorChangesParameters(impact = true), stale = false) should equal(
+      MonitorChangesView.groupChanges(database, "group-1", MonitorChangesParameters(impact = true), stale = false) should matchTo(
         Seq(
           change2
         )
       )
 
       MonitorChangesView.routeChangesCount(database, 101L, MonitorChangesParameters(), stale = false) should equal(2)
-      MonitorChangesView.routeChanges(database, 101L, MonitorChangesParameters(), stale = false) should equal(
+      MonitorChangesView.routeChanges(database, 101L, MonitorChangesParameters(), stale = false) should matchTo(
         Seq(
           change2,
           change1
@@ -71,7 +71,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
       )
 
       MonitorChangesView.routeChangesCount(database, 101L, MonitorChangesParameters(impact = true), stale = false) should equal(1)
-      MonitorChangesView.routeChanges(database, 101L, MonitorChangesParameters(impact = true), stale = false) should equal(
+      MonitorChangesView.routeChanges(database, 101L, MonitorChangesParameters(impact = true), stale = false) should matchTo(
         Seq(
           change2
         )

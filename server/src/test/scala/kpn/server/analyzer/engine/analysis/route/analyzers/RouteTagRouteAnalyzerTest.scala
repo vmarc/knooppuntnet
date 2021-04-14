@@ -40,7 +40,7 @@ class RouteTagRouteAnalyzerTest extends UnitTest with SharedTestObjects {
   def testValid(networkScope: NetworkScope, networkType: NetworkType, tagValue: String): Unit = {
     val scopedNetworkType = ScopedNetworkType(networkScope, networkType)
     val context = analyze(scopedNetworkType, Tags.from("route" -> tagValue))
-    context.facts should equal(Seq())
+    context.facts shouldBe empty
   }
 
   private def analyze(scopedNetworkType: ScopedNetworkType, tags: Tags): RouteAnalysisContext = {

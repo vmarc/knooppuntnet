@@ -340,7 +340,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
       }
     ).once()
 
-    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq())
+    t.taskRepository.all(PoiTileTask.prefix) shouldBe empty
   }
 
   test("known node poi not in scope anymore") {
@@ -412,7 +412,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.poiRepository.delete _).verify(*).never()
     (t.knownPoiCache.add _).verify(*).never()
     (t.knownPoiCache.delete _).verify(*).never()
-    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq.empty)
+    t.taskRepository.all(PoiTileTask.prefix) shouldBe empty
   }
 
   test("way poi") {
@@ -501,7 +501,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.poiRepository.save _).verify(*).never()
     (t.poiRepository.delete _).verify(*).never()
     (t.knownPoiCache.add _).verify(*).never()
-    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq.empty)
+    t.taskRepository.all(PoiTileTask.prefix) shouldBe empty
   }
 
   test("relation poi") {

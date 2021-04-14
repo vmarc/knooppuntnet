@@ -55,7 +55,9 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def testScopedNetworkType(networkTagValue: String, expectedNetworkScope: NetworkScope, expectedNetworkType: NetworkType): Unit = {
     val relation = newRawRelation(tags = Tags.from("network" -> networkTagValue, "type" -> "network", "name" -> "name", "network:type" -> "node_network"))
-    RelationAnalyzer.scopedNetworkType(relation) should equal(Some(ScopedNetworkType(expectedNetworkScope, expectedNetworkType)))
+    RelationAnalyzer.scopedNetworkType(relation).value should matchTo(
+      ScopedNetworkType(expectedNetworkScope, expectedNetworkType)
+    )
   }
 
   private def relationAnalyzer(): RelationAnalyzer = {

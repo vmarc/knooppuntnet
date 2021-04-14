@@ -6,6 +6,6 @@ class LongRouteTest extends UnitTest {
 
   test("process large route") {
     val route = CaseStudy.routeAnalysis("11109600").route
-    route.facts should equal(Seq())
+    route.facts shouldBe empty
   }
 }

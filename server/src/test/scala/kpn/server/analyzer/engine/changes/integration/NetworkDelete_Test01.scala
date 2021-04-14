@@ -39,7 +39,7 @@ class NetworkDelete_Test01 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
             subsets = Seq.empty,

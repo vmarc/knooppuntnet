@@ -47,7 +47,7 @@ class OrphanNodeTest02 extends AbstractTest {
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should equal(
+        nodeInfo.copy(tiles = Seq()) should matchTo(
           NodeInfo(
             1001,
             active = true,
@@ -71,7 +71,7 @@ class OrphanNodeTest02 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             orphanNodeChanges = Seq(
@@ -95,7 +95,7 @@ class OrphanNodeTest02 extends AbstractTest {
 
     (tc.changeSetRepository.saveNodeChange _).verify(
       where { nodeChange: NodeChange =>
-        nodeChange should equal(
+        nodeChange should matchTo(
           newNodeChange(
             key = newChangeKey(elementId = 1001),
             changeType = ChangeType.Update,

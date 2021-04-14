@@ -19,7 +19,7 @@ class WithoutWaysRouteAnalyzerTest extends UnitTest {
 
     val context = analyze(d)
 
-    context.facts should equal(Seq())
+    context.facts shouldBe empty
   }
 
   test("route relation without way members") {

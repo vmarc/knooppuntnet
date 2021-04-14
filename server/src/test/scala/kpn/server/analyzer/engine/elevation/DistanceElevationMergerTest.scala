@@ -5,14 +5,14 @@ import kpn.core.util.UnitTest
 class DistanceElevationMergerTest extends UnitTest {
 
   test("empty - nothing to merge") {
-    DistanceElevationMerger.merge(Seq.empty) should equal(Seq.empty)
+    DistanceElevationMerger.merge(Seq.empty) shouldBe empty
   }
 
   test("single distance/elevation - nothing to merge") {
     val des = Seq(
       DistanceElevation(10, 10)
     )
-    DistanceElevationMerger.merge(des) should equal(
+    DistanceElevationMerger.merge(des) should matchTo(
       Seq(
         DistanceElevation(10, 10)
       )
@@ -24,7 +24,7 @@ class DistanceElevationMergerTest extends UnitTest {
       DistanceElevation(10, 10),
       DistanceElevation(20, 10)
     )
-    DistanceElevationMerger.merge(des) should equal(
+    DistanceElevationMerger.merge(des) should matchTo(
       Seq(
         DistanceElevation(30, 10)
       )
@@ -40,7 +40,7 @@ class DistanceElevationMergerTest extends UnitTest {
       DistanceElevation(50, 20),
       DistanceElevation(60, 30)
     )
-    DistanceElevationMerger.merge(des) should equal(
+    DistanceElevationMerger.merge(des) should matchTo(
       Seq(
         DistanceElevation(60, 10),
         DistanceElevation(90, 20),

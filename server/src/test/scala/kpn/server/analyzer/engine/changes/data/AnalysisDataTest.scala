@@ -22,9 +22,9 @@ class AnalysisDataTest extends UnitTest with SharedTestObjects {
     analysisData.networks.watched.add(1, relationAnalyzer.toElementIds(data.relations(1)))
     analysisData.networks.watched.add(2, relationAnalyzer.toElementIds(data.relations(2)))
 
-    analysisData.networks.isReferencingRelation(11) should equal(true)
-    analysisData.networks.isReferencingRelation(12) should equal(true)
-    analysisData.networks.isReferencingRelation(13) should equal(false)
+    assert(analysisData.networks.isReferencingRelation(11))
+    assert(analysisData.networks.isReferencingRelation(12))
+    assert(!analysisData.networks.isReferencingRelation(13))
   }
 
   private def buildData(): Data = {

@@ -22,7 +22,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
       networkRepository.save(buildNetworkWithNode1001and1002())
       networkRepository.save(buildNetworkWithNode1001())
 
-      queryNode(database, 1001) should equal(
+      queryNode(database, 1001) should matchTo(
         Seq(
           NodeNetworkReference(
             networkId = 1,
@@ -55,7 +55,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      queryNode(database, 1002) should equal(
+      queryNode(database, 1002) should matchTo(
         Seq(
           NodeNetworkReference(
             networkId = 1,
@@ -90,7 +90,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(buildInactiveNetwork())
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) shouldBe empty
     }
   }
 

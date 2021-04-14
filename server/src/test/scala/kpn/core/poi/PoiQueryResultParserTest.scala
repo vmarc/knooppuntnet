@@ -29,7 +29,7 @@ class PoiQueryResultParserTest extends UnitTest {
     val node = XML.loadString(xml)
     val pois = new PoiQueryResultParser().parse("windmill", node)
 
-    pois should equal(
+    pois should matchTo(
       Seq(
         Poi("node", 24347225L, "52.9596832", "0.7344434", Seq("windmill"), Tags.from("man_made" -> "windmill", "name" -> "one")),
         Poi("node", 27233617L, "52.7053088", "9.5934963", Seq("windmill"), Tags.from("man_made" -> "windmill", "name" -> "two"))
@@ -58,7 +58,7 @@ class PoiQueryResultParserTest extends UnitTest {
     val node = XML.loadString(xml)
     val pois = new PoiQueryResultParser().parse("windmill", node)
 
-    pois should equal(
+    pois should matchTo(
       Seq(
         Poi("way", 23218347L, "52.4041477", "13.0356714", Seq("windmill"), Tags.from("man_made" -> "windmill", "name" -> "one"))
       )
@@ -85,7 +85,7 @@ class PoiQueryResultParserTest extends UnitTest {
     val node = XML.loadString(xml)
     val pois = new PoiQueryResultParser().parse("bank", node)
 
-    pois should equal(
+    pois should matchTo(
       Seq(
         Poi("relation", 8152175L, "51.9915194", "6.9159526", Seq("bank"), Tags.from("amenity" -> "bank", "atm" -> "yes"))
       )

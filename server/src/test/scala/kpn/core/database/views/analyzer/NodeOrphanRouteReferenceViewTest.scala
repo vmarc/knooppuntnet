@@ -59,16 +59,16 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      queryNode(database, 1001) should equal(expectedReferences)
-      queryNode(database, 1002) should equal(expectedReferences)
-      queryNode(database, 1003) should equal(expectedReferences)
-      queryNode(database, 1004) should equal(expectedReferences)
+      queryNode(database, 1001) should matchTo(expectedReferences)
+      queryNode(database, 1002) should matchTo(expectedReferences)
+      queryNode(database, 1003) should matchTo(expectedReferences)
+      queryNode(database, 1004) should matchTo(expectedReferences)
     }
   }
 
   test("no node references in orphan routes") {
     withDatabase { database =>
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) shouldBe empty
     }
   }
 
@@ -90,7 +90,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
           )
         )
       )
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) shouldBe empty
     }
   }
 
@@ -117,7 +117,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) shouldBe empty
     }
   }
 

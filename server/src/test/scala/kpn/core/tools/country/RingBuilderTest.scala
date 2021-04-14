@@ -5,7 +5,7 @@ import kpn.core.util.UnitTest
 class RingBuilderTest extends UnitTest {
 
   test("no rings when no ways") {
-    RingBuilder.findRings(Seq()) should equal(Seq())
+    RingBuilder.findRings(Seq()) shouldBe empty
   }
 
   test("two rings consisting of multiple ways") {

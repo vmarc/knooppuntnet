@@ -51,7 +51,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"))
       val nodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)
-      nodeInfos should equal(Seq())
+      nodeInfos shouldBe empty
     }
   }
 
@@ -60,7 +60,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"), orphan = true, active = false)
       val nodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)
-      nodeInfos should equal(Seq())
+      nodeInfos shouldBe empty
     }
   }
 

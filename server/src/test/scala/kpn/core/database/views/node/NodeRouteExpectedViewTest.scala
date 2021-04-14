@@ -50,42 +50,42 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
       nodeRepository.save(newNodeInfo(id = 1013))
 
-      query(NetworkType.hiking) should equal(
+      query(NetworkType.hiking) should matchTo(
         Seq(
           NodeRouteExpectedCount(1001, "01", Seq("a", "b"), 1),
           NodeRouteExpectedCount(1002, "02", Seq("a", "b"), 2)
         )
       )
 
-      query(NetworkType.cycling) should equal(
+      query(NetworkType.cycling) should matchTo(
         Seq(
           NodeRouteExpectedCount(1003, "03", Seq("a", "b"), 3),
           NodeRouteExpectedCount(1004, "04", Seq("a", "b"), 4)
         )
       )
 
-      query(NetworkType.horseRiding) should equal(
+      query(NetworkType.horseRiding) should matchTo(
         Seq(
           NodeRouteExpectedCount(1005, "05", Seq("a", "b"), 5),
           NodeRouteExpectedCount(1006, "06", Seq("a", "b"), 6)
         )
       )
 
-      query(NetworkType.canoe) should equal(
+      query(NetworkType.canoe) should matchTo(
         Seq(
           NodeRouteExpectedCount(1007, "07", Seq("a", "b"), 7),
           NodeRouteExpectedCount(1008, "08", Seq("a", "b"), 8)
         )
       )
 
-      query(NetworkType.motorboat) should equal(
+      query(NetworkType.motorboat) should matchTo(
         Seq(
           NodeRouteExpectedCount(1009, "09", Seq("a", "b"), 9),
           NodeRouteExpectedCount(1010, "10", Seq("a", "b"), 10)
         )
       )
 
-      query(NetworkType.inlineSkating) should equal(
+      query(NetworkType.inlineSkating) should matchTo(
         Seq(
           NodeRouteExpectedCount(1011, "11", Seq("a", "b"), 11),
           NodeRouteExpectedCount(1012, "12", Seq("a", "b"), 12)

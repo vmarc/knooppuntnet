@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 class RouteUpdateTest extends UnitTest with SharedTestObjects {
 
   test("subsets are derived from both the before and after situation") {
-    RouteUpdate(routeAnalysis(None, NetworkType.hiking), routeAnalysis(None, NetworkType.hiking)).subsets should equal(Seq())
+    RouteUpdate(routeAnalysis(None, NetworkType.hiking), routeAnalysis(None, NetworkType.hiking)).subsets shouldBe empty
     RouteUpdate(routeAnalysis(Some(Country.nl), NetworkType.hiking), routeAnalysis(None, NetworkType.hiking)).subsets should equal(Seq(Subset.nlHiking))
     RouteUpdate(routeAnalysis(Some(Country.nl), NetworkType.hiking), routeAnalysis(Some(Country.be), NetworkType.hiking)).subsets should equal(Seq(Subset.beHiking, Subset.nlHiking))
   }

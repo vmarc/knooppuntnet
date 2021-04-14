@@ -22,13 +22,13 @@ class PoiTileViewTest extends UnitTest with SharedTestObjects {
 
       setupData(database)
 
-      PoiTileView.tilePoiInfos("10-1-1", database, stale = false) should equal(
+      PoiTileView.tilePoiInfos("10-1-1", database, stale = false) should matchTo(
         Seq(
           PoiInfo("node", 1001, "1", "1", "bench")
         )
       )
 
-      PoiTileView.tilePoiInfos("10-2-1", database, stale = false) should equal(
+      PoiTileView.tilePoiInfos("10-2-1", database, stale = false) should matchTo(
         Seq(
           PoiInfo("node", 1002, "2", "2", "bench"),
           PoiInfo("way", 101, "3", "3", "bench"),

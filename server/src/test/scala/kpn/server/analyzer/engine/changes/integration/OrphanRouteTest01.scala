@@ -53,7 +53,7 @@ class OrphanRouteTest01 extends AbstractTest {
       where { nodeInfo: NodeInfo =>
         nodeInfo.id match {
           case 1001 =>
-            nodeInfo.copy(tiles = Seq()) should equal(
+            nodeInfo.copy(tiles = Seq()) should matchTo(
               newNodeInfo(
                 1001,
                 country = Some(Country.nl),
@@ -62,7 +62,7 @@ class OrphanRouteTest01 extends AbstractTest {
             )
 
           case 1002 =>
-            nodeInfo.copy(tiles = Seq()) should equal(
+            nodeInfo.copy(tiles = Seq()) should matchTo(
               newNodeInfo(
                 1002,
                 country = Some(Country.nl),
@@ -76,7 +76,7 @@ class OrphanRouteTest01 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             orphanRouteChanges = Seq(
@@ -99,7 +99,7 @@ class OrphanRouteTest01 extends AbstractTest {
 
     (tc.changeSetRepository.saveRouteChange _).verify(
       where { routeChange: RouteChange =>
-        routeChange should equal(
+        routeChange should matchTo(
           newRouteChange(
             newChangeKey(elementId = 11),
             ChangeType.Create,
@@ -147,7 +147,7 @@ class OrphanRouteTest01 extends AbstractTest {
     //      where { (nodeChange: NodeChange) =>
     //        nodeChange.key.elementId match {
     //          case (1001) =>
-    //            nodeChange should equal(
+    //            nodeChange should matchTo(
     //              newNodeChange(
     //                newChangeKey(elementId = 1001),
     //                ChangeType.Create,
@@ -165,7 +165,7 @@ class OrphanRouteTest01 extends AbstractTest {
     //            true
     //
     //          case (1002) =>
-    //            nodeChange should equal(
+    //            nodeChange should matchTo(
     //              newNodeChange(
     //                newChangeKey(elementId = 1002),
     //                ChangeType.Create,

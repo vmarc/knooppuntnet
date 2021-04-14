@@ -71,7 +71,7 @@ class GpxRouteTest extends UnitTest with SharedTestObjects {
   private def assertSegment(segment: GpxSegment, nodes: Seq[Node]): Unit = {
     segment.trackPoints.size should equal(nodes.size)
     segment.trackPoints.zip(nodes).foreach { case (trackPoint, node) =>
-      trackPoint.lat should equal(node.latitude.toString)
+      trackPoint.lat should equal(node.latitude)
     }
   }
 }

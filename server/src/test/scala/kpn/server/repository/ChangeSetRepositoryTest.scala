@@ -29,8 +29,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("change set not found") {
     withChangeSetRepository { repository =>
-      repository.changeSet(0L, None, stale = false) should equal(Seq())
-      repository.changeSet(0L, Some(ReplicationId(1, 2, 3)), stale = false) should equal(Seq())
+      repository.changeSet(0L, None, stale = false) shouldBe empty
+      repository.changeSet(0L, Some(ReplicationId(1, 2, 3)), stale = false) shouldBe empty
     }
   }
 
@@ -84,7 +84,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changeSet(changeSetId, None, stale = false) should equal(
+      repository.changeSet(changeSetId, None, stale = false) should matchTo(
         Seq(
           ChangeSetData(
             changeSetSummary1,
@@ -190,7 +190,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveChangeSetSummary(summary(4, 4, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2016, 1, 1)))
       repository.saveChangeSetSummary(summary(5, 5, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2016, 2, 1)))
 
-      repository.changesFilter(None, None, None, None, stale = false) should equal(
+      repository.changesFilter(None, None, None, None, stale = false) should matchTo(
         ChangesFilter(
           Seq(
             ChangesFilterPeriod(
@@ -221,7 +221,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changesFilter(Some(Subset.nlHiking), None, None, None, stale = false) should equal(
+      repository.changesFilter(Some(Subset.nlHiking), None, None, None, stale = false) should matchTo(
         ChangesFilter(
           Seq(
             ChangesFilterPeriod(
@@ -247,7 +247,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changesFilter(Some(Subset.beHiking), Some("2016"), None, None, stale = false) should equal(
+      repository.changesFilter(Some(Subset.beHiking), Some("2016"), None, None, stale = false) should matchTo(
         ChangesFilter(
           Seq(
             ChangesFilterPeriod(
@@ -278,7 +278,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changesFilter(Some(Subset.beHiking), Some("2016"), Some("01"), None, stale = false) should equal(
+      repository.changesFilter(Some(Subset.beHiking), Some("2016"), Some("01"), None, stale = false) should matchTo(
         ChangesFilter(
           Seq(
             ChangesFilterPeriod(

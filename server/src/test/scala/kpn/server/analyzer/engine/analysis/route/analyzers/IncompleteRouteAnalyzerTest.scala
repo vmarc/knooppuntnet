@@ -13,7 +13,7 @@ class IncompleteRouteAnalyzerTest extends UnitTest {
   test("route relation without fixme=incomplete tag") {
     val d = new RouteTestData("01-02")
     val context = analyze(d)
-    context.facts should equal(Seq())
+    context.facts shouldBe empty
   }
 
   test("route relation with fixme=incomplete tag") {

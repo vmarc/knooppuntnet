@@ -33,7 +33,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
 
   test("graph edge forward path") {
     withDatabase(keepDatabaseAfterTest = true) { database =>
-      doTest(database, RouteMap(forwardPath = Some(path1.copy(oneWay = true)))) should equal(
+      doTest(database, RouteMap(forwardPath = Some(path1.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))
         )
@@ -43,7 +43,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
 
   test("graph edge backward path") {
     withDatabase { database =>
-      doTest(database, RouteMap(backwardPath = Some(path1.copy(oneWay = true)))) should equal(
+      doTest(database, RouteMap(backwardPath = Some(path1.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))
         )
@@ -53,7 +53,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
 
   test("graph edge start tentacle path") {
     withDatabase { database =>
-      doTest(database, RouteMap(startTentaclePaths = Seq(path1.copy(oneWay = true), path2))) should equal(
+      doTest(database, RouteMap(startTentaclePaths = Seq(path1.copy(oneWay = true), path2))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
           GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2)),
@@ -65,7 +65,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
 
   test("graph edge end tentacle path") {
     withDatabase { database =>
-      doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2.copy(oneWay = true)))) should equal(
+      doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
           GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2)),

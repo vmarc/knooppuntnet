@@ -81,7 +81,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       val repository: FactRepository = new FactRepositoryImpl(database)
-      repository.factsPerNetwork(Subset.beHiking, RouteUnusedSegments, stale = false) should equal(
+      repository.factsPerNetwork(Subset.beHiking, RouteUnusedSegments, stale = false) should matchTo(
         Seq(
           NetworkFactRefs(
             1,
@@ -147,7 +147,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       val repository: FactRepository = new FactRepositoryImpl(database)
-      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed, stale = false) should equal(
+      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed, stale = false) should matchTo(
         Seq(
           NetworkFactRefs(
             1,

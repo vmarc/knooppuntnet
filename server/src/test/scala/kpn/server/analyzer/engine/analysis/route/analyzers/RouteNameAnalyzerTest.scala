@@ -16,170 +16,144 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'ref' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-02"),
-          Some("01"),
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
       )
     )
   }
 
   test("route name based on 'name' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "01-02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-02"),
-          Some("01"),
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
       )
     )
   }
 
   test("route name based on 'note' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "01-02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-02"),
-          Some("01"),
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
       )
     )
   }
 
   test("route name based on 'note' tag with ignored comment") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "01-02;ignored comment"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-02"),
-          Some("01"),
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
       )
     )
   }
 
   test("route name based on 'from' and 'to' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "01", "to" -> "02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-02"),
-          Some("01"),
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
       )
     )
   }
 
   test("route name based on 'from' tag only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "01"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-"),
-          Some("01"),
-          None
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-"),
+        Some("01"),
+        None
       )
     )
   }
 
   test("route name based on 'to' tag only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("to" -> "02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("-02"),
-          None,
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("-02"),
+        None,
+        Some("02")
       )
     )
   }
 
   test("route name with non-numeric start- and end-node names") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "B-A"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("B-A"),
-          Some("B"),
-          Some("A")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("B-A"),
+        Some("B"),
+        Some("A")
       )
     )
   }
 
   test("route name with start- and end-node names reversed") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "02-01"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("02-01"),
-          Some("01"),
-          Some("02"),
-          reversed = true
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("02-01"),
+        Some("01"),
+        Some("02"),
+        reversed = true
       )
     )
   }
 
   test("route name without dash to separate start- and end-node names") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01/02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01/02"),
-          None,
-          None
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01/02"),
+        None,
+        None
       )
     )
   }
 
   test("route name containing spaces") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> " 01 - 02 "))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-02"),
-          Some("01"),
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
       )
     )
   }
 
   test("route name with start node name only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("01-"),
-          Some("01"),
-          None
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-"),
+        Some("01"),
+        None
       )
     )
   }
 
   test("route name with end node name only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "-02"))
-    routeNameAnalysis should equal(
-      Some(
-        RouteNameAnalysis(
-          Some("-02"),
-          None,
-          Some("02")
-        )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("-02"),
+        None,
+        Some("02")
       )
     )
   }

@@ -45,7 +45,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val analysis = new NetworkDiffAnalyzer(snapshot(before), snapshot(after)).diff
 
-    analysis.networkNodes.removed should equal(
+    analysis.networkNodes.removed should matchTo(
       Seq(
         NetworkNodeData(
           newRawNodeWithName(1002, "02"),
@@ -71,7 +71,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val analysis = new NetworkDiffAnalyzer(snapshot(before), snapshot(after)).diff
 
-    analysis.networkNodes.added should equal(
+    analysis.networkNodes.added should matchTo(
       Seq(
         NetworkNodeData(
           newRawNodeWithName(1002, "02"),
@@ -95,7 +95,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val analysis = new NetworkDiffAnalyzer(snapshot(before), snapshot(after)).diff
 
-    analysis.networkNodes.updated should equal(
+    analysis.networkNodes.updated should matchTo(
       Seq(
         NetworkNodeUpdate(
           before = NetworkNodeData(

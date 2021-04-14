@@ -17,7 +17,7 @@ class PoiRepositoryTest extends UnitTest with SharedTestObjects {
       repository.save(newPoi("node", 4, layers = Seq("windmill")))
       repository.save(newPoi("node", 5, layers = Seq("windmill")))
 
-      repository.allPois(stale = false) should equal(
+      repository.allPois(stale = false) should matchTo(
         Seq(
           PoiInfo("node", 1, "", "", "bar"),
           PoiInfo("node", 2, "", "", "bench"),

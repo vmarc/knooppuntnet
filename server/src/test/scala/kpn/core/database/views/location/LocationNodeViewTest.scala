@@ -38,7 +38,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
       def testQuery(locationName: String): Unit = {
         val parameters = LocationNodesParameters(99, 0)
-        LocationNodeView.query(database, LocationKey(NetworkType.cycling, Country.nl, locationName), parameters, stale = false) should equal(
+        LocationNodeView.query(database, LocationKey(NetworkType.cycling, Country.nl, locationName), parameters, stale = false) should matchTo(
           Seq(
             LocationNodeInfo(
               id = 1001,

@@ -89,7 +89,7 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
 
     val beHikingChangeSetSummary = ChangeSetSummarySubsetFilter.filter(changeSetSummary, Subset.beHiking)
 
-    beHikingChangeSetSummary should equal(
+    beHikingChangeSetSummary should matchTo(
       buildChangeSetSummary(
         networkChanges = NetworkChanges(
           creates = Seq(

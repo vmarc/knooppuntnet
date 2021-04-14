@@ -35,30 +35,30 @@ class RoutingSortingOrderAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("all ok") {
     val analysis = analyze(RouteStructure(forwardPath = Some(correctOrderPath)))
-    analysis.forwardOk should equal(true)
-    analysis.backwardOk should equal(true)
-    analysis.startTentaclesOk should equal(true)
-    analysis.endTentaclesOk should equal(true)
+    assert(analysis.forwardOk)
+    assert(analysis.backwardOk)
+    assert(analysis.startTentaclesOk)
+    assert(analysis.endTentaclesOk)
   }
 
   test("forward nok") {
     val analysis = analyze(RouteStructure(forwardPath = Some(wrongOrderPath)))
-    analysis.forwardOk should equal(false)
+    assert(!analysis.forwardOk)
   }
 
   test("backward nok") {
     val analysis = analyze(RouteStructure(backwardPath = Some(wrongOrderPath)))
-    analysis.backwardOk should equal(false)
+    assert(!analysis.backwardOk)
   }
 
   test("start tentacle nok") {
     val analysis = analyze(RouteStructure(startTentaclePaths = Seq(wrongOrderPath)))
-    analysis.startTentaclesOk should equal(false)
+    assert(!analysis.startTentaclesOk)
   }
 
   test("end tentacle nok") {
     val analysis = analyze(RouteStructure(endTentaclePaths = Seq(wrongOrderPath)))
-    analysis.endTentaclesOk should equal(false)
+    assert(!analysis.endTentaclesOk)
   }
 
   private def fragment(wayId: Long, from: Node, to: Node): Fragment = {

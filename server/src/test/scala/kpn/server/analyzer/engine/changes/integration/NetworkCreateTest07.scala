@@ -64,7 +64,7 @@ class NetworkCreateTest07 extends AbstractTest {
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should equal(
+        changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             networkChanges = NetworkChanges(
@@ -101,7 +101,7 @@ class NetworkCreateTest07 extends AbstractTest {
 
     (tc.changeSetRepository.saveNetworkChange _).verify(
       where { networkChange: NetworkChange =>
-        networkChange should equal(
+        networkChange should matchTo(
           newNetworkChange(
             newChangeKey(elementId = 1),
             ChangeType.Create,
@@ -120,7 +120,7 @@ class NetworkCreateTest07 extends AbstractTest {
 
     (tc.changeSetRepository.saveRouteChange _).verify(
       where { routeChange: RouteChange =>
-        routeChange should equal(
+        routeChange should matchTo(
           newRouteChange(
             newChangeKey(elementId = 11),
             ChangeType.Update,
@@ -212,7 +212,7 @@ class NetworkCreateTest07 extends AbstractTest {
       where { nodeChange: NodeChange =>
         nodeChange.key.elementId match {
           case 1001 =>
-            nodeChange should equal(
+            nodeChange should matchTo(
               newNodeChange(
                 key = newChangeKey(elementId = 1001),
                 changeType = ChangeType.Update,
@@ -234,7 +234,7 @@ class NetworkCreateTest07 extends AbstractTest {
 
           case 1002 =>
 
-            nodeChange should equal(
+            nodeChange should matchTo(
               newNodeChange(
                 key = newChangeKey(elementId = 1002),
                 changeType = ChangeType.Update,
