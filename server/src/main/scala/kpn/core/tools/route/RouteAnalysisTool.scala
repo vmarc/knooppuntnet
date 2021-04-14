@@ -1,4 +1,4 @@
-package kpn.core.tools.support
+package kpn.core.tools.route
 
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.custom.Country
@@ -29,24 +29,33 @@ import scala.xml.XML
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("localhost", "routes") { database =>
-      val tool = new RouteAnalysisTool(database)
-      tool.analyze()
+    Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
+      Couch.executeIn("localhost", "routes") { routeDatabase =>
+        val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
+//        tool.analyze()
 
-      // tool.analyzeSingleFile("/kpn/routes/838/9432838.xml")
-      // tool.analyzeSingleFile("/kpn/routes/838/9979838.xml")
-      // tool.analyzeSingleFile("/kpn/routes/838/4152838.xml") // route is ok, except one segment too much
-      // tool.analyzeSingleFile("/kpn/routes/540/3118540.xml") // problem with junction=roundabout !!!
+         tool.analyzeSingleFile("/kpn/routes/000/11201000.xml")
 
-      // tool.analyzeSubdir("/kpn/routes/838")
+        // tool.analyzeSingleFile("/kpn/routes/146/8473146.xml")
+        // tool.analyzeSingleFile("/kpn/routes/838/9432838.xml")
+        // tool.analyzeSingleFile("/kpn/routes/838/9979838.xml")
+        // tool.analyzeSingleFile("/kpn/routes/838/4152838.xml") // route is ok, except one segment too much
+        // tool.analyzeSingleFile("/kpn/routes/540/3118540.xml") // problem with junction=roundabout !!!
+
+        // tool.analyzeSubdir("/kpn/routes/838")
+      }
     }
   }
 }
 
-class RouteAnalysisTool(database: Database) {
+class RouteAnalysisTool(
+  analysisDatabase: Database,
+  routeDatabase: Database
+) {
 
   private val log = Log(classOf[RouteAnalysisTool])
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeRepository = new RouteRepositoryImpl(routeDatabase)
+  private val analysisRouteRepository = new RouteRepositoryImpl(analysisDatabase)
 
   def analyze(): Unit = {
     val subdirs = listDirs(new File("/kpn/routes"))
@@ -132,6 +141,23 @@ class RouteAnalysisTool(database: Database) {
       analyzeRoute(file) match {
         case None =>
         case Some(routeAnalysis) =>
+
+          analysisRouteRepository.routeWithId(routeAnalysis.route.id) match {
+            case None => log.info("route not found in analysis database")
+            case Some(analysisRoute) =>
+
+              if (analysisRoute.active) {
+                val comparator = new RouteAnalysisComparator()
+
+                val comparison = comparator.compareRouteInfos(analysisRoute, routeAnalysis.route)
+                //                if (comparison.factDiff.isDefined) {
+                //                  log.info("facts different")
+                //                }
+                //                else {
+                //                  log.info("facts identical")
+                //                }
+              }
+          }
 
           // log.info(s"name=${routeAnalysis.name}, facts=${routeAnalysis.route.facts.mkString(",")}")
 
