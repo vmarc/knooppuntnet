@@ -55,6 +55,7 @@ import { FactRouteUnaccessibleComponent } from './descriptions/fact-route-unacce
 import { FactRouteUnexpectedNodeComponent } from './descriptions/fact-route-unexpected-node.component';
 import { FactRouteUnexpectedRelationComponent } from './descriptions/fact-route-unexpected-relation.component';
 import { FactRouteUnusedSegmentsComponent } from './descriptions/fact-route-unused-segments.component';
+import { FactRouteWithoutNodesComponent } from './descriptions/fact-route-without-nodes.component';
 import { FactRouteWithoutWaysComponent } from './descriptions/fact-route-without-ways.component';
 import { FactWasOrphanComponent } from './descriptions/fact-was-orphan.component';
 import { FactDescriptionComponent } from './fact-description.component';
@@ -87,6 +88,7 @@ import { FactsComponent } from './facts.component';
     FactRouteNodeMissingInWaysComponent,
     FactRouteRedundantNodesComponent,
     FactRouteWithoutWaysComponent,
+    FactRouteWithoutNodesComponent,
     FactRouteFixmetodoComponent,
     FactRouteNameMissingComponent,
     FactRouteTagMissingComponent,

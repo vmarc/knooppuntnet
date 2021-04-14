@@ -12,6 +12,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
@@ -105,11 +106,12 @@ class RouteAnalysisTool(database: Database) {
               }
             }
             val nodeAnalyzer = new NodeAnalyzerImpl()
+            val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
             val routeAnalyzer = new MasterRouteAnalyzerImpl(
               analysisContext,
               routeLocationAnalyzer,
               routeTileAnalyzer,
-              nodeAnalyzer
+              routeNodeInfoAnalyzer
             )
             val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, data, routeRelation)
             Some(routeAnalyzer.analyze(loadedRoute, orphan = false))

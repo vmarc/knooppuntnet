@@ -15,6 +15,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -344,11 +345,12 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val nodeAnalyzer = new NodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
       routeTileAnalyzer,
-      nodeAnalyzer
+      routeNodeInfoAnalyzer
     )
     routeAnalyzer.analyze(LoadedRoute(None, ScopedNetworkType.rwn, data, routeRelation), orphan = false)
   }

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteNodeMissingInWays
 import kpn.api.custom.Fact.RouteRedundantNodes
+import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
@@ -38,7 +39,23 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val facts = ListBuffer[Fact]()
 
-    val routeNodeAnalysis = doAnalyze(facts)
+    val routeNodeAnalysis = if (nodes.isEmpty) {
+      facts += RouteWithoutNodes
+      RouteNodeAnalysis()
+    }
+    else {
+      doAnalyze(facts)
+    }
+
+    context.copy(routeNodeAnalysis = Some(routeNodeAnalysis)).withFacts(facts.toSeq: _*)
+  }
+
+  private def doAnalyze(facts: ListBuffer[Fact]): RouteNodeAnalysis = {
+
+    val routeNodeAnalysis = context.routeNameAnalysis match {
+      case Some(routeNameAnalysis) => analyzeRouteWithName(facts, routeNameAnalysis)
+      case None => analyzeRouteWithoutStartAndEndNodeFromName(facts)
+    }
 
     if (routeNodeAnalysis.nodesInWays.isEmpty) {
       facts += RouteNodeMissingInWays
@@ -52,20 +69,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       facts += RouteRedundantNodes
     }
 
-    context.copy(routeNodeAnalysis = Some(routeNodeAnalysis)).withFacts(facts.toSeq: _*)
-  }
-
-  private def doAnalyze(facts: ListBuffer[Fact]): RouteNodeAnalysis = {
-
-    if (nodes.isEmpty) {
-      RouteNodeAnalysis()
-    }
-    else {
-      context.routeNameAnalysis match {
-        case Some(routeNameAnalysis) => analyzeRouteWithName(facts, routeNameAnalysis)
-        case None => analyzeRouteWithoutStartAndEndNodeFromName(facts)
-      }
-    }
+    routeNodeAnalysis
   }
 
   private def analyzeRouteWithName(facts: ListBuffer[Fact], routeNameAnalysis: RouteNameAnalysis): RouteNodeAnalysis = {
@@ -96,14 +100,14 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       case None => throw new IllegalStateException("Programming error: expected startNodeName in RouteNameAnalysis")
       case Some(startNodeName) =>
 
-        val routeNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => startNodeName.equals(normalize(routeNodeInfo.name))).distinct
+        val routeNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => startNodeName.equals(routeNodeInfo.name)).distinct
         val (startRouteNodeInfos, endRouteNodeInfos) = if (routeNodeInfos.size > 1) {
           (routeNodeInfos.dropRight(1).reverse, Seq(routeNodeInfos.last))
         }
         else {
           (routeNodeInfos, Seq.empty)
         }
-        val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(normalize(routeNodeInfo.name))).distinct
+        val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name)).distinct
         val alternateNameMap = nodeUtil.alternateNames(facts, startRouteNodeInfos)
 
         RouteNodeAnalysis(
@@ -116,7 +120,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteWithStartNodeName(facts: ListBuffer[Fact], startNodeName: String): RouteNodeAnalysis = {
     val startNodes = filterByNodeName(orderedRouteNodeInfos.distinct, startNodeName)
-    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(normalize(routeNodeInfo.name))).distinct
+    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name)).distinct
     val alternateNameMap = nodeUtil.alternateNames(facts, startNodes)
     RouteNodeAnalysis(
       startNodes = toRouteNodes(alternateNameMap, startNodes),
@@ -126,7 +130,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteWithEndNodeName(facts: ListBuffer[Fact], endNodeName: String): RouteNodeAnalysis = {
     val endNodes = filterByNodeName(orderedRouteNodeInfos.distinct, endNodeName)
-    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !endNodeName.equals(normalize(routeNodeInfo.name))).distinct
+    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !endNodeName.equals(routeNodeInfo.name)).distinct
     val alternateNameMap = nodeUtil.alternateNames(facts, endNodes)
     RouteNodeAnalysis(
       endNodes = toRouteNodes(alternateNameMap, endNodes),
@@ -135,7 +139,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def analyzeRouteWithoutStartAndEndNodeFromName(facts: ListBuffer[Fact]): RouteNodeAnalysis = {
-    val normalizedNodeNames = nodeUtil.sortNames(nodes.map(node => normalize(node.name)).distinct)
+    val normalizedNodeNames = nodeUtil.sortNames(nodes.map(node => node.name).distinct)
     if (normalizedNodeNames.size == 1) {
       analyzeRouteWithStartNodeName(facts, normalizedNodeNames.head)
     }
@@ -158,8 +162,8 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private def analyzeRouteNodes(facts: ListBuffer[Fact], startNodeName: String, endNodeName: String): RouteNodeAnalysis = {
 
     val reversed = {
-      val startNodeIds = orderedRouteNodeInfos.filter(routeNodeInfo => normalize(routeNodeInfo.name).equals(startNodeName)).map(_.node.id)
-      val endNodeIds = orderedRouteNodeInfos.filter(routeNodeInfo => normalize(routeNodeInfo.name).equals(endNodeName)).map(_.node.id)
+      val startNodeIds = orderedRouteNodeInfos.filter(routeNodeInfo => routeNodeInfo.name.equals(startNodeName)).map(_.node.id)
+      val endNodeIds = orderedRouteNodeInfos.filter(routeNodeInfo => routeNodeInfo.name.equals(endNodeName)).map(_.node.id)
       if (startNodeIds.isEmpty || endNodeIds.isEmpty) {
         false
       }
@@ -198,7 +202,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     val redundantRouteNodeInfos = orderedRouteNodeInfos.filter { routeNodeInfo =>
-      val name = normalize(routeNodeInfo.name)
+      val name = routeNodeInfo.name
       !name.equals(startNodeName) && !name.equals(endNodeName)
     }.distinct
 
@@ -229,12 +233,8 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     routeNodeInfos.filter(node => relationNodeIds.contains(node.node.id))
   }
 
-  private def normalize(nodeName: String): String = {
-    if (nodeName.length == 1 && nodeName(0).isDigit) "0" + nodeName else nodeName
-  }
-
   private def filterByNodeName(routeNodeInfos: Seq[RouteNodeInfo], nodeName: String): Seq[RouteNodeInfo] = {
-    routeNodeInfos.filter(routeNodeInfo => normalize(routeNodeInfo.name).equals(nodeName))
+    routeNodeInfos.filter(routeNodeInfo => routeNodeInfo.name.equals(nodeName))
   }
 
   private def toRouteNodes(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfos: Seq[RouteNodeInfo]): Seq[RouteNode] = {

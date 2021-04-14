@@ -14,6 +14,12 @@ class NodeAnalyzerTest extends UnitTest {
     nodeAnalyzer.name(tags) should equal("01")
   }
 
+  test("name - single name - not normalized") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rwn_ref" -> "1")
+    nodeAnalyzer.name(tags) should equal("01")
+  }
+
   test("name - multiple names") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
@@ -28,6 +34,16 @@ class NodeAnalyzerTest extends UnitTest {
   test("names - single name") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val tags = Tags.from("rwn_ref" -> "01")
+    nodeAnalyzer.names(tags) should equal(
+      Seq(
+        NodeName(ScopedNetworkType.rwn, "01")
+      )
+    )
+  }
+
+  test("names - single name - not normalized") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rwn_ref" -> "1")
     nodeAnalyzer.names(tags) should equal(
       Seq(
         NodeName(ScopedNetworkType.rwn, "01")
@@ -58,6 +74,13 @@ class NodeAnalyzerTest extends UnitTest {
     nodeAnalyzer.name(NetworkType.cycling, tags) should equal("02")
   }
 
+  test("name - for specific networkType - not normalized") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rwn_ref" -> "1", "rcn_ref" -> "2")
+    nodeAnalyzer.name(NetworkType.hiking, tags) should equal("01")
+    nodeAnalyzer.name(NetworkType.cycling, tags) should equal("02")
+  }
+
   test("name - when there are multiple names for same NetworkType") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val tags = Tags.from("lwn_ref" -> "01", "rwn_ref" -> "02")
@@ -74,6 +97,24 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "*", "rcn_ref" -> ".")
     nodeAnalyzer.name(NetworkType.hiking, tags) should equal("*")
     nodeAnalyzer.name(NetworkType.cycling, tags) should equal(".")
+  }
+
+  test("scopedName - single name") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rwn_ref" -> "01")
+    nodeAnalyzer.scopedName(ScopedNetworkType.rwn, tags) should equal(Some("01"))
+  }
+
+  test("scopedName - single name - not normalized") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rwn_ref" -> "1")
+    nodeAnalyzer.scopedName(ScopedNetworkType.rwn, tags) should equal(Some("01"))
+  }
+
+  test("scopedName - no name in scope") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rcn_ref" -> "01")
+    nodeAnalyzer.scopedName(ScopedNetworkType.rwn, tags) should equal(None)
   }
 
 }

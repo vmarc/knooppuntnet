@@ -126,6 +126,9 @@ import { Component, Input } from '@angular/core';
       <kpn-fact-route-unused-segments
         *ngSwitchCase="'RouteUnusedSegments'"
       ></kpn-fact-route-unused-segments>
+      <kpn-fact-route-without-nodes
+        *ngSwitchCase="'RouteWithoutNodes'"
+      ></kpn-fact-route-without-nodes>
       <kpn-fact-route-without-ways
         *ngSwitchCase="'RouteWithoutWays'"
       ></kpn-fact-route-without-ways>

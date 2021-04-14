@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 
@@ -20,7 +20,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      ";RouteNodeMissingInWays"
+      ";RouteWithoutNodes"
     )
   }
 
@@ -35,7 +35,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/RW),End=(2/02/02/RW)"
+      "Start=(1/01/01/RW)," +
+        "End=(2/02/02/RW)"
     )
   }
 
@@ -50,7 +51,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/R),End=(2/02/02/R);RouteNodeMissingInWays"
+      "Start=(1/01/01/R)," +
+        "End=(2/02/02/R);" +
+        "RouteNodeMissingInWays"
     )
   }
 
@@ -64,7 +67,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(2/20/20/W),End=(1/100/100/W),(reversed)"
+      "Start=(2/20/20/W)," +
+        "End=(1/100/100/W)," +
+        "(reversed)"
     )
   }
 
@@ -160,7 +165,10 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/RW),End=(2/02/02/RW),Redundant=(3/03/03/R);RouteRedundantNodes"
+      "Start=(1/01/01/RW)," +
+        "End=(2/02/02/RW)," +
+        "Redundant=(3/03/03/R);" +
+        "RouteRedundantNodes"
     )
   }
 
@@ -175,7 +183,10 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/W),End=(3/03/03/W),Redundant=(2/02/02/W);RouteRedundantNodes"
+      "Start=(1/01/01/W)," +
+        "End=(3/03/03/W)," +
+        "Redundant=(2/02/02/W);" +
+        "RouteRedundantNodes"
     )
   }
 
@@ -190,7 +201,10 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/W),End=(2/02/02/W),Redundant=(3/03/03/W);RouteRedundantNodes"
+      "Start=(1/01/01/W)," +
+        "End=(2/02/02/W)," +
+        "Redundant=(3/03/03/W);" +
+        "RouteRedundantNodes"
     )
   }
 
@@ -212,7 +226,12 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(18, "", 8, 9) // 9: redundant --> 02
     }
 
-    analyze(d) should equal("Start=(5/01/01.a/W,3/01/01.b/W,1/01/01.c/W),End=(8/01/01/W),Redundant=(9/02/02/W);RouteRedundantNodes")
+    analyze(d) should equal(
+      "Start=(5/01/01.a/W,3/01/01.b/W,1/01/01.c/W)," +
+        "End=(8/01/01/W)," +
+        "Redundant=(9/02/02/W);" +
+        "RouteRedundantNodes"
+    )
   }
 
   test("start and end node with the same name, but only one node in ways") {
@@ -227,7 +246,12 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberNode(5)
     }
 
-    analyze(d) should equal("Start=(1/01/01/W),End=(5/01/01/R),Redundant=(4/02/02/W);RouteNodeMissingInWays,RouteRedundantNodes")
+    analyze(d) should equal(
+      "Start=(1/01/01/W)," +
+        "End=(5/01/01/R)," +
+        "Redundant=(4/02/02/W);" +
+        "RouteNodeMissingInWays,RouteRedundantNodes"
+    )
   }
 
   test("node name with leading zero in route name and without leading zero in way") {
@@ -243,7 +267,10 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/1/1/W),End=(3/02/02/W),Redundant=(5/03/03/W);RouteRedundantNodes"
+      "Start=(1/01/01/W)," +
+        "End=(3/02/02/W)," +
+        "Redundant=(5/03/03/W);" +
+        "RouteRedundantNodes"
     )
   }
 
@@ -258,7 +285,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/R),End=(3/02/02/RW);RouteNodeMissingInWays"
+      "Start=(1/01/01/R)," +
+        "End=(3/02/02/RW);" +
+        "RouteNodeMissingInWays"
     )
   }
 
@@ -273,7 +302,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "End=(3/02/02/RW),Redundant=(1/01/01/R);RouteRedundantNodes"
+      "End=(3/02/02/RW)," +
+        "Redundant=(1/01/01/R);" +
+        "RouteRedundantNodes"
     )
   }
 
@@ -288,7 +319,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/R),Redundant=(3/02/02/RW);RouteNodeMissingInWays,RouteRedundantNodes"
+      "Start=(1/01/01/R)," +
+        "Redundant=(3/02/02/RW);" +
+        "RouteNodeMissingInWays,RouteRedundantNodes"
     )
   }
 
@@ -305,7 +338,6 @@ class RouteNodeAnalyzerTest extends UnitTest {
     analyze(d) should equal("Start=(1/01/01/W)")
   }
 
-
   test("no route name") {
 
     val d = new RouteTestData("") {
@@ -317,7 +349,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/RW),End=(2/02/02/RW);RouteNameMissing"
+      "Start=(1/01/01/RW)," +
+        "End=(2/02/02/RW);" +
+        "RouteNameMissing"
     )
   }
 
@@ -332,7 +366,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01.a/W,2/01/01.b/W,3/01/01.c/W);RouteNameMissing"
+      "Start=(1/01/01.a/W,2/01/01.b/W,3/01/01.c/W);" +
+        "RouteNameMissing"
     )
   }
 
@@ -347,7 +382,10 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(3/01/01/W),End=(1/02/02/W),(reversed);RouteNameMissing"
+      "Start=(3/01/01/W)," +
+        "End=(1/02/02/W)," +
+        "(reversed);" +
+        "RouteNameMissing"
     )
   }
 
@@ -367,7 +405,11 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(5/01/01/W),End=(3/03/03/W),Redundant=(1/02/02/W),(reversed);RouteNameMissing,RouteRedundantNodes"
+      "Start=(5/01/01/W)," +
+        "End=(3/03/03/W)," +
+        "Redundant=(1/02/02/W)," +
+        "(reversed);" +
+        "RouteNameMissing,RouteRedundantNodes"
     )
   }
 
@@ -383,12 +425,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
     )
 
     val analysisContext = new AnalysisContext()
-
-    val routeNodeInfos = data.nodes.values.flatMap { node =>
-      node.tags(d.scopedNetworkType.nodeRefTagKey).map { ref =>
-        node.id -> RouteNodeInfo(node, ref)
-      }
-    }.toMap
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
+    val routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
 
     val context = RouteAnalysisContext(
       analysisContext,

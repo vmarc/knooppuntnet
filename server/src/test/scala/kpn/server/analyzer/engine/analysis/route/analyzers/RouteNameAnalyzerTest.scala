@@ -7,6 +7,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -16,6 +17,17 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'ref' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-02"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
+      )
+    )
+  }
+
+  test("route name based on 'ref' tag - not normalized") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "1-2"))
     routeNameAnalysis.value should matchTo(
       RouteNameAnalysis(
         Some("01-02"),
@@ -36,8 +48,30 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
+  test("route name based on 'name' tag - not normalized") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "1-2"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
+      )
+    )
+  }
+
   test("route name based on 'note' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "01-02"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
+      )
+    )
+  }
+
+  test("route name based on 'note' tag - not normalized") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "1-2"))
     routeNameAnalysis.value should matchTo(
       RouteNameAnalysis(
         Some("01-02"),
@@ -69,6 +103,17 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
+  test("route name based on 'from' and 'to' tag - not normalized") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "1", "to" -> "2"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
+      )
+    )
+  }
+
   test("route name based on 'from' tag only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "01"))
     routeNameAnalysis.value should matchTo(
@@ -80,8 +125,30 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
+  test("route name based on 'from' tag only - not normalized") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "1"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-"),
+        Some("01"),
+        None
+      )
+    )
+  }
+
   test("route name based on 'to' tag only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("to" -> "02"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("-02"),
+        None,
+        Some("02")
+      )
+    )
+  }
+
+  test("route name based on 'to' tag only - not normalized") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("to" -> "2"))
     routeNameAnalysis.value should matchTo(
       RouteNameAnalysis(
         Some("-02"),
@@ -190,13 +257,16 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       data.relations(11L)
     )
 
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
+
     val analysisContext = new AnalysisContext()
 
     val context = RouteAnalysisContext(
       analysisContext,
       loadedRoute,
       orphan = false,
-      Map.empty
+      routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
     )
 
     RouteNameAnalyzer.analyze(context)

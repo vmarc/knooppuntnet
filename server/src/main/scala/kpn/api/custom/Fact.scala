@@ -54,6 +54,7 @@ object Fact {
   val RouteNodeMissingInWays: Fact = f.error("RouteNodeMissingInWays")
   val RouteRedundantNodes: Fact = f.error("RouteRedundantNodes")
   val RouteWithoutWays: Fact = f.error("RouteWithoutWays")
+  val RouteWithoutNodes: Fact = f.error("RouteWithoutNodes")
 
   val RouteFixmetodo: Fact = f.error("RouteFixmetodo")
 

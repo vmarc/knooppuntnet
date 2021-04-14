@@ -5,6 +5,7 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
@@ -27,11 +28,12 @@ object RouteAnalyzerDemo {
         val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
         val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
         val nodeAnalyzer = new NodeAnalyzerImpl()
+        val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
         val routeAnalyzer = new MasterRouteAnalyzerImpl(
           analysisContext,
           routeLocationAnalyzer,
           routeTileAnalyzer,
-          nodeAnalyzer
+          routeNodeInfoAnalyzer
         )
         val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
         println("facts=" + routeAnalysis.route.facts)

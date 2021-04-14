@@ -311,6 +311,18 @@ export class OverviewService {
 
     configurations.push(
       new StatisticConfiguration(
+        'RouteWithoutNodesCount',
+        'RouteWithoutNodes',
+        true,
+        factDetailCounts,
+        $localize`:@@stats.route-without-nodes.name:RouteWithoutNodes`,
+        $localize`:@@stats.route-without-nodes.comment:
+          Routes without network nodes (a route is expected to have at least 2 network nodes).`
+      )
+    );
+
+    configurations.push(
+      new StatisticConfiguration(
         'RouteWithoutWaysCount',
         'RouteWithoutWays',
         true,

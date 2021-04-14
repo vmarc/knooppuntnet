@@ -1,7 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.WayMember
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
@@ -9,8 +7,6 @@ import kpn.api.custom.Tags
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.util.Log
-import kpn.core.util.Unique
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
@@ -26,6 +22,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RoutePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
@@ -35,7 +32,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedNodeRouteAn
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
 import kpn.server.analyzer.load.data.LoadedRoute
@@ -48,13 +44,13 @@ class MasterRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
   routeLocationAnalyzer: RouteLocationAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer,
-  nodeAnalyzer: NodeAnalyzer
+  routeNodeInfoAnalyzer: RouteNodeInfoAnalyzer
 ) extends MasterRouteAnalyzer {
 
   override def analyze(loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
     Log.context("route=%07d".format(loadedRoute.id)) {
 
-      val routeNodeInfos = collectRouteNodeInfos(loadedRoute)
+      val routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
       val context = RouteAnalysisContext(
         analysisContext,
         loadedRoute,
@@ -101,19 +97,6 @@ class MasterRouteAnalyzerImpl(
       val newContext = analyzers.head.analyze(context)
       doAnalyze(analyzers.tail, newContext)
     }
-  }
-
-  private def collectRouteNodeInfos(loadedRoute: LoadedRoute): Map[Long, RouteNodeInfo] = {
-    val nodes = loadedRoute.relation.members.flatMap {
-      case nodeMember: NodeMember => Seq(nodeMember.node)
-      case wayMember: WayMember => wayMember.way.nodes
-      case _ => Seq()
-    }
-    Unique.filter(nodes).flatMap { node =>
-      nodeAnalyzer.scopedName(loadedRoute.scopedNetworkType, node.tags).map { name =>
-        node.id -> RouteNodeInfo(node, name)
-      }
-    }.toMap
   }
 }
 
