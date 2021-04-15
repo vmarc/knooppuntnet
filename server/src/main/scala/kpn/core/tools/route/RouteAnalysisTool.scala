@@ -1,7 +1,10 @@
 package kpn.core.tools.route
 
 import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
+import kpn.api.custom.Fact.RouteWithoutNodes
+import kpn.api.custom.NetworkType
 import kpn.core.data.DataBuilder
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
@@ -32,9 +35,9 @@ object RouteAnalysisTool {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-//        tool.analyze()
+        // tool.analyze()
 
-         tool.analyzeSingleFile("/kpn/routes/000/11201000.xml")
+        tool.analyzeRoute(2672912L)
 
         // tool.analyzeSingleFile("/kpn/routes/146/8473146.xml")
         // tool.analyzeSingleFile("/kpn/routes/838/9432838.xml")
@@ -57,29 +60,124 @@ class RouteAnalysisTool(
   private val routeRepository = new RouteRepositoryImpl(routeDatabase)
   private val analysisRouteRepository = new RouteRepositoryImpl(analysisDatabase)
 
+  private val reviewedRouteIds = Seq(
+    17004L, // to be further investigated: start node and tentacle node switched
+    1465004L, // to be further investigated: start node and tentacle node switched
+    125302L, // OK difference caused by rounding errors ???
+    545378L, // OK improved route node analysis result
+    1031697L, // OK improved route node analysis result --> further investigate, start and end node determination could be better
+    1609468L, // OK improved route node analysis result --> further investigate, start and end node determination could be better
+    12533280L, // OK improved route node analysis result
+    12533271L, // OK improved route node analysis result --> LOOP: further investigate, can do better? no end-nodes?
+    12533195L, // OK improved route node analysis result --> LOOP: further investigate, can do better? no end-nodes?
+  )
+
+  private val ignoredRouteIds = {
+    val source = scala.io.Source.fromFile("/kpn/routes/ignored-route-ids.txt")
+    val ids = source.getLines().toSeq.map(_.toLong)
+    source.close()
+    ids
+  }
+
+
   def analyze(): Unit = {
     val subdirs = listDirs(new File("/kpn/routes"))
-    subdirs.foreach { subdir =>
+    val allRouteIds = subdirs.flatMap { subdir =>
       val files = listFiles(subdir)
-      files.foreach(analyzeRouteFile)
+      files.map(_.getName.dropRight(4).toLong)
+    }
+    val routeIds = (allRouteIds.toSet -- ignoredRouteIds).toSeq.sorted
+    routeIds.zipWithIndex.foreach { case (routeId, index) =>
+      Log.context(s"${index + 1}/${routeIds.size}") {
+        if (!reviewedRouteIds.contains(routeId)) {
+          analyzeRoute(routeId)
+        }
+      }
     }
     log.info("done")
   }
 
-  def analyzeSingleFile(filename: String): Unit = {
-    val file = new File(filename)
-    analyzeRouteFile(file)
-    log.info("done")
+  def analyzeRoute(routeId: Long): Unit = {
+    val formattedRouteId = String.format("%8d", routeId)
+    Log.context(formattedRouteId) {
+
+      try {
+        val subdir = routeId.toString.takeRight(3)
+        val filename = s"/kpn/routes/$subdir/$routeId.xml"
+        val file = new File(filename)
+        analyzeRouteFile(file) match {
+          case None =>
+          case Some(newRouteAnalysis) =>
+
+            Log.context(newRouteAnalysis.route.summary.name) {
+
+              routeRepository.save(newRouteAnalysis.route)
+
+              if (newRouteAnalysis.route.facts.contains(RouteWithoutNodes)) {
+                log.info("IGNORE RouteWithoutNodes")
+              }
+              else {
+                analysisRouteRepository.routeWithId(newRouteAnalysis.route.id) match {
+                  case None => log.info("route not found in analysis database")
+                  case Some(oldRoute) =>
+
+                    if (newRouteAnalysis.route.lastUpdated != oldRoute.lastUpdated) {
+                      log.info("IGNORE updated after snapshot")
+                    }
+                    else {
+                      if (oldRoute.summary.country.contains(Country.nl) && oldRoute.summary.networkType == NetworkType.cycling) {
+                        if (oldRoute.active) {
+                          if (isImprovedRoute(oldRoute, newRouteAnalysis.route)) {
+                            log.info("improved")
+                          }
+                          else {
+                            val comparator = new RouteAnalysisComparator()
+                            val comparison = comparator.compareRouteInfos(oldRoute, newRouteAnalysis.route)
+                            if (comparison.factDiff.isDefined) {
+                              log.info("facts: " + comparison.factDiff.get)
+                            }
+                          }
+                        }
+                      }
+                      else {
+                        log.info("IGNORE not NL cycling")
+                      }
+                    }
+                }
+              }
+            }
+        }
+      }
+      catch {
+        case e: Exception =>
+          log.error("Could not process route", e)
+          throw e
+      }
+    }
   }
 
-  def analyzeSubdir(dirname: String): Unit = {
-    val files = new File(dirname).listFiles()
-    log.info(s"start: ${files.size} routes")
-    files.foreach(analyzeRouteFile)
-    log.info("done")
-  }
+  // log.info(s"name=${routeAnalysis.name}, facts=${routeAnalysis.route.facts.mkString(",")}")
 
-  private def analyzeRoute(file: File): Option[RouteAnalysis] = {
+  //            val oldPaths = routeAnalysis.structure.oldPaths
+  //            val newPaths = routeAnalysis.structure.paths.get
+  //            // printPaths(newPaths)
+  //
+  //            val a = oldPaths.map(_.copy(oneWay = false))
+  //            val b = newPaths.map(_.copy(oneWay = false))
+  //            val d = b.filter(p1 => a.contains(p1))
+  //
+  //            if (a.toSet != d.toSet) {
+  //              if (routeAnalysis.route.facts.isEmpty && !oldPaths.exists(_.broken)) {
+  //                log.info("MISMATCH1")
+  //                routeRepository.save(routeAnalysis.route)
+  //              }
+  //              else {
+  //                val bp = if (oldPaths.exists(_.broken)) "broken path" else ""
+  //                log.info(s"MISMATCH2 $bp ${routeAnalysis.route.facts.mkString(", ")}")
+  //              }
+  //            }
+
+  private def analyzeRouteFile(file: File): Option[RouteAnalysis] = {
 
     try {
       val xml = XML.load(Source.fromFile(file))
@@ -135,54 +233,6 @@ class RouteAnalysisTool(
     }
   }
 
-  private def analyzeRouteFile(file: File): Unit = {
-    val formattedRouteId = String.format("%8s", file.getName.dropRight(4))
-    Log.context(formattedRouteId) {
-      analyzeRoute(file) match {
-        case None =>
-        case Some(routeAnalysis) =>
-
-          analysisRouteRepository.routeWithId(routeAnalysis.route.id) match {
-            case None => log.info("route not found in analysis database")
-            case Some(analysisRoute) =>
-
-              if (analysisRoute.active) {
-                val comparator = new RouteAnalysisComparator()
-
-                val comparison = comparator.compareRouteInfos(analysisRoute, routeAnalysis.route)
-                //                if (comparison.factDiff.isDefined) {
-                //                  log.info("facts different")
-                //                }
-                //                else {
-                //                  log.info("facts identical")
-                //                }
-              }
-          }
-
-          // log.info(s"name=${routeAnalysis.name}, facts=${routeAnalysis.route.facts.mkString(",")}")
-
-          val oldPaths = routeAnalysis.structure.oldPaths
-          val newPaths = routeAnalysis.structure.paths.get
-          // printPaths(newPaths)
-
-          val a = oldPaths.map(_.copy(oneWay = false))
-          val b = newPaths.map(_.copy(oneWay = false))
-          val d = b.filter(p1 => a.contains(p1))
-
-          if (a.toSet != d.toSet) {
-            if (routeAnalysis.route.facts.isEmpty && !oldPaths.exists(_.broken)) {
-              log.info("MISMATCH1")
-              routeRepository.save(routeAnalysis.route)
-            }
-            else {
-              val bp = if (oldPaths.exists(_.broken)) "broken path" else ""
-              log.info(s"MISMATCH2 $bp ${routeAnalysis.route.facts.mkString(", ")}")
-            }
-          }
-      }
-    }
-  }
-
   private def printPaths(paths: Seq[Path]): Unit = {
     paths.foreach(printPath)
   }
@@ -207,6 +257,30 @@ class RouteAnalysisTool(
   private def listFiles(dir: File): Seq[File] = {
     val files = dir.listFiles().filter(_.getName.endsWith(".xml"))
     files.sortBy(_.getName.dropRight(4).toLong)
+  }
+
+  private def isImprovedRoute(oldRoute: RouteInfo, newRoute: RouteInfo): Boolean = {
+
+    // new analysis is better (better start and end node, no tentacle node)
+
+    val oldStartNodes = oldRoute.analysis.map.startNodes
+    val oldEndNodes = oldRoute.analysis.map.endNodes
+    val oldStartTentacleNodes = oldRoute.analysis.map.startTentacleNodes
+
+    val newStartNodes = newRoute.analysis.map.startNodes
+    val newEndNodes = newRoute.analysis.map.endNodes
+    val newStartTentacleNodes = newRoute.analysis.map.startTentacleNodes
+
+    if (oldStartNodes.size == 1 && oldEndNodes.size == 1 && oldStartTentacleNodes.size == 1) {
+      if (newStartNodes.size == 1 && newEndNodes.size == 1 && newStartTentacleNodes.isEmpty) {
+        if (oldStartNodes.head.id == oldEndNodes.head.id) {
+          if (newEndNodes.head.id != newStartNodes.head.id) {
+            return true
+          }
+        }
+      }
+    }
+    false
   }
 
 }

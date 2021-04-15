@@ -11,6 +11,7 @@ import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteOverlappingWays
 import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSortingOrderAnalyzer
@@ -54,6 +55,11 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
       )
     }
+    else if (facts.contains(RouteWithoutNodes)) {
+      RouteStructure(
+        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
+      )
+    }
     else if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
       RouteStructure(
         unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
@@ -83,7 +89,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def analyzeStructure2(routeNodeAnalysis: RouteNodeAnalysis, structure: RouteStructure, fragments: Seq[Fragment]): Unit = {
-    if (!Seq(RouteAnalysisFailed, RouteOverlappingWays).exists(facts.contains)) {
+    if (!Seq(RouteAnalysisFailed, RouteOverlappingWays, RouteWithoutNodes).exists(facts.contains)) {
       if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
         if (!facts.contains(RouteWithoutWays)) {
           // do not report this fact if route has no ways or is known to be incomplete

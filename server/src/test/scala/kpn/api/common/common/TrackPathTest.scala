@@ -40,4 +40,48 @@ class TrackPathTest extends UnitTest {
     trackPath.trackPoints shouldBe empty
   }
 
+  test("reversed") {
+
+    val trackPath = TrackPath(
+      pathId = 123L,
+      startNodeId = 1001L,
+      endNodeId = 1005L,
+      meters = 123L,
+      oneWay = false,
+      segments = Seq(
+        TrackSegment(
+          "surface",
+          source = TrackPoint("1", "1"),
+          fragments = Seq(
+            TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L, 2L, None),
+            TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L, 3L, None),
+            TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L, 4L, None),
+            TrackSegmentFragment(trackPoint = TrackPoint("5", "5"), 0L, 5L, None)
+          )
+        )
+      )
+    )
+
+    trackPath.reverse should matchTo(
+      TrackPath(
+        pathId = 123L,
+        startNodeId = 1005L,
+        endNodeId = 1001L,
+        meters = 123L,
+        oneWay = false,
+        segments = Seq(
+          TrackSegment(
+            "surface",
+            source = TrackPoint("5", "5"),
+            fragments = Seq(
+              TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L, 185L, None),
+              TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L, 184L, None),
+              TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L, 183L, None),
+              TrackSegmentFragment(trackPoint = TrackPoint("1", "1"), 0L, 182L, None)
+            )
+          )
+        )
+      )
+    )
+  }
 }
