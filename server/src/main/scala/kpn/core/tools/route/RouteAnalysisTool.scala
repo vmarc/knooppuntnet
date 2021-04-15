@@ -35,17 +35,8 @@ object RouteAnalysisTool {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-        // tool.analyze()
-
-        tool.analyzeRoute(2672912L)
-
-        // tool.analyzeSingleFile("/kpn/routes/146/8473146.xml")
-        // tool.analyzeSingleFile("/kpn/routes/838/9432838.xml")
-        // tool.analyzeSingleFile("/kpn/routes/838/9979838.xml")
-        // tool.analyzeSingleFile("/kpn/routes/838/4152838.xml") // route is ok, except one segment too much
-        // tool.analyzeSingleFile("/kpn/routes/540/3118540.xml") // problem with junction=roundabout !!!
-
-        // tool.analyzeSubdir("/kpn/routes/838")
+        //tool.analyze()
+        tool.analyzeRoute(11906621L)
       }
     }
   }
@@ -61,6 +52,8 @@ class RouteAnalysisTool(
   private val analysisRouteRepository = new RouteRepositoryImpl(analysisDatabase)
 
   private val reviewedRouteIds = Seq(
+
+    // NL cycling
     17004L, // to be further investigated: start node and tentacle node switched
     1465004L, // to be further investigated: start node and tentacle node switched
     125302L, // OK difference caused by rounding errors ???
@@ -70,22 +63,16 @@ class RouteAnalysisTool(
     12533280L, // OK improved route node analysis result
     12533271L, // OK improved route node analysis result --> LOOP: further investigate, can do better? no end-nodes?
     12533195L, // OK improved route node analysis result --> LOOP: further investigate, can do better? no end-nodes?
+    7097802L, // OK minor differences in geometry
+
+    // BE cycling
+    6938L, // OK minor differences in geometry
   )
 
-  private val ignoredRouteIds = {
-    val source = scala.io.Source.fromFile("/kpn/routes/ignored-route-ids.txt")
-    val ids = source.getLines().toSeq.map(_.toLong)
-    source.close()
-    ids
-  }
-
+  private val ignoredRouteIds = IdsFile.read("/kpn/routes/ignored-route-ids.txt")
 
   def analyze(): Unit = {
-    val subdirs = listDirs(new File("/kpn/routes"))
-    val allRouteIds = subdirs.flatMap { subdir =>
-      val files = listFiles(subdir)
-      files.map(_.getName.dropRight(4).toLong)
-    }
+    val allRouteIds = readAllRouteIds()
     val routeIds = (allRouteIds.toSet -- ignoredRouteIds).toSeq.sorted
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       Log.context(s"${index + 1}/${routeIds.size}") {
@@ -100,12 +87,8 @@ class RouteAnalysisTool(
   def analyzeRoute(routeId: Long): Unit = {
     val formattedRouteId = String.format("%8d", routeId)
     Log.context(formattedRouteId) {
-
       try {
-        val subdir = routeId.toString.takeRight(3)
-        val filename = s"/kpn/routes/$subdir/$routeId.xml"
-        val file = new File(filename)
-        analyzeRouteFile(file) match {
+        analyzeRouteFile(routeId) match {
           case None =>
           case Some(newRouteAnalysis) =>
 
@@ -125,7 +108,7 @@ class RouteAnalysisTool(
                       log.info("IGNORE updated after snapshot")
                     }
                     else {
-                      if (oldRoute.summary.country.contains(Country.nl) && oldRoute.summary.networkType == NetworkType.cycling) {
+                      if (oldRoute.summary.country.contains(Country.nl) && oldRoute.summary.networkType == NetworkType.hiking) {
                         if (oldRoute.active) {
                           if (isImprovedRoute(oldRoute, newRouteAnalysis.route)) {
                             log.info("improved")
@@ -133,14 +116,11 @@ class RouteAnalysisTool(
                           else {
                             val comparator = new RouteAnalysisComparator()
                             val comparison = comparator.compareRouteInfos(oldRoute, newRouteAnalysis.route)
-                            if (comparison.factDiff.isDefined) {
-                              log.info("facts: " + comparison.factDiff.get)
-                            }
                           }
                         }
                       }
                       else {
-                        log.info("IGNORE not NL cycling")
+                        log.info("IGNORE not NL hiking")
                       }
                     }
                 }
@@ -177,7 +157,10 @@ class RouteAnalysisTool(
   //              }
   //            }
 
-  private def analyzeRouteFile(file: File): Option[RouteAnalysis] = {
+  private def analyzeRouteFile(routeId: Long): Option[RouteAnalysis] = {
+    val subdir = routeId.toString.takeRight(3)
+    val filename = s"/kpn/routes/$subdir/$routeId.xml"
+    val file = new File(filename)
 
     try {
       val xml = XML.load(Source.fromFile(file))
@@ -281,6 +264,14 @@ class RouteAnalysisTool(
       }
     }
     false
+  }
+
+  private def readAllRouteIds(): Seq[Long] = {
+    val subdirs = listDirs(new File("/kpn/routes"))
+    subdirs.flatMap { subdir =>
+      val files = listFiles(subdir)
+      files.map(_.getName.dropRight(4).toLong)
+    }
   }
 
 }

@@ -1,5 +1,6 @@
 package kpn.core.tools.support
 
+import kpn.api.custom.Timestamp
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutor
@@ -51,7 +52,7 @@ class DumpRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExe
 
   private def readRouteXml(routeId: Long): String = {
     val query = QueryRelation(routeId)
-    overpassQueryExecutor.executeQuery(None, query)
+    overpassQueryExecutor.executeQuery(Some(Timestamp(2021, 4, 14, 17, 0, 25)), query)
   }
 
   private def routeFile(routeId: Long): File = {

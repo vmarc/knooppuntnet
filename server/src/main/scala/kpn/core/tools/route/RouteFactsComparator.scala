@@ -5,7 +5,14 @@ import kpn.api.common.route.RouteInfo
 class RouteFactsComparator {
 
   def compare(oldRoute: RouteInfo, newRoute: RouteInfo): Option[RouteFactDiff] = {
-    None
+    if (oldRoute.facts.toSet == newRoute.facts.toSet) {
+      None
+    }
+    else {
+      Some(
+        RouteFactDiff(oldRoute.facts.toSet, newRoute.facts.toSet)
+      )
+    }
   }
 
 }

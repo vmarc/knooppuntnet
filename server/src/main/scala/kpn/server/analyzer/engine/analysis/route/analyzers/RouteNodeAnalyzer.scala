@@ -32,7 +32,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private val nodeUtil = new NodeUtil(context.scopedNetworkType)
 
   private val orderedRouteNodeInfos = new RouteRelationAnalyzer().orderedNodeIds(context.loadedRoute.relation).flatMap { nodeId =>
-    context.routeNodeInfos.get(nodeId)
+    context.routeNodeInfos.get(nodeId).filter(_.name != "*")
   }
 
   def analyze: RouteAnalysisContext = {

@@ -34,7 +34,7 @@ class RouteAnalysisComparator {
       log.info("OK")
     }
     else {
-      log.info("DIFF")
+      log.info("DIFF " + factsDiff)
     }
 
     RouteAnalysisComparison(factsDiff)

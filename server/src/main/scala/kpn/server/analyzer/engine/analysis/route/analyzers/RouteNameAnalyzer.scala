@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact.RouteNameMissing
 import kpn.api.custom.Tags
+import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -154,7 +155,9 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
       }
     }
     else {
-      false
+      val originalOrder = Seq(startNodeName, endNodeName)
+      val sortedOrder = NaturalSorting.sort(originalOrder)
+      sortedOrder != originalOrder
     }
   }
 }
