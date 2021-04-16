@@ -9,7 +9,7 @@ import kpn.core.util.UnitTest
 class OrphanRouteChangeTest extends UnitTest with SharedTestObjects {
 
   test("a regular route change is not an orphan route related change") {
-    OrphanRouteChange.isOrphanRouteChange(newRouteChange()) should equal(false)
+    assert(!OrphanRouteChange.isOrphanRouteChange(newRouteChange()))
   }
 
   test("create orphan route") {
@@ -33,6 +33,6 @@ class OrphanRouteChangeTest extends UnitTest with SharedTestObjects {
   }
 
   private def assertOrphan(routeChange: RouteChange): Unit = {
-    OrphanRouteChange.isOrphanRouteChange(routeChange) should equal(true)
+    assert(OrphanRouteChange.isOrphanRouteChange(routeChange))
   }
 }

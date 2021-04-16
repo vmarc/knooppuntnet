@@ -73,15 +73,15 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
       case None => fail()
       case Some(elementIds) =>
 
-        elementIds.relationIds.contains(11) should equal(true)
-        elementIds.relationIds.contains(12) should equal(false)
+        elementIds.relationIds should contain(11)
+        elementIds.relationIds should not contain (12)
 
-        elementIds.wayIds.contains(101) should equal(true)
-        elementIds.wayIds.contains(102) should equal(false)
+        elementIds.wayIds should contain(101)
+        elementIds.wayIds should not contain (102)
 
-        elementIds.nodeIds.contains(1001) should equal(true)
-        elementIds.nodeIds.contains(1002) should equal(true)
-        elementIds.nodeIds.contains(1003) should equal(false)
+        elementIds.nodeIds should contain(1001)
+        elementIds.nodeIds should contain(1002)
+        elementIds.nodeIds should not contain (1003)
     }
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()

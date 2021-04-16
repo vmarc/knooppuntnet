@@ -53,15 +53,15 @@ class NetworkCreateTest02 extends AbstractTest {
     tc.analysisContext.data.orphanNodes.watched.add(1001L)
     tc.analysisContext.data.orphanNodes.watched.add(1002L)
 
-    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true)
-    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(true)
-    tc.analysisContext.data.orphanNodes.watched.contains(1002) should equal(true)
+    assert(tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(tc.analysisContext.data.orphanNodes.watched.contains(1001))
+    assert(tc.analysisContext.data.orphanNodes.watched.contains(1002))
 
     tc.process(ChangeAction.Create, relation(dataAfter, 1))
 
-    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(false)
-    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(false)
-    tc.analysisContext.data.orphanNodes.watched.contains(1002) should equal(false)
+    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002))
 
     (tc.analysisRepository.saveNetwork _).verify(
       where { network: Network =>

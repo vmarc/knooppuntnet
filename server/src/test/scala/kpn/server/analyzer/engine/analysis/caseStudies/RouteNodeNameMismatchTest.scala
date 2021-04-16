@@ -7,6 +7,6 @@ class RouteNodeNameMismatchTest extends UnitTest {
 
   test("2677068") {
     val route = CaseStudy.routeAnalysis("2677068").route
-    route.facts.contains(RouteNodeNameMismatch) should equal(true)
+    assert(route.facts.contains(RouteNodeNameMismatch))
   }
 }

@@ -22,9 +22,9 @@ class TimerTest extends UnitTest with BeforeAndAfterEach {
     EpochTime.set(epochStartTime + timeout + 1)
 
     val timerState = timer.poll()
-    timerState.isElapsed should equal(true)
-    timerState.epochTimeElapsed should equal(true)
-    timerState.cpuTimeElapsed should equal(true)
+    assert(timerState.isElapsed)
+    assert(timerState.epochTimeElapsed)
+    assert(timerState.cpuTimeElapsed)
     timerState.epochElapsed should equal(timeout + 1)
     timerState.cpuElapsed should equal(Some(timeout + 1))
   }
@@ -37,9 +37,9 @@ class TimerTest extends UnitTest with BeforeAndAfterEach {
     EpochTime.set(epochStartTime + timeout + 1)
 
     val timerState = timer.poll()
-    timerState.isElapsed should equal(false)
-    timerState.epochTimeElapsed should equal(true)
-    timerState.cpuTimeElapsed should equal(false)
+    assert(!timerState.isElapsed)
+    assert(timerState.epochTimeElapsed)
+    assert(timerState.cpuTimeElapsed)
     timerState.epochElapsed should equal(timeout + 1)
     timerState.cpuElapsed should equal(Some(timeout / 2))
   }
@@ -53,12 +53,11 @@ class TimerTest extends UnitTest with BeforeAndAfterEach {
 
     {
       val timerState = timer.poll()
-      timerState.isElapsed should equal(false)
-      timerState.epochTimeElapsed should equal(true)
-      timerState.cpuTimeElapsed should equal(false)
+      assert(!timerState.isElapsed)
+      assert(timerState.epochTimeElapsed)
+      assert(!timerState.cpuTimeElapsed)
       timerState.epochElapsed should equal(timeout + 1)
       timerState.cpuElapsed should equal(Some(timeout / 2))
-
     }
 
     CpuTime.set(cpuStartTime + timeout + 1) // cpu time duration exceeded
@@ -66,9 +65,9 @@ class TimerTest extends UnitTest with BeforeAndAfterEach {
 
     {
       val timerState = timer.poll()
-      timerState.isElapsed should equal(false)
-      timerState.epochTimeElapsed should equal(true)
-      timerState.cpuTimeElapsed should equal(false)
+      assert(!timerState.isElapsed)
+      assert(timerState.epochTimeElapsed)
+      assert(!timerState.cpuTimeElapsed)
       timerState.epochElapsed should equal(timeout + 21)
       timerState.cpuElapsed should equal(None)
     }
@@ -78,9 +77,9 @@ class TimerTest extends UnitTest with BeforeAndAfterEach {
 
     {
       val timerState = timer.poll()
-      timerState.isElapsed should equal(true)
-      timerState.epochTimeElapsed should equal(true)
-      timerState.cpuTimeElapsed should equal(true)
+      assert(timerState.isElapsed)
+      assert(timerState.epochTimeElapsed)
+      assert(timerState.cpuTimeElapsed)
       timerState.epochElapsed should equal(timeout + 81)
       timerState.cpuElapsed should equal(Some(timeout + 1))
     }

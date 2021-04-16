@@ -168,7 +168,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //    unreferencedNodes.newOrphanNodes should equal(Seq(Ref(nodeId, "01")))
     //    unreferencedNodes.newIgnoredNodes shouldBe empty
     //
-    //    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(true)
+    //    assert(t.analysisData.orphanNodes.watched.contains(nodeId))
     //
     //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
@@ -496,7 +496,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //    unreferencedNodes.oldOrphanNodes should equal(Seq(Ref(nodeId, "01")))
     //    unreferencedNodes.oldIgnoredNodes shouldBe empty
     //
-    //    t.analysisData.orphanNodes.watched.contains(nodeId) should equal(false)
+    //    assert(!t.analysisData.orphanNodes.watched.contains(nodeId))
     //
     //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(
@@ -605,7 +605,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     //    unreferencedNodes.oldOrphanNodes shouldBe empty
     //    unreferencedNodes.oldIgnoredNodes should equal(Seq(Ref(nodeId, "01")))
     //
-    //    t.analysisData.orphanNodes.ignored.contains(nodeId) should equal(false)
+    //    assert(!t.analysisData.orphanNodes.ignored.contains(nodeId))
     //
     //    t.context._oldNodeChanges._oldGet(nodeId) should matchTo(
     //      Some(

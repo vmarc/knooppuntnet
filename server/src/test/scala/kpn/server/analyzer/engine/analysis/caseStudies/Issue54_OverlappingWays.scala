@@ -27,7 +27,7 @@ class Issue54_OverlappingWays extends UnitTest {
 
     routeIds.foreach { routeId =>
       val route = CaseStudy.routeAnalysis(routeId).route
-      route.facts.contains(Fact.RouteOverlappingWays) should equal(false)
+      assert(!route.facts.contains(Fact.RouteOverlappingWays))
     }
   }
 }

@@ -26,7 +26,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
     (d.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo.id should equal(d.loadedNode.id)
-        nodeInfo.orphan should equal(true)
+        assert(nodeInfo.orphan)
         nodeInfo.name should equal(d.loadedNode.name)
         nodeInfo.facts shouldBe empty
         true
@@ -40,7 +40,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     d.processor.process(None, d.loadedNode)
 
-    d.analysisContext.data.orphanNodes.watched.contains(d.loadedNode.id) should equal(true)
+    assert(d.analysisContext.data.orphanNodes.watched.contains(d.loadedNode.id))
   }
 
   private class NewOrphanNodeSetup extends Setup {

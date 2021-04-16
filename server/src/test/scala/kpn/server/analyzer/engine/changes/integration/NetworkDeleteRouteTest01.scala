@@ -47,8 +47,8 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
-    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true)
+    assert(!tc.analysisContext.data.networks.watched.contains(1))
+    assert(tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>

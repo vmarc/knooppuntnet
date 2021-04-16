@@ -30,7 +30,7 @@ class OrphanNodeTest01 extends AbstractTest {
 
     tc.process(ChangeAction.Create, node(dataAfter, 1001))
 
-    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(true)
+    assert(tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>

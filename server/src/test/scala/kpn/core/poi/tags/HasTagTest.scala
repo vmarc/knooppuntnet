@@ -9,11 +9,11 @@ class HasTagTest extends UnitTest {
 
     val tags = Tags.from("key" -> "value")
 
-    HasTag("key").evaluate(tags) should equal(true)
-    HasTag("key", "value").evaluate(tags) should equal(true)
+    assert(HasTag("key").evaluate(tags))
+    assert(HasTag("key", "value").evaluate(tags))
 
-    HasTag("bla").evaluate(tags) should equal(false)
-    HasTag("bla", "bla").evaluate(tags) should equal(false)
-    HasTag("key", "bla").evaluate(tags) should equal(false)
+    assert(!HasTag("bla").evaluate(tags))
+    assert(!HasTag("bla", "bla").evaluate(tags))
+    assert(!HasTag("key", "bla").evaluate(tags))
   }
 }

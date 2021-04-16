@@ -17,7 +17,7 @@ class OrphanRouteTest04 extends AbstractTest with SharedTestObjects {
 
     tc.process(ChangeAction.Delete, newRawRelation(11))
 
-    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(false)
+    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
     (tc.analysisRepository.saveRoute _).verify(*).never() // too difficult to save meaningful data
     (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()

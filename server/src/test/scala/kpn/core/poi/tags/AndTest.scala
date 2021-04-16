@@ -9,10 +9,10 @@ class AndTest extends UnitTest {
 
     val tags = Tags.from("key1" -> "value1", "key2" -> "value2")
 
-    HasTag("key1").and(HasTag("key2")).evaluate(tags) should equal(true)
+    assert(HasTag("key1").and(HasTag("key2")).evaluate(tags))
 
-    HasTag("bla").and(HasTag("key2")).evaluate(tags) should equal(false)
-    HasTag("key1").and(HasTag("bla")).evaluate(tags) should equal(false)
-    HasTag("bla").and(HasTag("bla")).evaluate(tags) should equal(false)
+    assert(!HasTag("bla").and(HasTag("key2")).evaluate(tags))
+    assert(!HasTag("key1").and(HasTag("bla")).evaluate(tags))
+    assert(!HasTag("bla").and(HasTag("bla")).evaluate(tags))
   }
 }

@@ -9,8 +9,8 @@ class OrphanNodesDataTest extends UnitTest {
     val data = new OrphanNodesData()
 
     data.size should equal(0)
-    data.contains(1001) should equal(false)
-    data.ids.isEmpty should equal(true)
+    assert(!data.contains(1001))
+    data.ids shouldBe empty
     data.delete(1001) // does no fail
 
     data.add(1001)

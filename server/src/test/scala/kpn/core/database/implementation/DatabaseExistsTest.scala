@@ -10,14 +10,14 @@ class DatabaseExistsTest extends UnitTest {
 
   test("exists - database exists") {
     withDatabase { database =>
-      database.exists should equal(true)
+      assert(database.exists)
     }
   }
 
   test("exists - database does not exist") {
     withEnvironment { (couchConfig, objectMapper) =>
       val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "bla"))
-      database.exists should equal(false)
+      assert(!database.exists)
     }
   }
 

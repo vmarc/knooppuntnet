@@ -39,7 +39,7 @@ class FullAnalysisTriggerTest extends UnitTest with MockFactory {
     withTimestamp(now) {
       val analysisTime = stub[AnalysisTimeRepository]
       (() => analysisTime.get).when().once().returns(previousAnalysisTime)
-      new FullAnalysisTrigger(analysisTime).shouldPerformFullAnalysis should equal(true)
+      assert(new FullAnalysisTrigger(analysisTime).shouldPerformFullAnalysis)
       (analysisTime.put _).verify(now)
       ()
     }
@@ -49,7 +49,7 @@ class FullAnalysisTriggerTest extends UnitTest with MockFactory {
     withTimestamp(now) {
       val analysisTime = stub[AnalysisTimeRepository]
       (() => analysisTime.get).when().returns(previousAnalysisTime)
-      new FullAnalysisTrigger(analysisTime).shouldPerformFullAnalysis should equal(false)
+      assert(!new FullAnalysisTrigger(analysisTime).shouldPerformFullAnalysis)
       (analysisTime.put _).verify(*).never()
       ()
     }

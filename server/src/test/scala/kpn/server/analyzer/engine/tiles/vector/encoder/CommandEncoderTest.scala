@@ -55,7 +55,7 @@ class CommandEncoderTest extends UnitTest {
       new Coordinate(20, 34),
       new Coordinate(3, 6)
     )
-    Orientation.isCCW(coordinates.toArray) should equal(true)
+    assert(Orientation.isCCW(coordinates.toArray))
     val polygon = gf.createPolygon(coordinates.toArray)
     val commands = new CommandEncoder().makeCommands1(polygon)
     commands should equal(Seq(9, 6, 12, 18, 10, 12, 24, 44, 15))
@@ -68,7 +68,7 @@ class CommandEncoderTest extends UnitTest {
       new Coordinate(8, 12),
       new Coordinate(3, 6)
     )
-    Orientation.isCCW(coordinates.toArray) should equal(false)
+    assert(!Orientation.isCCW(coordinates.toArray))
     val polygon = gf.createPolygon(coordinates.toArray)
     val commands = new CommandEncoder().makeCommands1(polygon)
     commands should equal(Seq(9, 6, 12, 18, 10, 12, 24, 44, 15))

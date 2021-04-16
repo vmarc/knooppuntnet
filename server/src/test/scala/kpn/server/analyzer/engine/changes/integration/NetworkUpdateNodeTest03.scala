@@ -73,15 +73,15 @@ class NetworkUpdateNodeTest03 extends AbstractTest {
     tc.nodesAfter(dataAfter, 1002)
 
     // before:
-    tc.analysisContext.data.networks.watched.isReferencingNode(1002) should equal(true)
-    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(false)
+    assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     // act:
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
 
     // after:
-    tc.analysisContext.data.networks.watched.isReferencingNode(1002) should equal(true)
-    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(false)
+    assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
 

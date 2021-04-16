@@ -9,7 +9,7 @@ import kpn.core.util.UnitTest
 class OrphanNodeChangeTest extends UnitTest with SharedTestObjects {
 
   test("a regular node change is not an orphan node related change") {
-    OrphanNodeChange.isOrphanNodeChange(newNodeChange()) should equal(false)
+    assert(!OrphanNodeChange.isOrphanNodeChange(newNodeChange()))
   }
 
   test("create orphan node") {
@@ -34,7 +34,7 @@ class OrphanNodeChangeTest extends UnitTest with SharedTestObjects {
   }
 
   private def assertOrphan(nodeChange: NodeChange): Unit = {
-    OrphanNodeChange.isOrphanNodeChange(nodeChange) should equal(true)
+    assert(OrphanNodeChange.isOrphanNodeChange(nodeChange))
   }
 }
 

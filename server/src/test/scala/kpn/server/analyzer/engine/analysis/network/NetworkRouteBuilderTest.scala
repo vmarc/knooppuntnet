@@ -82,9 +82,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.way12), member(d.way23), member(d.way34)))
   //
-  //    analysis.hasFact(RouteBroken) should equal(false)
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  //    assert(!analysis.hasFact(RouteBroken))
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //
@@ -104,9 +104,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   ////        segment.members(2).from should equal("3")
   ////        segment.members(2).to should equal("4")
   ////
-  ////        segment.members(0).reverse should equal(false)
-  ////        segment.members(1).reverse should equal(false)
-  ////        segment.members(2).reverse should equal(false)
+  ////        assert(!segment.members(0).reverse)
+  ////        assert(!segment.members(1).reverse)
+  ////        assert(!segment.members(2).reverse)
   ////
   ////        segment.members(0).role should equal(None)
   ////        segment.members(1).role should equal(None)
@@ -123,9 +123,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   ////    val route = buildRoute(d, "02-04", Seq(member(d.way23), member(d.way34)))
   ////
   ////    route.facts.size should equal(1)  ===> need new fact to indicate that start node is missing
-  ////    route.broken should equal(true)
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  ////    assert(route.broken)
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start should equal(None)
   ////    route.end should equal(Some(d.node4))
   //  }
@@ -137,9 +137,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   ////    val route = buildRoute(d, "02-04", Seq(member(d.way12), member(d.way23)))
   ////
   ////    route.facts.size should equal(1)  ===> need new fact to indicate that end node is missing
-  ////    route.broken should equal(true)
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  ////    assert(route.broken)
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start should equal(None)
   ////    route.end should equal(Some(d.node4))
   //  }
@@ -149,9 +149,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //    val d = new Data()
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.way12), member(d.way34)))
-  //    analysis.hasFact(RouteBroken) should equal(true)
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  //    assert(analysis.hasFact(RouteBroken))
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //  }
@@ -161,9 +161,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //    val d = new Data()
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.node1), member(d.way12), member(d.way23), member(d.way34), member(d.node4)))
-  //    analysis.hasFact(RouteBroken) should equal(false)
-  ////    route.startIncluded should equal(true)
-  ////    route.endIncluded should equal(true)
+  //    assert(!analysis.hasFact(RouteBroken))
+  ////    assert(route.startIncluded)
+  ////    assert(route.endIncluded)
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //  }
@@ -174,9 +174,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.node1), member(d.way12), member(d.way34), member(d.node4)))
   //
-  //    analysis.hasFact(RouteBroken) should equal(true)
-  ////    route.startIncluded should equal(true)
-  ////    route.endIncluded should equal(true)
+  //    assert(analysis.hasFact(RouteBroken))
+  ////    assert(route.startIncluded)
+  ////    assert(route.endIncluded)
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //  }
@@ -187,10 +187,10 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.way21), member(d.way23), member(d.way34)))
   //
-  //    analysis.hasFact(RouteBroken) should equal(false)
+  //    assert(!analysis.hasFact(RouteBroken))
   //
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start.get.id should equal(d.node1.id)
   ////    route.end.get.id should equal(d.node4.id)
   //  }
@@ -201,7 +201,7 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.way12), member(d.way32), member(d.way34)))
   //
-  //    analysis.hasFact(RouteBroken) should equal(false)
+  //    assert(!analysis.hasFact(RouteBroken))
   //
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
@@ -213,7 +213,7 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //
   //    val analysis = analyzeRoute(d, "01-04", Seq(member(d.way12), member(d.way23), member(d.way43)))
   //
-  //    analysis.hasFact(RouteBroken) should equal(false)
+  //    assert(!analysis.hasFact(RouteBroken))
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //  }
@@ -226,9 +226,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //    val analysis2 = analyzeRoute(d, "01-04", Seq(member(d.way21), member(d.closedWay), member(d.way34)))
   //    val analysis3 = analyzeRoute(d, "01-04", Seq(member(d.way12), member(d.closedWay), member(d.way43)))
   //
-  //    analysis1.hasFact(RouteBroken) should equal(false)
-  //    analysis2.hasFact(RouteBroken) should equal(false)
-  //    analysis3.hasFact(RouteBroken) should equal(false)
+  //    assert(!analysis1.hasFact(RouteBroken))
+  //    assert(!analysis2.hasFact(RouteBroken))
+  //    assert(!analysis3.hasFact(RouteBroken))
   //
   ////    route1.start.get.node should equal(d.node1)
   ////    route2.start.get.node should equal(d.node1)
@@ -250,8 +250,8 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   //    println("FACTS2 = " + analysis2.facts.facts)
   //
   //
-  //    analysis1.hasFact(RouteBroken) should equal(false)
-  //    analysis2.hasFact(RouteBroken) should equal(false)
+  //    assert(!analysis1.hasFact(RouteBroken))
+  //    assert(!analysis2.hasFact(RouteBroken))
   //
   ////    route1.end should equal(None)
   ////    route1.start.get.node should equal(d.node1)
@@ -271,8 +271,8 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
 
     println("FACTS3 = " + analysis1.route.facts)
     println("FACTS4 = " + analysis2.route.facts)
-    analysis1.route.facts.contains(RouteBroken) should equal(false)
-    analysis2.route.facts.contains(RouteBroken) should equal(false)
+    assert(!analysis1.route.facts.contains(RouteBroken))
+    assert(!analysis2.route.facts.contains(RouteBroken))
 
     //    route1.start should equal(None)
     //    route1.end.get.node should equal(d.node4)
@@ -288,9 +288,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   ////    val route = buildRoute(d, "01-04", Seq(member(d.doubleStartWay), member(d.way34)))
   ////
   ////    route.facts.size should equal(0)
-  ////    route.isBroken should equal(false)
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  ////    assert(!route.isBroken)
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //  }
@@ -302,9 +302,9 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
   ////    val route = buildRoute(d, "01-04", Seq(member(d.way21), member(d.doubleEndWay)))
   ////
   ////    route.facts.size should equal(0)
-  ////    route.isBroken should equal(false)
-  ////    route.startIncluded should equal(false)
-  ////    route.endIncluded should equal(false)
+  ////    assert(!route.isBroken)
+  ////    assert(!route.startIncluded)
+  ////    assert(!route.endIncluded)
   ////    route.start.get.node should equal(d.node1)
   ////    route.end.get.node should equal(d.node4)
   //  }

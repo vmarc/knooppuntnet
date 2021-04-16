@@ -1,9 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSummary
@@ -13,6 +9,10 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestData2
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 
 class NetworkDelete_Test01 extends AbstractTest {
 
@@ -28,11 +28,11 @@ class NetworkDelete_Test01 extends AbstractTest {
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
+    assert(!tc.analysisContext.data.networks.watched.contains(1))
 
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>
-        networkInfo.active should equal(false)
+        assert(!networkInfo.active)
         true
       }
     )
@@ -79,8 +79,8 @@ class NetworkDelete_Test01 extends AbstractTest {
         networkChange.changeType should equal(ChangeType.Delete)
         networkChange.networkType should equal(NetworkType.hiking)
         networkChange.networkName should equal("network1")
-        networkChange.happy should equal(false)
-        networkChange.investigate should equal(true)
+        assert(!networkChange.happy)
+        assert(networkChange.investigate)
         true
       }
     )

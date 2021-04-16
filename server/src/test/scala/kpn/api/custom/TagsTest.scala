@@ -9,14 +9,14 @@ class TagsTest extends UnitTest {
 
   test("hasTag") {
 
-    TestObject(Tags.empty).tags.has("key") should equal(false)
+    assert(!TestObject(Tags.empty).tags.has("key"))
 
-    TestObject(Tags.from("key" -> "value")).tags.has("key") should equal(true)
-    TestObject(Tags.from("key" -> "value")).tags.has("key", "value") should equal(true)
-    TestObject(Tags.from("key" -> "value")).tags.has("key", "value1", "value2") should equal(false)
+    assert(TestObject(Tags.from("key" -> "value")).tags.has("key"))
+    assert(TestObject(Tags.from("key" -> "value")).tags.has("key", "value"))
+    assert(!TestObject(Tags.from("key" -> "value")).tags.has("key", "value1", "value2"))
 
-    TestObject(Tags.from("key" -> "value1;value2")).tags.has("key", "value") should equal(false)
-    TestObject(Tags.from("key" -> "value1;value2")).tags.has("key", "value1") should equal(true)
-    TestObject(Tags.from("key" -> "value1;value2")).tags.has("key", "value2") should equal(true)
+    assert(!TestObject(Tags.from("key" -> "value1;value2")).tags.has("key", "value"))
+    assert(TestObject(Tags.from("key" -> "value1;value2")).tags.has("key", "value1"))
+    assert(TestObject(Tags.from("key" -> "value1;value2")).tags.has("key", "value2"))
   }
 }

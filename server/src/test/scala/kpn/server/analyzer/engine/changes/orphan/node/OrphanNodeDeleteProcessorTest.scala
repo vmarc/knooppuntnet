@@ -35,7 +35,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     t.processor.process(context, loadedNodeDelete)
 
-    t.analysisContext.data.orphanNodes.watched.contains(nodeId) should equal(false)
+    assert(!t.analysisContext.data.orphanNodes.watched.contains(nodeId))
 
     (t.analysisRepository.saveNode _).verify(
       newNodeInfo(

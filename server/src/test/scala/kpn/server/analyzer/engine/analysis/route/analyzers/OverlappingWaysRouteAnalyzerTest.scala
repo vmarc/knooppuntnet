@@ -27,7 +27,7 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
       }
     )
 
-    context.hasFact(Fact.RouteOverlappingWays) should equal(false)
+    assert(!context.hasFact(Fact.RouteOverlappingWays))
     context.overlappingWays should equal(Some(Seq()))
   }
 
@@ -47,7 +47,7 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
       }
     )
 
-    context.hasFact(Fact.RouteOverlappingWays) should equal(true)
+    assert(context.hasFact(Fact.RouteOverlappingWays))
     context.overlappingWays should equal(Some(Seq(Overlap(101, 102))))
   }
 
@@ -67,7 +67,7 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
       }
     )
 
-    context.hasFact(Fact.RouteOverlappingWays) should equal(true)
+    assert(context.hasFact(Fact.RouteOverlappingWays))
     context.overlappingWays should equal(Some(Seq(Overlap(101, 102), Overlap(101, 103), Overlap(102, 103))))
   }
 
@@ -80,13 +80,13 @@ class OverlappingWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
       }
     )
 
-    context.hasFact(Fact.RouteOverlappingWays) should equal(false)
+    assert(!context.hasFact(Fact.RouteOverlappingWays))
     context.overlappingWays should equal(Some(Seq()))
   }
 
   test("route without ways does not cause a problem in the overlap analysis logic") {
     val context = analyze(new RouteTestData("01-02"))
-    context.hasFact(Fact.RouteOverlappingWays) should equal(false)
+    assert(!context.hasFact(Fact.RouteOverlappingWays))
     context.overlappingWays should equal(Some(Seq()))
   }
 

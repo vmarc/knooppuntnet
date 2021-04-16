@@ -1,11 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
@@ -17,6 +11,12 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData2
 
 class NetworkDeleteRouteTest03 extends AbstractTest {
 
@@ -59,14 +59,14 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
     // network 1 is no longer in memory
-    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
+    assert(!tc.analysisContext.data.networks.watched.contains(1))
 
-    tc.analysisContext.data.orphanRoutes.watched.contains(11) should equal(true) // network 1 was removed, route no longer referenced
-    tc.analysisContext.data.orphanRoutes.watched.contains(12) should equal(false) // network 1 was removed, but route still referenced in network 2
+    assert(tc.analysisContext.data.orphanRoutes.watched.contains(11)) // network 1 was removed, route no longer referenced
+    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(12)) // network 1 was removed, but route still referenced in network 2
 
-    tc.analysisContext.data.orphanNodes.watched.contains(1001) should equal(false)
-    tc.analysisContext.data.orphanNodes.watched.contains(1002) should equal(false) // still referenced in orphan route
-    tc.analysisContext.data.orphanNodes.watched.contains(1003) should equal(false)
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002)) // still referenced in orphan route
+    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1003))
 
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>

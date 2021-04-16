@@ -16,7 +16,7 @@ class NetworkDelete_Test02 extends AbstractTest {
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    tc.analysisContext.data.networks.watched.contains(1) should equal(false)
+    assert(!tc.analysisContext.data.networks.watched.contains(1))
 
     (tc.networkRepository.save _).verify(*).never()
     (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()

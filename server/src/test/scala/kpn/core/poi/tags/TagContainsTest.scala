@@ -12,9 +12,9 @@ class TagContainsTest extends UnitTest {
     val tags3 = Tags.from("key" -> "bla")
     val tags4 = Tags.from("bla" -> "value")
 
-    TagContains("key", "value").evaluate(tags1) should equal(true)
-    TagContains("key", "value").evaluate(tags2) should equal(true)
-    TagContains("key", "value").evaluate(tags3) should equal(false)
-    TagContains("key", "value").evaluate(tags4) should equal(false)
+    assert(TagContains("key", "value").evaluate(tags1))
+    assert(TagContains("key", "value").evaluate(tags2))
+    assert(!TagContains("key", "value").evaluate(tags3))
+    assert(!TagContains("key", "value").evaluate(tags4))
   }
 }

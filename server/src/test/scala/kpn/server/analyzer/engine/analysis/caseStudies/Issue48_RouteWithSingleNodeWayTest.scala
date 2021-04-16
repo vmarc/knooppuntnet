@@ -37,7 +37,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
       routeNodeInfoAnalyzer
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
-    routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays) should equal(true)
+    assert(routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays))
   }
 
   private def readRoute(): LoadedRoute = {

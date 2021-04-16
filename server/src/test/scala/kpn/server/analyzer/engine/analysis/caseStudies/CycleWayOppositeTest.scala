@@ -11,8 +11,8 @@ class CycleWayOppositeTest extends UnitTest {
 
     val route = CaseStudy.routeAnalysis("535487").route
 
-    route.facts.contains(RouteNotBackward) should equal(false)
-    route.facts.contains(RouteNotForward) should equal(false)
-    route.facts.contains(RouteNotContinious) should equal(false)
+    assert(!route.facts.contains(RouteNotBackward))
+    assert(!route.facts.contains(RouteNotForward))
+    assert(!route.facts.contains(RouteNotContinious))
   }
 }

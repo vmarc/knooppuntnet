@@ -51,8 +51,8 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
       )
     )
 
-    changeSetSummary.happy should equal(true)
-    changeSetSummary.investigate should equal(true)
+    assert(changeSetSummary.happy)
+    assert(changeSetSummary.investigate)
 
     val nlHikingChangeSetSummary = ChangeSetSummarySubsetFilter.filter(changeSetSummary, Subset.nlHiking)
 
@@ -84,8 +84,8 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
       )
     )
 
-    nlHikingChangeSetSummary.happy should equal(true)
-    nlHikingChangeSetSummary.investigate should equal(true)
+    assert(nlHikingChangeSetSummary.happy)
+    assert(nlHikingChangeSetSummary.investigate)
 
     val beHikingChangeSetSummary = ChangeSetSummarySubsetFilter.filter(changeSetSummary, Subset.beHiking)
 
@@ -117,8 +117,8 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
       )
     )
 
-    beHikingChangeSetSummary.happy should equal(false)
-    beHikingChangeSetSummary.investigate should equal(false)
+    assert(!beHikingChangeSetSummary.happy)
+    assert(!beHikingChangeSetSummary.investigate)
   }
 
   private def buildChangeSetSummary(

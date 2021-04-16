@@ -9,11 +9,11 @@ class NotHasTagTest extends UnitTest {
 
     val tags = Tags.from("key" -> "value")
 
-    NotHasTag("key").evaluate(tags) should equal(false)
-    NotHasTag("key", "value").evaluate(tags) should equal(false)
+    assert(!NotHasTag("key").evaluate(tags))
+    assert(!NotHasTag("key", "value").evaluate(tags))
 
-    NotHasTag("bla").evaluate(tags) should equal(true)
-    NotHasTag("bla", "bla").evaluate(tags) should equal(true)
-    NotHasTag("key", "bla").evaluate(tags) should equal(true)
+    assert(NotHasTag("bla").evaluate(tags))
+    assert(NotHasTag("bla", "bla").evaluate(tags))
+    assert(NotHasTag("key", "bla").evaluate(tags))
   }
 }

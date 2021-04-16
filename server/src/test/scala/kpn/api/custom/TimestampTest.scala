@@ -5,54 +5,54 @@ import kpn.core.util.UnitTest
 class TimestampTest extends UnitTest {
 
   test("<") {
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2016, 5, 5, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 6, 5, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 6, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 6, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 6, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 5, 6) should equal(true)
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2016, 5, 5, 5, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 6, 5, 5, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 6, 5, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 6, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 6, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 5, 6))
 
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2014, 5, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 4, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 4, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 4, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 4, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 5, 4) should equal(false)
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2014, 5, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 4, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 4, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 4, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 4, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) < Timestamp(2015, 5, 5, 5, 5, 4)))
   }
 
   test(">") {
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2014, 5, 5, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 4, 5, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 4, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 4, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 4, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 5, 4) should equal(true)
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2014, 5, 5, 5, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 4, 5, 5, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 4, 5, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 4, 5, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 4, 5))
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 5, 4))
 
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2016, 5, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 6, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 6, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 6, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 6, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 5, 6) should equal(false)
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2016, 5, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 6, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 6, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 6, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 6, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) > Timestamp(2015, 5, 5, 5, 5, 6)))
   }
 
   test("===") {
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 5, 5, 5) should equal(true)
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 5, 5, 5))
 
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2014, 5, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 4, 5, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 4, 5, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 4, 5, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 5, 4, 5) should equal(false)
-    Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 5, 5, 4) should equal(false)
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2014, 5, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 4, 5, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 4, 5, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 4, 5, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 5, 4, 5)))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) === Timestamp(2015, 5, 5, 5, 5, 4)))
   }
 
   test(">=") {
-    Timestamp(2015, 5, 5, 5, 5, 5) >= Timestamp(2015, 5, 5, 5, 5, 5) should equal(true)
-    Timestamp(2016, 5, 5, 5, 5, 5) >= Timestamp(2015, 5, 5, 5, 5, 5) should equal(true)
-    Timestamp(2015, 5, 5, 5, 5, 5) >= Timestamp(2016, 5, 5, 5, 5, 5) should equal(false)
+    assert(Timestamp(2015, 5, 5, 5, 5, 5) >= Timestamp(2015, 5, 5, 5, 5, 5))
+    assert(Timestamp(2016, 5, 5, 5, 5, 5) >= Timestamp(2015, 5, 5, 5, 5, 5))
+    assert(!(Timestamp(2015, 5, 5, 5, 5, 5) >= Timestamp(2016, 5, 5, 5, 5, 5)))
   }
 
   test("compareTo") {

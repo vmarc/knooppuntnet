@@ -60,18 +60,18 @@ class TileFileRepositoryTest extends UnitTest {
       val tileFile2 = createFile("/tmp/tiles/motorboat/11/1048/676.mvt")
       val tileFile3 = createFile("/tmp/tiles/motorboat/11/1048/677.mvt")
 
-      tileFile1.exists() should equal(true)
-      tileFile2.exists() should equal(true)
-      tileFile3.exists() should equal(true)
+      assert(tileFile1.exists())
+      assert(tileFile2.exists())
+      assert(tileFile3.exists())
 
       repo.delete(Seq(tileName1, tileName2))
 
-      tileFile1.exists() should equal(false)
-      tileFile2.exists() should equal(false)
-      tileFile3.exists() should equal(true)
+      assert(!tileFile1.exists())
+      assert(!tileFile2.exists())
+      assert(tileFile3.exists())
 
-      new File("/tmp/tiles/inline-skating/11/1048").exists() should equal(false)
-      new File("/tmp/tiles/motorboat/11/1048").exists() should equal(true)
+      assert(!new File("/tmp/tiles/inline-skating/11/1048").exists())
+      assert(new File("/tmp/tiles/motorboat/11/1048").exists())
     }
     finally {
       FileUtils.deleteDirectory(new File("/tmp/tiles"))
@@ -94,24 +94,24 @@ class TileFileRepositoryTest extends UnitTest {
       val tileFile4 = createFile("/tmp/tiles/inline-skating/analysis/11/1049/676.png")
       val tileFile5 = createFile("/tmp/tiles/inline-skating/analysis/11/1049/677.png")
 
-      tileFile1.exists() should equal(true)
-      tileFile2.exists() should equal(true)
-      tileFile3.exists() should equal(true)
-      tileFile4.exists() should equal(true)
-      tileFile5.exists() should equal(true)
+      assert(tileFile1.exists())
+      assert(tileFile2.exists())
+      assert(tileFile3.exists())
+      assert(tileFile4.exists())
+      assert(tileFile5.exists())
 
       repo.delete(Seq(tileName1, tileName2, tileName3, tileName4))
 
-      tileFile1.exists() should equal(false)
-      tileFile2.exists() should equal(false)
-      tileFile3.exists() should equal(false)
-      tileFile4.exists() should equal(false)
-      tileFile5.exists() should equal(true)
+      assert(!tileFile1.exists())
+      assert(!tileFile2.exists())
+      assert(!tileFile3.exists())
+      assert(!tileFile4.exists())
+      assert(tileFile5.exists())
 
-      new File("/tmp/tiles/inline-skating/11/1049").exists() should equal(false)
-      new File("/tmp/tiles/inline-skating/surface/11/1049").exists() should equal(false)
-      new File("/tmp/tiles/inline-skating/survey/11/1049").exists() should equal(false)
-      new File("/tmp/tiles/inline-skating/analysis/11/1049").exists() should equal(true)
+      assert(!new File("/tmp/tiles/inline-skating/11/1049").exists())
+      assert(!new File("/tmp/tiles/inline-skating/surface/11/1049").exists())
+      assert(!new File("/tmp/tiles/inline-skating/survey/11/1049").exists())
+      assert(new File("/tmp/tiles/inline-skating/analysis/11/1049").exists())
     }
     finally {
       FileUtils.deleteDirectory(new File("/tmp/tiles"))
@@ -126,10 +126,10 @@ class TileFileRepositoryTest extends UnitTest {
       val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
 
       repo.saveOrUpdate("cycling/survey", new Tile(11, 12, 13), Array())
-      file.exists() should equal(true)
+      assert(file.exists())
 
       repo.deleteTile("cycling/survey", new Tile(11, 12, 13))
-      file.exists() should equal(false)
+      assert(!file.exists())
     }
     finally {
       FileUtils.deleteDirectory(new File("/tmp/tiles"))

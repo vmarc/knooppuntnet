@@ -27,7 +27,7 @@ class ChangeSetInfoParserTest extends UnitTest {
     changeSetInfo.id should equal(32016913)
     changeSetInfo.createdAt should equal(Timestamp(2015, 6, 16, 20, 51, 52))
     changeSetInfo.closedAt should equal(Some(Timestamp(2015, 6, 16, 20, 51, 58)))
-    changeSetInfo.open should equal(false)
+    assert(!changeSetInfo.open)
     changeSetInfo.commentsCount should equal(0)
     changeSetInfo.tags("comment") should equal(Some("rcn 41-49 volgorde bijgewerkt"))
   }
@@ -52,7 +52,7 @@ class ChangeSetInfoParserTest extends UnitTest {
     changeSetInfo.id should equal(46854348)
     changeSetInfo.createdAt should equal(Timestamp(2017, 3, 14, 22, 2, 18))
     changeSetInfo.closedAt should equal(None)
-    changeSetInfo.open should equal(true)
+    assert(changeSetInfo.open)
     changeSetInfo.commentsCount should equal(0)
     changeSetInfo.tags("comment") should equal(Some("issues with POI's in Landsmeer"))
   }

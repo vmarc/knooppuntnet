@@ -12,9 +12,9 @@ class NotTagContainsTest extends UnitTest {
     val tags3 = Tags.from("key" -> "bla")
     val tags4 = Tags.from("bla" -> "value")
 
-    NotTagContains("key", "value").evaluate(tags1) should equal(false)
-    NotTagContains("key", "value").evaluate(tags2) should equal(false)
-    NotTagContains("key", "value").evaluate(tags3) should equal(true)
-    NotTagContains("key", "value").evaluate(tags4) should equal(true)
+    assert(!NotTagContains("key", "value").evaluate(tags1))
+    assert(!NotTagContains("key", "value").evaluate(tags2))
+    assert(NotTagContains("key", "value").evaluate(tags3))
+    assert(NotTagContains("key", "value").evaluate(tags4))
   }
 }

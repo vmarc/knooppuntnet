@@ -15,16 +15,16 @@ class DatabaseDeleteTest extends UnitTest with TestObjects {
     withEnvironment { (couchConfig, objectMapper) =>
       val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
       database.create()
-      database.exists should equal(true)
+      assert(database.exists)
       database.delete()
-      database.exists should equal(false)
+      assert(!database.exists)
     }
   }
 
   test("delete - database does not exist") {
     withEnvironment { (couchConfig, objectMapper) =>
       val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "bla"))
-      database.exists should equal(false)
+      assert(!database.exists)
       try {
         database.delete()
         fail("Expected exception not thrown")
@@ -45,7 +45,7 @@ class DatabaseDeleteTest extends UnitTest with TestObjects {
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
         val database: Database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
-        database.exists should equal(true)
+        assert(database.exists)
         try {
           database.delete()
           fail("Expected exception not thrown")

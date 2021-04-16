@@ -216,7 +216,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     data.relations(1).nodeMembers.map(_.node.id) should equal(Seq(101))
     data.relations(1).wayMembers.map(_.way.id) should equal(Seq(11))
-    data.relations(1).relationMembers.isEmpty should equal(true)
+    data.relations(1).relationMembers shouldBe empty
 
     log.messages.foreach(println)
     log.messages.size should equal(1)

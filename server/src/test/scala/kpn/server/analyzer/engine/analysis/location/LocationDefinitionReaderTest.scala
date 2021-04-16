@@ -29,10 +29,10 @@ class LocationDefinitionReaderTest extends UnitTest {
     val locator = LocationLocator.from(locationDefinition)
 
     // Essen
-    locator.contains("51.46774", "4.46839") should equal(true)
+    assert(locator.contains("51.46774", "4.46839"))
 
     // Baarle Nassau
-    locator.contains("51.43948683099483", "4.931525588035583") should equal(false)
+    assert(!locator.contains("51.43948683099483", "4.931525588035583"))
   }
 
   private def testBelgium(locationDefinitions: Seq[LocationDefinition]): Unit = {
@@ -47,15 +47,15 @@ class LocationDefinitionReaderTest extends UnitTest {
     val locator = LocationLocator.from(locationDefinition)
 
     // Essen
-    locator.contains("51.46774", "4.46839") should equal(true)
+    assert(locator.contains("51.46774", "4.46839"))
 
     // outer 1 Baarle Nassau
-    locator.contains("51.43581846832453", "4.926767349243164") should equal(true)
+    assert(locator.contains("51.43581846832453", "4.926767349243164"))
 
     // outer 2 Baarle Nassau
-    locator.contains("51.43563788497879", "4.941433668136596") should equal(true)
+    assert(locator.contains("51.43563788497879", "4.941433668136596"))
 
     // inner in be outer Baarle Nassau
-    locator.contains("51.43948683099483", "4.931525588035583") should equal(false)
+    assert(!locator.contains("51.43948683099483", "4.931525588035583"))
   }
 }
