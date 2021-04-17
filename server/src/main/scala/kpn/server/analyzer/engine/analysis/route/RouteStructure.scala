@@ -4,6 +4,7 @@ import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 
 case class RouteStructure(
+  freePaths: Seq[Path] = Seq.empty,
   forwardPath: Option[Path] = None,
   backwardPath: Option[Path] = None,
   startTentaclePaths: Seq[Path] = Seq.empty,

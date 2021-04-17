@@ -556,6 +556,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteMap(
     bounds: MapBounds = MapBounds(),
+    freePaths: Seq[TrackPath] = Seq.empty,
     forwardPath: Option[TrackPath] = None,
     backwardPath: Option[TrackPath] = None,
     unusedSegments: Seq[TrackSegment] = Seq.empty,
@@ -563,6 +564,7 @@ trait SharedTestObjects extends MockFactory {
     endTentaclePaths: Seq[TrackPath] = Seq.empty,
     forwardBreakPoint: Option[TrackPoint] = None,
     backwardBreakPoint: Option[TrackPoint] = None,
+    freeNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
     startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
     endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
     startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
@@ -572,6 +574,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteMap = {
     RouteMap(
       bounds,
+      freePaths,
       forwardPath,
       backwardPath,
       unusedSegments,
@@ -579,6 +582,7 @@ trait SharedTestObjects extends MockFactory {
       endTentaclePaths,
       forwardBreakPoint,
       backwardBreakPoint,
+      freeNodes,
       startNodes,
       endNodes,
       startTentacleNodes,

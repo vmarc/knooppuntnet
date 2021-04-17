@@ -63,6 +63,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
 
     RouteMap(
       bounds,
+      freePaths = structure.freePaths.map(path => toTrackPath(pathIdIterator, path)),
       forwardPath = structure.forwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = !same)),
       backwardPath = structure.backwardPath.map(path => toTrackPath(pathIdIterator, path, oneWay = !same)),
       unusedSegments = structure.unusedSegments.map(toTrackSegment),
@@ -70,6 +71,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       endTentaclePaths = structure.endTentaclePaths.map(path => toTrackPath(pathIdIterator, path)),
       forwardBreakPoint = forwardBreakPoint,
       backwardBreakPoint = backwardBreakPoint,
+      freeNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.freeNodes),
       startNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.isEmpty) Seq() else Seq(routeNodeAnalysis.startNodes.head)),
       endNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.isEmpty) Seq() else Seq(routeNodeAnalysis.endNodes.head)),
       startTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.size <= 1) Seq() else routeNodeAnalysis.startNodes.tail),

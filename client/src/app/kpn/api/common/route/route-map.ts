@@ -9,6 +9,7 @@ import { RouteNetworkNodeInfo } from './route-network-node-info';
 export class RouteMap {
   constructor(
     readonly bounds: MapBounds,
+    readonly freePaths: Array<TrackPath>,
     readonly forwardPath: TrackPath,
     readonly backwardPath: TrackPath,
     readonly unusedSegments: Array<TrackSegment>,
@@ -16,6 +17,7 @@ export class RouteMap {
     readonly endTentaclePaths: Array<TrackPath>,
     readonly forwardBreakPoint: TrackPoint,
     readonly backwardBreakPoint: TrackPoint,
+    readonly freeNodes: Array<RouteNetworkNodeInfo>,
     readonly startNodes: Array<RouteNetworkNodeInfo>,
     readonly endNodes: Array<RouteNetworkNodeInfo>,
     readonly startTentacleNodes: Array<RouteNetworkNodeInfo>,
@@ -31,6 +33,7 @@ export class RouteMap {
     }
     return new RouteMap(
       MapBounds.fromJSON(jsonObject.bounds),
+      jsonObject.freePaths.map((json: any) => TrackPath.fromJSON(json)),
       TrackPath.fromJSON(jsonObject.forwardPath),
       TrackPath.fromJSON(jsonObject.backwardPath),
       jsonObject.unusedSegments.map((json: any) => TrackSegment.fromJSON(json)),
@@ -40,6 +43,9 @@ export class RouteMap {
       jsonObject.endTentaclePaths.map((json: any) => TrackPath.fromJSON(json)),
       TrackPoint.fromJSON(jsonObject.forwardBreakPoint),
       TrackPoint.fromJSON(jsonObject.backwardBreakPoint),
+      jsonObject.freeNodes.map((json: any) =>
+        RouteNetworkNodeInfo.fromJSON(json)
+      ),
       jsonObject.startNodes.map((json: any) =>
         RouteNetworkNodeInfo.fromJSON(json)
       ),

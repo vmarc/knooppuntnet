@@ -35,8 +35,9 @@ object RouteAnalysisTool {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-        //tool.analyze()
-        tool.analyzeRoute(11906621L)
+        // tool.analyze()
+        // tool.analyzeRoute(11906621L) TODO self-loop
+        tool.analyzeRoute(12533271L) // kring
       }
     }
   }
@@ -108,7 +109,7 @@ class RouteAnalysisTool(
                       log.info("IGNORE updated after snapshot")
                     }
                     else {
-                      if (oldRoute.summary.country.contains(Country.nl) && oldRoute.summary.networkType == NetworkType.hiking) {
+                      if (oldRoute.summary.country.contains(Country.nl) && oldRoute.summary.networkType == NetworkType.cycling) {
                         if (oldRoute.active) {
                           if (isImprovedRoute(oldRoute, newRouteAnalysis.route)) {
                             log.info("improved")

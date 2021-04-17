@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
+import { RouteInfoAnalysis } from '@api/common/route/route-info-analysis';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -70,13 +71,29 @@ import { selectRouteId } from '../store/route.selectors';
         </kpn-data>
 
         <div *ngIf="page.route.analysis as analysis">
-          <kpn-data title="Start node" i18n-title="@@route.start-node">
+          <kpn-data
+            *ngIf="hasFreeNodes(analysis)"
+            title="Nodes"
+            i18n-title="@@route.nodes"
+          >
+            <kpn-route-free-nodes [analysis]="analysis"></kpn-route-free-nodes>
+          </kpn-data>
+
+          <kpn-data
+            *ngIf="!hasFreeNodes(analysis)"
+            title="Start node"
+            i18n-title="@@route.start-node"
+          >
             <kpn-route-start-nodes
               [analysis]="analysis"
             ></kpn-route-start-nodes>
           </kpn-data>
 
-          <kpn-data title="End node" i18n-title="@@route.end-node">
+          <kpn-data
+            *ngIf="!hasFreeNodes(analysis)"
+            title="End node"
+            i18n-title="@@route.end-node"
+          >
             <kpn-route-end-nodes [analysis]="analysis"></kpn-route-end-nodes>
           </kpn-data>
 
@@ -160,5 +177,9 @@ export class RoutePageComponent implements OnInit {
 
   factInfos(page: RouteDetailsPage): FactInfo[] {
     return page.route.facts.map((fact) => new FactInfo(fact));
+  }
+
+  hasFreeNodes(analysis: RouteInfoAnalysis): boolean {
+    return analysis.map.freeNodes && analysis.map.freeNodes.length > 0;
   }
 }

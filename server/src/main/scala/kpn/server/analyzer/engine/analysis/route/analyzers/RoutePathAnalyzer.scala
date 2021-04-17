@@ -79,7 +79,7 @@ class RoutePathAnalyzer(context: RouteAnalysisContext) {
           graph.addVertex(fragmentStartNodeId)
           graph.addVertex(fragmentEndNodeId)
           graph.addEdge(fragmentStartNodeId, fragmentEndNodeId, SegmentFragment(fragment))
-          graph.setEdgeWeight(fragmentStartNodeId, fragmentEndNodeId, fragment.meters)
+          graph.setEdgeWeight(fragmentStartNodeId, fragmentEndNodeId, fragment.meters.toDouble)
           // println(s"   edge=${"F" + fragmentId}, start=$fragmentStartNodeId, end=$fragmentEndNodeId, weight=${fragment.meters}")
         }
 
@@ -87,7 +87,7 @@ class RoutePathAnalyzer(context: RouteAnalysisContext) {
           graph.addVertex(fragmentEndNodeId)
           graph.addVertex(fragmentStartNodeId)
           graph.addEdge(fragmentEndNodeId, fragmentStartNodeId, SegmentFragment(fragment, reversed = true))
-          graph.setEdgeWeight(fragmentEndNodeId, fragmentStartNodeId, fragment.meters)
+          graph.setEdgeWeight(fragmentEndNodeId, fragmentStartNodeId, fragment.meters.toDouble)
           // println(s"   edge=${"B" + fragmentId}, start=$fragmentEndNodeId, end=$fragmentStartNodeId, weight=${fragment.meters}")
         }
       }

@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteNameMissing
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotContinious
 import kpn.api.custom.Fact.RouteNotForward
@@ -14,7 +13,6 @@ class ManyNodesWithSameNameInRouteTest extends UnitTest {
     val route = CaseStudy.routeAnalysis("10887712").route
     route.facts.toSet should equal(
       Set(
-        RouteNameMissing,
         RouteRedundantNodes,
         RouteNotForward,
         RouteNotBackward,

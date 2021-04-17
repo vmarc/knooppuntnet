@@ -60,8 +60,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     if (routeNodeAnalysis.nodesInWays.isEmpty) {
       facts += RouteNodeMissingInWays
     }
-    else if (routeNodeAnalysis.startNodes.exists(_.missingInWays) ||
-      routeNodeAnalysis.endNodes.exists(_.missingInWays)) {
+    else if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
       facts += RouteNodeMissingInWays
     }
 
@@ -100,19 +99,12 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       case None => throw new IllegalStateException("Programming error: expected startNodeName in RouteNameAnalysis")
       case Some(startNodeName) =>
 
-        val routeNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => startNodeName.equals(routeNodeInfo.name)).distinct
-        val (startRouteNodeInfos, endRouteNodeInfos) = if (routeNodeInfos.size > 1) {
-          (routeNodeInfos.dropRight(1).reverse, Seq(routeNodeInfos.last))
-        }
-        else {
-          (routeNodeInfos, Seq.empty)
-        }
+        val freeRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => startNodeName.equals(routeNodeInfo.name)).distinct
         val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name)).distinct
-        val alternateNameMap = nodeUtil.alternateNames(facts, startRouteNodeInfos)
+        val alternateNameMap = nodeUtil.alternateNames(facts, freeRouteNodeInfos)
 
         RouteNodeAnalysis(
-          startNodes = toRouteNodes(alternateNameMap, startRouteNodeInfos),
-          endNodes = toRouteNodes(alternateNameMap, endRouteNodeInfos),
+          freeNodes = toRouteNodes(alternateNameMap, freeRouteNodeInfos),
           redundantNodes = toRouteNodes(alternateNameMap, redundantRouteNodeInfos)
         )
     }
@@ -212,10 +204,10 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     RouteNodeAnalysis(
-      reversed,
-      toRouteNodes(alternateNameMap, startNodes),
-      toRouteNodes(alternateNameMap, endNodes),
-      toRouteNodes(alternateNameMap, redundantRouteNodeInfos)
+      reversed = reversed,
+      startNodes = toRouteNodes(alternateNameMap, startNodes),
+      endNodes = toRouteNodes(alternateNameMap, endNodes),
+      redundantNodes = toRouteNodes(alternateNameMap, redundantRouteNodeInfos)
     )
   }
 

@@ -66,7 +66,7 @@ class MasterRouteAnalyzerImpl(
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer,
         RouteNameAnalyzer,
-        RouteNodeAnalyzer, // <== needs further updating
+        RouteNodeAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
         // OverlappingWaysRouteAnalyzer,

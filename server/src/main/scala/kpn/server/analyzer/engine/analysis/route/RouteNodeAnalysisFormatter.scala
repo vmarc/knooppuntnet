@@ -3,8 +3,10 @@ package kpn.server.analyzer.engine.analysis.route
 class RouteNodeAnalysisFormatter(analysis: RouteNodeAnalysis) {
 
   def string: String = {
-    List(startNodes, endNodes, redundantNodes, reversed).flatten.mkString(",")
+    List(freeNodes, startNodes, endNodes, redundantNodes, reversed).flatten.mkString(",")
   }
+
+  private def freeNodes: Option[String] = formatNodes("Free", analysis.freeNodes)
 
   private def startNodes: Option[String] = formatNodes("Start", analysis.startNodes)
 

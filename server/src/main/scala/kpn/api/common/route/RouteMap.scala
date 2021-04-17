@@ -8,6 +8,7 @@ import kpn.api.common.common.TrackSegment
 
 case class RouteMap(
   bounds: MapBounds = MapBounds(),
+  freePaths: Seq[TrackPath] = Seq.empty,
   forwardPath: Option[TrackPath] = None,
   backwardPath: Option[TrackPath] = None,
   unusedSegments: Seq[TrackSegment] = Seq.empty,
@@ -15,6 +16,7 @@ case class RouteMap(
   endTentaclePaths: Seq[TrackPath] = Seq.empty,
   forwardBreakPoint: Option[TrackPoint] = None,
   backwardBreakPoint: Option[TrackPoint] = None,
+  freeNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,

@@ -48,24 +48,9 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
     context.copy(structure = Some(structure), facts = facts.toSeq)
   }
 
-  private def analyzeStructure(fragmentMap: FragmentMap, routeNodeAnalysis: RouteNodeAnalysis) = {
+  private def analyzeStructure(fragmentMap: FragmentMap, routeNodeAnalysis: RouteNodeAnalysis): RouteStructure = {
 
-    if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
-      RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
-      )
-    }
-    else if (facts.contains(RouteWithoutNodes)) {
-      RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
-      )
-    }
-    else if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
-      RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
-      )
-    }
-    else if (routeNodeAnalysis.redundantNodes.size > 3) {
+    if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
         unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
       )
@@ -94,64 +79,67 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         if (!facts.contains(RouteWithoutWays)) {
           // do not report this fact if route has no ways or is known to be incomplete
 
-          val oneWayRouteForward = context.loadedRoute.relation.tags.has("direction", "forward")
-          val oneWayRouteBackward = context.loadedRoute.relation.tags.has("direction", "backward")
+          if (routeNodeAnalysis.freeNodes.isEmpty) {
 
-          val oneWayRoute = context.loadedRoute.relation.tags.tags.exists { tag =>
-            (tag.key == "comment" && tag.value.contains("to be used in one direction")) ||
-              (tag.key == "oneway" && tag.value == "yes")
-          }
+            val oneWayRouteForward = context.loadedRoute.relation.tags.has("direction", "forward")
+            val oneWayRouteBackward = context.loadedRoute.relation.tags.has("direction", "backward")
 
-          val hasValidForwardPath = structure.forwardPath.isDefined && !structure.forwardPath.exists(_.broken)
-          val hasValidBackwardPath = structure.backwardPath.isDefined && !structure.backwardPath.exists(_.broken)
+            val oneWayRoute = context.loadedRoute.relation.tags.tags.exists { tag =>
+              (tag.key == "comment" && tag.value.contains("to be used in one direction")) ||
+                (tag.key == "oneway" && tag.value == "yes")
+            }
 
-          if (hasValidForwardPath) {
-            if (hasValidBackwardPath) {
-              if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
-                facts += RouteNotOneWay
+            val hasValidForwardPath = structure.forwardPath.isDefined && !structure.forwardPath.exists(_.broken)
+            val hasValidBackwardPath = structure.backwardPath.isDefined && !structure.backwardPath.exists(_.broken)
+
+            if (hasValidForwardPath) {
+              if (hasValidBackwardPath) {
+                if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
+                  facts += RouteNotOneWay
+                }
+              }
+              else {
+                if (oneWayRoute || oneWayRouteForward) {
+                  facts += RouteOneWay
+                }
+                else {
+                  facts += RouteNotBackward
+                }
               }
             }
-            else {
-              if (oneWayRoute || oneWayRouteForward) {
+            else if (hasValidBackwardPath) {
+              if (oneWayRoute || oneWayRouteBackward) {
                 facts += RouteOneWay
               }
               else {
-                facts += RouteNotBackward
+                facts += RouteNotForward
               }
             }
-          }
-          else if (hasValidBackwardPath) {
-            if (oneWayRoute || oneWayRouteBackward) {
-              facts += RouteOneWay
-            }
             else {
+              if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
+                facts += RouteNotOneWay
+              }
               facts += RouteNotForward
+              facts += RouteNotBackward
             }
-          }
-          else {
-            if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
-              facts += RouteNotOneWay
+
+            if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
+              if (structure.forwardPath.isEmpty || structure.forwardPath.get.broken ||
+                structure.backwardPath.isEmpty || structure.backwardPath.get.broken) {
+                facts += RouteNotContinious
+              }
             }
-            facts += RouteNotForward
-            facts += RouteNotBackward
-          }
-        }
 
-        if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-          if (structure.forwardPath.isEmpty || structure.forwardPath.get.broken ||
-            structure.backwardPath.isEmpty || structure.backwardPath.get.broken) {
-            facts += RouteNotContinious
-          }
-        }
+            if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
+              if (structure.unusedSegments.nonEmpty) {
+                facts += RouteUnusedSegments
+              }
 
-        if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
-          if (structure.unusedSegments.nonEmpty) {
-            facts += RouteUnusedSegments
-          }
-
-          val routeSortingOrderAnalysis = new RouteSortingOrderAnalyzer(fragments, structure).analysis
-          if (!routeSortingOrderAnalysis.ok) {
-            facts += RouteInvalidSortingOrder
+              val routeSortingOrderAnalysis = new RouteSortingOrderAnalyzer(fragments, structure).analysis
+              if (!routeSortingOrderAnalysis.ok) {
+                facts += RouteInvalidSortingOrder
+              }
+            }
           }
         }
       }
@@ -160,6 +148,24 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
 
   private def contextFragmentMap(): FragmentMap = {
     context.fragmentMap.getOrElse(throw new IllegalStateException("fragmentMap required before route structure analysis"))
+  }
+
+  private def isAnalysisImpossible(routeNodeAnalysis: RouteNodeAnalysis): Boolean = {
+    if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
+      return true
+    }
+    if (facts.contains(RouteWithoutNodes)) {
+      return true
+    }
+    if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
+      // TODO ANALYSIS review this rule: RouteNodeMissingInWays means no node in ways at all, or one or more missing ???
+      // TODO ANALYSIS review this rule: overlapping ways should not cause the analysis to fail ???
+      return true
+    }
+    if (routeNodeAnalysis.redundantNodes.size > 3) {
+      return true // TODO ANALYSIS can drop this rule ???
+    }
+    false
   }
 
 }

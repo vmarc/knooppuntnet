@@ -23,6 +23,7 @@ export class RouteLayers {
   build(): List<MapLayer> {
     let layers = List([
       this.buildMarkerLayer(),
+      this.buildFreePathsLayer(),
       this.buildForwardLayer(),
       this.buildBackwardLayer(),
       this.buildStartTentaclesLayer(),
@@ -31,6 +32,23 @@ export class RouteLayers {
     ]);
     layers = layers.merge(List(this.buildTrackPathLayers()));
     return layers.filter((layer) => layer !== null);
+  }
+
+  private buildFreePathsLayer(): MapLayer {
+    const paths = this.routeMap.freePaths;
+    if (paths && paths.length > 0) {
+      const title = this.i18nService.translation('@@map.layer.free-paths');
+      const source = new VectorSource();
+      const layer = new VectorLayer({
+        source,
+      });
+      paths.forEach((path) => {
+        source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
+      });
+      layer.set('name', title);
+      return new MapLayer('route-free-paths-layer', layer);
+    }
+    return null;
   }
 
   private buildForwardLayer(): MapLayer {
@@ -133,6 +151,11 @@ export class RouteLayers {
   }
 
   private buildMarkerLayer(): MapLayer {
+    const freeNodeMarkers = this.buildMarkers(
+      this.routeMap.freeNodes,
+      'blue',
+      '@@map.free-node'
+    );
     const startNodeMarkers = this.buildMarkers(
       this.routeMap.startNodes,
       'green',
@@ -158,7 +181,8 @@ export class RouteLayers {
       'yellow',
       '@@map.redundant-node'
     );
-    const markers: Feature[] = startNodeMarkers
+    const markers: Feature[] = freeNodeMarkers
+      .concat(startNodeMarkers)
       .concat(endNodeMarkers)
       .concat(startTentacleNodeMarkers)
       .concat(endTentacleNodeMarkers)

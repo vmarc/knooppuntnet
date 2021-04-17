@@ -213,6 +213,7 @@ class RouteAnalysisComparator {
     val endNodes = (routeMap.endNodes ++ routeMap.endTentacleNodes).sortBy(_.id)
     val redundantNodes = routeMap.redundantNodes.sortBy(_.id)
     RouteMapNodes(
+      routeMap.freeNodes,
       startNodes,
       endNodes,
       redundantNodes

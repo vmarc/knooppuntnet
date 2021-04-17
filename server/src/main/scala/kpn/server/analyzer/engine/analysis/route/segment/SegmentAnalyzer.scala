@@ -21,7 +21,7 @@ class SegmentAnalyzer(
 
   private val log = Log(classOf[SegmentAnalyzer])
 
-  private val allRouteNodes: Set[RouteNode] = (routeNodeAnalysis.startNodes ++ routeNodeAnalysis.endNodes).toSet
+  private val allRouteNodes: Set[RouteNode] = routeNodeAnalysis.usedNodes.toSet
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
   private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes, loop)
@@ -40,12 +40,18 @@ class SegmentAnalyzer(
     val availableFragmentIds = allFragmentIds.diff(usedFragmentIds)
     val startTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.startNodes.map(_.node)).findTentacles
     val endTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.endNodes.map(_.node)).findTentacles
+    val freePaths = new TentacleAnalyzer(segmentFinder, allFragmentIds, routeNodeAnalysis.freeNodes.map(_.node)).findTentacles
     val unusedSegments = {
-      val used = forwardPath.toSeq.flatMap(_.segments) ++ backwardPath.toSeq.flatMap(_.segments) ++ startTentaclePaths.flatMap(_.segments) ++ endTentaclePaths.flatMap(_.segments)
+      val used = freePaths.flatMap(_.segments) ++
+        forwardPath.toSeq.flatMap(_.segments) ++
+        backwardPath.toSeq.flatMap(_.segments) ++
+        startTentaclePaths.flatMap(_.segments) ++
+        endTentaclePaths.flatMap(_.segments)
       findUnusedSegments(used)
     }
 
     RouteStructure(
+      freePaths,
       forwardPath,
       backwardPath,
       startTentaclePaths,

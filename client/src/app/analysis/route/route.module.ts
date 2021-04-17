@@ -15,6 +15,7 @@ import { RouteChangesService } from './changes/route-changes.service';
 import { RoutePageHeaderComponent } from './components/route-page-header.component';
 import { RoutePageComponent } from './details/_route-page.component';
 import { RouteEndNodesComponent } from './details/route-end-nodes.component';
+import { RouteFreeNodesComponent } from './details/route-free-nodes.component';
 import { RouteLocationComponent } from './details/route-location.component';
 import { RouteMembersComponent } from './details/route-members.component';
 import { RouteNetworkReferencesComponent } from './details/route-network-references.component';
@@ -45,15 +46,16 @@ import { routeFeatureKey } from './store/route.state';
   declarations: [
     RouteChangeComponent,
     RouteChangesPageComponent,
-    RouteEndNodesComponent,
     RouteMapPageComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RouteNodeComponent,
     RoutePageComponent,
     RoutePageHeaderComponent,
-    RouteRedundantNodesComponent,
+    RouteFreeNodesComponent,
     RouteStartNodesComponent,
+    RouteEndNodesComponent,
+    RouteRedundantNodesComponent,
     RouteStructureComponent,
     RouteSummaryComponent,
     RouteChangesSidebarComponent,

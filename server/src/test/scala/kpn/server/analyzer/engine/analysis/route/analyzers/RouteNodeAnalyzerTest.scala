@@ -227,8 +227,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(5/01/01.a/W,3/01/01.b/W,1/01/01.c/W)," +
-        "End=(8/01/01/W)," +
+      "Free=(1/01/01.a/W,3/01/01.b/W,5/01/01.c/W,8/01/01.d/W)," +
         "Redundant=(9/02/02/W);" +
         "RouteRedundantNodes"
     )
@@ -247,8 +246,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/W)," +
-        "End=(5/01/01/R)," +
+      "Free=(1/01/01.a/W,5/01/01.b/R)," +
         "Redundant=(4/02/02/W);" +
         "RouteNodeMissingInWays,RouteRedundantNodes"
     )
@@ -335,7 +333,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 2, 3, 4, 1)
     }
 
-    analyze(d) should equal("Start=(1/01/01/W)")
+    analyze(d) should equal("Free=(1/01/01/W)")
   }
 
   test("no route name") {
