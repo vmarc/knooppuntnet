@@ -7,4 +7,6 @@ case class RouteMapNodes(
   startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   redundantNodes: Seq[RouteNetworkNodeInfo] = Seq.empty
-)
+) {
+  def isFreeRoute: Boolean = freeNodes.nonEmpty && startNodes.isEmpty && endNodes.isEmpty
+}

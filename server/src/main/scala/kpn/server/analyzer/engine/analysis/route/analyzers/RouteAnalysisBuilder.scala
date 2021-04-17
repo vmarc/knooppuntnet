@@ -139,7 +139,9 @@ class RouteAnalysisBuilder(
 
     val lastUpdated: Timestamp = lastUpdatedElement.timestamp
 
-    val nodeNames = routeAnalysis.map.startNodes.map(_.name) ++ routeAnalysis.map.endNodes.map(_.name)
+    val nodeNames = routeAnalysis.map.freeNodes.map(_.name) ++
+      routeAnalysis.map.startNodes.map(_.name) ++
+      routeAnalysis.map.endNodes.map(_.name)
 
     val summary = RouteSummary(
       context.loadedRoute.relation.id,

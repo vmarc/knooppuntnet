@@ -36,8 +36,9 @@ object RouteAnalysisTool {
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
         // tool.analyze()
-        // tool.analyzeRoute(11906621L) TODO self-loop
-        tool.analyzeRoute(12533271L) // kring
+        tool.analyzeRoute(2052633L)
+        // tool.analyzeRoute(11906621L) // TODO self-loop
+        // tool.analyzeRoute(12533271L) // kring
       }
     }
   }
@@ -136,27 +137,6 @@ class RouteAnalysisTool(
       }
     }
   }
-
-  // log.info(s"name=${routeAnalysis.name}, facts=${routeAnalysis.route.facts.mkString(",")}")
-
-  //            val oldPaths = routeAnalysis.structure.oldPaths
-  //            val newPaths = routeAnalysis.structure.paths.get
-  //            // printPaths(newPaths)
-  //
-  //            val a = oldPaths.map(_.copy(oneWay = false))
-  //            val b = newPaths.map(_.copy(oneWay = false))
-  //            val d = b.filter(p1 => a.contains(p1))
-  //
-  //            if (a.toSet != d.toSet) {
-  //              if (routeAnalysis.route.facts.isEmpty && !oldPaths.exists(_.broken)) {
-  //                log.info("MISMATCH1")
-  //                routeRepository.save(routeAnalysis.route)
-  //              }
-  //              else {
-  //                val bp = if (oldPaths.exists(_.broken)) "broken path" else ""
-  //                log.info(s"MISMATCH2 $bp ${routeAnalysis.route.facts.mkString(", ")}")
-  //              }
-  //            }
 
   private def analyzeRouteFile(routeId: Long): Option[RouteAnalysis] = {
     val subdir = routeId.toString.takeRight(3)
