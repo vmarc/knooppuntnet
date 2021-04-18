@@ -36,7 +36,10 @@ object RouteAnalysisTool {
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
         // tool.analyze()
-        tool.analyzeRoute(2052633L)
+        tool.analyzeRoute(9969911L) // TODO probleem unused --> houd geen rekening met enkele richting
+
+        // tool.analyzeRoute(6985068L) // TODO probleem unused zou extra path moeten zijn
+        // tool.analyzeRoute(2052633L) // TODO probleem freeRoute forward/backward
         // tool.analyzeRoute(11906621L) // TODO self-loop
         // tool.analyzeRoute(12533271L) // kring
       }
@@ -52,6 +55,7 @@ class RouteAnalysisTool(
   private val log = Log(classOf[RouteAnalysisTool])
   private val routeRepository = new RouteRepositoryImpl(routeDatabase)
   private val analysisRouteRepository = new RouteRepositoryImpl(analysisDatabase)
+  private val routeFileAnalyzer = new RouteFileAnalyzerImpl()
 
   private val reviewedRouteIds = Seq(
 
@@ -75,12 +79,10 @@ class RouteAnalysisTool(
 
   def analyze(): Unit = {
     val allRouteIds = readAllRouteIds()
-    val routeIds = (allRouteIds.toSet -- ignoredRouteIds).toSeq.sorted
+    val routeIds = (allRouteIds.toSet -- ignoredRouteIds -- reviewedRouteIds).toSeq.sorted
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       Log.context(s"${index + 1}/${routeIds.size}") {
-        if (!reviewedRouteIds.contains(routeId)) {
-          analyzeRoute(routeId)
-        }
+        analyzeRoute(routeId)
       }
     }
     log.info("done")
@@ -90,14 +92,11 @@ class RouteAnalysisTool(
     val formattedRouteId = String.format("%8d", routeId)
     Log.context(formattedRouteId) {
       try {
-        analyzeRouteFile(routeId) match {
+        routeFileAnalyzer.analyze(routeId) match {
           case None =>
           case Some(newRouteAnalysis) =>
-
             Log.context(newRouteAnalysis.route.summary.name) {
-
               routeRepository.save(newRouteAnalysis.route)
-
               if (newRouteAnalysis.route.facts.contains(RouteWithoutNodes)) {
                 log.info("IGNORE RouteWithoutNodes")
               }
@@ -105,7 +104,6 @@ class RouteAnalysisTool(
                 analysisRouteRepository.routeWithId(newRouteAnalysis.route.id) match {
                   case None => log.info("route not found in analysis database")
                   case Some(oldRoute) =>
-
                     if (newRouteAnalysis.route.lastUpdated != oldRoute.lastUpdated) {
                       log.info("IGNORE updated after snapshot")
                     }
@@ -122,7 +120,7 @@ class RouteAnalysisTool(
                         }
                       }
                       else {
-                        log.info("IGNORE not NL hiking")
+                        log.info("IGNORE not NL cycling")
                       }
                     }
                 }
@@ -135,65 +133,6 @@ class RouteAnalysisTool(
           log.error("Could not process route", e)
           throw e
       }
-    }
-  }
-
-  private def analyzeRouteFile(routeId: Long): Option[RouteAnalysis] = {
-    val subdir = routeId.toString.takeRight(3)
-    val filename = s"/kpn/routes/$subdir/$routeId.xml"
-    val file = new File(filename)
-
-    try {
-      val xml = XML.load(Source.fromFile(file))
-
-      val rawData = new Parser().parse(xml)
-      if (rawData.relations.isEmpty) {
-        // log.info(s"No route relation found in file ${file.getAbsolutePath} (no longer active?)")
-        None
-      }
-      else {
-        if (rawData.relations.size > 1) {
-          log.info(s"Multiple relations found in file ${file.getAbsolutePath} (expected 1 single relation only)")
-          None
-        }
-        else {
-          val rawRouteRelation = rawData.relations.head
-
-          if (!rawRouteRelation.tags.has("type", "route")) {
-            log.info(s"Relation does not have expected tag type=route in file ${file.getAbsolutePath}")
-            None
-          }
-          else {
-            val scopedNetworkType = RelationAnalyzer.scopedNetworkType(rawRouteRelation).get
-
-            val data = new DataBuilder(rawData).data
-            val routeRelation = data.relations(rawRouteRelation.id)
-            val analysisContext = new AnalysisContext(oldTagging = true)
-            val tileCalculator = new TileCalculatorImpl()
-            val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-            val routeLocationAnalyzer = new RouteLocationAnalyzer {
-              def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-                context.copy(locationAnalysis = Some(RouteLocationAnalysis(None, Seq.empty, Seq.empty)))
-              }
-            }
-            val nodeAnalyzer = new NodeAnalyzerImpl()
-            val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
-            val routeAnalyzer = new MasterRouteAnalyzerImpl(
-              analysisContext,
-              routeLocationAnalyzer,
-              routeTileAnalyzer,
-              routeNodeInfoAnalyzer
-            )
-            val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, data, routeRelation)
-            Some(routeAnalyzer.analyze(loadedRoute, orphan = false))
-          }
-        }
-      }
-    }
-    catch {
-      case e: Exception =>
-        log.info(e.getMessage)
-        None
     }
   }
 
