@@ -1,4 +1,4 @@
-package kpn.core.tools.support
+package kpn.core.tools.route
 
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
@@ -12,7 +12,6 @@ import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 
 import java.io.File
-import scala.xml.Source
 import scala.xml.XML
 
 object DumpRoutesTool {

@@ -2,7 +2,6 @@ package kpn.core.tools.route
 
 import com.softwaremill.diffx._
 import com.softwaremill.diffx.generic.auto._
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.TrackPath
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
@@ -18,7 +17,6 @@ class RouteAnalysisComparator {
   def compareRouteInfos(oldRoute: RouteInfo, newRoute: RouteInfo): RouteAnalysisComparison = {
 
     var routeInfoPair = RouteInfoPair(oldRoute, newRoute)
-    routeInfoPair = ignoreLocation(routeInfoPair)
     routeInfoPair = ignoreSummaryNodeNames(routeInfoPair)
     routeInfoPair = ignoreTrackPathsAndStructureStrings(routeInfoPair)
     routeInfoPair = ignoreNormalization(routeInfoPair)
@@ -47,25 +45,6 @@ class RouteAnalysisComparator {
     }
 
     RouteAnalysisComparison(factsDiff)
-  }
-
-  private def ignoreLocation(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
-      oldRoute = routeInfoPair.oldRoute.copy(
-        summary = routeInfoPair.oldRoute.summary.copy(country = None),
-        analysis = routeInfoPair.oldRoute.analysis.copy(
-          locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
-        ),
-        tiles = Seq.empty
-      ),
-      newRoute = routeInfoPair.newRoute.copy(
-        summary = routeInfoPair.newRoute.summary.copy(country = None),
-        analysis = routeInfoPair.newRoute.analysis.copy(
-          locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
-        ),
-        tiles = Seq.empty
-      )
-    )
   }
 
   private def ignoreTrackPathsAndStructureStrings(routeInfoPair: RouteInfoPair): RouteInfoPair = {
@@ -278,33 +257,6 @@ class RouteAnalysisComparator {
       routeInfo.analysis.map.endNodes.isEmpty &&
       routeInfo.analysis.map.startTentacleNodes.isEmpty &&
       routeInfo.analysis.map.endTentacleNodes.isEmpty
-  }
-
-  private def allPaths(routeInfo: RouteInfo): Seq[TrackPath] = {
-    val map = routeInfo.analysis.map
-
-    val mainPaths = map.forwardPath match {
-      case None => map.backwardPath.toSeq
-      case Some(forwardPath) =>
-        map.backwardPath match {
-          case None => map.forwardPath.toSeq
-          case Some(backwardPath) =>
-            if (forwardPath.reverse.copy(pathId = 0L) == backwardPath.copy(pathId = 0L)) {
-              Seq(forwardPath)
-            }
-            else {
-              Seq(forwardPath, backwardPath)
-            }
-        }
-    }
-
-    val paths = mainPaths ++
-      map.freePaths ++
-      map.forwardPath.toSeq ++
-      map.startTentaclePaths ++
-      map.endTentaclePaths
-
-    paths.map(path => path.copy(pathId = 0L)).sortBy(tp => s"${tp.startNodeId}-${tp.endNodeId}")
   }
 
   private def matchingMapTentacles(routeInfoPair: RouteInfoPair): Boolean = {

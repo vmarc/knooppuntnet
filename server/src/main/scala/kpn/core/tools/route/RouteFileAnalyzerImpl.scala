@@ -1,23 +1,28 @@
 package kpn.core.tools.route
 
-import kpn.api.common.RouteLocationAnalysis
-import kpn.api.custom.Country
+import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteReferences
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
+import kpn.server.repository.RouteRepository
 
 import java.io.File
 import scala.xml.Source
@@ -28,12 +33,19 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
   private val log = Log(classOf[RouteFileAnalyzerImpl])
   private val routeAnalyzer = setupRouteAnalyzer()
 
+  private val countryAnalyzer = {
+    val analysisContext = new AnalysisContext()
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    new CountryAnalyzerImpl(relationAnalyzer)
+  }
+
   def analyze(routeId: Long): Option[RouteAnalysis] = {
     try {
       readRouteRelation(routeId).flatMap { data =>
         data.relations.get(routeId).map { routeRelation =>
           val scopedNetworkType = RelationAnalyzer.scopedNetworkType(routeRelation.raw).get
-          val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, data, routeRelation)
+          val country = countryAnalyzer.relationCountry(routeRelation)
+          val loadedRoute = LoadedRoute(country, scopedNetworkType, data, routeRelation)
           routeAnalyzer.analyze(loadedRoute, orphan = false)
         }
       }
@@ -49,11 +61,15 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
-    val routeLocationAnalyzer = new RouteLocationAnalyzer {
-      def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-        context.copy(locationAnalysis = Some(RouteLocationAnalysis(None, Seq.empty, Seq.empty)))
-      }
+    val routeRepository = mockRouteRepository()
+    val locationConfiguration = {
+      log.info("Location configuration loading")
+      val config = new LocationConfigurationReader().read()
+      log.info("Location configuration loaded")
+      config
     }
+    val routeLocator = new RouteLocatorImpl(locationConfiguration)
+    val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
     new MasterRouteAnalyzerImpl(
@@ -72,19 +88,18 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
       None
     }
     else {
-      if (rawData.relations.size > 1) {
-        log.info(s"Multiple relations found in route $routeId (expected 1 single relation only)")
-        None
-      }
-      else {
-        val rawRouteRelation = rawData.relations.head
-        if (!rawRouteRelation.tags.has("type", "route")) {
-          log.info(s"Relation does not have expected tag type=route in route $routeId")
+      rawData.relations.find(rawRelation => rawRelation.id == routeId) match {
+        case None =>
+          log.error(s"Route relation not found")
           None
-        }
-        else {
-          Some(new DataBuilder(rawData).data)
-        }
+        case Some(rawRelation) =>
+          if (!rawRelation.tags.has("type", "route")) {
+            log.info(s"Relation does not have expected tag type=route in route $routeId")
+            None
+          }
+          else {
+            Some(new DataBuilder(rawData).data)
+          }
       }
     }
   }
@@ -93,5 +108,27 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     val subdir = routeId.toString.takeRight(3)
     val filename = s"/kpn/routes/$subdir/$routeId.xml"
     new File(filename)
+  }
+
+  private def mockRouteRepository(): RouteRepository = {
+    new RouteRepository() {
+      override def allRouteIds(): Seq[Long] = ???
+
+      override def save(routes: RouteInfo): Unit = ???
+
+      override def saveElements(routeElements: RouteElements): Unit = ???
+
+      override def delete(routeIds: Seq[Long]): Unit = ???
+
+      override def routeWithId(routeId: Long): Option[RouteInfo] = None
+
+      override def routeElementsWithId(routeId: Long): Option[RouteElements] = ???
+
+      override def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo] = ???
+
+      override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = ???
+
+      override def filterKnown(routeIds: Set[Long]): Set[Long] = ???
+    }
   }
 }

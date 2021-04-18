@@ -1,9 +1,7 @@
 package kpn.core.tools.route
 
 import kpn.api.common.route.RouteInfo
-import kpn.api.custom.Country
 import kpn.api.custom.Fact.RouteWithoutNodes
-import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.tools.`export`.GeoJsonLineStringGeometry
@@ -12,14 +10,16 @@ import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.json.Json
 import kpn.server.repository.RouteRepositoryImpl
 
-import java.io.File
+import scala.collection.parallel.CollectionConverters._
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-        tool.analyze()
+        // tool.analyze(IdsFile.read("/kpn/routes/route-ids-cycling-fr.txt"))
+        tool.analyze(Seq(9624135L))
+
         // tool.analyzeRoute(11906621L) // TODO self-loop TO BE IMPLEMENTED !!!
       }
     }
@@ -36,6 +36,8 @@ class RouteAnalysisTool(
   private val analysisRouteRepository = new RouteRepositoryImpl(analysisDatabase)
   private val routeFileAnalyzer = new RouteFileAnalyzerImpl()
 
+  private val ignoredRouteIds = IdsFile.read("/kpn/routes/ignored-route-ids.txt")
+
   private val reviewedRouteIds = Seq(
 
     // NL cycling
@@ -48,14 +50,17 @@ class RouteAnalysisTool(
 
     // BE cycling
     6938L, // OK minor differences in geometry
+
+    // FR cycling
+    9624135L, // new analysis is better
+
+    // NL hiking
+    // 1609743L, // new analysis is better
   )
 
-  private val ignoredRouteIds = IdsFile.read("/kpn/routes/ignored-route-ids.txt")
-
-  def analyze(): Unit = {
-    val allRouteIds = readAllRouteIds()
+  def analyze(allRouteIds: Seq[Long]): Unit = {
     val routeIds = (allRouteIds.toSet -- ignoredRouteIds -- reviewedRouteIds).toSeq.sorted
-    routeIds.zipWithIndex.foreach { case (routeId, index) =>
+    routeIds.zipWithIndex.par.foreach { case (routeId, index) =>
       Log.context(s"${index + 1}/${routeIds.size}") {
         analyzeRoute(routeId)
       }
@@ -72,33 +77,25 @@ class RouteAnalysisTool(
           case Some(newRouteAnalysis) =>
             Log.context(newRouteAnalysis.route.summary.name) {
               routeRepository.save(newRouteAnalysis.route)
-              if (newRouteAnalysis.route.facts.contains(RouteWithoutNodes)) {
-                log.info("IGNORE RouteWithoutNodes")
-              }
-              else {
-                analysisRouteRepository.routeWithId(newRouteAnalysis.route.id) match {
-                  case None => log.info("route not found in analysis database")
-                  case Some(oldRoute) =>
-                    if (newRouteAnalysis.route.lastUpdated != oldRoute.lastUpdated) {
-                      log.info("IGNORE updated after snapshot")
-                    }
-                    else {
-                      if (oldRoute.summary.country.contains(Country.be) && oldRoute.summary.networkType == NetworkType.cycling) {
-                        if (oldRoute.active) {
-                          if (isImprovedRoute(oldRoute, newRouteAnalysis.route)) {
-                            log.info("improved")
-                          }
-                          else {
-                            val comparator = new RouteAnalysisComparator()
-                            val comparison = comparator.compareRouteInfos(oldRoute, newRouteAnalysis.route)
-                          }
-                        }
-                      }
-                      else {
-                        log.info("IGNORE not BE cycling")
-                      }
-                    }
-                }
+              analysisRouteRepository.routeWithId(newRouteAnalysis.route.id) match {
+                case None => log.info("route not found in analysis database")
+                case Some(oldRoute) =>
+                  if (!oldRoute.active) {
+                    log.info("IGNORE no longer active")
+                  }
+                  else if (newRouteAnalysis.route.lastUpdated != oldRoute.lastUpdated) {
+                    log.info("IGNORE updated after snapshot")
+                  }
+                  else if (newRouteAnalysis.route.facts.contains(RouteWithoutNodes)) {
+                    log.info("IGNORE RouteWithoutNodes")
+                  }
+                  else if (isImprovedRoute(oldRoute, newRouteAnalysis.route)) {
+                    log.info("OK improved")
+                  }
+                  else {
+                    val comparator = new RouteAnalysisComparator()
+                    val comparison = comparator.compareRouteInfos(oldRoute, newRouteAnalysis.route)
+                  }
               }
             }
         }
@@ -127,16 +124,6 @@ class RouteAnalysisTool(
     println(json.writeValueAsString(line))
   }
 
-  private def listDirs(dir: File): Seq[File] = {
-    val files = dir.listFiles().filter(_.isDirectory)
-    files.sortBy(_.getAbsolutePath)
-  }
-
-  private def listFiles(dir: File): Seq[File] = {
-    val files = dir.listFiles().filter(_.getName.endsWith(".xml"))
-    files.sortBy(_.getName.dropRight(4).toLong)
-  }
-
   private def isImprovedRoute(oldRoute: RouteInfo, newRoute: RouteInfo): Boolean = {
 
     // new analysis is better (better start and end node, no tentacle node)
@@ -160,13 +147,4 @@ class RouteAnalysisTool(
     }
     false
   }
-
-  private def readAllRouteIds(): Seq[Long] = {
-    val subdirs = listDirs(new File("/kpn/routes"))
-    subdirs.flatMap { subdir =>
-      val files = listFiles(subdir)
-      files.map(_.getName.dropRight(4).toLong)
-    }
-  }
-
 }
