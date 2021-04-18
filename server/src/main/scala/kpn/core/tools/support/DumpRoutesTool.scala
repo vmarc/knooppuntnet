@@ -3,6 +3,7 @@ package kpn.core.tools.support
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
+import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
@@ -11,6 +12,8 @@ import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 
 import java.io.File
+import scala.xml.Source
+import scala.xml.XML
 
 object DumpRoutesTool {
 
@@ -43,8 +46,12 @@ class DumpRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExe
       if ((index + 1) % 100 == 0) {
         log.info(s"${index + 1}/${routeIds.size}")
       }
-      val xml = readRouteXml(routeId)
-      FileUtils.writeStringToFile(routeFile(routeId), xml, "UTF-8")
+      val xmlString = readRouteXml(routeId)
+      val xml = XML.load(xmlString)
+      val rawData = new Parser().parse(xml)
+      if (rawData.relations.nonEmpty) {
+        FileUtils.writeStringToFile(routeFile(routeId), xmlString, "UTF-8")
+      }
     }
 
     log.info("Done")
@@ -63,5 +70,4 @@ class DumpRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExe
     val file = new File(subDir, s"$routeId.xml")
     file
   }
-
 }

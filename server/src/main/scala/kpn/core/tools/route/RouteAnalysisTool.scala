@@ -1,47 +1,26 @@
 package kpn.core.tools.route
 
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.api.custom.NetworkType
-import kpn.core.data.DataBuilder
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
-import kpn.core.loadOld.Parser
 import kpn.core.tools.`export`.GeoJsonLineStringGeometry
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Path
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.json.Json
 import kpn.server.repository.RouteRepositoryImpl
 
 import java.io.File
-import scala.xml.Source
-import scala.xml.XML
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-        // tool.analyze()
-        tool.analyzeRoute(9969911L) // TODO probleem unused --> houd geen rekening met enkele richting
-
-        // tool.analyzeRoute(6985068L) // TODO probleem unused zou extra path moeten zijn
-        // tool.analyzeRoute(2052633L) // TODO probleem freeRoute forward/backward
-        // tool.analyzeRoute(11906621L) // TODO self-loop
-        // tool.analyzeRoute(12533271L) // kring
+        tool.analyze()
+        // tool.analyzeRoute(11906621L) // TODO self-loop TO BE IMPLEMENTED !!!
       }
     }
   }
@@ -60,15 +39,11 @@ class RouteAnalysisTool(
   private val reviewedRouteIds = Seq(
 
     // NL cycling
-    17004L, // to be further investigated: start node and tentacle node switched
-    1465004L, // to be further investigated: start node and tentacle node switched
-    125302L, // OK difference caused by rounding errors ???
-    545378L, // OK improved route node analysis result
-    1031697L, // OK improved route node analysis result --> further investigate, start and end node determination could be better
-    1609468L, // OK improved route node analysis result --> further investigate, start and end node determination could be better
-    12533280L, // OK improved route node analysis result
-    12533271L, // OK improved route node analysis result --> LOOP: further investigate, can do better? no end-nodes?
-    12533195L, // OK improved route node analysis result --> LOOP: further investigate, can do better? no end-nodes?
+    9427213L, // new analysis is better
+    9432838L, // new analysis is better
+    12444552L, // new analysis is better
+    2672912L, // new analysis is better
+
     7097802L, // OK minor differences in geometry
 
     // BE cycling
@@ -108,7 +83,7 @@ class RouteAnalysisTool(
                       log.info("IGNORE updated after snapshot")
                     }
                     else {
-                      if (oldRoute.summary.country.contains(Country.nl) && oldRoute.summary.networkType == NetworkType.cycling) {
+                      if (oldRoute.summary.country.contains(Country.be) && oldRoute.summary.networkType == NetworkType.cycling) {
                         if (oldRoute.active) {
                           if (isImprovedRoute(oldRoute, newRouteAnalysis.route)) {
                             log.info("improved")
@@ -120,7 +95,7 @@ class RouteAnalysisTool(
                         }
                       }
                       else {
-                        log.info("IGNORE not NL cycling")
+                        log.info("IGNORE not BE cycling")
                       }
                     }
                 }

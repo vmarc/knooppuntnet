@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.segment
 import kpn.api.common.data.Node
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.FreePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
@@ -40,7 +41,9 @@ class SegmentAnalyzer(
     val availableFragmentIds = allFragmentIds.diff(usedFragmentIds)
     val startTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.startNodes.map(_.node)).findTentacles
     val endTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.endNodes.map(_.node)).findTentacles
-    val freePaths = new TentacleAnalyzer(segmentFinder, allFragmentIds, routeNodeAnalysis.freeNodes.map(_.node)).findTentacles
+
+    val freePaths = new FreePathAnalyzer(segmentFinder, allFragmentIds, routeNodeAnalysis.freeNodes.map(_.node)).findTentacles
+
     val unusedSegments = {
       val used = freePaths.flatMap(_.segments) ++
         forwardPath.toSeq.flatMap(_.segments) ++

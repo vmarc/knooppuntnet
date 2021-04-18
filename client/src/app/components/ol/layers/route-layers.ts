@@ -21,34 +21,34 @@ export class RouteLayers {
   constructor(private i18nService: I18nService, private routeMap: RouteMap) {}
 
   build(): List<MapLayer> {
-    let layers = List([
-      this.buildMarkerLayer(),
-      this.buildFreePathsLayer(),
-      this.buildForwardLayer(),
-      this.buildBackwardLayer(),
-      this.buildStartTentaclesLayer(),
-      this.buildEndTentaclesLayer(),
-      this.buildUnusedSegmentsLayer(),
-    ]);
-    layers = layers.merge(List(this.buildTrackPathLayers()));
-    return layers.filter((layer) => layer !== null);
+    let layers: MapLayer[] = [];
+    layers.push(this.buildMarkerLayer());
+    layers = layers.concat(this.buildFreePathsLayers());
+    layers.push(this.buildForwardLayer());
+    layers.push(this.buildBackwardLayer());
+    layers.push(this.buildStartTentaclesLayer());
+    layers.push(this.buildEndTentaclesLayer());
+    layers.push(this.buildUnusedSegmentsLayer());
+    layers = layers.concat(this.buildTrackPathLayers());
+
+    const xx = List(layers).filter((layer) => layer !== null);
+    xx.forEach((layer) => console.log('layer -> ' + layer.name));
+    return xx;
   }
 
-  private buildFreePathsLayer(): MapLayer {
-    const paths = this.routeMap.freePaths;
-    if (paths && paths.length > 0) {
-      const title = this.i18nService.translation('@@map.layer.free-paths');
+  private buildFreePathsLayers(): MapLayer[] {
+    return this.routeMap.freePaths.map((path) => {
+      const translatedTitle = this.i18nService.translation(
+        '@@map.layer.free-path'
+      );
+      const title = `${translatedTitle} ${path.pathId}`;
       const source = new VectorSource();
-      const layer = new VectorLayer({
-        source,
-      });
-      paths.forEach((path) => {
-        source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
-      });
+      const layer = new VectorLayer({ source });
+      source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set('name', title);
-      return new MapLayer('route-free-paths-layer', layer);
-    }
-    return null;
+      const name = `path-layer-${path.pathId}`;
+      return new MapLayer(name, layer);
+    });
   }
 
   private buildForwardLayer(): MapLayer {

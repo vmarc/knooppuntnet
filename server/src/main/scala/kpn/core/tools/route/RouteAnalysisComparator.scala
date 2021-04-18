@@ -6,6 +6,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.TrackPath
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Fact.RouteInvalidSortingOrder
 import kpn.api.custom.Tags
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.NodeNameAnalyzer
@@ -15,7 +16,6 @@ class RouteAnalysisComparator {
   private val log = Log(classOf[RouteAnalysisTool])
 
   def compareRouteInfos(oldRoute: RouteInfo, newRoute: RouteInfo): RouteAnalysisComparison = {
-    val factsDiff = new RouteFactsComparator().compare(oldRoute, newRoute)
 
     var routeInfoPair = RouteInfoPair(oldRoute, newRoute)
     routeInfoPair = ignoreLocation(routeInfoPair)
@@ -23,6 +23,7 @@ class RouteAnalysisComparator {
     routeInfoPair = ignoreTrackPathsAndStructureStrings(routeInfoPair)
     routeInfoPair = ignoreNormalization(routeInfoPair)
     routeInfoPair = ignoreTrackPathIds(routeInfoPair)
+    routeInfoPair = ignoreObsoleteFacts(routeInfoPair)
 
     val mm = matchingMapNodes(routeInfoPair)
     val mm3 = matchingPaths(routeInfoPair)
@@ -37,6 +38,7 @@ class RouteAnalysisComparator {
       log.info("mismatch\n" + c.show())
     }
 
+    val factsDiff = new RouteFactsComparator().compare(oldRoute, newRoute)
     if (mm && mm2 && mm3 && routeInfoPair.isIdentical) {
       log.info("OK")
     }
@@ -433,4 +435,15 @@ class RouteAnalysisComparator {
     Tags(tags.tags.sortBy(_.key))
   }
 
+  private def ignoreObsoleteFacts(routeInfoPair: RouteInfoPair): RouteInfoPair = {
+    val obsoleteFacts = Seq(RouteInvalidSortingOrder)
+    routeInfoPair.copy(
+      oldRoute = routeInfoPair.oldRoute.copy(
+        facts = routeInfoPair.oldRoute.facts.filterNot(obsoleteFacts.contains)
+      ),
+      newRoute = routeInfoPair.oldRoute.copy(
+        facts = routeInfoPair.newRoute.facts.filterNot(obsoleteFacts.contains)
+      )
+    )
+  }
 }

@@ -68,8 +68,8 @@ export class I18nService {
     ]);
 
     keysAndValues.push([
-      '@@map.layer.free-paths',
-      $localize`:@@map.layer.free-paths:Paths`,
+      '@@map.layer.free-path',
+      $localize`:@@map.layer.free-path:Path`,
     ]);
     keysAndValues.push([
       '@@map.layer.forward-route',
