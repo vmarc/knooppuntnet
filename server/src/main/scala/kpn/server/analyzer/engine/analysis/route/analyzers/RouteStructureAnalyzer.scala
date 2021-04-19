@@ -74,12 +74,17 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def analyzeStructure2(routeNodeAnalysis: RouteNodeAnalysis, structure: RouteStructure, fragments: Seq[Fragment]): Unit = {
-    if (!Seq(RouteAnalysisFailed, RouteOverlappingWays, RouteWithoutNodes).exists(facts.contains)) {
+    if (!Seq(RouteAnalysisFailed, RouteOverlappingWays, RouteWithoutNodes, RouteNodeMissingInWays).exists(facts.contains)) {
       if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
         if (!facts.contains(RouteWithoutWays)) {
           // do not report this fact if route has no ways or is known to be incomplete
 
-          if (routeNodeAnalysis.freeNodes.isEmpty) {
+          if (routeNodeAnalysis.freeNodes.nonEmpty) {
+            if (structure.unusedSegments.nonEmpty) {
+              facts += RouteUnusedSegments
+            }
+          }
+          else {
 
             val oneWayRouteForward = context.loadedRoute.relation.tags.has("direction", "forward")
             val oneWayRouteBackward = context.loadedRoute.relation.tags.has("direction", "backward")

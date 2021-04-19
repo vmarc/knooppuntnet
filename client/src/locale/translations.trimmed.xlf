@@ -1373,14 +1373,14 @@
         <source>added</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-node-diff.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35,36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-changes.node-diff.removed">
         <source>removed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-node-diff.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.table">
@@ -1897,10 +1897,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-node-missing-in-ways">
-        <source>The end node and/or the begin node is not found in any of the ways of this route.</source>
+        <source>One or more of the nodes is not found in any of the ways of this route.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-node-missing-in-ways.component.ts</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">9,10</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-node-name-mismatch">
@@ -4162,7 +4162,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-node-missing-in-ways.comment">
-        <source>Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.</source>
+        <source>Number of routes for which there is a least one node is not found in any of the ways of the route.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
           <context context-type="linenumber">295,296</context>
@@ -5628,8 +5628,8 @@
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="map.layer.free-paths">
-        <source>Paths</source>
+      <trans-unit datatype="html" id="map.layer.free-path">
+        <source>Path</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
           <context context-type="linenumber">72</context>

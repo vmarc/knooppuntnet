@@ -255,9 +255,9 @@
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="map.layer.free-paths" datatype="html">
-        <source>Paths</source>
-        <target state="final">[Paths]</target>
+      <trans-unit id="map.layer.free-path" datatype="html">
+        <source>Path</source>
+        <target state="final">[Path]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
           <context context-type="linenumber">72</context>
@@ -896,8 +896,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-node-missing-in-ways" datatype="html">
-        <source> The end node and/or the begin node is not found in any of the ways of this route. </source>
-        <target state="final"> The end node and/or the begin node is not found in any of the ways of this route. </target>
+        <source> One or more of the nodes is not found in any of the ways of this route. </source>
+        <target state="final"> One or more of the nodes is not found in any of the ways of this route. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-node-missing-in-ways.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -1754,19 +1754,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.node-diff.added" datatype="html">
-        <source>added</source>
-        <target>added</target>
+        <source> added </source>
+        <target state="final"> added </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-node-diff.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.node-diff.removed" datatype="html">
-        <source>removed</source>
-        <target>removed</target>
+        <source> removed </source>
+        <target state="final"> removed </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-node-diff.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.title" datatype="html">
@@ -4777,9 +4777,9 @@
       </trans-unit>
       <trans-unit id="stats.route-node-missing-in-ways.comment" datatype="html">
         <source>
-          Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.</source>
+          Number of routes for which there is a least one node is not found in any of the ways of the route.</source>
         <target state="final">
-          Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.</target>
+          Number of routes for which there is a least one node is not found in any of the ways of the route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
           <context context-type="linenumber">295</context>

@@ -16,7 +16,7 @@ class RouteNodeInfoAnalyzerImpl(nodeAnalyzer: NodeAnalyzer) extends RouteNodeInf
       case wayMember: WayMember => wayMember.way.nodes
       case _ => Seq()
     }
-    Unique.filter(nodes).flatMap { node =>
+    Unique.filter(nodes).filter(_.tags.has("network:type", "node_network")).flatMap { node =>
       nodeAnalyzer.scopedName(loadedRoute.scopedNetworkType, node.tags).map { name =>
         node.id -> RouteNodeInfo(node, name)
       }

@@ -293,7 +293,7 @@ export class OverviewService {
         factDetailCounts,
         $localize`:@@stats.route-node-missing-in-ways.name:RouteNodeMissingInWays`,
         $localize`:@@stats.route-node-missing-in-ways.comment:
-          Number of routes for which the end node and/or the begin node is not found in any of the ways of the route.`
+          Number of routes for which there is a least one node is not found in any of the ways of the route.`
       )
     );
 

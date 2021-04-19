@@ -5,7 +5,14 @@ import com.softwaremill.diffx.generic.auto._
 import kpn.api.common.common.TrackPath
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteIncomplete
 import kpn.api.custom.Fact.RouteInvalidSortingOrder
+import kpn.api.custom.Fact.RouteNameMissing
+import kpn.api.custom.Fact.RouteNodeMissingInWays
+import kpn.api.custom.Fact.RouteNodeNameMismatch
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Tags
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.NodeNameAnalyzer
@@ -31,20 +38,19 @@ class RouteAnalysisComparator {
     routeInfoPair = ignoreMapNodes(routeInfoPair)
     routeInfoPair = normalizeRouteTags(routeInfoPair)
 
+    val mm4 = matchingFacts(routeInfoPair)
+    routeInfoPair = ignoreFacts(routeInfoPair)
+
     if (!routeInfoPair.isIdentical) {
       val c = compare(routeInfoPair.oldRoute, routeInfoPair.newRoute)
-      log.info("mismatch\n" + c.show())
+      log.info("DIFF mismatch\n" + c.show())
     }
 
-    val factsDiff = new RouteFactsComparator().compare(oldRoute, newRoute)
-    if (mm && mm2 && mm3 && routeInfoPair.isIdentical) {
+    if (mm && mm2 && mm3 && mm4 && routeInfoPair.isIdentical) {
       log.info("OK")
     }
-    else {
-      log.info("DIFF " + factsDiff)
-    }
 
-    RouteAnalysisComparison(factsDiff)
+    RouteAnalysisComparison()
   }
 
   private def ignoreTrackPathsAndStructureStrings(routeInfoPair: RouteInfoPair): RouteInfoPair = {
@@ -201,19 +207,19 @@ class RouteAnalysisComparator {
           }
           else {
             val c = compare(oldMapNodes, newMapNodes)
-            log.info("Mismatch in route map redundant nodes\n" + c.show())
+            log.info("DIFF Mismatch in route map redundant nodes\n" + c.show())
             false
           }
         }
         else {
           val c = compare(oldMapNodes, newMapNodes)
-          log.info("Mismatch in route map free nodes\n" + c.show())
+          log.info("DIFF Mismatch in route map free nodes\n" + c.show())
           false
         }
       }
       else {
         val c = compare(oldMapNodes, newMapNodes)
-        log.info("Mismatch in route map nodes\n" + c.show())
+        log.info("DIFF Mismatch in route map nodes\n" + c.show())
         false
       }
     }
@@ -229,7 +235,7 @@ class RouteAnalysisComparator {
       }
       else {
         val c = compare(oldTrackPathNodes, newTrackPathNodes)
-        log.info("mismatch paths\n" + c.show())
+        log.info("DIFF mismatch paths\n" + c.show())
         false
       }
     }
@@ -288,7 +294,7 @@ class RouteAnalysisComparator {
       }
     }
     else {
-      log.info(s"Mismatch in $message paths (number of paths is different)")
+      log.info(s"DIFF Mismatch in $message paths (number of paths is different)")
       false
     }
 
@@ -297,7 +303,7 @@ class RouteAnalysisComparator {
     }
     else {
       val c = compare(oldPaths, newPaths)
-      log.info(s"Mismatch in $message paths\n${c.show()}")
+      log.info(s"DIFF Mismatch in $message paths\n${c.show()}")
       false
     }
   }
@@ -398,4 +404,48 @@ class RouteAnalysisComparator {
       )
     )
   }
+
+  private def matchingFacts(routeInfoPair: RouteInfoPair): Boolean = {
+
+    val oldFacts = routeInfoPair.oldRoute.facts.sortBy(_.name)
+    val newFacts = routeInfoPair.newRoute.facts.sortBy(_.name)
+
+    if (oldFacts.equals(Seq(RouteBroken, RouteNodeMissingInWays, RouteNotBackward, RouteNotForward)) &&
+      newFacts.equals(Seq(RouteBroken, RouteNodeMissingInWays))
+    ) {
+      true
+    }
+    else if (oldFacts.equals(Seq(RouteBroken, RouteIncomplete, RouteNotBackward, RouteNotForward)) &&
+      newFacts.equals(Seq(RouteIncomplete))
+    ) {
+      true
+    }
+    else if (oldFacts.equals(Seq(RouteBroken, RouteNameMissing)) && newFacts.isEmpty) {
+      true
+    }
+    else if (oldFacts.equals(Seq(RouteNodeNameMismatch)) && newFacts.isEmpty) {
+      true
+    }
+    else {
+      if (oldFacts.equals(newFacts)) {
+        true
+      }
+      else {
+        log.info(s"DIFF Mismatch in facts $oldFacts <> $newFacts")
+        false
+      }
+    }
+  }
+
+  private def ignoreFacts(routeInfoPair: RouteInfoPair): RouteInfoPair = {
+    routeInfoPair.copy(
+      oldRoute = routeInfoPair.oldRoute.copy(
+        facts = Seq.empty
+      ),
+      newRoute = routeInfoPair.oldRoute.copy(
+        facts = Seq.empty
+      )
+    )
+  }
+
 }

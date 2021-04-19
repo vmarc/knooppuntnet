@@ -31,14 +31,17 @@ import { Ref } from '@api/common/common/ref';
       *ngIf="action === 'added'"
       class="kpn-label"
       i18n="@@route-changes.node-diff.added"
-      >added</span
     >
+      added
+    </span>
+
     <span
       *ngIf="action === 'removed'"
       class="kpn-label"
       i18n="@@route-changes.node-diff.removed"
-      >removed</span
     >
+      removed
+    </span>
 
     <div class="kpn-comma-list">
       <kpn-link-node

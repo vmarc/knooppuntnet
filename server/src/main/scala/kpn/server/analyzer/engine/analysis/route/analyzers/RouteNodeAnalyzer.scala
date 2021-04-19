@@ -32,7 +32,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private val nodeUtil = new NodeUtil(context.scopedNetworkType)
 
   private val orderedRouteNodeInfos = new RouteRelationAnalyzer().orderedNodeIds(context.loadedRoute.relation).flatMap { nodeId =>
-    context.routeNodeInfos.get(nodeId).filter(_.name != "*")
+    context.routeNodeInfos.get(nodeId)
   }
 
   def analyze: RouteAnalysisContext = {
@@ -60,8 +60,20 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     if (routeNodeAnalysis.nodesInWays.isEmpty) {
       facts += RouteNodeMissingInWays
     }
-    else if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
-      facts += RouteNodeMissingInWays
+    else {
+      if (routeNodeAnalysis.freeNodes.isEmpty) {
+        if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
+          facts += RouteNodeMissingInWays
+        }
+        if (routeNodeAnalysis.startNodes.isEmpty || routeNodeAnalysis.endNodes.isEmpty) {
+          facts += RouteNodeMissingInWays
+        }
+      }
+      else {
+        if (routeNodeAnalysis.freeNodes.exists(_.missingInWays)) {
+          facts += RouteNodeMissingInWays
+        }
+      }
     }
 
     if (routeNodeAnalysis.redundantNodes.nonEmpty) {
@@ -99,8 +111,15 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       case None => throw new IllegalStateException("Programming error: expected startNodeName in RouteNameAnalysis")
       case Some(startNodeName) =>
 
-        val freeRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => startNodeName.equals(routeNodeInfo.name)).distinct
-        val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name)).distinct
+        val freeRouteNodeInfos = orderedRouteNodeInfos
+          .filter(routeNodeInfo => startNodeName.equals(routeNodeInfo.name))
+          .distinct
+
+        val redundantRouteNodeInfos = orderedRouteNodeInfos
+          .filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name))
+          .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
+          .distinct
+
         val alternateNameMap = nodeUtil.alternateNames(facts, freeRouteNodeInfos)
 
         RouteNodeAnalysis(

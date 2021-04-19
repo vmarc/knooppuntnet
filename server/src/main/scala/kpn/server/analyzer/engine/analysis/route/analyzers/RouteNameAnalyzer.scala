@@ -32,10 +32,28 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
       case Some(ref) => Some(analyzeName(ref))
       case None =>
         tags("name") match {
-          case Some(name) => Some(analyzeName(name))
+          case Some(name) =>
+            val routeNameAnalysis = analyzeName(name)
+            if (routeNameAnalysis.hasStandardNodeNames) {
+              Some(routeNameAnalysis)
+            }
+            else {
+              tags("note") match {
+                case None => Some(routeNameAnalysis)
+                case Some(note) =>
+                  val noteRouteNameAnalysis = analyzeName(note)
+                  if (noteRouteNameAnalysis.hasStandardNodeNames) {
+                    Some(noteRouteNameAnalysis)
+                  }
+                  else {
+                    Some(routeNameAnalysis)
+                  }
+              }
+            }
+
           case None =>
             tags("note") match {
-              case Some(note) => Some(analyzeName(noteWithoutComment(note)))
+              case Some(note) => Some(analyzeName(note))
               case None => analyzeToFromTags(tags)
             }
         }
@@ -43,7 +61,8 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     context.copy(routeNameAnalysis = routeNameAnalysis).withFact(routeNameAnalysis.isEmpty, RouteNameMissing)
   }
 
-  private def analyzeName(routeName: String): RouteNameAnalysis = {
+  private def analyzeName(fullRouteName: String): RouteNameAnalysis = {
+    val routeName = withoutComment(fullRouteName)
     if (routeName.contains("-")) {
       val nameParts = routeName.split("-")
       val firstPart = nameParts.head.trim
@@ -136,12 +155,12 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def noteWithoutComment(note: String): String = {
-    if (note.contains(";")) {
-      note.split(";").head
+  private def withoutComment(tagValue: String): String = {
+    if (tagValue.contains(";")) {
+      tagValue.split(";").head
     }
     else {
-      note
+      tagValue
     }
   }
 

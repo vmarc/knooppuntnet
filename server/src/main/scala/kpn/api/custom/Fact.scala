@@ -178,13 +178,13 @@ object Fact {
     }
 
     fact match {
-      case RouteUnusedSegments => reportIfNotIn(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
-      case RouteInvalidSortingOrder => reportIfNotIn(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
-      case RouteNotContinious => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
-      case RouteNotForward => reportIfNotIn(RouteWithoutWays)
-      case RouteNotBackward => reportIfNotIn(RouteWithoutWays)
+      case RouteUnusedSegments => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
+      case RouteInvalidSortingOrder => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
+      case RouteNotContinious => reportIfNotIn(RouteNodeMissingInWays, RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
+      case RouteNotForward => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays)
+      case RouteNotBackward => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays)
       case RouteNodeMissingInWays => reportIfNotIn(RouteWithoutWays, RouteIncomplete)
-      case RouteRedundantNodes => reportIfNotIn(RouteWithoutWays, RouteIncomplete)
+      case RouteRedundantNodes => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
       case _ => true
     }
   }

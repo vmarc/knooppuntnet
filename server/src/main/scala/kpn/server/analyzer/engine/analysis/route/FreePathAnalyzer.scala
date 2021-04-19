@@ -9,6 +9,18 @@ import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
 class FreePathAnalyzer(segmentFinder: SegmentFinder, availableFragmentIds: Set[Int], nodes: Seq[Node]) {
 
   def findTentacles: Seq[Path] = {
+    if (nodes.size == 1) {
+      segmentFinder.composeAsIsPath() match {
+        case Some(path) => Seq(path)
+        case None => findPaths()
+      }
+    }
+    else {
+      findPaths()
+    }
+  }
+
+  private def findPaths(): Seq[Path] = {
     val tentacles = nodes.combinations(2).toSeq.flatMap { case Seq(start, end) =>
       Seq(
         findPath(start, end).toSeq,

@@ -17,8 +17,8 @@ object RouteAnalysisTool {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-        // tool.analyze(IdsFile.read("/kpn/routes/route-ids-cycling-fr.txt"))
-        tool.analyze(Seq(9624135L))
+        tool.analyze(IdsFile.read("/kpn/routes/cycling-de-problems.txt"))
+        // tool.analyze(Seq(10060284L))
 
         // tool.analyzeRoute(11906621L) // TODO self-loop TO BE IMPLEMENTED !!!
       }
@@ -55,7 +55,23 @@ class RouteAnalysisTool(
     9624135L, // new analysis is better
 
     // NL hiking
-    // 1609743L, // new analysis is better
+    1609743L, // new analysis is better
+    1620675L, // new analysis is better
+    3229684L, // new analysis is better
+    6787609L, // new analysis is better
+    6787678L, // new analysis is better
+    7207497L, // new analysis is better
+    11858847L, // new analysis is better
+    11767168L, // new analysis is better
+
+    // BE hiking
+    1791341L, // new analysis is better
+    1791342L, // new analysis is better
+    1791344L, // new analysis is better
+    2148544L, // new analysis is better
+    2148545L, // new analysis is better
+    2570864L, // new analysis is better
+    11353140L, // new analysis is better
   )
 
   def analyze(allRouteIds: Seq[Long]): Unit = {

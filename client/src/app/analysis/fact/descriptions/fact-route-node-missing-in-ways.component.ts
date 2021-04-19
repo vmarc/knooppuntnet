@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-node-missing-in-ways">
-      The end node and/or the begin node is not found in any of the ways of this
-      route.
+      One or more of the nodes is not found in any of the ways of this route.
     </p>
   `,
 })

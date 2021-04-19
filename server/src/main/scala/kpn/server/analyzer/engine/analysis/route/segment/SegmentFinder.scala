@@ -8,6 +8,8 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 
+import scala.annotation.tailrec
+
 class SegmentFinderAbort() extends RuntimeException
 
 case class SegmentFinderContext(
@@ -35,6 +37,76 @@ class SegmentFinder(
   private val timeout = 10000L
 
   private val log = Log(classOf[SegmentFinder])
+
+  def composeAsIsPath(): Option[Path] = {
+    val fragments = fragmentMap.ids.sorted.map(id => fragmentMap(id))
+    if (fragments.isEmpty) {
+      None
+    }
+    else {
+      composeAsIsFragments(fragments) match {
+        case Some(path) => Some(path)
+        case None => composeAsIsFragments(fragments.reverse)
+      }
+    }
+  }
+
+  private def composeAsIsFragments(fragments: Vector[Fragment]) = {
+    val fragment = fragments.head
+    fragment.start match {
+      case None => None
+      case Some(start) =>
+        val reversedOption = if (start.id == fragment.nodes.head.id) {
+          Some(false)
+        }
+        else if (start.id == fragment.nodes.last.id) {
+          Some(true)
+        }
+        else {
+          None
+        }
+        reversedOption match {
+          case None => None
+          case Some(reversed) =>
+            val segmentFragment = SegmentFragment(fragment, reversed = reversed)
+            composeNextFragment(Seq(segmentFragment), fragments.tail)
+        }
+    }
+  }
+
+  @tailrec
+  private def composeNextFragment(segments: Seq[SegmentFragment], remainingFragments: Seq[Fragment]): Option[Path] = {
+
+    if (remainingFragments.isEmpty) {
+      if (segments.head.startNode.id == segments.last.endNode.id) {
+        buildPath(segments)
+      }
+      else {
+        None
+      }
+    }
+    else {
+      val fragment = remainingFragments.head
+      val previousEndNode = segments.last.endNode
+
+      val reversedOption = if (previousEndNode.id == fragment.nodes.head.id) {
+        Some(false)
+      }
+      else if (previousEndNode.id == fragment.nodes.last.id) {
+        Some(true)
+      }
+      else {
+        None
+      }
+
+      reversedOption match {
+        case None => None
+        case Some(reversed) =>
+          val segmentFragment = SegmentFragment(fragment, reversed = reversed)
+          composeNextFragment(segments :+ segmentFragment, remainingFragments.tail)
+      }
+    }
+  }
 
   def find(
     availableFragmentIds: Set[Int],
@@ -69,23 +141,25 @@ class SegmentFinder(
     }
     else {
 
-      val connectableFragments = remainingFragmentIds.filter { fragmentId =>
-        val res = canConnect(context.indent, context.direction, context.node, fragmentId)
-        if (res) {
-          if (context.usedFragmentIds.contains(fragmentId)) {
-            //noinspection SideEffectsInMonadicTransformation
-            log.warn("STOP SELF REFERENCING ROUTE ???")
+      val connectableFragments = remainingFragmentIds.filter {
+        fragmentId =>
+          val res = canConnect(context.indent, context.direction, context.node, fragmentId)
+          if (res) {
+            if (context.usedFragmentIds.contains(fragmentId)) {
+              //noinspection SideEffectsInMonadicTransformation
+              log.warn("STOP SELF REFERENCING ROUTE ???")
+            }
+            if (context.currentSegmentFragments.map(_.fragment.id).contains(fragmentId)) {
+              //noinspection SideEffectsInMonadicTransformation
+              log.warn("STOP SELF REFERENCING ROUTE ???")
+            }
           }
-          if (context.currentSegmentFragments.map(_.fragment.id).contains(fragmentId)) {
-            //noinspection SideEffectsInMonadicTransformation
-            log.warn("STOP SELF REFERENCING ROUTE ???")
-          }
-        }
-        res
-      }.toSeq.map { fragmentId =>
-        val fragment = fragmentMap(fragmentId)
-        val reversed = context.node == fragment.nodes.last
-        SegmentFragment(fragment, reversed)
+          res
+      }.toSeq.map {
+        fragmentId =>
+          val fragment = fragmentMap(fragmentId)
+          val reversed = context.node == fragment.nodes.last
+          SegmentFragment(fragment, reversed)
       }
 
       if (connectableFragments.isEmpty) {
@@ -108,7 +182,9 @@ class SegmentFinder(
           val from = context.node.id
           val to = connectableFragments.map(sf => sf.endNode.id).mkString(",")
           //noinspection SideEffectsInMonadicTransformation
-          debug(context.indent, s"${context.direction} from $from to $to (potentialSolutionCount=$newPotentialSolutionCount)")
+          debug(
+            context.indent, s"${context.direction} from $from to $to (potentialSolutionCount=$newPotentialSolutionCount)"
+          )
         }
         if (context.potentialSolutionCount > maxSolutionCount) {
           log.warn("Stopped finding segments because the maximum number of allowed possible solutions (" + maxSolutionCount + ") has been exceeded: " + context.potentialSolutionCount + " (analysis would take too long or not end)")
@@ -120,57 +196,63 @@ class SegmentFinder(
         if (timerState.isElapsed) {
           val cpuTimeElapsed = timerState.cpuElapsed match {
             case None => ""
-            case Some(millis) => s" (cpu time ${millis}ms)"
+            case Some(millis) =>
+              s" (cpu time ${millis}ms)"
           }
-          log.warn(s"Timeout after ${timerState.epochElapsed}ms$cpuTimeElapsed while finding segments (analysis takes too long)")
+          log.warn(
+            s"Timeout after ${timerState.epochElapsed}ms$cpuTimeElapsed while finding segments (analysis takes too long)"
+          )
           throw new SegmentFinderAbort()
         }
 
         val passedNodes = context.usedFragmentIds.map(id => fragmentMap(id)).flatMap(fragment => fragment.nodes).filterNot(_ == context.node)
 
-        val paths: Seq[Path] = connectableFragments.flatMap { segmentFragment =>
+        val paths: Seq[Path] = connectableFragments.flatMap {
+          segmentFragment =>
 
-          val path = context.currentSegmentFragments :+ segmentFragment
+            val path = context.currentSegmentFragments :+ segmentFragment
 
-          if (log.isDebugEnabled) {
-            val from = context.node.id
-            val to = segmentFragment.endNode.id
-            //noinspection SideEffectsInMonadicTransformation
-            debug(context.indent + 1, s"${context.direction} from $from to $to path=$path")
-          }
-          if (!loop && passedNodes.contains(segmentFragment.endNode)) {
             if (log.isDebugEnabled) {
+              val from = context.node.id
+              val to = segmentFragment.endNode.id
               //noinspection SideEffectsInMonadicTransformation
-              debug(context.indent, "dead end: already passed through node " + segmentFragment.endNode)
+              debug(
+                context.indent + 1, s"${context.direction} from $from to $to path=$path"
+              )
             }
-            buildPath(context.currentSegmentFragments, broken = true)
-          }
-          else if (context.targetNode == segmentFragment.endNode) {
-            val newPath = buildPath(path)
-            if (log.isDebugEnabled && newPath.nonEmpty) {
-              //noinspection SideEffectsInMonadicTransformation
-              debug(context.indent, "found main segment (potentialSolutionCount=" + context.potentialSolutionCount + "): " + new PathFormatter(newPath.get).string)
+            if (!loop && passedNodes.contains(segmentFragment.endNode)) {
+              if (log.isDebugEnabled) {
+                //noinspection SideEffectsInMonadicTransformation
+                debug(context.indent, "dead end: already passed through node " + segmentFragment.endNode)
+              }
+              buildPath(context.currentSegmentFragments, broken = true)
             }
-            newPath
-          }
-          else if (allNodes.contains(segmentFragment.endNode)) {
-            if (log.isDebugEnabled) {
-              //noinspection SideEffectsInMonadicTransformation
-              debug(context.indent, "dead end: encountered node other than target node")
+            else if (context.targetNode == segmentFragment.endNode) {
+              val newPath = buildPath(path)
+              if (log.isDebugEnabled && newPath.nonEmpty) {
+                //noinspection SideEffectsInMonadicTransformation
+                debug(context.indent, "found main segment (potentialSolutionCount=" + context.potentialSolutionCount + "): " + new PathFormatter(newPath.get).string)
+              }
+              newPath
             }
-            None
-          }
-          else {
-            val segmentFragments = context.currentSegmentFragments :+ segmentFragment
-            val newContext = context.copy(
-              indent = context.indent + 2,
-              node = segmentFragment.endNode,
-              usedFragmentIds = context.usedFragmentIds ++ segmentFragments.map(_.fragment.id),
-              currentSegmentFragments = context.currentSegmentFragments :+ segmentFragment,
-              potentialSolutionCount = newPotentialSolutionCount
-            )
-            recursiveFindSegments(newContext)
-          }
+            else if (allNodes.contains(segmentFragment.endNode)) {
+              if (log.isDebugEnabled) {
+                //noinspection SideEffectsInMonadicTransformation
+                debug(context.indent, "dead end: encountered node other than target node")
+              }
+              None
+            }
+            else {
+              val segmentFragments = context.currentSegmentFragments :+ segmentFragment
+              val newContext = context.copy(
+                indent = context.indent + 2,
+                node = segmentFragment.endNode,
+                usedFragmentIds = context.usedFragmentIds ++ segmentFragments.map(_.fragment.id),
+                currentSegmentFragments = context.currentSegmentFragments :+ segmentFragment,
+                potentialSolutionCount = newPotentialSolutionCount
+              )
+              recursiveFindSegments(newContext)
+            }
         }
 
         PathSelector.select(paths)
