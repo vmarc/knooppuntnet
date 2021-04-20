@@ -371,11 +371,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
 
     val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
 
-    val factDiffs = FactDiffs(
-      Set(),
-      Set(Fact.RouteInvalidSortingOrder),
-      Set()
-    )
+    val factDiffs = FactDiffs()
 
     analysis.get.diffs should matchTo(RouteDiff(factDiffs = Some(factDiffs), memberOrderChanged = true))
   }

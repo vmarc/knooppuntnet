@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteAnalysisFailed
-import kpn.api.custom.Fact.RouteInvalidSortingOrder
 import kpn.api.custom.Fact.RouteNodeMissingInWays
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotContinious
@@ -14,7 +13,6 @@ import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteSortingOrderAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
@@ -138,11 +136,6 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
             if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
               if (structure.unusedSegments.nonEmpty) {
                 facts += RouteUnusedSegments
-              }
-
-              val routeSortingOrderAnalysis = new RouteSortingOrderAnalyzer(fragments, structure).analysis
-              if (!routeSortingOrderAnalysis.ok) {
-                facts += RouteInvalidSortingOrder
               }
             }
           }

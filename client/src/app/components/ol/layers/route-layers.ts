@@ -31,9 +31,7 @@ export class RouteLayers {
     layers.push(this.buildUnusedSegmentsLayer());
     layers = layers.concat(this.buildTrackPathLayers());
 
-    const xx = List(layers).filter((layer) => layer !== null);
-    xx.forEach((layer) => console.log('layer -> ' + layer.name));
-    return xx;
+    return List(layers).filter((layer) => layer !== null);
   }
 
   private buildFreePathsLayers(): MapLayer[] {

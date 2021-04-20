@@ -10,6 +10,7 @@ import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.json.Json
 import kpn.server.repository.RouteRepositoryImpl
 
+import java.util.concurrent.atomic.AtomicInteger
 import scala.collection.parallel.CollectionConverters._
 
 object RouteAnalysisTool {
@@ -17,7 +18,7 @@ object RouteAnalysisTool {
     Couch.executeIn("localhost", "attic-analysis") { analysisDatabase =>
       Couch.executeIn("localhost", "routes") { routeDatabase =>
         val tool = new RouteAnalysisTool(analysisDatabase, routeDatabase)
-        tool.analyze(IdsFile.read("/kpn/routes/cycling-de-problems.txt"))
+        tool.analyze(IdsFile.read("/kpn/routes/route-ids-cycling-nl.txt"))
         // tool.analyze(Seq(10060284L))
 
         // tool.analyzeRoute(11906621L) // TODO self-loop TO BE IMPLEMENTED !!!
@@ -45,6 +46,10 @@ class RouteAnalysisTool(
     9432838L, // new analysis is better
     12444552L, // new analysis is better
     2672912L, // new analysis is better
+    6438035L, // new analysis is better
+    6844235L, // new analysis is better
+    6844236L, // new analysis is better
+    6844559L, // new analysis is better
 
     7097802L, // OK minor differences in geometry
 
@@ -65,19 +70,17 @@ class RouteAnalysisTool(
     11767168L, // new analysis is better
 
     // BE hiking
-    1791341L, // new analysis is better
-    1791342L, // new analysis is better
-    1791344L, // new analysis is better
-    2148544L, // new analysis is better
-    2148545L, // new analysis is better
-    2570864L, // new analysis is better
     11353140L, // new analysis is better
+
+    // DE cycling
+
   )
 
   def analyze(allRouteIds: Seq[Long]): Unit = {
     val routeIds = (allRouteIds.toSet -- ignoredRouteIds -- reviewedRouteIds).toSeq.sorted
-    routeIds.zipWithIndex.par.foreach { case (routeId, index) =>
-      Log.context(s"${index + 1}/${routeIds.size}") {
+    val routeCounter = new AtomicInteger()
+    routeIds.par.foreach { routeId =>
+      Log.context(s"${routeCounter.incrementAndGet()}/${routeIds.size}") {
         analyzeRoute(routeId)
       }
     }
@@ -110,7 +113,7 @@ class RouteAnalysisTool(
                   }
                   else {
                     val comparator = new RouteAnalysisComparator()
-                    val comparison = comparator.compareRouteInfos(oldRoute, newRouteAnalysis.route)
+                    comparator.compareRouteInfos(oldRoute, newRouteAnalysis.route)
                   }
               }
             }

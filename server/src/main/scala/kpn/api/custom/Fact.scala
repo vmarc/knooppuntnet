@@ -179,7 +179,6 @@ object Fact {
 
     fact match {
       case RouteUnusedSegments => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
-      case RouteInvalidSortingOrder => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
       case RouteNotContinious => reportIfNotIn(RouteNodeMissingInWays, RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
       case RouteNotForward => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays)
       case RouteNotBackward => reportIfNotIn(RouteNodeMissingInWays, RouteWithoutWays)

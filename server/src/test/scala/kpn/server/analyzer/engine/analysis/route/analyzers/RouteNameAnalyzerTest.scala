@@ -163,8 +163,9 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     routeNameAnalysis.value should matchTo(
       RouteNameAnalysis(
         Some("B-A"),
+        Some("A"),
         Some("B"),
-        Some("A")
+        reversed = true
       )
     )
   }
@@ -229,6 +230,38 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = analyze(Tags.empty)
     context.routeNameAnalysis should equal(None)
     context.facts should equal(Seq(RouteNameMissing))
+  }
+
+  test("route name based on 'note' tag if route name from 'name' tag is 'non-standard'") {
+    val routeNameAnalysis = analyzeRouteName(
+      Tags.from(
+        "name" -> "one-two",
+        "note" -> "01-02",
+      )
+    )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02")
+      )
+    )
+  }
+
+  test("route name from 'name' tag if route name from 'note' tag is not better") {
+    val routeNameAnalysis = analyzeRouteName(
+      Tags.from(
+        "name" -> "one-two",
+        "note" -> "three-four",
+      )
+    )
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("one-two"),
+        Some("one"),
+        Some("two")
+      )
+    )
   }
 
   private def analyzeRouteName(tags: Tags): Option[RouteNameAnalysis] = {

@@ -21,14 +21,13 @@ class RouteAnalysisComparator {
 
   private val log = Log(classOf[RouteAnalysisTool])
 
-  def compareRouteInfos(oldRoute: RouteInfo, newRoute: RouteInfo): RouteAnalysisComparison = {
+  def compareRouteInfos(oldRoute: RouteInfo, newRoute: RouteInfo): Unit = {
 
     var routeInfoPair = RouteInfoPair(oldRoute, newRoute)
     routeInfoPair = ignoreSummaryNodeNames(routeInfoPair)
     routeInfoPair = ignoreTrackPathsAndStructureStrings(routeInfoPair)
     routeInfoPair = ignoreNormalization(routeInfoPair)
     routeInfoPair = ignoreTrackPathIds(routeInfoPair)
-    routeInfoPair = ignoreObsoleteFacts(routeInfoPair)
 
     val mm = matchingMapNodes(routeInfoPair)
     val mm3 = matchingPaths(routeInfoPair)
@@ -49,8 +48,6 @@ class RouteAnalysisComparator {
     if (mm && mm2 && mm3 && mm4 && routeInfoPair.isIdentical) {
       log.info("OK")
     }
-
-    RouteAnalysisComparison()
   }
 
   private def ignoreTrackPathsAndStructureStrings(routeInfoPair: RouteInfoPair): RouteInfoPair = {
@@ -393,21 +390,10 @@ class RouteAnalysisComparator {
     Tags(tags.tags.sortBy(_.key))
   }
 
-  private def ignoreObsoleteFacts(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    val obsoleteFacts = Seq(RouteInvalidSortingOrder)
-    routeInfoPair.copy(
-      oldRoute = routeInfoPair.oldRoute.copy(
-        facts = routeInfoPair.oldRoute.facts.filterNot(obsoleteFacts.contains)
-      ),
-      newRoute = routeInfoPair.oldRoute.copy(
-        facts = routeInfoPair.newRoute.facts.filterNot(obsoleteFacts.contains)
-      )
-    )
-  }
-
   private def matchingFacts(routeInfoPair: RouteInfoPair): Boolean = {
+    val obsoleteFacts = Seq(RouteInvalidSortingOrder)
 
-    val oldFacts = routeInfoPair.oldRoute.facts.sortBy(_.name)
+    val oldFacts = routeInfoPair.oldRoute.facts.filterNot(obsoleteFacts.contains).sortBy(_.name)
     val newFacts = routeInfoPair.newRoute.facts.sortBy(_.name)
 
     if (oldFacts.equals(Seq(RouteBroken, RouteNodeMissingInWays, RouteNotBackward, RouteNotForward)) &&
@@ -447,5 +433,4 @@ class RouteAnalysisComparator {
       )
     )
   }
-
 }

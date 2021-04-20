@@ -49,7 +49,9 @@
             "allowedCommonJsDependencies": [
               "ol-geocoder",
               "pbf",
-              "@babel/runtime-corejs3/*"
+              "@babel/runtime-corejs3",
+              "canvg",
+              "raf"
             ],
             "assets": [
               "src/favicon.ico",

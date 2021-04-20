@@ -64,32 +64,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   private def analyzeName(fullRouteName: String): RouteNameAnalysis = {
     val routeName = withoutComment(fullRouteName)
     if (routeName.contains("-")) {
-      val nameParts = routeName.split("-")
-      val firstPart = nameParts.head.trim
-      val startNodeNameOption = if (firstPart.nonEmpty) Some(NodeNameAnalyzer.normalize(firstPart)) else None
-      val endNodeNameOption = if (nameParts.size > 1) {
-        val secondPart = nameParts(1).trim
-        if (secondPart.nonEmpty) Some(NodeNameAnalyzer.normalize(secondPart)) else None
-      }
-      else {
-        None
-      }
-
-      val startNodeName = startNodeNameOption.getOrElse("")
-      val endNodeName = endNodeNameOption.getOrElse("")
-
-      val normalizedRouteName = s"$startNodeName-$endNodeName"
-
-      if (startNodeNameOption.nonEmpty && endNodeNameOption.nonEmpty) {
-        toRouteNameAnalysisFromNodeNames(normalizedRouteName, startNodeNameOption.get, endNodeNameOption.get)
-      }
-      else {
-        RouteNameAnalysis(
-          Some(normalizedRouteName),
-          startNodeNameOption,
-          endNodeNameOption
-        )
-      }
+      analyzeNameNodes(routeName)
     }
     else {
       RouteNameAnalysis(
@@ -98,6 +73,41 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
         None
       )
     }
+  }
+
+  private def analyzeNameNodes(routeName: String) = {
+
+    val (startNodeNameOption, endNodeNameOption) = splitRouteName(routeName)
+
+    val startNodeName = startNodeNameOption.getOrElse("")
+    val endNodeName = endNodeNameOption.getOrElse("")
+
+    val normalizedRouteName = s"$startNodeName-$endNodeName"
+
+    if (startNodeName.nonEmpty && endNodeNameOption.nonEmpty) {
+      toRouteNameAnalysisFromNodeNames(normalizedRouteName, startNodeName, endNodeName)
+    }
+    else {
+      RouteNameAnalysis(
+        Some(normalizedRouteName),
+        startNodeNameOption,
+        endNodeNameOption
+      )
+    }
+  }
+
+  private def splitRouteName(routeName: String): (Option[String], Option[String]) = {
+    val nameParts = routeName.split("-")
+    val firstPart = nameParts.head.trim
+    val startNodeNameOption = if (firstPart.nonEmpty) Some(NodeNameAnalyzer.normalize(firstPart)) else None
+    val endNodeNameOption = if (nameParts.size > 1) {
+      val secondPart = nameParts(1).trim
+      if (secondPart.nonEmpty) Some(NodeNameAnalyzer.normalize(secondPart)) else None
+    }
+    else {
+      None
+    }
+    (startNodeNameOption, endNodeNameOption)
   }
 
   private def analyzeToFromTags(tags: Tags): Option[RouteNameAnalysis] = {
