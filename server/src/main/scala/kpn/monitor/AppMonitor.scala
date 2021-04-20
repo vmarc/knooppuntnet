@@ -68,7 +68,6 @@ class AppMonitor(
       case e: Exception =>
         val stacktrace = ExceptionUtils.getStackTrace(e)
         throttledSend("error", s"Could not retrieve situationOn\n$stacktrace")
-        None
     }
   }
 

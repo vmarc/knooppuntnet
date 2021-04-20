@@ -92,7 +92,6 @@ class LongdistanceRouteTool(
         data.relations.get(routeDefinition.routeId) match {
           case None =>
             log.warn(s"Could not find route ${routeDefinition.routeId} in raw data")
-            None
 
           case Some(routeRelation) =>
 

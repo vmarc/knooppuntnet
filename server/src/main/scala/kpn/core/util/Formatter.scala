@@ -20,7 +20,7 @@ object Formatter {
       "-"
     }
     else {
-      new DecimalFormat("#,##0", new DecimalFormatSymbols(new Locale("nl", "BE"))).format(number.toLong)
+      new DecimalFormat("#,##0", new DecimalFormatSymbols(new Locale("nl", "BE"))).format(number)
     }
   }
 }

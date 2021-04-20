@@ -164,11 +164,11 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
       val fieldType = {
         val typeName = field.classType.typeName
         if (typeName.startsWith("List<")) {
-          val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]";
+          val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]"
           s"${field.name}: $arrayTypeName"
         }
         else if (typeName.startsWith("Array<")) {
-          val arrayTypeName = typeName.drop("Array<".length).dropRight(1) + "[]";
+          val arrayTypeName = typeName.drop("Array<".length).dropRight(1) + "[]"
           s"${field.name}: $arrayTypeName"
         }
         else {

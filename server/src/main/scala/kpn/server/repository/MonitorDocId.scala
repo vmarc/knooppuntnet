@@ -14,7 +14,7 @@ object MonitorDocId {
   }
 
   def routeReferenceDocId(routeId: Long, key: String): String = {
-    s"${KeyPrefix.MonitorRouteReference}:$routeId:${key}"
+    s"${KeyPrefix.MonitorRouteReference}:$routeId:$key"
   }
 
   def routeChangeDocId(key: ChangeKeyI): String = {

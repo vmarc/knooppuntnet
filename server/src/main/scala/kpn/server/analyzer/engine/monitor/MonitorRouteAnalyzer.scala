@@ -13,6 +13,7 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.geom.MultiLineString
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 
 object MonitorRouteAnalyzer {
@@ -111,7 +112,7 @@ object MonitorRouteAnalyzer {
     }
   }
 
-  def toMultiLineString(sampleCoordinates: Seq[Coordinate], segments: List[List[(Boolean, Int)]]) = {
+  def toMultiLineString(sampleCoordinates: Seq[Coordinate], segments: List[List[(Boolean, Int)]]): MultiLineString = {
     geomFactory.createMultiLineString(segments.map(segment => toLineString(sampleCoordinates, segment)).toArray)
   }
 
