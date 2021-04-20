@@ -9,9 +9,7 @@ case class RouteStructure(
   backwardPath: Option[Path] = None,
   startTentaclePaths: Seq[Path] = Seq.empty,
   endTentaclePaths: Seq[Path] = Seq.empty,
-  splitNodePaths: Seq[Path] = Seq.empty,
-  unusedSegments: Seq[Segment] = Seq.empty,
-  paths: Option[Seq[Path]] = None
+  unusedSegments: Seq[Segment] = Seq.empty
 ) {
 
   def forwardNodeIds: Seq[Long] = nodeIds(forwardPath)

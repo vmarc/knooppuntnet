@@ -84,13 +84,18 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def rasterTileRepository: TileFileRepository = {
-    new TileFileRepositoryImpl("/kpn/tiles", "png")
+  def tileRoot(@Value("${app.tile-root:/kpn/tiles}") value: String): String = {
+    value
   }
 
   @Bean
-  def vectorTileRepository: TileFileRepository = {
-    new TileFileRepositoryImpl("/kpn/tiles", "mvt")
+  def rasterTileRepository(tileRoot: String): TileFileRepository = {
+    new TileFileRepositoryImpl(tileRoot, "png")
+  }
+
+  @Bean
+  def vectorTileRepository(tileRoot: String): TileFileRepository = {
+    new TileFileRepositoryImpl(tileRoot, "mvt")
   }
 
   @Bean

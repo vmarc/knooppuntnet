@@ -25,19 +25,19 @@ class RouteAnalysisComparator {
 
     var routeInfoPair = RouteInfoPair(oldRoute, newRoute)
     routeInfoPair = ignoreSummaryNodeNames(routeInfoPair)
-    routeInfoPair = ignoreTrackPathsAndStructureStrings(routeInfoPair)
+    routeInfoPair = ignoreStructureStrings(routeInfoPair)
     routeInfoPair = ignoreNormalization(routeInfoPair)
     routeInfoPair = ignoreTrackPathIds(routeInfoPair)
 
-    val mm = matchingMapNodes(routeInfoPair)
-    val mm3 = matchingPaths(routeInfoPair)
+    val ok1 = matchingMapNodes(routeInfoPair)
+    val ok2 = matchingPaths(routeInfoPair)
     routeInfoPair = ignoreFreeRoutePaths(routeInfoPair)
-    val mm2 = matchingMapTentacles(routeInfoPair)
+    val ok3 = matchingMapTentacles(routeInfoPair)
 
     routeInfoPair = ignoreMapNodes(routeInfoPair)
     routeInfoPair = normalizeRouteTags(routeInfoPair)
 
-    val mm4 = matchingFacts(routeInfoPair)
+    val ok4 = matchingFacts(routeInfoPair)
     routeInfoPair = ignoreFacts(routeInfoPair)
 
     if (!routeInfoPair.isIdentical) {
@@ -45,19 +45,16 @@ class RouteAnalysisComparator {
       log.info("DIFF mismatch\n" + c.show())
     }
 
-    if (mm && mm2 && mm3 && mm4 && routeInfoPair.isIdentical) {
+    if (ok1 && ok2 && ok3 && ok4 && routeInfoPair.isIdentical) {
       log.info("OK")
     }
   }
 
-  private def ignoreTrackPathsAndStructureStrings(routeInfoPair: RouteInfoPair): RouteInfoPair = {
+  private def ignoreStructureStrings(routeInfoPair: RouteInfoPair): RouteInfoPair = {
     routeInfoPair.copy(
       newRoute = routeInfoPair.newRoute.copy(
         analysis = routeInfoPair.newRoute.analysis.copy(
-          structureStrings = Seq.empty,
-          map = routeInfoPair.newRoute.analysis.map.copy(
-            trackPaths = Seq.empty
-          )
+          structureStrings = Seq.empty
         )
       )
     )

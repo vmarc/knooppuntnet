@@ -23,7 +23,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RoutePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
@@ -69,11 +68,8 @@ class MasterRouteAnalyzerImpl(
         RouteNodeAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
-        // OverlappingWaysRouteAnalyzer,
         RouteFragmentAnalyzer,
-        // SplitNodeRouteAnalyzer,
         RouteStructureAnalyzer,
-        RoutePathAnalyzer,
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,

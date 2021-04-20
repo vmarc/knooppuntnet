@@ -22,8 +22,7 @@ case class RouteMap(
   startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   redundantNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-  streets: Seq[String] = Seq(),
-  trackPaths: Seq[TrackPath] = Seq()
+  streets: Seq[String] = Seq()
 ) {
 
   def paths: Seq[TrackPath] = forwardPath.toSeq ++ backwardPath.toSeq ++ startTentaclePaths ++ endTentaclePaths
