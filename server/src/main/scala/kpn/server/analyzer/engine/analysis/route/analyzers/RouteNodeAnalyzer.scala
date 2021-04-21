@@ -131,7 +131,10 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteWithStartNodeName(facts: ListBuffer[Fact], startNodeName: String): RouteNodeAnalysis = {
     val startNodes = filterByNodeName(orderedRouteNodeInfos.distinct, startNodeName)
-    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name)).distinct
+    val redundantRouteNodeInfos = orderedRouteNodeInfos
+      .filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name))
+      .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
+      .distinct
     val alternateNameMap = nodeUtil.alternateNames(facts, startNodes)
     RouteNodeAnalysis(
       startNodes = toRouteNodes(alternateNameMap, startNodes),
@@ -141,7 +144,10 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteWithEndNodeName(facts: ListBuffer[Fact], endNodeName: String): RouteNodeAnalysis = {
     val endNodes = filterByNodeName(orderedRouteNodeInfos.distinct, endNodeName)
-    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter(routeNodeInfo => !endNodeName.equals(routeNodeInfo.name)).distinct
+    val redundantRouteNodeInfos = orderedRouteNodeInfos
+      .filter(routeNodeInfo => !endNodeName.equals(routeNodeInfo.name))
+      .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
+      .distinct
     val alternateNameMap = nodeUtil.alternateNames(facts, endNodes)
     RouteNodeAnalysis(
       endNodes = toRouteNodes(alternateNameMap, endNodes),
@@ -214,7 +220,9 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val redundantRouteNodeInfos = orderedRouteNodeInfos.filter { routeNodeInfo =>
       val name = routeNodeInfo.name
-      !name.equals(startNodeName) && !name.equals(endNodeName)
+      !name.equals(startNodeName) &&
+        !name.equals(endNodeName) &&
+        !name.equals("*")
     }.distinct
 
     val alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
