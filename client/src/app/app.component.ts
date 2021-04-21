@@ -36,6 +36,7 @@ import { Subscriptions } from './util/Subscriptions';
           <kpn-toolbar></kpn-toolbar>
         </header>
         <div class="page-contents">
+          <kpn-page-experimental></kpn-page-experimental>
           <main>
             <router-outlet></router-outlet>
           </main>

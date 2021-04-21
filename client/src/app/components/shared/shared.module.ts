@@ -19,6 +19,7 @@ import { DayPipe } from './format/day.pipe';
 import { DistancePipe } from './format/distance.pipe';
 import { IntegerFormatPipe } from './format/integer-format.pipe';
 import { IconButtonComponent } from './icon/icon-button.component';
+import { IconButtonsComponent } from './icon/icon-buttons.component';
 import { IconHappyComponent } from './icon/icon-happy.component';
 import { IconInvestigateComponent } from './icon/icon-investigate.component';
 import { IndicatorDialogComponent } from './indicator/indicator-dialog.component';
@@ -63,6 +64,7 @@ import { MetaDataComponent } from './meta-data.component';
 import { NetworkTypeIconComponent } from './network-type-icon.component';
 import { NetworkTypeNameComponent } from './network-type-name.component';
 import { NetworkTypeComponent } from './network-type.component';
+import { PageExperimentalComponent } from './page/page-experimental.component';
 import { PageFooterComponent } from './page/page-footer.component';
 import { PageHeaderComponent } from './page/page-header.component';
 import { PaginatorComponent } from './paginator/paginator.component';
@@ -126,6 +128,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DataComponent,
     PageHeaderComponent,
     PageFooterComponent,
+    PageExperimentalComponent,
     ToolbarComponent,
     SidebarComponent,
     SidebarBackComponent,
@@ -136,6 +139,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     IndicatorComponent,
     IndicatorDialogComponent,
     IconButtonComponent,
+    IconButtonsComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
@@ -193,6 +197,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DataComponent,
     PageHeaderComponent,
     PageFooterComponent,
+    PageFooterComponent,
+    PageExperimentalComponent,
     ToolbarComponent,
     SidebarComponent,
     SidebarBackComponent,
@@ -203,6 +209,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     IndicatorIconComponent,
     IndicatorDialogComponent,
     IconButtonComponent,
+    IconButtonsComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
     DocLinkComponent,
