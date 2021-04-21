@@ -1,0 +1,62 @@
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { VersionService } from '../../../services/version.service';
+
+@Component({
+  selector: 'kpn-page-experimental',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div [ngClass]="{ hidden: !isExperimental() }" class="warning-message">
+      <span i18n="@@experimental.title">Warning: experimental !</span>
+      <span *ngIf="!moreDetailOpen">
+        <a id="more" (click)="more()" i18n="@@experimental.more">more</a>
+      </span>
+      <div *ngIf="moreDetailOpen">
+        <p i18n="@@experimental.message-1">
+          This is an experimental version of the knooppuntnet website.
+        </p>
+        <p i18n="@@experimental.message-2">
+          The data may not be completely correct, and some functions may not
+          work as expected. Unless you are here for trying out new
+          functionality, please use the
+          <a [href]="link()">stable version</a> of knooppuntnet instead.
+        </p>
+        <a (click)="less()" i18n="@@experimental.less">less</a>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      .warning-message {
+        background-color: #ffb6c157;
+        padding: 0.5em;
+        padding-right: 3em;
+      }
+
+      #more {
+        padding-left: 1em;
+      }
+    `,
+  ],
+})
+export class PageExperimentalComponent {
+  moreDetailOpen = false;
+
+  constructor(private versionService: VersionService) {}
+
+  isExperimental(): boolean {
+    return this.versionService.experimental;
+  }
+
+  more(): void {
+    this.moreDetailOpen = true;
+  }
+
+  less(): void {
+    this.moreDetailOpen = false;
+  }
+
+  link(): string {
+    return window.location.href.replace('experimental.', '');
+  }
+}

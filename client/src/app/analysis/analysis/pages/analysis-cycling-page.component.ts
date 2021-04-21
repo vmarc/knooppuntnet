@@ -19,42 +19,44 @@ import { AnalysisModeService } from './analysis-mode.service';
 
     <kpn-analysis-mode></kpn-analysis-mode>
 
-    <kpn-icon-button
-      [routerLink]="nlLink | async"
-      icon="netherlands"
-      i18n="@@country.nl"
-      >The Netherlands</kpn-icon-button
-    >
-    <kpn-icon-button
-      [routerLink]="beLink | async"
-      icon="belgium"
-      i18n="@@country.be"
-      >Belgium</kpn-icon-button
-    >
-    <kpn-icon-button
-      [routerLink]="deLink | async"
-      icon="germany"
-      i18n="@@country.de"
-      >Germany</kpn-icon-button
-    >
-    <kpn-icon-button
-      [routerLink]="frLink | async"
-      icon="france"
-      i18n="@@country.fr"
-      >France</kpn-icon-button
-    >
-    <kpn-icon-button
-      [routerLink]="atLink | async"
-      icon="austria"
-      i18n="@@country.at"
-      >Austria</kpn-icon-button
-    >
-    <kpn-icon-button
-      [routerLink]="esLink | async"
-      icon="spain"
-      i18n="@@country.es"
-      >Spain</kpn-icon-button
-    >
+    <kpn-icon-buttons>
+      <kpn-icon-button
+        [routerLink]="nlLink | async"
+        icon="netherlands"
+        i18n="@@country.nl"
+        >The Netherlands
+      </kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="beLink | async"
+        icon="belgium"
+        i18n="@@country.be"
+        >Belgium
+      </kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="deLink | async"
+        icon="germany"
+        i18n="@@country.de"
+        >Germany
+      </kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="frLink | async"
+        icon="france"
+        i18n="@@country.fr"
+        >France
+      </kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="atLink | async"
+        icon="austria"
+        i18n="@@country.at"
+        >Austria
+      </kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="esLink | async"
+        icon="spain"
+        i18n="@@country.es"
+        >Spain
+      </kpn-icon-button>
+    </kpn-icon-buttons>
   `,
 })
 export class AnalysisCyclingPageComponent {

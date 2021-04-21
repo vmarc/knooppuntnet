@@ -19,12 +19,14 @@ import { AnalysisModeService } from './analysis-mode.service';
 
     <kpn-analysis-mode></kpn-analysis-mode>
 
-    <kpn-icon-button
-      [routerLink]="nlLink | async"
-      icon="netherlands"
-      i18n="@@country.nl"
-      >The Netherlands</kpn-icon-button
-    >
+    <kpn-icon-buttons>
+      <kpn-icon-button
+        [routerLink]="nlLink | async"
+        icon="netherlands"
+        i18n="@@country.nl"
+        >The Netherlands
+      </kpn-icon-button>
+    </kpn-icon-buttons>
   `,
 })
 export class AnalysisMotorboatPageComponent {

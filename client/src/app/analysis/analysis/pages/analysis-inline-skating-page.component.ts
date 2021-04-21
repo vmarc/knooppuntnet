@@ -16,17 +16,19 @@ import { AnalysisModeService } from './analysis-mode.service';
     </ul>
 
     <kpn-page-header i18n="@@network-type.inline-skating"
-      >Inline skating</kpn-page-header
-    >
+      >Inline skating
+    </kpn-page-header>
 
     <kpn-analysis-mode></kpn-analysis-mode>
 
-    <kpn-icon-button
-      [routerLink]="nlLink | async"
-      icon="netherlands"
-      i18n="@@country.nl"
-      >The Netherlands</kpn-icon-button
-    >
+    <kpn-icon-buttons>
+      <kpn-icon-button
+        [routerLink]="nlLink | async"
+        icon="netherlands"
+        i18n="@@country.nl"
+        >The Netherlands
+      </kpn-icon-button>
+    </kpn-icon-buttons>
   `,
 })
 export class AnalysisInlineSkatingPageComponent {
