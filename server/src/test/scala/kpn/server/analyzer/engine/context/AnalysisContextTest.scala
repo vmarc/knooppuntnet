@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.context
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
@@ -8,7 +9,7 @@ import kpn.core.util.UnitTest
 
 class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
-  test("isReferencedNetworkNode") {
+  test("isReferencedNetworkNode rwn") {
 
     def isReferencedNetworkNode(tags: Tags): Boolean = {
       val context = new AnalysisContext()
@@ -25,6 +26,25 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01", "lwn_ref" -> "01")))
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01", "rwn_name" -> "name")))
+  }
+
+  test("isReferencedNetworkNode lwn") {
+
+    def isReferencedNetworkNode(tags: Tags): Boolean = {
+      val context = new AnalysisContext()
+      val node = newRawNode(tags = tags)
+      context.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
+    }
+
+    assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
+    assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_name" -> "name")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_name" -> "name")))
+    assert(!isReferencedNetworkNode(Tags.from("lwn_ref" -> "01")))
+    assert(!isReferencedNetworkNode(Tags.from("lwn_name" -> "name")))
+
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01", "rwn_ref" -> "01")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01", "lwn_name" -> "name")))
   }
 
   test("isReferencedNetworkNode old tagging") {
@@ -58,7 +78,6 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "rwn_name" -> "name")))
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "lwn_name" -> "name")))
-
 
     assert(!isValidNetworkNode(Tags.from("rwn_ref" -> "01")))
     assert(!isValidNetworkNode(Tags.from("lwn_ref" -> "01")))

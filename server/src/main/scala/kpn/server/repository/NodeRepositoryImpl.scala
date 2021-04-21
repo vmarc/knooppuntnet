@@ -17,7 +17,7 @@ import org.springframework.web.client.HttpServerErrorException
 @Component
 class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
 
-  private val log = Log(classOf[NodeRepository])
+  private val log = Log(classOf[NodeRepositoryImpl])
 
   override def allNodeIds(): Seq[Long] = {
     DocumentView.allNodeIds(analysisDatabase)

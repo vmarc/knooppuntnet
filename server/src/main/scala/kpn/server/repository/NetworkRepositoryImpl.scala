@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component
 @Component
 class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepository {
 
+  private val log = Log(classOf[NetworkRepositoryImpl])
+
   override def allNetworkIds(): Seq[Long] = {
     DocumentView.allNetworkIds(analysisDatabase)
   }
@@ -36,8 +38,11 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
   }
 
   override def save(network: NetworkInfo): Unit = {
-    val key = networkKey(network.id)
-    analysisDatabase.save(NetworkDoc(key, network))
+    log.debugElapsed {
+      val key = networkKey(network.id)
+      analysisDatabase.save(NetworkDoc(key, network))
+      (s"Save network ${network.id}", ())
+    }
   }
 
   override def delete(networkId: Long): Unit = {

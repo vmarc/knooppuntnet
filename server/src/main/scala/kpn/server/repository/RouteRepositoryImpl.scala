@@ -19,7 +19,7 @@ class RouteRepositoryImpl(
 ) extends RouteRepository {
 
   private val groupSize = 20
-  private val log = Log(classOf[RouteRepository])
+  private val log = Log(classOf[RouteRepositoryImpl])
 
   override def allRouteIds(): Seq[Long] = {
     DocumentView.allRouteIds(analysisDatabase)

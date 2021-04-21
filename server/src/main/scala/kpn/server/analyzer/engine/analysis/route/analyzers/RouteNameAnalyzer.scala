@@ -29,36 +29,36 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
     val tags = context.loadedRoute.relation.tags
     val routeNameAnalysis = tags("ref") match {
-      case Some(ref) => Some(analyzeName(ref))
+      case Some(ref) => analyzeName(ref)
       case None =>
         tags("name") match {
           case Some(name) =>
             val routeNameAnalysis = analyzeName(name)
             if (routeNameAnalysis.hasStandardNodeNames) {
-              Some(routeNameAnalysis)
+              routeNameAnalysis
             }
             else {
               tags("note") match {
-                case None => Some(routeNameAnalysis)
+                case None => routeNameAnalysis
                 case Some(note) =>
                   val noteRouteNameAnalysis = analyzeName(note)
                   if (noteRouteNameAnalysis.hasStandardNodeNames) {
-                    Some(noteRouteNameAnalysis)
+                    noteRouteNameAnalysis
                   }
                   else {
-                    Some(routeNameAnalysis)
+                    routeNameAnalysis
                   }
               }
             }
 
           case None =>
             tags("note") match {
-              case Some(note) => Some(analyzeName(note))
+              case Some(note) => analyzeName(note)
               case None => analyzeToFromTags(tags)
             }
         }
     }
-    context.copy(routeNameAnalysis = routeNameAnalysis).withFact(routeNameAnalysis.isEmpty, RouteNameMissing)
+    context.copy(routeNameAnalysis = Some(routeNameAnalysis)).withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
   }
 
   private def analyzeName(fullRouteName: String): RouteNameAnalysis = {
@@ -110,19 +110,17 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     (startNodeNameOption, endNodeNameOption)
   }
 
-  private def analyzeToFromTags(tags: Tags): Option[RouteNameAnalysis] = {
+  private def analyzeToFromTags(tags: Tags): RouteNameAnalysis = {
     tags("from") match {
       case None =>
         tags("to") match {
-          case None => None
+          case None => RouteNameAnalysis()
           case Some(toNodeName) =>
             val to = NodeNameAnalyzer.normalize(toNodeName)
-            Some(
-              RouteNameAnalysis(
-                Some("-" + to),
-                None,
-                Some(to)
-              )
+            RouteNameAnalysis(
+              Some("-" + to),
+              None,
+              Some(to)
             )
         }
 
@@ -130,19 +128,15 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
         tags("to") match {
           case None =>
             val from = NodeNameAnalyzer.normalize(fromNodeName)
-            Some(
-              RouteNameAnalysis(
-                Some(from + "-"),
-                Some(from),
-                None
-              )
+            RouteNameAnalysis(
+              Some(from + "-"),
+              Some(from),
+              None
             )
           case Some(toNodeName) =>
             val to = NodeNameAnalyzer.normalize(toNodeName)
             val from = NodeNameAnalyzer.normalize(fromNodeName)
-            Some(
-              toRouteNameAnalysisFromNodeNames(from + "-" + to, from, to)
-            )
+            toRouteNameAnalysisFromNodeNames(from + "-" + to, from, to)
         }
     }
   }
