@@ -22,7 +22,7 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
       [subset]="subset$ | async"
       [subsetInfo$]="subsetInfo$"
       pageName="orphan-routes"
-      pageTitle="Orphan routes"
+      pageTitle="Free routes"
       i18n-pageTitle="@@subset-orphan-routes.title"
     >
     </kpn-subset-page-header-block>
@@ -35,7 +35,7 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
       </p>
       <p *ngIf="routes.length === 0" class="kpn-line">
         <kpn-icon-happy></kpn-icon-happy>
-        <span i18n="@@subset-orphan-routes.no-routes">No orphan routes</span>
+        <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
       </p>
       <div *ngIf="routes.length > 0">
         <kpn-subset-orphan-routes-table

@@ -88,7 +88,7 @@ class SubsetFact {
                 <span
                   *ngIf="networkFactRefs.networkId === 0"
                   i18n="@@subset-facts.orphan-routes"
-                  >Orphan routes</span
+                  >Free routes</span
                 >
                 <a
                   *ngIf="networkFactRefs.networkId !== 0"

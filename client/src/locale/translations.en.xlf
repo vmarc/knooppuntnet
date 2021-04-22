@@ -950,7 +950,8 @@
       route relation needs to have one of the following values in its _"route"_
       tag: _"foot"_, _"hiking"_, or _"walking"_. Note that _"walking"_ is a
       value that is frequently found, but not actually documented as a valid
-      value in the OSM wiki pages.
+      value in the OSM wiki pages. Other potential values are _"horse"_,
+      _"motorboat"_, _"canoe"_ and _"inline_skates"_.
     </source>
         <target state="final">
       Invalid value in required tag _"route"_ in route relation. A bicycle route
@@ -958,7 +959,8 @@
       route relation needs to have one of the following values in its _"route"_
       tag: _"foot"_, _"hiking"_, or _"walking"_. Note that _"walking"_ is a
       value that is frequently found, but not actually documented as a valid
-      value in the OSM wiki pages.
+      value in the OSM wiki pages. Other potential values are _"horse"_,
+      _"motorboat"_, _"canoe"_ and _"inline_skates"_.
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
@@ -1598,8 +1600,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subset-page.menu.orphan-routes" datatype="html">
-        <source> Orphan routes </source>
-        <target state="final"> Orphan routes </target>
+        <source> Free routes </source>
+        <target state="final"> Free routes </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-header-block.component.ts</context>
           <context context-type="linenumber">53</context>
@@ -4628,8 +4630,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-count.name" datatype="html">
-        <source>Orphan routes</source>
-        <target state="final">[Orphan routes]</target>
+        <source>Free routes</source>
+        <target state="final">Free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
           <context context-type="linenumber">200</context>
@@ -4658,16 +4660,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.comment" datatype="html">
-        <source>Total length (km) of the orphan routes (not included in network length above).</source>
-        <target state="final">Total length (km) of the orphan routes (not included in network length above).</target>
+        <source>Total length (km) of the free routes (not included in network length above).</source>
+        <target state="final">Total length (km) of the free routes (not included in network length above).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
           <context context-type="linenumber">215</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.orphan-route-km.name" datatype="html">
-        <source>Orphan route length (km)</source>
-        <target>Orphan route length (km)</target>
+        <source>Free route length (km)</source>
+        <target state="final">Free route length (km)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
           <context context-type="linenumber">214</context>
@@ -5902,8 +5904,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.orphan-routes" datatype="html">
-        <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <source>Free routes</source>
+        <target state="final">Free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
           <context context-type="linenumber">91</context>
@@ -5994,16 +5996,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.title" datatype="html">
-        <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <source>Free routes</source>
+        <target state="final">Free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.no-routes" datatype="html">
-        <source>No orphan routes</source>
-        <target>No orphan routes</target>
+        <source>No free routes</source>
+        <target state="final">No free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -6346,8 +6348,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.network-changes.orphan-routes-added" datatype="html">
-        <source> Orphan routes added to this network</source>
-        <target state="final">[ Orphan routes added to this network]</target>
+        <source> Free routes added to this network</source>
+        <target state="final"> Free routes added to this network</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/network/cs-nc-orphan-routes-old.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -6386,8 +6388,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.orphan-routes.title" datatype="html">
-        <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <source>Free routes</source>
+        <target state="final">Free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-orphan-route-changes.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -6694,8 +6696,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="node.orphan-routes" datatype="html">
-        <source>Orphan routes</source>
-        <target>Orphan routes</target>
+        <source>Free routes</source>
+        <target state="final">Free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
           <context context-type="linenumber">81</context>

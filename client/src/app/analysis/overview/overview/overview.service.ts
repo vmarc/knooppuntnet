@@ -197,7 +197,7 @@ export class OverviewService {
         '',
         true,
         orphanRoutes,
-        $localize`:@@stats.orphan-route-count.name:Orphan routes`,
+        $localize`:@@stats.orphan-route-count.name:Free routes`,
         $localize`:@@stats.orphan-route-count.comment:
           Number of network routes that do not belong to a network.\\
           The route was not added as a member to a valid
@@ -211,8 +211,8 @@ export class OverviewService {
         '',
         false,
         null,
-        $localize`:@@stats.orphan-route-km.name:Orphan route length (km)`,
-        $localize`:@@stats.orphan-route-km.comment:Total length (km) of the orphan routes (not included in network length above).`
+        $localize`:@@stats.orphan-route-km.name:Free route length (km)`,
+        $localize`:@@stats.orphan-route-km.comment:Total length (km) of the free routes (not included in network length above).`
       )
     );
 

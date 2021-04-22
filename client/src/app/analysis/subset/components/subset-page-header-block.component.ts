@@ -50,7 +50,7 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
           *ngIf="pageName === 'orphan-routes'"
           i18n="@@subset-page.menu.orphan-routes"
         >
-          Orphan routes
+          Free routes
         </span>
         <span *ngIf="pageName === 'map'" i18n="@@subset-page.menu.map">
           Map
@@ -102,7 +102,7 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
         [elementCount]="orphanRouteCount$ | async"
         i18n="@@subset-page.menu.orphan-routes"
       >
-        Orphan routes
+        Free routes
       </kpn-page-menu-option>
 
       <kpn-page-menu-option

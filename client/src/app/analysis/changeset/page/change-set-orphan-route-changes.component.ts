@@ -21,7 +21,7 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
           [networkType]="refs.subset.networkType"
         ></kpn-network-type-icon>
         <span>{{ refs.subset.country.toUpperCase() }}</span>
-        <span i18n="@@change-set.orphan-routes.title">Orphan routes</span>
+        <span i18n="@@change-set.orphan-routes.title">Free routes</span>
       </div>
       <div class="kpn-level-1-body">
         <kpn-route-diffs [data]="routeDiffs(refs)"></kpn-route-diffs>

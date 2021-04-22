@@ -14,7 +14,7 @@ import { Ref } from '@api/common/common/ref';
         i18n="@@change-set.network-changes.orphan-routes-added"
         class="kpn-label"
       >
-        Orphan routes added to this network</span
+        Free routes added to this network</span
       >
       <div class="kpn-comma-list">
         <kpn-link-route-ref

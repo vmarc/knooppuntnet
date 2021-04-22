@@ -78,7 +78,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
           </kpn-node-network-references>
         </kpn-data>
 
-        <kpn-data title="Orphan routes" i18n-title="@@node.orphan-routes">
+        <kpn-data title="Free routes" i18n-title="@@node.orphan-routes">
           <kpn-node-orphan-route-references
             [references]="page.references.routeReferences"
           >
