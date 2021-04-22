@@ -28,6 +28,7 @@ import { Subscriptions } from './util/Subscriptions';
         [opened]="isSidebarOpen()"
       >
         <kpn-sidebar-back *ngIf="smallPage"></kpn-sidebar-back>
+        <kpn-page-experimental></kpn-page-experimental>
         <router-outlet name="sidebar"></router-outlet>
       </mat-sidenav>
 
@@ -36,7 +37,6 @@ import { Subscriptions } from './util/Subscriptions';
           <kpn-toolbar></kpn-toolbar>
         </header>
         <div class="page-contents">
-          <kpn-page-experimental></kpn-page-experimental>
           <main>
             <router-outlet></router-outlet>
           </main>

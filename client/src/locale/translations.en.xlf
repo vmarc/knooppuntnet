@@ -2390,8 +2390,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="planner.map" datatype="html">
-        <source>Map</source>
-        <target>Map</target>
+        <source>Map </source>
+        <target state="final">Map </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -6938,15 +6938,15 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.fr" datatype="html">
-        <source>France</source>
-        <target>France</target>
+        <source>France </source>
+        <target state="final">France </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
@@ -6958,11 +6958,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.at" datatype="html">
-        <source>Austria</source>
-        <target>Austria</target>
+        <source>Austria </source>
+        <target state="final">Austria </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
@@ -6974,11 +6974,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.es" datatype="html">
-        <source>Spain</source>
-        <target state="final">[Spain]</target>
+        <source>Spain </source>
+        <target state="final">Spain </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
@@ -7014,31 +7014,31 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.nl" datatype="html">
-        <source>The Netherlands</source>
-        <target>The Netherlands</target>
+        <source>The Netherlands </source>
+        <target state="final">The Netherlands </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
@@ -7050,19 +7050,19 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.be" datatype="html">
-        <source>Belgium</source>
-        <target>Belgium</target>
+        <source>Belgium </source>
+        <target state="final">Belgium </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
@@ -7074,15 +7074,15 @@
         </context-group>
       </trans-unit>
       <trans-unit id="country.de" datatype="html">
-        <source>Germany</source>
-        <target>Germany</target>
+        <source>Germany </source>
+        <target state="final">Germany </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
@@ -8507,6 +8507,46 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/link/timeout.component.ts</context>
           <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="experimental.title" datatype="html">
+        <source>Warning: experimental !</source>
+        <target state="final">[Warning: experimental !]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/shared/page/page-experimental.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="experimental.more" datatype="html">
+        <source>more</source>
+        <target state="final">[more]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/shared/page/page-experimental.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="experimental.message-1" datatype="html">
+        <source> This is an experimental version of the knooppuntnet website. </source>
+        <target state="final">[ This is an experimental version of the knooppuntnet website. ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/shared/page/page-experimental.component.ts</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="experimental.message-2" datatype="html">
+        <source> The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, please use the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;>"/>stable version<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> of knooppuntnet instead. </source>
+        <target state="final">[ The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, please use the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;>"/>stable version<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> of knooppuntnet instead. ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/shared/page/page-experimental.component.ts</context>
+          <context context-type="linenumber">19,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="experimental.less" datatype="html">
+        <source>less</source>
+        <target state="final">[less]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/shared/page/page-experimental.component.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.all" datatype="html">

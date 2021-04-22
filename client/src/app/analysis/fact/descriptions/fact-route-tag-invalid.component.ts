@@ -11,7 +11,8 @@ import { Component } from '@angular/core';
       route relation needs to have one of the following values in its _"route"_
       tag: _"foot"_, _"hiking"_, or _"walking"_. Note that _"walking"_ is a
       value that is frequently found, but not actually documented as a valid
-      value in the OSM wiki pages.
+      value in the OSM wiki pages. Other potential values are _"horse"_,
+      _"motorboat"_, _"canoe"_ and _"inline_skates"_.
     </markdown>
   `,
 })
