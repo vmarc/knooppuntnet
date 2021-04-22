@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
         <mat-icon [svgIcon]="icon" class="icon"></mat-icon>
       </div>
       <div class="text">
-        <ng-content></ng-content>
+        {{ title }}
       </div>
     </a>
   `,
@@ -59,6 +59,7 @@ import { Component, Input } from '@angular/core';
   ],
 })
 export class IconButtonComponent {
+  @Input() title: string;
   @Input() routerLink: string;
   @Input() icon: string;
 }

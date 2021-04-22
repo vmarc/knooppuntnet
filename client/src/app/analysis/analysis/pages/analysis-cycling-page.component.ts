@@ -23,39 +23,39 @@ import { AnalysisModeService } from './analysis-mode.service';
       <kpn-icon-button
         [routerLink]="nlLink | async"
         icon="netherlands"
-        i18n="@@country.nl"
-        >The Netherlands
-      </kpn-icon-button>
+        i18n-title="@@country.nl"
+        title="The Netherlands"
+      ></kpn-icon-button>
       <kpn-icon-button
         [routerLink]="beLink | async"
         icon="belgium"
-        i18n="@@country.be"
-        >Belgium
-      </kpn-icon-button>
+        i18n-title="@@country.be"
+        title="Belgium"
+      ></kpn-icon-button>
       <kpn-icon-button
         [routerLink]="deLink | async"
         icon="germany"
-        i18n="@@country.de"
-        >Germany
-      </kpn-icon-button>
+        i18n-title="@@country.de"
+        title="Germany"
+      ></kpn-icon-button>
       <kpn-icon-button
         [routerLink]="frLink | async"
         icon="france"
-        i18n="@@country.fr"
-        >France
-      </kpn-icon-button>
+        i18n-title="@@country.fr"
+        title="France"
+      ></kpn-icon-button>
       <kpn-icon-button
         [routerLink]="atLink | async"
         icon="austria"
-        i18n="@@country.at"
-        >Austria
-      </kpn-icon-button>
+        i18n-title="@@country.at"
+        title="Austria"
+      ></kpn-icon-button>
       <kpn-icon-button
         [routerLink]="esLink | async"
         icon="spain"
-        i18n="@@country.es"
-        >Spain
-      </kpn-icon-button>
+        i18n-title="@@country.es"
+        title="Spain"
+      ></kpn-icon-button>
     </kpn-icon-buttons>
   `,
 })

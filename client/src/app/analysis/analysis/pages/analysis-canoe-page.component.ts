@@ -23,9 +23,9 @@ import { AnalysisModeService } from './analysis-mode.service';
       <kpn-icon-button
         [routerLink]="nlLink | async"
         icon="netherlands"
-        i18n="@@country.nl"
-        >The Netherlands
-      </kpn-icon-button>
+        i18n-title="@@country.nl"
+        title="The Netherlands"
+      ></kpn-icon-button>
     </kpn-icon-buttons>
   `,
 })

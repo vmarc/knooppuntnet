@@ -18,38 +18,44 @@ import { MapService } from '../../../components/ol/services/map.service';
       <kpn-icon-button
         routerLink="/map/cycling"
         icon="cycling"
-        i18n="@@network-type.cycling"
-        >Cycling
+        i18n-title="@@network-type.cycling"
+        title="Cycling"
+      >
       </kpn-icon-button>
       <kpn-icon-button
         routerLink="/map/hiking"
         icon="hiking"
-        i18n="@@network-type.hiking"
-        >Hiking
+        i18n-title="@@network-type.hiking"
+        title="Hiking"
+      >
       </kpn-icon-button>
       <kpn-icon-button
         routerLink="/map/horse-riding"
         icon="horse-riding"
-        i18n="@@network-type.horse-riding"
-        >Horse riding
+        i18n-title="@@network-type.horse-riding"
+        title="Horse riding"
+      >
       </kpn-icon-button>
       <kpn-icon-button
         routerLink="/map/motorboat"
         icon="motorboat"
-        i18n="@@network-type.motorboat"
-        >Motorboat
+        i18n-title="@@network-type.motorboat"
+        title="Motorboat"
+      >
       </kpn-icon-button>
       <kpn-icon-button
         routerLink="/map/canoe"
         icon="canoe"
-        i18n="@@network-type.canoe"
-        >Canoe
+        i18n-title="@@network-type.canoe"
+        title="Canoe"
+      >
       </kpn-icon-button>
       <kpn-icon-button
         routerLink="/map/inline-skating"
         icon="inline-skating"
-        i18n="@@network-type.inline-skating"
-        >Inline skating
+        i18n-title="@@network-type.inline-skating"
+        title="Inline skating"
+      >
       </kpn-icon-button>
     </kpn-icon-buttons>
   `,
