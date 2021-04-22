@@ -72,9 +72,6 @@ import { Component, Input } from '@angular/core';
       <kpn-fact-route-incomplete-ok
         *ngSwitchCase="'RouteIncompleteOk'"
       ></kpn-fact-route-incomplete-ok>
-      <kpn-fact-route-invalid-sorting-order
-        *ngSwitchCase="'RouteInvalidSortingOrder'"
-      ></kpn-fact-route-invalid-sorting-order>
       <kpn-fact-route-name-missing
         *ngSwitchCase="'RouteNameMissing'"
       ></kpn-fact-route-name-missing>

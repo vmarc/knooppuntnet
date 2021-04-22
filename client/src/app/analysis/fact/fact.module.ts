@@ -36,7 +36,6 @@ import { FactRouteBrokenComponent } from './descriptions/fact-route-broken.compo
 import { FactRouteFixmetodoComponent } from './descriptions/fact-route-fixmetodo.component';
 import { FactRouteIncompleteOkComponent } from './descriptions/fact-route-incomplete-ok.component';
 import { FactRouteIncompleteComponent } from './descriptions/fact-route-incomplete.component';
-import { FactRouteInvalidSortingOrderComponent } from './descriptions/fact-route-invalid-sorting-order.component';
 import { FactRouteInvalidSurveyDateComponent } from './descriptions/fact-route-invalid-survey-date.component';
 import { FactRouteNameMissingComponent } from './descriptions/fact-route-name-missing.component';
 import { FactRouteNodeMissingInWaysComponent } from './descriptions/fact-route-node-missing-in-ways.component';
@@ -105,7 +104,6 @@ import { FactsComponent } from './facts.component';
     FactRouteIncompleteComponent,
     FactRouteIncompleteOkComponent,
     FactRouteUnaccessibleComponent,
-    FactRouteInvalidSortingOrderComponent,
     FactRouteNodeNameMismatchComponent,
     FactRouteNotForwardComponent,
     FactRouteNotBackwardComponent,

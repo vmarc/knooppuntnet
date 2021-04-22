@@ -102,11 +102,6 @@ import { Fact } from '@api/custom/fact';
         >RouteIncompleteOk
       </ng-container>
       <ng-container
-        i18n="@@fact.name.route-invalid-sorting-order"
-        *ngSwitchCase="'RouteInvalidSortingOrder'"
-        >RouteInvalidSortingOrder
-      </ng-container>
-      <ng-container
         i18n="@@fact.name.route-name-missing"
         *ngSwitchCase="'RouteNameMissing'"
         >RouteNameMissing

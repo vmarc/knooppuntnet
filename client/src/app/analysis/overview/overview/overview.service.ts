@@ -471,17 +471,6 @@ export class OverviewService {
 
     configurations.push(
       new StatisticConfiguration(
-        'RouteInvalidSortingOrderCount',
-        'RouteInvalidSortingOrder',
-        false,
-        factDetailCounts,
-        $localize`:@@stats.route-invalid-sorting-order.name:RouteInvalidSortingOrder`,
-        $localize`:@@stats.route-invalid-sorting-order.comment:Number of routes with ways in wrong sorting order.`
-      )
-    );
-
-    configurations.push(
-      new StatisticConfiguration(
         'RouteNodeNameMismatchCount',
         'RouteNodeNameMismatch',
         false,
