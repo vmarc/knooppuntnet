@@ -11,6 +11,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -38,6 +39,9 @@ object Json {
 
     b.deserializerByType(classOf[NetworkScope], new NetworkScopeJsonDeserializer())
     b.serializerByType(classOf[NetworkScope], new NetworkScopeJsonSerializer())
+
+    b.deserializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonDeserializer())
+    b.serializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonSerializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
 

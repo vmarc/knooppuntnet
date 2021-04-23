@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine
 import javax.annotation.PostConstruct
 import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.AnalyzerDesign
 import kpn.core.database.views.analyzer.DocumentView
@@ -85,7 +86,7 @@ class DatabaseIndexer(
   }
 
   private def analysisNodeRouteQuery(): Unit = {
-    NodeRouteView.query(analysisDatabase, NetworkType.canoe, stale = false)
+    NodeRouteView.query(analysisDatabase, ScopedNetworkType.lpn, stale = false)
   }
 
   private def analysisPlannerQuery(): Unit = {
