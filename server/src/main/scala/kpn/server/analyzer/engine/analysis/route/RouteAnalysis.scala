@@ -44,6 +44,7 @@ case class RouteAnalysis(
     RouteData(
       route.summary.country,
       route.summary.networkType,
+      route.summary.networkScope,
       relation.raw,
       route.summary.name,
       routeNodeAnalysis.routeNodes.map(_.node.raw),

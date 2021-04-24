@@ -113,7 +113,7 @@ class NodePageBuilderImpl(
         val tagKey = nodeName.scopedNetworkType.expectedRouteRelationsTag
         nodeInfo.tags(tagKey).map { tagValue =>
           val expectedRouteCount: Int = tagValue.toInt
-          val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType.networkType, nodeInfo.id)
+          val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType, nodeInfo.id)
           NodeIntegrityDetail(
             nodeName.scopedNetworkType.networkType,
             expectedRouteCount,

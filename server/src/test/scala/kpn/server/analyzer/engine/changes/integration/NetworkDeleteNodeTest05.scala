@@ -52,7 +52,7 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
               1,
               Some(Country.nl),
               NetworkType.hiking,
-              "network",
+              name = "network",
               lastUpdated = timestampAfterValue,
               relationLastUpdated = timestampAfterValue
             ),

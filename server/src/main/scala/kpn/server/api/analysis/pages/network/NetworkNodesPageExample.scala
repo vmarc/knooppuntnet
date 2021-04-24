@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.common.Ref
 import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkNodesPage
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -16,6 +17,7 @@ object NetworkNodesPageExample {
     SurveyDateInfoBuilder.dateInfo,
     NetworkDetailsPageExample.networkSummary(),
     NetworkType.hiking,
+    NetworkScope.regional,
     nodes = Seq(
       node1(),
       node2()

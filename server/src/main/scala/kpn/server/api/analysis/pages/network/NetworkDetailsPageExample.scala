@@ -14,6 +14,7 @@ import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Country
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -50,6 +51,7 @@ object NetworkDetailsPageExample {
       id = 1L,
       country = Some(Country.nl),
       networkType = NetworkType.hiking,
+      networkScope = NetworkScope.regional,
       name = "Network One",
       km = 12,
       meters = 1234,

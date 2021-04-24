@@ -4,6 +4,7 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.common._
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMap
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -87,6 +88,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       id = routeId,
       country = None,
       networkType = NetworkType.hiking,
+      networkScope = NetworkScope.regional,
       name = "",
       meters = 100,
       isBroken = false,

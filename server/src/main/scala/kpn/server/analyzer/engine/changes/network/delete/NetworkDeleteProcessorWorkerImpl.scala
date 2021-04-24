@@ -117,6 +117,7 @@ class NetworkDeleteProcessorWorkerImpl(
           id = networkBefore.id,
           country = networkBefore.country,
           networkType = networkBefore.networkType,
+          networkScope = networkBefore.networkScope,
           name = networkBefore.name,
           km = 0,
           meters = 0,

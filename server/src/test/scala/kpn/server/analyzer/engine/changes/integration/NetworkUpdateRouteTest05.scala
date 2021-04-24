@@ -190,14 +190,14 @@ class NetworkUpdateRouteTest05 extends AbstractTest {
         val routeData = newRouteData(
           Some(Country.nl),
           NetworkType.hiking,
-          newRawRelation(
+          relation = newRawRelation(
             11,
             members = Seq(
               RawMember("way", 101, None)
             ),
             tags = newRouteTags("01-02")
           ),
-          "01-02",
+          name = "01-02",
           networkNodes = Seq(
             newRawNodeWithName(1001, "01"),
             newRawNodeWithName(1002, "02")

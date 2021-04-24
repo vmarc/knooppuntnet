@@ -12,6 +12,7 @@ import kpn.api.common.network.NetworkShape
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -74,6 +75,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       id,
       Some(subset.country),
       subset.networkType,
+      NetworkScope.regional,
       name,
       km = 0,
       meters = meters,

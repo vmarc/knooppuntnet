@@ -25,15 +25,15 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
   private val routeNodeIds = routeNodes.map(_.id)
 
   def fragmentMap: FragmentMap = {
-    val result = wayMembers.flatMap { wayMember =>
+    val fragments = wayMembers.flatMap { wayMember =>
       fragmentsIn(wayMember)
     }
 
     if (log.isDebugEnabled) {
-      log.debug(s"${wayMembers.size} ways splitted up in ${result.size} fragments")
+      log.debug(s"${wayMembers.size} ways splitted up in ${fragments.size} fragments")
     }
 
-    FragmentMap(result)
+    FragmentMap(fragments.distinct)
   }
 
   private def fragmentsIn(wayMember: WayMember): Seq[Fragment] = {

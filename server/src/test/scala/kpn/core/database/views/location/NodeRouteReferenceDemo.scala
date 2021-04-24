@@ -1,6 +1,6 @@
 package kpn.core.database.views.location
 
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.analysis.node.NodeRouteUpdaterImpl
@@ -25,11 +25,11 @@ class NodeRouteReferenceDemo(database: Database) {
   }
 
   def deleteRouteNodes(): Unit = {
-    NetworkType.all.foreach { networkType =>
-      val nodeRoutes = repo.nodeRoutes(networkType)
+    ScopedNetworkType.all.foreach { scopedNetworkType =>
+      val nodeRoutes = repo.nodeRoutes(scopedNetworkType)
       nodeRoutes.zipWithIndex.foreach { case (nodeRoute, index) =>
         println(s"${index + 1}/${nodeRoutes.size}")
-        repo.delete(nodeRoute.id, nodeRoute.networkType)
+        repo.delete(nodeRoute.id, nodeRoute.scopedNetworkType)
       }
     }
     println("Done")

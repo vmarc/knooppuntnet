@@ -13,6 +13,7 @@ import kpn.api.common.route.RouteReferences
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Tags
@@ -34,6 +35,7 @@ object RouteDetailsPageExample {
         id = 1,
         country = Some(Country.nl),
         networkType = NetworkType.hiking,
+        networkScope = NetworkScope.regional,
         name = "01-02",
         meters = 1234,
         isBroken = true,
@@ -222,5 +224,4 @@ object RouteDetailsPageExample {
       )
     )
   }
-
 }

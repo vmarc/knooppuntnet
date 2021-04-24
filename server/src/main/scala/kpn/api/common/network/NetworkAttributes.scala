@@ -3,13 +3,16 @@ package kpn.api.common.network
 import kpn.api.common.LatLonImpl
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Country
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 
 case class NetworkAttributes(
   id: Long,
   country: Option[Country],
   networkType: NetworkType,
+  networkScope: NetworkScope,
   name: String,
   km: Long,
   meters: Long,
@@ -24,6 +27,10 @@ case class NetworkAttributes(
   relationLastUpdated: Timestamp,
   center: Option[LatLonImpl]
 ) {
+
+  def scopedNetworkType: ScopedNetworkType = {
+    ScopedNetworkType.from(networkScope, networkType)
+  }
 
   def percentageOkString: String = {
     s"${percentageOk.toInt}%"
@@ -46,6 +53,7 @@ case class NetworkAttributes(
     field("id", id).
     field("country", country).
     field("networkType", networkType).
+    field("networkScope", networkScope).
     field("name", name).
     field("km", km).
     field("meters", meters).

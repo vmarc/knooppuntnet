@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeRoute
 import kpn.api.common.common.NodeRouteExpectedCount
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.Log
 import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
@@ -14,11 +14,11 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
 
   override def update(): Unit = {
     log.debugElapsed {
-      NetworkType.all.foreach { networkType =>
-        Log.context(s"node-route/${networkType.name}") {
+      ScopedNetworkType.all.foreach { scopedNetworkType =>
+        Log.context(s"node-route/${scopedNetworkType.key}") {
           log.debugElapsed {
-            updateNetworkType(networkType)
-            (s"update ${networkType.name}", ())
+            updateScopedNetworkType(scopedNetworkType)
+            (s"update ${scopedNetworkType.key}", ())
           }
         }
       }
@@ -26,41 +26,41 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     }
   }
 
-  private def updateNetworkType(networkType: NetworkType): Unit = {
+  private def updateScopedNetworkType(scopedNetworkType: ScopedNetworkType): Unit = {
 
-    val actual = actualNodeRouteCounts(networkType)
-    val expected = expectedNodeRouteCounts(networkType)
-    val nodeRoutes = readNodeRoutes(networkType)
+    val actual = actualNodeRouteCounts(scopedNetworkType)
+    val expected = expectedNodeRouteCounts(scopedNetworkType)
+    val nodeRoutes = readNodeRoutes(scopedNetworkType)
 
     val obsoleteIds = analyzeObsoleteNodeRoutes(expected, nodeRoutes)
-    val nodeRoutesChanged = analyzeNodeRoutesChanged(networkType, nodeRoutes, obsoleteIds, actual, expected)
-    val nodeRoutesAdded = analyzeNodeRoutesAdded(networkType, nodeRoutes, actual, expected)
+    val nodeRoutesChanged = analyzeNodeRoutesChanged(scopedNetworkType, nodeRoutes, obsoleteIds, actual, expected)
+    val nodeRoutesAdded = analyzeNodeRoutesAdded(scopedNetworkType, nodeRoutes, actual, expected)
 
     log.debug(s"obsolete=${obsoleteIds.size}, changed=${nodeRoutesChanged.size}, added=${nodeRoutesAdded.size}")
 
-    deleteObsoleteNodeRoutes(networkType, obsoleteIds)
+    deleteObsoleteNodeRoutes(scopedNetworkType, obsoleteIds)
     updateNodeRoutes(nodeRoutesChanged ++ nodeRoutesAdded)
   }
 
-  private def actualNodeRouteCounts(networkType: NetworkType): Map[Long, Int] = {
+  private def actualNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Map[Long, Int] = {
     log.debugElapsed {
-      val counts = nodeRouteRepository.actualNodeRouteCounts(networkType)
+      val counts = nodeRouteRepository.actualNodeRouteCounts(scopedNetworkType)
       val map = counts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount.routeCount).toMap
       (s"read actual node route counts (${counts.size} nodes)", map)
     }
   }
 
-  private def expectedNodeRouteCounts(networkType: NetworkType): Map[Long, NodeRouteExpectedCount] = {
+  private def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Map[Long, NodeRouteExpectedCount] = {
     log.debugElapsed {
-      val counts = nodeRouteRepository.expectedNodeRouteCounts(networkType)
+      val counts = nodeRouteRepository.expectedNodeRouteCounts(scopedNetworkType)
       val map = counts.map(nodeRouteCount => nodeRouteCount.nodeId -> nodeRouteCount).toMap
       (s"read expected node route counts (${counts.size} nodes)", map)
     }
   }
 
-  private def readNodeRoutes(networkType: NetworkType): Seq[NodeRoute] = {
+  private def readNodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute] = {
     log.debugElapsed {
-      val nodeRoutes = nodeRouteRepository.nodeRoutes(networkType)
+      val nodeRoutes = nodeRouteRepository.nodeRoutes(scopedNetworkType)
       (s"read node routes (${nodeRoutes.size} nodes)", nodeRoutes)
     }
   }
@@ -74,10 +74,10 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
     }
   }
 
-  private def deleteObsoleteNodeRoutes(networkType: NetworkType, obsoleteIds: Seq[Long]): Unit = {
+  private def deleteObsoleteNodeRoutes(scopedNetworkType: ScopedNetworkType, obsoleteIds: Seq[Long]): Unit = {
     obsoleteIds.zipWithIndex.foreach { case (id, index) =>
       log.debugElapsed {
-        nodeRouteRepository.delete(id, networkType)
+        nodeRouteRepository.delete(id, scopedNetworkType)
         (s"${index + 1}/${obsoleteIds.size} delete $id", ())
       }
     }
@@ -88,7 +88,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
   }
 
   private def analyzeNodeRoutesChanged(
-    networkType: NetworkType,
+    scopedNetworkType: ScopedNetworkType,
     nodeRoutes: Seq[NodeRoute],
     obsoleteIds: Seq[Long],
     actual: Map[Long, Int],
@@ -114,7 +114,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
                 NodeRoute(
                   nodeRoute.id,
                   nodeRouteExpectedCount.nodeName,
-                  networkType,
+                  scopedNetworkType,
                   nodeRouteExpectedCount.locationNames,
                   nodeRouteExpectedCount.routeCount,
                   actualRouteCount
@@ -127,7 +127,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
   }
 
   private def analyzeNodeRoutesAdded(
-    networkType: NetworkType,
+    scopedNetworkType: ScopedNetworkType,
     nodeRoutes: Seq[NodeRoute],
     actual: Map[Long, Int],
     expected: Map[Long, NodeRouteExpectedCount]
@@ -149,7 +149,7 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
               NodeRoute(
                 nodeId,
                 nodeRouteExpectedCount.nodeName,
-                networkType,
+                scopedNetworkType,
                 nodeRouteExpectedCount.locationNames,
                 nodeRouteExpectedCount.routeCount,
                 actualRouteCount
@@ -159,5 +159,4 @@ class NodeRouteUpdaterImpl(nodeRouteRepository: NodeRouteRepository) extends Nod
       }
     }
   }
-
 }

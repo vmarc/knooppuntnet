@@ -94,7 +94,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
               12,
               Some(Country.nl),
               NetworkType.hiking,
-              "02-03",
+              name = "02-03",
               wayCount = 1,
               nodeNames = Seq("02", "03"),
               tags = newRouteTags("02-03")
@@ -222,12 +222,12 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
               newRouteData(
                 Some(Country.nl),
                 NetworkType.hiking,
-                newRawRelation(
+                relation = newRawRelation(
                   12,
                   members = Seq(RawMember("way", 102, None)),
                   tags = newRouteTags("02-03")
                 ),
-                "02-03",
+                name = "02-03",
                 networkNodes = Seq(
                   newRawNodeWithName(1002, "02"),
                   newRawNodeWithName(1003, "03")

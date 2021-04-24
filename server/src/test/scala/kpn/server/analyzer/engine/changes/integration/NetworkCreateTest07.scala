@@ -130,14 +130,14 @@ class NetworkCreateTest07 extends AbstractTest {
               newRouteData(
                 Some(Country.nl),
                 NetworkType.hiking,
-                newRawRelation(
+                relation = newRawRelation(
                   11,
                   members = Seq(
                     RawMember("way", 101, None)
                   ),
                   tags = newRouteTags("01-02")
                 ),
-                "01-02",
+                name = "01-02",
                 networkNodes = Seq(
                   newRawNodeWithName(1001, "01"),
                   newRawNodeWithName(1002, "02")
@@ -159,14 +159,14 @@ class NetworkCreateTest07 extends AbstractTest {
               newRouteData(
                 Some(Country.nl),
                 NetworkType.hiking,
-                newRawRelation(
+                relation = newRawRelation(
                   11,
                   members = Seq(
                     RawMember("way", 101, None)
                   ),
                   tags = newRouteTags("01-02") ++ Tags.from("newkey" -> "value")
                 ),
-                "01-02",
+                name = "01-02",
                 networkNodes = Seq(
                   newRawNodeWithName(1001, "01"),
                   newRawNodeWithName(1002, "02")

@@ -1,15 +1,15 @@
 package kpn.core.database.views.node
 
-import java.io.StringWriter
-
 import kpn.api.common.common.NodeRouteCount
 import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Ref
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
+
+import java.io.StringWriter
 
 object NodeRouteReferenceView extends View {
 
@@ -43,28 +43,28 @@ object NodeRouteReferenceView extends View {
     value: Long
   )
 
-  def query(database: Database, networkType: NetworkType, nodeId: Long, stale: Boolean): Seq[Ref] = {
+  def query(database: Database, scopedNetworkType: ScopedNetworkType, nodeId: Long, stale: Boolean): Seq[Ref] = {
 
     val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[ViewResult])
       .stale(stale)
       .reduce(false)
-      .keyStartsWith(networkType.name, nodeId)
+      .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name, nodeId)
 
     val result = database.execute(query)
     result.rows.map { row =>
       val key = Fields(row.key)
       Ref(
-        key.long(3),
-        key.string(2)
+        key.long(4),
+        key.string(3)
       )
     }
   }
 
-  def queryNodeIds(database: Database, networkType: NetworkType, nodeIds: Seq[Long], stale: Boolean): Seq[NodeRouteRefs] = {
+  def queryNodeIds(database: Database, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long], stale: Boolean): Seq[NodeRouteRefs] = {
 
     val sw = new StringWriter
     sw.append("""{ "queries": [ """)
-    sw.append(nodeIds.map(nodeId => s"""{ "startkey": [ "${networkType.name}", $nodeId ], "endkey": [ "${networkType.name}", $nodeId, {} ] } """).mkString(","))
+    sw.append(nodeIds.map(nodeId => s"""{ "startkey": [ "${scopedNetworkType.networkType.name}", "${scopedNetworkType.networkScope.name}", $nodeId ], "endkey": [ "${scopedNetworkType.networkType.name}", "${scopedNetworkType.networkScope.name}", $nodeId, {} ] } """).mkString(","))
     sw.append("""]} """)
     val body = sw.toString
 
@@ -92,19 +92,19 @@ object NodeRouteReferenceView extends View {
     }
   }
 
-  def queryCount(database: Database, networkType: NetworkType, stale: Boolean): Seq[NodeRouteCount] = {
+  def queryCount(database: Database, scopedNetworkType: ScopedNetworkType, stale: Boolean): Seq[NodeRouteCount] = {
 
     val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[CountResult])
       .stale(stale)
-      .keyStartsWith(networkType.name)
+      .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name)
       .reduce(true)
-      .groupLevel(2)
+      .groupLevel(3)
 
     val result = database.execute(query)
     result.rows.map { row =>
       val key = Fields(row.key)
       NodeRouteCount(
-        key.long(1),
+        key.long(2),
         row.value.toInt
       )
     }

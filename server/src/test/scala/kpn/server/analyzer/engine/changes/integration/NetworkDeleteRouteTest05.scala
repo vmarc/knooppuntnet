@@ -76,7 +76,7 @@ class NetworkDeleteRouteTest05 extends AbstractTest {
               1,
               Some(Country.nl),
               NetworkType.hiking,
-              "network1",
+              name = "network1",
               lastUpdated = timestampAfterValue,
               relationLastUpdated = timestampAfterValue
             ),
@@ -148,14 +148,14 @@ class NetworkDeleteRouteTest05 extends AbstractTest {
     val routeData = newRouteData(
       Some(Country.nl),
       NetworkType.hiking,
-      newRawRelation(
+      relation = newRawRelation(
         11,
         members = Seq(
           RawMember("way", 101, None)
         ),
         tags = newRouteTags("01-02")
       ),
-      "01-02",
+      name = "01-02",
       networkNodes = Seq(
         newRawNodeWithName(1001, "01"),
         newRawNodeWithName(1002, "02")
@@ -191,14 +191,14 @@ class NetworkDeleteRouteTest05 extends AbstractTest {
     val routeData = newRouteData(
       Some(Country.nl),
       NetworkType.hiking,
-      newRawRelation(
+      relation = newRawRelation(
         12,
         members = Seq(
           RawMember("way", 102, None)
         ),
         tags = newRouteTags("01-03")
       ),
-      "01-03",
+      name = "01-03",
       networkNodes = Seq(
         newRawNodeWithName(1001, "01"),
         newRawNodeWithName(1003, "03")

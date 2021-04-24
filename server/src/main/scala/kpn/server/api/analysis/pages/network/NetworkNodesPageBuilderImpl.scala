@@ -38,7 +38,7 @@ class NetworkNodesPageBuilderImpl(
       case None => Seq()
     }
     val nodeIds = networkInfoNodes.map(_.id)
-    val routeReferences = nodeRouteRepository.nodesRouteReferences(networkInfo.attributes.networkType, nodeIds)
+    val routeReferences = nodeRouteRepository.nodesRouteReferences(networkInfo.attributes.scopedNetworkType, nodeIds)
     val nodeRouteReferencesMap = routeReferences.map(nrr => nrr.nodeId -> nrr.routeRefs).toMap
 
     val nodes = networkInfoNodes.map { networkInfoNode =>
@@ -66,6 +66,7 @@ class NetworkNodesPageBuilderImpl(
       SurveyDateInfoBuilder.dateInfo,
       NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
       networkInfo.attributes.networkType,
+      networkInfo.attributes.networkScope,
       nodes,
       networkInfo.routeRefs
     )

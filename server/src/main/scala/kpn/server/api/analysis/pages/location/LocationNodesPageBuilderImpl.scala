@@ -6,6 +6,7 @@ import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.LocationRepository
 import kpn.server.repository.NodeRouteRepository
@@ -43,7 +44,11 @@ class LocationNodesPageBuilderImpl(
 
   private def withRouteReferences(networkType: NetworkType, nodes: Seq[LocationNodeInfo]): Seq[LocationNodeInfo] = {
     val nodeIds = nodes.map(_.id)
-    val nodesRouteReferences = nodeRouteRepository.nodesRouteReferences(networkType, nodeIds)
+    val nodesRouteReferences = {
+      ScopedNetworkType.withNetworkType(networkType).flatMap { scopedNetworkType =>
+        nodeRouteRepository.nodesRouteReferences(scopedNetworkType, nodeIds)
+      }
+    }
     val nodeRouteReferencesMap = nodesRouteReferences.map(nrr => nrr.nodeId -> nrr.routeRefs).toMap
     nodes.map { node =>
       nodeRouteReferencesMap.get(node.id) match {

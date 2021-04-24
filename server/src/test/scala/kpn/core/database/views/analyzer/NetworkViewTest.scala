@@ -18,22 +18,22 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(database)
 
       // sorting order different from 'by network name'
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, "nl-rcn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, "be-rwn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), hiking, "be-rwn-1")))
-      repository.save(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), cycling, "nl-rcn-1")))
+      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
+      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2")))
+      repository.save(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1")))
+      repository.save(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1")))
 
       NetworkView.query(database, Subset.beHiking, stale = false) should matchTo(
         Seq(
-          newNetworkAttributes(3, Some(Country.be), hiking, "be-rwn-1"),
-          newNetworkAttributes(2, Some(Country.be), hiking, "be-rwn-2")
+          newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1"),
+          newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2")
         )
       )
 
       NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
         Seq(
-          newNetworkAttributes(4, Some(Country.nl), cycling, "nl-rcn-1"),
-          newNetworkAttributes(1, Some(Country.nl), cycling, "nl-rcn-2")
+          newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1"),
+          newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")
         )
       )
     }
@@ -46,12 +46,12 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(database)
 
       // sorting order different from 'by network name'
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, "nl-rcn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, "be-rwn-2"), active = false))
+      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
+      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2"), active = false))
 
       NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
         Seq(
-          newNetworkAttributes(1, Some(Country.nl), cycling, "nl-rcn-2")
+          newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")
         )
       )
     }

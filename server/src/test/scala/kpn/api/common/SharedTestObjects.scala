@@ -52,6 +52,7 @@ import kpn.api.custom.Change
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.ScopedNetworkType
@@ -223,6 +224,7 @@ trait SharedTestObjects extends MockFactory {
   def newRouteData(
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
     relation: RawRelation = newRawRelation(),
     name: String = "",
     networkNodes: Seq[RawNode] = Seq.empty,
@@ -234,6 +236,7 @@ trait SharedTestObjects extends MockFactory {
     RouteData(
       country,
       networkType,
+      networkScope,
       relation,
       name,
       networkNodes,
@@ -325,6 +328,7 @@ trait SharedTestObjects extends MockFactory {
     orphan: Boolean = false,
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     meters: Int = 0,
     wayCount: Int = 0,
@@ -341,6 +345,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       country,
       networkType,
+      networkScope,
       name,
       meters,
       isBroken = false,
@@ -369,6 +374,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long,
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     km: Int = 0,
     meters: Int = 0,
@@ -386,6 +392,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       country,
       networkType,
+      networkScope,
       name,
       km,
       meters,
@@ -532,6 +539,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long,
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     meters: Int = 0,
     isBroken: Boolean = false,
@@ -544,6 +552,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       country,
       networkType,
+      networkScope,
       name,
       meters,
       isBroken,
@@ -967,5 +976,4 @@ trait SharedTestObjects extends MockFactory {
       nokSegments
     )
   }
-
 }

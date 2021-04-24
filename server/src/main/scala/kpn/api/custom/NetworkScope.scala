@@ -15,4 +15,6 @@ object NetworkScope {
 
 }
 
-case class NetworkScope(name: String, letter: String)
+case class NetworkScope(name: String, letter: String) {
+  override def toString: String = name
+}

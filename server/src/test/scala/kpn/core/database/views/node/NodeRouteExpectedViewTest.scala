@@ -5,6 +5,7 @@ import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.common.location.Location
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -31,8 +32,13 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
         )
       }
 
-      def query(networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
-        NodeRouteExpectedView.query(database, networkType, stale = false)
+      def queryNetworkType(networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
+        NodeRouteExpectedView.queryNetworkType(database, networkType, stale = false)
+      }
+
+      def queryScopedNetworkType(networkScope: NetworkScope, networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
+        val scopedNetworkType = ScopedNetworkType.from(networkScope, networkType)
+        NodeRouteExpectedView.queryScopedNetworkType(database, scopedNetworkType, stale = false)
       }
 
       node(1001, "01", NetworkScope.local, NetworkType.hiking, 1)
@@ -50,44 +56,116 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
       nodeRepository.save(newNodeInfo(id = 1013))
 
-      query(NetworkType.hiking) should matchTo(
+      queryNetworkType(NetworkType.hiking) should matchTo(
         Seq(
           NodeRouteExpectedCount(1001, "01", Seq("a", "b"), 1),
           NodeRouteExpectedCount(1002, "02", Seq("a", "b"), 2)
         )
       )
 
-      query(NetworkType.cycling) should matchTo(
+      queryNetworkType(NetworkType.cycling) should matchTo(
         Seq(
           NodeRouteExpectedCount(1003, "03", Seq("a", "b"), 3),
           NodeRouteExpectedCount(1004, "04", Seq("a", "b"), 4)
         )
       )
 
-      query(NetworkType.horseRiding) should matchTo(
+      queryNetworkType(NetworkType.horseRiding) should matchTo(
         Seq(
           NodeRouteExpectedCount(1005, "05", Seq("a", "b"), 5),
           NodeRouteExpectedCount(1006, "06", Seq("a", "b"), 6)
         )
       )
 
-      query(NetworkType.canoe) should matchTo(
+      queryNetworkType(NetworkType.canoe) should matchTo(
         Seq(
           NodeRouteExpectedCount(1007, "07", Seq("a", "b"), 7),
           NodeRouteExpectedCount(1008, "08", Seq("a", "b"), 8)
         )
       )
 
-      query(NetworkType.motorboat) should matchTo(
+      queryNetworkType(NetworkType.motorboat) should matchTo(
         Seq(
           NodeRouteExpectedCount(1009, "09", Seq("a", "b"), 9),
           NodeRouteExpectedCount(1010, "10", Seq("a", "b"), 10)
         )
       )
 
-      query(NetworkType.inlineSkating) should matchTo(
+      queryNetworkType(NetworkType.inlineSkating) should matchTo(
         Seq(
           NodeRouteExpectedCount(1011, "11", Seq("a", "b"), 11),
+          NodeRouteExpectedCount(1012, "12", Seq("a", "b"), 12)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.local, NetworkType.hiking) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1001, "01", Seq("a", "b"), 1)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.regional, NetworkType.hiking) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1002, "02", Seq("a", "b"), 2)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.national, NetworkType.cycling) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1003, "03", Seq("a", "b"), 3)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.local, NetworkType.cycling) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1004, "04", Seq("a", "b"), 4)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.regional, NetworkType.horseRiding) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1005, "05", Seq("a", "b"), 5)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.national, NetworkType.horseRiding) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1006, "06", Seq("a", "b"), 6)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.local, NetworkType.canoe) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1007, "07", Seq("a", "b"), 7)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.regional, NetworkType.canoe) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1008, "08", Seq("a", "b"), 8)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.national, NetworkType.motorboat) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1009, "09", Seq("a", "b"), 9)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.local, NetworkType.motorboat) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1010, "10", Seq("a", "b"), 10)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.regional, NetworkType.inlineSkating) should matchTo(
+        Seq(
+          NodeRouteExpectedCount(1011, "11", Seq("a", "b"), 11)
+        )
+      )
+
+      queryScopedNetworkType(NetworkScope.national, NetworkType.inlineSkating) should matchTo(
+        Seq(
           NodeRouteExpectedCount(1012, "12", Seq("a", "b"), 12)
         )
       )

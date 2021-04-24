@@ -11,8 +11,16 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var allNodeIds = [];
   var allNodes = [];
 
-  for (var i = 0; i < analysis.map.startNodes.length; i++) {
-    var node = analysis.map.startNodes[i];
+  for (var i = 0; i < analysis.map.freeNodes.length; i++) {
+    var node = analysis.map.freeNodes[i];
+    if (allNodeIds.indexOf(node.id) < 0) {
+      allNodeIds.push(node.id);
+      allNodes.push(node);
+    }
+  }
+
+  for (i = 0; i < analysis.map.startNodes.length; i++) {
+    node = analysis.map.startNodes[i];
     if (allNodeIds.indexOf(node.id) < 0) {
       allNodeIds.push(node.id);
       allNodes.push(node);
@@ -47,6 +55,7 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
     node = allNodes[i];
     var key = [
       summary.networkType,
+      summary.networkScope,
       node.id,
       routeReference.routeName,
       routeReference.routeId

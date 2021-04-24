@@ -8,6 +8,7 @@ import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Country
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteUnaccessible
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
@@ -17,6 +18,7 @@ import kpn.core.util.Formatter.percentage
 case class Network(
   country: Option[Country],
   networkType: NetworkType,
+  networkScope: NetworkScope,
   relation: Relation,
   name: String,
   nodes: Seq[NetworkNodeInfo],

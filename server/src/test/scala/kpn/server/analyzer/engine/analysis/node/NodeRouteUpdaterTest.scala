@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.node
 import kpn.api.common.NodeRoute
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -86,16 +87,16 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) shouldBe empty
+      nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) shouldBe empty
 
       nodeRouteUpdater.update()
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
+      nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 2), // route 01-02 and 01-03
-          NodeRoute(1002, "02", NetworkType.hiking, Seq(), 2, 1), // route 01-02
-          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 1), // route 01-03
-          NodeRoute(1004, "04", NetworkType.hiking, Seq(), 4, 0)
+          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 1, 2), // route 01-02 and 01-03
+          NodeRoute(1002, "02", ScopedNetworkType.rwn, Seq.empty, 2, 1), // route 01-02
+          NodeRoute(1003, "03", ScopedNetworkType.rwn, Seq.empty, 3, 1), // route 01-03
+          NodeRoute(1004, "04", ScopedNetworkType.rwn, Seq.empty, 4, 0)
         )
       )
 
@@ -105,12 +106,12 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       nodeRouteUpdater.update()
 
       // route 01-03 [id=12] disappears from actual route count for node 1001 and 1003
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
+      nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 1), // route 01-02
-          NodeRoute(1002, "02", NetworkType.hiking, Seq(), 2, 1), // route 01-02
-          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 0),
-          NodeRoute(1004, "04", NetworkType.hiking, Seq(), 4, 0)
+          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 1, 1), // route 01-02
+          NodeRoute(1002, "02", ScopedNetworkType.rwn, Seq.empty, 2, 1), // route 01-02
+          NodeRoute(1003, "03", ScopedNetworkType.rwn, Seq.empty, 3, 0),
+          NodeRoute(1004, "04", ScopedNetworkType.rwn, Seq.empty, 4, 0)
         )
       )
 
@@ -121,10 +122,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       nodeRouteUpdater.update()
 
       // no more NodeRoute document for nodes 1002 and 1004
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
+      nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 1, 1), // route 01-02
-          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 3, 0)
+          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 1, 1), // route 01-02
+          NodeRoute(1003, "03", ScopedNetworkType.rwn, Seq.empty, 3, 0)
         )
       )
     }
@@ -136,17 +137,17 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
-      nodeRouteRepository.save(NodeRoute(1001, "01", NetworkType.hiking, Seq(), 4, 3))
+      nodeRouteRepository.save(NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 4, 3))
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) should matchTo(
+      nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 4, 3)
+          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 4, 3)
         )
       )
 
       nodeRouteUpdater.update()
 
-      nodeRouteRepository.nodeRoutes(NetworkType.hiking) shouldBe empty
+      nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) shouldBe empty
     }
   }
 }

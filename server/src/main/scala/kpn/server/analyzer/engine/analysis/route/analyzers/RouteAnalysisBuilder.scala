@@ -147,6 +147,7 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation.id,
       context.loadedRoute.country,
       context.loadedRoute.scopedNetworkType.networkType,
+      context.loadedRoute.scopedNetworkType.networkScope,
       title,
       length,
       facts.contains(Fact.RouteBroken),

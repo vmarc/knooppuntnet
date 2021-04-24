@@ -5,7 +5,7 @@ import kpn.api.common.common.NodeRouteCount
 import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Ref
-import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeRouteDoc
 import kpn.core.database.views.node.NodeRouteExpectedView
@@ -22,36 +22,36 @@ class NodeRouteRepositoryImpl(analysisDatabase: Database) extends NodeRouteRepos
 
   override def save(nodeRoute: NodeRoute): Unit = {
     log.debugElapsed {
-      analysisDatabase.save(NodeRouteDoc(docId(nodeRoute.id, nodeRoute.networkType), nodeRoute))
-      (s"Save node-route ${nodeRoute.id}:${nodeRoute.networkType.name}", ())
+      analysisDatabase.save(NodeRouteDoc(docId(nodeRoute.id, nodeRoute.scopedNetworkType), nodeRoute))
+      (s"Save node-route ${nodeRoute.id}:${nodeRoute.scopedNetworkType.key}", ())
     }
   }
 
-  override def delete(nodeId: Long, networkType: NetworkType): Unit = {
-    analysisDatabase.deleteDocWithId(docId(nodeId, networkType))
+  override def delete(nodeId: Long, scopedNetworkType: ScopedNetworkType): Unit = {
+    analysisDatabase.deleteDocWithId(docId(nodeId, scopedNetworkType))
   }
 
-  override def nodeRoutes(networkType: NetworkType): Seq[NodeRoute] = {
-    NodeRouteView.query(analysisDatabase, networkType, stale = false)
+  override def nodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute] = {
+    NodeRouteView.query(analysisDatabase, scopedNetworkType, stale = false)
   }
 
-  override def nodeRouteReferences(networkType: NetworkType, nodeId: Long): Seq[Ref] = {
-    NodeRouteReferenceView.query(analysisDatabase, networkType, nodeId, stale = true)
+  override def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref] = {
+    NodeRouteReferenceView.query(analysisDatabase, scopedNetworkType, nodeId, stale = true)
   }
 
-  override def nodesRouteReferences(networkType: NetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
-    NodeRouteReferenceView.queryNodeIds(analysisDatabase, networkType, nodeIds, stale = true)
+  override def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
+    NodeRouteReferenceView.queryNodeIds(analysisDatabase, scopedNetworkType, nodeIds, stale = true)
   }
 
-  override def actualNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteCount] = {
-    NodeRouteReferenceView.queryCount(analysisDatabase, networkType, stale = false)
+  override def actualNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteCount] = {
+    NodeRouteReferenceView.queryCount(analysisDatabase, scopedNetworkType, stale = false)
   }
 
-  override def expectedNodeRouteCounts(networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
-    NodeRouteExpectedView.query(analysisDatabase, networkType, stale = false)
+  override def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount] = {
+    NodeRouteExpectedView.queryScopedNetworkType(analysisDatabase, scopedNetworkType, stale = false)
   }
 
-  private def docId(nodeId: Long, networkType: NetworkType): String = {
-    s"${KeyPrefix.NodeRoute}:$nodeId:${networkType.name}"
+  private def docId(nodeId: Long, scopedNetworkType: ScopedNetworkType): String = {
+    s"${KeyPrefix.NodeRoute}:$nodeId:${scopedNetworkType.key}"
   }
 }

@@ -165,6 +165,7 @@ class NetworkAnalyzerImpl(
     Network(
       networkRelationAnalysis.country,
       loadedNetwork.scopedNetworkType.networkType,
+      loadedNetwork.scopedNetworkType.networkScope,
       loadedNetwork.relation,
       loadedNetwork.name,
       networkNodes,

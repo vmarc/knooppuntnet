@@ -62,11 +62,11 @@ class RouteIdSplitTool {
 
   private def listDirs(dir: File): Seq[File] = {
     val files = dir.listFiles().filter(_.isDirectory)
-    files.sortBy(_.getAbsolutePath)
+    files.toSeq.sortBy(_.getAbsolutePath)
   }
 
   private def listFiles(dir: File): Seq[File] = {
     val files = dir.listFiles().filter(_.getName.endsWith(".xml"))
-    files.sortBy(_.getName.dropRight(4).toLong)
+    files.toSeq.sortBy(_.getName.dropRight(4).toLong)
   }
 }

@@ -79,6 +79,7 @@ class NetworkInfoBuilder {
       id = network.id,
       country = network.country,
       networkType = network.networkType,
+      networkScope = network.networkScope,
       name = network.name,
       km = network.length / 1000,
       meters = network.length,

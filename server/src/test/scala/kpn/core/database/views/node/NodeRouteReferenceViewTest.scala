@@ -3,7 +3,9 @@ package kpn.core.database.views.node
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.NodeRouteCount
 import kpn.api.common.common.Ref
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -14,37 +16,44 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in route") {
 
-   withDatabase { database =>
+    withDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
           id = 10,
           networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
           name = "01-02",
           analysis = newRouteInfoAnalysis(
             map = newRouteMap(
-              startNodes = Seq(
+              freeNodes = Seq(
                 newRouteNetworkNodeInfo(
                   id = 1001,
                   name = "01"
                 )
               ),
-              endNodes = Seq(
+              startNodes = Seq(
                 newRouteNetworkNodeInfo(
                   id = 1002,
                   name = "02"
                 )
               ),
-              startTentacleNodes = Seq(
+              endNodes = Seq(
                 newRouteNetworkNodeInfo(
                   id = 1003,
-                  name = "01"
+                  name = "03"
+                )
+              ),
+              startTentacleNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1004,
+                  name = "04"
                 )
               ),
               endTentacleNodes = Seq(
                 newRouteNetworkNodeInfo(
-                  id = 1004,
-                  name = "02"
+                  id = 1005,
+                  name = "05"
                 )
               )
             )
@@ -60,6 +69,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       queryNode(database, 1002) should matchTo(expectedReferences)
       queryNode(database, 1003) should matchTo(expectedReferences)
       queryNode(database, 1004) should matchTo(expectedReferences)
+      queryNode(database, 1005) should matchTo(expectedReferences)
     }
   }
 
@@ -77,6 +87,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
           id = 10,
           active = false,
           networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
           name = "01-02",
           analysis = newRouteInfoAnalysis(
             map = newRouteMap(
@@ -103,6 +114,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
         newRoute(
           id = 10,
           networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
           name = "01-01",
           analysis = newRouteInfoAnalysis(
             map = newRouteMap(
@@ -141,7 +153,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       route(routeRepository, 13, 1001, 1004)
       route(routeRepository, 14, 1002, 1005)
 
-      val refCounts = NodeRouteReferenceView.queryCount(database, NetworkType.hiking, stale = false)
+      val refCounts = NodeRouteReferenceView.queryCount(database, ScopedNetworkType.rwn, stale = false)
 
       refCounts should equal(
         Seq(
@@ -156,7 +168,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   }
 
   private def queryNode(database: Database, nodeId: Long): Seq[Ref] = {
-    NodeRouteReferenceView.query(database, NetworkType.hiking, nodeId, stale = false)
+    NodeRouteReferenceView.query(database, ScopedNetworkType.rwn, nodeId, stale = false)
   }
 
   private def route(routeRepository: RouteRepository, routeId: Long, startNodeId: Long, endNodeId: Long): Unit = {
@@ -165,6 +177,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       newRoute(
         id = routeId,
         networkType = NetworkType.hiking,
+        networkScope = NetworkScope.regional,
         analysis = newRouteInfoAnalysis(
           map = newRouteMap(
             startNodes = Seq(

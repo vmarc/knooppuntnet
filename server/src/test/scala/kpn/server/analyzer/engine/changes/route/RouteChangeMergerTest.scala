@@ -5,6 +5,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.RouteData
 import kpn.api.custom.Country
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -21,9 +22,9 @@ class RouteChangeMergerTest extends UnitTest with SharedTestObjects {
       ).merged.addedToNetwork should equal(expected)
     }
 
-    assertMerged(Seq(), Seq(), Seq())
-    assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq(), Seq(Ref(2, "2"), Ref(3, "3")))
-    assertMerged(Seq(), Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2")))
+    assertMerged(Seq.empty, Seq.empty, Seq.empty)
+    assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq.empty, Seq(Ref(2, "2"), Ref(3, "3")))
+    assertMerged(Seq.empty, Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2")))
     assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2"), Ref(3, "3")))
   }
 
@@ -36,9 +37,9 @@ class RouteChangeMergerTest extends UnitTest with SharedTestObjects {
       ).merged.removedFromNetwork should equal(expected)
     }
 
-    assertMerged(Seq(), Seq(), Seq())
-    assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq(), Seq(Ref(2, "2"), Ref(3, "3")))
-    assertMerged(Seq(), Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2")))
+    assertMerged(Seq.empty, Seq.empty, Seq.empty)
+    assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq.empty, Seq(Ref(2, "2"), Ref(3, "3")))
+    assertMerged(Seq.empty, Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2")))
     assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2"), Ref(3, "3")))
   }
 
@@ -78,6 +79,7 @@ class RouteChangeMergerTest extends UnitTest with SharedTestObjects {
     RouteData(
       country = Some(Country.nl),
       networkType = NetworkType.hiking,
+      networkScope = NetworkScope.regional,
       relation = RawRelation(
         id = 1,
         version = 1,
