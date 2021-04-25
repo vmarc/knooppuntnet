@@ -4,7 +4,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -71,6 +70,12 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     newContext.facts shouldBe empty
   }
 
+  test("preserve white space arround separator dash") {
+    val newContext = doTest(Some("aaa - bbb-ccc"), Some("aaa"), Some("bbb-ccc"))
+    newContext.expectedName should equal(Some("aaa - bbb-ccc"))
+    newContext.facts shouldBe empty
+  }
+
   private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteAnalysisContext = {
     val routeNameAnalysis = RouteNameAnalysis(name = routeName)
     val routeNodeAnalysis = RouteNodeAnalysis(
@@ -101,7 +106,6 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     val loadedRoute = LoadedRoute(
       country = None,
       scopedNetworkType = ScopedNetworkType.rwn,
-      "",
       data,
       data.relations(1L)
     )

@@ -29,19 +29,20 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
     val tags = context.loadedRoute.relation.tags
     val routeNameAnalysis = tags("ref") match {
-      case Some(ref) => analyzeName(ref)
+      case Some(ref) => analyzeRouteName(ref)
       case None =>
         tags("name") match {
           case Some(name) =>
-            val routeNameAnalysis = analyzeName(name)
+            val routeNameAnalysis = analyzeRouteName(name)
             if (routeNameAnalysis.hasStandardNodeNames) {
               routeNameAnalysis
             }
             else {
+              // verify is name in note tag is better, and if so: use that instead
               tags("note") match {
                 case None => routeNameAnalysis
                 case Some(note) =>
-                  val noteRouteNameAnalysis = analyzeName(note)
+                  val noteRouteNameAnalysis = analyzeRouteName(note)
                   if (noteRouteNameAnalysis.hasStandardNodeNames) {
                     noteRouteNameAnalysis
                   }
@@ -53,7 +54,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
           case None =>
             tags("note") match {
-              case Some(note) => analyzeName(note)
+              case Some(note) => analyzeRouteName(note)
               case None => analyzeToFromTags(tags)
             }
         }
@@ -61,10 +62,10 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     context.copy(routeNameAnalysis = Some(routeNameAnalysis)).withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
   }
 
-  private def analyzeName(fullRouteName: String): RouteNameAnalysis = {
+  private def analyzeRouteName(fullRouteName: String): RouteNameAnalysis = {
     val routeName = withoutComment(fullRouteName)
     if (routeName.contains("-")) {
-      analyzeNameNodes(routeName)
+      analyzeRouteNameNodes(routeName)
     }
     else {
       RouteNameAnalysis(
@@ -75,14 +76,19 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def analyzeNameNodes(routeName: String) = {
+  private def analyzeRouteNameNodes(routeName: String): RouteNameAnalysis = {
 
     val (startNodeNameOption, endNodeNameOption) = splitRouteName(routeName)
 
     val startNodeName = startNodeNameOption.getOrElse("")
     val endNodeName = endNodeNameOption.getOrElse("")
 
-    val normalizedRouteName = s"$startNodeName-$endNodeName"
+    val normalizedRouteName = if (useDashSpaces(routeName, startNodeName, endNodeName)) {
+      s"$startNodeName - $endNodeName"
+    }
+    else {
+      s"$startNodeName-$endNodeName"
+    }
 
     if (startNodeName.nonEmpty && endNodeNameOption.nonEmpty) {
       toRouteNameAnalysisFromNodeNames(normalizedRouteName, startNodeName, endNodeName)
@@ -97,7 +103,8 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def splitRouteName(routeName: String): (Option[String], Option[String]) = {
-    val nameParts = routeName.split("-")
+    val splitAt = if (routeName.count(_ == '-') > 1) " - " else "-"
+    val nameParts = routeName.split(splitAt)
     val firstPart = nameParts.head.trim
     val startNodeNameOption = if (firstPart.nonEmpty) Some(NodeNameAnalyzer.normalize(firstPart)) else None
     val endNodeNameOption = if (nameParts.size > 1) {
@@ -178,9 +185,18 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
       }
     }
     else {
-      val originalOrder = Seq(startNodeName, endNodeName)
-      val sortedOrder = NaturalSorting.sort(originalOrder)
-      sortedOrder != originalOrder
+      if (Util.hasDigits(startNodeName) && Util.hasDigits(endNodeName)) {
+        val originalOrder = Seq(startNodeName, endNodeName)
+        val sortedOrder = NaturalSorting.sort(originalOrder)
+        sortedOrder != originalOrder
+      }
+      else {
+        false
+      }
     }
+  }
+
+  private def useDashSpaces(routeName: String, startNodeName: String, endNodeName: String): Boolean = {
+    routeName.count(_ == '-') > 1 || startNodeName.length > 3 || endNodeName.length > 3
   }
 }

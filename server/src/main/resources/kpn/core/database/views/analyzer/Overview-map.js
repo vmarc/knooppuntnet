@@ -103,7 +103,7 @@ if (doc) {
         var nodeNames = doc.node.names;
         for (var k = 0; k < nodeNames.length; k++) {
           var nodeName = doc.node.names[k];
-          var networkType = nodeName.scopedNetworkType.networkType;
+          var networkType = nodeName.networkType;
           emitFact("OrphanNodeCount", country, networkType, 1);
           for (var j = 0; j < doc.node.facts.length; j++) {
             var fact = doc.node.facts[j];

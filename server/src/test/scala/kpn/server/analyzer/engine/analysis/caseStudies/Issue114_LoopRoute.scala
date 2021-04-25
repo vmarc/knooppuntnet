@@ -15,4 +15,8 @@ class Issue114_LoopRoute extends UnitTest {
     route.facts shouldBe empty
   }
 
+  test("route 30-30, not a loop but all nodes have the same name") {
+    val route = CaseStudy.routeAnalysis("9432838").route
+    route.facts shouldBe empty
+  }
 }

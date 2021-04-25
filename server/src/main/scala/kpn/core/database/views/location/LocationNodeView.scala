@@ -68,7 +68,7 @@ object LocationNodeView extends View {
       val key = Fields(row.key)
 
       val expectedRouteCounts = row.doc.node.names.flatMap { nodeName =>
-        if (nodeName.scopedNetworkType.networkType == locationKey.networkType) {
+        if (nodeName.networkType == locationKey.networkType) {
           row.doc.node.tags(nodeName.scopedNetworkType.expectedRouteRelationsTag)
         }
         else {

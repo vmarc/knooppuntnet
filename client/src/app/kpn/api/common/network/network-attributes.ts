@@ -3,6 +3,7 @@
 import { Country } from '../../custom/country';
 import { Integrity } from './integrity';
 import { LatLonImpl } from '../lat-lon-impl';
+import { NetworkScope } from '../../custom/network-scope';
 import { NetworkType } from '../../custom/network-type';
 import { Timestamp } from '../../custom/timestamp';
 
@@ -11,6 +12,7 @@ export class NetworkAttributes {
     readonly id: number,
     readonly country: Country,
     readonly networkType: NetworkType,
+    readonly networkScope: NetworkScope,
     readonly name: string,
     readonly km: number,
     readonly meters: number,
@@ -34,6 +36,7 @@ export class NetworkAttributes {
       jsonObject.id,
       jsonObject.country,
       jsonObject.networkType,
+      NetworkScope.fromJSON(jsonObject.networkScope),
       jsonObject.name,
       jsonObject.km,
       jsonObject.meters,

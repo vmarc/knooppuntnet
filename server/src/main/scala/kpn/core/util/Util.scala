@@ -9,6 +9,8 @@ object Util {
 
   def isDigits(string: String): Boolean = string.nonEmpty && string.forall(_.isDigit)
 
+  def hasDigits(string: String): Boolean = string.nonEmpty && string.exists(_.isDigit)
+
   def withoutQuotes(string: String): String = {
     if (string.startsWith("\"") && string.endsWith("\"")) {
       string.substring(1, string.length - 1)

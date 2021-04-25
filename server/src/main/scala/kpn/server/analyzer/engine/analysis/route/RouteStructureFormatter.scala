@@ -17,6 +17,7 @@ class RouteStructureFormatter(structure: RouteStructure) {
 
   private def pathStrings: Seq[Option[String]] = {
     Seq(
+      paths("free", structure.freePaths),
       paths("forward", structure.forwardPath.toSeq),
       paths("backward", structure.backwardPath.toSeq),
       paths("startTentacles", structure.startTentaclePaths),

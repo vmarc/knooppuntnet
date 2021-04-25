@@ -73,7 +73,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def mapImports(): Seq[String] = {
     if (classInfo.fields.exists(_.classType.isMap)) {
-      Seq("import {Map} from 'immutable';")
+      Seq("import { Map } from 'immutable';")
     }
     else {
       Seq()
@@ -83,17 +83,16 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   private def dependencyImports(): Seq[String] = {
     classInfo.dependencies.map { dependency =>
       if (dependency.className == "PlanCoordinate") {
-        "import {Coordinate} from 'ol/coordinate';"
+        "import { Coordinate } from 'ol/coordinate';"
       }
       else {
-        s"import {${dependency.className}} from '${dependency.fileName}';"
+        s"import { ${dependency.className} } from '${dependency.fileName}';"
       }
     }
   }
 
   private def writeClass(): Unit = {
     out.println(s"export class ${classInfo.className} {")
-    out.println()
     writeConstructor()
     writeDeserializer()
     out.println("}")
@@ -109,28 +108,24 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
         s"${field.name}: $typeName" + (if (field.classType.optional) " | undefined" else "")
       }
     }
-    out.print(s"  constructor(")
+    out.println("  constructor(")
     if (fields.isEmpty) {
-      out.println(") {")
+      out.println(") {}\n")
     }
     else {
-      fields.mkString("readonly ", ",\n              readonly ", ") {\n").foreach {
-        out.print
-      }
+      out.println(fields.mkString("    readonly ", ",\n    readonly ", "\n  ) {}\n"))
     }
-
-    out.println("  }\n")
   }
 
   private def writeDeserializer(): Unit = {
-    out.println(s"  public static fromJSON(jsonObject: any): ${classInfo.className} {")
+    out.println(s"  static fromJSON(jsonObject: any): ${classInfo.className} {")
     out.println(s"    if (!jsonObject) {")
     out.println(s"      return undefined;")
     out.println(s"    }")
     out.println(s"    return new ${classInfo.className}(")
 
     val fields = classInfo.fields.map { field =>
-      if (field.classType.primitive) {
+      if (field.classType.primitive || Seq("NetworkType", "Country", "Fact").contains(field.classType.typeName)) {
         s"      jsonObject.${field.name}"
       }
       else if (field.classType.typeName == "PlanCoordinate") {

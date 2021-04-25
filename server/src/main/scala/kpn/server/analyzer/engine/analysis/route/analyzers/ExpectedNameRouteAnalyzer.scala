@@ -28,8 +28,9 @@ class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
       else {
         routeNodeAnalysis.freeNodes.head.name
       }
-      val expectedName = start + "-" + end
-      val expectedNameReversed = end + "-" + start
+      val separator = if (name.contains(" - ")) " - " else "-"
+      val expectedName = start + separator + end
+      val expectedNameReversed = end + separator + start
       if (name.equals(expectedName) || name.equals(expectedNameReversed)) {
         context.copy(expectedName = Some(expectedName))
       }
@@ -49,11 +50,15 @@ class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def routeNameAnalysis: RouteNameAnalysis = {
-    context.routeNameAnalysis.getOrElse(throw new IllegalStateException("RouteNameAnalysis required before expected name analysis"))
+    context.routeNameAnalysis.getOrElse(
+      throw new IllegalStateException("RouteNameAnalysis required before expected name analysis")
+    )
   }
 
   private def routeNodeAnalysis: RouteNodeAnalysis = {
-    context.routeNodeAnalysis.getOrElse(throw new IllegalStateException("RouteNodeAnalysis required before expected name analysis"))
+    context.routeNodeAnalysis.getOrElse(
+      throw new IllegalStateException("RouteNodeAnalysis required before expected name analysis")
+    )
   }
 
 }

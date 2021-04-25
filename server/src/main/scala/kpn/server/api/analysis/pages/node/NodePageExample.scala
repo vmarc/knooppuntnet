@@ -29,7 +29,6 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
@@ -79,8 +78,8 @@ object NodePageExample {
       country = Some(Country.nl),
       name = "01 / 02",
       names = Seq(
-        NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.cycling), "01"),
-        NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "02")
+        NodeName(NetworkType.cycling, NetworkScope.regional, "01"),
+        NodeName(NetworkType.hiking, NetworkScope.regional, "02")
       ),
       latitude = "51.5291600",
       longitude = "4.297800",

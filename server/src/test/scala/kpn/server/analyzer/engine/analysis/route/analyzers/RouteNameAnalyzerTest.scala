@@ -159,12 +159,12 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name with non-numeric start- and end-node names") {
-    val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "B-A"))
+    val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "A2-A1"))
     routeNameAnalysis.value should matchTo(
       RouteNameAnalysis(
-        Some("B-A"),
-        Some("A"),
-        Some("B"),
+        Some("A2-A1"),
+        Some("A1"),
+        Some("A2"),
         reversed = true
       )
     )
@@ -260,6 +260,17 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
         Some("one-two"),
         Some("one"),
         Some("two")
+      )
+    )
+  }
+
+  test("route name based with node name containing dash") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "start - end-node"))
+    routeNameAnalysis.value should matchTo(
+      RouteNameAnalysis(
+        Some("start - end-node"),
+        Some("start"),
+        Some("end-node")
       )
     )
   }

@@ -48,7 +48,7 @@ class NodeInfoBuilderImpl(
         nodeTileAnalyzer.tiles(z, LatLonImpl(latitude, longitude))
       }
       tiles.flatMap { tile =>
-        nodeNames.map(_.scopedNetworkType.networkType).map { networkType =>
+        nodeNames.map(_.networkType).map { networkType =>
           s"${networkType.name}-${tile.name}"
         }
       }

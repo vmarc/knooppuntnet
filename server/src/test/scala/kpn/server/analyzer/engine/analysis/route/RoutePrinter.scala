@@ -10,6 +10,7 @@ import kpn.server.json.Json
 object RoutePrinter {
 
   def printMap(map: RouteMap): Unit = {
+    map.freePaths.foreach(path => printPath("free", path))
     map.forwardPath.foreach(path => printPath("forward", path))
     map.backwardPath.foreach(path => printPath("backward", path))
     map.startTentaclePaths.foreach(path => printPath("startTentacle", path))
