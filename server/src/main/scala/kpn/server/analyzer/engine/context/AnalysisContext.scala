@@ -162,12 +162,19 @@ class AnalysisContext(
   }
 
   def isUnexpectedNode(scopedNetworkType: ScopedNetworkType, node: Node): Boolean = {
-    !isReferencedNetworkNode(scopedNetworkType, node.raw) && !isMap(node)
+    !isReferencedNetworkNode(scopedNetworkType, node.raw) && !isMap(node) && !isProposed(node)
   }
 
   private def isMap(node: Node): Boolean = {
     node.tags.has("tourism", "information") &&
       (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))
+  }
+
+  private def isProposed(node: Node): Boolean = {
+    ScopedNetworkType.all.exists { scopedNetworkType =>
+      val proposedKey = s"proposed:${scopedNetworkType.key}_ref"
+      node.tags.has(proposedKey)
+    }
   }
 
   private def isKnownNode(node: RawNode): Boolean = {

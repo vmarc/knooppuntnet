@@ -120,4 +120,27 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
     assert(!isValidNetworkNode(Tags.from("rwn_ref" -> "01"), knownNode = false)) // ignore if not a known node
   }
 
+  test("unexpectedNode") {
+
+    def isUnexpectedNode(tags: Tags): Boolean = {
+      val context = new AnalysisContext()
+      val node = newNode(1L, tags = tags)
+      context.isUnexpectedNode(ScopedNetworkType.rwn, node)
+    }
+
+    // map
+    assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "map")))
+    assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "guidepost")))
+
+    // proposed
+    assert(!isUnexpectedNode(Tags.from("proposed:rwn_ref" -> "01")))
+    assert(!isUnexpectedNode(Tags.from("proposed:lwn_ref" -> "01")))
+    assert(!isUnexpectedNode(Tags.from("proposed:rcn_ref" -> "01")))
+
+    // actual node
+    assert(!isUnexpectedNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
+
+    // unexpected
+    assert(isUnexpectedNode(Tags.empty))
+  }
 }
