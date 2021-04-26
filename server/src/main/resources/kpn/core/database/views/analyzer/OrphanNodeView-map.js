@@ -5,7 +5,7 @@ if (doc && doc.node) {
       var nodeName = n.names[i];
       var key = [
         n.country,
-        nodeName.scopedNetworkType.networkType,
+        nodeName.networkType,
         n.id
       ];
       emit(key, n);

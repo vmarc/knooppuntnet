@@ -3,7 +3,7 @@ if (doc) {
     for (var nodeNameIndex = 0; nodeNameIndex < doc.node.names.length; nodeNameIndex++) {
       var nodeName = doc.node.names[nodeNameIndex];
       var country = doc.node.country;
-      var networkType = nodeName.scopedNetworkType.networkType;
+      var networkType = nodeName.networkType;
       for (var nodeLocationNameIndex = 0; nodeLocationNameIndex < doc.node.location.names.length; nodeLocationNameIndex++) {
         var nodeLocationName = doc.node.location.names[nodeLocationNameIndex];
         for (var nodeFactIndex = 0; nodeFactIndex < doc.node.facts.length; nodeFactIndex++) {

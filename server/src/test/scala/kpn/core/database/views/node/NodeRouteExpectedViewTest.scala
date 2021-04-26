@@ -20,12 +20,13 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
       val nodeRepository = new NodeRepositoryImpl(database)
 
       def node(nodeId: Long, nodeName: String, networkScope: NetworkScope, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
+        val key = s"${networkScope.letter}${networkType.letter}n"
         nodeRepository.save(
           newNodeInfo(
             id = nodeId,
             tags = Tags.from(
-              s"expected_${networkScope.letter}${networkType.letter}n_route_relations" -> expectedRouteRelations.toString,
-              s"r${networkType.letter}n_ref" -> nodeName
+              s"expected_${key}_route_relations" -> expectedRouteRelations.toString,
+              s"${key}_ref" -> nodeName
             ),
             location = Some(Location(Seq("a", "b")))
           )

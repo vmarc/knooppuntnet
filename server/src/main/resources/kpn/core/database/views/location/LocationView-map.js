@@ -3,7 +3,7 @@ if (doc) {
     if (doc.node.location) {
       for (var i = 0; i < doc.node.names.length; i++) {
         var nodeName = doc.node.names[i];
-        var networkType = nodeName.scopedNetworkType.networkType;
+        var networkType = nodeName.networkType;
         for (var nodeLocationNameIndex = 0; nodeLocationNameIndex < doc.node.location.names.length; nodeLocationNameIndex++) {
           var nodeLocationName = doc.node.location.names[nodeLocationNameIndex];
           emit(["node", networkType, nodeLocationName], [nodeName.name, doc.node.id]);

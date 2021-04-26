@@ -147,7 +147,7 @@ if (doc) {
           var nodeName = doc.node.names[k];
           var key = [
             doc.node.country,
-            nodeName.scopedNetworkType.networkType,
+            nodeName.networkType,
             fact,
             "OrphanNodes",
             0,

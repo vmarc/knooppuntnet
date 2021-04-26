@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeRoute
 import kpn.api.common.SharedTestObjects
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
@@ -93,10 +94,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 1, 2), // route 01-02 and 01-03
-          NodeRoute(1002, "02", ScopedNetworkType.rwn, Seq.empty, 2, 1), // route 01-02
-          NodeRoute(1003, "03", ScopedNetworkType.rwn, Seq.empty, 3, 1), // route 01-03
-          NodeRoute(1004, "04", ScopedNetworkType.rwn, Seq.empty, 4, 0)
+          NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 1, 2), // route 01-02 and 01-03
+          NodeRoute(1002, "02", NetworkType.hiking, NetworkScope.regional, Seq.empty, 2, 1), // route 01-02
+          NodeRoute(1003, "03", NetworkType.hiking, NetworkScope.regional, Seq.empty, 3, 1), // route 01-03
+          NodeRoute(1004, "04", NetworkType.hiking, NetworkScope.regional, Seq.empty, 4, 0)
         )
       )
 
@@ -108,10 +109,10 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       // route 01-03 [id=12] disappears from actual route count for node 1001 and 1003
       nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 1, 1), // route 01-02
-          NodeRoute(1002, "02", ScopedNetworkType.rwn, Seq.empty, 2, 1), // route 01-02
-          NodeRoute(1003, "03", ScopedNetworkType.rwn, Seq.empty, 3, 0),
-          NodeRoute(1004, "04", ScopedNetworkType.rwn, Seq.empty, 4, 0)
+          NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 1, 1), // route 01-02
+          NodeRoute(1002, "02", NetworkType.hiking, NetworkScope.regional, Seq.empty, 2, 1), // route 01-02
+          NodeRoute(1003, "03", NetworkType.hiking, NetworkScope.regional, Seq.empty, 3, 0),
+          NodeRoute(1004, "04", NetworkType.hiking, NetworkScope.regional, Seq.empty, 4, 0)
         )
       )
 
@@ -124,8 +125,8 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       // no more NodeRoute document for nodes 1002 and 1004
       nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 1, 1), // route 01-02
-          NodeRoute(1003, "03", ScopedNetworkType.rwn, Seq.empty, 3, 0)
+          NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 1, 1), // route 01-02
+          NodeRoute(1003, "03", NetworkType.hiking, NetworkScope.regional, Seq.empty, 3, 0)
         )
       )
     }
@@ -137,11 +138,11 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
-      nodeRouteRepository.save(NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 4, 3))
+      nodeRouteRepository.save(NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 4, 3))
 
       nodeRouteRepository.nodeRoutes(ScopedNetworkType.rwn) should matchTo(
         Seq(
-          NodeRoute(1001, "01", ScopedNetworkType.rwn, Seq.empty, 4, 3)
+          NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 4, 3)
         )
       )
 
