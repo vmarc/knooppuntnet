@@ -8,7 +8,6 @@ import kpn.api.custom.Fact.RouteNotContinious
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
-import kpn.api.custom.Fact.RouteOverlappingWays
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.api.custom.Fact.RouteWithoutWays
@@ -72,7 +71,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def analyzeStructure2(routeNodeAnalysis: RouteNodeAnalysis, structure: RouteStructure, fragments: Seq[Fragment]): Unit = {
-    if (!Seq(RouteAnalysisFailed, RouteOverlappingWays, RouteWithoutNodes, RouteNodeMissingInWays).exists(facts.contains)) {
+    if (!Seq(RouteAnalysisFailed, RouteWithoutNodes, RouteNodeMissingInWays).exists(facts.contains)) {
       if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
         if (!facts.contains(RouteWithoutWays)) {
           // do not report this fact if route has no ways or is known to be incomplete
@@ -155,7 +154,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
     if (facts.contains(RouteWithoutNodes)) {
       return true
     }
-    if (Seq(RouteNodeMissingInWays, RouteOverlappingWays).exists(facts.contains)) {
+    if (Seq(RouteNodeMissingInWays).exists(facts.contains)) {
       // TODO ANALYSIS review this rule: RouteNodeMissingInWays means no node in ways at all, or one or more missing ???
       // TODO ANALYSIS review this rule: overlapping ways should not cause the analysis to fail ???
       return true

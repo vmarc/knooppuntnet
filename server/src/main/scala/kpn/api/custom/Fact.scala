@@ -126,7 +126,6 @@ object Fact {
     RouteTagInvalid,
     RouteUnexpectedNode,
     RouteUnexpectedRelation,
-    RouteOverlappingWays,
     RouteSuspiciousWays,
     RouteAnalysisFailed,
     RouteIncomplete,
