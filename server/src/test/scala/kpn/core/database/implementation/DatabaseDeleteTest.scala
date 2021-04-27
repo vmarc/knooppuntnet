@@ -13,7 +13,7 @@ class DatabaseDeleteTest extends UnitTest with TestObjects {
   test("delete") {
     val databaseName = s"test-db-${UUID.randomUUID().toString}"
     withEnvironment { (couchConfig, objectMapper) =>
-      val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
+      val database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
       database.create()
       assert(database.exists)
       database.delete()
@@ -23,7 +23,7 @@ class DatabaseDeleteTest extends UnitTest with TestObjects {
 
   test("delete - database does not exist") {
     withEnvironment { (couchConfig, objectMapper) =>
-      val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "bla"))
+      val database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "bla"))
       assert(!database.exists)
       try {
         database.delete()
@@ -40,12 +40,11 @@ class DatabaseDeleteTest extends UnitTest with TestObjects {
   test("delete - wrong password") {
     withEnvironment { (couchConfig, objectMapper) =>
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val originalDatabase: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
+      val originalDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
       originalDatabase.create()
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val database: Database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
-        assert(database.exists)
+        val database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
         try {
           database.delete()
           fail("Expected exception not thrown")

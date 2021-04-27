@@ -21,7 +21,7 @@ object NodeRouteView extends View {
 
     val query = Query(NodeRouteDesign, NodeRouteView, classOf[ViewResult])
       .stale(stale)
-      .keyStartsWith(scopedNetworkType.key)
+      .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name)
       .includeDocs(true)
       .reduce(false)
 

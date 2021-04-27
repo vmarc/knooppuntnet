@@ -78,7 +78,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
     (tc.analysisRepository.saveNode _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should matchTo(
+        nodeInfo.copy(tiles = Seq()) should equal(
           newNodeInfo(
             1002,
             country = Some(Country.nl),

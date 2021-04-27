@@ -76,12 +76,12 @@ object NodeRouteReferenceView extends View {
 
     result.results.flatMap { res =>
       if (res.rows.nonEmpty) {
-        val nodeId = Fields(res.rows.head.key).long(1)
+        val nodeId = Fields(res.rows.head.key).long(2)
         val refs = res.rows.map { row =>
           val key = Fields(row.key)
           Ref(
-            key.long(3),
-            key.string(2)
+            key.long(4),
+            key.string(3)
           )
         }
         Some(NodeRouteRefs(nodeId, refs))

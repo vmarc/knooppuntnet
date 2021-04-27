@@ -77,7 +77,7 @@ export class NodeSummaryComponent {
 
   networkName(networkType: NetworkType): string {
     const nodeName = this.nodeInfo.names.find(
-      (name) => name.scopedNetworkType.networkType === networkType
+      (name) => name.networkType === networkType
     );
     if (nodeName) {
       return nodeName.name;

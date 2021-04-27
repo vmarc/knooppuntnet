@@ -64,7 +64,7 @@ class ClassAnalyzerTest extends UnitTest {
           ClassField(
             "options",
             ClassType(
-              "List<string>",
+              "Array<string>",
               arrayType = Some(ClassType("string", primitive = true))
             )
           ),
@@ -78,7 +78,7 @@ class ClassAnalyzerTest extends UnitTest {
           ClassField(
             "timestamps",
             ClassType(
-              "List<Timestamp>",
+              "Array<Timestamp>",
               arrayType = Some(ClassType("Timestamp"))
             )
           ),

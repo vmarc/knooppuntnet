@@ -2,6 +2,7 @@ package kpn.core.database.views.node
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.NodeRouteCount
+import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Ref
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
@@ -70,6 +71,23 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       queryNode(database, 1003) should matchTo(expectedReferences)
       queryNode(database, 1004) should matchTo(expectedReferences)
       queryNode(database, 1005) should matchTo(expectedReferences)
+
+      //  queryNodeIds(database, Seq(1001, 1002, 1003)) should matchTo(
+      //    Seq(
+      //      NodeRouteRefs(
+      //        1001L,
+      //        expectedReferences
+      //      ),
+      //      NodeRouteRefs(
+      //        1002L,
+      //        expectedReferences
+      //      ),
+      //      NodeRouteRefs(
+      //        1003L,
+      //        expectedReferences
+      //      )
+      //    )
+      //  )
     }
   }
 
@@ -169,6 +187,10 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   private def queryNode(database: Database, nodeId: Long): Seq[Ref] = {
     NodeRouteReferenceView.query(database, ScopedNetworkType.rwn, nodeId, stale = false)
+  }
+
+  private def queryNodeIds(database: Database, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
+    NodeRouteReferenceView.queryNodeIds(database, ScopedNetworkType.rwn, nodeIds, stale = false)
   }
 
   private def route(routeRepository: RouteRepository, routeId: Long, startNodeId: Long, endNodeId: Long): Unit = {

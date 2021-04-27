@@ -53,9 +53,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      nodeRepository.nodeWithId(101).value should matchTo(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")))
-      nodeRepository.nodeWithId(102).value should matchTo(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02")))
-      nodeRepository.nodeWithId(103).value should matchTo(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03")))
+      nodeRepository.nodeWithId(101).value should equal(newNodeInfo(101, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.nodeWithId(102).value should equal(newNodeInfo(102, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.nodeWithId(103).value should equal(newNodeInfo(103, tags = Tags.from("rwn_ref" -> "03")))
       nodeRepository.nodeWithId(104) should equal(None)
 
       assert(
@@ -153,5 +153,4 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       )
     }
   }
-
 }

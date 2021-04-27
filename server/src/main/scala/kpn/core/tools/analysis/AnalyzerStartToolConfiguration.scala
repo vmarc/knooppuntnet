@@ -81,7 +81,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
   val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
-  val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
+  val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
 
 
   private val locationConfiguration = new LocationConfigurationReader().read()

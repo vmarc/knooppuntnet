@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.tiles.domain.Point
 
 class ElevationFacadeTest extends UnitTest {
 
-  test("route elevation profile") {
+  ignore("route elevation profile") {
 
     // load route 10460202 50-53 Austria
     // See: https://cycling.waymarkedtrails.org/#route?id=10460202&map=15!47.2252!14.777

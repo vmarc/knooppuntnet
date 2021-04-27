@@ -8504,8 +8504,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="experimental.message-2" datatype="html">
-        <source> The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, please use the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;>"/>stable version<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> of knooppuntnet instead. </source>
-        <target state="final">[ The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, please use the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;>"/>stable version<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> of knooppuntnet instead. ]</target>
+        <source> The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, you may be better off using the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;>"/>stable version<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> of knooppuntnet instead. </source>
+        <target state="final"> The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, you may be better off using the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;>"/>stable version<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> of knooppuntnet instead. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/page/page-experimental.component.ts</context>
           <context context-type="linenumber">19,23</context>

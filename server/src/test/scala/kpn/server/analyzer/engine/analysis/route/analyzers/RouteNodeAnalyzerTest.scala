@@ -424,7 +424,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     val analysisContext = new AnalysisContext()
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
     val routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
 
     val context = RouteAnalysisContext(

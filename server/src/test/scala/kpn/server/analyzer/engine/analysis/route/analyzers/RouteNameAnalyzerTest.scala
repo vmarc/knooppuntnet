@@ -301,10 +301,9 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       data.relations(11L)
     )
 
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(nodeAnalyzer)
-
     val analysisContext = new AnalysisContext()
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
 
     val context = RouteAnalysisContext(
       analysisContext,

@@ -6,23 +6,22 @@ import kpn.core.util.UnitTest
 class Issue45_OneWayRoute extends UnitTest {
 
   test("route 60-61") {
-    val route = CaseStudy.routeAnalysis("7328339").route
+    val route = CaseStudy.routeAnalysis("7328339", oldTagging = true).route
     route.facts should equal(Seq(Fact.RouteOneWay))
   }
 
   test("route 63-64") {
-    val route = CaseStudy.routeAnalysis("9515132").route
+    val route = CaseStudy.routeAnalysis("9515132", oldTagging = true).route
     route.facts should equal(Seq(Fact.RouteOneWay))
   }
 
   test("route 84-86") {
-    val route = CaseStudy.routeAnalysis("6635664").route
+    val route = CaseStudy.routeAnalysis("6635664", oldTagging = true).route
     route.facts should equal(Seq(Fact.RouteOneWay))
   }
 
   test("route 74-86") {
-    val route = CaseStudy.routeAnalysis("6635670").route
+    val route = CaseStudy.routeAnalysis("6635670", oldTagging = true).route
     route.facts should equal(Seq(Fact.RouteOneWay))
   }
-
 }

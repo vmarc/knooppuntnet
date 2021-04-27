@@ -34,11 +34,11 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
   test("save - wrong password") {
     withEnvironment { (couchConfig, objectMapper) =>
       val databaseName = s"test-db-${UUID.randomUUID().toString}"
-      val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
+      val database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
       database.create()
       try {
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-        val database: Database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
+        val database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
 
         try {
           val nodeInfo = newNodeInfo(123)
@@ -48,7 +48,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
         }
         catch {
           case e: IllegalStateException =>
-            e.getMessage should include("Could not save")
+            e.getMessage should include("Could not get document")
             e.getMessage should include("(invalid user/password?)")
         }
       }

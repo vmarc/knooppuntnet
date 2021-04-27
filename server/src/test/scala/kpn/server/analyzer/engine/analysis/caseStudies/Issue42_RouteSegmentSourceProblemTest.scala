@@ -5,7 +5,7 @@ import kpn.core.util.UnitTest
 class Issue42_RouteSegmentSourceProblemTest extends UnitTest {
 
   test("segment problem") {
-    val analysis = CaseStudy.routeAnalysis("9499242").route.analysis
+    val analysis = CaseStudy.routeAnalysis("9499242", oldTagging = true).route.analysis
 
     val forwardPath = analysis.map.forwardPath.get
     analysis.map.startNodes.head.lat should equal(forwardPath.segments.head.source.lat)

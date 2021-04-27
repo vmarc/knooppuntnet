@@ -16,7 +16,7 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
 
     val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
 
-    val routeAnalysis = CaseStudy.routeAnalysis("1029885")
+    val routeAnalysis = CaseStudy.routeAnalysis("1029885", oldTagging = true)
 
     tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
@@ -60,7 +60,7 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
 
     val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
 
-    val routeAnalysis = CaseStudy.routeAnalysis("1029885")
+    val routeAnalysis = CaseStudy.routeAnalysis("1029885", oldTagging = true)
 
     val modifiedTags = routeAnalysis.route.tags ++ Tags.from("survey:date" -> "2019-11-08")
     val modifiedRoute = routeAnalysis.route.copy(tags = modifiedTags)

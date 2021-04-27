@@ -1,3 +1,3 @@
 if (doc && doc.nodeRoute) {
-  emit([doc.nodeRoute.scopedNetworkType, doc.nodeRoute.id], 1);
+  emit([doc.nodeRoute.networkType, doc.nodeRoute.networkScope, doc.nodeRoute.id], 1);
 }

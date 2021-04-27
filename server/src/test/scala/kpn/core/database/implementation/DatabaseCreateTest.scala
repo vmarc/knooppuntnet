@@ -22,7 +22,7 @@ class DatabaseCreateTest extends UnitTest with TestObjects {
     val databaseName = s"test-db-${UUID.randomUUID().toString}"
 
     withEnvironment { (couchConfig, objectMapper) =>
-      val database: Database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
+      val database = new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, databaseName))
       assert(!database.exists)
       database.create()
       assert(database.exists)
@@ -47,8 +47,7 @@ class DatabaseCreateTest extends UnitTest with TestObjects {
 
     withEnvironment { (couchConfig, objectMapper) =>
       val invalidCouchConfig = couchConfig.copy(password = "wrong-password")
-      val database: Database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
-      assert(!database.exists)
+      val database = new DatabaseImpl(DatabaseContextImpl(invalidCouchConfig, objectMapper, databaseName))
       try {
         database.create()
         fail("Expected exception not thrown")

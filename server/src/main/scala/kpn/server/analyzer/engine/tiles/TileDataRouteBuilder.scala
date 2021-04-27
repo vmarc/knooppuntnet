@@ -50,9 +50,12 @@ class TileDataRouteBuilder(z: Int) {
         routeInfo.analysis.map.backwardPath.toSeq.flatMap(toTileRouteSegments)
     }
 
-    val tileRouteSegments = mainTileRouteSegments ++
-      routeInfo.analysis.map.startTentaclePaths.flatMap(toTileRouteSegments) ++
-      routeInfo.analysis.map.endTentaclePaths.flatMap(toTileRouteSegments)
+    val tileRouteSegments = {
+      val freePathSegments = routeInfo.analysis.map.freePaths.flatMap(toTileRouteSegments)
+      val startTentacleSegments = routeInfo.analysis.map.startTentaclePaths.flatMap(toTileRouteSegments)
+      val endTentacleSegments = routeInfo.analysis.map.endTentaclePaths.flatMap(toTileRouteSegments)
+      freePathSegments ++ mainTileRouteSegments ++ startTentacleSegments ++ endTentacleSegments
+    }
 
     if (tileRouteSegments.isEmpty) {
       None

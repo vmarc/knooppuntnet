@@ -542,18 +542,7 @@ class SegmentAnalyzerTest extends UnitTest {
 
     val actual = new RouteStructureFormatter(structure).string
 
-    if (actual != expected) {
-      val b = new StringBuffer
-
-      b.append("nodes\n")
-      b.append("  start=" + context3.routeNodeAnalysis.get.startNodes.map(formatRouteNode).mkString("(", ",", ")") + "\n")
-      b.append("  end=" + context3.routeNodeAnalysis.get.endNodes.map(formatRouteNode).mkString("(", ",", ")") + "\n")
-      b.append("expected=")
-      b.append(expected)
-      b.append("\nactual  =")
-      b.append(actual)
-      fail(b.toString)
-    }
+    actual should equal(expected)
   }
 
   private def formatRouteNode(routeNode: RouteNode): String = {
