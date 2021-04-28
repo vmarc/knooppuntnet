@@ -30,6 +30,11 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
               detail.expectedRouteCount
             }}).
           </span>
+          <span *ngIf="hasMixedNetworkScopes()" class="kpn-brackets">
+            <kpn-network-scope-name
+              [networkScope]="detail.networkScope"
+            ></kpn-network-scope-name>
+          </span>
           <kpn-icon-happy *ngIf="happy(detail)"></kpn-icon-happy>
           <kpn-icon-investigate *ngIf="!happy(detail)"></kpn-icon-investigate>
         </div>
@@ -88,5 +93,13 @@ export class NodeIntegrityComponent {
 
   happy(detail: NodeIntegrityDetail): boolean {
     return detail.expectedRouteCount === detail.routeRefs.length;
+  }
+
+  hasMixedNetworkScopes(): boolean {
+    return (
+      this.integrity.details
+        .map((detail) => detail.networkScope)
+        .filter((itm, idx, arr) => arr.indexOf(itm) === idx).length > 1
+    );
   }
 }

@@ -116,6 +116,7 @@ class NodePageBuilderImpl(
           val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType, nodeInfo.id)
           NodeIntegrityDetail(
             nodeName.networkType,
+            nodeName.networkScope,
             expectedRouteCount,
             routeRefs
           )

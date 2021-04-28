@@ -1,11 +1,13 @@
 // this class is generated, please do not modify
 
+import { NetworkScope } from '../../custom/network-scope';
 import { NetworkType } from '../../custom/network-type';
 import { Ref } from '../common/ref';
 
 export class NodeIntegrityDetail {
   constructor(
     readonly networkType: NetworkType,
+    readonly networkScope: NetworkScope,
     readonly expectedRouteCount: number,
     readonly routeRefs: Array<Ref>
   ) {}
@@ -16,6 +18,7 @@ export class NodeIntegrityDetail {
     }
     return new NodeIntegrityDetail(
       jsonObject.networkType,
+      NetworkScope.fromJSON(jsonObject.networkScope),
       jsonObject.expectedRouteCount,
       jsonObject.routeRefs.map((json: any) => Ref.fromJSON(json))
     );

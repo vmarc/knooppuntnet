@@ -1,20 +1,23 @@
+import { NetworkScope } from '@api/custom/network-scope';
 import { Tag } from '@api/custom/tag';
 import { Tags } from '@api/custom/tags';
 import { List } from 'immutable';
+import { NetworkTypes } from '../../../kpn/common/network-types';
 
 export class InterpretedTags {
   static nodeTags(tags: Tags): InterpretedTags {
-    const standardTagKeys = [
-      'rwn_ref',
-      'rcn_ref',
-      'expected_rwn_route_relations',
-      'expected_rcn_route_relations',
-      'expected_rhn_route_relations',
-      'expected_rmn_route_relations',
-      'expected_rpn_route_relations',
-      'expected_rin_route_relations',
-      'network:type',
-    ];
+    const standardTagKeys: string[] = [];
+    NetworkScope.all.forEach((networkScope) => {
+      NetworkTypes.all.forEach((networkType) => {
+        const prefix = `${networkScope.letter}${NetworkTypes.letter(
+          networkType
+        )}`;
+        standardTagKeys.push(`${prefix}n_ref`);
+        standardTagKeys.push(`expected_${prefix}n_route_relations`);
+      });
+    });
+    standardTagKeys.push('network:type');
+    standardTagKeys.push('survey:date');
     return new InterpretedTags(standardTagKeys, tags);
   }
 

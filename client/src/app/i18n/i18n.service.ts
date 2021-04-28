@@ -47,6 +47,23 @@ export class I18nService {
       $localize`:@@network-type.inline-skating:Inline skating`,
     ]);
 
+    keysAndValues.push([
+      '@@network-scope.local',
+      $localize`:@@network-scope.local:local`,
+    ]);
+    keysAndValues.push([
+      '@@network-scope.regional',
+      $localize`:@@network-scope.regional:regional`,
+    ]);
+    keysAndValues.push([
+      '@@network-scope.national',
+      $localize`:@@network-scope.national:national`,
+    ]);
+    keysAndValues.push([
+      '@@network-scope.international',
+      $localize`:@@network-scope.international:international`,
+    ]);
+
     keysAndValues.push(['@@subset.in', $localize`:@@subset.in:in`]);
 
     keysAndValues.push([

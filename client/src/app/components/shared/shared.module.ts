@@ -64,6 +64,7 @@ import { MetaDataComponent } from './meta-data.component';
 import { NetworkTypeIconComponent } from './network-type-icon.component';
 import { NetworkTypeNameComponent } from './network-type-name.component';
 import { NetworkTypeComponent } from './network-type.component';
+import { NetworkScopeNameComponent } from './network-scope-name.component';
 import { PageExperimentalComponent } from './page/page-experimental.component';
 import { PageFooterComponent } from './page/page-footer.component';
 import { PageHeaderComponent } from './page/page-header.component';
@@ -117,6 +118,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NetworkTypeComponent,
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
+    NetworkScopeNameComponent,
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
@@ -187,6 +189,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NetworkTypeComponent,
     NetworkTypeIconComponent,
     NetworkTypeNameComponent,
+    NetworkScopeNameComponent,
     MetaDataComponent,
     DayComponent,
     TimestampComponent,
