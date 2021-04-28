@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NodeInfo } from '@api/common/node-info';
-import { NetworkType } from '@api/custom/network-type';
-import { NetworkTypes } from '../../../kpn/common/network-types';
 
 @Component({
   selector: 'kpn-node-summary',
@@ -20,22 +18,31 @@ import { NetworkTypes } from '../../../kpn/common/network-types';
         This network node is not active anymore.
       </p>
 
-      <table *ngIf="hasMultipleNames()">
-        <tr *ngFor="let networkType of networkTypes()">
+      <table *ngIf="nodeInfo.names.length > 1">
+        <tr *ngFor="let nodeName of nodeInfo.names">
           <td class="network-name">
-            {{ networkName(networkType) }}
+            {{ nodeName.name }}
           </td>
           <td>
-            <kpn-network-type [networkType]="networkType">
-              <span i18n="@@node.node" class="network-type">network node</span>
-            </kpn-network-type>
+            <div class="kpn-line">
+              <kpn-network-type [networkType]="nodeName.networkType">
+                <span i18n="@@node.node" class="network-type">
+                  network node
+                </span>
+                <span class="kpn-brackets">
+                  <kpn-network-scope-name
+                    [networkScope]="nodeName.networkScope"
+                  ></kpn-network-scope-name>
+                </span>
+              </kpn-network-type>
+            </div>
           </td>
         </tr>
       </table>
 
-      <div *ngIf="!hasMultipleNames()">
-        <p *ngFor="let networkType of networkTypes()">
-          <kpn-network-type [networkType]="networkType">
+      <div *ngIf="nodeInfo.names.length === 1">
+        <p *ngFor="let nodeName of nodeInfo.names">
+          <kpn-network-type [networkType]="nodeName.networkType">
             <span i18n="@@node.node" class="network-type">network node</span>
           </kpn-network-type>
         </p>
@@ -64,24 +71,4 @@ import { NetworkTypes } from '../../../kpn/common/network-types';
 })
 export class NodeSummaryComponent {
   @Input() nodeInfo: NodeInfo;
-
-  hasMultipleNames(): boolean {
-    return this.nodeInfo.names.length > 1;
-  }
-
-  networkTypes(): NetworkType[] {
-    return NetworkTypes.all.filter((networkType) =>
-      this.networkName(networkType)
-    );
-  }
-
-  networkName(networkType: NetworkType): string {
-    const nodeName = this.nodeInfo.names.find(
-      (name) => name.networkType === networkType
-    );
-    if (nodeName) {
-      return nodeName.name;
-    }
-    return undefined;
-  }
 }

@@ -6,16 +6,19 @@ import { NetworkTypes } from '../../../kpn/common/network-types';
 
 export class InterpretedTags {
   static nodeTags(tags: Tags): InterpretedTags {
-    const standardTagKeys: string[] = [];
+    const prefixes: string[] = [];
     NetworkScope.all.forEach((networkScope) => {
       NetworkTypes.all.forEach((networkType) => {
-        const prefix = `${networkScope.letter}${NetworkTypes.letter(
-          networkType
-        )}`;
-        standardTagKeys.push(`${prefix}n_ref`);
-        standardTagKeys.push(`expected_${prefix}n_route_relations`);
+        prefixes.push(
+          `${networkScope.letter}${NetworkTypes.letter(networkType)}`
+        );
       });
     });
+    const standardTagKeys: string[] = [];
+    prefixes.forEach((prefix) => standardTagKeys.push(`${prefix}n_ref`));
+    prefixes.forEach((prefix) =>
+      standardTagKeys.push(`expected_${prefix}n_route_relations`)
+    );
     standardTagKeys.push('network:type');
     standardTagKeys.push('survey:date');
     return new InterpretedTags(standardTagKeys, tags);
