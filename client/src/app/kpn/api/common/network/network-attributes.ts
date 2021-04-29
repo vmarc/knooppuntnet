@@ -36,7 +36,7 @@ export class NetworkAttributes {
       jsonObject.id,
       jsonObject.country,
       jsonObject.networkType,
-      NetworkScope.fromJSON(jsonObject.networkScope),
+      jsonObject.networkScope,
       jsonObject.name,
       jsonObject.km,
       jsonObject.meters,

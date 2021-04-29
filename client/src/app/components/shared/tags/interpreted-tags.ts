@@ -1,17 +1,17 @@
-import { NetworkScope } from '@api/custom/network-scope';
 import { Tag } from '@api/custom/tag';
 import { Tags } from '@api/custom/tags';
 import { List } from 'immutable';
+import { NetworkScopes } from '../../../kpn/common/network-scopes';
 import { NetworkTypes } from '../../../kpn/common/network-types';
 
 export class InterpretedTags {
   static nodeTags(tags: Tags): InterpretedTags {
     const prefixes: string[] = [];
-    NetworkScope.all.forEach((networkScope) => {
+    NetworkScopes.all.forEach((networkScope) => {
       NetworkTypes.all.forEach((networkType) => {
-        prefixes.push(
-          `${networkScope.letter}${NetworkTypes.letter(networkType)}`
-        );
+        const s = NetworkScopes.letter(networkScope);
+        const t = NetworkTypes.letter(networkType);
+        prefixes.push(s + t);
       });
     });
     const standardTagKeys: string[] = [];

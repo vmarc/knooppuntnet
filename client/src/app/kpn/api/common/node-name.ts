@@ -16,7 +16,7 @@ export class NodeName {
     }
     return new NodeName(
       jsonObject.networkType,
-      NetworkScope.fromJSON(jsonObject.networkScope),
+      jsonObject.networkScope,
       jsonObject.name
     );
   }

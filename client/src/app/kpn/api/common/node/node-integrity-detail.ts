@@ -18,7 +18,7 @@ export class NodeIntegrityDetail {
     }
     return new NodeIntegrityDetail(
       jsonObject.networkType,
-      NetworkScope.fromJSON(jsonObject.networkScope),
+      jsonObject.networkScope,
       jsonObject.expectedRouteCount,
       jsonObject.routeRefs.map((json: any) => Ref.fromJSON(json))
     );

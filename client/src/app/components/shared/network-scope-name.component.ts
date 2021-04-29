@@ -14,8 +14,6 @@ export class NetworkScopeNameComponent {
   constructor(private i18nService: I18nService) {}
 
   networkScopeName(): string {
-    return this.i18nService.translation(
-      '@@network-scope.' + this.networkScope.name
-    );
+    return this.i18nService.translation('@@network-scope.' + this.networkScope);
   }
 }

@@ -125,7 +125,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     out.println(s"    return new ${classInfo.className}(")
 
     val fields = classInfo.fields.map { field =>
-      if (field.classType.primitive || Seq("NetworkType", "Country", "Fact").contains(field.classType.typeName)) {
+      if (field.classType.primitive || Seq("NetworkType", "NetworkScope", "Country", "Fact").contains(field.classType.typeName)) {
         s"      jsonObject.${field.name}"
       }
       else if (field.classType.typeName == "PlanCoordinate") {
