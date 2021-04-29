@@ -10,8 +10,7 @@ export class NetworkNodeDetail {
   constructor(
     readonly id: number,
     readonly name: string,
-    // eslint-disable-next-line id-blacklist
-    readonly number: string,
+    readonly longName: string,
     readonly latitude: string,
     readonly longitude: string,
     readonly connection: boolean,
@@ -33,7 +32,7 @@ export class NetworkNodeDetail {
     return new NetworkNodeDetail(
       jsonObject.id,
       jsonObject.name,
-      jsonObject.number,
+      jsonObject.longName,
       jsonObject.latitude,
       jsonObject.longitude,
       jsonObject.connection,

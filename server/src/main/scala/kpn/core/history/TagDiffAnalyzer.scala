@@ -8,33 +8,37 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 
 object NodeTagDiffAnalyzer {
-  val mainTagKeys: Seq[String] = NetworkScope.all.flatMap { networkScope =>
+
+  private val prefixes = NetworkScope.all.flatMap { networkScope =>
     NetworkType.all.flatMap { networkType =>
-      val prefix = networkScope.letter + networkType.letter
-      Seq(
-        s"${prefix}n_ref",
-        s"expected_${prefix}n_route_relations",
-        s"${prefix}n_name",
-        s"${prefix}n:name",
-      )
+      networkScope.letter + networkType.letter
     }
-  } ++ Seq(
-    "fixme",
-    "fixmetodo",
-    "network:type"
-  )
+  }
+
+  val mainTagKeys: Seq[String] = prefixes.map(prefix => s"${prefix}n_ref") ++
+    prefixes.map(prefix => s"expected_${prefix}n_route_relations") ++
+    prefixes.map(prefix => s"${prefix}n_name") ++
+    prefixes.map(prefix => s"${prefix}n:name") ++
+    Seq(
+      "fixme",
+      "fixmetodo",
+      "network:type",
+      "survey:date"
+    )
 }
 
 class NodeTagDiffAnalyzer(before: Tagable, after: Tagable) extends TagDiffAnalyzer(before, after, NodeTagDiffAnalyzer.mainTagKeys)
 
 object RouteTagDiffAnalyzer {
   val mainTagKeys: Seq[String] = Seq(
-    "network",
-    "type",
-    "route",
     "ref",
     "name",
     "note",
+    "from",
+    "to",
+    "network",
+    "type",
+    "route",
     "network:type"
   )
 }

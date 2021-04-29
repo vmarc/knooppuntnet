@@ -447,8 +447,8 @@ trait SharedTestObjects extends MockFactory {
 
   def newNetworkInfoNode(
     id: Long,
-    title: String,
-    number: String = "",
+    name: String,
+    longName: Option[String] = None,
     latitude: String = "",
     longitude: String = "",
     connection: Boolean = false,
@@ -463,8 +463,8 @@ trait SharedTestObjects extends MockFactory {
   ): NetworkInfoNode = {
     NetworkInfoNode(
       id,
-      title,
-      number,
+      name,
+      longName,
       latitude,
       longitude,
       connection,

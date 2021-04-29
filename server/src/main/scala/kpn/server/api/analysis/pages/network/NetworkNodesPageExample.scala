@@ -28,8 +28,8 @@ object NetworkNodesPageExample {
   private def node1(): NetworkNodeDetail = {
     NetworkNodeDetail(
       1,
-      "01 nummer die heel lang is",
       "1",
+      "-",
       "0",
       "0",
       connection = true,
@@ -57,7 +57,7 @@ object NetworkNodesPageExample {
     NetworkNodeDetail(
       2,
       "02",
-      "2",
+      "-",
       "0",
       "0",
       connection = false,

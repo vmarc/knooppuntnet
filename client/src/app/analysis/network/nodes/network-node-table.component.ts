@@ -6,7 +6,6 @@ import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkType } from '@api/custom/network-type';
-import { List } from 'immutable';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,7 +13,6 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
-import { NetworkTypes } from '../../../kpn/common/network-types';
 import { FilterOptions } from '../../../kpn/filter/filter-options';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
@@ -91,7 +89,7 @@ import { NetworkNodesService } from './network-nodes.service';
           Name
         </th>
         <td mat-cell *matCellDef="let node">
-          {{ name(node) }}
+          {{ node.longName }}
         </td>
       </ng-container>
 
@@ -251,20 +249,6 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
-  }
-
-  name(node: NetworkNodeDetail): string {
-    const tagValue = NetworkTypes.tagValue(this.networkType);
-    const nameTagKeys = List([`${tagValue}:name`, `name:${tagValue}_ref`]);
-    if (node.tags) {
-      const nameTag = node.tags.tags.find((tag) =>
-        nameTagKeys.contains(tag.key)
-      );
-      if (nameTag) {
-        return nameTag.value;
-      }
-    }
-    return '-';
   }
 
   private displayedColumns() {

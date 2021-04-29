@@ -45,7 +45,7 @@ class NetworkNodesPageBuilderImpl(
       NetworkNodeDetail(
         networkInfoNode.id,
         networkInfoNode.name,
-        networkInfoNode.number,
+        networkInfoNode.longName.getOrElse("-"),
         networkInfoNode.latitude,
         networkInfoNode.longitude,
         networkInfoNode.connection, // true if all routes (in the network) that contain this node have role "connection" in the network relation

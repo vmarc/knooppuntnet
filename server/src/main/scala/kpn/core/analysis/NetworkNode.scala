@@ -10,6 +10,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeUtil
 case class NetworkNode(
   node: Node,
   name: String,
+  longName: Option[String],
   country: Option[Country],
   location: Option[Location]
 ) extends Tagable {

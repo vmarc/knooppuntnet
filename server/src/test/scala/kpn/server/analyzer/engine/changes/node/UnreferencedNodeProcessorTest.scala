@@ -733,6 +733,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
         networkNode = NetworkNode(
           node = Node(rawNode(nodeId, tags = tags, latLonBefore)),
           name = name,
+          longName = None,
           country = Some(Country.nl),
           None
         ),

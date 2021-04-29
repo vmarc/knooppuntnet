@@ -13,25 +13,14 @@ class NetworkInfoBuilder {
 
   def build(network: Network): NetworkInfo = {
 
-    var number = 0
-
     val nodes = network.nodes.map { info =>
-
-      if (info.roleConnection && !info.definedInRelation) {
-        // do not increment number
-      }
-      else {
-        number = number + 1
-      }
-
-      val numberString = if (info.roleConnection) "" else number.toString
 
       val routeReferences = info.referencedInRoutes.map(route => Ref(route.id, route.summary.name))
 
       NetworkInfoNode(
         info.networkNode.node.id,
         info.networkNode.name,
-        numberString,
+        info.networkNode.longName,
         info.networkNode.node.latitude,
         info.networkNode.node.longitude,
         info.connection,

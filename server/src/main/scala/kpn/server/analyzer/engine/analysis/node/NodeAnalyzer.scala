@@ -9,10 +9,14 @@ trait NodeAnalyzer {
 
   def name(tags: Tags): String
 
+  def longName(tags: Tags): Option[String]
+
   def names(tags: Tags): Seq[NodeName]
 
   def name(networkType: NetworkType, tags: Tags): String
 
   def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String]
+
+  def scopedLongName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String]
 
 }

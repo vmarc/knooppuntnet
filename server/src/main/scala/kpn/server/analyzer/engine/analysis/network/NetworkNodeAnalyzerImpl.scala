@@ -27,10 +27,12 @@ class NetworkNodeAnalyzerImpl(
           log.warn(s"Could not determine name of node with id ${a.node.id}, tags=${a.node.tags}")
           None
         case Some(name) =>
+          val longName = nodeAnalyzer.scopedLongName(scopedNetworkType, a.node.tags)
           Some(
             NetworkNode(
               a.node,
               name,
+              longName,
               a.country,
               a.location
             )
@@ -39,6 +41,4 @@ class NetworkNodeAnalyzerImpl(
     }
     networkNodes.map(n => (n.node.id, n)).toMap
   }
-
 }
-

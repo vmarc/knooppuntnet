@@ -212,6 +212,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                 config.analysisContext.isValidNetworkNode(networkType, node.raw)
               }
               val name = config.nodeAnalyzer.name(node.tags)
+              val longName = config.nodeAnalyzer.longName(node.tags)
               val loadedNode = LoadedNode(countries.headOption, networkTypes, name, node)
               val nodeInfo = config.nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
               config.analysisContext.data.orphanNodes.watched.add(nodeId)
@@ -219,6 +220,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
               val networkNode = NetworkNode(
                 loadedNode.node,
                 loadedNode.name,
+                longName,
                 loadedNode.country,
                 nodeInfo.location
               )

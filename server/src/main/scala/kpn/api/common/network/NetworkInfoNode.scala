@@ -11,7 +11,7 @@ import kpn.api.custom.Timestamp
 case class NetworkInfoNode(
   id: Long,
   name: String,
-  number: String,
+  longName: Option[String],
   latitude: String,
   longitude: String,
   connection: Boolean, // true if all routes (in the network) that contain this node have role "connection" in the network relation
