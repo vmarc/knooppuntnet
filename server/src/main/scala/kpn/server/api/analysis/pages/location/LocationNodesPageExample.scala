@@ -17,6 +17,7 @@ object LocationNodesPageExample {
         LocationNodeInfo(
           id = 1001,
           name = "01",
+          longName = "Long name",
           latitude = "1",
           longitude = "2",
           lastUpdated = Timestamp(2018, 11, 8),

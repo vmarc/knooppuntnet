@@ -300,7 +300,7 @@ trait SharedTestObjects extends MockFactory {
     val name = ScopedNetworkType.all.flatMap(n => tags(n.nodeRefTagKey)).mkString(" / ")
     val names = ScopedNetworkType.all.flatMap { scopedNetworkType =>
       tags(scopedNetworkType.nodeRefTagKey).map { name =>
-        NodeName(scopedNetworkType, name)
+        NodeName(scopedNetworkType, name, None)
       }
     }
 

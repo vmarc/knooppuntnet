@@ -20,6 +20,7 @@ object LocationNodeView extends View {
   )
 
   private case class ViewResultRowValue(
+    longName: Option[String],
     latitude: String,
     longitude: String,
     lastUpdated: Timestamp,
@@ -86,6 +87,7 @@ object LocationNodeView extends View {
       LocationNodeInfo(
         id = key.long(4),
         name = key.string(3),
+        longName = row.value.longName.getOrElse("-"),
         latitude = row.value.latitude,
         longitude = row.value.longitude,
         lastUpdated = row.value.lastUpdated,

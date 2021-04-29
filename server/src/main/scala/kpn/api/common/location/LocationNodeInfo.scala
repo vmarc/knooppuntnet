@@ -8,6 +8,7 @@ import kpn.api.custom.Timestamp
 case class LocationNodeInfo(
   id: Long,
   name: String,
+  longName: String,
   latitude: String,
   longitude: String,
   lastUpdated: Timestamp,

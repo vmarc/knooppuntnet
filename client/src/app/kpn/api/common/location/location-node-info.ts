@@ -8,6 +8,7 @@ export class LocationNodeInfo {
   constructor(
     readonly id: number,
     readonly name: string,
+    readonly longName: string,
     readonly latitude: string,
     readonly longitude: string,
     readonly lastUpdated: Timestamp,
@@ -24,6 +25,7 @@ export class LocationNodeInfo {
     return new LocationNodeInfo(
       jsonObject.id,
       jsonObject.name,
+      jsonObject.longName,
       jsonObject.latitude,
       jsonObject.longitude,
       Timestamp.fromJSON(jsonObject.lastUpdated),

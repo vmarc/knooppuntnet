@@ -2543,42 +2543,49 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">182,195</context>
+          <context context-type="linenumber">195,209</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.table.node">
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-nodes.table.name">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.table.expected-route-count">
         <source>Expected</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.table.routes">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.table.last-survey">
         <source>Last survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.table.last-edit">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.title">
@@ -3406,63 +3413,63 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">217,227</context>
+          <context context-type="linenumber">215,225</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.analysis">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">242,257</context>
+          <context context-type="linenumber">240,255</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.node">
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">272,285</context>
+          <context context-type="linenumber">276,289</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.name">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">308,321</context>
+          <context context-type="linenumber">305</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.routes.expected">
         <source>Expected</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">305</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.routes.actual">
         <source>Actual</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">305</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.routes">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">305</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.last-survey">
         <source>Last survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">305</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.last-edit">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">305</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.title">

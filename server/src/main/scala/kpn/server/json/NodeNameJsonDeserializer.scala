@@ -16,6 +16,7 @@ class NodeNameJsonDeserializer extends JsonDeserializer[NodeName] {
     val rootNode = if (scopedNetworkTypeNode == null) node else scopedNetworkTypeNode
     val networkType = NetworkType.withName(rootNode.get("networkType").asText).get
     val networkScope = NetworkScope.withName(rootNode.get("networkScope").asText).get
-    NodeName(networkType, networkScope, name)
+    val longName = Option.apply(node.get("longName")).map(_.asText)
+    NodeName(networkType, networkScope, name, longName)
   }
 }

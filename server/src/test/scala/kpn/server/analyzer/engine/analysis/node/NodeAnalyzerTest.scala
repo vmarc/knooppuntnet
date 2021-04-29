@@ -42,7 +42,7 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "01")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01")
+        NodeName(ScopedNetworkType.rwn, "01", None)
       )
     )
   }
@@ -52,7 +52,7 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "1")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01")
+        NodeName(ScopedNetworkType.rwn, "01", None)
       )
     )
   }
@@ -62,8 +62,8 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01"),
-        NodeName(ScopedNetworkType.rcn, "02")
+        NodeName(ScopedNetworkType.rwn, "01", None),
+        NodeName(ScopedNetworkType.rcn, "02", None)
       )
     )
   }
@@ -78,8 +78,18 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_name" -> "01", "rcn_name" -> "02")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01"),
-        NodeName(ScopedNetworkType.rcn, "02")
+        NodeName(ScopedNetworkType.rwn, "01", Some("01")),
+        NodeName(ScopedNetworkType.rcn, "02", Some("02"))
+      )
+    )
+  }
+
+  test("names - name:rwn_ref") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("rwn_ref" -> "01", "name:rwn_ref" -> "long name")
+    nodeAnalyzer.names(tags) should equal(
+      Seq(
+        NodeName(ScopedNetworkType.rwn, "01", Some("long name")),
       )
     )
   }
@@ -138,6 +148,12 @@ class NodeAnalyzerTest extends UnitTest {
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val tags = Tags.from("rwn_name" -> "01")
     nodeAnalyzer.scopedName(ScopedNetworkType.rwn, tags) should equal(Some("01"))
+  }
+
+  test("scopedLongName - name:rwn_ref") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    val tags = Tags.from("name:rwn_ref" -> "long name")
+    nodeAnalyzer.scopedLongName(ScopedNetworkType.rwn, tags) should equal(Some("long name"))
   }
 
 }

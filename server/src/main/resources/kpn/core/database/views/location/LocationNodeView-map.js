@@ -14,6 +14,7 @@ if (doc && doc.node && doc.node.active === true && doc.node.location) {
           doc.node.id
         ],
         {
+          longName: nodeName.longName,
           latitude: doc.node.latitude,
           longitude: doc.node.longitude,
           lastUpdated: doc.node.lastUpdated,

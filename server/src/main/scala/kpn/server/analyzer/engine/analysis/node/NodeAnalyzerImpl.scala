@@ -27,7 +27,13 @@ class NodeAnalyzerImpl extends NodeAnalyzer {
   override def names(tags: Tags): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
       scopedName(scopedNetworkType, tags).map { name =>
-        NodeName(scopedNetworkType.networkType, scopedNetworkType.networkScope, name)
+        val longName = scopedLongName(scopedNetworkType, tags)
+        NodeName(
+          scopedNetworkType.networkType,
+          scopedNetworkType.networkScope,
+          name,
+          longName
+        )
       }
     }
   }

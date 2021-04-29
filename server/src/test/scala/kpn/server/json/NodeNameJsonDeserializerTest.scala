@@ -8,8 +8,13 @@ import kpn.core.util.UnitTest
 class NodeNameJsonDeserializerTest extends UnitTest {
 
   test("deserializer") {
+    val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01","longName":"long name"}""", classOf[NodeName])
+    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", Some("long name")))
+  }
+
+  test("deserializer - no long name") {
     val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01"}""", classOf[NodeName])
-    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01"))
+    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", None))
   }
 
   test("deserializer backward compatibility") {
@@ -21,10 +26,11 @@ class NodeNameJsonDeserializerTest extends UnitTest {
         |          "networkType": "cycling",
         |          "key": "rcn"
         |        },
-        |        "name": "22"
+        |        "name": "22",
+        |        "longName": "long name"
         |      }
         |""".stripMargin
     val nodeName = Json.value(serialized, classOf[NodeName])
-    nodeName should equal(NodeName(NetworkType.cycling, NetworkScope.regional, "22"))
+    nodeName should equal(NodeName(NetworkType.cycling, NetworkScope.regional, "22", Some("long name")))
   }
 }

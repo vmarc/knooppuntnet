@@ -78,8 +78,8 @@ object NodePageExample {
       country = Some(Country.nl),
       name = "01 / 02",
       names = Seq(
-        NodeName(NetworkType.cycling, NetworkScope.regional, "01"),
-        NodeName(NetworkType.hiking, NetworkScope.regional, "02")
+        NodeName(NetworkType.cycling, NetworkScope.regional, "01", None),
+        NodeName(NetworkType.hiking, NetworkScope.regional, "02", None)
       ),
       latitude = "51.5291600",
       longitude = "4.297800",

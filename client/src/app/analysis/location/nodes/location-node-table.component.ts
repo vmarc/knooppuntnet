@@ -68,6 +68,19 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@location-nodes.table.name"
+        >
+          Name
+        </th>
+        <td mat-cell *matCellDef="let node">
+          {{ node.longName }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="expectedRouteCount">
         <th
           mat-header-cell
@@ -181,6 +194,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
       return [
         'nr',
         'node',
+        'name',
         'expectedRouteCount',
         'routes',
         'last-survey',
@@ -189,7 +203,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ['nr', 'node', 'expectedRouteCount', 'routes'];
+      return ['nr', 'node', 'name', 'expectedRouteCount', 'routes'];
     }
 
     return ['nr', 'node', 'expectedRouteCount', 'routes'];
