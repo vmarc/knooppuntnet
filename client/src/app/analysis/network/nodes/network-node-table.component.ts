@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
+import { NetworkScope } from '@api/custom/network-scope';
 import { NetworkType } from '@api/custom/network-type';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
@@ -54,8 +55,9 @@ import { NetworkNodesService } from './network-nodes.service';
         </th>
         <td mat-cell *matCellDef="let node">
           <kpn-network-node-analysis
-            [node]="node"
             [networkType]="networkType"
+            [networkScope]="networkScope"
+            [node]="node"
           ></kpn-network-node-analysis>
         </td>
       </ng-container>
@@ -188,6 +190,7 @@ import { NetworkNodesService } from './network-nodes.service';
 })
 export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
+  @Input() networkScope: NetworkScope;
   @Input() timeInfo: TimeInfo;
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: NetworkNodeDetail[];

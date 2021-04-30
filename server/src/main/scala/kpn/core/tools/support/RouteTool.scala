@@ -11,13 +11,75 @@ import kpn.server.repository.RouteRepositoryImpl
 
 object RouteTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-database", "analysis1") { database =>
-      new RouteTool(database).routesWithStateTag()
+    Couch.executeIn("kpn-database", "analysis") { database =>
+      new RouteTool(database).nonStandardRouteNames()
     }
   }
 }
 
 class RouteTool(database: Database) {
+
+  def nonStandardRouteNames(): Unit = {
+    val routeRepository = new RouteRepositoryImpl(database)
+    val allRouteIds = routeRepository.allRouteIds()
+    allRouteIds.zipWithIndex.foreach { case (routeId, index) =>
+      if (((index + 1) % 100) == 0) {
+        println(s"${index + 1}/${allRouteIds.size}")
+      }
+      routeRepository.routeWithId(routeId).foreach { routeInfo =>
+        if (routeInfo.active) {
+          if (!ignoreRouteName(routeInfo.summary.name)) {
+            println(s"""== $routeId ${routeInfo.summary.name}""")
+          }
+        }
+      }
+    }
+  }
+
+  private def ignoreRouteName(name: String): Boolean = {
+    if (name.contains(" - ")) {
+      name.split(" - ") match {
+        case Array(startNodeName, endNodeName) => ignoreRouteNodes(startNodeName, endNodeName)
+        case _ => true
+      }
+    }
+    else {
+      name.split("-") match {
+        case Array(startNodeName, endNodeName) => ignoreRouteNodes(startNodeName, endNodeName)
+        case _ => true
+      }
+    }
+  }
+
+  private def ignoreRouteNodes(startNodeName: String, endNodeName: String): Boolean = {
+    val avoid = Seq("?", "*", "o")
+    if (avoid.contains(startNodeName) || avoid.contains(endNodeName)) {
+      return true
+    }
+    if (!hasDigits(startNodeName) && !hasDigits(endNodeName)) {
+      return true
+    }
+    if (allDigits(startNodeName) && allDigits(endNodeName)) {
+      return true
+    }
+
+    if (allDigits(startNodeName) && !hasDigits(endNodeName)) {
+      return false
+    }
+    if (allDigits(endNodeName) && !hasDigits(startNodeName)) {
+      return false
+    }
+
+    true
+  }
+
+  private def hasDigits(string: String): Boolean = {
+    string.exists(_.isDigit)
+  }
+
+  private def allDigits(string: String): Boolean = {
+    string.forall(_.isDigit)
+  }
 
   def routesWithStateTag(): Unit = {
     val routeRepository = new RouteRepositoryImpl(database)

@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { MarkdownModule } from 'ngx-markdown';
 import { OlModule } from '../../components/ol/ol.module';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
@@ -32,6 +33,9 @@ import { LocationFactsComponent } from './facts/location-facts.component';
 import { LocationRoutingModule } from './location-routing.module';
 import { LocationService } from './location.service';
 import { LocationMapPageComponent } from './map/location-map-page.component';
+import { LocationNodeAnalysisComponent } from './nodes/location-node-analysis.component';
+import { LocationNodeFactIndicatorDialogComponent } from './nodes/location-node-fact-indicator-dialog.component';
+import { LocationNodeFactIndicatorComponent } from './nodes/location-node-fact-indicator.component';
 import { LocationNodeRoutesComponent } from './nodes/location-node-routes.component';
 import { LocationNodeTableComponent } from './nodes/location-node-table.component';
 import { LocationNodesPageComponent } from './nodes/location-nodes-page.component';
@@ -74,6 +78,7 @@ import { locationFeatureKey } from './store/location.state';
     MatCheckboxModule,
     MatSlideToggleModule,
     AnalysisComponentsModule,
+    MarkdownModule,
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -85,6 +90,7 @@ import { locationFeatureKey } from './store/location.state';
     LocationMapPageComponent,
     LocationChangesPageComponent,
     LocationNodeTableComponent,
+    LocationNodeAnalysisComponent,
     LocationNodeRoutesComponent,
     LocationRouteTableComponent,
     LocationRoutesComponent,
@@ -98,6 +104,8 @@ import { locationFeatureKey } from './store/location.state';
     LocationTreeComponent,
     LocationEditPageComponent,
     LocationEditComponent,
+    LocationNodeFactIndicatorComponent,
+    LocationNodeFactIndicatorDialogComponent,
   ],
   providers: [LocationService, LocationModeService, LocationSelectionService],
 })

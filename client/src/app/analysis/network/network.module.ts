@@ -36,8 +36,6 @@ import { NetworkMapLegendIconComponent } from './map/network-map-legend-icon.com
 import { NetworkMapSidebarComponent } from './map/network-map-sidebar.component';
 import { NetworkRoutingModule } from './network-routing.module';
 import { NetworkNodesPageComponent } from './nodes/_network-nodes-page.component';
-import { IntegrityIndicatorDialogComponent } from './nodes/indicators/integrity-indicator-dialog.component';
-import { IntegrityIndicatorComponent } from './nodes/indicators/integrity-indicator.component';
 import { NetworkIndicatorDialogComponent } from './nodes/indicators/network-indicator-dialog.component';
 import { NetworkIndicatorComponent } from './nodes/indicators/network-indicator.component';
 import { NodeConnectionIndicatorDialogComponent } from './nodes/indicators/node-connection-indicator-dialog.component';
@@ -94,8 +92,6 @@ import { networkFeatureKey } from './store/network.state';
     NetworkRouteAnalysisComponent,
     NetworkPageHeaderComponent,
     NetworkChangeComponent,
-    IntegrityIndicatorComponent,
-    IntegrityIndicatorDialogComponent,
     NetworkIndicatorComponent,
     NetworkIndicatorDialogComponent,
     NodeConnectionIndicatorComponent,

@@ -10,6 +10,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { TimeInfo } from '@api/common/time-info';
+import { NetworkScope } from '@api/custom/network-scope';
+import { NetworkType } from '@api/custom/network-type';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
@@ -45,12 +47,22 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
       </ng-container>
 
-      <!--      <ng-container matColumnDef="analysis">-->
-      <!--        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.analysis">Analysis</th>-->
-      <!--        <td mat-cell *matCellDef="let node">-->
-      <!--          &lt;!&ndash; kpn-network-node-analysis [node]="node" [networkType]="networkType"></kpn-network-node-analysis &ndash;&gt;-->
-      <!--        </td>-->
-      <!--      </ng-container>-->
+      <ng-container matColumnDef="analysis">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@location-nodes.table.analysis"
+        >
+          Analysis
+        </th>
+        <td mat-cell *matCellDef="let node">
+          <kpn-location-node-analysis
+            [node]="node"
+            [networkType]="networkType"
+            [networkScope]="networkScope"
+          ></kpn-location-node-analysis>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="node">
         <th
@@ -157,6 +169,10 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   ],
 })
 export class LocationNodeTableComponent implements OnInit, OnChanges {
+  // TODO !!!
+  networkType: NetworkType = NetworkType.cycling;
+  networkScope: NetworkScope = NetworkScope.regional;
+
   @Input() timeInfo: TimeInfo;
   @Input() nodes: LocationNodeInfo[];
   @Input() nodeCount: number;
@@ -193,6 +209,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     if (this.pageWidthService.isVeryLarge()) {
       return [
         'nr',
+        'analysis',
         'node',
         'name',
         'expectedRouteCount',
@@ -203,7 +220,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     }
 
     if (this.pageWidthService.isLarge()) {
-      return ['nr', 'node', 'name', 'expectedRouteCount', 'routes'];
+      return ['nr', 'analysis', 'node', 'name', 'expectedRouteCount', 'routes'];
     }
 
     return ['nr', 'node', 'expectedRouteCount', 'routes'];

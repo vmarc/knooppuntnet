@@ -152,7 +152,7 @@ export class OverviewService {
       new StatisticConfiguration(
         'RouteIncompleteOkCount',
         'RouteIncompleteOk',
-        false,
+        true,
         factDetailCounts,
         $localize`:@@stats.route-incomplete-ok.name:RouteIncompleteOk`,
         $localize`:@@stats.route-incomplete-ok.comment:
@@ -376,7 +376,7 @@ export class OverviewService {
         $localize`:@@stats.route-unexpected-node.name:RouteUnexpectedNode`,
         $localize`:@@stats.route-unexpected-node.comment:
           Number of routes with one or more unexpected node members.\\
-          In route relations we expect only nodes with tag _"rwn_ref"_ or _"rcn_ref"_.`
+          In route relations we expect only nodes with tag *"rwn_ref"* or *"rcn_ref"*.`
       )
     );
 
@@ -390,7 +390,7 @@ export class OverviewService {
         $localize`:@@stats.route-unexpected-relation.comment:
           Number of routes with one or more unexpected members.\\In route relations we expect
           only members of type _"way"_, or members of type _"node"_ with a
-          tag _"rwn_ref"_ or _"rcn_ref"_.`
+          tag *"rwn_ref"* or *"rcn_ref"*.`
       )
     );
 

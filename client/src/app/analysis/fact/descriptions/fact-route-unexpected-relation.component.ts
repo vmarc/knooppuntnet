@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   template: `
     <markdown i18n="@@fact.description.route-unexpected-relation">
       The route relation contains one or more unexpected relation members. In
-      route relations we expect only members of type _"way"_, or members of type
-      _"node"_ with a tag _"rwn_ref"_ or _"rcn_ref"_.
+      route relations we expect only members of type *"way"*, or members of type
+      *"node"* with a tag *"rwn_ref"* or *"rcn_ref"*.
     </markdown>
   `,
 })

@@ -39,6 +39,7 @@ import { NetworkService } from '../network.service';
         <kpn-network-node-table
           *ngIf="response.result.nodes.length > 0"
           [networkType]="response.result.networkType"
+          [networkScope]="response.result.networkScope"
           [timeInfo]="response.result.timeInfo"
           [surveyDateInfo]="response.result.surveyDateInfo"
           [nodes]="response.result.nodes"

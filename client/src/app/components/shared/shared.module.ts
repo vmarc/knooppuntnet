@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 import { SpinnerModule } from '../../spinner/spinner.module';
 import { CountryNameComponent } from './country-name.component';
 import { DataComponent } from './data/data.component';
@@ -25,6 +26,8 @@ import { IconInvestigateComponent } from './icon/icon-investigate.component';
 import { IndicatorDialogComponent } from './indicator/indicator-dialog.component';
 import { IndicatorIconComponent } from './indicator/indicator-icon.component';
 import { IndicatorComponent } from './indicator/indicator.component';
+import { IntegrityIndicatorDialogComponent } from './indicator/integrity-indicator-dialog.component';
+import { IntegrityIndicatorComponent } from './indicator/integrity-indicator.component';
 import { ItemComponent } from './items/item.component';
 import { ItemsComponent } from './items/items.component';
 import { JsonComponent } from './json/json.component';
@@ -91,6 +94,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     RouterModule,
     SpinnerModule,
     MatPaginatorModule,
+    MarkdownModule,
   ],
   declarations: [
     LinkChangesetComponent,
@@ -162,6 +166,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DialogComponent,
     WarningDialogComponent,
     ErrorComponent,
+    IntegrityIndicatorComponent,
+    IntegrityIndicatorDialogComponent,
   ],
   exports: [
     LinkChangesetComponent,
@@ -233,6 +239,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DialogComponent,
     WarningDialogComponent,
     ErrorComponent,
+    IntegrityIndicatorComponent,
   ],
 })
 export class SharedModule {}
