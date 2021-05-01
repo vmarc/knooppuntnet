@@ -24,10 +24,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         i18n="@@network-indicator.orange.text"
       >
         This node is included as a member in the network relation. We did not
-        expect this, because all routes to this node have role _"connection"_.
+        expect this, because all routes to this node have role *"connection"*.
         This would mean that the node is part of another network. We expect that
         the node is not included in the network relation, unless it receives the
-        role _"connection"_.
+        role *"connection"*.
       </markdown>
 
       <span
@@ -52,7 +52,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       >
         This node is not included as a member in the network relation. This is
         OK. This node must belong to a different network, because all routes to
-        this node within this network have the role _"connection"_ in the
+        this node within this network have the role *"connection"* in the
         network relation.
       </markdown>
 
@@ -63,10 +63,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         This node is not included as a member in the network relation. This is
         not OK. The convention is to include each node in the network relation.
         An exception is when the node belongs to another network (all routes to
-        this node have role _"connection"_ in the network relation), then the
+        this node have role *"connection"* in the network relation), then the
         node does not have to be included as member in the network relation. The
         node can be added the network relation, but should get the role
-        _"connection"_ in that case.
+        *"connection"* in that case.
       </markdown>
     </kpn-indicator-dialog>
   `,

@@ -6,13 +6,13 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown ngPreserveWhitespaces i18n="@@fact.description.route-tag-invalid">
-      Invalid value in required tag _"route"_ in route relation. A bicycle route
-      relation needs to have value _"bicycle"_ in its _"route"_ tag. A hiking
-      route relation needs to have one of the following values in its _"route"_
-      tag: _"foot"_, _"hiking"_, or _"walking"_. Note that _"walking"_ is a
+      Invalid value in required tag *"route"* in route relation. A bicycle route
+      relation needs to have value *"bicycle"* in its *"route"* tag. A hiking
+      route relation needs to have one of the following values in its *"route"*
+      tag: *"foot"*, *"hiking"*, or *"walking"*. Note that *"walking"* is a
       value that is frequently found, but not actually documented as a valid
-      value in the OSM wiki pages. Other potential values are _"horse"_,
-      _"motorboat"_, _"canoe"_ and _"inline_skates"_.
+      value in the OSM wiki pages. Other potential values are *"horse"*,
+      *"motorboat"*, *"canoe"* and *"inline*skates"*.
     </markdown>
   `,
 })

@@ -24,7 +24,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         i18n="@@role-connection-indicator.blue.text"
       >
         This node is a connection to another network. This node has role
-        _"connection"_ in the network relation.
+        *"connection"* in the network relation.
       </markdown>
 
       <span
@@ -39,7 +39,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         *ngIf="isGray()"
         i18n="@@role-connection-indicator.gray.text"
       >
-        This node does not have role _"connection"_ in het network relation.
+        This node does not have role *"connection"* in het network relation.
       </markdown>
     </kpn-indicator-dialog>
   `,

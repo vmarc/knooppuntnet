@@ -24,7 +24,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         i18n="@@node-connection-indicator.blue.text"
       >
         This node is a connection to another network. All routes to this node
-        have the role _"connection"_ in the network relation.
+        have the role *"connection"* in the network relation.
       </markdown>
 
       <span
@@ -41,7 +41,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       >
         This node is not a connection to another network. The node would have
         been considered as a connection to another network if all routes to this
-        node within the network had role _"connection"_ in the network relation.
+        node within the network had role *"connection"* in the network relation.
       </markdown>
     </kpn-indicator-dialog>
   `,

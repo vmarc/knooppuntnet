@@ -36,7 +36,7 @@ import { RouteInfo } from '@api/common/route/route-info';
       <p *ngIf="isRouteIncomplete()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
         <markdown i18n="@@route.incomplete">
-          Route definition is incomplete (has tag _"fixme=incomplete"_).
+          Route definition is incomplete (has tag *"fixme=incomplete"*).
         </markdown>
       </p>
 

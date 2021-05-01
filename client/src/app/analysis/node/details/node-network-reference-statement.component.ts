@@ -12,7 +12,7 @@ import { NetworkTypes } from '../../../kpn/common/network-types';
       *ngIf="summaryStatement == 'role-connection'"
       i18n="@@node.network.role-connection"
     >
-      This node has the role _"connection"_ in the networkrelation.
+      This node has the role *"connection"* in the networkrelation.
     </markdown>
 
     <p

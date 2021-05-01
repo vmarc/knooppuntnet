@@ -143,8 +143,8 @@ export class OverviewService {
         $localize`:@@stats.route-incomplete.name:RouteIncomplete`,
         $localize`:@@stats.route-incomplete.comment:
           Number of routes that are marked as having an incomplete definition.\\
-          A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
-          value _"incomplete"_ in the route relation.`
+          A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
+          value *"incomplete"* in the route relation.`
       )
     );
 
@@ -158,8 +158,8 @@ export class OverviewService {
         $localize`:@@stats.route-incomplete-ok.comment:
           Number of routes that are marked as having an incomplete definition, but
           that look ok after analysis.\\
-          A route definition is explicitely marked incomplete by adding a tag _"fixme"_ with
-          value _"incomplete"_ in the route relation.`
+          A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
+          value *"incomplete"* in the route relation.`
       )
     );
 
@@ -170,7 +170,7 @@ export class OverviewService {
         true,
         factDetailCounts,
         $localize`:@@stats.route-fixmetodo.name:RouteFixmetodo`,
-        $localize`:@@stats.route-fixmetodo.comment:Number of routes that are marked with _"fixmetodo"_.`
+        $localize`:@@stats.route-fixmetodo.comment:Number of routes that are marked with *"fixmetodo"*.`
       )
     );
 
@@ -340,7 +340,7 @@ export class OverviewService {
         true,
         factDetailCounts,
         $localize`:@@stats.route-name-missing.name:RouteNameMissing`,
-        $localize`:@@stats.route-name-missing.comment:Routes without a _"note"_ or _"ref"_ tag with the route name.`
+        $localize`:@@stats.route-name-missing.comment:Routes without a *"note"* or *"ref"* tag with the route name.`
       )
     );
 
@@ -351,7 +351,7 @@ export class OverviewService {
         true,
         factDetailCounts,
         $localize`:@@stats.route-tag-missing.name:RouteTagMissing`,
-        $localize`:@@stats.route-tag-missing.comment:The route relation does not contain a _"route"_ tag.`
+        $localize`:@@stats.route-tag-missing.comment:The route relation does not contain a *"route"* tag.`
       )
     );
 
@@ -363,7 +363,7 @@ export class OverviewService {
         factDetailCounts,
         $localize`:@@stats.route-tag-invalid.name:RouteTagInvalid`,
         $localize`:@@stats.route-tag-invalid.comment:
-          The value in the _"route"_ tag in the route relation is unexpected.`
+          The value in the *"route"* tag in the route relation is unexpected.`
       )
     );
 
@@ -389,7 +389,7 @@ export class OverviewService {
         $localize`:@@stats.route-unexpected-relation.name:RouteUnexpectedRelation`,
         $localize`:@@stats.route-unexpected-relation.comment:
           Number of routes with one or more unexpected members.\\In route relations we expect
-          only members of type _"way"_, or members of type _"node"_ with a
+          only members of type *"way"*, or members of type *"node"* with a
           tag *"rwn_ref"* or *"rcn_ref"*.`
       )
     );
@@ -402,7 +402,7 @@ export class OverviewService {
         factDetailCounts,
         $localize`:@@stats.network-extra-member-node.name:NetworkExtraMemberNode`,
         $localize`:@@stats.network-extra-member-node.comment:
-          Number of network relation members of type _"node"_ that are unexpected (expect only
+          Number of network relation members of type *"node"* that are unexpected (expect only
           [network nodes](docs/en.html#glossary-node "node in glossary")
           or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
           in the network relation).`
@@ -417,7 +417,7 @@ export class OverviewService {
         factDetailCounts,
         $localize`:@@stats.network-extra-member-way.name:NetworkExtraMemberWay`,
         $localize`:@@stats.network-extra-member-way.comment:
-          Number of network relation members of type _"way"_ (expect only route relations
+          Number of network relation members of type *"way"* (expect only route relations
           or network nodes as members in the node network relation).`
       )
     );
@@ -430,7 +430,7 @@ export class OverviewService {
         factDetailCounts,
         $localize`:@@stats.network-extra-member-relation.name:NetworkExtraMemberRelation`,
         $localize`:@@stats.network-extra-member-relation.comment:
-          Number of network relation members of type _"relation"_ that are unexpected (expect only
+          Number of network relation members of type *"relation"* that are unexpected (expect only
           valid route relations or network nodes as members in the node network relation).`
       )
     );
@@ -453,7 +453,7 @@ export class OverviewService {
         true,
         factDetailCounts,
         $localize`:@@stats.name-missing.name:NameMissing`,
-        $localize`:@@stats.name-missing.comment:Number of networks without _"name"_ tag in the network relation.`
+        $localize`:@@stats.name-missing.comment:Number of networks without *"name"* tag in the network relation.`
       )
     );
 

@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-fixmetodo">
-      Route definition needs work (has tag _"fixmetodo"_).
+      Route definition needs work (has tag *"fixmetodo"*).
     </markdown>
   `,
 })

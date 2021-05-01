@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   template: `
     <markdown i18n="@@fact.description.route-invalid-survey-date">
       The route survey date has an unexpected format (valid format: YYYY-MM-DD
-      or YYYY-MM). The survey date is defined in the _"survey:date"_ tag, or the
-      _"source:date"_ tag if _"source=survey"_.
+      or YYYY-MM). The survey date is defined in the *"survey:date"* tag, or the
+      *"source:date"* tag if *"source=survey"*.
     </markdown>
   `,
 })
