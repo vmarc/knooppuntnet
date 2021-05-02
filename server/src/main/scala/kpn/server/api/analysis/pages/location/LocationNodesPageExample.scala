@@ -13,6 +13,10 @@ object LocationNodesPageExample {
     LocationNodesPage(
       TimeInfoBuilder.timeInfo,
       LocationSummary(10, 20, 30, 40),
+      30,
+      30,
+      20,
+      10,
       Seq(
         LocationNodeInfo(
           id = 1001,

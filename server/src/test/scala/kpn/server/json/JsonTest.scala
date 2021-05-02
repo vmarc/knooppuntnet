@@ -31,5 +31,4 @@ class JsonTest extends UnitTest {
       JsonExample("""John Doe""", 123)
     )
   }
-
 }

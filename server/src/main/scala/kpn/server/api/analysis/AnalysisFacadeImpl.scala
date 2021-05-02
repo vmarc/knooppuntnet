@@ -37,6 +37,7 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
+import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
@@ -254,10 +255,11 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
-    val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    api.execute(user, "location-nodes", args) {
-      reply(locationNodesPageBuilder.build(locationKey, parameters))
+  override def locationNodes(user: Option[String], key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
+    val locationKey = s"${key.networkType.name}, ${key.country.domain}, ${key.name}, "
+    val locationParameters = s"${parameters.locationNodesType.name}, ${parameters.itemsPerPage}, ${parameters.pageIndex}"
+    api.execute(user, "location-nodes", locationKey + locationParameters) {
+      reply(locationNodesPageBuilder.build(key, parameters))
     }
   }
 

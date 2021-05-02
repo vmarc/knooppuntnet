@@ -4,10 +4,17 @@ import { LocationFactsPage } from '@api/common/location/location-facts-page';
 import { LocationMapPage } from '@api/common/location/location-map-page';
 import { LocationNodesPage } from '@api/common/location/location-nodes-page';
 import { LocationRoutesPage } from '@api/common/location/location-routes-page';
+import { LocationSummary } from '@api/common/location/location-summary';
 import { ApiResponse } from '@api/custom/api-response';
+import { LocationKey } from '@api/custom/location-key';
+import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { AppState } from '../../../core/core.state';
 
 export const initialState: LocationState = {
+  locationKey: null,
+  locationSummary: null,
+  nodesPageType: LocationNodesType.all,
+  nodesPageIndex: 0,
   nodesPage: null,
   routesPage: null,
   factsPage: null,
@@ -17,6 +24,10 @@ export const initialState: LocationState = {
 };
 
 export interface LocationState {
+  locationKey: LocationKey;
+  locationSummary: LocationSummary;
+  nodesPageType: LocationNodesType;
+  nodesPageIndex: number;
   nodesPage: ApiResponse<LocationNodesPage>;
   routesPage: ApiResponse<LocationRoutesPage>;
   factsPage: ApiResponse<LocationFactsPage>;

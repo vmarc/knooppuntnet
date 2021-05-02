@@ -10,6 +10,7 @@ import kpn.api.common.route.WayDirection
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
@@ -44,6 +45,9 @@ object Json {
     b.deserializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonDeserializer())
     b.serializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonSerializer())
 
+    b.deserializerByType(classOf[LocationNodesType], new LocationNodesTypeJsonDeserializer())
+    b.serializerByType(classOf[LocationNodesType], new LocationNodesTypeJsonSerializer())
+
     b.deserializerByType(classOf[NodeName], new NodeNameJsonDeserializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
@@ -55,6 +59,7 @@ object Json {
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
 
     b.deserializerByType(classOf[Day], new DayJsonDeserializer())
+    b.serializerByType(classOf[Day], new DayJsonSerializer())
 
     b.deserializerByType(classOf[WayDirection], new WayDirectionJsonDeserializer())
     b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())

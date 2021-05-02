@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.LocationKey
+import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
@@ -51,7 +52,12 @@ object LocationNodeView extends View {
     value: Int
   )
 
-  def query(database: Database, locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean): Seq[LocationNodeInfo] = {
+  def query(
+    database: Database,
+    locationKey: LocationKey,
+    parameters: LocationNodesParameters,
+    stale: Boolean
+  ): Seq[LocationNodeInfo] = {
 
     val skip = parameters.itemsPerPage * parameters.pageIndex
     val limit = parameters.itemsPerPage
@@ -59,7 +65,12 @@ object LocationNodeView extends View {
     val query = Query(LocationDesign, LocationNodeView, classOf[ViewResult])
       .stale(stale)
       .includeDocs(true)
-      .keyStartsWith(locationKey.networkType.name, locationKey.country.domain, locationKey.name)
+      .keyStartsWith(
+        locationKey.networkType.name,
+        locationKey.country.domain,
+        locationKey.name,
+        parameters.locationNodesType.name
+      )
       .reduce(false)
       .skip(skip)
       .limit(limit)
@@ -67,7 +78,6 @@ object LocationNodeView extends View {
     val result = database.execute(query)
     result.rows.map { row =>
       val key = Fields(row.key)
-
       val expectedRouteCounts = row.doc.node.names.flatMap { nodeName =>
         if (nodeName.networkType == locationKey.networkType) {
           row.doc.node.tags(nodeName.scopedNetworkType.expectedRouteRelationsTag)
@@ -84,9 +94,16 @@ object LocationNodeView extends View {
         expectedRouteCounts.head
       }
 
+      val (idIndex, nameIndex) = if (parameters.locationNodesType == LocationNodesType.survey) {
+        (6, 5)
+      }
+      else {
+        (5, 4)
+      }
+
       LocationNodeInfo(
-        id = key.long(4),
-        name = key.string(3),
+        id = key.long(idIndex),
+        name = key.string(nameIndex),
         longName = row.value.longName.getOrElse("-"),
         latitude = row.value.latitude,
         longitude = row.value.longitude,
@@ -99,13 +116,23 @@ object LocationNodeView extends View {
     }
   }
 
-  def queryCount(database: Database, locationKey: LocationKey, stale: Boolean): Long = {
+  def queryCount(
+    database: Database,
+    locationKey: LocationKey,
+    locationNodesType: LocationNodesType,
+    stale: Boolean
+  ): Long = {
 
     val query = Query(LocationDesign, LocationNodeView, classOf[CountViewResult])
       .stale(stale)
-      .keyStartsWith(locationKey.networkType.name, locationKey.country.domain, locationKey.name)
+      .keyStartsWith(
+        locationKey.networkType.name,
+        locationKey.country.domain,
+        locationKey.name,
+        locationNodesType.name
+      )
       .reduce(true)
-      .groupLevel(3)
+      .groupLevel(4)
 
     val result = database.execute(query)
     if (result.rows.nonEmpty) {

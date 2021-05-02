@@ -9,6 +9,12 @@ export class Day {
     if (!jsonObject) {
       return undefined;
     }
-    return new Day(jsonObject.year, jsonObject.month, jsonObject.day);
+    const year = +jsonObject.substr(0, 4);
+    const month = +jsonObject.substr(5, 2);
+    let day: number;
+    if (jsonObject.length > 'YYYY-MM'.length) {
+      day = +jsonObject.substr(8, 2);
+    }
+    return new Day(year, month, day);
   }
 }

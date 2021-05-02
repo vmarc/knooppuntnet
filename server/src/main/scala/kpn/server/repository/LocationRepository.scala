@@ -9,8 +9,10 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
+import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.core.database.views.location.LocationNodeCount
+import kpn.core.database.views.location.LocationNodeResult
 
 trait LocationRepository {
 
@@ -20,7 +22,7 @@ trait LocationRepository {
 
   def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean = true): Seq[LocationNodeInfo]
 
-  def nodeCount(locationKey: LocationKey, stale: Boolean = true): Long
+  def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean = true): Long
 
   def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo]
 

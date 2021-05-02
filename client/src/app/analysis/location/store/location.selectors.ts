@@ -1,3 +1,4 @@
+import { LocationSummary } from '@api/common/location/location-summary';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { LocationRootState } from './location.state';
@@ -8,6 +9,46 @@ export const selectLocationState = createFeatureSelector<
   LocationRootState,
   LocationState
 >(locationFeatureKey);
+
+export const selectLocationKey = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.locationKey
+);
+
+export const selectLocationSummary = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.locationSummary
+);
+
+export const selectLocationNodeCount = createSelector(
+  selectLocationSummary,
+  (summary: LocationSummary) => summary?.nodeCount
+);
+
+export const selectLocationRouteCount = createSelector(
+  selectLocationSummary,
+  (summary: LocationSummary) => summary?.routeCount
+);
+
+export const selectLocationFactCount = createSelector(
+  selectLocationSummary,
+  (summary: LocationSummary) => summary?.factCount
+);
+
+export const selectLocationChangeCount = createSelector(
+  selectLocationSummary,
+  (summary: LocationSummary) => summary?.changeCount
+);
+
+export const selectLocationNodesType = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.nodesPageType
+);
+
+export const selectLocationNodesPageIndex = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.nodesPageIndex
+);
 
 export const selectLocationNodesPage = createSelector(
   selectLocationState,

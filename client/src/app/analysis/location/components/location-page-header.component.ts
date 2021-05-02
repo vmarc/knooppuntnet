@@ -1,10 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LocationKey } from '@api/custom/location-key';
-import { LocationService } from '../location.service';
+import { AppState } from '../../../core/core.state';
+import { selectLocationFactCount } from '../store/location.selectors';
+import { selectLocationRouteCount } from '../store/location.selectors';
+import { selectLocationChangeCount } from '../store/location.selectors';
+import { selectLocationNodeCount } from '../store/location.selectors';
+import { selectLocationKey } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-page-header',
@@ -16,7 +21,7 @@ import { LocationService } from '../location.service';
       ></kpn-location-page-breadcrumb>
 
       <kpn-page-header
-        [pageTitle]="locationPageTitle()"
+        [pageTitle]="pageTitle$ | async"
         subject="location-page"
         i18n="@@location-page.header"
       >
@@ -29,7 +34,7 @@ import { LocationService } from '../location.service';
 
       <kpn-page-menu>
         <kpn-page-menu-option
-          [link]="link('nodes')"
+          [link]="nodesLink$ | async"
           [active]="pageName === 'nodes'"
           i18n="@@location-page.menu.nodes"
           [elementCount]="nodeCount$ | async"
@@ -38,7 +43,7 @@ import { LocationService } from '../location.service';
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="link('routes')"
+          [link]="routesLink$ | async"
           [active]="pageName === 'routes'"
           i18n="@@location-page.menu.routes"
           [elementCount]="routeCount$ | async"
@@ -47,7 +52,7 @@ import { LocationService } from '../location.service';
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="link('facts')"
+          [link]="factsLink$ | async"
           [active]="pageName === 'facts'"
           i18n="@@location-page.menu.facts"
           [elementCount]="factCount$ | async"
@@ -56,7 +61,7 @@ import { LocationService } from '../location.service';
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="link('map')"
+          [link]="mapLink$ | async"
           [active]="pageName === 'map'"
           i18n="@@location-page.menu.map"
         >
@@ -64,7 +69,7 @@ import { LocationService } from '../location.service';
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="link('changes')"
+          [link]="changesLink$ | async"
           [active]="pageName === 'changes'"
           i18n="@@location-page.menu.changes"
           [elementCount]="changeCount$ | async"
@@ -73,7 +78,7 @@ import { LocationService } from '../location.service';
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="link('edit')"
+          [link]="editLink$ | async"
           [active]="pageName === 'edit'"
           i18n="@@location-page.menu.edit"
         >
@@ -87,33 +92,34 @@ export class LocationPageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly locationKey$: Observable<LocationKey>;
-  readonly nodeCount$: Observable<number>;
-  readonly routeCount$: Observable<number>;
-  readonly factCount$: Observable<number>;
-  readonly changeCount$: Observable<number>;
+  readonly locationKey$ = this.store.select(selectLocationKey);
+  readonly nodeCount$ = this.store.select(selectLocationNodeCount);
+  readonly routeCount$ = this.store.select(selectLocationRouteCount);
+  readonly factCount$ = this.store.select(selectLocationFactCount);
+  readonly changeCount$ = this.store.select(selectLocationChangeCount);
 
-  constructor(private service: LocationService) {
-    this.locationKey$ = service.locationKey$;
-    this.nodeCount$ = service.summary$.pipe(
-      map((summary) => summary.nodeCount)
-    );
-    this.routeCount$ = service.summary$.pipe(
-      map((summary) => summary.routeCount)
-    );
-    this.factCount$ = service.summary$.pipe(
-      map((summary) => summary.factCount)
-    );
-    this.changeCount$ = service.summary$.pipe(
-      map((summary) => summary.changeCount)
-    );
-  }
+  readonly nodesLink$ = this.link('nodes');
+  readonly routesLink$ = this.link('routes');
+  readonly factsLink$ = this.link('facts');
+  readonly mapLink$ = this.link('map');
+  readonly changesLink$ = this.link('changes');
+  readonly editLink$ = this.link('edit');
 
-  link(target: string): string {
-    return `/analysis/${this.service.key}/${target}`;
-  }
+  readonly pageTitle$ = this.locationKey$.pipe(
+    map((locationKey) => {
+      const key = `${locationKey.networkType}/${locationKey.country}/${locationKey.name}`;
+      return `${locationKey.name} | ${this.pageTitle}`;
+    })
+  );
 
-  locationPageTitle(): string {
-    return `${this.service.name} | ${this.pageTitle}`;
+  constructor(private store: Store<AppState>) {}
+
+  private link(target: string): Observable<string> {
+    return this.locationKey$.pipe(
+      map((locationKey) => {
+        const key = `${locationKey.networkType}/${locationKey.country}/${locationKey.name}`;
+        return `/analysis/${key}/${target}`;
+      })
+    );
   }
 }

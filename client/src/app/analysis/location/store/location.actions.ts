@@ -5,11 +5,22 @@ import { LocationMapPage } from '@api/common/location/location-map-page';
 import { LocationNodesPage } from '@api/common/location/location-nodes-page';
 import { LocationRoutesPage } from '@api/common/location/location-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
 export const actionLocationNodesPageInit = createAction(
   '[LocationNodesPage] Init'
+);
+
+export const actionLocationNodesType = createAction(
+  '[LocationNodesPage] Type',
+  props<{ locationNodesType: LocationNodesType }>()
+);
+
+export const actionLocationNodesPageIndex = createAction(
+  '[LocationNodesPage] Page index',
+  props<{ pageIndex: number }>()
 );
 
 export const actionLocationNodesPageLoaded = createAction(

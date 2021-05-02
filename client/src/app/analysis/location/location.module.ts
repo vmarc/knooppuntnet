@@ -39,6 +39,7 @@ import { LocationNodeFactIndicatorComponent } from './nodes/location-node-fact-i
 import { LocationNodeRoutesComponent } from './nodes/location-node-routes.component';
 import { LocationNodeTableComponent } from './nodes/location-node-table.component';
 import { LocationNodesPageComponent } from './nodes/location-nodes-page.component';
+import { LocationNodesSidebarComponent } from './nodes/location-nodes-sidebar.component';
 import { LocationNodesComponent } from './nodes/location-nodes.component';
 import { LocationRouteAnalysisComponent } from './routes/location-route-analysis';
 import { LocationRouteTableComponent } from './routes/location-route-table.component';
@@ -95,6 +96,7 @@ import { locationFeatureKey } from './store/location.state';
     LocationRouteTableComponent,
     LocationRoutesComponent,
     LocationNodesComponent,
+    LocationNodesSidebarComponent,
     LocationResponseComponent,
     LocationChangesComponent,
     LocationFactsComponent,

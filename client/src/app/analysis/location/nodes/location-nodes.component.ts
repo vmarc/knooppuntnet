@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { LocationNodesPage } from '@api/common/location/location-nodes-page';
-import { LocationNodesPageService } from './location-nodes-page.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionLocationNodesPageIndex } from '../store/location.actions';
+import { selectLocationNodesPageIndex } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-nodes',
@@ -17,10 +21,11 @@ import { LocationNodesPageService } from './location-nodes-page.service';
     </div>
     <kpn-location-node-table
       *ngIf="page.nodes.length > 0"
-      (page)="service.pageChanged($event)"
+      [pageIndex]="pageIndex$ | async"
+      (page)="pageChanged($event)"
       [timeInfo]="page.timeInfo"
       [nodes]="page.nodes"
-      [nodeCount]="page.summary.nodeCount"
+      [nodeCount]="page.nodeCount"
     >
     </kpn-location-node-table>
   `,
@@ -28,5 +33,14 @@ import { LocationNodesPageService } from './location-nodes-page.service';
 export class LocationNodesComponent {
   @Input() page: LocationNodesPage;
 
-  constructor(public service: LocationNodesPageService) {}
+  readonly pageIndex$ = this.store.select(selectLocationNodesPageIndex);
+
+  constructor(private store: Store<AppState>) {}
+
+  pageChanged(event: PageEvent): void {
+    window.scroll(0, 0);
+    this.store.dispatch(
+      actionLocationNodesPageIndex({ pageIndex: event.pageIndex })
+    );
+  }
 }

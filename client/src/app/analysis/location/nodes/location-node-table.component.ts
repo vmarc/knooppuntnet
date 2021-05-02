@@ -12,28 +12,21 @@ import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkScope } from '@api/custom/network-scope';
 import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { AppState } from '../../../core/core.state';
 
 @Component({
   selector: 'kpn-location-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!--
-      <mat-slide-toggle
-        [checked]="unexpectedRouteCountOnly"
-        (change)="unexpectedRouteCountOnlyChanged($event)"
-        i18n="@@location-nodes.unexpected-route-count-only">
-        Unexpected route count only
-      </mat-slide-toggle>
-    -->
-
     <kpn-paginator
       (page)="page.emit($event)"
       [length]="nodeCount"
-      [pageIndex]="0"
+      [pageIndex]="pageIndex"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
     >
@@ -141,7 +134,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.lastEdit"></kpn-day>
+          <kpn-day [timestamp]="node.lastUpdated"></kpn-day>
           <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
           <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
         </td>
@@ -154,11 +147,12 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
       ></tr>
     </table>
 
-    <!--    <kpn-paginator-->
-    <!--      (page)="page.emit($event)"-->
-    <!--      [length]="nodeCount"-->
-    <!--      [pageIndex]="0"-->
-    <!--    </kpn-paginator>-->
+    <kpn-paginator
+      (page)="page.emit($event)"
+      [length]="nodeCount"
+      [pageIndex]="pageIndex"
+    >
+    </kpn-paginator>
   `,
   styles: [
     `
@@ -176,6 +170,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Input() timeInfo: TimeInfo;
   @Input() nodes: LocationNodeInfo[];
   @Input() nodeCount: number;
+  @Input() pageIndex: number;
   @Output() page = new EventEmitter<PageEvent>();
 
   @ViewChild(PaginatorComponent, { static: true })
@@ -184,7 +179,10 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<LocationNodeInfo>;
   displayedColumns$: Observable<Array<string>>;
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor(
+    private pageWidthService: PageWidthService,
+    private store: Store<AppState>
+  ) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(
       map(() => this.displayedColumns())

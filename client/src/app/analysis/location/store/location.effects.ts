@@ -11,6 +11,9 @@ import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { selectRouteParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
+import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { actionLocationNodesPageIndex } from './location.actions';
+import { actionLocationNodesType } from './location.actions';
 import { actionLocationRoutesPageInit } from './location.actions';
 import { actionLocationFactsPageInit } from './location.actions';
 import { actionLocationMapPageInit } from './location.actions';
@@ -23,20 +26,39 @@ import { actionLocationMapPageLoaded } from './location.actions';
 import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
 import { actionLocationNodesPageLoaded } from './location.actions';
+import { selectLocationNodesPageIndex } from './location.selectors';
+import { selectLocationNodesType } from './location.selectors';
+import { selectLocationKey } from './location.selectors';
 
 @Injectable()
 export class LocationEffects {
   locationNodesPage = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionLocationNodesPageInit),
-      withLatestFrom(this.store.select(selectRouteParams)),
-      mergeMap(([action, params]) => {
-        const locationKey: LocationKey = null;
-        const parameters: LocationNodesParameters = null;
-        return this.appService
-          .locationNodes(locationKey, parameters)
-          .pipe(map((response) => actionLocationNodesPageLoaded({ response })));
-      })
+      ofType(
+        actionLocationNodesPageInit,
+        actionLocationNodesType,
+        actionLocationNodesPageIndex
+      ),
+      withLatestFrom(
+        this.store.select(selectLocationKey),
+        this.store.select(selectLocationNodesType),
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectLocationNodesPageIndex)
+      ),
+      mergeMap(
+        ([action, locationKey, locationNodesType, itemsPerPage, pageIndex]) => {
+          const parameters = new LocationNodesParameters(
+            locationNodesType,
+            itemsPerPage,
+            pageIndex
+          );
+          return this.appService
+            .locationNodes(locationKey, parameters)
+            .pipe(
+              map((response) => actionLocationNodesPageLoaded({ response }))
+            );
+        }
+      )
     )
   );
 
