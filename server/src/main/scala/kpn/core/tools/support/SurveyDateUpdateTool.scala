@@ -1,5 +1,11 @@
 package kpn.core.tools.support
 
+import kpn.core.database.Database
+import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.RouteDoc
+import kpn.core.database.views.analyzer.DocumentView
+import kpn.core.db.couch.Couch
+
 object SurveyDateUpdateTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "analysis") { database =>

@@ -348,7 +348,7 @@ trait SharedTestObjects extends MockFactory {
       networkScope,
       name,
       meters,
-      isBroken = false,
+      isBroken = facts.nonEmpty,
       wayCount,
       relationLastUpdated,
       nodeNames = Seq.empty,

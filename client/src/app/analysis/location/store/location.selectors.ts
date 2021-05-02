@@ -55,6 +55,16 @@ export const selectLocationNodesPage = createSelector(
   (state: LocationState) => state.nodesPage
 );
 
+export const selectLocationRoutesType = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.routesPageType
+);
+
+export const selectLocationRoutesPageIndex = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.routesPageIndex
+);
+
 export const selectLocationRoutesPage = createSelector(
   selectLocationState,
   (state: LocationState) => state.routesPage

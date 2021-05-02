@@ -44,6 +44,7 @@ import { LocationNodesComponent } from './nodes/location-nodes.component';
 import { LocationRouteAnalysisComponent } from './routes/location-route-analysis';
 import { LocationRouteTableComponent } from './routes/location-route-table.component';
 import { LocationRoutesPageComponent } from './routes/location-routes-page.component';
+import { LocationRoutesSidebarComponent } from './routes/location-routes-sidebar.component';
 import { LocationRoutesComponent } from './routes/location-routes.component';
 import { LocationModeComponent } from './selection/location-mode.component';
 import { LocationModeService } from './selection/location-mode.service';
@@ -95,6 +96,7 @@ import { locationFeatureKey } from './store/location.state';
     LocationNodeRoutesComponent,
     LocationRouteTableComponent,
     LocationRoutesComponent,
+    LocationRoutesSidebarComponent,
     LocationNodesComponent,
     LocationNodesSidebarComponent,
     LocationResponseComponent,

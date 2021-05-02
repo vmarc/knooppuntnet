@@ -10,11 +10,11 @@ import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
+import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.views.location.LocationFactView
 import kpn.core.database.views.location.LocationNodeCount
-import kpn.core.database.views.location.LocationNodeResult
 import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
@@ -27,7 +27,7 @@ class LocationRepositoryImpl(analysisDatabase: Database) extends LocationReposit
     LocationSummary(
       factCount(locationKey.networkType, locationKey.name),
       nodeCount(locationKey, LocationNodesType.all),
-      routeCount(locationKey),
+      routeCount(locationKey, LocationRoutesType.all),
       0
     )
   }
@@ -48,8 +48,8 @@ class LocationRepositoryImpl(analysisDatabase: Database) extends LocationReposit
     LocationRouteView.query(analysisDatabase, locationKey, parameters, stale)
   }
 
-  override def routeCount(locationKey: LocationKey, stale: Boolean = true): Long = {
-    LocationRouteView.queryCount(analysisDatabase, locationKey, stale)
+  override def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long = {
+    LocationRouteView.queryCount(analysisDatabase, locationKey, locationRoutesType, stale)
   }
 
   override def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount] = {

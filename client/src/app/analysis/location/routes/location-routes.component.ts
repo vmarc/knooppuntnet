@@ -1,8 +1,14 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { LocationRoutesPage } from '@api/common/location/location-routes-page';
-import { LocationRoutesPageService } from './location-routes-page.service';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { AppState } from '../../../core/core.state';
+import { actionLocationRoutesPageIndex } from '../store/location.actions';
+import { selectLocationKey } from '../store/location.selectors';
+import { selectLocationRoutesPageIndex } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-routes',
@@ -17,11 +23,12 @@ import { LocationRoutesPageService } from './location-routes-page.service';
     </div>
     <kpn-location-route-table
       *ngIf="page.routes.length > 0"
-      (page)="service.pageChanged($event)"
-      [networkType]="service.networkType()"
+      [pageIndex]="pageIndex$ | async"
+      (page)="pageChanged($event)"
+      [networkType]="networkType$ | async"
       [timeInfo]="page.timeInfo"
       [routes]="page.routes"
-      [routeCount]="page.summary.routeCount"
+      [routeCount]="page.routeCount"
     >
     </kpn-location-route-table>
   `,
@@ -29,5 +36,17 @@ import { LocationRoutesPageService } from './location-routes-page.service';
 export class LocationRoutesComponent {
   @Input() page: LocationRoutesPage;
 
-  constructor(public service: LocationRoutesPageService) {}
+  readonly networkType$ = this.store
+    .select(selectLocationKey)
+    .pipe(map((key) => key.networkType));
+  readonly pageIndex$ = this.store.select(selectLocationRoutesPageIndex);
+
+  constructor(private store: Store<AppState>) {}
+
+  pageChanged(event: PageEvent): void {
+    window.scroll(0, 0);
+    this.store.dispatch(
+      actionLocationRoutesPageIndex({ pageIndex: event.pageIndex })
+    );
+  }
 }

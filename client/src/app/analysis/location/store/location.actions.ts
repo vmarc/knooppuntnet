@@ -6,6 +6,7 @@ import { LocationNodesPage } from '@api/common/location/location-nodes-page';
 import { LocationRoutesPage } from '@api/common/location/location-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { LocationNodesType } from '@api/custom/location-nodes-type';
+import { LocationRoutesType } from '@api/custom/location-routes-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
@@ -30,6 +31,16 @@ export const actionLocationNodesPageLoaded = createAction(
 
 export const actionLocationRoutesPageInit = createAction(
   '[LocationRoutesPage] Init'
+);
+
+export const actionLocationRoutesType = createAction(
+  '[LocationRoutesPage] Type',
+  props<{ locationRoutesType: LocationRoutesType }>()
+);
+
+export const actionLocationRoutesPageIndex = createAction(
+  '[LocationRoutesPage] Page index',
+  props<{ pageIndex: number }>()
 );
 
 export const actionLocationRoutesPageLoaded = createAction(

@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { LocationRoutesPageService } from './location-routes-page.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionLocationRoutesPageInit } from '../store/location.actions';
+import { selectLocationRoutesPage } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-routes-page',
@@ -18,23 +19,19 @@ import { LocationRoutesPageService } from './location-routes-page.service';
 
     <kpn-error></kpn-error>
 
-    <div *ngIf="service.response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-routes [page]="response.result"></kpn-location-routes>
       </kpn-location-response>
     </div>
   `,
-  providers: [LocationRoutesPageService],
 })
 export class LocationRoutesPageComponent implements OnInit {
-  constructor(
-    public service: LocationRoutesPageService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  readonly response$ = this.store.select(selectLocationRoutesPage);
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .pipe(first())
-      .subscribe((params) => this.service.params(params));
+    this.store.dispatch(actionLocationRoutesPageInit());
   }
 }

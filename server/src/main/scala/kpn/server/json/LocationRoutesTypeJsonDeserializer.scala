@@ -5,20 +5,20 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.api.custom.LocationNodesType
+import kpn.api.custom.LocationRoutesType
 
-class LocationNodesTypeJsonDeserializer extends JsonDeserializer[LocationNodesType] {
-  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): LocationNodesType = {
+class LocationRoutesTypeJsonDeserializer extends JsonDeserializer[LocationRoutesType] {
+  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): LocationRoutesType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
     val name = node.asText
     if (name == null || name.isEmpty) {
       null
     }
     else {
-      LocationNodesType.withName(name).getOrElse(
+      LocationRoutesType.withName(name).getOrElse(
         throw JsonMappingException.from(
           jsonParser,
-          "Could not deserialize LocationNodesType"
+          "Could not deserialize LocationRoutesType"
         )
       )
     }

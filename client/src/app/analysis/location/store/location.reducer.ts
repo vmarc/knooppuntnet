@@ -1,11 +1,17 @@
 import { Country } from '@api/custom/country';
 import { LocationKey } from '@api/custom/location-key';
+import { LocationNodesType } from '@api/custom/location-nodes-type';
+import { LocationRoutesType } from '@api/custom/location-routes-type';
 import { NetworkType } from '@api/custom/network-type';
 import { routerNavigatedAction } from '@ngrx/router-store';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { Util } from '../../../components/shared/util';
+import { actionLocationNodesPageInit } from './location.actions';
+import { actionLocationRoutesPageInit } from './location.actions';
+import { actionLocationRoutesPageIndex } from './location.actions';
+import { actionLocationRoutesType } from './location.actions';
 import { actionLocationNodesPageIndex } from './location.actions';
 import { actionLocationNodesType } from './location.actions';
 import { actionLocationNodesPageLoaded } from './location.actions';
@@ -20,8 +26,6 @@ export const locationReducer = createReducer(
   initialState,
   on(routerNavigationAction, (state, action) => ({
     ...state,
-    locationKey: null,
-    locationSummary: null,
     nodesPage: null,
     routesPage: null,
     factsPage: null,
@@ -44,6 +48,11 @@ export const locationReducer = createReducer(
     }
     return state;
   }),
+  on(actionLocationNodesPageInit, (state, {}) => ({
+    ...state,
+    nodesPageType: LocationNodesType.all,
+    nodesPageIndex: 0,
+  })),
   on(actionLocationNodesType, (state, { locationNodesType }) => ({
     ...state,
     nodesPageType: locationNodesType,
@@ -57,6 +66,20 @@ export const locationReducer = createReducer(
     ...state,
     nodesPage: response,
     locationSummary: response.result?.summary,
+  })),
+  on(actionLocationRoutesPageInit, (state, {}) => ({
+    ...state,
+    routesPageType: LocationRoutesType.all,
+    routesPageIndex: 0,
+  })),
+  on(actionLocationRoutesType, (state, { locationRoutesType }) => ({
+    ...state,
+    routesPageType: locationRoutesType,
+    routesPageIndex: 0,
+  })),
+  on(actionLocationRoutesPageIndex, (state, { pageIndex }) => ({
+    ...state,
+    routesPageIndex: pageIndex,
   })),
   on(actionLocationRoutesPageLoaded, (state, { response }) => ({
     ...state,

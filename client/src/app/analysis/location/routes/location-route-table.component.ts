@@ -22,7 +22,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   template: `
     <kpn-paginator
       (page)="page.emit($event)"
-      [pageIndex]="0"
+      [pageIndex]="pageIndex"
       [length]="routeCount"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -123,11 +123,12 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
       ></tr>
     </table>
 
-    <!--    <kpn-paginator-->
-    <!--      (page)="page.emit($event)"-->
-    <!--      [pageIndex]="0"-->
-    <!--      [length]="routeCount">-->
-    <!--    </kpn-paginator>-->
+    <kpn-paginator
+      (page)="page.emit($event)"
+      [pageIndex]="pageIndex"
+      [length]="routeCount"
+    >
+    </kpn-paginator>
   `,
   styles: [
     `
@@ -138,6 +139,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   ],
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
+  @Input() pageIndex: number;
   @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
   @Input() routes: LocationRouteInfo[];

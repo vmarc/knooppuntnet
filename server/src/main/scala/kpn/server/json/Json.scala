@@ -11,6 +11,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
+import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
@@ -47,6 +48,9 @@ object Json {
 
     b.deserializerByType(classOf[LocationNodesType], new LocationNodesTypeJsonDeserializer())
     b.serializerByType(classOf[LocationNodesType], new LocationNodesTypeJsonSerializer())
+
+    b.deserializerByType(classOf[LocationRoutesType], new LocationRoutesTypeJsonDeserializer())
+    b.serializerByType(classOf[LocationRoutesType], new LocationRoutesTypeJsonSerializer())
 
     b.deserializerByType(classOf[NodeName], new NodeNameJsonDeserializer())
 

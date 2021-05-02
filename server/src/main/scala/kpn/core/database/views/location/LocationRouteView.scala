@@ -4,6 +4,7 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.LocationKey
+import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
@@ -44,17 +45,28 @@ object LocationRouteView extends View {
 
     val query = Query(LocationDesign, LocationRouteView, classOf[ViewResult])
       .stale(stale)
-      .keyStartsWith(locationKey.networkType.name, locationKey.name)
+      .keyStartsWith(
+        locationKey.networkType.name,
+        locationKey.name,
+        parameters.locationRoutesType.name
+      )
       .reduce(false)
       .skip(skip)
       .limit(limit)
+
+    val (idIndex, nameIndex) = if (parameters.locationRoutesType == LocationRoutesType.survey) {
+      (5, 4)
+    }
+    else {
+      (4, 3)
+    }
 
     val result = database.execute(query)
     result.rows.map { row =>
       val key = Fields(row.key)
       LocationRouteInfo(
-        id = key.long(3),
-        name = key.string(2),
+        id = key.long(idIndex),
+        name = key.string(nameIndex),
         meters = row.value.meters,
         lastUpdated = row.value.lastUpdated,
         lastSurvey = row.value.lastSurvey,
@@ -64,13 +76,17 @@ object LocationRouteView extends View {
     }
   }
 
-  def queryCount(database: Database, locationKey: LocationKey, stale: Boolean): Long = {
+  def queryCount(database: Database, locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean): Long = {
 
     val query = Query(LocationDesign, LocationRouteView, classOf[CountViewResult])
       .stale(stale)
-      .keyStartsWith(locationKey.networkType.name, locationKey.name)
+      .keyStartsWith(
+        locationKey.networkType.name,
+        locationKey.name,
+        locationRoutesType.name
+      )
       .reduce(true)
-      .groupLevel(2)
+      .groupLevel(3)
 
     val result = database.execute(query)
     result.rows.headOption match {

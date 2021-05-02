@@ -13,21 +13,58 @@ if (doc && doc.route && doc.route.active === true) {
           }
         }
         var name = locationAnalysis.locationNames[nameIndex];
-        emit(
-          [
+
+        var key = [
+          summary.networkType,
+          name,
+          'all',
+          summary.name,
+          summary.id
+        ];
+
+        var value = {
+          meters: summary.meters,
+          lastUpdated: doc.route.lastUpdated,
+          lastSurvey: doc.route.lastSurvey,
+          broken: summary.isBroken,
+          accessible: accessible
+        };
+
+        emit(key, value);
+
+        if (summary.isBroken) {
+          key = [
             summary.networkType,
             name,
+            'facts',
             summary.name,
             summary.id
-          ],
-          {
-            meters: summary.meters,
-            lastUpdated: doc.route.lastUpdated,
-            lastSurvey: doc.route.lastSurvey,
-            broken: summary.isBroken,
-            accessible: accessible
-          }
-        );
+          ];
+          emit(key, value);
+        }
+
+        if (!accessible) {
+          key = [
+            summary.networkType,
+            name,
+            'inaccessible',
+            summary.name,
+            summary.id
+          ];
+          emit(key, value);
+        }
+
+        if (doc.route.lastSurvey) {
+          key = [
+            summary.networkType,
+            name,
+            'survey',
+            summary.lastSurvey,
+            summary.name,
+            summary.id
+          ];
+          emit(key, value);
+        }
       }
     }
   }

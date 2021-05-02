@@ -6,6 +6,7 @@ import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
+import kpn.api.custom.LocationRoutesType
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.LocationRepository
 import org.springframework.stereotype.Component
@@ -34,7 +35,7 @@ class LocationEditPageBuilderImpl(locationRepository: LocationRepository) extend
     }
     else {
       val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(LocationNodesType.all, 99999))
-      val routes = locationRepository.routes(locationKey, LocationRoutesParameters(99999))
+      val routes = locationRepository.routes(locationKey, LocationRoutesParameters(LocationRoutesType.all, 99999))
 
       val bounds = Bounds.from(nodes, 0.15)
 

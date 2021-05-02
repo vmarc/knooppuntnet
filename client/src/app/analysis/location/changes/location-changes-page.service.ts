@@ -23,7 +23,7 @@ export class LocationChangesPageService {
     private locationService: LocationService,
     private appService: AppService
   ) {
-    this._parameters = new BehaviorSubject<LocationRoutesParameters>(
+    this._parameters = new BehaviorSubject<LocationChangesParameters>(
       new LocationChangesParameters(5, 0)
     );
     this.response = combineLatest([

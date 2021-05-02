@@ -10,6 +10,7 @@ import { LocationMapPageComponent } from './map/location-map-page.component';
 import { LocationNodesPageComponent } from './nodes/location-nodes-page.component';
 import { LocationNodesSidebarComponent } from './nodes/location-nodes-sidebar.component';
 import { LocationRoutesPageComponent } from './routes/location-routes-page.component';
+import { LocationRoutesSidebarComponent } from './routes/location-routes-sidebar.component';
 import { LocationSelectionPageComponent } from './selection/location-selection-page.component';
 
 const routes: Routes = [
@@ -26,7 +27,7 @@ const routes: Routes = [
   Util.routePath(
     ':networkType/:country/:location/routes',
     LocationRoutesPageComponent,
-    AnalysisSidebarComponent
+    LocationRoutesSidebarComponent
   ),
   Util.routePath(
     ':networkType/:country/:location/facts',

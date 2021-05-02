@@ -13,6 +13,11 @@ object LocationRoutesPageExample {
     LocationRoutesPage(
       TimeInfoBuilder.timeInfo,
       LocationSummary(10, 20, 30, 40),
+      40,
+      40,
+      30,
+      20,
+      10,
       Seq(
         LocationRouteInfo(
           id = 101,

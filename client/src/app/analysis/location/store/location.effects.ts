@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocationNodesParameters } from '@api/common/location/location-nodes-parameters';
+import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
 import { LocationKey } from '@api/custom/location-key';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -12,6 +13,8 @@ import { AppService } from '../../../app.service';
 import { selectRouteParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { actionLocationRoutesPageIndex } from './location.actions';
+import { actionLocationRoutesType } from './location.actions';
 import { actionLocationNodesPageIndex } from './location.actions';
 import { actionLocationNodesType } from './location.actions';
 import { actionLocationRoutesPageInit } from './location.actions';
@@ -26,6 +29,8 @@ import { actionLocationMapPageLoaded } from './location.actions';
 import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
 import { actionLocationNodesPageLoaded } from './location.actions';
+import { selectLocationRoutesType } from './location.selectors';
+import { selectLocationRoutesPageIndex } from './location.selectors';
 import { selectLocationNodesPageIndex } from './location.selectors';
 import { selectLocationNodesType } from './location.selectors';
 import { selectLocationKey } from './location.selectors';
@@ -64,17 +69,37 @@ export class LocationEffects {
 
   locationRoutesPage = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionLocationRoutesPageInit),
-      withLatestFrom(this.store.select(selectRouteParams)),
-      mergeMap(([action, params]) => {
-        const locationKey: LocationKey = null;
-        const parameters: LocationNodesParameters = null;
-        return this.appService
-          .locationRoutes(locationKey, parameters)
-          .pipe(
-            map((response) => actionLocationRoutesPageLoaded({ response }))
+      ofType(
+        actionLocationRoutesPageInit,
+        actionLocationRoutesType,
+        actionLocationRoutesPageIndex
+      ),
+      withLatestFrom(
+        this.store.select(selectLocationKey),
+        this.store.select(selectLocationRoutesType),
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectLocationRoutesPageIndex)
+      ),
+      mergeMap(
+        ([
+          action,
+          locationKey,
+          locationRoutesType,
+          itemsPerPage,
+          pageIndex,
+        ]) => {
+          const parameters = new LocationRoutesParameters(
+            locationRoutesType,
+            itemsPerPage,
+            pageIndex
           );
-      })
+          return this.appService
+            .locationRoutes(locationKey, parameters)
+            .pipe(
+              map((response) => actionLocationRoutesPageLoaded({ response }))
+            );
+        }
+      )
     )
   );
 
