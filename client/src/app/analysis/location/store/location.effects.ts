@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { LocationChangesParameters } from '@api/common/location/location-changes-parameters';
 import { LocationNodesParameters } from '@api/common/location/location-nodes-parameters';
 import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
-import { LocationKey } from '@api/custom/location-key';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -11,7 +10,6 @@ import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { selectRouteParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { actionLocationRoutesPageIndex } from './location.actions';
@@ -154,10 +152,8 @@ export class LocationEffects {
   locationEditPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationEditPageInit),
-      withLatestFrom(this.store.select(selectRouteParams)),
-      mergeMap(([action, params]) => {
-        const locationKey: LocationKey = null;
-        const parameters: LocationNodesParameters = null;
+      withLatestFrom(this.store.select(selectLocationKey)),
+      mergeMap(([action, locationKey]) => {
         return this.appService
           .locationEdit(locationKey)
           .pipe(map((response) => actionLocationEditPageLoaded({ response })));

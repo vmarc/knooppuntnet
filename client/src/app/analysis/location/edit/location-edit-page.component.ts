@@ -1,14 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { LocationEditPage } from '@api/common/location/location-edit-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
-import { LocationEditPageService } from './location-edit-page.service';
+import { actionLocationEditPageInit } from '../store/location.actions';
+import { selectLocationEditPage } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-edit-page',
@@ -75,24 +71,16 @@ import { LocationEditPageService } from './location-edit-page.service';
       }
     `,
   ],
-  providers: [LocationEditPageService],
 })
 export class LocationEditPageComponent implements OnInit {
-  readonly response$: Observable<ApiResponse<LocationEditPage>> = this.service
-    .response$;
+  readonly response$ = this.store.select(selectLocationEditPage);
   readonly noHttpError$ = this.store
     .select(selectSharedHttpError)
     .pipe(map((error) => error == null));
 
-  constructor(
-    private service: LocationEditPageService,
-    private activatedRoute: ActivatedRoute,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .pipe(first())
-      .subscribe((params) => this.service.params(params));
+    this.store.dispatch(actionLocationEditPageInit());
   }
 }
