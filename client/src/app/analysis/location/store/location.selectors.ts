@@ -80,6 +80,11 @@ export const selectLocationMapPage = createSelector(
   (state: LocationState) => state.mapPage
 );
 
+export const selectLocationChangesPageIndex = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.changesPageIndex
+);
+
 export const selectLocationChangesPage = createSelector(
   selectLocationState,
   (state: LocationState) => state.changesPage

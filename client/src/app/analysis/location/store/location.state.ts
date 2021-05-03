@@ -22,6 +22,7 @@ export const initialState: LocationState = {
   routesPage: null,
   factsPage: null,
   mapPage: null,
+  changesPageIndex: 0,
   changesPage: null,
   editPage: null,
 };
@@ -37,6 +38,7 @@ export interface LocationState {
   routesPage: ApiResponse<LocationRoutesPage>;
   factsPage: ApiResponse<LocationFactsPage>;
   mapPage: ApiResponse<LocationMapPage>;
+  changesPageIndex: number;
   changesPage: ApiResponse<LocationChangesPage>;
   editPage: ApiResponse<LocationEditPage>;
 }

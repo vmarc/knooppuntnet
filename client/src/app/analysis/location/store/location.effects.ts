@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocationChangesParameters } from '@api/common/location/location-changes-parameters';
 import { LocationNodesParameters } from '@api/common/location/location-nodes-parameters';
 import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
 import { LocationKey } from '@api/custom/location-key';
@@ -29,6 +30,7 @@ import { actionLocationMapPageLoaded } from './location.actions';
 import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
 import { actionLocationNodesPageLoaded } from './location.actions';
+import { selectLocationChangesPageIndex } from './location.selectors';
 import { selectLocationRoutesType } from './location.selectors';
 import { selectLocationRoutesPageIndex } from './location.selectors';
 import { selectLocationNodesPageIndex } from './location.selectors';
@@ -130,10 +132,16 @@ export class LocationEffects {
   locationChangesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationChangesPageInit),
-      withLatestFrom(this.store.select(selectRouteParams)),
-      mergeMap(([action, params]) => {
-        const locationKey: LocationKey = null;
-        const parameters: LocationNodesParameters = null;
+      withLatestFrom(
+        this.store.select(selectLocationKey),
+        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectLocationChangesPageIndex)
+      ),
+      mergeMap(([action, locationKey, itemsPerPage, pageIndex]) => {
+        const parameters = new LocationChangesParameters(
+          itemsPerPage,
+          pageIndex
+        );
         return this.appService
           .locationChanges(locationKey, parameters)
           .pipe(
