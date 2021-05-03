@@ -1,9 +1,10 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { LocationFactsPageService } from './location-facts-page.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionLocationFactsPageInit } from '../store/location.actions';
+import { selectLocationFactsPage } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-facts-page',
@@ -18,7 +19,7 @@ import { LocationFactsPageService } from './location-facts-page.service';
 
     <kpn-error></kpn-error>
 
-    <div *ngIf="service.response | async as response" class="kpn-spacer-above">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-facts
           [locationFacts]="response.result.locationFacts"
@@ -26,17 +27,13 @@ import { LocationFactsPageService } from './location-facts-page.service';
       </kpn-location-response>
     </div>
   `,
-  providers: [LocationFactsPageService],
 })
 export class LocationFactsPageComponent implements OnInit {
-  constructor(
-    public service: LocationFactsPageService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  readonly response$ = this.store.select(selectLocationFactsPage);
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .pipe(first())
-      .subscribe((params) => this.service.params(params));
+    this.store.dispatch(actionLocationFactsPageInit());
   }
 }
