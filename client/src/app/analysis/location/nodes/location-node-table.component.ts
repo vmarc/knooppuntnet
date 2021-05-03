@@ -118,7 +118,7 @@ import { AppState } from '../../../core/core.state';
           *matHeaderCellDef
           i18n="@@location-nodes.table.last-survey"
         >
-          Last survey
+          Survey
         </th>
         <td mat-cell *matCellDef="let node">
           {{ node.lastSurvey | day }}

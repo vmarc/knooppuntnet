@@ -112,7 +112,7 @@ import { NetworkRoutesService } from './network-routes.service';
           mat-sort-header
           i18n="@@network-routes.table.last-survey"
         >
-          Last survey
+          Survey
         </th>
         <td mat-cell *matCellDef="let route">
           {{ route.lastSurvey | day }}

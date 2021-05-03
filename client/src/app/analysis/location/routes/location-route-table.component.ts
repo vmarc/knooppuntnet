@@ -92,7 +92,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
           *matHeaderCellDef
           i18n="@@location-routes.table.last-survey"
         >
-          Last survey
+          Survey
         </th>
         <td mat-cell *matCellDef="let route">
           {{ route.lastSurvey | day }}

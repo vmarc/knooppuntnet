@@ -140,7 +140,7 @@ import { NetworkNodesService } from './network-nodes.service';
           mat-sort-header
           i18n="@@network-nodes.table.last-survey"
         >
-          Last survey
+          Survey
         </th>
         <td mat-cell *matCellDef="let node">
           {{ node.lastSurvey | day }}

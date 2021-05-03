@@ -242,7 +242,7 @@ export class I18nService {
     ]);
     keysAndValues.push([
       '@@filter.lastSurvey',
-      $localize`:@@filter.lastSurvey:Last survey`,
+      $localize`:@@filter.lastSurvey:Survey`,
     ]);
     keysAndValues.push([
       '@@filter.lastWeek',
