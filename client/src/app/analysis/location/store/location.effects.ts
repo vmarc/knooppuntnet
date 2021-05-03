@@ -118,10 +118,8 @@ export class LocationEffects {
   locationMapPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationMapPageInit),
-      withLatestFrom(this.store.select(selectRouteParams)),
-      mergeMap(([action, params]) => {
-        const locationKey: LocationKey = null;
-        const parameters: LocationNodesParameters = null;
+      withLatestFrom(this.store.select(selectLocationKey)),
+      mergeMap(([action, locationKey]) => {
         return this.appService
           .locationMap(locationKey)
           .pipe(map((response) => actionLocationMapPageLoaded({ response })));
