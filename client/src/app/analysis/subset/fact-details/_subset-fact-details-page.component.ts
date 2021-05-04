@@ -100,7 +100,17 @@ class SubsetFact {
                 </a>
               </div>
               <div class="fact-detail">
-                <span i18n="@@subset-facts.routes" class="kpn-label"
+                <span
+                  *ngIf="hasNodeRefs()"
+                  i18n="@@subset-facts.nodes"
+                  class="kpn-label"
+                  >{networkFactRefs.factRefs.length, plural, one {1 node} other
+                  {{{networkFactRefs.factRefs.length}} nodes}}</span
+                >
+                <span
+                  *ngIf="hasRouteRefs()"
+                  i18n="@@subset-facts.routes"
+                  class="kpn-label"
                   >{networkFactRefs.factRefs.length, plural, one {1 route} other
                   {{{networkFactRefs.factRefs.length}} routes}}</span
                 >
@@ -193,6 +203,7 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   hasNodeRefs(): boolean {
     return (
       this.factName === 'NodeMemberMissing' ||
+      this.factName === 'NodeInvalidSurveyDate' ||
       this.factName === 'IntegrityCheckFailed'
     );
   }
