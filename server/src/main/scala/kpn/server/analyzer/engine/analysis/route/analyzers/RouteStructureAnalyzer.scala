@@ -89,7 +89,8 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
 
             val oneWayRoute = context.loadedRoute.relation.tags.tags.exists { tag =>
               (tag.key == "comment" && tag.value.contains("to be used in one direction")) ||
-                (tag.key == "oneway" && tag.value == "yes")
+                (tag.key == "oneway" && tag.value == "yes") ||
+                (tag.key == "signed_direction" && tag.value == "yes")
             }
 
             val hasValidForwardPath = structure.forwardPath.isDefined && !structure.forwardPath.exists(_.broken)
