@@ -17,8 +17,7 @@ import { selectSubsetNetworksPage } from '../store/subset.selectors';
       pageName="networks"
       pageTitle="Networks"
       i18n-pageTitle="@@subset-networks.title"
-    >
-    </kpn-subset-page-header-block>
+    ></kpn-subset-page-header-block>
 
     <kpn-error></kpn-error>
 

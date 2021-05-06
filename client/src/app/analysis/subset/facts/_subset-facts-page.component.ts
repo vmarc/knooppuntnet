@@ -1,22 +1,14 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
-import { SubsetInfo } from '@api/common/subset/subset-info';
 import { ApiResponse } from '@api/custom/api-response';
 import { Fact } from '@api/custom/fact';
-import { Subset } from '@api/custom/subset';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { Util } from '../../../components/shared/util';
-import { Subsets } from '../../../kpn/common/subsets';
-import { SubsetCacheService } from '../../../services/subset-cache.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
+import { actionSubsetFactsPageInit } from '../store/subset.actions';
+import { selectSubsetFactsPage } from '../store/subset.selectors';
 
 @Component({
   selector: 'kpn-subset-facts-page',
@@ -26,8 +18,7 @@ import { Facts } from '../../fact/facts';
       pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@subset-facts.title"
-    >
-    </kpn-subset-page-header-block>
+    ></kpn-subset-page-header-block>
 
     <kpn-error></kpn-error>
 
@@ -35,11 +26,11 @@ import { Facts } from '../../fact/facts';
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
-      <p *ngIf="!hasFacts" class="kpn-line">
+      <p *ngIf="!hasFacts(response)" class="kpn-line">
         <span i18n="@@subset-facts.no-facts">No facts</span>
         <kpn-icon-happy></kpn-icon-happy>
       </p>
-      <div *ngIf="hasFacts" class="kpn-line">
+      <div *ngIf="hasFacts(response)" class="kpn-line">
         <kpn-items>
           <kpn-item
             *ngFor="let factCount of response.result.factCounts; let i = index"
@@ -62,44 +53,16 @@ import { Facts } from '../../fact/facts';
   `,
 })
 export class SubsetFactsPageComponent implements OnInit {
-  subset$: Observable<Subset>;
-  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
-  response$: Observable<ApiResponse<SubsetFactsPage>>;
+  readonly response$ = this.store.select(selectSubsetFactsPage);
 
-  hasFacts: boolean;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private subsetCacheService: SubsetCacheService
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.subset$ = this.activatedRoute.params.pipe(
-      map((params) => Util.subsetInRoute(params)),
-      tap((subset) =>
-        this.subsetInfo$.next(
-          this.subsetCacheService.getSubsetInfo(Subsets.key(subset))
-        )
-      )
-    );
-    this.response$ = this.subset$.pipe(
-      mergeMap((subset) =>
-        this.appService.subsetFacts(subset).pipe(
-          tap((response) => {
-            if (response.result) {
-              this.hasFacts =
-                response.result && response.result.subsetInfo.factCount > 0;
-              this.subsetCacheService.setSubsetInfo(
-                Subsets.key(subset),
-                response.result.subsetInfo
-              );
-              this.subsetInfo$.next(response.result.subsetInfo);
-            }
-          })
-        )
-      )
-    );
+    this.store.dispatch(actionSubsetFactsPageInit());
+  }
+
+  hasFacts(response: ApiResponse<SubsetFactsPage>): boolean {
+    return response.result && response.result.subsetInfo.factCount > 0;
   }
 
   factLevel(fact: Fact): FactLevel {

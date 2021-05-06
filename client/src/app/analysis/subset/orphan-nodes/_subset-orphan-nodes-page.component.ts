@@ -13,8 +13,7 @@ import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
       pageName="orphan-nodes"
       pageTitle="Orphan nodes"
       i18n-pageTitle="@@subset-orphan-nodes.title"
-    >
-    </kpn-subset-page-header-block>
+    ></kpn-subset-page-header-block>
 
     <kpn-error></kpn-error>
 
@@ -30,8 +29,7 @@ import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
         <kpn-subset-orphan-nodes-table
           [timeInfo]="response.result.timeInfo"
           [nodes]="response.result.nodes"
-        >
-        </kpn-subset-orphan-nodes-table>
+        ></kpn-subset-orphan-nodes-table>
       </div>
     </div>
   `,

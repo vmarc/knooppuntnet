@@ -13,8 +13,7 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
       pageName="orphan-routes"
       pageTitle="Free routes"
       i18n-pageTitle="@@subset-orphan-routes.title"
-    >
-    </kpn-subset-page-header-block>
+    ></kpn-subset-page-header-block>
 
     <kpn-error></kpn-error>
 
@@ -29,8 +28,7 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
         <kpn-subset-orphan-routes-table
           [timeInfo]="response.result.timeInfo"
           [orphanRoutes]="response.result.routes"
-        >
-        </kpn-subset-orphan-routes-table>
+        ></kpn-subset-orphan-routes-table>
       </div>
     </div>
   `,

@@ -29,8 +29,7 @@ import { SubsetChangesService } from './subset-changes.service';
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@subset-changes.title"
-    >
-    </kpn-subset-page-header-block>
+    ></kpn-subset-page-header-block>
 
     <kpn-error></kpn-error>
 

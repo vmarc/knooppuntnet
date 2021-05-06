@@ -30,8 +30,7 @@ class SubsetFact {
         pageName="facts"
         pageTitle="Facts"
         i18n-pageTitle="@@subset-facts.title"
-      >
-      </kpn-subset-page-header-block>
+      ></kpn-subset-page-header-block>
       <h2>
         <kpn-fact-name [fact]="subsetFact.factName"></kpn-fact-name>
       </h2>

@@ -27,8 +27,7 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@subset-map.title"
-    >
-    </kpn-subset-page-header-block>
+    ></kpn-subset-page-header-block>
 
     <kpn-error></kpn-error>
 
@@ -37,8 +36,7 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
         [bounds]="bounds"
         [networks]="networks"
         (networkClicked)="networkClicked($event)"
-      >
-      </kpn-subset-map>
+      ></kpn-subset-map>
     </div>
   `,
 })
