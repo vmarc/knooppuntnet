@@ -33,6 +33,16 @@ case class NodeInfo(
     names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
   }
 
+  def networkTypeLongName(networkType: NetworkType): Option[String] = {
+    val longNames = names.filter(_.networkType == networkType).flatMap(_.longName)
+    if (longNames.nonEmpty) {
+      Some(longNames.mkString(" / "))
+    }
+    else {
+      None
+    }
+  }
+
   def name(scopedNetworkType: ScopedNetworkType): String = {
     names.filter(_.scopedNetworkType == scopedNetworkType).map(_.name).mkString(" / ")
   }

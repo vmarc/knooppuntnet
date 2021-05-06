@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RouteSummary } from '@api/common/route-summary';
 import { SubsetInfo } from '@api/common/subset/subset-info';
 import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -33,14 +32,13 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
       <p>
         <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
       </p>
-      <p *ngIf="routes.length === 0" class="kpn-line">
-        <kpn-icon-happy></kpn-icon-happy>
+      <p *ngIf="response.result.routes.length === 0" class="kpn-line">
         <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
       </p>
-      <div *ngIf="routes.length > 0">
+      <div *ngIf="response.result.routes.length > 0">
         <kpn-subset-orphan-routes-table
           [timeInfo]="response.result.timeInfo"
-          [orphanRoutes]="response.result.rows"
+          [orphanRoutes]="response.result.routes"
         >
         </kpn-subset-orphan-routes-table>
       </div>
@@ -51,8 +49,6 @@ export class SubsetOrphanRoutesPageComponent implements OnInit {
   subset$: Observable<Subset>;
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
   response$: Observable<ApiResponse<SubsetOrphanRoutesPage>>;
-
-  routes: RouteSummary[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -74,7 +70,6 @@ export class SubsetOrphanRoutesPageComponent implements OnInit {
         this.appService.subsetOrphanRoutes(subset).pipe(
           tap((response) => {
             if (response.result) {
-              this.routes = response.result.rows;
               this.subsetCacheService.setSubsetInfo(
                 Subsets.key(subset),
                 response.result.subsetInfo

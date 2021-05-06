@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.Subset
 import kpn.server.api.analysis.pages.TimeInfoBuilder
@@ -17,17 +18,34 @@ class SubsetOrphanRoutesPageBuilderImpl(
 
     val figures = overviewRepository.figures()
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val routes = orphanRepository.orphanRoutes(subset)
+    val routeSummaries = orphanRepository.orphanRoutes(subset)
 
-    val sortedRouteInfos = routes.sortWith { (a, b) =>
+    val orphanRouteInfos = routeSummaries.map { route =>
+      val accessible = false
+      OrphanRouteInfo(
+        route.id,
+        route.name,
+        route.meters,
+        route.isBroken,
+        accessible,
+        "todo", // route.lastSurvey,
+        route.timestamp
+      )
+    }
+
+    val sortedOrphanRouteInfos = orphanRouteInfos.sortWith { (a, b) =>
       if (a.name == b.name) {
-        a.timestamp < b.timestamp
+        a.lastUpdated < b.lastUpdated
       }
       else {
         a.name < b.name
       }
     }
 
-    SubsetOrphanRoutesPage(TimeInfoBuilder.timeInfo, subsetInfo, sortedRouteInfos)
+    SubsetOrphanRoutesPage(
+      TimeInfoBuilder.timeInfo,
+      subsetInfo,
+      sortedOrphanRouteInfos
+    )
   }
 }

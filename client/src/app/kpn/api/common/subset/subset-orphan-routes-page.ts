@@ -1,6 +1,6 @@
 // this class is generated, please do not modify
 
-import { RouteSummary } from '../route-summary';
+import { OrphanRouteInfo } from '../orphan-route-info';
 import { TimeInfo } from '../time-info';
 import { SubsetInfo } from './subset-info';
 
@@ -8,7 +8,7 @@ export class SubsetOrphanRoutesPage {
   constructor(
     readonly timeInfo: TimeInfo,
     readonly subsetInfo: SubsetInfo,
-    readonly rows: Array<RouteSummary>
+    readonly routes: Array<OrphanRouteInfo>
   ) {}
 
   static fromJSON(jsonObject: any): SubsetOrphanRoutesPage {
@@ -18,7 +18,7 @@ export class SubsetOrphanRoutesPage {
     return new SubsetOrphanRoutesPage(
       TimeInfo.fromJSON(jsonObject.timeInfo),
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
-      jsonObject.rows.map((json: any) => RouteSummary.fromJSON(json))
+      jsonObject.routes.map((json: any) => OrphanRouteInfo.fromJSON(json))
     );
   }
 }

@@ -6109,7 +6109,7 @@
         <target>Orphan nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.no-routes" datatype="html">
@@ -6117,7 +6117,7 @@
         <target>No orphan nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.title" datatype="html">
@@ -6125,7 +6125,7 @@
         <target state="final">Free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.no-routes" datatype="html">
@@ -6133,7 +6133,7 @@
         <target state="final">No free routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-networks.table.network" datatype="html">
@@ -6232,12 +6232,108 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="subset-orphan-routes.table.nr" datatype="html">
+        <source> Nr </source>
+        <target state="final">[ Nr ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-table.component.ts</context>
+          <context context-type="linenumber">157,170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.table.analysis" datatype="html">
+        <source> Analysis </source>
+        <target state="final">[ Analysis ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-table.component.ts</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.table.name" datatype="html">
+        <source> Route </source>
+        <target state="final">[ Route ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-table.component.ts</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.table.distance" datatype="html">
+        <source> Distance </source>
+        <target state="final">[ Distance ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-table.component.ts</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.table.last-survey" datatype="html">
+        <source> Survey </source>
+        <target state="final">[ Survey ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-table.component.ts</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-routes.table.last-edit" datatype="html">
+        <source> Last edit </source>
+        <target state="final">[ Last edit ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-table.component.ts</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subset-orphan-nodes.extra-tags" datatype="html">
         <source>Extra tags:</source>
         <target>Extra tags:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-node.component.ts</context>
           <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.table.nr" datatype="html">
+        <source> Nr </source>
+        <target state="final">[ Nr ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
+          <context context-type="linenumber">140,151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.table.analysis" datatype="html">
+        <source> Analysis </source>
+        <target state="final">[ Analysis ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.table.node" datatype="html">
+        <source> Node </source>
+        <target state="final">[ Node ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.table.name" datatype="html">
+        <source> Name </source>
+        <target state="final">[ Name ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.table.last-survey" datatype="html">
+        <source> Survey </source>
+        <target state="final">[ Survey ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
+          <context context-type="linenumber">151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subset-orphan-nodes.table.last-edit" datatype="html">
+        <source> Last edit </source>
+        <target state="final">[ Last edit ]</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.change-set" datatype="html">

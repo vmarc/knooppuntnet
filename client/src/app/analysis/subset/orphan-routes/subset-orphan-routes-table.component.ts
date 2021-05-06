@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { RouteSummary } from '@api/common/route-summary';
+import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
 import { BehaviorSubject } from 'rxjs';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
@@ -20,20 +20,88 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
     >
     </kpn-paginator>
 
-    <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
-      <ng-container matColumnDef="rowNumber">
-        <td mat-cell *matCellDef="let route; let i = index">
-          {{ rowNumber(i) }}
-        </td>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="nr">
+        <th
+          *matHeaderCellDef
+          mat-header-cell
+          i18n="@@subset-orphan-routes.table.nr"
+        >
+          Nr
+        </th>
+        <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="route">
+      <ng-container matColumnDef="analysis">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@subset-orphan-routes.table.analysis"
+        >
+          Analysis
+        </th>
+        <td mat-cell *matCellDef="let node">analysis</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th
+          *matHeaderCellDef
+          mat-header-cell
+          i18n="@@subset-orphan-routes.table.name"
+        >
+          Route
+        </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-subset-orphan-route [route]="route"></kpn-subset-orphan-route>
+          <kpn-link-route
+            [routeId]="route.id"
+            [title]="route.name"
+          ></kpn-link-route>
         </td>
       </ng-container>
 
-      <tr mat-row *matRowDef="let route; columns: displayedColumns"></tr>
+      <ng-container matColumnDef="distance">
+        <th
+          *matHeaderCellDef
+          mat-header-cell
+          i18n="@@subset-orphan-routes.table.distance"
+        >
+          Distance
+        </th>
+        <td mat-cell *matCellDef="let route">{{ route.meters }}m</td>
+      </ng-container>
+
+      <ng-container matColumnDef="last-survey">
+        <th
+          *matHeaderCellDef
+          mat-header-cell
+          i18n="@@subset-orphan-routes.table.last-survey"
+        >
+          Survey
+        </th>
+        <td mat-cell *matCellDef="let route">
+          {{ route.lastSurvey }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last-edit">
+        <th
+          *matHeaderCellDef
+          mat-header-cell
+          i18n="@@subset-orphan-routes.table.last-edit"
+        >
+          Last edit
+        </th>
+        <td mat-cell *matCellDef="let route" class="kpn-separated">
+          <kpn-day [timestamp]="route.lastUpdated"></kpn-day>
+          <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
+          <kpn-osm-link-relation
+            [relationId]="route.id"
+          ></kpn-osm-link-relation>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns"></tr>
     </table>
 
     <!--    <kpn-paginator-->
@@ -43,14 +111,8 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   `,
   styles: [
     `
-      table {
-        width: 100%;
-      }
-
-      .mat-column-rowNumber {
-        width: 50px;
-        vertical-align: top;
-        padding-top: 15px;
+      .mat-column-nr {
+        width: 3rem;
       }
 
       td.mat-cell:first-of-type {
@@ -61,14 +123,21 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {
   @Input() timeInfo: TimeInfo;
-  @Input() orphanRoutes: RouteSummary[];
+  @Input() orphanRoutes: OrphanRouteInfo[];
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
-  dataSource: MatTableDataSource<RouteSummary>;
+  dataSource: MatTableDataSource<OrphanRouteInfo>;
 
-  displayedColumns = ['rowNumber', 'route'];
+  displayedColumns = [
+    'nr',
+    // 'analysis',
+    'name',
+    'distance',
+    'last-survey',
+    'last-edit',
+  ];
 
   private readonly filterCriteria = new BehaviorSubject(
     new SubsetOrphanRouteFilterCriteria()

@@ -29,7 +29,7 @@ import { NetworkRoutesService } from './network-routes.service';
     >
     </kpn-paginator>
 
-    <table mat-table matSort [dataSource]="dataSource" class="kpn-spacer-above">
+    <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
         <th
           mat-header-cell

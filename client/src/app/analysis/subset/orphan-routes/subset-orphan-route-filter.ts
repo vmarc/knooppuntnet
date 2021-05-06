@@ -1,4 +1,4 @@
-import { RouteSummary } from '@api/common/route-summary';
+import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
@@ -10,7 +10,7 @@ import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRouteFilter {
-  private readonly brokenFilter = new BooleanFilter<RouteSummary>(
+  private readonly brokenFilter = new BooleanFilter<OrphanRouteInfo>(
     'broken',
     this.criteria.broken,
     (row) => row.isBroken,
@@ -18,9 +18,9 @@ export class SubsetOrphanRouteFilter {
     this.update({ ...this.criteria, broken: true }),
     this.update({ ...this.criteria, broken: false })
   );
-  private readonly lastUpdatedFilter = new TimestampFilter<RouteSummary>(
+  private readonly lastUpdatedFilter = new TimestampFilter<OrphanRouteInfo>(
     this.criteria.lastUpdated,
-    (row) => row.timestamp,
+    (row) => row.lastUpdated,
     this.timeInfo,
     this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.all }),
     this.update({
@@ -37,7 +37,7 @@ export class SubsetOrphanRouteFilter {
     }),
     this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.older })
   );
-  private readonly allFilters = new Filters<RouteSummary>(
+  private readonly allFilters = new Filters<OrphanRouteInfo>(
     this.brokenFilter,
     this.lastUpdatedFilter
   );
@@ -48,11 +48,11 @@ export class SubsetOrphanRouteFilter {
     private readonly filterCriteria: BehaviorSubject<SubsetOrphanRouteFilterCriteria>
   ) {}
 
-  filter(routes: RouteSummary[]): RouteSummary[] {
+  filter(routes: OrphanRouteInfo[]): OrphanRouteInfo[] {
     return routes.filter((route) => this.allFilters.passes(route));
   }
 
-  filterOptions(routes: RouteSummary[]): FilterOptions {
+  filterOptions(routes: OrphanRouteInfo[]): FilterOptions {
     const totalCount = routes.length;
     const filteredCount = routes.filter((route) =>
       this.allFilters.passes(route)

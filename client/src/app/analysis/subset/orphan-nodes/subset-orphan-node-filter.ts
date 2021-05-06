@@ -1,4 +1,4 @@
-import { NodeInfo } from '@api/common/node-info';
+import { OrphanNodeInfo } from '@api/common/orphan-node-info';
 import { TimeInfo } from '@api/common/time-info';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
@@ -9,7 +9,7 @@ import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 
 export class SubsetOrphanNodeFilter {
-  private readonly lastUpdatedFilter = new TimestampFilter<NodeInfo>(
+  private readonly lastUpdatedFilter = new TimestampFilter<OrphanNodeInfo>(
     this.criteria.lastUpdated,
     (row) => row.lastUpdated,
     this.timeInfo,
@@ -29,7 +29,9 @@ export class SubsetOrphanNodeFilter {
     this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.older })
   );
 
-  private readonly allFilters = new Filters<NodeInfo>(this.lastUpdatedFilter);
+  private readonly allFilters = new Filters<OrphanNodeInfo>(
+    this.lastUpdatedFilter
+  );
 
   constructor(
     private readonly timeInfo: TimeInfo,
@@ -37,11 +39,11 @@ export class SubsetOrphanNodeFilter {
     private readonly filterCriteria: BehaviorSubject<SubsetOrphanNodeFilterCriteria>
   ) {}
 
-  filter(nodes: NodeInfo[]): NodeInfo[] {
+  filter(nodes: OrphanNodeInfo[]): OrphanNodeInfo[] {
     return nodes.filter((node) => this.allFilters.passes(node));
   }
 
-  filterOptions(nodes: NodeInfo[]): FilterOptions {
+  filterOptions(nodes: OrphanNodeInfo[]): FilterOptions {
     const totalCount = nodes.length;
     const filteredCount = nodes.filter((node) => this.allFilters.passes(node))
       .length;

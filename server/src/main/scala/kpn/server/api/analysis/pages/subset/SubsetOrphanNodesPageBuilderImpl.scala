@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.OrphanNodeInfo
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.OrphanRepository
 import kpn.server.repository.OverviewRepository
@@ -18,9 +18,24 @@ class SubsetOrphanNodesPageBuilderImpl(
     val figures = overviewRepository.figures()
     val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
     val nodes = orphanRepository.orphanNodes(subset)
-    val sortedNodeInfos = nodes.sortWith { (a, b) =>
-      a.networkTypeName(subset.networkType) < b.networkTypeName(subset.networkType)
+
+    val orphanNodeInfos = nodes.map { node =>
+      OrphanNodeInfo(
+        id = node.id,
+        name = node.networkTypeName(subset.networkType),
+        longName = node.networkTypeLongName(subset.networkType).getOrElse("-"),
+        lastUpdated = node.lastUpdated,
+        lastSurvey = node.lastSurvey.map(_.yyyymmdd).getOrElse("-"),
+        factCount = node.facts.size
+      )
     }
-    SubsetOrphanNodesPage(TimeInfoBuilder.timeInfo, subsetInfo, sortedNodeInfos.toVector)
+
+    val sortedOrphanNodeInfos = orphanNodeInfos.sortWith((a, b) => a.name < b.name)
+
+    SubsetOrphanNodesPage(
+      TimeInfoBuilder.timeInfo,
+      subsetInfo,
+      sortedOrphanNodeInfos.toVector
+    )
   }
 }

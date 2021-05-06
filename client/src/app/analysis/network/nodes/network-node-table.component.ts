@@ -30,13 +30,12 @@ import { NetworkNodesService } from './network-nodes.service';
     >
     </kpn-paginator>
 
-    <table mat-table matSort [dataSource]="dataSource" class="kpn-spacer-above">
+    <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
         <th
           [attr.rowspan]="2"
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
           i18n="@@network-nodes.table.nr"
         >
           Nr
@@ -67,7 +66,6 @@ import { NetworkNodesService } from './network-nodes.service';
           [attr.rowspan]="2"
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
           i18n="@@network-nodes.table.node"
         >
           Node
@@ -85,7 +83,6 @@ import { NetworkNodesService } from './network-nodes.service';
           [attr.rowspan]="2"
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
           i18n="@@network-nodes.table.name"
         >
           Name
@@ -137,7 +134,6 @@ import { NetworkNodesService } from './network-nodes.service';
           [attr.rowspan]="2"
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
           i18n="@@network-nodes.table.last-survey"
         >
           Survey
@@ -152,7 +148,6 @@ import { NetworkNodesService } from './network-nodes.service';
           [attr.rowspan]="2"
           mat-header-cell
           *matHeaderCellDef
-          mat-sort-header
           i18n="@@network-nodes.table.last-edit"
         >
           Last edit
