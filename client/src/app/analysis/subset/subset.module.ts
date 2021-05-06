@@ -28,7 +28,6 @@ import { SubsetNetworkListComponent } from './networks/subset-network-list.compo
 import { SubsetNetworkTableComponent } from './networks/subset-network-table.component';
 import { SubsetNetworkComponent } from './networks/subset-network.component';
 import { SubsetOrphanNodesPageComponent } from './orphan-nodes/_subset-orphan-nodes-page.component';
-import { SubsetOrphanNodeComponent } from './orphan-nodes/subset-orphan-node.component';
 import { SubsetOrphanNodesSidebarComponent } from './orphan-nodes/subset-orphan-nodes-sidebar.component';
 import { SubsetOrphanNodesTableComponent } from './orphan-nodes/subset-orphan-nodes-table.component';
 import { SubsetOrphanNodesService } from './orphan-nodes/subset-orphan-nodes.service';
@@ -74,7 +73,6 @@ import { SubsetRoutingModule } from './subset-routing.module';
     SubsetNetworkHappyComponent,
     SubsetOrphanRoutesTableComponent,
     SubsetOrphanRouteComponent,
-    SubsetOrphanNodeComponent,
     SubsetOrphanNodesTableComponent,
     SubsetPageHeaderBlockComponent,
     SubsetOrphanNodesSidebarComponent,

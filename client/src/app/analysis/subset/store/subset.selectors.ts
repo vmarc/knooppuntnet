@@ -9,6 +9,16 @@ export const selectSubsetState = createFeatureSelector<
   SubsetState
 >(subsetFeatureKey);
 
+export const selectSubset = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.subset
+);
+
+export const selectSubsetInfo = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.subsetInfo
+);
+
 export const selectSubsetNetworksPage = createSelector(
   selectSubsetState,
   (state: SubsetState) => state.networksPage

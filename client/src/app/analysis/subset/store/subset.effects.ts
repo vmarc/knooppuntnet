@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { Subset } from '@api/custom/subset';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
-import { Countries } from '../../../kpn/common/countries';
-import { NetworkTypes } from '../../../kpn/common/network-types';
 import { actionSubsetFactsPageInit } from './subset.actions';
 import { actionSubsetOrphanRoutesPageInit } from './subset.actions';
 import { actionSubsetOrphanNodesPageInit } from './subset.actions';
@@ -26,26 +21,14 @@ import { actionSubsetOrphanRoutesPageLoaded } from './subset.actions';
 import { actionSubsetOrphanNodesPageLoaded } from './subset.actions';
 import { actionSubsetFactsPageLoaded } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
+import { selectSubset } from './subset.selectors';
 
 @Injectable()
 export class SubsetEffects {
-  subset$ = combineLatest([
-    this.store.select(selectRouteParam('country')),
-    this.store.select(selectRouteParam('networkType')),
-  ]).pipe(
-    map(
-      ([country, networkType]) =>
-        new Subset(
-          Countries.withDomain(country),
-          NetworkTypes.withName(networkType)
-        )
-    )
-  );
-
   networksPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
-      withLatestFrom(this.subset$),
+      withLatestFrom(this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
         this.appService
           .subsetNetworks(subset)
@@ -57,7 +40,7 @@ export class SubsetEffects {
   factsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
-      withLatestFrom(this.subset$),
+      withLatestFrom(this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
         this.appService
           .subsetFacts(subset)
@@ -69,7 +52,7 @@ export class SubsetEffects {
   orphanNodesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
-      withLatestFrom(this.subset$),
+      withLatestFrom(this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
         this.appService
           .subsetOrphanNodes(subset)
@@ -83,7 +66,7 @@ export class SubsetEffects {
   orphanRoutesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
-      withLatestFrom(this.subset$),
+      withLatestFrom(this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
         this.appService
           .subsetOrphanRoutes(subset)
@@ -97,7 +80,7 @@ export class SubsetEffects {
   mapPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
-      withLatestFrom(this.subset$),
+      withLatestFrom(this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
         this.appService
           .subsetMap(subset)
@@ -109,7 +92,7 @@ export class SubsetEffects {
   changesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
-      withLatestFrom(this.subset$),
+      withLatestFrom(this.store.select(selectSubset)),
       mergeMap(([action, subset]) => {
         const parameters: ChangesParameters = null;
         return this.appService

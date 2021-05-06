@@ -138,7 +138,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
         this.filterCriteria
       );
       this.dataSource.data = filter.filter(this.nodes);
-      this.subsetOrphanNodesService.filterOptions.next(
+      this.subsetOrphanNodesService.filterOptions$.next(
         filter.filterOptions(this.nodes)
       );
     });
