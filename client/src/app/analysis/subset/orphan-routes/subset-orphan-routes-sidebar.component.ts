@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FilterOptions } from '../../../kpn/filter/filter-options';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { Component } from '@angular/core';
 import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 
 @Component({
@@ -9,25 +7,12 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-filter [filterOptions]="filterOptions"></kpn-filter>
+      <kpn-filter [filterOptions]="filterOptions$ | async"></kpn-filter>
     </kpn-sidebar>
   `,
 })
-export class SubsetOrphanRoutesSidebarComponent implements OnInit, OnDestroy {
-  filterOptions: FilterOptions;
-  private readonly subscriptions = new Subscriptions();
+export class SubsetOrphanRoutesSidebarComponent {
+  filterOptions$ = this.subsetOrphanRoutesService.filterOptions$;
 
   constructor(private subsetOrphanRoutesService: SubsetOrphanRoutesService) {}
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.subsetOrphanRoutesService.filterOptions.subscribe(
-        (filterOptions) => (this.filterOptions = filterOptions)
-      )
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
 }

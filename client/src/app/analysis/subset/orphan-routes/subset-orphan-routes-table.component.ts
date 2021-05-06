@@ -155,7 +155,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
         this.filterCriteria
       );
       this.dataSource.data = filter.filter(this.orphanRoutes);
-      this.subsetOrphanRoutesService.filterOptions.next(
+      this.subsetOrphanRoutesService.filterOptions$.next(
         filter.filterOptions(this.orphanRoutes)
       );
     });
