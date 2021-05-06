@@ -17,7 +17,9 @@ import { FactModule } from '../fact/fact.module';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
 import { SubsetChangesService } from './changes/subset-changes.service';
+import { SubsetPageBreadcrumbComponent } from './components/subset-page-breadcrumb.component';
 import { SubsetPageHeaderBlockComponent } from './components/subset-page-header-block.component';
+import { SubsetPageMenuComponent } from './components/subset-page-menu.component';
 import { SubsetFactDetailsPageComponent } from './fact-details/_subset-fact-details-page.component';
 import { SubsetFactsPageComponent } from './facts/_subset-facts-page.component';
 import { SubsetMapPageComponent } from './map/_subset-map-page.component';
@@ -60,6 +62,8 @@ import { SubsetRoutingModule } from './subset-routing.module';
     MatButtonModule,
   ],
   declarations: [
+    SubsetPageBreadcrumbComponent,
+    SubsetPageMenuComponent,
     SubsetChangesPageComponent,
     SubsetFactDetailsPageComponent,
     SubsetFactsPageComponent,

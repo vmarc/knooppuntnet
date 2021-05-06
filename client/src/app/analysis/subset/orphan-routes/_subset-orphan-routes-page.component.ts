@@ -4,16 +4,12 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { actionSubsetOrphanRoutesPageInit } from '../store/subset.actions';
 import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
-import { selectSubsetInfo } from '../store/subset.selectors';
-import { selectSubset } from '../store/subset.selectors';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-subset-page-header-block
-      [subset]="subset$ | async"
-      [subsetInfo$]="subsetInfo$"
       pageName="orphan-routes"
       pageTitle="Free routes"
       i18n-pageTitle="@@subset-orphan-routes.title"
@@ -40,8 +36,6 @@ import { selectSubset } from '../store/subset.selectors';
   `,
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit {
-  readonly subset$ = this.store.select(selectSubset);
-  readonly subsetInfo$ = this.store.select(selectSubsetInfo);
   readonly response$ = this.store.select(selectSubsetOrphanRoutesPage);
 
   constructor(private store: Store<AppState>) {}

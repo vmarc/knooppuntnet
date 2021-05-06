@@ -26,8 +26,6 @@ import { SubsetChangesService } from './subset-changes.service';
   selector: 'kpn-subset-changes-page',
   template: `
     <kpn-subset-page-header-block
-      [subset]="subset"
-      [subsetInfo$]="subsetInfo$"
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@subset-changes.title"

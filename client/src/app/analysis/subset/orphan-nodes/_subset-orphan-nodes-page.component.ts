@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { actionSubsetOrphanNodesPageInit } from '../store/subset.actions';
-import { selectSubset } from '../store/subset.selectors';
-import { selectSubsetInfo } from '../store/subset.selectors';
 import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
 
 @Component({
@@ -12,8 +10,6 @@ import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-subset-page-header-block
-      [subset]="subset$ | async"
-      [subsetInfo$]="subsetInfo$"
       pageName="orphan-nodes"
       pageTitle="Orphan nodes"
       i18n-pageTitle="@@subset-orphan-nodes.title"
@@ -41,8 +37,6 @@ import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
   `,
 })
 export class SubsetOrphanNodesPageComponent implements OnInit {
-  readonly subset$ = this.store.select(selectSubset);
-  readonly subsetInfo$ = this.store.select(selectSubsetInfo);
   readonly response$ = this.store.select(selectSubsetOrphanNodesPage);
 
   constructor(private store: Store<AppState>) {}

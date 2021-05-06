@@ -27,8 +27,6 @@ class SubsetFact {
   template: `
     <div *ngIf="subsetFact$ | async as subsetFact">
       <kpn-subset-page-header-block
-        [subset]="subsetFact.subset"
-        [subsetInfo$]="subsetInfo$"
         pageName="facts"
         pageTitle="Facts"
         i18n-pageTitle="@@subset-facts.title"

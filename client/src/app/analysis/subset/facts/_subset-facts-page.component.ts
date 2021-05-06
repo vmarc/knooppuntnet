@@ -23,8 +23,6 @@ import { Facts } from '../../fact/facts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-subset-page-header-block
-      [subset]="subset$ | async"
-      [subsetInfo$]="subsetInfo$"
       pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@subset-facts.title"

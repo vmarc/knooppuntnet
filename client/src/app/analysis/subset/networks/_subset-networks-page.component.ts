@@ -1,29 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NetworkAttributes } from '@api/common/network/network-attributes';
-import { SubsetInfo } from '@api/common/subset/subset-info';
-import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Subset } from '@api/custom/subset';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
+import { map, tap } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
-import { PageService } from '../../../components/shared/page.service';
-import { Util } from '../../../components/shared/util';
-import { Subsets } from '../../../kpn/common/subsets';
+import { AppState } from '../../../core/core.state';
 import { NetworkCacheService } from '../../../services/network-cache.service';
-import { SubsetCacheService } from '../../../services/subset-cache.service';
+import { actionSubsetNetworksPageInit } from '../store/subset.actions';
+import { selectSubsetNetworksPage } from '../store/subset.selectors';
 
 @Component({
   selector: 'kpn-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-subset-page-header-block
-      [subset]="subset$ | async"
-      [subsetInfo$]="subsetInfo$"
       pageName="networks"
       pageTitle="Networks"
       i18n-pageTitle="@@subset-networks.title"
@@ -33,10 +23,13 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div *ngIf="networks.length === 0" i18n="@@subset-networks.no-networks">
+      <div
+        *ngIf="response.result.networks.length === 0"
+        i18n="@@subset-networks.no-networks"
+      >
         No networks
       </div>
-      <div *ngIf="networks.length > 0">
+      <div *ngIf="response.result.networks.length > 0">
         <p>
           <kpn-situation-on
             [timestamp]="response.situationOn"
@@ -44,10 +37,10 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
         </p>
 
         <markdown i18n="@@subset-networks.summary">
-          _There are __{{ page.networkCount | integer }}__ networks, with a
-          total of __{{ page.nodeCount | integer }}__ nodes and __{{
-            page.routeCount | integer
-          }}__ routes with an overall length of __{{ page.km | integer }}__ km._
+          _There are __{{ response.result.networkCount | integer }}__ networks,
+          with a total of __{{ response.result.nodeCount | integer }}__ nodes
+          and __{{ response.result.routeCount | integer }}__ routes with an
+          overall length of __{{ response.result.km | integer }}__ km._
         </markdown>
 
         <ng-container
@@ -55,12 +48,12 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
         ></ng-container>
         <ng-template #table>
           <kpn-subset-network-table
-            [networks]="networks"
+            [networks]="response.result.networks"
           ></kpn-subset-network-table>
         </ng-template>
         <ng-template #list>
           <kpn-subset-network-list
-            [networks]="networks"
+            [networks]="response.result.networks"
           ></kpn-subset-network-list>
         </ng-template>
       </div>
@@ -69,20 +62,24 @@ import { SubsetCacheService } from '../../../services/subset-cache.service';
 })
 export class SubsetNetworksPageComponent implements OnInit {
   large$: Observable<boolean>;
-  subset$: Observable<Subset>;
-  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
-  response$: Observable<ApiResponse<SubsetNetworksPage>>;
 
-  page: SubsetNetworksPage;
-  networks: NetworkAttributes[] = [];
+  readonly response$ = this.store.select(selectSubsetNetworksPage).pipe(
+    tap((response) => {
+      if (response && response.result) {
+        response.result.networks.forEach((networkAttributes) => {
+          this.networkCacheService.setNetworkName(
+            networkAttributes.id,
+            networkAttributes.name
+          );
+        });
+      }
+    })
+  );
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private pageService: PageService,
+    private store: Store<AppState>,
     private pageWidthService: PageWidthService,
-    private networkCacheService: NetworkCacheService,
-    private subsetCacheService: SubsetCacheService
+    private networkCacheService: NetworkCacheService
   ) {
     this.large$ = pageWidthService.current$.pipe(
       map(() => this.pageWidthService.isVeryLarge())
@@ -90,36 +87,6 @@ export class SubsetNetworksPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subset$ = this.activatedRoute.params.pipe(
-      map((params) => Util.subsetInRoute(params)),
-      tap((subset) =>
-        this.subsetInfo$.next(
-          this.subsetCacheService.getSubsetInfo(Subsets.key(subset))
-        )
-      )
-    );
-    this.response$ = this.subset$.pipe(
-      mergeMap((subset) =>
-        this.appService.subsetNetworks(subset).pipe(
-          tap((response) => {
-            if (response.result) {
-              this.page = response.result;
-              this.networks = response.result.networks;
-              this.subsetCacheService.setSubsetInfo(
-                Subsets.key(subset),
-                response.result.subsetInfo
-              );
-              this.subsetInfo$.next(response.result.subsetInfo);
-              response.result.networks.forEach((networkAttributes) => {
-                this.networkCacheService.setNetworkName(
-                  networkAttributes.id,
-                  networkAttributes.name
-                );
-              });
-            }
-          })
-        )
-      )
-    );
+    this.store.dispatch(actionSubsetNetworksPageInit());
   }
 }

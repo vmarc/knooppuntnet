@@ -24,8 +24,6 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-subset-page-header-block
-      [subset]="subset$ | async"
-      [subsetInfo$]="subsetInfo$"
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@subset-map.title"
