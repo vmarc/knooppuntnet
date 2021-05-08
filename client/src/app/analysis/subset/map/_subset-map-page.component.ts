@@ -1,22 +1,14 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { Bounds } from '@api/common/bounds';
-import { SubsetInfo } from '@api/common/subset/subset-info';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
-import { SubsetMapPage } from '@api/common/subset/subset-map-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Subset } from '@api/custom/subset';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import { PageService } from '../../../components/shared/page.service';
-import { Util } from '../../../components/shared/util';
-import { Subsets } from '../../../kpn/common/subsets';
+import { AppState } from '../../../core/core.state';
 import { NetworkCacheService } from '../../../services/network-cache.service';
-import { SubsetCacheService } from '../../../services/subset-cache.service';
+import { actionSubsetMapPageInit } from '../store/subset.actions';
+import { selectSubsetMapPage } from '../store/subset.selectors';
 import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.component';
 
 @Component({
@@ -31,74 +23,48 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
 
     <kpn-error></kpn-error>
 
-    <div *ngIf="response$ | async">
+    <div *ngIf="response$ | async as response">
       <kpn-subset-map
-        [bounds]="bounds"
-        [networks]="networks"
-        (networkClicked)="networkClicked($event)"
+        [bounds]="response.result.bounds"
+        [networks]="response.result.networks"
+        (networkClicked)="networkClicked($event, response.result.networks)"
       ></kpn-subset-map>
     </div>
   `,
 })
 export class SubsetMapPageComponent implements OnInit, OnDestroy {
-  subset$: Observable<Subset>;
-  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
-  response$: Observable<ApiResponse<SubsetMapPage>>;
-
-  bounds: Bounds;
-  networks: SubsetMapNetwork[];
+  readonly response$ = this.store.select(selectSubsetMapPage).pipe(
+    tap((response) => {
+      if (response && response.result) {
+        response.result.networks.forEach((networkAttributes) => {
+          this.networkCacheService.setNetworkName(
+            networkAttributes.id,
+            networkAttributes.name
+          );
+        });
+      }
+    })
+  );
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService,
+    private store: Store<AppState>,
     private pageService: PageService,
     private networkCacheService: NetworkCacheService,
-    private subsetCacheService: SubsetCacheService,
     private dialog: MatDialog
   ) {
     this.pageService.showFooter = false;
   }
 
   ngOnInit(): void {
-    this.subset$ = this.activatedRoute.params.pipe(
-      map((params) => Util.subsetInRoute(params)),
-      tap((subset) =>
-        this.subsetInfo$.next(
-          this.subsetCacheService.getSubsetInfo(Subsets.key(subset))
-        )
-      )
-    );
-    this.response$ = this.subset$.pipe(
-      mergeMap((subset) =>
-        this.appService.subsetMap(subset).pipe(
-          tap((response) => {
-            if (response.result) {
-              this.bounds = response.result.bounds;
-              this.networks = response.result.networks;
-              this.subsetCacheService.setSubsetInfo(
-                Subsets.key(subset),
-                response.result.subsetInfo
-              );
-              this.subsetInfo$.next(response.result.subsetInfo);
-              response.result.networks.forEach((networkAttributes) => {
-                this.networkCacheService.setNetworkName(
-                  networkAttributes.id,
-                  networkAttributes.name
-                );
-              });
-            }
-          })
-        )
-      )
-    );
+    this.store.dispatch(actionSubsetMapPageInit());
   }
 
   ngOnDestroy(): void {
     this.pageService.showFooter = true;
   }
 
-  networkClicked(networkId: number): void {
-    const network = this.networks.find((n) => n.id === networkId);
+  networkClicked(networkId: number, networks: Array<SubsetMapNetwork>): void {
+    const network = networks.find((n) => n.id === networkId);
     if (network) {
       this.dialog.open(SubsetMapNetworkDialogComponent, {
         data: network,
