@@ -17,7 +17,8 @@
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@angular-eslint/recommended--extra"
       ],
       "rules": {
         "no-underscore-dangle": "off",
