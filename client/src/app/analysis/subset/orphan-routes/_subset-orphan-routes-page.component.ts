@@ -27,6 +27,7 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
       <div *ngIf="response.result.routes.length > 0">
         <kpn-subset-orphan-routes-table
           [timeInfo]="response.result.timeInfo"
+          [networkType]="response.result.subsetInfo.networkType"
           [orphanRoutes]="response.result.routes"
         ></kpn-subset-orphan-routes-table>
       </div>

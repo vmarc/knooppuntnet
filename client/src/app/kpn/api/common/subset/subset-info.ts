@@ -1,9 +1,12 @@
 // this class is generated, please do not modify
 
+import { Country } from '../../custom/country';
+import { NetworkType } from '../../custom/network-type';
+
 export class SubsetInfo {
   constructor(
-    readonly country: string,
-    readonly networkType: string,
+    readonly country: Country,
+    readonly networkType: NetworkType,
     readonly networkCount: number,
     readonly factCount: number,
     readonly changesCount: number,

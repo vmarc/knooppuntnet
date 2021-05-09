@@ -34,6 +34,7 @@ import { SubsetOrphanNodesSidebarComponent } from './orphan-nodes/subset-orphan-
 import { SubsetOrphanNodesTableComponent } from './orphan-nodes/subset-orphan-nodes-table.component';
 import { SubsetOrphanNodesService } from './orphan-nodes/subset-orphan-nodes.service';
 import { SubsetOrphanRoutesPageComponent } from './orphan-routes/_subset-orphan-routes-page.component';
+import { SubsetOrphanRouteAnalysisComponent } from './orphan-routes/subset-orphan-route-analysis.component';
 import { SubsetOrphanRoutesSidebarComponent } from './orphan-routes/subset-orphan-routes-sidebar.component';
 import { SubsetOrphanRoutesTableComponent } from './orphan-routes/subset-orphan-routes-table.component';
 import { SubsetOrphanRoutesService } from './orphan-routes/subset-orphan-routes.service';
@@ -70,6 +71,7 @@ import { SubsetRoutingModule } from './subset-routing.module';
     SubsetNetworksPageComponent,
     SubsetOrphanNodesPageComponent,
     SubsetOrphanRoutesPageComponent,
+    SubsetOrphanRouteAnalysisComponent,
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,
     SubsetNetworkComponent,

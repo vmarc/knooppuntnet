@@ -133,38 +133,6 @@ class RouteTool(database: Database) {
     }
   }
 
-  def printLongestGermanBicycleRoutes(): Unit = {
-    val orphanRepository = new OrphanRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
-
-    val routes = orphanRepository.orphanRoutes(Subset.deBicycle)
-
-    println("route count = " + routes.size)
-
-    //    case class RouteSummary(
-    //      id: Long,
-    //      country: Option[Country],
-    //      networkType: NetworkType,
-    //      name: String,
-    //      meters: Int,
-    //      isBroken: Boolean,
-    //      wayCount: Int,
-    //      timestamp: Timestamp,
-    //      nodeNames: Seq[String],
-    //      tags: Tags
-    //    ) extends Tagable
-
-    val sortedRoutes = routes.sortWith { (r1, r2) =>
-      r1.meters > r2.meters
-    }
-
-    sortedRoutes.drop(10).filter(_.nodeNames.size > 1).filter(_.name == "no-name").zipWithIndex.foreach { case (route, index) =>
-      println(s"${index + 1} id=${route.id}, name=${route.name}, length=${route.meters / 1000}, nodeCount=${route.nodeNames.size}")
-    }
-
-  }
-
-
   def removeBlacklistedNetworksAndRoutes(): Unit = {
     val blackListRepository = new BlackListRepositoryImpl(database)
     val networkRepository = new NetworkRepositoryImpl(database)

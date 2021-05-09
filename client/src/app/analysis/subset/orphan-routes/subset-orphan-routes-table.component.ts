@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
+import { NetworkType } from '@api/custom/network-type';
 import { BehaviorSubject } from 'rxjs';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
@@ -40,7 +41,12 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
         >
           Analysis
         </th>
-        <td mat-cell *matCellDef="let node">analysis</td>
+        <td mat-cell *matCellDef="let route">
+          <kpn-subset-orphan-route-analysis
+            [route]="route"
+            [networkType]="networkType"
+          ></kpn-subset-orphan-route-analysis>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
@@ -123,6 +129,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {
   @Input() timeInfo: TimeInfo;
+  @Input() networkType: NetworkType;
   @Input() orphanRoutes: OrphanRouteInfo[];
 
   @ViewChild(PaginatorComponent, { static: true })
@@ -132,7 +139,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   displayedColumns = [
     'nr',
-    // 'analysis',
+    'analysis',
     'name',
     'distance',
     'last-survey',
