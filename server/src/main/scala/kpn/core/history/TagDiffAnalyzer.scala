@@ -10,7 +10,7 @@ import kpn.api.custom.NetworkType
 object NodeTagDiffAnalyzer {
 
   private val prefixes = NetworkScope.all.flatMap { networkScope =>
-    NetworkType.all.flatMap { networkType =>
+    NetworkType.all.map { networkType =>
       networkScope.letter + networkType.letter
     }
   }
