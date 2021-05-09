@@ -32,17 +32,6 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
         <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="analysis">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@subset-orphan-nodes.table.analysis"
-        >
-          Analysis
-        </th>
-        <td mat-cell *matCellDef="let node">analysis</td>
-      </ng-container>
-
       <ng-container matColumnDef="node">
         <th
           *matHeaderCellDef

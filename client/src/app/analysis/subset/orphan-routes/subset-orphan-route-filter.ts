@@ -11,7 +11,7 @@ import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-cr
 
 export class SubsetOrphanRouteFilter {
   private readonly brokenFilter = new BooleanFilter<OrphanRouteInfo>(
-    'broken',
+    'investigate',
     this.criteria.broken,
     (row) => row.isBroken,
     this.update({ ...this.criteria, broken: null }),
