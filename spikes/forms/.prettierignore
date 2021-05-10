@@ -1,6 +1,0 @@
-# Ignore artifacts
-.idea
-out
-dist
-coverage
-node_modules
