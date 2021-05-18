@@ -2,10 +2,13 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-24t %x %c{1} %msg%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %-24t %x %c{1} %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>
+        <logger name="org.mongodb" level="warn">
+            <AppenderRef ref="Console"/>
+        </logger>
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>

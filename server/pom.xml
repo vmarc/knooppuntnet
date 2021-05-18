@@ -280,6 +280,12 @@
             <version>0.4.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.mongodb.scala</groupId>
+            <artifactId>mongo-scala-driver_2.13</artifactId>
+            <version>4.2.3</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>
