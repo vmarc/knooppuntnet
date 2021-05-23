@@ -6,7 +6,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <logger name="org.mongodb" level="warn">
+        <logger name="org.mongodb" level="debug">
             <AppenderRef ref="Console"/>
         </logger>
         <Root level="info">
