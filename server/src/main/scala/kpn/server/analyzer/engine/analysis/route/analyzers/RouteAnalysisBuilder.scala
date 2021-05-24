@@ -168,7 +168,8 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation.tags,
       facts.toSeq,
       routeAnalysis,
-      Seq()
+      Seq(),
+      routeAnalysis.map.nodeIds
     )
 
     val tileNames = {

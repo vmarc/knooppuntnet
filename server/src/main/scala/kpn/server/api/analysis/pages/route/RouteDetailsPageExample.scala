@@ -30,6 +30,146 @@ object RouteDetailsPageExample {
   }
 
   private def route(): RouteInfo = {
+    val analysis = RouteInfoAnalysis(
+      unexpectedNodeIds = Seq(
+        1001
+      ),
+      members = Seq(
+
+        RouteMemberInfo(
+          id = 1L,
+          memberType = "node",
+          isWay = false,
+          nodes = Seq(),
+          linkName = "n",
+          from = "01",
+          fromNodeId = 1,
+          to = "",
+          toNodeId = 1,
+          role = "connection",
+          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
+          accessible = true,
+          length = "",
+          nodeCount = "",
+          description = "",
+          oneWay = Both,
+          oneWayTags = Tags.empty
+        ),
+        RouteMemberInfo(
+          id = 1L,
+          memberType = "way",
+          isWay = true,
+          nodes = Seq(),
+          linkName = "wb003",
+          from = "01",
+          fromNodeId = 1,
+          to = "02",
+          toNodeId = 2,
+          role = "",
+          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
+          accessible = false,
+          length = "",
+          nodeCount = "3",
+          description = "description",
+          oneWay = Both,
+          oneWayTags = Tags.from(
+            "key1" -> "value1",
+            "key2" -> "value2",
+            "key3" -> "value3"
+          )
+        )
+      ),
+      expectedName = "01-02",
+      map = RouteMap(
+        startNodes = Seq[RouteNetworkNodeInfo](
+          RouteNetworkNodeInfo(
+            1001,
+            "01",
+            "01.a",
+            "1",
+            "1"
+          ),
+          RouteNetworkNodeInfo(
+            1002,
+            "02",
+            "02.a",
+            "2",
+            "2"
+          )
+        ),
+        endNodes = Seq[RouteNetworkNodeInfo](
+          RouteNetworkNodeInfo(
+            1001,
+            "01",
+            "01.a",
+            "1",
+            "1"
+          ),
+          RouteNetworkNodeInfo(
+            1002,
+            "02",
+            "02.a",
+            "2",
+            "2"
+          )
+        ),
+        startTentacleNodes = Seq[RouteNetworkNodeInfo](
+          RouteNetworkNodeInfo(
+            1001,
+            "01",
+            "01.a",
+            "2",
+            "2"
+          ),
+          RouteNetworkNodeInfo(
+            1002,
+            "02",
+            "02.a",
+            "2",
+            "2"
+          )
+        ),
+        endTentacleNodes = Seq[RouteNetworkNodeInfo](
+          RouteNetworkNodeInfo(
+            1001,
+            "01",
+            "01.a",
+            "1",
+            "1"
+          ),
+          RouteNetworkNodeInfo(
+            1002,
+            "02",
+            "02.a",
+            "2",
+            "2"
+          )
+        ),
+        redundantNodes = Seq(
+          RouteNetworkNodeInfo(
+            1009,
+            "09",
+            "09",
+            "9",
+            "9"
+          )
+        )
+      ),
+      structureStrings = Seq[String](
+        "one",
+        "two",
+        "three"
+      ),
+      "",
+      locationAnalysis = RouteLocationAnalysis(
+        None,
+        Seq.empty,
+        Seq.empty
+      )
+    )
+
+
+
     RouteInfo(
       summary = RouteSummary(
         id = 1,
@@ -75,144 +215,9 @@ object RouteDetailsPageExample {
         Fact.RouteIncomplete,
         Fact.RouteInvalidSurveyDate
       ),
-      analysis = RouteInfoAnalysis(
-        unexpectedNodeIds = Seq(
-          1001
-        ),
-        members = Seq(
-
-          RouteMemberInfo(
-            id = 1L,
-            memberType = "node",
-            isWay = false,
-            nodes = Seq(),
-            linkName = "n",
-            from = "01",
-            fromNodeId = 1,
-            to = "",
-            toNodeId = 1,
-            role = "connection",
-            timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-            accessible = true,
-            length = "",
-            nodeCount = "",
-            description = "",
-            oneWay = Both,
-            oneWayTags = Tags.empty
-          ),
-          RouteMemberInfo(
-            id = 1L,
-            memberType = "way",
-            isWay = true,
-            nodes = Seq(),
-            linkName = "wb003",
-            from = "01",
-            fromNodeId = 1,
-            to = "02",
-            toNodeId = 2,
-            role = "",
-            timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-            accessible = false,
-            length = "",
-            nodeCount = "3",
-            description = "description",
-            oneWay = Both,
-            oneWayTags = Tags.from(
-              "key1" -> "value1",
-              "key2" -> "value2",
-              "key3" -> "value3"
-            )
-          )
-        ),
-        expectedName = "01-02",
-        map = RouteMap(
-          startNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "1",
-              "1"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          endNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "1",
-              "1"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          startTentacleNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "2",
-              "2"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          endTentacleNodes = Seq[RouteNetworkNodeInfo](
-            RouteNetworkNodeInfo(
-              1001,
-              "01",
-              "01.a",
-              "1",
-              "1"
-            ),
-            RouteNetworkNodeInfo(
-              1002,
-              "02",
-              "02.a",
-              "2",
-              "2"
-            )
-          ),
-          redundantNodes = Seq(
-            RouteNetworkNodeInfo(
-              1009,
-              "09",
-              "09",
-              "9",
-              "9"
-            )
-          )
-        ),
-        structureStrings = Seq[String](
-          "one",
-          "two",
-          "three"
-        ),
-        "",
-        locationAnalysis = RouteLocationAnalysis(
-          None,
-          Seq.empty,
-          Seq.empty
-        )
-      ),
-      Seq()
+      analysis,
+      Seq(),
+      analysis.map.nodeIds
     )
   }
 

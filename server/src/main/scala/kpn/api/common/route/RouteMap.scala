@@ -27,6 +27,15 @@ case class RouteMap(
 
   def paths: Seq[TrackPath] = forwardPath.toSeq ++ backwardPath.toSeq ++ startTentaclePaths ++ endTentaclePaths
 
+  def nodeIds: Seq[Long] = {
+    val allNodeIds = freeNodes.map(_.id) ++
+      startNodes.map(_.id) ++
+      endNodes.map(_.id) ++
+      startTentacleNodes.map(_.id) ++
+      endTentacleNodes.map(_.id)
+    allNodeIds.sorted.distinct
+  }
+
   def nodeWithId(nodeId: Long): Option[RouteNetworkNodeInfo] = {
     startNodes.find(_.id == nodeId) match {
       case Some(node) => Some(node)

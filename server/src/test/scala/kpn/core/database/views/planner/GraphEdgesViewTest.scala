@@ -98,6 +98,8 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       tags = Tags.empty
     )
 
+    val analysis = newRouteInfoAnalysis(map = routeMap)
+
     RouteInfo(
       summary = summary,
       active = true,
@@ -108,8 +110,9 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       lastSurvey = None,
       tags = Tags.empty,
       facts = Seq(),
-      analysis = newRouteInfoAnalysis(map = routeMap),
-      Seq()
+      analysis,
+      Seq(),
+      analysis.map.nodeIds
     )
   }
 }
