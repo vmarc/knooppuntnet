@@ -2,17 +2,10 @@
 
 This documents the experiments with MongoDB to see whether it would be a good replacment for CouchDB in knooppuntnet.
 
-## Todo
-- [x] Install
-- [ ] Security (port, admin user, application user, ssl)
-- [ ] Verify security implications of commenting out line with bindIp in /etc/mongod.conf to allow connections from other hosts.
-- [ ] Populate database
-- [ ] Queries
 
 ## Install
 
-Using instructions found on:
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/.
+Using [instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) on mongodb site.
 
 Import the public key:
 ```
@@ -76,9 +69,37 @@ Mongo shell
 mongo
 ```
 
+## Security
+
+Create admin user:
+```
+use admin
+db.createUser(
+  {
+    user: "admin",
+    pwd: passwordPrompt(),
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+)
+```
+
+Create app user (logged in as admin user):
+```
+use tryout
+db.createUser(
+  {
+    user: "kpn-app",
+    pwd:  passwordPrompt(),
+    roles: [ { role: "readWrite", db: "tryout" } ]
+  }
+)
+```
+
+
+
 ## Install Compass
 
-Use instructions on https://docs.mongodb.com/compass/current/install.
+Use [instructions](https://docs.mongodb.com/compass/current/install) on mongodb site.
 
 Download
 ```

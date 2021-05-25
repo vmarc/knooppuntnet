@@ -6,7 +6,16 @@
         </Console>
     </Appenders>
     <Loggers>
-        <logger name="org.mongodb" level="debug">
+        <logger name="org.mongodb" level="warn">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="org.mongodb.driver.protocol.command" level="warn">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="kpn.core.mongo" level="debug">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="kpn.core.mongo.JacksonCodec" level="info">
             <AppenderRef ref="Console"/>
         </logger>
         <Root level="info">

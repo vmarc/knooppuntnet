@@ -4,7 +4,6 @@ import kpn.core.database.Database
 import kpn.core.database.doc.NetworkDoc
 import kpn.core.db.couch.Couch
 import kpn.server.repository.NetworkRepositoryImpl
-import org.mongodb.scala.MongoClient
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -31,7 +30,7 @@ object InsertNetworks {
   }
 
   private def writeMongoNetworks(networkDocs: Seq[NetworkDoc]): Unit = {
-    val mongoClient = MongoClient("mongodb://kpn-tiles:27017")
+    val mongoClient = Mongo.client
     val database = Mongo.database(mongoClient, "tryout")
     val networksCollection = database.getCollection[NetworkDoc]("networks")
     println(s"Insert")
