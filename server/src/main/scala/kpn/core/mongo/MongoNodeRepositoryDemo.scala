@@ -26,8 +26,8 @@ class MongoNodeRepositoryDemo(repository: MongoNodeRepositoryImpl) {
   def findNodesByLocation(): Unit = {
     println("nodes by location")
     val networkType = NetworkType.hiking
-    repository.findNodesByLocation(networkType, "Essen BE", 0, 1)
-    val (total, nodeInfos) = repository.findNodesByLocation(networkType, "Essen BE", 0, 100)
+    repository.findLocationNodes(networkType, "Essen BE", 0, 1)
+    val (total, nodeInfos) = repository.findLocationNodes(networkType, "Essen BE", 0, 100)
     println(s"location total node count: $total")
     nodeInfos.zipWithIndex.foreach { case (nodeDoc2, index) =>
       println(s"  ${index + 1} name: ${nodeDoc2.node.networkTypeName(networkType)}, id: ${nodeDoc2.node.id}")
@@ -40,8 +40,8 @@ class MongoNodeRepositoryDemo(repository: MongoNodeRepositoryImpl) {
   def findNodesByLocationBelgium(): Unit = {
     println("nodes by location")
     val networkType = NetworkType.hiking
-    repository.findNodesByLocation(networkType, "be", 0, 1)
-    val (total, nodeInfos) = repository.findNodesByLocation(networkType, "be", 400, 25)
+    repository.findLocationNodes(networkType, "be", 0, 1)
+    val (total, nodeInfos) = repository.findLocationNodes(networkType, "be", 0, 25)
     println(s"location total node count: $total")
     nodeInfos.zipWithIndex.foreach { case (nodeDoc2, index) =>
       println(s"  ${index + 1} name: ${nodeDoc2.node.networkTypeName(networkType)}, id: ${nodeDoc2.node.id}, survey: ${nodeDoc2.node.lastSurvey}")

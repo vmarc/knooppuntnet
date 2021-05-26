@@ -1,19 +1,18 @@
 package kpn.core.mongo
 
 import kpn.core.database.doc.NetworkDoc
-import kpn.server.json.Json
 import org.mongodb.scala.MongoDatabase
-import org.mongodb.scala.model.Aggregates
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-
-object MongoNetworkRepositoryImpl {
-}
 
 class MongoNetworkRepositoryImpl(database: MongoDatabase) {
 
@@ -25,20 +24,17 @@ class MongoNetworkRepositoryImpl(database: MongoDatabase) {
   }
 
   def findAllNetworks(): Seq[String] = {
-    val future = networks.aggregate(
-      Seq(
-        Aggregates.project(
-          Projections.fields(
-            Projections.excludeId(),
-            Projections.include("network.attributes.name"),
-          )
+    val pipeline = Seq(
+      project(
+        fields(
+          excludeId(),
+          include("network.attributes.name"),
         )
       )
-    ).toFuture()
+    )
+    val future = networks.aggregate[NetworkDoc](pipeline).toFuture()
     val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
-    docs.map { document =>
-      val json = document.toJson()
-      val networkDoc = Json.objectMapper.readValue(json, classOf[NetworkDoc])
+    docs.map { networkDoc =>
       networkDoc.network.attributes.name
     }
   }
@@ -49,17 +45,16 @@ class MongoNetworkRepositoryImpl(database: MongoDatabase) {
   }
 
   def findNetworkByName(networkName: String): Option[NetworkDoc] = {
-    val future = networks.aggregate[NetworkDoc](
-      Seq(
-        Aggregates.filter(Filters.eq("network.attributes.name", networkName)),
-        Aggregates.project(
-          Projections.fields(
-            Projections.excludeId(),
-            Projections.include("network.attributes"),
-          )
-        ),
+    val pipeline = Seq(
+      filter(Filters.eq("network.attributes.name", networkName)),
+      project(
+        fields(
+          excludeId(),
+          include("network.attributes"),
+        )
       )
-    ).headOption()
+    )
+    val future = networks.aggregate[NetworkDoc](pipeline).headOption()
     Await.result(future, Duration(60, TimeUnit.SECONDS))
   }
 }

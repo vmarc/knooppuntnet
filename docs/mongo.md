@@ -27,6 +27,11 @@ Install the MongoDB packages.
 sudo apt-get install -y mongodb-org
 ```
 
+Install shell:
+```
+sudo apt-get install -y mongodb-mongosh
+```
+
 Establish which init system is used (result: systemd):
 ```
 ps --no-headers -o comm 1
