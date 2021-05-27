@@ -1,0 +1,54 @@
+[
+  {
+    "$match": {
+      "route.active": true,
+      "route.summary.country": {
+        "$exists": true
+      },
+      "route.facts": {
+        "$exists": true,
+        "$ne": []
+      }
+    }
+  },
+  {
+    "$unwind": {
+      "path": "$route.facts"
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "country": "$route.summary.country",
+        "networkType": "$route.summary.networkType",
+        "factName": "$route.facts"
+      },
+      "factCount": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": {
+        "$concat": [
+          "$_id.country",
+          ":",
+          "$_id.networkType",
+          ":",
+          "$_id.factName"
+        ]
+      },
+      "country": "$_id.country",
+      "networkType": "$_id.networkType",
+      "name": "$_id.factName",
+      "count": "$factCount"
+    }
+  },
+  {
+    "$merge": {
+      "into": "counts",
+      "on": "_id"
+    }
+  }
+]

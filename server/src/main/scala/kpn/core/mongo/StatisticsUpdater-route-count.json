@@ -1,0 +1,36 @@
+[
+  {
+    "$match": {
+      "route.active": true,
+      "route.summary.country": {
+        "$exists": true
+      }
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "country": "$route.summary.country",
+        "networkType": "$route.summary.networkType"
+      },
+      "routeCount": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": {"$concat": ["$_id.country", ":", "$_id.networkType", ":RouteCount"]},
+      "country": "$_id.country",
+      "networkType": "$_id.networkType",
+      "name": "RouteCount",
+      "count": "$routeCount"
+    }
+  },
+  {
+    "$merge": {
+      "into": "counts",
+      "on": "_id"
+    }
+  }
+]

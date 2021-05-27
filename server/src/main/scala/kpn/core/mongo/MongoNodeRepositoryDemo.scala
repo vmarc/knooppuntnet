@@ -9,11 +9,10 @@ object MongoNodeRepositoryDemo {
       val database = Mongo.database(mongoClient, "tryout")
       val repository = new MongoNodeRepositoryImpl(database)
       val demo = new MongoNodeRepositoryDemo(repository)
-      // demo.findNodesByLocation()
-      demo.findNodesByLocationBelgium()
-      // demo.findNetworkReferences()
-      // demo.findRouteReferences()
-      // demo.nodeCountPerSubset()
+       demo.findNodesByLocation()
+       demo.findNodesByLocationBelgium()
+       demo.findNetworkReferences()
+       demo.findRouteReferences()
     }
     finally {
       mongoClient.close()
@@ -65,10 +64,5 @@ class MongoNodeRepositoryDemo(repository: MongoNodeRepositoryImpl) {
     refs.zipWithIndex.foreach { case (ref, index) =>
       println(s"  ${index + 1} ${ref.id} ${ref.name}")
     }
-  }
-
-  def nodeCountPerSubset(): Unit = {
-    val subsetNodeCounts = repository.nodeCountPerSubset()
-    subsetNodeCounts.foreach(println)
   }
 }

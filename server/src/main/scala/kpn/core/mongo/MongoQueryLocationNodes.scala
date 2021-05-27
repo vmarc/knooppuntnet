@@ -48,9 +48,7 @@ class MongoQueryLocationNodes(database: MongoDatabase) {
     val pipeline = Seq(
       filter(locationFilter),
       filter(lastSurveyFilter),
-      sort(
-        orderBy(ascending("node.names.name", "node.id"))
-      ),
+      sort(orderBy(ascending("node.names.name", "node.id"))),
       skip(page * pageSize),
       limit(pageSize),
       project(

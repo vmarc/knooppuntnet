@@ -1,0 +1,36 @@
+[
+  {
+    "$match": {
+      "network.active": true,
+      "network.attributes.country": {
+        "$exists": true
+      }
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "country": "$network.attributes.country",
+        "networkType": "$network.attributes.networkType"
+      },
+      "networkCount": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": {"$concat": ["$_id.country", ":", "$_id.networkType", ":NetworkCount"]},
+      "country": "$_id.country",
+      "networkType": "$_id.networkType",
+      "name": "NetworkCount",
+      "count": "$networkCount"
+    }
+  },
+  {
+    "$merge": {
+      "into": "counts",
+      "on": "_id"
+    }
+  }
+]

@@ -17,8 +17,4 @@ class MongoNodeRepositoryImpl(database: MongoDatabase) {
   def findRouteReferences(nodeId: Long): Seq[Ref] = {
     new MongoQueryNode(database).findRouteReferences(nodeId)
   }
-
-  def nodeCountPerSubset(): Seq[SubsetNodeCount] = {
-    new MongoQuerySubsetNodeCount(database).nodeCountPerSubset()
-  }
 }

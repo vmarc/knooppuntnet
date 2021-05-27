@@ -1,0 +1,90 @@
+[
+  {
+    "$match": {
+      "network.active": true,
+      "network.attributes.country": {
+        "$exists": true
+      }
+    }
+  },
+  {
+    "$unwind": {
+      "path": "$network.detail.networkFacts"
+    }
+  },
+  {
+    "$set": {
+      "factName": {
+        "$switch": {
+          "branches": [
+            {
+              "case": "$network.detail.networkFacts.networkExtraMemberNode",
+              "then": "NetworkExtraMemberNode"
+            },
+            {
+              "case": "$network.detail.networkFacts.networkExtraMemberWay",
+              "then": "NetworkExtraMemberWay"
+            },
+            {
+              "case": "$network.detail.networkFacts.networkExtraMemberRelation",
+              "then": "NetworkExtraMemberRelation"
+            },
+            {
+              "case": "$network.detail.networkFacts.integrityCheck",
+              "then": "IntegrityCheck"
+            },
+            {
+              "case": "$network.detail.networkFacts.integrityCheckFailed",
+              "then": "IntegrityCheckFailed"
+            },
+            {
+              "case": "$network.detail.networkFacts.nameMissing",
+              "then": "NameMissing"
+            }
+          ],
+          "default": ""
+        }
+      }
+    }
+  },
+  {
+    "$match": {
+      "factName": {"$ne":  ""}
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "country": "$network.attributes.country",
+        "networkType": "$network.attributes.networkType",
+        "factName": "$factName"
+      },
+      "factCount": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": {
+        "$concat": [
+          "$_id.country",
+          ":",
+          "$_id.networkType",
+          ":",
+          "$_id.factName"
+        ]
+      },
+      "country": "$_id.country",
+      "networkType": "$_id.networkType",
+      "name": "$_id.factName",
+      "count": "$factCount"
+    }
+  },
+  {
+    "$merge": {
+      "into": "counts",
+      "on": "_id"
+    }
+  }
+]

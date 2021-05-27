@@ -1,0 +1,43 @@
+[
+  {
+    "$match": {
+      "route.active": true,
+      "route.summary.country": {
+        "$exists": true
+      }
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "country": "$route.summary.country",
+        "networkType": "$route.summary.networkType"
+      },
+      "distance": {
+        "$sum": "$route.summary.meters"
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": {
+        "$concat": [
+          "$_id.country",
+          ":",
+          "$_id.networkType",
+          ":Distance"
+        ]
+      },
+      "country": "$_id.country",
+      "networkType": "$_id.networkType",
+      "name": "Distance",
+      "count": "$distance"
+    }
+  },
+  {
+    "$merge": {
+      "into": "counts",
+      "on": "_id"
+    }
+  }
+]
