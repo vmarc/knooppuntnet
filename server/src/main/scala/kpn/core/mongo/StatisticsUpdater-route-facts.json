@@ -42,12 +42,12 @@
       "country": "$_id.country",
       "networkType": "$_id.networkType",
       "name": "$_id.factName",
-      "count": "$factCount"
+      "value": "$factCount"
     }
   },
   {
     "$merge": {
-      "into": "counts",
+      "into": "statistics-route-facts",
       "on": "_id"
     }
   }

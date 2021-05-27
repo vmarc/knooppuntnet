@@ -24,12 +24,12 @@
       "country": "$_id.country",
       "networkType": "$_id.networkType",
       "name": "RouteCount",
-      "count": "$routeCount"
+      "value": "$routeCount"
     }
   },
   {
     "$merge": {
-      "into": "counts",
+      "into": "statistics-route-count",
       "on": "_id"
     }
   }

@@ -19,8 +19,13 @@ class MongoQuery {
   private def readPipelineFile(pipelineName: String): List[String] = {
     val classFilename = "/" + getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "")
     val pipelineFilename = s"$classFilename-$pipelineName.json"
-    val stream: InputStream = getClass.getResourceAsStream(pipelineFilename)
-    Source.fromInputStream(stream).getLines.toList
+    try {
+      val stream: InputStream = getClass.getResourceAsStream(pipelineFilename)
+      Source.fromInputStream(stream).getLines.toList
+    }
+    catch {
+      case e: Exception => throw new IllegalStateException(s"Could not read $pipelineFilename", e)
+    }
   }
 
   private def toStageStrings(lines: List[String]): List[String] = {

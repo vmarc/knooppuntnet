@@ -31,12 +31,12 @@
       "country": "$_id.country",
       "networkType": "$_id.networkType",
       "name": "Distance",
-      "count": "$distance"
+      "value": "$distance"
     }
   },
   {
     "$merge": {
-      "into": "counts",
+      "into": "statistics-route-distance",
       "on": "_id"
     }
   }

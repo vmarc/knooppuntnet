@@ -50,9 +50,9 @@ class StatisticsUpdater(database: MongoDatabase) {
   private def updateCounts(collectionName: String, pipeline: Pipeline): Unit = {
     log.debugElapsed {
       val collection = database.getCollection(collectionName)
-      val future = collection.aggregate[Count](pipeline.stages).toFuture()
-      Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (pipeline.name, ())
+      val future = collection.aggregate[StatisticValue](pipeline.stages).toFuture()
+      val values = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      (s"${pipeline.name}: ${values.size}", ())
     }
   }
 }

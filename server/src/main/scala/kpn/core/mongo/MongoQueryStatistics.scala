@@ -2,6 +2,7 @@ package kpn.core.mongo
 
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
+import kpn.core.mongo.MongoQueryStatistics.pipeline
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 
@@ -9,7 +10,10 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-object MongoQueryStatistics {
+object MongoQueryStatistics extends MongoQuery {
+
+  private val pipeline = readPipeline("pipeline")
+
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
@@ -41,9 +45,10 @@ class MongoQueryStatistics(database: MongoDatabase) {
 
   def execute(): Seq[StatisticValue] = {
     log.debugElapsed {
-      val future = database.getCollection("counts").find[Count]().toFuture()
-      val counts = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      val values = counts.map(count => StatisticValue(count.country, count.networkType, count.name, count.count))
+      val collection = database.getCollection("statistics-network-count")
+      val future = collection.aggregate[StatisticValue](pipeline.stages).toFuture()
+      val values = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      println(s"values.size: ${values.size}")
       ("values", values)
     }
   }

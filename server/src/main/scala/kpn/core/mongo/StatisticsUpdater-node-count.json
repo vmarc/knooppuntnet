@@ -32,12 +32,12 @@
       "country": "$_id.country",
       "networkType": "$_id.networkType",
       "name": "NodeCount",
-      "count": "$nodeCount"
+      "value": "$nodeCount"
     }
   },
   {
     "$merge": {
-      "into": "counts",
+      "into": "statistics-node-count",
       "on": "_id"
     }
   }

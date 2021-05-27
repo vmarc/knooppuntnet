@@ -1,0 +1,26 @@
+[
+  {
+    "$unionWith": "statistics-network-detail-facts"
+  },
+  {
+    "$unionWith": "statistics-network-facts"
+  },
+  {
+    "$unionWith": "statistics-node-count"
+  },
+  {
+    "$unionWith": "statistics-node-orphan-count"
+  },
+  {
+    "$unionWith": "statistics-route-count"
+  },
+  {
+    "$unionWith": "statistics-route-distance"
+  },
+  {
+    "$unionWith": "statistics-route-facts"
+  },
+  {
+    "$unionWith": "statistics-route-orphan-count"
+  }
+]

@@ -14,42 +14,90 @@
   },
   {
     "$set": {
-      "factName": {
+      "fact": {
         "$switch": {
           "branches": [
             {
               "case": "$network.detail.networkFacts.networkExtraMemberNode",
-              "then": "NetworkExtraMemberNode"
+              "then": [
+                {
+                  "name": "NetworkExtraMemberNodeNetworkCount",
+                  "count": 1
+                },
+                {
+                  "name": "NetworkExtraMemberNode",
+                  "count": {
+                    "$size": "$network.detail.networkFacts.networkExtraMemberNode"
+                  }
+                }
+              ]
             },
             {
               "case": "$network.detail.networkFacts.networkExtraMemberWay",
-              "then": "NetworkExtraMemberWay"
+              "then": [
+                {
+                  "name": "NetworkExtraMemberWayNetworkCount",
+                  "count": 1
+                },
+                {
+                  "name": "NetworkExtraMemberWay",
+                  "count": {
+                    "$size": "$network.detail.networkFacts.networkExtraMemberWay"
+                  }
+                }
+              ]
             },
             {
               "case": "$network.detail.networkFacts.networkExtraMemberRelation",
-              "then": "NetworkExtraMemberRelation"
+              "then": [
+                {
+                  "name": "NetworkExtraMemberRelationNetworkCount",
+                  "count": 1
+                },
+                {
+                  "name": "NetworkExtraMemberRelation",
+                  "count": {
+                    "$size": "$network.detail.networkFacts.networkExtraMemberRelation"
+                  }
+                }
+              ]
             },
             {
               "case": "$network.detail.networkFacts.integrityCheck",
-              "then": "IntegrityCheck"
+              "then": [
+                {
+                  "name": "IntegrityCheck",
+                  "count": 1
+                }
+              ]
             },
             {
               "case": "$network.detail.networkFacts.integrityCheckFailed",
-              "then": "IntegrityCheckFailed"
+              "then": [
+                {
+                  "name": "IntegrityCheckFailed",
+                  "count": 1
+                }
+              ]
             },
             {
               "case": "$network.detail.networkFacts.nameMissing",
-              "then": "NameMissing"
+              "then": [
+                {
+                  "name": "NameMissing",
+                  "count": 1
+                }
+              ]
             }
           ],
-          "default": ""
+          "default": []
         }
       }
     }
   },
   {
-    "$match": {
-      "factName": {"$ne":  ""}
+    "$unwind": {
+      "path": "$fact"
     }
   },
   {
@@ -57,10 +105,10 @@
       "_id": {
         "country": "$network.attributes.country",
         "networkType": "$network.attributes.networkType",
-        "factName": "$factName"
+        "factName": "$fact.name"
       },
       "factCount": {
-        "$sum": 1
+        "$sum": "$fact.count"
       }
     }
   },
@@ -78,12 +126,12 @@
       "country": "$_id.country",
       "networkType": "$_id.networkType",
       "name": "$_id.factName",
-      "count": "$factCount"
+      "value": "$factCount"
     }
   },
   {
     "$merge": {
-      "into": "counts",
+      "into": "statistics-network-detail-facts",
       "on": "_id"
     }
   }
