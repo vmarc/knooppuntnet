@@ -89,6 +89,8 @@ trait AnalysisFacade {
 
   def changeSet(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
 
+  def replication(user: Option[String], changeSetId: Long): ApiResponse[Long]
+
   def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage]
 
   def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage]

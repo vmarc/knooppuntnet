@@ -156,7 +156,6 @@ class IOThreadHandler(pid: String, name: String, latch: CountDownLatch, inputStr
       log.debug(s"pid=$pid $name start")
       while (scanner.hasNextLine) {
         val line = scanner.nextLine()
-        //OverpassQueryExecutorImpl2.log.debug(s"pid=$pid $name line: $line")CachingOverpassQueryExecutorTest
         out += line
       }
     }

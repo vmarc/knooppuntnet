@@ -229,6 +229,13 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.changeSet(CurrentUser.name, changeSetId, Some(replicationId))
   }
 
+  @GetMapping(value = Array("/api/replication/{changeSetId}"))
+  def replication(
+    @PathVariable changeSetId: Long
+  ): ApiResponse[Long] = {
+    analysisFacade.replication(CurrentUser.name, changeSetId)
+  }
+
   @GetMapping(value = Array("/api/survey-date-info"))
   def surveyDateInfo(): ApiResponse[SurveyDateInfo] = {
     ApiResponse(None, 1, Some(SurveyDateInfoBuilder.dateInfo))
