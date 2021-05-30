@@ -4,6 +4,7 @@ object ScopedNetworkType {
 
   val rwn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.hiking)
   val rcn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.cycling)
+  val rmn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.motorboat)
   val lwn: ScopedNetworkType = ScopedNetworkType(NetworkScope.local, NetworkType.hiking)
   val lcn: ScopedNetworkType = ScopedNetworkType(NetworkScope.local, NetworkType.cycling)
   val lpn: ScopedNetworkType = ScopedNetworkType(NetworkScope.local, NetworkType.canoe)
