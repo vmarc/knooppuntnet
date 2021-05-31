@@ -10,4 +10,8 @@ if (doc.changeSetSummary) {
   emitKey("route", doc.routeChange.key);
 } else if (doc.nodeChange) {
   emitKey("node", doc.nodeChange.key);
+} else if (doc.locationChangeSetSummary) {
+  emitKey("location-summary", doc.locationChangeSetSummary.key);
+} else {
+  emitKey("unknown", doc._id);
 }

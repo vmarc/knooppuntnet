@@ -2,8 +2,14 @@
 
 This documents the experiments with MongoDB to see whether it would be a good replacment for CouchDB in knooppuntnet.
 
+- [Install](#install)
+- [Security](#security)
+- [Install Compass](#install-compass)
+- [Migration](#migration)
+  
 
 ## Install
+<a name="install"></a>
 
 Using [instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) on mongodb site.
 
@@ -75,6 +81,7 @@ mongo
 ```
 
 ## Security
+<a name="security"></a>
 
 Create admin user:
 ```
@@ -103,6 +110,7 @@ db.createUser(
 
 
 ## Install Compass
+<a name="install-compass"></a>
 
 Use [instructions](https://docs.mongodb.com/compass/current/install) on mongodb site.
 
@@ -125,5 +133,321 @@ mongodb-compass
 ```
 
 
+## Migration
+<a name="migration"></a>
+
+### Databases and repositories
+
+#### Analysis database
+
+Repositories in the analysis database that have to be migrated together:
+
+```scala
+AnalysisRepository
+
+  def saveNetwork(network: Network): Unit
+  def saveIgnoredNetwork(network: NetworkInfo): Unit
+  def saveRoute(route: RouteInfo): Unit
+  def saveNode(node: NodeInfo): Unit
+  def lastUpdated(): Option[Timestamp]
+  def saveLastUpdated(timestamp: Timestamp): Unit
+```
+
+```scala
+NetworkRepository
+
+  def allNetworkIds(): Seq[Long]
+  def network(networkId: Long): Option[NetworkInfo]
+  def save(network: NetworkInfo): Unit
+  def elements(networkId: Long): Option[NetworkElements]
+  def saveElements(networkElements: NetworkElements): Unit
+  def gpx(networkId: Long): Option[GpxFile]
+  def saveGpxFile(gpxFile: GpxFile): Unit
+  def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
+  def delete(networkId: Long): Unit
+```
+
+```scala
+RouteRepository
+
+  def allRouteIds(): Seq[Long]
+  def save(routes: RouteInfo): Unit
+  def saveElements(routeElements: RouteElements): Unit
+  def delete(routeIds: Seq[Long]): Unit
+  def routeWithId(routeId: Long): Option[RouteInfo]
+  def routeElementsWithId(routeId: Long): Option[RouteElements]
+  def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
+  def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
+  def filterKnown(routeIds: Set[Long]): Set[Long]
+```
 
 
+```scala
+NodeRepository
+
+  def allNodeIds(): Seq[Long]
+  def save(nodes: NodeInfo*): Boolean
+  def delete(nodeId: Long): Unit
+  def nodeWithId(nodeId: Long): Option[NodeInfo]
+  def nodesWithIds(nodeIds: Seq[Long], stale: Boolean = true): Seq[NodeInfo]
+  def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[NodeNetworkReference]
+  def nodeOrphanRouteReferences(nodeId: Long, stale: Boolean = true): Seq[NodeOrphanRouteReference]
+  def filterKnown(nodeIds: Set[Long]): Set[Long]
+```
+
+
+```scala
+NodeRouteRepository
+
+  def save(nodeRoute: NodeRoute): Unit
+  def delete(nodeId: Long, scopedNetworkType: ScopedNetworkType): Unit
+  def nodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute]
+  def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref]
+  def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs]
+  def actualNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteCount]
+  def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount]
+```
+
+
+```scala
+OrphanRepository
+
+  def orphanRoutes(subset: Subset): Seq[OrphanRouteInfo]
+  def orphanNodes(subset: Subset): Seq[NodeInfo]
+```
+
+
+```scala
+OverviewRepository
+
+  def figures(stale: Boolean = true): Map[String, Figure]
+```
+
+
+```scala
+FactRepository
+  def factsPerNetwork(subset: Subset, fact: Fact, stale: Boolean = true): Seq[NetworkFactRefs]
+```
+
+
+```scala
+GraphRepository
+  def graph(networkType: NetworkType): Option[NodeNetworkGraph]
+```
+
+
+```scala
+LocationRepository
+
+  def summary(locationKey: LocationKey): LocationSummary
+  def routesWithoutLocation(networkType: NetworkType): Seq[Ref]
+  def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean = true): Seq[LocationNodeInfo]
+  def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean = true): Long
+  def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo]
+  def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long
+  def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount]
+  def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact]
+  def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long
+```
+
+```scala
+TileRepository
+
+  def nodeIds(networkType: NetworkType, tile: Tile): Seq[Long]
+  def routeIds(networkType: NetworkType, tile: Tile): Seq[Long]
+```
+
+Repository in the analysis database that is standalone and can be migrated separately:
+```scala
+BlackListRepository
+
+  def get: BlackList
+  def save(blackList: BlackList): Unit
+```
+
+Probably standalone repository that can be migrated separately:
+```scala
+LongdistanceRouteRepository
+
+  def save(routeInfo: LongdistanceRoute): Unit
+  def routeWithId(routeId: Long): Option[LongdistanceRoute]
+  def all(): Seq[LongdistanceRoute]
+  def saveChange(change: LongdistanceRouteChange): Unit
+  def changes(): Seq[LongdistanceRouteChange]
+  def change(routeId: Long, changeSetId: Long): Option[LongdistanceRouteChange]
+```
+
+
+
+#### Change database
+
+2605841 documents:
+
+|type|document|count|
+|----|--------|-----|
+|network|doc.networkChange|0|
+|route|doc.routeChange|0|
+|node|doc.nodeChange|0|
+|summary|doc.changeSetSummary|0|
+|location-summary|doc.locationChangeSetSummary|0|
+
+5 collections?
+- network-changes
+- route-changes
+- node-changes
+- changeset-summaries
+- location-changeset-summaries
+
+
+```scala
+ChangeSetRepository
+
+  def allNetworkIds(): Seq[Long] // not used
+  def allRouteIds(): Seq[Long] // not used
+  def allNodeIds(): Seq[Long] // not used
+  def allChangeSetIds(): Seq[String] // only used in 1 test
+
+  def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit
+  def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit
+  def saveNetworkChange(networkChange: NetworkChange): Unit
+  def saveRouteChange(routeChange: RouteChange): Unit
+  def saveNodeChange(nodeChange: NodeChange): Unit
+
+  def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean = true): Seq[ChangeSetData]
+  def changes(changesParameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary]
+  def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+
+  def networkChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange]
+  def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def networkChangesCount(networkId: Long, stale: Boolean = true): Long
+
+  def routeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange]
+  def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def routeChangesCount(routeId: Long, stale: Boolean = true): Long
+
+  def nodeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange]
+  def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long
+```
+
+
+
+#### Changeset database
+
+```scala
+ChangeSetInfoRepository
+
+  def save(changeSetInfo: ChangeSetInfo): Unit = {}
+  def get(changeSetId: Long): Option[ChangeSetInfo] = None
+  def all(changeSetIds: Seq[Long], stale: Boolean = true): Seq[ChangeSetInfo] = Seq.empty
+  def exists(changeSetId: Long): Boolean = false
+  def delete(changeSetId: Long): Unit = {}
+```
+
+#### POI database
+```scala
+PoiRepository -> poiDatabase
+
+  def save(poi: Poi): Unit
+  def allPois(stale: Boolean = true): Seq[PoiInfo]
+  def nodeIds(stale: Boolean = true): Seq[Long]
+  def wayIds(stale: Boolean = true): Seq[Long]
+  def relationIds(stale: Boolean = true): Seq[Long]
+  def get(poiRef: PoiRef): Option[Poi]
+  def delete(poiRef: PoiRef): Unit
+  def allTiles(stale: Boolean = true): Seq[String]
+  def tilePoiInfos(tileName: String, stale: Boolean = true): Seq[PoiInfo]
+```
+
+
+
+#### Frontend actions database
+```scala
+FrontendMetricsRepository --> frontendActionsDatabase
+
+  def saveApiAction(action: ApiAction): Unit
+  def saveLogAction(action: LogAction): Unit
+  def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue]
+```
+
+
+#### Backend actions database
+```scala
+BackendMetricsRepository --> backendActionsDatabase
+
+  def saveReplicationAction(replicationAction: ReplicationAction): Unit
+  def saveUpdateAction(updateAction: UpdateAction): Unit
+  def saveAnalysisAction(analysisAction: AnalysisAction): Unit
+  def saveSystemStatus(systemStatus: SystemStatus): Unit
+  def query(parameters: PeriodParameters, action: String, average: Boolean = false, stale: Boolean = true): Seq[NameValue]
+  def lastKnownValue(action: String, stale: Boolean = true): Long
+```
+
+
+
+#### Monitor database
+```scala
+MonitorGroupRepository
+
+  def group(groupName: String): Option[MonitorGroup]
+  def groups(): Seq[MonitorGroup]
+  def groupRoutes(groupName: String): Seq[MonitorRoute]
+```
+
+```scala
+MonitorRouteRepository
+
+  def route(routeId: Long): Option[MonitorRoute]
+  def routeState(routeId: Long): Option[MonitorRouteState]
+  def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
+  def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
+  def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry]
+  def changesCount(parameters: MonitorChangesParameters): Long
+  def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+  def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long
+  def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+  def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long
+  def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+  def routes(): Seq[MonitorRoute]
+```
+
+
+
+#### Monitor admin database
+```scala
+MonitorAdminGroupRepository
+
+  def groups(): Seq[MonitorGroup]
+  def group(groupName: String): Option[MonitorGroup]
+  def saveGroup(routeGroup: MonitorGroup): Unit
+  def deleteGroup(id: String): Unit
+  def groupRoutes(groupName: String): Seq[MonitorRoute]
+```
+
+```scala
+MonitorAdminRouteRepository
+
+  def allRouteIds: Seq[Long]
+  def saveRoute(route: MonitorRoute): Unit
+  def saveRouteState(routeState: MonitorRouteState): Unit
+  def saveRouteReference(routeReference: MonitorRouteReference): Unit
+  def saveRouteChange(routeChange: MonitorRouteChange): Unit
+  def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
+  def route(routeId: Long): Option[MonitorRoute]
+  def routeState(routeId: Long): Option[MonitorRouteState]
+  def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
+  def routeChange(changeKey: ChangeKeyI): Option[MonitorRouteChange]
+  def routeChangeGeometry(changeKey: ChangeKeyI): Option[MonitorRouteChangeGeometry]
+  def routeReferenceKey(routeId: Long): Option[String]
+```
+
+
+#### Task database
+```scala
+TaskRepository
+
+  def add(key: String): Unit
+  def delete(key: String): Unit
+  def exists(id: String): Boolean
+  def all(prefix: String): Seq[String]
+```
