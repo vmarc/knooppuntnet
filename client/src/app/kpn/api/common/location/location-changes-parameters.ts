@@ -1,15 +1,6 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class LocationChangesParameters {
-  constructor(readonly itemsPerPage: number, readonly pageIndex: number) {}
-
-  static fromJSON(jsonObject: any): LocationChangesParameters {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new LocationChangesParameters(
-      jsonObject.itemsPerPage,
-      jsonObject.pageIndex
-    );
-  }
+export interface LocationChangesParameters {
+  readonly itemsPerPage: number;
+  readonly pageIndex: number;
 }

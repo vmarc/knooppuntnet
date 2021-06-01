@@ -1,14 +1,7 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { LocationNode } from './location-node';
 
-export class LocationsPage {
-  constructor(readonly locationNode: LocationNode) {}
-
-  static fromJSON(jsonObject: any): LocationsPage {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new LocationsPage(LocationNode.fromJSON(jsonObject.locationNode));
-  }
+export interface LocationsPage {
+  readonly locationNode: LocationNode;
 }

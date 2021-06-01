@@ -1,20 +1,8 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { NodeIntegrityCheck } from '../../node-integrity-check';
 
-export class NodeIntegrityCheckDiff {
-  constructor(
-    readonly before: NodeIntegrityCheck,
-    readonly after: NodeIntegrityCheck
-  ) {}
-
-  static fromJSON(jsonObject: any): NodeIntegrityCheckDiff {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new NodeIntegrityCheckDiff(
-      NodeIntegrityCheck.fromJSON(jsonObject.before),
-      NodeIntegrityCheck.fromJSON(jsonObject.after)
-    );
-  }
+export interface NodeIntegrityCheckDiff {
+  readonly before: NodeIntegrityCheck;
+  readonly after: NodeIntegrityCheck;
 }

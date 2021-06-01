@@ -1,16 +1,7 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { LocationSummary } from './location-summary';
 
-export class LocationChangesPage {
-  constructor(readonly summary: LocationSummary) {}
-
-  static fromJSON(jsonObject: any): LocationChangesPage {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new LocationChangesPage(
-      LocationSummary.fromJSON(jsonObject.summary)
-    );
-  }
+export interface LocationChangesPage {
+  readonly summary: LocationSummary;
 }

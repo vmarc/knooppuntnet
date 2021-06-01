@@ -1,22 +1,8 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class LocationSummary {
-  constructor(
-    readonly factCount: number,
-    readonly nodeCount: number,
-    readonly routeCount: number,
-    readonly changeCount: number
-  ) {}
-
-  static fromJSON(jsonObject: any): LocationSummary {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new LocationSummary(
-      jsonObject.factCount,
-      jsonObject.nodeCount,
-      jsonObject.routeCount,
-      jsonObject.changeCount
-    );
-  }
+export interface LocationSummary {
+  readonly factCount: number;
+  readonly nodeCount: number;
+  readonly routeCount: number;
+  readonly changeCount: number;
 }

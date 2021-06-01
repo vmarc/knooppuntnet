@@ -1,12 +1,5 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class ChangeType {
-  constructor(readonly name: string) {}
-
-  static fromJSON(jsonObject: any): ChangeType {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new ChangeType(jsonObject.name);
-  }
+export interface ChangeType {
+  readonly name: string;
 }

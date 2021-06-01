@@ -24,17 +24,22 @@ export class AddViaRouteLeg {
       if (routeFeature.oneWay) {
         return List([trackPathKey]);
       }
-      const extraTrackPathKey = new TrackPathKey(
-        routeFeature.routeId,
-        100 + routeFeature.pathId
-      );
+      const extraTrackPathKey: TrackPathKey = {
+        routeId: routeFeature.routeId,
+        pathId: 100 + routeFeature.pathId,
+      };
       return List([trackPathKey, extraTrackPathKey]);
     });
 
-    const sink = new LegEnd(
-      null,
-      new LegEndRoute(trackPathKeys.toArray(), null)
-    );
+    const legEndRoute: LegEndRoute = {
+      trackPathKeys: trackPathKeys.toArray(),
+      selection: null,
+    };
+
+    const sink: LegEnd = {
+      node: null,
+      route: legEndRoute,
+    };
 
     this.buildLeg(source, sink, coordinate)
       .pipe(map((leg) => new PlannerCommandAddLeg(leg)))

@@ -1,17 +1,8 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { RouteInfo } from './route-info';
 
-export class RouteMapPage {
-  constructor(readonly route: RouteInfo, readonly changeCount: number) {}
-
-  static fromJSON(jsonObject: any): RouteMapPage {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new RouteMapPage(
-      RouteInfo.fromJSON(jsonObject.route),
-      jsonObject.changeCount
-    );
-  }
+export interface RouteMapPage {
+  readonly route: RouteInfo;
+  readonly changeCount: number;
 }

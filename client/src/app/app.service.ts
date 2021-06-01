@@ -54,7 +54,6 @@ import { Subset } from '@api/custom/subset';
 import { MarkdownService } from 'ngx-markdown';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AppService {
@@ -73,33 +72,17 @@ export class AppService {
 
   overview(): Observable<ApiResponse<Statistics>> {
     const url = '/api/overview';
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) => ApiResponse.fromJSON(response, Statistics.fromJSON))
-      );
+    return this.http.get(url);
   }
 
   subsetNetworks(subset: Subset): Observable<ApiResponse<SubsetNetworksPage>> {
     const url = this.subsetUrl(subset, 'networks');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetNetworksPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
     const url = this.subsetUrl(subset, 'facts');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetFactsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   subsetFactDetails(
@@ -107,50 +90,26 @@ export class AppService {
     factName: string
   ): Observable<ApiResponse<SubsetFactDetailsPage>> {
     const url = this.subsetUrl(subset, factName);
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetFactDetailsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   subsetOrphanNodes(
     subset: Subset
   ): Observable<ApiResponse<SubsetOrphanNodesPage>> {
     const url = this.subsetUrl(subset, 'orphan-nodes');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetOrphanNodesPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   subsetOrphanRoutes(
     subset: Subset
   ): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
     const url = this.subsetUrl(subset, 'orphan-routes');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetOrphanRoutesPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   subsetMap(subset: Subset): Observable<ApiResponse<SubsetMapPage>> {
     const url = this.subsetUrl(subset, 'map');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetMapPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   subsetChanges(
@@ -158,70 +117,34 @@ export class AppService {
     parameters: ChangesParameters
   ): Observable<ApiResponse<SubsetChangesPage>> {
     const url = this.subsetUrl(subset, 'changes');
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SubsetChangesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   networkDetails(
     networkId: number
   ): Observable<ApiResponse<NetworkDetailsPage>> {
     const url = `/api/network/${networkId}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NetworkDetailsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   networkMap(networkId: number): Observable<ApiResponse<NetworkMapPage>> {
     const url = `/api/network/${networkId}/map`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NetworkMapPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   networkFacts(networkId: number): Observable<ApiResponse<NetworkFactsPage>> {
     const url = `/api/network/${networkId}/facts`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NetworkFactsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   networkNodes(networkId: number): Observable<ApiResponse<NetworkNodesPage>> {
     const url = `/api/network/${networkId}/nodes`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NetworkNodesPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   networkRoutes(networkId: number): Observable<ApiResponse<NetworkRoutesPage>> {
     const url = `/api/network/${networkId}/routes`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NetworkRoutesPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   networkChanges(
@@ -229,33 +152,17 @@ export class AppService {
     parameters: ChangesParameters
   ): Observable<ApiResponse<NetworkChangesPage>> {
     const url = `/api/network/${networkId}/changes`;
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NetworkChangesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
     const url = `/api/node/${nodeId}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NodeDetailsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   nodeMap(nodeId: string): Observable<ApiResponse<NodeMapPage>> {
     const url = `/api/node/${nodeId}/map`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) => ApiResponse.fromJSON(response, NodeMapPage.fromJSON))
-      );
+    return this.http.get(url);
   }
 
   nodeChanges(
@@ -263,33 +170,17 @@ export class AppService {
     parameters: ChangesParameters
   ): Observable<ApiResponse<NodeChangesPage>> {
     const url = `/api/node/${nodeId}/changes`;
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, NodeChangesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   routeDetails(routeId: string): Observable<ApiResponse<RouteDetailsPage>> {
     const url = `/api/route/${routeId}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, RouteDetailsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   routeMap(routeId: string): Observable<ApiResponse<RouteMapPage>> {
     const url = `/api/route/${routeId}/map`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) => ApiResponse.fromJSON(response, RouteMapPage.fromJSON))
-      );
+    return this.http.get(url);
   }
 
   routeChanges(
@@ -297,22 +188,12 @@ export class AppService {
     parameters: ChangesParameters
   ): Observable<ApiResponse<RouteChangesPage>> {
     const url = `/api/route/${routeId}/changes`;
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, RouteChangesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   changes(parameters: ChangesParameters): Observable<ApiResponse<ChangesPage>> {
     const url = '/api/changes';
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) => ApiResponse.fromJSON(response, ChangesPage.fromJSON))
-      );
+    return this.http.post(url, parameters);
   }
 
   public changeSet(
@@ -320,13 +201,7 @@ export class AppService {
     replicationNumber: string
   ): Observable<ApiResponse<ChangeSetPage>> {
     const url = `/api/changeset/${changeSetId}/${replicationNumber}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, ChangeSetPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public mapNodeDetail(
@@ -334,37 +209,19 @@ export class AppService {
     nodeId: number
   ): Observable<ApiResponse<MapNodeDetail>> {
     const url = `/api/node-detail/${nodeId}/${networkType}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, MapNodeDetail.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public mapRouteDetail(
     routeId: number
   ): Observable<ApiResponse<MapRouteDetail>> {
     const url = `/api/route-detail/${routeId}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, MapRouteDetail.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public poiConfiguration(): Observable<ApiResponse<ClientPoiConfiguration>> {
     const url = '/api/poi-configuration';
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, ClientPoiConfiguration.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public poi(
@@ -372,35 +229,19 @@ export class AppService {
     elementId: number
   ): Observable<ApiResponse<PoiPage>> {
     const url = `/api/poi/${elementType}/${elementId}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) => ApiResponse.fromJSON(response, PoiPage.fromJSON))
-      );
+    return this.http.get(url);
   }
 
   public leg(
     legBuildParams: LegBuildParams
   ): Observable<ApiResponse<PlanLegDetail>> {
     const url = `/api/leg`;
-    return this.http
-      .post(url, legBuildParams)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, PlanLegDetail.fromJSON)
-        )
-      );
+    return this.http.post(url, legBuildParams);
   }
 
   public plan(planParams: PlanParams): Observable<ApiResponse<PlanLegDetail>> {
     const url = `/api/plan`;
-    return this.http
-      .post(url, planParams)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, PlanLegDetail.fromJSON)
-        )
-      );
+    return this.http.post(url, planParams);
   }
 
   public locations(
@@ -408,26 +249,14 @@ export class AppService {
     country: Country
   ): Observable<ApiResponse<LocationsPage>> {
     const url = `/api/locations/${networkType}/${country}`;
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public locationEdit(
     locationKey: LocationKey
   ): Observable<ApiResponse<LocationEditPage>> {
     const url = this.locationUrl(locationKey, 'edit');
-    return this.http
-      .post(url, '')
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationEditPage.fromJSON)
-        )
-      );
+    return this.http.post(url, '');
   }
 
   public locationNodes(
@@ -435,13 +264,7 @@ export class AppService {
     parameters: LocationNodesParameters
   ): Observable<ApiResponse<LocationNodesPage>> {
     const url = this.locationUrl(locationKey, 'nodes');
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationNodesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   public locationRoutes(
@@ -449,39 +272,21 @@ export class AppService {
     parameters: LocationRoutesParameters
   ): Observable<ApiResponse<LocationRoutesPage>> {
     const url = this.locationUrl(locationKey, 'routes');
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationRoutesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   public locationFacts(
     locationKey: LocationKey
   ): Observable<ApiResponse<LocationFactsPage>> {
     const url = this.locationUrl(locationKey, 'facts');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationFactsPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public locationMap(
     locationKey: LocationKey
   ): Observable<ApiResponse<LocationMapPage>> {
     const url = this.locationUrl(locationKey, 'map');
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationMapPage.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public locationChanges(
@@ -489,68 +294,38 @@ export class AppService {
     parameters: LocationChangesParameters
   ): Observable<ApiResponse<LocationChangesPage>> {
     const url = this.locationUrl(locationKey, 'changes');
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, LocationChangesPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   public status(): Observable<ApiResponse<Status>> {
     const url = '/api/status';
-    return this.http
-      .get(url)
-      .pipe(map((response) => ApiResponse.fromJSON(response, Status.fromJSON)));
+    return this.http.get(url);
   }
 
   public replicationStatus(
     parameters: PeriodParameters
   ): Observable<ApiResponse<ReplicationStatusPage>> {
     const url = '/api/status/replication';
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, ReplicationStatusPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   public systemStatus(
     parameters: PeriodParameters
   ): Observable<ApiResponse<SystemStatusPage>> {
     const url = '/api/status/system';
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SystemStatusPage.fromJSON)
-        )
-      );
+    return this.http.post(url, parameters);
   }
 
   public logStatus(
     parameters: PeriodParameters
   ): Observable<ApiResponse<LogPage>> {
     const url = '/api/status/log';
-    return this.http
-      .post(url, parameters)
-      .pipe(
-        map((response) => ApiResponse.fromJSON(response, LogPage.fromJSON))
-      );
+    return this.http.post(url, parameters);
   }
 
   public surveyDateInfo(): Observable<ApiResponse<SurveyDateInfo>> {
     const url = '/api/survey-date-info';
-    return this.http
-      .get(url)
-      .pipe(
-        map((response) =>
-          ApiResponse.fromJSON(response, SurveyDateInfo.fromJSON)
-        )
-      );
+    return this.http.get(url);
   }
 
   public poiAreas(): Observable<ApiResponse<string>> {

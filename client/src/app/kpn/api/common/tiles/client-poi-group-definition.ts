@@ -1,24 +1,9 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { ClientPoiDefinition } from './client-poi-definition';
 
-export class ClientPoiGroupDefinition {
-  constructor(
-    readonly name: string,
-    readonly enabledDefault: boolean,
-    readonly poiDefinitions: Array<ClientPoiDefinition>
-  ) {}
-
-  static fromJSON(jsonObject: any): ClientPoiGroupDefinition {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new ClientPoiGroupDefinition(
-      jsonObject.name,
-      jsonObject.enabledDefault,
-      jsonObject.poiDefinitions.map((json: any) =>
-        ClientPoiDefinition.fromJSON(json)
-      )
-    );
-  }
+export interface ClientPoiGroupDefinition {
+  readonly name: string;
+  readonly enabledDefault: boolean;
+  readonly poiDefinitions: ClientPoiDefinition[];
 }

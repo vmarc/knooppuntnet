@@ -1,12 +1,6 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class PlanCoordinate {
-  constructor(readonly x: number, readonly y: number) {}
-
-  static fromJSON(jsonObject: any): PlanCoordinate {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new PlanCoordinate(jsonObject.x, jsonObject.y);
-  }
+export interface PlanCoordinate {
+  readonly x: number;
+  readonly y: number;
 }

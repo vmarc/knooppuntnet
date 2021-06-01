@@ -1,38 +1,18 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { Day } from '../../custom/day';
 import { Ref } from '../common/ref';
 import { Timestamp } from '../../custom/timestamp';
 
-export class LocationNodeInfo {
-  constructor(
-    readonly id: number,
-    readonly name: string,
-    readonly longName: string,
-    readonly latitude: string,
-    readonly longitude: string,
-    readonly lastUpdated: Timestamp,
-    readonly lastSurvey: Day,
-    readonly factCount: number,
-    readonly expectedRouteCount: string,
-    readonly routeReferences: Array<Ref>
-  ) {}
-
-  static fromJSON(jsonObject: any): LocationNodeInfo {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new LocationNodeInfo(
-      jsonObject.id,
-      jsonObject.name,
-      jsonObject.longName,
-      jsonObject.latitude,
-      jsonObject.longitude,
-      Timestamp.fromJSON(jsonObject.lastUpdated),
-      Day.fromJSON(jsonObject.lastSurvey),
-      jsonObject.factCount,
-      jsonObject.expectedRouteCount,
-      jsonObject.routeReferences?.map((json: any) => Ref.fromJSON(json))
-    );
-  }
+export interface LocationNodeInfo {
+  readonly id: number;
+  readonly name: string;
+  readonly longName: string;
+  readonly latitude: string;
+  readonly longitude: string;
+  readonly lastUpdated: Timestamp;
+  readonly lastSurvey: Day;
+  readonly factCount: number;
+  readonly expectedRouteCount: string;
+  readonly routeReferences: Ref[];
 }

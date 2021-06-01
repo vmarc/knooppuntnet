@@ -1,12 +1,5 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class NetworkNameMissing {
-  constructor() {}
-
-  static fromJSON(jsonObject: any): NetworkNameMissing {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new NetworkNameMissing();
-  }
+export interface NetworkNameMissing {
+  readonly ;
 }

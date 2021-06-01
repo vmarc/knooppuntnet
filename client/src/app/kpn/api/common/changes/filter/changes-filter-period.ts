@@ -1,26 +1,10 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class ChangesFilterPeriod {
-  constructor(
-    readonly name: string,
-    readonly totalCount: number,
-    readonly impactedCount: number,
-    readonly current: boolean,
-    readonly selected: boolean,
-    readonly periods: Array<ChangesFilterPeriod>
-  ) {}
-
-  static fromJSON(jsonObject: any): ChangesFilterPeriod {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new ChangesFilterPeriod(
-      jsonObject.name,
-      jsonObject.totalCount,
-      jsonObject.impactedCount,
-      jsonObject.current,
-      jsonObject.selected,
-      jsonObject.periods?.map((json: any) => ChangesFilterPeriod.fromJSON(json))
-    );
-  }
+export interface ChangesFilterPeriod {
+  readonly name: string;
+  readonly totalCount: number;
+  readonly impactedCount: number;
+  readonly current: boolean;
+  readonly selected: boolean;
+  readonly periods: ChangesFilterPeriod[];
 }

@@ -1,17 +1,8 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { Bounds } from '../bounds';
 
-export class NetworkShape {
-  constructor(readonly bounds: Bounds, readonly coordinates: string) {}
-
-  static fromJSON(jsonObject: any): NetworkShape {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new NetworkShape(
-      Bounds.fromJSON(jsonObject.bounds),
-      jsonObject.coordinates
-    );
-  }
+export interface NetworkShape {
+  readonly bounds: Bounds;
+  readonly coordinates: string;
 }

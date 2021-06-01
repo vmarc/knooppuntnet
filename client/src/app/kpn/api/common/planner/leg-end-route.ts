@@ -1,20 +1,8 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { TrackPathKey } from '../common/track-path-key';
 
-export class LegEndRoute {
-  constructor(
-    readonly trackPathKeys: Array<TrackPathKey>,
-    readonly selection: TrackPathKey
-  ) {}
-
-  static fromJSON(jsonObject: any): LegEndRoute {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new LegEndRoute(
-      jsonObject.trackPathKeys.map((json: any) => TrackPathKey.fromJSON(json)),
-      TrackPathKey.fromJSON(jsonObject.selection)
-    );
-  }
+export interface LegEndRoute {
+  readonly trackPathKeys: TrackPathKey[];
+  readonly selection: TrackPathKey;
 }

@@ -1,14 +1,8 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { Fact } from '../custom/fact';
 
-export class FactCount {
-  constructor(readonly fact: Fact, readonly count: number) {}
-
-  static fromJSON(jsonObject: any): FactCount {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new FactCount(jsonObject.fact, jsonObject.count);
-  }
+export interface FactCount {
+  readonly fact: Fact;
+  readonly count: number;
 }

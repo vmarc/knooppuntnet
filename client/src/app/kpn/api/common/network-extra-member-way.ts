@@ -1,12 +1,5 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class NetworkExtraMemberWay {
-  constructor(readonly memberId: number) {}
-
-  static fromJSON(jsonObject: any): NetworkExtraMemberWay {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new NetworkExtraMemberWay(jsonObject.memberId);
-  }
+export interface NetworkExtraMemberWay {
+  readonly memberId: number;
 }

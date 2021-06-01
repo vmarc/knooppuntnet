@@ -1,22 +1,9 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { LatLonImpl } from '../../lat-lon-impl';
 
-export class NodeMoved {
-  constructor(
-    readonly before: LatLonImpl,
-    readonly after: LatLonImpl,
-    readonly distance: number
-  ) {}
-
-  static fromJSON(jsonObject: any): NodeMoved {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new NodeMoved(
-      LatLonImpl.fromJSON(jsonObject.before),
-      LatLonImpl.fromJSON(jsonObject.after),
-      jsonObject.distance
-    );
-  }
+export interface NodeMoved {
+  readonly before: LatLonImpl;
+  readonly after: LatLonImpl;
+  readonly distance: number;
 }

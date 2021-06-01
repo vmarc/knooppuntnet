@@ -1,26 +1,11 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { NetworkType } from '../custom/network-type';
 
-export class NodeMapInfo {
-  constructor(
-    readonly id: number,
-    readonly name: string,
-    readonly networkTypes: Array<NetworkType>,
-    readonly latitude: string,
-    readonly longitude: string
-  ) {}
-
-  static fromJSON(jsonObject: any): NodeMapInfo {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new NodeMapInfo(
-      jsonObject.id,
-      jsonObject.name,
-      jsonObject.networkTypes,
-      jsonObject.latitude,
-      jsonObject.longitude
-    );
-  }
+export interface NodeMapInfo {
+  readonly id: number;
+  readonly name: string;
+  readonly networkTypes: NetworkType[];
+  readonly latitude: string;
+  readonly longitude: string;
 }

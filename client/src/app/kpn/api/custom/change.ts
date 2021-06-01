@@ -1,10 +1,4 @@
-export class Change {
-  constructor(readonly action: number, readonly elements: any[]) {}
-
-  static fromJSON(jsonObject: any): Change {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new Change(jsonObject.action, jsonObject.elements);
-  }
+export interface Change {
+  readonly action: number;
+  readonly elements: any[];
 }

@@ -1,27 +1,12 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { LatLonImpl } from '../lat-lon-impl';
-import { Coordinate } from 'ol/coordinate';
+import { PlanCoordinate } from './plan-coordinate';
 
-export class PlanFragment {
-  constructor(
-    readonly meters: number,
-    readonly orientation: number,
-    readonly streetIndex: number,
-    readonly coordinate: Coordinate,
-    readonly latLon: LatLonImpl
-  ) {}
-
-  static fromJSON(jsonObject: any): PlanFragment {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new PlanFragment(
-      jsonObject.meters,
-      jsonObject.orientation,
-      jsonObject.streetIndex,
-      [jsonObject.coordinate.x, jsonObject.coordinate.y],
-      LatLonImpl.fromJSON(jsonObject.latLon)
-    );
-  }
+export interface PlanFragment {
+  readonly meters: number;
+  readonly orientation: number;
+  readonly streetIndex: number;
+  readonly coordinate: PlanCoordinate;
+  readonly latLon: LatLonImpl;
 }

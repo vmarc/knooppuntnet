@@ -1,12 +1,6 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
-export class RouteRoleDiff {
-  constructor(readonly before: string, readonly after: string) {}
-
-  static fromJSON(jsonObject: any): RouteRoleDiff {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new RouteRoleDiff(jsonObject.before, jsonObject.after);
-  }
+export interface RouteRoleDiff {
+  readonly before: string;
+  readonly after: string;
 }

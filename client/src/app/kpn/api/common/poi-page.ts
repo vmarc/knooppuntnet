@@ -1,26 +1,11 @@
-// this class is generated, please do not modify
+// this file is generated, please do not modify
 
 import { PoiAnalysis } from './poi-analysis';
 
-export class PoiPage {
-  constructor(
-    readonly elementType: string,
-    readonly elementId: number,
-    readonly latitude: string,
-    readonly longitude: string,
-    readonly analysis: PoiAnalysis
-  ) {}
-
-  static fromJSON(jsonObject: any): PoiPage {
-    if (!jsonObject) {
-      return undefined;
-    }
-    return new PoiPage(
-      jsonObject.elementType,
-      jsonObject.elementId,
-      jsonObject.latitude,
-      jsonObject.longitude,
-      PoiAnalysis.fromJSON(jsonObject.analysis)
-    );
-  }
+export interface PoiPage {
+  readonly elementType: string;
+  readonly elementId: number;
+  readonly latitude: string;
+  readonly longitude: string;
+  readonly analysis: PoiAnalysis;
 }
