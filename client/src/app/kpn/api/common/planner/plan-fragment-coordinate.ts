@@ -4,6 +4,6 @@ import { LatLonImpl } from '../lat-lon-impl';
 import { Coordinate } from 'ol/coordinate';
 
 export interface PlanFragmentCoordinate {
-  readonly coordinate: PlanCoordinate;
+  readonly coordinate: Coordinate;
   readonly latLon: LatLonImpl;
 }
