@@ -11,6 +11,9 @@ export class RouteFeature {
   ) {}
 
   toTrackPathKey(): TrackPathKey {
-    return new TrackPathKey(this.routeId, this.pathId);
+    return {
+      routeId: this.routeId,
+      pathId: this.pathId,
+    };
   }
 }

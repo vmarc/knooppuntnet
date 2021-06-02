@@ -120,7 +120,6 @@ export class I18nService {
       '@@map.layer.networks',
       $localize`:@@map.layer.networks:Networks`,
     ]);
-    keysAndValues.push(['@@map.layer.path', $localize`:@@map.layer.path:Path`]);
 
     keysAndValues.push([
       '@@map.layer.unchanged',

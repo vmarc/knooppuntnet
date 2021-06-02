@@ -16,7 +16,11 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
     source: LegEnd,
     sink: LegEnd
   ): Observable<PlanLegData> {
-    const params = new LegBuildParams(networkType, source, sink);
+    const params: LegBuildParams = {
+      networkType,
+      source,
+      sink,
+    };
     return this.appService.leg(params).pipe(
       map((response) => {
         if (response.result) {

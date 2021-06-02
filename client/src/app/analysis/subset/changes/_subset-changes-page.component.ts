@@ -50,7 +50,7 @@ import { SubsetChangesService } from './subset-changes.service';
         <kpn-changes
           [(parameters)]="parameters"
           [totalCount]="page.changeCount"
-          [changeCount]="page.changes.size"
+          [changeCount]="page.changes.length"
         >
           <kpn-items>
             <kpn-item

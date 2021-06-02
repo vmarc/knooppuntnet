@@ -1,6 +1,5 @@
-import { List } from 'immutable';
-import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { PlanRoute } from '@api/common/planner/plan-route';
+import { List } from 'immutable';
 import { Plan } from './plan';
 import { PlanFlag } from './plan-flag';
 import { PlanLeg } from './plan-leg';
@@ -12,21 +11,54 @@ describe('PlanUtil', () => {
   });
 
   it('toUrlString - plan with source only', () => {
-    const startNode = PlanUtil.planNode('10', '', new LatLonImpl('', ''));
+    const startNode = PlanUtil.planNode('10', '', {
+      latitude: '',
+      longitude: '',
+    });
     const startFlag = PlanFlag.start('n1', [1, 1]);
     const plan = new Plan(startNode, startFlag, List());
     expect(PlanUtil.toUrlString(plan)).toEqual('a');
   });
 
   it('toUrlString - plan with multiple legs', () => {
-    const startNode = PlanUtil.planNode('10', '', new LatLonImpl('', ''));
-    const viaNode1 = PlanUtil.planNode('11', '', new LatLonImpl('', ''));
-    const viaNode2 = PlanUtil.planNode('12', '', new LatLonImpl('', ''));
-    const endNode = PlanUtil.planNode('13', '', new LatLonImpl('', ''));
+    const startNode = PlanUtil.planNode('10', '', {
+      latitude: '',
+      longitude: '',
+    });
+    const viaNode1 = PlanUtil.planNode('11', '', {
+      latitude: '',
+      longitude: '',
+    });
+    const viaNode2 = PlanUtil.planNode('12', '', {
+      latitude: '',
+      longitude: '',
+    });
+    const endNode = PlanUtil.planNode('13', '', {
+      latitude: '',
+      longitude: '',
+    });
 
-    const route1 = new PlanRoute(startNode, viaNode1, 0, [], []);
-    const route2 = new PlanRoute(viaNode1, viaNode2, 0, [], []);
-    const route3 = new PlanRoute(viaNode2, endNode, 0, [], []);
+    const route1: PlanRoute = {
+      sourceNode: startNode,
+      sinkNode: viaNode1,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
+    const route2: PlanRoute = {
+      sourceNode: viaNode1,
+      sinkNode: viaNode2,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
+    const route3: PlanRoute = {
+      sourceNode: viaNode2,
+      sinkNode: endNode,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
 
     const startLegEnd = PlanUtil.legEndNode(10);
     const viaLegEnd1 = PlanUtil.legEndNode(11);
@@ -87,9 +119,27 @@ describe('PlanUtil', () => {
   });
 
   it('total distance', () => {
-    const route1 = new PlanRoute(null, null, 1000, [], []);
-    const route2 = new PlanRoute(null, null, 2000, [], []);
-    const route3 = new PlanRoute(null, null, 4000, [], []);
+    const route1: PlanRoute = {
+      sourceNode: null,
+      sinkNode: null,
+      meters: 1000,
+      segments: [],
+      streets: [],
+    };
+    const route2: PlanRoute = {
+      sourceNode: null,
+      sinkNode: null,
+      meters: 2000,
+      segments: [],
+      streets: [],
+    };
+    const route3: PlanRoute = {
+      sourceNode: null,
+      sinkNode: null,
+      meters: 4000,
+      segments: [],
+      streets: [],
+    };
 
     const leg1 = new PlanLeg(
       '1',

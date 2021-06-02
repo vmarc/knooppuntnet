@@ -96,19 +96,19 @@ export class ChangeFilterOptions {
     month: string = null,
     day: string = null
   ): ChangesParameters {
-    return new ChangesParameters(
-      parameters.location,
-      parameters.subset,
-      parameters.networkId,
-      parameters.routeId,
-      parameters.nodeId,
+    return {
+      location: parameters.location,
+      subset: parameters.subset,
+      networkId: parameters.networkId,
+      routeId: parameters.routeId,
+      nodeId: parameters.nodeId,
       year,
       month,
       day,
-      parameters.itemsPerPage,
-      parameters.pageIndex,
-      impact
-    );
+      itemsPerPage: parameters.itemsPerPage,
+      pageIndex: parameters.pageIndex,
+      impact,
+    };
   }
 
   private static buildAll(
@@ -123,14 +123,14 @@ export class ChangeFilterOptions {
       List(filter.periods.map((period) => period.impactedCount))
     );
 
-    const all = new ChangesFilterPeriod(
-      'All',
+    const all: ChangesFilterPeriod = {
+      name: 'All',
       totalCount,
       impactedCount,
-      false,
-      false,
-      []
-    );
+      current: false,
+      selected: false,
+      periods: [],
+    };
 
     return new ChangeFilterOption(
       'year',

@@ -33,11 +33,11 @@ export class ChangeSetOrphanNodeChangesComponent {
   @Input() page: ChangeSetPage;
 
   nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
-    const refDiffs = new RefDiffs(
-      this.toRefs(refs.elementRefs.removed),
-      this.toRefs(refs.elementRefs.added),
-      this.toRefs(refs.elementRefs.updated)
-    );
+    const refDiffs: RefDiffs = {
+      removed: this.toRefs(refs.elementRefs.removed),
+      added: this.toRefs(refs.elementRefs.added),
+      updated: this.toRefs(refs.elementRefs.updated),
+    };
 
     return new NodeDiffsData(
       refDiffs,
@@ -48,6 +48,8 @@ export class ChangeSetOrphanNodeChangesComponent {
   }
 
   private toRefs(refs: ChangeSetElementRef[]): Ref[] {
-    return refs.map((r) => new Ref(r.id, r.name));
+    return refs.map((r) => {
+      return { id: r.id, name: r.name };
+    });
   }
 }

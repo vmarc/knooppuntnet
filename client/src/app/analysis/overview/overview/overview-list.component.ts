@@ -24,7 +24,7 @@ export class OverviewListComponent implements OnInit {
   ngOnInit(): void {
     this.stats = this.overviewService.statisticConfigurations
       .map((configuration) => {
-        const figures = this.statistics.get(configuration.id);
+        const figures = this.statistics.map[configuration.id];
         if (figures !== null) {
           return new Stat(figures, configuration);
         }

@@ -72,8 +72,8 @@ export class TimestampFilter<T> extends Filter<T> {
         this.timeInfo.lastYearStart
       )
     ).length;
-    const olderCount = filteredElements.filter((e) =>
-      this.getter(e).olderThan(this.timeInfo.lastYearStart)
+    const olderCount = filteredElements.filter(
+      (e) => this.getter(e) > this.timeInfo.lastYearStart
     ).length;
 
     const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
@@ -113,16 +113,16 @@ export class TimestampFilter<T> extends Filter<T> {
   }
 
   private sameAsOrYoungerThan(element: T, timestamp: Timestamp): boolean {
-    return this.getter(element).sameAsOrYoungerThan(timestamp);
+    return this.getter(element) >= timestamp;
   }
 
   private isBetween(element: T, from: Timestamp, to: Timestamp): boolean {
     const value = this.getter(element);
-    return value.olderThan(from) && value.sameAsOrYoungerThan(to);
+    return value > from && value <= to;
   }
 
   private olderThan(element: T, timestamp: Timestamp): boolean {
-    return this.getter(element).olderThan(timestamp);
+    return this.getter(element) > timestamp;
   }
 
   private isAll(): boolean {

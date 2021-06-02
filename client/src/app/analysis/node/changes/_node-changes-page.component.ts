@@ -66,7 +66,7 @@ import { NodeChangesService } from './node-changes.service';
         <kpn-changes
           [(parameters)]="parameters"
           [totalCount]="page.totalCount"
-          [changeCount]="page.changes.size"
+          [changeCount]="page.changes.length"
         >
           <kpn-items>
             <kpn-item
@@ -184,18 +184,19 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   }
 
   private updateParameters(nodeId: string) {
-    this.parameters = new ChangesParameters(
-      null,
-      null,
-      null,
-      null,
-      +nodeId,
-      this.parameters.year,
-      this.parameters.month,
-      this.parameters.day,
-      this.parameters.itemsPerPage,
-      this.parameters.pageIndex,
-      this.parameters.impact
-    );
+    // TODO use spread
+    this.parameters = {
+      location: null,
+      subset: null,
+      networkId: null,
+      routeId: null,
+      nodeId: +nodeId,
+      year: this.parameters.year,
+      month: this.parameters.month,
+      day: this.parameters.day,
+      itemsPerPage: this.parameters.itemsPerPage,
+      pageIndex: this.parameters.pageIndex,
+      impact: this.parameters.impact,
+    };
   }
 }

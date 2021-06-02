@@ -56,7 +56,7 @@ import { NetworkChangesService } from './network-changes.service';
           <kpn-changes
             [(parameters)]="parameters"
             [totalCount]="response.result.totalCount"
-            [changeCount]="response.result.changes.size"
+            [changeCount]="response.result.changes.length"
           >
             <kpn-items>
               <kpn-item

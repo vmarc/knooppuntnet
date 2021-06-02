@@ -3,22 +3,22 @@ import { NetworkType } from '@api/custom/network-type';
 import { Subset } from '@api/custom/subset';
 
 export class Subsets {
-  static all = [
-    new Subset(Country.nl, NetworkType.cycling),
-    new Subset(Country.nl, NetworkType.hiking),
-    new Subset(Country.nl, NetworkType.horseRiding),
-    new Subset(Country.nl, NetworkType.motorboat),
-    new Subset(Country.nl, NetworkType.canoe),
-    new Subset(Country.nl, NetworkType.inlineSkating),
-    new Subset(Country.be, NetworkType.cycling),
-    new Subset(Country.be, NetworkType.hiking),
-    new Subset(Country.be, NetworkType.horseRiding),
-    new Subset(Country.de, NetworkType.cycling),
-    new Subset(Country.de, NetworkType.hiking),
-    new Subset(Country.fr, NetworkType.cycling),
-    new Subset(Country.fr, NetworkType.hiking),
-    new Subset(Country.at, NetworkType.cycling),
-    new Subset(Country.es, NetworkType.cycling),
+  static all: Subset[] = [
+    { country: Country.nl, networkType: NetworkType.cycling },
+    { country: Country.nl, networkType: NetworkType.hiking },
+    { country: Country.nl, networkType: NetworkType.horseRiding },
+    { country: Country.nl, networkType: NetworkType.motorboat },
+    { country: Country.nl, networkType: NetworkType.canoe },
+    { country: Country.nl, networkType: NetworkType.inlineSkating },
+    { country: Country.be, networkType: NetworkType.cycling },
+    { country: Country.be, networkType: NetworkType.hiking },
+    { country: Country.be, networkType: NetworkType.horseRiding },
+    { country: Country.de, networkType: NetworkType.cycling },
+    { country: Country.de, networkType: NetworkType.hiking },
+    { country: Country.fr, networkType: NetworkType.cycling },
+    { country: Country.fr, networkType: NetworkType.hiking },
+    { country: Country.at, networkType: NetworkType.cycling },
+    { country: Country.es, networkType: NetworkType.cycling },
   ];
 
   static key(subset: Subset): string {

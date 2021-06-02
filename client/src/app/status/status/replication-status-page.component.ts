@@ -133,64 +133,64 @@ export class ReplicationStatusPageComponent implements OnInit {
   private toPeriodParameters(params: Params): PeriodParameters {
     const period = params['period'];
     if ('year' === period) {
-      return new PeriodParameters(
-        'year',
-        +params['year'],
-        null,
-        null,
-        null,
-        null
-      );
+      return {
+        period: 'year',
+        year: +params['year'],
+        month: null,
+        week: null,
+        day: null,
+        hour: null,
+      };
     }
     if ('month' === period) {
-      return new PeriodParameters(
-        'month',
-        +params['year'],
-        +params['monthOrWeek'],
-        null,
-        null,
-        null
-      );
+      return {
+        period: 'month',
+        year: +params['year'],
+        month: +params['monthOrWeek'],
+        week: null,
+        day: null,
+        hour: null,
+      };
     }
     if ('week' === period) {
-      return new PeriodParameters(
-        'week',
-        +params['year'],
-        null,
-        +params['monthOrWeek'],
-        null,
-        null
-      );
+      return {
+        period: 'week',
+        year: +params['year'],
+        month: null,
+        week: +params['monthOrWeek'],
+        day: null,
+        hour: null,
+      };
     }
     if ('day' === period) {
-      return new PeriodParameters(
-        'day',
-        +params['year'],
-        +params['month'],
-        null,
-        +params['day'],
-        null
-      );
+      return {
+        period: 'day',
+        year: +params['year'],
+        month: +params['month'],
+        week: null,
+        day: +params['day'],
+        hour: null,
+      };
     }
     if ('hour' === period) {
-      return new PeriodParameters(
-        'hour',
-        +params['year'],
-        +params['month'],
-        null,
-        +params['day'],
-        +params['hour']
-      );
+      return {
+        period: 'hour',
+        year: +params['year'],
+        month: +params['month'],
+        week: null,
+        day: +params['day'],
+        hour: +params['hour'],
+      };
     }
 
     const now = new Date();
-    return new PeriodParameters(
-      'hour',
-      now.getFullYear(),
-      now.getMonth(),
-      null,
-      now.getDate(),
-      now.getHours()
-    );
+    return {
+      period: 'hour',
+      year: now.getFullYear(),
+      month: now.getMonth(),
+      week: null,
+      day: now.getDate(),
+      hour: now.getHours(),
+    };
   }
 }

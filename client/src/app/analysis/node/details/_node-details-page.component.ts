@@ -119,10 +119,10 @@ export class NodeDetailsPageComponent implements OnInit {
     const nodeFacts = page.nodeInfo.facts.map((fact) => new FactInfo(fact));
     page.references.networkReferences.forEach((networkReference) => {
       networkReference.facts.forEach((fact) => {
-        const networkRef = new Ref(
-          networkReference.networkId,
-          networkReference.networkName
-        );
+        const networkRef: Ref = {
+          id: networkReference.networkId,
+          name: networkReference.networkName,
+        };
         nodeFacts.push(new FactInfo(fact, networkRef, null, null));
       });
     });

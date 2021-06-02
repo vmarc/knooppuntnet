@@ -8,13 +8,13 @@ describe('SurveyDateFilter', () => {
   const doNothing = (): void => {};
 
   const buildFilter = (kind: SurveyDateFilterKind): SurveyDateFilter<Day> => {
-    const surveyDateInfo = new SurveyDateInfo(
-      new Day(2020, 5, 7),
-      new Day(2020, 4, 7),
-      new Day(2019, 11, 7),
-      new Day(2019, 5, 7),
-      new Day(2018, 5, 7)
-    );
+    const surveyDateInfo: SurveyDateInfo = {
+      now: { year: 2020, month: 5, day: 7 },
+      lastMonthStart: { year: 2020, month: 4, day: 7 },
+      lastHalfYearStart: { year: 2019, month: 11, day: 7 },
+      lastYearStart: { year: 2019, month: 5, day: 7 },
+      lastTwoYearsStart: { year: 2018, month: 5, day: 7 },
+    };
 
     return new SurveyDateFilter(
       kind,

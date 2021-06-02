@@ -19,6 +19,7 @@ import { ErrorComponent } from './error/error.component';
 import { DayPipe } from './format/day.pipe';
 import { DistancePipe } from './format/distance.pipe';
 import { IntegerFormatPipe } from './format/integer-format.pipe';
+import { TimestampPipe } from './format/timestamp-pipe';
 import { IconButtonComponent } from './icon/icon-button.component';
 import { IconButtonsComponent } from './icon/icon-buttons.component';
 import { IconHappyComponent } from './icon/icon-happy.component';
@@ -162,6 +163,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     BracketsComponent,
     DayPipe,
     DistancePipe,
+    TimestampPipe,
     TimeoutComponent,
     DialogComponent,
     WarningDialogComponent,
@@ -237,6 +239,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DayPipe,
     DistancePipe,
     DialogComponent,
+    TimestampPipe,
     WarningDialogComponent,
     ErrorComponent,
     IntegrityIndicatorComponent,

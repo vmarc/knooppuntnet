@@ -1,8 +1,8 @@
-import { List } from 'immutable';
-import { Util } from '../../../components/shared/util';
 import { Bounds } from '@api/common/bounds';
 import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { PlanNode } from '@api/common/planner/plan-node';
+import { List } from 'immutable';
+import { Util } from '../../../components/shared/util';
 import { PlanFlag } from './plan-flag';
 import { PlanLeg } from './plan-leg';
 import { PlanUtil } from './plan-util';
@@ -72,7 +72,12 @@ export class Plan {
     const minLon = lons.min();
     const maxLat = lats.max();
     const maxLon = lons.max();
-    return new Bounds(minLat, minLon, maxLat, maxLon);
+    return {
+      minLat,
+      minLon,
+      maxLat,
+      maxLon,
+    };
   }
 
   unpavedPercentage(): string {

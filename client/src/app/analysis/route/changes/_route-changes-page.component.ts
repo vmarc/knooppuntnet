@@ -60,7 +60,7 @@ import { RouteChangesService } from './route-changes.service';
           <kpn-changes
             [(parameters)]="parameters"
             [totalCount]="page.totalCount"
-            [changeCount]="page.changes.size"
+            [changeCount]="page.changes.length"
           >
             <kpn-items>
               <kpn-item
@@ -187,18 +187,19 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
     itemsPerPage: number,
     impact: boolean
   ) {
-    this.parameters = new ChangesParameters(
-      null,
-      null,
-      null,
-      +routeId,
-      null,
-      this.parameters.year,
-      this.parameters.month,
-      this.parameters.day,
+    // TODO use spread
+    this.parameters = {
+      location: null,
+      subset: null,
+      networkId: null,
+      routeId: +routeId,
+      nodeId: null,
+      year: this.parameters.year,
+      month: this.parameters.month,
+      day: this.parameters.day,
       itemsPerPage,
-      this.parameters.pageIndex,
-      impact
-    );
+      pageIndex: this.parameters.pageIndex,
+      impact,
+    };
   }
 }

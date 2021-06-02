@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Timestamp } from '@api/custom/timestamp';
+import { TimestampUtil } from '../timestamp-util';
 
 @Component({
   selector: 'kpn-day',
@@ -14,16 +15,6 @@ export class DayComponent {
     if (!this.timestamp) {
       return '';
     }
-    return (
-      this.timestamp.year.toString() +
-      '-' +
-      this.digits(this.timestamp.month) +
-      '-' +
-      this.digits(this.timestamp.day)
-    );
-  }
-
-  private digits(n: number): string {
-    return (100 + n).toString().substr(1);
+    return TimestampUtil.day(this.timestamp);
   }
 }

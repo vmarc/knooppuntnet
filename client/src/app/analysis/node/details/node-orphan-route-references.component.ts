@@ -24,6 +24,11 @@ export class NodeOrphanRouteReferencesComponent {
   @Input() references: NodeOrphanRouteReference[];
 
   toReference(ref: NodeOrphanRouteReference): Reference {
-    return new Reference(ref.routeId, ref.routeName, ref.networkType, false);
+    return {
+      id: ref.routeId,
+      name: ref.routeName,
+      networkType: ref.networkType,
+      connection: false,
+    };
   }
 }

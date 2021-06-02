@@ -46,41 +46,47 @@ export class PlanLegBuilder {
     const segments: List<PlanSegment> = route.segments.map((s) =>
       this.toPlanSegment(s)
     );
-    return new PlanRoute(
-      source,
-      sink,
-      route.meters,
-      segments.toArray(),
-      route.streets.toArray()
-    );
+    return {
+      sourceNode: source,
+      sinkNode: sink,
+      meters: route.meters,
+      segments: segments.toArray(),
+      streets: route.streets.toArray(),
+    };
   }
 
   private static toPlanSegment(segment: RouteLegSegment): PlanSegment {
     const fragments = segment.fragments.map((f) => this.toPlanFragment(f));
-    return new PlanSegment(
-      segment.meters,
-      segment.surface,
-      segment.colour,
-      fragments.toArray()
-    );
+    return {
+      meters: segment.meters,
+      surface: segment.surface,
+      colour: segment.colour,
+      fragments: fragments.toArray(),
+    };
   }
 
   private static toPlanFragment(fragment: RouteLegFragment): PlanFragment {
-    const latLon = new LatLonImpl(fragment.lat, fragment.lon);
+    const latLon: LatLonImpl = {
+      latitude: fragment.lat,
+      longitude: fragment.lon,
+    };
     const coordinate = Util.latLonToCoordinate(latLon);
-    return new PlanFragment(
-      fragment.meters,
-      fragment.orientation,
-      fragment.streetIndex,
+    return {
+      meters: fragment.meters,
+      orientation: fragment.orientation,
+      streetIndex: fragment.streetIndex,
       coordinate,
-      latLon
-    );
+      latLon,
+    };
   }
 
   private static toPlanNode(routeLegNode: RouteLegNode): PlanNode {
     const nodeId: string = routeLegNode.nodeId;
     const nodeName: string = routeLegNode.nodeName;
-    const latLon = new LatLonImpl(routeLegNode.lat, routeLegNode.lon);
+    const latLon: LatLonImpl = {
+      latitude: routeLegNode.lat,
+      longitude: routeLegNode.lon,
+    };
     return PlanUtil.planNode(nodeId, nodeName, latLon);
   }
 }

@@ -10,12 +10,12 @@ describe('TimestampFilter', () => {
   const buildFilter = (
     kind: TimestampFilterKind
   ): TimestampFilter<Timestamp> => {
-    const timeInfo = new TimeInfo(
-      new Timestamp(2020, 5, 7, 0, 0, 0),
-      new Timestamp(2020, 5, 1, 0, 0, 0),
-      new Timestamp(2020, 4, 7, 0, 0, 0),
-      new Timestamp(2019, 5, 7, 0, 0, 0)
-    );
+    const timeInfo: TimeInfo = {
+      now: new Timestamp(2020, 5, 7, 0, 0, 0),
+      lastWeekStart: new Timestamp(2020, 5, 1, 0, 0, 0),
+      lastMonthStart: new Timestamp(2020, 4, 7, 0, 0, 0),
+      lastYearStart: new Timestamp(2019, 5, 7, 0, 0, 0),
+    };
 
     return new TimestampFilter(
       kind,

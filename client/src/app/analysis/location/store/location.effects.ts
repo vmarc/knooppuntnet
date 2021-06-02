@@ -52,11 +52,11 @@ export class LocationEffects {
       ),
       mergeMap(
         ([action, locationKey, locationNodesType, itemsPerPage, pageIndex]) => {
-          const parameters = new LocationNodesParameters(
+          const parameters: LocationNodesParameters = {
             locationNodesType,
             itemsPerPage,
-            pageIndex
-          );
+            pageIndex,
+          };
           return this.appService
             .locationNodes(locationKey, parameters)
             .pipe(
@@ -88,11 +88,11 @@ export class LocationEffects {
           itemsPerPage,
           pageIndex,
         ]) => {
-          const parameters = new LocationRoutesParameters(
+          const parameters: LocationRoutesParameters = {
             locationRoutesType,
             itemsPerPage,
-            pageIndex
-          );
+            pageIndex,
+          };
           return this.appService
             .locationRoutes(locationKey, parameters)
             .pipe(
@@ -136,10 +136,10 @@ export class LocationEffects {
         this.store.select(selectLocationChangesPageIndex)
       ),
       mergeMap(([action, locationKey, itemsPerPage, pageIndex]) => {
-        const parameters = new LocationChangesParameters(
+        const parameters: LocationChangesParameters = {
           itemsPerPage,
-          pageIndex
-        );
+          pageIndex,
+        };
         return this.appService
           .locationChanges(locationKey, parameters)
           .pipe(

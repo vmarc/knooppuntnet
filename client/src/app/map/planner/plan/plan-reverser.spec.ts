@@ -1,6 +1,5 @@
 import { TrackPathKey } from '@api/common/common/track-path-key';
 import { LegEnd } from '@api/common/planner/leg-end';
-import { LegEndRoute } from '@api/common/planner/leg-end-route';
 import { PlanFragment } from '@api/common/planner/plan-fragment';
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { PlanSegment } from '@api/common/planner/plan-segment';
@@ -47,8 +46,13 @@ describe('PlanReverser', () => {
     const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-
-    const planRoute = new PlanRoute(sourceNode, sinkNode, 0, [], []);
+    const planRoute: PlanRoute = {
+      sourceNode,
+      sinkNode,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
@@ -81,9 +85,27 @@ describe('PlanReverser', () => {
     const legEnd3 = PlanUtil.legEndNode(+planNode3.nodeId);
     const legEnd4 = PlanUtil.legEndNode(+planNode4.nodeId);
 
-    const planRoute43 = new PlanRoute(planNode4, planNode3, 0, [], []);
-    const planRoute32 = new PlanRoute(planNode3, planNode2, 0, [], []);
-    const planRoute21 = new PlanRoute(planNode2, planNode1, 0, [], []);
+    const planRoute43: PlanRoute = {
+      sourceNode: planNode4,
+      sinkNode: planNode3,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
+    const planRoute32: PlanRoute = {
+      sourceNode: planNode3,
+      sinkNode: planNode2,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
+    const planRoute21: PlanRoute = {
+      sourceNode: planNode2,
+      sinkNode: planNode1,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
 
     const planLegData43 = new PlanLegData(
       legEnd4,
@@ -137,11 +159,25 @@ describe('PlanReverser', () => {
     const sourceNode = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
     const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
 
-    const trackPathKey = new TrackPathKey(10, 1);
+    const trackPathKey: TrackPathKey = {
+      routeId: 10,
+      pathId: 1,
+    };
     const source = PlanUtil.legEndNode(1003);
-    const sink = new LegEnd(null, new LegEndRoute([trackPathKey], null));
-
-    const planRoute = new PlanRoute(sourceNode, sinkNode, 0, [], []);
+    const sink: LegEnd = {
+      node: null,
+      route: {
+        trackPathKeys: [trackPathKey],
+        selection: null,
+      },
+    };
+    const planRoute: PlanRoute = {
+      sourceNode,
+      sinkNode,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
     setup.legRepository.add(planLegData);
@@ -155,21 +191,41 @@ describe('PlanReverser', () => {
     const sourceFlag = PlanFlag.start('sourceFlag', sourceNode.coordinate);
     const viaFlag = PlanFlag.via('viaFlag', viaNode.coordinate);
     const sinkFlag = PlanFlag.end('sinkFlag', sinkNode.coordinate);
-    const trackPathKey = new TrackPathKey(10, 1);
+    const trackPathKey: TrackPathKey = {
+      routeId: 10,
+      pathId: 1,
+    };
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = new LegEnd(null, new LegEndRoute([trackPathKey], null));
+    const sink: LegEnd = {
+      node: null,
+      route: {
+        trackPathKeys: [trackPathKey],
+        selection: null,
+      },
+    };
     const legKey = PlanUtil.key(source, sink);
 
-    const fragment = new PlanFragment(
-      0,
-      0,
-      -1,
-      sinkNode.coordinate,
-      sinkNode.latLon
-    );
-    const segment = new PlanSegment(0, '', null, [fragment]);
-    const route = new PlanRoute(sourceNode, sinkNode, 0, [segment], []);
+    const fragment: PlanFragment = {
+      meters: 0,
+      orientation: 0,
+      streetIndex: -1,
+      coordinate: sinkNode.coordinate,
+      latLon: sinkNode.latLon,
+    };
+    const segment: PlanSegment = {
+      meters: 0,
+      surface: '',
+      colour: null,
+      fragments: [fragment],
+    };
+    const route: PlanRoute = {
+      sourceNode,
+      sinkNode,
+      meters: 0,
+      segments: [segment],
+      streets: [],
+    };
     const leg = new PlanLeg(
       '11',
       legKey,
@@ -215,7 +271,7 @@ describe('PlanReverser', () => {
     const sourceNode = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
     const sinkNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = PlanUtil.legEndRoute([new TrackPathKey(10, 1)]);
+    const sink = PlanUtil.legEndRoute([{ routeId: 10, pathId: 1 }]);
 
     const planRoute = PlanUtil.planRoute(sourceNode, sinkNode);
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
@@ -247,12 +303,17 @@ describe('PlanReverser', () => {
     const sourceFlag = PlanFlag.start('sourceFlag', sourceNode.coordinate);
     const viaFlag = PlanFlag.via('viaFlag', viaNode.coordinate);
     const sinkFlag = PlanFlag.end('sinkFlag', sinkNode.coordinate);
-    const trackPathKey = new TrackPathKey(10, 1);
+    const trackPathKey: TrackPathKey = { routeId: 10, pathId: 1 };
 
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
-    const sink = new LegEnd(null, new LegEndRoute([trackPathKey], null));
+    const sink: LegEnd = {
+      node: null,
+      route: {
+        trackPathKeys: [trackPathKey],
+        selection: null,
+      },
+    };
     const legKey = PlanUtil.key(source, sink);
-
     const route1 = PlanUtil.planRoute(sourceNode, setup.node2);
     const route2 = PlanUtil.planRoute(setup.node2, sinkNode);
 

@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { Map as PlanFlagMap } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { expectCoordinate } from '../../../util/test-support';
 import { PlanFlag } from '../plan/plan-flag';
@@ -6,7 +6,7 @@ import { PlanFlagType } from '../plan/plan-flag-type';
 import { PlannerMarkerLayer } from './planner-marker-layer';
 
 export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
-  private flags: Map<string, PlanFlag> = Map();
+  private flags: PlanFlagMap<string, PlanFlag> = PlanFlagMap();
 
   addFlag(flag: PlanFlag): void {
     if (flag !== null) {
@@ -79,7 +79,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
         message += ', no flags in route-layer';
       } else {
         message += ', route-layer contains following flags:';
-        for (const feature of this.flags.values()) {
+        this.flags.forEach((feature, key) => {
           message += `\n  featureId="${feature.featureId}", type=`;
           if (feature.flagType === PlanFlagType.start) {
             message += 'Start';
@@ -91,7 +91,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
             message += 'Invisible';
           }
           message += `, coordinate=[${feature.coordinate[0]}, ${feature.coordinate[0]}]`;
-        }
+        });
       }
       fail(message);
     }

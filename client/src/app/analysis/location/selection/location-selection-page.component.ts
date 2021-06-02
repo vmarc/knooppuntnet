@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocationNode } from '@api/common/location/location-node';
 import { Country } from '@api/custom/country';
 import { NetworkType } from '@api/custom/network-type';
-import { Subset } from '@api/custom/subset';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
 import { LocationModeService } from './location-mode.service';
 import { LocationSelectionService } from './location-selection.service';
@@ -108,8 +108,8 @@ export class LocationSelectionPageComponent implements OnInit {
     this.locationNode$ = this.activatedRoute.params.pipe(
       map((params) => {
         this.networkType = NetworkTypes.withName(params['networkType']);
-        this.country = params['country'];
-        return new Subset(this.country, this.networkType);
+        this.country = Countries.withDomain(params['country']);
+        return { country: this.country, networkType: this.networkType };
       }),
       mergeMap((subset) =>
         this.locationSelectionService.locations(

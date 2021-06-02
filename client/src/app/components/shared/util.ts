@@ -69,7 +69,7 @@ export class Util {
   public static subsetInRoute(params: Params): Subset {
     const country = Countries.withDomain(params['country']);
     const networkType = NetworkTypes.withName(params['networkType']);
-    return new Subset(country, networkType);
+    return { country, networkType };
   }
 
   public static replicationName(replicationNumber: number): string {
@@ -94,7 +94,10 @@ export class Util {
 
   public static latLonFromCoordinate(coordinate: Coordinate): LatLonImpl {
     const lonLat = toLonLat(coordinate);
-    return new LatLonImpl('' + lonLat[1], '' + lonLat[0]);
+    return {
+      latitude: '' + lonLat[1],
+      longitude: '' + lonLat[0],
+    };
   }
 
   public static coordinateToString(coordinate: Coordinate): string {
@@ -123,19 +126,19 @@ export class Util {
   }
 
   public static defaultChangesParameters(): ChangesParameters {
-    return new ChangesParameters(
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      0,
-      0,
-      false
-    );
+    return {
+      location: null,
+      subset: null,
+      networkId: null,
+      routeId: null,
+      nodeId: null,
+      year: null,
+      month: null,
+      day: null,
+      itemsPerPage: 0,
+      pageIndex: 0,
+      impact: false,
+    };
   }
 
   public static toExtent(bounds: Bounds, delta: number): Extent {

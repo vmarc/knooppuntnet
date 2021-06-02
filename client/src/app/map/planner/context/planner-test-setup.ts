@@ -1,19 +1,19 @@
-import { List } from 'immutable';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanRoute } from '@api/common/planner/plan-route';
 import { NetworkType } from '@api/custom/network-type';
+import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
 import { PlanUtil } from '../plan/plan-util';
+import { PlanLegData } from './plan-leg-data';
 import { PlannerContext } from './planner-context';
 import { PlannerCursorMock } from './planner-cursor-mock';
 import { PlannerElasticBandMock } from './planner-elastic-band-mock';
+import { PlannerHighlighterMock } from './planner-highlighter-mock';
 import { PlannerLegRepositoryMock } from './planner-leg-repository-mock';
 import { PlannerMarkerLayerMock } from './planner-marker-layer-mock';
 import { PlannerRouteLayerMock } from './planner-route-layer-mock';
-import { PlanNode } from '@api/common/planner/plan-node';
-import { PlanRoute } from '@api/common/planner/plan-route';
-import { PlanLegData } from './plan-leg-data';
-import { PlannerHighlighterMock } from './planner-highlighter-mock';
 
 export class PlannerTestSetup {
   readonly routeLayer = new PlannerRouteLayerMock();
@@ -147,7 +147,13 @@ export class PlannerTestSetup {
   createPlanLegData(node1: PlanNode, node2: PlanNode): PlanLegData {
     const source = PlanUtil.legEndNode(+node1.nodeId);
     const sink = PlanUtil.legEndNode(+node2.nodeId);
-    const planRoute = new PlanRoute(node1, node2, 0, [], []);
+    const planRoute: PlanRoute = {
+      sourceNode: node1,
+      sinkNode: node2,
+      meters: 0,
+      segments: [],
+      streets: [],
+    };
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
     this.legRepository.add(planLegData);
     return planLegData;

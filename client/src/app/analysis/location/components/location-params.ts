@@ -8,6 +8,10 @@ export class LocationParams {
     const networkType = NetworkTypes.withName(params['networkType']);
     const country = Countries.withDomain(params['country']);
     const name = params['location'];
-    return new LocationKey(networkType, country, name);
+    return {
+      networkType,
+      country,
+      name,
+    };
   }
 }

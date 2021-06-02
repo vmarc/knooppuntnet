@@ -6,9 +6,9 @@ import { Timestamp } from '@api/custom/timestamp';
   selector: 'kpn-situation-on',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container class="kpn-label" i18n="@@situation-on"
-      >Situation on</ng-container
-    >
+    <ng-container class="kpn-label" i18n="@@situation-on">
+      Situation on
+    </ng-container>
     <kpn-timestamp [timestamp]="timestamp"></kpn-timestamp>
   `,
 })

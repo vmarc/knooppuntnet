@@ -1,13 +1,13 @@
-import { Country } from '@api/custom/country';
 import { LocationKey } from '@api/custom/location-key';
 import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { LocationRoutesType } from '@api/custom/location-routes-type';
-import { NetworkType } from '@api/custom/network-type';
 import { routerNavigatedAction } from '@ngrx/router-store';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { Util } from '../../../components/shared/util';
+import { Countries } from '../../../kpn/common/countries';
+import { NetworkTypes } from '../../../kpn/common/network-types';
 import { actionLocationNodesPageInit } from './location.actions';
 import { actionLocationRoutesPageInit } from './location.actions';
 import { actionLocationRoutesPageIndex } from './location.actions';
@@ -35,15 +35,15 @@ export const locationReducer = createReducer(
   })),
   on(routerNavigatedAction, (state, action) => {
     const params = Util.paramsIn(action.payload.routerState.root);
-    const networkType = params.get('networkType');
-    const country = params.get('country');
+    const networkType = NetworkTypes.withName(params.get('networkType'));
+    const country = Countries.withDomain(params.get('country'));
     const name = params.get('location');
     if (networkType && country && name) {
-      const locationKey = new LocationKey(
-        networkType as NetworkType,
-        country as Country,
-        name
-      );
+      const locationKey: LocationKey = {
+        networkType,
+        country,
+        name,
+      };
       return { ...state, locationKey };
     }
     return state;

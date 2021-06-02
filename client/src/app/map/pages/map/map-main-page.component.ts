@@ -118,7 +118,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.activatedRoute.fragment,
       ]).subscribe(([networkType, fragment]) => {
         if (fragment) {
-          const planParams = new PlanParams(networkType, fragment);
+          const planParams: PlanParams = {
+            networkType,
+            planString: fragment,
+          };
           this.appService.plan(planParams).subscribe((response) => {
             const plan = PlanBuilder.build(response.result, fragment);
             const command = new PlannerCommandAddPlan(plan);

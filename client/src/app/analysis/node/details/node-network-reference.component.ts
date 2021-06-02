@@ -4,6 +4,7 @@ import { Reference } from '@api/common/common/reference';
 import { NodeInfo } from '@api/common/node-info';
 import { NodeNetworkReference } from '@api/common/node/node-network-reference';
 import { NodeNetworkRouteReference } from '@api/common/node/node-network-route-reference';
+import { NetworkType } from '@api/custom/network-type';
 
 @Component({
   selector: 'kpn-node-network-reference',
@@ -57,20 +58,20 @@ export class NodeNetworkReferenceComponent {
   @Input() reference: NodeNetworkReference;
 
   toReference(ref: NodeNetworkReference): Reference {
-    return new Reference(
-      ref.networkId,
-      ref.networkName,
-      ref.networkType,
-      ref.nodeConnection
-    );
+    return {
+      id: ref.networkId,
+      name: ref.networkName,
+      networkType: ref.networkType,
+      connection: ref.nodeConnection,
+    };
   }
 
   toRouteReference(ref: NodeNetworkRouteReference): Reference {
-    return new Reference(
-      ref.routeId,
-      ref.routeName,
-      this.reference.networkType,
-      ref.routeRole === 'connection'
-    );
+    return {
+      id: ref.routeId,
+      name: ref.routeName,
+      networkType: this.reference.networkType,
+      connection: ref.routeRole === 'connection',
+    };
   }
 }

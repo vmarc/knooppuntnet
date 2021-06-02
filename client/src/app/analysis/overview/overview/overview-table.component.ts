@@ -26,7 +26,7 @@ export class OverviewTableComponent {
 
   stats(): List<Stat> {
     return this.overviewService.statisticConfigurations.map((configuration) => {
-      const figures = this.statistics.get(configuration.id);
+      const figures = this.statistics.map[configuration.id];
       return new Stat(figures, configuration);
     });
   }

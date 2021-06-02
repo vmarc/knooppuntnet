@@ -27,13 +27,13 @@ export const subsetReducer = createReducer(
   })),
   on(routerNavigatedAction, (state, action) => {
     const params = Util.paramsIn(action.payload.routerState.root);
-    const country = params.get('country');
-    const networkType = params.get('networkType');
+    const country = Countries.withDomain(params.get('country'));
+    const networkType = NetworkTypes.withName(params.get('networkType'));
     if (networkType && country) {
-      const subset = new Subset(
-        Countries.withDomain(country),
-        NetworkTypes.withName(networkType)
-      );
+      const subset: Subset = {
+        country,
+        networkType,
+      };
       return { ...state, subset };
     }
     return state;

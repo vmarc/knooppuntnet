@@ -1,8 +1,6 @@
 import { TrackPathKey } from '@api/common/common/track-path-key';
 import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { LegEnd } from '@api/common/planner/leg-end';
-import { LegEndNode } from '@api/common/planner/leg-end-node';
-import { LegEndRoute } from '@api/common/planner/leg-end-route';
 import { PlanFragment } from '@api/common/planner/plan-fragment';
 import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanRoute } from '@api/common/planner/plan-route';
@@ -52,18 +50,35 @@ export class PlanUtil {
   }
 
   static legEndNode(nodeId: number): LegEnd {
-    return new LegEnd(new LegEndNode(nodeId), null);
+    return {
+      node: {
+        nodeId,
+      },
+      route: null,
+    };
   }
 
   static legEndRoute(trackPathKeys: TrackPathKey[]): LegEnd {
-    return new LegEnd(null, new LegEndRoute(trackPathKeys, null));
+    return {
+      node: null,
+      route: {
+        trackPathKeys,
+        selection: null,
+      },
+    };
   }
 
   static legEndRoutes(routeFeatures: RouteFeature[]): LegEnd {
     const trackPathKeys = routeFeatures.map((routeFeature) =>
       routeFeature.toTrackPathKey()
     );
-    return new LegEnd(null, new LegEndRoute(trackPathKeys, null));
+    return {
+      node: null,
+      route: {
+        trackPathKeys,
+        selection: null,
+      },
+    };
   }
 
   static legEndKey(legEnd: LegEnd): string {
@@ -122,7 +137,13 @@ export class PlanUtil {
     latLon: LatLonImpl
   ): PlanNode {
     const coordinate = Util.latLonToCoordinate(latLon);
-    return new PlanNode(FeatureId.next(), nodeId, nodeName, coordinate, latLon);
+    return {
+      featureId: FeatureId.next(),
+      nodeId,
+      nodeName,
+      coordinate,
+      latLon,
+    };
   }
 
   static planNodeWithCoordinate(
@@ -131,7 +152,13 @@ export class PlanUtil {
     coordinate: Coordinate
   ): PlanNode {
     const latLon = Util.latLonFromCoordinate(coordinate);
-    return new PlanNode(FeatureId.next(), nodeId, nodeName, coordinate, latLon);
+    return {
+      featureId: FeatureId.next(),
+      nodeId,
+      nodeName,
+      coordinate,
+      latLon,
+    };
   }
 
   static planSinkNode(plan: Plan): PlanNode {
@@ -172,16 +199,26 @@ export class PlanUtil {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const legKey = sourceNode.nodeId + '-' + sinkNode.nodeId;
-
-    const fragment = new PlanFragment(
-      0,
-      0,
-      -1,
-      sinkNode.coordinate,
-      sinkNode.latLon
-    );
-    const segment = new PlanSegment(0, '', null, [fragment]);
-    const route = new PlanRoute(sourceNode, sinkNode, 0, [segment], []);
+    const fragment: PlanFragment = {
+      meters: 0,
+      orientation: 0,
+      streetIndex: -1,
+      coordinate: sinkNode.coordinate,
+      latLon: sinkNode.latLon,
+    };
+    const segment: PlanSegment = {
+      meters: 0,
+      surface: '',
+      colour: null,
+      fragments: [fragment],
+    };
+    const route: PlanRoute = {
+      sourceNode,
+      sinkNode,
+      meters: 0,
+      segments: [segment],
+      streets: [],
+    };
     return new PlanLeg(
       featureId,
       legKey,
@@ -211,14 +248,25 @@ export class PlanUtil {
   }
 
   static planRoute(sourceNode: PlanNode, sinkNode: PlanNode): PlanRoute {
-    const fragment = new PlanFragment(
-      0,
-      0,
-      -1,
-      sinkNode.coordinate,
-      sinkNode.latLon
-    );
-    const segment = new PlanSegment(0, '', null, [fragment]);
-    return new PlanRoute(sourceNode, sinkNode, 0, [segment], []);
+    const fragment: PlanFragment = {
+      meters: 0,
+      orientation: 0,
+      streetIndex: -1,
+      coordinate: sinkNode.coordinate,
+      latLon: sinkNode.latLon,
+    };
+    const segment: PlanSegment = {
+      meters: 0,
+      surface: '',
+      colour: null,
+      fragments: [fragment],
+    };
+    return {
+      sourceNode,
+      sinkNode,
+      meters: 0,
+      segments: [segment],
+      streets: [],
+    };
   }
 }

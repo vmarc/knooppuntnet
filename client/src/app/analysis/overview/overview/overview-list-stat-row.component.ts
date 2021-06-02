@@ -47,6 +47,6 @@ export class OverviewListStatRowComponent {
   @Input() stat: Stat;
 
   subset(country: Country, networkType: NetworkType): Subset {
-    return new Subset(country, networkType);
+    return { country, networkType };
   }
 }

@@ -33,12 +33,11 @@ export class ChangeSetOrphanRouteChangesComponent {
   @Input() page: ChangeSetPage;
 
   routeDiffs(refs: ChangeSetSubsetElementRefs): RouteDiffsData {
-    const refDiffs = new RefDiffs(
-      this.toRefs(refs.elementRefs.removed),
-      this.toRefs(refs.elementRefs.added),
-      this.toRefs(refs.elementRefs.updated)
-    );
-
+    const refDiffs: RefDiffs = {
+      removed: this.toRefs(refs.elementRefs.removed),
+      added: this.toRefs(refs.elementRefs.added),
+      updated: this.toRefs(refs.elementRefs.updated),
+    };
     return new RouteDiffsData(
       refDiffs,
       this.page.summary.key.changeSetId,
@@ -48,6 +47,8 @@ export class ChangeSetOrphanRouteChangesComponent {
   }
 
   private toRefs(refs: ChangeSetElementRef[]): Ref[] {
-    return refs.map((r) => new Ref(r.id, r.name));
+    return refs.map((r) => {
+      return { id: r.id, name: r.name };
+    });
   }
 }
