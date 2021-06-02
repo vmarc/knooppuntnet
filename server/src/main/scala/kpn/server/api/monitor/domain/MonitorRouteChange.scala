@@ -1,10 +1,9 @@
 package kpn.server.api.monitor.domain
 
-import kpn.api.common.changes.details.ChangeKeyI
-import kpn.api.common.monitor.MonitorRouteReferenceInfo
+import kpn.api.common.changes.details.ChangeKey
 
 case class MonitorRouteChange(
-  key: ChangeKeyI,
+  key: ChangeKey,
   groupName: String,
   wayCount: Long,
   waysAdded: Long,

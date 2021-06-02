@@ -1,10 +1,9 @@
 package kpn.api.common.monitor
 
-import kpn.api.common.BoundsI
-import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.changes.details.ChangeKey
 
 case class MonitorRouteChangeSummary(
-  key: ChangeKeyI,
+  key: ChangeKey,
   groupName: String,
   routeName: Option[String],
   groupDescription: Option[String],

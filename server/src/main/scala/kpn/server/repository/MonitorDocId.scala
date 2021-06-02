@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.changes.details.ChangeKey
 import kpn.core.db.KeyPrefix
 
 object MonitorDocId {
@@ -17,7 +17,7 @@ object MonitorDocId {
     s"${KeyPrefix.MonitorRouteReference}:$routeId:$key"
   }
 
-  def routeChangeDocId(key: ChangeKeyI): String = {
+  def routeChangeDocId(key: ChangeKey): String = {
     routeChangeDocId(key.elementId, key.changeSetId, key.replicationNumber)
   }
 
@@ -25,7 +25,7 @@ object MonitorDocId {
     s"${KeyPrefix.MonitorRouteChange}:$routeId:$changeSetId:$replicationNumber"
   }
 
-  def routeChangeGeometryDocId(key: ChangeKeyI): String = {
+  def routeChangeGeometryDocId(key: ChangeKey): String = {
     routeChangeGeometryDocId(key.elementId, key.changeSetId, key.replicationNumber)
   }
 

@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.custom.Timestamp
 
 case class ChangeSetContext(
@@ -19,15 +18,6 @@ case class ChangeSetContext(
     ChangeKey(
       replicationId.number,
       changeSet.timestamp,
-      changeSet.id,
-      elementId
-    )
-  }
-
-  def buildChangeKeyI(elementId: Long): ChangeKeyI = {
-    ChangeKeyI(
-      replicationId.number,
-      changeSet.timestamp.yyyymmddhhmmss,
       changeSet.id,
       elementId
     )

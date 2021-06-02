@@ -1,10 +1,10 @@
 package kpn.api.common.monitor
 
 import kpn.api.common.BoundsI
-import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.changes.details.ChangeKey
 
 case class LongdistanceRouteChangeSummary(
-  key: ChangeKeyI,
+  key: ChangeKey,
   comment: Option[String],
   wayCount: Long,
   waysAdded: Long,

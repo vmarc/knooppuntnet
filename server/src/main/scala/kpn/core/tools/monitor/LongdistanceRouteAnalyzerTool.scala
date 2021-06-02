@@ -1,7 +1,7 @@
 package kpn.core.tools.monitor
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.LongdistanceRouteChange
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
@@ -105,9 +105,9 @@ class LongdistanceRouteAnalyzerTool(
         case Some(changeSetInfo) => changeSetInfo.createdAt
       }
 
-      val key = ChangeKeyI(
+      val key = ChangeKey(
         1,
-        timestamp.yyyymmddhhmmss,
+        timestamp,
         changeSetId.toLong,
         routeId
       )

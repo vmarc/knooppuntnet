@@ -2,7 +2,6 @@ package kpn.api.common
 
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeKeyI
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
@@ -160,20 +159,6 @@ trait SharedTestObjects extends MockFactory {
     elementId: Long = 0
   ): ChangeKey = {
     ChangeKey(
-      replicationNumber,
-      timestamp,
-      changeSetId,
-      elementId
-    )
-  }
-
-  def newChangeKeyI(
-    replicationNumber: Int = 1,
-    timestamp: String = defaultTimestamp.yyyymmddhhmmss,
-    changeSetId: Long = 123,
-    elementId: Long = 0
-  ): ChangeKeyI = {
-    ChangeKeyI(
       replicationNumber,
       timestamp,
       changeSetId,
@@ -922,7 +907,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newMonitorRouteChange(
-    key: ChangeKeyI,
+    key: ChangeKey,
     groupName: String,
     wayCount: Long = 0,
     waysAdded: Long = 0,

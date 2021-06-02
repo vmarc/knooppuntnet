@@ -149,7 +149,7 @@ class MonitorChangeProcessorImpl(
         s" new=${newSegments.size}," ++
         s" resolved=${resolvedSegments.size}"
 
-      val key = context.buildChangeKeyI(routeId)
+      val key = context.buildChangeKey(routeId)
 
       val routeSegments = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
         afterRoute.osmSegments

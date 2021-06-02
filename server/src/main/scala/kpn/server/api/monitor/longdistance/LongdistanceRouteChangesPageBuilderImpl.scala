@@ -20,7 +20,7 @@ class LongdistanceRouteChangesPageBuilderImpl(
           changeSetInfo.tags("comment")
         }
         LongdistanceRouteChangeSummary(
-          change.key.cleaned,
+          change.key,
           comment,
           change.wayCount,
           change.waysAdded,

@@ -92,7 +92,7 @@ class MonitorRouteChangesPageBuilderImpl(
       }
 
       MonitorRouteChangeSummary(
-        change.key.cleaned,
+        change.key,
         change.groupName,
         None,
         None,

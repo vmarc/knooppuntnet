@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { ChangeKeyI } from '../changes/details/change-key-i';
+import { ChangeKey } from '../changes/details/change-key';
 
 export interface MonitorRouteChangeSummary {
-  readonly key: ChangeKeyI;
+  readonly key: ChangeKey;
   readonly groupName: string;
   readonly routeName: string;
   readonly groupDescription: string;

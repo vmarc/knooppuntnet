@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.changes.details.ChangeKey
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -27,9 +27,9 @@ trait MonitorAdminRouteRepository {
 
   def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
 
-  def routeChange(changeKey: ChangeKeyI): Option[MonitorRouteChange]
+  def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange]
 
-  def routeChangeGeometry(changeKey: ChangeKeyI): Option[MonitorRouteChangeGeometry]
+  def routeChangeGeometry(changeKey: ChangeKey): Option[MonitorRouteChangeGeometry]
 
   def routeReferenceKey(routeId: Long): Option[String]
 

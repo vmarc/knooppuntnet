@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
 import { BoundsI } from '../bounds-i';
-import { ChangeKeyI } from '../changes/details/change-key-i';
+import { ChangeKey } from '../changes/details/change-key';
 import { MonitorRouteNokSegment } from './monitor-route-nok-segment';
 import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteChangeDetail {
-  readonly key: ChangeKeyI;
+  readonly key: ChangeKey;
   readonly comment: string;
   readonly wayCount: number;
   readonly waysAdded: number;

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.ChangeKeyI
+import kpn.api.common.changes.details.ChangeKey
 import kpn.core.database.Database
 import kpn.core.database.doc.MonitorRouteChangeDoc
 import kpn.core.database.doc.MonitorRouteChangeGeometryDoc
@@ -92,14 +92,14 @@ class MonitorAdminRouteRepositoryImpl(
     ).map(_.monitorRouteReference)
   }
 
-  override def routeChange(changeKey: ChangeKeyI): Option[MonitorRouteChange] = {
+  override def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange] = {
     monitorAdminDatabase.docWithId(
       MonitorDocId.routeChangeDocId(changeKey),
       classOf[MonitorRouteChangeDoc]
     ).map(_.monitorRouteChange)
   }
 
-  override def routeChangeGeometry(changeKey: ChangeKeyI): Option[MonitorRouteChangeGeometry] = {
+  override def routeChangeGeometry(changeKey: ChangeKey): Option[MonitorRouteChangeGeometry] = {
     monitorAdminDatabase.docWithId(
       MonitorDocId.routeChangeDocId(changeKey),
       classOf[MonitorRouteChangeGeometryDoc]
@@ -109,5 +109,4 @@ class MonitorAdminRouteRepositoryImpl(
   def routeReferenceKey(routeId: Long): Option[String] = {
     MonitorRouteReferenceView.reference(monitorAdminDatabase, routeId)
   }
-
 }
