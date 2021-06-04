@@ -1,6 +1,7 @@
 package kpn.core.mongo
 
 import org.bson.codecs.configuration.CodecRegistries
+import org.bson.codecs.configuration.CodecRegistry
 import org.bson.json.JsonWriterSettings
 import org.mongodb.scala.MongoClient
 import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
@@ -16,7 +17,7 @@ object Mongo {
 
   private val jsonWriterSettings = JsonWriterSettings.builder().indent(true).build()
 
-  private val codecRegistry = CodecRegistries.fromRegistries(
+  val codecRegistry: CodecRegistry = CodecRegistries.fromRegistries(
     DEFAULT_CODEC_REGISTRY,
     CodecRegistries.fromProviders(new JacksonCodecProvider())
   )

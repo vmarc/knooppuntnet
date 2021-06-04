@@ -13,12 +13,6 @@ import kpn.api.custom.Subset
 
 trait ChangeSetRepository {
 
-  def allNetworkIds(): Seq[Long]
-
-  def allRouteIds(): Seq[Long]
-
-  def allNodeIds(): Seq[Long]
-
   def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit
 
   def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit

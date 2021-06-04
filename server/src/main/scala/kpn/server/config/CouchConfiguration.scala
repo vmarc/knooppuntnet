@@ -5,6 +5,9 @@ import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.CouchConfig
+import kpn.core.mongo.Mongo
+import org.mongodb.scala.MongoClient
+import org.mongodb.scala.MongoDatabase
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -22,7 +25,9 @@ class CouchConfiguration(
   @Value("${couch.database.pois:pois}") poiDatabaseName: String,
   @Value("${couch.database.tasks:tasks}") taskDatabaseName: String,
   @Value("${couch.database.backend-actions:backend-actions}") backendActionsDatabaseName: String,
-  @Value("${couch.database.frontend-actions:frontend-actions}") frontendActionsDatabaseName: String
+  @Value("${couch.database.frontend-actions:frontend-actions}") frontendActionsDatabaseName: String,
+  @Value("$mongodb.url:url}") mongodbUrl: String,
+  @Value("$mongodb.enabled:false}") mongodbEnabled: Boolean
 ) {
 
   @Bean
@@ -78,6 +83,12 @@ class CouchConfiguration(
   @Bean
   def monitorAdminDatabase(couchConfig: CouchConfig): Database = {
     new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "monitor"))
+  }
+
+  @Bean
+  def mongoDatabase(): MongoDatabase = {
+    val mongoClient = MongoClient(mongodbUrl)
+    mongoClient.getDatabase("tryout").withCodecRegistry(Mongo.codecRegistry)
   }
 
 }

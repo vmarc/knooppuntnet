@@ -20,25 +20,12 @@ import kpn.core.database.doc.NetworkChangeDoc
 import kpn.core.database.doc.NodeChangeDoc
 import kpn.core.database.doc.RouteChangeDoc
 import kpn.core.database.query.Query
-import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.db.couch.ViewResult2
 import org.springframework.stereotype.Component
 
 @Component
 class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetRepository {
-
-  override def allNetworkIds(): Seq[Long] = {
-    ChangeDocumentView.allNetworkIds(changeDatabase)
-  }
-
-  override def allRouteIds(): Seq[Long] = {
-    ChangeDocumentView.allRouteIds(changeDatabase)
-  }
-
-  override def allNodeIds(): Seq[Long] = {
-    ChangeDocumentView.allNodeIds(changeDatabase)
-  }
 
   override def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit = {
     val id = docId("summary", changeSetSummary.key)
@@ -63,10 +50,6 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   override def saveNodeChange(nodeChange: NodeChange): Unit = {
     val id = docId("node", nodeChange.key)
     changeDatabase.save(NodeChangeDoc(id, nodeChange))
-  }
-
-  private def docId(elementType: String, key: ChangeKey): String = {
-    s"change:${key.changeSetId}:${key.replicationNumber}:$elementType:${key.elementId}"
   }
 
   override def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean): Seq[ChangeSetData] = {
@@ -190,4 +173,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
     result.rows.flatMap(_.id).map(id => id.split(":")(1)).distinct.sorted
   }
 
+  private def docId(elementType: String, key: ChangeKey): String = {
+    s"change:${key.changeSetId}:${key.replicationNumber}:$elementType:${key.elementId}"
+  }
 }
