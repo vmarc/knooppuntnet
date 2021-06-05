@@ -1,0 +1,49 @@
+[
+  {
+    "$group": {
+      "_id": {
+        "impact": "$changeSetSummary.impact",
+        "year": "$changeSetSummary.key.time.year",
+        "month": "$changeSetSummary.key.time.month",
+        "day": "$changeSetSummary.key.time.day"
+      },
+      "count": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": {
+        "$concat": [
+          {
+            "$toString": "$_id.impact"
+          },
+          ":",
+          {
+            "$toString": "$_id.year"
+          },
+          ":",
+          {
+            "$toString": "$_id.month"
+          },
+          ":",
+          {
+            "$toString": "$_id.day"
+          }
+        ]
+      },
+      "impact": "$_id.impact",
+      "year": "$_id.year",
+      "month": "$_id.month",
+      "day": "$_id.day",
+      "count": 1
+    }
+  },
+  {
+    "$merge": {
+      "into": "change-stats-summaries",
+      "on": "_id"
+    }
+  }
+]

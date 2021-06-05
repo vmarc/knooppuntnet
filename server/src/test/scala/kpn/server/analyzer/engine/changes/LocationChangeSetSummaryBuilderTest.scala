@@ -199,7 +199,8 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
           )
         ),
         happy = true,
-        investigate = true
+        investigate = true,
+        impact = true
       )
     )
   }
@@ -383,9 +384,9 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
           )
         ),
         happy = false,
-        investigate = false
+        investigate = false,
+        impact = false
       )
     )
   }
-
 }

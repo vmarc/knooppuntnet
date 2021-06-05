@@ -1,0 +1,30 @@
+[
+  {
+    "$group": {
+      "_id": {
+        "year": "$year",
+        "month": "$month",
+        "day": "$day",
+        "impact": "$impact"
+      },
+      "count": {
+        "$sum": "$count"
+      }
+    }
+  },
+  {
+    "$sort": {
+      "_id": -1
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "year": "$_id.year",
+      "month": "$_id.month",
+      "day": "$_id.day",
+      "impact": "$_id.impact",
+      "count": 1
+    }
+  }
+]

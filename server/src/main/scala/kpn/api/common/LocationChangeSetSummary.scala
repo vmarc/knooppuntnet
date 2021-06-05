@@ -10,7 +10,8 @@ case class LocationChangeSetSummary(
   timestampUntil: Timestamp,
   trees: Seq[LocationChangesTree],
   happy: Boolean,
-  investigate: Boolean
+  investigate: Boolean,
+  impact: Boolean
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
@@ -20,5 +21,6 @@ case class LocationChangeSetSummary(
     field("trees", trees).
     field("happy", happy).
     field("investigate", investigate).
+    field("impact", impact).
     build
 }

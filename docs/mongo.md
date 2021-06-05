@@ -451,3 +451,44 @@ TaskRepository
   def exists(id: String): Boolean
   def all(prefix: String): Seq[String]
 ```
+
+
+## Tips
+
+Merge aggregate in scala code:
+
+```scala
+  merge(
+    "change-stats-summaries",
+    MergeOptions().uniqueIdentifier("_id")
+  )
+```
+
+Compose concatenated _id in scala code:
+
+```scala
+  project(
+    fields(
+      excludeId(),
+      Document("_id" ->
+        Document(
+          "$concat" ->
+            Seq(
+              Document("$toString" -> "$_id.impact"),
+              Document("$toString" -> ":"),
+              Document("$toString" -> "$_id.year"),
+              Document("$toString" -> ":"),
+              Document("$toString" -> "$_id.month"),
+              Document("$toString" -> ":"),
+              Document("$toString" -> "$_id.day")
+            )
+        )
+      ),
+      computed("impact", "$_id.impact"),
+      computed("year", "$_id.year"),
+      computed("month", "$_id.month"),
+      computed("day", "$_id.day"),
+      include("count")
+    )
+  )
+```

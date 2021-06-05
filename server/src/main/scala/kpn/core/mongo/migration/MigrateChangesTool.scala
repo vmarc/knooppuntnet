@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.migration
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
@@ -17,6 +17,9 @@ import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.ChangeSetRef
+import kpn.core.mongo.Mongo
+import kpn.core.mongo.MongoQueryChangeSetRefs
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetRepositoryImpl
 import org.mongodb.scala.MongoCollection

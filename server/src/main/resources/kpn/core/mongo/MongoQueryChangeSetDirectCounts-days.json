@@ -1,0 +1,73 @@
+[
+  {
+    "$match": {
+      "$and": [
+        {
+          "changeSetSummary.key.time.year": @year
+        },
+        {
+          "changeSetSummary.key.time.month": @month
+        }
+      ]
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "year": "$changeSetSummary.key.time.year",
+        "month": "$changeSetSummary.key.time.month",
+        "day": "$changeSetSummary.key.time.day",
+        "impact": "$changeSetSummary.impact"
+      },
+      "count": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "year": "$_id.year",
+      "month": "$_id.month",
+      "day": "$_id.day",
+      "impact": {
+        "$cond": {
+          "if": "$_id.impact",
+          "then": "$count",
+          "else": 0
+        }
+      },
+      "total": "$count"
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "year": "$year",
+        "month": "$month",
+        "day": "$day"
+      },
+      "impact": {
+        "$sum": "$impact"
+      },
+      "total": {
+        "$sum": "$total"
+      }
+    }
+  },
+  {
+    "$sort": {
+      "_id": -1
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "year": "$_id.year",
+      "month": "$_id.month",
+      "day": "$_id.day",
+      "impact": "$impact",
+      "total": "$total"
+    }
+  }
+]

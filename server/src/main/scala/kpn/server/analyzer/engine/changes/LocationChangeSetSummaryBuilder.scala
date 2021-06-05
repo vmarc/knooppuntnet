@@ -101,7 +101,8 @@ class LocationChangeSetSummaryBuilder() {
       changeSet.timestampUntil,
       trees,
       happy,
-      investigate
+      investigate,
+      happy || investigate
     )
   }
 

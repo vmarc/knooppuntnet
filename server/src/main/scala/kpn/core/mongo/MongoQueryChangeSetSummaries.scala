@@ -15,7 +15,6 @@ import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.gt
 import org.mongodb.scala.model.Filters.lt
-import org.mongodb.scala.model.Filters.or
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
@@ -37,6 +36,7 @@ object MongoQueryChangeSetSummaries {
       )
       val database = Mongo.database(mongoClient, "tryout")
       val query = new MongoQueryChangeSetSummaries(database)
+      query.execute(parameters: ChangesParameters)
       val summaries = query.execute(parameters: ChangesParameters)
       summaries.map(_.key).foreach(println)
     }
@@ -83,19 +83,6 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
         }
     }
 
-    //    location: Option[String] = None,
-    //    subset: Option[Subset] = None,
-    //    networkId: Option[Long] = None,
-    //    routeId: Option[Long] = None,
-    //    nodeId: Option[Long] = None,
-    //
-    //    year: Option[String] = None,
-    //    month: Option[String] = None,
-    //    day: Option[String] = None,
-    //    itemsPerPage: Long = 5,
-    //    pageIndex: Long = 0,
-    //    impact: Boolean = false
-
     val pipeline: Seq[Bson] = Seq(
       range match {
         case None => null
@@ -107,18 +94,15 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
             )
           )
       },
-      sort(orderBy(descending("changeSetSummary.key.timestamp"))),
       if (parameters.impact) {
         filter(
-          or(
-            equal("changeSetSummary.happy", true),
-            equal("changeSetSummary.investigate", true),
-          )
+          equal("changeSetSummary.impact", true),
         )
       }
       else {
         null
       },
+      sort(orderBy(descending("changeSetSummary.key.timestamp"))),
       skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
       limit(parameters.itemsPerPage.toInt),
       project(
@@ -128,7 +112,7 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
       )
     ).filterNot(_ == null)
 
-    println(Mongo.pipelineString(pipeline))
+    // println(Mongo.pipelineString(pipeline))
 
     log.debugElapsed {
       val collection = database.getCollection("change-summaries")
