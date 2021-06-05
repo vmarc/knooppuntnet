@@ -1,17 +1,19 @@
 [
   {
     "$match": {
-      "changeSetSummary.key.time.year": @year,
-      "changeSetSummary.key.time.month": @month
+      "networkChange.networkId": @networkId,
+      "networkChange.key.time.year": @year,
+      "networkChange.key.time.month": @month
     }
   },
   {
     "$group": {
       "_id": {
-        "year": "$changeSetSummary.key.time.year",
-        "month": "$changeSetSummary.key.time.month",
-        "day": "$changeSetSummary.key.time.day",
-        "impact": "$changeSetSummary.impact"
+        "networkId": "$networkChange.networkId",
+        "year": "$networkChange.key.time.year",
+        "month": "$networkChange.key.time.month",
+        "day": "$networkChange.key.time.day",
+        "impact": "$networkChange.impact"
       },
       "count": {
         "$sum": 1

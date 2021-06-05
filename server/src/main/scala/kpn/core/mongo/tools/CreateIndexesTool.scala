@@ -19,7 +19,7 @@ object CreateIndexesTool {
       indexName: String,
       fieldNames: String*
     ): Index = {
-      val index = Indexes.ascending(fieldNames:_*)
+      val index = Indexes.ascending(fieldNames: _*)
       Index(
         collectionName: String,
         indexName: String,
@@ -32,6 +32,20 @@ object CreateIndexesTool {
     collectionName: String,
     indexName: String,
     index: Bson
+  )
+
+  private val newIndexes = Seq(
+    Index(
+      "change-networks",
+      "networkId-time-impact",
+      Indexes.descending(
+        "networkChange.networkId",
+        "networkChange.key.time.year",
+        "networkChange.key.time.month",
+        "networkChange.key.time.day",
+        "networkChange.impact"
+      )
+    )
   )
 
   private val indexes = Seq(
@@ -147,6 +161,32 @@ object CreateIndexesTool {
       "changeSetId",
       "locationChangeSetSummary.key.replicationNumber",
       "locationChangeSetSummary.key.changeSetId"
+    ),
+    Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
+      "change-networks",
+      "impact-timestamp",
+      Indexes.compoundIndex(
+        Indexes.ascending(
+          "networkChange.networkId",
+          "networkChange.impact",
+        ),
+        Indexes.descending(
+          "networkChange.key.timestamp"
+        )
+      )
+    ),
+    Index(
+      "change-networks",
+      "impact-time",
+      Indexes.compoundIndex(
+        Indexes.ascending(
+          "networkChange.networkId",
+          "networkChange.impact",
+        ),
+        Indexes.descending(
+          "networkChange.key.time"
+        )
+      )
     )
   )
 
@@ -154,7 +194,7 @@ object CreateIndexesTool {
     val mongoClient = Mongo.client
     val database = mongoClient.getDatabase("tryout")
     val tool = new CreateIndexesTool(database)
-    tool.createIndexes(indexes)
+    tool.createIndexes(newIndexes)
     mongoClient.close()
   }
 }
@@ -164,6 +204,7 @@ class CreateIndexesTool(database: MongoDatabase) {
   private val log = Log(classOf[CreateIndexesTool])
 
   def createIndexes(indexes: Seq[Index]): Unit = {
+    log.info(s"Create ${indexes.size} indexes")
     indexes.foreach(createIndex)
   }
 

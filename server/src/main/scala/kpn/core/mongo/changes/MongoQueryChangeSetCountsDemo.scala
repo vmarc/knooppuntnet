@@ -36,10 +36,8 @@ class MongoQueryChangeSetCountsDemo(database: MongoDatabase) {
     result.years.foreach(println)
     println("Months")
     result.months.foreach(println)
-    if (result.days != null) {
-      println("Days")
-      result.days.foreach(println)
-    }
+    println("Days")
+    result.days.foreach(println)
   }
 
   def all(): Unit = {

@@ -37,8 +37,8 @@ object MongoQueryChangeSetSummaries {
       )
       val database = Mongo.database(mongoClient, "tryout")
       val query = new MongoQueryChangeSetSummaries(database)
-      query.execute(parameters: ChangesParameters)
-      val summaries = query.execute(parameters: ChangesParameters)
+      query.execute(parameters)
+      val summaries = query.execute(parameters)
       summaries.map(_.key).foreach(println)
     }
     finally {

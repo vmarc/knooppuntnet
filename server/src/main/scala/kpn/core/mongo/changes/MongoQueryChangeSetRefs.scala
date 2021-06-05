@@ -1,5 +1,6 @@
 package kpn.core.mongo.changes
 
+import kpn.core.mongo.changes.MongoQueryChangeSetRefs.pipeline
 import kpn.core.mongo.statistics.ChangeSetRef
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
