@@ -1,5 +1,7 @@
 package kpn.api.custom
 
+import kpn.api.common.TimeKey
+
 object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
@@ -45,6 +47,10 @@ object Timestamp {
 }
 
 case class Timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) {
+
+  def toKey: TimeKey = {
+    TimeKey(year, month, day, hour, minute, second)
+  }
 
   def key: String = s"$year$monthString$dayString$hourString$minuteString$secondString"
 

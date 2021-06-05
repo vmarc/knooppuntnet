@@ -707,7 +707,8 @@ trait SharedTestObjects extends MockFactory {
       ways,
       relations,
       happy,
-      investigate
+      investigate,
+      happy || investigate
     )
   }
 
@@ -743,7 +744,8 @@ trait SharedTestObjects extends MockFactory {
       orphanNodeChanges,
       subsetAnalyses,
       happy,
-      investigate
+      investigate,
+      happy || investigate
     )
   }
 

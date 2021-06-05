@@ -71,7 +71,8 @@ class NetworkCreateWatchedProcessorImpl(
       IdDiffs(added = networkAfter.extraMemberWayIds),
       IdDiffs(added = networkAfter.extraMemberRelationIds),
       happy = true,
-      investigate = networkAfter.facts.nonEmpty
+      investigate = networkAfter.facts.nonEmpty,
+      impact = true
     )
 
     merge(ChangeSetChanges(Seq(networkChange)), nodeAndRouteChanges)

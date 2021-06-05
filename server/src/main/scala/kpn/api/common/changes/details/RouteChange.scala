@@ -31,8 +31,10 @@ case class RouteChange(
   // following values are filled in by RouteChangeAnalyzer.analyzed
   happy: Boolean = false,
   investigate: Boolean = false,
+  impact: Boolean = false,
   locationHappy: Boolean = false,
-  locationInvestigate: Boolean = false
+  locationInvestigate: Boolean = false,
+  locationImpact: Boolean = false
 ) {
 
   def id: Long = key.elementId

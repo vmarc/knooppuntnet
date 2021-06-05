@@ -110,7 +110,8 @@ class NetworkUpdateNetworkProcessorImpl(
       ways,
       relations,
       happy,
-      investigate
+      investigate,
+      happy || investigate
     )
 
     merge(ChangeSetChanges(Seq(networkChange)), nodeAndRouteChanges)

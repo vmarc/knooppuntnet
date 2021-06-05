@@ -253,7 +253,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         ways = IdDiffs(),
         relations = IdDiffs(),
         happy = true,
-        investigate = network.facts.nonEmpty
+        investigate = network.facts.nonEmpty,
+        impact = true
       )
     )
   }

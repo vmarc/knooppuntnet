@@ -35,8 +35,10 @@ case class NodeChange(
   // following values are filled in by NodeChangeAnalyzer.analyzed
   happy: Boolean = false,
   investigate: Boolean = false,
+  impact: Boolean = false,
   locationHappy: Boolean = false,
-  locationInvestigate: Boolean = false
+  locationInvestigate: Boolean = false,
+  locationImpact: Boolean = false,
 ) {
 
   def id: Long = key.elementId
@@ -76,8 +78,10 @@ case class NodeChange(
     field("factDiffs", factDiffs).
     field("facts", facts).
     field("happy", happy).
+    field("impact", impact).
     field("investigate", investigate).
     field("locationHappy", locationHappy).
     field("locationInvestigate", locationInvestigate).
+    field("locationImpact", locationImpact).
     build
 }

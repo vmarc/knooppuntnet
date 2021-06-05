@@ -465,7 +465,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       IdDiffs.empty,
       IdDiffs.empty,
       happy = true,
-      investigate = true
+      investigate = true,
+      impact = true
     )
   }
 

@@ -13,15 +13,21 @@ object NodeChangeAnalyzer {
 class NodeChangeAnalyzer(nodeChange: NodeChange) {
 
   def analyzed(): NodeChange = {
+    val happy = determineHappy()
+    val investigate = determineInvestigate()
+    val locationHappy = determineLocationHappy()
+    val locationInvestigate = determineLocationInvestigate()
     nodeChange.copy(
-      happy = happy(),
-      investigate = investigate(),
-      locationHappy = locationHappy(),
-      locationInvestigate = locationInvestigate()
+      happy = happy,
+      investigate = investigate,
+      impact = happy || investigate,
+      locationHappy = locationHappy,
+      locationInvestigate = locationInvestigate,
+      locationImpact = locationHappy || locationInvestigate
     )
   }
 
-  private def happy(): Boolean = {
+  private def determineHappy(): Boolean = {
 
     if (nodeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -39,7 +45,7 @@ class NodeChangeAnalyzer(nodeChange: NodeChange) {
       (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasLostNodeTag))
   }
 
-  private def locationHappy(): Boolean = {
+  private def determineLocationHappy(): Boolean = {
 
     if (nodeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -68,7 +74,7 @@ class NodeChangeAnalyzer(nodeChange: NodeChange) {
     false
   }
 
-  private def investigate(): Boolean = {
+  private def determineInvestigate(): Boolean = {
 
     if (nodeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -87,7 +93,7 @@ class NodeChangeAnalyzer(nodeChange: NodeChange) {
       hasLostNodeTag
   }
 
-  private def locationInvestigate(): Boolean = {
+  private def determineLocationInvestigate(): Boolean = {
 
     if (nodeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -124,5 +130,4 @@ class NodeChangeAnalyzer(nodeChange: NodeChange) {
   private def hasFact(fact: Fact): Boolean = {
     nodeChange.facts.contains(fact)
   }
-
 }

@@ -27,7 +27,8 @@ case class NetworkChange(
   ways: IdDiffs,
   relations: IdDiffs,
   happy: Boolean,
-  investigate: Boolean
+  investigate: Boolean,
+  impact: Boolean
 ) {
 
   def referencedElements: ReferencedElements = {
@@ -64,5 +65,6 @@ case class NetworkChange(
     field("relations", relations).
     field("happy", happy).
     field("investigate", investigate).
+    field("impact", impact).
     build
 }

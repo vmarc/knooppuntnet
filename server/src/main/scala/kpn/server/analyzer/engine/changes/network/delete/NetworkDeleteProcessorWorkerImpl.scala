@@ -88,7 +88,8 @@ class NetworkDeleteProcessorWorkerImpl(
             ways = IdDiffs.empty,
             relations = IdDiffs.empty,
             happy = false,
-            investigate = true
+            investigate = true,
+            impact = true
           )
 
           merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)

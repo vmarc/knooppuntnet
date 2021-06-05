@@ -383,7 +383,8 @@ object ChangeSetPageExample {
       ),
       subsetAnalyses = Seq.empty,
       happy = true,
-      investigate = true
+      investigate = true,
+      impact = true
     )
   }
 

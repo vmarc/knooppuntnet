@@ -47,7 +47,8 @@ object ChangeSetSummary {
       orphanNodeChanges,
       subsetAnalyses,
       happy,
-      investigate
+      investigate,
+      happy || investigate
     )
   }
 }
@@ -62,7 +63,8 @@ case class ChangeSetSummary(
   orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
   happy: Boolean,
-  investigate: Boolean
+  investigate: Boolean,
+  impact: Boolean
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
@@ -76,5 +78,6 @@ case class ChangeSetSummary(
     field("subsetAnalyses", subsetAnalyses).
     field("happy", happy).
     field("investigate", investigate).
+    field("impact", impact).
     build
 }
