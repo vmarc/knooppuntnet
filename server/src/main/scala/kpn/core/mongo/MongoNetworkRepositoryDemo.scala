@@ -1,5 +1,7 @@
 package kpn.core.mongo
 
+import kpn.core.mongo.util.Mongo
+
 object MongoNetworkRepositoryDemo {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client

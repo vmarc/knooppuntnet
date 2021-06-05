@@ -1,8 +1,11 @@
-package kpn.core.mongo
+package kpn.core.mongo.changes
 
-import kpn.core.mongo.MongoQueryChangeSetCounts.pipelineAll
-import kpn.core.mongo.MongoQueryChangeSetCounts.pipelineDaysString
-import kpn.core.mongo.MongoQueryChangeSetCounts.pipelineMonthsString
+import kpn.core.mongo.changes.MongoQueryChangeSetCounts.pipelineAll
+import kpn.core.mongo.changes.MongoQueryChangeSetCounts.pipelineDaysString
+import kpn.core.mongo.changes.MongoQueryChangeSetCounts.pipelineMonthsString
+import kpn.core.mongo.statistics.ChangeSetCount
+import kpn.core.mongo.statistics.ChangeSetCounts
+import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson

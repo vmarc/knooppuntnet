@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
 
 case class ChangeSetRef(
   replicationNumber: Long,

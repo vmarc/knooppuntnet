@@ -1,5 +1,7 @@
-package kpn.core.mongo
+package kpn.core.mongo.changes
 
+import kpn.core.mongo.util.Mongo
+import kpn.core.mongo.util.MongoQuery
 import org.mongodb.scala.MongoDatabase
 
 object MongoQueryChangeSetCountsDemo extends MongoQuery {

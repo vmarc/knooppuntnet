@@ -1,14 +1,16 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
 
-import kpn.core.mongo.StatisticsUpdater.networkCount
-import kpn.core.mongo.StatisticsUpdater.networkDetailFacts
-import kpn.core.mongo.StatisticsUpdater.networkFacts
-import kpn.core.mongo.StatisticsUpdater.nodeCount
-import kpn.core.mongo.StatisticsUpdater.nodeOrphanCount
-import kpn.core.mongo.StatisticsUpdater.routeCount
-import kpn.core.mongo.StatisticsUpdater.routeDistance
-import kpn.core.mongo.StatisticsUpdater.routeFacts
-import kpn.core.mongo.StatisticsUpdater.routeOrphanCount
+import kpn.core.mongo.statistics.StatisticsUpdater.networkCount
+import kpn.core.mongo.statistics.StatisticsUpdater.networkDetailFacts
+import kpn.core.mongo.statistics.StatisticsUpdater.networkFacts
+import kpn.core.mongo.statistics.StatisticsUpdater.nodeCount
+import kpn.core.mongo.statistics.StatisticsUpdater.nodeOrphanCount
+import kpn.core.mongo.statistics.StatisticsUpdater.routeCount
+import kpn.core.mongo.statistics.StatisticsUpdater.routeDistance
+import kpn.core.mongo.statistics.StatisticsUpdater.routeFacts
+import kpn.core.mongo.statistics.StatisticsUpdater.routeOrphanCount
+import kpn.core.mongo.util.MongoQuery
+import kpn.core.mongo.util.Pipeline
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 

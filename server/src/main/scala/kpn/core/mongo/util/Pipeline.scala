@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.util
 
 import org.mongodb.scala.bson.conversions.Bson
 

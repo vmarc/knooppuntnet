@@ -5,7 +5,7 @@ import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.CouchConfig
-import kpn.core.mongo.Mongo
+import kpn.core.mongo.util.Mongo
 import org.mongodb.scala.MongoClient
 import org.mongodb.scala.MongoDatabase
 import org.springframework.beans.factory.annotation.Value

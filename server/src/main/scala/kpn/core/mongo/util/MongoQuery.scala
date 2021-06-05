@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.util
 
 import org.apache.commons.io.IOUtils
 import org.mongodb.scala.bson.BsonDocument

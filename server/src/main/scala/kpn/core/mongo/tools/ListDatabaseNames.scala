@@ -1,4 +1,6 @@
-package kpn.core.mongo
+package kpn.core.mongo.tools
+
+import kpn.core.mongo.util.Mongo
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await

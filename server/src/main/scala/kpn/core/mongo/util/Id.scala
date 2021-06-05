@@ -1,3 +1,3 @@
-package kpn.core.mongo
+package kpn.core.mongo.util
 
 case class Id(_id: String)

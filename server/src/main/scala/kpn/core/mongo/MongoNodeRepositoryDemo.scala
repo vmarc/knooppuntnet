@@ -1,6 +1,7 @@
 package kpn.core.mongo
 
 import kpn.api.custom.NetworkType
+import kpn.core.mongo.util.Mongo
 
 object MongoNodeRepositoryDemo {
   def main(args: Array[String]): Unit = {

@@ -1,7 +1,9 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
 
-
-import kpn.core.mongo.ChangeStatisticsUpdater.changeSummaries
+import kpn.core.mongo.statistics.ChangeStatisticsUpdater.changeSummaries
+import kpn.core.mongo.util.Mongo
+import kpn.core.mongo.util.MongoQuery
+import kpn.core.mongo.util.Pipeline
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 

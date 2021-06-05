@@ -1,4 +1,6 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
+
+import kpn.core.mongo.util.Mongo
 
 object StatisticsUpdaterDemo {
   def main(args: Array[String]): Unit = {

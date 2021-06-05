@@ -1,8 +1,9 @@
-package kpn.core.mongo
+package kpn.core.mongo.changes
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.doc.ChangeSetSummaryDoc
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson

@@ -1,5 +1,6 @@
-package kpn.core.mongo
+package kpn.core.mongo.tools
 
+import kpn.core.mongo.util.Mongo
 import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.model.IndexOptions
 import org.mongodb.scala.model.Indexes
@@ -13,11 +14,11 @@ object CreateIndexes {
     val mongoClient = Mongo.client
     val database = mongoClient.getDatabase("tryout")
     val createIndexes = new CreateIndexes(database)
-    // createIndexes.createIndexNetworkName()
-    // createIndexes.createIndexNetworkNodeReferences()
-    /// createIndexes.createIndexNodeLocations()
-    // createIndexes.createIndexNodeActive()
-    // createIndexes.createIndexRouteNodeReferences()
+    createIndexes.createIndexNetworkName()
+    createIndexes.createIndexNetworkNodeReferences()
+    createIndexes.createIndexNodeLocations()
+    createIndexes.createIndexNodeActive()
+    createIndexes.createIndexRouteNodeReferences()
     createIndexes.createIndexRouteNodeRefs()
     mongoClient.close()
   }

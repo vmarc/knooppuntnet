@@ -1,6 +1,8 @@
-package kpn.core.mongo
+package kpn.core.mongo.migration
 
 import kpn.core.database.doc.RouteDoc
+import kpn.core.mongo.NodeRouteRef
+import kpn.core.mongo.util.Mongo
 import org.mongodb.scala.Observer
 import org.mongodb.scala.model.Filters.equal
 

@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
 
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType

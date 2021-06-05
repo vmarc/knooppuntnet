@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.util
 
 import kpn.core.util.Log
 import kpn.server.json.Json

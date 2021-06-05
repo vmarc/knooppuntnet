@@ -1,8 +1,10 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
 
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.MongoQueryStatistics.pipeline
+import kpn.core.mongo.statistics.MongoQueryStatistics.pipeline
+import kpn.core.mongo.util.Mongo
+import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 

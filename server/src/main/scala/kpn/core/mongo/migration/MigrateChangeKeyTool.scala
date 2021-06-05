@@ -5,8 +5,8 @@ import kpn.core.database.doc.LocationChangeSetSummaryDoc
 import kpn.core.database.doc.NetworkChangeDoc
 import kpn.core.database.doc.NodeChangeDoc
 import kpn.core.database.doc.RouteChangeDoc
-import kpn.core.mongo.Id
-import kpn.core.mongo.Mongo
+import kpn.core.mongo.util.Id
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase

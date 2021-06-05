@@ -1,8 +1,9 @@
-package kpn.core.mongo
+package kpn.core.mongo.migration
 
 import kpn.core.database.Database
 import kpn.core.database.doc.NodeDoc
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.server.repository.NodeRepositoryImpl
 
 import java.util.concurrent.TimeUnit

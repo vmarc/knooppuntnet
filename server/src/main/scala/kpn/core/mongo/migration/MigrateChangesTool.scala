@@ -17,9 +17,9 @@ import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.db.couch.Couch
-import kpn.core.mongo.ChangeSetRef
-import kpn.core.mongo.Mongo
-import kpn.core.mongo.MongoQueryChangeSetRefs
+import kpn.core.mongo.changes.MongoQueryChangeSetRefs
+import kpn.core.mongo.statistics.ChangeSetRef
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetRepositoryImpl
 import org.mongodb.scala.MongoCollection

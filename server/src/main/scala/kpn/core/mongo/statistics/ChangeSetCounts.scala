@@ -1,4 +1,4 @@
-package kpn.core.mongo
+package kpn.core.mongo.statistics
 
 case class ChangeSetCounts(
   years: Seq[ChangeSetCount2] = Seq.empty,
