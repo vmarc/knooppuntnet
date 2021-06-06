@@ -1,0 +1,64 @@
+[
+  {
+    "$match": {
+      "routeChange.key.elementId": @routeId,
+      "routeChange.key.time.year": @year
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "routeId": "$routeChange.key.elementId",
+        "year": "$routeChange.key.time.year",
+        "month": "$routeChange.key.time.month",
+        "impact": "$routeChange.impact"
+      },
+      "count": {
+        "$sum": 1
+      }
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "year": "$_id.year",
+      "month": "$_id.month",
+      "impact": {
+        "$cond": {
+          "if": "$_id.impact",
+          "then": "$count",
+          "else": 0
+        }
+      },
+      "total": "$count"
+    }
+  },
+  {
+    "$group": {
+      "_id": {
+        "year": "$year",
+        "month": "$month"
+      },
+      "impact": {
+        "$sum": "$impact"
+      },
+      "total": {
+        "$sum": "$total"
+      }
+    }
+  },
+  {
+    "$sort": {
+      "_id": -1
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "year": "$_id.year",
+      "month": "$_id.month",
+      "impact": "$impact",
+      "total": "$total"
+    }
+  }
+]

@@ -1,8 +1,8 @@
 package kpn.core.mongo.changes
 
-import kpn.core.mongo.changes.MongoQueryNetworkChangeCounts.pipelineDaysString
-import kpn.core.mongo.changes.MongoQueryNetworkChangeCounts.pipelineMonthsString
-import kpn.core.mongo.changes.MongoQueryNetworkChangeCounts.pipelineYearsString
+import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.pipelineDaysString
+import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.pipelineMonthsString
+import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.pipelineYearsString
 import kpn.core.mongo.statistics.ChangeSetCounts
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
@@ -16,30 +16,30 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-object MongoQueryNetworkChangeCounts extends MongoQuery {
+object MongoQueryNodeChangeCounts extends MongoQuery {
   private val pipelineYearsString = readPipelineString("years")
   private val pipelineMonthsString = readPipelineString("months")
   private val pipelineDaysString = readPipelineString("days")
 }
 
-class MongoQueryNetworkChangeCounts(database: MongoDatabase) extends MongoQuery {
+class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
 
-  private val log = Log(classOf[MongoQueryNetworkChangeCounts])
+  private val log = Log(classOf[MongoQueryNodeChangeCounts])
 
-  def execute(networkId: Long, year: Int, monthOption: Option[Int]): ChangeSetCounts = {
+  def execute(nodeId: Long, year: Int, monthOption: Option[Int]): ChangeSetCounts = {
 
-    val pipelineYears = toPipeline(pipelineYearsString.replace("@networkId", s"$networkId"))
+    val pipelineYears = toPipeline(pipelineYearsString.replace("@nodeId", s"$nodeId"))
 
     val pipelineMonths = toPipeline(
       pipelineMonthsString.
-        replace("@networkId", s"$networkId").
+        replace("@nodeId", s"$nodeId").
         replace("@year", s"$year")
     )
 
     val pipeline = monthOption match {
       case None =>
         Seq(
-          filter(equal("networkChange.networkId", networkId)),
+          filter(equal("nodeChange.key.elementId", nodeId)),
           facet(
             Facet("years", pipelineYears: _*),
             Facet("months", pipelineMonths: _*),
@@ -49,12 +49,12 @@ class MongoQueryNetworkChangeCounts(database: MongoDatabase) extends MongoQuery 
       case Some(month) =>
         val pipelineDays = toPipeline(
           pipelineDaysString.
-            replace("@networkId", s"$networkId").
+            replace("@nodeId", s"$nodeId").
             replace("@year", s"$year").
             replace("@month", s"$month")
         )
         Seq(
-          filter(equal("networkChange.networkId", networkId)),
+          filter(equal("nodeChange.key.elementId", nodeId)),
           facet(
             Facet("years", pipelineYears: _*),
             Facet("months", pipelineMonths: _*),
@@ -66,7 +66,7 @@ class MongoQueryNetworkChangeCounts(database: MongoDatabase) extends MongoQuery 
     // println(Mongo.pipelineString(pipeline))
 
     log.debugElapsed {
-      val collection = database.getCollection("change-networks")
+      val collection = database.getCollection("change-nodes")
       val future = collection.aggregate[ChangeSetCounts](pipeline).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"

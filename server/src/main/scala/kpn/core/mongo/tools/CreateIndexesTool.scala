@@ -36,14 +36,25 @@ object CreateIndexesTool {
 
   private val newIndexes = Seq(
     Index(
-      "change-networks",
-      "networkId-time-impact",
+      "change-routes",
+      "routeId-time-impact",
       Indexes.descending(
-        "networkChange.networkId",
-        "networkChange.key.time.year",
-        "networkChange.key.time.month",
-        "networkChange.key.time.day",
-        "networkChange.impact"
+        "routeChange.key.elementId",
+        "routeChange.key.time.year",
+        "routeChange.key.time.month",
+        "routeChange.key.time.day",
+        "routeChange.impact"
+      )
+    ),
+    Index(
+      "change-nodes",
+      "nodeId-time-impact",
+      Indexes.descending(
+        "nodeChange.key.elementId",
+        "nodeChange.key.time.year",
+        "nodeChange.key.time.month",
+        "nodeChange.key.time.day",
+        "nodeChange.impact"
       )
     )
   )
@@ -186,6 +197,17 @@ object CreateIndexesTool {
         Indexes.descending(
           "networkChange.key.time"
         )
+      )
+    ),
+    Index(
+      "change-networks",
+      "networkId-time-impact",
+      Indexes.descending(
+        "networkChange.networkId",
+        "networkChange.key.time.year",
+        "networkChange.key.time.month",
+        "networkChange.key.time.day",
+        "networkChange.impact"
       )
     )
   )
