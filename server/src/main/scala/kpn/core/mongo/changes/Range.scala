@@ -37,5 +37,4 @@ object Range {
   }
 }
 
-
 case class Range(start: String, end: String)
