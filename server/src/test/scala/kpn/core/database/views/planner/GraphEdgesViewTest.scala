@@ -33,7 +33,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   private val path2 = TrackPath(2, nodeId3, nodeId4, 200, oneWay = false, Seq(TrackSegment("", trackPoint3, Seq(TrackSegmentFragment(trackPoint4, 0, 0, None)))))
 
   test("graph edge forward path") {
-    withDatabase(keepDatabaseAfterTest = true) { database =>
+    withDatabase { database =>
       doTest(database, RouteMap(forwardPath = Some(path1.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))

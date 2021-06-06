@@ -9,7 +9,7 @@ class DatabaseRevisionTest extends UnitTest with TestObjects {
 
   test("revision - get document revision without having to load the entire document") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val doc = {
         val nodeInfo = newNodeInfo(123)
@@ -21,14 +21,12 @@ class DatabaseRevisionTest extends UnitTest with TestObjects {
       val rev = database.docWithId(doc._id, classOf[NodeDoc]).flatMap(_._rev)
 
       database.revision(doc._id) should equal(rev)
-
-    });
+    }
   }
 
   test("revision - None if non-existing document") {
-    withDatabase(database => {
+    withDatabase { database =>
       database.revision("bla") should equal(None)
-    });
+    }
   }
-
 }

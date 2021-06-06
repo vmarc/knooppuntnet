@@ -71,7 +71,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
   test("route") {
 
-    withDatabase() { database =>
+    withDatabase { database =>
 
       val repo = new RouteRepositoryImpl(database)
       repo.save(
@@ -118,5 +118,4 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
       testQuery("municipality")
     }
   }
-
 }

@@ -8,7 +8,7 @@ import kpn.core.util.UnitTest
 class DatabaseDeleteDocsWithIdsTest extends UnitTest with TestObjects {
 
   test("deleteDocsWithIds") {
-    withDatabase(database => {
+    withDatabase { database =>
       val nodeInfo1 = newNodeInfo(1001)
       val doc1 = NodeDoc("node:1001", nodeInfo1, None)
       database.save(doc1)
@@ -26,7 +26,6 @@ class DatabaseDeleteDocsWithIdsTest extends UnitTest with TestObjects {
       database.docWithId(doc1._id, classOf[NodeDoc]) should equal(None)
       database.docWithId(doc2._id, classOf[NodeDoc]) should equal(None)
       database.docWithId(doc3._id, classOf[NodeDoc]).get._id should equal(doc3._id)
-    });
+    }
   }
-
 }

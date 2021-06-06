@@ -17,7 +17,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
   test("bicyle routing against one-way direction 1") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
@@ -63,12 +63,12 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
           val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
           println(json.writeValueAsString(line))
       }
-    })
+    }
   }
 
   test("bicyle routing against one-way direction") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
@@ -155,8 +155,6 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       // TODO cover planRoutes to geojson --> view in browser tool to see if correct route is choosen
 
       // TODO further investigate: route2startTentablePath1 does not seem to be one-way, but it looks like it should be ???
-
-    })
+    }
   }
-
 }

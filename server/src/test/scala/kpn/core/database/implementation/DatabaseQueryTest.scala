@@ -16,7 +16,7 @@ import kpn.server.repository.DesignRepositoryImpl
 class DatabaseQueryTest extends UnitTest with TestObjects {
 
   test("query") {
-    withDatabase(database => {
+    withDatabase { database =>
       new DesignRepositoryImpl(database).save(LocationDesign)
 
       database.save(
@@ -88,7 +88,6 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
           )
         )
       )
-    })
+    }
   }
-
 }

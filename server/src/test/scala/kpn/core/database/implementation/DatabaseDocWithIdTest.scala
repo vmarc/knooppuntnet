@@ -7,8 +7,7 @@ import kpn.core.util.UnitTest
 class DatabaseDocWithIdTest extends UnitTest with TestObjects {
 
   test("TODO") {
-    withDatabase(database => {
-    })
+    withDatabase { database =>
+    }
   }
-
 }

@@ -9,7 +9,7 @@ class DatabaseBulkSaveTest extends UnitTest with TestObjects {
 
   test("bulkSave") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val doc1 = NodeDoc("node:1001", newNodeInfo(1001), None)
       val doc2 = NodeDoc("node:1002", newNodeInfo(1002), None)
@@ -20,7 +20,6 @@ class DatabaseBulkSaveTest extends UnitTest with TestObjects {
       database.docWithId(doc1._id, classOf[NodeDoc]).map(_._id) should equal(Some(doc1._id))
       database.docWithId(doc2._id, classOf[NodeDoc]).map(_._id) should equal(Some(doc2._id))
       database.docWithId(doc3._id, classOf[NodeDoc]).map(_._id) should equal(Some(doc3._id))
-    });
+    }
   }
-
 }

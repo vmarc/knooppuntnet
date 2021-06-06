@@ -1,9 +1,6 @@
 package kpn.core.database.implementation
 
-import java.util.UUID
-
 import kpn.core.TestObjects
-import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.doc.NodeDoc
 import kpn.core.database.doc.StringValueDoc
@@ -11,11 +8,13 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import kpn.core.util.UnitTest
 
+import java.util.UUID
+
 class DatabaseSaveTest extends UnitTest with TestObjects {
 
   test("save") {
 
-    withDatabase(database => {
+    withDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
       val doc = NodeDoc("123", nodeInfo, None)
@@ -28,7 +27,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
         case Some(result) => result.node should equal(nodeInfo)
         case None => fail()
       }
-    })
+    }
   }
 
   test("save - wrong password") {

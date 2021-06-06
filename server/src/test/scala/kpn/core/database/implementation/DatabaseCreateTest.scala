@@ -1,20 +1,19 @@
 package kpn.core.database.implementation
 
-import java.util.UUID
-
 import kpn.core.TestObjects
-import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import kpn.core.util.UnitTest
 
+import java.util.UUID
+
 class DatabaseCreateTest extends UnitTest with TestObjects {
 
   test("create") {
-    withDatabase(database => {
+    withDatabase { database =>
       assert(database.exists)
-    })
+    }
   }
 
   test("create - database already exists") {
