@@ -23,6 +23,8 @@ trait Database {
 
   def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T
 
+  def allIds(stale: Boolean = true): Seq[String]
+
   def keysWithIds(docIds: Seq[String], stale: Boolean = true): Seq[String]
 
   def revision(docId: String): Option[String]

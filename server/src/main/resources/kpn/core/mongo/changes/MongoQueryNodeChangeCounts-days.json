@@ -11,7 +11,7 @@
       "_id": {
         "nodeId": "$nodeChange.key.elementId",
         "year": "$nodeChange.key.time.year",
-        "monMongoQuerynodeChangeCountsth": "$nodeChange.key.time.month",
+        "month": "$nodeChange.key.time.month",
         "day": "$nodeChange.key.time.day",
         "impact": "$nodeChange.impact"
       },

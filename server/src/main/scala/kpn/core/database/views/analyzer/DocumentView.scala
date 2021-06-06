@@ -29,6 +29,10 @@ object DocumentView extends View {
     allIds(database: Database, "network")
   }
 
+  def allChangeSetInfoIds(database: Database): Seq[Long] = {
+    allIds(database: Database, "change-set-info")
+  }
+
   private def allIds(database: Database, elementType: String): Seq[Long] = {
     val query = Query(AnalyzerDesign, DocumentView, classOf[ViewResult])
       .startKey(s""""$elementType"""")

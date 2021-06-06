@@ -1,6 +1,7 @@
 package kpn.core.database
 
 import kpn.core.database.doc.Doc
+import kpn.core.database.implementation.DatabaseAllIds
 import kpn.core.database.implementation.DatabaseBulkSave
 import kpn.core.database.implementation.DatabaseContext
 import kpn.core.database.implementation.DatabaseCreate
@@ -41,6 +42,10 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
 
   override def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T = {
     new DatabaseDocsWithIds(context).docsWithIds(docIds, docType, stale)
+  }
+
+  override def allIds(stale: Boolean = true): Seq[String] = {
+    new DatabaseAllIds(context).execute(stale)
   }
 
   override def save[T](doc: Doc): Unit = {
