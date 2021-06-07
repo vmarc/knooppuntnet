@@ -55,7 +55,7 @@ class MongoQueryChangeCountsDemo(database: MongoDatabase) {
   def nodeChangeCounts(): Unit = {
     val query = new MongoQueryNodeChangeCounts(database)
     query.execute(257728810L, 2020, Some(6))
-    val result = query.execute(257728810L, 2020, Some(6))
+    val result = query.execute(4759485214L, 2020, Some(6))
     println("Years")
     result.years.foreach(println)
     println("Months")

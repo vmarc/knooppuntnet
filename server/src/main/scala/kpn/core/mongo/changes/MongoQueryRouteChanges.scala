@@ -109,7 +109,7 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
     // println(Mongo.pipelineString(pipeline))
 
     log.debugElapsed {
-      val collection = database.getCollection("change-routes")
+      val collection = database.getCollection("route-changes")
       val future = collection.aggregate[RouteChangeDoc](pipeline).toFuture()
       val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${docs.size} route changes", docs.map(_.routeChange))

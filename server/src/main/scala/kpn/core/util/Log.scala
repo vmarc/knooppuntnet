@@ -10,6 +10,8 @@ trait Log {
 
   def isDebugEnabled: Boolean
 
+  def isTraceEnabled: Boolean
+
   def info(message: String): Unit
 
   def warn(message: String): Unit
@@ -91,6 +93,8 @@ object Log {
     private val log = LogManager.getLogger(name)
 
     def isDebugEnabled: Boolean = log.isDebugEnabled
+
+    def isTraceEnabled: Boolean = log.isTraceEnabled
 
     def info(message: String): Unit = log.info(message)
 
@@ -177,9 +181,7 @@ object Log {
       val unit = if (millis) "ms" else "s"
       (s"$message ($elapsed$unit)", result)
     }
-
   }
-
 }
 
 class MockLog() extends Log {
@@ -189,6 +191,8 @@ class MockLog() extends Log {
   def messages: Seq[String] = messageBuffer.toSeq
 
   def isDebugEnabled = true
+
+  def isTraceEnabled = true
 
   def info(message: String): Unit = messageBuffer.append("INFO " + message)
 

@@ -1,6 +1,6 @@
 package kpn.core.mongo.statistics
 
-import kpn.core.mongo.statistics.ChangeStatisticsUpdater.changeSummaries
+import kpn.core.mongo.statistics.ChangeStatisticsUpdater.changesetSummaries
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.mongo.util.Pipeline
@@ -13,10 +13,10 @@ import scala.concurrent.duration.Duration
 import scala.language.postfixOps
 
 object ChangeStatisticsUpdater extends MongoQuery {
-  //  private val changeNetworks = readPipeline("change-networks")
-  //  private val changeNodes = readPipeline("change-nodes")
-  //  private val changeRoutes = readPipeline("change-routes")
-  private val changeSummaries = readPipeline("change-summaries")
+  //  private val changeNetworks = readPipeline("network-changes")
+  //  private val changeNodes = readPipeline("node-changes")
+  //  private val changeRoutes = readPipeline("route-changes")
+  private val changesetSummaries = readPipeline("changeset-summaries")
   //  private val changeLocationSummaries = readPipeline("change-location-summaries")
 
   def main(args: Array[String]): Unit = {
@@ -31,10 +31,10 @@ class ChangeStatisticsUpdater(database: MongoDatabase) {
 
   def execute(): Unit = {
     log.infoElapsed("update") {
-      // updateCounts("change-networks", changeNetworks)
-      // updateCounts("change-routes", changeRoutes)
-      // updateCounts("change-nodes", changeNodes)
-      updateCounts("change-summaries", changeSummaries)
+      // updateCounts("network-changes", changeNetworks)
+      // updateCounts("route-changes", changeRoutes)
+      // updateCounts("node-changes", changeNodes)
+      updateCounts("changeset-summaries", changesetSummaries)
       // updateCounts("change-location-summaries", changeLocationSummaries)
     }
   }

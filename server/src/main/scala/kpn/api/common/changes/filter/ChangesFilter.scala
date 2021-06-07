@@ -1,5 +1,9 @@
 package kpn.api.common.changes.filter
 
+object ChangesFilter {
+  def empty: ChangesFilter = ChangesFilter(Seq.empty)
+}
+
 case class ChangesFilter(periods: Seq[ChangesFilterPeriod]) {
 
   def currentItemCount(impact: Boolean): Long = {

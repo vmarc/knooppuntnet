@@ -3,7 +3,9 @@ package kpn.server.api.analysis.pages.node
 import kpn.api.common.NodeInfo
 import kpn.api.common.NodeMapInfo
 import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeIntegrity
@@ -11,10 +13,12 @@ import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Fact
+import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.MongoChangeRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
@@ -24,7 +28,9 @@ class NodePageBuilderImpl(
   nodeRepository: NodeRepository,
   nodeRouteRepository: NodeRouteRepository,
   changeSetRepository: ChangeSetRepository,
-  changeSetInfoRepository: ChangeSetInfoRepository
+  changeSetInfoRepository: ChangeSetInfoRepository,
+  mongoEnabled: Boolean,
+  mongoChangesRepository: MongoChangeRepository
 ) extends NodePageBuilder {
 
   def buildDetailsPage(user: Option[String], nodeId: Long): Option[NodeDetailsPage] = {
@@ -82,23 +88,76 @@ class NodePageBuilderImpl(
   }
 
   private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {
-    val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
-    val totalCount = changesFilter.currentItemCount(parameters.impact)
-    val nodeChanges = if (user.isDefined) {
-      changeSetRepository.nodeChanges(parameters)
+    if (mongoEnabled) {
+      if (user.isDefined) {
+        val nodeChanges = mongoChangesRepository.nodeChanges(nodeInfo.id, parameters)
+        val changesFilter = mongoChangesRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
+        val totalCount = changesFilter.currentItemCount(parameters.impact)
+        val incompleteWarning = isIncomplete(nodeChanges)
+        val changes = nodeChanges.map { change =>
+          NodeChangeInfo(
+            change.id,
+            change.after.map(_.version),
+            change.key,
+            Tags.empty,
+            change.comment,
+            change.before.map(_.toMeta),
+            change.after.map(_.toMeta),
+            change.connectionChanges,
+            change.roleConnectionChanges,
+            change.definedInNetworkChanges,
+            change.tagDiffs,
+            change.nodeMoved,
+            change.addedToRoute,
+            change.removedFromRoute,
+            change.addedToNetwork,
+            change.removedFromNetwork,
+            change.factDiffs,
+            change.facts,
+            change.happy,
+            change.investigate
+          )
+        }
+        NodeChangesPage(
+          nodeInfo,
+          changesFilter,
+          changes,
+          incompleteWarning,
+          totalCount,
+          changesFilter.totalCount
+        )
+      }
+      else {
+        // user is not logged in; we do not show change information
+        NodeChangesPage(
+          nodeInfo,
+          ChangesFilter.empty,
+          Seq.empty,
+          incompleteWarning = false,
+          0,
+          0
+        )
+      }
     }
     else {
-      // user is not logged in; we do not show change information
-      Seq()
-    }
+      val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
+      val totalCount = changesFilter.currentItemCount(parameters.impact)
+      val nodeChanges = if (user.isDefined) {
+        changeSetRepository.nodeChanges(nodeInfo.id, parameters)
+      }
+      else {
+        // user is not logged in; we do not show change information
+        Seq()
+      }
 
-    val incompleteWarning = isIncomplete(nodeChanges)
-    val changeSetIds = nodeChanges.map(_.key.changeSetId)
-    val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
-    val changes = nodeChanges.map { nodeChange =>
-      new NodeChangeInfoBuilder().build(nodeChange, changeSetInfos)
+      val incompleteWarning = isIncomplete(nodeChanges)
+      val changeSetIds = nodeChanges.map(_.key.changeSetId)
+      val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
+      val changes = nodeChanges.map { nodeChange =>
+        new NodeChangeInfoBuilder().build(nodeChange, changeSetInfos)
+      }
+      NodeChangesPage(nodeInfo, changesFilter, changes, incompleteWarning, totalCount, changesFilter.totalCount)
     }
-    NodeChangesPage(nodeInfo, changesFilter, changes, incompleteWarning, totalCount, changesFilter.totalCount)
   }
 
   private def buildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {

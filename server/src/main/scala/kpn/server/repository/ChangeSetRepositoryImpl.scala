@@ -112,7 +112,7 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
   private def changesFilter(keys: Seq[String], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
     val yearPeriods = changesFilterPeriod(4, keys, stale)
     if (yearPeriods.isEmpty) {
-      ChangesFilter(Seq())
+      ChangesFilter(Seq.empty)
     }
     else {
       val selectedYear = year.getOrElse(yearPeriods.head.name)

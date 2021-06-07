@@ -39,6 +39,7 @@ case class NodeChange(
   locationHappy: Boolean = false,
   locationInvestigate: Boolean = false,
   locationImpact: Boolean = false,
+  comment: Option[String] = None
 ) {
 
   def id: Long = key.elementId

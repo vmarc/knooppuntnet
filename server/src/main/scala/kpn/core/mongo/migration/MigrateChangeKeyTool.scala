@@ -73,7 +73,7 @@ class MigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("network-changes") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[NetworkChangeDoc]("change-networks")
+        val collection = mongoDatabase.getCollection[NetworkChangeDoc]("network-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.networkChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -108,7 +108,7 @@ class MigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("route-changes") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[RouteChangeDoc]("change-routes")
+        val collection = mongoDatabase.getCollection[RouteChangeDoc]("route-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.routeChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -144,7 +144,7 @@ class MigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("node-changes") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[NodeChangeDoc]("change-nodes")
+        val collection = mongoDatabase.getCollection[NodeChangeDoc]("node-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.nodeChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -178,9 +178,9 @@ class MigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
       )
     )
 
-    Log.context("change-summaries") {
+    Log.context("changeset-summaries") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[ChangeSetSummaryDoc]("change-summaries")
+        val collection = mongoDatabase.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.changeSetSummary
           val newKey = change.key.copy(time = change.key.timestamp.toKey)

@@ -52,10 +52,10 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
   private val stale = true // TODO change to false for actual migration
   private val changeSetRepository = new ChangeSetRepositoryImpl(couchDatabase)
 
-  private val networkChangeCollection = mongoDatabase.getCollection[NetworkChangeDoc]("change-networks")
-  private val routeChangeCollection = mongoDatabase.getCollection[RouteChangeDoc]("change-routes")
-  private val nodeChangeCollection = mongoDatabase.getCollection[NodeChangeDoc]("change-nodes")
-  private val changeSetSummariesCollection = mongoDatabase.getCollection[ChangeSetSummaryDoc]("change-summaries")
+  private val networkChangeCollection = mongoDatabase.getCollection[NetworkChangeDoc]("network-changes")
+  private val routeChangeCollection = mongoDatabase.getCollection[RouteChangeDoc]("route-changes")
+  private val nodeChangeCollection = mongoDatabase.getCollection[NodeChangeDoc]("node-changes")
+  private val changeSetSummariesCollection = mongoDatabase.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
   private val locationChangeSetSummariesCollection = mongoDatabase.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
 
   def migrate(): Unit = {

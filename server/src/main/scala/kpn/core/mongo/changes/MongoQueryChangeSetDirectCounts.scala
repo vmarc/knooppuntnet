@@ -30,7 +30,7 @@ class MongoQueryChangeSetDirectCounts(database: MongoDatabase) {
 
   def allDays(): Seq[ChangeSetCount] = {
     log.debugElapsed {
-      val collection = database.getCollection("change-summaries")
+      val collection = database.getCollection("changeset-summaries")
       val future = collection.aggregate[ChangeSetCount](pipelineAll).toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val sortedCounts = counts.sortBy(c => (c.year, c.month, c.day, c.impact))
@@ -71,7 +71,7 @@ class MongoQueryChangeSetDirectCounts(database: MongoDatabase) {
     // println(Mongo.pipelineString(pipeline))
 
     log.debugElapsed {
-      val collection = database.getCollection("change-summaries")
+      val collection = database.getCollection("changeset-summaries")
       val future = collection.aggregate[ChangeSetCounts](pipeline).allowDiskUse(true).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"executeDirectMultiPipeline: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"

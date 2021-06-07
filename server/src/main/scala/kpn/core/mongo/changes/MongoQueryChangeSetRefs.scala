@@ -20,7 +20,7 @@ class MongoQueryChangeSetRefs(database: MongoDatabase) {
 
   def execute(): Seq[ChangeSetRef] = {
     log.debugElapsed {
-      val collection = database.getCollection("change-summaries")
+      val collection = database.getCollection("changeset-summaries")
       val future = collection.aggregate[ChangeSetRef](pipeline.stages).toFuture()
       val values = Await.result(future, Duration(1, TimeUnit.MINUTES))
       (s"${values.size} changeSetRefs", values)

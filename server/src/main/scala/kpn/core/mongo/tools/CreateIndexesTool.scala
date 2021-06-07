@@ -36,7 +36,7 @@ object CreateIndexesTool {
 
   private val newIndexes = Seq(
     Index(
-      "change-routes",
+      "route-changes",
       "routeId-time-impact",
       Indexes.descending(
         "routeChange.key.elementId",
@@ -47,7 +47,7 @@ object CreateIndexesTool {
       )
     ),
     Index(
-      "change-nodes",
+      "node-changes",
       "nodeId-time-impact",
       Indexes.descending(
         "nodeChange.key.elementId",
@@ -96,55 +96,55 @@ object CreateIndexesTool {
       "routeName"
     ),
     Index(
-      "change-networks",
+      "network-changes",
       "time",
       "networkChange.key.time"
     ),
     Index(
-      "change-networks",
+      "network-changes",
       "impact",
       "networkChange.impact"
     ),
     Index(
-      "change-networks",
+      "network-changes",
       "changeSetId",
       "networkChange.key.replicationNumber",
       "networkChange.key.changeSetId"
     ),
     Index(
-      "change-routes",
+      "route-changes",
       "time",
       "routeChange.key.time"
     ),
     Index(
-      "change-routes",
+      "route-changes",
       "impact",
       "routeChange.impact"
     ),
     Index(
-      "change-routes",
+      "route-changes",
       "changeSetId",
       "routeChange.key.replicationNumber",
       "routeChange.key.changeSetId"
     ),
     Index(
-      "change-nodes",
+      "node-changes",
       "time",
       "nodeChange.key.time"
     ),
     Index(
-      "change-nodes",
+      "node-changes",
       "impact",
       "nodeChange.impact"
     ),
     Index(
-      "change-nodes",
+      "node-changes",
       "changeSetId",
       "nodeChange.key.replicationNumber",
       "nodeChange.key.changeSetId"
     ),
     Index(
-      "change-summaries",
+      "changeset-summaries",
       "impact-time",
       "changeSetSummary.impact",
       "changeSetSummary.key.time.year",
@@ -152,7 +152,7 @@ object CreateIndexesTool {
       "changeSetSummary.key.time.day"
     ),
     Index(
-      "change-summaries",
+      "changeset-summaries",
       "changeSetId",
       "changeSetSummary.key.replicationNumber",
       "changeSetSummary.key.changeSetId"
@@ -174,7 +174,7 @@ object CreateIndexesTool {
       "locationChangeSetSummary.key.changeSetId"
     ),
     Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
-      "change-networks",
+      "network-changes",
       "impact-timestamp",
       Indexes.compoundIndex(
         Indexes.ascending(
@@ -187,7 +187,7 @@ object CreateIndexesTool {
       )
     ),
     Index(
-      "change-networks",
+      "network-changes",
       "impact-time",
       Indexes.compoundIndex(
         Indexes.ascending(
@@ -200,7 +200,7 @@ object CreateIndexesTool {
       )
     ),
     Index(
-      "change-networks",
+      "network-changes",
       "networkId-time-impact",
       Indexes.descending(
         "networkChange.networkId",
