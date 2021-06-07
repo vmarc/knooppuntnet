@@ -150,16 +150,20 @@ class ChangeSetRepositoryImpl(changeDatabase: Database) extends ChangeSetReposit
     ChangesView.queryPeriod(changeDatabase, suffixLength, keys, stale)
   }
 
-  override def networkChanges(parameters: ChangesParameters, stale: Boolean): Seq[NetworkChange] = {
-    ChangesView.networkChanges(changeDatabase, parameters, stale)
+  override def subsetChanges(subset: Subset, parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
+    ChangesView.subsetChanges(changeDatabase, subset, parameters, stale)
   }
 
-  override def routeChanges(parameters: ChangesParameters, stale: Boolean): Seq[RouteChange] = {
-    ChangesView.routeChanges(changeDatabase, parameters, stale)
+  override def networkChanges(networkId: Long, parameters: ChangesParameters, stale: Boolean): Seq[NetworkChange] = {
+    ChangesView.networkChanges(changeDatabase, networkId, parameters, stale)
   }
 
-  def nodeChanges(parameters: ChangesParameters, stale: Boolean): Seq[NodeChange] = {
-    ChangesView.nodeChanges(changeDatabase, parameters, stale)
+  override def routeChanges(routeId: Long, parameters: ChangesParameters, stale: Boolean): Seq[RouteChange] = {
+    ChangesView.routeChanges(changeDatabase, routeId, parameters, stale)
+  }
+
+  override def nodeChanges(nodeId: Long, parameters: ChangesParameters, stale: Boolean): Seq[NodeChange] = {
+    ChangesView.nodeChanges(changeDatabase, nodeId, parameters, stale)
   }
 
   override def allChangeSetIds(): Seq[String] = {

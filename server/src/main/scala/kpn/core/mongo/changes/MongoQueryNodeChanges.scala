@@ -21,27 +21,13 @@ object MongoQueryNodeChanges {
     try {
       val database = Mongo.database(mongoClient, "tryout")
       val query = new MongoQueryNodeChanges(database)
-
-      val parameters1 = ChangesParameters(
-        nodeId = Some(257728810L),
-        itemsPerPage = 5,
-        pageIndex = 0,
-        impact = true,
-      )
-      query.execute(parameters1)
-      query.execute(parameters1)
-
-      val parameters2 = ChangesParameters(
-        nodeId = Some(278003073L),
-        itemsPerPage = 5,
-        pageIndex = 0,
-        impact = true,
-      )
-      query.execute(parameters2)
-      query.execute(parameters2)
-      val changes = query.execute(parameters2)
-      changes.map(_.key).foreach { key =>
-        println(s"${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
+      query.execute(257728810L, ChangesParameters(impact = true))
+      query.execute(257728810L, ChangesParameters(impact = true))
+      query.execute(278003073L, ChangesParameters(impact = true))
+      query.execute(278003073L, ChangesParameters(impact = true))
+      val changes = query.execute(44937914L, ChangesParameters(year = Some("2014"), itemsPerPage = 25))
+      changes.map(_.key).zipWithIndex.foreach { case (key, index) =>
+        println(s"${index + 1}  ${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
       }
     }
     finally {

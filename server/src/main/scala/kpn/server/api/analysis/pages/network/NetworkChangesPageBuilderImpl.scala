@@ -17,17 +17,16 @@ class NetworkChangesPageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends NetworkChangesPageBuilder {
 
-  override def build(user: Option[String], parameters: ChangesParameters): Option[NetworkChangesPage] = {
-    val networkId = parameters.networkId.get
+  override def build(user: Option[String], networkId: Long, parameters: ChangesParameters): Option[NetworkChangesPage] = {
     if (networkId == 1) {
       Some(NetworkChangesPageExample.page)
     }
     else {
-      buildPage(user, parameters, networkId)
+      buildPage(user, networkId, parameters)
     }
   }
 
-  private def buildPage(user: Option[String], parameters: ChangesParameters, networkId: Long): Option[NetworkChangesPage] = {
+  private def buildPage(user: Option[String], networkId: Long, parameters: ChangesParameters): Option[NetworkChangesPage] = {
     networkRepository.network(networkId).map { network =>
       buildPageContents(user, parameters, network)
     }
@@ -38,7 +37,7 @@ class NetworkChangesPageBuilderImpl(
     val changesFilter = changeSetRepository.networkChangesFilter(networkInfo.attributes.id, parameters.year, parameters.month, parameters.day)
     val totalCount = changesFilter.currentItemCount(parameters.impact)
     val changes: Seq[NetworkChange] = if (user.isDefined) {
-      changeSetRepository.networkChanges(parameters)
+      changeSetRepository.networkChanges(networkInfo.attributes.id, parameters)
     }
     else {
       Seq()
@@ -56,5 +55,4 @@ class NetworkChangesPageBuilderImpl(
       totalCount
     )
   }
-
 }

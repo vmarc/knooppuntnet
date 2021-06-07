@@ -14,9 +14,9 @@ object ChangesViewLocationChangesQuery {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def locationChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[LocationChange] = {
+  def locationChanges(database: Database, location: String, parameters: ChangesParameters, stale: Boolean = true): Seq[LocationChange] = {
 
-    val queryParameters = QueryParameters.from(parameters)
+    val queryParameters = QueryParameters.locationParametersFrom(location, parameters)
 
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .startKey(queryParameters("startkey"))
@@ -31,5 +31,4 @@ object ChangesViewLocationChangesQuery {
     val result = database.execute(query)
     result.rows.map(_.doc.locationChange)
   }
-
 }

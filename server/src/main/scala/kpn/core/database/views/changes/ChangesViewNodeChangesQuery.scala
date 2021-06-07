@@ -14,9 +14,9 @@ object ChangesViewNodeChangesQuery {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def nodeChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange] = {
+  def nodeChanges(database: Database, nodeId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange] = {
 
-    val queryParameters = QueryParameters.from(parameters)
+    val queryParameters = QueryParameters.nodeParametersFrom(nodeId, parameters)
 
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .startKey(queryParameters("startkey"))
@@ -31,5 +31,4 @@ object ChangesViewNodeChangesQuery {
     val result = database.execute(query)
     result.rows.map(_.doc.nodeChange)
   }
-
 }

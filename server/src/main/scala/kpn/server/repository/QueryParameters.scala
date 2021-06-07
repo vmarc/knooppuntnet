@@ -1,67 +1,44 @@
 package kpn.server.repository
 
-import java.time.LocalDate
-
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 
+import java.time.LocalDate
+
 object QueryParameters {
 
-  def from(parameters: ChangesParameters): Map[String, String] = {
-    parameters.location match {
-      case Some(location) => locationParametersFrom(location, parameters)
-      case None =>
-        parameters.subset match {
-          case Some(subset) => subsetParametersFrom(subset, parameters)
-          case None =>
-            parameters.networkId match {
-              case Some(networkId) => networkParametersFrom(networkId, parameters)
-              case None =>
-                parameters.routeId match {
-                  case Some(routeId) => routeParametersFrom(routeId, parameters)
-                  case None =>
-                    parameters.nodeId match {
-                      case Some(nodeId) => nodeParametersFrom(nodeId, parameters)
-                      case None => parametersFrom(parameters)
-                    }
-                }
-            }
-        }
-    }
-  }
-
-  private def locationParametersFrom(location: String, parameters: ChangesParameters): Map[String, String] = {
+  def locationParametersFrom(location: String, parameters: ChangesParameters): Map[String, String] = {
     val impacted = if (parameters.impact) "impacted:" else ""
     val prefix = Seq(s"${impacted}location", location)
     fromX(prefix, parameters)
   }
 
-  private def subsetParametersFrom(subset: Subset, parameters: ChangesParameters): Map[String, String] = {
+  def subsetParametersFrom(subset: Subset, parameters: ChangesParameters): Map[String, String] = {
     val key = subset.key
     val impacted = if (parameters.impact) "impacted:" else ""
     val prefix = Seq(s"$key:${impacted}change-set")
     fromX(prefix, parameters)
   }
 
-  private def networkParametersFrom(networkId: Long, parameters: ChangesParameters): Map[String, String] = {
+  def networkParametersFrom(networkId: Long, parameters: ChangesParameters): Map[String, String] = {
     val impacted = if (parameters.impact) "impacted:" else ""
     val prefix = Seq(s"${impacted}network", s"$networkId")
     fromX(prefix, parameters)
   }
 
-  private def routeParametersFrom(routeId: Long, parameters: ChangesParameters): Map[String, String] = {
+  def routeParametersFrom(routeId: Long, parameters: ChangesParameters): Map[String, String] = {
     val impacted = if (parameters.impact) "impacted:" else ""
     val prefix = Seq(s"${impacted}route", s"$routeId")
     fromX(prefix, parameters)
   }
 
-  private def nodeParametersFrom(nodeId: Long, parameters: ChangesParameters): Map[String, String] = {
+  def nodeParametersFrom(nodeId: Long, parameters: ChangesParameters): Map[String, String] = {
     val impacted = if (parameters.impact) "impacted:" else ""
     val prefix = Seq(s"${impacted}node", s"$nodeId")
     fromX(prefix, parameters)
   }
 
-  private def parametersFrom(parameters: ChangesParameters): Map[String, String] = {
+  def parametersFrom(parameters: ChangesParameters): Map[String, String] = {
     val impacted = if (parameters.impact) "impacted:" else ""
     val prefix = Seq(s"${impacted}change-set")
     fromX(prefix, parameters)
@@ -126,5 +103,4 @@ object QueryParameters {
   }
 
   private def keyString(values: Seq[String]): String = values.mkString("[\"", "\", \"", "\"]")
-
 }

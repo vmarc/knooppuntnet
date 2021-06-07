@@ -173,9 +173,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def networkChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[NetworkChangesPage] = {
-    api.execute(user, "network-changes", s"${parameters.toDisplayString}") {
-      reply(networkChangesPageBuilder.build(user, parameters))
+  override def networkChanges(user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage] = {
+    api.execute(user, "network-changes", s"networkId=$networkId, ${parameters.toDisplayString}") {
+      reply(networkChangesPageBuilder.build(user, networkId, parameters))
     }
   }
 
@@ -203,9 +203,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def subsetChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
-    api.execute(user, "subset-changes", parameters.toDisplayString) {
-      reply(subsetChangesPageBuilder.build(user, parameters))
+  override def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
+    api.execute(user, "subset-changes", s"subset=${subset.name}, ${parameters.toDisplayString}") {
+      reply(subsetChangesPageBuilder.build(user, subset, parameters))
     }
   }
 

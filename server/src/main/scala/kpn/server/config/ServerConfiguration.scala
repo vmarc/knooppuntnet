@@ -118,6 +118,11 @@ class ServerConfiguration() {
     new LocationConfigurationReader().read()
   }
 
+  @Bean
+  def mongoEnabled(@Value("${app.mongo-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
   private def buildExecutor(name: String, poolSize: Int): Executor = {
     val executor = new ThreadPoolTaskExecutor
     executor.setCorePoolSize(poolSize)

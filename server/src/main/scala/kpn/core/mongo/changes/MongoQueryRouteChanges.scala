@@ -31,25 +31,11 @@ object MongoQueryRouteChanges {
     try {
       val database = Mongo.database(mongoClient, "tryout")
       val query = new MongoQueryRouteChanges(database)
-
-      val parameters1 = ChangesParameters(
-        routeId = Some(20628L),
-        itemsPerPage = 5,
-        pageIndex = 0,
-        impact = true,
-      )
-      query.execute(parameters1)
-      query.execute(parameters1)
-
-      val parameters2 = ChangesParameters(
-        routeId = Some(1599145L),
-        itemsPerPage = 5,
-        pageIndex = 0,
-        impact = true,
-      )
-      query.execute(parameters2)
-      query.execute(parameters2)
-      val changes = query.execute(parameters2)
+      query.execute(20628L, ChangesParameters(impact = true))
+      query.execute(20628L, ChangesParameters(impact = true))
+      query.execute(1599145L, ChangesParameters(impact = true))
+      query.execute(1599145L, ChangesParameters(impact = true))
+      val changes = query.execute(1599145L, ChangesParameters(impact = true))
       changes.map(_.key).foreach { key =>
         println(s"${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
       }
@@ -64,12 +50,12 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
 
   private val log = Log(classOf[MongoQueryRouteChanges])
 
-  def execute(parameters: ChangesParameters): Seq[RouteChange] = {
+  def execute(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
 
     val timeRange = TimeRange.fromParameters(parameters)
 
     val filterElements = Seq(
-      Seq(equal("routeChange.key.elementId", parameters.routeId.get)),
+      Seq(equal("routeChange.key.elementId", routeId)),
       if (parameters.impact) {
         Seq(equal("routeChange.impact", true))
       }

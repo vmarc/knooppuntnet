@@ -119,8 +119,8 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: NetworkType,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
-    val p = parameters.copy(subset = Subset.of(country, networkType))
-    analysisFacade.subsetChanges(CurrentUser.name, p)
+    val subset = Subset.of(country, networkType)
+    analysisFacade.subsetChanges(CurrentUser.name, subset.get, parameters)
   }
 
   @GetMapping(value = Array("/api/network/{networkId}"))
@@ -163,8 +163,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkId: Long,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[NetworkChangesPage] = {
-    val p = parameters.copy(networkId = Some(networkId))
-    analysisFacade.networkChanges(CurrentUser.name, p)
+    analysisFacade.networkChanges(CurrentUser.name, networkId, parameters)
   }
 
   @GetMapping(value = Array("/api/node/{nodeId}"))
@@ -186,8 +185,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable nodeId: Long,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[NodeChangesPage] = {
-    val p = parameters.copy(nodeId = Some(nodeId))
-    analysisFacade.nodeChanges(CurrentUser.name, nodeId, p)
+    analysisFacade.nodeChanges(CurrentUser.name, nodeId, parameters)
   }
 
   @GetMapping(value = Array("/api/route/{routeId}"))
@@ -209,8 +207,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable routeId: Long,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[RouteChangesPage] = {
-    val p = parameters.copy(routeId = Some(routeId))
-    analysisFacade.routeChanges(CurrentUser.name, routeId, p)
+    analysisFacade.routeChanges(CurrentUser.name, routeId, parameters)
   }
 
   @PostMapping(value = Array("/api/changes"))

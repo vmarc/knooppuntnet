@@ -14,9 +14,9 @@ object ChangesViewNetworkChangesQuery {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def networkChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange] = {
+  def networkChanges(database: Database, networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange] = {
 
-    val queryParameters = QueryParameters.from(parameters)
+    val queryParameters = QueryParameters.networkParametersFrom(networkId, parameters)
 
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .startKey(queryParameters("startkey"))
@@ -31,5 +31,4 @@ object ChangesViewNetworkChangesQuery {
     val result = database.execute(query)
     result.rows.map(_.doc.networkChange)
   }
-
 }

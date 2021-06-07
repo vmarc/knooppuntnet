@@ -1,15 +1,6 @@
 package kpn.api.common.changes.filter
 
-import kpn.api.custom.Subset
-
 case class ChangesParameters(
-
-  location: Option[String] = None,
-  subset: Option[Subset] = None,
-  networkId: Option[Long] = None,
-  routeId: Option[Long] = None,
-  nodeId: Option[Long] = None,
-
   year: Option[String] = None,
   month: Option[String] = None,
   day: Option[String] = None,
@@ -20,11 +11,6 @@ case class ChangesParameters(
 
   def toDisplayString: String = {
     Seq(
-      locationString,
-      subsetString,
-      networkString,
-      routeString,
-      nodeString,
       yearString,
       monthString,
       dayString,
@@ -33,16 +19,6 @@ case class ChangesParameters(
       impactString
     ).flatten.mkString
   }
-
-  private def locationString = location.map(loc => s"location=$loc, ")
-
-  private def subsetString = subset.map(s => s"subset=${s.name}, ")
-
-  private def networkString = networkId.map(id => s"network=$id, ")
-
-  private def routeString = routeId.map(id => s"route=$id, ")
-
-  private def nodeString = nodeId.map(id => s"node=$id, ")
 
   private def yearString = year.map(y => s"year=$y, ")
 

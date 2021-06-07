@@ -112,12 +112,12 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveChangeSetSummary(summary(2, 12, subsets = Seq(Subset.nlHiking)))
       repository.saveChangeSetSummary(summary(3, 13, subsets = Seq(Subset.beHiking)))
 
-      def changes(parameters: ChangesParameters): Seq[Long] = {
-        repository.changes(parameters, stale = false).map(_.key.changeSetId)
+      def changes(subset: Subset, parameters: ChangesParameters): Seq[Long] = {
+        repository.subsetChanges(subset, parameters, stale = false).map(_.key.changeSetId)
       }
 
-      changes(ChangesParameters(subset = Some(Subset.nlHiking))) should equal(Seq(2, 1))
-      changes(ChangesParameters(subset = Some(Subset.beHiking))) should equal(Seq(3))
+      changes(Subset.nlHiking, ChangesParameters()) should equal(Seq(2, 1))
+      changes(Subset.beHiking, ChangesParameters()) should equal(Seq(3))
     }
   }
 
@@ -137,7 +137,6 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
       changes(ChangesParameters(impact = false)) should equal(Seq(5, 4, 3, 2, 1))
       changes(ChangesParameters(impact = true)) should equal(Seq(2, 1))
-      changes(ChangesParameters(subset = Some(Subset.nlHiking))) should equal(Seq(4, 3, 2, 1))
     }
   }
 
@@ -149,7 +148,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveNetworkChange(networkChange(12, 1, 1))
       repository.saveNetworkChange(networkChange(13, 1, 1))
 
-      repository.networkChanges(ChangesParameters(networkId = Some(1)), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
+      repository.networkChanges(1L, ChangesParameters(), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
     }
   }
 
@@ -162,7 +161,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveRouteChange(routeChange(13, 1, 10))
       repository.saveRouteChange(routeChange(14, 1, 20))
 
-      repository.routeChanges(ChangesParameters(routeId = Some(10)), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
+      repository.routeChanges(10L, ChangesParameters(), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
     }
   }
 
@@ -175,7 +174,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveNodeChange(nodeChange(13, 1, 1001))
       repository.saveNodeChange(nodeChange(14, 1, 1002))
 
-      repository.nodeChanges(ChangesParameters(nodeId = Some(1001)), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
+      repository.nodeChanges(1001L, ChangesParameters(), stale = false).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
     }
   }
 

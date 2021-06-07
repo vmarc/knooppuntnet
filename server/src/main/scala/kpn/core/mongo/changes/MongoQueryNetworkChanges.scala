@@ -32,25 +32,12 @@ object MongoQueryNetworkChanges {
       val database = Mongo.database(mongoClient, "tryout")
       val query = new MongoQueryNetworkChanges(database)
 
-      val parameters1 = ChangesParameters(
-        networkId = Some(9532813),
-        itemsPerPage = 5,
-        pageIndex = 0,
-        impact = true,
-      )
-      query.execute(parameters1)
-      query.execute(parameters1)
-      val changes = query.execute(parameters1)
+      query.execute(9532813L, ChangesParameters(impact = true))
+      query.execute(9532813L, ChangesParameters(impact = true))
+      val changes = query.execute(9532813L, ChangesParameters(impact = true))
 
-
-      val parameters2 = ChangesParameters(
-        networkId = Some(9532813),
-        itemsPerPage = 5,
-        pageIndex = 0,
-      )
-      query.execute(parameters2)
-      query.execute(parameters2)
-
+      query.execute(9532813L, ChangesParameters())
+      query.execute(9532813L, ChangesParameters())
 
       //      changes.map(_.key).foreach { key =>
       //        println(s"${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
@@ -66,41 +53,12 @@ class MongoQueryNetworkChanges(database: MongoDatabase) {
 
   private val log = Log(classOf[MongoQueryNetworkChanges])
 
-  def execute(parameters: ChangesParameters): Seq[NetworkChange] = {
+  def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
 
-    val timeRange: Option[TimeRange] = parameters.year match {
-      case None => None
-      case Some(year) =>
-        parameters.month match {
-          case None =>
-            Some(
-              TimeRange(
-                Seq(year.toLong, 0),
-                Seq(year.toLong, 99),
-              )
-            )
-          case Some(month) =>
-            parameters.day match {
-              case None =>
-                Some(
-                  TimeRange(
-                    Seq(year.toLong, month.toLong, 0),
-                    Seq(year.toLong, month.toLong, 99),
-                  )
-                )
-              case Some(day) =>
-                Some(
-                  TimeRange(
-                    Seq(year.toLong, month.toLong, day.toLong, 0),
-                    Seq(year.toLong, month.toLong, day.toLong, 99),
-                  )
-                )
-            }
-        }
-    }
+    val timeRange = TimeRange.fromParameters(parameters)
 
     val filterElements = Seq(
-      Seq(equal("networkChange.networkId", parameters.networkId.get)),
+      Seq(equal("networkChange.networkId", networkId)),
       if (parameters.impact) {
         Seq(equal("networkChange.impact", true))
       }

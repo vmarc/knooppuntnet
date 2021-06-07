@@ -26,8 +26,7 @@ class CouchConfiguration(
   @Value("${couch.database.tasks:tasks}") taskDatabaseName: String,
   @Value("${couch.database.backend-actions:backend-actions}") backendActionsDatabaseName: String,
   @Value("${couch.database.frontend-actions:frontend-actions}") frontendActionsDatabaseName: String,
-  @Value("$mongodb.url:url}") mongodbUrl: String,
-  @Value("$mongodb.enabled:false}") mongodbEnabled: Boolean
+  @Value("${mongodb.url:url}") mongodbUrl: String
 ) {
 
   @Bean

@@ -14,9 +14,9 @@ object ChangesViewRouteChangesQuery {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def routeChanges(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange] = {
+  def routeChanges(database: Database, routeId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange] = {
 
-    val queryParameters = QueryParameters.from(parameters)
+    val queryParameters = QueryParameters.routeParametersFrom(routeId, parameters)
 
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .startKey(queryParameters("startkey"))
@@ -31,5 +31,4 @@ object ChangesViewRouteChangesQuery {
     val result = database.execute(query)
     result.rows.map(_.doc.routeChange)
   }
-
 }

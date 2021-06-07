@@ -54,7 +54,7 @@ class RoutePageBuilderImpl(
         val changesFilter = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
         val totalCount = changesFilter.currentItemCount(parameters.impact)
         val routeChanges: Seq[RouteChange] = if (user.isDefined) {
-          changeSetRepository.routeChanges(parameters)
+          changeSetRepository.routeChanges(route.id, parameters)
         }
         else {
           Seq()
@@ -68,5 +68,4 @@ class RoutePageBuilderImpl(
       }
     }
   }
-
 }

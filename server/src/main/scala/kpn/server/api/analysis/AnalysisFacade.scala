@@ -66,19 +66,19 @@ trait AnalysisFacade {
 
   def subsetMap(user: Option[String], subset: Subset): ApiResponse[SubsetMapPage]
 
-  def subsetChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
+  def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
 
-  def networkDetails(user: Option[String], id: Long): ApiResponse[NetworkDetailsPage]
+  def networkDetails(user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage]
 
   def networkMap(user: Option[String], networkId: Long): ApiResponse[NetworkMapPage]
 
-  def networkFacts(user: Option[String], id: Long): ApiResponse[NetworkFactsPage]
+  def networkFacts(user: Option[String], networkId: Long): ApiResponse[NetworkFactsPage]
 
-  def networkNodes(user: Option[String], id: Long): ApiResponse[NetworkNodesPage]
+  def networkNodes(user: Option[String], networkId: Long): ApiResponse[NetworkNodesPage]
 
-  def networkRoutes(user: Option[String], id: Long): ApiResponse[NetworkRoutesPage]
+  def networkRoutes(user: Option[String], networkId: Long): ApiResponse[NetworkRoutesPage]
 
-  def networkChanges(user: Option[String], parameters: ChangesParameters): ApiResponse[NetworkChangesPage]
+  def networkChanges(user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage]
 
   // TODO not used anymore? have to re-implement? cleanup?
   def gpx(user: Option[String], networkId: Long): Option[GpxFile]
