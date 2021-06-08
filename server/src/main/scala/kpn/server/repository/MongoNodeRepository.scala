@@ -1,10 +1,15 @@
 package kpn.server.repository
 
+import kpn.api.common.NodeInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 
-trait MongoChangeRepository {
+trait MongoNodeRepository {
+
+  def nodeWithId(nodeId: Long): Option[NodeInfo]
+
+  def nodeChangeCount(nodeId: Long): Long
 
   def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange]
 

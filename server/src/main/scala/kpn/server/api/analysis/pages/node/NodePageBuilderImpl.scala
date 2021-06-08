@@ -18,19 +18,21 @@ import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
-import kpn.server.repository.MongoChangeRepository
+import kpn.server.repository.MongoNodeRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodePageBuilderImpl(
+  // old
   nodeRepository: NodeRepository,
   nodeRouteRepository: NodeRouteRepository,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository,
+  // new
   mongoEnabled: Boolean,
-  mongoChangesRepository: MongoChangeRepository
+  mongoNodeRepository: MongoNodeRepository
 ) extends NodePageBuilder {
 
   def buildDetailsPage(user: Option[String], nodeId: Long): Option[NodeDetailsPage] = {
@@ -38,10 +40,19 @@ class NodePageBuilderImpl(
       Some(NodePageExample.nodeDetailsPage)
     }
     else {
-      nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-        val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
-        val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
-        buildNodeDetailsPage(user, filteredNodeInfo)
+      if (mongoEnabled) {
+        mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+          val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
+          val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
+          buildNodeDetailsPage(user, filteredNodeInfo)
+        }
+      }
+      else {
+        nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+          val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
+          val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
+          buildNodeDetailsPage(user, filteredNodeInfo)
+        }
       }
     }
   }
@@ -51,8 +62,15 @@ class NodePageBuilderImpl(
       Some(NodePageExample.nodeMapPage)
     }
     else {
-      nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-        buildNodeMapPage(user, nodeInfo)
+      if (mongoEnabled) {
+        mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+          buildNodeMapPage(user, nodeInfo)
+        }
+      }
+      else {
+        nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+          buildNodeMapPage(user, nodeInfo)
+        }
       }
     }
   }
@@ -62,19 +80,36 @@ class NodePageBuilderImpl(
       Some(NodePageExample.nodeChangesPage)
     }
     else {
-      nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-        buildNodeChangesPage(user, nodeInfo, parameters)
+      if (mongoEnabled) {
+        mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+          buildNodeChangesPage(user, nodeInfo, parameters)
+        }
+      }
+      else {
+        nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+          buildNodeChangesPage(user, nodeInfo, parameters)
+        }
       }
     }
   }
 
   private def buildNodeDetailsPage(user: Option[String], nodeInfo: NodeInfo): NodeDetailsPage = {
-    val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+    val changeCount = if (mongoEnabled) {
+      mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+    }
+    else {
+      changeSetRepository.nodeChangesCount(nodeInfo.id)
+    }
     NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo), buildNodeIntegrity(nodeInfo), changeCount)
   }
 
   private def buildNodeMapPage(user: Option[String], nodeInfo: NodeInfo): NodeMapPage = {
-    val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+    val changeCount = if (mongoEnabled) {
+      mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+    }
+    else {
+      changeSetRepository.nodeChangesCount(nodeInfo.id)
+    }
     NodeMapPage(
       NodeMapInfo(
         nodeInfo.id,
@@ -90,8 +125,8 @@ class NodePageBuilderImpl(
   private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {
     if (mongoEnabled) {
       if (user.isDefined) {
-        val nodeChanges = mongoChangesRepository.nodeChanges(nodeInfo.id, parameters)
-        val changesFilter = mongoChangesRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
+        val nodeChanges = mongoNodeRepository.nodeChanges(nodeInfo.id, parameters)
+        val changesFilter = mongoNodeRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
         val totalCount = changesFilter.currentItemCount(parameters.impact)
         val incompleteWarning = isIncomplete(nodeChanges)
         val changes = nodeChanges.map { change =>
