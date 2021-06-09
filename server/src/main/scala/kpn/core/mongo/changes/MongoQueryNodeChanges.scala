@@ -3,6 +3,7 @@ package kpn.core.mongo.changes
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.mongo.changes.MongoQueryNodeChanges.PipelineResult
+import kpn.core.mongo.changes.MongoQueryNodeChanges.log
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -13,6 +14,8 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryNodeChanges {
+
+  private val log = Log(classOf[MongoQueryNodeChanges])
 
   case class PipelineResult(nodeChange: NodeChange, comments: Seq[ChangeSetComment])
 
@@ -38,12 +41,9 @@ object MongoQueryNodeChanges {
 
 class MongoQueryNodeChanges(database: MongoDatabase) {
 
-  private val log = Log(classOf[MongoQueryNodeChanges])
-
   def execute(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange] = {
 
     val pipeline = ChangesPipeline.from("nodeChange", nodeId, parameters)
-    println(Mongo.pipelineString(pipeline))
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
     }

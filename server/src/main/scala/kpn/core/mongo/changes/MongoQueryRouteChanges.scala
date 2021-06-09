@@ -3,6 +3,7 @@ package kpn.core.mongo.changes
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.doc.RouteChangeDoc
+import kpn.core.mongo.changes.MongoQueryRouteChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
@@ -26,6 +27,9 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryRouteChanges {
+
+  private val log = Log(classOf[MongoQueryRouteChanges])
+
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
@@ -47,8 +51,6 @@ object MongoQueryRouteChanges {
 }
 
 class MongoQueryRouteChanges(database: MongoDatabase) {
-
-  private val log = Log(classOf[MongoQueryRouteChanges])
 
   def execute(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
 
@@ -92,7 +94,9 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
       )
     )
 
-    // println(Mongo.pipelineString(pipeline))
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
 
     log.debugElapsed {
       val collection = database.getCollection("route-changes")

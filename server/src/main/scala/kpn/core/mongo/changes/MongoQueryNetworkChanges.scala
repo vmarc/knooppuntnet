@@ -3,6 +3,7 @@ package kpn.core.mongo.changes
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.doc.NetworkChangeDoc
+import kpn.core.mongo.changes.MongoQueryNetworkChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
@@ -26,6 +27,9 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryNetworkChanges {
+
+  private val log = Log(classOf[MongoQueryNetworkChanges])
+
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
@@ -50,8 +54,6 @@ object MongoQueryNetworkChanges {
 }
 
 class MongoQueryNetworkChanges(database: MongoDatabase) {
-
-  private val log = Log(classOf[MongoQueryNetworkChanges])
 
   def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
 
@@ -120,7 +122,9 @@ class MongoQueryNetworkChanges(database: MongoDatabase) {
       )
     )
 
-    // println(Mongo.pipelineString(pipeline))
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
 
     log.debugElapsed {
       val collection = database.getCollection("network-changes")

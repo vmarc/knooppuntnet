@@ -1,9 +1,11 @@
 package kpn.core.mongo.changes
 
+import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.log
 import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.pipelineDaysString
 import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.pipelineMonthsString
 import kpn.core.mongo.changes.MongoQueryNodeChangeCounts.pipelineYearsString
 import kpn.core.mongo.statistics.ChangeSetCounts
+import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
@@ -17,14 +19,13 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryNodeChangeCounts extends MongoQuery {
+  private val log = Log(classOf[MongoQueryNodeChangeCounts])
   private val pipelineYearsString = readPipelineString("years")
   private val pipelineMonthsString = readPipelineString("months")
   private val pipelineDaysString = readPipelineString("days")
 }
 
 class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
-
-  private val log = Log(classOf[MongoQueryNodeChangeCounts])
 
   def execute(nodeId: Long, year: Int, monthOption: Option[Int]): ChangeSetCounts = {
 
@@ -63,7 +64,9 @@ class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
         )
     }
 
-    // println(Mongo.pipelineString(pipeline))
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
 
     log.debugElapsed {
       val collection = database.getCollection("node-changes")

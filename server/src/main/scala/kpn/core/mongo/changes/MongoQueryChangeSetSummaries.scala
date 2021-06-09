@@ -3,6 +3,7 @@ package kpn.core.mongo.changes
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.doc.ChangeSetSummaryDoc
+import kpn.core.mongo.changes.MongoQueryChangeSetSummaries.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
@@ -26,13 +27,14 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryChangeSetSummaries {
+
+  private val log = Log(classOf[MongoQueryChangeSetSummaries])
+
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
       val parameters = ChangesParameters(
         itemsPerPage = 200,
-        pageIndex = 0,
-        impact = false,
         year = Some("2017")
       )
       val database = Mongo.database(mongoClient, "tryout")
@@ -48,8 +50,6 @@ object MongoQueryChangeSetSummaries {
 }
 
 class MongoQueryChangeSetSummaries(database: MongoDatabase) {
-
-  private val log = Log(classOf[MongoQueryChangeSetSummaries])
 
   def execute(parameters: ChangesParameters): Seq[ChangeSetSummary] = {
 
@@ -113,7 +113,9 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
       )
     ).filterNot(_ == null)
 
-    // println(Mongo.pipelineString(pipeline))
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
 
     log.debugElapsed {
       val collection = database.getCollection("changeset-summaries")

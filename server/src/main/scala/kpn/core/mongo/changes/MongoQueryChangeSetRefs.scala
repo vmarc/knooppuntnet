@@ -1,5 +1,6 @@
 package kpn.core.mongo.changes
 
+import kpn.core.mongo.changes.MongoQueryChangeSetRefs.log
 import kpn.core.mongo.changes.MongoQueryChangeSetRefs.pipeline
 import kpn.core.mongo.statistics.ChangeSetRef
 import kpn.core.mongo.util.MongoQuery
@@ -11,12 +12,11 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryChangeSetRefs extends MongoQuery {
+  private val log = Log(classOf[MongoQueryChangeSetRefs])
   private val pipeline = readPipeline("pipeline")
 }
 
 class MongoQueryChangeSetRefs(database: MongoDatabase) {
-
-  private val log = Log(classOf[MongoQueryChangeSetRefs])
 
   def execute(): Seq[ChangeSetRef] = {
     log.debugElapsed {

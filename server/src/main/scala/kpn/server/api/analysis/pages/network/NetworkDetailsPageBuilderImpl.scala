@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.NetworkFacts
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.MongoNetworkRepository
 import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
 
@@ -12,7 +13,8 @@ class NetworkDetailsPageBuilderImpl(
   networkRepository: NetworkRepository,
   changeSetRepository: ChangeSetRepository,
   // new
-  mongoEnabled: Boolean
+  mongoEnabled: Boolean,
+  mongoNetworkRepository: MongoNetworkRepository
 ) extends NetworkDetailsPageBuilder {
 
   def build(networkId: Long): Option[NetworkDetailsPage] = {
@@ -30,8 +32,8 @@ class NetworkDetailsPageBuilderImpl(
   }
 
   private def mongoBuildPage(networkId: Long): Option[NetworkDetailsPage] = {
-    networkRepository.network(networkId).map { networkInfo =>
-      val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
+    mongoNetworkRepository.networkWithId(networkId).map { networkInfo =>
+      val changeCount = mongoNetworkRepository.networkChangeCount(networkInfo.attributes.id)
       NetworkDetailsPage(
         NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
         networkInfo.active,

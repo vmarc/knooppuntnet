@@ -1,9 +1,11 @@
 package kpn.core.mongo.changes
 
+import kpn.core.mongo.changes.MongoQueryRouteChangeCounts.log
 import kpn.core.mongo.changes.MongoQueryRouteChangeCounts.pipelineDaysString
 import kpn.core.mongo.changes.MongoQueryRouteChangeCounts.pipelineMonthsString
 import kpn.core.mongo.changes.MongoQueryRouteChangeCounts.pipelineYearsString
 import kpn.core.mongo.statistics.ChangeSetCounts
+import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
@@ -17,14 +19,13 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object MongoQueryRouteChangeCounts extends MongoQuery {
+  private val log = Log(classOf[MongoQueryRouteChangeCounts])
   private val pipelineYearsString = readPipelineString("years")
   private val pipelineMonthsString = readPipelineString("months")
   private val pipelineDaysString = readPipelineString("days")
 }
 
 class MongoQueryRouteChangeCounts(database: MongoDatabase) extends MongoQuery {
-
-  private val log = Log(classOf[MongoQueryRouteChangeCounts])
 
   def execute(routeId: Long, year: Int, monthOption: Option[Int]): ChangeSetCounts = {
 
@@ -63,7 +64,9 @@ class MongoQueryRouteChangeCounts(database: MongoDatabase) extends MongoQuery {
         )
     }
 
-    // println(Mongo.pipelineString(pipeline))
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
 
     log.debugElapsed {
       val collection = database.getCollection("route-changes")
