@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class TaskRepositoryTest extends UnitTest {
@@ -35,7 +35,7 @@ class TaskRepositoryTest extends UnitTest {
   }
 
   private def withRepository(f: TaskRepository => Unit): Unit = {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       f(new TaskRepositoryImpl(database))
     }
   }

@@ -7,14 +7,14 @@ import kpn.api.custom.Tags
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
 import kpn.core.db.TestDocBuilder
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class OverviewTest extends UnitTest {
 
   test("network level counts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -35,7 +35,7 @@ class OverviewTest extends UnitTest {
 
   test("network fact counts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -61,7 +61,7 @@ class OverviewTest extends UnitTest {
 
   test("route fact counts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -94,7 +94,7 @@ class OverviewTest extends UnitTest {
 
   test("inactive networks are not counted") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -114,7 +114,7 @@ class OverviewTest extends UnitTest {
 
   test("orphan nodes") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -132,7 +132,7 @@ class OverviewTest extends UnitTest {
 
   test("inactive orphan nodes are not included in the counts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -150,7 +150,7 @@ class OverviewTest extends UnitTest {
 
   test("orphan routes") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 
@@ -166,7 +166,7 @@ class OverviewTest extends UnitTest {
 
   test("inactive orphan routes are not included in the counts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val b = new TestDocBuilder(database)
 

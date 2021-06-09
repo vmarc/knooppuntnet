@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.SharedTestObjects
 import kpn.core.poi.PoiInfo
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class PoiRepositoryTest extends UnitTest with SharedTestObjects {
@@ -30,7 +30,7 @@ class PoiRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   private def withRepository(f: PoiRepository => Unit): Unit = {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       f(new PoiRepositoryImpl(database))
     }
   }

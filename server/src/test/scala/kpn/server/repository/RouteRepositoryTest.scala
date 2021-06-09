@@ -4,13 +4,13 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteReferences
 import kpn.api.custom.NetworkType
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("routeWithId") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
 
@@ -24,7 +24,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   test("routesWithIds") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -34,7 +34,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("routeReferences") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       new NetworkRepositoryImpl(database).save(
         newNetworkInfo(
@@ -61,7 +61,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   test("save") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
 
@@ -99,7 +99,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   test("filterKnown") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
 

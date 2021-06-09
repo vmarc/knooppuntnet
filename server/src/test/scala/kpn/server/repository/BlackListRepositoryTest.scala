@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.changes.data.BlackListEntry
 class BlackListRepositoryTest extends UnitTest {
 
   test("blacklist") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val blackList = BlackList(
         Seq(

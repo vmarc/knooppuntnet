@@ -3,7 +3,7 @@ package kpn.core.database.views.monitor
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.custom.Timestamp
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.repository.MonitorAdminRouteRepositoryImpl
@@ -12,7 +12,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
 
   test("view") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val groupRepository = new MonitorAdminRouteRepositoryImpl(database)
 

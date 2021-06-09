@@ -9,14 +9,14 @@ import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.location.LocationView
 import kpn.core.db.couch.ViewResult
 import kpn.core.db.couch.ViewResultRow
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.DesignRepositoryImpl
 
 class DatabaseQueryTest extends UnitTest with TestObjects {
 
   test("query") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       new DesignRepositoryImpl(database).save(LocationDesign)
 
       database.save(

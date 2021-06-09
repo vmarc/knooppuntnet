@@ -14,7 +14,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
 
@@ -22,7 +22,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
   test("node") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(
         buildNode(1001L)
@@ -50,7 +50,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
   test("node with lastSurvey") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(buildNode(1001))
       repo.save(buildNode(1002).copy(lastSurvey = Some(Day(2020, 8, Some(12)))))
@@ -68,7 +68,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
   test("node with facts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(buildNode(1001))
       repo.save(buildNode(1002).copy(facts = Seq(Fact.OrphanNode)))

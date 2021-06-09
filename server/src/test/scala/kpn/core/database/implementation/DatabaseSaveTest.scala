@@ -4,7 +4,7 @@ import kpn.core.TestObjects
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.doc.NodeDoc
 import kpn.core.database.doc.StringValueDoc
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import kpn.core.util.UnitTest
 
@@ -14,7 +14,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
 
   test("save") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
       val doc = NodeDoc("123", nodeInfo, None)
@@ -59,7 +59,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
 
   test("save - document already exists") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
       val doc = NodeDoc("123", nodeInfo, None)
@@ -72,7 +72,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
   }
 
   test("save same document multiple times") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       database.save(StringValueDoc("id1", "value1"))
 

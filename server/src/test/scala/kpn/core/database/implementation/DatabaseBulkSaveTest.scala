@@ -2,14 +2,14 @@ package kpn.core.database.implementation
 
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class DatabaseBulkSaveTest extends UnitTest with TestObjects {
 
   test("bulkSave") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val doc1 = NodeDoc("node:1001", newNodeInfo(1001), None)
       val doc2 = NodeDoc("node:1002", newNodeInfo(1002), None)

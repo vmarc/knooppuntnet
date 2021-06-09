@@ -44,7 +44,7 @@ class MongoQuery {
     val pipelineFilename = s"$classFilename-$pipelineName.json"
     try {
       val stream: InputStream = getClass.getResourceAsStream(pipelineFilename)
-      Source.fromInputStream(stream).getLines.toList
+      Source.fromInputStream(stream).getLines().toList
     }
     catch {
       case e: Exception => throw new IllegalStateException(s"Could not read $pipelineFilename", e)

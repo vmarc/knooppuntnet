@@ -7,7 +7,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.core.db.TestDocBuilder
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class OrphanNodeViewTest extends UnitTest with TestObjects {
@@ -22,7 +22,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   }
 
   private def doOrphanNodeTest(subset: Subset): Unit = {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       val nodeTagKey = ScopedNetworkType(NetworkScope.regional, subset.networkType).nodeRefTagKey
       b.node(1001, Country.nl, tags = Tags.from(nodeTagKey -> "01"), orphan = true)
@@ -34,7 +34,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
 
   test("nodes have both network types hiking and bicycle") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"), orphan = true)
 
@@ -47,7 +47,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   }
 
   test("regular nodes are not included in the view") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"))
       val nodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)
@@ -56,7 +56,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   }
 
   test("inactive orphan nodes are not included in the view") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"), orphan = true, active = false)
       val nodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)

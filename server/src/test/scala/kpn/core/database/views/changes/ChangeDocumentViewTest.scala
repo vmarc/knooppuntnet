@@ -1,7 +1,7 @@
 package kpn.core.database.views.changes
 
 import kpn.api.common.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.ChangeSetRepositoryImpl
 
@@ -9,7 +9,7 @@ class ChangeDocumentViewTest extends UnitTest with SharedTestObjects {
 
   test("view") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new ChangeSetRepositoryImpl(database)
 
       repo.saveChangeSetSummary(newChangeSetSummary(newChangeKey()))

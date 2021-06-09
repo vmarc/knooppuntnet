@@ -1,7 +1,7 @@
 package kpn.core.database.views.monitor
 
 import kpn.api.common.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.MonitorAdminGroupRepositoryImpl
 import kpn.server.repository.MonitorAdminRouteRepositoryImpl
@@ -10,7 +10,7 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("groups") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val groupRepository = new MonitorAdminGroupRepositoryImpl(database)
 
@@ -34,7 +34,7 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("group routes") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val routeRepository = new MonitorAdminRouteRepositoryImpl(database)
 
       val route1 = newMonitorRoute(101, "group-1", "Route one")
@@ -52,7 +52,7 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("all route ids") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new MonitorAdminRouteRepositoryImpl(database)
 

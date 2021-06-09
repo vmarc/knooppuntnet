@@ -4,7 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
@@ -14,7 +14,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("view keys and  values") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001, tags = Tags.from("rwn_ref" -> "01")))

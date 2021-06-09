@@ -35,14 +35,14 @@ object TestSupport extends Assertions {
    * Perform given function with a freshly created database. The database is deleted
    * afterwards.
    */
-  def withDatabase(f: Database => Unit): Unit = {
-    withDatabase(keepDatabaseAfterTest = false)(f: Database => Unit)
+  def withCouchDatabase(f: Database => Unit): Unit = {
+    withCouchDatabase(keepDatabaseAfterTest = false)(f: Database => Unit)
   }
 
   /**
    * Perform given function with a freshly created database.
    */
-  def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
+  def withCouchDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
 
     withEnvironment { (couchConfig, objectMapper) =>
 

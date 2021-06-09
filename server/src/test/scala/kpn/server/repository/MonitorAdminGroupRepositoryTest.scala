@@ -2,13 +2,13 @@ package kpn.server.repository
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorGroup
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class MonitorAdminGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("all/add/delete") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repository = new MonitorAdminGroupRepositoryImpl(database)
 
       repository.groups() shouldBe empty

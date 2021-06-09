@@ -7,7 +7,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
 
@@ -15,7 +15,7 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in route") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
 

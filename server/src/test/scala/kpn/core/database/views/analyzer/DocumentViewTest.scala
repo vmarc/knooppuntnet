@@ -3,7 +3,7 @@ package kpn.core.database.views.analyzer
 import kpn.core.TestObjects
 import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.gpx.GpxFile
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
@@ -13,7 +13,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
   test("allNodeIds") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(newNodeInfo(1001))
       repo.save(newNodeInfo(1002))
@@ -25,7 +25,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
   test("allRouteIds") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new RouteRepositoryImpl(database)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
@@ -37,7 +37,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
   test("allNetworkIds") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new NetworkRepositoryImpl(database)
       repo.save(newNetworkInfo(newNetworkAttributes(1)))
       repo.save(newNetworkInfo(newNetworkAttributes(2)))
@@ -51,7 +51,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
   test("counts") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001))

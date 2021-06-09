@@ -5,13 +5,13 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("network - get network by id") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
       repository.network(1) should equal(None)
 
@@ -29,7 +29,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   test("gpx - get gpx file by network id") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repository = new NetworkRepositoryImpl(database)
       repository.gpx(1) should equal(None)
 
@@ -41,7 +41,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("networks - find attributes of networks for given country and network type") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 

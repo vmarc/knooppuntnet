@@ -9,7 +9,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.NodeRouteUpdaterImpl
 import kpn.server.repository.NodeRepositoryImpl
@@ -20,7 +20,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
   test("node") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val updater = {
         val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
@@ -71,7 +71,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
   test("route") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val repo = new RouteRepositoryImpl(database)
       repo.save(

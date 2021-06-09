@@ -2,13 +2,13 @@ package kpn.core.database.implementation
 
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class DatabaseKeysWithIdsTest extends UnitTest with TestObjects {
 
   test("keysWithIds") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val nodeInfo1 = newNodeInfo(1001)
       val doc1 = NodeDoc("node:1001", nodeInfo1, None)
       database.save(doc1)
@@ -23,7 +23,7 @@ class DatabaseKeysWithIdsTest extends UnitTest with TestObjects {
   }
 
   test("keysWithIds - no results") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val keys = database.keysWithIds(Seq("node:1001", "node:1002"), stale = false)
       keys shouldBe empty
     }

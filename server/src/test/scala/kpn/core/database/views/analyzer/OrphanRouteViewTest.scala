@@ -8,14 +8,14 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.database.Database
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.RouteRepositoryImpl
 
 class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("orphan routes are included in the view") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val orphanRouteInfos = route(database, orphan = true)
       orphanRouteInfos should matchTo(
         Seq(
@@ -34,14 +34,14 @@ class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
   }
 
   test("regular routes are not included in the view") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val orphanRouteInfos = route(database, orphan = false)
       orphanRouteInfos shouldBe empty
     }
   }
 
   test("inactive orphan routes are not included in the view") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val orphanRouteInfos = route(database, orphan = true, active = false)
       orphanRouteInfos shouldBe empty
     }

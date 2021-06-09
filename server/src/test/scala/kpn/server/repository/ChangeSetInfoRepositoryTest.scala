@@ -3,7 +3,7 @@ package kpn.server.repository
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class ChangeSetInfoRepositoryTest extends UnitTest {
@@ -57,7 +57,7 @@ class ChangeSetInfoRepositoryTest extends UnitTest {
   }
 
   private def withRepository(f: ChangeSetInfoRepository => Unit): Unit = {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       f(new ChangeSetInfoRepositoryImpl(database))
     }
   }

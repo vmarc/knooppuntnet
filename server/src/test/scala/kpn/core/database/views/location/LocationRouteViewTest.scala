@@ -15,14 +15,14 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.RouteRepositoryImpl
 
 class LocationRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("route") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
 
@@ -116,7 +116,7 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
   }
 
   test("no routes at location") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val key = LocationKey(NetworkType.hiking, Country.nl, "unknown")
       val parameters = LocationRoutesParameters(LocationRoutesType.all)
       LocationRouteView.query(database, key, parameters, stale = false) shouldBe empty

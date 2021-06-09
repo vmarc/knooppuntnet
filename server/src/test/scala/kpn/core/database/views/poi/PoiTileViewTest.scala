@@ -3,14 +3,14 @@ package kpn.core.database.views.poi
 import kpn.api.common.SharedTestObjects
 import kpn.core.database.Database
 import kpn.core.poi.PoiInfo
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.PoiRepositoryImpl
 
 class PoiTileViewTest extends UnitTest with SharedTestObjects {
 
   test("allTiles") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       setupData(database)
       PoiTileView.allTiles(database, stale = false) should equal(Seq("10-1-1", "10-1-2", "10-2-1"))
     }
@@ -18,7 +18,7 @@ class PoiTileViewTest extends UnitTest with SharedTestObjects {
 
   test("tilePoiRefs") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       setupData(database)
 

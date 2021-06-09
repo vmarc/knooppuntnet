@@ -6,7 +6,7 @@ import kpn.core.TestObjects
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.doc.NodeDoc
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import kpn.core.util.UnitTest
 
@@ -14,7 +14,7 @@ class DatabaseDeleteDocWithIdTest extends UnitTest with TestObjects {
 
   test("delete document") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
       val doc = NodeDoc("123", nodeInfo, None)
@@ -58,7 +58,7 @@ class DatabaseDeleteDocWithIdTest extends UnitTest with TestObjects {
   }
 
   test("delete - no exception when document does not exist") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       database.deleteDocWithId("bla")
     }
   }

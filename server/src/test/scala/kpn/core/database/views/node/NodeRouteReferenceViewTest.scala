@@ -8,7 +8,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
@@ -17,7 +17,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in route") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -92,13 +92,13 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   }
 
   test("no node references in routes") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       queryNode(database, 1001) shouldBe empty
     }
   }
 
   test("node references in non-active routes are ignored") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -126,7 +126,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("identical nodes are emitted only once") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(
         newRoute(
@@ -163,7 +163,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("ref count") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(database)
 
       route(routeRepository, 11, 1001, 1002)

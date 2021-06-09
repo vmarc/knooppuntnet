@@ -10,14 +10,14 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.db.TestDocBuilder
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class FactsPerNetworkViewTest extends UnitTest {
 
   test("query") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val networkId = 5L
 
@@ -76,7 +76,7 @@ class FactsPerNetworkViewTest extends UnitTest {
 
   test("orphan route") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       new TestDocBuilder(database) {
         route(
@@ -103,7 +103,7 @@ class FactsPerNetworkViewTest extends UnitTest {
 
   private def orphanNodeTest(networkType: NetworkType): Unit = {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       new TestDocBuilder(database) {
         private val scopedNetworkType = ScopedNetworkType(NetworkScope.regional, networkType)

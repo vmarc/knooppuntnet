@@ -5,7 +5,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRouteRepositoryImpl
 
@@ -13,7 +13,7 @@ class NodeRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("get all RouteDoc's for given networkType") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val repo = new NodeRouteRepositoryImpl(database)
 

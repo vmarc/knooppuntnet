@@ -4,14 +4,14 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
 class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("nodeWithId") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -28,7 +28,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("nodesWithIds") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -41,7 +41,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("save") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -88,7 +88,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("save same network multiple times (delete before save)") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
@@ -101,7 +101,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   test("filterKnown") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeInfo(101))
@@ -113,7 +113,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("nodeNetworkReferences") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       new NetworkRepositoryImpl(database).save(
         newNetworkInfo(

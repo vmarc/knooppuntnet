@@ -5,7 +5,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Subset
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
 
@@ -13,7 +13,7 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
 
   test("get subset network attributes") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 
@@ -41,7 +41,7 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
 
   test("non-active networks are not included") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val repository = new NetworkRepositoryImpl(database)
 

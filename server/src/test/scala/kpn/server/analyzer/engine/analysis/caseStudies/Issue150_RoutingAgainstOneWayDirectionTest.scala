@@ -5,7 +5,7 @@ import kpn.api.common.planner.LegEnd
 import kpn.api.custom.NetworkType
 import kpn.core.database.views.planner.GraphEdgesView
 import kpn.core.planner.graph.NodeNetworkGraph
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.tools.export.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.api.planner.leg.LegBuilderImpl
@@ -17,7 +17,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
   test("bicyle routing against one-way direction 1") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
@@ -68,7 +68,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
   test("bicyle routing against one-way direction") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")

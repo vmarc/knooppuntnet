@@ -7,7 +7,7 @@ import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -15,7 +15,7 @@ import kpn.server.repository.RouteRepositoryImpl
 class LocationViewTest extends UnitTest with SharedTestObjects {
 
   test("node location") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(database)
       repo.save(
         newNodeInfo(
@@ -48,7 +48,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
   }
 
   test("route location") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val route1 = newRoute(
         id = 11,

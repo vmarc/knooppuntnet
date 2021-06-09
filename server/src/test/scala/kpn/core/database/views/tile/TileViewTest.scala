@@ -1,7 +1,7 @@
 package kpn.core.database.views.tile
 
 import kpn.core.TestObjects
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -10,7 +10,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
   test("nodeIds") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
@@ -29,7 +29,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
   test("non-active nodes are not included") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
@@ -43,7 +43,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
   test("routeIds") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
@@ -61,7 +61,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
   test("non-active routes are not included") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001")))

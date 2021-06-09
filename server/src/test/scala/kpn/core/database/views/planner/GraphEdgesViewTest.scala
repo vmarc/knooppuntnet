@@ -11,7 +11,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.TestObjects
 import kpn.core.database.Database
 import kpn.core.planner.graph.GraphEdge
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -33,7 +33,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   private val path2 = TrackPath(2, nodeId3, nodeId4, 200, oneWay = false, Seq(TrackSegment("", trackPoint3, Seq(TrackSegmentFragment(trackPoint4, 0, 0, None)))))
 
   test("graph edge forward path") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       doTest(database, RouteMap(forwardPath = Some(path1.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))
@@ -43,7 +43,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   }
 
   test("graph edge backward path") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       doTest(database, RouteMap(backwardPath = Some(path1.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))
@@ -53,7 +53,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   }
 
   test("graph edge start tentacle path") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       doTest(database, RouteMap(startTentaclePaths = Seq(path1.copy(oneWay = true), path2))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
@@ -65,7 +65,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   }
 
   test("graph edge end tentacle path") {
-    withDatabase { database =>
+    withCouchDatabase { database =>
       doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2.copy(oneWay = true)))) should matchTo(
         Set(
           GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),

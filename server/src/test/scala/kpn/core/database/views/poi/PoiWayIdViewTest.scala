@@ -1,7 +1,7 @@
 package kpn.core.database.views.poi
 
 import kpn.api.common.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.PoiRepositoryImpl
 
@@ -9,7 +9,7 @@ class PoiWayIdViewTest extends UnitTest with SharedTestObjects {
 
   test("all id's of pois of type 'way'") {
 
-    withDatabase { database =>
+    withCouchDatabase { database =>
 
       val repo = new PoiRepositoryImpl(database)
 
