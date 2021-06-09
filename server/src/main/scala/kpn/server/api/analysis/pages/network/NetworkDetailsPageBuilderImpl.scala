@@ -2,15 +2,17 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NetworkFacts
 import kpn.api.common.network.NetworkDetailsPage
-import kpn.api.common.network.NetworkInfo
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkDetailsPageBuilderImpl(
+  // old
   networkRepository: NetworkRepository,
-  changeSetRepository: ChangeSetRepository
+  changeSetRepository: ChangeSetRepository,
+  // new
+  mongoEnabled: Boolean
 ) extends NetworkDetailsPageBuilder {
 
   def build(networkId: Long): Option[NetworkDetailsPage] = {
@@ -18,23 +20,38 @@ class NetworkDetailsPageBuilderImpl(
       Some(NetworkDetailsPageExample.page)
     }
     else {
-      buildPage(networkId)
+      if (mongoEnabled) {
+        mongoBuildPage(networkId)
+      }
+      else {
+        oldBuildPage(networkId)
+      }
     }
   }
 
-  private def buildPage(networkId: Long): Option[NetworkDetailsPage] = {
-    networkRepository.network(networkId).map(buildPageContents)
+  private def mongoBuildPage(networkId: Long): Option[NetworkDetailsPage] = {
+    networkRepository.network(networkId).map { networkInfo =>
+      val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
+      NetworkDetailsPage(
+        NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
+        networkInfo.active,
+        networkInfo.attributes,
+        networkInfo.tags,
+        networkInfo.detail.map(_.networkFacts).getOrElse(NetworkFacts())
+      )
+    }
   }
 
-  private def buildPageContents(networkInfo: NetworkInfo): NetworkDetailsPage = {
-    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
-    NetworkDetailsPage(
-      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
-      networkInfo.active,
-      networkInfo.attributes,
-      networkInfo.tags,
-      networkInfo.detail.map(_.networkFacts).getOrElse(NetworkFacts())
-    )
+  private def oldBuildPage(networkId: Long): Option[NetworkDetailsPage] = {
+    networkRepository.network(networkId).map { networkInfo =>
+      val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
+      NetworkDetailsPage(
+        NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
+        networkInfo.active,
+        networkInfo.attributes,
+        networkInfo.tags,
+        networkInfo.detail.map(_.networkFacts).getOrElse(NetworkFacts())
+      )
+    }
   }
-
 }

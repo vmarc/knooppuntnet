@@ -41,18 +41,10 @@ class NodePageBuilderImpl(
     }
     else {
       if (mongoEnabled) {
-        mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-          val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
-          val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
-          buildNodeDetailsPage(user, filteredNodeInfo)
-        }
+        mongoBuildDetailsPage(nodeId)
       }
       else {
-        nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-          val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
-          val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
-          buildNodeDetailsPage(user, filteredNodeInfo)
-        }
+        oldBuildDetailsPage(nodeId)
       }
     }
   }
@@ -63,14 +55,10 @@ class NodePageBuilderImpl(
     }
     else {
       if (mongoEnabled) {
-        mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-          buildNodeMapPage(user, nodeInfo)
-        }
+        mongoBuildMapPage(nodeId)
       }
       else {
-        nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-          buildNodeMapPage(user, nodeInfo)
-        }
+        oldBuildMapPage(nodeId)
       }
     }
   }
@@ -81,49 +69,76 @@ class NodePageBuilderImpl(
     }
     else {
       if (mongoEnabled) {
-        mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-          buildNodeChangesPage(user, nodeInfo, parameters)
-        }
+        mongoBuildChangesPage(user, nodeId, parameters)
       }
       else {
-        nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-          buildNodeChangesPage(user, nodeInfo, parameters)
-        }
+        oldBuildChangesPage(user, nodeId, parameters)
       }
     }
   }
 
-  private def buildNodeDetailsPage(user: Option[String], nodeInfo: NodeInfo): NodeDetailsPage = {
-    val changeCount = if (mongoEnabled) {
-      mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+  private def mongoBuildDetailsPage(nodeId: Long): Option[NodeDetailsPage] = {
+    mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+      val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed) // TODO this fact should not be generated anymore: exclude during database migration
+      val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
+      val changeCount = mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+      NodeDetailsPage(
+        filteredNodeInfo,
+        oldBuildNodeReferences(nodeInfo), // TODO include in aggregation
+        oldBuildNodeIntegrity(nodeInfo), // TODO include in aggregation
+        changeCount
+      )
     }
-    else {
-      changeSetRepository.nodeChangesCount(nodeInfo.id)
-    }
-    NodeDetailsPage(nodeInfo, buildNodeReferences(nodeInfo), buildNodeIntegrity(nodeInfo), changeCount)
   }
 
-  private def buildNodeMapPage(user: Option[String], nodeInfo: NodeInfo): NodeMapPage = {
-    val changeCount = if (mongoEnabled) {
-      mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+  private def oldBuildDetailsPage(nodeId: Long): Option[NodeDetailsPage] = {
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+      val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
+      val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
+      val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+      NodeDetailsPage(
+        filteredNodeInfo,
+        oldBuildNodeReferences(nodeInfo),
+        oldBuildNodeIntegrity(nodeInfo),
+        changeCount
+      )
     }
-    else {
-      changeSetRepository.nodeChangesCount(nodeInfo.id)
-    }
-    NodeMapPage(
-      NodeMapInfo(
-        nodeInfo.id,
-        nodeInfo.name,
-        nodeInfo.names.map(_.networkType),
-        nodeInfo.latitude,
-        nodeInfo.longitude
-      ),
-      changeCount
-    )
   }
 
-  private def buildNodeChangesPage(user: Option[String], nodeInfo: NodeInfo, parameters: ChangesParameters): NodeChangesPage = {
-    if (mongoEnabled) {
+  private def mongoBuildMapPage(nodeId: Long): Option[NodeMapPage] = {
+    mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+      val changeCount = mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+      NodeMapPage(
+        NodeMapInfo(
+          nodeInfo.id,
+          nodeInfo.name,
+          nodeInfo.names.map(_.networkType),
+          nodeInfo.latitude,
+          nodeInfo.longitude
+        ),
+        changeCount
+      )
+    }
+  }
+
+  private def oldBuildMapPage(nodeId: Long): Option[NodeMapPage] = {
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+      val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+      NodeMapPage(
+        NodeMapInfo(
+          nodeInfo.id,
+          nodeInfo.name,
+          nodeInfo.names.map(_.networkType),
+          nodeInfo.latitude,
+          nodeInfo.longitude
+        ),
+        changeCount
+      )
+    }
+  }
+
+  private def mongoBuildChangesPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
+    mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       if (user.isDefined) {
         val nodeChanges = mongoNodeRepository.nodeChanges(nodeInfo.id, parameters)
         val changesFilter = mongoNodeRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
@@ -174,7 +189,10 @@ class NodePageBuilderImpl(
         )
       }
     }
-    else {
+  }
+
+  private def oldBuildChangesPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
       val totalCount = changesFilter.currentItemCount(parameters.impact)
       val nodeChanges = if (user.isDefined) {
@@ -195,13 +213,13 @@ class NodePageBuilderImpl(
     }
   }
 
-  private def buildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {
+  private def oldBuildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {
     val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id)
     val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id)
     NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
   }
 
-  private def buildNodeIntegrity(nodeInfo: NodeInfo): NodeIntegrity = {
+  private def oldBuildNodeIntegrity(nodeInfo: NodeInfo): NodeIntegrity = {
     NodeIntegrity(
       nodeInfo.names.flatMap { nodeName =>
         val tagKey = nodeName.scopedNetworkType.expectedRouteRelationsTag

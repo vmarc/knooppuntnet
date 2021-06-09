@@ -5,7 +5,6 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
-import kpn.core.db.couch.Couch
 import kpn.server.analyzer.engine.analysis.route.RouteHistoryAnalyzer
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
@@ -14,9 +13,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class RoutePageBuilderImpl(
+  // old
   routeRepository: RouteRepository,
   changeSetRepository: ChangeSetRepository,
-  changeSetInfoRepository: ChangeSetInfoRepository
+  changeSetInfoRepository: ChangeSetInfoRepository,
+  // new
+  mongoEnabled: Boolean
 ) extends RoutePageBuilder {
 
   def buildDetailsPage(user: Option[String], routeId: Long): Option[RouteDetailsPage] = {
@@ -24,10 +26,11 @@ class RoutePageBuilderImpl(
       Some(RouteDetailsPageExample.page)
     }
     else {
-      routeRepository.routeWithId(routeId).map { route =>
-        val changeCount = changeSetRepository.routeChangesCount(route.id)
-        val routeReferences = routeRepository.routeReferences(routeId)
-        RouteDetailsPage(route, routeReferences, changeCount)
+      if (mongoEnabled) {
+        mongoBuildDetailsPage(routeId)
+      }
+      else {
+        oldBuildDetailsPage(routeId)
       }
     }
   }
@@ -37,9 +40,11 @@ class RoutePageBuilderImpl(
       Some(RouteMapPageExample.page)
     }
     else {
-      routeRepository.routeWithId(routeId).map { route =>
-        val changeCount = changeSetRepository.routeChangesCount(route.id)
-        RouteMapPage(route, changeCount)
+      if (mongoEnabled) {
+        mongoBuildMapPage(routeId)
+      }
+      else {
+        oldBuildMapPage(routeId)
       }
     }
   }
@@ -49,23 +54,82 @@ class RoutePageBuilderImpl(
       Some(RouteChangesPageExample.page)
     }
     else {
-      routeRepository.routeWithId(routeId).map { route =>
-        val changeCount = changeSetRepository.routeChangesCount(route.id)
-        val changesFilter = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
-        val totalCount = changesFilter.currentItemCount(parameters.impact)
-        val routeChanges: Seq[RouteChange] = if (user.isDefined) {
-          changeSetRepository.routeChanges(route.id, parameters)
-        }
-        else {
-          Seq()
-        }
-        val changeSetInfos = {
-          val changeSetIds = routeChanges.map(_.key.changeSetId)
-          changeSetInfoRepository.all(changeSetIds)
-        }
-        val history = new RouteHistoryAnalyzer(routeChanges, changeSetInfos).history
-        RouteChangesPage(route, changesFilter, history.changes, history.incompleteWarning, totalCount, changeCount)
+      if (mongoEnabled) {
+        mongoBuildChangesPage(user, routeId, parameters)
       }
+      else {
+        oldBuildChangesPage(user, routeId, parameters)
+      }
+    }
+  }
+
+  private def mongoBuildDetailsPage(routeId: Long): Option[RouteDetailsPage] = {
+    routeRepository.routeWithId(routeId).map { route =>
+      val changeCount = changeSetRepository.routeChangesCount(route.id)
+      val routeReferences = routeRepository.routeReferences(routeId)
+      RouteDetailsPage(route, routeReferences, changeCount)
+    }
+  }
+
+  private def oldBuildDetailsPage(routeId: Long): Option[RouteDetailsPage] = {
+    routeRepository.routeWithId(routeId).map { route =>
+      val changeCount = changeSetRepository.routeChangesCount(route.id)
+      val routeReferences = routeRepository.routeReferences(routeId)
+      RouteDetailsPage(route, routeReferences, changeCount)
+    }
+  }
+
+  private def mongoBuildMapPage(routeId: Long): Option[RouteMapPage] = {
+    routeRepository.routeWithId(routeId).map { route =>
+      val changeCount = changeSetRepository.routeChangesCount(route.id)
+      RouteMapPage(route, changeCount)
+    }
+  }
+
+  private def oldBuildMapPage(routeId: Long): Option[RouteMapPage] = {
+    routeRepository.routeWithId(routeId).map { route =>
+      val changeCount = changeSetRepository.routeChangesCount(route.id)
+      RouteMapPage(route, changeCount)
+    }
+  }
+
+  private def mongoBuildChangesPage(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
+    routeRepository.routeWithId(routeId).map { route =>
+      val changeCount = changeSetRepository.routeChangesCount(route.id)
+      val changesFilter = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
+      val totalCount = changesFilter.currentItemCount(parameters.impact)
+      val routeChanges: Seq[RouteChange] = if (user.isDefined) {
+        changeSetRepository.routeChanges(route.id, parameters)
+      }
+      else {
+        Seq()
+      }
+      val changeSetInfos = {
+        val changeSetIds = routeChanges.map(_.key.changeSetId)
+        changeSetInfoRepository.all(changeSetIds)
+      }
+      val history = new RouteHistoryAnalyzer(routeChanges, changeSetInfos).history
+      RouteChangesPage(route, changesFilter, history.changes, history.incompleteWarning, totalCount, changeCount)
+    }
+  }
+
+  private def oldBuildChangesPage(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
+    routeRepository.routeWithId(routeId).map { route =>
+      val changeCount = changeSetRepository.routeChangesCount(route.id)
+      val changesFilter = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
+      val totalCount = changesFilter.currentItemCount(parameters.impact)
+      val routeChanges: Seq[RouteChange] = if (user.isDefined) {
+        changeSetRepository.routeChanges(route.id, parameters)
+      }
+      else {
+        Seq()
+      }
+      val changeSetInfos = {
+        val changeSetIds = routeChanges.map(_.key.changeSetId)
+        changeSetInfoRepository.all(changeSetIds)
+      }
+      val history = new RouteHistoryAnalyzer(routeChanges, changeSetInfos).history
+      RouteChangesPage(route, changesFilter, history.changes, history.incompleteWarning, totalCount, changeCount)
     }
   }
 }
