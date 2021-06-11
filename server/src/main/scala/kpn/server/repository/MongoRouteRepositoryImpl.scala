@@ -5,25 +5,23 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteInfo
 import kpn.core.common.Time
-import kpn.core.database.doc.RouteDoc
+import kpn.core.mongo.changes.MongoQueryRoute
 import kpn.core.mongo.changes.MongoQueryRouteChangeCount
 import kpn.core.mongo.changes.MongoQueryRouteChangeCounts
 import kpn.core.mongo.changes.MongoQueryRouteChanges
+import kpn.core.mongo.changes.MongoSaveRoute
 import org.mongodb.scala.MongoDatabase
-import org.mongodb.scala.model.Filters.equal
 import org.springframework.stereotype.Component
-
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 @Component
 class MongoRouteRepositoryImpl(database: MongoDatabase) extends MongoRouteRepository {
 
+  override def save(route: RouteInfo): Unit = {
+    new MongoSaveRoute(database).execute(route)
+  }
+
   override def routeWithId(routeId: Long): Option[RouteInfo] = {
-    val collection = database.getCollection[RouteDoc]("routes")
-    val future = collection.find[RouteDoc](equal("_id", s"route:$routeId")).headOption()
-    Await.result(future, Duration(5, TimeUnit.SECONDS)).map(_.route)
+    new MongoQueryRoute(database).execute(routeId)
   }
 
   override def routeChangeCount(routeId: Long): Long = {

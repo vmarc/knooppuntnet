@@ -7,6 +7,8 @@ import kpn.api.common.route.RouteInfo
 
 trait MongoRouteRepository {
 
+  def save(route: RouteInfo): Unit
+
   def routeWithId(routeId: Long): Option[RouteInfo]
 
   def routeChangeCount(routeId: Long): Long

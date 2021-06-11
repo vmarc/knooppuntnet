@@ -7,6 +7,8 @@ import kpn.api.common.network.NetworkInfo
 
 trait MongoNetworkRepository {
 
+  def save(network: NetworkInfo): Unit
+
   def networkWithId(networkId: Long): Option[NetworkInfo]
 
   def networkChangeCount(networkId: Long): Long

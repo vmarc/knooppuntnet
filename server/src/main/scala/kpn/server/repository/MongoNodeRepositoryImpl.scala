@@ -5,25 +5,23 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
-import kpn.core.database.doc.NodeDoc
+import kpn.core.mongo.changes.MongoQueryNode
 import kpn.core.mongo.changes.MongoQueryNodeChangeCount
 import kpn.core.mongo.changes.MongoQueryNodeChangeCounts
 import kpn.core.mongo.changes.MongoQueryNodeChanges
+import kpn.core.mongo.changes.MongoSaveNode
 import org.mongodb.scala.MongoDatabase
-import org.mongodb.scala.model.Filters.equal
 import org.springframework.stereotype.Component
-
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 @Component
 class MongoNodeRepositoryImpl(database: MongoDatabase) extends MongoNodeRepository {
 
+  override def save(node: NodeInfo): Unit = {
+    new MongoSaveNode(database).execute(node)
+  }
+
   override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
-    val collection = database.getCollection[NodeDoc]("nodes")
-    val future = collection.find[NodeDoc](equal("_id", s"node:$nodeId")).headOption()
-    Await.result(future, Duration(5, TimeUnit.SECONDS)).map(_.node)
+    new MongoQueryNode(database).execute(nodeId)
   }
 
   override def nodeChangeCount(nodeId: Long): Long = {

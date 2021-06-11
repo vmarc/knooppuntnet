@@ -7,6 +7,8 @@ import kpn.api.common.changes.filter.ChangesParameters
 
 trait MongoNodeRepository {
 
+  def save(node: NodeInfo): Unit
+
   def nodeWithId(nodeId: Long): Option[NodeInfo]
 
   def nodeChangeCount(nodeId: Long): Long

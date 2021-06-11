@@ -492,3 +492,81 @@ Compose concatenated _id in scala code:
     )
   )
 ```
+
+## Backup strategy
+
+To backup the complete knooppuntnet database on a regular basis and to keep multiple copies, requires way top much diskspace.  It is mainly the changes collections that are the problem here.
+
+```bash
+mongodump --db=tryout
+```
+
+```
+ll -S dump/tryout/*changes.bson
+-rw-rw-r-- 1 marcv marcv  52G Jun 10 21:23 route-changes.bson
+-rw-rw-r-- 1 marcv marcv  43G Jun 10 21:23 network-changes.bson
+-rw-rw-r-- 1 marcv marcv 435M Jun 10 21:07 changeset-summaries.bson
+-rw-rw-r-- 1 marcv marcv 313M Jun 10 21:07 node-changes.bson
+-rw-rw-r-- 1 marcv marcv  38M Jun 10 21:07 changeset-comments.bson
+```
+
+We can do an incremental backup for these collections, for example per day:
+
+```bash
+mongodump --db=tryout --collection=route-changes --query='{"routeChange.key.time.year": 2020, "routeChange.key.time.month": 1, "routeChange.key.time.day": 1}' --gzip --out route-changes-2020-01-01
+
+Note: the dump takes a while (5 mins), it does not seem to use the index.
+```
+
+```bash
+ll route-changes-2020-01-01/tryout
+total 2.2M
+-rw-rw-r-- 1 marcv marcv 2.2M Jun 10 21:57 route-changes.bson.gz
+-rw-rw-r-- 1 marcv marcv  259 Jun 10 21:52 route-changes.metadata.json.gz
+```
+
+Per month:
+```bash
+ll route-changes-2021-01/tryout/
+total 133M
+-rw-rw-r-- 1 marcv marcv 133M Jun 10 22:07 route-changes.bson.gz
+-rw-rw-r-- 1 marcv marcv  259 Jun 10 22:02 route-changes.metadata.json.gz
+
+23845 documents
+```
+
+```bash
+ll route-changes-2021-02/tryout/
+total 130M
+-rw-rw-r-- 1 marcv marcv 130M Jun 10 22:12 route-changes.bson.gz
+-rw-rw-r-- 1 marcv marcv  259 Jun 10 22:08 route-changes.metadata.json.gz
+
+23548 documents
+```
+
+Per year, with multiple collections in same directory:
+
+
+```bash
+mongodump --db=tryout --collection=route-changes --query='{"routeChange.key.time.year": 2013}' --gzip --out changes-2013
+mongodump --db=tryout --collection=network-changes --query='{"networkChange.key.time.year": 2013}' --gzip --out changes-2013
+mongodump --db=tryout --collection=node-changes --query='{"nodeChange.key.time.year": 2013}' --gzip --out changes-2013
+```
+
+```bash
+ll -S changes-2013/tryout
+total 462M
+-rw-rw-r-- 1 marcv marcv 287M Jun 10 22:19 route-changes.bson.gz
+-rw-rw-r-- 1 marcv marcv 174M Jun 10 22:27 network-changes.bson.gz
+-rw-rw-r-- 1 marcv marcv 638K Jun 10 22:29 node-changes.bson.gz
+-rw-rw-r-- 1 marcv marcv  293 Jun 10 22:20 network-changes.metadata.json.gz
+-rw-rw-r-- 1 marcv marcv  259 Jun 10 22:29 node-changes.metadata.json.gz
+-rw-rw-r-- 1 marcv marcv  259 Jun 10 22:14 route-changes.metadata.json.gz
+```
+
+Incremental restore:
+```bash
+mongorestore --gzip --nsFrom='tryout.*' --nsTo='tryout2.*' changes-2013
+mongorestore --gzip --nsFrom='tryout.*' --nsTo='tryout2.*' route-changes-2021-01
+mongorestore --gzip --nsFrom='tryout.*' --nsTo='tryout2.*' route-changes-2021-02
+```

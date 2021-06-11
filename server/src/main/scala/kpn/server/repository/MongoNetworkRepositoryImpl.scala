@@ -9,11 +9,16 @@ import kpn.core.mongo.changes.MongoQueryNetwork
 import kpn.core.mongo.changes.MongoQueryNetworkChangeCount
 import kpn.core.mongo.changes.MongoQueryNetworkChangeCounts
 import kpn.core.mongo.changes.MongoQueryNetworkChanges
+import kpn.core.mongo.changes.MongoSaveNetwork
 import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
 class MongoNetworkRepositoryImpl(database: MongoDatabase) extends MongoNetworkRepository {
+
+  override def save(network: NetworkInfo): Unit = {
+    new MongoSaveNetwork(database).execute(network)
+  }
 
   override def networkWithId(networkId: Long): Option[NetworkInfo] = {
     new MongoQueryNetwork(database).execute(networkId)
