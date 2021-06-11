@@ -45,6 +45,8 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var routeId = doc.route.summary.id;
   var routeMap = doc.route.analysis.map;
 
+  emitPaths(networkType, routeId, routeMap.freePaths);
+
   if (routeMap.forwardPath) {
     emitPath(networkType, routeId, routeMap.forwardPath, routeMap.forwardPath.oneWay);
     if (routeMap.forwardPath.oneWay === true) {

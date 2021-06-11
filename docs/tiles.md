@@ -62,6 +62,12 @@ Installation:
 
 ## Update procedure
 
+Reset previous database contents:
+
+    cd /kpn/openmaptiles
+    make destroy-db
+
+
 Download OpenStreetMap data from geofabrik:
 
     mkdir /kpn/tile-data // if not exists
