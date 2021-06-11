@@ -15,6 +15,7 @@ import kpn.api.custom.Subset
   Describes the changes made to a given route in a given changeset.
  */
 case class RouteChange(
+  _id: String,
   key: ChangeKey,
   changeType: ChangeType,
   name: String,
@@ -62,6 +63,7 @@ case class RouteChange(
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("key", key).
     field("changeType", changeType).
     field("name", name).

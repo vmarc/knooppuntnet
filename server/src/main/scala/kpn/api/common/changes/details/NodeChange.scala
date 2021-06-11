@@ -14,6 +14,7 @@ import kpn.api.custom.Subset
   Describes the changes made to a given network node in a given changeset.
  */
 case class NodeChange(
+  _id: String,
   key: ChangeKey,
   changeType: ChangeType,
   subsets: Seq[Subset],
@@ -61,6 +62,7 @@ case class NodeChange(
   def toRef: Ref = Ref(id, name)
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("key", key).
     field("changeType", changeType).
     field("subsets", subsets).

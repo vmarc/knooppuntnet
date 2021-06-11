@@ -72,10 +72,13 @@ class OrphanNodeUpdateProcessorImpl(
       loadedNodeChange.before.name
     }
 
+    val key = context.buildChangeKey(loadedNodeChange.after.node.id)
+
     Some(
       analyzed(
         NodeChange(
-          key = context.buildChangeKey(loadedNodeChange.after.node.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.Update,
           subsets = subsets,
           location = nodeInfo.location,

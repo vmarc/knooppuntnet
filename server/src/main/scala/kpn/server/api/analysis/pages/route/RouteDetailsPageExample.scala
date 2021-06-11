@@ -168,9 +168,8 @@ object RouteDetailsPageExample {
       )
     )
 
-
-
     RouteInfo(
+      _id = 1,
       summary = RouteSummary(
         id = 1,
         country = Some(Country.nl),

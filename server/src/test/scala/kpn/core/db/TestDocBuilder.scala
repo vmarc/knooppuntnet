@@ -92,6 +92,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     )
 
     val networkInfo = NetworkInfo(
+      attributes.id,
       attributes,
       active,
       Seq(),

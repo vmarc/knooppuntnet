@@ -27,4 +27,7 @@ case class ChangeKey(
   changeSetId: Long,
   elementId: Long,
   time: TimeKey
-)
+) {
+  def toId: String = s"${changeSetId}:${replicationNumber}:${elementId}"
+  def toShortId: String = s"${changeSetId}:${replicationNumber}"
+}

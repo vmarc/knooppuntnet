@@ -55,8 +55,11 @@ class NetworkCreateWatchedProcessorImpl(
     val oldOrphanRoutes = routesWithFact(nodeAndRouteChanges.routeChanges, Fact.WasOrphan)
     val oldOrphanNodes = nodesWithFact(nodeAndRouteChanges.nodeChanges, Fact.WasOrphan)
 
+    val key = context.buildChangeKey(networkAfter.id)
+
     val networkChange = NetworkChange(
-      key = context.buildChangeKey(networkAfter.id),
+      _id = key.toId,
+      key = key,
       changeType = ChangeType.Create,
       networkAfter.country,
       networkAfter.networkType,

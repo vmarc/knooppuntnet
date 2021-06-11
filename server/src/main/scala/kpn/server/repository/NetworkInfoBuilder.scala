@@ -92,6 +92,7 @@ class NetworkInfoBuilder {
     )
 
     NetworkInfo(
+      attributes.id,
       attributes,
       active = true,
       nodeRefs = nodes.map(_.id),

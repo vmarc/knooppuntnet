@@ -12,6 +12,7 @@ import kpn.api.custom.NetworkType
   Describes the changes made to a given network in a given changeset.
  */
 case class NetworkChange(
+  _id: String,
   key: ChangeKey,
   changeType: ChangeType,
   country: Option[Country],
@@ -49,6 +50,7 @@ case class NetworkChange(
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("key", key).
     field("changeType", changeType).
     field("orphanRoutes", orphanRoutes).

@@ -17,8 +17,6 @@ import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.Filters.not
-import org.mongodb.scala.model.IndexOptions
-import org.mongodb.scala.model.Indexes
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
@@ -29,18 +27,17 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
 
-object MigrateChangeKeyTool {
+object zzzMigrateChangeKeyTool {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
-    val mongoDatabase = Mongo.database(mongoClient, "tryout")
-    val tool = new MigrateChangeKeyTool(mongoDatabase)
-    tool.migrate()
+    val mongoDatabase = Mongo.database(mongoClient, "kpn-test")
+    new zzzMigrateChangeKeyTool(mongoDatabase).migrate()
   }
 }
 
-class MigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
+class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
-  private val log = Log(classOf[MigrateChangeKeyTool])
+  private val log = Log(classOf[zzzMigrateChangeKeyTool])
 
   def migrate(): Unit = {
     log.info("Migrate change keys")

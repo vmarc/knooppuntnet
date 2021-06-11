@@ -72,6 +72,7 @@ object NodePageExample {
 
   private def nodeInfo(): NodeInfo = {
     NodeInfo(
+      _id = 1,
       id = 1,
       active = false,
       orphan = true,
@@ -301,5 +302,4 @@ object NodePageExample {
       )
     )
   }
-
 }

@@ -72,9 +72,12 @@ class OrphanRouteChangeProcessorImpl(
         None
       }
 
+      val key = context.buildChangeKey(routeAnalysis.id)
+
       RouteChangeAnalyzer.analyzed(
         RouteChange(
-          key = context.buildChangeKey(routeAnalysis.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.Create,
           name = routeAnalysis.name,
           locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
@@ -129,10 +132,13 @@ class OrphanRouteChangeProcessorImpl(
             Seq(Fact.OrphanRoute) ++ routeUpdate.facts
           }
 
+          val key = context.buildChangeKey(routeUpdate.after.id)
+
           Some(
             RouteChangeAnalyzer.analyzed(
               RouteChange(
-                key = context.buildChangeKey(routeUpdate.after.id),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Update,
                 name = routeUpdate.after.name,
                 locationAnalysis = afterRouteAnalysis.route.analysis.locationAnalysis,
@@ -180,10 +186,13 @@ class OrphanRouteChangeProcessorImpl(
           )
           tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
+          val key = context.buildChangeKey(route.id)
+
           Some(
             RouteChangeAnalyzer.analyzed(
               RouteChange(
-                key = context.buildChangeKey(route.id),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Delete,
                 name = route.summary.name,
                 locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,

@@ -13,7 +13,8 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
 case class NodeInfo(
-  id: Long,
+  _id: Long,
+  id: Long, // TODO MONGO remove after migration
   active: Boolean,
   orphan: Boolean,
   country: Option[Country],
@@ -62,6 +63,7 @@ case class NodeInfo(
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("id", id).
     field("active", active).
     field("orphan", orphan).

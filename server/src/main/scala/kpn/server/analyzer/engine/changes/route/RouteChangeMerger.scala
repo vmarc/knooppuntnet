@@ -18,6 +18,7 @@ class RouteChangeMerger(left: RouteChange, right: RouteChange) {
       assertFixedFields(left, right)
       RouteChangeAnalyzer.analyzed(
         RouteChange(
+          left.key.toId,
           left.key,
           mergedChangeType(),
           left.name,

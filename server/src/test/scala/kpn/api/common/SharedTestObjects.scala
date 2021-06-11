@@ -186,6 +186,7 @@ trait SharedTestObjects extends MockFactory {
     locationInvestigate: Boolean = false
   ): RouteChange = {
     RouteChange(
+      key.toId,
       key,
       changeType,
       name,
@@ -291,6 +292,7 @@ trait SharedTestObjects extends MockFactory {
 
     NodeInfo(
       id,
+      id,
       active,
       orphan,
       country,
@@ -341,6 +343,7 @@ trait SharedTestObjects extends MockFactory {
     )
 
     RouteInfo(
+      summary.id,
       summary,
       active,
       orphan,
@@ -648,6 +651,7 @@ trait SharedTestObjects extends MockFactory {
     locationInvestigate: Boolean = false
   ): NodeChange = {
     NodeChange(
+      key.toId,
       key,
       changeType,
       subsets,
@@ -692,6 +696,7 @@ trait SharedTestObjects extends MockFactory {
     investigate: Boolean = false
   ): NetworkChange = {
     NetworkChange(
+      key.toId,
       key,
       changeType,
       country,
@@ -735,6 +740,7 @@ trait SharedTestObjects extends MockFactory {
     investigate: Boolean = false
   ): ChangeSetSummary = {
     ChangeSetSummary(
+      key.toShortId,
       key,
       subsets,
       timestampFrom,
@@ -796,6 +802,7 @@ trait SharedTestObjects extends MockFactory {
     detail: Option[NetworkInfoDetail] = None
   ): NetworkInfo = {
     NetworkInfo(
+      attributes.id,
       attributes,
       active,
       nodeRefs,
@@ -819,6 +826,7 @@ trait SharedTestObjects extends MockFactory {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis()
   ): RouteInfo = {
     RouteInfo(
+      summary.id,
       summary,
       active,
       orphan,

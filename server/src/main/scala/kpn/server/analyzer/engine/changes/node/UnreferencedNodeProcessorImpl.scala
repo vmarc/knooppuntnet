@@ -93,10 +93,13 @@ class UnreferencedNodeProcessorImpl(
 
       analysisContext.data.orphanNodes.watched.delete(before.id)
 
+      val key = context.buildChangeKey(nodeBefore.id)
+
       Some(
         analyzed(
           NodeChange(
-            key = context.buildChangeKey(nodeBefore.id),
+            _id = key.toId,
+            key = key,
             changeType = ChangeType.Update,
             subsets = subsets,
             location = nodeBefore.networkNode.location,
@@ -129,10 +132,13 @@ class UnreferencedNodeProcessorImpl(
 
     // TODO CHANGE remove from orphan/ignored node lists? + add in test
 
+    val key = context.buildChangeKey(nodeBefore.id)
+
     Some(
       analyzed(
         NodeChange(
-          key = context.buildChangeKey(nodeBefore.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.Delete,
           subsets = subsets,
           location = nodeBefore.networkNode.location,
@@ -169,10 +175,13 @@ class UnreferencedNodeProcessorImpl(
 
     val location = nodeLocationAnalyzer.locate(nodeAfter.node.latitude, nodeAfter.node.longitude)
 
+    val key = context.buildChangeKey(nodeBefore.id)
+
     Some(
       analyzed(
         NodeChange(
-          key = context.buildChangeKey(nodeBefore.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.Update,
           subsets = nodeAfter.subsets,
           location = location,

@@ -76,9 +76,11 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRoute(analysisAfter)
 
+          val key = context.changeSetContext.buildChangeKey(analysisAfter.id)
           RouteChangeAnalyzer.analyzed(
             RouteChange(
-              key = context.changeSetContext.buildChangeKey(analysisAfter.id),
+              _id = key.toId,
+              key = key,
               changeType = ChangeType.Create,
               name = analysisAfter.name,
               locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
@@ -100,9 +102,11 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
+          val key = context.changeSetContext.buildChangeKey(routeId)
           RouteChangeAnalyzer.analyzed(
             RouteChange(
-              key = context.changeSetContext.buildChangeKey(routeId),
+              _id = key.toId,
+              key = key,
               changeType = ChangeType.Update,
               name = analysisAfter.name,
               locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
@@ -166,10 +170,12 @@ class RouteChangeBuilderImpl(
           analysisRepository.saveRoute(routeInfo)
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
+          val key = context.changeSetContext.buildChangeKey(routeId)
           Some(
             RouteChangeAnalyzer.analyzed(
               RouteChange(
-                key = context.changeSetContext.buildChangeKey(routeId),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Delete,
                 name = analysisBefore.name,
                 locationAnalysis = analysisBefore.route.analysis.locationAnalysis,
@@ -200,10 +206,12 @@ class RouteChangeBuilderImpl(
     val facts = new RouteFactAnalyzer(analysisContext.data).facts(Some(analysisBefore), analysisAfter).filter(f => f == Fact.LostRouteTags)
 
     if (analysisContext.data.networks.isReferencingRelation(routeId)) {
+      val key = context.changeSetContext.buildChangeKey(routeId)
       Some(
         RouteChangeAnalyzer.analyzed(
           RouteChange(
-            key = context.changeSetContext.buildChangeKey(routeId),
+            _id = key.toId,
+            key = key,
             changeType = ChangeType.Update,
             name = analysisAfter.name,
             locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
@@ -246,10 +254,12 @@ class RouteChangeBuilderImpl(
 
       tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
+      val key = context.changeSetContext.buildChangeKey(routeId)
       Some(
         RouteChangeAnalyzer.analyzed(
           RouteChange(
-            key = context.changeSetContext.buildChangeKey(routeId),
+            _id = key.toId,
+            key = key,
             changeType = ChangeType.Update,
             name = analysisAfter.name,
             locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
@@ -285,10 +295,12 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
+          val key = context.changeSetContext.buildChangeKey(routeId)
           Some(
             RouteChangeAnalyzer.analyzed(
               RouteChange(
-                key = context.changeSetContext.buildChangeKey(routeId),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Update,
                 name = analysisAfter.name,
                 locationAnalysis = analysisAfter.route.analysis.locationAnalysis,

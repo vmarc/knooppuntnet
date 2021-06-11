@@ -441,15 +441,19 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
     replicationNumber: Int,
     networkId: Long,
     timestamp: Timestamp = Timestamp(2015, 8, 11),
-    happy: Boolean = true): NetworkChange = {
+    happy: Boolean = true
+  ): NetworkChange = {
+
+    val key = ChangeKey(
+      replicationNumber,
+      timestamp,
+      changeSetId,
+      networkId
+    )
 
     NetworkChange(
-      ChangeKey(
-        replicationNumber,
-        timestamp,
-        changeSetId,
-        networkId
-      ),
+      key.toId,
+      key,
       ChangeType.Update,
       Some(Country.nl),
       NetworkType.hiking,

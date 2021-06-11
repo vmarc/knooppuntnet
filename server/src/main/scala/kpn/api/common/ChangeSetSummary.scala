@@ -38,6 +38,7 @@ object ChangeSetSummary {
     }
 
     ChangeSetSummary(
+      key.toShortId,
       key,
       subsets,
       timestampFrom,
@@ -54,6 +55,7 @@ object ChangeSetSummary {
 }
 
 case class ChangeSetSummary(
+  _id: String,
   key: ChangeKey,
   subsets: Seq[Subset],
   timestampFrom: Timestamp,
@@ -68,6 +70,7 @@ case class ChangeSetSummary(
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("key", key).
     field("subsets", subsets).
     field("timestampFrom", timestampFrom).

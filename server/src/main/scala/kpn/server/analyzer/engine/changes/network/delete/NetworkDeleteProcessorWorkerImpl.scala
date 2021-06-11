@@ -72,8 +72,11 @@ class NetworkDeleteProcessorWorkerImpl(
           val newOrphanRoutes = nodeAndRouteChanges.routeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
           val newOrphanNodes = nodeAndRouteChanges.nodeChanges.filter(_.facts.contains(Fact.BecomeOrphan)).map(_.toRef)
 
+          val key = context.buildChangeKey(networkId)
+
           val networkChange = NetworkChange(
-            key = context.buildChangeKey(networkId),
+            _id = key.toId,
+            key = key,
             changeType = ChangeType.Delete,
             orphanRoutes = RefChanges(newRefs = newOrphanRoutes),
             orphanNodes = RefChanges(newRefs = newOrphanNodes),
@@ -114,6 +117,7 @@ class NetworkDeleteProcessorWorkerImpl(
 
     networkRepository.save(
       NetworkInfo(
+        _id = networkBefore.id,
         NetworkAttributes(
           id = networkBefore.id,
           country = networkBefore.country,

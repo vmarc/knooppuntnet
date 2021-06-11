@@ -67,6 +67,7 @@ class NodeInfoBuilderImpl(
 
     NodeInfo(
       id,
+      id,
       active,
       orphan,
       country,

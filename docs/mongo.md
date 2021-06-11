@@ -105,6 +105,13 @@ db.createUser(
     roles: [ { role: "readWrite", db: "tryout" } ]
   }
 )
+
+db.grantRolesToUser(
+    "kpn-app",
+    [
+      { role: "readWrite", db: "kpn-test" }
+    ]
+)
 ```
 
 

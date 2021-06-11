@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-object InsertNodeRouteRefs {
+object zzzInsertNodeRouteRefs {
   def main(args: Array[String]): Unit = {
     println("Insert node route refs")
     var count = 0
@@ -26,9 +26,9 @@ object InsertNodeRouteRefs {
           val id = s"${summary.networkType.name}:$nodeId:${summary.id}"
           NodeRouteRef(
             id,
-            summary.networkType,
             nodeId,
             summary.id,
+            summary.networkType,
             summary.name
           )
         }

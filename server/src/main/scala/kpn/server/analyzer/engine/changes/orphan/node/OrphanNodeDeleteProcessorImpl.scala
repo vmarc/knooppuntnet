@@ -37,10 +37,12 @@ class OrphanNodeDeleteProcessorImpl(
         val subsets = loadedNode.subsets
 
         if (subsets.nonEmpty) {
+          val key = context.buildChangeKey(loadedNodeDelete.id)
           Some(
             analyzed(
               NodeChange(
-                key = context.buildChangeKey(loadedNodeDelete.id),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Delete,
                 subsets = subsets,
                 location = nodeInfo.location,

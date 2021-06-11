@@ -14,6 +14,7 @@ object NetworkChangesPageExample {
   val page: NetworkChangesPage = {
 
     val networkInfo: NetworkInfo = NetworkInfo(
+      1L,
       attributes = NetworkDetailsPageExample.networkAttributes(),
       active = false,
       nodeRefs = Seq(),

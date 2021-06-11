@@ -5,6 +5,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 
 case class NetworkInfo(
+  _id: Long,
   attributes: NetworkAttributes,
   active: Boolean,
   nodeRefs: Seq[Long],
@@ -54,6 +55,7 @@ case class NetworkInfo(
   }
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("attributes", attributes).
     field("active", active).
     field("nodeRefs", nodeRefs).

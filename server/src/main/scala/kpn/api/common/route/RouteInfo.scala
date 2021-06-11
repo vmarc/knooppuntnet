@@ -10,6 +10,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
 case class RouteInfo(
+  _id: Long,
   summary: RouteSummary,
   active: Boolean,
   orphan: Boolean,
@@ -28,6 +29,7 @@ case class RouteInfo(
   def toRef: Ref = Ref(summary.id, summary.name)
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("summary", summary).
     field("active", active).
     field("orphan", orphan).

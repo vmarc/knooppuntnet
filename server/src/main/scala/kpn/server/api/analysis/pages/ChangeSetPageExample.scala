@@ -60,13 +60,15 @@ object ChangeSetPageExample {
   }
 
   private def changeSetSummary(): ChangeSetSummary = {
+    val key = ChangeKey(
+      replicationNumber = 1,
+      timestamp = Timestamp(2015, 1, 2),
+      changeSetId = 1,
+      elementId = 1
+    )
     ChangeSetSummary(
-      key = ChangeKey(
-        replicationNumber = 1,
-        timestamp = Timestamp(2015, 1, 2),
-        changeSetId = 1,
-        elementId = 1
-      ),
+      _id = key.toId,
+      key = key,
       subsets = Subset.all,
       timestampFrom = Timestamp(2015, 1, 2),
       timestampUntil = Timestamp(2015, 1, 2),

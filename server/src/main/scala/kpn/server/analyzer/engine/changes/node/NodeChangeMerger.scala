@@ -8,7 +8,6 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
-import kpn.api.common.location.Location
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.util.Log
@@ -27,6 +26,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
 
       analyzed(
         NodeChange(
+          left.key.toId,
           left.key,
           mergedChangeType(),
           mergedSubsets(),

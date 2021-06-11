@@ -94,8 +94,11 @@ class NetworkUpdateNetworkProcessorImpl(
     val happy: Boolean = networkDiff.happy // TODO CHANGE need to re-calculate here?
     val investigate: Boolean = networkDiff.investigate // TODO CHANGE need to re-calculate here?
 
+    val key = context.buildChangeKey(networkId)
+
     val networkChange = NetworkChange(
-      context.buildChangeKey(networkId),
+      _id = key.toId,
+      key = key,
       ChangeType.Update,
       networkDiff.country,
       networkDiff.networkType,

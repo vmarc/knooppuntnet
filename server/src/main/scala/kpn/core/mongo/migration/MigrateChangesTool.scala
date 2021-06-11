@@ -1,17 +1,13 @@
 package kpn.core.mongo.migration
 
 import kpn.api.common.ChangeSetSummary
+import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.ReplicationId
-import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.core.database.Database
-import kpn.core.database.doc.ChangeSetSummaryDoc
 import kpn.core.database.doc.LocationChangeSetSummaryDoc
-import kpn.core.database.doc.NetworkChangeDoc
-import kpn.core.database.doc.NodeChangeDoc
-import kpn.core.database.doc.RouteChangeDoc
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangeDocumentView
@@ -37,10 +33,9 @@ object MigrateChangesTool {
 
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
-    val mongoDatabase = Mongo.database(mongoClient, "tryout")
+    val mongoDatabase = Mongo.database(mongoClient, "kpn-test")
     Couch.executeIn("kpn-database", "changes") { couchDatabase =>
-      val tool = new MigrateChangesTool(couchDatabase, mongoDatabase)
-      tool.migrate()
+      new MigrateChangesTool(couchDatabase, mongoDatabase).migrate()
     }
   }
 }
@@ -52,14 +47,13 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
   private val stale = true // TODO change to false for actual migration
   private val changeSetRepository = new ChangeSetRepositoryImpl(couchDatabase)
 
-  private val networkChangeCollection = mongoDatabase.getCollection[NetworkChangeDoc]("network-changes")
-  private val routeChangeCollection = mongoDatabase.getCollection[RouteChangeDoc]("route-changes")
-  private val nodeChangeCollection = mongoDatabase.getCollection[NodeChangeDoc]("node-changes")
-  private val changeSetSummariesCollection = mongoDatabase.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
-  private val locationChangeSetSummariesCollection = mongoDatabase.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
+  private val networkChangesCollection = mongoDatabase.getCollection[NetworkChange]("network-changes")
+  private val routeChangesCollection = mongoDatabase.getCollection[RouteChange]("route-changes")
+  private val nodeChangesCollection = mongoDatabase.getCollection[NodeChange]("node-changes")
+  private val changeSetSummariesCollection = mongoDatabase.getCollection[ChangeSetSummary]("changeset-summaries")
+  private val locationChangeSetSummariesCollection = mongoDatabase.getCollection[LocationChangeSetSummary]("change-location-summaries")
 
   def migrate(): Unit = {
-    log.info("Migrate changes")
     log.elapsedSeconds {
       val allChanges = readChangeSetIds()
       val migratedChanges = new MongoQueryChangeSetRefs(mongoDatabase).execute()
@@ -89,25 +83,36 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
 
   private def writeSummary(summary: ChangeSetSummary): Unit = {
     log.elapsed {
+      val _id = s"${summary.key.changeSetId}:${summary.key.replicationNumber}"
       val docs = Seq(
-        ChangeSetSummaryDoc(
-          docId("summary", summary.key),
-          summary
+        summary.copy(
+          _id = _id,
+          impact = summary.happy || summary.investigate
         )
       )
-      (write(changeSetSummariesCollection, docs, "changeSetSummary"), ())
+      write(changeSetSummariesCollection, docs)
+      ("changeSetSummary", ())
     }
   }
 
   private def writeLocationSummary(summary: ChangeSetSummary): Unit = {
     log.elapsed {
-      val id = docId("location-summary", summary.key)
+      val key = summary.key
+      val id = s"change:${key.changeSetId}:${key.replicationNumber}:location-summary:${key.elementId}"
       val docs = couchDatabase.docWithId(id, classOf[LocationChangeSetSummaryDoc]).toSeq
       if (docs.isEmpty) {
         (s"location summary doc not found in couch database", ())
       }
       else {
-        (write(locationChangeSetSummariesCollection, docs, "locationChangeSetSummary"), ())
+        val migrated = docs.map { doc =>
+          val _id = s"${summary.key.changeSetId}:${summary.key.replicationNumber}"
+          doc.locationChangeSetSummary.copy(
+            _id = _id,
+            impact = doc.locationChangeSetSummary.happy || doc.locationChangeSetSummary.investigate
+          )
+        }
+        write(locationChangeSetSummariesCollection, migrated)
+        ("locationChangeSetSummary", ())
       }
     }
   }
@@ -116,12 +121,13 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
     if (networkChanges.nonEmpty) {
       log.elapsed {
         val docs = networkChanges.map { networkChange =>
-          NetworkChangeDoc(
-            docId("network", networkChange.key),
-            networkChange
+          networkChange.copy(
+            _id = networkChange.key.toId,
+            impact = networkChange.happy || networkChange.investigate
           )
         }
-        (write(networkChangeCollection, docs, "network"), ())
+        write(networkChangesCollection, docs)
+        (s"${docs.size} network changes", ())
       }
     }
   }
@@ -130,12 +136,14 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
     if (routeChanges.nonEmpty) {
       log.elapsed {
         val docs = routeChanges.map { routeChange =>
-          RouteChangeDoc(
-            docId("route", routeChange.key),
-            routeChange
+          routeChange.copy(
+            _id = routeChange.key.toId,
+            impact = routeChange.happy || routeChange.investigate,
+            locationImpact = routeChange.locationHappy || routeChange.locationInvestigate
           )
         }
-        (write(routeChangeCollection, docs, "route"), ())
+        write(routeChangesCollection, docs)
+        (s"${docs.size} route changes", ())
       }
     }
   }
@@ -144,17 +152,20 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
     if (nodeChanges.nonEmpty) {
       log.elapsed {
         val docs = nodeChanges.map { nodeChange =>
-          NodeChangeDoc(
-            docId("node", nodeChange.key),
-            nodeChange
+          nodeChange.copy(
+            _id = nodeChange.key.toId,
+            impact = nodeChange.happy || nodeChange.investigate,
+            locationImpact = nodeChange.locationHappy || nodeChange.locationInvestigate,
           )
         }
-        (write(nodeChangeCollection, docs, "node"), ())
+        write(nodeChangesCollection, docs)
+        (s"${docs.size} node changes", ())
       }
     }
   }
 
   private def readChangeSetIds(): Seq[ChangeSetRef] = {
+    log.info("Collecting changeSetIds")
     log.elapsed {
       val query = Query(ChangeDocumentsDesign, ChangeDocumentView, classOf[MigrateChangesTool.SummaryViewResult])
         .keyStartsWith("summary")
@@ -172,13 +183,8 @@ class MigrateChangesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) 
     }
   }
 
-  private def write[T](collection: MongoCollection[T], docs: Seq[T], title: String): String = {
-    val insertManyResultFuture = collection.insertMany(docs).toFuture()
-    val insertManyResult = Await.result(insertManyResultFuture, Duration(10, TimeUnit.MINUTES))
-    s"${docs.size} $title docs written: ${insertManyResult.wasAcknowledged}"
-  }
-
-  private def docId(elementType: String, key: ChangeKey): String = {
-    s"change:${key.changeSetId}:${key.replicationNumber}:$elementType:${key.elementId}"
+  private def write[T](collection: MongoCollection[T], docs: Seq[T]): Unit = {
+    val future = collection.insertMany(docs).toFuture()
+    Await.result(future, Duration(10, TimeUnit.MINUTES))
   }
 }

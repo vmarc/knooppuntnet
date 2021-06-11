@@ -90,13 +90,16 @@ class LocationChangeSetSummaryBuilder() {
     val happy = trees.exists(_.happy)
     val investigate = trees.exists(_.investigate)
 
+    val key = ChangeKey(
+      replicationId.number,
+      changeSet.timestamp,
+      changeSet.id,
+      0L
+    )
+
     LocationChangeSetSummary(
-      ChangeKey(
-        replicationId.number,
-        changeSet.timestamp,
-        changeSet.id,
-        0L
-      ),
+      key.toShortId,
+      key,
       changeSet.timestampFrom,
       changeSet.timestampUntil,
       trees,

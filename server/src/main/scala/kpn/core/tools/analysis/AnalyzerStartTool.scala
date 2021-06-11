@@ -236,9 +236,11 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     val nodeRefs = network.nodes.map(node => Ref(node.id, node.networkNode.name))
     val routeRefs = network.routes.map(route => Ref(route.id, route.routeAnalysis.name))
+    val key = config.changeSetContext.buildChangeKey(network.id)
     config.changeSetRepository.saveNetworkChange(
       NetworkChange(
-        key = config.changeSetContext.buildChangeKey(network.id),
+        _id = key.toId,
+        key = key,
         changeType = ChangeType.InitialValue,
         network.country,
         network.networkType,
@@ -270,10 +272,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         None
       }
 
+      val key = config.changeSetContext.buildChangeKey(networkMemberRoute.id)
       config.changeSetRepository.saveRouteChange(
         RouteChangeAnalyzer.analyzed(
           RouteChange(
-            key = config.changeSetContext.buildChangeKey(networkMemberRoute.id),
+            _id = key.toId,
+            key = key,
             changeType = ChangeType.InitialValue,
             name = networkMemberRoute.routeAnalysis.route.summary.name,
             locationAnalysis = networkMemberRoute.routeAnalysis.route.analysis.locationAnalysis,
@@ -307,10 +311,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         }
       }
 
+      val key = config.changeSetContext.buildChangeKey(node.id)
       config.changeSetRepository.saveNodeChange(
         NodeChangeAnalyzer.analyzed(
           NodeChange(
-            key = config.changeSetContext.buildChangeKey(node.id),
+            _id = key.toId,
+            key = key,
             changeType = ChangeType.InitialValue,
             subsets = subsets,
             location = node.networkNode.location,
@@ -338,10 +344,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     val facts = analysis.route.facts :+ Fact.OrphanRoute
 
+    val key = config.changeSetContext.buildChangeKey(analysis.route.id)
     config.changeSetRepository.saveRouteChange(
       RouteChangeAnalyzer.analyzed(
         RouteChange(
-          key = config.changeSetContext.buildChangeKey(analysis.route.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.InitialValue,
           name = analysis.route.summary.name,
           locationAnalysis = analysis.route.analysis.locationAnalysis,
@@ -372,10 +380,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       }
     }
 
+    val key = config.changeSetContext.buildChangeKey(networkNode.id)
     config.changeSetRepository.saveNodeChange(
       NodeChangeAnalyzer.analyzed(
         NodeChange(
-          key = config.changeSetContext.buildChangeKey(networkNode.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.InitialValue,
           subsets = subsets,
           location = networkNode.location,

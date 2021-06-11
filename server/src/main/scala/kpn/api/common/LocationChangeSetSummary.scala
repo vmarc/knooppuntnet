@@ -5,6 +5,7 @@ import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Timestamp
 
 case class LocationChangeSetSummary(
+  _id: String,
   key: ChangeKey,
   timestampFrom: Timestamp,
   timestampUntil: Timestamp,
@@ -15,6 +16,7 @@ case class LocationChangeSetSummary(
 ) {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
+    field("_id", _id).
     field("key", key).
     field("timestampFrom", timestampFrom).
     field("timestampUntil", timestampUntil).

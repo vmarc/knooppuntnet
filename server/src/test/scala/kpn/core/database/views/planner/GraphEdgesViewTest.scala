@@ -101,6 +101,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
     val analysis = newRouteInfoAnalysis(map = routeMap)
 
     RouteInfo(
+      summary.id,
       summary = summary,
       active = true,
       orphan = false,

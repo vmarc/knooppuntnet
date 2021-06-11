@@ -20,15 +20,17 @@ class OrphanNodeCreateProcessorImpl(
 ) extends OrphanNodeCreateProcessor {
 
   override def process(optionalContext: Option[ChangeSetContext], loadedNode: LoadedNode): Option[NodeChange] = {
+
     analysisContext.data.orphanNodes.watched.add(loadedNode.id)
     val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
     analysisRepository.saveNode(nodeInfo)
 
-
     optionalContext.map { context =>
+      val key = context.buildChangeKey(loadedNode.id)
       analyzed(
         NodeChange(
-          key = context.buildChangeKey(loadedNode.id),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.Create,
           loadedNode.subsets,
           location = nodeInfo.location,
@@ -54,5 +56,4 @@ class OrphanNodeCreateProcessorImpl(
   private def analyzed(nodeChange: NodeChange): NodeChange = {
     new NodeChangeAnalyzer(nodeChange).analyzed()
   }
-
 }

@@ -158,6 +158,7 @@ class RouteAnalysisBuilder(
     )
 
     val routeInfo = RouteInfo(
+      summary.id,
       summary,
       active = true,
       orphan = context.orphan,

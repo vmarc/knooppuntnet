@@ -2,10 +2,10 @@ package kpn.core.mongo
 
 import kpn.api.custom.NetworkType
 
-case class NodeRouteRef(
+case class NodeNetworkRef(
   _id: String,
   nodeId: Long,
-  routeId: Long,
+  networkId: Long,
   networkType: NetworkType,
-  routeName: String
+  networkName: String
 )

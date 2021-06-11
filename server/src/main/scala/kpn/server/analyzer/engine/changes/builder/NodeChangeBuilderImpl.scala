@@ -83,9 +83,11 @@ class NodeChangeBuilderImpl(
             nodeAfter.networkNode.country.flatMap(c => Subset.of(c, networkAfter.networkType))
           }.toSeq
 
+          val key = context.changeSetContext.buildChangeKey(nodeAfter.id)
           analyzed(
             NodeChange(
-              key = context.changeSetContext.buildChangeKey(nodeAfter.id),
+              _id = key.toId,
+              key = key,
               changeType = ChangeType.Create,
               subsets = subsets,
               location = nodeAfter.networkNode.location,
@@ -119,9 +121,11 @@ class NodeChangeBuilderImpl(
             context.networkAfter.toSeq.flatMap(networkAfter => countries.flatMap(c => Subset.of(c, networkAfter.networkType))).distinct.sorted
           }
 
+          val key = context.changeSetContext.buildChangeKey(nodeAfter.id)
           analyzed(
             NodeChange(
-              key = context.changeSetContext.buildChangeKey(nodeAfter.id),
+              _id = key.toId,
+              key = key,
               changeType = ChangeType.Update,
               subsets = subsets,
               location = nodeAfter.networkNode.location,
@@ -181,9 +185,11 @@ class NodeChangeBuilderImpl(
               networkBefore.networkType))
           }.toSeq
 
+          val key = context.changeSetContext.buildChangeKey(nodeId)
           analyzed(
             NodeChange(
-              key = context.changeSetContext.buildChangeKey(nodeId),
+              _id = key.toId,
+              key = key,
               changeType = ChangeType.Delete,
               subsets = subsets,
               location = nodeBefore.networkNode.location,
@@ -239,9 +245,11 @@ class NodeChangeBuilderImpl(
             val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = active)
             analysisRepository.saveNode(nodeInfo)
 
+            val key = context.changeSetContext.buildChangeKey(nodeId)
             analyzed(
               NodeChange(
-                key = context.changeSetContext.buildChangeKey(nodeId),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Update,
                 subsets = subsets,
                 location = nodeInfo.location,
@@ -275,9 +283,11 @@ class NodeChangeBuilderImpl(
               Seq(Fact.BecomeOrphan)
             }
 
+            val key = context.changeSetContext.buildChangeKey(nodeId)
             analyzed(
               NodeChange(
-                key = context.changeSetContext.buildChangeKey(nodeId),
+                _id = key.toId,
+                key = key,
                 changeType = ChangeType.Update,
                 subsets = subsets,
                 location = nodeBefore.networkNode.location,
@@ -374,8 +384,10 @@ class NodeChangeBuilderImpl(
           }
         ).flatten
 
+        val key = context.changeSetContext.buildChangeKey(nodeId)
         val nodeChange = NodeChange(
-          key = context.changeSetContext.buildChangeKey(nodeId),
+          _id = key.toId,
+          key = key,
           changeType = ChangeType.Update,
           subsets = subsets,
           location = nodeAfter.networkNode.location,

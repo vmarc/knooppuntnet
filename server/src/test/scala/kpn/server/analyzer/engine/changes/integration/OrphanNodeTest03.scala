@@ -45,6 +45,7 @@ class OrphanNodeTest03 extends AbstractTest {
         nodeInfo.copy(tiles = Seq()) should matchTo(
           NodeInfo(
             1001,
+            1001,
             active = false, // <-- !!
             orphan = true,
             Some(Country.nl),

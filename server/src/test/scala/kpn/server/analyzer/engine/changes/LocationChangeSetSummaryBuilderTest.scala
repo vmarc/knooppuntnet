@@ -118,6 +118,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     locationChangeSetSummary should matchTo(
       LocationChangeSetSummary(
+        _id = newChangeKey().toShortId,
         key = newChangeKey(),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
@@ -252,6 +253,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     locationChangeSetSummary should matchTo(
       LocationChangeSetSummary(
+        _id = newChangeKey().toShortId,
         key = newChangeKey(),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),

@@ -30,6 +30,7 @@ class OrphanNodeTest04 extends AbstractTest {
         nodeInfo should matchTo(
           NodeInfo(
             1001,
+            1001,
             active = false, // <-- !!
             orphan = true,
             Some(Country.nl),
