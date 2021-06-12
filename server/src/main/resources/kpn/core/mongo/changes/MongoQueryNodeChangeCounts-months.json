@@ -1,17 +1,17 @@
 [
   {
     "$match": {
-      "nodeChange.key.elementId": @nodeId,
-      "nodeChange.key.time.year": @year
+      "key.elementId": @nodeId,
+      "key.time.year": @year
     }
   },
   {
     "$group": {
       "_id": {
-        "nodeId": "$nodeChange.key.elementId",
-        "year": "$nodeChange.key.time.year",
-        "month": "$nodeChange.key.time.month",
-        "impact": "$nodeChange.impact"
+        "nodeId": "$key.elementId",
+        "year": "$key.time.year",
+        "month": "$key.time.month",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

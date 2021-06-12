@@ -33,7 +33,7 @@ object MongoQueryNetworkChanges {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
       val query = new MongoQueryNetworkChanges(database)
 
       query.execute(9532813L, ChangesParameters(impact = true))
@@ -60,9 +60,9 @@ class MongoQueryNetworkChanges(database: MongoDatabase) {
     val timeRange = TimeRange.fromParameters(parameters)
 
     val filterElements = Seq(
-      Seq(equal("networkChange.networkId", networkId)),
+      Seq(equal("networkId", networkId)),
       if (parameters.impact) {
-        Seq(equal("networkChange.impact", true))
+        Seq(equal("impact", true))
       }
       else {
         Seq.empty
@@ -71,8 +71,8 @@ class MongoQueryNetworkChanges(database: MongoDatabase) {
         case None => Seq.empty
         case Some(range) =>
           Seq(
-            gt("networkChange.key.time", range.start),
-            lt("networkChange.key.time", range.end),
+            gt("key.time", range.start),
+            lt("key.time", range.end),
           )
       }
     ).flatten
@@ -109,7 +109,7 @@ class MongoQueryNetworkChanges(database: MongoDatabase) {
       sort(
         orderBy(
           descending(
-            "networkChange.key.time",
+            "key.time",
           )
         )
       ),

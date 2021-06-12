@@ -1,11 +1,11 @@
 [
   {
     "$match": {
-      "network.active": true,
-      "network.attributes.country": {
+      "active": true,
+      "attributes.country": {
         "$exists": true
       },
-      "network.facts": {
+      "facts": {
         "$exists": true,
         "$ne": []
       }
@@ -13,15 +13,15 @@
   },
   {
     "$unwind": {
-      "path": "$network.facts"
+      "path": "$facts"
     }
   },
   {
     "$group": {
       "_id": {
-        "country": "$network.attributes.country",
-        "networkType": "$network.attributes.networkType",
-        "factName": "$network.facts"
+        "country": "$attributes.country",
+        "networkType": "$attributes.networkType",
+        "factName": "$facts"
       },
       "factCount": {
         "$sum": 1

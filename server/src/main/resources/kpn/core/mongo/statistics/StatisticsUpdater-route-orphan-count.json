@@ -1,9 +1,9 @@
 [
   {
     "$match": {
-      "route.active": true,
-      "route.orphan": true,
-      "route.summary.country": {
+      "active": true,
+      "orphan": true,
+      "summary.country": {
         "$exists": true
       }
     }
@@ -11,8 +11,8 @@
   {
     "$group": {
       "_id": {
-        "country": "$route.summary.country",
-        "networkType": "$route.summary.networkType"
+        "country": "$summary.country",
+        "networkType": "$summary.networkType"
       },
       "routeCount": {
         "$sum": 1

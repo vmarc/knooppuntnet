@@ -20,7 +20,7 @@ class MongoQueryNode(database: MongoDatabase) {
   def execute(nodeId: Long): Option[NodeInfo] = {
     log.debugElapsed {
       val collection = database.getCollection[NodeDoc]("nodes")
-      val future = collection.find[NodeDoc](equal("_id", s"node:$nodeId")).headOption()
+      val future = collection.find[NodeDoc](equal("_id", nodeId)).headOption()
       val node = Await.result(future, Duration(30, TimeUnit.SECONDS)).map(_.node)
       (s"node $nodeId", node)
     }

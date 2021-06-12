@@ -10,7 +10,7 @@ object MongoQueryChangeCountsDemo extends MongoQuery {
     println("MongoQueryChangeCountsDemo")
     val mongoClient = Mongo.client
     try {
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
 
       val demo = new MongoQueryChangeCountsDemo(database)
       demo.networkChangeCounts()

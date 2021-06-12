@@ -1,15 +1,15 @@
 [
   {
     "$match": {
-      "networkChange.networkId": @networkId
+      "networkId": @networkId
     }
   },
   {
     "$group": {
       "_id": {
-        "networkId": "$networkChange.networkId",
-        "year": "$networkChange.key.time.year",
-        "impact": "$networkChange.impact"
+        "networkId": "$networkId",
+        "year": "$key.time.year",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

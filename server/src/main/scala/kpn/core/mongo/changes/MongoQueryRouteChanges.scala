@@ -33,7 +33,7 @@ object MongoQueryRouteChanges {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
       val query = new MongoQueryRouteChanges(database)
       query.execute(20628L, ChangesParameters(impact = true))
       query.execute(20628L, ChangesParameters(impact = true))
@@ -57,9 +57,9 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
     val timeRange = TimeRange.fromParameters(parameters)
 
     val filterElements = Seq(
-      Seq(equal("routeChange.key.elementId", routeId)),
+      Seq(equal("key.elementId", routeId)),
       if (parameters.impact) {
-        Seq(equal("routeChange.impact", true))
+        Seq(equal("impact", true))
       }
       else {
         Seq.empty
@@ -68,8 +68,8 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
         case None => Seq.empty
         case Some(range) =>
           Seq(
-            gt("routeChange.key.time", range.start),
-            lt("routeChange.key.time", range.end),
+            gt("key.time", range.start),
+            lt("key.time", range.end),
           )
       }
     ).flatten
@@ -81,7 +81,7 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
       sort(
         orderBy(
           descending(
-            "routeChange.key.time",
+            "key.time",
           )
         )
       ),
@@ -100,9 +100,9 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
 
     log.debugElapsed {
       val collection = database.getCollection("route-changes")
-      val future = collection.aggregate[RouteChangeDoc](pipeline).toFuture()
-      val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
-      (s"${docs.size} route changes", docs.map(_.routeChange))
+      val future = collection.aggregate[RouteChange](pipeline).toFuture()
+      val routeChanges = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      (s"${routeChanges.size} route changes", routeChanges)
     }
   }
 }

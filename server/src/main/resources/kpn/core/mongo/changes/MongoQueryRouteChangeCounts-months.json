@@ -1,17 +1,17 @@
 [
   {
     "$match": {
-      "routeChange.key.elementId": @routeId,
-      "routeChange.key.time.year": @year
+      "key.elementId": @routeId,
+      "key.time.year": @year
     }
   },
   {
     "$group": {
       "_id": {
-        "routeId": "$routeChange.key.elementId",
-        "year": "$routeChange.key.time.year",
-        "month": "$routeChange.key.time.month",
-        "impact": "$routeChange.impact"
+        "routeId": "$key.elementId",
+        "year": "$key.time.year",
+        "month": "$key.time.month",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

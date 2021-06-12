@@ -6,7 +6,7 @@ object MongoNetworkRepositoryDemo {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
       val repository = new MongoNetworkRepositoryImpl(database)
       val demo = new MongoNetworkRepositoryDemo(repository)
       demo.networkCount()

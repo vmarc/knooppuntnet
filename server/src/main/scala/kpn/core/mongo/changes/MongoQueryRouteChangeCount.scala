@@ -17,7 +17,7 @@ class MongoQueryRouteChangeCount(database: MongoDatabase) {
 
   def execute(routeId: Long): Long = {
     log.debugElapsed {
-      val filter = equal("routeChange.key.elementId", routeId)
+      val filter = equal("key.elementId", routeId)
       val collection = database.getCollection("route-changes")
       val future = collection.countDocuments(filter).toFuture()
       val count = Await.result(future, Duration(60, TimeUnit.SECONDS))

@@ -20,7 +20,7 @@ class MongoQueryRoute(database: MongoDatabase) {
   def execute(routeId: Long): Option[RouteInfo] = {
     log.debugElapsed {
       val collection = database.getCollection[RouteDoc]("routes")
-      val future = collection.find[RouteDoc](equal("_id", s"route:$routeId")).headOption()
+      val future = collection.find[RouteDoc](equal("_id", routeId)).headOption()
       val route = Await.result(future, Duration(30, TimeUnit.SECONDS)).map(_.route)
       (s"route $routeId", route)
     }

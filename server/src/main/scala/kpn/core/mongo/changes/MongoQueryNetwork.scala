@@ -1,7 +1,6 @@
 package kpn.core.mongo.changes
 
 import kpn.api.common.network.NetworkInfo
-import kpn.core.database.doc.NetworkDoc
 import kpn.core.mongo.changes.MongoQueryNetwork.log
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
@@ -19,9 +18,9 @@ class MongoQueryNetwork(database: MongoDatabase) {
 
   def execute(networkId: Long): Option[NetworkInfo] = {
     log.debugElapsed {
-      val collection = database.getCollection[NetworkDoc]("networks")
-      val future = collection.find[NetworkDoc](equal("_id", s"network:$networkId")).headOption()
-      val network = Await.result(future, Duration(30, TimeUnit.SECONDS)).map(_.network)
+      val collection = database.getCollection[NetworkInfo]("networks")
+      val future = collection.find[NetworkInfo](equal("_id", networkId)).headOption()
+      val network = Await.result(future, Duration(30, TimeUnit.SECONDS))
       (s"network $networkId", network)
     }
   }

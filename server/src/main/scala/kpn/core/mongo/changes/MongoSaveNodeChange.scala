@@ -20,14 +20,11 @@ class MongoSaveNodeChange(database: MongoDatabase) {
 
   def execute(nodeChange: NodeChange): Unit = {
     log.debugElapsed {
-      val nodeId = nodeChange.id
-      val id = s"change:${nodeChange.key.changeSetId}:${nodeChange.key.replicationNumber}:node:$nodeId"
-      val doc = NodeChangeDoc(id, nodeChange)
-      val filter = equal("_id", id)
-      val collection = database.getCollection[NodeChangeDoc]("node-changes")
-      val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
+      val filter = equal("_id", nodeChange._id)
+      val collection = database.getCollection[NodeChange]("node-changes")
+      val future = collection.replaceOne(filter, nodeChange, ReplaceOptions().upsert(true)).toFuture()
       val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"save $id", result)
+      (s"save node-changes ${nodeChange._id}", result)
     }
   }
 }

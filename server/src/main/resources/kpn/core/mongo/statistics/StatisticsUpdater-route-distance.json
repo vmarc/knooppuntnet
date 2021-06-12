@@ -1,8 +1,8 @@
 [
   {
     "$match": {
-      "route.active": true,
-      "route.summary.country": {
+      "active": true,
+      "summary.country": {
         "$exists": true
       }
     }
@@ -10,11 +10,11 @@
   {
     "$group": {
       "_id": {
-        "country": "$route.summary.country",
-        "networkType": "$route.summary.networkType"
+        "country": "$summary.country",
+        "networkType": "$summary.networkType"
       },
       "distance": {
-        "$sum": "$route.summary.meters"
+        "$sum": "$summary.meters"
       }
     }
   },

@@ -1,15 +1,15 @@
 [
   {
     "$match": {
-      "changeSetSummary.key.time.year": @year
+      "key.time.year": @year
     }
   },
   {
     "$group": {
       "_id": {
-        "year": "$changeSetSummary.key.time.year",
-        "month": "$changeSetSummary.key.time.month",
-        "impact": "$changeSetSummary.impact"
+        "year": "$key.time.year",
+        "month": "$key.time.month",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

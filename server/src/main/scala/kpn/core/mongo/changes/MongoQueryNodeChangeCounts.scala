@@ -40,7 +40,7 @@ class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
     val pipeline = monthOption match {
       case None =>
         Seq(
-          filter(equal("nodeChange.key.elementId", nodeId)),
+          filter(equal("key.elementId", nodeId)),
           facet(
             Facet("years", pipelineYears: _*),
             Facet("months", pipelineMonths: _*),
@@ -55,7 +55,7 @@ class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
             replace("@month", s"$month")
         )
         Seq(
-          filter(equal("nodeChange.key.elementId", nodeId)),
+          filter(equal("key.elementId", nodeId)),
           facet(
             Facet("years", pipelineYears: _*),
             Facet("months", pipelineMonths: _*),

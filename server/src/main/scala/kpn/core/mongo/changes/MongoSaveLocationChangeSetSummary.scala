@@ -20,13 +20,11 @@ class MongoSaveLocationChangeSetSummary(database: MongoDatabase) {
 
   def execute(summary: LocationChangeSetSummary): Unit = {
     log.debugElapsed {
-      val id = s"change:${summary.key.changeSetId}:${summary.key.replicationNumber}:location-summary:0"
-      val doc = LocationChangeSetSummaryDoc(id, summary)
-      val filter = equal("_id", id)
-      val collection = database.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
-      val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
+      val filter = equal("_id", summary._id)
+      val collection = database.getCollection[LocationChangeSetSummary]("change-location-summaries")
+      val future = collection.replaceOne(filter, summary, ReplaceOptions().upsert(true)).toFuture()
       val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"save $id", result)
+      (s"save ${summary._id}", result)
     }
   }
 }

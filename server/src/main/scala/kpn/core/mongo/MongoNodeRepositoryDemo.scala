@@ -7,7 +7,7 @@ object MongoNodeRepositoryDemo {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
       val repository = new MongoNodeRepositoryImpl(database)
       val demo = new MongoNodeRepositoryDemo(repository)
        demo.findNodesByLocation()

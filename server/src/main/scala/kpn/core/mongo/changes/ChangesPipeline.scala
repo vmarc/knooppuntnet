@@ -18,14 +18,14 @@ import org.mongodb.scala.model.Sorts.orderBy
 
 object ChangesPipeline {
 
-  def from(elementType: String, elementId: Long, parameters: ChangesParameters): Seq[Bson] = {
+  def from(elementId: Long, parameters: ChangesParameters): Seq[Bson] = {
 
     val allFilterElements: Seq[Bson] = Seq(
-      Some(equal(s"$elementType.key.elementId", elementId)),
-      if (parameters.impact) Some(equal(s"$elementType.impact", true)) else None,
-      parameters.year.map(year => equal(s"$elementType.key.time.year", year.toInt)),
-      parameters.month.map(month => equal(s"$elementType.key.time.month", month.toInt)),
-      parameters.day.map(day => equal(s"$elementType.key.time.day", day.toInt)),
+      Some(equal("key.elementId", elementId)),
+      if (parameters.impact) Some(equal("impact", true)) else None,
+      parameters.year.map(year => equal("key.time.year", year.toInt)),
+      parameters.month.map(month => equal("key.time.month", month.toInt)),
+      parameters.day.map(day => equal("key.time.day", day.toInt)),
     ).flatten
 
     val filterElements = if (allFilterElements.size == 1) {
@@ -40,24 +40,25 @@ object ChangesPipeline {
       sort(
         orderBy(
           descending(
-            s"$elementType.key.time",
+            "key.time",
           )
         )
       ),
       skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
       limit(parameters.itemsPerPage.toInt),
-      BsonDocument(s"""{"$$set": { "changeSetId": {"$$toString": "$$$elementType.key.changeSetId"}}}"""),
+      BsonDocument("""{"$set": { "changeSetId": "$key.changeSetId"}}"""),
       lookup(
         "changeset-comments",
         "changeSetId",
         "_id",
         "comments"
       ),
+      BsonDocument("""{"$set": { "comment": {$first: "$comments.comment"}}}"""),
       project(
         fields(
           excludeId()
         )
-      ),
+      )
     )
   }
 }

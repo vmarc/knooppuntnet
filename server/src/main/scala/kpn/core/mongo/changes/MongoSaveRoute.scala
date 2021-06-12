@@ -20,14 +20,11 @@ class MongoSaveRoute(database: MongoDatabase) {
 
   def execute(route: RouteInfo): Unit = {
     log.debugElapsed {
-      val routeId = route.id
-      val id = s"route:$routeId"
-      val doc = RouteDoc(id, route)
-      val filter = equal("_id", id)
-      val collection = database.getCollection[RouteDoc]("routes")
-      val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
+      val filter = equal("_id", route._id)
+      val collection = database.getCollection[RouteInfo]("routes")
+      val future = collection.replaceOne(filter, route, ReplaceOptions().upsert(true)).toFuture()
       val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"save route $routeId", result)
+      (s"save route ${route._id}", result)
     }
   }
 }

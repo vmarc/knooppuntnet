@@ -17,7 +17,7 @@ class MongoQueryNetworkChangeCount(database: MongoDatabase) {
 
   def execute(networkId: Long): Long = {
     log.debugElapsed {
-      val filter = equal("networkChange.key.elementId", networkId)
+      val filter = equal("key.elementId", networkId)
       val collection = database.getCollection("network-changes")
       val future = collection.countDocuments(filter).toFuture()
       val count = Await.result(future, Duration(60, TimeUnit.SECONDS))

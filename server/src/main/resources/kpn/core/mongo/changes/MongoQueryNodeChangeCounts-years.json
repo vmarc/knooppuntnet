@@ -1,15 +1,15 @@
 [
   {
     "$match": {
-      "nodeChange.key.elementId": @nodeId
+      "key.elementId": @nodeId
     }
   },
   {
     "$group": {
       "_id": {
-        "nodeId": "$nodeChange.key.elementId",
-        "year": "$nodeChange.key.time.year",
-        "impact": "$nodeChange.impact"
+        "nodeId": "$key.elementId",
+        "year": "$key.time.year",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

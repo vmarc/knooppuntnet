@@ -1,25 +1,25 @@
 [
   {
     "$match": {
-      "node.active": true,
-      "node.country": {
+      "active": true,
+      "country": {
         "$exists": true
       },
-      "node.names": {
+      "names": {
         "$exists": true
       }
     }
   },
   {
     "$unwind": {
-      "path": "$node.names"
+      "path": "$names"
     }
   },
   {
     "$group": {
       "_id": {
-        "country": "$node.country",
-        "networkType": "$node.names.networkType"
+        "country": "$country",
+        "networkType": "$names.networkType"
       },
       "nodeCount": {
         "$sum": 1

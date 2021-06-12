@@ -15,7 +15,7 @@ object MongoQueryNodeChangeCount {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
     try {
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
       val query = new MongoQueryNodeChangeCount(database)
       println(query.execute(278003073L))
     }
@@ -29,7 +29,7 @@ class MongoQueryNodeChangeCount(database: MongoDatabase) {
 
   def execute(nodeId: Long): Long = {
     log.debugElapsed {
-      val filter = equal("nodeChange.key.elementId", nodeId)
+      val filter = equal("key.elementId", nodeId)
       val collection = database.getCollection("node-changes")
       val future = collection.countDocuments(filter).toFuture()
       val count = Await.result(future, Duration(60, TimeUnit.SECONDS))

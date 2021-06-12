@@ -1,8 +1,8 @@
 [
   {
     "$match": {
-      "network.active": true,
-      "network.attributes.country": {
+      "active": true,
+      "attributes.country": {
         "$exists": true
       }
     }
@@ -10,8 +10,8 @@
   {
     "$group": {
       "_id": {
-        "country": "$network.attributes.country",
-        "networkType": "$network.attributes.networkType"
+        "country": "$attributes.country",
+        "networkType": "$attributes.networkType"
       },
       "networkCount": {
         "$sum": 1

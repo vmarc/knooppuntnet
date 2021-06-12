@@ -1,17 +1,17 @@
 [
   {
     "$match": {
-      "networkChange.networkId": @networkId,
-      "networkChange.key.time.year": @year
+      "networkId": @networkId,
+      "key.time.year": @year
     }
   },
   {
     "$group": {
       "_id": {
-        "networkId": "$networkChange.networkId",
-        "year": "$networkChange.key.time.year",
-        "month": "$networkChange.key.time.month",
-        "impact": "$networkChange.impact"
+        "networkId": "$networkId",
+        "year": "$key.time.year",
+        "month": "$key.time.month",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

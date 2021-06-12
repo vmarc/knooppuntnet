@@ -40,7 +40,7 @@ class MongoQueryNetworkChangeCounts(database: MongoDatabase) extends MongoQuery 
     val pipeline = monthOption match {
       case None =>
         Seq(
-          filter(equal("networkChange.networkId", networkId)),
+          filter(equal("networkId", networkId)),
           facet(
             Facet("years", pipelineYears: _*),
             Facet("months", pipelineMonths: _*),
@@ -55,7 +55,7 @@ class MongoQueryNetworkChangeCounts(database: MongoDatabase) extends MongoQuery 
             replace("@month", s"$month")
         )
         Seq(
-          filter(equal("networkChange.networkId", networkId)),
+          filter(equal("networkId", networkId)),
           facet(
             Facet("years", pipelineYears: _*),
             Facet("months", pipelineMonths: _*),

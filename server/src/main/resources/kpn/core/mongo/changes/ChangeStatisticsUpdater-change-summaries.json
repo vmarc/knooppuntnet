@@ -2,10 +2,10 @@
   {
     "$group": {
       "_id": {
-        "impact": "$changeSetSummary.impact",
-        "year": "$changeSetSummary.key.time.year",
-        "month": "$changeSetSummary.key.time.month",
-        "day": "$changeSetSummary.key.time.day"
+        "impact": "$impact",
+        "year": "$key.time.year",
+        "month": "$key.time.month",
+        "day": "$key.time.day"
       },
       "count": {
         "$sum": 1

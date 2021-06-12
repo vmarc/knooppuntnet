@@ -34,60 +34,35 @@ object CreateIndexesTool {
     index: Bson
   )
 
-  private val newIndexes = Seq(
-    Index(
-      "route-changes",
-      "routeId-time-impact",
-      Indexes.descending(
-        "routeChange.key.elementId",
-        "routeChange.key.time.year",
-        "routeChange.key.time.month",
-        "routeChange.key.time.day",
-        "routeChange.impact"
-      )
-    ),
-    Index(
-      "node-changes",
-      "nodeId-time-impact",
-      Indexes.descending(
-        "nodeChange.key.elementId",
-        "nodeChange.key.time.year",
-        "nodeChange.key.time.month",
-        "nodeChange.key.time.day",
-        "nodeChange.impact"
-      )
-    )
-  )
-
   private val indexes = Seq(
     Index(
       "networks",
       "network-name",
-      "network.active",
-      "network.attributes.name"
+      "active",
+      "attributes.name"
     ),
     Index(
       "networks",
       "network-node-references",
-      "network.active",
-      "network.nodeRefs"
+      "active",
+      "nodeRefs"
     ),
     Index(
       "nodes",
       "location",
-      "node.active",
-      "node.location.names"
+      "active",
+      "location.names"
     ),
     Index(
       "nodes",
       "node-active",
-      "node.active"
+      "active"
     ),
     Index(
       "routes",
       "route-node-references",
-      "route.active",
-      "route.nodeRefs"
+      "active",
+      "nodeRefs"
     ),
     Index(
       "nodeRouteRefs",
@@ -95,94 +70,33 @@ object CreateIndexesTool {
       "nodeId",
       "routeName"
     ),
+
     Index(
       "network-changes",
       "time",
-      "networkChange.key.time"
+      "key.time"
     ),
     Index(
       "network-changes",
       "impact",
-      "networkChange.impact"
+      "impact"
     ),
     Index(
       "network-changes",
       "changeSetId",
-      "networkChange.key.replicationNumber",
-      "networkChange.key.changeSetId"
-    ),
-    Index(
-      "route-changes",
-      "time",
-      "routeChange.key.time"
-    ),
-    Index(
-      "route-changes",
-      "impact",
-      "routeChange.impact"
-    ),
-    Index(
-      "route-changes",
-      "changeSetId",
-      "routeChange.key.replicationNumber",
-      "routeChange.key.changeSetId"
-    ),
-    Index(
-      "node-changes",
-      "time",
-      "nodeChange.key.time"
-    ),
-    Index(
-      "node-changes",
-      "impact",
-      "nodeChange.impact"
-    ),
-    Index(
-      "node-changes",
-      "changeSetId",
-      "nodeChange.key.replicationNumber",
-      "nodeChange.key.changeSetId"
-    ),
-    Index(
-      "changeset-summaries",
-      "impact-time",
-      "changeSetSummary.impact",
-      "changeSetSummary.key.time.year",
-      "changeSetSummary.key.time.month",
-      "changeSetSummary.key.time.day"
-    ),
-    Index(
-      "changeset-summaries",
-      "changeSetId",
-      "changeSetSummary.key.replicationNumber",
-      "changeSetSummary.key.changeSetId"
-    ),
-    Index(
-      "change-location-summaries",
-      "time",
-      "locationChangeSetSummary.key.time"
-    ),
-    Index(
-      "change-location-summaries",
-      "impact",
-      "locationChangeSetSummary.impact"
-    ),
-    Index(
-      "change-location-summaries",
-      "changeSetId",
-      "locationChangeSetSummary.key.replicationNumber",
-      "locationChangeSetSummary.key.changeSetId"
+      "key.replicationNumber",
+      "key.changeSetId"
     ),
     Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
       "network-changes",
       "impact-timestamp",
       Indexes.compoundIndex(
         Indexes.ascending(
-          "networkChange.networkId",
-          "networkChange.impact",
+          "networkId",
+          "impact",
         ),
         Indexes.descending(
-          "networkChange.key.timestamp"
+          "key.timestamp"
         )
       )
     ),
@@ -191,11 +105,11 @@ object CreateIndexesTool {
       "impact-time",
       Indexes.compoundIndex(
         Indexes.ascending(
-          "networkChange.networkId",
-          "networkChange.impact",
+          "networkId",
+          "impact",
         ),
         Indexes.descending(
-          "networkChange.key.time"
+          "key.time"
         )
       )
     ),
@@ -203,20 +117,104 @@ object CreateIndexesTool {
       "network-changes",
       "networkId-time-impact",
       Indexes.descending(
-        "networkChange.networkId",
-        "networkChange.key.time.year",
-        "networkChange.key.time.month",
-        "networkChange.key.time.day",
-        "networkChange.impact"
+        "networkId",
+        "key.time.year",
+        "key.time.month",
+        "key.time.day",
+        "impact"
+      )
+    ),
+
+    Index(
+      "route-changes",
+      "time",
+      "key.time"
+    ),
+    Index(
+      "route-changes",
+      "impact",
+      "impact"
+    ),
+    Index(
+      "route-changes",
+      "changeSetId",
+      "key.replicationNumber",
+      "key.changeSetId"
+    ),
+    Index(
+      "node-changes",
+      "time",
+      "key.time"
+    ),
+    Index(
+      "node-changes",
+      "impact",
+      "impact"
+    ),
+    Index(
+      "node-changes",
+      "changeSetId",
+      "key.replicationNumber",
+      "key.changeSetId"
+    ),
+    Index(
+      "changeset-summaries",
+      "impact-time",
+      "impact",
+      "key.time.year",
+      "key.time.month",
+      "key.time.day"
+    ),
+    Index(
+      "changeset-summaries",
+      "changeSetId",
+      "key.replicationNumber",
+      "key.changeSetId"
+    ),
+    Index(
+      "change-location-summaries",
+      "time",
+      "key.time"
+    ),
+    Index(
+      "change-location-summaries",
+      "impact",
+      "impact"
+    ),
+    Index(
+      "change-location-summaries",
+      "changeSetId",
+      "key.replicationNumber",
+      "key.changeSetId"
+    ),
+    Index(
+      "route-changes",
+      "routeId-time-impact",
+      Indexes.descending(
+        "key.elementId",
+        "key.time.year",
+        "key.time.month",
+        "key.time.day",
+        "impact"
+      )
+    ),
+    Index(
+      "node-changes",
+      "nodeId-time-impact",
+      Indexes.descending(
+        "key.elementId",
+        "key.time.year",
+        "key.time.month",
+        "key.time.day",
+        "impact"
       )
     )
   )
 
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
-    val database = mongoClient.getDatabase("tryout")
-    val tool = new CreateIndexesTool(database)
-    tool.createIndexes(newIndexes)
+    val database = Mongo.database(mongoClient, "kpn-test")
+    new CreateIndexesTool(database).createIndexes(indexes)
     mongoClient.close()
   }
 }
@@ -231,11 +229,25 @@ class CreateIndexesTool(database: MongoDatabase) {
   }
 
   private def createIndex(index: Index): Unit = {
-    log.elapsedSeconds {
-      val collection = database.getCollection(index.collectionName)
-      val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
-      Await.result(future, Duration(25, TimeUnit.MINUTES))
-      (s"Index ${index.collectionName}/${index.indexName} created", ())
+    Log.context(s"collection: ${index.collectionName}, index: ${index.indexName}") {
+      if (hasIndex(index)) {
+        log.info("Index already exists")
+      }
+      else {
+        log.elapsedSeconds {
+          val collection = database.getCollection(index.collectionName)
+          val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
+          Await.result(future, Duration(25, TimeUnit.MINUTES))
+          ("Created", ())
+        }
+      }
     }
+  }
+
+  private def hasIndex(index: Index): Boolean = {
+    val collection = database.getCollection(index.collectionName)
+    val future = collection.listIndexes[MongoIndexDefinition]().toFuture()
+    val indexDefinitions = Await.result(future, Duration(25, TimeUnit.MINUTES))
+    indexDefinitions.exists(_.name == index.indexName)
   }
 }

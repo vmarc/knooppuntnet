@@ -1,19 +1,19 @@
 [
   {
     "$match": {
-      "routeChange.key.elementId": @routeId,
-      "routeChange.key.time.year": @year,
-      "routeChange.key.time.month": @month
+      "key.elementId": @routeId,
+      "key.time.year": @year,
+      "key.time.month": @month
     }
   },
   {
     "$group": {
       "_id": {
-        "routeId": "$routeChange.key.elementId",
-        "year": "$routeChange.key.time.year",
-        "monMongoQueryRouteChangeCountsth": "$routeChange.key.time.month",
-        "day": "$routeChange.key.time.day",
-        "impact": "$routeChange.impact"
+        "routeId": "$key.elementId",
+        "year": "$key.time.year",
+        "month": "$key.time.month",
+        "day": "$key.time.day",
+        "impact": "$impact"
       },
       "count": {
         "$sum": 1

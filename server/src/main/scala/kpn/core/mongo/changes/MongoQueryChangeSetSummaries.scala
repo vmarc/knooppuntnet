@@ -2,7 +2,6 @@ package kpn.core.mongo.changes
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.core.database.doc.ChangeSetSummaryDoc
 import kpn.core.mongo.changes.MongoQueryChangeSetSummaries.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -37,7 +36,7 @@ object MongoQueryChangeSetSummaries {
         itemsPerPage = 200,
         year = Some("2017")
       )
-      val database = Mongo.database(mongoClient, "tryout")
+      val database = Mongo.database(mongoClient, "kpn-test")
       val query = new MongoQueryChangeSetSummaries(database)
       query.execute(parameters)
       val summaries = query.execute(parameters)
@@ -90,20 +89,20 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
         case Some(r) =>
           filter(
             and(
-              gt("changeSetSummary.key.timestamp", r.start),
-              lt("changeSetSummary.key.timestamp", r.end),
+              gt("key.timestamp", r.start),
+              lt("key.timestamp", r.end),
             )
           )
       },
       if (parameters.impact) {
         filter(
-          equal("changeSetSummary.impact", true),
+          equal("impact", true),
         )
       }
       else {
         null
       },
-      sort(orderBy(descending("changeSetSummary.key.timestamp"))),
+      sort(orderBy(descending("key.timestamp"))),
       skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
       limit(parameters.itemsPerPage.toInt),
       project(
@@ -119,9 +118,8 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
 
     log.debugElapsed {
       val collection = database.getCollection("changeset-summaries")
-      val future = collection.aggregate[ChangeSetSummaryDoc](pipeline).toFuture()
-      val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
-      val summaries = docs.map(_.changeSetSummary)
+      val future = collection.aggregate[ChangeSetSummary](pipeline).toFuture()
+      val summaries = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${summaries.size} changeset summaries", summaries)
     }
   }

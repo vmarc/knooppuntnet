@@ -1,15 +1,15 @@
 [
   {
     "$match": {
-      "network.active": true,
-      "network.attributes.country": {
+      "active": true,
+      "attributes.country": {
         "$exists": true
       }
     }
   },
   {
     "$unwind": {
-      "path": "$network.detail.networkFacts"
+      "path": "$detail.networkFacts"
     }
   },
   {
@@ -18,7 +18,7 @@
         "$switch": {
           "branches": [
             {
-              "case": "$network.detail.networkFacts.networkExtraMemberNode",
+              "case": "$detail.networkFacts.networkExtraMemberNode",
               "then": [
                 {
                   "name": "NetworkExtraMemberNodeNetworkCount",
@@ -27,13 +27,13 @@
                 {
                   "name": "NetworkExtraMemberNode",
                   "count": {
-                    "$size": "$network.detail.networkFacts.networkExtraMemberNode"
+                    "$size": "$detail.networkFacts.networkExtraMemberNode"
                   }
                 }
               ]
             },
             {
-              "case": "$network.detail.networkFacts.networkExtraMemberWay",
+              "case": "$detail.networkFacts.networkExtraMemberWay",
               "then": [
                 {
                   "name": "NetworkExtraMemberWayNetworkCount",
@@ -42,13 +42,13 @@
                 {
                   "name": "NetworkExtraMemberWay",
                   "count": {
-                    "$size": "$network.detail.networkFacts.networkExtraMemberWay"
+                    "$size": "$detail.networkFacts.networkExtraMemberWay"
                   }
                 }
               ]
             },
             {
-              "case": "$network.detail.networkFacts.networkExtraMemberRelation",
+              "case": "$detail.networkFacts.networkExtraMemberRelation",
               "then": [
                 {
                   "name": "NetworkExtraMemberRelationNetworkCount",
@@ -57,13 +57,13 @@
                 {
                   "name": "NetworkExtraMemberRelation",
                   "count": {
-                    "$size": "$network.detail.networkFacts.networkExtraMemberRelation"
+                    "$size": "$detail.networkFacts.networkExtraMemberRelation"
                   }
                 }
               ]
             },
             {
-              "case": "$network.detail.networkFacts.integrityCheck",
+              "case": "$detail.networkFacts.integrityCheck",
               "then": [
                 {
                   "name": "IntegrityCheck",
@@ -72,7 +72,7 @@
               ]
             },
             {
-              "case": "$network.detail.networkFacts.integrityCheckFailed",
+              "case": "$detail.networkFacts.integrityCheckFailed",
               "then": [
                 {
                   "name": "IntegrityCheckFailed",
@@ -81,7 +81,7 @@
               ]
             },
             {
-              "case": "$network.detail.networkFacts.nameMissing",
+              "case": "$detail.networkFacts.nameMissing",
               "then": [
                 {
                   "name": "NameMissing",
@@ -103,8 +103,8 @@
   {
     "$group": {
       "_id": {
-        "country": "$network.attributes.country",
-        "networkType": "$network.attributes.networkType",
+        "country": "$attributes.country",
+        "networkType": "$attributes.networkType",
         "factName": "$fact.name"
       },
       "factCount": {
