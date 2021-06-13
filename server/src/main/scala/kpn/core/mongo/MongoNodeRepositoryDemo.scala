@@ -5,18 +5,13 @@ import kpn.core.mongo.util.Mongo
 
 object MongoNodeRepositoryDemo {
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
+    Mongo.executeIn("kpn-test") { database =>
       val repository = new MongoNodeRepositoryImpl(database)
       val demo = new MongoNodeRepositoryDemo(repository)
-       demo.findNodesByLocation()
-       demo.findNodesByLocationBelgium()
-       demo.findNetworkReferences()
-       demo.findRouteReferences()
-    }
-    finally {
-      mongoClient.close()
+      demo.findNodesByLocation()
+      demo.findNodesByLocationBelgium()
+      demo.findNetworkReferences()
+      demo.findRouteReferences()
     }
   }
 }

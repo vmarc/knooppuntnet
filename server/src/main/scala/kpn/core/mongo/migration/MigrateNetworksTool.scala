@@ -20,12 +20,11 @@ object MigrateNetworksTool {
   private val log = Log(classOf[MigrateNetworksTool])
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    val mongoDatabase = Mongo.database(mongoClient, "kpn-test")
-    Couch.executeIn("kpn-database", "analysis") { couchDatabase =>
-      new MigrateNetworksTool(couchDatabase, mongoDatabase).migrate()
+    Mongo.executeIn("kpn-test") { mongoDatabase =>
+      Couch.executeIn("kpn-database", "analysis") { couchDatabase =>
+        new MigrateNetworksTool(couchDatabase, mongoDatabase).migrate()
+      }
     }
-    mongoClient.close()
     log.info("Done")
   }
 }

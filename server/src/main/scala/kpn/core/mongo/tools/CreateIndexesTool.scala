@@ -212,10 +212,9 @@ object CreateIndexesTool {
   )
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    val database = Mongo.database(mongoClient, "kpn-test")
-    new CreateIndexesTool(database).createIndexes(indexes)
-    mongoClient.close()
+    Mongo.executeIn("kpn-test") { database =>
+      new CreateIndexesTool(database).createIndexes(indexes)
+    }
   }
 }
 

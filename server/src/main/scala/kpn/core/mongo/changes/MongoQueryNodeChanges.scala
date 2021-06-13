@@ -16,9 +16,7 @@ object MongoQueryNodeChanges {
   private val log = Log(classOf[MongoQueryNodeChanges])
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
+    Mongo.executeIn("kpn-test") { database =>
       val query = new MongoQueryNodeChanges(database)
       query.execute(257728810L, ChangesParameters(impact = true))
       query.execute(257728810L, ChangesParameters(impact = true))
@@ -28,9 +26,6 @@ object MongoQueryNodeChanges {
       changes.map(_.key).zipWithIndex.foreach { case (key, index) =>
         println(s"${index + 1}  ${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
       }
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

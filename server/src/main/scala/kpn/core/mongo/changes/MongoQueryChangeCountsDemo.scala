@@ -8,17 +8,11 @@ object MongoQueryChangeCountsDemo extends MongoQuery {
 
   def main(args: Array[String]): Unit = {
     println("MongoQueryChangeCountsDemo")
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
-
+    Mongo.executeIn("kpn-test") { database =>
       val demo = new MongoQueryChangeCountsDemo(database)
       demo.networkChangeCounts()
       demo.routeChangeCounts()
       demo.nodeChangeCounts()
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

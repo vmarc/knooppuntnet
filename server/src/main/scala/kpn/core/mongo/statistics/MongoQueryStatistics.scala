@@ -17,9 +17,7 @@ object MongoQueryStatistics extends MongoQuery {
   private val pipeline = readPipeline("pipeline")
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
+    Mongo.executeIn("kpn-test") { database =>
       val query = new MongoQueryStatistics(database)
       query.execute() // initial call to warm up, so that next query timing makes sense
       val statisticValues = query.execute()
@@ -34,9 +32,6 @@ object MongoQueryStatistics extends MongoQuery {
           }
         }
       }
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

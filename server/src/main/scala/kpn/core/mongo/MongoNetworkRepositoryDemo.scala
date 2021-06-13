@@ -4,9 +4,7 @@ import kpn.core.mongo.util.Mongo
 
 object MongoNetworkRepositoryDemo {
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
+    Mongo.executeIn("kpn-test") { database =>
       val repository = new MongoNetworkRepositoryImpl(database)
       val demo = new MongoNetworkRepositoryDemo(repository)
       demo.networkCount()
@@ -15,9 +13,6 @@ object MongoNetworkRepositoryDemo {
       demo.findNetworkByIdNotFound()
       demo.findNetworkByName()
       demo.findNetworkByNameNotFound()
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

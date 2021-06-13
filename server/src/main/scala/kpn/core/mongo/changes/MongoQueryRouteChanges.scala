@@ -2,7 +2,6 @@ package kpn.core.mongo.changes
 
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.core.database.doc.RouteChangeDoc
 import kpn.core.mongo.changes.MongoQueryRouteChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -31,9 +30,7 @@ object MongoQueryRouteChanges {
   private val log = Log(classOf[MongoQueryRouteChanges])
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
+    Mongo.executeIn("kpn-test") { database =>
       val query = new MongoQueryRouteChanges(database)
       query.execute(20628L, ChangesParameters(impact = true))
       query.execute(20628L, ChangesParameters(impact = true))
@@ -43,9 +40,6 @@ object MongoQueryRouteChanges {
       changes.map(_.key).foreach { key =>
         println(s"${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
       }
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

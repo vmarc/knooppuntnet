@@ -30,20 +30,15 @@ object MongoQueryChangeSetSummaries {
   private val log = Log(classOf[MongoQueryChangeSetSummaries])
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
+    Mongo.executeIn("kpn-test") { database =>
       val parameters = ChangesParameters(
-        itemsPerPage = 200,
+        itemsPerPage = 15,
         year = Some("2017")
       )
-      val database = Mongo.database(mongoClient, "kpn-test")
       val query = new MongoQueryChangeSetSummaries(database)
       query.execute(parameters)
       val summaries = query.execute(parameters)
       summaries.map(_.key).foreach(println)
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

@@ -12,15 +12,11 @@ import scala.concurrent.duration.Duration
 
 object MongoQueryNodeChangeCount {
   private val log = Log(classOf[MongoQueryNodeChangeCount])
+
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
+    Mongo.executeIn("kpn-test") { database =>
       val query = new MongoQueryNodeChangeCount(database)
       println(query.execute(278003073L))
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }

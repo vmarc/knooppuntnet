@@ -29,9 +29,9 @@ import scala.reflect.ClassTag
 
 object zzzMigrateChangeKeyTool {
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    val mongoDatabase = Mongo.database(mongoClient, "kpn-test")
-    new zzzMigrateChangeKeyTool(mongoDatabase).migrate()
+    Mongo.executeIn("kpn-test") { mongoDatabase =>
+      new zzzMigrateChangeKeyTool(mongoDatabase).migrate()
+    }
   }
 }
 

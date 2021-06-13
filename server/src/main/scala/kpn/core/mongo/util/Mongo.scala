@@ -26,6 +26,17 @@ object Mongo {
     MongoClient(url)
   }
 
+  def executeIn(databaseName: String)(action: MongoDatabase => Unit): Unit = {
+    val mongoClient = client
+    try {
+      val mongoDatabase = database(mongoClient, databaseName)
+      action(mongoDatabase)
+    }
+    finally {
+      mongoClient.close()
+    }
+  }
+
   def database(mongoClient: MongoClient, databaseName: String): MongoDatabase = {
     mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry)
   }

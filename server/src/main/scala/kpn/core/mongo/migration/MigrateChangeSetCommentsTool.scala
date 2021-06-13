@@ -18,12 +18,11 @@ object MigrateChangeSetCommentsTool {
   private val log = Log(classOf[MigrateChangeSetCommentsTool])
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    val mongoDatabase = Mongo.database(mongoClient, "kpn-test")
-    Couch.executeIn("kpn-database", "changesets2") { couchDatabase =>
-      new MigrateChangeSetCommentsTool(couchDatabase, mongoDatabase).migrate()
+    Mongo.executeIn("kpn-test") { mongoDatabase =>
+      Couch.executeIn("kpn-database", "changesets2") { couchDatabase =>
+        new MigrateChangeSetCommentsTool(couchDatabase, mongoDatabase).migrate()
+      }
     }
-    mongoClient.close()
     log.info("Done")
   }
 }

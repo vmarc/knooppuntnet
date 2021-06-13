@@ -7,22 +7,15 @@ import org.mongodb.scala.MongoDatabase
 object MongoQueryChangeSetCountsDemo extends MongoQuery {
 
   def main(args: Array[String]): Unit = {
-    val mongoClient = Mongo.client
-    try {
-      val database = Mongo.database(mongoClient, "kpn-test")
-      val demo = new MongoQueryChangeSetCountsDemo(database)
-
+    Mongo.executeIn("kpn-test") { database =>
       val year: Int = 2020
       val month: Option[Int] = Some(1)
-
+      val demo = new MongoQueryChangeSetCountsDemo(database)
       demo.directAll()
       demo.directAll()
       demo.directExecute(year, month)
       demo.all()
       demo.materializedExecute(year, month)
-    }
-    finally {
-      mongoClient.close()
     }
   }
 }
