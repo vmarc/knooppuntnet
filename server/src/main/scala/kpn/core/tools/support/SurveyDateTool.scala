@@ -54,7 +54,7 @@ class SurveyDateTool(database: Database) {
 
   def analyzeNodes(): Unit = {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepositoryImpl(database, false, null)
 
     val counts = new scala.collection.mutable.HashMap[String, Seq[Long]]
 

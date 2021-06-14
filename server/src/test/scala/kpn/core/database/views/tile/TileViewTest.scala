@@ -12,7 +12,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database, false, null)
       nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
       nodeRepository.save(newNodeInfo(1002, tiles = Seq("cycling-10-001-001")))
       nodeRepository.save(newNodeInfo(1003, tiles = Seq("cycling-10-001-002")))
@@ -31,7 +31,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database, false, null)
       nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
       nodeRepository.save(newNodeInfo(1002, tiles = Seq("cycling-10-001-001"), active = false))
 

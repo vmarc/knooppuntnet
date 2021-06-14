@@ -11,42 +11,60 @@ import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.util.Log
+import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
 
 @Component
-class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
+class NodeRepositoryImpl(
+  // old
+  analysisDatabase: Database,
+  // new
+  mongoEnabled: Boolean,
+  mongoDatabase: MongoDatabase
+) extends NodeRepository {
 
   private val log = Log(classOf[NodeRepositoryImpl])
 
   override def allNodeIds(): Seq[Long] = {
-    DocumentView.allNodeIds(analysisDatabase)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      DocumentView.allNodeIds(analysisDatabase)
+    }
   }
 
   override def save(nodes: NodeInfo*): Boolean = {
-    var result = false
-    var retry = true
-    var retryCount = 0
-
-    while (retry && retryCount < 3) {
-      try {
-        result = doSave(nodes)
-        retry = false
-      }
-      catch {
-        case e: HttpServerErrorException =>
-          if (e.getStatusCode.value() == 404) {
-            retryCount = retryCount + 1
-          }
-          else {
-            throw new IllegalStateException(e)
-          }
-      }
+    if (mongoEnabled) {
+      // new MongoSave(mongoDatabase).execute("nodes", node)
+      ??? // TODO MONGO
     }
-    result
+    else {
+      var result = false
+      var retry = true
+      var retryCount = 0
+
+      while (retry && retryCount < 3) {
+        try {
+          result = doSave(nodes)
+          retry = false
+        }
+        catch {
+          case e: HttpServerErrorException =>
+            if (e.getStatusCode.value() == 404) {
+              retryCount = retryCount + 1
+            }
+            else {
+              throw new IllegalStateException(e)
+            }
+        }
+      }
+      result
+    }
   }
 
-  private def doSave(nodes: Seq[NodeInfo]): Boolean= {
+  private def doSave(nodes: Seq[NodeInfo]): Boolean = {
     log.debugElapsed {
 
       val nodeIds = nodes.map(node => docId(node.id))
@@ -96,42 +114,72 @@ class NodeRepositoryImpl(analysisDatabase: Database) extends NodeRepository {
   }
 
   override def delete(nodeId: Long): Unit = {
-    analysisDatabase.deleteDocWithId(docId(nodeId))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      analysisDatabase.deleteDocWithId(docId(nodeId))
+    }
   }
 
   override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
-    analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
+    }
   }
 
   override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeInfo] = {
-    val ids = nodeIds.map(id => docId(id))
-    val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
-    nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      val ids = nodeIds.map(id => docId(id))
+      val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
+      nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
+    }
   }
 
   override def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[NodeNetworkReference] = {
-    NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale)
+    }
   }
 
   override def nodeOrphanRouteReferences(nodeId: Long, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
-    NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale)
+    }
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
-    log.debugElapsed {
-      val existingNodeIds = nodeIds.sliding(50, 50).flatMap { nodeIdsSubset =>
-        val nodeDocIds = nodeIdsSubset.map(docId).toSeq
-        val existingNodeDocIds = analysisDatabase.keysWithIds(nodeDocIds)
-        existingNodeDocIds.flatMap { nodeDocId =>
-          try {
-            Some(java.lang.Long.parseLong(nodeDocId.substring(KeyPrefix.Node.length + 1)))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      log.debugElapsed {
+        val existingNodeIds = nodeIds.sliding(50, 50).flatMap { nodeIdsSubset =>
+          val nodeDocIds = nodeIdsSubset.map(docId).toSeq
+          val existingNodeDocIds = analysisDatabase.keysWithIds(nodeDocIds)
+          existingNodeDocIds.flatMap { nodeDocId =>
+            try {
+              Some(java.lang.Long.parseLong(nodeDocId.substring(KeyPrefix.Node.length + 1)))
+            }
+            catch {
+              case e: NumberFormatException => None
+            }
           }
-          catch {
-            case e: NumberFormatException => None
-          }
-        }
-      }.toSet
-      (s"${existingNodeIds.size}/${nodeIds.size} existing nodes", existingNodeIds)
+        }.toSet
+        (s"${existingNodeIds.size}/${nodeIds.size} existing nodes", existingNodeIds)
+      }
     }
   }
 

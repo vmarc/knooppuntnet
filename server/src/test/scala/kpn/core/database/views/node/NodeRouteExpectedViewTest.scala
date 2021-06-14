@@ -17,7 +17,7 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database, false, null)
 
       def node(nodeId: Long, nodeName: String, networkScope: NetworkScope, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
         val key = s"${networkScope.letter}${networkType.letter}n"

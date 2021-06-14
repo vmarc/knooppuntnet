@@ -95,7 +95,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val networkRepository = new NetworkRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
   val routeRepository = new RouteRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
-  val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
+  val nodeRepository = new NodeRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)

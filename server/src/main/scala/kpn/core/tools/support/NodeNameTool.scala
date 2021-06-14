@@ -17,7 +17,7 @@ class NodeNameTool(database: Database) {
 
   def analyze(): Unit = {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepositoryImpl(database, false, null)
 
     println(s"Reading nodeIds")
     val nodeIds = DocumentView.allNodeIds(database) //.take(5)

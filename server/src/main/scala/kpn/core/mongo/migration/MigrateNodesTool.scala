@@ -29,7 +29,7 @@ object MigrateNodesTool {
 
 class MigrateNodesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
 
-  private val nodeRepository = new NodeRepositoryImpl(couchDatabase)
+  private val nodeRepository = new NodeRepositoryImpl(couchDatabase, false, null)
   private val nodesCollection = mongoDatabase.getCollection[NodeInfo]("nodes")
 
   def migrate(): Unit = {

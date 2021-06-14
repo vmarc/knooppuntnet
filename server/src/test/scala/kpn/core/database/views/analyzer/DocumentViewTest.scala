@@ -14,7 +14,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allNodeIds") {
 
     withCouchDatabase { database =>
-      val repo = new NodeRepositoryImpl(database)
+      val repo = new NodeRepositoryImpl(database, false, null)
       repo.save(newNodeInfo(1001))
       repo.save(newNodeInfo(1002))
       repo.save(newNodeInfo(1003))
@@ -53,7 +53,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database, false, null)
       nodeRepository.save(newNodeInfo(1001))
       nodeRepository.save(newNodeInfo(1002))
 

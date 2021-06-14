@@ -39,7 +39,7 @@ class TagUsageTool(database: Database) {
 
     val nodeIds = DocumentView.allNodeIds(database)
     println(s"Collecting tag information from ${nodeIds.size} node definitions")
-    val repo = new NodeRepositoryImpl(database)
+    val repo = new NodeRepositoryImpl(database, false, null)
     nodeIds.zipWithIndex.foreach { case (nodeId, index) =>
       if ((index + 1) % 1000 == 0) {
         println(s"${index + 1}/${nodeIds.size}")

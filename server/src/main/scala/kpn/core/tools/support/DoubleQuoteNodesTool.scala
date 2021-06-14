@@ -13,7 +13,7 @@ object DoubleQuoteNodesTool {
 }
 
 class DoubleQuoteNodesTool(database: Database) {
-  private val nodeRepository = new NodeRepositoryImpl(database)
+  private val nodeRepository = new NodeRepositoryImpl(database, false, null)
 
   def find(): Unit = {
     val nodeIds = nodeRepository.allNodeIds()

@@ -34,7 +34,7 @@ class FindDeletedNodesTool(
   executor: OverpassQueryExecutor
 ) {
 
-  private val nodeRepository = new NodeRepositoryImpl(database)
+  private val nodeRepository = new NodeRepositoryImpl(database, false, null)
 
   def report(): Unit = {
     println("Collecting node ids")
