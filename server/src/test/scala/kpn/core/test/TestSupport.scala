@@ -63,6 +63,9 @@ object TestSupport extends Assertions {
         }
       }
     }
+    finally {
+      mongoClient.close()
+    }
   }
 
   /**
@@ -123,5 +126,4 @@ object TestSupport extends Assertions {
 
     CouchConfig(host, port, user, password)
   }
-
 }

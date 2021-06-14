@@ -7,6 +7,7 @@ import kpn.core.common.TimestampUtil
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
@@ -67,6 +68,9 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val dirs: Dirs = Dirs()
 
+  private val mongoEnabled = false
+  private val mongoDatabase = Mongo.database(Mongo.client, "kpn-test")
+
   private val couchConfig = Couch.config
   private val analysisDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.analysisDatabaseName))
   private val changeDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.changeDatabaseName))
@@ -89,8 +93,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
   val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
-  val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
-  val routeRepository = new RouteRepositoryImpl(analysisDatabase)
+  val networkRepository = new NetworkRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
+  val routeRepository = new RouteRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
   val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
 
   private val tileCalculator = new TileCalculatorImpl()
@@ -214,5 +218,4 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
       Seq()
     )
   )
-
 }

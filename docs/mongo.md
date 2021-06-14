@@ -160,60 +160,49 @@ AnalysisRepository
   def saveLastUpdated(timestamp: Timestamp): Unit
 ```
 
-```scala
 NetworkRepository
+- [ ]  def allNetworkIds(): Seq[Long]
+- [ ]  def network(networkId: Long): Option[NetworkInfo]
+- [ ]  def save(network: NetworkInfo): Unit
+- [ ]  def elements(networkId: Long): Option[NetworkElements]
+- [ ]  def saveElements(networkElements: NetworkElements): Unit
+- [ ]  def gpx(networkId: Long): Option[GpxFile]
+- [ ]  def saveGpxFile(gpxFile: GpxFile): Unit
+- [ ]  def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
+- [ ]  def delete(networkId: Long): Unit
 
-  def allNetworkIds(): Seq[Long]
-  def network(networkId: Long): Option[NetworkInfo]
-  def save(network: NetworkInfo): Unit
-  def elements(networkId: Long): Option[NetworkElements]
-  def saveElements(networkElements: NetworkElements): Unit
-  def gpx(networkId: Long): Option[GpxFile]
-  def saveGpxFile(gpxFile: GpxFile): Unit
-  def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
-  def delete(networkId: Long): Unit
-```
-
-```scala
 RouteRepository
-
-  def allRouteIds(): Seq[Long]
-  def save(routes: RouteInfo): Unit
-  def saveElements(routeElements: RouteElements): Unit
-  def delete(routeIds: Seq[Long]): Unit
-  def routeWithId(routeId: Long): Option[RouteInfo]
-  def routeElementsWithId(routeId: Long): Option[RouteElements]
-  def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
-  def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
-  def filterKnown(routeIds: Set[Long]): Set[Long]
-```
+- [ ] def allRouteIds(): Seq[Long]
+- [ ] def save(routes: RouteInfo): Unit
+- [ ] def saveElements(routeElements: RouteElements): Unit
+- [ ] def delete(routeIds: Seq[Long]): Unit
+- [ ] def routeWithId(routeId: Long): Option[RouteInfo]
+- [ ] def routeElementsWithId(routeId: Long): Option[RouteElements]
+- [ ] def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
+- [ ] def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
+- [ ] def filterKnown(routeIds: Set[Long]): Set[Long]
 
 
-```scala
 NodeRepository
 
-  def allNodeIds(): Seq[Long]
-  def save(nodes: NodeInfo*): Boolean
-  def delete(nodeId: Long): Unit
-  def nodeWithId(nodeId: Long): Option[NodeInfo]
-  def nodesWithIds(nodeIds: Seq[Long], stale: Boolean = true): Seq[NodeInfo]
-  def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[NodeNetworkReference]
-  def nodeOrphanRouteReferences(nodeId: Long, stale: Boolean = true): Seq[NodeOrphanRouteReference]
-  def filterKnown(nodeIds: Set[Long]): Set[Long]
-```
+- [ ] def allNodeIds(): Seq[Long]
+- [ ] def save(nodes: NodeInfo*): Boolean
+- [ ] def delete(nodeId: Long): Unit
+- [ ] def nodeWithId(nodeId: Long): Option[NodeInfo]
+- [ ] def nodesWithIds(nodeIds: Seq[Long], stale: Boolean = true): Seq[NodeInfo]
+- [ ] def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[NodeNetworkReference]
+- [ ] def nodeOrphanRouteReferences(nodeId: Long, stale: Boolean = true): Seq[NodeOrphanRouteReference]
+- [ ] def filterKnown(nodeIds: Set[Long]): Set[Long]
 
-
-```scala
 NodeRouteRepository
 
-  def save(nodeRoute: NodeRoute): Unit
-  def delete(nodeId: Long, scopedNetworkType: ScopedNetworkType): Unit
-  def nodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute]
-  def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref]
-  def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs]
-  def actualNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteCount]
-  def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount]
-```
+- [ ] def save(nodeRoute: NodeRoute): Unit
+- [ ] def delete(nodeId: Long, scopedNetworkType: ScopedNetworkType): Unit
+- [ ] def nodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute]
+- [ ] def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref]
+- [ ] def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs]
+- [ ] def actualNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteCount]
+- [ ] def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount]
 
 
 ```scala

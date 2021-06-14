@@ -11,43 +11,83 @@ import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.changes.MongoDelete
+import kpn.core.mongo.changes.MongoFindById
+import kpn.core.mongo.changes.MongoSave
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
+import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepository {
+class NetworkRepositoryImpl(
+  // old
+  analysisDatabase: Database,
+  // new
+  mongoEnabled: Boolean,
+  mongoDatabase: MongoDatabase
+) extends NetworkRepository {
 
   private val log = Log(classOf[NetworkRepositoryImpl])
 
   override def allNetworkIds(): Seq[Long] = {
-    DocumentView.allNetworkIds(analysisDatabase)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      DocumentView.allNetworkIds(analysisDatabase)
+    }
   }
 
   override def network(networkId: Long): Option[NetworkInfo] = {
-    analysisDatabase.docWithId(networkKey(networkId), classOf[NetworkDoc]).map(_.network)
+    if (mongoEnabled) {
+      new MongoFindById(mongoDatabase).execute("networks", networkId)
+    }
+    else {
+      analysisDatabase.docWithId(networkKey(networkId), classOf[NetworkDoc]).map(_.network)
+    }
   }
 
   override def elements(networkId: Long): Option[NetworkElements] = {
-    analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
+    }
   }
 
   override def saveElements(networkElements: NetworkElements): Unit = {
-    val key = networkElementsKey(networkElements.networkId)
-    analysisDatabase.save(NetworkElementsDoc(key, networkElements))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      val key = networkElementsKey(networkElements.networkId)
+      analysisDatabase.save(NetworkElementsDoc(key, networkElements))
+    }
   }
 
   override def save(network: NetworkInfo): Unit = {
-    log.debugElapsed {
-      val key = networkKey(network.id)
-      analysisDatabase.save(NetworkDoc(key, network))
-      (s"Save network ${network.id}", ())
+    if (mongoEnabled) {
+      new MongoSave(mongoDatabase).execute("networks", network)
+    }
+    else {
+      log.debugElapsed {
+        val key = networkKey(network.id)
+        analysisDatabase.save(NetworkDoc(key, network))
+        (s"Save network ${network.id}", ())
+      }
     }
   }
 
   override def delete(networkId: Long): Unit = {
-    analysisDatabase.deleteDocWithId(networkKey(networkId))
-    analysisDatabase.deleteDocWithId(networkElementsKey(networkId))
+    if (mongoEnabled) {
+      new MongoDelete(mongoDatabase).execute("networks", networkId)
+    }
+    else {
+      analysisDatabase.deleteDocWithId(networkKey(networkId))
+      analysisDatabase.deleteDocWithId(networkElementsKey(networkId))
+    }
   }
 
   private def networkKey(networkId: Long): String = s"${KeyPrefix.Network}:$networkId"
@@ -55,18 +95,32 @@ class NetworkRepositoryImpl(analysisDatabase: Database) extends NetworkRepositor
   private def networkElementsKey(networkId: Long): String = s"${KeyPrefix.NetworkElements}:$networkId"
 
   override def gpx(networkId: Long): Option[GpxFile] = {
-    analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
+    }
   }
 
   override def saveGpxFile(gpxFile: GpxFile): Unit = {
-    val key = gpxKey(gpxFile.networkId)
-    analysisDatabase.save(GpxDoc(key, gpxFile))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      val key = gpxKey(gpxFile.networkId)
+      analysisDatabase.save(GpxDoc(key, gpxFile))
+    }
   }
 
   private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
 
   override def networks(subset: Subset, stale: Boolean): Seq[NetworkAttributes] = {
-    NetworkView.query(analysisDatabase, subset, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      NetworkView.query(analysisDatabase, subset, stale)
+    }
   }
-
 }

@@ -40,10 +40,10 @@ object TileTool {
             new DatabaseIndexer(analysisDatabase, null, null, null, null).index(true)
 
             val tileAnalyzer = {
-              val networkRepository = new NetworkRepositoryImpl(analysisDatabase)
+              val networkRepository = new NetworkRepositoryImpl(analysisDatabase, false, null)
               val orphanRepository = new OrphanRepositoryImpl(analysisDatabase)
               val nodeRepository = new NodeRepositoryImpl(analysisDatabase)
-              val routeRepository = new RouteRepositoryImpl(analysisDatabase)
+              val routeRepository = new RouteRepositoryImpl(analysisDatabase, false, null)
               new TileAnalyzerImpl(
                 networkRepository,
                 orphanRepository,

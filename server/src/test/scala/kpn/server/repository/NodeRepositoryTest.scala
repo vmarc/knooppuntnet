@@ -115,7 +115,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      new NetworkRepositoryImpl(database).save(
+      new NetworkRepositoryImpl(database, false, null).save(
         newNetworkInfo(
           newNetworkAttributes(
             2,

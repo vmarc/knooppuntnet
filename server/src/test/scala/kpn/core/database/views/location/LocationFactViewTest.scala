@@ -73,7 +73,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repo = new RouteRepositoryImpl(database)
+      val repo = new RouteRepositoryImpl(database, false, null)
       repo.save(
         newRouteInfo(
           summary = newRouteSummary(

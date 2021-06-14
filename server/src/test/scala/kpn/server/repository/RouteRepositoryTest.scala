@@ -12,7 +12,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("routeWithId") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -25,7 +25,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("routesWithIds") {
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
       routeRepository.routesWithIds(Seq(10, 20, 30)) should equal(Seq(newRoute(10), newRoute(20)))
@@ -36,7 +36,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      new NetworkRepositoryImpl(database).save(
+      new NetworkRepositoryImpl(database, false, null).save(
         newNetworkInfo(
           newNetworkAttributes(1,
             name = "network-name"
@@ -51,7 +51,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
       routeRepository.routeReferences(10, stale = false) should equal(
         RouteReferences(
           Seq(Reference(1, "network-name", NetworkType.hiking))
@@ -63,7 +63,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("save") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
 
       // first save
       routeRepository.save(newRoute(10, name = "01-02"))
@@ -101,7 +101,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("filterKnown") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -110,5 +110,4 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
       routeRepository.filterKnown(Set(10, 20, 30)) should equal(Set(10, 20))
     }
   }
-
 }

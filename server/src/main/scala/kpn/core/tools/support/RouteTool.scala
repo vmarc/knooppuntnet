@@ -20,7 +20,7 @@ object RouteTool {
 class RouteTool(database: Database) {
 
   def nonStandardRouteNames(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(database, false, null)
     val allRouteIds = routeRepository.allRouteIds()
     allRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       if (((index + 1) % 100) == 0) {
@@ -82,7 +82,7 @@ class RouteTool(database: Database) {
   }
 
   def routesWithStateTag(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(database, false, null)
     val allRouteIds = routeRepository.allRouteIds()
     allRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       if (((index + 1) % 100) == 0) {
@@ -97,7 +97,7 @@ class RouteTool(database: Database) {
   }
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(database, false, null)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
     blackListedRouteIds.foreach { routeId =>
@@ -117,7 +117,7 @@ class RouteTool(database: Database) {
   }
 
   def blackListedRoutesThatWouldBeExcludedByTheNewRules(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(database, false, null)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
 
@@ -135,8 +135,8 @@ class RouteTool(database: Database) {
 
   def removeBlacklistedNetworksAndRoutes(): Unit = {
     val blackListRepository = new BlackListRepositoryImpl(database)
-    val networkRepository = new NetworkRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
+    val networkRepository = new NetworkRepositoryImpl(database, false, null)
+    val routeRepository = new RouteRepositoryImpl(database, false, null)
 
     val blackList = blackListRepository.get
 

@@ -12,7 +12,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("network - get network by id") {
     withCouchDatabase { database =>
-      val repository = new NetworkRepositoryImpl(database)
+      val repository = new NetworkRepositoryImpl(database, false, null)
       repository.network(1) should equal(None)
 
       val testNetwork = newNetworkInfo(
@@ -30,7 +30,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("gpx - get gpx file by network id") {
     withCouchDatabase { database =>
-      val repository = new NetworkRepositoryImpl(database)
+      val repository = new NetworkRepositoryImpl(database, false, null)
       repository.gpx(1) should equal(None)
 
       val gpxFile = GpxFile(1, "filename", Seq(), Seq())
@@ -43,7 +43,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repository = new NetworkRepositoryImpl(database)
+      val repository = new NetworkRepositoryImpl(database, false, null)
 
       // sorting order different from 'by network name'
       repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-2")))

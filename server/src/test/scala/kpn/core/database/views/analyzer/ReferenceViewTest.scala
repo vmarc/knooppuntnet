@@ -21,7 +21,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeInfo(1002, tags = Tags.from("rwn_ref" -> "02")))
       nodeRepository.save(newNodeInfo(1003, tags = Tags.from("rwn_ref" -> "03"))) // orphan node
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -46,7 +46,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val networkRepository = new NetworkRepositoryImpl(database)
+      val networkRepository = new NetworkRepositoryImpl(database, false, null)
       networkRepository.save(
         newNetworkInfo(
           newNetworkAttributes(

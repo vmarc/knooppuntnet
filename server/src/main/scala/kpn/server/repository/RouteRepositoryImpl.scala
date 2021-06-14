@@ -9,42 +9,69 @@ import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
+import kpn.core.mongo.changes.MongoFindById
+import kpn.core.mongo.changes.MongoSave
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RouteElements
+import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
 class RouteRepositoryImpl(
-  analysisDatabase: Database
+  // old
+  analysisDatabase: Database,
+  // new
+  mongoEnabled: Boolean,
+  mongoDatabase: MongoDatabase
 ) extends RouteRepository {
 
   private val groupSize = 20
   private val log = Log(classOf[RouteRepositoryImpl])
 
   override def allRouteIds(): Seq[Long] = {
-    DocumentView.allRouteIds(analysisDatabase)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      DocumentView.allRouteIds(analysisDatabase)
+    }
   }
 
   override def save(routeInfo: RouteInfo): Unit = {
-    log.debugElapsed {
-      analysisDatabase.save(RouteDoc(docId(routeInfo.id), routeInfo))
-      (s"Save route ${routeInfo.id}", ())
+    if (mongoEnabled) {
+      new MongoSave(mongoDatabase).execute("routes", routeInfo)
+    }
+    else {
+      log.debugElapsed {
+        analysisDatabase.save(RouteDoc(docId(routeInfo.id), routeInfo))
+        (s"Save route ${routeInfo.id}", ())
+      }
     }
   }
 
   override def saveElements(routeElements: RouteElements): Unit = {
-    log.debugElapsed {
-      analysisDatabase.save(RouteElementsDoc(elementsDocId(routeElements.routeId), routeElements))
-      (s"Save route elements ${routeElements.routeId}", ())
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      log.debugElapsed {
+        analysisDatabase.save(RouteElementsDoc(elementsDocId(routeElements.routeId), routeElements))
+        (s"Save route elements ${routeElements.routeId}", ())
+      }
     }
   }
 
   def oldSave(routes: Seq[RouteInfo]): Unit = {
-    log.debugElapsed {
-      routes.sliding(groupSize, groupSize).toSeq.foreach { groupRoutes =>
-        saveRoutes(groupRoutes)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      log.debugElapsed {
+        routes.sliding(groupSize, groupSize).toSeq.foreach { groupRoutes =>
+          saveRoutes(groupRoutes)
+        }
+        (s"Saved ${routes.size} routes overall", ())
       }
-      (s"Saved ${routes.size} routes overall", ())
     }
   }
 
@@ -124,46 +151,76 @@ class RouteRepositoryImpl(
   }
 
   override def delete(routeIds: Seq[Long]): Unit = {
-    val routeDocIds = routeIds.map(docId)
-    analysisDatabase.deleteDocsWithIds(routeDocIds)
-    val routeElementsDocIds = routeIds.map(elementsDocId)
-    analysisDatabase.deleteDocsWithIds(routeElementsDocIds)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      val routeDocIds = routeIds.map(docId)
+      analysisDatabase.deleteDocsWithIds(routeDocIds)
+      val routeElementsDocIds = routeIds.map(elementsDocId)
+      analysisDatabase.deleteDocsWithIds(routeElementsDocIds)
+    }
   }
 
   override def routeWithId(routeId: Long): Option[RouteInfo] = {
-    analysisDatabase.docWithId(docId(routeId), classOf[RouteDoc]).map(_.route)
+    if (mongoEnabled) {
+      new MongoFindById(mongoDatabase).execute("routes", routeId)
+    }
+    else {
+      analysisDatabase.docWithId(docId(routeId), classOf[RouteDoc]).map(_.route)
+    }
   }
 
   override def routeElementsWithId(routeId: Long): Option[RouteElements] = {
-    analysisDatabase.docWithId(elementsDocId(routeId), classOf[RouteElementsDoc]).map(_.routeElements)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      analysisDatabase.docWithId(elementsDocId(routeId), classOf[RouteElementsDoc]).map(_.routeElements)
+    }
   }
 
   override def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo] = {
-    val ids = routeIds.map(id => docId(id))
-    analysisDatabase.docsWithIds(ids, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc.map(_.route))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      val ids = routeIds.map(id => docId(id))
+      analysisDatabase.docsWithIds(ids, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc.map(_.route))
+    }
   }
 
   override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = {
-    val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale)
-    val networkReferences = rows.filter(_.referrerType == "network").map(_.toReference).sorted
-    RouteReferences(networkReferences)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale)
+      val networkReferences = rows.filter(_.referrerType == "network").map(_.toReference).sorted
+      RouteReferences(networkReferences)
+    }
   }
 
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {
-    log.debugElapsed {
-      val existingRouteIds = routeIds.sliding(50, 50).flatMap { routeIdsSubset =>
-        val routeDocIds = routeIdsSubset.map(docId).toSeq
-        val existingRouteDocIds = analysisDatabase.keysWithIds(routeDocIds)
-        existingRouteDocIds.flatMap { routeDocId =>
-          try {
-            Some(java.lang.Long.parseLong(routeDocId.substring(KeyPrefix.Route.length + 1)))
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      log.debugElapsed {
+        val existingRouteIds = routeIds.sliding(50, 50).flatMap { routeIdsSubset =>
+          val routeDocIds = routeIdsSubset.map(docId).toSeq
+          val existingRouteDocIds = analysisDatabase.keysWithIds(routeDocIds)
+          existingRouteDocIds.flatMap { routeDocId =>
+            try {
+              Some(java.lang.Long.parseLong(routeDocId.substring(KeyPrefix.Route.length + 1)))
+            }
+            catch {
+              case e: NumberFormatException => None
+            }
           }
-          catch {
-            case e: NumberFormatException => None
-          }
-        }
-      }.toSet
-      (s"${existingRouteIds.size}/${routeIds.size} existing routes", existingRouteIds)
+        }.toSet
+        (s"${existingRouteIds.size}/${routeIds.size} existing routes", existingRouteIds)
+      }
     }
   }
 

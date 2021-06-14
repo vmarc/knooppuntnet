@@ -31,7 +31,7 @@ object MigrateNetworksTool {
 
 class MigrateNetworksTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
 
-  private val networkRepository = new NetworkRepositoryImpl(couchDatabase)
+  private val networkRepository = new NetworkRepositoryImpl(couchDatabase, mongoEnabled = false, mongoDatabase)
   private val networksCollection = mongoDatabase.getCollection[NetworkInfo]("networks")
   private val nodeNetworkRefsCollection = mongoDatabase.getCollection[NodeNetworkRef]("node-network-refs")
   private val routeNetworkRefsCollection = mongoDatabase.getCollection[RouteNetworkRef]("route-network-refs")

@@ -56,8 +56,8 @@ class NodeCyclerExportTool(database: Database, exportDir: String) {
   import NodeCyclerExportTool.log
 
   private val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
-  private val networkRepository = new NetworkRepositoryImpl(database)
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val networkRepository = new NetworkRepositoryImpl(database, false, null)
+  private val routeRepository = new RouteRepositoryImpl(database, false, null)
 
   def export(): Unit = {
     val networks = cyclingNetworksFromDatabase()

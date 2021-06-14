@@ -1,5 +1,6 @@
 package kpn.core.mongo.changes
 
+import kpn.api.base.WithId
 import kpn.core.mongo.changes.MongoSave.log
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase

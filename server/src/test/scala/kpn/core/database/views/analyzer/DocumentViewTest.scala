@@ -26,7 +26,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allRouteIds") {
 
     withCouchDatabase { database =>
-      val repo = new RouteRepositoryImpl(database)
+      val repo = new RouteRepositoryImpl(database, false, null)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
@@ -38,7 +38,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allNetworkIds") {
 
     withCouchDatabase { database =>
-      val repo = new NetworkRepositoryImpl(database)
+      val repo = new NetworkRepositoryImpl(database, false, null)
       repo.save(newNetworkInfo(newNetworkAttributes(1)))
       repo.save(newNetworkInfo(newNetworkAttributes(2)))
       repo.save(newNetworkInfo(newNetworkAttributes(3)))
@@ -57,7 +57,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
       nodeRepository.save(newNodeInfo(1001))
       nodeRepository.save(newNodeInfo(1002))
 
-      val repo = new RouteRepositoryImpl(database)
+      val repo = new RouteRepositoryImpl(database, false, null)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
@@ -65,5 +65,4 @@ class DocumentViewTest extends UnitTest with TestObjects {
       DocumentView.counts(database, AnalyzerDesign) should matchTo(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
     }
   }
-
 }

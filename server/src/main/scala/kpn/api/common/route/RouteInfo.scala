@@ -1,5 +1,6 @@
 package kpn.api.common.route
 
+import kpn.api.base.WithId
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ToStringBuilder
@@ -23,7 +24,7 @@ case class RouteInfo(
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],
   nodeRefs: Seq[Long]
-) extends Tagable {
+) extends Tagable with WithId {
   def id: Long = summary.id
 
   def toRef: Ref = Ref(summary.id, summary.name)

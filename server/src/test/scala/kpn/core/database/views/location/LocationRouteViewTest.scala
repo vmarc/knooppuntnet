@@ -8,7 +8,6 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Country
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteUnaccessible
 import kpn.api.custom.LocationKey
@@ -24,7 +23,7 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
   test("route") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database, false, null)
 
       routeRepository.save(
         newRoute(

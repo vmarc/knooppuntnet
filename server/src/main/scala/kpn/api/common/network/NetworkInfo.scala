@@ -1,5 +1,6 @@
 package kpn.api.common.network
 
+import kpn.api.base.WithId
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
@@ -14,7 +15,7 @@ case class NetworkInfo(
   facts: Seq[Fact] = Seq.empty,
   tags: Tags,
   detail: Option[NetworkInfoDetail] = None
-) {
+) extends WithId {
 
   def id: Long = attributes.id
 

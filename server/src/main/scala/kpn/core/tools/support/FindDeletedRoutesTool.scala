@@ -28,7 +28,7 @@ object FindDeletedRoutesTool {
 
 class FindDeletedRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeRepository = new RouteRepositoryImpl(database, false, null)
 
   def report(): Unit = {
     println("Collecting route ids")
@@ -51,5 +51,4 @@ class FindDeletedRoutesTool(database: Database, overpassQueryExecutor: OverpassQ
     val xml = XML.loadString(xmlString)
     (xml \ "relation").map { n => (n \ "@id").text.toLong }.toSet.contains(routeId)
   }
-
 }

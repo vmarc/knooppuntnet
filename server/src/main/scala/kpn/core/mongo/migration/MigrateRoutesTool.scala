@@ -30,7 +30,7 @@ object MigrateRoutesTool {
 
 class MigrateRoutesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
 
-  private val routeRepository = new RouteRepositoryImpl(couchDatabase)
+  private val routeRepository = new RouteRepositoryImpl(couchDatabase, false, null)
   private val routesCollection = mongoDatabase.getCollection[RouteInfo]("routes")
   private val nodeRouteRefsCollection = mongoDatabase.getCollection[NodeRouteRef]("node-route-refs")
 
