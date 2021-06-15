@@ -6,8 +6,8 @@ import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.OrphanNodeView
 import kpn.core.database.views.analyzer.OrphanRouteView
-import kpn.core.mongo.changes.MongoQuerySubsetOrphanNodes
-import kpn.core.mongo.changes.MongoQuerySubsetOrphanRoutes
+import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanNodes
+import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanRoutes
 import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 

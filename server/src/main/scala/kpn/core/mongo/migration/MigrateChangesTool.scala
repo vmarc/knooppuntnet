@@ -13,8 +13,8 @@ import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.db.couch.Couch
-import kpn.core.mongo.changes.MongoQueryChangeSetRefs
-import kpn.core.mongo.statistics.ChangeSetRef
+import kpn.core.mongo.actions.changes.MongoQueryChangeSetRefs
+import kpn.core.mongo.actions.statistics.ChangeSetRef
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetRepositoryImpl

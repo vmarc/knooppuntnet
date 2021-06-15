@@ -11,11 +11,11 @@ import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
-import kpn.core.mongo.changes.MongoDelete
-import kpn.core.mongo.changes.MongoFindById
-import kpn.core.mongo.changes.MongoQueryIds
-import kpn.core.mongo.changes.MongoQuerySubsetNetworks
-import kpn.core.mongo.changes.MongoSave
+import kpn.core.mongo.actions.base.MongoDelete
+import kpn.core.mongo.actions.base.MongoFindById
+import kpn.core.mongo.actions.base.MongoQueryIds
+import kpn.core.mongo.actions.base.MongoSave
+import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import org.mongodb.scala.MongoDatabase

@@ -9,9 +9,9 @@ import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
-import kpn.core.mongo.changes.MongoFindById
-import kpn.core.mongo.changes.MongoQueryIds
-import kpn.core.mongo.changes.MongoSave
+import kpn.core.mongo.actions.base.MongoFindById
+import kpn.core.mongo.actions.base.MongoQueryIds
+import kpn.core.mongo.actions.base.MongoSave
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.mongodb.scala.MongoDatabase

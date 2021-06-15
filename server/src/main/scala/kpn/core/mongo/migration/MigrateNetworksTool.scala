@@ -5,7 +5,7 @@ import kpn.core.database.Database
 import kpn.core.db.couch.Couch
 import kpn.core.mongo.NodeNetworkRef
 import kpn.core.mongo.RouteNetworkRef
-import kpn.core.mongo.changes.MongoSave
+import kpn.core.mongo.actions.base.MongoSave
 import kpn.core.mongo.migration.MigrateNetworksTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log

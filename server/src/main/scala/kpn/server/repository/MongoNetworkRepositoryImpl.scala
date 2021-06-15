@@ -5,11 +5,11 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkInfo
 import kpn.core.common.Time
-import kpn.core.mongo.changes.MongoQueryNetwork
-import kpn.core.mongo.changes.MongoQueryNetworkChangeCount
-import kpn.core.mongo.changes.MongoQueryNetworkChangeCounts
-import kpn.core.mongo.changes.MongoQueryNetworkChanges
-import kpn.core.mongo.changes.MongoSaveNetwork
+import kpn.core.mongo.actions.networks.MongoQueryNetwork
+import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCount
+import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCounts
+import kpn.core.mongo.actions.networks.MongoQueryNetworkChanges
+import kpn.core.mongo.actions.networks.MongoSaveNetwork
 import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 

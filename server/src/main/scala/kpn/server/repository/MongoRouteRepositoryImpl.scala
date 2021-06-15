@@ -5,11 +5,11 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteInfo
 import kpn.core.common.Time
-import kpn.core.mongo.changes.MongoQueryRoute
-import kpn.core.mongo.changes.MongoQueryRouteChangeCount
-import kpn.core.mongo.changes.MongoQueryRouteChangeCounts
-import kpn.core.mongo.changes.MongoQueryRouteChanges
-import kpn.core.mongo.changes.MongoSaveRoute
+import kpn.core.mongo.actions.routes.MongoQueryRoute
+import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCount
+import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCounts
+import kpn.core.mongo.actions.routes.MongoQueryRouteChanges
+import kpn.core.mongo.actions.routes.MongoSaveRoute
 import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
