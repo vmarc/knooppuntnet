@@ -149,16 +149,13 @@ mongodb-compass
 
 Repositories in the analysis database that have to be migrated together:
 
-```scala
 AnalysisRepository
-
-  def saveNetwork(network: Network): Unit
-  def saveIgnoredNetwork(network: NetworkInfo): Unit
-  def saveRoute(route: RouteInfo): Unit
-  def saveNode(node: NodeInfo): Unit
-  def lastUpdated(): Option[Timestamp]
-  def saveLastUpdated(timestamp: Timestamp): Unit
-```
+- [ ] def saveNetwork(network: Network): Unit
+- [ ] def saveIgnoredNetwork(network: NetworkInfo): Unit
+- [ ] def saveRoute(route: RouteInfo): Unit
+- [ ] def saveNode(node: NodeInfo): Unit
+- [ ] def lastUpdated(): Option[Timestamp]
+- [ ] def saveLastUpdated(timestamp: Timestamp): Unit
 
 NetworkRepository
 - [ ]  def allNetworkIds(): Seq[Long]
@@ -184,7 +181,6 @@ RouteRepository
 
 
 NodeRepository
-
 - [ ] def allNodeIds(): Seq[Long]
 - [ ] def save(nodes: NodeInfo*): Boolean
 - [ ] def delete(nodeId: Long): Unit
@@ -195,7 +191,6 @@ NodeRepository
 - [ ] def filterKnown(nodeIds: Set[Long]): Set[Long]
 
 NodeRouteRepository
-
 - [ ] def save(nodeRoute: NodeRoute): Unit
 - [ ] def delete(nodeId: Long, scopedNetworkType: ScopedNetworkType): Unit
 - [ ] def nodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute]
@@ -205,73 +200,54 @@ NodeRouteRepository
 - [ ] def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount]
 
 
-```scala
 OrphanRepository
-
-  def orphanRoutes(subset: Subset): Seq[OrphanRouteInfo]
-  def orphanNodes(subset: Subset): Seq[NodeInfo]
-```
+- [ ] def orphanRoutes(subset: Subset): Seq[OrphanRouteInfo]
+- [ ] def orphanNodes(subset: Subset): Seq[NodeInfo]
 
 
-```scala
 OverviewRepository
-
-  def figures(stale: Boolean = true): Map[String, Figure]
-```
+- [ ] def figures(stale: Boolean = true): Map[String, Figure]
 
 
-```scala
 FactRepository
-  def factsPerNetwork(subset: Subset, fact: Fact, stale: Boolean = true): Seq[NetworkFactRefs]
-```
+- [ ] def factsPerNetwork(subset: Subset, fact: Fact, stale: Boolean = true): Seq[NetworkFactRefs]
 
 
-```scala
 GraphRepository
-  def graph(networkType: NetworkType): Option[NodeNetworkGraph]
-```
+- [ ] def graph(networkType: NetworkType): Option[NodeNetworkGraph]
 
 
-```scala
 LocationRepository
+- [ ] def summary(locationKey: LocationKey): LocationSummary
+- [ ] def routesWithoutLocation(networkType: NetworkType): Seq[Ref]
+- [ ] def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean = true): Seq[LocationNodeInfo]
+- [ ] def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean = true): Long
+- [ ] def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo]
+- [ ] def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long
+- [ ] def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount]
+- [ ] def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact]
+- [ ] def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long
 
-  def summary(locationKey: LocationKey): LocationSummary
-  def routesWithoutLocation(networkType: NetworkType): Seq[Ref]
-  def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean = true): Seq[LocationNodeInfo]
-  def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean = true): Long
-  def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo]
-  def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long
-  def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount]
-  def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact]
-  def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long
-```
-
-```scala
 TileRepository
-
-  def nodeIds(networkType: NetworkType, tile: Tile): Seq[Long]
-  def routeIds(networkType: NetworkType, tile: Tile): Seq[Long]
-```
+- [ ] def nodeIds(networkType: NetworkType, tile: Tile): Seq[Long]
+- [ ] def routeIds(networkType: NetworkType, tile: Tile): Seq[Long]
 
 Repository in the analysis database that is standalone and can be migrated separately:
-```scala
-BlackListRepository
 
-  def get: BlackList
-  def save(blackList: BlackList): Unit
-```
+BlackListRepository
+- [ ] def get: BlackList
+- [ ] def save(blackList: BlackList): Unit
+
 
 Probably standalone repository that can be migrated separately:
-```scala
-LongdistanceRouteRepository
 
-  def save(routeInfo: LongdistanceRoute): Unit
-  def routeWithId(routeId: Long): Option[LongdistanceRoute]
-  def all(): Seq[LongdistanceRoute]
-  def saveChange(change: LongdistanceRouteChange): Unit
-  def changes(): Seq[LongdistanceRouteChange]
-  def change(routeId: Long, changeSetId: Long): Option[LongdistanceRouteChange]
-```
+LongdistanceRouteRepository
+- [ ] def save(routeInfo: LongdistanceRoute): Unit
+- [ ] def routeWithId(routeId: Long): Option[LongdistanceRoute]
+- [ ] def all(): Seq[LongdistanceRoute]
+- [ ] def saveChange(change: LongdistanceRouteChange): Unit
+- [ ] def changes(): Seq[LongdistanceRouteChange]
+- [ ] def change(routeId: Long, changeSetId: Long): Option[LongdistanceRouteChange]
 
 
 

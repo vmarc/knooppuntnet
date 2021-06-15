@@ -61,6 +61,7 @@ class AnalysisRepositoryImpl(
     networkRepository.saveElements(
       NetworkElements(
         network.id,
+        network.id,
         relationAnalyzer.toElementIds(network.relation)
       )
     )
@@ -121,6 +122,6 @@ class AnalysisRepositoryImpl(
     val trackSegments = network.routes.flatMap(networkMemberRoute => new GpxRoute().trackSegments(networkMemberRoute.routeAnalysis.ways))
 
     val name = "%s-%s.gpx".format(network.id, network.name.replaceAll(" ", ""))
-    networkRepository.saveGpxFile(GpxFile(network.id, name, wayPoints, trackSegments))
+    networkRepository.saveGpxFile(GpxFile(network.id, network.id, name, wayPoints, trackSegments))
   }
 }

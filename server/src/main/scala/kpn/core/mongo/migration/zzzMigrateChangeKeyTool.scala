@@ -5,7 +5,7 @@ import kpn.core.database.doc.LocationChangeSetSummaryDoc
 import kpn.core.database.doc.NetworkChangeDoc
 import kpn.core.database.doc.NodeChangeDoc
 import kpn.core.database.doc.RouteChangeDoc
-import kpn.core.mongo.util.Id
+import kpn.core.mongo.util.StringId
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.MongoCollection
@@ -249,7 +249,7 @@ class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
   private def findIds[T](collection: MongoCollection[T], pipeline: Seq[Bson]): Seq[String] = {
     log.info("collecting ids")
     log.elapsedSeconds {
-      val future = collection.aggregate[Id](pipeline).toFuture()
+      val future = collection.aggregate[StringId](pipeline).toFuture()
       val docs = Await.result(future, Duration(60, TimeUnit.MINUTES))
       (s"${docs.size} docs", docs.map(_._id))
     }

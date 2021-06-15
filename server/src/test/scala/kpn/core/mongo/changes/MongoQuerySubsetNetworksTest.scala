@@ -1,49 +1,18 @@
-package kpn.server.repository
+package kpn.core.mongo.changes
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.gpx.GpxFile
-import kpn.core.test.TestSupport.withCouchDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.repository.NetworkRepositoryImpl
 
-class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
+class MongoQuerySubsetNetworksTest extends UnitTest with SharedTestObjects {
 
-  test("network - get network by id") {
-    withCouchDatabase { database =>
-      val repository = new NetworkRepositoryImpl(database, false, null)
-      repository.network(1) should equal(None)
-
-      val testNetwork = newNetworkInfo(
-        newNetworkAttributes(
-          1,
-          Some(Country.nl),
-          NetworkType.cycling,
-          name = "name"
-        )
-      )
-      repository.save(testNetwork)
-      repository.network(1) should equal(Some(testNetwork))
-    }
-  }
-
-  test("gpx - get gpx file by network id") {
-    withCouchDatabase { database =>
-      val repository = new NetworkRepositoryImpl(database, false, null)
-      repository.gpx(1) should equal(None)
-
-      val gpxFile = GpxFile(1, 1, "filename", Seq.empty, Seq.empty)
-      repository.saveGpxFile(gpxFile)
-      repository.gpx(1) should equal(Some(gpxFile))
-    }
-  }
-
-  test("networks - find attributes of networks for given country and network type") {
-
-    withCouchDatabase { database =>
-
-      val repository = new NetworkRepositoryImpl(database, false, null)
+  test("subset networks") {
+    withDatabase { database =>
+      val repository = new NetworkRepositoryImpl(null, true, database)
 
       // sorting order different from 'by network name'
       repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-2")))
@@ -64,6 +33,8 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
           newNetworkAttributes(2, Some(Country.be), NetworkType.hiking, name = "be-rwn-2")
         )
       )
+
+      repository.networks(Subset.esHiking, stale = false) should equal(Seq.empty)
     }
   }
 }

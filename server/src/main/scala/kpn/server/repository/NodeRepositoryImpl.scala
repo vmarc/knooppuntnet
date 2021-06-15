@@ -10,6 +10,7 @@ import kpn.core.database.views.analyzer.NodeNetworkReferenceView
 import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
+import kpn.core.mongo.changes.MongoQueryIds
 import kpn.core.util.Log
 import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
@@ -28,7 +29,7 @@ class NodeRepositoryImpl(
 
   override def allNodeIds(): Seq[Long] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryIds(mongoDatabase).execute("nodes")
     }
     else {
       DocumentView.allNodeIds(analysisDatabase)

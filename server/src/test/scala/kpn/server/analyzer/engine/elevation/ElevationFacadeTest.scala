@@ -97,7 +97,7 @@ class ElevationFacadeTest extends UnitTest {
       WayPoint(name, point.x.toString, point.y.toString, "")
     }
     val trackSegments = Seq(GpxSegment(points.map(p => TrackPoint(p.x.toString, p.y.toString))))
-    val file = GpxFile(0L, "", wayPoints, trackSegments)
+    val file = GpxFile(0L, 0L, "", wayPoints, trackSegments)
     new GpxWriter(file).string
   }
 

@@ -1,0 +1,20 @@
+[
+  {
+    "$match": {
+      "active": true,
+      "attributes.country": "@country",
+      "attributes.networkType": "@networkType"
+    }
+  },
+  {
+    "$sort": {
+      "attributes.name": 1
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "attributes": 1
+    }
+  }
+]

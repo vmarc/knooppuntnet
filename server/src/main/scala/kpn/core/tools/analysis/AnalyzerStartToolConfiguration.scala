@@ -129,7 +129,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
-  val orphanRepository = new OrphanRepositoryImpl(analysisDatabase)
+  val orphanRepository = new OrphanRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
 
   val factRepository = new FactRepositoryImpl(analysisDatabase)
 

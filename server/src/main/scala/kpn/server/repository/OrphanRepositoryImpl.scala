@@ -6,16 +6,35 @@ import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.views.analyzer.OrphanNodeView
 import kpn.core.database.views.analyzer.OrphanRouteView
+import kpn.core.mongo.changes.MongoQuerySubsetOrphanNodes
+import kpn.core.mongo.changes.MongoQuerySubsetOrphanRoutes
+import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
-class OrphanRepositoryImpl(analysisDatabase: Database) extends OrphanRepository {
+class OrphanRepositoryImpl(
+  // old
+  analysisDatabase: Database,
+  // new
+  mongoEnabled: Boolean,
+  mongoDatabase: MongoDatabase
+) extends OrphanRepository {
 
   override def orphanRoutes(subset: Subset): Seq[OrphanRouteInfo] = {
-    OrphanRouteView.query(analysisDatabase, subset)
+    if (mongoEnabled) {
+      new MongoQuerySubsetOrphanRoutes(mongoDatabase).execute(subset)
+    }
+    else {
+      OrphanRouteView.query(analysisDatabase, subset)
+    }
   }
 
   override def orphanNodes(subset: Subset): Seq[NodeInfo] = {
-    OrphanNodeView.query(analysisDatabase, subset)
+    if (mongoEnabled) {
+      new MongoQuerySubsetOrphanNodes(mongoDatabase).execute(subset)
+    }
+    else {
+      OrphanNodeView.query(analysisDatabase, subset)
+    }
   }
 }

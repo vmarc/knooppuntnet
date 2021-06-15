@@ -111,6 +111,7 @@ class NetworkDeleteProcessorWorkerImpl(
     networkRepository.saveElements(
       NetworkElements(
         networkBefore.id,
+        networkBefore.id,
         relationAnalyzer.toElementIds(networkBefore.relation)
       )
     )

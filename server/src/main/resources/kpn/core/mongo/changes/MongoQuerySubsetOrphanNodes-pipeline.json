@@ -1,0 +1,34 @@
+[
+  {
+    "$match": {
+      "active": true,
+      "orphan": true,
+      "country": "@country"
+    }
+  },
+  {
+    "$unwind": {
+      "path": "$names"
+    }
+  },
+  {
+    "$match": {
+      "names.networkType": "@networkType"
+    }
+  },
+  {
+    "$sort": {
+      "names.name": 1
+    }
+  },
+  {
+    "$set": {
+      "names": ["$names"]
+    }
+  },
+  {
+    "$project": {
+      "_id": 0
+    }
+  }
+]

@@ -10,6 +10,7 @@ import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
 import kpn.core.mongo.changes.MongoFindById
+import kpn.core.mongo.changes.MongoQueryIds
 import kpn.core.mongo.changes.MongoSave
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RouteElements
@@ -30,7 +31,7 @@ class RouteRepositoryImpl(
 
   override def allRouteIds(): Seq[Long] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryIds(mongoDatabase).execute("routes")
     }
     else {
       DocumentView.allRouteIds(analysisDatabase)

@@ -1,0 +1,50 @@
+[
+  {
+    "$match": {
+      "active": true,
+      "orphan": true,
+      "summary.country": "@country",
+      "summary.networkType": "@networkType"
+    }
+  },
+  {
+    "$set": {
+      "id": "$summary.id",
+      "name": "$summary.name",
+      "meters": "$summary.meters",
+      "isBroken": "$summary.isBroken",
+      "accessible": {
+        "$not": {
+          "$in": [
+            "RouteUnaccessible",
+            "$facts"
+          ]
+        }
+      },
+      "lastSurvey": {
+        "$ifNull": [
+          "$lastSurvey",
+          "-"
+        ]
+      },
+      "lastUpdated": "$lastUpdated"
+    }
+  },
+  {
+    "$sort": {
+      "name": 1
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "id": 1,
+      "name": 1,
+      "meters": 1,
+      "isBroken": 1,
+      "accessible": 1,
+      "lastSurvey": 1,
+      "lastUpdated": 1
+    }
+  }
+]

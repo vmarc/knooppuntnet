@@ -18,50 +18,101 @@ import kpn.core.database.views.location.LocationNodeCount
 import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
+import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
-class LocationRepositoryImpl(analysisDatabase: Database) extends LocationRepository {
+class LocationRepositoryImpl(
+  // old
+  analysisDatabase: Database,
+  // new
+  mongoEnabled: Boolean,
+  mongoDatabase: MongoDatabase
+) extends LocationRepository {
 
   override def summary(locationKey: LocationKey): LocationSummary = {
-    LocationSummary(
-      factCount(locationKey.networkType, locationKey.name),
-      nodeCount(locationKey, LocationNodesType.all),
-      routeCount(locationKey, LocationRoutesType.all),
-      0
-    )
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationSummary(
+        factCount(locationKey.networkType, locationKey.name),
+        nodeCount(locationKey, LocationNodesType.all),
+        routeCount(locationKey, LocationRoutesType.all),
+        0
+      )
+    }
   }
 
   override def routesWithoutLocation(networkType: NetworkType): Seq[Ref] = {
-    LocationView.query(analysisDatabase, "route-without-location", networkType, "").sortBy(_.name)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationView.query(analysisDatabase, "route-without-location", networkType, "").sortBy(_.name)
+    }
   }
 
   override def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean): Seq[LocationNodeInfo] = {
-    LocationNodeView.query(analysisDatabase, locationKey, parameters, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationNodeView.query(analysisDatabase, locationKey, parameters, stale)
+    }
   }
 
   override def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean): Long = {
-    LocationNodeView.queryCount(analysisDatabase, locationKey, locationNodesType, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationNodeView.queryCount(analysisDatabase, locationKey, locationNodesType, stale)
+    }
   }
 
   override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo] = {
-    LocationRouteView.query(analysisDatabase, locationKey, parameters, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationRouteView.query(analysisDatabase, locationKey, parameters, stale)
+    }
   }
 
   override def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long = {
-    LocationRouteView.queryCount(analysisDatabase, locationKey, locationRoutesType, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationRouteView.queryCount(analysisDatabase, locationKey, locationRoutesType, stale)
+    }
   }
 
   override def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount] = {
-    LocationNodeView.countryLocations(analysisDatabase, networkType, country, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationNodeView.countryLocations(analysisDatabase, networkType, country, stale)
+    }
   }
 
   override def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact] = {
-    LocationFactView.query(analysisDatabase, networkType, locationName, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationFactView.query(analysisDatabase, networkType, locationName, stale)
+    }
   }
 
   override def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long = {
-    LocationFactView.queryCount(analysisDatabase, networkType, locationName, stale)
+    if (mongoEnabled) {
+      ??? // TODO MONGO
+    }
+    else {
+      LocationFactView.queryCount(analysisDatabase, networkType, locationName, stale)
+    }
   }
-
 }

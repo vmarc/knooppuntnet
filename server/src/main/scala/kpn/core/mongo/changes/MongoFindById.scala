@@ -20,7 +20,7 @@ class MongoFindById(database: MongoDatabase) {
       val collection = database.getCollection[T](collectionName)
       val future = collection.find[T](equal("_id", _id)).headOption()
       val doc = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"collection: $collectionName, _id: ${_id}", doc)
+      (s"collection: '$collectionName', _id: ${_id}", doc)
     }
   }
 }

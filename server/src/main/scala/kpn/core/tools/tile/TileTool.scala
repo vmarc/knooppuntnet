@@ -41,7 +41,7 @@ object TileTool {
 
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(analysisDatabase, false, null)
-              val orphanRepository = new OrphanRepositoryImpl(analysisDatabase)
+              val orphanRepository = new OrphanRepositoryImpl(analysisDatabase, false, null)
               val nodeRepository = new NodeRepositoryImpl(analysisDatabase, false, null)
               val routeRepository = new RouteRepositoryImpl(analysisDatabase, false, null)
               new TileAnalyzerImpl(
@@ -110,5 +110,4 @@ class TileTool(
       }
     }
   }
-
 }

@@ -22,7 +22,7 @@ class MongoDelete(database: MongoDatabase) {
       val collection = database.getCollection[WithId](collectionName)
       val future = collection.deleteOne(filter).toFuture()
       val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"collection: $collectionName, _id: ${_id}", result)
+      (s"collection: '$collectionName', _id: ${_id}", result)
     }
   }
 }

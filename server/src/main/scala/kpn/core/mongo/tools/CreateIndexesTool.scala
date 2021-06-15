@@ -48,6 +48,13 @@ object CreateIndexesTool {
       "nodeRefs"
     ),
     Index(
+      "networks",
+      "subset-networks",
+      "attributes.country",
+      "attributes.networkType",
+      "active"
+    ),
+    Index(
       "nodes",
       "location",
       "active",
@@ -63,6 +70,14 @@ object CreateIndexesTool {
       "route-node-references",
       "active",
       "nodeRefs"
+    ),
+    Index(
+      "routes",
+      "subset-orphan-routes",
+      "active",
+      "orphan",
+      "summary.country",
+      "summary.networkType"
     ),
     Index(
       "nodeRouteRefs",
@@ -228,7 +243,7 @@ class CreateIndexesTool(database: MongoDatabase) {
   }
 
   private def createIndex(index: Index): Unit = {
-    Log.context(s"collection: ${index.collectionName}, index: ${index.indexName}") {
+    Log.context(s"collection: '${index.collectionName}', index: '${index.indexName}'") {
       if (hasIndex(index)) {
         log.info("Index already exists")
       }

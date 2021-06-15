@@ -13,6 +13,8 @@ import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.changes.MongoDelete
 import kpn.core.mongo.changes.MongoFindById
+import kpn.core.mongo.changes.MongoQueryIds
+import kpn.core.mongo.changes.MongoQuerySubsetNetworks
 import kpn.core.mongo.changes.MongoSave
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -32,7 +34,7 @@ class NetworkRepositoryImpl(
 
   override def allNetworkIds(): Seq[Long] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryIds(mongoDatabase).execute("networks")
     }
     else {
       DocumentView.allNetworkIds(analysisDatabase)
@@ -50,7 +52,7 @@ class NetworkRepositoryImpl(
 
   override def elements(networkId: Long): Option[NetworkElements] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoFindById(mongoDatabase).execute("network-elements", networkId)
     }
     else {
       analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
@@ -59,10 +61,10 @@ class NetworkRepositoryImpl(
 
   override def saveElements(networkElements: NetworkElements): Unit = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoSave(mongoDatabase).execute("network-elements", networkElements)
     }
     else {
-      val key = networkElementsKey(networkElements.networkId)
+      val key = networkElementsKey(networkElements._id)
       analysisDatabase.save(NetworkElementsDoc(key, networkElements))
     }
   }
@@ -96,7 +98,7 @@ class NetworkRepositoryImpl(
 
   override def gpx(networkId: Long): Option[GpxFile] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoFindById(mongoDatabase).execute("network-gpxs", networkId)
     }
     else {
       analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
@@ -105,10 +107,10 @@ class NetworkRepositoryImpl(
 
   override def saveGpxFile(gpxFile: GpxFile): Unit = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoSave(mongoDatabase).execute("network-gpxs", gpxFile)
     }
     else {
-      val key = gpxKey(gpxFile.networkId)
+      val key = gpxKey(gpxFile._id)
       analysisDatabase.save(GpxDoc(key, gpxFile))
     }
   }
@@ -117,7 +119,7 @@ class NetworkRepositoryImpl(
 
   override def networks(subset: Subset, stale: Boolean): Seq[NetworkAttributes] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQuerySubsetNetworks(mongoDatabase).execute(subset)
     }
     else {
       NetworkView.query(analysisDatabase, subset, stale)

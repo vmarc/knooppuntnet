@@ -110,7 +110,7 @@ class RouteTool(database: Database) {
   }
 
   def printOrphanRoutes(): Unit = {
-    val orphanRepository = new OrphanRepositoryImpl(database)
+    val orphanRepository = new OrphanRepositoryImpl(database, false, null)
     println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle).size)
     println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle).size)
     println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle).size)

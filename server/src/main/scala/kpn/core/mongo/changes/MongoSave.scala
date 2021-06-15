@@ -23,7 +23,7 @@ class MongoSave(database: MongoDatabase) {
       val collection = database.getCollection[WithId](collectionName)
       val future = collection.replaceOne(filter, withId, ReplaceOptions().upsert(true)).toFuture()
       val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"collection: $collectionName, _id: ${withId._id}", result)
+      (s"collection: '$collectionName', _id: ${withId._id}", result)
     }
   }
 }
