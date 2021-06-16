@@ -12,7 +12,6 @@ import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.base.MongoDelete
-import kpn.core.mongo.actions.base.MongoQueryIds
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -30,7 +29,7 @@ class NetworkRepositoryImpl(
 
   override def allNetworkIds(): Seq[Long] = {
     if (mongoEnabled) {
-      new MongoQueryIds(database).execute("networks")
+      database.networks.ids()
     }
     else {
       DocumentView.allNetworkIds(analysisDatabase)
