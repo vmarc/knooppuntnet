@@ -14,7 +14,6 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.actions.base.MongoDelete
 import kpn.core.mongo.actions.base.MongoFindById
 import kpn.core.mongo.actions.base.MongoQueryIds
-import kpn.core.mongo.actions.base.MongoSave
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -59,7 +58,7 @@ class NetworkRepositoryImpl(
 
   override def saveElements(networkElements: NetworkElements): Unit = {
     if (mongoEnabled) {
-      new MongoSave(database).execute("network-elements", networkElements)
+      database.networkElements.save(networkElements)
     }
     else {
       val key = networkElementsKey(networkElements._id)
@@ -69,7 +68,7 @@ class NetworkRepositoryImpl(
 
   override def save(network: NetworkInfo): Unit = {
     if (mongoEnabled) {
-      new MongoSave(database).execute("networks", network)
+      database.networks.save(network)
     }
     else {
       log.debugElapsed {
@@ -105,7 +104,7 @@ class NetworkRepositoryImpl(
 
   override def saveGpxFile(gpxFile: GpxFile): Unit = {
     if (mongoEnabled) {
-      new MongoSave(database).execute("network-gpxs", gpxFile)
+      database.networkGpxs.save(gpxFile)
     }
     else {
       val key = gpxKey(gpxFile._id)

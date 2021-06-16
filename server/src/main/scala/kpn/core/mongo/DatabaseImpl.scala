@@ -8,12 +8,22 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
+import kpn.core.gpx.GpxFile
+import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import org.mongodb.scala.MongoDatabase
 
 class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def networks: DatabaseCollection[NetworkInfo] = {
     new DatabaseCollection(database.getCollection[NetworkInfo]("networks"))
+  }
+
+  override def networkElements: DatabaseCollection[NetworkElements] = {
+    new DatabaseCollection(database.getCollection[NetworkElements]("network-elements"))
+  }
+
+  override def networkGpxs: DatabaseCollection[GpxFile] = {
+    new DatabaseCollection(database.getCollection[GpxFile]("network-gpxs"))
   }
 
   override def nodes: DatabaseCollection[NodeInfo] = {

@@ -5,7 +5,6 @@ import kpn.core.db.couch.Couch
 import kpn.core.mongo.Database
 import kpn.core.mongo.NodeNetworkRef
 import kpn.core.mongo.RouteNetworkRef
-import kpn.core.mongo.actions.base.MongoSave
 import kpn.core.mongo.migration.MigrateNetworksTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -45,14 +44,14 @@ class MigrateNetworksTool(couchDatabase: kpn.core.database.Database, database: D
       networkRepository.elements(networkId) match {
         case Some(networkElements) =>
           val migrated = networkElements.copy(_id = networkElements.networkId)
-          new MongoSave(database).execute("network-elements", migrated)
+          database.networkElements.save(migrated)
         case None =>
       }
 
       networkRepository.gpx(networkId) match {
         case Some(gpxFile) =>
           val migrated = gpxFile.copy(_id = gpxFile.networkId)
-          new MongoSave(database).execute("network-gpxs", migrated)
+          database.networkGpxs.save(migrated)
         case None =>
       }
     }
@@ -65,7 +64,7 @@ class MigrateNetworksTool(couchDatabase: kpn.core.database.Database, database: D
 
   private def migrateNetwork(networkInfo: NetworkInfo): Unit = {
     val migratedNetworkInfo = networkInfo.copy(_id = networkInfo.id)
-    new MongoSave(database).execute("networks", migratedNetworkInfo)
+    database.networks.save(migratedNetworkInfo)
     migrateNodeNetworkRefs(migratedNetworkInfo)
     migrateRouteNetworkRefs(migratedNetworkInfo)
   }

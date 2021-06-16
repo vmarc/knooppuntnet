@@ -8,8 +8,8 @@ class MongoQueryIdsTest extends UnitTest with SharedTestObjects {
 
   test("ids") {
     withDatabase { database =>
-      new MongoSave(database).execute("networks", newNetworkInfo(newNetworkAttributes(1L)))
-      new MongoSave(database).execute("networks", newNetworkInfo(newNetworkAttributes(2L)))
+      database.networks.save(newNetworkInfo(newNetworkAttributes(1L)))
+      database.networks.save(newNetworkInfo(newNetworkAttributes(2L)))
       val result = new MongoQueryIds(database).execute("networks")
       result should equal(Seq(1L, 2L))
     }
