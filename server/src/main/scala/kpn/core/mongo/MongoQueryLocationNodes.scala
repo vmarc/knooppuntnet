@@ -2,7 +2,6 @@ package kpn.core.mongo
 
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.lookup
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class MongoQueryLocationNodes(database: MongoDatabase) {
+class MongoQueryLocationNodes(database: Database) {
 
   private val log = Log(classOf[MongoQueryLocationNodes])
 
@@ -37,7 +36,7 @@ class MongoQueryLocationNodes(database: MongoDatabase) {
 
     val lastSurveyFilter = exists("node.lastSurvey")
 
-    val nodes = database.getCollection("nodes")
+    val nodes = database.database.getCollection("nodes")
 
     val totalNodeCount = log.debugElapsed {
       val future = nodes.countDocuments(locationFilter).toFuture()

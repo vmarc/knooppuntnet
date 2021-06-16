@@ -18,7 +18,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   test("node references in route") {
 
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -99,7 +99,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-active routes are ignored") {
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -127,7 +127,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   test("identical nodes are emitted only once") {
 
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -164,7 +164,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   test("ref count") {
 
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
 
       route(routeRepository, 11, 1001, 1002)
       route(routeRepository, 12, 1001, 1003)

@@ -5,23 +5,21 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteInfo
 import kpn.core.common.Time
-import kpn.core.mongo.actions.routes.MongoQueryRoute
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCount
 import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCounts
 import kpn.core.mongo.actions.routes.MongoQueryRouteChanges
-import kpn.core.mongo.actions.routes.MongoSaveRoute
-import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
-class MongoRouteRepositoryImpl(database: MongoDatabase) extends MongoRouteRepository {
+class MongoRouteRepositoryImpl(database: Database) extends MongoRouteRepository {
 
   override def save(route: RouteInfo): Unit = {
-    new MongoSaveRoute(database).execute(route)
+    database.routes.save(route)
   }
 
   override def routeWithId(routeId: Long): Option[RouteInfo] = {
-    new MongoQueryRoute(database).execute(routeId)
+    database.routes.findById(routeId)
   }
 
   override def routeChangeCount(routeId: Long): Long = {

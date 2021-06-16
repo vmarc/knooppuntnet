@@ -33,7 +33,7 @@ class RouteColoursTool(database: Database) {
     "yellow"
   )
 
-  private val routeRepository = new RouteRepositoryImpl(database, false, null)
+  private val routeRepository = new RouteRepositoryImpl(null, database, false)
 
   def report(): Unit = {
     println("Collecting route ids")

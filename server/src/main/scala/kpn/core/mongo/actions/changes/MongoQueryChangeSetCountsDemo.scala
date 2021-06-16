@@ -1,8 +1,8 @@
 package kpn.core.mongo.actions.changes
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
-import org.mongodb.scala.MongoDatabase
 
 object MongoQueryChangeSetCountsDemo extends MongoQuery {
 
@@ -20,7 +20,7 @@ object MongoQueryChangeSetCountsDemo extends MongoQuery {
   }
 }
 
-class MongoQueryChangeSetCountsDemo(database: MongoDatabase) {
+class MongoQueryChangeSetCountsDemo(database: Database) {
 
   def materializedExecute(year: Int, month: Option[Int]): Unit = {
     val materializedCollectionQuery = new MongoQueryChangeSetCounts(database)

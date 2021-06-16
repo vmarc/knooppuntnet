@@ -13,7 +13,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
 
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(102))
@@ -30,7 +30,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
 
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(102))
@@ -43,7 +43,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
 
       assert(
         nodeRepository.save(
@@ -90,7 +90,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
 
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(101))
@@ -102,7 +102,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("filterKnown") {
     withCouchDatabase { database =>
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
 
       nodeRepository.save(newNodeInfo(101))
       nodeRepository.save(newNodeInfo(102))
@@ -115,7 +115,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      new NetworkRepositoryImpl(database, false, null).save(
+      new NetworkRepositoryImpl(null, database, false).save(
         newNetworkInfo(
           newNetworkAttributes(
             2,
@@ -135,7 +135,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
       nodeRepository.nodeNetworkReferences(1001, stale = false) should matchTo(
         Seq(
           NodeNetworkReference(

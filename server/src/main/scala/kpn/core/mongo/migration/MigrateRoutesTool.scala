@@ -1,14 +1,13 @@
 package kpn.core.mongo.migration
 
 import kpn.api.common.route.RouteInfo
-import kpn.core.database.Database
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
 import kpn.core.mongo.NodeRouteRef
 import kpn.core.mongo.migration.MigrateRoutesTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.RouteRepositoryImpl
-import org.mongodb.scala.MongoDatabase
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -19,20 +18,18 @@ object MigrateRoutesTool {
   private val log = Log(classOf[MigrateRoutesTool])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { mongoDatabase =>
+    Mongo.executeIn("kpn-test") { database =>
       Couch.executeIn("kpn-database", "analysis") { couchDatabase =>
-        new MigrateRoutesTool(couchDatabase, mongoDatabase).migrate()
+        new MigrateRoutesTool(couchDatabase, database).migrate()
       }
     }
     log.info("Done")
   }
 }
 
-class MigrateRoutesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
+class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Database) {
 
-  private val routeRepository = new RouteRepositoryImpl(couchDatabase, false, null)
-  private val routesCollection = mongoDatabase.getCollection[RouteInfo]("routes")
-  private val nodeRouteRefsCollection = mongoDatabase.getCollection[NodeRouteRef]("node-route-refs")
+  private val routeRepository = new RouteRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
     val batchSize = 25
@@ -50,7 +47,7 @@ class MigrateRoutesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
 
   private def migrateRoutes(routeIds: Seq[Long]): Unit = {
     val routeInfos = routeRepository.routesWithIds(routeIds).map(routeInfo => routeInfo.copy(_id = routeInfo.id))
-    val insertManyResultFuture = routesCollection.insertMany(routeInfos).toFuture()
+    val insertManyResultFuture = database.routes.tempCollection.insertMany(routeInfos).toFuture()
     Await.result(insertManyResultFuture, Duration(3, TimeUnit.MINUTES))
     routeInfos.foreach(migrateNodeRouteRefs)
   }
@@ -68,7 +65,7 @@ class MigrateRoutesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
       )
     }
     if (refs.nonEmpty) {
-      val insertManyResultFuture = nodeRouteRefsCollection.insertMany(refs).toFuture()
+      val insertManyResultFuture = database.nodeRouteRefs.tempCollection.insertMany(refs).toFuture()
       Await.result(insertManyResultFuture, Duration(30, TimeUnit.SECONDS))
     }
   }

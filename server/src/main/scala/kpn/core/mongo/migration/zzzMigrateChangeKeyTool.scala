@@ -5,11 +5,11 @@ import kpn.core.database.doc.LocationChangeSetSummaryDoc
 import kpn.core.database.doc.NetworkChangeDoc
 import kpn.core.database.doc.NodeChangeDoc
 import kpn.core.database.doc.RouteChangeDoc
-import kpn.core.mongo.util.StringId
+import kpn.core.mongo.Database
 import kpn.core.mongo.util.Mongo
+import kpn.core.mongo.util.StringId
 import kpn.core.util.Log
 import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -29,13 +29,13 @@ import scala.reflect.ClassTag
 
 object zzzMigrateChangeKeyTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { mongoDatabase =>
-      new zzzMigrateChangeKeyTool(mongoDatabase).migrate()
+    Mongo.executeIn("kpn-test") { database =>
+      new zzzMigrateChangeKeyTool(database).migrate()
     }
   }
 }
 
-class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
+class zzzMigrateChangeKeyTool(database: Database) {
 
   private val log = Log(classOf[zzzMigrateChangeKeyTool])
 
@@ -70,7 +70,7 @@ class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("network-changes") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[NetworkChangeDoc]("network-changes")
+        val collection = database.database.getCollection[NetworkChangeDoc]("network-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.networkChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -105,7 +105,7 @@ class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("route-changes") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[RouteChangeDoc]("route-changes")
+        val collection = database.database.getCollection[RouteChangeDoc]("route-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.routeChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -141,7 +141,7 @@ class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("node-changes") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[NodeChangeDoc]("node-changes")
+        val collection = database.database.getCollection[NodeChangeDoc]("node-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.nodeChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -177,7 +177,7 @@ class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("changeset-summaries") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
+        val collection = database.database.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.changeSetSummary
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -212,7 +212,7 @@ class zzzMigrateChangeKeyTool(mongoDatabase: MongoDatabase) {
 
     Log.context("change-location-summaries") {
       log.elapsedSeconds {
-        val collection = mongoDatabase.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
+        val collection = database.database.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.locationChangeSetSummary
           val newKey = change.key.copy(time = change.key.timestamp.toKey)

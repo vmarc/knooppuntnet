@@ -8,7 +8,7 @@ import kpn.server.repository.NetworkRepositoryImpl
 object FindNetworksWithoutCountryTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-server", "master-test") { database =>
-      val repo = new NetworkRepositoryImpl(database, false, null)
+      val repo = new NetworkRepositoryImpl(null, database, false)
       val networks = NetworkType.all.flatMap { networkType =>
         repo.networks(kpn.api.custom.Subset(Country.nl, networkType)).filter(_.country.isEmpty)
       }

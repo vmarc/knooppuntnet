@@ -3,33 +3,30 @@ package kpn.server.repository
 import kpn.api.common.NodeInfo
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeOrphanRouteReference
-import kpn.core.database.Database
 import kpn.core.database.doc.NodeDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NodeNetworkReferenceView
 import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
-import kpn.core.mongo.actions.base.MongoQueryIds
+import kpn.core.mongo.Database
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
 
 @Component
 class NodeRepositoryImpl(
+  database: Database,
   // old
-  analysisDatabase: Database,
-  // new
-  mongoEnabled: Boolean,
-  mongoDatabase: MongoDatabase
+  analysisDatabase: kpn.core.database.Database,
+  mongoEnabled: Boolean
 ) extends NodeRepository {
 
   private val log = Log(classOf[NodeRepositoryImpl])
 
   override def allNodeIds(): Seq[Long] = {
     if (mongoEnabled) {
-      new MongoQueryIds(mongoDatabase).execute("nodes")
+      database.nodes.ids(log)
     }
     else {
       DocumentView.allNodeIds(analysisDatabase)

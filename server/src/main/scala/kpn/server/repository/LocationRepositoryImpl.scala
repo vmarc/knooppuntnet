@@ -12,22 +12,20 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
-import kpn.core.database.Database
 import kpn.core.database.views.location.LocationFactView
 import kpn.core.database.views.location.LocationNodeCount
 import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
-import org.mongodb.scala.MongoDatabase
+import kpn.core.mongo.Database
 import org.springframework.stereotype.Component
 
 @Component
 class LocationRepositoryImpl(
+  database: Database,
   // old
-  analysisDatabase: Database,
-  // new
-  mongoEnabled: Boolean,
-  mongoDatabase: MongoDatabase
+  analysisDatabase: kpn.core.database.Database,
+  mongoEnabled: Boolean
 ) extends LocationRepository {
 
   override def summary(locationKey: LocationKey): LocationSummary = {

@@ -2,11 +2,11 @@ package kpn.core.mongo.actions.changes
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.base.Range
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetSummaries.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -44,7 +44,7 @@ object MongoQueryChangeSetSummaries {
   }
 }
 
-class MongoQueryChangeSetSummaries(database: MongoDatabase) {
+class MongoQueryChangeSetSummaries(database: Database) {
 
   def execute(parameters: ChangesParameters): Seq[ChangeSetSummary] = {
 
@@ -113,7 +113,7 @@ class MongoQueryChangeSetSummaries(database: MongoDatabase) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("changeset-summaries")
+      val collection = database.database.getCollection("changeset-summaries")
       val future = collection.aggregate[ChangeSetSummary](pipeline).toFuture()
       val summaries = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${summaries.size} changeset summaries", summaries)

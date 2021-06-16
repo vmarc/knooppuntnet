@@ -14,7 +14,7 @@ object RoutesWithoutTilesTool {
 
 class RoutesWithoutTilesTool(database: Database) {
 
-  private val routeRepository = new RouteRepositoryImpl(database, false, null)
+  private val routeRepository = new RouteRepositoryImpl(null, database, false)
 
   def report(): Unit = {
     println("Looking for routes without tiles")

@@ -5,23 +5,21 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkInfo
 import kpn.core.common.Time
-import kpn.core.mongo.actions.networks.MongoQueryNetwork
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCount
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChanges
-import kpn.core.mongo.actions.networks.MongoSaveNetwork
-import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
-class MongoNetworkRepositoryImpl(database: MongoDatabase) extends MongoNetworkRepository {
+class MongoNetworkRepositoryImpl(database: Database) extends MongoNetworkRepository {
 
   override def save(network: NetworkInfo): Unit = {
-    new MongoSaveNetwork(database).execute(network)
+    database.networks.save(network)
   }
 
   override def networkWithId(networkId: Long): Option[NetworkInfo] = {
-    new MongoQueryNetwork(database).execute(networkId)
+    database.networks.findById(networkId)
   }
 
   override def networkChangeCount(networkId: Long): Long = {

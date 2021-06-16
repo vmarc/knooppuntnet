@@ -1,5 +1,6 @@
 package kpn.core.mongo.actions.changes
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetCounts.log
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetCounts.pipelineAll
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetCounts.pipelineDaysString
@@ -9,7 +10,6 @@ import kpn.core.mongo.actions.statistics.ChangeSetCounts
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Facet
@@ -26,7 +26,7 @@ object MongoQueryChangeSetCounts extends MongoQuery {
   private val pipelineAll = readPipeline("all").stages
 }
 
-class MongoQueryChangeSetCounts(database: MongoDatabase) {
+class MongoQueryChangeSetCounts(database: Database) {
 
   def execute(year: Int, monthOption: Option[Int]): ChangeSetCounts = {
 
@@ -65,7 +65,7 @@ class MongoQueryChangeSetCounts(database: MongoDatabase) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("change-stats-summaries")
+      val collection = database.database.getCollection("change-stats-summaries")
       val future = collection.aggregate[ChangeSetCounts](pipeline).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
@@ -78,7 +78,7 @@ class MongoQueryChangeSetCounts(database: MongoDatabase) {
       log.trace(Mongo.pipelineString(pipelineAll))
     }
     log.debugElapsed {
-      val collection = database.getCollection("change-stats-summaries")
+      val collection = database.database.getCollection("change-stats-summaries")
       val future = collection.aggregate[ChangeSetCount](pipelineAll).toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"all days materialized ${counts.size} counts", counts)

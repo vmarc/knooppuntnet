@@ -1,7 +1,6 @@
 package kpn.core.test
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.database.views.analyzer.AnalyzerDesign
@@ -14,11 +13,11 @@ import kpn.core.database.views.planner.PlannerDesign
 import kpn.core.database.views.poi.PoiDesign
 import kpn.core.database.views.tile.TileDesign
 import kpn.core.db.couch.CouchConfig
-import kpn.core.mongo.util.Mongo.codecRegistry
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.server.json.Json
 import kpn.server.repository.DesignRepositoryImpl
 import org.mongodb.scala.MongoClient
-import org.mongodb.scala.MongoDatabase
 import org.scalatest.Assertions
 
 import java.util.Properties
@@ -41,25 +40,25 @@ object TestSupport extends Assertions {
    * Perform given function with a freshly created database. The database is deleted
    * afterwards.
    */
-  def withDatabase(f: MongoDatabase => Unit): Unit = {
-    withDatabase(keepDatabaseAfterTest = false)(f: MongoDatabase => Unit)
+  def withDatabase(f: Database => Unit): Unit = {
+    withDatabase(keepDatabaseAfterTest = false)(f)
   }
 
   /**
    * Perform given function with a freshly created database.
    */
-  def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: MongoDatabase => Unit): Unit = {
+  def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
 
     val databaseName = "unit-testdb-" + count.incrementAndGet()
     val mongoClient = MongoClient()
     try {
-      val database = mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry)
-      Await.result(database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
+      val database = Mongo.database(mongoClient, databaseName)
+      Await.result(database.database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
       try {
         f(database)
       } finally {
         if (!keepDatabaseAfterTest) {
-          Await.result(database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
+          Await.result(database.database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
         }
       }
     }
@@ -72,14 +71,14 @@ object TestSupport extends Assertions {
    * Perform given function with a freshly created database. The database is deleted
    * afterwards.
    */
-  def withCouchDatabase(f: Database => Unit): Unit = {
-    withCouchDatabase(keepDatabaseAfterTest = false)(f: Database => Unit)
+  def withCouchDatabase(f: kpn.core.database.Database => Unit): Unit = {
+    withCouchDatabase(keepDatabaseAfterTest = false)(f)
   }
 
   /**
    * Perform given function with a freshly created database.
    */
-  def withCouchDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
+  def withCouchDatabase(keepDatabaseAfterTest: Boolean = false)(f: kpn.core.database.Database => Unit): Unit = {
 
     withEnvironment { (couchConfig, objectMapper) =>
 

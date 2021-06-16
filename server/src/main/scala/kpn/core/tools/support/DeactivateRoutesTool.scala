@@ -70,7 +70,7 @@ object DeactivateRoutesTool {
 
 class DeactivateRoutesTool(database: Database) {
 
-  private val routeRepository = new RouteRepositoryImpl(database, false, null)
+  private val routeRepository = new RouteRepositoryImpl(null, database, false)
 
   def run(routeIds: Seq[Long]): Unit = {
 

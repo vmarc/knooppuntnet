@@ -14,7 +14,7 @@ class OverviewRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database, false, null)
+      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null, database, false)
       networkRepository.save(
         newNetworkInfo(
           newNetworkAttributes(

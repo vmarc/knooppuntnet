@@ -18,7 +18,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
   test("node network reference") {
 
     withCouchDatabase { database =>
-      val networkRepository = new NetworkRepositoryImpl(database, false, null)
+      val networkRepository = new NetworkRepositoryImpl(null, database, false)
       networkRepository.save(buildNetworkWithNode1001and1002())
       networkRepository.save(buildNetworkWithNode1001())
 
@@ -88,7 +88,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
   test("no node network references when network not active") {
 
     withCouchDatabase { database =>
-      val networkRepository = new NetworkRepositoryImpl(database, false, null)
+      val networkRepository = new NetworkRepositoryImpl(null, database, false)
       networkRepository.save(buildInactiveNetwork())
       queryNode(database, 1001) shouldBe empty
     }

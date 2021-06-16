@@ -13,7 +13,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   test("node references in orphan route") {
 
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -74,7 +74,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-orphan routes are ignored") {
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(
         newRoute( // not an orphan route
           id = 10,
@@ -96,7 +96,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-active orphan routes are ignored") {
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(
         newRoute(
           id = 10,

@@ -16,7 +16,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
 
   test("node location") {
     withCouchDatabase { database =>
-      val repo = new NodeRepositoryImpl(database, false, null)
+      val repo = new NodeRepositoryImpl(null, database, false)
       repo.save(
         newNodeInfo(
           id = 1001,
@@ -87,7 +87,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
 
       routeRepository.save(route1)
       routeRepository.save(route2)

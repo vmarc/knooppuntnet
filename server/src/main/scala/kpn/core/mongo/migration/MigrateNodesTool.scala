@@ -1,13 +1,11 @@
 package kpn.core.mongo.migration
 
-import kpn.api.common.NodeInfo
-import kpn.core.database.Database
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
 import kpn.core.mongo.migration.MigrateNodesTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.NodeRepositoryImpl
-import org.mongodb.scala.MongoDatabase
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -18,19 +16,18 @@ object MigrateNodesTool {
   private val log = Log(classOf[MigrateNodesTool])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { mongoDatabase =>
+    Mongo.executeIn("kpn-test") { database =>
       Couch.executeIn("kpn-database", "analysis") { couchDatabase =>
-        new MigrateNodesTool(couchDatabase, mongoDatabase).migrate()
+        new MigrateNodesTool(couchDatabase, database).migrate()
       }
     }
     log.info("Done")
   }
 }
 
-class MigrateNodesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
+class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Database) {
 
-  private val nodeRepository = new NodeRepositoryImpl(couchDatabase, false, null)
-  private val nodesCollection = mongoDatabase.getCollection[NodeInfo]("nodes")
+  private val nodeRepository = new NodeRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
     val allNodeIds = findAllNodeIds()
@@ -52,7 +49,7 @@ class MigrateNodesTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
   private def migrateNodes(nodeIds: Seq[Long]): Unit = {
     val nodeInfos = nodeRepository.nodesWithIds(nodeIds)
     val migratedNodeInfos = nodeInfos.map(nodeInfo => nodeInfo.copy(_id = nodeInfo.id))
-    val future = nodesCollection.insertMany(migratedNodeInfos).toFuture()
+    val future = database.nodes.tempCollection.insertMany(migratedNodeInfos).toFuture()
     Await.result(future, Duration(1, TimeUnit.MINUTES))
   }
 }

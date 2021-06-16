@@ -1,8 +1,8 @@
 package kpn.core.mongo.migration
 
 import kpn.api.common.network.NetworkInfo
-import kpn.core.database.Database
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
 import kpn.core.mongo.NodeNetworkRef
 import kpn.core.mongo.RouteNetworkRef
 import kpn.core.mongo.actions.base.MongoSave
@@ -10,7 +10,6 @@ import kpn.core.mongo.migration.MigrateNetworksTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.NetworkRepositoryImpl
-import org.mongodb.scala.MongoDatabase
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -30,11 +29,9 @@ object MigrateNetworksTool {
   }
 }
 
-class MigrateNetworksTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
+class MigrateNetworksTool(couchDatabase: kpn.core.database.Database, database: Database) {
 
-  private val networkRepository = new NetworkRepositoryImpl(couchDatabase, mongoEnabled = false, mongoDatabase)
-  private val nodeNetworkRefsCollection = mongoDatabase.getCollection[NodeNetworkRef]("node-network-refs")
-  private val routeNetworkRefsCollection = mongoDatabase.getCollection[RouteNetworkRef]("route-network-refs")
+  private val networkRepository = new NetworkRepositoryImpl(database, couchDatabase, mongoEnabled = false)
 
   def migrate(): Unit = {
     val networkIds = findNetworkIds()
@@ -48,14 +45,14 @@ class MigrateNetworksTool(couchDatabase: Database, mongoDatabase: MongoDatabase)
       networkRepository.elements(networkId) match {
         case Some(networkElements) =>
           val migrated = networkElements.copy(_id = networkElements.networkId)
-          new MongoSave(mongoDatabase).execute("network-elements", migrated)
+          new MongoSave(database).execute("network-elements", migrated)
         case None =>
       }
 
       networkRepository.gpx(networkId) match {
         case Some(gpxFile) =>
           val migrated = gpxFile.copy(_id = gpxFile.networkId)
-          new MongoSave(mongoDatabase).execute("network-gpxs", migrated)
+          new MongoSave(database).execute("network-gpxs", migrated)
         case None =>
       }
     }
@@ -68,7 +65,7 @@ class MigrateNetworksTool(couchDatabase: Database, mongoDatabase: MongoDatabase)
 
   private def migrateNetwork(networkInfo: NetworkInfo): Unit = {
     val migratedNetworkInfo = networkInfo.copy(_id = networkInfo.id)
-    new MongoSave(mongoDatabase).execute("networks", migratedNetworkInfo)
+    new MongoSave(database).execute("networks", migratedNetworkInfo)
     migrateNodeNetworkRefs(migratedNetworkInfo)
     migrateRouteNetworkRefs(migratedNetworkInfo)
   }
@@ -87,7 +84,7 @@ class MigrateNetworksTool(couchDatabase: Database, mongoDatabase: MongoDatabase)
     }
     val uniqueRefs = refs.map(ref => ref._id -> ref).toMap.values.toSeq
     if (uniqueRefs.nonEmpty) {
-      val future = nodeNetworkRefsCollection.insertMany(uniqueRefs).toFuture()
+      val future = database.nodeNetworkRefs.tempCollection.insertMany(uniqueRefs).toFuture()
       Await.result(future, Duration(1, TimeUnit.MINUTES))
     }
   }
@@ -106,7 +103,7 @@ class MigrateNetworksTool(couchDatabase: Database, mongoDatabase: MongoDatabase)
     }
     val uniqueRefs = refs.map(ref => ref._id -> ref).toMap.values.toSeq
     if (uniqueRefs.nonEmpty) {
-      val future = routeNetworkRefsCollection.insertMany(uniqueRefs).toFuture()
+      val future = database.routeNetworkRefs.tempCollection.insertMany(uniqueRefs).toFuture()
       Await.result(future, Duration(1, TimeUnit.MINUTES))
     }
   }

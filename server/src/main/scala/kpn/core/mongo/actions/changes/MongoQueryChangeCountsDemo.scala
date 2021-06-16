@@ -1,11 +1,11 @@
 package kpn.core.mongo.actions.changes
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCounts
 import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCounts
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
-import org.mongodb.scala.MongoDatabase
 
 object MongoQueryChangeCountsDemo extends MongoQuery {
 
@@ -20,7 +20,7 @@ object MongoQueryChangeCountsDemo extends MongoQuery {
   }
 }
 
-class MongoQueryChangeCountsDemo(database: MongoDatabase) {
+class MongoQueryChangeCountsDemo(database: Database) {
 
   def networkChangeCounts(): Unit = {
     val query = new MongoQueryNetworkChangeCounts(database)

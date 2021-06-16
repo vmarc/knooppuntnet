@@ -1,13 +1,12 @@
 package kpn.core.mongo.migration
 
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.core.database.Database
 import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
 import kpn.core.mongo.migration.MigrateChangeSetCommentsTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
-import org.mongodb.scala.MongoDatabase
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -27,7 +26,7 @@ object MigrateChangeSetCommentsTool {
   }
 }
 
-class MigrateChangeSetCommentsTool(couchDatabase: Database, mongoDatabase: MongoDatabase) {
+class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mongoDatabase: Database) {
 
   private val repo = new ChangeSetInfoRepositoryImpl(couchDatabase)
 
@@ -55,7 +54,7 @@ class MigrateChangeSetCommentsTool(couchDatabase: Database, mongoDatabase: Mongo
   private def migrateChangeSets(changeSetIds: Seq[Long]): Unit = {
     val docs = repo.all(changeSetIds)
     val comments = docs.map(toComment)
-    val collection = mongoDatabase.getCollection[ChangeSetComment]("changeset-comments")
+    val collection = mongoDatabase.database.getCollection[ChangeSetComment]("changeset-comments")
     val insertManyResultFuture = collection.insertMany(comments).toFuture()
     Await.result(insertManyResultFuture, Duration(3, TimeUnit.MINUTES))
   }

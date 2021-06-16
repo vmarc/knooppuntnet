@@ -1,5 +1,6 @@
 package kpn.core.mongo.actions.changes
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetDirectCounts.log
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetDirectCounts.pipelineAll
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetDirectCounts.pipelineDaysString
@@ -10,7 +11,6 @@ import kpn.core.mongo.actions.statistics.ChangeSetCounts
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Facet
@@ -27,13 +27,11 @@ object MongoQueryChangeSetDirectCounts extends MongoQuery {
   private val pipelineAll = readPipeline("all").stages
 }
 
-class MongoQueryChangeSetDirectCounts(database: MongoDatabase) {
+class MongoQueryChangeSetDirectCounts(database: Database) {
 
   def allDays(): Seq[ChangeSetCount] = {
     log.debugElapsed {
-      val collection = database.getCollection("changeset-summaries")
-      val future = collection.aggregate[ChangeSetCount](pipelineAll).toFuture()
-      val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      val counts = database.changeSetSummaries.aggregate[ChangeSetCount](pipelineAll)
       val sortedCounts = counts.sortBy(c => (c.year, c.month, c.day, c.impact))
       (s"all days direct ${counts.size} counts", sortedCounts)
     }
@@ -74,8 +72,7 @@ class MongoQueryChangeSetDirectCounts(database: MongoDatabase) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("changeset-summaries")
-      val future = collection.aggregate[ChangeSetCounts](pipeline).allowDiskUse(true).first().toFuture()
+      val future = database.changeSetSummaries.tempCollection.aggregate[ChangeSetCounts](pipeline).allowDiskUse(true).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"executeDirectMultiPipeline: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
       (result, counts)

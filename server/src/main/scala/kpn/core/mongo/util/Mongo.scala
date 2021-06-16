@@ -1,11 +1,12 @@
 package kpn.core.mongo.util
 
+import kpn.core.mongo.Database
+import kpn.core.mongo.DatabaseImpl
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import org.bson.json.JsonWriterSettings
 import org.mongodb.scala.MongoClient
 import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
 
@@ -26,7 +27,7 @@ object Mongo {
     MongoClient(url)
   }
 
-  def executeIn(databaseName: String)(action: MongoDatabase => Unit): Unit = {
+  def executeIn(databaseName: String)(action: Database => Unit): Unit = {
     val mongoClient = client
     try {
       val mongoDatabase = database(mongoClient, databaseName)
@@ -37,8 +38,8 @@ object Mongo {
     }
   }
 
-  def database(mongoClient: MongoClient, databaseName: String): MongoDatabase = {
-    mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry)
+  def database(mongoClient: MongoClient, databaseName: String): Database = {
+    new DatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
   }
 
   def url: String = {
@@ -57,5 +58,4 @@ object Mongo {
     val stageStrings = stages.map(bsonString)
     stageStrings.mkString(",\n").split("\n").mkString("[\n  ", "\n  ", "\n]")
   }
-
 }

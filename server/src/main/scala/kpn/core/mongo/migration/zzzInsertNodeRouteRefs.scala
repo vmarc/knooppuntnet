@@ -15,7 +15,7 @@ object zzzInsertNodeRouteRefs {
     println("Insert node route refs")
     var count = 0
     val mongoClient = Mongo.client
-    val database = Mongo.database(mongoClient, "kpn-test")
+    val database = Mongo.database(mongoClient, "kpn-test").database
     val routesCollection = database.getCollection[RouteDoc]("routes")
     val nodeRouteRefs = database.getCollection[NodeRouteRef]("nodeRouteRefs")
     routesCollection.find[RouteDoc](equal("route.active", true)).subscribe(new Observer[RouteDoc]() {

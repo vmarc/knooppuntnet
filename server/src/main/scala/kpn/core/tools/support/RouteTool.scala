@@ -20,7 +20,7 @@ object RouteTool {
 class RouteTool(database: Database) {
 
   def nonStandardRouteNames(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database, false, null)
+    val routeRepository = new RouteRepositoryImpl(null, database, false)
     val allRouteIds = routeRepository.allRouteIds()
     allRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       if (((index + 1) % 100) == 0) {
@@ -82,7 +82,7 @@ class RouteTool(database: Database) {
   }
 
   def routesWithStateTag(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database, false, null)
+    val routeRepository = new RouteRepositoryImpl(null, database, false)
     val allRouteIds = routeRepository.allRouteIds()
     allRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       if (((index + 1) % 100) == 0) {
@@ -97,7 +97,7 @@ class RouteTool(database: Database) {
   }
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database, false, null)
+    val routeRepository = new RouteRepositoryImpl(null, database, false)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
     blackListedRouteIds.foreach { routeId =>
@@ -110,14 +110,14 @@ class RouteTool(database: Database) {
   }
 
   def printOrphanRoutes(): Unit = {
-    val orphanRepository = new OrphanRepositoryImpl(database, false, null)
+    val orphanRepository = new OrphanRepositoryImpl(null, database, false)
     println("nl orphan route count = " + orphanRepository.orphanRoutes(Subset.nlBicycle).size)
     println("be orphan route count = " + orphanRepository.orphanRoutes(Subset.beBicycle).size)
     println("de orphan route count = " + orphanRepository.orphanRoutes(Subset.deBicycle).size)
   }
 
   def blackListedRoutesThatWouldBeExcludedByTheNewRules(): Unit = {
-    val routeRepository = new RouteRepositoryImpl(database, false, null)
+    val routeRepository = new RouteRepositoryImpl(null, database, false)
     val blackListRepository = new BlackListRepositoryImpl(database)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
 
@@ -135,8 +135,8 @@ class RouteTool(database: Database) {
 
   def removeBlacklistedNetworksAndRoutes(): Unit = {
     val blackListRepository = new BlackListRepositoryImpl(database)
-    val networkRepository = new NetworkRepositoryImpl(database, false, null)
-    val routeRepository = new RouteRepositoryImpl(database, false, null)
+    val networkRepository = new NetworkRepositoryImpl(null, database, false)
+    val routeRepository = new RouteRepositoryImpl(null, database, false)
 
     val blackList = blackListRepository.get
 

@@ -93,9 +93,9 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
   val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
-  val networkRepository = new NetworkRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
-  val routeRepository = new RouteRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
-  val nodeRepository = new NodeRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
+  val networkRepository = new NetworkRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
+  val routeRepository = new RouteRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
+  val nodeRepository = new NodeRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
@@ -129,7 +129,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
 
-  val orphanRepository = new OrphanRepositoryImpl(analysisDatabase, mongoEnabled, mongoDatabase)
+  val orphanRepository = new OrphanRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
 
   val factRepository = new FactRepositoryImpl(analysisDatabase)
 

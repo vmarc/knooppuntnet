@@ -1,9 +1,9 @@
 package kpn.core.mongo.actions.nodes
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCount.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.model.Filters.equal
 
 import java.util.concurrent.TimeUnit
@@ -21,12 +21,12 @@ object MongoQueryNodeChangeCount {
   }
 }
 
-class MongoQueryNodeChangeCount(database: MongoDatabase) {
+class MongoQueryNodeChangeCount(database: Database) {
 
   def execute(nodeId: Long): Long = {
     log.debugElapsed {
       val filter = equal("key.elementId", nodeId)
-      val collection = database.getCollection("node-changes")
+      val collection = database.database.getCollection("node-changes")
       val future = collection.countDocuments(filter).toFuture()
       val count = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"node $nodeId change count: $count", count)

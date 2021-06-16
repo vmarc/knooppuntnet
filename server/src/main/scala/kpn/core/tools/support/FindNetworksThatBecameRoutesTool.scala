@@ -22,8 +22,8 @@ object FindNetworksThatBecameRoutesTool {
 
 class FindNetworksThatBecameRoutesTool(database: Database) {
 
-  private val networkRepository = new NetworkRepositoryImpl(database, false, null)
-  private val routeRepository = new RouteRepositoryImpl(database, false, null)
+  private val networkRepository = new NetworkRepositoryImpl(null, database, false)
+  private val routeRepository = new RouteRepositoryImpl(null, database, false)
 
   def report(): Unit = {
     println("Collecting network ids")

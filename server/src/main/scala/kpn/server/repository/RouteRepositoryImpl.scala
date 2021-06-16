@@ -2,28 +2,23 @@ package kpn.server.repository
 
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteReferences
-import kpn.core.database.Database
 import kpn.core.database.doc.RouteDoc
 import kpn.core.database.doc.RouteElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.RouteDocViewResult
-import kpn.core.mongo.actions.base.MongoFindById
-import kpn.core.mongo.actions.base.MongoQueryIds
-import kpn.core.mongo.actions.base.MongoSave
+import kpn.core.mongo.Database
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RouteElements
-import org.mongodb.scala.MongoDatabase
 import org.springframework.stereotype.Component
 
 @Component
 class RouteRepositoryImpl(
+  database: Database,
   // old
-  analysisDatabase: Database,
-  // new
-  mongoEnabled: Boolean,
-  mongoDatabase: MongoDatabase
+  analysisDatabase: kpn.core.database.Database,
+  mongoEnabled: Boolean
 ) extends RouteRepository {
 
   private val groupSize = 20
@@ -31,7 +26,7 @@ class RouteRepositoryImpl(
 
   override def allRouteIds(): Seq[Long] = {
     if (mongoEnabled) {
-      new MongoQueryIds(mongoDatabase).execute("routes")
+      database.routes.ids(log)
     }
     else {
       DocumentView.allRouteIds(analysisDatabase)
@@ -40,7 +35,7 @@ class RouteRepositoryImpl(
 
   override def save(routeInfo: RouteInfo): Unit = {
     if (mongoEnabled) {
-      new MongoSave(mongoDatabase).execute("routes", routeInfo)
+      database.routes.save(routeInfo, log)
     }
     else {
       log.debugElapsed {
@@ -165,7 +160,7 @@ class RouteRepositoryImpl(
 
   override def routeWithId(routeId: Long): Option[RouteInfo] = {
     if (mongoEnabled) {
-      new MongoFindById(mongoDatabase).execute("routes", routeId)
+      database.routes.findById(routeId, log)
     }
     else {
       analysisDatabase.docWithId(docId(routeId), classOf[RouteDoc]).map(_.route)

@@ -2,11 +2,11 @@ package kpn.core.mongo.actions.routes
 
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.base.TimeRange
 import kpn.core.mongo.actions.routes.MongoQueryRouteChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -45,7 +45,7 @@ object MongoQueryRouteChanges {
   }
 }
 
-class MongoQueryRouteChanges(database: MongoDatabase) {
+class MongoQueryRouteChanges(database: Database) {
 
   def execute(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
 
@@ -94,7 +94,7 @@ class MongoQueryRouteChanges(database: MongoDatabase) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("route-changes")
+      val collection = database.database.getCollection("route-changes")
       val future = collection.aggregate[RouteChange](pipeline).toFuture()
       val routeChanges = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${routeChanges.size} route changes", routeChanges)

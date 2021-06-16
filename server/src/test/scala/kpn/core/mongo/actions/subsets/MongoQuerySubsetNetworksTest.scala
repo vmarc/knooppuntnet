@@ -12,7 +12,7 @@ class MongoQuerySubsetNetworksTest extends UnitTest with SharedTestObjects {
 
   test("subset networks") {
     withDatabase { database =>
-      val repository = new NetworkRepositoryImpl(null, true, database)
+      val repository = new NetworkRepositoryImpl(database, null, true)
 
       // sorting order different from 'by network name'
       repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-2")))

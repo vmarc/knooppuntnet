@@ -12,7 +12,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository = new NodeRepositoryImpl(null, database, false)
       nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
       nodeRepository.save(newNodeInfo(1002, tiles = Seq("cycling-10-001-001")))
       nodeRepository.save(newNodeInfo(1003, tiles = Seq("cycling-10-001-002")))
@@ -31,7 +31,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository = new NodeRepositoryImpl(null, database, false)
       nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
       nodeRepository.save(newNodeInfo(1002, tiles = Seq("cycling-10-001-001"), active = false))
 
@@ -45,7 +45,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
       routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001")))
 
@@ -63,7 +63,7 @@ class TileViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database, false, null)
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001")))
       routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001"), active = false))
 

@@ -14,7 +14,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allNodeIds") {
 
     withCouchDatabase { database =>
-      val repo = new NodeRepositoryImpl(database, false, null)
+      val repo = new NodeRepositoryImpl(null, database, false)
       repo.save(newNodeInfo(1001))
       repo.save(newNodeInfo(1002))
       repo.save(newNodeInfo(1003))
@@ -26,7 +26,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allRouteIds") {
 
     withCouchDatabase { database =>
-      val repo = new RouteRepositoryImpl(database, false, null)
+      val repo = new RouteRepositoryImpl(null, database, false)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))
@@ -38,7 +38,7 @@ class DocumentViewTest extends UnitTest with TestObjects {
   test("allNetworkIds") {
 
     withCouchDatabase { database =>
-      val repo = new NetworkRepositoryImpl(database, false, null)
+      val repo = new NetworkRepositoryImpl(null, database, false)
       repo.save(newNetworkInfo(newNetworkAttributes(1)))
       repo.save(newNetworkInfo(newNetworkAttributes(2)))
       repo.save(newNetworkInfo(newNetworkAttributes(3)))
@@ -53,11 +53,11 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(database, false, null)
+      val nodeRepository = new NodeRepositoryImpl(null, database, false)
       nodeRepository.save(newNodeInfo(1001))
       nodeRepository.save(newNodeInfo(1002))
 
-      val repo = new RouteRepositoryImpl(database, false, null)
+      val repo = new RouteRepositoryImpl(null, database, false)
       repo.save(newRouteInfo(newRouteSummary(10)))
       repo.save(newRouteInfo(newRouteSummary(20)))
       repo.save(newRouteInfo(newRouteSummary(30)))

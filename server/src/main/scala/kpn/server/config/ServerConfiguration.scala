@@ -2,6 +2,9 @@ package kpn.server.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
+import kpn.core.mongo.Database
+import kpn.core.mongo.DatabaseImpl
+import kpn.core.mongo.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileBuilder
@@ -9,6 +12,7 @@ import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
+import org.mongodb.scala.MongoClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -121,6 +125,12 @@ class ServerConfiguration() {
   @Bean
   def mongoEnabled(@Value("${app.mongo-enabled:false}") value: Boolean): Boolean = {
     value
+  }
+
+  @Bean
+  def database(@Value("${mongodb.url:url}") mongodbUrl: String): Database = {
+    val mongoClient = MongoClient(mongodbUrl)
+    new DatabaseImpl(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
   }
 
   private def buildExecutor(name: String, poolSize: Int): Executor = {

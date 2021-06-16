@@ -3,11 +3,11 @@ package kpn.core.mongo.actions.networks
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.doc.NetworkChangeDoc
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.base.TimeRange
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -49,7 +49,7 @@ object MongoQueryNetworkChanges {
   }
 }
 
-class MongoQueryNetworkChanges(database: MongoDatabase) {
+class MongoQueryNetworkChanges(database: Database) {
 
   def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
 
@@ -123,7 +123,7 @@ class MongoQueryNetworkChanges(database: MongoDatabase) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("network-changes")
+      val collection = database.database.getCollection("network-changes")
       val future = collection.aggregate[NetworkChangeDoc](pipeline).toFuture()
       val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${docs.size} network changes", docs.map(_.networkChange))

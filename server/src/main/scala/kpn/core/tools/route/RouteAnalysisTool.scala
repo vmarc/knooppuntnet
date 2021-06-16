@@ -33,8 +33,8 @@ class RouteAnalysisTool(
 ) {
 
   private val log = Log(classOf[RouteAnalysisTool])
-  private val routeRepository = new RouteRepositoryImpl(routeDatabase, false, null)
-  private val analysisRouteRepository = new RouteRepositoryImpl(analysisDatabase, false, null)
+  private val routeRepository = new RouteRepositoryImpl(null, routeDatabase, false)
+  private val analysisRouteRepository = new RouteRepositoryImpl(null, analysisDatabase, false)
   private val routeFileAnalyzer = new RouteFileAnalyzerImpl()
 
   private val ignoredRouteIds = IdsFile.read("/kpn/routes/ignored-route-ids.txt")

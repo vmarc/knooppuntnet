@@ -1,5 +1,6 @@
 package kpn.core.mongo.actions.nodes
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCounts.log
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCounts.pipelineDaysString
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCounts.pipelineMonthsString
@@ -8,7 +9,6 @@ import kpn.core.mongo.actions.statistics.ChangeSetCounts
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Facet
@@ -25,7 +25,7 @@ object MongoQueryNodeChangeCounts extends MongoQuery {
   private val pipelineDaysString = readPipelineString("days")
 }
 
-class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
+class MongoQueryNodeChangeCounts(database: Database) extends MongoQuery {
 
   def execute(nodeId: Long, year: Int, monthOption: Option[Int]): ChangeSetCounts = {
 
@@ -69,7 +69,7 @@ class MongoQueryNodeChangeCounts(database: MongoDatabase) extends MongoQuery {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("node-changes")
+      val collection = database.database.getCollection("node-changes")
       val future = collection.aggregate[ChangeSetCounts](pipeline).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"

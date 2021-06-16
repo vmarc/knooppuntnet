@@ -1,7 +1,6 @@
 package kpn.core.mongo
 
 import kpn.core.database.doc.NetworkDoc
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters
@@ -14,9 +13,9 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class MongoNetworkRepositoryImpl(database: MongoDatabase) {
+class MongoNetworkRepositoryImpl(database: Database) {
 
-  private val networks = database.getCollection("networks")
+  private val networks = database.database.getCollection("networks")
 
   def networkCount(): Long = {
     val networkCountFuture = networks.countDocuments().toFuture()

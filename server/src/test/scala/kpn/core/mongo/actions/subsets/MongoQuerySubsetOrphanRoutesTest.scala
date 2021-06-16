@@ -18,8 +18,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("active orphan route") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       routeRepository.save(createRoute())
 
@@ -41,8 +41,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("do not include routes that are not active") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       routeRepository.save(createRoute().copy(active = false))
 
@@ -52,8 +52,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("do not include routes that are not orphan") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       routeRepository.save(createRoute().copy(orphan = false))
 
@@ -63,8 +63,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("do not include routes in another country") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       val route = createRoute()
       val modifiedRoute = route.copy(summary = route.summary.copy(country = Some(Country.be)))
@@ -76,8 +76,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("do not include routes with a different networkType") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       val route = createRoute()
       val modifiedRoute = route.copy(summary = route.summary.copy(networkType = NetworkType.cycling))
@@ -89,8 +89,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("route that is broken") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       val route = createRoute()
       val modifiedRoute = route.copy(summary = route.summary.copy(isBroken = true))
@@ -114,8 +114,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("route that is not accessible") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       val route = createRoute()
       val modifiedRoute = route.copy(facts = Seq(Fact.RouteUnaccessible))
@@ -139,8 +139,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   test("route without survey") {
     withDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, true, database)
-      val orphanRepository = new OrphanRepositoryImpl(null, true, database)
+      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
       val route = createRoute()
       val modifiedRoute = route.copy(lastSurvey = None)

@@ -4,7 +4,6 @@ import kpn.api.common.common.Ref
 import kpn.core.database.doc.NetworkDoc
 import kpn.core.database.doc.RouteDoc
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -13,11 +12,7 @@ import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-
-class MongoQueryNode(database: MongoDatabase) {
+class MongoQueryNode(database: Database) {
 
   private val log = Log(classOf[MongoQueryNode])
 
@@ -38,9 +33,7 @@ class MongoQueryNode(database: MongoDatabase) {
           )
         )
       )
-      val networks = database.getCollection("networks")
-      val future = networks.aggregate[NetworkDoc](pipeline).toFuture()
-      val networkDocs = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      val networkDocs = database.networks.aggregate[NetworkDoc](pipeline, log)
       val refs = networkDocs.map { networkDoc =>
         Ref(
           networkDoc.network.attributes.id,
@@ -68,9 +61,7 @@ class MongoQueryNode(database: MongoDatabase) {
           )
         )
       )
-      val networks = database.getCollection("routes")
-      val future = networks.aggregate[RouteDoc](pipeline).toFuture()
-      val routeDocs = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      val routeDocs = database.routes.aggregate[RouteDoc](pipeline, log)
       val refs = routeDocs.map { routeDoc =>
         Ref(
           routeDoc.route.summary.id,

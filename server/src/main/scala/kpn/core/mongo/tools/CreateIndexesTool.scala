@@ -1,9 +1,9 @@
 package kpn.core.mongo.tools
 
+import kpn.core.mongo.Database
 import kpn.core.mongo.tools.CreateIndexesTool.Index
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.MongoDatabase
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.IndexOptions
 import org.mongodb.scala.model.Indexes
@@ -233,7 +233,7 @@ object CreateIndexesTool {
   }
 }
 
-class CreateIndexesTool(database: MongoDatabase) {
+class CreateIndexesTool(database: Database) {
 
   private val log = Log(classOf[CreateIndexesTool])
 
@@ -249,7 +249,7 @@ class CreateIndexesTool(database: MongoDatabase) {
       }
       else {
         log.elapsedSeconds {
-          val collection = database.getCollection(index.collectionName)
+          val collection = database.database.getCollection(index.collectionName)
           val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
           Await.result(future, Duration(25, TimeUnit.MINUTES))
           ("Created", ())
@@ -259,7 +259,7 @@ class CreateIndexesTool(database: MongoDatabase) {
   }
 
   private def hasIndex(index: Index): Boolean = {
-    val collection = database.getCollection(index.collectionName)
+    val collection = database.database.getCollection(index.collectionName)
     val future = collection.listIndexes[MongoIndexDefinition]().toFuture()
     val indexDefinitions = Await.result(future, Duration(25, TimeUnit.MINUTES))
     indexDefinitions.exists(_.name == index.indexName)

@@ -13,8 +13,8 @@ class NetworkDetailsPageBuilderImpl(
   networkRepository: NetworkRepository,
   changeSetRepository: ChangeSetRepository,
   // new
-  mongoEnabled: Boolean,
-  mongoNetworkRepository: MongoNetworkRepository
+  mongoNetworkRepository: MongoNetworkRepository,
+  mongoEnabled: Boolean
 ) extends NetworkDetailsPageBuilder {
 
   def build(networkId: Long): Option[NetworkDetailsPage] = {
