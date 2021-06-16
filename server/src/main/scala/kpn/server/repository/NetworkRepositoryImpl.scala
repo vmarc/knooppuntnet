@@ -12,7 +12,6 @@ import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.base.MongoDelete
-import kpn.core.mongo.actions.base.MongoFindById
 import kpn.core.mongo.actions.base.MongoQueryIds
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.util.Log
@@ -49,7 +48,7 @@ class NetworkRepositoryImpl(
 
   override def elements(networkId: Long): Option[NetworkElements] = {
     if (mongoEnabled) {
-      new MongoFindById(database).execute("network-elements", networkId)
+      database.networkElements.findById(networkId)
     }
     else {
       analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
@@ -95,7 +94,7 @@ class NetworkRepositoryImpl(
 
   override def gpx(networkId: Long): Option[GpxFile] = {
     if (mongoEnabled) {
-      new MongoFindById(database).execute("network-gpxs", networkId)
+      database.networkGpxs.findById(networkId)
     }
     else {
       analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
