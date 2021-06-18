@@ -1,0 +1,12 @@
+[
+  {
+    "$match": {
+      "elementType": "@elementType"
+    }
+  },
+  {
+    "$project": {
+      "_id": "$elementId"
+    }
+  }
+]

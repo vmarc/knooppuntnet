@@ -197,7 +197,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     routeRepository,
     routeAnalyzer,
     relationAnalyzer,
-    analysisRepository,
+    nodeRepository,
     nodeInfoBuilder,
     networkNodeAnalyzer
   )

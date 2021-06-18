@@ -10,14 +10,14 @@ import kpn.core.history.NodeDataDiffAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanNodeUpdateProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
+  nodeRepository: NodeRepository,
   nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanNodeUpdateProcessor {
 
@@ -62,7 +62,7 @@ class OrphanNodeUpdateProcessorImpl(
     val nodeDataUpdate = new NodeDataDiffAnalyzer(before, after).analysis
 
     val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNodeChange.after, active = isNetworkNodeX, orphan = true)
-    analysisRepository.saveNode(nodeInfo)
+    nodeRepository.save(nodeInfo)
 
     val subsets = (loadedNodeChange.before.subsets.toSet ++ loadedNodeChange.after.subsets.toSet).toSeq
     val name = if (loadedNodeChange.after.name.nonEmpty) {
@@ -114,5 +114,4 @@ class OrphanNodeUpdateProcessorImpl(
       None
     }
   }
-
 }

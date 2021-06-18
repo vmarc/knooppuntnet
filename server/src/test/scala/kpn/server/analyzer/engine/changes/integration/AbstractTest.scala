@@ -1,7 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import java.io.PrintWriter
-import java.io.StringWriter
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
@@ -87,6 +85,9 @@ import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
 
+import java.io.PrintWriter
+import java.io.StringWriter
+
 abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObjects {
 
   protected def node(data: Data, id: Long): RawNode = {
@@ -108,12 +109,12 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
-    val networkRepository: NetworkRepository = stub[NetworkRepository]
     val changeSetRepository: ChangeSetRepository = stub[ChangeSetRepository]
     val nodeRepository: NodeRepository = stub[NodeRepository]
+    val routeRepository: RouteRepository = stub[RouteRepository]
+    val networkRepository: NetworkRepository = stub[NetworkRepository]
     val changeSetInfoRepository: ChangeSetInfoRepository = stub[ChangeSetInfoRepository]
     private val taskRepository: TaskRepository = stub[TaskRepository]
-    private val routeRepository: RouteRepository = stub[RouteRepository]
 
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]
     (() => blackListRepository.get).when().returns(BlackList())
@@ -161,7 +162,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
       analysisContext,
-      analysisRepository,
+      nodeRepository,
       nodeLoader,
       nodeInfoBuilder
     )
@@ -170,7 +171,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     private val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
       analysisContext,
-      analysisRepository,
       relationAnalyzer,
       routeRepository,
       tileChangeAnalyzer
@@ -268,7 +268,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val orphanRouteChangeProcessor = {
       val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
         analysisContext,
-        analysisRepository,
+        nodeRepository,
         relationAnalyzer,
         countryAnalyzer,
         routeRepository,
@@ -283,7 +283,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
       new OrphanRouteChangeProcessorImpl(
         analysisContext,
-        analysisRepository,
         orphanRouteChangeAnalyzer,
         orphanRouteProcessor,
         routesLoader,
@@ -303,20 +302,20 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
       val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
         analysisContext,
-        analysisRepository,
+        nodeRepository,
         countryAnalyzer,
         nodeInfoBuilder
       )
 
       val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
         analysisContext,
-        analysisRepository,
+        nodeRepository,
         nodeInfoBuilder
       )
 
       val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
         analysisContext,
-        analysisRepository,
+        nodeRepository,
         nodeInfoBuilder
       )
 
@@ -421,5 +420,4 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       sw.toString
     }
   }
-
 }

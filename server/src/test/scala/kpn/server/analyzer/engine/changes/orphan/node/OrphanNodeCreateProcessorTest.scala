@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
+import kpn.server.repository.NodeRepository
 import org.scalamock.scalatest.MockFactory
 
 class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
@@ -23,7 +24,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     d.processor.process(None, d.loadedNode)
 
-    (d.analysisRepository.saveNode _).verify(
+    (d.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo.id should equal(d.loadedNode.id)
         assert(nodeInfo.orphan)
@@ -61,6 +62,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
     )
 
     val analysisContext: AnalysisContext = new AnalysisContext()
+    val nodeRepository: NodeRepository = stub[NodeRepository]
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val tileCalculator = new TileCalculatorImpl()
     val nodeAnalyzer = new NodeAnalyzerImpl()
@@ -71,9 +73,8 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisContext,
-      analysisRepository,
+      nodeRepository,
       nodeInfoBuilder
     )
   }
-
 }

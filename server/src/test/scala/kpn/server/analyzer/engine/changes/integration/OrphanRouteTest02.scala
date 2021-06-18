@@ -58,7 +58,7 @@ class OrphanRouteTest02 extends AbstractTest {
 
     assert(tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
-    (tc.analysisRepository.saveRoute _).verify(
+    (tc.routeRepository.save _).verify(
       where { routeInfo: RouteInfo =>
         routeInfo.id should equal(11)
         assert(routeInfo.active)

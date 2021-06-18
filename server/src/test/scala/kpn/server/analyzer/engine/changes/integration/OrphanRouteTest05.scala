@@ -1,12 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -21,6 +14,13 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData
+import kpn.core.test.TestData2
 
 class OrphanRouteTest05 extends AbstractTest {
 
@@ -59,7 +59,7 @@ class OrphanRouteTest05 extends AbstractTest {
 
     assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
-    (tc.analysisRepository.saveRoute _).verify(
+    (tc.routeRepository.save _).verify(
       where { routeInfo: RouteInfo =>
         routeInfo.id should equal(11)
         assert(routeInfo.active)

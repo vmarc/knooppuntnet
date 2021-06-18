@@ -10,14 +10,14 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanNodeDeleteProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
+  nodeRepository: NodeRepository,
   countryAnalyzer: CountryAnalyzer,
   nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanNodeDeleteProcessor {
@@ -32,7 +32,7 @@ class OrphanNodeDeleteProcessorImpl(
       case Some(loadedNode) =>
 
         val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, active = false, orphan = true, facts = Seq(Fact.Deleted))
-        analysisRepository.saveNode(nodeInfo)
+        nodeRepository.save(nodeInfo)
 
         val subsets = loadedNode.subsets
 
@@ -85,7 +85,7 @@ class OrphanNodeDeleteProcessorImpl(
               orphan = true,
               facts = Seq(Fact.Deleted)
             )
-            analysisRepository.saveNode(nodeInfo)
+            nodeRepository.save(nodeInfo)
 
             None
         }
@@ -95,5 +95,4 @@ class OrphanNodeDeleteProcessorImpl(
   private def analyzed(nodeChange: NodeChange): NodeChange = {
     new NodeChangeAnalyzer(nodeChange).analyzed()
   }
-
 }

@@ -96,9 +96,9 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
     assert(tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
-    (tc.analysisRepository.saveNode _).verify(*).never()
+    (tc.nodeRepository.save _).verify(*).never()
 
-    (tc.analysisRepository.saveRoute _).verify(
+    (tc.routeRepository.save _).verify(
       where { routeInfo: RouteInfo =>
         routeInfo should matchTo(
           newRouteInfo(

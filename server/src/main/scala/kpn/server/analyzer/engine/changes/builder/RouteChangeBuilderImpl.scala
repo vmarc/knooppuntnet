@@ -18,14 +18,12 @@ import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
   relationAnalyzer: RelationAnalyzer,
   routeRepository: RouteRepository,
   tileChangeAnalyzer: TileChangeAnalyzer
@@ -167,7 +165,7 @@ class RouteChangeBuilderImpl(
             )
           )
 
-          analysisRepository.saveRoute(routeInfo)
+          routeRepository.save(routeInfo)
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
           val key = context.changeSetContext.buildChangeKey(routeId)
@@ -233,7 +231,7 @@ class RouteChangeBuilderImpl(
       val elementIds = relationAnalyzer.toElementIds(analysisAfter.relation)
       analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
 
-      analysisRepository.saveRoute(analysisAfter.route.copy(orphan = true))
+      routeRepository.save(analysisAfter.route.copy(orphan = true))
 
       routeRepository.saveElements(
         RouteElements(

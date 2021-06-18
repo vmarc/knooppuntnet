@@ -25,9 +25,8 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
+import kpn.server.repository.NodeRepository
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestObjects {
 
@@ -692,6 +691,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
 
     val analysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
+    val nodeRepository: NodeRepository = stub[NodeRepository]
     val nodeLoader: NodeLoader = stub[NodeLoader]
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
     val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
@@ -703,9 +703,8 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
 
     val processor = new UnreferencedNodeProcessorImpl(
       analysisContext,
-      analysisRepository,
+      nodeRepository,
       nodeLoader,
-      countryAnalyzer,
       nodeInfoBuilder,
       nodeLocationAnalyzer
     )

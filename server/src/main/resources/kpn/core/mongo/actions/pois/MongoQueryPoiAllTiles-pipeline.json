@@ -1,0 +1,12 @@
+[
+  {
+    "$unwind": {
+      "path": "$tiles"
+    }
+  },
+  {
+    "$group": {
+      "_id": "$tiles"
+    }
+  }
+]

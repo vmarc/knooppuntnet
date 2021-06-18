@@ -73,9 +73,9 @@ class NetworkUpdateNodeTest05 extends AbstractTest {
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
 
-    (tc.analysisRepository.saveRoute _).verify(*).never()
+    (tc.routeRepository.save _).verify(*).never()
 
-    (tc.analysisRepository.saveNode _).verify(
+    (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo should matchTo(
           newNodeInfo(

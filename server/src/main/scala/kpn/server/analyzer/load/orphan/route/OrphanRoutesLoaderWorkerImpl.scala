@@ -8,8 +8,8 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.RouteLoader
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -20,7 +20,7 @@ class OrphanRoutesLoaderWorkerImpl(
   routeRepository: RouteRepository,
   routeAnalyzer: MasterRouteAnalyzer,
   relationAnalyzer: RelationAnalyzer,
-  analysisRepository: AnalysisRepository,
+  nodeRepository: NodeRepository,
   nodeInfoBuilder: NodeInfoBuilder,
   networkNodeAnalyzer: NetworkNodeAnalyzer
 ) extends OrphanRoutesLoaderWorker {
@@ -35,7 +35,7 @@ class OrphanRoutesLoaderWorkerImpl(
 
           val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
           val route = analysis.route.copy(orphan = true)
-          analysisRepository.saveRoute(route)
+          routeRepository.save(route)
           routeRepository.saveElements(
             RouteElements(
               loadedRoute.id,
@@ -46,7 +46,7 @@ class OrphanRoutesLoaderWorkerImpl(
           val allNodes = networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
 
           allNodes.values.foreach { networkNode =>
-            analysisRepository.saveNode(
+            nodeRepository.save(
               nodeInfoBuilder.build(
                 id = networkNode.id,
                 active = true,

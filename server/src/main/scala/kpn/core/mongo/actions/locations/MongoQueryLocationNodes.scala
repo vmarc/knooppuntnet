@@ -1,6 +1,8 @@
-package kpn.core.mongo
+package kpn.core.mongo.actions.locations
 
 import kpn.api.custom.NetworkType
+import kpn.core.mongo.Database
+import kpn.core.mongo.NodeDoc2
 import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit

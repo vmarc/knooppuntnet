@@ -57,7 +57,7 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
       }
     )
 
-    (tc.analysisRepository.saveNode _).verify(*).once() // TODO CHANGE work out further details ? --> active = false
+    (tc.nodeRepository.save _).verify(*).once() // TODO CHANGE work out further details ? --> active = false
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

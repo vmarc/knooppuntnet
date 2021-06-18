@@ -9,14 +9,13 @@ import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 /*
@@ -26,9 +25,8 @@ import org.springframework.stereotype.Component
 @Component
 class UnreferencedNodeProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
+  nodeRepository: NodeRepository,
   nodeLoader: NodeLoader,
-  countryAnalyzer: CountryAnalyzer,
   nodeInfoBuilder: NodeInfoBuilder,
   nodeLocationAnalyzer: NodeLocationAnalyzer
 ) extends UnreferencedNodeProcessor {
@@ -84,7 +82,7 @@ class UnreferencedNodeProcessorImpl(
     }
     else {
       val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = false)
-      analysisRepository.saveNode(nodeInfo)
+      nodeRepository.save(nodeInfo)
 
       val subsets = subsetsIn(nodeBefore)
 
@@ -126,7 +124,7 @@ class UnreferencedNodeProcessorImpl(
   private def processDeletedNode(context: ChangeSetContext, nodeBefore: NetworkNodeInfo) = {
 
     val nodeInfo = nodeInfoBuilder.fromNetworkNodeInfo(nodeBefore, active = false, facts = Seq(Fact.Deleted))
-    analysisRepository.saveNode(nodeInfo)
+    nodeRepository.save(nodeInfo)
 
     val subsets = subsetsIn(nodeBefore)
 
@@ -165,7 +163,7 @@ class UnreferencedNodeProcessorImpl(
 
     analysisContext.data.orphanNodes.watched.add(nodeBefore.id)
     val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
-    analysisRepository.saveNode(nodeInfo)
+    nodeRepository.save(nodeInfo)
 
     val rawNodeBefore = nodeBefore.networkNode.node.raw
     val rawNodeAfter = nodeAfter.node.raw
@@ -221,5 +219,4 @@ class UnreferencedNodeProcessorImpl(
       node.networkNode.country.flatMap(country => Subset.of(country, networkType))
     }
   }
-
 }

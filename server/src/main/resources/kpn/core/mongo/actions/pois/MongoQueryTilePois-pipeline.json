@@ -1,0 +1,32 @@
+[
+  {
+    "$match": {
+      "tiles": {
+        "$in": [
+          "tiles",
+          "@tileName"
+        ]
+      }
+    }
+  },
+  {
+    "$unwind": {
+      "path": "$layers"
+    }
+  },
+  {
+    "$set": {
+      "layer": "$layers"
+    }
+  },
+  {
+    "$project": {
+      "_id": 0,
+      "elementType": 1,
+      "elementId": 1,
+      "latitude": 1,
+      "longitude": 1,
+      "layer": 1
+    }
+  }
+]

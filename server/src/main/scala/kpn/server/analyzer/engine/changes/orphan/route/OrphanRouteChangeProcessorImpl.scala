@@ -16,14 +16,12 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.analyzer.load.RoutesLoader
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanRouteChangeProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
   orphanRouteChangeAnalyzer: OrphanRouteChangeAnalyzer,
   orphanRouteProcessor: OrphanRouteProcessor,
   routesLoader: RoutesLoader,
@@ -177,7 +175,7 @@ class OrphanRouteChangeProcessorImpl(
           val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
 
           val route = routeAnalysis.route.copy(orphan = true, active = false)
-          analysisRepository.saveRoute(route)
+          routeRepository.save(route)
           routeRepository.saveElements(
             RouteElements(
               loadedRoute.id,

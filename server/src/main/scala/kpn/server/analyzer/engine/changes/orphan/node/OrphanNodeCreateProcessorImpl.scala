@@ -8,14 +8,14 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
 class OrphanNodeCreateProcessorImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
+  nodeRepository: NodeRepository,
   nodeInfoBuilder: NodeInfoBuilder
 ) extends OrphanNodeCreateProcessor {
 
@@ -23,7 +23,7 @@ class OrphanNodeCreateProcessorImpl(
 
     analysisContext.data.orphanNodes.watched.add(loadedNode.id)
     val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
-    analysisRepository.saveNode(nodeInfo)
+    nodeRepository.save(nodeInfo)
 
     optionalContext.map { context =>
       val key = context.buildChangeKey(loadedNode.id)

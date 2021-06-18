@@ -16,8 +16,8 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
+import kpn.server.repository.NodeRepository
 import org.scalamock.scalatest.MockFactory
 
 class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestObjects {
@@ -37,7 +37,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     assert(!t.analysisContext.data.orphanNodes.watched.contains(nodeId))
 
-    (t.analysisRepository.saveNode _).verify(
+    (t.nodeRepository.save _).verify(
       newNodeInfo(
         nodeId,
         country = Some(Country.nl),
@@ -59,7 +59,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
-    (t.analysisRepository.saveNode _).verify(
+    (t.nodeRepository.save _).verify(
       newNodeInfo(
         nodeId,
         country = Some(Country.nl),
@@ -81,7 +81,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
-    (t.analysisRepository.saveNode _).verify(*).never()
+    (t.nodeRepository.save _).verify(*).never()
   }
 
   test("nodeChange is generated if node existed before changeset") {
@@ -108,7 +108,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
       )
     )
 
-    (t.analysisRepository.saveNode _).verify(
+    (t.nodeRepository.save _).verify(
       newNodeInfo(
         nodeId,
         active = false,
@@ -131,7 +131,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
-    (t.analysisRepository.saveNode _).verify(
+    (t.nodeRepository.save _).verify(
       newNodeInfo(
         nodeId,
         active = false,
@@ -156,7 +156,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
     )
 
     val analysisContext: AnalysisContext = new AnalysisContext()
-    val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
+    val nodeRepository: NodeRepository = stub[NodeRepository]
     val tileCalculator = new TileCalculatorImpl()
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
@@ -169,10 +169,9 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     val processor: OrphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
       analysisContext,
-      analysisRepository,
+      nodeRepository,
       countryAnalyzer,
       nodeInfoBuilder
     )
   }
-
 }

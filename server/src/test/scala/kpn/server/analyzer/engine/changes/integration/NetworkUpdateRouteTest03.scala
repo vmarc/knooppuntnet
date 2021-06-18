@@ -86,7 +86,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
 
-    (tc.analysisRepository.saveRoute _).verify(
+    (tc.routeRepository.save _).verify(
       where { routeInfo: RouteInfo =>
         routeInfo should matchTo(
           newRouteInfo(
@@ -107,7 +107,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
       }
     )
 
-    (tc.analysisRepository.saveNode _).verify(
+    (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo.copy(tiles = Seq()) should equal(
           newNodeInfo(

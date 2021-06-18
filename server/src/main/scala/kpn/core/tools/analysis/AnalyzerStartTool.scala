@@ -159,7 +159,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
         val analysis = config.routeAnalyzer.analyze(loadedRoute, orphan = true)
         val route = analysis.route.copy(orphan = true)
-        config.analysisRepository.saveRoute(route)
+        config.routeRepository.save(route)
         config.routeRepository.saveElements(
           RouteElements(
             loadedRoute.id,
@@ -171,7 +171,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
 
         allNodes.values.foreach { networkNode =>
-          config.analysisRepository.saveNode(
+          config.nodeRepository.save(
             config.nodeInfoBuilder.build(
               id = networkNode.id,
               active = true,
@@ -216,7 +216,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
               val loadedNode = LoadedNode(countries.headOption, networkTypes, name, node)
               val nodeInfo = config.nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
               config.analysisContext.data.orphanNodes.watched.add(nodeId)
-              config.analysisRepository.saveNode(nodeInfo)
+              config.nodeRepository.save(nodeInfo)
               val networkNode = NetworkNode(
                 loadedNode.node,
                 loadedNode.name,

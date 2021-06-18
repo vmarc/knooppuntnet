@@ -1,11 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
@@ -13,14 +7,17 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
-import kpn.api.common.changes.details.NodeChange
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData2
 
 class NetworkUpdateRouteTest06 extends AbstractTest {
 
@@ -88,8 +85,9 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
-    (tc.analysisRepository.saveRoute _).verify(*).never() // route saved via saveNetwork
-    (tc.analysisRepository.saveNode _).verify(*).never() // nodes saved via saveNetwork
+    // TODO MONGO dit gaat niet meer kloppen -> wel gesaved via routeRepository en nodeRepository
+    (tc.routeRepository.save _).verify(*).never() // route saved via saveNetwork
+    (tc.nodeRepository.save _).verify(*).never() // nodes saved via saveNetwork
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

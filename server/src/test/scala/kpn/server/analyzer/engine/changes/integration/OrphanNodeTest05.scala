@@ -42,7 +42,7 @@ class OrphanNodeTest05 extends AbstractTest {
 
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
-    (tc.analysisRepository.saveNode _).verify(
+    (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
         nodeInfo should matchTo(
           NodeInfo(

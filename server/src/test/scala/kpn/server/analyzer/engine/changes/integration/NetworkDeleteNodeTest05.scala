@@ -63,7 +63,7 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
       }
     )
 
-    (tc.analysisRepository.saveNode _).verify(*).once()
+    (tc.nodeRepository.save _).verify(*).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

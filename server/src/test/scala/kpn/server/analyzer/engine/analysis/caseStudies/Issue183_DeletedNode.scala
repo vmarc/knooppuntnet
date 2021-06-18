@@ -46,6 +46,7 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
+import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -89,7 +90,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     val loadedNetworkBefore = loadNetwork("/case-studies/network-8438300-before.xml", networkId)
     val loadedNetworkAfter = loadNetwork("/case-studies/network-8438300-after.xml", networkId)
 
-    loadedNetworkAfter.data.nodes.get(deletedNodeId).map(_.id)should equal(None)
+    loadedNetworkAfter.data.nodes.get(deletedNodeId).map(_.id) should equal(None)
     val deletedNode = loadedNetworkBefore.data.nodes(deletedNodeId)
     deletedNode.id should equal(deletedNodeId)
     deletedNode.tags.has("rpn_ref", "59") should equal(true) // rpn_ref in node in way in rmn route
@@ -118,6 +119,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
 
     val analysisContext = new AnalysisContext()
     val analysisRepository = stub[AnalysisRepository]
+    val nodeRepository = stub[NodeRepository]
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
     val networkRelationAnalyzer = {
@@ -180,7 +182,6 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
       }
       val routeChangeBuilder = new RouteChangeBuilderImpl(
         analysisContext,
-        analysisRepository,
         relationAnalyzer,
         routeRepository,
         tileChangeAnalyzer
@@ -209,7 +210,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
 
       val nodeChangeBuilder = new NodeChangeBuilderImpl(
         analysisContext,
-        analysisRepository,
+        nodeRepository,
         nodeLoader,
         nodeInfoBuilder
       )

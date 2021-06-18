@@ -2,7 +2,6 @@ package kpn.server.repository
 
 import kpn.api.common.NodeInfo
 import kpn.api.common.network.NetworkInfo
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
 import kpn.core.analysis._
@@ -29,22 +28,14 @@ class AnalysisRepositoryImpl(
   private val lastUpdatedDocumentKey = "analysis"
 
   override def saveNetwork(network: Network): Unit = {
-    buildNetworkDoc(network)
-    buildRouteDocs(network)
-    buildNodeDocs(network)
-    buildGpxDoc(network)
+    saveNetworkDoc(network)
+    saveRouteDocs(network)
+    saveNodeDocs(network)
+    saveGpxDoc(network)
   }
 
   override def saveIgnoredNetwork(networkInfo: NetworkInfo): Unit = {
     networkRepository.save(networkInfo)
-  }
-
-  override def saveRoute(route: RouteInfo): Unit = {
-    routeRepository.save(route)
-  }
-
-  override def saveNode(node: NodeInfo): Unit = {
-    nodeRepository.save(node)
   }
 
   override def lastUpdated(): Option[Timestamp] = {
@@ -55,7 +46,7 @@ class AnalysisRepositoryImpl(
     analysisDatabase.save(TimestampDoc(lastUpdatedDocumentKey, timestamp))
   }
 
-  private def buildNetworkDoc(network: Network): Unit = {
+  private def saveNetworkDoc(network: Network): Unit = {
     val networkInfo = new NetworkInfoBuilder().build(network)
     networkRepository.save(networkInfo)
     networkRepository.saveElements(
@@ -67,7 +58,7 @@ class AnalysisRepositoryImpl(
     )
   }
 
-  private def buildRouteDocs(network: Network): Unit = {
+  private def saveRouteDocs(network: Network): Unit = {
     network.routes.foreach { networkMemberRoute =>
       routeRepository.save(networkMemberRoute.routeAnalysis.route)
       routeRepository.saveElements(
@@ -79,7 +70,7 @@ class AnalysisRepositoryImpl(
     }
   }
 
-  private def buildNodeDocs(network: Network): Unit = {
+  private def saveNodeDocs(network: Network): Unit = {
 
     val nodeInfos: Seq[NodeInfo] = network.nodes.map { node =>
 
@@ -109,7 +100,7 @@ class AnalysisRepositoryImpl(
     nodeRepository.save(nodeInfos: _*)
   }
 
-  private def buildGpxDoc(network: Network): Unit = {
+  private def saveGpxDoc(network: Network): Unit = {
 
     val wayPoints = network.nodes.map(node =>
       WayPoint(

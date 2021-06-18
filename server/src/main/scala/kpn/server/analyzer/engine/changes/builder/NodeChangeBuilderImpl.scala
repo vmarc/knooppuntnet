@@ -18,14 +18,14 @@ import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
-import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilder
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodeChangeBuilderImpl(
   analysisContext: AnalysisContext,
-  analysisRepository: AnalysisRepository,
+  nodeRepository: NodeRepository,
   nodeLoader: NodeLoader,
   nodeInfoBuilder: NodeInfoBuilder
 ) extends NodeChangeBuilder {
@@ -166,7 +166,7 @@ class NodeChangeBuilderImpl(
 
           // the node was really deleted from the database
 
-          analysisRepository.saveNode(
+          nodeRepository.save(
             nodeInfoBuilder.build(
               id = nodeBefore.id,
               active = false,
@@ -243,7 +243,7 @@ class NodeChangeBuilderImpl(
             }
 
             val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = active)
-            analysisRepository.saveNode(nodeInfo)
+            nodeRepository.save(nodeInfo)
 
             val key = context.changeSetContext.buildChangeKey(nodeId)
             analyzed(
@@ -278,7 +278,7 @@ class NodeChangeBuilderImpl(
             else {
               // the node is not referenced anymore by any network or route
               val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
-              analysisRepository.saveNode(nodeInfo)
+              nodeRepository.save(nodeInfo)
               analysisContext.data.orphanNodes.watched.add(after.id)
               Seq(Fact.BecomeOrphan)
             }
@@ -465,5 +465,4 @@ class NodeChangeBuilderImpl(
   private def analyzed(nodeChange: NodeChange): NodeChange = {
     new NodeChangeAnalyzer(nodeChange).analyzed()
   }
-
 }

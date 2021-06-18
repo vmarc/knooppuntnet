@@ -1,10 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
@@ -18,6 +13,11 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData2
 
 class NetworkUpdateRouteTest02 extends AbstractTest {
 
@@ -56,7 +56,7 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
-      .route(// route still exists
+      .route( // route still exists
         11,
         "01-02",
         Seq(
@@ -100,8 +100,8 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
-    (tc.analysisRepository.saveRoute _).verify(*).never()
-    (tc.analysisRepository.saveNode _).verify(*).never()
+    (tc.routeRepository.save _).verify(*).never()
+    (tc.nodeRepository.save _).verify(*).never()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>
