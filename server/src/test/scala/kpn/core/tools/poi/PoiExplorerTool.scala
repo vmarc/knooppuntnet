@@ -8,7 +8,7 @@ import kpn.server.repository.PoiRepositoryImpl
 object PoiExplorerTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("pois4") { database =>
-      val repo = new PoiRepositoryImpl(database)
+      val repo = new PoiRepositoryImpl(null, database, false)
       val poiRefs = loadPoiRefs(repo)
       val tagValues = poiRefs.zipWithIndex.flatMap { case (poiRef, index) =>
         if (index % 1000 == 0) {

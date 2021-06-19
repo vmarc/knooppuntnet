@@ -32,7 +32,7 @@ object PoiTileAnalyzerTool {
             val nonCachingExecutor = new OverpassQueryExecutorImpl()
             new PoiLoaderImpl(nonCachingExecutor)
           }
-          val poiRepository = new PoiRepositoryImpl(poiDatabase)
+          val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
           val poiScopeAnalyzer = {
             val analysisContext = new AnalysisContext()
             val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)

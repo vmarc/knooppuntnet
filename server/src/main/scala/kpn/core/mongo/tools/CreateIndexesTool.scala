@@ -223,6 +223,17 @@ object CreateIndexesTool {
         "key.time.day",
         "impact"
       )
+    ),
+    Index(
+      "pois",
+      "type-id",
+      "elementType",
+      "elementId"
+    ),
+    Index(
+      "pois",
+      "tiles",
+      "tiles"
     )
   )
 
@@ -240,6 +251,7 @@ class CreateIndexesTool(database: Database) {
   def createIndexes(indexes: Seq[Index]): Unit = {
     log.info(s"Create ${indexes.size} indexes")
     indexes.foreach(createIndex)
+    log.info("Done")
   }
 
   private def createIndex(index: Index): Unit = {

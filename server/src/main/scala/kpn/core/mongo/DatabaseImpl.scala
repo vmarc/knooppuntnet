@@ -3,6 +3,7 @@ package kpn.core.mongo
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.NodeInfo
+import kpn.api.common.Poi
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -69,5 +70,9 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def nodeRouteRefs: DatabaseCollection[NodeRouteRef] = {
     new DatabaseCollectionImpl(database.getCollection[NodeRouteRef]("node-route-refs"))
+  }
+
+  override def pois: DatabaseCollection[Poi] = {
+    new DatabaseCollectionImpl(database.getCollection[Poi]("pois"))
   }
 }

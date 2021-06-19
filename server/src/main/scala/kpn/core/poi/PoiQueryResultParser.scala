@@ -20,21 +20,24 @@ class PoiQueryResultParser {
   private def node(layer: String, xmlNode: scala.xml.Node): Poi = {
     val latitude = (xmlNode \ "@lat").text
     val longitude = (xmlNode \ "@lon").text
-    Poi("node", id(xmlNode), latitude, longitude, Seq(layer), tags(xmlNode))
+    val nodeId = id(xmlNode)
+    Poi(s"node:$nodeId", "node", nodeId, latitude, longitude, Seq(layer), tags(xmlNode))
   }
 
   private def way(layer: String, xmlNode: scala.xml.Node): Poi = {
     val center = xmlNode \ "center"
     val latitude = (center \ "@lat").text
     val longitude = (center \ "@lon").text
-    Poi("way", id(xmlNode), latitude, longitude, Seq(layer), tags(xmlNode))
+    val wayId = id(xmlNode)
+    Poi(s"way:$wayId", "way", wayId, latitude, longitude, Seq(layer), tags(xmlNode))
   }
 
   private def relation(layer: String, xmlNode: scala.xml.Node): Poi = {
     val center = xmlNode \ "center"
     val latitude = (center \ "@lat").text
     val longitude = (center \ "@lon").text
-    Poi("relation", id(xmlNode), latitude, longitude, Seq(layer), tags(xmlNode))
+    val relationId = id(xmlNode)
+    Poi(s"relation:$relationId", "relation", relationId, latitude, longitude, Seq(layer), tags(xmlNode))
   }
 
   private def tags(node: scala.xml.Node): Tags = {

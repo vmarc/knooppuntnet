@@ -8,8 +8,6 @@ trait PoiRepository {
 
   def save(poi: Poi): Unit
 
-  def allPois(stale: Boolean = true): Seq[PoiInfo]
-
   def nodeIds(stale: Boolean = true): Seq[Long]
 
   def wayIds(stale: Boolean = true): Seq[Long]

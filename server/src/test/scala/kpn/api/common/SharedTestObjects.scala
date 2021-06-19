@@ -864,6 +864,7 @@ trait SharedTestObjects extends MockFactory {
     tiles: Seq[String] = Seq.empty
   ): Poi = {
     Poi(
+      s"$elementType:$elementId",
       elementType,
       elementId,
       latitude,

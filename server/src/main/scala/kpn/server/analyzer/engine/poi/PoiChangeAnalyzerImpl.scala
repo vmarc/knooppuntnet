@@ -86,6 +86,7 @@ class PoiChangeAnalyzerImpl(
     val allTileNames = (oldTileNames ++ newTileNames).sorted.distinct
 
     val poi = Poi(
+      poiRef.toId,
       poiRef.elementType,
       poiRef.elementId,
       center.latitude,

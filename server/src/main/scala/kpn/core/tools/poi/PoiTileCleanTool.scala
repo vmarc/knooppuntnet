@@ -15,7 +15,7 @@ object PoiTileCleanTool {
   def main(args: Array[String]): Unit = {
     println("Start")
     Couch.executeIn("knooppuntnet.server", "pois4") { poiDatabase =>
-      val poiRepository = new PoiRepositoryImpl(poiDatabase)
+      val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
       val tileFileRepository = new TileFileRepositoryImpl("/kpn/tiles", "mvt")
       new PoiTileCleanTool(poiRepository, tileFileRepository).clean()
     }
@@ -44,5 +44,4 @@ class PoiTileCleanTool(
       tileFileRepository.delete(obsoleteTileNames)
     }
   }
-
 }

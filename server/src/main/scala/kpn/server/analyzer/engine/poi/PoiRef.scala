@@ -31,6 +31,18 @@ object PoiRef {
   def of(poi: Poi): PoiRef = {
     PoiRef(poi.elementType, poi.elementId)
   }
+
+  def from(string: String): PoiRef = {
+    val parts = string.split(":")
+    PoiRef(parts.head, parts(1).toLong)
+  }
 }
 
-case class PoiRef(elementType: String, elementId: Long)
+case class PoiRef(elementType: String, elementId: Long) {
+  def toId: String = {
+    s"$elementType:$elementId"
+  }
+  def toCouchId: String = {
+    s"poi:$elementType:$elementId"
+  }
+}

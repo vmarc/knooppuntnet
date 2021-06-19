@@ -3,6 +3,7 @@ package kpn.core.mongo.tools
 import kpn.core.mongo.Database
 import kpn.core.mongo.tools.validation.ValidateNetworkQueries
 import kpn.core.mongo.tools.validation.ValidateNodeQueries
+import kpn.core.mongo.tools.validation.ValidatePoisQueries
 import kpn.core.mongo.tools.validation.ValidateRouteQueries
 import kpn.core.mongo.tools.validation.ValidateSubsetQueries
 import kpn.core.mongo.tools.validation.ValidationResult
@@ -25,7 +26,8 @@ class ValidateQueriesTool(database: Database) {
       validateNodeQueries(),
       validateChangesQueries(),
       validateSubsetQueries(),
-      validateStatisticsQueries()
+      validateStatisticsQueries(),
+      validatePoisQueries()
     ).flatten
 
     validationResults.foreach(println)
@@ -76,5 +78,9 @@ class ValidateQueriesTool(database: Database) {
 
   private def validateStatisticsQueries(): Seq[ValidationResult] = {
     Seq.empty
+  }
+
+  private def validatePoisQueries(): Seq[ValidationResult] = {
+    new ValidatePoisQueries(database).validate()
   }
 }

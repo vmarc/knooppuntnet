@@ -1,10 +1,5 @@
 package kpn.server.analyzer.engine.poi.image
 
-import java.io.File
-import java.io.FileWriter
-import java.io.PrintWriter
-import java.nio.charset.Charset
-
 import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.nio.JpegWriter
 import kpn.api.common.PoiAnalysis
@@ -24,26 +19,18 @@ import org.springframework.http.converter.StringHttpMessageConverter
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 
+import java.io.File
+import java.io.FileWriter
+import java.io.PrintWriter
+import java.nio.charset.Charset
 import scala.io.Source
 
 object PoiImageRetrieverImpl {
 
-  def main1(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-server", "pois4") { database =>
-      val repo = new PoiRepositoryImpl(database)
-      val poiInfos = repo.allPois()
-      val out = new PrintWriter(new FileWriter("/kpn/tmp/pois.txt"))
-      poiInfos.foreach { poiInfo =>
-        out.println(s"${poiInfo.elementType}:${poiInfo.elementId}")
-      }
-      out.close()
-    }
-  }
-
   def main2(args: Array[String]): Unit = {
 
     Couch.executeIn("kpn-server", "pois4") { database =>
-      val repo = new PoiRepositoryImpl(database)
+      val repo = new PoiRepositoryImpl(null, database, false)
 
       val poiRefs = {
         val source = Source.fromFile("/kpn/tmp/pois.txt")

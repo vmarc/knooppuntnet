@@ -3,6 +3,7 @@ package kpn.core.mongo
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.NodeInfo
+import kpn.api.common.Poi
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -45,4 +46,6 @@ trait Database {
   def routeNetworkRefs: DatabaseCollection[RouteNetworkRef]
 
   def nodeRouteRefs: DatabaseCollection[NodeRouteRef]
+
+  def pois: DatabaseCollection[Poi]
 }

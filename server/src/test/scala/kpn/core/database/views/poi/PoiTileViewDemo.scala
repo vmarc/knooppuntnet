@@ -12,7 +12,7 @@ object PoiTileViewDemo {
     val tileName = "13-4195-2748"
     println(s"Tile $tileName - reading pois")
     Couch.executeIn("kpn-server", "pois5") { database =>
-      val repo = new PoiRepositoryImpl(database)
+      val repo = new PoiRepositoryImpl(null, database, false)
       val t1 = System.currentTimeMillis()
       val poiInfos = repo.tilePoiInfos(tileName)
       val t2 = System.currentTimeMillis()
