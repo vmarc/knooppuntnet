@@ -12,16 +12,11 @@ import kpn.core.database.views.changes.ChangeDocumentView
 import kpn.core.database.views.changes.ChangeDocumentsDesign
 import kpn.core.db.couch.Couch
 import kpn.core.mongo.Database
-import kpn.core.mongo.DatabaseCollection
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetRefs
 import kpn.core.mongo.actions.statistics.ChangeSetRef
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetRepositoryImpl
-
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 object MigrateChangesTool {
 
@@ -82,7 +77,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
           impact = summary.happy || summary.investigate
         )
       )
-      write(database.changeSetSummaries, docs)
+      database.changeSetSummaries.insertMany(docs)
       ("changeSetSummary", ())
     }
   }
@@ -103,7 +98,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
             impact = doc.locationChangeSetSummary.happy || doc.locationChangeSetSummary.investigate
           )
         }
-        write(database.locationChangeSetSummaries, migrated)
+        database.locationChangeSetSummaries.insertMany(migrated)
         ("locationChangeSetSummary", ())
       }
     }
@@ -118,7 +113,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
             impact = networkChange.happy || networkChange.investigate
           )
         }
-        write(database.networkChanges, docs)
+        database.networkChanges.insertMany(docs)
         (s"${docs.size} network changes", ())
       }
     }
@@ -134,7 +129,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
             locationImpact = routeChange.locationHappy || routeChange.locationInvestigate
           )
         }
-        write(database.routeChanges, docs)
+        database.routeChanges.insertMany(docs)
         (s"${docs.size} route changes", ())
       }
     }
@@ -150,7 +145,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
             locationImpact = nodeChange.locationHappy || nodeChange.locationInvestigate,
           )
         }
-        write(database.nodeChanges, docs)
+        database.nodeChanges.insertMany(docs)
         (s"${docs.size} node changes", ())
       }
     }
@@ -173,10 +168,5 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
       }
       (s"read ${changeSetRefs.size} changeSetRefs", changeSetRefs)
     }
-  }
-
-  private def write[T](collection: DatabaseCollection[T], docs: Seq[T]): Unit = {
-    val future = collection.tempCollection.insertMany(docs).toFuture()
-    Await.result(future, Duration(10, TimeUnit.MINUTES))
   }
 }

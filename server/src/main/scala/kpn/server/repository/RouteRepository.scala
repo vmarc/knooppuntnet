@@ -12,13 +12,11 @@ trait RouteRepository {
 
   def saveElements(routeElements: RouteElements): Unit
 
-  def delete(routeIds: Seq[Long]): Unit
+  def delete(routeId: Long): Unit
 
   def routeWithId(routeId: Long): Option[RouteInfo]
 
   def routeElementsWithId(routeId: Long): Option[RouteElements]
-
-  def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
 
   def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
 

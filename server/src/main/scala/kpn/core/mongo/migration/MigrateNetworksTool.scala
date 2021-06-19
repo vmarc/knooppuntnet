@@ -10,10 +10,6 @@ import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.NetworkRepositoryImpl
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-
 object MigrateNetworksTool {
 
   private val log = Log(classOf[MigrateNetworksTool])
@@ -83,8 +79,7 @@ class MigrateNetworksTool(couchDatabase: kpn.core.database.Database, database: D
     }
     val uniqueRefs = refs.map(ref => ref._id -> ref).toMap.values.toSeq
     if (uniqueRefs.nonEmpty) {
-      val future = database.nodeNetworkRefs.tempCollection.insertMany(uniqueRefs).toFuture()
-      Await.result(future, Duration(1, TimeUnit.MINUTES))
+      database.nodeNetworkRefs.insertMany(uniqueRefs)
     }
   }
 
@@ -102,8 +97,7 @@ class MigrateNetworksTool(couchDatabase: kpn.core.database.Database, database: D
     }
     val uniqueRefs = refs.map(ref => ref._id -> ref).toMap.values.toSeq
     if (uniqueRefs.nonEmpty) {
-      val future = database.routeNetworkRefs.tempCollection.insertMany(uniqueRefs).toFuture()
-      Await.result(future, Duration(1, TimeUnit.MINUTES))
+      database.routeNetworkRefs.insertMany(uniqueRefs)
     }
   }
 }

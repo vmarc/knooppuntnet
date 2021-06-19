@@ -163,6 +163,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         config.routeRepository.saveElements(
           RouteElements(
             loadedRoute.id,
+            loadedRoute.id,
             config.relationAnalyzer.toElementIds(analysis.relation)
           )
         )

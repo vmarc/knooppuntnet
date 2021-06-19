@@ -158,24 +158,24 @@ AnalysisRepository
 - [ ] def saveLastUpdated(timestamp: Timestamp): Unit
 
 NetworkRepository
-- [ ]  def allNetworkIds(): Seq[Long]
-- [ ]  def network(networkId: Long): Option[NetworkInfo]
-- [ ]  def save(network: NetworkInfo): Unit
-- [ ]  def elements(networkId: Long): Option[NetworkElements]
-- [ ]  def saveElements(networkElements: NetworkElements): Unit
-- [ ]  def gpx(networkId: Long): Option[GpxFile]
-- [ ]  def saveGpxFile(gpxFile: GpxFile): Unit
-- [ ]  def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
-- [ ]  def delete(networkId: Long): Unit
+- [x]  def allNetworkIds(): Seq[Long]
+- [x]  def network(networkId: Long): Option[NetworkInfo]
+- [x]  def save(network: NetworkInfo): Unit
+- [x]  def elements(networkId: Long): Option[NetworkElements]
+- [x]  def saveElements(networkElements: NetworkElements): Unit
+- [x]  def gpx(networkId: Long): Option[GpxFile]
+- [x]  def saveGpxFile(gpxFile: GpxFile): Unit
+- [x]  def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
+- [x]  def delete(networkId: Long): Unit
 
 RouteRepository
-- [ ] def allRouteIds(): Seq[Long]
-- [ ] def save(routes: RouteInfo): Unit
-- [ ] def saveElements(routeElements: RouteElements): Unit
-- [ ] def delete(routeIds: Seq[Long]): Unit
-- [ ] def routeWithId(routeId: Long): Option[RouteInfo]
-- [ ] def routeElementsWithId(routeId: Long): Option[RouteElements]
-- [ ] def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
+- [x] def allRouteIds(): Seq[Long]
+- [x] def save(routes: RouteInfo): Unit
+- [x] def saveElements(routeElements: RouteElements): Unit
+- [x] def delete(routeIds: Seq[Long]): Unit
+- [x] def routeWithId(routeId: Long): Option[RouteInfo]
+- [x] def routeElementsWithId(routeId: Long): Option[RouteElements]
+- [x] def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo]
 - [ ] def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
 - [ ] def filterKnown(routeIds: Set[Long]): Set[Long]
 

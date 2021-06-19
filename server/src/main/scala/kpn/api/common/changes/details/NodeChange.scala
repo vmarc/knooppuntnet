@@ -1,5 +1,6 @@
 package kpn.api.common.changes.details
 
+import kpn.api.base.WithStringId
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.raw.RawNode
@@ -41,7 +42,7 @@ case class NodeChange(
   locationInvestigate: Boolean = false,
   locationImpact: Boolean = false,
   comment: Option[String] = None
-) {
+) extends WithStringId {
 
   def id: Long = key.elementId
 

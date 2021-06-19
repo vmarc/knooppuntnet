@@ -104,7 +104,7 @@ class RouteTool(database: Database) {
       routeRepository.routeWithId(routeId) match {
         case None => println(s"$routeId no")
         case Some(routeInfo) => println(s"$routeId yes")
-          routeRepository.delete(Seq(routeId))
+          routeRepository.delete(routeId)
       }
     }
   }
@@ -147,7 +147,7 @@ class RouteTool(database: Database) {
 
     blackList.routes.foreach { routeEntry =>
       println(s"Delete blacklisted route ${routeEntry.id} - ${routeEntry.name}")
-      routeRepository.delete(Seq(routeEntry.id))
+      routeRepository.delete(routeEntry.id)
     }
   }
 

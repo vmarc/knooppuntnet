@@ -118,13 +118,11 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
 
       override def saveElements(routeElements: RouteElements): Unit = ???
 
-      override def delete(routeIds: Seq[Long]): Unit = ???
+      override def delete(routeId: Long): Unit = ???
 
       override def routeWithId(routeId: Long): Option[RouteInfo] = None
 
       override def routeElementsWithId(routeId: Long): Option[RouteElements] = ???
-
-      override def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo] = ???
 
       override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = ???
 

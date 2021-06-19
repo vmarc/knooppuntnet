@@ -33,19 +33,27 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def save(nodes: NodeInfo*): Boolean = {
+  override def save(node: NodeInfo): Unit = {
     if (mongoEnabled) {
-      // new MongoSave(mongoDatabase).execute("nodes", node)
+      database.nodes.save(node)
+    }
+    else {
+      bulkSave(node)
+    }
+  }
+
+  override def bulkSave(nodes: NodeInfo*): Unit = {
+    if (mongoEnabled) {
+      // https://docs.mongodb.com/manual/core/bulk-write-operations/
       ??? // TODO MONGO
     }
     else {
-      var result = false
       var retry = true
       var retryCount = 0
 
       while (retry && retryCount < 3) {
         try {
-          result = doSave(nodes)
+          doSave(nodes)
           retry = false
         }
         catch {
@@ -58,11 +66,10 @@ class NodeRepositoryImpl(
             }
         }
       }
-      result
     }
   }
 
-  private def doSave(nodes: Seq[NodeInfo]): Boolean = {
+  private def doSave(nodes: Seq[NodeInfo]): Unit = {
     log.debugElapsed {
 
       val nodeIds = nodes.map(node => docId(node.id))
@@ -107,13 +114,13 @@ class NodeRepositoryImpl(
         }
       }
 
-      (s"save ${nodes.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", docs.nonEmpty)
+      (s"save ${nodes.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", ())
     }
   }
 
   override def delete(nodeId: Long): Unit = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      database.nodes.delete(nodeId, log)
     }
     else {
       analysisDatabase.deleteDocWithId(docId(nodeId))
@@ -122,7 +129,7 @@ class NodeRepositoryImpl(
 
   override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      database.nodes.findById(nodeId, log)
     }
     else {
       analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
@@ -131,7 +138,7 @@ class NodeRepositoryImpl(
 
   override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeInfo] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      database.nodes.findByIds(nodeIds, log)
     }
     else {
       val ids = nodeIds.map(id => docId(id))

@@ -102,7 +102,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       )
 
       // remove route 01-03 [id=12]
-      routeRepository.delete(Seq(12))
+      routeRepository.delete(12)
 
       nodeRouteUpdater.update()
 

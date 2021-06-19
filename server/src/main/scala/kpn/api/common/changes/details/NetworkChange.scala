@@ -1,5 +1,6 @@
 package kpn.api.common.changes.details
 
+import kpn.api.base.WithStringId
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.diff.IdDiffs
@@ -30,7 +31,7 @@ case class NetworkChange(
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean
-) {
+) extends WithStringId {
 
   def referencedElements: ReferencedElements = {
 

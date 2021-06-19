@@ -161,6 +161,7 @@ class RouteChangeBuilderImpl(
           routeRepository.saveElements(
             RouteElements(
               analysisBefore.route.id,
+              analysisBefore.route.id,
               relationAnalyzer.toElementIds(analysisBefore.relation)
             )
           )
@@ -235,6 +236,7 @@ class RouteChangeBuilderImpl(
 
       routeRepository.saveElements(
         RouteElements(
+          analysisBefore.route.id,
           analysisBefore.route.id,
           relationAnalyzer.toElementIds(analysisAfter.relation)
         )

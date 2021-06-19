@@ -10,6 +10,7 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.mongodb.scala.MongoDatabase
 
 trait Database {
@@ -26,6 +27,8 @@ trait Database {
   def nodes: DatabaseCollection[NodeInfo]
 
   def routes: DatabaseCollection[RouteInfo]
+
+  def routeElements: DatabaseCollection[RouteElements]
 
   def networkChanges: DatabaseCollection[NetworkChange]
 

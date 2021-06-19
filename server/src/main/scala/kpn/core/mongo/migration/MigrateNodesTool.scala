@@ -7,10 +7,6 @@ import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.NodeRepositoryImpl
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-
 object MigrateNodesTool {
 
   private val log = Log(classOf[MigrateNodesTool])
@@ -49,7 +45,6 @@ class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Data
   private def migrateNodes(nodeIds: Seq[Long]): Unit = {
     val nodeInfos = nodeRepository.nodesWithIds(nodeIds)
     val migratedNodeInfos = nodeInfos.map(nodeInfo => nodeInfo.copy(_id = nodeInfo.id))
-    val future = database.nodes.tempCollection.insertMany(migratedNodeInfos).toFuture()
-    Await.result(future, Duration(1, TimeUnit.MINUTES))
+    database.nodes.insertMany(migratedNodeInfos)
   }
 }

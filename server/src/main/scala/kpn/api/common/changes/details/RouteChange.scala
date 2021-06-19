@@ -1,5 +1,6 @@
 package kpn.api.common.changes.details
 
+import kpn.api.base.WithStringId
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
@@ -36,7 +37,7 @@ case class RouteChange(
   locationHappy: Boolean = false,
   locationInvestigate: Boolean = false,
   locationImpact: Boolean = false
-) {
+) extends WithStringId {
 
   def id: Long = key.elementId
 

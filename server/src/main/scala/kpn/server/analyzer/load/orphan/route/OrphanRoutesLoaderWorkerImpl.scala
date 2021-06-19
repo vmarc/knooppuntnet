@@ -39,6 +39,7 @@ class OrphanRoutesLoaderWorkerImpl(
           routeRepository.saveElements(
             RouteElements(
               loadedRoute.id,
+              loadedRoute.id,
               relationAnalyzer.toElementIds(analysis.relation)
             )
           )

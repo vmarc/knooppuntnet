@@ -10,59 +10,64 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
+import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.mongodb.scala.MongoDatabase
 
 class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def networks: DatabaseCollection[NetworkInfo] = {
-    new DatabaseCollection(database.getCollection[NetworkInfo]("networks"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkInfo]("networks"))
   }
 
   override def networkElements: DatabaseCollection[NetworkElements] = {
-    new DatabaseCollection(database.getCollection[NetworkElements]("network-elements"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkElements]("network-elements"))
   }
 
   override def networkGpxs: DatabaseCollection[GpxFile] = {
-    new DatabaseCollection(database.getCollection[GpxFile]("network-gpxs"))
+    new DatabaseCollectionImpl(database.getCollection[GpxFile]("network-gpxs"))
   }
 
   override def nodes: DatabaseCollection[NodeInfo] = {
-    new DatabaseCollection(database.getCollection[NodeInfo]("nodes"))
+    new DatabaseCollectionImpl(database.getCollection[NodeInfo]("nodes"))
   }
 
   override def routes: DatabaseCollection[RouteInfo] = {
-    new DatabaseCollection(database.getCollection[RouteInfo]("routes"))
+    new DatabaseCollectionImpl(database.getCollection[RouteInfo]("routes"))
+  }
+
+  override def routeElements: DatabaseCollection[RouteElements] = {
+    new DatabaseCollectionImpl(database.getCollection[RouteElements]("route-elements"))
   }
 
   override def networkChanges: DatabaseCollection[NetworkChange] = {
-    new DatabaseCollection(database.getCollection[NetworkChange]("network-changes"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkChange]("network-changes"))
   }
 
   override def routeChanges: DatabaseCollection[RouteChange] = {
-    new DatabaseCollection(database.getCollection[RouteChange]("route-changes"))
+    new DatabaseCollectionImpl(database.getCollection[RouteChange]("route-changes"))
   }
 
   override def nodeChanges: DatabaseCollection[NodeChange] = {
-    new DatabaseCollection(database.getCollection[NodeChange]("node-changes"))
+    new DatabaseCollectionImpl(database.getCollection[NodeChange]("node-changes"))
   }
 
   override def changeSetSummaries: DatabaseCollection[ChangeSetSummary] = {
-    new DatabaseCollection(database.getCollection[ChangeSetSummary]("changeset-summaries"))
+    new DatabaseCollectionImpl(database.getCollection[ChangeSetSummary]("changeset-summaries"))
   }
 
   override def locationChangeSetSummaries: DatabaseCollection[LocationChangeSetSummary] = {
-    new DatabaseCollection(database.getCollection[LocationChangeSetSummary]("change-location-summaries"))
+    new DatabaseCollectionImpl(database.getCollection[LocationChangeSetSummary]("change-location-summaries"))
   }
 
   override def nodeNetworkRefs: DatabaseCollection[NodeNetworkRef] = {
-    new DatabaseCollection(database.getCollection[NodeNetworkRef]("node-network-refs"))
+    new DatabaseCollectionImpl(database.getCollection[NodeNetworkRef]("node-network-refs"))
   }
 
   override def routeNetworkRefs: DatabaseCollection[RouteNetworkRef] = {
-    new DatabaseCollection(database.getCollection[RouteNetworkRef]("route-network-refs"))
+    new DatabaseCollectionImpl(database.getCollection[RouteNetworkRef]("route-network-refs"))
   }
 
   override def nodeRouteRefs: DatabaseCollection[NodeRouteRef] = {
-    new DatabaseCollection(database.getCollection[NodeRouteRef]("node-route-refs"))
+    new DatabaseCollectionImpl(database.getCollection[NodeRouteRef]("node-route-refs"))
   }
 }

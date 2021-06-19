@@ -23,15 +23,6 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("routesWithIds") {
-    withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
-      routeRepository.save(newRoute(10))
-      routeRepository.save(newRoute(20))
-      routeRepository.routesWithIds(Seq(10, 20, 30)) should equal(Seq(newRoute(10), newRoute(20)))
-    }
-  }
-
   test("routeReferences") {
 
     withCouchDatabase { database =>

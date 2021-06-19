@@ -8,7 +8,9 @@ trait NodeRepository {
 
   def allNodeIds(): Seq[Long]
 
-  def save(nodes: NodeInfo*): Boolean
+  def save(node: NodeInfo): Unit
+
+  def bulkSave(nodes: NodeInfo*): Unit
 
   def delete(nodeId: Long): Unit
 

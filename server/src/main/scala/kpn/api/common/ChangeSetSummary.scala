@@ -1,5 +1,6 @@
 package kpn.api.common
 
+import kpn.api.base.WithStringId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Subset
@@ -67,7 +68,7 @@ case class ChangeSetSummary(
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean
-) {
+) extends WithStringId {
 
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("_id", _id).

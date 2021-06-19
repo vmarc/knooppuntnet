@@ -1,5 +1,6 @@
 package kpn.core.mongo
 
+import kpn.api.base.WithStringId
 import kpn.api.custom.NetworkType
 
 case class NodeRouteRef(
@@ -8,4 +9,4 @@ case class NodeRouteRef(
   routeId: Long,
   networkType: NetworkType,
   routeName: String
-)
+) extends WithStringId

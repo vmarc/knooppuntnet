@@ -179,6 +179,7 @@ class OrphanRouteChangeProcessorImpl(
           routeRepository.saveElements(
             RouteElements(
               loadedRoute.id,
+              loadedRoute.id,
               relationAnalyzer.toElementIds(routeAnalysis.relation)
             )
           )

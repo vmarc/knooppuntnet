@@ -7,7 +7,6 @@ import kpn.core.database.doc.RouteElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
-import kpn.core.db.RouteDocViewResult
 import kpn.core.mongo.Database
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RouteElements
@@ -21,7 +20,6 @@ class RouteRepositoryImpl(
   mongoEnabled: Boolean
 ) extends RouteRepository {
 
-  private val groupSize = 20
   private val log = Log(classOf[RouteRepositoryImpl])
 
   override def allRouteIds(): Seq[Long] = {
@@ -47,7 +45,7 @@ class RouteRepositoryImpl(
 
   override def saveElements(routeElements: RouteElements): Unit = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      database.routeElements.save(routeElements, log)
     }
     else {
       log.debugElapsed {
@@ -57,104 +55,15 @@ class RouteRepositoryImpl(
     }
   }
 
-  def oldSave(routes: Seq[RouteInfo]): Unit = {
+  override def delete(routeId: Long): Unit = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      database.routes.delete(routeId, log)
+      database.routeElements.delete(routeId, log)
+      // TODO MONGO should also delete references, changes, etc?
     }
     else {
-      log.debugElapsed {
-        routes.sliding(groupSize, groupSize).toSeq.foreach { groupRoutes =>
-          saveRoutes(groupRoutes)
-        }
-        (s"Saved ${routes.size} routes overall", ())
-      }
-    }
-  }
-
-  private def saveRoutes(routes: Seq[RouteInfo]): Unit = {
-
-    log.debugElapsed {
-
-      val existingRouteDocs = readExistingRouteDocs(routes)
-      val (existingRoutes, addedRoutes) = partitionRoutes(routes, existingRouteDocs)
-      val updatedRoutes = filterUpdatedRoutes(routes, existingRoutes)
-      val unchangedRoutes = filterUnchangedRoutes(existingRoutes, updatedRoutes)
-      val addedRouteDocs = addedRoutes.map(route => RouteDoc(docId(route.id), route))
-      val updatedRouteDocs = createUpdatedRouteDocs(existingRouteDocs, updatedRoutes)
-      val docs = addedRouteDocs ++ updatedRouteDocs
-
-      if (docs.nonEmpty) {
-        analysisDatabase.bulkSave(docs)
-      }
-
-      val message = s"Saved (${routes.size}) routes: " +
-        Seq(
-          msg("Unchanged", unchangedRoutes),
-          msg("Added", addedRoutes),
-          msg("Updated", updatedRoutes)
-        ).flatten.mkString(" / ")
-
-      (message, ())
-    }
-  }
-
-  private def readExistingRouteDocs(routes: Seq[RouteInfo]): Seq[RouteDoc] = {
-    val routeIds = routes.map(_.id)
-    val routeDocIds = routeIds.map(docId)
-    analysisDatabase.docsWithIds(routeDocIds, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc)
-  }
-
-  private def partitionRoutes(routes: Seq[RouteInfo], existingRouteDocs: Seq[RouteDoc]): (Seq[RouteInfo], Seq[RouteInfo]) = {
-    val existingRouteMap = existingRouteDocs.map(doc => doc.route.id -> doc.route).toMap
-    val (existingRoutes, addedRoutes) = routes.partition(route => existingRouteMap.contains(route.id))
-    (existingRoutes.map(route => existingRouteMap(route.id)), addedRoutes)
-  }
-
-  private def filterUpdatedRoutes(routes: Seq[RouteInfo], existingRoutes: Seq[RouteInfo]): Seq[RouteInfo] = {
-    routes.filter { route =>
-      existingRoutes.find(_.id == route.id) match {
-        case Some(existingRoute) => existingRoute != route
-        case None => false
-      }
-    }
-  }
-
-  private def filterUnchangedRoutes(existingRoutes: Seq[RouteInfo], updatedRoutes: Seq[RouteInfo]): Seq[RouteInfo] = {
-    val updatedRouteIds = updatedRoutes.map(_.id)
-    existingRoutes.filterNot { route =>
-      updatedRouteIds.contains(route.id)
-    }
-  }
-
-  private def createUpdatedRouteDocs(existingRouteDocs: Seq[RouteDoc], updatedRoutes: Seq[RouteInfo]): Seq[RouteDoc] = {
-    updatedRoutes.flatMap { route =>
-      existingRouteDocs.find(doc => doc.route.id == route.id) match {
-        case Some(doc) =>
-          val rev = doc._rev
-          Some(RouteDoc(docId(route.id), route, rev))
-        case None => None
-      }
-    }
-  }
-
-  private def msg(title: String, routes: Seq[RouteInfo]): Option[String] = {
-    if (routes.nonEmpty) {
-      Some(s"$title (${routes.size}) " + routes.map(_.id).mkString(","))
-    }
-    else {
-      None
-    }
-  }
-
-  override def delete(routeIds: Seq[Long]): Unit = {
-    if (mongoEnabled) {
-      ??? // TODO MONGO
-    }
-    else {
-      val routeDocIds = routeIds.map(docId)
-      analysisDatabase.deleteDocsWithIds(routeDocIds)
-      val routeElementsDocIds = routeIds.map(elementsDocId)
-      analysisDatabase.deleteDocsWithIds(routeElementsDocIds)
+      analysisDatabase.deleteDocWithId(docId(routeId))
+      analysisDatabase.deleteDocWithId(elementsDocId(routeId))
     }
   }
 
@@ -169,26 +78,16 @@ class RouteRepositoryImpl(
 
   override def routeElementsWithId(routeId: Long): Option[RouteElements] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      database.routeElements.findById(routeId, log)
     }
     else {
       analysisDatabase.docWithId(elementsDocId(routeId), classOf[RouteElementsDoc]).map(_.routeElements)
     }
   }
 
-  override def routesWithIds(routeIds: Seq[Long]): Seq[RouteInfo] = {
-    if (mongoEnabled) {
-      ??? // TODO MONGO
-    }
-    else {
-      val ids = routeIds.map(id => docId(id))
-      analysisDatabase.docsWithIds(ids, classOf[RouteDocViewResult], stale = false).rows.flatMap(_.doc.map(_.route))
-    }
-  }
-
   override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      ??? // TODO MONGO implemented through lookup elsewhere?
     }
     else {
       val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale)
@@ -199,7 +98,7 @@ class RouteRepositoryImpl(
 
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      ??? // TODO MONGO implemented through lookup elsewhere?
     }
     else {
       log.debugElapsed {

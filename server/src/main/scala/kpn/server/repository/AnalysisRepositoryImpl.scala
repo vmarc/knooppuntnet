@@ -64,6 +64,7 @@ class AnalysisRepositoryImpl(
       routeRepository.saveElements(
         RouteElements(
           networkMemberRoute.id,
+          networkMemberRoute.id,
           relationAnalyzer.toElementIds(networkMemberRoute.routeAnalysis.relation)
         )
       )
@@ -97,7 +98,7 @@ class AnalysisRepositoryImpl(
         facts
       )
     }
-    nodeRepository.save(nodeInfos: _*)
+    nodeRepository.bulkSave(nodeInfos: _*)
   }
 
   private def saveGpxDoc(network: Network): Unit = {

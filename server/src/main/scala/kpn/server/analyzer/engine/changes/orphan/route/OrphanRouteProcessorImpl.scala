@@ -42,6 +42,7 @@ class OrphanRouteProcessorImpl(
           routeRepository.saveElements(
             RouteElements(
               loadedRoute.id,
+              loadedRoute.id,
               relationAnalyzer.toElementIds(analysis.relation)
             )
           )
