@@ -68,14 +68,13 @@ class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Dat
 
   private def migrateNodeRouteRefs(routeInfo: RouteInfo): Unit = {
     val refs = routeInfo.analysis.map.nodeIds.map { nodeId =>
-      val summary = routeInfo.summary
-      val _id = s"$nodeId:${summary.id}"
+      val _id = s"$nodeId:${routeInfo.summary.id}"
       NodeRouteRef(
         _id,
         nodeId,
-        summary.id,
-        summary.networkType,
-        summary.name
+        routeInfo.summary.id,
+        routeInfo.summary.networkType,
+        routeInfo.summary.name
       )
     }
     if (refs.nonEmpty) {

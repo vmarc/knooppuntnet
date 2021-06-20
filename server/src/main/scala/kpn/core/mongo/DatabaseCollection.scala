@@ -51,4 +51,6 @@ trait DatabaseCollection[T] {
 
   def insertMany(docs: Seq[T], log: Log = collectionLog): Unit
 
+  def countDocuments(filter: Bson, log: Log = collectionLog): Long
+
 }

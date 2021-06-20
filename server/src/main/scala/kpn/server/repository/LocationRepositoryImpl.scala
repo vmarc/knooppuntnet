@@ -18,6 +18,7 @@ import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.locations.MongoQueryLocationNodeCount
 import org.springframework.stereotype.Component
 
 @Component
@@ -62,7 +63,7 @@ class LocationRepositoryImpl(
 
   override def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean): Long = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationNodeCount(database).execute(locationKey.networkType, locationKey.name, locationNodesType)
     }
     else {
       LocationNodeView.queryCount(analysisDatabase, locationKey, locationNodesType, stale)
