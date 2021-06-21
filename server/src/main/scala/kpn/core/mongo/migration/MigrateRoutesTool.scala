@@ -53,7 +53,18 @@ class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Dat
 
   private def migrateRoutes(routeIds: Seq[Long]): Unit = {
     val routeInfos = routeIds.flatMap { routeId =>
-      routeRepository.routeWithId(routeId).map(routeInfo => routeInfo.copy(_id = routeInfo.id))
+      routeRepository.routeWithId(routeId).map { routeInfo =>
+        val migratedNodeRefs = if (routeInfo.nodeRefs == null) {
+          routeInfo.analysis.map.nodeIds
+        }
+        else {
+          routeInfo.nodeRefs
+        }
+        routeInfo.copy(
+          _id = routeInfo.id,
+          nodeRefs = migratedNodeRefs
+        )
+      }
     }
     database.routes.insertMany(routeInfos)
     routeInfos.foreach(migrateNodeRouteRefs)

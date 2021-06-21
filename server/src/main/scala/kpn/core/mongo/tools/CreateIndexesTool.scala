@@ -79,6 +79,14 @@ object CreateIndexesTool {
       "summary.country",
       "summary.networkType"
     ),
+    Index( // TODO MONGO remove again --> not used as intended by lookup query
+      "routes",
+      "node-refs",
+      "active",
+      "nodeRefs",
+      "summary.id",
+      "summary.name"
+    ),
     Index(
       "nodeRouteRefs",
       "nodeId",

@@ -24,19 +24,18 @@ import org.mongodb.scala.model.Aggregates.lookup
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
+import org.mongodb.scala.model.Filters.expr
+import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
-
-case class RouteRef(
-  routeId: Long,
-  routeName: String
-)
+import org.mongodb.scala.model.Variable
 
 case class LocationNodeInfoDoc(
   id: Long,
@@ -48,8 +47,23 @@ case class LocationNodeInfoDoc(
   lastSurvey: Option[Day],
   tags: Tags,
   facts: Seq[Fact],
-  routeReferences: Seq[RouteRef]
-)
+  routeReferences: Seq[Ref]
+) {
+
+  def networkTypeName(networkType: NetworkType): String = {
+    names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
+  }
+
+  def networkTypeLongName(networkType: NetworkType): Option[String] = {
+    val longNames = names.filter(_.networkType == networkType).flatMap(_.longName)
+    if (longNames.nonEmpty) {
+      Some(longNames.mkString(" / "))
+    }
+    else {
+      None
+    }
+  }
+}
 
 object MongoQueryLocationNodes {
   private val log = Log(classOf[MongoQueryLocationNodes])
@@ -93,7 +107,7 @@ object MongoQueryLocationNodes {
     println("nodes by location")
     val networkType = NetworkType.hiking
     query.execute(networkType, "be", LocationNodesType.all, 0, 1)
-    val locationNodeInfos = query.execute(networkType, "be", LocationNodesType.survey, 0, 3)
+    val locationNodeInfos = query.execute(networkType, "be", LocationNodesType.all, 0, 50)
     locationNodeInfos.zipWithIndex.foreach { case (locationNodeInfo, index) =>
       println(s"  ${index + 1} id: ${locationNodeInfo.id}, name: ${locationNodeInfo.name}, survey: ${locationNodeInfo.lastSurvey}")
       locationNodeInfo.routeReferences.foreach { ref =>
@@ -115,15 +129,41 @@ class MongoQueryLocationNodes(database: Database) {
 
     val matchFilter = buildFilter(networkType, location, locationNodesType: LocationNodesType)
 
+    val let: Seq[Variable[Any]] = Seq(
+      Variable("nodeId", "$id"),
+      Variable("networkType", networkType.name)
+    )
+
+    val routeReferencesPipeline: Seq[Bson] = Seq(
+      unwind("$nodeRefs"),
+      filter(
+        expr(
+          and(
+            BsonDocument("""{"$eq": ["$active", true]}"""),
+            BsonDocument("""{"$eq": ["$summary.networkType", "$$networkType"]}"""),
+            BsonDocument("""{"$eq": ["$nodeRefs", "$$nodeId"]}""")
+          )
+        )
+      ),
+      project(
+        fields(
+          excludeId(),
+          computed("id", "$summary.id"),
+          computed("name", "$summary.name"),
+        )
+      ),
+      sort(orderBy(ascending("name")))
+    )
+
     val pipeline = Seq(
       filter(matchFilter),
       sort(orderBy(ascending("names.name", "node.id"))),
       skip(page * pageSize),
       limit(pageSize),
       lookup(
-        "node-route-refs",
-        "id",
-        "nodeId",
+        "routes",
+        let,
+        routeReferencesPipeline,
         "routeReferences"
       ),
       project(
@@ -143,6 +183,8 @@ class MongoQueryLocationNodes(database: Database) {
       )
     )
 
+    println(Mongo.pipelineString(pipeline))
+
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
       val locationNodeInfos = locationNodeInfoDocs.map { doc =>
@@ -152,15 +194,15 @@ class MongoQueryLocationNodes(database: Database) {
         val expectedRouteCount = tagValues.headOption.getOrElse("-")
         LocationNodeInfo(
           doc.id,
-          doc.name, // TODO MONGO this should be short name
-          doc.name, // TODO  MONGO this should be long name
+          doc.networkTypeName(networkType),
+          doc.networkTypeLongName(networkType).getOrElse("-"),
           doc.latitude,
           doc.longitude,
           doc.lastUpdated,
           doc.lastSurvey,
           doc.facts.size, // TODO MONGO remove? this is not used in the userinterface??
           expectedRouteCount, // TODO MONGO include in NodeInfo directly??
-          doc.routeReferences.map(ref => Ref(ref.routeId, ref.routeName))
+          doc.routeReferences
         )
       }
       ("find location nodes", locationNodeInfos)
