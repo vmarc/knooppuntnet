@@ -65,7 +65,7 @@ class MongoQueryChangeSetCounts(database: Database) {
     }
 
     log.debugElapsed {
-      val collection = database.database.getCollection("change-stats-summaries")
+      val collection = database.getCollection("change-stats-summaries")
       val future = collection.aggregate[ChangeSetCounts](pipeline).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
@@ -78,7 +78,7 @@ class MongoQueryChangeSetCounts(database: Database) {
       log.trace(Mongo.pipelineString(pipelineAll))
     }
     log.debugElapsed {
-      val collection = database.database.getCollection("change-stats-summaries")
+      val collection = database.getCollection("change-stats-summaries")
       val future = collection.aggregate[ChangeSetCount](pipelineAll).toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"all days materialized ${counts.size} counts", counts)

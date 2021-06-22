@@ -113,7 +113,7 @@ class MongoQueryChangeSetSummaries(database: Database) {
     }
 
     log.debugElapsed {
-      val collection = database.database.getCollection("changeset-summaries")
+      val collection = database.getCollection("changeset-summaries")
       val future = collection.aggregate[ChangeSetSummary](pipeline).toFuture()
       val summaries = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${summaries.size} changeset summaries", summaries)

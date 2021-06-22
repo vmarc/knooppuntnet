@@ -12,12 +12,17 @@ import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RouteElements
+import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
+
+import scala.reflect.ClassTag
 
 trait Database {
 
   @deprecated
   def database: MongoDatabase
+
+  def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
 
   def networks: DatabaseCollection[NetworkInfo]
 
@@ -25,7 +30,7 @@ trait Database {
 
   def networkGpxs: DatabaseCollection[GpxFile]
 
-  def nodes: DatabaseCollection[NodeInfo]
+  def nodes: DatabaseCollection[NodeDoc]
 
   def routes: DatabaseCollection[RouteInfo]
 

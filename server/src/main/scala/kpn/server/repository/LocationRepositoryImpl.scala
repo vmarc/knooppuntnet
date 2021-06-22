@@ -18,7 +18,9 @@ import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
 import kpn.core.database.views.location.LocationView
 import kpn.core.mongo.Database
-import kpn.core.mongo.actions.locations.MongoQueryLocationNodeCount
+import kpn.core.mongo.actions.locations.MongoQueryLocationNodeCounts
+import kpn.core.mongo.actions.locations.MongoQueryLocationNodes
+import kpn.core.mongo.actions.locations.MongoQueryLocationRoutes
 import org.springframework.stereotype.Component
 
 @Component
@@ -31,7 +33,12 @@ class LocationRepositoryImpl(
 
   override def summary(locationKey: LocationKey): LocationSummary = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      LocationSummary(
+        factCount(locationKey.networkType, locationKey.name),
+        nodeCount(locationKey, LocationNodesType.all),
+        routeCount(locationKey, LocationRoutesType.all),
+        0
+      )
     }
     else {
       LocationSummary(
@@ -54,7 +61,13 @@ class LocationRepositoryImpl(
 
   override def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean): Seq[LocationNodeInfo] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationNodes(database).find(
+        locationKey.networkType,
+        locationKey.name,
+        parameters.locationNodesType,
+        parameters.pageIndex.toInt,
+        parameters.itemsPerPage.toInt
+      )
     }
     else {
       LocationNodeView.query(analysisDatabase, locationKey, parameters, stale)
@@ -63,7 +76,7 @@ class LocationRepositoryImpl(
 
   override def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean): Long = {
     if (mongoEnabled) {
-      new MongoQueryLocationNodeCount(database).execute(locationKey.networkType, locationKey.name, locationNodesType)
+      new MongoQueryLocationNodes(database).countDocuments(locationKey.networkType, locationKey.name, locationNodesType)
     }
     else {
       LocationNodeView.queryCount(analysisDatabase, locationKey, locationNodesType, stale)
@@ -72,7 +85,13 @@ class LocationRepositoryImpl(
 
   override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationRoutes(database).find(
+        locationKey.networkType,
+        locationKey.name,
+        parameters.locationRoutesType,
+        parameters.pageIndex.toInt,
+        parameters.itemsPerPage.toInt
+      )
     }
     else {
       LocationRouteView.query(analysisDatabase, locationKey, parameters, stale)
@@ -81,7 +100,11 @@ class LocationRepositoryImpl(
 
   override def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationRoutes(database).countDocuments(
+        locationKey.networkType,
+        locationKey.name,
+        locationRoutesType
+      )
     }
     else {
       LocationRouteView.queryCount(analysisDatabase, locationKey, locationRoutesType, stale)
@@ -90,7 +113,10 @@ class LocationRepositoryImpl(
 
   override def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationNodeCounts(database).find(
+        networkType,
+        country
+      )
     }
     else {
       LocationNodeView.countryLocations(analysisDatabase, networkType, country, stale)

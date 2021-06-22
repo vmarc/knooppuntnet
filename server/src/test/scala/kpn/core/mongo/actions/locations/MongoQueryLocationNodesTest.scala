@@ -8,6 +8,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Tags
+import kpn.core.mongo.migration.NodeDocBuilder
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -17,22 +18,29 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        newNodeInfo(
-          1001L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "01")
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1001L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "01")
+          )
         )
       )
 
       database.nodes.save(
-        newNodeInfo(
-          1002L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "02"),
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1002L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "02"),
+          )
         )
       )
 
-      val locationNodeInfos = new MongoQueryLocationNodes(database).execute(
+      val query = new MongoQueryLocationNodes(database)
+      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(2)
+
+      val locationNodeInfos = query.find(
         hiking,
         "be",
         LocationNodesType.all,
@@ -45,7 +53,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           LocationNodeInfo(
             1001L,
             "01",
-            "01",
+            "-",
             "0",
             "0",
             defaultTimestamp,
@@ -57,7 +65,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           LocationNodeInfo(
             1002L,
             "02",
-            "02",
+            "-",
             "0",
             "0",
             defaultTimestamp,
@@ -76,24 +84,31 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       // active
       database.nodes.save(
-        newNodeInfo(
-          1001L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "01")
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1001L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "01")
+          )
         )
       )
 
       // not active
       database.nodes.save(
-        newNodeInfo(
-          1002L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "02"),
-          active = false
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1002L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "02"),
+            active = false
+          )
         )
       )
 
-      val locationNodeInfos = new MongoQueryLocationNodes(database).execute(
+      val query = new MongoQueryLocationNodes(database)
+      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
+
+      val locationNodeInfos = query.find(
         hiking,
         "be",
         LocationNodesType.all,
@@ -109,23 +124,30 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        newNodeInfo(
-          1001L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "01"),
-          lastSurvey = Some(Day(2020, 8, None))
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1001L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "01"),
+            lastSurvey = Some(Day(2020, 8, None))
+          )
         )
       )
 
       database.nodes.save(
-        newNodeInfo(
-          1002L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "02"),
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1002L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "02"),
+          )
         )
       )
 
-      val locationNodeInfos = new MongoQueryLocationNodes(database).execute(
+      val query = new MongoQueryLocationNodes(database)
+      query.countDocuments(hiking, "be", LocationNodesType.survey) should equal(1)
+
+      val locationNodeInfos = query.find(
         hiking,
         "be",
         LocationNodesType.survey,
@@ -138,7 +160,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           LocationNodeInfo(
             1001L,
             "01",
-            "01",
+            "-",
             "0",
             "0",
             defaultTimestamp,
@@ -156,22 +178,29 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        newNodeInfo(
-          1001L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "01")
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1001L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "01")
+          )
         )
       )
 
       database.nodes.save(
-        newNodeInfo(
-          1002L,
-          location = Some(Location(Seq("nl"))),
-          tags = Tags.from("rwn_ref" -> "02"),
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1002L,
+            location = Some(Location(Seq("nl"))),
+            tags = Tags.from("rwn_ref" -> "02"),
+          )
         )
       )
 
-      val locationNodeInfos = new MongoQueryLocationNodes(database).execute(
+      val query = new MongoQueryLocationNodes(database)
+      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
+
+      val locationNodeInfos = query.find(
         hiking,
         "be",
         LocationNodesType.all,
@@ -187,22 +216,29 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        newNodeInfo(
-          1001L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "01")
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1001L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "01")
+          )
         )
       )
 
       database.nodes.save(
-        newNodeInfo(
-          1002L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rcn_ref" -> "02"),
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1002L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rcn_ref" -> "02"),
+          )
         )
       )
 
-      val locationNodeInfos = new MongoQueryLocationNodes(database).execute(
+      val query = new MongoQueryLocationNodes(database)
+      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
+
+      val locationNodeInfos = query.find(
         hiking,
         "be",
         LocationNodesType.all,
@@ -218,36 +254,37 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        newNodeInfo(
-          1001L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "01")
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1001L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "01")
+          )
         )
       )
 
       database.nodes.save(
-        newNodeInfo(
-          1007L,
-          location = Some(Location(Seq("be"))),
-          tags = Tags.from("rwn_ref" -> "07"),
-          facts = Seq(Fact.NodeInvalidSurveyDate)
+        new NodeDocBuilder(database).build(
+          newNodeInfo(
+            1007L,
+            location = Some(Location(Seq("be"))),
+            tags = Tags.from("rwn_ref" -> "07"),
+            facts = Seq(Fact.NodeInvalidSurveyDate)
+          )
         )
       )
 
-      val locationNodeInfos = new MongoQueryLocationNodes(database).execute(
-        hiking,
-        "be",
-        LocationNodesType.facts,
-        0,
-        5
-      )
+      val query = new MongoQueryLocationNodes(database)
+      query.countDocuments(hiking, "be", LocationNodesType.facts) should equal(1)
+
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.facts, 0, 5)
 
       locationNodeInfos should matchTo(
         Seq(
           LocationNodeInfo(
             1007L,
             "07",
-            "07",
+            "-",
             "0",
             "0",
             defaultTimestamp,
@@ -269,10 +306,12 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       def buildNode(nodeId: Long, name: String): Unit = {
         database.nodes.save(
-          newNodeInfo(
-            nodeId,
-            location = Some(Location(Seq("be"))),
-            tags = Tags.from("rwn_ref" -> name)
+          new NodeDocBuilder(database).build(
+            newNodeInfo(
+              nodeId,
+              location = Some(Location(Seq("be"))),
+              tags = Tags.from("rwn_ref" -> name)
+            )
           )
         )
       }
@@ -286,8 +325,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       buildNode(1007L, "07")
       buildNode(1008L, "08")
 
-      def query(page: Int, pageSize: Int): Seq[Long] = {
-        new MongoQueryLocationNodes(database).execute(
+      val query = new MongoQueryLocationNodes(database)
+
+      def find(page: Int, pageSize: Int): Seq[Long] = {
+        query.find(
           hiking,
           "be",
           LocationNodesType.all,
@@ -296,15 +337,16 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         ).map(_.id)
       }
 
-      query(0, 3) should equal(Seq(1001L, 1002L, 1003L))
-      query(1, 3) should equal(Seq(1004L, 1005L, 1006L))
-      query(2, 3) should equal(Seq(1007L, 1008L))
-      query(3, 3) should equal(Seq.empty)
+      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(8)
 
-      query(0, 5) should equal(Seq(1001L, 1002L, 1003L, 1004L, 1005L))
-      query(1, 5) should equal(Seq(1006L, 1007L, 1008L))
-      query(2, 5) should equal(Seq.empty)
+      find(0, 3) should equal(Seq(1001L, 1002L, 1003L))
+      find(1, 3) should equal(Seq(1004L, 1005L, 1006L))
+      find(2, 3) should equal(Seq(1007L, 1008L))
+      find(3, 3) should equal(Seq.empty)
+
+      find(0, 5) should equal(Seq(1001L, 1002L, 1003L, 1004L, 1005L))
+      find(1, 5) should equal(Seq(1006L, 1007L, 1008L))
+      find(2, 5) should equal(Seq.empty)
     }
   }
 }
-

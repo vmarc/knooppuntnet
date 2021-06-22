@@ -54,7 +54,7 @@ class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mo
   private def migrateChangeSets(changeSetIds: Seq[Long]): Unit = {
     val docs = repo.all(changeSetIds)
     val comments = docs.map(toComment)
-    val collection = mongoDatabase.database.getCollection[ChangeSetComment]("changeset-comments")
+    val collection = mongoDatabase.getCollection[ChangeSetComment]("changeset-comments")
     val insertManyResultFuture = collection.insertMany(comments).toFuture()
     Await.result(insertManyResultFuture, Duration(3, TimeUnit.MINUTES))
   }

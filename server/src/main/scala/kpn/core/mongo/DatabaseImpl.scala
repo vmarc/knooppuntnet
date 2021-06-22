@@ -2,7 +2,6 @@ package kpn.core.mongo
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
-import kpn.api.common.NodeInfo
 import kpn.api.common.Poi
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
@@ -12,9 +11,16 @@ import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RouteElements
+import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
+import scala.reflect.ClassTag
+
 class DatabaseImpl(val database: MongoDatabase) extends Database {
+
+  override def getCollection[T: ClassTag](collectionName: String): MongoCollection[T] = {
+    database.getCollection[T](collectionName)
+  }
 
   override def networks: DatabaseCollection[NetworkInfo] = {
     new DatabaseCollectionImpl(database.getCollection[NetworkInfo]("networks"))
@@ -28,8 +34,8 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[GpxFile]("network-gpxs"))
   }
 
-  override def nodes: DatabaseCollection[NodeInfo] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeInfo]("nodes"))
+  override def nodes: DatabaseCollection[NodeDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("nodes"))
   }
 
   override def routes: DatabaseCollection[RouteInfo] = {

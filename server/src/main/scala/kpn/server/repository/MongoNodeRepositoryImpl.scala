@@ -9,17 +9,20 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCount
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChangeCounts
 import kpn.core.mongo.actions.nodes.MongoQueryNodeChanges
+import kpn.core.mongo.migration.NodeDocBuilder
 import org.springframework.stereotype.Component
 
 @Component
 class MongoNodeRepositoryImpl(database: Database) extends MongoNodeRepository {
 
   override def save(node: NodeInfo): Unit = {
-    database.nodes.save(node)
+    val nodeDoc = new NodeDocBuilder(database).build(node)
+    database.nodes.save(nodeDoc)
   }
 
   override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
-    database.nodes.findById(nodeId)
+    // database.nodes.findById(nodeId)
+    null // TODO MONGO
   }
 
   override def nodeChangeCount(nodeId: Long): Long = {

@@ -39,7 +39,7 @@ class MongoQueryNodeChanges(database: Database) {
       log.trace(Mongo.pipelineString(pipeline))
     }
     log.debugElapsed {
-      val collection = database.database.getCollection("node-changes")
+      val collection = database.getCollection("node-changes")
       val future = collection.aggregate[NodeChange](pipeline).toFuture()
       val nodeChanges = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${nodeChanges.size} node changes: nodeId=$nodeId, ${parameters.toDisplayString}", nodeChanges)

@@ -42,7 +42,7 @@ class MongoQueryStatistics(database: Database) {
 
   def execute(): Seq[StatisticValue] = {
     log.debugElapsed {
-      val collection = database.database.getCollection("statistics-network-count")
+      val collection = database.getCollection("statistics-network-count")
       val future = collection.aggregate[StatisticValue](pipeline.stages).toFuture()
       val values = Await.result(future, Duration(30, TimeUnit.SECONDS))
       println(s"values.size: ${values.size}")

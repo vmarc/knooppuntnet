@@ -15,5 +15,5 @@ case class LocationNodeInfo(
   lastSurvey: Option[Day],
   factCount: Int,
   expectedRouteCount: String,
-  routeReferences: Seq[Ref]
+  routeReferences: Seq[Ref]  // TODO MONGO should change to RouteReference (to include NetworkType and NetworkScope !!!)
 ) extends LatLon

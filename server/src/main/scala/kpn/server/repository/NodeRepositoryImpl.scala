@@ -10,6 +10,7 @@ import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.mongo.Database
+import kpn.core.mongo.migration.NodeDocBuilder
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
@@ -35,7 +36,8 @@ class NodeRepositoryImpl(
 
   override def save(node: NodeInfo): Unit = {
     if (mongoEnabled) {
-      database.nodes.save(node)
+      val nodeDoc = new NodeDocBuilder(database).build(node)
+      database.nodes.save(nodeDoc)
     }
     else {
       bulkSave(node)
@@ -129,7 +131,8 @@ class NodeRepositoryImpl(
 
   override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
     if (mongoEnabled) {
-      database.nodes.findById(nodeId, log)
+      // database.nodes.findById(nodeId, log)
+      null // TODO MONGO
     }
     else {
       analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
@@ -139,6 +142,7 @@ class NodeRepositoryImpl(
   override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeInfo] = {
     if (mongoEnabled) {
       database.nodes.findByIds(nodeIds, log)
+      Seq.empty // TODO MONGO
     }
     else {
       val ids = nodeIds.map(id => docId(id))

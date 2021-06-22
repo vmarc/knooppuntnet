@@ -56,14 +56,14 @@ object CreateIndexesTool {
     ),
     Index(
       "nodes",
-      "location",
-      "active",
-      "location.names"
+      "attributes",
+      "attributes"
     ),
     Index(
-      "nodes",
-      "node-active",
-      "active"
+      "node-route-refs",
+      "nodeId-networkType",
+      "nodeId",
+      "networkType"
     ),
     Index(
       "routes",
@@ -79,13 +79,14 @@ object CreateIndexesTool {
       "summary.country",
       "summary.networkType"
     ),
-    Index( // TODO MONGO remove again --> not used as intended by lookup query
+    Index(
       "routes",
-      "node-refs",
+      "route-locations",
       "active",
-      "nodeRefs",
-      "summary.id",
-      "summary.name"
+      "summary.networkType",
+      "analysis.locationAnalysis.locationNames", // TODO MONGO move locationNames to top field in RouteInfo ?
+      // "factCount", // TODO MONGO field to be added in RouteInfo
+      "lastSurvey"
     ),
     Index(
       "nodeRouteRefs",
@@ -93,7 +94,6 @@ object CreateIndexesTool {
       "nodeId",
       "routeName"
     ),
-
     Index(
       "network-changes",
       "time",
@@ -242,6 +242,22 @@ object CreateIndexesTool {
       "pois",
       "tiles",
       "tiles"
+    ),
+    Index(
+      "node-docs",
+      "active-country",
+      "active",
+      "country",
+    ),
+    Index(
+      "node-docs",
+      "locations",
+      "locations"
+    ),
+    Index(
+      "node-docs-2",
+      "attributes",
+      "attributes"
     )
   )
 
@@ -269,7 +285,7 @@ class CreateIndexesTool(database: Database) {
       }
       else {
         log.elapsedSeconds {
-          val collection = database.database.getCollection(index.collectionName)
+          val collection = database.getCollection(index.collectionName)
           val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
           Await.result(future, Duration(25, TimeUnit.MINUTES))
           ("Created", ())
@@ -279,7 +295,7 @@ class CreateIndexesTool(database: Database) {
   }
 
   private def hasIndex(index: Index): Boolean = {
-    val collection = database.database.getCollection(index.collectionName)
+    val collection = database.getCollection(index.collectionName)
     val future = collection.listIndexes[MongoIndexDefinition]().toFuture()
     val indexDefinitions = Await.result(future, Duration(25, TimeUnit.MINUTES))
     indexDefinitions.exists(_.name == index.indexName)

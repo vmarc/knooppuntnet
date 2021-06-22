@@ -70,7 +70,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
     Log.context("network-changes") {
       log.elapsedSeconds {
-        val collection = database.database.getCollection[NetworkChangeDoc]("network-changes")
+        val collection = database.getCollection[NetworkChangeDoc]("network-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.networkChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -105,7 +105,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
     Log.context("route-changes") {
       log.elapsedSeconds {
-        val collection = database.database.getCollection[RouteChangeDoc]("route-changes")
+        val collection = database.getCollection[RouteChangeDoc]("route-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.routeChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -141,7 +141,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
     Log.context("node-changes") {
       log.elapsedSeconds {
-        val collection = database.database.getCollection[NodeChangeDoc]("node-changes")
+        val collection = database.getCollection[NodeChangeDoc]("node-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.nodeChange
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -177,7 +177,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
     Log.context("changeset-summaries") {
       log.elapsedSeconds {
-        val collection = database.database.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
+        val collection = database.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.changeSetSummary
           val newKey = change.key.copy(time = change.key.timestamp.toKey)
@@ -212,7 +212,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
     Log.context("change-location-summaries") {
       log.elapsedSeconds {
-        val collection = database.database.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
+        val collection = database.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.locationChangeSetSummary
           val newKey = change.key.copy(time = change.key.timestamp.toKey)

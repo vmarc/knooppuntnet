@@ -26,7 +26,7 @@ class MongoQueryNodeChangeCount(database: Database) {
   def execute(nodeId: Long): Long = {
     log.debugElapsed {
       val filter = equal("key.elementId", nodeId)
-      val collection = database.database.getCollection("node-changes")
+      val collection = database.getCollection("node-changes")
       val future = collection.countDocuments(filter).toFuture()
       val count = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"node $nodeId change count: $count", count)

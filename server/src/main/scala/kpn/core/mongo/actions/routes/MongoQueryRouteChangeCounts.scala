@@ -69,7 +69,7 @@ class MongoQueryRouteChangeCounts(database: Database) extends MongoQuery {
     }
 
     log.debugElapsed {
-      val collection = database.database.getCollection("route-changes")
+      val collection = database.getCollection("route-changes")
       val future = collection.aggregate[ChangeSetCounts](pipeline).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"

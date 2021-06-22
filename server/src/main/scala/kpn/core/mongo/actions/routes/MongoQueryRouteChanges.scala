@@ -94,7 +94,7 @@ class MongoQueryRouteChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val collection = database.database.getCollection("route-changes")
+      val collection = database.getCollection("route-changes")
       val future = collection.aggregate[RouteChange](pipeline).toFuture()
       val routeChanges = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${routeChanges.size} route changes", routeChanges)

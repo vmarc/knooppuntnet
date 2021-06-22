@@ -123,7 +123,7 @@ class MongoQueryNetworkChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val collection = database.database.getCollection("network-changes")
+      val collection = database.getCollection("network-changes")
       val future = collection.aggregate[NetworkChangeDoc](pipeline).toFuture()
       val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
       (s"${docs.size} network changes", docs.map(_.networkChange))

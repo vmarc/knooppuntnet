@@ -7,6 +7,9 @@ import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.NodeRepositoryImpl
 
+/*
+  Note: should run AFTER route migration (so that route references can be picked up from the new database)
+ */
 object MigrateNodesTool {
 
   private val log = Log(classOf[MigrateNodesTool])
@@ -24,6 +27,7 @@ object MigrateNodesTool {
 class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Database) {
 
   private val nodeRepository = new NodeRepositoryImpl(null, couchDatabase, false)
+  private val nodeDocBuilder = new NodeDocBuilder(database)
 
   def migrate(): Unit = {
     val allNodeIds = findAllNodeIds()
@@ -44,7 +48,9 @@ class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Data
 
   private def migrateNodes(nodeIds: Seq[Long]): Unit = {
     val nodeInfos = nodeRepository.nodesWithIds(nodeIds)
-    val migratedNodeInfos = nodeInfos.map(nodeInfo => nodeInfo.copy(_id = nodeInfo.id))
-    database.nodes.insertMany(migratedNodeInfos)
+    val nodeDocs = nodeInfos.map { nodeInfo =>
+      nodeDocBuilder.build(nodeInfo)
+    }
+    database.nodes.insertMany(nodeDocs)
   }
 }
