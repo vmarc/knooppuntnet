@@ -114,10 +114,8 @@ class MongoQueryLocationNodes(database: Database) {
     pageSize: Int
   ): Seq[LocationNodeInfo] = {
 
-    val matchFilter = buildFilter(networkType, location, locationNodesType: LocationNodesType)
-
     val pipeline = Seq(
-      filter(matchFilter),
+      filter(buildFilter(networkType, location, locationNodesType)),
       sort(orderBy(ascending("names.name", "_id"))),
       skip(page * pageSize),
       limit(pageSize),
@@ -164,15 +162,15 @@ class MongoQueryLocationNodes(database: Database) {
 
   private def buildFilter(networkType: NetworkType, location: String, locationNodesType: LocationNodesType): Bson = {
     val filters = Seq(
-      Some(equal("attributes", "active")),
-      Some(equal("attributes", s"network-type-${networkType.name}")),
-      Some(equal("attributes", s"location-$location")),
+      Some(equal("labels", "active")),
+      Some(equal("labels", s"network-type-${networkType.name}")),
+      Some(equal("labels", s"location-$location")),
       locationNodesType match {
         case LocationNodesType.all => None
-        case LocationNodesType.facts => Some(equal("attributes", "facts"))
-        case LocationNodesType.survey => Some(equal("attributes", "survey"))
-        case LocationNodesType.integrityCheck => Some(equal("attributes", s"integrity-check-${networkType.name}"))
-        case LocationNodesType.integrityCheckFailed => Some(equal("attributes", s"integrity-check-failed-${networkType.name}"))
+        case LocationNodesType.facts => Some(equal("labels", "facts"))
+        case LocationNodesType.survey => Some(equal("labels", "survey"))
+        case LocationNodesType.integrityCheck => Some(equal("labels", s"integrity-check-${networkType.name}"))
+        case LocationNodesType.integrityCheckFailed => Some(equal("labels", s"integrity-check-failed-${networkType.name}"))
       }
     ).flatten
     and(filters: _*)

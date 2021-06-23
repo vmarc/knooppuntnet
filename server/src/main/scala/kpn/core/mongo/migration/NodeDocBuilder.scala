@@ -23,11 +23,11 @@ class NodeDocBuilder(database: Database) {
 
     val routeReferences = database.routes.aggregate[NodeRouteReference](routeReferencesPipeline(nodeInfo.id))
 
-    val attributes = buildAttributes(nodeInfo, routeReferences)
+    val labels = buildLabels(nodeInfo, routeReferences)
 
     NodeDoc(
       _id = nodeInfo.id,
-      attributes = attributes,
+      labels = labels,
       country = nodeInfo.country,
       name = nodeInfo.name,
       names = nodeInfo.names,
@@ -44,16 +44,16 @@ class NodeDocBuilder(database: Database) {
     )
   }
 
-  private def buildAttributes(nodeInfo: NodeInfo, routeReferences: Seq[NodeRouteReference]): Seq[String] = {
-    val basicAttributes = buildBasicAttributes(nodeInfo)
-    val factAttributes = nodeInfo.facts.map(fact => s"fact-${fact.name}")
-    val networkTypeAttributes = nodeInfo.names.map(name => s"network-type-${name.networkType.name}")
-    val integrityCheckAttributes = buildIntegrityCheckAttributes(nodeInfo, routeReferences)
-    val locationAttributes = nodeInfo.locations.map(location => s"location-$location")
-    basicAttributes ++ factAttributes ++ networkTypeAttributes ++ integrityCheckAttributes ++ locationAttributes
+  private def buildLabels(nodeInfo: NodeInfo, routeReferences: Seq[NodeRouteReference]): Seq[String] = {
+    val basicLabels = buildBasicLabels(nodeInfo)
+    val factLabels = nodeInfo.facts.map(fact => s"fact-${fact.name}")
+    val networkTypeLabels = nodeInfo.names.map(name => s"network-type-${name.networkType.name}")
+    val integrityCheckLabels = buildIntegrityCheckLabels(nodeInfo, routeReferences)
+    val locationLabels = nodeInfo.locations.map(location => s"location-$location")
+    basicLabels ++ factLabels ++ networkTypeLabels ++ integrityCheckLabels ++ locationLabels
   }
 
-  private def buildBasicAttributes(nodeInfo: NodeInfo): Seq[String] = {
+  private def buildBasicLabels(nodeInfo: NodeInfo): Seq[String] = {
     Seq(
       if (nodeInfo.active) Some("active") else None,
       if (nodeInfo.orphan) Some("orphan") else None,
@@ -62,8 +62,8 @@ class NodeDocBuilder(database: Database) {
     ).flatten
   }
 
-  private def buildIntegrityCheckAttributes(nodeInfo: NodeInfo, routeReferences: Seq[NodeRouteReference]): Seq[String] = {
-    val integrityCheckAttributes = NetworkType.all.flatMap { networkType =>
+  private def buildIntegrityCheckLabels(nodeInfo: NodeInfo, routeReferences: Seq[NodeRouteReference]): Seq[String] = {
+    NetworkType.all.flatMap { networkType =>
       val check = networkType.scopedNetworkTypes.exists { scopedNetworkType =>
         nodeInfo.tags.has(scopedNetworkType.expectedRouteRelationsTag)
       }
@@ -87,7 +87,6 @@ class NodeDocBuilder(database: Database) {
         if (failed) Some(s"integrity-check-failed-${networkType.name}") else None
       ).flatten
     }
-    integrityCheckAttributes
   }
 
   private def routeReferencesPipeline(nodeId: Long): Seq[Bson] = {

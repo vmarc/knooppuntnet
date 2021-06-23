@@ -3,24 +3,24 @@ package kpn.core.mongo.migration
 import kpn.api.common.route.RouteInfo
 import kpn.core.mongo.Database
 import kpn.core.mongo.DatabaseCollectionImpl
-import kpn.core.mongo.migration.UpdateRouteAttributesTool.log
+import kpn.core.mongo.migration.UpdateRouteLabelsTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAttributesBuilder
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsBuilder
 
-object UpdateRouteAttributesTool {
+object UpdateRouteLabelsTool {
 
-  private val log = Log(classOf[UpdateRouteAttributesTool])
+  private val log = Log(classOf[UpdateRouteLabelsTool])
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { database =>
-      new UpdateRouteAttributesTool(database).migrate()
+      new UpdateRouteLabelsTool(database).migrate()
     }
     log.info("Done")
   }
 }
 
-class UpdateRouteAttributesTool(database: Database) {
+class UpdateRouteLabelsTool(database: Database) {
 
   val newRoutes = new DatabaseCollectionImpl(database.getCollection[RouteInfo]("routes-new"))
 
@@ -36,9 +36,9 @@ class UpdateRouteAttributesTool(database: Database) {
   private def migrateRoutes(routeIds: Seq[Long]): Unit = {
     val routeInfos = database.routes.findByIds(routeIds)
     val migratedRouteInfos = routeInfos.map { routeInfo =>
-      val attributes = new RouteAttributesBuilder().build(routeInfo)
+      val labels = new RouteLabelsBuilder().build(routeInfo)
       routeInfo.copy(
-        attributes = attributes
+        labels = labels
       )
     }
     newRoutes.insertMany(migratedRouteInfos)

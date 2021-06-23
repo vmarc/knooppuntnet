@@ -176,8 +176,8 @@ class RouteAnalysisBuilder(
         Seq(),
         routeAnalysis.map.nodeIds
       )
-      val attributes = new RouteAttributesBuilder().build(info)
-      info.copy(attributes = attributes)
+      val labels = new RouteLabelsBuilder().build(info)
+      info.copy(labels = labels)
     }
 
     val tileNames = {

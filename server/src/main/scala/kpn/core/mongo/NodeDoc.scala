@@ -10,32 +10,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
-case class NodeAnalysis(
-  active: Boolean,
-  orphan: Boolean,
-
-  hiking: Boolean,
-  cycling: Boolean,
-  horseRiding: Boolean,
-  canoe: Boolean,
-  motorboat: Boolean,
-  inlineSkating: Boolean,
-
-  hikingExpectedRoutes: Boolean,
-  cyclingExpectedRoutes: Boolean,
-  horseRidingExpectedRoutes: Boolean,
-  canoeExpectedRoutes: Boolean,
-  motorboatExpectedRoutes: Boolean,
-  inlineSkatingExpectedRoutes: Boolean,
-
-  hikingExpectedRoutesOk: Boolean,
-  cyclingExpectedRoutesOk: Boolean,
-  horseRidingExpectedRoutesOk: Boolean,
-  canoeExpectedRoutesOk: Boolean,
-  motorboatExpectedRoutesOk: Boolean,
-  inlineSkatingExpectedRoutesOk: Boolean,
-)
-
 case class NodeRouteReference(
   networkType: NetworkType,
   networkScope: NetworkScope,
@@ -45,7 +19,7 @@ case class NodeRouteReference(
 
 case class NodeDoc(
   _id: Long,
-  attributes: Seq[String],
+  labels: Seq[String],
   country: Option[Country],
   name: String,
   names: Seq[NodeName],

@@ -68,10 +68,8 @@ class MongoQueryLocationRoutes(database: Database) {
     pageSize: Int
   ): Seq[LocationRouteInfo] = {
 
-    val matchFilter = buildFilter(networkType, location, locationRoutesType)
-
     val pipeline = Seq(
-      filter(matchFilter),
+      filter(buildFilter(networkType, location, locationRoutesType)),
       sort(orderBy(ascending("summary.name", "summary.id"))),
       skip(page * pageSize),
       limit(pageSize),
@@ -97,14 +95,14 @@ class MongoQueryLocationRoutes(database: Database) {
 
   private def buildFilter(networkType: NetworkType, location: String, locationRoutesType: LocationRoutesType): Bson = {
     val filters = Seq(
-      Some(equal("attributes", "active")),
-      Some(equal("attributes", s"network-type-${networkType.name}")),
-      Some(equal("attributes", s"location-$location")),
+      Some(equal("labels", "active")),
+      Some(equal("labels", s"network-type-${networkType.name}")),
+      Some(equal("labels", s"location-$location")),
       locationRoutesType match {
         case LocationRoutesType.all => None
-        case LocationRoutesType.inaccessible => Some(equal("attributes", s"fact-RouteUnaccessible"))
-        case LocationRoutesType.facts => Some(equal("attributes", "facts"))
-        case LocationRoutesType.survey => Some(equal("attributes", "survey"))
+        case LocationRoutesType.inaccessible => Some(equal("labels", s"fact-RouteUnaccessible"))
+        case LocationRoutesType.facts => Some(equal("labels", "facts"))
+        case LocationRoutesType.survey => Some(equal("labels", "survey"))
       }
     ).flatten
     and(filters: _*)

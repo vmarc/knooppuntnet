@@ -170,7 +170,7 @@ object RouteDetailsPageExample {
 
     RouteInfo(
       _id = 1,
-      attributes = Seq.empty,
+      labels = Seq.empty,
       summary = RouteSummary(
         id = 1,
         country = Some(Country.nl),

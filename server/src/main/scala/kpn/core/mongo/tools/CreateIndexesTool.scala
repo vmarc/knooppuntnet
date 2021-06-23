@@ -56,8 +56,8 @@ object CreateIndexesTool {
     ),
     Index(
       "nodes",
-      "attributes",
-      "attributes"
+      "labels",
+      "labels"
     ),
     Index(
       "node-route-refs",
@@ -67,26 +67,14 @@ object CreateIndexesTool {
     ),
     Index(
       "routes",
+      "labels",
+      "labels"
+    ),
+    Index(
+      "routes",
       "route-node-references",
       "active",
       "nodeRefs"
-    ),
-    Index(
-      "routes",
-      "subset-orphan-routes",
-      "active",
-      "orphan",
-      "summary.country",
-      "summary.networkType"
-    ),
-    Index(
-      "routes",
-      "route-locations",
-      "active",
-      "summary.networkType",
-      "analysis.locationAnalysis.locationNames", // TODO MONGO move locationNames to top field in RouteInfo ?
-      // "factCount", // TODO MONGO field to be added in RouteInfo
-      "lastSurvey"
     ),
     Index(
       "nodeRouteRefs",
@@ -242,22 +230,6 @@ object CreateIndexesTool {
       "pois",
       "tiles",
       "tiles"
-    ),
-    Index(
-      "node-docs",
-      "active-country",
-      "active",
-      "country",
-    ),
-    Index(
-      "node-docs",
-      "locations",
-      "locations"
-    ),
-    Index(
-      "node-docs-2",
-      "attributes",
-      "attributes"
     )
   )
 
