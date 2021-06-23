@@ -12,6 +12,7 @@ import kpn.api.custom.Timestamp
 
 case class RouteInfo(
   _id: Long,
+  attributes: Seq[String],
   summary: RouteSummary,
   active: Boolean,
   orphan: Boolean,

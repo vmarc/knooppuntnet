@@ -157,21 +157,28 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation.tags
     )
 
-    val routeInfo = RouteInfo(
-      summary.id,
-      summary,
-      active = true,
-      orphan = context.orphan,
-      context.loadedRoute.relation.version,
-      context.loadedRoute.relation.changeSetId,
-      lastUpdated,
-      context.lastSurvey,
-      context.loadedRoute.relation.tags,
-      facts.toSeq,
-      routeAnalysis,
-      Seq(),
-      routeAnalysis.map.nodeIds
-    )
+
+
+    val routeInfo = {
+      val info = RouteInfo(
+        summary.id,
+        Seq.empty,
+        summary,
+        active = true,
+        orphan = context.orphan,
+        context.loadedRoute.relation.version,
+        context.loadedRoute.relation.changeSetId,
+        lastUpdated,
+        context.lastSurvey,
+        context.loadedRoute.relation.tags,
+        facts.toSeq,
+        routeAnalysis,
+        Seq(),
+        routeAnalysis.map.nodeIds
+      )
+      val attributes = new RouteAttributesBuilder().build(info)
+      info.copy(attributes = attributes)
+    }
 
     val tileNames = {
       val tiles = (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>

@@ -102,6 +102,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
 
     RouteInfo(
       summary.id,
+      Seq.empty,
       summary = summary,
       active = true,
       orphan = false,

@@ -7,6 +7,7 @@ import kpn.core.mongo.NodeRouteRef
 import kpn.core.mongo.migration.MigrateRoutesTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAttributesBuilder
 import kpn.server.repository.RouteRepositoryImpl
 
 object MigrateRoutesTool {
@@ -60,8 +61,12 @@ class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Dat
         else {
           routeInfo.nodeRefs
         }
+
+        val attributes = new RouteAttributesBuilder().build(routeInfo)
+
         routeInfo.copy(
           _id = routeInfo.id,
+          attributes = attributes,
           nodeRefs = migratedNodeRefs
         )
       }

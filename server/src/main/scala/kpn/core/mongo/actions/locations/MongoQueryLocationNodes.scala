@@ -13,30 +13,23 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.NodeRouteReference
-import kpn.core.mongo.actions.locations.MongoQueryLocationNodes.buildFilter
-import kpn.core.mongo.actions.locations.MongoQueryLocationNodes.buildOldNodeInfosBasedFilter
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodes.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.lookup
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.exists
-import org.mongodb.scala.model.Filters.expr
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
-import org.mongodb.scala.model.Variable
 
 case class LocationNodeInfoDoc(
   id: Long,
@@ -69,36 +62,6 @@ case class LocationNodeInfoDoc(
 object MongoQueryLocationNodes {
 
   private val log = Log(classOf[MongoQueryLocationNodes])
-
-  def buildFilter(networkType: NetworkType, location: String, locationNodesType: LocationNodesType): Bson = {
-    val filters = Seq(
-      Some(equal("attributes", "active")),
-      Some(equal("attributes", s"network-type-${networkType.name}")),
-      Some(equal("attributes", s"location-$location")),
-      locationNodesType match {
-        case LocationNodesType.all => None
-        case LocationNodesType.facts => Some(equal("attributes", "facts"))
-        case LocationNodesType.survey => Some(equal("attributes", "survey"))
-        case LocationNodesType.integrityCheck => Some(equal("attributes", s"integrity-check-${networkType.name}"))
-        case LocationNodesType.integrityCheckFailed => Some(equal("attributes", s"integrity-check-failed-${networkType.name}"))
-      }
-    ).flatten
-    and(filters: _*)
-  }
-
-  def buildOldNodeInfosBasedFilter(networkType: NetworkType, location: String, locationNodesType: LocationNodesType): Bson = {
-    val filters = Seq(
-      Some(equal("active", true)),
-      Some(equal("names.networkType", networkType.name)),
-      Some(equal("location.names", location)),
-      locationNodesType match {
-        case LocationNodesType.all => None
-        case LocationNodesType.facts => Some(BsonDocument("{ facts: { $exists: true, $not: {$size: 0} } }"))
-        case LocationNodesType.survey => Some(exists("lastSurvey"))
-      }
-    ).flatten
-    and(filters: _*)
-  }
 
   def main(args: Array[String]): Unit = {
     println("MongoQueryLocationNodes")
@@ -155,7 +118,7 @@ class MongoQueryLocationNodes(database: Database) {
 
     val pipeline = Seq(
       filter(matchFilter),
-      sort(orderBy(ascending("names.name", "_id"))), // TODO MONGO should have separate fields for names? so that this can be include in the index?
+      sort(orderBy(ascending("names.name", "_id"))),
       skip(page * pageSize),
       limit(pageSize),
       project(
@@ -199,89 +162,19 @@ class MongoQueryLocationNodes(database: Database) {
     }
   }
 
-  def oldNodeInfosBasedFind(
-    networkType: NetworkType,
-    location: String,
-    locationNodesType: LocationNodesType,
-    page: Int,
-    pageSize: Int
-  ): Seq[LocationNodeInfo] = {
-
-    val matchFilter = buildOldNodeInfosBasedFilter(networkType, location, locationNodesType: LocationNodesType)
-
-    val let: Seq[Variable[Any]] = Seq(
-      Variable("nodeId", "$id"),
-      Variable("networkType", networkType.name)
-    )
-
-    val routeReferencesPipeline: Seq[Bson] = Seq(
-      filter(
-        expr(
-          and(
-            BsonDocument("""{"$eq": ["$nodeId", "$$nodeId"]}"""),
-            BsonDocument("""{"$eq": ["$networkType", "$$networkType"]}""")
-          )
-        )
-      ),
-      project(
-        fields(
-          excludeId(),
-          computed("id", "$routeId"),
-          computed("name", "$routeName"),
-        )
-      ),
-      sort(orderBy(ascending("name")))
-    )
-
-    val pipeline = Seq(
-      filter(matchFilter),
-      sort(orderBy(ascending("names.name", "node.id"))),
-      skip(page * pageSize),
-      limit(pageSize),
-      lookup(
-        "node-route-refs",
-        let,
-        routeReferencesPipeline,
-        "routeReferences"
-      ),
-      project(
-        fields(
-          excludeId(),
-          include("id"),
-          include("name"),
-          include("names"),
-          include("latitude"),
-          include("longitude"),
-          include("lastUpdated"),
-          include("lastSurvey"),
-          include("tags"),
-          include("facts"),
-          include("routeReferences"),
-        )
-      )
-    )
-
-    log.debugElapsed {
-      val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
-      val locationNodeInfos = locationNodeInfoDocs.map { doc =>
-        val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
-          doc.tags(tagKey)
-        }
-        val expectedRouteCount = tagValues.headOption.getOrElse("-")
-        LocationNodeInfo(
-          doc.id,
-          doc.networkTypeName(networkType),
-          doc.networkTypeLongName(networkType).getOrElse("-"),
-          doc.latitude,
-          doc.longitude,
-          doc.lastUpdated,
-          doc.lastSurvey,
-          doc.facts.size, // TODO MONGO remove? this is not used in the userinterface??
-          expectedRouteCount, // TODO MONGO include in NodeInfo directly??
-          doc.routeReferences.map(r => Ref(r.routeId, r.routeName))
-        )
+  private def buildFilter(networkType: NetworkType, location: String, locationNodesType: LocationNodesType): Bson = {
+    val filters = Seq(
+      Some(equal("attributes", "active")),
+      Some(equal("attributes", s"network-type-${networkType.name}")),
+      Some(equal("attributes", s"location-$location")),
+      locationNodesType match {
+        case LocationNodesType.all => None
+        case LocationNodesType.facts => Some(equal("attributes", "facts"))
+        case LocationNodesType.survey => Some(equal("attributes", "survey"))
+        case LocationNodesType.integrityCheck => Some(equal("attributes", s"integrity-check-${networkType.name}"))
+        case LocationNodesType.integrityCheckFailed => Some(equal("attributes", s"integrity-check-failed-${networkType.name}"))
       }
-      ("find location nodes", locationNodeInfos)
-    }
+    ).flatten
+    and(filters: _*)
   }
 }

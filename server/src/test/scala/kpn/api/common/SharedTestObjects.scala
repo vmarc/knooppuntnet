@@ -345,6 +345,7 @@ trait SharedTestObjects extends MockFactory {
 
     RouteInfo(
       summary.id,
+      Seq.empty,
       summary,
       active,
       orphan,
@@ -828,6 +829,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteInfo = {
     RouteInfo(
       summary.id,
+      Seq.empty,
       summary,
       active,
       orphan,
