@@ -182,7 +182,9 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
               )
             ),
             happy = true,
-            locationHappy = true
+            impact = true,
+            locationHappy = true,
+            locationImpact = true
           )
         )
         true
@@ -208,7 +210,8 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                happy = true
+                happy = true,
+                impact = true
               )
             )
             true
@@ -229,7 +232,8 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                happy = true
+                happy = true,
+                impact = true
               )
             )
             true

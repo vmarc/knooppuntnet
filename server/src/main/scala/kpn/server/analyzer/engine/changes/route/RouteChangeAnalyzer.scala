@@ -13,15 +13,23 @@ object RouteChangeAnalyzer {
 class RouteChangeAnalyzer(routeChange: RouteChange) {
 
   def analyzed(): RouteChange = {
+
+    val happy = determineHappy()
+    val investigate = determineInvestigate()
+    val locationHappy = determineLocationHappy()
+    val locationInvestigate = determineLocationInvestigate()
+
     routeChange.copy(
-      happy = happy(),
-      investigate = investigate(),
-      locationHappy = locationHappy(),
-      locationInvestigate = locationInvestigate()
+      happy = happy,
+      investigate = investigate,
+      impact = happy || investigate,
+      locationHappy = locationHappy,
+      locationInvestigate = locationInvestigate,
+      locationImpact = locationHappy || locationInvestigate
     )
   }
 
-  private def happy(): Boolean = {
+  private def determineHappy(): Boolean = {
 
     if (routeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -37,7 +45,7 @@ class RouteChangeAnalyzer(routeChange: RouteChange) {
       (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasFact(Fact.LostRouteTags)))
   }
 
-  private def locationHappy(): Boolean = {
+  private def determineLocationHappy(): Boolean = {
 
     if (routeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -53,7 +61,7 @@ class RouteChangeAnalyzer(routeChange: RouteChange) {
       (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasFact(Fact.LostRouteTags)))
   }
 
-  private def investigate(): Boolean = {
+  private def determineInvestigate(): Boolean = {
 
     if (routeChange.changeType == ChangeType.InitialValue) {
       return false
@@ -70,7 +78,7 @@ class RouteChangeAnalyzer(routeChange: RouteChange) {
       hasFact(Fact.LostRouteTags)
   }
 
-  private def locationInvestigate(): Boolean = {
+  private def determineLocationInvestigate(): Boolean = {
 
     if (routeChange.changeType == ChangeType.InitialValue) {
       return false

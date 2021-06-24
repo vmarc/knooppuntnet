@@ -153,7 +153,8 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
             before = Some(routeData),
             after = Some(routeData),
             facts = Seq(Fact.BecomeOrphan),
-            investigate = true
+            investigate = true,
+            impact = true
           )
         )
 
@@ -180,7 +181,8 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
               removedFromNetwork = Seq(
                 Ref(1, "network")
               ),
-              investigate = true
+              investigate = true,
+              impact = true
             )
           )
         }
@@ -200,7 +202,8 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
               removedFromNetwork = Seq(
                 Ref(1, "network")
               ),
-              investigate = true
+              investigate = true,
+              impact = true
             )
           )
         }

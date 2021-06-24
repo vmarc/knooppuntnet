@@ -73,31 +73,6 @@ class MongoQueryNetworkChanges(database: Database) {
       }
     ).flatten
 
-    //    val filterElements = Seq(
-    //      Seq(equal("networkChange.networkId", parameters.networkId.get)),
-    //      if (parameters.impact) {
-    //        Seq(equal("networkChange.impact", true))
-    //      }
-    //      else {
-    //        //        Seq.empty
-    //        Seq(
-    //          or( // use impact check (instead of ignoring impact) so that index is used
-    //            equal("networkChange.impact", true),
-    //            equal("networkChange.impact", false)
-    //          )
-    //        )
-    //      },
-    //      range match {
-    //        case None => Seq.empty
-    //        case Some(r) =>
-    //          Seq(
-    //            gt("networkChange.key.timestamp", r.start),
-    //            lt("networkChange.key.timestamp", r.end),
-    //          )
-    //      }
-    //    ).flatten
-
-
     val pipeline: Seq[Bson] = Seq(
       filter(
         and(filterElements: _*)

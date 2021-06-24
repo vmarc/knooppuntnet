@@ -157,7 +157,8 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
             ),
             addedToNetwork = Seq(Ref(1, "name")),
             facts = Seq(),
-            happy = true
+            happy = true,
+            impact = true
           )
         )
         true

@@ -154,7 +154,9 @@ class NetworkCreateTest06 extends AbstractTest {
               )
             ),
             happy = true,
-            locationHappy = true
+            impact = true,
+            locationHappy = true,
+            locationImpact = true
           )
         )
         true
@@ -184,7 +186,9 @@ class NetworkCreateTest06 extends AbstractTest {
                   Ref(1, "name")
                 ),
                 happy = true,
+                impact = true,
                 locationHappy = true,
+                locationImpact = true
               )
             )
             true
@@ -221,7 +225,9 @@ class NetworkCreateTest06 extends AbstractTest {
                   Ref(1, "name")
                 ),
                 happy = true,
+                impact = true,
                 locationHappy = true,
+                locationImpact = true
               )
             )
             true

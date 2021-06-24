@@ -190,7 +190,9 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
             removedFromNetwork = Seq(Ref(1, "name")),
             facts = Seq(Fact.LostHikingNodeTag),
             investigate = true,
-            locationInvestigate = true
+            impact = true,
+            locationInvestigate = true,
+            locationImpact = true
           )
         )
         true

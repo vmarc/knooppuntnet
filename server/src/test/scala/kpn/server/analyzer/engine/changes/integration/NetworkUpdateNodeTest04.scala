@@ -172,7 +172,8 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
               newRawNodeWithName(1002, "02")
             ),
             removedFromNetwork = Seq(Ref(1, "name")),
-            investigate = true
+            investigate = true,
+            impact = true
           )
         )
         true

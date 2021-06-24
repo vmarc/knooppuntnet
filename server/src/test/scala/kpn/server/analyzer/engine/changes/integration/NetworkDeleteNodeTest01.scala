@@ -127,7 +127,8 @@ class NetworkDeleteNodeTest01 extends AbstractTest {
               Ref(1, "network")
             ),
             facts = Seq(Fact.BecomeOrphan),
-            investigate = true
+            investigate = true,
+            impact = true
           )
         )
         true

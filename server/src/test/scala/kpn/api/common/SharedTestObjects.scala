@@ -182,8 +182,10 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false,
+    impact: Boolean = false,
     locationHappy: Boolean = false,
-    locationInvestigate: Boolean = false
+    locationInvestigate: Boolean = false,
+    locationImpact: Boolean = false
   ): RouteChange = {
     RouteChange(
       key.toId,
@@ -202,8 +204,10 @@ trait SharedTestObjects extends MockFactory {
       facts,
       happy,
       investigate,
+      impact,
       locationHappy,
-      locationInvestigate
+      locationInvestigate,
+      locationImpact
     )
   }
 
@@ -649,8 +653,10 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false,
+    impact: Boolean = false,
     locationHappy: Boolean = false,
-    locationInvestigate: Boolean = false
+    locationInvestigate: Boolean = false,
+    locationImpact: Boolean = false
   ): NodeChange = {
     NodeChange(
       key.toId,
@@ -674,8 +680,10 @@ trait SharedTestObjects extends MockFactory {
       facts,
       happy,
       investigate,
+      impact,
       locationHappy,
-      locationInvestigate
+      locationInvestigate,
+      locationImpact
     )
   }
 
@@ -818,6 +826,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteInfo(
     summary: RouteSummary,
+    labels: Seq[String] = Seq.empty,
     active: Boolean = true,
     orphan: Boolean = false,
     version: Int = 1,
@@ -825,11 +834,13 @@ trait SharedTestObjects extends MockFactory {
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,
     facts: Seq[Fact] = Seq.empty,
-    analysis: RouteInfoAnalysis = newRouteInfoAnalysis()
+    analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+    tiles: Seq[String] = Seq.empty,
+    nodeRefs: Seq[Long] = Seq.empty
   ): RouteInfo = {
     RouteInfo(
       summary.id,
-      Seq.empty,
+      labels,
       summary,
       active,
       orphan,
@@ -840,8 +851,8 @@ trait SharedTestObjects extends MockFactory {
       tags,
       facts,
       analysis,
-      Seq(),
-      analysis.map.nodeIds
+      tiles,
+      nodeRefs
     )
   }
 

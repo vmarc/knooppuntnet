@@ -103,7 +103,9 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
           before = Some(rawNode),
           facts = Seq(Fact.WasOrphan, Fact.Deleted),
           investigate = true,
-          locationInvestigate = true
+          impact = true,
+          locationInvestigate = true,
+          locationImpact = true
         )
       )
     )

@@ -123,7 +123,8 @@ class NetworkDeleteNodeTest02 extends AbstractTest {
             removedFromNetwork = Seq(
               Ref(1, "network1")
             ),
-            investigate = true
+            investigate = true,
+            impact = true
           )
         )
         true

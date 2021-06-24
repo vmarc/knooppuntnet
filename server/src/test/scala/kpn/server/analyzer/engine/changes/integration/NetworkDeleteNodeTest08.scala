@@ -120,7 +120,9 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
             ),
             facts = Seq(Fact.Deleted),
             investigate = true,
-            locationInvestigate = true
+            impact = true,
+            locationInvestigate = true,
+            locationImpact = true
           )
         )
         true

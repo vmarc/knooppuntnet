@@ -116,7 +116,9 @@ class OrphanNodeTest05 extends AbstractTest {
             ),
             facts = Seq(Fact.WasOrphan, Fact.LostHikingNodeTag),
             investigate = true,
-            locationInvestigate = true
+            impact = true,
+            locationInvestigate = true,
+            locationImpact = true
           )
         )
         true

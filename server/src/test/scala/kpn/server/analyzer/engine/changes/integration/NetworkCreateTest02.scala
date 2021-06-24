@@ -190,7 +190,9 @@ class NetworkCreateTest02 extends AbstractTest {
             ),
             facts = Seq(Fact.WasOrphan),
             happy = true,
-            locationHappy = true
+            impact = true,
+            locationHappy = true,
+            locationImpact = true
           )
         )
         true
@@ -218,7 +220,8 @@ class NetworkCreateTest02 extends AbstractTest {
                   Ref(1, "name")
                 ),
                 facts = Seq(Fact.WasOrphan),
-                happy = true
+                happy = true,
+                impact = true
               )
             )
             true
@@ -240,7 +243,8 @@ class NetworkCreateTest02 extends AbstractTest {
                   Ref(1, "name")
                 ),
                 facts = Seq(Fact.WasOrphan),
-                happy = true
+                happy = true,
+                impact = true
               )
             )
             true

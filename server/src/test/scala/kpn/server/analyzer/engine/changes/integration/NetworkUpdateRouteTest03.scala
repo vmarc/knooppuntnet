@@ -99,8 +99,16 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
               nodeNames = Seq("02", "03"),
               tags = newRouteTags("02-03")
             ),
+            labels = Seq(
+              "active",
+              "network-type-hiking"
+            ),
             active = false,
-            tags = newRouteTags("02-03")
+            tags = newRouteTags("02-03"),
+            nodeRefs = Seq(
+              1002,
+              1003
+            )
           )
         )
         true
@@ -247,7 +255,9 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
             ),
             facts = Seq(Fact.Deleted),
             investigate = true,
-            locationInvestigate = true
+            impact = true,
+            locationInvestigate = true,
+            locationImpact = true
           )
         )
         true
@@ -275,7 +285,9 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 ),
                 removedFromRoute = Seq(Ref(12, "02-03")),
                 investigate = true,
-                locationInvestigate = true
+                impact = true,
+                locationInvestigate = true,
+                locationImpact = true
               )
             )
             true
@@ -296,7 +308,9 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
                 removedFromNetwork = Seq(Ref(1, "name")),
                 facts = Seq(Fact.Deleted),
                 investigate = true,
-                locationInvestigate = true
+                impact = true,
+                locationInvestigate = true,
+                locationImpact = true
               )
             )
             true

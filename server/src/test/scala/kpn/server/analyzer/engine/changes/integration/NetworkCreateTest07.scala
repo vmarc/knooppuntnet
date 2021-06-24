@@ -201,7 +201,9 @@ class NetworkCreateTest07 extends AbstractTest {
               )
             ),
             happy = true,
-            locationHappy = true
+            impact = true,
+            locationHappy = true,
+            locationImpact = true
           )
         )
         true
@@ -227,7 +229,8 @@ class NetworkCreateTest07 extends AbstractTest {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                happy = true
+                happy = true,
+                impact = true
               )
             )
             true
@@ -249,7 +252,8 @@ class NetworkCreateTest07 extends AbstractTest {
                 addedToNetwork = Seq(
                   Ref(1, "name")
                 ),
-                happy = true
+                happy = true,
+                impact = true
               )
             )
             true

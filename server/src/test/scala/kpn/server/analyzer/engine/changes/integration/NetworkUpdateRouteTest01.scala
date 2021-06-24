@@ -110,6 +110,10 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
               nodeNames = Seq("01", "02"),
               tags = newRouteTags("01-02")
             ),
+            labels = Seq(
+              "active",
+              "network-type-hiking"
+            ),
             orphan = true,
             tags = newRouteTags("01-02"),
             analysis = newRouteInfoAnalysis(
@@ -190,6 +194,10 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
                 "backward=(02-01 via -<01-02 101>)"
               ),
               geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
+            ),
+            nodeRefs = Seq(
+              1001,
+              1002
             )
           )
         )
@@ -334,7 +342,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
             before = Some(routeData),
             after = Some(routeData),
             facts = Seq(Fact.BecomeOrphan),
-            investigate = true
+            investigate = true,
+            impact = true
           )
         )
         true

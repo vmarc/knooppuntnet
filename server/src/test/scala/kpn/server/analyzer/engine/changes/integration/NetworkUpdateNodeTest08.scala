@@ -163,7 +163,8 @@ class NetworkUpdateNodeTest08 extends AbstractTest {
             ),
             addedToNetwork = Seq(Ref(1, "name")),
             facts = Seq(Fact.WasOrphan),
-            happy = true
+            happy = true,
+            impact = true
           )
         )
         true

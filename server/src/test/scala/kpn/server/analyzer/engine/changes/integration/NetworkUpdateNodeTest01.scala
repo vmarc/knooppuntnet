@@ -181,7 +181,8 @@ class NetworkUpdateNodeTest01 extends AbstractTest {
             ),
             removedFromNetwork = Seq(Ref(1, "name")),
             facts = Seq(Fact.BecomeOrphan),
-            investigate = true
+            investigate = true,
+            impact = true
           )
         )
         true

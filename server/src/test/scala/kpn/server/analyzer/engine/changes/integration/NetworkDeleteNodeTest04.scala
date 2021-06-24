@@ -134,7 +134,9 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
             ),
             facts = Seq(Fact.LostHikingNodeTag),
             investigate = true,
-            locationInvestigate = true
+            impact = true,
+            locationInvestigate = true,
+            locationImpact = true
           )
         )
         true
