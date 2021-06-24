@@ -77,6 +77,11 @@ object CreateIndexesTool {
       "nodeRefs"
     ),
     Index(
+      "route-edges",
+      "network-type",
+      "networkType"
+    ),
+    Index(
       "nodeRouteRefs",
       "nodeId",
       "nodeId",

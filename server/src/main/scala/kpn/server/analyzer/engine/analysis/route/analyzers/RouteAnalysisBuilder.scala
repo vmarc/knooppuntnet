@@ -157,8 +157,6 @@ class RouteAnalysisBuilder(
       context.loadedRoute.relation.tags
     )
 
-
-
     val routeInfo = {
       val info = RouteInfo(
         summary.id,

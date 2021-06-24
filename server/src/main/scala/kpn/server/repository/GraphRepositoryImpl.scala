@@ -2,8 +2,9 @@ package kpn.server.repository
 
 import javax.annotation.PostConstruct
 import kpn.api.custom.NetworkType
-import kpn.core.database.Database
 import kpn.core.database.views.planner.GraphEdgesView
+import kpn.core.mongo.Database
+import kpn.core.mongo.actions.graph.MongoQueryGraphEdges
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
@@ -17,8 +18,10 @@ import scala.annotation.tailrec
 
 @Component
 class GraphRepositoryImpl(
-  analysisDatabase: Database,
-  graphLoadEnabled: Boolean
+  database: Database,
+  analysisDatabase: kpn.core.database.Database,
+  graphLoadEnabled: Boolean,
+  mongoEnabled: Boolean
 ) extends GraphRepository {
 
   private val log = Log(classOf[GraphRepositoryImpl])
@@ -29,10 +32,20 @@ class GraphRepositoryImpl(
   def loadGraphs(): Unit = {
     if (graphLoadEnabled) {
       log.info("Loading graphs")
-      graphs = NetworkType.all.map { networkType =>
-        val graph = buildGraph(networkType)
-        (networkType.name, graph)
-      }.toMap
+      graphs = if (mongoEnabled) {
+        val graphEdges = new MongoQueryGraphEdges(database).execute()
+        graphEdges.map { edges =>
+          val graph = new NodeNetworkGraphImpl()
+          edges.edges.foreach(graph.add)
+          (edges.networkType.name, graph)
+        }.toMap
+      }
+      else {
+        NetworkType.all.map { networkType =>
+          val graph = buildGraph(networkType)
+          (networkType.name, graph)
+        }.toMap
+      }
     }
   }
 

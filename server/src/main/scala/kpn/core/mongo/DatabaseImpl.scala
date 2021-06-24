@@ -9,6 +9,7 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.mongodb.scala.MongoCollection
@@ -20,6 +21,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def getCollection[T: ClassTag](collectionName: String): MongoCollection[T] = {
     database.getCollection[T](collectionName)
+  }
+
+  override def empty: DatabaseCollection[Any] = {
+    new DatabaseCollectionImpl(database.getCollection[Any]("empty"))
   }
 
   override def networks: DatabaseCollection[NetworkInfo] = {
@@ -40,6 +45,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def routes: DatabaseCollection[RouteInfo] = {
     new DatabaseCollectionImpl(database.getCollection[RouteInfo]("routes"))
+  }
+
+  override def routeEdges: DatabaseCollection[GraphEdge] = {
+    new DatabaseCollectionImpl(database.getCollection[GraphEdge]("route-edges"))
   }
 
   override def routeElements: DatabaseCollection[RouteElements] = {

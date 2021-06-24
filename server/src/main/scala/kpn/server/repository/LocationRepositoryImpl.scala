@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import kpn.api.common.common.Ref
 import kpn.api.common.location.LocationFact
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
@@ -16,8 +15,9 @@ import kpn.core.database.views.location.LocationFactView
 import kpn.core.database.views.location.LocationNodeCount
 import kpn.core.database.views.location.LocationNodeView
 import kpn.core.database.views.location.LocationRouteView
-import kpn.core.database.views.location.LocationView
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.locations.MongoQueryLocationFactCount
+import kpn.core.mongo.actions.locations.MongoQueryLocationFacts
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodeCounts
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodes
 import kpn.core.mongo.actions.locations.MongoQueryLocationRoutes
@@ -47,15 +47,6 @@ class LocationRepositoryImpl(
         routeCount(locationKey, LocationRoutesType.all),
         0
       )
-    }
-  }
-
-  override def routesWithoutLocation(networkType: NetworkType): Seq[Ref] = {
-    if (mongoEnabled) {
-      ??? // TODO MONGO
-    }
-    else {
-      LocationView.query(analysisDatabase, "route-without-location", networkType, "").sortBy(_.name)
     }
   }
 
@@ -125,7 +116,7 @@ class LocationRepositoryImpl(
 
   override def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationFacts(database).execute(networkType, locationName)
     }
     else {
       LocationFactView.query(analysisDatabase, networkType, locationName, stale)
@@ -134,7 +125,7 @@ class LocationRepositoryImpl(
 
   override def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryLocationFactCount(database).execute(networkType, locationName)
     }
     else {
       LocationFactView.queryCount(analysisDatabase, networkType, locationName, stale)

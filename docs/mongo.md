@@ -200,7 +200,7 @@ NodeRouteRepository
 - [ ] def expectedNodeRouteCounts(scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount]
 
 
-OrphanRepository
+OrphanRepository - prepared
 - [ ] def orphanRoutes(subset: Subset): Seq[OrphanRouteInfo]
 - [ ] def orphanNodes(subset: Subset): Seq[NodeInfo]
 
