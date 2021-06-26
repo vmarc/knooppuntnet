@@ -18,21 +18,18 @@ import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
-import kpn.server.repository.MongoNodeRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodePageBuilderImpl(
-  // old
   nodeRepository: NodeRepository,
   nodeRouteRepository: NodeRouteRepository,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository,
-  // new
-  mongoEnabled: Boolean,
-  mongoNodeRepository: MongoNodeRepository
+  // old
+  mongoEnabled: Boolean
 ) extends NodePageBuilder {
 
   def buildDetailsPage(user: Option[String], nodeId: Long): Option[NodeDetailsPage] = {
@@ -78,10 +75,10 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildDetailsPage(nodeId: Long): Option[NodeDetailsPage] = {
-    mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed) // TODO this fact should not be generated anymore: exclude during database migration
       val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
-      val changeCount = mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+      val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
       NodeDetailsPage(
         filteredNodeInfo,
         oldBuildNodeReferences(nodeInfo), // TODO include in aggregation
@@ -106,8 +103,8 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildMapPage(nodeId: Long): Option[NodeMapPage] = {
-    mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-      val changeCount = mongoNodeRepository.nodeChangeCount(nodeInfo.id)
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+      val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
       NodeMapPage(
         NodeMapInfo(
           nodeInfo.id,
@@ -138,10 +135,10 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildChangesPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
-    mongoNodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       if (user.isDefined) {
-        val nodeChanges = mongoNodeRepository.nodeChanges(nodeInfo.id, parameters)
-        val changesFilter = mongoNodeRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
+        val nodeChanges = changeSetRepository.nodeChanges(nodeInfo.id, parameters)
+        val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
         val totalCount = changesFilter.currentItemCount(parameters.impact)
         val incompleteWarning = isIncomplete(nodeChanges)
         val changes = nodeChanges.map { change =>

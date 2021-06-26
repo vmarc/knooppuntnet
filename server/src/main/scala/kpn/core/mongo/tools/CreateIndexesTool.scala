@@ -60,6 +60,11 @@ object CreateIndexesTool {
       "labels"
     ),
     Index(
+      "nodes",
+      "tiles",
+      "tiles"
+    ),
+    Index(
       "node-route-refs",
       "nodeId-networkType",
       "nodeId",
@@ -69,6 +74,11 @@ object CreateIndexesTool {
       "routes",
       "labels",
       "labels"
+    ),
+    Index(
+      "routes",
+      "tiles",
+      "tiles"
     ),
     Index(
       "routes",
