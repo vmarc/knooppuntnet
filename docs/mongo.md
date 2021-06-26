@@ -412,14 +412,11 @@ MonitorAdminRouteRepository - prepared
 
 
 #### Task database
-```scala
 TaskRepository
-
-  def add(key: String): Unit
-  def delete(key: String): Unit
-  def exists(id: String): Boolean
-  def all(prefix: String): Seq[String]
-```
+- [x] def add(key: String): Unit
+- [x] def delete(key: String): Unit
+- [x] def exists(id: String): Boolean
+- [x] def all(prefix: String): Seq[String]
 
 
 ## Tips

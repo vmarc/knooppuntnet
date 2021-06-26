@@ -9,7 +9,7 @@ import java.io.File
 object ChangeSetTaskTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "tasks-test") { database =>
-      val taskRepository = new TaskRepositoryImpl(database)
+      val taskRepository = new TaskRepositoryImpl(null, database, false)
       val files = new File("/kpn/wrk").list().filterNot(_ == "begin").toSeq.sorted
       files.foreach { changeSetId =>
         taskRepository.add(TaskRepository.changeSetInfoTask + changeSetId)

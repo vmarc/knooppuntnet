@@ -27,7 +27,7 @@ object ChangeSetInfoTool {
 
           val taskRepository = {
             val taskDatabase = new DatabaseImpl(DatabaseContextImpl(Couch.config, Json.objectMapper, options.tasksDatabaseName))
-            new TaskRepositoryImpl(taskDatabase)
+            new TaskRepositoryImpl(null, taskDatabase, false)
           }
 
           val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)

@@ -18,7 +18,7 @@ object PoiTileTaskTool {
         Couch.executeIn(options.host, options.poiDatabaseName) { poiDatabase =>
           Couch.executeIn(options.host, options.taskDatabaseName) { taskDatabase =>
             val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
-            val taskRepository = new TaskRepositoryImpl(taskDatabase)
+            val taskRepository = new TaskRepositoryImpl(null, taskDatabase, false)
             val tool = new PoiTileTaskTool(poiRepository, taskRepository)
             tool.generateTasks()
           }

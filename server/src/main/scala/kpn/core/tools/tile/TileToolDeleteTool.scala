@@ -8,7 +8,7 @@ object TileToolDeleteTool {
 
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "tasks-test") { database =>
-      val repo = new TaskRepositoryImpl(database)
+      val repo = new TaskRepositoryImpl(null, database, false)
       val tasks = repo.all(TileTask.prefix)
       println(s"Deleting ${tasks.size} tile tasks")
       tasks.zipWithIndex.foreach { case (task, index) =>
@@ -20,5 +20,4 @@ object TileToolDeleteTool {
       println("Done")
     }
   }
-
 }

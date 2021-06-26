@@ -33,7 +33,7 @@ object PoiTileUpdateTool {
                   tileBuilder
                 )
               }
-              val taskRepository = new TaskRepositoryImpl(taskDatabase)
+              val taskRepository = new TaskRepositoryImpl(null, taskDatabase, false)
               val poiTileUpdater = new PoiTileUpdaterImpl(
                 poiTileBuilder,
                 taskRepository

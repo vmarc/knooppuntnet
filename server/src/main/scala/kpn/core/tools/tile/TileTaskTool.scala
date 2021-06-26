@@ -8,12 +8,11 @@ object TileTaskTool {
 
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "tasks-test") { database =>
-      val repo = new TaskRepositoryImpl(database)
+      val repo = new TaskRepositoryImpl(null, database, false)
       val tasks = repo.all(TileTask.prefix)
       val ridingTasks = tasks.filter(task => task.contains("riding"))
       println(ridingTasks.size)
       ridingTasks.foreach(println)
     }
   }
-
 }
