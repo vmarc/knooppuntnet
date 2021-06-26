@@ -179,6 +179,7 @@ class MonitorChangeProcessorImpl(
       monitorAdminRouteRepository.saveRouteChange(change)
 
       val routeChangeGeometry = MonitorRouteChangeGeometry(
+        key.toId,
         key,
         routeSegments,
         newSegments,

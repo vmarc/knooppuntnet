@@ -6,12 +6,18 @@ import kpn.api.common.Poi
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RouteElements
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteState
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
@@ -57,4 +63,19 @@ trait Database {
   def nodeRouteRefs: DatabaseCollection[NodeRouteRef]
 
   def pois: DatabaseCollection[Poi]
+
+  def tasks: DatabaseCollection[Task]
+
+  def monitorGroups: DatabaseCollection[MonitorGroup]
+
+  def monitorRoutes: DatabaseCollection[MonitorRoute]
+
+  def monitorRouteReferences: DatabaseCollection[MonitorRouteReference]
+
+  def monitorRouteStates: DatabaseCollection[MonitorRouteState]
+
+  def monitorRouteChanges: DatabaseCollection[MonitorRouteChange]
+
+  def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry]
+
 }

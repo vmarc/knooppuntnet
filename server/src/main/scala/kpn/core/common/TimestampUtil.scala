@@ -1,21 +1,21 @@
 package kpn.core.common
 
+import kpn.api.custom.Timestamp
+
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-import kpn.api.custom.Timestamp
-
 /**
-  * Reflects a point in time in the UTC timezone.
-  *
-  * Allows control over the <i>current time</i> in the
-  * current execution thread (used during unit testing time dependent logic).
-  *
-  * If no specific time point is set, the normal system time is in effect.
-  */
+ * Reflects a point in time in the UTC timezone.
+ *
+ * Allows control over the <i>current time</i> in the
+ * current execution thread (used during unit testing time dependent logic).
+ *
+ * If no specific time point is set, the normal system time is in effect.
+ */
 object TimestampUtil {
 
   def toLocal(timestamp: Timestamp): Timestamp = {
@@ -63,7 +63,15 @@ object TimestampUtil {
   }
 
   def parseIso(string: String): Timestamp = {
-    toTimestamp(ZonedDateTime.parse(string + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
+    if (string.size == "2020-08-11 12:34:56".size && string(10) == ' ') {
+      // this was added to support the migration of timestamps in the monitor documents
+      // TODO MONGO can be removed after mongodb migration is complete
+      val modified = string.replaceAll(" ", "T") + "Z"
+      toTimestamp(ZonedDateTime.parse(modified + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
+    }
+    else {
+      toTimestamp(ZonedDateTime.parse(string + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
+    }
   }
 
   def fromMilliSeconds(milliSeconds: Long): Timestamp = {

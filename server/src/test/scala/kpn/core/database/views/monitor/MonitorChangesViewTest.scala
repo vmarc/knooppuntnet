@@ -14,7 +14,7 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val groupRepository = new MonitorAdminRouteRepositoryImpl(database)
+      val groupRepository = new MonitorAdminRouteRepositoryImpl(null, database, false)
 
       val change1 = buildChange("group-1", 101L, 1L, Timestamp(2020, 8, 11), happy = false)
       val change2 = buildChange("group-1", 101L, 2L, Timestamp(2020, 8, 12), happy = true)

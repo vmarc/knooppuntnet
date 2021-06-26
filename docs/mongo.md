@@ -396,22 +396,19 @@ MonitorAdminGroupRepository
   def groupRoutes(groupName: String): Seq[MonitorRoute]
 ```
 
-```scala
-MonitorAdminRouteRepository
-
-  def allRouteIds: Seq[Long]
-  def saveRoute(route: MonitorRoute): Unit
-  def saveRouteState(routeState: MonitorRouteState): Unit
-  def saveRouteReference(routeReference: MonitorRouteReference): Unit
-  def saveRouteChange(routeChange: MonitorRouteChange): Unit
-  def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
-  def route(routeId: Long): Option[MonitorRoute]
-  def routeState(routeId: Long): Option[MonitorRouteState]
-  def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
-  def routeChange(changeKey: ChangeKeyI): Option[MonitorRouteChange]
-  def routeChangeGeometry(changeKey: ChangeKeyI): Option[MonitorRouteChangeGeometry]
-  def routeReferenceKey(routeId: Long): Option[String]
-```
+MonitorAdminRouteRepository - prepared
+- [ ] def allRouteIds: Seq[Long]
+- [ ] def saveRoute(route: MonitorRoute): Unit
+- [ ] def saveRouteState(routeState: MonitorRouteState): Unit
+- [ ] def saveRouteReference(routeReference: MonitorRouteReference): Unit
+- [ ] def saveRouteChange(routeChange: MonitorRouteChange): Unit
+- [ ] def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
+- [ ] def route(routeId: Long): Option[MonitorRoute]
+- [ ] def routeState(routeId: Long): Option[MonitorRouteState]
+- [ ] def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
+- [ ] def routeChange(changeKey: ChangeKeyI): Option[MonitorRouteChange]
+- [ ] def routeChangeGeometry(changeKey: ChangeKeyI): Option[MonitorRouteChangeGeometry]
+- [ ] def routeReferenceKey(routeId: Long): Option[String]
 
 
 #### Task database

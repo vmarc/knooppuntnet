@@ -20,7 +20,7 @@ object MonitorRouteAnalyzerStartTool {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
       val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
-      val monitorRouteRepository = new MonitorAdminRouteRepositoryImpl(monitorDatabase)
+      val monitorRouteRepository = new MonitorAdminRouteRepositoryImpl(null, monitorDatabase, false)
       new MonitorRouteAnalyzerStartTool(monitorRouteLoader, monitorRouteRepository).buildInitialRouteDocuments()
     }
   }

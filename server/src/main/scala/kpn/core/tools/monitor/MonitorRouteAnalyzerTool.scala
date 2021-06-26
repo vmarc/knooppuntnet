@@ -25,8 +25,8 @@ object MonitorRouteAnalyzerTool {
       Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
 
         val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
-        val monitorAdminRouteRepository = new MonitorAdminRouteRepositoryImpl(monitorDatabase)
-        val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changeSetDatabase)
+        val monitorAdminRouteRepository = new MonitorAdminRouteRepositoryImpl(null, monitorDatabase, false)
+        val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(null, changeSetDatabase, false)
         val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerFileImpl()
         val monitorChangeProcessor = new MonitorChangeProcessorImpl(
           analyzerHistory = true,

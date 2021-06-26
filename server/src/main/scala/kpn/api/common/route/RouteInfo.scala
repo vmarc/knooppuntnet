@@ -11,7 +11,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
 case class RouteInfo(
-  _id: Long,
+  _id: Long, // routeId
   labels: Seq[String],
   summary: RouteSummary,
   active: Boolean,

@@ -54,9 +54,20 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     Await.result(future, duration)
   }
 
-  override def find[R: ClassTag](filter: Bson): Option[R] = {
-    val future = collection.find[R](filter).headOption()
-    Await.result(future, Duration(30, TimeUnit.SECONDS))
+  override def findOne[R: ClassTag](filter: Bson, log: Log): Option[R] = {
+    log.debugElapsed {
+      val future = collection.find[R](filter).headOption()
+      val doc = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      (s"find - collection: '${collection.namespace.getCollectionName}'", doc)
+    }
+  }
+
+  override def find[R: ClassTag](filter: Bson, log: Log): Seq[R] = {
+    log.debugElapsed {
+      val future = collection.find[R](filter).toFuture()
+      val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      (s"find - collection: '${collection.namespace.getCollectionName}', docs= ${docs.size}", docs)
+    }
   }
 
   override def findById(_id: Long, log: Log): Option[T] = {
@@ -81,6 +92,14 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       val future = collection.find[T](filter).toFuture()
       val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
       (s"findByIds - collection: '${collection.namespace.getCollectionName}', ids: ${ids.mkString(", ")}", docs)
+    }
+  }
+
+  override def findAll(log: Log): Seq[T] = {
+    log.debugElapsed {
+      val future = collection.find[T]().toFuture()
+      val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      (s"find - collection: '${collection.namespace.getCollectionName}', docs: ${docs.size}", docs)
     }
   }
 
@@ -132,25 +151,36 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   }
 
   override def insertMany(docs: Seq[T], log: Log): Unit = {
-    log.debugElapsed {
-      val ids = docs.map {
-        case withId: WithId => withId._id
-        case withStringId: WithStringId => withStringId._id
-        case _ => "?"
-      }
-      val future = collection.insertMany(docs).toFuture()
-      val result = Await.result(future, Duration(1, TimeUnit.MINUTES))
-      val resultString = if (!result.wasAcknowledged()) {
-        ", not acknowledged"
-      }
-      else if (docs.size != result.getInsertedIds.size()) {
+    if (docs.nonEmpty) {
+      log.debugElapsed {
+        val ids = docs.map {
+          case withId: WithId => withId._id
+          case withStringId: WithStringId => withStringId._id
+          case _ => "?"
+        }
+        val future = collection.insertMany(docs).toFuture()
+        val result = Await.result(future, Duration(1, TimeUnit.MINUTES))
+        val resultString = if (!result.wasAcknowledged()) {
+          ", not acknowledged"
+        }
+        else if (docs.size != result.getInsertedIds.size()) {
           s", docs.size does not match number of inserted docs: ${result.getInsertedIds.size()}"
         }
         else {
           ""
         }
-      val message = s"insertMany - collection: '$collectionName', inserted ${docs.size} docs, ids: ${ids.mkString(", ")}$resultString"
-      (message, ())
+        val message = s"insertMany - collection: '$collectionName', inserted ${docs.size} docs, ids: ${ids.mkString(", ")}$resultString"
+        (message, ())
+      }
+    }
+  }
+
+  override def countDocuments(log: Log): Long = {
+    log.debugElapsed {
+      val future = collection.countDocuments().toFuture()
+      val count = Await.result(future, Duration(1, TimeUnit.MINUTES))
+      val message = s"countDocuments - collection: '$collectionName' : $count"
+      (message, count)
     }
   }
 
