@@ -98,7 +98,7 @@ class RouteTool(database: Database) {
 
   def blackListedRoutesThatAreInTheDatabase(): Unit = {
     val routeRepository = new RouteRepositoryImpl(null, database, false)
-    val blackListRepository = new BlackListRepositoryImpl(database)
+    val blackListRepository = new BlackListRepositoryImpl(null, database, false)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
     blackListedRouteIds.foreach { routeId =>
       routeRepository.routeWithId(routeId) match {
@@ -118,7 +118,7 @@ class RouteTool(database: Database) {
 
   def blackListedRoutesThatWouldBeExcludedByTheNewRules(): Unit = {
     val routeRepository = new RouteRepositoryImpl(null, database, false)
-    val blackListRepository = new BlackListRepositoryImpl(database)
+    val blackListRepository = new BlackListRepositoryImpl(null, database, false)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
 
     blackListedRouteIds.foreach { routeId =>
@@ -134,7 +134,7 @@ class RouteTool(database: Database) {
   }
 
   def removeBlacklistedNetworksAndRoutes(): Unit = {
-    val blackListRepository = new BlackListRepositoryImpl(database)
+    val blackListRepository = new BlackListRepositoryImpl(null, database, false)
     val networkRepository = new NetworkRepositoryImpl(null, database, false)
     val routeRepository = new RouteRepositoryImpl(null, database, false)
 

@@ -26,7 +26,7 @@ class OverviewRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val repository: OverviewRepository = new OverviewRepositoryImpl(database)
+      val repository: OverviewRepository = new OverviewRepositoryImpl(null, database, false)
 
       val figures = repository.figures(stale = false)
       figures("NetworkCount") should equal(Figure("NetworkCount", 1, Map(Subset.beHiking -> 1)))

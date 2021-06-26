@@ -16,7 +16,7 @@ object NodeRouteReferenceDemo {
 
 class NodeRouteReferenceDemo(database: Database) {
 
-  val repo = new NodeRouteRepositoryImpl(database)
+  val repo = new NodeRouteRepositoryImpl(null, database, false)
 
   def update(): Unit = {
     val updater = new NodeRouteUpdaterImpl(repo)

@@ -19,7 +19,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)
       val routeRepository = new RouteRepositoryImpl(null, database, false)
-      val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
+      val nodeRouteRepository = new NodeRouteRepositoryImpl(null, database, false)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
       def node(nodeId: Long, nodeName: String, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
@@ -135,7 +135,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
   test("delete obsolete NodeRoute documents") {
     withCouchDatabase { database =>
 
-      val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
+      val nodeRouteRepository = new NodeRouteRepositoryImpl(null, database, false)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 
       nodeRouteRepository.save(NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 4, 3))

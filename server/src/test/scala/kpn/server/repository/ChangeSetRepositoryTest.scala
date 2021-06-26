@@ -515,7 +515,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
   private def withChangeSetRepository(f: ChangeSetRepository => Unit): Unit = {
     withCouchDatabase { database =>
-      val repository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
+      val repository: ChangeSetRepository = new ChangeSetRepositoryImpl(null, database, false)
       f(repository)
     }
   }

@@ -38,7 +38,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
   private val log = Log(classOf[MigrateChangesTool])
 
   private val stale = true // TODO change to false for actual migration
-  private val changeSetRepository = new ChangeSetRepositoryImpl(couchDatabase)
+  private val changeSetRepository = new ChangeSetRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
     log.elapsedSeconds {

@@ -10,7 +10,7 @@ class ChangeDocumentViewTest extends UnitTest with SharedTestObjects {
   test("view") {
 
     withCouchDatabase { database =>
-      val repo = new ChangeSetRepositoryImpl(database)
+      val repo = new ChangeSetRepositoryImpl(null, database, false)
 
       repo.saveChangeSetSummary(newChangeSetSummary(newChangeKey()))
 

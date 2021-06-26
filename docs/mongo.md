@@ -271,130 +271,108 @@ LongdistanceRouteRepository
 - location-changeset-summaries
 
 
-```scala
 ChangeSetRepository
-
-  def allNetworkIds(): Seq[Long] // not used
-  def allRouteIds(): Seq[Long] // not used
-  def allNodeIds(): Seq[Long] // not used
-  def allChangeSetIds(): Seq[String] // only used in 1 test
-
-  def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit
-  def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit
-  def saveNetworkChange(networkChange: NetworkChange): Unit
-  def saveRouteChange(routeChange: RouteChange): Unit
-  def saveNodeChange(nodeChange: NodeChange): Unit
-
-  def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean = true): Seq[ChangeSetData]
-  def changes(changesParameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary]
-  def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
-
-  def networkChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange]
-  def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
-  def networkChangesCount(networkId: Long, stale: Boolean = true): Long
-
-  def routeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange]
-  def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
-  def routeChangesCount(routeId: Long, stale: Boolean = true): Long
-
-  def nodeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange]
-  def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
-  def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long
-```
-
+- [ ] def allNetworkIds(): Seq[Long] // not used
+- [ ] def allRouteIds(): Seq[Long] // not used
+- [ ] def allNodeIds(): Seq[Long] // not used
+- [ ] def allChangeSetIds(): Seq[String] // only used in 1 test
+- [ ] def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit
+- [ ] def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit
+- [ ] def saveNetworkChange(networkChange: NetworkChange): Unit
+- [ ] def saveRouteChange(routeChange: RouteChange): Unit
+- [ ] def saveNodeChange(nodeChange: NodeChange): Unit
+- [ ] def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean = true): Seq[ChangeSetData]
+- [ ] def changes(changesParameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary]
+- [ ] def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+- [ ] def networkChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange]
+- [ ] def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+- [ ] def networkChangesCount(networkId: Long, stale: Boolean = true): Long
+- [ ] def routeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange]
+- [ ] def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+- [ ] def routeChangesCount(routeId: Long, stale: Boolean = true): Long
+- [ ] def nodeChanges(parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange]
+- [ ] def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+- [ ] def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long
 
 
 #### Changeset database
 
-```scala
 ChangeSetInfoRepository
-
-  def save(changeSetInfo: ChangeSetInfo): Unit = {}
-  def get(changeSetId: Long): Option[ChangeSetInfo] = None
-  def all(changeSetIds: Seq[Long], stale: Boolean = true): Seq[ChangeSetInfo] = Seq.empty
-  def exists(changeSetId: Long): Boolean = false
-  def delete(changeSetId: Long): Unit = {}
-```
+- [ ] def save(changeSetInfo: ChangeSetInfo): Unit
+- [ ] def get(changeSetId: Long): Option[ChangeSetInfo]
+- [ ] def all(changeSetIds: Seq[Long], stale: Boolean = true): Seq[ChangeSetInfo]
+- [ ] def exists(changeSetId: Long): Boolean
+- [ ] def delete(changeSetId: Long): Unit
 
 #### POI database
-```scala
-PoiRepository -> poiDatabase
 
-  def save(poi: Poi): Unit
-  def allPois(stale: Boolean = true): Seq[PoiInfo]
-  def nodeIds(stale: Boolean = true): Seq[Long]
-  def wayIds(stale: Boolean = true): Seq[Long]
-  def relationIds(stale: Boolean = true): Seq[Long]
-  def get(poiRef: PoiRef): Option[Poi]
-  def delete(poiRef: PoiRef): Unit
-  def allTiles(stale: Boolean = true): Seq[String]
-  def tilePoiInfos(tileName: String, stale: Boolean = true): Seq[PoiInfo]
-```
+PoiRepository - prepared
+
+- [ ] def save(poi: Poi): Unit
+- [ ] def allPois(stale: Boolean = true): Seq[PoiInfo]
+- [ ] def nodeIds(stale: Boolean = true): Seq[Long]
+- [ ] def wayIds(stale: Boolean = true): Seq[Long]
+- [ ] def relationIds(stale: Boolean = true): Seq[Long]
+- [ ] def get(poiRef: PoiRef): Option[Poi]
+- [ ] def delete(poiRef: PoiRef): Unit
+- [ ] def allTiles(stale: Boolean = true): Seq[String]
+- [ ] def tilePoiInfos(tileName: String, stale: Boolean = true): Seq[PoiInfo]
 
 
 
 #### Frontend actions database
-```scala
-FrontendMetricsRepository --> frontendActionsDatabase
 
-  def saveApiAction(action: ApiAction): Unit
-  def saveLogAction(action: LogAction): Unit
-  def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue]
-```
+FrontendMetricsRepository --> frontendActionsDatabase
+- [ ] def saveApiAction(action: ApiAction): Unit
+- [ ] def saveLogAction(action: LogAction): Unit
+- [ ] def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue]
 
 
 #### Backend actions database
-```scala
-BackendMetricsRepository --> backendActionsDatabase
 
-  def saveReplicationAction(replicationAction: ReplicationAction): Unit
-  def saveUpdateAction(updateAction: UpdateAction): Unit
-  def saveAnalysisAction(analysisAction: AnalysisAction): Unit
-  def saveSystemStatus(systemStatus: SystemStatus): Unit
-  def query(parameters: PeriodParameters, action: String, average: Boolean = false, stale: Boolean = true): Seq[NameValue]
-  def lastKnownValue(action: String, stale: Boolean = true): Long
-```
+BackendMetricsRepository --> backendActionsDatabase
+- [ ] def saveReplicationAction(replicationAction: ReplicationAction): Unit
+- [ ] def saveUpdateAction(updateAction: UpdateAction): Unit
+- [ ] def saveAnalysisAction(analysisAction: AnalysisAction): Unit
+- [ ] def saveSystemStatus(systemStatus: SystemStatus): Unit
+- [ ] def query(parameters: PeriodParameters, action: String, average: Boolean = false, stale: Boolean = true): Seq[NameValue]
+- [ ] def lastKnownValue(action: String, stale: Boolean = true): Long
 
 
 
 #### Monitor database
-```scala
+
 MonitorGroupRepository
 
-  def group(groupName: String): Option[MonitorGroup]
-  def groups(): Seq[MonitorGroup]
-  def groupRoutes(groupName: String): Seq[MonitorRoute]
-```
+- [ ] def group(groupName: String): Option[MonitorGroup]
+- [ ] def groups(): Seq[MonitorGroup]
+- [ ] def groupRoutes(groupName: String): Seq[MonitorRoute]
 
-```scala
 MonitorRouteRepository
 
-  def route(routeId: Long): Option[MonitorRoute]
-  def routeState(routeId: Long): Option[MonitorRouteState]
-  def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
-  def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
-  def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry]
-  def changesCount(parameters: MonitorChangesParameters): Long
-  def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
-  def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long
-  def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
-  def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long
-  def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
-  def routes(): Seq[MonitorRoute]
-```
+- [ ] def route(routeId: Long): Option[MonitorRoute]
+- [ ] def routeState(routeId: Long): Option[MonitorRouteState]
+- [ ] def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
+- [ ] def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
+- [ ] def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry]
+- [ ] def changesCount(parameters: MonitorChangesParameters): Long
+- [ ] def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+- [ ] def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long
+- [ ] def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+- [ ] def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long
+- [ ] def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+- [ ] def routes(): Seq[MonitorRoute]
 
 
 
 #### Monitor admin database
-```scala
-MonitorAdminGroupRepository
 
-  def groups(): Seq[MonitorGroup]
-  def group(groupName: String): Option[MonitorGroup]
-  def saveGroup(routeGroup: MonitorGroup): Unit
-  def deleteGroup(id: String): Unit
-  def groupRoutes(groupName: String): Seq[MonitorRoute]
-```
+MonitorAdminGroupRepository
+- [x] def groups(): Seq[MonitorGroup]
+- [x] def group(groupName: String): Option[MonitorGroup]
+- [x] def saveGroup(routeGroup: MonitorGroup): Unit
+- [x] def deleteGroup(id: String): Unit
+- [x] def groupRoutes(groupName: String): Seq[MonitorRoute]
 
 MonitorAdminRouteRepository - prepared
 - [ ] def allRouteIds: Seq[Long]

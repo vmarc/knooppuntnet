@@ -27,7 +27,7 @@ object LongdistanceRouteAnalyzerTool {
     Couch.executeIn("kpn-database", "changesets2") { changeSetDatabase =>
       Couch.executeIn("kpn-database", "analysis1") { analysisDatabase =>
         val longdistanceRouteRepository = new LongdistanceRouteRepositoryImpl(analysisDatabase)
-        val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(changeSetDatabase)
+        val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(null, changeSetDatabase, false)
         new LongdistanceRouteAnalyzerTool(longdistanceRouteRepository, changeSetInfoRepository).analyze()
       }
     }

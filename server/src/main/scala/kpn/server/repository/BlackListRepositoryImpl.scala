@@ -1,12 +1,17 @@
 package kpn.server.repository
 
-import kpn.core.database.Database
 import kpn.core.database.doc.BlackListDoc
+import kpn.core.mongo.Database
 import kpn.server.analyzer.engine.changes.data.BlackList
 import org.springframework.stereotype.Component
 
 @Component
-class BlackListRepositoryImpl(analysisDatabase: Database) extends BlackListRepository {
+class BlackListRepositoryImpl(
+  database: Database,
+  // old
+  analysisDatabase: kpn.core.database.Database,
+  mongoEnabled: Boolean
+) extends BlackListRepository {
 
   private val docId = "black-list"
   private val CACHE_TIMEOUT_MILLIS = 30000
@@ -15,19 +20,29 @@ class BlackListRepositoryImpl(analysisDatabase: Database) extends BlackListRepos
   private var cachedTimestamp: Option[Long] = None
 
   def get: BlackList = {
-    val now = System.currentTimeMillis()
-    if (cachedTimestamp.isEmpty || cachedTimestamp.get < (now - CACHE_TIMEOUT_MILLIS)) {
-      val blackListDoc = analysisDatabase.docWithId(docId, classOf[BlackListDoc])
-      cachedBlackList = blackListDoc.map(_.blackList)
-      cachedTimestamp = Some(now)
-      blackListDoc.get.blackList
+    if (mongoEnabled) {
+      ???
     }
     else {
-      cachedBlackList.get
+      val now = System.currentTimeMillis()
+      if (cachedTimestamp.isEmpty || cachedTimestamp.get < (now - CACHE_TIMEOUT_MILLIS)) {
+        val blackListDoc = analysisDatabase.docWithId(docId, classOf[BlackListDoc])
+        cachedBlackList = blackListDoc.map(_.blackList)
+        cachedTimestamp = Some(now)
+        blackListDoc.get.blackList
+      }
+      else {
+        cachedBlackList.get
+      }
     }
   }
 
   def save(blackList: BlackList): Unit = {
-    analysisDatabase.save(BlackListDoc(docId, blackList))
+    if (mongoEnabled) {
+      ???
+    }
+    else {
+      analysisDatabase.save(BlackListDoc(docId, blackList))
+    }
   }
 }

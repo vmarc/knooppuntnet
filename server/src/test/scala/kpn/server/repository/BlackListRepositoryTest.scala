@@ -25,7 +25,7 @@ class BlackListRepositoryTest extends UnitTest {
         )
       )
 
-      val blackListRepository: BlackListRepository = new BlackListRepositoryImpl(database)
+      val blackListRepository: BlackListRepository = new BlackListRepositoryImpl(null, database, false)
 
       blackListRepository.save(blackList)
 

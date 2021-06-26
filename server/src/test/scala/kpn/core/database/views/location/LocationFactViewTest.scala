@@ -23,7 +23,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
     withCouchDatabase { database =>
 
       val updater = {
-        val nodeRouteRepository = new NodeRouteRepositoryImpl(database)
+        val nodeRouteRepository = new NodeRouteRepositoryImpl(null, database, false)
         new NodeRouteUpdaterImpl(nodeRouteRepository)
       }
 

@@ -24,6 +24,7 @@ class ChangeSetInfoParser {
     )
     ChangeSetInfo(
       id.toLong,
+      id.toLong,
       createdAt,
       closedAt,
       open,

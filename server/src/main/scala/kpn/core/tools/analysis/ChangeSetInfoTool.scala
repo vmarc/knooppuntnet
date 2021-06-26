@@ -34,7 +34,7 @@ object ChangeSetInfoTool {
 
           val changeSetInfoRepository = {
             val changeDatabase = new DatabaseImpl(DatabaseContextImpl(Couch.config, Json.objectMapper, options.changeSetsDatabaseName))
-            new ChangeSetInfoRepositoryImpl(changeDatabase)
+            new ChangeSetInfoRepositoryImpl(null, changeDatabase, false)
           }
 
           new ChangeSetInfoTool(

@@ -28,7 +28,7 @@ object MigrateChangeSetCommentsTool {
 
 class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mongoDatabase: Database) {
 
-  private val repo = new ChangeSetInfoRepositoryImpl(couchDatabase)
+  private val repo = new ChangeSetInfoRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
     val changeSetIds = findAllChangeSetIds()

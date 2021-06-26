@@ -91,5 +91,4 @@ class GraphRepositoryImpl(
         readEdges(networkType)
     }
   }
-
 }

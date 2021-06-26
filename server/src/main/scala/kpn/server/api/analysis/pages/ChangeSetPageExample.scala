@@ -392,6 +392,7 @@ object ChangeSetPageExample {
 
   private def changeSetInfo(): ChangeSetInfo = {
     ChangeSetInfo(
+      _id = 1,
       id = 1,
       createdAt = Timestamp(2015, 1, 2),
       closedAt = Some(Timestamp(2015, 1, 2)),

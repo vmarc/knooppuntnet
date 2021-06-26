@@ -15,7 +15,7 @@ class NodeRouteViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repo = new NodeRouteRepositoryImpl(database)
+      val repo = new NodeRouteRepositoryImpl(null, database, false)
 
       repo.save(NodeRoute(1001, "01", NetworkType.hiking, NetworkScope.regional, Seq.empty, 2, 3))
       repo.save(NodeRoute(1002, "02", NetworkType.hiking, NetworkScope.regional, Seq.empty, 4, 5))

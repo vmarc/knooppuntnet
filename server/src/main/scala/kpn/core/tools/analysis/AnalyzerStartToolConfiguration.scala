@@ -125,13 +125,13 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val analysisData: AnalysisData = AnalysisData()
 
-  val changeSetRepository = new ChangeSetRepositoryImpl(changeDatabase)
+  val changeSetRepository = new ChangeSetRepositoryImpl(null, changeDatabase, false)
 
-  private val blackListRepository = new BlackListRepositoryImpl(analysisDatabase)
+  private val blackListRepository = new BlackListRepositoryImpl(null, analysisDatabase, false)
 
   val orphanRepository = new OrphanRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
 
-  val factRepository = new FactRepositoryImpl(analysisDatabase)
+  val factRepository = new FactRepositoryImpl(null, analysisDatabase, false)
 
   val nodeLoader = new NodeLoaderImpl(
     analysisContext,
