@@ -121,7 +121,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, null, null, null)
+  val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, null, null, null, false)
 
   val analysisData: AnalysisData = AnalysisData()
 

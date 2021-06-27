@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.core.app.stats.Figure
-import kpn.core.database.Database
+import kpn.core.mongo.Database
 import kpn.core.database.views.analyzer.Overview
 import org.springframework.stereotype.Component
 

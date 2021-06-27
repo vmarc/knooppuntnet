@@ -6,7 +6,7 @@ import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Ref
 import kpn.api.custom.ScopedNetworkType
-import kpn.core.database.Database
+import kpn.core.mongo.Database
 import kpn.core.database.doc.NodeRouteDoc
 import kpn.core.database.views.node.NodeRouteExpectedView
 import kpn.core.database.views.node.NodeRouteReferenceView

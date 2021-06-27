@@ -23,31 +23,19 @@ class FrontendMetricsRepositoryImpl(
   private val random = new Random()
 
   override def saveApiAction(apiAction: ApiAction): Unit = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val id = s"api-${apiAction.timestamp.toId}-${random.nextInt(10000)}"
-      frontendActionsDatabase.save(ApiActionDoc(id, apiAction))
-    }
+    // ??? TODO MONGO
+    val id = s"api-${apiAction.timestamp.toId}-${random.nextInt(10000)}"
+    frontendActionsDatabase.save(ApiActionDoc(id, apiAction))
   }
 
   override def saveLogAction(logAction: LogAction): Unit = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val id = s"log-${logAction.logfile}-${logAction.timestamp.toId}}"
-      frontendActionsDatabase.save(LogActionDoc(id, logAction))
-    }
+    // ??? TODO MONGO
+    val id = s"log-${logAction.logfile}-${logAction.timestamp.toId}}"
+    frontendActionsDatabase.save(LogActionDoc(id, logAction))
   }
 
   override def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      FrontendMetricsView.query(frontendActionsDatabase, parameters, action, average, stale)
-    }
+    // ??? TODO MONGO
+    FrontendMetricsView.query(frontendActionsDatabase, parameters, action, average, stale)
   }
 }

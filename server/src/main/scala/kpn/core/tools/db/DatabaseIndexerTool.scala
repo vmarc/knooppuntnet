@@ -28,7 +28,8 @@ object DatabaseIndexerTool {
                 changeDatabase,
                 poiDatabase,
                 backendActionsDatabase,
-                frontendActionsDatabase
+                frontendActionsDatabase,
+                false
               )
               indexer.firstIndexing()
             }

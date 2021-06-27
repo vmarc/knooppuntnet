@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine
 
-import javax.annotation.PostConstruct
 import kpn.api.common.status.PeriodParameters
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
@@ -21,6 +20,8 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
 
+import javax.annotation.PostConstruct
+
 /**
  * Forces indexing of Couchdb views. Couchdb indexes are updated upon querying a view. We wait
  * until the view result is received as an indication that indexing is complete. We issue
@@ -32,23 +33,28 @@ class DatabaseIndexer(
   changeDatabase: Database,
   poiDatabase: Database,
   backendActionsDatabase: Database,
-  frontendActionsDatabase: Database
+  frontendActionsDatabase: Database,
+  mongoEnabled: Boolean
 ) {
 
   private val log = Log(classOf[DatabaseIndexer])
 
   @PostConstruct
   def firstIndexing(): Unit = {
-    index(verbose = true)
+    if (!mongoEnabled) {
+      index(verbose = true)
+    }
   }
 
   @Scheduled(initialDelay = 60000, fixedDelay = 60000)
   def repeatIndexing(): Unit = {
-    log.info("start")
-    val start = System.currentTimeMillis()
-    index(verbose = false)
-    val end = System.currentTimeMillis()
-    log.info(s"done (${end - start}ms)")
+    if (!mongoEnabled) {
+      log.info("start")
+      val start = System.currentTimeMillis()
+      index(verbose = false)
+      val end = System.currentTimeMillis()
+      log.info(s"done (${end - start}ms)")
+    }
   }
 
   def index(verbose: Boolean): Unit = {

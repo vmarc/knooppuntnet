@@ -37,7 +37,7 @@ object TileTool {
 
           Couch.executeIn(options.analysisDatabaseHost, options.analysisDatabaseName) { analysisDatabase =>
 
-            new DatabaseIndexer(analysisDatabase, null, null, null, null).index(true)
+            new DatabaseIndexer(analysisDatabase, null, null, null, null, false).index(true)
 
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(null, analysisDatabase, false)
