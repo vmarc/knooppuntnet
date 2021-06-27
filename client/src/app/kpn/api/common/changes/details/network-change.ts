@@ -10,6 +10,7 @@ import { RefChanges } from './ref-changes';
 import { RefDiffs } from '../../diff/ref-diffs';
 
 export interface NetworkChange {
+  readonly _id: string;
   readonly key: ChangeKey;
   readonly changeType: ChangeType;
   readonly country: Country;
@@ -26,4 +27,5 @@ export interface NetworkChange {
   readonly relations: IdDiffs;
   readonly happy: boolean;
   readonly investigate: boolean;
+  readonly impact: boolean;
 }

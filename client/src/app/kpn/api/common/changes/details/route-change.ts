@@ -11,6 +11,7 @@ import { RouteLocationAnalysis } from '../../route-location-analysis';
 import { WayUpdate } from '../../diff/way-update';
 
 export interface RouteChange {
+  readonly _id: string;
   readonly key: ChangeKey;
   readonly changeType: ChangeType;
   readonly name: string;
@@ -26,6 +27,8 @@ export interface RouteChange {
   readonly facts: Fact[];
   readonly happy: boolean;
   readonly investigate: boolean;
+  readonly impact: boolean;
   readonly locationHappy: boolean;
   readonly locationInvestigate: boolean;
+  readonly locationImpact: boolean;
 }

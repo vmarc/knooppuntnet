@@ -9,6 +9,7 @@ import { Tags } from '../custom/tags';
 import { Timestamp } from '../custom/timestamp';
 
 export interface NodeInfo {
+  readonly _id: number;
   readonly id: number;
   readonly active: boolean;
   readonly orphan: boolean;

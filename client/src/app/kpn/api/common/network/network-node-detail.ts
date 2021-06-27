@@ -2,7 +2,7 @@
 
 import { Day } from '../../custom/day';
 import { Fact } from '../../custom/fact';
-import { Ref } from '../common/ref';
+import { Reference } from '../common/reference';
 import { Tags } from '../../custom/tags';
 import { Timestamp } from '../../custom/timestamp';
 
@@ -19,7 +19,7 @@ export interface NetworkNodeDetail {
   readonly timestamp: Timestamp;
   readonly lastSurvey: Day;
   readonly expectedRouteCount: string;
-  readonly routeReferences: Ref[];
+  readonly routeReferences: Reference[];
   readonly facts: Fact[];
   readonly tags: Tags;
 }

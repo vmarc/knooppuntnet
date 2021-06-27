@@ -5,10 +5,12 @@ import { LocationChangesTree } from './location-changes-tree';
 import { Timestamp } from '../custom/timestamp';
 
 export interface LocationChangeSetSummary {
+  readonly _id: string;
   readonly key: ChangeKey;
   readonly timestampFrom: Timestamp;
   readonly timestampUntil: Timestamp;
   readonly trees: LocationChangesTree[];
   readonly happy: boolean;
   readonly investigate: boolean;
+  readonly impact: boolean;
 }

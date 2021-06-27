@@ -3,6 +3,7 @@
 import { Tags } from '../custom/tags';
 
 export interface Poi {
+  readonly _id: string;
   readonly elementType: string;
   readonly elementId: number;
   readonly latitude: string;

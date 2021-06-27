@@ -6,6 +6,7 @@ import { NetworkInfoDetail } from './network-info-detail';
 import { Tags } from '../../custom/tags';
 
 export interface NetworkInfo {
+  readonly _id: number;
   readonly attributes: NetworkAttributes;
   readonly active: boolean;
   readonly nodeRefs: number[];

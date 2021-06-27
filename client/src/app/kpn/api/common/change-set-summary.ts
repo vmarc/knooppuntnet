@@ -8,6 +8,7 @@ import { Subset } from '../custom/subset';
 import { Timestamp } from '../custom/timestamp';
 
 export interface ChangeSetSummary {
+  readonly _id: string;
   readonly key: ChangeKey;
   readonly subsets: Subset[];
   readonly timestampFrom: Timestamp;
@@ -18,4 +19,5 @@ export interface ChangeSetSummary {
   readonly subsetAnalyses: ChangeSetSubsetAnalysis[];
   readonly happy: boolean;
   readonly investigate: boolean;
+  readonly impact: boolean;
 }

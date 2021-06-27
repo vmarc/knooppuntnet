@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { TimeKey } from '../../time-key';
 import { Timestamp } from '../../../custom/timestamp';
 
 export interface ChangeKey {
@@ -7,4 +8,5 @@ export interface ChangeKey {
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
   readonly elementId: number;
+  readonly time: TimeKey;
 }

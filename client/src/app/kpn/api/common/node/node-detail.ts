@@ -1,25 +1,24 @@
 // this file is generated, please do not modify
 
+import { Country } from '../../custom/country';
 import { Day } from '../../custom/day';
 import { Fact } from '../../custom/fact';
-import { RouteInfoAnalysis } from './route-info-analysis';
-import { RouteSummary } from '../route-summary';
+import { NodeName } from '../node-name';
 import { Tags } from '../../custom/tags';
 import { Timestamp } from '../../custom/timestamp';
 
-export interface RouteInfo {
-  readonly _id: number;
-  readonly labels: string[];
-  readonly summary: RouteSummary;
+export interface NodeDetail {
+  readonly id: number;
   readonly active: boolean;
   readonly orphan: boolean;
-  readonly version: number;
-  readonly changeSetId: number;
+  readonly country: Country;
+  readonly name: string;
+  readonly names: NodeName[];
+  readonly latitude: string;
+  readonly longitude: string;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
   readonly tags: Tags;
   readonly facts: Fact[];
-  readonly analysis: RouteInfoAnalysis;
-  readonly tiles: string[];
-  readonly nodeRefs: number[];
+  readonly locations: string[];
 }

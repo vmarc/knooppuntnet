@@ -13,6 +13,7 @@ import { Subset } from '../../../custom/subset';
 import { TagDiffs } from '../../diff/tag-diffs';
 
 export interface NodeChange {
+  readonly _id: string;
   readonly key: ChangeKey;
   readonly changeType: ChangeType;
   readonly subsets: Subset[];
@@ -33,6 +34,9 @@ export interface NodeChange {
   readonly facts: Fact[];
   readonly happy: boolean;
   readonly investigate: boolean;
+  readonly impact: boolean;
   readonly locationHappy: boolean;
   readonly locationInvestigate: boolean;
+  readonly locationImpact: boolean;
+  readonly comment: string;
 }

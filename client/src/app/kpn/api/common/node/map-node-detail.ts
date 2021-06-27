@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Ref } from '../common/ref';
+import { Reference } from '../common/reference';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface MapNodeDetail {
@@ -9,6 +9,6 @@ export interface MapNodeDetail {
   readonly latitude: string;
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
-  readonly networkReferences: Ref[];
-  readonly routeReferences: Ref[];
+  readonly networkReferences: Reference[];
+  readonly routeReferences: Reference[];
 }

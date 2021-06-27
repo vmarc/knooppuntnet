@@ -4,6 +4,7 @@ import { Tags } from '../../custom/tags';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface ChangeSetInfo {
+  readonly _id: number;
   readonly id: number;
   readonly createdAt: Timestamp;
   readonly closedAt: Timestamp;
