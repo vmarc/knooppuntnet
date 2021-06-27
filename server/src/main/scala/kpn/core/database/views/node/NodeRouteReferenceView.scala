@@ -3,6 +3,7 @@ package kpn.core.database.views.node
 import kpn.api.common.common.NodeRouteCount
 import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
@@ -79,7 +80,9 @@ object NodeRouteReferenceView extends View {
         val nodeId = Fields(res.rows.head.key).long(2)
         val refs = res.rows.map { row =>
           val key = Fields(row.key)
-          Ref(
+          Reference(
+            key.networkType(0),
+            key.networkScope(1),
             key.long(4),
             key.string(3)
           )

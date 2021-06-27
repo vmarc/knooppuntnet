@@ -1,7 +1,7 @@
 package kpn.core.mongo.actions.locations
 
 import kpn.api.common.NodeName
-import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -12,7 +12,6 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
-import kpn.core.mongo.NodeRouteReference
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodes.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -41,7 +40,7 @@ case class LocationNodeInfoDoc(
   lastSurvey: Option[Day],
   tags: Tags,
   facts: Seq[Fact],
-  routeReferences: Seq[NodeRouteReference]
+  routeReferences: Seq[Reference]
 ) {
 
   def networkTypeName(networkType: NetworkType): String = {
@@ -153,7 +152,7 @@ class MongoQueryLocationNodes(database: Database) {
           doc.lastSurvey,
           doc.facts.size, // TODO MONGO remove? this is not used in the userinterface??
           expectedRouteCount, // TODO MONGO include in NodeInfo directly??
-          doc.routeReferences.filter(_.networkType == networkType).map(r => Ref(r.routeId, r.routeName))
+          doc.routeReferences.filter(_.networkType == networkType)
         )
       }
       (s"location nodes: ${locationNodeInfos.size}", locationNodeInfos)

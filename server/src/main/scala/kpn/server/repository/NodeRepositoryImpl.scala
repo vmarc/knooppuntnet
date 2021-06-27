@@ -1,15 +1,15 @@
 package kpn.server.repository
 
 import kpn.api.common.NodeInfo
-import kpn.api.common.node.NodeNetworkReference
-import kpn.api.common.node.NodeOrphanRouteReference
-import kpn.core.database.doc.NodeDoc
+import kpn.api.common.common.Reference
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NodeNetworkReferenceView
-import kpn.core.database.views.analyzer.NodeOrphanRouteReferenceView
+import kpn.core.database.views.analyzer.NodeRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.mongo.Database
+import kpn.core.mongo.NodeDoc
+import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.core.mongo.migration.NodeDocBuilder
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
@@ -92,12 +92,12 @@ class NodeRepositoryImpl(
         }
       }
 
-      val newDocs = newNodes.map(node => NodeDoc(docId(node.id), node, None))
+      val newDocs = newNodes.map(node => kpn.core.database.doc.NodeDoc(docId(node.id), node, None))
 
       val updateDocs = updatedNodes.map { node =>
         val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
         val rev = fromDb.get._rev
-        NodeDoc(docId(node.id), node, rev)
+        kpn.core.database.doc.NodeDoc(docId(node.id), node, rev)
       }
 
       val docs = newDocs ++ updateDocs
@@ -129,13 +129,21 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
+  override def findById(nodeId: Long): Option[NodeDoc] = {
     if (mongoEnabled) {
-      // database.nodes.findById(nodeId, log)
-      null // TODO MONGO
+      database.nodes.findById(nodeId, log)
     }
     else {
-      analysisDatabase.docWithId(docId(nodeId), classOf[NodeDoc]).map(_.node)
+      throw new IllegalStateException("couchdb: method not supported")
+    }
+  }
+
+  override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
+    if (mongoEnabled) {
+      throw new IllegalStateException("mongodb: method not supported")
+    }
+    else {
+      analysisDatabase.docWithId(docId(nodeId), classOf[kpn.core.database.doc.NodeDoc]).map(_.node)
     }
   }
 
@@ -151,21 +159,21 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[NodeNetworkReference] = {
+  override def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[Reference] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryNodeNetworkReferences(database).execute(nodeId)
     }
     else {
       NodeNetworkReferenceView.query(analysisDatabase, nodeId, stale)
     }
   }
 
-  override def nodeOrphanRouteReferences(nodeId: Long, stale: Boolean = true): Seq[NodeOrphanRouteReference] = {
+  override def nodeRouteReferences(nodeId: Long, stale: Boolean = true): Seq[Reference] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      throw new IllegalStateException("mongodb: method not supported - route references are included in NodeDoc")
     }
     else {
-      NodeOrphanRouteReferenceView.query(analysisDatabase, nodeId, stale)
+      NodeRouteReferenceView.query(analysisDatabase, nodeId, stale)
     }
   }
 

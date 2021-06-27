@@ -1,22 +1,23 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Reference } from '@api/common/common/reference';
-import { NodeInfo } from '@api/common/node-info';
 
 @Component({
-  selector: 'kpn-node-network-reference',
+  selector: 'kpn-node-route-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
-      <kpn-icon-network-link
+    <p *ngIf="references.length === 0" i18n="@@node.route-references.none">
+      None
+    </p>
+    <p *ngFor="let reference of references">
+      <kpn-icon-route-link
         [reference]="reference"
         [mixedNetworkScopes]="mixedNetworkScopes"
-      ></kpn-icon-network-link>
-    </div>
+      ></kpn-icon-route-link>
+    </p>
   `,
 })
-export class NodeNetworkReferenceComponent {
-  @Input() nodeInfo: NodeInfo;
-  @Input() reference: Reference;
+export class NodeRouteReferencesComponent {
+  @Input() references: Reference[];
   @Input() mixedNetworkScopes: boolean;
 }

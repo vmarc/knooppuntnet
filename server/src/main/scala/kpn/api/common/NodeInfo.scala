@@ -4,6 +4,7 @@ import kpn.api.base.WithId
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Tagable
 import kpn.api.common.location.Location
+import kpn.api.common.node.NodeDetail
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -30,6 +31,24 @@ case class NodeInfo(
   location: Option[Location],
   tiles: Seq[String]
 ) extends Tagable with LatLon with WithId {
+
+  def toDetail: NodeDetail = {
+    NodeDetail(
+      _id,
+      active,
+      orphan,
+      country,
+      name,
+      names,
+      latitude,
+      longitude,
+      lastUpdated,
+      lastSurvey,
+      tags,
+      facts,
+      locations
+    )
+  }
 
   def networkTypeName(networkType: NetworkType): String = {
     names.filter(_.networkType == networkType).map(_.name).mkString(" / ")

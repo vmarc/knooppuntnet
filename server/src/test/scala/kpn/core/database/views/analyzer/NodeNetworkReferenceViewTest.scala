@@ -3,10 +3,12 @@ package kpn.core.database.views.analyzer
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.node.NodeNetworkIntegrityCheck
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeNetworkRouteReference
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withCouchDatabase
@@ -24,61 +26,28 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
 
       queryNode(database, 1001) should matchTo(
         Seq(
-          NodeNetworkReference(
-            networkId = 1,
-            networkType = NetworkType.hiking,
-            networkName = "network-1",
-            nodeDefinedInRelation = true,
-            nodeConnection = true,
-            nodeRoleConnection = true,
-            nodeIntegrityCheck = None,
-            facts = Seq.empty,
-            routes = Seq(
-              NodeNetworkRouteReference(
-                routeId = 10,
-                routeName = "01-02",
-                routeRole = Some("connection")
-              )
-            )
+          Reference(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            1,
+            "network-1",
           ),
-          NodeNetworkReference(
-            networkId = 2,
-            networkType = NetworkType.hiking,
-            networkName = "network-2",
-            nodeDefinedInRelation = true,
-            nodeConnection = false,
-            nodeRoleConnection = false,
-            nodeIntegrityCheck = None,
-            facts = Seq.empty,
-            routes = Seq.empty
+          Reference(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            2,
+            "network-2"
           )
         )
       )
 
       queryNode(database, 1002) should matchTo(
         Seq(
-          NodeNetworkReference(
-            networkId = 1,
-            networkType = NetworkType.hiking,
-            networkName = "network-1",
-            nodeDefinedInRelation = true,
-            nodeConnection = false,
-            nodeRoleConnection = false,
-            nodeIntegrityCheck = Some(
-              NodeNetworkIntegrityCheck(
-                failed = true,
-                expected = 3,
-                actual = 1
-              )
-            ),
-            facts = Seq.empty,
-            routes = Seq(
-              NodeNetworkRouteReference(
-                routeId = 10,
-                routeName = "01-02",
-                routeRole = Some("connection")
-              )
-            )
+          Reference(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            1,
+            "network-1"
           )
         )
       )
@@ -94,7 +63,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  def queryNode(database: Database, nodeId: Long): Seq[NodeNetworkReference] = {
+  def queryNode(database: Database, nodeId: Long): Seq[Reference] = {
     NodeNetworkReferenceView.query(database, nodeId, stale = false)
   }
 

@@ -11,7 +11,6 @@ import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
-import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -75,14 +74,20 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildDetailsPage(nodeId: Long): Option[NodeDetailsPage] = {
-    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-      val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed) // TODO this fact should not be generated anymore: exclude during database migration
-      val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
-      val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+    nodeRepository.findById(nodeId).map { nodeDoc =>
+      val changeCount = changeSetRepository.nodeChangesCount(nodeId)
+      val networkReferences = nodeRepository.nodeNetworkReferences(nodeId)
+      val mixedNetworkScopes = (
+        nodeDoc.names.map(_.networkScope) ++
+          nodeDoc.routeReferences.map(_.networkScope) ++
+          networkReferences.map(_.networkScope)
+        ).distinct.size > 1
       NodeDetailsPage(
-        filteredNodeInfo,
-        oldBuildNodeReferences(nodeInfo), // TODO include in aggregation
-        oldBuildNodeIntegrity(nodeInfo), // TODO include in aggregation
+        nodeDoc.toInfo,
+        mixedNetworkScopes,
+        nodeDoc.routeReferences,
+        networkReferences,
+        nodeDoc.integrity,
         changeCount
       )
     }
@@ -93,9 +98,18 @@ class NodePageBuilderImpl(
       val filteredFacts = nodeInfo.facts.filter(_ != Fact.IntegrityCheckFailed)
       val filteredNodeInfo = nodeInfo.copy(facts = filteredFacts)
       val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+      val networkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id)
+      val routeReferences = nodeRepository.nodeRouteReferences(nodeInfo.id)
+      val mixedNetworkScopes = (
+        nodeInfo.names.map(_.networkScope) ++
+          routeReferences.map(_.networkScope) ++
+          networkReferences.map(_.networkScope)
+        ).distinct.size > 1
       NodeDetailsPage(
         filteredNodeInfo,
-        oldBuildNodeReferences(nodeInfo),
+        mixedNetworkScopes,
+        routeReferences,
+        networkReferences,
         oldBuildNodeIntegrity(nodeInfo),
         changeCount
       )
@@ -103,15 +117,15 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildMapPage(nodeId: Long): Option[NodeMapPage] = {
-    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
-      val changeCount = changeSetRepository.nodeChangesCount(nodeInfo.id)
+    nodeRepository.findById(nodeId).map { nodeDoc =>
+      val changeCount = changeSetRepository.nodeChangesCount(nodeId)
       NodeMapPage(
         NodeMapInfo(
-          nodeInfo.id,
-          nodeInfo.name,
-          nodeInfo.names.map(_.networkType),
-          nodeInfo.latitude,
-          nodeInfo.longitude
+          nodeDoc._id,
+          nodeDoc.name,
+          nodeDoc.names.map(_.networkType),
+          nodeDoc.latitude,
+          nodeDoc.longitude
         ),
         changeCount
       )
@@ -135,10 +149,10 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildChangesPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
-    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+    nodeRepository.findById(nodeId).map { nodeDoc =>
       if (user.isDefined) {
-        val nodeChanges = changeSetRepository.nodeChanges(nodeInfo.id, parameters)
-        val changesFilter = changeSetRepository.nodeChangesFilter(nodeInfo.id, parameters.year, parameters.month, parameters.day)
+        val nodeChanges = changeSetRepository.nodeChanges(nodeId, parameters)
+        val changesFilter = changeSetRepository.nodeChangesFilter(nodeId, parameters.year, parameters.month, parameters.day)
         val totalCount = changesFilter.currentItemCount(parameters.impact)
         val incompleteWarning = isIncomplete(nodeChanges)
         val changes = nodeChanges.map { change =>
@@ -166,7 +180,8 @@ class NodePageBuilderImpl(
           )
         }
         NodeChangesPage(
-          nodeInfo,
+          nodeDoc._id,
+          nodeDoc.name,
           changesFilter,
           changes,
           incompleteWarning,
@@ -177,7 +192,8 @@ class NodePageBuilderImpl(
       else {
         // user is not logged in; we do not show change information
         NodeChangesPage(
-          nodeInfo,
+          nodeDoc._id,
+          nodeDoc.name,
           ChangesFilter.empty,
           Seq.empty,
           incompleteWarning = false,
@@ -197,7 +213,7 @@ class NodePageBuilderImpl(
       }
       else {
         // user is not logged in; we do not show change information
-        Seq()
+        Seq.empty
       }
 
       val incompleteWarning = isIncomplete(nodeChanges)
@@ -206,32 +222,38 @@ class NodePageBuilderImpl(
       val changes = nodeChanges.map { nodeChange =>
         new NodeChangeInfoBuilder().build(nodeChange, changeSetInfos)
       }
-      NodeChangesPage(nodeInfo, changesFilter, changes, incompleteWarning, totalCount, changesFilter.totalCount)
+      NodeChangesPage(
+        nodeId,
+        nodeInfo.name,
+        changesFilter,
+        changes,
+        incompleteWarning,
+        totalCount,
+        changesFilter.totalCount
+      )
     }
   }
 
-  private def oldBuildNodeReferences(nodeInfo: NodeInfo): NodeReferences = {
-    val nodeNetworkReferences = nodeRepository.nodeNetworkReferences(nodeInfo.id)
-    val nodeOrphanRouteReferences = nodeRepository.nodeOrphanRouteReferences(nodeInfo.id)
-    NodeReferences(nodeNetworkReferences, nodeOrphanRouteReferences)
-  }
-
-  private def oldBuildNodeIntegrity(nodeInfo: NodeInfo): NodeIntegrity = {
-    NodeIntegrity(
-      nodeInfo.names.flatMap { nodeName =>
-        val tagKey = nodeName.scopedNetworkType.expectedRouteRelationsTag
-        nodeInfo.tags(tagKey).map { tagValue =>
-          val expectedRouteCount: Int = tagValue.toInt
-          val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType, nodeInfo.id)
-          NodeIntegrityDetail(
-            nodeName.networkType,
-            nodeName.networkScope,
-            expectedRouteCount,
-            routeRefs
-          )
-        }
+  private def oldBuildNodeIntegrity(nodeInfo: NodeInfo): Option[NodeIntegrity] = {
+    val details = nodeInfo.names.flatMap { nodeName =>
+      val tagKey = nodeName.scopedNetworkType.expectedRouteRelationsTag
+      nodeInfo.tags(tagKey).map { tagValue =>
+        val expectedRouteCount: Int = tagValue.toInt
+        val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType, nodeInfo.id)
+        NodeIntegrityDetail(
+          nodeName.networkType,
+          nodeName.networkScope,
+          expectedRouteCount,
+          routeRefs
+        )
       }
-    )
+    }
+    if (details.nonEmpty) {
+      Some(NodeIntegrity(details))
+    }
+    else {
+      None
+    }
   }
 
   private def isIncomplete(nodeChanges: Seq[NodeChange]) = {

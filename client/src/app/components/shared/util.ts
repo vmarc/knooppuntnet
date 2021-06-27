@@ -127,11 +127,6 @@ export class Util {
 
   public static defaultChangesParameters(): ChangesParameters {
     return {
-      location: null,
-      subset: null,
-      networkId: null,
-      routeId: null,
-      nodeId: null,
       year: null,
       month: null,
       day: null,

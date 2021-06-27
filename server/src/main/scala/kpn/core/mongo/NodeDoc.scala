@@ -1,21 +1,17 @@
 package kpn.core.mongo
 
 import kpn.api.base.WithId
+import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
+import kpn.api.common.common.Reference
+import kpn.api.common.location.Location
+import kpn.api.common.node.NodeDetail
+import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-
-case class NodeRouteReference(
-  networkType: NetworkType,
-  networkScope: NetworkScope,
-  routeId: Long,
-  routeName: String
-)
 
 case class NodeDoc(
   _id: Long,
@@ -29,8 +25,47 @@ case class NodeDoc(
   lastSurvey: Option[Day],
   tags: Tags,
   facts: Seq[Fact],
-  factCount: Long,
   tiles: Seq[String],
   locations: Seq[String],
-  routeReferences: Seq[NodeRouteReference]
-) extends WithId
+  integrity: Option[NodeIntegrity],
+  routeReferences: Seq[Reference]
+) extends WithId {
+
+  def toInfo: NodeInfo = {
+    NodeInfo(
+      _id,
+      _id,
+      labels.contains("active"),
+      labels.contains("orphan"),
+      country,
+      name,
+      names,
+      latitude,
+      longitude,
+      lastUpdated,
+      lastSurvey,
+      tags,
+      facts,
+      Some(Location(locations)),
+      tiles
+    )
+  }
+
+  def toDetail: NodeDetail = {
+    NodeDetail(
+      _id,
+      labels.contains("active"),
+      labels.contains("orphan"),
+      country,
+      name,
+      names,
+      latitude,
+      longitude,
+      lastUpdated,
+      lastSurvey,
+      tags,
+      facts,
+      locations
+    )
+  }
+}

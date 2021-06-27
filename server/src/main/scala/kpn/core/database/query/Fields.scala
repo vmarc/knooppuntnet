@@ -1,6 +1,7 @@
 package kpn.core.database.query
 
 import kpn.api.custom.Country
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 
 object Fields {
@@ -33,6 +34,10 @@ class Fields(fields: Seq[String]) {
     NetworkType.withName(fields(index)).get
   }
 
+  def networkScope(index: Int): NetworkScope = {
+    NetworkScope.withName(fields(index)).get
+  }
+
   def country(index: Int): Country = {
     Country.withDomain(fields(index)).get
   }
@@ -44,5 +49,4 @@ class Fields(fields: Seq[String]) {
   def optionalLong(index: Int): Option[Long] = {
     fields.lift(index).map(_.toLong)
   }
-
 }

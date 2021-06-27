@@ -97,11 +97,6 @@ export class ChangeFilterOptions {
     day: string = null
   ): ChangesParameters {
     return {
-      location: parameters.location,
-      subset: parameters.subset,
-      networkId: parameters.networkId,
-      routeId: parameters.routeId,
-      nodeId: parameters.nodeId,
       year,
       month,
       day,

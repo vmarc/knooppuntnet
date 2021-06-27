@@ -8,10 +8,12 @@ import { Reference } from '@api/common/common/reference';
   template: `
     <kpn-icon-link
       [reference]="reference"
+      [mixedNetworkScopes]="mixedNetworkScopes"
       [url]="'/analysis/route/' + reference.id"
     ></kpn-icon-link>
   `,
 })
 export class IconRouteLinkComponent {
   @Input() reference: Reference;
+  @Input() mixedNetworkScopes: boolean;
 }

@@ -2,11 +2,13 @@
 
 import { NodeInfo } from '../node-info';
 import { NodeIntegrity } from './node-integrity';
-import { NodeReferences } from './node-references';
+import { Reference } from '../common/reference';
 
 export interface NodeDetailsPage {
   readonly nodeInfo: NodeInfo;
-  readonly references: NodeReferences;
+  readonly mixedNetworkScopes: boolean;
+  readonly routeReferences: Reference[];
+  readonly networkReferences: Reference[];
   readonly integrity: NodeIntegrity;
   readonly changeCount: number;
 }

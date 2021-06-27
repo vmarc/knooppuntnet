@@ -1,10 +1,12 @@
 package kpn.core.mongo.migration
 
 import kpn.api.common.NodeInfo
-import kpn.api.custom.NetworkType
+import kpn.api.common.common.Reference
+import kpn.api.common.node.NodeIntegrity
+import kpn.api.common.node.NodeIntegrityDetail
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.NodeDoc
-import kpn.core.mongo.NodeRouteReference
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -21,9 +23,10 @@ class NodeDocBuilder(database: Database) {
 
   def build(nodeInfo: NodeInfo): NodeDoc = {
 
-    val routeReferences = database.routes.aggregate[NodeRouteReference](routeReferencesPipeline(nodeInfo.id))
-
-    val labels = buildLabels(nodeInfo, routeReferences)
+    val routeReferences = database.routes.aggregate[Reference](routeReferencesPipeline(nodeInfo.id))
+    val integrity = buildIntegrity(nodeInfo, routeReferences)
+    val labels = buildLabels(nodeInfo, integrity, routeReferences)
+    val  facts = nodeInfo.facts.filterNot(_.name == "IntegrityCheckFailed")
 
     NodeDoc(
       _id = nodeInfo.id,
@@ -36,19 +39,19 @@ class NodeDocBuilder(database: Database) {
       lastUpdated = nodeInfo.lastUpdated,
       lastSurvey = nodeInfo.lastSurvey,
       tags = nodeInfo.tags,
-      facts = nodeInfo.facts,
-      factCount = nodeInfo.facts.size, // TODO MONGO filter out Integrity facts ???
+      facts = facts,
       tiles = nodeInfo.tiles,
       locations = nodeInfo.locations,
+      integrity = integrity,
       routeReferences = routeReferences
     )
   }
 
-  private def buildLabels(nodeInfo: NodeInfo, routeReferences: Seq[NodeRouteReference]): Seq[String] = {
+  private def buildLabels(nodeInfo: NodeInfo, integrity: Option[NodeIntegrity], routeReferences: Seq[Reference]): Seq[String] = {
     val basicLabels = buildBasicLabels(nodeInfo)
     val factLabels = nodeInfo.facts.map(fact => s"fact-${fact.name}")
     val networkTypeLabels = nodeInfo.names.map(name => s"network-type-${name.networkType.name}")
-    val integrityCheckLabels = buildIntegrityCheckLabels(nodeInfo, routeReferences)
+    val integrityCheckLabels = buildIntegrityCheckLabels(integrity)
     val locationLabels = nodeInfo.locations.map(location => s"location-$location")
     basicLabels ++ factLabels ++ networkTypeLabels ++ integrityCheckLabels ++ locationLabels
   }
@@ -62,30 +65,48 @@ class NodeDocBuilder(database: Database) {
     ).flatten
   }
 
-  private def buildIntegrityCheckLabels(nodeInfo: NodeInfo, routeReferences: Seq[NodeRouteReference]): Seq[String] = {
-    NetworkType.all.flatMap { networkType =>
-      val check = networkType.scopedNetworkTypes.exists { scopedNetworkType =>
-        nodeInfo.tags.has(scopedNetworkType.expectedRouteRelationsTag)
+  private def buildIntegrity(nodeInfo: NodeInfo, routeReferences: Seq[Reference]): Option[NodeIntegrity] = {
+    val nodeIntegrityDetails = ScopedNetworkType.all.flatMap { scopedNetworkType =>
+      nodeInfo.tags(scopedNetworkType.expectedRouteRelationsTag) match {
+        case None => None
+        case Some(expectedRouteRelationsValue) =>
+          if (expectedRouteRelationsValue.forall(Character.isDigit)) {
+            val expectedRouteCount = expectedRouteRelationsValue.toInt
+            val routeRefs = routeReferences.filter(rr => rr.networkType == scopedNetworkType.networkType && rr.networkScope == scopedNetworkType.networkScope).map(_.toRef)
+            Some(
+              NodeIntegrityDetail(
+                scopedNetworkType.networkType,
+                scopedNetworkType.networkScope,
+                expectedRouteCount,
+                routeRefs
+              )
+            )
+          }
+          else {
+            None
+          }
       }
+    }
+    if (nodeIntegrityDetails.nonEmpty) {
+      Some(NodeIntegrity(nodeIntegrityDetails))
+    }
+    else {
+      None
+    }
+  }
 
-      val failed = networkType.scopedNetworkTypes.exists { scopedNetworkType =>
-        nodeInfo.tags(scopedNetworkType.expectedRouteRelationsTag) match {
-          case None => false
-          case Some(expectedRouteRelationsValue) =>
-            if (expectedRouteRelationsValue.forall(Character.isDigit)) {
-              val expectedCount = expectedRouteRelationsValue.toInt
-              val actualCount = routeReferences.count(rr => rr.networkType == networkType && rr.networkScope == scopedNetworkType.networkScope)
-              expectedCount != actualCount
-            }
-            else {
-              false
-            }
+  private def buildIntegrityCheckLabels(nodeIntegrityOption: Option[NodeIntegrity]): Seq[String] = {
+    nodeIntegrityOption match {
+      case None => Seq.empty
+      case Some(nodeIntegrity) =>
+        val networkTypes = nodeIntegrity.details.map(_.networkType).distinct
+        networkTypes.flatMap { networkType =>
+          val failed = nodeIntegrity.details.filter(_.networkType == networkType).exists(_.failed)
+          Seq(
+            Some(s"integrity-check-${networkType.name}"),
+            if (failed) Some(s"integrity-check-failed-${networkType.name}") else None
+          ).flatten
         }
-      }
-      Seq(
-        if (check) Some(s"integrity-check-${networkType.name}") else None,
-        if (failed) Some(s"integrity-check-failed-${networkType.name}") else None
-      ).flatten
     }
   }
 
@@ -102,8 +123,8 @@ class NodeDocBuilder(database: Database) {
           excludeId(),
           computed("networkType", "$summary.networkType"),
           computed("networkScope", "$summary.networkScope"),
-          computed("routeId", "$summary.id"),
-          computed("routeName", "$summary.name")
+          computed("id", "$summary.id"),
+          computed("name", "$summary.name")
         )
       ),
       sort(orderBy(ascending("networkType", "networkScope", "routeName")))

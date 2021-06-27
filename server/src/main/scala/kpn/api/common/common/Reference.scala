@@ -1,17 +1,24 @@
 package kpn.api.common.common
 
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 
 case class Reference(
-  id: Long,
-  name: String,
   networkType: NetworkType,
-  connection: Boolean = false
+  networkScope: NetworkScope,
+  id: Long,
+  name: String
 ) extends Ordered[Reference] {
+
+  def toRef: Ref = {
+    Ref(id, name)
+  }
 
   import scala.math.Ordered.orderingToOrdered
 
   def compare(that: Reference): Int = {
-    (this.networkType.name, this.name).compare((that.networkType.name, that.name))
+    (this.networkScope.name, this.networkType.name, this.name).compare(
+      (that.networkScope.name, that.networkType.name, that.name)
+    )
   }
 }

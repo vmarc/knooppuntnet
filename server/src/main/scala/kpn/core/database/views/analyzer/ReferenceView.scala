@@ -1,6 +1,7 @@
 package kpn.core.database.views.analyzer
 
 import kpn.api.common.common.Reference
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
@@ -15,15 +16,15 @@ object ReferenceView extends View {
     referrerType: String,
     referrerId: Long,
     referrerNetworkType: NetworkType,
-    referrerName: String,
-    connection: Boolean
+    referrerNetworkScope: NetworkScope,
+    referrerName: String
   ) {
     def toReference: Reference = {
       Reference(
-        referrerId,
-        referrerName,
         referrerNetworkType,
-        connection
+        referrerNetworkScope,
+        referrerId,
+        referrerName
       )
     }
   }
@@ -51,8 +52,8 @@ object ReferenceView extends View {
         referrerType = key.string(2),
         referrerId = key.long(3),
         referrerNetworkType = value.networkType(0),
-        referrerName = value.string(1),
-        connection = value.boolean(2)
+        referrerNetworkScope = value.networkScope(1),
+        referrerName = value.string(2)
       )
     }
   }

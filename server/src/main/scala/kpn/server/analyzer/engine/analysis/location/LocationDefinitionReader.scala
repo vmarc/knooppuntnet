@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import java.io.FileInputStream
-import java.io.InputStreamReader
-import java.util.zip.GZIPInputStream
-
 import kpn.api.common.Language
 import kpn.api.common.Languages
 import kpn.api.custom.Country
 import kpn.server.json.Json
 import org.locationtech.jts.geom.Geometry
+
+import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.util.zip.GZIPInputStream
 
 object LocationDefinitionReader {
 
@@ -17,7 +17,6 @@ object LocationDefinitionReader {
   private case class LocationJson(properties: LocationJsonProperties, bbox: Seq[String], geometry: Geometry)
 
   private case class LocationsJson(features: Seq[LocationJson])
-
 }
 
 class LocationDefinitionReader(root: String, country: Country) {
@@ -64,5 +63,4 @@ class LocationDefinitionReader(root: String, country: Country) {
   private def countryFileName: String = {
     s"$root/${country.domain}.geojson.gz"
   }
-
 }

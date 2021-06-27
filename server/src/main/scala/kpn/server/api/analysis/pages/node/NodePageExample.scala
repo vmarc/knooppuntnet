@@ -8,6 +8,7 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
@@ -18,12 +19,8 @@ import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeIntegrity
+import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
-import kpn.api.common.node.NodeNetworkIntegrityCheck
-import kpn.api.common.node.NodeNetworkReference
-import kpn.api.common.node.NodeNetworkRouteReference
-import kpn.api.common.node.NodeOrphanRouteReference
-import kpn.api.common.node.NodeReferences
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -34,43 +31,7 @@ import kpn.api.custom.Timestamp
 
 object NodePageExample {
 
-  val nodeDetailsPage: NodeDetailsPage = {
-    NodeDetailsPage(
-      nodeInfo(),
-      nodeReferences(),
-      NodeIntegrity(),
-      123
-    )
-  }
-
-  val nodeMapPage: NodeMapPage = {
-    NodeMapPage(
-      NodeMapInfo(
-        id = 1,
-        name = "01 / 02",
-        networkTypes = Seq(
-          NetworkType.cycling,
-          NetworkType.hiking
-        ),
-        latitude = "51.5291600",
-        longitude = "4.297800",
-      ),
-      123
-    )
-  }
-
-  val nodeChangesPage: NodeChangesPage = {
-    NodeChangesPage(
-      nodeInfo(),
-      ChangesFilter(Seq()),
-      changes(),
-      incompleteWarning = true,
-      10,
-      10
-    )
-  }
-
-  private def nodeInfo(): NodeInfo = {
+  private val nodeInfo: NodeInfo = {
     NodeInfo(
       _id = 1,
       id = 1,
@@ -97,114 +58,81 @@ object NodePageExample {
         Fact.WasOrphan,
         Fact.Deleted
       ),
-      location = Some(Location(Seq("Roosendaal", "North Brabant", "NL"))),
+      location = Some(Location(Seq("NL", "North Brabant", "Roosendaal"))),
       Seq()
     )
   }
 
-  private def nodeReferences(): NodeReferences = {
-    NodeReferences(
-      networkReferences = Seq(
-        NodeNetworkReference(
-          networkType = NetworkType.hiking,
-          networkId = 1,
-          networkName = "network one",
-          nodeDefinedInRelation = true,
-          nodeConnection = false,
-          nodeRoleConnection = false,
-          nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = true, 3, 1)),
-          facts = Seq(Fact.NodeMemberMissing),
-          routes = Seq(
-            NodeNetworkRouteReference(
-              routeId = 11,
-              routeName = "01-02",
-              routeRole = Some("connection")
+  val nodeDetailsPage: NodeDetailsPage = {
+    NodeDetailsPage(
+      nodeInfo,
+      mixedNetworkScopes = true,
+      Seq(
+        Reference(NetworkType.cycling, NetworkScope.regional, 101, "01-02"),
+        Reference(NetworkType.cycling, NetworkScope.regional, 102, "02-03"),
+        Reference(NetworkType.cycling, NetworkScope.local, 103, "03-04"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 104, "05-06")
+      ),
+      Seq(
+        Reference(NetworkType.hiking, NetworkScope.regional, 1, "network one"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 2, "network two"),
+        Reference(NetworkType.hiking, NetworkScope.local, 3, "network three")
+      ),
+      Some(
+        NodeIntegrity(
+          Seq(
+            NodeIntegrityDetail(
+              NetworkType.cycling,
+              NetworkScope.regional,
+              3,
+              Seq(
+                Ref(101L, "01-02"),
+                Ref(102L, "02-03")
+              )
             ),
-            NodeNetworkRouteReference(
-              routeId = 12,
-              routeName = "01-03",
-              routeRole = None
-            )
-          )
-        ),
-        NodeNetworkReference(
-          networkType = NetworkType.hiking,
-          networkId = 2,
-          networkName = "network two",
-          nodeDefinedInRelation = true,
-          nodeConnection = true,
-          nodeRoleConnection = true,
-          nodeIntegrityCheck = None,
-          facts = Seq(Fact.NodeMemberMissing),
-          routes = Seq(
-            NodeNetworkRouteReference(
-              routeId = 11,
-              routeName = "01-02",
-              routeRole = Some("connection")
-            )
-          )
-        ),
-        NodeNetworkReference(
-          networkType = NetworkType.hiking,
-          networkId = 3,
-          networkName = "network three",
-          nodeDefinedInRelation = false,
-          nodeConnection = false,
-          nodeRoleConnection = false,
-          nodeIntegrityCheck = None,
-          facts = Seq(Fact.NodeMemberMissing),
-          routes = Seq(
-            NodeNetworkRouteReference(
-              routeId = 11,
-              routeName = "01-02",
-              routeRole = Some("connection")
-            ),
-            NodeNetworkRouteReference(
-              routeId = 12,
-              routeName = "01-03",
-              routeRole = None
-            ),
-            NodeNetworkRouteReference(
-              routeId = 13,
-              routeName = "01-04",
-              routeRole = None
-            )
-          )
-        ),
-        NodeNetworkReference(
-          networkType = NetworkType.hiking,
-          networkId = 4,
-          networkName = "network four",
-          nodeDefinedInRelation = true,
-          nodeConnection = false,
-          nodeRoleConnection = false,
-          nodeIntegrityCheck = Some(NodeNetworkIntegrityCheck(failed = false, 3, 3)),
-          facts = Seq(Fact.NodeMemberMissing),
-          routes = Seq(
-            NodeNetworkRouteReference(
-              routeId = 11,
-              routeName = "01-02",
-              routeRole = None
-            ),
-            NodeNetworkRouteReference(
-              routeId = 12,
-              routeName = "01-03",
-              routeRole = None
-            ),
-            NodeNetworkRouteReference(
-              routeId = 13,
-              routeName = "01-04",
-              routeRole = None
+            NodeIntegrityDetail(
+              NetworkType.cycling,
+              NetworkScope.local,
+              2,
+              Seq(
+                Ref(103L, "03-04")
+              )
             )
           )
         )
       ),
-      routeReferences = Seq(
-        NodeOrphanRouteReference(NetworkType.cycling, 1, "01-02"),
-        NodeOrphanRouteReference(NetworkType.hiking, 2, "01-03")
-      )
+      123
     )
   }
+
+  val nodeMapPage: NodeMapPage = {
+    NodeMapPage(
+      NodeMapInfo(
+        id = nodeInfo._id,
+        name = nodeInfo.name,
+        networkTypes = Seq(
+          NetworkType.cycling,
+          NetworkType.hiking
+        ),
+        latitude = "51.5291600",
+        longitude = "4.297800",
+      ),
+      123
+    )
+  }
+
+  val nodeChangesPage: NodeChangesPage = {
+    NodeChangesPage(
+      nodeInfo.id,
+      nodeInfo.name,
+      ChangesFilter(Seq()),
+      changes(),
+      incompleteWarning = true,
+      10,
+      10
+    )
+  }
+
 
   private def changes(): Seq[NodeChangeInfo] = {
     Seq(

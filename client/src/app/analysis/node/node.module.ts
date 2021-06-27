@@ -17,10 +17,9 @@ import { NodeDetailsPageComponent } from './details/_node-details-page.component
 import { NodeDetailsSidebarComponent } from './details/node-details-sidebar.component';
 import { NodeIntegrityComponent } from './details/node-integrity.component';
 import { NodeLocationComponent } from './details/node-location.component';
-import { NodeNetworkReferenceStatementComponent } from './details/node-network-reference-statement.component';
 import { NodeNetworkReferenceComponent } from './details/node-network-reference.component';
 import { NodeNetworkReferencesComponent } from './details/node-network-references.component';
-import { NodeOrphanRouteReferencesComponent } from './details/node-orphan-route-references.component';
+import { NodeRouteReferencesComponent } from './details/node-route-references.component';
 import { NodeSummaryComponent } from './details/node-summary.component';
 import { NodeMapPageComponent } from './map/_node-map-page.component';
 import { NodeRoutingModule } from './node-routing.module';
@@ -47,8 +46,7 @@ import { nodeFeatureKey } from './store/node.state';
     NodeSummaryComponent,
     NodeNetworkReferencesComponent,
     NodeNetworkReferenceComponent,
-    NodeNetworkReferenceStatementComponent,
-    NodeOrphanRouteReferencesComponent,
+    NodeRouteReferencesComponent,
     NodeChangesPageComponent,
     NodeMapPageComponent,
     NodePageHeaderComponent,

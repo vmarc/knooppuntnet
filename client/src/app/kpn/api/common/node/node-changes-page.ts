@@ -2,10 +2,10 @@
 
 import { ChangesFilter } from '../changes/filter/changes-filter';
 import { NodeChangeInfo } from './node-change-info';
-import { NodeInfo } from '../node-info';
 
 export interface NodeChangesPage {
-  readonly nodeInfo: NodeInfo;
+  readonly nodeId: number;
+  readonly nodeName: string;
   readonly filter: ChangesFilter;
   readonly changes: NodeChangeInfo[];
   readonly incompleteWarning: boolean;

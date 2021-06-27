@@ -1,8 +1,8 @@
 package kpn.api.common.node
 
+import kpn.api.common.common.Reference
+
 case class NodeReferences(
-  networkReferences: Seq[NodeNetworkReference] = Seq.empty,
-  routeReferences: Seq[NodeOrphanRouteReference] = Seq.empty
-) {
-  def isEmpty: Boolean = networkReferences.isEmpty && routeReferences.isEmpty
-}
+  networkReferences: Seq[Reference] = Seq.empty,
+  routeReferences: Seq[Reference] = Seq.empty
+)

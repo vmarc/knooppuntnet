@@ -1,6 +1,6 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.custom.NetworkScope
@@ -40,15 +40,15 @@ object NetworkNodesPageExample {
       lastSurvey = None,
       expectedRouteCount = "3",
       routeReferences = Seq(
-        Ref(11, "01-02"),
-        Ref(12, "01-03"),
-        Ref(13, "01-04"),
-        Ref(14, "01-05"),
-        Ref(15, "01-06"),
-        Ref(16, "01-07"),
-        Ref(17, "01-08")
+        Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 12, "01-03"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 13, "01-04"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 14, "01-05"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 15, "01-06"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 16, "01-07"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 17, "01-08")
       ),
-      facts = Seq(),
+      facts = Seq.empty,
       tags = Tags.empty
     )
   }
@@ -68,13 +68,12 @@ object NetworkNodesPageExample {
       lastSurvey = None,
       expectedRouteCount = "3",
       routeReferences = Seq(
-        Ref(11, "01-02"),
-        Ref(12, "01-03"),
-        Ref(13, "01-04")
+        Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 12, "01-03"),
+        Reference(NetworkType.hiking, NetworkScope.regional, 13, "01-04")
       ),
-      facts = Seq(),
+      facts = Seq.empty,
       tags = Tags.empty
     )
   }
-
 }

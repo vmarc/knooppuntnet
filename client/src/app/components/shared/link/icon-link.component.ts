@@ -6,31 +6,21 @@ import { Reference } from '@api/common/common/reference';
   selector: 'kpn-icon-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-network-type-icon
-      [networkType]="reference.networkType"
-    ></kpn-network-type-icon>
-    <a class="text" [routerLink]="url">{{ reference.name }}</a>
-    <mat-icon *ngIf="reference.connection" svgIcon="link"></mat-icon>
+    <div class="kpn-line">
+      <kpn-network-type-icon
+        [networkType]="reference.networkType"
+      ></kpn-network-type-icon>
+      <a [routerLink]="url">{{ reference.name }}</a>
+      <span *ngIf="mixedNetworkScopes" class="kpn-brackets kpn-thin">
+        <kpn-network-scope-name
+          [networkScope]="reference.networkScope"
+        ></kpn-network-scope-name>
+      </span>
+    </div>
   `,
-  styles: [
-    `
-      a {
-        vertical-align: top;
-        padding-left: 10px;
-        padding-right: 10px;
-        line-height: 24px;
-      }
-
-      mat-icon {
-        color: gray;
-        vertical-align: top;
-        padding-top: 4px;
-        height: 16px;
-      }
-    `,
-  ],
 })
 export class IconLinkComponent {
   @Input() reference: Reference;
+  @Input() mixedNetworkScopes: boolean;
   @Input() url: string;
 }

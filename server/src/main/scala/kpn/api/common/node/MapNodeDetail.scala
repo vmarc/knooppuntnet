@@ -1,6 +1,7 @@
 package kpn.api.common.node
 
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.custom.Timestamp
 
 case class MapNodeDetail(
@@ -9,6 +10,6 @@ case class MapNodeDetail(
   latitude: String,
   longitude: String,
   lastUpdated: Timestamp,
-  networkReferences: Seq[Ref],
-  routeReferences: Seq[Ref]
+  networkReferences: Seq[Reference], // TODO MONGO do we need this???
+  routeReferences: Seq[Reference] // TODO MONGO do we need this???
 )

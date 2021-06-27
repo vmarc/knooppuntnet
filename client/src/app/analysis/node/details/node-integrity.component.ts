@@ -13,7 +13,7 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
       expected_??n_route_relations tag).
     </p>
 
-    <div *ngFor="let detail of integrity.details" class="detail">
+    <div *ngFor="let detail of integrity.details">
       <div class="kpn-line detail-header">
         <kpn-network-type-icon
           [networkType]="detail.networkType"
@@ -30,34 +30,19 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
               detail.expectedRouteCount
             }}).
           </span>
-          <span *ngIf="hasMixedNetworkScopes()" class="kpn-brackets">
+          <kpn-icon-happy *ngIf="happy(detail)"></kpn-icon-happy>
+          <kpn-icon-investigate *ngIf="!happy(detail)"></kpn-icon-investigate>
+          <span *ngIf="mixedNetworkScopes" class="kpn-brackets kpn-thin">
             <kpn-network-scope-name
               [networkScope]="detail.networkScope"
             ></kpn-network-scope-name>
           </span>
-          <kpn-icon-happy *ngIf="happy(detail)"></kpn-icon-happy>
-          <kpn-icon-investigate *ngIf="!happy(detail)"></kpn-icon-investigate>
-        </div>
-      </div>
-      <div *ngFor="let ref of detail.routeRefs">
-        <div class="kpn-line route-ref">
-          <kpn-network-type-icon
-            [networkType]="detail.networkType"
-          ></kpn-network-type-icon>
-          <kpn-link-route
-            [routeId]="ref.id"
-            [title]="ref.name"
-          ></kpn-link-route>
         </div>
       </div>
     </div>
   `,
   styles: [
     `
-      .detail {
-        padding-bottom: 1em;
-      }
-
       .detail-header {
         padding-bottom: 0.5em;
       }
@@ -69,11 +54,6 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
 
       .detail-header-text :not(:last-child) {
         padding-right: 0.8em;
-      }
-
-      .route-ref {
-        padding-left: 2em;
-        height: 36px;
       }
 
       kpn-icon-happy {
@@ -90,16 +70,9 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
 })
 export class NodeIntegrityComponent {
   @Input() integrity: NodeIntegrity;
+  @Input() mixedNetworkScopes: boolean;
 
   happy(detail: NodeIntegrityDetail): boolean {
     return detail.expectedRouteCount === detail.routeRefs.length;
-  }
-
-  hasMixedNetworkScopes(): boolean {
-    return (
-      this.integrity.details
-        .map((detail) => detail.networkScope)
-        .filter((itm, idx, arr) => arr.indexOf(itm) === idx).length > 1
-    );
   }
 }

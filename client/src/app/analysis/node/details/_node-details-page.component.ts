@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Ref } from '@api/common/common/ref';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
@@ -67,22 +66,26 @@ import { selectNodeChangeCount } from '../store/node.selectors';
         </kpn-data>
 
         <kpn-data title="Integrity" i18n-title="@@node.integrity">
-          <kpn-node-integrity [integrity]="page.integrity"></kpn-node-integrity>
+          <kpn-node-integrity
+            [integrity]="page.integrity"
+            [mixedNetworkScopes]="page.mixedNetworkScopes"
+          ></kpn-node-integrity>
+        </kpn-data>
+
+        <kpn-data title="Routes" i18n-title="@@node.routes">
+          <kpn-node-route-references
+            [references]="page.routeReferences"
+            [mixedNetworkScopes]="page.mixedNetworkScopes"
+          ></kpn-node-route-references>
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
           <kpn-node-network-references
             [nodeInfo]="page.nodeInfo"
-            [references]="page.references.networkReferences"
+            [references]="page.networkReferences"
+            [mixedNetworkScopes]="page.mixedNetworkScopes"
           >
           </kpn-node-network-references>
-        </kpn-data>
-
-        <kpn-data title="Free routes" i18n-title="@@node.orphan-routes">
-          <kpn-node-orphan-route-references
-            [references]="page.references.routeReferences"
-          >
-          </kpn-node-orphan-route-references>
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
@@ -116,16 +119,6 @@ export class NodeDetailsPageComponent implements OnInit {
   }
 
   buildFactInfos(page: NodeDetailsPage): FactInfo[] {
-    const nodeFacts = page.nodeInfo.facts.map((fact) => new FactInfo(fact));
-    page.references.networkReferences.forEach((networkReference) => {
-      networkReference.facts.forEach((fact) => {
-        const networkRef: Ref = {
-          id: networkReference.networkId,
-          name: networkReference.networkName,
-        };
-        nodeFacts.push(new FactInfo(fact, networkRef, null, null));
-      });
-    });
-    return nodeFacts;
+    return page.nodeInfo.facts.map((fact) => new FactInfo(fact));
   }
 }

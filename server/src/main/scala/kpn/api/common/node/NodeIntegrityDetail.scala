@@ -9,4 +9,8 @@ case class NodeIntegrityDetail(
   networkScope: NetworkScope,
   expectedRouteCount: Int,
   routeRefs: Seq[Ref]
-)
+) {
+  def failed: Boolean = {
+    routeRefs.size != expectedRouteCount
+  }
+}

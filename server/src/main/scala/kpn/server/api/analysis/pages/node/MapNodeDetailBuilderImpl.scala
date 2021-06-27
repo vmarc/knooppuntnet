@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.node
 
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeNetworkRouteReference
@@ -27,28 +28,21 @@ class MapNodeDetailBuilderImpl(
         nodeInfo.latitude,
         nodeInfo.longitude,
         nodeInfo.lastUpdated,
-        networkReferences.map(toRef),
+        networkReferences,
         routeReferences
       )
     }
   }
 
-  private def buildNetworkReferences(networkType: NetworkType, nodeId: Long): Seq[NodeNetworkReference] = {
+  private def buildNetworkReferences(networkType: NetworkType, nodeId: Long): Seq[Reference] = {
     nodeRepository.nodeNetworkReferences(nodeId)
       .filter(_.networkType == networkType)
-      .filter(_.nodeConnection == false)
   }
 
-  private def buildRouteReferences(networkRefs: Seq[NodeNetworkReference], networkType: NetworkType, nodeId: Long): Seq[Ref] = {
-    val networkRouteRefs = networkRefs.flatMap(r => r.routes).map(toRef)
-    val orphanRouteRefs = retrieveOrphanRouteRefs(networkType, nodeId)
-    (networkRouteRefs ++ orphanRouteRefs).distinct.sortBy(_.name)
-  }
-
-  private def retrieveOrphanRouteRefs(networkType: NetworkType, nodeId: Long): Seq[Ref] = {
-    nodeRepository.nodeOrphanRouteReferences(nodeId)
+  private def buildRouteReferences(networkRefs: Seq[Reference], networkType: NetworkType, nodeId: Long): Seq[Reference] = {
+    nodeRepository.nodeRouteReferences(nodeId)
       .filter(_.networkType == networkType)
-      .map(toRef)
+      .sortBy(_.name)
   }
 
   private def toRef(ref: NodeNetworkReference): Ref = {
@@ -62,5 +56,4 @@ class MapNodeDetailBuilderImpl(
   private def toRef(ref: NodeNetworkRouteReference): Ref = {
     Ref(ref.routeId, ref.routeName)
   }
-
 }

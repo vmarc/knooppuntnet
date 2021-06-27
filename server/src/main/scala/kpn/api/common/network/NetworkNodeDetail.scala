@@ -2,6 +2,7 @@ package kpn.api.common.network
 
 import kpn.api.common.LatLon
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
@@ -20,7 +21,7 @@ case class NetworkNodeDetail(
   timestamp: Timestamp,
   lastSurvey: Option[Day],
   expectedRouteCount: String,
-  routeReferences: Seq[Ref],
+  routeReferences: Seq[Reference],
   facts: Seq[Fact],
   tags: Tags
 ) extends LatLon

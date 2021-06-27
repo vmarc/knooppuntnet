@@ -1,7 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.node.NodeNetworkReference
+import kpn.api.common.common.Reference
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withCouchDatabase
@@ -130,16 +131,11 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(null, database, false)
       nodeRepository.nodeNetworkReferences(1001, stale = false) should matchTo(
         Seq(
-          NodeNetworkReference(
+          Reference(
             NetworkType.hiking,
+            NetworkScope.regional,
             2,
-            "network-2",
-            nodeDefinedInRelation = true,
-            nodeConnection = false,
-            nodeRoleConnection = false,
-            None,
-            Seq(),
-            Seq()
+            "network-2"
           )
         )
       )

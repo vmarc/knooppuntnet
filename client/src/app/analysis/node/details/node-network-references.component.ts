@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { Reference } from '@api/common/common/reference';
 import { NodeInfo } from '@api/common/node-info';
-import { NodeNetworkReference } from '@api/common/node/node-network-reference';
 
 @Component({
   selector: 'kpn-node-network-references',
@@ -14,11 +14,13 @@ import { NodeNetworkReference } from '@api/common/node/node-network-reference';
       <kpn-node-network-reference
         [nodeInfo]="nodeInfo"
         [reference]="reference"
+        [mixedNetworkScopes]="mixedNetworkScopes"
       ></kpn-node-network-reference>
     </p>
   `,
 })
 export class NodeNetworkReferencesComponent {
   @Input() nodeInfo: NodeInfo;
-  @Input() references: NodeNetworkReference[];
+  @Input() references: Reference[];
+  @Input() mixedNetworkScopes: boolean;
 }

@@ -1,16 +1,17 @@
 package kpn.core.database.views.analyzer
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.node.NodeOrphanRouteReference
+import kpn.api.common.common.Reference
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.RouteRepositoryImpl
 
-class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
+class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
-  test("node references in orphan route") {
+  test("node references in route") {
 
     withCouchDatabase { database =>
       val routeRepository = new RouteRepositoryImpl(null, database, false)
@@ -52,10 +53,11 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       )
 
       val expectedReferences = Seq(
-        NodeOrphanRouteReference(
+        Reference(
           networkType = NetworkType.hiking,
-          routeId = 10,
-          routeName = "01-02"
+          networkScope = NetworkScope.regional,
+          id = 10,
+          name = "01-02"
         )
       )
 
@@ -68,28 +70,6 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("no node references in orphan routes") {
     withCouchDatabase { database =>
-      queryNode(database, 1001) shouldBe empty
-    }
-  }
-
-  test("node references in non-orphan routes are ignored") {
-    withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
-      routeRepository.save(
-        newRoute( // not an orphan route
-          id = 10,
-          analysis = newRouteInfoAnalysis(
-            map = newRouteMap(
-              startNodes = Seq(
-                newRouteNetworkNodeInfo(
-                  id = 1001,
-                  name = "01"
-                )
-              )
-            )
-          )
-        )
-      )
       queryNode(database, 1001) shouldBe empty
     }
   }
@@ -121,7 +101,7 @@ class NodeOrphanRouteReferenceViewTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  def queryNode(database: Database, nodeId: Long): Seq[NodeOrphanRouteReference] = {
-    NodeOrphanRouteReferenceView.query(database, nodeId, stale = false)
+  def queryNode(database: Database, nodeId: Long): Seq[Reference] = {
+    NodeRouteReferenceView.query(database, nodeId, stale = false)
   }
 }

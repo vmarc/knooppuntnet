@@ -46,8 +46,8 @@ export const nodeReducer = createReducer(
     };
   }),
   on(actionNodeChangesPageLoaded, (state, { response }) => {
-    const nodeId = response.result?.nodeInfo.id.toString() ?? state.nodeId;
-    const nodeName = response.result?.nodeInfo.name ?? state.nodeName;
+    const nodeId = response.result?.nodeId.toString() ?? state.nodeId;
+    const nodeName = response.result?.nodeName ?? state.nodeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
     return {
       ...state,

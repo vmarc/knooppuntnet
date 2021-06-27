@@ -1,9 +1,12 @@
 package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationSummary
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 
@@ -29,8 +32,8 @@ object LocationNodesPageExample {
           factCount = 3,
           expectedRouteCount = "3",
           routeReferences = Seq(
-            Ref(101, "01-02"),
-            Ref(102, "01-03")
+            Reference(NetworkType.hiking, NetworkScope.regional, 101, "01-02"),
+            Reference(NetworkType.hiking, NetworkScope.regional, 102, "01-03")
           )
         )
       )

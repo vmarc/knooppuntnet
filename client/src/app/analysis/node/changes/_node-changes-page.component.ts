@@ -146,7 +146,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
                 if (response.result) {
                   this.page = Util.safeGet(() => response.result);
                   this.nodeName$.next(
-                    Util.safeGet(() => response.result.nodeInfo.name)
+                    Util.safeGet(() => response.result.nodeName)
                   );
                   this.changeCount$.next(
                     Util.safeGet(() => response.result.changeCount)
@@ -186,11 +186,7 @@ export class NodeChangesPageComponent implements OnInit, OnDestroy {
   private updateParameters(nodeId: string) {
     // TODO use spread
     this.parameters = {
-      location: null,
-      subset: null,
-      networkId: null,
-      routeId: null,
-      nodeId: +nodeId,
+      // nodeId: +nodeId,
       year: this.parameters.year,
       month: this.parameters.month,
       day: this.parameters.day,

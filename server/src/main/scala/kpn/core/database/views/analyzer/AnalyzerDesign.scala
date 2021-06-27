@@ -10,7 +10,7 @@ object AnalyzerDesign extends Design {
     FactsPerNetworkView,
     NetworkView,
     NodeNetworkReferenceView,
-    NodeOrphanRouteReferenceView,
+    NodeRouteReferenceView,
     OrphanRouteView,
     OrphanNodeView,
     Overview,

@@ -189,11 +189,6 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   ) {
     // TODO use spread
     this.parameters = {
-      location: null,
-      subset: null,
-      networkId: null,
-      routeId: +routeId,
-      nodeId: null,
       year: this.parameters.year,
       month: this.parameters.month,
       day: this.parameters.day,

@@ -2,6 +2,7 @@ package kpn.core.database.views.analyzer
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withCouchDatabase
@@ -69,15 +70,15 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
 
       ReferenceView.query(database, "node", 1001, stale = false) should matchTo(
         Seq(
-          ReferenceView.Row("node", 1001, "network", 1, NetworkType.hiking, "network-name", connection = false),
-          ReferenceView.Row("node", 1001, "route", 10, NetworkType.hiking, "route-name", connection = false)
+          ReferenceView.Row("node", 1001, "network", 1, NetworkType.hiking, NetworkScope.regional, "network-name"),
+          ReferenceView.Row("node", 1001, "route", 10, NetworkType.hiking, NetworkScope.regional, "route-name")
         )
       )
 
       ReferenceView.query(database, "node", 1002, stale = false) should matchTo(
         Seq(
-          ReferenceView.Row("node", 1002, "network", 1, NetworkType.hiking, "network-name", connection = false),
-          ReferenceView.Row("node", 1002, "route", 10, NetworkType.hiking, "route-name", connection = false)
+          ReferenceView.Row("node", 1002, "network", 1, NetworkType.hiking, NetworkScope.regional, "network-name"),
+          ReferenceView.Row("node", 1002, "route", 10, NetworkType.hiking, NetworkScope.regional, "route-name")
         )
       )
 
@@ -85,7 +86,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
 
       ReferenceView.query(database, "route", 10, stale = false) should matchTo(
         Seq(
-          ReferenceView.Row("route", 10, "network", 1, NetworkType.hiking, "network-name", connection = false)
+          ReferenceView.Row("route", 10, "network", 1, NetworkType.hiking, NetworkScope.regional, "network-name")
         )
       )
 
