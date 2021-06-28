@@ -9,7 +9,6 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.api.common.route.RouteReferences
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -24,7 +23,10 @@ object RouteDetailsPageExample {
   val page: RouteDetailsPage = {
     RouteDetailsPage(
       route(),
-      routeReferences(),
+      networkReferences = Seq(
+        Reference(NetworkType.cycling, NetworkScope.regional, 1, "network one"),
+        Reference(NetworkType.cycling, NetworkScope.regional, 2, "network two")
+      ),
       123
     )
   }
@@ -218,15 +220,6 @@ object RouteDetailsPageExample {
       analysis,
       Seq(),
       analysis.map.nodeIds
-    )
-  }
-
-  private def routeReferences(): RouteReferences = {
-    RouteReferences(
-      networkReferences = Seq(
-        Reference(NetworkType.cycling, NetworkScope.regional, 1, "network one"),
-        Reference(NetworkType.cycling, NetworkScope.regional, 2, "network two")
-      )
     )
   }
 }

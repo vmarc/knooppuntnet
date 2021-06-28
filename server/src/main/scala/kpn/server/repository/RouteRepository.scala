@@ -1,7 +1,9 @@
 package kpn.server.repository
 
+import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteReferences
+import kpn.api.common.route.RouteMapInfo
+import kpn.api.common.route.RouteNameInfo
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 
 trait RouteRepository {
@@ -16,9 +18,13 @@ trait RouteRepository {
 
   def routeWithId(routeId: Long): Option[RouteInfo]
 
+  def mapInfo(routeId: Long): Option[RouteMapInfo]
+
+  def nameInfo(routeId: Long): Option[RouteNameInfo]
+
   def routeElementsWithId(routeId: Long): Option[RouteElements]
 
-  def routeReferences(routeId: Long, stale: Boolean = true): RouteReferences
+  def networkReferences(routeId: Long, stale: Boolean = true): Seq[Reference]
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
 }

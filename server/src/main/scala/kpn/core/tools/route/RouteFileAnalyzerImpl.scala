@@ -1,7 +1,9 @@
 package kpn.core.tools.route
 
+import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteReferences
+import kpn.api.common.route.RouteMapInfo
+import kpn.api.common.route.RouteNameInfo
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -122,9 +124,13 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
 
       override def routeWithId(routeId: Long): Option[RouteInfo] = None
 
+      override def mapInfo(routeId: Long): Option[RouteMapInfo] = None
+
+      override def nameInfo(routeId: Long): Option[RouteNameInfo] = None
+
       override def routeElementsWithId(routeId: Long): Option[RouteElements] = ???
 
-      override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = ???
+      override def networkReferences(routeId: Long, stale: Boolean): Seq[Reference] = ???
 
       override def filterKnown(routeIds: Set[Long]): Set[Long] = ???
     }

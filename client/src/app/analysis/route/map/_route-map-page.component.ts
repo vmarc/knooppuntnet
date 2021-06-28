@@ -40,7 +40,9 @@ import { selectRouteId } from '../store/route.selectors';
         Route not found
       </div>
       <div *ngIf="response.result">
-        <kpn-route-map [routeInfo]="response.result.route"></kpn-route-map>
+        <kpn-route-map
+          [routeMapInfo]="response.result.routeMapInfo"
+        ></kpn-route-map>
       </div>
     </div>
   `,

@@ -1,7 +1,9 @@
 package kpn.api.common.route
 
+import kpn.api.common.common.Reference
+
 case class RouteDetailsPage(
   route: RouteInfo,
-  references: RouteReferences,
+  networkReferences: Seq[Reference],
   changeCount: Long
 )

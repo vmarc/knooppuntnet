@@ -36,8 +36,9 @@ export const routeReducer = createReducer(
   }),
   on(actionRouteMapPageLoaded, (state, { response }) => {
     const routeId =
-      response.result?.route.summary.id.toString() ?? state.routeId;
-    const routeName = response.result?.route.summary.name ?? state.routeName;
+      response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
+    const routeName =
+      response.result?.routeMapInfo.routeName ?? state.routeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
     return {
       ...state,
@@ -49,8 +50,9 @@ export const routeReducer = createReducer(
   }),
   on(actionRouteChangesPageLoaded, (state, { response }) => {
     const routeId =
-      response.result?.route.summary.id.toString() ?? state.routeId;
-    const routeName = response.result?.route.summary.name ?? state.routeName;
+      response.result?.routeNameInfo.routeId.toString() ?? state.routeId;
+    const routeName =
+      response.result?.routeNameInfo.routeName ?? state.routeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
     return {
       ...state,

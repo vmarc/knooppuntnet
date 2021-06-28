@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
+import { Reference } from '../common/reference';
 import { RouteInfo } from './route-info';
-import { RouteReferences } from './route-references';
 
 export interface RouteDetailsPage {
   readonly route: RouteInfo;
-  readonly references: RouteReferences;
+  readonly networkReferences: Reference[];
   readonly changeCount: number;
 }

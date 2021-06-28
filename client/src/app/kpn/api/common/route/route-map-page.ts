@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { RouteInfo } from './route-info';
+import { RouteMapInfo } from './route-map-info';
 
 export interface RouteMapPage {
-  readonly route: RouteInfo;
+  readonly routeMapInfo: RouteMapInfo;
   readonly changeCount: number;
 }

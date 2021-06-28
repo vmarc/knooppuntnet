@@ -1,13 +1,18 @@
 package kpn.server.repository
 
+import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteReferences
+import kpn.api.common.route.RouteMapInfo
+import kpn.api.common.route.RouteNameInfo
 import kpn.core.database.doc.RouteDoc
 import kpn.core.database.doc.RouteElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.routes.MongoQueryRouteMapInfo
+import kpn.core.mongo.actions.routes.MongoQueryRouteNameInfo
+import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.springframework.stereotype.Component
@@ -76,6 +81,24 @@ class RouteRepositoryImpl(
     }
   }
 
+  override def mapInfo(routeId: Long): Option[RouteMapInfo] = {
+    if (mongoEnabled) {
+      new MongoQueryRouteMapInfo(database).execute(routeId, log)
+    }
+    else {
+      throw new IllegalStateException("couchdb: method not supported")
+    }
+  }
+
+  override def nameInfo(routeId: Long): Option[RouteNameInfo] = {
+    if (mongoEnabled) {
+      new MongoQueryRouteNameInfo(database).execute(routeId, log)
+    }
+    else {
+      throw new IllegalStateException("couchdb: method not supported")
+    }
+  }
+
   override def routeElementsWithId(routeId: Long): Option[RouteElements] = {
     if (mongoEnabled) {
       database.routeElements.findById(routeId, log)
@@ -85,14 +108,13 @@ class RouteRepositoryImpl(
     }
   }
 
-  override def routeReferences(routeId: Long, stale: Boolean): RouteReferences = {
+  override def networkReferences(routeId: Long, stale: Boolean): Seq[Reference] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO implemented through lookup elsewhere?
+      new MongoQueryRouteNetworkReferences(database).execute(routeId, log)
     }
     else {
       val rows = ReferenceView.query(analysisDatabase, "route", routeId, stale)
-      val networkReferences = rows.filter(_.referrerType == "network").map(_.toReference).sorted
-      RouteReferences(networkReferences)
+      rows.filter(_.referrerType == "network").map(_.toReference).sorted
     }
   }
 

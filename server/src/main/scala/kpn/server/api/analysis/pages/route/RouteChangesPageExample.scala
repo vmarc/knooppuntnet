@@ -19,6 +19,7 @@ import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.common.route.RouteChangesPage
+import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -26,8 +27,13 @@ import kpn.api.custom.Timestamp
 object RouteChangesPageExample {
 
   val page: RouteChangesPage = {
+    val route = RouteDetailsPageExample.page.route
     RouteChangesPage(
-      RouteDetailsPageExample.page.route,
+      RouteNameInfo(
+        route._id,
+        route.summary.name,
+        route.summary.networkType
+      ),
       ChangesFilter(Seq()),
       changes(),
       incompleteWarning = true,

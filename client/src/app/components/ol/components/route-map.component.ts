@@ -1,11 +1,11 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
+import { RouteMapInfo } from '@api/common/route/route-map-info';
 import { List } from 'immutable';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { RouteInfo } from '@api/common/route/route-info';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
@@ -27,7 +27,7 @@ import { MapService } from '../services/map.service';
   `,
 })
 export class RouteMapComponent implements AfterViewInit, OnDestroy {
-  @Input() routeInfo: RouteInfo;
+  @Input() routeMapInfo: RouteMapInfo;
 
   layers: MapLayers;
   private networkVectorTileLayer: MapLayer;
@@ -93,7 +93,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildExtent(): Extent {
-    const bounds = this.routeInfo.analysis.map.bounds;
+    const bounds = this.routeMapInfo.map.bounds;
     const min = Util.toCoordinate(bounds.latMin, bounds.lonMin);
     const max = Util.toCoordinate(bounds.latMax, bounds.lonMax);
     return [min[0], min[1], max[0], max[1]];
@@ -101,7 +101,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(
-      this.routeInfo.summary.networkType
+      this.routeMapInfo.networkType
     );
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(
@@ -109,7 +109,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     );
     mapLayers = mapLayers.push(this.networkVectorTileLayer);
     mapLayers = mapLayers.concat(
-      this.mapLayerService.routeLayers(this.routeInfo.analysis.map)
+      this.mapLayerService.routeLayers(this.routeMapInfo.map)
     );
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);

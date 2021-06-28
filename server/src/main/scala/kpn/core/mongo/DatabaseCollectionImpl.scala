@@ -36,6 +36,18 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     Await.result(future, duration)
   }
 
+  override def optionAggregate[R: ClassTag](
+    pipeline: Seq[Bson],
+    log: Log,
+    duration: Duration
+  ): Option[R] = {
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
+    val future = collection.aggregate[R](pipeline).headOption()
+    Await.result(future, duration)
+  }
+
   override def stringPipelineAggregate[R: ClassTag](
     pipelineString: String,
     pipelineArgs: Map[String, String],

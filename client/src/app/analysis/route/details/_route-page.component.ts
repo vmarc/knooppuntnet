@@ -64,9 +64,7 @@ import { selectRouteId } from '../store/route.selectors';
         </kpn-data>
 
         <kpn-data title="Network" i18n-title="@@route.network">
-          <kpn-route-network-references
-            [references]="page.references.networkReferences"
-          >
+          <kpn-route-network-references [references]="page.networkReferences">
           </kpn-route-network-references>
         </kpn-data>
 
