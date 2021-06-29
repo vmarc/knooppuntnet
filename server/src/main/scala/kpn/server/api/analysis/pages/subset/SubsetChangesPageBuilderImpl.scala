@@ -9,18 +9,28 @@ import kpn.server.api.analysis.pages.ChangeSetSummarySubsetFilter
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.OverviewRepository
+import kpn.server.repository.SubsetRepository
 import org.springframework.stereotype.Component
 
 @Component
 class SubsetChangesPageBuilderImpl(
   overviewRepository: OverviewRepository,
   changeSetRepository: ChangeSetRepository,
-  changeSetInfoRepository: ChangeSetInfoRepository
+  changeSetInfoRepository: ChangeSetInfoRepository,
+  subsetRepository: SubsetRepository,
+  // old:
+  mongoEnabled: Boolean
 ) extends SubsetChangesPageBuilder {
 
   override def build(user: Option[String], subset: Subset, parameters: ChangesParameters): Option[SubsetChangesPage] = {
-    val figures = overviewRepository.figures()
-    val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
+    val subsetInfo = if (mongoEnabled) {
+      subsetRepository.subsetInfo(subset)
+    }
+    else {
+      val figures = overviewRepository.figures()
+      SubsetInfoBuilder.newSubsetInfo(subset, figures)
+    }
+
     val filter = changeSetRepository.changesFilter(Some(subset), parameters.year, parameters.month, parameters.day)
     val changeCount = filter.currentItemCount(parameters.impact)
     val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {

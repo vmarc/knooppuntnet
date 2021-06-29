@@ -1,8 +1,8 @@
 [
   {
     "$match": {
-      "active": true,
-      "orphan": true,
+      "labels": "active",
+      "labels": "orphan",
       "country": {
         "$exists": true
       },

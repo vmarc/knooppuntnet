@@ -1,10 +1,12 @@
 [
   {
     "$match": {
-      "active": true,
-      "orphan": true,
-      "summary.country": "@country",
-      "summary.networkType": "@networkType"
+      "$and": [
+        {"labels": {"$eq": "active"}},
+        {"labels": {"$eq": "orphan"}},
+        {"labels": {"$eq": "location-@country"}},
+        {"labels": {"$eq": "network-type-@networkType"}}
+      ]
     }
   },
   {

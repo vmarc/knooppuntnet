@@ -2,22 +2,31 @@ package kpn.server.api.analysis.pages.subset
 
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.custom.Subset
-import kpn.core.db.couch.Couch
 import kpn.core.util.Formatter.percentage
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.OverviewRepository
+import kpn.server.repository.SubsetRepository
 import org.springframework.stereotype.Component
 
 @Component
 class SubsetNetworksPageBuilderImpl(
   overviewRepository: OverviewRepository,
-  networkRepository: NetworkRepository
+  networkRepository: NetworkRepository,
+  subsetRepository: SubsetRepository,
+  // old
+  mongoEnabled: Boolean
 ) extends SubsetNetworksPageBuilder {
 
   override def build(subset: Subset): SubsetNetworksPage = {
 
-    val figures = overviewRepository.figures()
-    val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
+    val subsetInfo = if (mongoEnabled) {
+      subsetRepository.subsetInfo(subset)
+    }
+    else {
+      val figures = overviewRepository.figures()
+      SubsetInfoBuilder.newSubsetInfo(subset, figures)
+    }
+
     val networks = networkRepository.networks(subset)
 
     val routeCount = networks.map(_.routeCount).sum

@@ -316,6 +316,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRoute(
     id: Long = 0,
+    labels: Seq[String] = Seq.empty,
     active: Boolean = true,
     orphan: Boolean = false,
     country: Option[Country] = None,
@@ -349,7 +350,7 @@ trait SharedTestObjects extends MockFactory {
 
     RouteInfo(
       summary.id,
-      Seq.empty,
+      labels,
       summary,
       active,
       orphan,

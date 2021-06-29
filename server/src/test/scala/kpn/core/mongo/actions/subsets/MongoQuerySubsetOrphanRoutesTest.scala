@@ -44,7 +44,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      routeRepository.save(createRoute().copy(active = false))
+      routeRepository.save(createRoute(active = false))
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should equal(Seq.empty)
     }
@@ -55,7 +55,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      routeRepository.save(createRoute().copy(orphan = false))
+      routeRepository.save(createRoute(orphan = false))
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should equal(Seq.empty)
     }
@@ -66,9 +66,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      val route = createRoute()
-      val modifiedRoute = route.copy(summary = route.summary.copy(country = Some(Country.be)))
-      routeRepository.save(modifiedRoute)
+      val route = createRoute(country = Country.be)
+      routeRepository.save(route)
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should equal(Seq.empty)
     }
@@ -79,9 +78,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      val route = createRoute()
-      val modifiedRoute = route.copy(summary = route.summary.copy(networkType = NetworkType.cycling))
-      routeRepository.save(modifiedRoute)
+      val route = createRoute(networkType = NetworkType.cycling)
+      routeRepository.save(route)
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should equal(Seq.empty)
     }
@@ -92,9 +90,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      val route = createRoute()
-      val modifiedRoute = route.copy(summary = route.summary.copy(isBroken = true))
-      routeRepository.save(modifiedRoute)
+      val route = createRoute(facts = Seq(Fact.RouteUnaccessible))
+      routeRepository.save(route)
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should matchTo(
         Seq(
@@ -117,9 +114,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      val route = createRoute()
-      val modifiedRoute = route.copy(facts = Seq(Fact.RouteUnaccessible))
-      routeRepository.save(modifiedRoute)
+      val route = createRoute(facts = Seq(Fact.RouteUnaccessible))
+      routeRepository.save(route)
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should matchTo(
         Seq(
@@ -142,9 +138,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      val route = createRoute()
-      val modifiedRoute = route.copy(lastSurvey = None)
-      routeRepository.save(modifiedRoute)
+      val route = createRoute(lastSurvey = None)
+      routeRepository.save(route)
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should matchTo(
         Seq(
@@ -162,15 +157,29 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
     }
   }
 
-
-  private def createRoute(): RouteInfo = {
+  private def createRoute(
+    active: Boolean = true,
+    orphan: Boolean = true,
+    country: Country = Country.nl,
+    networkType: NetworkType = NetworkType.hiking,
+    lastSurvey: Option[Day] = Some(Day(2020, 8, Some(11))),
+    facts: Seq[Fact] = Seq.empty
+  ): RouteInfo = {
     newRoute(
       id = 100L,
-      orphan = true,
-      country = Some(Country.nl),
-      networkType = NetworkType.hiking,
+      labels = Seq(
+        if (active) Some("active") else None,
+        if (orphan) Some("orphan") else None,
+        if (lastSurvey.isDefined) Some("survey") else None,
+        if (facts.nonEmpty) Some("facts") else None,
+        Some("location-" + country.domain)
+      ).flatten,
+      orphan = orphan,
+      country = Some(country),
+      networkType = networkType,
       name = "01-02",
       meters = 123,
+      facts = facts,
       lastUpdated = Timestamp(2020, 8, 11),
       lastSurvey = Some(Day(2020, 8, Some(11)))
     )
