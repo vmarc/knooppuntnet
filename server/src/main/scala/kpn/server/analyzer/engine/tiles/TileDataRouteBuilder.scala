@@ -5,7 +5,6 @@ import kpn.api.common.common.TrackSegment
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Fact
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
@@ -21,8 +20,6 @@ import scala.util.Failure
 import scala.util.Success
 
 class TileDataRouteBuilder(z: Int) {
-
-  private val log = Log(classOf[TileDataRouteBuilder])
 
   private val distanceTolerance = {
     val tileX = (z - 7) * 65
@@ -72,7 +69,16 @@ class TileDataRouteBuilder(z: Int) {
         "route"
       }
 
-      Some(TileDataRoute(routeInfo.id, routeInfo.summary.name, layer, surveyDate, tileRouteSegments))
+      Some(
+        TileDataRoute(
+          routeInfo.id,
+          routeInfo.summary.name,
+          layer,
+          surveyDate,
+          routeInfo.tags("state"),
+          tileRouteSegments
+        )
+      )
     }
   }
 

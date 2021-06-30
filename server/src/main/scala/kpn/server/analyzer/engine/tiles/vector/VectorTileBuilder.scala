@@ -33,7 +33,8 @@ class VectorTileBuilder() extends TileBuilder {
         Some("id" -> node.id.toString),
         node.ref.map(ref => "ref" -> ref),
         node.name.map(name => "name" -> name),
-        node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm)
+        node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
+        node.state.map(state => "state" -> state)
       ).flatten
 
       val userData: ListMap[String, String] = ListMap[String, String](values: _*)
@@ -66,7 +67,11 @@ class VectorTileBuilder() extends TileBuilder {
               "surface" -> segment.surface
             )
         }
-        encoder.addLineStringFeature(tileRoute.layer, userData, lineString)
+        val userData2: ListMap[String, String] = tileRoute.state match {
+          case Some(state) => userData ++ Seq("state" -> state)
+          case None => userData
+        }
+        encoder.addLineStringFeature(tileRoute.layer, userData2, lineString)
       }
     }
 

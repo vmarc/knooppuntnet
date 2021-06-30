@@ -76,7 +76,8 @@ class TileDataNodeBuilder {
       latitude,
       longitude,
       layer(orphan, facts),
-      surveyDate
+      surveyDate,
+      tags("state")
     )
   }
 

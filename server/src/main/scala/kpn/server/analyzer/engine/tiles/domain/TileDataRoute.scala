@@ -7,5 +7,6 @@ case class TileDataRoute(
   routeName: String,
   layer: String,
   surveyDate: Option[Day],
+  state: Option[String],
   segments: Seq[TileRouteSegment]
 )
