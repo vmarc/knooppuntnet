@@ -23,14 +23,38 @@ class TileDataNodeBuilder {
   )
 
   def build(networkType: NetworkType, node: NodeInfo): TileDataNode = {
-    doBuild(networkType, node.id, node.latitude, node.longitude, node.orphan, node.facts, node.tags)
+    doBuild(
+      networkType,
+      node.id,
+      node.latitude,
+      node.longitude,
+      node.orphan,
+      node.facts,
+      node.tags
+    )
   }
 
   def build(networkType: NetworkType, node: NetworkInfoNode): TileDataNode = {
-    doBuild(networkType, node.id, node.latitude, node.longitude, node.facts.contains(Fact.OrphanNode), node.facts, node.tags)
+    doBuild(
+      networkType,
+      node.id,
+      node.latitude,
+      node.longitude,
+      node.facts.contains(Fact.OrphanNode),
+      node.facts,
+      node.tags
+    )
   }
 
-  private def doBuild(networkType: NetworkType, id: Long, latitude: String, longitude: String, orphan: Boolean, facts: Seq[Fact], tags: Tags): TileDataNode = {
+  private def doBuild(
+    networkType: NetworkType,
+    id: Long,
+    latitude: String,
+    longitude: String,
+    orphan: Boolean,
+    facts: Seq[Fact],
+    tags: Tags
+  ): TileDataNode = {
 
     val refOption: Option[String] = {
       prioritizedScopes.flatMap { scope =>
@@ -69,6 +93,9 @@ class TileDataNodeBuilder {
       case Failure(_) => None
     }
 
+    val supportedStates = Seq("proposed")
+    val state = tags("state").filter(supportedStates.contains)
+
     TileDataNode(
       id,
       ref,
@@ -76,10 +103,10 @@ class TileDataNodeBuilder {
       latitude,
       longitude,
       layer(orphan, facts),
-      surveyDate
+      surveyDate,
+      state
     )
   }
-
 
   private def layer(orphan: Boolean, facts: Seq[Fact]): String = {
     if (orphan) {
@@ -98,12 +125,7 @@ class TileDataNodeBuilder {
     }
   }
 
-  private def isOrphan(node: NetworkInfoNode): Boolean = {
-    !node.definedInRelation && node.routeReferences.isEmpty
-  }
-
   private def hasError(facts: Seq[Fact]): Boolean = {
     facts.exists(_.level == FactLevel.ERROR)
   }
-
 }

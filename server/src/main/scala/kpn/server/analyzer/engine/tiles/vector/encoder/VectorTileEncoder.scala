@@ -13,8 +13,6 @@ import org.locationtech.jts.geom.TopologyException
 import org.locationtech.jts.io.ParseException
 import org.locationtech.jts.io.WKTReader
 
-import scala.collection.immutable.ListMap
-
 class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
 
   private val layers = new VectorTileLayers()
@@ -23,14 +21,14 @@ class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
 
   private val tileEnvelope: Polygon = buildTileEnvelope()
 
-  def addPointFeature(layerName: String, attributes: ListMap[String, String], point: Point): Unit = {
+  def addPointFeature(layerName: String, attributes: Map[String, String], point: Point): Unit = {
     if (!pointInsideTileEnvelope(point)) {
       return
     }
     addFeature(layerName, attributes, point)
   }
 
-  def addMultiLineStringFeature(layerName: String, attributes: ListMap[String, String], geometry: MultiLineString): Unit = {
+  def addMultiLineStringFeature(layerName: String, attributes: Map[String, String], geometry: MultiLineString): Unit = {
 
     // ignore small lines
     if (geometry.getLength < 1.0d) {
@@ -47,7 +45,7 @@ class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
     addFeature(layerName, attributes, clippedGeometry)
   }
 
-  def addLineStringFeature(layerName: String, attributes: ListMap[String, String], geometry: LineString): Unit = {
+  def addLineStringFeature(layerName: String, attributes: Map[String, String], geometry: LineString): Unit = {
 
     // ignore small lines
     if (geometry.getLength < 1.0d) {
@@ -64,7 +62,7 @@ class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
     addFeature(layerName, attributes, clippedGeometry)
   }
 
-  private def addFeature(layerName: String, attributes: ListMap[String, String], geometry: Geometry): Unit = {
+  private def addFeature(layerName: String, attributes: Map[String, String], geometry: Geometry): Unit = {
     val layer = layers.layerWithName(layerName)
     val tags = attributes.filterNot(_._2 == null).toSeq.flatMap { case (key, value) => Seq(layer.key(key), layer.value(value)) }
     val feature = VectorTileFeature(geometry, tags)

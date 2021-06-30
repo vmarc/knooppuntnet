@@ -30,6 +30,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       "01-02",
       "layer",
       None,
+      None,
       segments = Seq(
         TileRouteSegment(
           0,
@@ -44,7 +45,11 @@ class RouteTileAnalyzerTest extends UnitTest {
 
     val tiles = analyzer.tiles(13, tileRoute)
 
-    tiles.map(_.name).toSet should equal(Set(t.t22.tile.name))
+    tiles.map(_.name).toSet should equal(
+      Set(
+        t.t22.tile.name
+      )
+    )
   }
 
   test("route traversing 2 tiles") {
@@ -59,34 +64,6 @@ class RouteTileAnalyzerTest extends UnitTest {
       "01-02",
       "layer",
       None,
-      segments = Seq(
-        TileRouteSegment(
-          0,
-          oneWay = false,
-          "",
-          lines = Seq(
-            line
-          )
-        )
-      )
-    )
-
-    val tiles = analyzer.tiles(13, tileRoute)
-
-    tiles.map(_.name).toSet should equal(Set(t.t12.tile.name, t.t22.tile.name))
-  }
-
-  test("route traversing 3 tiles") {
-
-    val tile1 = t.t12.tile.bounds
-    val tile2 = t.t32.tile.bounds
-
-    val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
-
-    val tileRoute = TileDataRoute(
-      routeId = 1L,
-      "01-02",
-      "layer",
       None,
       segments = Seq(
         TileRouteSegment(
@@ -102,6 +79,47 @@ class RouteTileAnalyzerTest extends UnitTest {
 
     val tiles = analyzer.tiles(13, tileRoute)
 
-    tiles.map(_.name).toSet should equal(Set(t.t12.tile.name, t.t22.tile.name, t.t32.tile.name))
+    tiles.map(_.name).toSet should equal(
+      Set(
+        t.t12.tile.name,
+        t.t22.tile.name
+      )
+    )
+  }
+
+  test("route traversing 3 tiles") {
+
+    val tile1 = t.t12.tile.bounds
+    val tile2 = t.t32.tile.bounds
+
+    val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
+
+    val tileRoute = TileDataRoute(
+      routeId = 1L,
+      "01-02",
+      "layer",
+      None,
+      None,
+      segments = Seq(
+        TileRouteSegment(
+          0,
+          oneWay = false,
+          "",
+          lines = Seq(
+            line
+          )
+        )
+      )
+    )
+
+    val tiles = analyzer.tiles(13, tileRoute)
+
+    tiles.map(_.name).toSet should equal(
+      Set(
+        t.t12.tile.name,
+        t.t22.tile.name,
+        t.t32.tile.name
+      )
+    )
   }
 }

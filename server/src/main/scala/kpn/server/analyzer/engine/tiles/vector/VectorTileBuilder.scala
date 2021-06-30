@@ -8,9 +8,7 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Point
 
-import scala.collection.immutable.ListMap
-
-class VectorTileBuilder() extends TileBuilder {
+class VectorTileBuilder extends TileBuilder {
 
   def build(data: TileData): Array[Byte] = {
 
@@ -29,14 +27,14 @@ class VectorTileBuilder() extends TileBuilder {
     data.nodes.foreach { node =>
       val point: Point = geomFactory.createPoint(new Coordinate(scaleLon(node.lon), scaleLat(node.lat)))
 
-      val values = Seq(
+      val userData = Seq(
         Some("id" -> node.id.toString),
         node.ref.map(ref => "ref" -> ref),
         node.name.map(name => "name" -> name),
-        node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm)
-      ).flatten
+        node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
+        node.state.map(state => "state" -> state)
+      ).flatten.toMap
 
-      val userData: ListMap[String, String] = ListMap[String, String](values: _*)
       encoder.addPointFeature(node.layer, userData, point)
     }
 
@@ -49,23 +47,14 @@ class VectorTileBuilder() extends TileBuilder {
           )
         }
         val lineString = geomFactory.createLineString(coordinates.toArray)
-        val userData: ListMap[String, String] = tileRoute.surveyDate match {
-          case Some(surveyDate) =>
-            ListMap(
-              "id" -> (tileRoute.routeId.toString + "-" + segment.pathId),
-              "name" -> tileRoute.routeName,
-              "oneway" -> segment.oneWay.toString,
-              "surface" -> segment.surface,
-              "survey" -> surveyDate.yyyymm
-            )
-          case None =>
-            ListMap(
-              "id" -> (tileRoute.routeId.toString + "-" + segment.pathId),
-              "name" -> tileRoute.routeName,
-              "oneway" -> segment.oneWay.toString,
-              "surface" -> segment.surface
-            )
-        }
+        val userData = Seq(
+          Some("id" -> (tileRoute.routeId.toString + "-" + segment.pathId)),
+          Some("name" -> tileRoute.routeName),
+          Some("oneway" -> segment.oneWay.toString),
+          Some("surface" -> segment.surface),
+          tileRoute.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
+          tileRoute.state.map(state => "state" -> state)
+        ).flatten.toMap
         encoder.addLineStringFeature(tileRoute.layer, userData, lineString)
       }
     }
