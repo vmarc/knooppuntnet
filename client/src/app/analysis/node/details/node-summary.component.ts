@@ -50,6 +50,18 @@ import {List} from 'immutable';
         This network node does not belong to a known node network (orphan).
       </p>
 
+      <p *ngIf="isProposed()" class="kpn-line">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span class="warning" i18n="@@node.proposed">Proposed</span>
+      </p>
+
+      <p *ngIf="isProposed()">
+        <markdown i18n="@@node.proposed.explanation">
+          This network node has _"state=proposed"_. The node is assumed to still be
+          in a planning phase and likely not signposted in the field.
+        </markdown>
+      </p>
+
     </div>
   `,
   styles: [`
@@ -80,6 +92,11 @@ export class NodeSummaryComponent {
       return nodeName.name;
     }
     return undefined;
+  }
+
+  isProposed() {
+    const state = this.nodeInfo.tags.get('state');
+    return 'proposed' === state;
   }
 
 }

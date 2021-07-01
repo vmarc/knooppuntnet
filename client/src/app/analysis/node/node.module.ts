@@ -27,22 +27,24 @@ import {NodeRoutingModule} from './node-routing.module';
 import {NodeEffects} from './store/node.effects';
 import {nodeReducer} from './store/node.reducer';
 import {nodeFeatureKey} from './store/node.state';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
-  imports: [
-    NodeRoutingModule,
-    CommonModule,
-    StoreModule.forFeature(nodeFeatureKey, nodeReducer),
-    EffectsModule.forFeature([
-      NodeEffects
-    ]),
-    MarkdownModule,
-    OlModule,
-    SharedModule,
-    AnalysisComponentsModule,
-    FactModule,
-    MatPaginatorModule
-  ],
+    imports: [
+        NodeRoutingModule,
+        CommonModule,
+        StoreModule.forFeature(nodeFeatureKey, nodeReducer),
+        EffectsModule.forFeature([
+            NodeEffects
+        ]),
+        MarkdownModule,
+        OlModule,
+        SharedModule,
+        AnalysisComponentsModule,
+        FactModule,
+        MatPaginatorModule,
+        MatIconModule
+    ],
   declarations: [
     NodeDetailsPageComponent,
     NodeChangeComponent,

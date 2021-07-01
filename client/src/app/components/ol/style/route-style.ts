@@ -7,7 +7,7 @@ export class RouteStyle {
 
   private defaultRouteStyle = this.initRouteStyle();
 
-  style(color: Color, zoom: number, highlighted: boolean): Style {
+  style(color: Color, zoom: number, highlighted: boolean, proposed: boolean): Style {
     let width = 1;
     if (zoom < 9) {
       width = 1;
@@ -22,16 +22,22 @@ export class RouteStyle {
     }
     this.defaultRouteStyle.getStroke().setWidth(width);
     this.defaultRouteStyle.getStroke().setColor(color);
+    if (proposed) {
+      this.defaultRouteStyle.getStroke().setLineDash([6, 10]);
+    }
+    else {
+      this.defaultRouteStyle.getStroke().setLineDash(null);
+    }
+
     return this.defaultRouteStyle;
   }
 
   private initRouteStyle() {
     return new Style({
       stroke: new Stroke({
-        color: MainStyleColors.green,
+        color: MainStyleColors.veryDarkGreen,
         width: 1
       })
     });
   }
-
 }

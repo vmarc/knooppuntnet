@@ -36,7 +36,8 @@ export class MainMapRouteStyle {
   private determineRouteStyle(feature: FeatureLike, zoom: number): Style {
     const color = this.routeColor(feature);
     const highligthed = this.mapService.highlightedRouteId && feature.get('id').startsWith(this.mapService.highlightedRouteId);
-    return this.routeStyleBuilder.style(color, zoom, highligthed);
+    const proposed = feature.get("state") === "proposed";
+    return this.routeStyleBuilder.style(color, zoom, highligthed, proposed);
   }
 
   private initRouteStyle() {
@@ -70,10 +71,19 @@ export class MainMapRouteStyle {
   }
 
   private routeColorSurface(feature: FeatureLike): Color {
+    const proposed = feature.get('state') === 'proposed';
     const surface = feature.get('surface');
     let color = MainStyleColors.green;
     if ('unpaved' === surface) {
-      color = MainStyleColors.orange;
+      if (proposed) {
+        color = MainStyleColors.orange;
+      } else {
+        color = MainStyleColors.proposedUnpaved;
+      }
+    } else {
+      if (proposed) {
+        color = MainStyleColors.proposed;
+      }
     }
     return color;
   }

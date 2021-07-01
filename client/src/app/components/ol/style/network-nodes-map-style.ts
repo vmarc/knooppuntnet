@@ -11,11 +11,7 @@ export class NetworkNodesMapStyle {
 
   private readonly smallNodeStyle = NodeStyle.smallGreen;
   private readonly smallNodeStyleGray = NodeStyle.smallGray;
-
-  private readonly largeNodeStyle = NodeStyle.largeGreen;
-  private readonly largeNodeStyleGray = NodeStyle.largeGray;
   private readonly nameStyle = NodeStyle.nameStyle();
-
   private readonly routeStyle = new RouteStyle();
 
   constructor(private map: Map,
@@ -42,10 +38,28 @@ export class NetworkNodesMapStyle {
     if (zoom >= 13) {
       let ref = feature.get('ref');
       const name = feature.get('name');
+      const proposed = feature.get('state') === 'proposed';
+
       if (name && ref === 'o') {
         ref = null;
       }
-      const style = this.networkNodeIds.contains(nodeId) ? this.largeNodeStyle : this.largeNodeStyleGray;
+      let style: Style;
+      if (this.networkNodeIds.contains(nodeId)) {
+        if (proposed) {
+          style = NodeStyle.proposedLargeGreen;
+        }
+        else {
+          style = NodeStyle.largeGreen;
+        }
+      }
+      else {
+        if (proposed) {
+          style = NodeStyle.proposedLargeGray;
+        }
+        else {
+          style = NodeStyle.largeGray;
+        }
+      }
       style.getText().setText(ref);
       if (name) {
         let offsetY = 0;
@@ -66,6 +80,7 @@ export class NetworkNodesMapStyle {
     const featureId = feature.get('id');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
     const routeColor = this.networkRouteIds.contains(routeId) ? MainStyleColors.green : MainStyleColors.gray;
-    return this.routeStyle.style(routeColor, zoom, false);
+    const proposed = feature.get('state') === 'proposed';
+    return this.routeStyle.style(routeColor, zoom, false, proposed);
   }
 }

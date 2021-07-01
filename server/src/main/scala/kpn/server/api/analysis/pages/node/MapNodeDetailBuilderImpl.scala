@@ -6,7 +6,6 @@ import kpn.api.common.node.NodeNetworkReference
 import kpn.api.common.node.NodeNetworkRouteReference
 import kpn.api.common.node.NodeOrphanRouteReference
 import kpn.api.custom.NetworkType
-import kpn.core.db.couch.Couch
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 

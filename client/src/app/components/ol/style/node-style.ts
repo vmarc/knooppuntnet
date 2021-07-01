@@ -18,8 +18,23 @@ export class NodeStyle {
   public static readonly smallBlue = NodeStyle.small(MainStyleColors.blue);
   public static readonly smallDarkBlue = NodeStyle.small(MainStyleColors.darkBlue);
 
-  public static readonly largeGreen = NodeStyle.large(MainStyleColors.green);
-  public static readonly largeGray = NodeStyle.large(MainStyleColors.gray);
+  public static readonly largeGreen = NodeStyle.buildLarge(MainStyleColors.green, false);
+  public static readonly largeGray = NodeStyle.buildLarge(MainStyleColors.gray, false);
+  public static readonly largeLightGreen = NodeStyle.buildLarge(MainStyleColors.lightGreen, false);
+  public static readonly largeDarkGreen = NodeStyle.buildLarge(MainStyleColors.darkGreen, false);
+  public static readonly largeVeryDarkGreen = NodeStyle.buildLarge(MainStyleColors.veryDarkGreen, false);
+  public static readonly largeDarkRed = NodeStyle.buildLarge(MainStyleColors.darkRed, false);
+  public static readonly largeBlue = NodeStyle.buildLarge(MainStyleColors.blue, false);
+  public static readonly largeDarkBlue = NodeStyle.buildLarge(MainStyleColors.darkBlue, false);
+
+  public static readonly proposedLargeGreen = NodeStyle.buildLarge(MainStyleColors.green, true);
+  public static readonly proposedLargeGray = NodeStyle.buildLarge(MainStyleColors.gray, true);
+  public static readonly proposedLargeLightGreen = NodeStyle.buildLarge(MainStyleColors.lightGreen, true);
+  public static readonly proposedLargeDarkGreen = NodeStyle.buildLarge(MainStyleColors.darkGreen, true);
+  public static readonly proposedLargeVeryDarkGreen = NodeStyle.buildLarge(MainStyleColors.veryDarkGreen, true);
+  public static readonly proposedLargeDarkRed = NodeStyle.buildLarge(MainStyleColors.darkRed, true);
+  public static readonly proposedLargeBlue = NodeStyle.buildLarge(MainStyleColors.blue, true);
+  public static readonly proposedLargeDarkBlue = NodeStyle.buildLarge(MainStyleColors.darkBlue, true);
 
   public static nameStyle(): Style {
     return new Style({
@@ -55,16 +70,21 @@ export class NodeStyle {
     });
   }
 
-  private static large(color: Color): Style {
+  private static buildLarge(color: Color, proposed: boolean): Style {
+
+    const backgroundColor = proposed ? [240, 240, 240] : MainStyleColors.white;
+    const lineDash = proposed ? [3, 6] : null;
+
     return new Style({
       image: new Circle({
         radius: 14,
-      fill: new Fill({
-        color: MainStyleColors.white
-      }),
-      stroke: new Stroke({
-        color,
-        width: 3
+        fill: new Fill({
+          color: backgroundColor
+        }),
+        stroke: new Stroke({
+          color: color,
+          lineDash: lineDash,
+          width: 3
         })
       }),
       text: new Text({
@@ -73,7 +93,7 @@ export class NodeStyle {
         textBaseline: 'middle',
         font: '14px Arial, Verdana, Helvetica, sans-serif',
         stroke: new Stroke({
-          color: MainStyleColors.white,
+          color: backgroundColor,
           width: 5
         })
       })

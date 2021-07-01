@@ -7,7 +7,6 @@ import {RouteStyle} from './route-style';
 export class NodeMapStyle {
 
   private readonly smallNodeStyle = NodeStyle.smallGreen;
-  private readonly largeNodeStyle = NodeStyle.largeGreen;
   private readonly nameStyle = NodeStyle.nameStyle();
   private readonly routeStyle = new RouteStyle();
 
@@ -24,12 +23,14 @@ export class NodeMapStyle {
 
             let ref = feature.get('ref');
             const name = feature.get('name');
+            const proposed = feature.get('state') === 'proposed';
 
             if (name && ref === 'o') {
               ref = null;
             }
 
-            this.largeNodeStyle.getText().setText(ref);
+            const style = proposed ? NodeStyle.proposedLargeGreen : NodeStyle.largeGreen;
+            style.getText().setText(ref);
 
             if (name) {
               let offsetY = 0;
@@ -38,13 +39,17 @@ export class NodeMapStyle {
               }
               this.nameStyle.getText().setText(name);
               this.nameStyle.getText().setOffsetY(offsetY);
-              return [this.largeNodeStyle, this.nameStyle];
+              return [style, this.nameStyle];
             }
-            return this.largeNodeStyle;
+            return style;
           }
+
           return this.smallNodeStyle;
         }
-        return this.routeStyle.style(MainStyleColors.green, zoom, false);
+
+        let routeColor = MainStyleColors.green;
+        const proposed = feature.get('state') === 'proposed';
+        return this.routeStyle.style(routeColor, zoom, false, proposed);
       }
     };
   }
