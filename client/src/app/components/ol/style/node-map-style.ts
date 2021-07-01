@@ -1,13 +1,13 @@
 import Map from 'ol/Map';
 import { StyleFunction } from 'ol/style/Style';
-import { MainStyleColors } from './main-style-colors';
+import { green } from './main-style-colors';
 import { NodeStyle } from './node-style';
+import { nameStyle } from './node-style-builder';
 import { RouteStyle } from './route-style';
 
 export class NodeMapStyle {
   private readonly smallNodeStyle = NodeStyle.smallGreen;
-  private readonly largeNodeStyle = NodeStyle.largeGreen;
-  private readonly nameStyle = NodeStyle.nameStyle();
+  private readonly nameStyle = nameStyle();
   private readonly routeStyle = new RouteStyle();
 
   constructor(private map: Map) {}
@@ -15,6 +15,7 @@ export class NodeMapStyle {
   public styleFunction(): StyleFunction {
     return (feature, resolution) => {
       if (feature) {
+        const proposed = feature.get('state') === 'proposed';
         const zoom = this.map.getView().getZoom();
         const layer = feature.get('layer');
         if (layer.includes('node')) {
@@ -26,7 +27,11 @@ export class NodeMapStyle {
               ref = null;
             }
 
-            this.largeNodeStyle.getText().setText(ref);
+            const style = proposed
+              ? NodeStyle.proposedLargeGreen
+              : NodeStyle.largeGreen;
+
+            style.getText().setText(ref);
 
             if (name) {
               let offsetY = 0;
@@ -35,13 +40,14 @@ export class NodeMapStyle {
               }
               this.nameStyle.getText().setText(name);
               this.nameStyle.getText().setOffsetY(offsetY);
-              return [this.largeNodeStyle, this.nameStyle];
+              return [style, this.nameStyle];
             }
-            return this.largeNodeStyle;
+            return style;
           }
           return this.smallNodeStyle;
         }
-        return this.routeStyle.style(MainStyleColors.green, zoom, false);
+
+        return this.routeStyle.style(green, zoom, false, proposed);
       }
     };
   }

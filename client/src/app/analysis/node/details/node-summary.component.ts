@@ -55,6 +55,18 @@ import { NodeInfo } from '@api/common/node-info';
       <p *ngIf="nodeInfo.active && nodeInfo.orphan" i18n="@@node.orphan">
         This network node does not belong to a known node network (orphan).
       </p>
+
+      <p *ngIf="isProposed()" class="kpn-line">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span class="warning" i18n="@@node.proposed">Proposed</span>
+      </p>
+
+      <p *ngIf="isProposed()">
+        <markdown i18n="@@node.proposed.explanation">
+          This network node has _"state=proposed"_. The node is assumed to still
+          be in a planning phase and likely not signposted in the field.
+        </markdown>
+      </p>
     </div>
   `,
   styles: [
@@ -71,4 +83,9 @@ import { NodeInfo } from '@api/common/node-info';
 })
 export class NodeSummaryComponent {
   @Input() nodeInfo: NodeInfo;
+
+  isProposed() {
+    const stateTag = this.nodeInfo.tags.tags.find((t) => t.key === 'state');
+    return stateTag && stateTag.value === 'proposed';
+  }
 }

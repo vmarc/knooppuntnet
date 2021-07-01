@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -39,6 +40,7 @@ import { nodeFeatureKey } from './store/node.state';
     AnalysisComponentsModule,
     FactModule,
     MatPaginatorModule,
+    MatIconModule,
   ],
   declarations: [
     NodeDetailsPageComponent,
