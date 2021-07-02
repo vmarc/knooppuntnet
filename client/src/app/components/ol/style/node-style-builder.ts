@@ -25,8 +25,8 @@ export const nameStyle = (): Style =>
     }),
   });
 
-export const small = (color: Color): Style =>
-  new Style({
+export const small = (color: Color): Style => {
+  return new Style({
     image: new Circle({
       radius: 3,
       fill: new Fill({
@@ -38,13 +38,14 @@ export const small = (color: Color): Style =>
       }),
     }),
   });
+};
 
 export const large = (color: Color): Style => {
-  buildLarge(color, false);
+  return buildLarge(color, false);
 };
 
 export const proposedLarge = (color: Color): Style => {
-  buildLarge(color, true);
+  return buildLarge(color, true);
 };
 
 const buildLarge = (color: Color, proposed: boolean): Style => {

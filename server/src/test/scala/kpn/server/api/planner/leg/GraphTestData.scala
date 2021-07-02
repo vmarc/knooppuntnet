@@ -38,10 +38,10 @@ class GraphTestData extends SharedTestObjects with MockFactory {
   val graphRepository: GraphRepository = {
 
     val graph = new NodeNetworkGraphImpl()
-    graph.add(GraphEdge(node1.id, node2.id, 1, legEndRoute1.trackPathKeys.head))
-    graph.add(GraphEdge(node2.id, node3.id, 2, legEndRoute2.trackPathKeys.head))
-    graph.add(GraphEdge(node3.id, node4.id, 5, legEndRoute3.trackPathKeys.head))
-    graph.add(GraphEdge(node1.id, node3.id, 4, legEndRoute4.trackPathKeys.head))
+    graph.add(GraphEdge(node1.id, node2.id, 1, proposed = false, legEndRoute1.trackPathKeys.head))
+    graph.add(GraphEdge(node2.id, node3.id, 2, proposed = false, legEndRoute2.trackPathKeys.head))
+    graph.add(GraphEdge(node3.id, node4.id, 5, proposed = false, legEndRoute3.trackPathKeys.head))
+    graph.add(GraphEdge(node1.id, node3.id, 4, proposed = false, legEndRoute4.trackPathKeys.head))
 
     val graphRepository: GraphRepository = stub[GraphRepository]
     (graphRepository.graph _).when(NetworkType.hiking).returns(Some(graph))

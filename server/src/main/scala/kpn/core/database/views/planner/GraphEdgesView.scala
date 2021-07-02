@@ -32,6 +32,7 @@ object GraphEdgesView extends View {
         sourceNodeId = row.value.head,
         sinkNodeId = row.value(1),
         meters = row.value(2),
+        proposed = row.value(3) == 1,
         pathKey = TrackPathKey(
           routeId = key.long(1),
           pathId = key.long(2)

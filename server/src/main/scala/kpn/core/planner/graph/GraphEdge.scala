@@ -7,6 +7,7 @@ case class GraphEdge(
   sourceNodeId: Long,
   sinkNodeId: Long,
   meters: Long,
+  proposed: Boolean,
   pathKey: TrackPathKey
 ) {
 
@@ -14,6 +15,7 @@ case class GraphEdge(
     field("sourceNodeId", sourceNodeId).
     field("sinkNodeId", sinkNodeId).
     field("meters", meters).
+    field("proposed", proposed).
     field("pathKey", pathKey).
     build
 }

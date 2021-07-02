@@ -30,7 +30,8 @@ class UpdateRouteEdgesTool(database: Database) {
     allRouteIds.sliding(batchSize, batchSize).zipWithIndex.foreach { case (routeIds, index) =>
       log.info(s"${index * batchSize}/${allRouteIds.size}")
       val edges = database.routes.findByIds(routeIds, log).map { routeInfo =>
-        val edges = new RouteGraphEdgesBuilder().build(routeInfo.id, routeInfo.analysis.map)
+        val proposed = routeInfo.tags.has("state", "proposed")
+        val edges = new RouteGraphEdgesBuilder().build(routeInfo.id, routeInfo.analysis.map, proposed)
         RouteEdges(routeInfo._id, routeInfo.summary.networkType, edges)
       }
       val future = routeEdges.insertMany(edges).toFuture()

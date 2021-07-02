@@ -85,7 +85,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
     const feature = new Feature(
       new LineString(
         leg.routes
-          .flatMap((route) => PlanUtil.planRouteCoordinates(route))
+          .flatMap((route) => PlanUtil.planRouteCoordinates(route).toArray())
           .toArray()
       )
     );

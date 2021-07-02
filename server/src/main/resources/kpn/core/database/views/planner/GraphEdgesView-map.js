@@ -1,4 +1,4 @@
-var emitPath = function (networkType, routeId, path, oneWay) {
+var emitPath = function (networkType, routeId, path, oneWay, proposed) {
 
   if (path) {
     var key = [
@@ -9,7 +9,8 @@ var emitPath = function (networkType, routeId, path, oneWay) {
     var value = [
       path.startNodeId,
       path.endNodeId,
-      path.meters
+      path.meters,
+      proposed
     ];
 
     emit(key, value);
@@ -23,7 +24,8 @@ var emitPath = function (networkType, routeId, path, oneWay) {
       var backwardValue = [
         path.endNodeId,
         path.startNodeId,
-        path.meters
+        path.meters,
+        proposed
       ];
 
       emit(backwardKey, backwardValue);
@@ -31,10 +33,10 @@ var emitPath = function (networkType, routeId, path, oneWay) {
   }
 };
 
-var emitPaths = function (networkType, routeId, paths) {
+var emitPaths = function (networkType, routeId, paths, proposed) {
   if (paths) {
     for (i = 0; i < paths.length; i++) {
-      emitPath(networkType, routeId, paths[i], paths[i].oneWay === true);
+      emitPath(networkType, routeId, paths[i], paths[i].oneWay === true, proposed);
     }
   }
 };
@@ -45,21 +47,33 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
   var routeId = doc.route.summary.id;
   var routeMap = doc.route.analysis.map;
 
-  emitPaths(networkType, routeId, routeMap.freePaths);
+  var proposed = 0;
+  if (doc.route.tags) {
+    for (var i = 0; i < doc.route.tags.tags.length; i++) {
+      var tag = doc.route.tags.tags[i];
+      var key = tag.key;
+      var value = tag.value;
+      if (key === "state" && value === "proposed") {
+        proposed = 1;
+      }
+    }
+  }
+
+  emitPaths(networkType, routeId, routeMap.freePaths, proposed);
 
   if (routeMap.forwardPath) {
-    emitPath(networkType, routeId, routeMap.forwardPath, routeMap.forwardPath.oneWay);
+    emitPath(networkType, routeId, routeMap.forwardPath, routeMap.forwardPath.oneWay, proposed);
     if (routeMap.forwardPath.oneWay === true) {
       if (routeMap.backwardPath) {
-        emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
+        emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay, proposed);
       }
     }
   } else {
     if (routeMap.backwardPath) {
-      emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay);
+      emitPath(networkType, routeId, routeMap.backwardPath, routeMap.backwardPath.oneWay, proposed);
     }
   }
 
-  emitPaths(networkType, routeId, routeMap.startTentaclePaths);
-  emitPaths(networkType, routeId, routeMap.endTentaclePaths);
+  emitPaths(networkType, routeId, routeMap.startTentaclePaths, proposed);
+  emitPaths(networkType, routeId, routeMap.endTentaclePaths, proposed);
 }
