@@ -24,7 +24,7 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
 
-      const node = NetworkNodeFeature.create('1001', '01', [1, 1]);
+      const node = NetworkNodeFeature.create('1001', '01', [1, 1], false);
       const features: List<MapFeature> = List([node]);
 
       // act
@@ -56,8 +56,8 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
 
-      const node1 = NetworkNodeFeature.create('1001', '01', [1, 1]);
-      const node2 = NetworkNodeFeature.create('1002', '02', [2, 2]);
+      const node1 = NetworkNodeFeature.create('1001', '01', [1, 1], false);
+      const node2 = NetworkNodeFeature.create('1002', '02', [2, 2], false);
 
       setup.createPlanLegData(setup.node1, setup.node2);
 
@@ -109,10 +109,12 @@ describe('PlannerEngine', () => {
       setup.createPlanWithStartPointOnly();
 
       const oldStartNodeFeature = FlagFeature.start('sourceFlag');
-      const newStartNodeFeature = NetworkNodeFeature.create('1002', '02', [
-        2,
-        2,
-      ]);
+      const newStartNodeFeature = NetworkNodeFeature.create(
+        '1002',
+        '02',
+        [2, 2],
+        false
+      );
 
       // act - start drag
       const eventIsFurtherPropagated = engine.handleDragEvent(
@@ -221,10 +223,12 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       setup.createOneLegPlan();
-      const newStartNodeFeature = NetworkNodeFeature.create('1003', '03', [
-        3,
-        3,
-      ]);
+      const newStartNodeFeature = NetworkNodeFeature.create(
+        '1003',
+        '03',
+        [3, 3],
+        false
+      );
       const oldStartNodeFeature = FlagFeature.start('sourceFlag');
 
       setup.createPlanLegData(setup.node3, setup.node2);
@@ -348,7 +352,12 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const newEndNodeFeature = NetworkNodeFeature.create('1003', '03', [3, 3]);
+      const newEndNodeFeature = NetworkNodeFeature.create(
+        '1003',
+        '03',
+        [3, 3],
+        false
+      );
       const oldEndNodeFeature = FlagFeature.end(
         oldPlan.legs.last(null).sinkFlag.featureId
       );
@@ -478,7 +487,12 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       setup.createTwoLegPlan();
-      const newViaNodeFeature = NetworkNodeFeature.create('1004', '04', [4, 4]);
+      const newViaNodeFeature = NetworkNodeFeature.create(
+        '1004',
+        '04',
+        [4, 4],
+        false
+      );
       const oldViaNodeFeature = FlagFeature.via('sinkFlag1');
 
       setup.createPlanLegData(setup.node1, setup.node4);
@@ -607,7 +621,12 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
       const oldPlan = setup.createOneLegPlan();
-      const newViaNodeFeature = NetworkNodeFeature.create('1003', '03', [3, 3]);
+      const newViaNodeFeature = NetworkNodeFeature.create(
+        '1003',
+        '03',
+        [3, 3],
+        false
+      );
       const oldLegFeature = new LegFeature(oldPlan.legs.get(0).featureId);
 
       setup.createPlanLegData(setup.node1, setup.node3);

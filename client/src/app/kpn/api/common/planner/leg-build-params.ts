@@ -6,4 +6,5 @@ export interface LegBuildParams {
   readonly networkType: string;
   readonly source: LegEnd;
   readonly sink: LegEnd;
+  readonly proposed: boolean;
 }

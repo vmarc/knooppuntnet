@@ -51,14 +51,22 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
-      this.context.highlighter.mouseDown(coordinate);
-      return true;
+      if (!this.context.planProposed && networkNodeFeature.proposed) {
+        // ignore this feature
+      } else {
+        this.context.highlighter.mouseDown(coordinate);
+        return true;
+      }
     }
 
     const route = Features.findRoute(features);
     if (route != null) {
-      this.context.highlighter.mouseDown(coordinate);
-      return true;
+      if (!this.context.planProposed && route.proposed) {
+        // ignore this feature
+      } else {
+        this.context.highlighter.mouseDown(coordinate);
+        return true;
+      }
     }
 
     const poiFeature = Features.findPoi(features);
@@ -96,9 +104,13 @@ export class PlannerEngineImpl implements PlannerEngine {
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
       if (modifierKeyOnly || networkNodeFeature.node.nodeName !== '*') {
-        this.context.highlighter.highlightNode(networkNodeFeature.node);
-        this.context.cursor.setStylePointer();
-        return true;
+        if (!this.context.planProposed && networkNodeFeature.proposed) {
+          // ignore this feature
+        } else {
+          this.context.highlighter.highlightNode(networkNodeFeature.node);
+          this.context.cursor.setStylePointer();
+          return true;
+        }
       }
     }
 
@@ -117,10 +129,14 @@ export class PlannerEngineImpl implements PlannerEngine {
     const route = Features.findRoute(features);
     if (route != null) {
       if (modifierKeyOnly || this.context.plan.sourceNode !== null) {
-        // no clicking routes when start node has not been selected yet
-        this.context.cursor.setStylePointer();
-        this.context.highlighter.highlightRoute(route);
-        return true;
+        if (!this.context.planProposed && route.proposed) {
+          // ignore this feature
+        } else {
+          // no clicking routes when start node has not been selected yet
+          this.context.cursor.setStylePointer();
+          this.context.highlighter.highlightRoute(route);
+          return true;
+        }
       }
     }
 
@@ -133,28 +149,36 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
     if (this.isDraggingNode()) {
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (
-        networkNodeFeature != null &&
-        networkNodeFeature.node.nodeName !== '*'
-      ) {
-        this.context.highlighter.highlightNode(networkNodeFeature.node);
-        // snap to node position
-        this.context.markerLayer.updateFlagCoordinate(
-          this.nodeDrag.planFlag.featureId,
-          networkNodeFeature.node.coordinate
-        );
-        this.context.elasticBand.updatePosition(
-          networkNodeFeature.node.coordinate
-        );
-        return false;
+      if (!this.context.planProposed && networkNodeFeature.proposed) {
+        // ignore this feature
+      } else {
+        if (
+          networkNodeFeature != null &&
+          networkNodeFeature.node.nodeName !== '*'
+        ) {
+          this.context.highlighter.highlightNode(networkNodeFeature.node);
+          // snap to node position
+          this.context.markerLayer.updateFlagCoordinate(
+            this.nodeDrag.planFlag.featureId,
+            networkNodeFeature.node.coordinate
+          );
+          this.context.elasticBand.updatePosition(
+            networkNodeFeature.node.coordinate
+          );
+          return false;
+        }
       }
 
       if (!this.isDraggingStartNode()) {
         const routeFeature = Features.findRoute(features);
-        if (routeFeature != null) {
-          this.context.highlighter.highlightRoute(routeFeature);
+        if (!this.context.planProposed && routeFeature.proposed) {
+          // ignore this feature
         } else {
-          this.context.highlighter.reset();
+          if (routeFeature != null) {
+            this.context.highlighter.highlightRoute(routeFeature);
+          } else {
+            this.context.highlighter.reset();
+          }
         }
       }
 
@@ -169,27 +193,35 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingViaRouteFlag()) {
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
-        this.context.highlighter.highlightNode(networkNodeFeature.node);
-        // snap to node position
-        this.context.markerLayer.updateFlagCoordinate(
-          this.viaRouteDrag.planFlag.featureId,
-          networkNodeFeature.node.coordinate
-        );
-        this.context.elasticBand.updatePosition(
-          networkNodeFeature.node.coordinate
-        );
-        return false;
+        if (!this.context.planProposed && networkNodeFeature.proposed) {
+          // ignore this feature
+        } else {
+          this.context.highlighter.highlightNode(networkNodeFeature.node);
+          // snap to node position
+          this.context.markerLayer.updateFlagCoordinate(
+            this.viaRouteDrag.planFlag.featureId,
+            networkNodeFeature.node.coordinate
+          );
+          this.context.elasticBand.updatePosition(
+            networkNodeFeature.node.coordinate
+          );
+          return false;
+        }
       }
 
       const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
-        this.context.highlighter.highlightRoute(routeFeature);
-        this.context.markerLayer.updateFlagCoordinate(
-          this.viaRouteDrag.planFlag.featureId,
-          coordinate
-        );
-        this.context.elasticBand.updatePosition(coordinate);
-        return false;
+        if (!this.context.planProposed && routeFeature.proposed) {
+          // ignore this feature
+        } else {
+          this.context.highlighter.highlightRoute(routeFeature);
+          this.context.markerLayer.updateFlagCoordinate(
+            this.viaRouteDrag.planFlag.featureId,
+            coordinate
+          );
+          this.context.elasticBand.updatePosition(coordinate);
+          return false;
+        }
       }
 
       this.context.highlighter.reset();
@@ -204,17 +236,25 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingLeg()) {
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
-        this.context.highlighter.highlightNode(networkNodeFeature.node);
-        // snap to node position
-        this.context.elasticBand.updatePosition(
-          networkNodeFeature.node.coordinate
-        );
-        return false;
+        if (!this.context.planProposed && networkNodeFeature.proposed) {
+          // ignore this feature
+        } else {
+          this.context.highlighter.highlightNode(networkNodeFeature.node);
+          // snap to node position
+          this.context.elasticBand.updatePosition(
+            networkNodeFeature.node.coordinate
+          );
+          return false;
+        }
       }
 
       const routeFeature = Features.findRoute(features);
       if (routeFeature != null) {
-        this.context.highlighter.highlightRoute(routeFeature);
+        if (!this.context.planProposed && routeFeature.proposed) {
+          // ignore this feature
+        } else {
+          this.context.highlighter.highlightRoute(routeFeature);
+        }
       } else {
         this.context.highlighter.reset();
       }
@@ -250,18 +290,27 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       const networkNode = Features.findNetworkNode(features);
       if (networkNode != null) {
-        if (this.isDraggingLeg()) {
-          new DropLegOnNode(this.context).drop(this.legDrag, networkNode.node);
-          this.dragCancel();
-        } else if (this.isDraggingNode()) {
-          this.dropNodeOnNode(networkNode.node);
-          this.dragCancel();
+        if (!this.context.planProposed && networkNode.proposed) {
+          // ignore this feature
+        } else {
+          if (this.isDraggingLeg()) {
+            new DropLegOnNode(this.context).drop(
+              this.legDrag,
+              networkNode.node
+            );
+            this.dragCancel();
+          } else if (this.isDraggingNode()) {
+            this.dropNodeOnNode(networkNode.node);
+            this.dragCancel();
+          }
+          return false; // do not propagate
         }
-        return false; // do not propagate
       }
 
       if (!this.isDraggingStartNode()) {
-        const routeFeatures = Features.findRoutes(features);
+        const routeFeatures = Features.findRoutes(features).filter((route) => {
+          return !(!this.context.planProposed && route.proposed);
+        });
         if (!routeFeatures.isEmpty()) {
           if (this.isDraggingLeg()) {
             this.dropLegOnRoute(routeFeatures, coordinate);
@@ -289,21 +338,27 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (this.isDraggingViaRouteFlag()) {
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
-        const oldLeg = this.context.plan.legs.find(
-          (leg) => leg.featureId === this.viaRouteDrag.legFeatureId
-        );
-        if (oldLeg) {
-          new MoveRouteViaPointToNode(this.context).viaRouteDragMove(
-            this.viaRouteDrag,
-            networkNodeFeature.node,
-            oldLeg
+        if (!this.context.planProposed && networkNodeFeature.proposed) {
+          // ignore this feature
+        } else {
+          const oldLeg = this.context.plan.legs.find(
+            (leg) => leg.featureId === this.viaRouteDrag.legFeatureId
           );
+          if (oldLeg) {
+            new MoveRouteViaPointToNode(this.context).viaRouteDragMove(
+              this.viaRouteDrag,
+              networkNodeFeature.node,
+              oldLeg
+            );
+          }
+          this.dragCancel();
+          return false; // do not propagate
         }
-        this.dragCancel();
-        return false; // do not propagate
       }
 
-      const routeFeatures = Features.findRoutes(features);
+      const routeFeatures = Features.findRoutes(features).filter((route) => {
+        return !(!this.context.planProposed && route.proposed);
+      });
       if (!routeFeatures.isEmpty()) {
         const oldLeg = this.context.plan.legs.find(
           (leg) => leg.featureId === this.viaRouteDrag.legFeatureId
@@ -343,11 +398,19 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     const networkNode = Features.findNetworkNode(features);
     if (networkNode != null) {
-      return this.singleClickNetworkNode(
-        networkNode,
-        coordinate,
-        modifierKeyOnly
-      );
+      if (
+        !modifierKeyOnly &&
+        !this.context.planProposed &&
+        networkNode.proposed
+      ) {
+        // ignore this feature
+      } else {
+        return this.singleClickNetworkNode(
+          networkNode,
+          coordinate,
+          modifierKeyOnly
+        );
+      }
     }
 
     const flag = Features.findFlag(features);
@@ -361,7 +424,9 @@ export class PlannerEngineImpl implements PlannerEngine {
         return this.ctrlSingleClickRoute(route, coordinate);
       }
     } else if (this.context.plan.sourceNode !== null) {
-      const routes = Features.findRoutes(features);
+      const routes = Features.findRoutes(features).filter((route) => {
+        return !(!this.context.planProposed && route.proposed);
+      });
       if (!routes.isEmpty()) {
         return this.singleClickRoutes(routes, coordinate);
       }
@@ -392,7 +457,11 @@ export class PlannerEngineImpl implements PlannerEngine {
     if (modifierKeyOnly) {
       this.context.overlay.nodeClicked(new NodeClick(coordinate, networkNode));
     } else {
-      this.nodeSelected(networkNode);
+      if (!this.context.planProposed && networkNode.proposed) {
+        // ignore this feature
+      } else {
+        this.nodeSelected(networkNode);
+      }
     }
     return false; // prevent further propagation
   }

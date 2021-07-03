@@ -5,6 +5,11 @@ import { actionRouteChangesPageLoaded } from '../../analysis/route/store/route.a
 import { actionRouteMapPageLoaded } from '../../analysis/route/store/route.actions';
 import { actionRouteDetailsPageLoaded } from '../../analysis/route/store/route.actions';
 import { Util } from '../../components/shared/util';
+import { actionPreferencesShowOptions } from './preferences.actions';
+import { actionPreferencesShowLegend } from './preferences.actions';
+import { actionPreferencesShowAppearanceOptions } from './preferences.actions';
+import { actionPreferencesPlanProposed } from './preferences.actions';
+import { actionPreferencesShowProposed } from './preferences.actions';
 import { actionPreferencesImpact } from './preferences.actions';
 import { actionPreferencesItemsPerPage } from './preferences.actions';
 import { actionPreferencesNetworkType } from './preferences.actions';
@@ -41,6 +46,26 @@ export const preferencesReducer = createReducer(
   on(actionPreferencesImpact, (state, action) => ({
     ...state,
     impact: action.impact,
+  })),
+  on(actionPreferencesShowAppearanceOptions, (state, action) => ({
+    ...state,
+    showAppearanceOptions: action.value,
+  })),
+  on(actionPreferencesShowLegend, (state, action) => ({
+    ...state,
+    showLegend: action.value,
+  })),
+  on(actionPreferencesShowOptions, (state, action) => ({
+    ...state,
+    showOptions: action.value,
+  })),
+  on(actionPreferencesShowProposed, (state, action) => ({
+    ...state,
+    showProposed: action.value,
+  })),
+  on(actionPreferencesPlanProposed, (state, action) => ({
+    ...state,
+    planProposed: action.value,
   })),
   on(actionRouteDetailsPageLoaded, (state, { response }) => {
     const networkType =

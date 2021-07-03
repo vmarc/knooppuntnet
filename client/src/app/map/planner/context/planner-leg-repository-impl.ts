@@ -14,12 +14,14 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
   planLeg(
     networkType: NetworkType,
     source: LegEnd,
-    sink: LegEnd
+    sink: LegEnd,
+    proposed: boolean
   ): Observable<PlanLegData> {
     const params: LegBuildParams = {
       networkType,
       source,
       sink,
+      proposed,
     };
     return this.appService.leg(params).pipe(
       map((response) => {

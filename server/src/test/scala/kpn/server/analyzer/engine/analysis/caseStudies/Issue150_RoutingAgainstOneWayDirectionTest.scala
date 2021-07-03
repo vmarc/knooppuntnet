@@ -33,7 +33,8 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       val params = LegBuildParams(
         NetworkType.cycling.name,
         LegEnd.node(7741683309L),
-        LegEnd.node(42784896L)
+        LegEnd.node(42784896L),
+        proposed = false
       )
 
       legBuilder.leg(params) match {
@@ -84,7 +85,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
       val startNode = "7741683309" // node 57
 
-      val graphPath = graph.findPath(startNode, "42784896").get
+      val graphPath = graph.findPath(startNode, "42784896", proposed = false).get
 
       graphPath.source should equal(startNode)
 

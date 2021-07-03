@@ -25,6 +25,7 @@ export class PlannerContext {
   plan$: Observable<Plan>;
   networkType$: Observable<NetworkType>;
   error$: Observable<Error>;
+  planProposed: boolean;
 
   private _plan$: BehaviorSubject<Plan>;
   private _networkType$: BehaviorSubject<NetworkType>;
@@ -39,7 +40,8 @@ export class PlannerContext {
     readonly elasticBand: PlannerElasticBand,
     readonly highlighter: PlannerHighlighter,
     readonly legRepository: PlannerLegRepository,
-    readonly overlay: PlannerOverlay
+    readonly overlay: PlannerOverlay,
+    readonly planProposed$: Observable<boolean>
   ) {
     this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
     this.plan$ = this._plan$.asObservable();
@@ -48,6 +50,9 @@ export class PlannerContext {
     this.error$ = this._error$.asObservable();
     this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(
       new PlannerCommandStack()
+    );
+    planProposed$.subscribe(
+      (planProposed) => (this.planProposed = planProposed)
     );
   }
 
@@ -124,12 +129,14 @@ export class PlannerContext {
 
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     this.cursor.setStyleWait();
-    return this.legRepository.planLeg(this.networkType, source, sink).pipe(
-      tap(() => {
-        this.cursor.setStyleDefault();
-        this.highlighter.reset();
-      })
-    );
+    return this.legRepository
+      .planLeg(this.networkType, source, sink, this.planProposed)
+      .pipe(
+        tap(() => {
+          this.cursor.setStyleDefault();
+          this.highlighter.reset();
+        })
+      );
   }
 
   debug(message: string): void {

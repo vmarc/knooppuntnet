@@ -1,16 +1,23 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { Store } from '@ngrx/store';
 import { GPX } from 'ol/format';
 import { MapMode } from '../../components/ol/services/map-mode';
 import { MapService } from '../../components/ol/services/map.service';
+import { AppState } from '../../core/core.state';
+import { actionPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.actions';
+import { selectPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.selectors';
 import { PlannerLayerService } from '../planner/services/planner-layer.service';
 
 @Component({
   selector: 'kpn-map-sidebar-appearance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel
+      [expanded]="expanded$ | async"
+      (expandedChange)="expandedChanged($event)"
+    >
       <mat-expansion-panel-header i18n="@@planner.appearance-options">
         Map appearance options
       </mat-expansion-panel-header>
@@ -70,10 +77,21 @@ import { PlannerLayerService } from '../planner/services/planner-layer.service';
   ],
 })
 export class MapSidebarAppearanceComponent {
+  readonly expanded$ = this.store.select(
+    selectPreferencesShowAppearanceOptions
+  );
+
   constructor(
     private mapService: MapService,
-    private plannerLayerService: PlannerLayerService
+    private plannerLayerService: PlannerLayerService,
+    private store: Store<AppState>
   ) {}
+
+  expandedChanged(expanded: boolean): void {
+    this.store.dispatch(
+      actionPreferencesShowAppearanceOptions({ value: expanded })
+    );
+  }
 
   fileChanged(event) {
     const file = event.target.files[0];

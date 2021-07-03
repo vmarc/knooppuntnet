@@ -71,7 +71,7 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
     graphFull.setEdgeWeight(via, sink, distance)
   }
 
-  override def findPath(source: String, sink: String): Option[GraphPath] = {
+  override def findPath(source: String, sink: String, proposed: Boolean): Option[GraphPath] = {
 
     try {
       val path = if (proposed) {

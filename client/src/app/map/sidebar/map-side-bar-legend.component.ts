@@ -1,12 +1,20 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { MapService } from '../../components/ol/services/map.service';
+import { AppState } from '../../core/core.state';
+import { actionPreferencesShowLegend } from '../../core/preferences/preferences.actions';
+import { actionPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.actions';
+import { selectPreferencesShowLegend } from '../../core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-map-sidebar-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel
+      [expanded]="expanded$ | async"
+      (expandedChange)="expandedChanged($event)"
+    >
       <mat-expansion-panel-header i18n="@@planner.legend">
         Legend
       </mat-expansion-panel-header>
@@ -20,6 +28,13 @@ import { MapService } from '../../components/ol/services/map.service';
           <div>
             <kpn-legend-icon color="rgb(255, 165, 0)"></kpn-legend-icon>
             <span i18n="@@planner.legend.unpaved">Unpaved</span>
+          </div>
+          <div>
+            <kpn-legend-icon
+              color="rgb(0, 200, 0)"
+              [proposed]="true"
+            ></kpn-legend-icon>
+            <span i18n="@@planner.legend.proposed">Proposed</span>
           </div>
         </div>
         <div *ngIf="mapMode === 'survey'" class="legend">
@@ -133,5 +148,11 @@ import { MapService } from '../../components/ol/services/map.service';
   ],
 })
 export class MapSidebarLegendComponent {
-  constructor(public mapService: MapService) {}
+  readonly expanded$ = this.store.select(selectPreferencesShowLegend);
+
+  constructor(public mapService: MapService, private store: Store<AppState>) {}
+
+  expandedChanged(expanded: boolean): void {
+    this.store.dispatch(actionPreferencesShowLegend({ value: expanded }));
+  }
 }

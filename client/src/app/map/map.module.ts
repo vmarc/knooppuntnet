@@ -50,6 +50,7 @@ import { ElevationProfileComponent } from './sidebar/elevation-profile.component
 import { LegendIconComponent } from './sidebar/legend-icon.component';
 import { MapSidebarAppearanceComponent } from './sidebar/map-side-bar-appearance.component';
 import { MapSidebarLegendComponent } from './sidebar/map-side-bar-legend.component';
+import { MapSidebarOptionsComponent } from './sidebar/map-side-bar-options.component';
 import { MapSidebarPlannerComponent } from './sidebar/map-side-bar-planner.component';
 import { MapSidebarPoiConfigurationComponent } from './sidebar/map-side-bar-poi-configuration.component';
 import { MapToolbarComponent } from './sidebar/map-toolbar.component';
@@ -95,6 +96,7 @@ import { PlanComponent } from './sidebar/plan.component';
     MapSidebarComponent,
     MapSidebarPlannerComponent,
     MapSidebarLegendComponent,
+    MapSidebarOptionsComponent,
     MapSidebarAppearanceComponent,
     MapSidebarPoiConfigurationComponent,
     MapPopupNodeComponent,

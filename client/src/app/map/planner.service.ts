@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { PlanRoute } from '@api/common/planner/plan-route';
+import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Map as TranslationMap } from 'immutable';
 import Map from 'ol/Map';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from '../app.service';
 import { MapService } from '../components/ol/services/map.service';
+import { AppState } from '../core/core.state';
+import { selectPreferencesPlanProposed } from '../core/preferences/preferences.selectors';
 import { PlannerContext } from './planner/context/planner-context';
 import { PlannerCursorImpl } from './planner/context/planner-cursor-impl';
 import { PlannerElasticBandImpl } from './planner/context/planner-elastic-band-impl';
@@ -49,10 +52,15 @@ export class PlannerService {
     this.elasticBand,
     this.highlighter,
     this.legRepository,
-    this.overlay
+    this.overlay,
+    this.store.select(selectPreferencesPlanProposed)
   );
 
-  constructor(private appService: AppService, private mapService: MapService) {
+  constructor(
+    private appService: AppService,
+    private mapService: MapService,
+    private store: Store<AppState>
+  ) {
     this.engine = new PlannerEngineImpl(this.context);
   }
 

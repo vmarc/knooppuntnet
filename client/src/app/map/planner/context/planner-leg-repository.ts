@@ -7,6 +7,7 @@ export interface PlannerLegRepository {
   planLeg(
     networkType: NetworkType,
     source: LegEnd,
-    sink: LegEnd
+    sink: LegEnd,
+    proposed: boolean
   ): Observable<PlanLegData>;
 }

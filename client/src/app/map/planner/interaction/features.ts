@@ -65,6 +65,7 @@ export class Features {
       }
       if (layer.endsWith('node')) {
         const nodeId = feature.get('id');
+        const proposed = feature.get('state') === 'proposed';
         let nodeRef = feature.get('ref');
         const nodeName = feature.get('name');
         if (nodeName && nodeRef === 'o') {
@@ -78,7 +79,7 @@ export class Features {
         const point: Point = feature.getGeometry() as Point;
         const extent = point.getExtent();
         const coordinate: Coordinate = [extent[0], extent[1]];
-        return NetworkNodeFeature.create(nodeId, name, coordinate);
+        return NetworkNodeFeature.create(nodeId, name, coordinate, proposed);
       }
 
       const layerType = feature.get('type');
@@ -102,7 +103,15 @@ export class Features {
         const routeId =
           dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
         const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
-        return new RouteFeature(+routeId, +pathId, routeName, oneWay, feature);
+        const proposed = feature.get('state') === 'proposed';
+        return new RouteFeature(
+          +routeId,
+          +pathId,
+          routeName,
+          oneWay,
+          proposed,
+          feature
+        );
       }
     }
 

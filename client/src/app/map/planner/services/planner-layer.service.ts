@@ -20,6 +20,7 @@ import { MapService } from '../../../components/ol/services/map.service';
 import { PoiTileLayerService } from '../../../components/ol/services/poi-tile-layer.service';
 import { MainMapStyle } from '../../../components/ol/style/main-map-style';
 import { AppState } from '../../../core/core.state';
+import { selectPreferencesShowProposed } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesExtraLayers } from '../../../core/preferences/preferences.selectors';
 import { NetworkTypes } from '../../../kpn/common/network-types';
 import { Subscriptions } from '../../../util/Subscriptions';
@@ -86,7 +87,8 @@ export class PlannerLayerService {
 
     const mainMapStyle = new MainMapStyle(
       olMap,
-      this.mapService
+      this.mapService,
+      this.store
     ).styleFunction();
     List(this.vectorLayers.values()).forEach((mapLayer) => {
       const vectorTileLayer = mapLayer.layer as VectorTileLayer;
@@ -94,7 +96,10 @@ export class PlannerLayerService {
       this.mapRelatedSubscriptions.add(
         this.mapService.mapMode$.subscribe(() =>
           vectorTileLayer.getSource().changed()
-        )
+        ),
+        this.store
+          .select(selectPreferencesShowProposed)
+          .subscribe(() => vectorTileLayer.getSource().changed())
       );
     });
 

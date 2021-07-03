@@ -7,6 +7,7 @@ export class RouteFeature {
     readonly pathId: number,
     readonly routeName: string,
     readonly oneWay: boolean,
+    readonly proposed: boolean,
     readonly feature: FeatureLike
   ) {}
 

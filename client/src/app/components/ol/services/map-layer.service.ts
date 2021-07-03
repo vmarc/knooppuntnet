@@ -7,8 +7,10 @@ import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteMap } from '@api/common/route/route-map';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import VectorTileLayer from 'ol/layer/VectorTile';
+import { AppState } from '../../../core/core.state';
 import { I18nService } from '../../../i18n/i18n.service';
 import { BackgroundLayer } from '../layers/background-layer';
 import { GpxLayer } from '../layers/gpx-layer';
@@ -37,7 +39,8 @@ import { MapService } from './map.service';
 export class MapLayerService {
   constructor(
     private i18nService: I18nService,
-    private mapService: MapService
+    private mapService: MapService,
+    private store: Store<AppState>
   ) {}
 
   osmLayer(): MapLayer {
@@ -57,7 +60,11 @@ export class MapLayerService {
   }
 
   mainMapLayer(): MapLayer {
-    return new MainMapLayer(this.mapService, this.i18nService).build();
+    return new MainMapLayer(
+      this.mapService,
+      this.i18nService,
+      this.store
+    ).build();
   }
 
   locationBoundaryLayer(geoJson: string): MapLayer {
