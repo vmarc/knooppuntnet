@@ -1,12 +1,12 @@
-import {NetworkChangesPage} from '@api/common/network/network-changes-page';
-import {NetworkDetailsPage} from '@api/common/network/network-details-page';
-import {NetworkFactsPage} from '@api/common/network/network-facts-page';
-import {NetworkMapPage} from '@api/common/network/network-map-page';
-import {NetworkNodesPage} from '@api/common/network/network-nodes-page';
-import {NetworkRoutesPage} from '@api/common/network/network-routes-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {props} from '@ngrx/store';
-import {createAction} from '@ngrx/store';
+import { NetworkChangesPage } from '@api/common/network/network-changes-page';
+import { NetworkDetailsPage } from '@api/common/network/network-details-page';
+import { NetworkFactsPage } from '@api/common/network/network-facts-page';
+import { NetworkMapPage } from '@api/common/network/network-map-page';
+import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
+import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
+import { ApiResponse } from '@api/custom/api-response';
+import { props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
 export const actionNetworkLink = createAction(
   '[Network] Link',
@@ -49,9 +49,7 @@ export const actionNetworkFactsPageLoaded = createAction(
   props<{ response: ApiResponse<NetworkFactsPage> }>()
 );
 
-export const actionNetworkMapPageInit = createAction(
-  '[NetworkMapPage] Init'
-);
+export const actionNetworkMapPageInit = createAction('[NetworkMapPage] Init');
 
 export const actionNetworkMapPageLoaded = createAction(
   '[NetworkMapPage] Loaded',

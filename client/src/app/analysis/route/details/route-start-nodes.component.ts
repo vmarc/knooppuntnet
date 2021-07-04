@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {RouteInfoAnalysis} from '@api/common/route/route-info-analysis';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RouteInfoAnalysis } from '@api/common/route/route-info-analysis';
 
 /* tslint:disable:template-i18n */
 @Component({
@@ -9,12 +9,18 @@ import {RouteInfoAnalysis} from '@api/common/route/route-info-analysis';
   template: `
     <p *ngIf="analysis.map.startNodes.isEmpty()">?</p>
     <p *ngFor="let node of analysis.map.startNodes">
-      <kpn-route-node [node]="node" title="marker-icon-green-small.png"></kpn-route-node>
+      <kpn-route-node
+        [node]="node"
+        title="marker-icon-green-small.png"
+      ></kpn-route-node>
     </p>
     <p *ngFor="let node of analysis.map.startTentacleNodes">
-      <kpn-route-node [node]="node" title="marker-icon-orange-small.png"></kpn-route-node>
+      <kpn-route-node
+        [node]="node"
+        title="marker-icon-orange-small.png"
+      ></kpn-route-node>
     </p>
-  `
+  `,
 })
 export class RouteStartNodesComponent {
   @Input() analysis: RouteInfoAnalysis;

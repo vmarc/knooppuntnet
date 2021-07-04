@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import {BoundsI} from '../bounds-i';
-import {Timestamp} from '../../custom/timestamp';
+import { BoundsI } from '../bounds-i';
+import { Timestamp } from '../../custom/timestamp';
 
 export interface MonitorRouteReferenceInfo {
   readonly key: string;

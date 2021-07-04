@@ -1,23 +1,23 @@
-import {List} from 'immutable';
-import {FeatureLike} from 'ol/Feature';
+import { List } from 'immutable';
+import { FeatureLike } from 'ol/Feature';
 import Map from 'ol/Map';
-import {Style} from 'ol/style';
-import {StyleFunction} from 'ol/style/Style';
-import {MainStyleColors} from './main-style-colors';
-import {NodeStyle} from './node-style';
-import {RouteStyle} from './route-style';
+import { Style } from 'ol/style';
+import { StyleFunction } from 'ol/style/Style';
+import { MainStyleColors } from './main-style-colors';
+import { NodeStyle } from './node-style';
+import { RouteStyle } from './route-style';
 
 export class NetworkNodesMapStyle {
-
   private readonly smallNodeStyle = NodeStyle.smallGreen;
   private readonly smallNodeStyleGray = NodeStyle.smallGray;
   private readonly nameStyle = NodeStyle.nameStyle();
   private readonly routeStyle = new RouteStyle();
 
-  constructor(private map: Map,
-              private networkNodeIds: List<number>,
-              private networkRouteIds: List<number>) {
-  }
+  constructor(
+    private map: Map,
+    private networkNodeIds: List<number>,
+    private networkRouteIds: List<number>
+  ) {}
 
   public styleFunction(): StyleFunction {
     return (feature, resolution) => {
@@ -47,16 +47,13 @@ export class NetworkNodesMapStyle {
       if (this.networkNodeIds.contains(nodeId)) {
         if (proposed) {
           style = NodeStyle.proposedLargeGreen;
-        }
-        else {
+        } else {
           style = NodeStyle.largeGreen;
         }
-      }
-      else {
+      } else {
         if (proposed) {
           style = NodeStyle.proposedLargeGray;
-        }
-        else {
+        } else {
           style = NodeStyle.largeGray;
         }
       }
@@ -72,14 +69,18 @@ export class NetworkNodesMapStyle {
       }
       return style;
     }
-    return this.networkNodeIds.contains(nodeId) ? this.smallNodeStyle : this.smallNodeStyleGray;
+    return this.networkNodeIds.contains(nodeId)
+      ? this.smallNodeStyle
+      : this.smallNodeStyleGray;
   }
 
   private buildRouteStyle(feature: FeatureLike): Style {
     const zoom = this.map.getView().getZoom();
     const featureId = feature.get('id');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
-    const routeColor = this.networkRouteIds.contains(routeId) ? MainStyleColors.green : MainStyleColors.gray;
+    const routeColor = this.networkRouteIds.contains(routeId)
+      ? MainStyleColors.green
+      : MainStyleColors.gray;
     const proposed = feature.get('state') === 'proposed';
     return this.routeStyle.style(routeColor, zoom, false, proposed);
   }

@@ -1,12 +1,11 @@
-import {Map} from 'immutable';
-import {Coordinate} from 'ol/coordinate';
-import {expectCoordinate} from '../../../util/test-support';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanFlagType} from '../plan/plan-flag-type';
-import {PlannerMarkerLayer} from './planner-marker-layer';
+import { Map } from 'immutable';
+import { Coordinate } from 'ol/coordinate';
+import { expectCoordinate } from '../../../util/test-support';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanFlagType } from '../plan/plan-flag-type';
+import { PlannerMarkerLayer } from './planner-marker-layer';
 
 export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
-
   private flags: Map<string, PlanFlag> = Map();
 
   addFlag(flag: PlanFlag): void {
@@ -34,7 +33,10 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
     const oldFlag = this.flags.get(featureId);
     if (oldFlag) {
-      this.flags = this.flags.set(featureId, new PlanFlag(oldFlag.flagType, featureId, coordinate));
+      this.flags = this.flags.set(
+        featureId,
+        new PlanFlag(oldFlag.flagType, featureId, coordinate)
+      );
     }
   }
 
@@ -43,7 +45,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
       let message = `the expected number of route flags (${count}) does not match the actual (${this.flags.size}) number of flags`;
       if (!this.flags.isEmpty()) {
         message += `, the route-layer contains following flag(s): `;
-        message += this.flags.map(flag => `"${flag.featureId}"`).join(', ');
+        message += this.flags.map((flag) => `"${flag.featureId}"`).join(', ');
       }
       fail(message);
     }
@@ -65,7 +67,11 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     this.expectFlagExists(PlanFlagType.Invisible, featureId, coordinate);
   }
 
-  expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate: Coordinate): void {
+  expectFlagExists(
+    flagType: PlanFlagType,
+    featureId: string,
+    coordinate: Coordinate
+  ): void {
     const flag = this.flags.get(featureId);
     if (!flag) {
       let message = `Cannot find flag with featureId "${featureId}"`;
@@ -110,11 +116,22 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     this.expectFlagCoordinateExists(PlanFlagType.Invisible, coordinate);
   }
 
-  expectFlagCoordinateExists(flagType: PlanFlagType, coordinate: Coordinate): void {
+  expectFlagCoordinateExists(
+    flagType: PlanFlagType,
+    coordinate: Coordinate
+  ): void {
     const coordinateString = JSON.stringify(coordinate);
-    const result = this.flags.valueSeq().find(flag => flag.flagType === flagType && JSON.stringify(flag.coordinate) === coordinateString);
+    const result = this.flags
+      .valueSeq()
+      .find(
+        (flag) =>
+          flag.flagType === flagType &&
+          JSON.stringify(flag.coordinate) === coordinateString
+      );
     if (!result) {
-      fail(`could not find flag with type ${flagType} and coordinate ${coordinate}`);
+      fail(
+        `could not find flag with type ${flagType} and coordinate ${coordinate}`
+      );
     }
   }
 
@@ -124,5 +141,4 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     expect(flag.flagType).toEqual(planFlag.flagType);
     expectCoordinate(flag.coordinate, planFlag.coordinate);
   }
-
 }

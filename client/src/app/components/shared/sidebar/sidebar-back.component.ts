@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {PageService} from '../page.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { PageService } from '../page.service';
 
 @Component({
   selector: 'kpn-sidebar-back',
@@ -13,31 +13,28 @@ import {PageService} from '../page.service';
       </mat-list-item>
     </mat-nav-list>
   `,
-  styles: [`
+  styles: [
+    `
+      mat-nav-list {
+        padding-top: 0;
+        height: 48px;
+        border-bottom: 1px solid rgb(240, 240, 240);
+      }
 
-    mat-nav-list {
-      padding-top: 0;
-      height: 48px;
-      border-bottom: 1px solid rgb(240, 240, 240);
-    }
+      .mat-list-base .mat-list-item.mat-list-item-with-avatar {
+        height: 48px;
+      }
 
-    .mat-list-base .mat-list-item.mat-list-item-with-avatar {
-      height: 48px;
-    }
-
-    span {
-      padding-left: 10px;
-    }
-
-  `]
+      span {
+        padding-left: 10px;
+      }
+    `,
+  ],
 })
 export class SidebarBackComponent {
-
-  constructor(private pageService: PageService) {
-  }
+  constructor(private pageService: PageService) {}
 
   back(): void {
     this.pageService.toggleSidebarOpen();
   }
-
 }

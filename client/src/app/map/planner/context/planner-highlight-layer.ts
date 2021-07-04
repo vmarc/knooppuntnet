@@ -1,4 +1,4 @@
-import {FeatureLike} from 'ol/Feature';
+import { FeatureLike } from 'ol/Feature';
 import Feature from 'ol/Feature';
 import GeometryType from 'ol/geom/GeometryType';
 import VectorLayer from 'ol/layer/Vector';
@@ -7,31 +7,41 @@ import VectorSource from 'ol/source/Vector';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
-import {StyleFunction} from 'ol/style/Style';
+import { StyleFunction } from 'ol/style/Style';
 import Style from 'ol/style/Style';
-import {Layers} from '../../../components/ol/layers/layers';
+import { Layers } from '../../../components/ol/layers/layers';
 
 export class PlannerHighlightLayer {
-
   private readonly largeMinZoomLevel = 13;
   private readonly yellow = 'rgba(255, 255, 0, 0.8)';
   private readonly blue = 'rgba(0, 0, 255, 0.5)';
 
-  private readonly routeStyle = PlannerHighlightLayer.buildRouteStyle(this.yellow);
-  private readonly smallNodeStyle = PlannerHighlightLayer.buildNodeStyle(12, this.yellow);
-  private readonly largeNodeStyle = PlannerHighlightLayer.buildNodeStyle(22, this.yellow);
+  private readonly routeStyle = PlannerHighlightLayer.buildRouteStyle(
+    this.yellow
+  );
+  private readonly smallNodeStyle = PlannerHighlightLayer.buildNodeStyle(
+    12,
+    this.yellow
+  );
+  private readonly largeNodeStyle = PlannerHighlightLayer.buildNodeStyle(
+    22,
+    this.yellow
+  );
 
-  private readonly mouseDownStyle = PlannerHighlightLayer.buildNodeStyle(30, this.blue);
+  private readonly mouseDownStyle = PlannerHighlightLayer.buildNodeStyle(
+    30,
+    this.blue
+  );
 
   private map: Map;
 
   private source = new VectorSource({
-    features: []
+    features: [],
   });
 
   private layer = new VectorLayer({
     zIndex: Layers.zIndexHighlightLayer,
-    source: this.source
+    source: this.source,
   });
 
   addToMap(map: Map) {
@@ -48,7 +58,9 @@ export class PlannerHighlightLayer {
         if ('true' === feature.get('mouse-down')) {
           return this.mouseDownStyle;
         }
-        return zoom >= this.largeMinZoomLevel ? this.largeNodeStyle : this.smallNodeStyle;
+        return zoom >= this.largeMinZoomLevel
+          ? this.largeNodeStyle
+          : this.smallNodeStyle;
       }
       return this.routeStyle;
     };
@@ -70,9 +82,9 @@ export class PlannerHighlightLayer {
       image: new Circle({
         radius,
         fill: new Fill({
-          color: color
-        })
-      })
+          color: color,
+        }),
+      }),
     });
   }
 
@@ -80,8 +92,8 @@ export class PlannerHighlightLayer {
     return new Style({
       stroke: new Stroke({
         color: color,
-        width: 18
-      })
+        width: 18,
+      }),
     });
   }
 }

@@ -1,5 +1,4 @@
 export class ZoomLevel {
-
   static readonly bitmapTileMinZoom = 6;
   static readonly bitmapTileMaxZoom = 11;
 
@@ -20,5 +19,4 @@ export class ZoomLevel {
     ZoomLevel.vectorTileMaxZoom,
     ZoomLevel.vectorTileMaxOverZoom
   );
-
 }

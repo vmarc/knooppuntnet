@@ -1,20 +1,26 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {TrackPathKey} from '../common/track-path-key';
+import { List } from 'immutable';
+import { TrackPathKey } from '../common/track-path-key';
 
 export class LegEndRoute {
-
-  constructor(readonly trackPathKeys: List<TrackPathKey>,
-              readonly selection: TrackPathKey) {
-  }
+  constructor(
+    readonly trackPathKeys: List<TrackPathKey>,
+    readonly selection: TrackPathKey
+  ) {}
 
   public static fromJSON(jsonObject: any): LegEndRoute {
     if (!jsonObject) {
       return undefined;
     }
     return new LegEndRoute(
-      jsonObject.trackPathKeys ? List(jsonObject.trackPathKeys.map((json: any) => TrackPathKey.fromJSON(json))) : List(),
+      jsonObject.trackPathKeys
+        ? List(
+            jsonObject.trackPathKeys.map((json: any) =>
+              TrackPathKey.fromJSON(json)
+            )
+          )
+        : List(),
       TrackPathKey.fromJSON(jsonObject.selection)
     );
   }

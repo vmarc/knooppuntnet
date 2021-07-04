@@ -1,7 +1,6 @@
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export class NetworkType {
-
   static cycling = new NetworkType('rcn', 'cycling', 'c');
   static hiking = new NetworkType('rwn', 'hiking', 'w');
   static horseRiding = new NetworkType('rhn', 'horse-riding', 'h');
@@ -15,13 +14,14 @@ export class NetworkType {
     NetworkType.horseRiding,
     NetworkType.motorboat,
     NetworkType.canoe,
-    NetworkType.inlineSkating
+    NetworkType.inlineSkating,
   ]);
 
-  private constructor(readonly id: string,
-                      readonly name: string,
-                      readonly letter: string) {
-  }
+  private constructor(
+    readonly id: string,
+    readonly name: string,
+    readonly letter: string
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkType {
     if (!jsonObject) {
@@ -31,7 +31,6 @@ export class NetworkType {
   }
 
   static withName(name: string): NetworkType {
-    return NetworkType.all.find(n => n.name === name);
+    return NetworkType.all.find((n) => n.name === name);
   }
-
 }

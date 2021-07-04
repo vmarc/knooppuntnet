@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {NetworkRouteRow} from '@api/common/network/network-route-row';
-import {RouteConnectionIndicatorDialogComponent} from './route-connection-indicator-dialog.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { NetworkRouteRow } from '@api/common/network/network-route-row';
+import { RouteConnectionIndicatorDialogComponent } from './route-connection-indicator-dialog.component';
 
 @Component({
   selector: 'kpn-route-connection-indicator',
@@ -13,23 +13,25 @@ import {RouteConnectionIndicatorDialogComponent} from './route-connection-indica
       letter="C"
       i18n-letter="@@route-connection-indicator.letter"
       [color]="color"
-      (openDialog)="onOpenDialog()">
+      (openDialog)="onOpenDialog()"
+    >
     </kpn-indicator>
-  `
+  `,
 })
 export class RouteConnectionIndicatorComponent implements OnInit {
-
   @Input() route: NetworkRouteRow;
   color: string;
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.color = this.route.roleConnection ? 'blue' : 'gray';
   }
 
   onOpenDialog() {
-    this.dialog.open(RouteConnectionIndicatorDialogComponent, {data: this.color, maxWidth: 600});
+    this.dialog.open(RouteConnectionIndicatorDialogComponent, {
+      data: this.color,
+      maxWidth: 600,
+    });
   }
 }

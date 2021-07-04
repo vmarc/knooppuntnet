@@ -1,13 +1,12 @@
-import {DirectionsAnalyzer} from './directions-analyzer';
-import {DirectionsTestSetup} from './directions-test-setup';
+import { DirectionsAnalyzer } from './directions-analyzer';
+import { DirectionsTestSetup } from './directions-test-setup';
 
 describe('directions', () => {
-
   it('translate plan into directions', () => {
     const plan = DirectionsTestSetup.examplePlan();
 
     const instructions = new DirectionsAnalyzer().analyze(plan);
-    instructions.forEach(instruction => {
+    instructions.forEach((instruction) => {
       if (instruction.node != null) {
         console.log('node ' + instruction.node);
       } else {
@@ -26,5 +25,4 @@ describe('directions', () => {
       }
     });
   });
-
 });

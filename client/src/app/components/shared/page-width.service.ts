@@ -1,14 +1,13 @@
-import {BreakpointObserver} from '@angular/cdk/layout';
-import {Injectable} from '@angular/core';
-import {ReplaySubject} from 'rxjs';
-import {merge} from 'rxjs';
-import {PageWidth} from './page-width';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { merge } from 'rxjs';
+import { PageWidth } from './page-width';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PageWidthService {
-
   public current$ = new ReplaySubject<PageWidth>();
 
   private readonly veryVerySmallMaxWidth = 400;
@@ -18,7 +17,6 @@ export class PageWidthService {
   private readonly largeMaxWidth = 1300;
 
   constructor(breakpointObserver: BreakpointObserver) {
-
     const veryVerySmallMediaQuery = `(max-width: ${this.veryVerySmallMaxWidth}px)`;
     const verySmallMediaQuery = `(max-width: ${this.verySmallMaxWidth}px)`;
     const smallMediaQuery = `(max-width: ${this.smallMaxWidth}px)`;
@@ -33,7 +31,9 @@ export class PageWidthService {
       breakpointObserver.observe(largeMediaQuery)
     );
 
-    breakpointState$.subscribe(() => this.current$.next(this.currentPageWidth()));
+    breakpointState$.subscribe(() =>
+      this.current$.next(this.currentPageWidth())
+    );
   }
 
   currentPageWidth(): PageWidth {
@@ -79,5 +79,4 @@ export class PageWidthService {
   isVeryLarge(): boolean {
     return this.currentPageWidth() === PageWidth.veryLarge;
   }
-
 }

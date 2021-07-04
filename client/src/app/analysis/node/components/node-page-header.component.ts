@@ -1,23 +1,22 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-node-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <kpn-page-header [pageTitle]="nodeName" subject="node-page">
       <span i18n="@@node.title">Node</span>
-      <span *ngIf="nodeName">&nbsp;{{nodeName}}</span>
+      <span *ngIf="nodeName">&nbsp;{{ nodeName }}</span>
     </kpn-page-header>
 
     <kpn-page-menu>
-
       <kpn-page-menu-option
         [link]="linkNodeDetails()"
         [state]="state()"
         [active]="pageName == 'details'"
-        i18n="@@node.menu.details">
+        i18n="@@node.menu.details"
+      >
         Details
       </kpn-page-menu-option>
 
@@ -25,7 +24,8 @@ import {Component, Input} from '@angular/core';
         [link]="linkNodeMap()"
         [state]="state()"
         [active]="pageName == 'map'"
-        i18n="@@node.menu.map">
+        i18n="@@node.menu.map"
+      >
         Map
       </kpn-page-menu-option>
 
@@ -34,15 +34,14 @@ import {Component, Input} from '@angular/core';
         [state]="state()"
         [active]="pageName == 'changes'"
         [elementCount]="changeCount"
-        i18n="@@node.menu.changes">
+        i18n="@@node.menu.changes"
+      >
         Changes
       </kpn-page-menu-option>
-
     </kpn-page-menu>
-  `
+  `,
 })
 export class NodePageHeaderComponent {
-
   @Input() nodeId: string;
   @Input() nodeName: string;
   @Input() changeCount: number;
@@ -61,11 +60,10 @@ export class NodePageHeaderComponent {
   }
 
   state(): { [k: string]: any } {
-    return {nodeName: this.nodeName, changeCount: this.changeCount};
+    return { nodeName: this.nodeName, changeCount: this.changeCount };
   }
 
   private linkNode(suffix: string): string {
     return `/analysis/node/${this.nodeId}${suffix}`;
   }
-
 }

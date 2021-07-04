@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {Timestamp} from '../../custom/timestamp';
+import { Timestamp } from '../../custom/timestamp';
 
 export class MetaData {
-
-  constructor(readonly version: number,
-              readonly timestamp: Timestamp,
-              readonly changeSetId: number) {
-  }
+  constructor(
+    readonly version: number,
+    readonly timestamp: Timestamp,
+    readonly changeSetId: number
+  ) {}
 
   public static fromJSON(jsonObject: any): MetaData {
     if (!jsonObject) {

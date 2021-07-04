@@ -1,18 +1,18 @@
-import {AfterViewInit} from '@angular/core';
-import {ElementRef} from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {Util} from '../../components/shared/util';
-import {PdfService} from '../../pdf/pdf.service';
-import {GpxWriter} from '../../pdf/plan/gpx-writer';
-import {PlannerService} from '../planner.service';
-import {PlanUtil} from '../planner/plan/plan-util';
-import {Store} from '@ngrx/store';
-import {select} from '@ngrx/store';
-import {selectPreferencesInstructions} from '../../core/preferences/preferences.selectors';
-import {AppState} from '../../core/core.state';
+import { AfterViewInit } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Util } from '../../components/shared/util';
+import { PdfService } from '../../pdf/pdf.service';
+import { GpxWriter } from '../../pdf/plan/gpx-writer';
+import { PlannerService } from '../planner.service';
+import { PlanUtil } from '../planner/plan/plan-util';
+import { Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
+import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
+import { AppState } from '../../core/core.state';
 
 @Component({
   selector: 'kpn-plan-output-dialog',
@@ -26,7 +26,6 @@ import {AppState} from '../../core/core.state';
         </div>
       </div>
       <div mat-dialog-content class="dialog-content">
-
         <mat-form-field>
           <mat-label i18n="@@plan.output.route-name">Route name</mat-label>
           <input
@@ -35,7 +34,8 @@ import {AppState} from '../../core/core.state';
             placeholder="type route name"
             i18n-placeholder="@@plan.output.route-name-placeholder"
             [value]="name"
-            (blur)="nameChanged($event)">
+            (blur)="nameChanged($event)"
+          />
         </mat-form-field>
 
         <button
@@ -43,7 +43,8 @@ import {AppState} from '../../core/core.state';
           (click)="printDocument()"
           title="Produce a route pdf file with compact node overview"
           i18n-title="@@plan.output.compact-pdf.tooltip"
-          i18n="@@plan.output.compact-pdf">
+          i18n="@@plan.output.compact-pdf"
+        >
           Compact
         </button>
 
@@ -52,7 +53,8 @@ import {AppState} from '../../core/core.state';
           (click)="printStripDocument()"
           title="Produce a route pdf file with nodes in 'strip' format"
           i18n-title="@@plan.output.node-strip-pdf.tooltip"
-          i18n="@@plan.output.node-strip-pdf">
+          i18n="@@plan.output.node-strip-pdf"
+        >
           Node strip
         </button>
 
@@ -62,7 +64,8 @@ import {AppState} from '../../core/core.state';
           (click)="printInstructions()"
           title="Produce a route pdf with navigation instructions"
           i18n-title="@@plan.output.navigation-instructions-pdf.tooltip"
-          i18n="@@plan.output.navigation-instructions-pdf">
+          i18n="@@plan.output.navigation-instructions-pdf"
+        >
           Navigation instructions
         </button>
 
@@ -71,57 +74,61 @@ import {AppState} from '../../core/core.state';
           (click)="gpx()"
           title="Produce a route file that can be used in a gps-device"
           i18n-title="@@plan.output.gpx.tooltip"
-          i18n="@@plan.output.gpx">
+          i18n="@@plan.output.gpx"
+        >
           GPX file
         </button>
 
         <button
           mat-stroked-button
-          ngxClipboard [cbContent]="planUrl"
+          ngxClipboard
+          [cbContent]="planUrl"
           title="Copy a link to this route to the clipboard (for example to keep for later or paste in email)"
           i18n-title="@@plan.output.clipboard.tooltip"
-          i18n="@@plan.output.clipboard">
+          i18n="@@plan.output.clipboard"
+        >
           Copy link to clipboard
         </button>
 
         <qr-code [value]="planUrl" [size]="200"></qr-code>
-
       </div>
     </kpn-dialog>
   `,
-  styles: [`
+  styles: [
+    `
+      .dialog-content {
+        display: flex;
+        flex-direction: column;
+        width: 240px;
+      }
 
-    .dialog-content {
-      display: flex;
-      flex-direction: column;
-      width: 240px;
-    }
+      .dialog-content > button {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
 
-    .dialog-content > button {
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-
-    qr-code {
-      margin-top: 25px;
-      border: 1px solid black;
-      padding: 10px;
-    }
-
-  `]
+      qr-code {
+        margin-top: 25px;
+        border: 1px solid black;
+        padding: 10px;
+      }
+    `,
+  ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
-
   name = '';
   planUrl = '';
   @ViewChild('routename') input: ElementRef;
 
-  readonly instructions$ = this.store.pipe(select(selectPreferencesInstructions));
+  readonly instructions$ = this.store.pipe(
+    select(selectPreferencesInstructions)
+  );
 
-  constructor(private pdfService: PdfService,
-              private plannerService: PlannerService,
-              private store: Store<AppState>) {
-  }
+  constructor(
+    private pdfService: PdfService,
+    private plannerService: PlannerService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.name = this.defaultName();
@@ -133,15 +140,25 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   printDocument(): void {
-    this.pdfService.printDocument(this.plannerService.context.plan, this.planUrl, this.routeName());
+    this.pdfService.printDocument(
+      this.plannerService.context.plan,
+      this.planUrl,
+      this.routeName()
+    );
   }
 
   printStripDocument(): void {
-    this.pdfService.printStripDocument(this.plannerService.context.plan, this.routeName());
+    this.pdfService.printStripDocument(
+      this.plannerService.context.plan,
+      this.routeName()
+    );
   }
 
   printInstructions(): void {
-    this.pdfService.printInstructions(this.plannerService.context.plan, this.routeName());
+    this.pdfService.printInstructions(
+      this.plannerService.context.plan,
+      this.routeName()
+    );
   }
 
   gpx(): void {
@@ -161,7 +178,9 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   private defaultName(): string {
     const source = this.plannerService.context.plan.sourceNode.nodeName;
-    const sink = PlanUtil.planSinkNode(this.plannerService.context.plan).nodeName;
+    const sink = PlanUtil.planSinkNode(
+      this.plannerService.context.plan
+    ).nodeName;
     return Util.today() + ' route ' + source + ' ' + sink;
   }
 

@@ -1,11 +1,12 @@
 export class Timestamp {
-  constructor(readonly year: number,
-              readonly month: number,
-              readonly day: number,
-              readonly hour: number,
-              readonly minute: number,
-              readonly second: number) {
-  }
+  constructor(
+    readonly year: number,
+    readonly month: number,
+    readonly day: number,
+    readonly hour: number,
+    readonly minute: number,
+    readonly second: number
+  ) {}
 
   public static fromJSON(jsonObject: any): Timestamp {
     if (!jsonObject) {
@@ -66,12 +67,14 @@ export class Timestamp {
   }
 
   sameAs(other: Timestamp): boolean {
-    return this.year === other.year &&
+    return (
+      this.year === other.year &&
       this.month === other.month &&
       this.day === other.day &&
       this.hour === other.hour &&
       this.minute === other.minute &&
-      this.second === other.second;
+      this.second === other.second
+    );
   }
 
   sameAsOrYoungerThan(other: Timestamp): boolean {
@@ -81,5 +84,4 @@ export class Timestamp {
   olderThan(other: Timestamp): boolean {
     return !this.sameAsOrYoungerThan(other);
   }
-
 }

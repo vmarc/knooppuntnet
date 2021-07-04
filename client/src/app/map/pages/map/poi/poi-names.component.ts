@@ -1,6 +1,11 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef} from '@angular/core';
-import {PoiService} from '../../../../services/poi.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+} from '@angular/core';
+import { PoiService } from '../../../../services/poi.service';
 
 @Component({
   selector: 'kpn-poi-names',
@@ -9,7 +14,9 @@ import {PoiService} from '../../../../services/poi.service';
     <div *ngIf="!isRegistryUpdated()">
       <span id="alcohol" i18n="@@poi.alcohol">Alcohol</span>
       <span id="alpine-hut" i18n="@@poi.alpine-hut">Alpine hut</span>
-      <span id="american-football" i18n="@@poi.american-football">American football</span>
+      <span id="american-football" i18n="@@poi.american-football"
+        >American football</span
+      >
       <span id="apartment" i18n="@@poi.apartment">Apartment</span>
       <span id="arts-centre" i18n="@@poi.arts-centre">Arts centre</span>
       <span id="artwork" i18n="@@poi.artwork">Artwork</span>
@@ -25,13 +32,25 @@ import {PoiService} from '../../../../services/poi.service';
       <span id="bench" i18n="@@poi.bench">Bench</span>
       <span id="beverages" i18n="@@poi.beverages">Beverages</span>
       <span id="bicycle" i18n="@@poi.bicycle">Bicycle</span>
-      <span id="bicycle-parking" i18n="@@poi.bicycle-parking">Bicycle parking</span>
-      <span id="bicycle-rental" i18n="@@poi.bicycle-rental">Bicycle rental</span>
-      <span id="bicycle-rental-2" i18n="@@poi.bicycle-rental">Bicycle rental</span>
+      <span id="bicycle-parking" i18n="@@poi.bicycle-parking"
+        >Bicycle parking</span
+      >
+      <span id="bicycle-rental" i18n="@@poi.bicycle-rental"
+        >Bicycle rental</span
+      >
+      <span id="bicycle-rental-2" i18n="@@poi.bicycle-rental"
+        >Bicycle rental</span
+      >
       <span id="biergarten" i18n="@@poi.biergarten">Biergarten</span>
-      <span id="books-stationary" i18n="@@poi.books-stationary">Books/stationary</span>
-      <span id="boundary-stone" i18n="@@poi.boundary-stone">Boundary stone</span>
-      <span id="buddhist-temple" i18n="@@poi.buddhist-temple">Buddhist temple</span>
+      <span id="books-stationary" i18n="@@poi.books-stationary"
+        >Books/stationary</span
+      >
+      <span id="boundary-stone" i18n="@@poi.boundary-stone"
+        >Boundary stone</span
+      >
+      <span id="buddhist-temple" i18n="@@poi.buddhist-temple"
+        >Buddhist temple</span
+      >
       <span id="busstop" i18n="@@poi.busstop">Bus stop</span>
       <span id="butcher" i18n="@@poi.butcher">Butcher</span>
       <span id="cafe" i18n="@@poi.cafe">Cafe</span>
@@ -56,10 +75,16 @@ import {PoiService} from '../../../../services/poi.service';
       <span id="dairy" i18n="@@poi.dairy">Dairy</span>
       <span id="defibrillator" i18n="@@poi.defibrillator">Defibrillator</span>
       <span id="deli" i18n="@@poi.deli">Deli</span>
-      <span id="departmentstore" i18n="@@poi.departmentstore">Department store</span>
+      <span id="departmentstore" i18n="@@poi.departmentstore"
+        >Department store</span
+      >
       <span id="diy-hardware" i18n="@@poi.diy-hardware">DIY hardware</span>
-      <span id="drinking-water" i18n="@@poi.drinking-water">Drinking water</span>
-      <span id="ebike-charging" i18n="@@poi.ebike-charging">Ebike charging</span>
+      <span id="drinking-water" i18n="@@poi.drinking-water"
+        >Drinking water</span
+      >
+      <span id="ebike-charging" i18n="@@poi.ebike-charging"
+        >Ebike charging</span
+      >
       <span id="embassy" i18n="@@poi.embassy">Embassy</span>
       <span id="fastfood" i18n="@@poi.fastfood">Fast food</span>
       <span id="firestation" i18n="@@poi.firestation">Firestation</span>
@@ -90,12 +115,18 @@ import {PoiService} from '../../../../services/poi.service';
       <span id="leather" i18n="@@poi.leather">Leather</span>
       <span id="library" i18n="@@poi.library">Library</span>
       <span id="marketplace" i18n="@@poi.marketplace">Marketplace</span>
-      <span id="monumental-tree" i18n="@@poi.monumental-tree">Monumental tree</span>
-      <span id="monument-memorial" i18n="@@poi.monument-memorial">Monument</span>
+      <span id="monumental-tree" i18n="@@poi.monumental-tree"
+        >Monumental tree</span
+      >
+      <span id="monument-memorial" i18n="@@poi.monument-memorial"
+        >Monument</span
+      >
       <span id="mosque" i18n="@@poi.mosque">Mosque</span>
       <span id="motel" i18n="@@poi.motel">Motel</span>
       <span id="museum" i18n="@@poi.museum">Museum</span>
-      <span id="musical-instrument" i18n="@@poi.musical-instrument">Musical instrument</span>
+      <span id="musical-instrument" i18n="@@poi.musical-instrument"
+        >Musical instrument</span
+      >
       <span id="musicschool" i18n="@@poi.musicschool">Music school</span>
       <span id="optician" i18n="@@poi.optician">Optician</span>
       <span id="organic" i18n="@@poi.organic">Organic</span>
@@ -105,7 +136,9 @@ import {PoiService} from '../../../../services/poi.service';
       <span id="phone" i18n="@@poi.phone">Phone</span>
       <span id="photo" i18n="@@poi.photo">Photo</span>
       <span id="picnic" i18n="@@poi.picnic">Picnic</span>
-      <span id="place-of-worship" i18n="@@poi.place-of-worship">Place of worship</span>
+      <span id="place-of-worship" i18n="@@poi.place-of-worship"
+        >Place of worship</span
+      >
       <span id="police" i18n="@@poi.police">Police</span>
       <span id="postbox" i18n="@@poi.postbox">Post box</span>
       <span id="postoffice" i18n="@@poi.postoffice">Post office</span>
@@ -114,7 +147,9 @@ import {PoiService} from '../../../../services/poi.service';
       <span id="sauna" i18n="@@poi.sauna">Sauna</span>
       <span id="seafood" i18n="@@poi.seafood">Seafood</span>
       <span id="shoes" i18n="@@poi.shoes">Shoes</span>
-      <span id="shoppingcentre" i18n="@@poi.shoppingcentre">Shopping centre</span>
+      <span id="shoppingcentre" i18n="@@poi.shoppingcentre"
+        >Shopping centre</span
+      >
       <span id="soccer" i18n="@@poi.soccer">Soccer</span>
       <span id="sportscentre" i18n="@@poi.sportscentre">Sports centre</span>
       <span id="statue" i18n="@@poi.statue">Statue</span>
@@ -136,7 +171,9 @@ import {PoiService} from '../../../../services/poi.service';
       <span id="vineyard" i18n="@@poi.vineyard">Vineyard</span>
       <span id="volleyball" i18n="@@poi.volleyball">Volleyball</span>
       <span id="watermill" i18n="@@poi.watermill">Watermill</span>
-      <span id="wayside-shrine" i18n="@@poi.wayside-shrine">Wayside shrine</span>
+      <span id="wayside-shrine" i18n="@@poi.wayside-shrine"
+        >Wayside shrine</span
+      >
       <span id="windmill" i18n="@@poi.windmill">Windmill</span>
       <span id="wine" i18n="@@poi.wine">Wine</span>
       <span id="zoo" i18n="@@poi.zoo">Zoo</span>
@@ -144,18 +181,20 @@ import {PoiService} from '../../../../services/poi.service';
       <!-- "spa" i18n="@@poi.spa" -->
     </div>
   `,
-  styles: [`
-    :host {
-      display: none;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: none;
+      }
+    `,
+  ],
 })
 export class PoiNamesComponent implements AfterViewInit {
-
-  constructor(private element: ElementRef,
-              private poiService: PoiService,
-              private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    private element: ElementRef,
+    private poiService: PoiService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngAfterViewInit(): void {
     const divElement = this.element.nativeElement.children[0];

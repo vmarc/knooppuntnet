@@ -1,17 +1,16 @@
-import {Injectable} from '@angular/core';
-import {NetworkType} from '@api/custom/network-type';
-import {ReplaySubject} from 'rxjs';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {AppService} from '../../../app.service';
-import {NodeClick} from '../domain/node-click';
-import {PoiClick} from '../domain/poi-click';
-import {RouteClick} from '../domain/route-click';
-import {MapMode} from './map-mode';
-import {SurveyDateValues} from './survey-date-values';
+import { Injectable } from '@angular/core';
+import { NetworkType } from '@api/custom/network-type';
+import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AppService } from '../../../app.service';
+import { NodeClick } from '../domain/node-click';
+import { PoiClick } from '../domain/poi-click';
+import { RouteClick } from '../domain/route-click';
+import { MapMode } from './map-mode';
+import { SurveyDateValues } from './survey-date-values';
 
 @Injectable()
 export class MapService {
-
   selectedRouteId: string;
   selectedNodeId: string;
 
@@ -36,7 +35,7 @@ export class MapService {
   private _routeClicked$ = new ReplaySubject<RouteClick>(1);
 
   constructor(private appService: AppService) {
-    appService.surveyDateInfo().subscribe(response => {
+    appService.surveyDateInfo().subscribe((response) => {
       if (response.result) {
         this._surveyDateInfo$.next(SurveyDateValues.from(response.result));
       }

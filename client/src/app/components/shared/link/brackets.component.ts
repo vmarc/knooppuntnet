@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 /* tslint:disable:template-i18n */
 @Component({
@@ -10,11 +10,12 @@ import {Component} from '@angular/core';
     <ng-content></ng-content>
     <span class="bracket">)</span>
   `,
-  styles: [`
-    .bracket {
-      color: gray;
-    }
-  `]
+  styles: [
+    `
+      .bracket {
+        color: gray;
+      }
+    `,
+  ],
 })
-export class BracketsComponent {
-}
+export class BracketsComponent {}

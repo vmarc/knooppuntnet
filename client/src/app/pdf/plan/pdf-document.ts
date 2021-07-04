@@ -1,14 +1,13 @@
 import * as JsPdf from 'jspdf';
 import * as QRious from 'qrious';
-import {Plan} from '../../map/planner/plan/plan';
-import {PdfDocumentModel} from './pdf-document-model';
-import {PdfFooter} from './pdf-footer';
-import {PdfPage} from './pdf-page';
-import {PdfPlanBuilder} from './pdf-plan-builder';
-import {PdfSideBar} from './pdf-side-bar';
+import { Plan } from '../../map/planner/plan/plan';
+import { PdfDocumentModel } from './pdf-document-model';
+import { PdfFooter } from './pdf-footer';
+import { PdfPage } from './pdf-page';
+import { PdfPlanBuilder } from './pdf-plan-builder';
+import { PdfSideBar } from './pdf-side-bar';
 
 export class PdfDocument {
-
   private readonly model: PdfDocumentModel;
 
   private readonly doc = new JsPdf();
@@ -26,7 +25,6 @@ export class PdfDocument {
   }
 
   private drawQrCode(): void {
-
     const qrCodeSize = 40;
     const x = PdfPage.xContentsRight - qrCodeSize;
     const y = PdfPage.yContentsBottom - qrCodeSize;
@@ -36,14 +34,22 @@ export class PdfDocument {
       level: 'L', // Error correction level of the QR code (L, M, Q, H)
       mime: 'image/png',
       size: 200,
-      padding: 0
+      padding: 0,
     });
 
-    this.doc.addImage(qrious.toDataURL(), 'PNG', x, y, qrCodeSize, qrCodeSize, '', 'FAST');
+    this.doc.addImage(
+      qrious.toDataURL(),
+      'PNG',
+      x,
+      y,
+      qrCodeSize,
+      qrCodeSize,
+      '',
+      'FAST'
+    );
   }
 
   private drawGrid() {
-
     const pageCount = this.model.pageCount();
 
     for (let pageIndex = 0; pageIndex < pageCount; pageIndex++) {
@@ -56,13 +62,17 @@ export class PdfDocument {
       const rowCount = this.model.pageRowCount(pageIndex);
 
       for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+        const columnCount = this.model.columnCount(
+          pageIndex,
+          rowCount,
+          rowIndex
+        );
 
-        const columnCount = this.model.columnCount(pageIndex, rowCount, rowIndex);
-
-        const yTop = PdfPage.marginTop + (rowIndex * this.model.totalRowHeight);
+        const yTop = PdfPage.marginTop + rowIndex * this.model.totalRowHeight;
         const yBottom = yTop + this.model.rowHeight;
 
-        const xRowRight = PdfPage.xContentsLeft + (columnCount * this.model.totalColumnWidth);
+        const xRowRight =
+          PdfPage.xContentsLeft + columnCount * this.model.totalColumnWidth;
 
         this.doc.setDrawColor(180);
         this.doc.setLineWidth(0.1);
@@ -70,10 +80,10 @@ export class PdfDocument {
         this.doc.line(PdfPage.xContentsLeft, yBottom, xRowRight, yBottom);
 
         for (let columnIndex = 0; columnIndex < columnCount; columnIndex++) {
-
           const node = this.model.node(pageIndex, rowIndex, columnIndex);
 
-          const xColLeft = PdfPage.xContentsLeft + (columnIndex * this.model.totalColumnWidth);
+          const xColLeft =
+            PdfPage.xContentsLeft + columnIndex * this.model.totalColumnWidth;
           const xColRight = xColLeft + this.model.totalColumnWidth;
           const xLegDistanceLeft = xColRight - this.model.legDistanceWidth;
 
@@ -93,30 +103,35 @@ export class PdfDocument {
           this.doc.line(xLegDistanceLeft, yTop, xLegDistanceLeft, yBottom);
 
           this.doc.setDrawColor(0);
-          const xNodeNumberText = xColLeft + ((xLegDistanceLeft - xColLeft) / 2);
-          const yNodeNumberText = yTop + (this.model.nodeNumberHeight / 2);
+          const xNodeNumberText = xColLeft + (xLegDistanceLeft - xColLeft) / 2;
+          const yNodeNumberText = yTop + this.model.nodeNumberHeight / 2;
           this.doc.setFontSize(20);
-          this.doc.text(
-            node.nodeName,
-            xNodeNumberText,
-            yNodeNumberText,
-            {align: 'center', baseline: 'middle', lineHeightFactor: '1'}
-          );
+          this.doc.text(node.nodeName, xNodeNumberText, yNodeNumberText, {
+            align: 'center',
+            baseline: 'middle',
+            lineHeightFactor: '1',
+          });
 
-          const yCumulativeDistance = yBottom - (this.model.cumulativeDistanceHeight / 2);
+          const yCumulativeDistance =
+            yBottom - this.model.cumulativeDistanceHeight / 2;
           this.doc.setFontSize(8);
           this.doc.text(
             node.cumulativeDistance,
             xNodeNumberText,
             yCumulativeDistance,
-            {align: 'center', baseline: 'middle', lineHeightFactor: '1'}
+            { align: 'center', baseline: 'middle', lineHeightFactor: '1' }
           );
 
-          const xLegDistance = xLegDistanceLeft + (this.model.legDistanceWidth / 2);
+          const xLegDistance =
+            xLegDistanceLeft + this.model.legDistanceWidth / 2;
           this.doc.setFontSize(8);
           const widthLegDistanceText = this.doc.getTextWidth('1200 m');
-          const yLegDistance = yTop + (this.model.rowHeight / 2) + (widthLegDistanceText / 2);
-          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {angle: 90, lineHeightFactor: '1'});
+          const yLegDistance =
+            yTop + this.model.rowHeight / 2 + widthLegDistanceText / 2;
+          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {
+            angle: 90,
+            lineHeightFactor: '1',
+          });
         }
       }
     }

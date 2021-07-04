@@ -1,9 +1,8 @@
-import {Map} from 'immutable';
-import {PlanLeg} from '../plan/plan-leg';
-import {PlannerRouteLayer} from './planner-route-layer';
+import { Map } from 'immutable';
+import { PlanLeg } from '../plan/plan-leg';
+import { PlannerRouteLayer } from './planner-route-layer';
 
 export class PlannerRouteLayerMock extends PlannerRouteLayer {
-
   private legs: Map<string, PlanLeg> = Map();
 
   addPlanLeg(leg: PlanLeg): void {
@@ -19,7 +18,9 @@ export class PlannerRouteLayerMock extends PlannerRouteLayer {
       let message = `the expected number of route legs (${count}) does not match the actual (${this.legs.size}) number of legs`;
       if (!this.legs.isEmpty()) {
         message += `, the route-layer contains following leg(s): `;
-        message += this.legs.map(leg => `${leg.featureId}(${leg.key})`).join(', ');
+        message += this.legs
+          .map((leg) => `${leg.featureId}(${leg.key})`)
+          .join(', ');
       }
       fail(message);
     }
@@ -30,5 +31,4 @@ export class PlannerRouteLayerMock extends PlannerRouteLayer {
     expect(routeLeg).toBeDefined();
     expect(routeLeg.featureId).toEqual(leg.featureId);
   }
-
 }

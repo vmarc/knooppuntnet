@@ -1,28 +1,37 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {Plan} from '../planner/plan/plan';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { Plan } from '../planner/plan/plan';
 
 @Component({
   selector: 'kpn-plan-distance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="meters > 0" class="distance">
-      <span i18n="@@plan.distance" class="kpn-label">Distance</span>{{distance()}}
-      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{unpaved()}}
+      <span i18n="@@plan.distance" class="kpn-label">Distance</span
+      >{{ distance() }}
+      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span
+      >{{ unpaved() }}
     </div>
   `,
-  styles: [`
-    .distance {
-      margin-bottom: 10px;
-      color: gray;
-    }
+  styles: [
+    `
+      .distance {
+        margin-bottom: 10px;
+        color: gray;
+      }
 
-    .distance :last-child {
-      padding-left: 20px;
-    }
-  `]
+      .distance :last-child {
+        padding-left: 20px;
+      }
+    `,
+  ],
 })
 export class PlanDistanceComponent implements OnChanges {
-
   @Input() plan: Plan;
 
   meters = 0;
@@ -42,5 +51,4 @@ export class PlanDistanceComponent implements OnChanges {
   unpaved(): string {
     return this.plan.unpavedPercentage();
   }
-
 }

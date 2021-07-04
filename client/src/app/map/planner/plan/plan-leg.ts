@@ -1,20 +1,20 @@
-import {LegEnd} from '@api/common/planner/leg-end';
-import {PlanNode} from '@api/common/planner/plan-node';
-import {PlanRoute} from '@api/common/planner/plan-route';
-import {List} from 'immutable';
-import {Util} from '../../../components/shared/util';
-import {PlanFlag} from './plan-flag';
+import { LegEnd } from '@api/common/planner/leg-end';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { List } from 'immutable';
+import { Util } from '../../../components/shared/util';
+import { PlanFlag } from './plan-flag';
 
 export class PlanLeg {
-
-  constructor(readonly featureId: string,
-              readonly key: string,
-              readonly source: LegEnd,
-              readonly sink: LegEnd,
-              readonly sinkFlag: PlanFlag,
-              readonly viaFlag: PlanFlag,
-              readonly routes: List<PlanRoute>) {
-  }
+  constructor(
+    readonly featureId: string,
+    readonly key: string,
+    readonly source: LegEnd,
+    readonly sink: LegEnd,
+    readonly sinkFlag: PlanFlag,
+    readonly viaFlag: PlanFlag,
+    readonly routes: List<PlanRoute>
+  ) {}
 
   get sourceNode(): PlanNode {
     return this.routes.isEmpty() ? null : this.routes.get(0).sourceNode;
@@ -26,7 +26,7 @@ export class PlanLeg {
   }
 
   meters(): number {
-    return Util.sum(this.routes.map(route => route.meters));
+    return Util.sum(this.routes.map((route) => route.meters));
   }
 
   withSinkFlag(sinkFlag: PlanFlag): PlanLeg {
@@ -40,5 +40,4 @@ export class PlanLeg {
       this.routes
     );
   }
-
 }

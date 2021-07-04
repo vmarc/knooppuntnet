@@ -17,7 +17,6 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
     sink: LegEnd,
     proposed: boolean
   ): Observable<PlanLegData> {
-
     const params: LegBuildParams = {
       networkType: networkType.name,
       source,

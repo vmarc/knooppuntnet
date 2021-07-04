@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {RouteInfo} from './route-info';
+import { RouteInfo } from './route-info';
 
 export class RouteMapPage {
-
-  constructor(readonly route: RouteInfo,
-              readonly changeCount: number) {
-  }
+  constructor(readonly route: RouteInfo, readonly changeCount: number) {}
 
   public static fromJSON(jsonObject: any): RouteMapPage {
     if (!jsonObject) {

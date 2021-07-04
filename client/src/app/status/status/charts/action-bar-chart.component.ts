@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Input} from '@angular/core';
-import {Component} from '@angular/core';
-import {BarChart} from '@api/common/status/bar-chart';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { BarChart } from '@api/common/status/bar-chart';
 
 /* tslint:disable:template-i18n English only */
 @Component({
@@ -21,12 +21,12 @@ import {BarChart} from '@api/common/status/bar-chart';
       [roundDomains]="false"
       [roundEdges]="false"
       [showDataLabel]="false"
-      (select)="onSelect($event)">
+      (select)="onSelect($event)"
+    >
     </ngx-charts-bar-vertical>
-  `
+  `,
 })
 export class ActionBarChartComponent {
-
   @Input() barChart: BarChart;
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;

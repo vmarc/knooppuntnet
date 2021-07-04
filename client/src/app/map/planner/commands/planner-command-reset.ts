@@ -1,9 +1,8 @@
-import {PlannerContext} from '../context/planner-context';
-import {Plan} from '../plan/plan';
-import {PlannerCommand} from './planner-command';
+import { PlannerContext } from '../context/planner-context';
+import { Plan } from '../plan/plan';
+import { PlannerCommand } from './planner-command';
 
 export class PlannerCommandReset implements PlannerCommand {
-
   private oldPlan: Plan;
 
   public do(context: PlannerContext) {
@@ -20,5 +19,4 @@ export class PlannerCommandReset implements PlannerCommand {
     context.markerLayer.addPlan(this.oldPlan);
     context.updatePlan(this.oldPlan);
   }
-
 }

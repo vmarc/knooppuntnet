@@ -1,11 +1,15 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-poi-group-hiking-biking',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="hiking-biking" title="Hiking/biking" i18n-title="@@poi.group.hiking-biking">
+    <kpn-poi-group
+      name="hiking-biking"
+      title="Hiking/biking"
+      i18n-title="@@poi.group.hiking-biking"
+    >
       <kpn-poi-config poiId="ebike-charging"></kpn-poi-config>
       <kpn-poi-config poiId="bicycle"></kpn-poi-config>
       <kpn-poi-config poiId="bicycle-rental"></kpn-poi-config>
@@ -21,7 +25,6 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="attraction"></kpn-poi-config>
       <kpn-poi-config poiId="defibrillator"></kpn-poi-config>
     </kpn-poi-group>
-  `
+  `,
 })
-export class PoiGroupHikingBikingComponent {
-}
+export class PoiGroupHikingBikingComponent {}

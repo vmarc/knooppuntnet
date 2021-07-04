@@ -1,11 +1,11 @@
-import {OnInit} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../../core/core.state';
-import {actionMonitorGroupDeleteInit} from '../../../store/monitor.actions';
-import {actionMonitorGroupDelete} from '../../../store/monitor.actions';
-import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
+import { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../core/core.state';
+import { actionMonitorGroupDeleteInit } from '../../../store/monitor.actions';
+import { actionMonitorGroupDelete } from '../../../store/monitor.actions';
+import { selectMonitorAdminGroupPage } from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-group-delete-page',
@@ -17,34 +17,26 @@ import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
       <li>Group</li>
     </ul>
 
-    <h1>
-      Monitor
-    </h1>
+    <h1>Monitor</h1>
 
     <kpn-page-menu>
-      <span>
-        Delete group
-      </span>
+      <span> Delete group </span>
     </kpn-page-menu>
 
     <div *ngIf="response$ | async as response">
       <div *ngIf="!response.result">
-        <p>
-          Group not found
-        </p>
+        <p>Group not found</p>
       </div>
       <div *ngIf="response.result">
+        <p>Name: {{ response.result.groupName }}</p>
 
-        <p>
-          Name: {{response.result.groupName}}
-        </p>
-
-        <p>
-          Description: {{response.result.groupDescription}}
-        </p>
+        <p>Description: {{ response.result.groupDescription }}</p>
 
         <div class="kpn-button-group">
-          <button mat-stroked-button (click)="delete(response.result.groupName)">
+          <button
+            mat-stroked-button
+            (click)="delete(response.result.groupName)"
+          >
             <span class="delete">Delete group</span>
           </button>
           <a routerLink="/monitor">Cancel</a>
@@ -52,24 +44,24 @@ import {selectMonitorAdminGroupPage} from '../../../store/monitor.selectors';
       </div>
     </div>
   `,
-  styles: [`
-    .delete {
-      color: red;
-    }
-  `]
+  styles: [
+    `
+      .delete {
+        color: red;
+      }
+    `,
+  ],
 })
 export class MonitorAdminGroupDeletePageComponent implements OnInit {
-
   readonly response$ = this.store.select(selectMonitorAdminGroupPage);
 
-  constructor(private store: Store<AppState>) {
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupDeleteInit());
   }
 
   delete(groupName: string): void {
-    this.store.dispatch(actionMonitorGroupDelete({groupName}));
+    this.store.dispatch(actionMonitorGroupDelete({ groupName }));
   }
 }

@@ -1,24 +1,24 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {NetworkAttributes} from '../network/network-attributes';
-import {SubsetInfo} from './subset-info';
+import { List } from 'immutable';
+import { NetworkAttributes } from '../network/network-attributes';
+import { SubsetInfo } from './subset-info';
 
 export class SubsetNetworksPage {
-
-  constructor(readonly subsetInfo: SubsetInfo,
-              readonly km: number,
-              readonly networkCount: number,
-              readonly nodeCount: number,
-              readonly routeCount: number,
-              readonly brokenRouteNetworkCount: number,
-              readonly brokenRouteNetworkPercentage: string,
-              readonly brokenRouteCount: number,
-              readonly brokenRoutePercentage: string,
-              readonly unaccessibleRouteCount: number,
-              readonly analysisUpdatedTime: string,
-              readonly networks: List<NetworkAttributes>) {
-  }
+  constructor(
+    readonly subsetInfo: SubsetInfo,
+    readonly km: number,
+    readonly networkCount: number,
+    readonly nodeCount: number,
+    readonly routeCount: number,
+    readonly brokenRouteNetworkCount: number,
+    readonly brokenRouteNetworkPercentage: string,
+    readonly brokenRouteCount: number,
+    readonly brokenRoutePercentage: string,
+    readonly unaccessibleRouteCount: number,
+    readonly analysisUpdatedTime: string,
+    readonly networks: List<NetworkAttributes>
+  ) {}
 
   public static fromJSON(jsonObject: any): SubsetNetworksPage {
     if (!jsonObject) {
@@ -36,7 +36,13 @@ export class SubsetNetworksPage {
       jsonObject.brokenRoutePercentage,
       jsonObject.unaccessibleRouteCount,
       jsonObject.analysisUpdatedTime,
-      jsonObject.networks ? List(jsonObject.networks.map((json: any) => NetworkAttributes.fromJSON(json))) : List()
+      jsonObject.networks
+        ? List(
+            jsonObject.networks.map((json: any) =>
+              NetworkAttributes.fromJSON(json)
+            )
+          )
+        : List()
     );
   }
 }

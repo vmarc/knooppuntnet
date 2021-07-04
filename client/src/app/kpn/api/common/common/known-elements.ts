@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export class KnownElements {
-
-  constructor(readonly nodeIds: List<number>,
-              readonly routeIds: List<number>) {
-  }
+  constructor(
+    readonly nodeIds: List<number>,
+    readonly routeIds: List<number>
+  ) {}
 
   public static fromJSON(jsonObject: any): KnownElements {
     if (!jsonObject) {

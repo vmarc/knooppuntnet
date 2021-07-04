@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-fact-name-missing',
@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
     <p i18n="@@fact.description.name-missing">
       The network relation does not contain the mandatory tag with key "name".
     </p>
-  `
+  `,
 })
-export class FactNameMissingComponent {
-}
+export class FactNameMissingComponent {}

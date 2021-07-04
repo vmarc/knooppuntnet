@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
 export class ClientPoiDefinition {
-
-  constructor(readonly name: string,
-              readonly icon: string,
-              readonly minLevel: number,
-              readonly defaultLevel: number) {
-  }
+  constructor(
+    readonly name: string,
+    readonly icon: string,
+    readonly minLevel: number,
+    readonly defaultLevel: number
+  ) {}
 
   public static fromJSON(jsonObject: any): ClientPoiDefinition {
     if (!jsonObject) {

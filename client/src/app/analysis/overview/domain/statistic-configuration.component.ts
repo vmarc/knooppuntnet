@@ -1,17 +1,14 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {AfterViewInit, Component, ElementRef, Input} from '@angular/core';
-import {Subset} from '@api/custom/subset';
-import {StatisticConfiguration} from './statistic-configuration';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { Subset } from '@api/custom/subset';
+import { StatisticConfiguration } from './statistic-configuration';
 
 @Component({
   selector: 'kpn-statistic-configuration',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <ng-content></ng-content>
-  `
+  template: ` <ng-content></ng-content> `,
 })
 export class StatisticConfigurationComponent implements AfterViewInit {
-
   @Input() id: string;
   @Input() fact: string;
   @Input() name: string;
@@ -20,15 +17,20 @@ export class StatisticConfigurationComponent implements AfterViewInit {
 
   comment: string;
 
-  constructor(private element: ElementRef) {
-  }
+  constructor(private element: ElementRef) {}
 
   ngAfterViewInit(): void {
     this.comment = this.element.nativeElement.textContent;
   }
 
   toStatistic() {
-    return new StatisticConfiguration(this.id, this.fact, this.name, this.markdownEnabled, this.comment, this.linkFunction);
+    return new StatisticConfiguration(
+      this.id,
+      this.fact,
+      this.name,
+      this.markdownEnabled,
+      this.comment,
+      this.linkFunction
+    );
   }
-
 }

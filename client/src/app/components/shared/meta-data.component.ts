@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {MetaData} from '@api/common/data/meta-data';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MetaData } from '@api/common/data/meta-data';
 
 /* tslint:disable:template-i18n */
 @Component({
@@ -8,13 +8,11 @@ import {MetaData} from '@api/common/data/meta-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="metaData" class="meta">
-      <div>v{{metaData.version}}:{{metaData.changeSetId}}</div>
+      <div>v{{ metaData.version }}:{{ metaData.changeSetId }}</div>
       <kpn-timestamp [timestamp]="metaData.timestamp"></kpn-timestamp>
     </div>
   `,
-  styleUrls: [
-    './meta-data.component.scss'
-  ]
+  styleUrls: ['./meta-data.component.scss'],
 })
 export class MetaDataComponent {
   @Input() metaData: MetaData;

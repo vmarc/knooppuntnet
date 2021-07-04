@@ -1,21 +1,21 @@
-import {OnDestroy} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {AfterViewInit, Component, Input} from '@angular/core';
-import {List} from 'immutable';
-import {Extent} from 'ol/extent';
+import { OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { List } from 'immutable';
+import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {RouteInfo} from '@api/common/route/route-info';
-import {Subscriptions} from '../../../util/Subscriptions';
-import {PageService} from '../../shared/page.service';
-import {Util} from '../../shared/util';
-import {ZoomLevel} from '../domain/zoom-level';
-import {MapControls} from '../layers/map-controls';
-import {MapLayer} from '../layers/map-layer';
-import {MapLayers} from '../layers/map-layers';
-import {MapClickService} from '../services/map-click.service';
-import {MapLayerService} from '../services/map-layer.service';
-import {MapService} from '../services/map.service';
+import { RouteInfo } from '@api/common/route/route-info';
+import { Subscriptions } from '../../../util/Subscriptions';
+import { PageService } from '../../shared/page.service';
+import { Util } from '../../shared/util';
+import { ZoomLevel } from '../domain/zoom-level';
+import { MapControls } from '../layers/map-controls';
+import { MapLayer } from '../layers/map-layer';
+import { MapLayers } from '../layers/map-layers';
+import { MapClickService } from '../services/map-click.service';
+import { MapLayerService } from '../services/map-layer.service';
+import { MapService } from '../services/map.service';
 
 @Component({
   selector: 'kpn-route-map',
@@ -24,10 +24,9 @@ import {MapService} from '../services/map.service';
     <div id="route-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
     </div>
-  `
+  `,
 })
 export class RouteMapComponent implements AfterViewInit, OnDestroy {
-
   @Input() routeInfo: RouteInfo;
 
   layers: MapLayers;
@@ -38,11 +37,12 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   private readonly mapId = 'route-map';
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private mapService: MapService,
-              private mapClickService: MapClickService,
-              private mapLayerService: MapLayerService,
-              private pageService: PageService) {
-  }
+  constructor(
+    private mapService: MapService,
+    private mapClickService: MapClickService,
+    private mapLayerService: MapLayerService,
+    private pageService: PageService
+  ) {}
 
   ngAfterViewInit(): void {
     this.layers = this.buildLayers();
@@ -53,8 +53,8 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom
-      })
+        maxZoom: ZoomLevel.maxZoom,
+      }),
     });
 
     this.layers.applyMap(this.map);
@@ -100,13 +100,18 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildLayers(): MapLayers {
-    this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(this.routeInfo.summary.networkType);
+    this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(
+      this.routeInfo.summary.networkType
+    );
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
+    mapLayers = mapLayers.push(
+      this.mapLayerService.backgroundLayer(this.mapId)
+    );
     mapLayers = mapLayers.push(this.networkVectorTileLayer);
-    mapLayers = mapLayers.concat(this.mapLayerService.routeLayers(this.routeInfo.analysis.map));
+    mapLayers = mapLayers.concat(
+      this.mapLayerService.routeLayers(this.routeInfo.analysis.map)
+    );
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);
   }
-
 }

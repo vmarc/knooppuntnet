@@ -1,14 +1,14 @@
-import {CountryStatistic} from '@api/common/statistics/country-statistic';
-import {Statistic} from '@api/common/statistics/statistic';
-import {NetworkType} from '@api/custom/network-type';
-import {Subset} from '@api/custom/subset';
-import {StatisticConfiguration} from './statistic-configuration';
+import { CountryStatistic } from '@api/common/statistics/country-statistic';
+import { Statistic } from '@api/common/statistics/statistic';
+import { NetworkType } from '@api/custom/network-type';
+import { Subset } from '@api/custom/subset';
+import { StatisticConfiguration } from './statistic-configuration';
 
 export class Stat {
-
-  constructor(readonly figures: Statistic,
-              readonly configuration: StatisticConfiguration) {
-  }
+  constructor(
+    readonly figures: Statistic,
+    readonly configuration: StatisticConfiguration
+  ) {}
 
   total() {
     if (this.figures === null) {
@@ -61,5 +61,4 @@ export class Stat {
     }
     return '-';
   }
-
 }

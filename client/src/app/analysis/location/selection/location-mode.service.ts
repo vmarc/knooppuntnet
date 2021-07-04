@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {BrowserStorageService} from '../../../services/browser-storage.service';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BrowserStorageService } from '../../../services/browser-storage.service';
 
 @Injectable()
 export class LocationModeService {
-
   isModeName: Observable<boolean>;
   isModeTree: Observable<boolean>;
   private readonly localStorageKey = 'location-mode';
@@ -19,8 +18,8 @@ export class LocationModeService {
       initialMode = 'name';
     }
     this.modeSubject = new BehaviorSubject(initialMode);
-    this.isModeName = this.modeSubject.pipe(map(e => e === 'name'));
-    this.isModeTree = this.modeSubject.pipe(map(e => e === 'tree'));
+    this.isModeName = this.modeSubject.pipe(map((e) => e === 'name'));
+    this.isModeTree = this.modeSubject.pipe(map((e) => e === 'tree'));
   }
 
   mode(): Observable<string> {

@@ -1,7 +1,5 @@
 export class Fact {
-
-  constructor(readonly name: string) {
-  }
+  constructor(readonly name: string) {}
 
   public static fromJSON(jsonObject: any): Fact {
     if (!jsonObject) {

@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {Subset} from '../custom/subset';
+import { Subset } from '../custom/subset';
 
 export class ChangeSetSubsetAnalysis {
-
-  constructor(readonly subset: Subset,
-              readonly happy: boolean,
-              readonly investigate: boolean) {
-  }
+  constructor(
+    readonly subset: Subset,
+    readonly happy: boolean,
+    readonly investigate: boolean
+  ) {}
 
   public static fromJSON(jsonObject: any): ChangeSetSubsetAnalysis {
     if (!jsonObject) {

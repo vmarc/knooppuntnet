@@ -1,7 +1,6 @@
-import {Coordinate} from 'ol/coordinate';
+import { Coordinate } from 'ol/coordinate';
 
 export class Printer {
-
   private out = '';
 
   result(): string {
@@ -19,5 +18,4 @@ export class Printer {
   coordinate(coordinate: Coordinate): string {
     return `[${coordinate[0]},${coordinate[1]}]`;
   }
-
 }

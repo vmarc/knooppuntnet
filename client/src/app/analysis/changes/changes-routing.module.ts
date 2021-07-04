@@ -1,20 +1,15 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {Util} from '../../components/shared/util';
-import {ChangesSidebarComponent} from '../components/changes/filter/changes-sidebar.component';
-import {ChangesPageComponent} from './page/_changes-page.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Util } from '../../components/shared/util';
+import { ChangesSidebarComponent } from '../components/changes/filter/changes-sidebar.component';
+import { ChangesPageComponent } from './page/_changes-page.component';
 
 const routes: Routes = [
-  Util.routePath('', ChangesPageComponent, ChangesSidebarComponent)
+  Util.routePath('', ChangesPageComponent, ChangesSidebarComponent),
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class ChangesRoutingModule {
-}
+export class ChangesRoutingModule {}

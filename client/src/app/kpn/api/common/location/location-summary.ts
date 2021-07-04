@@ -1,12 +1,12 @@
 // this class is generated, please do not modify
 
 export class LocationSummary {
-
-  constructor(readonly factCount: number,
-              readonly nodeCount: number,
-              readonly routeCount: number,
-              readonly changeCount: number) {
-  }
+  constructor(
+    readonly factCount: number,
+    readonly nodeCount: number,
+    readonly routeCount: number,
+    readonly changeCount: number
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationSummary {
     if (!jsonObject) {

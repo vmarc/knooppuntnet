@@ -1,7 +1,6 @@
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export class NetworkScope {
-
   static local: NetworkScope = new NetworkScope('local', 'l');
   static regional: NetworkScope = new NetworkScope('regional', 'r');
   static national: NetworkScope = new NetworkScope('national', 'n');
@@ -11,12 +10,10 @@ export class NetworkScope {
     NetworkScope.local,
     NetworkScope.regional,
     NetworkScope.national,
-    NetworkScope.international
+    NetworkScope.international,
   ]);
 
-  private constructor(readonly name: string,
-              readonly letter: string) {
-  }
+  private constructor(readonly name: string, readonly letter: string) {}
 
   public static fromJSON(jsonObject: any): NetworkScope {
     if (!jsonObject) {
@@ -26,7 +23,6 @@ export class NetworkScope {
   }
 
   static withName(name: string): NetworkScope {
-    return NetworkScope.all.find(n => n.name === name);
+    return NetworkScope.all.find((n) => n.name === name);
   }
-
 }

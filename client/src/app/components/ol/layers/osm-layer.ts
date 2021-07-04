@@ -1,15 +1,12 @@
-import {I18nService} from '../../../i18n/i18n.service';
-import {MapLayer} from './map-layer';
+import { I18nService } from '../../../i18n/i18n.service';
+import { MapLayer } from './map-layer';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 
 export class OsmLayer {
-
-  constructor(private i18nService: I18nService) {
-  }
+  constructor(private i18nService: I18nService) {}
 
   build(): MapLayer {
-
     const layer = new TileLayer({
       source: new OSM(),
     });
@@ -19,5 +16,4 @@ export class OsmLayer {
     layer.setVisible(false);
     return new MapLayer('osm-layer', layer);
   }
-
 }

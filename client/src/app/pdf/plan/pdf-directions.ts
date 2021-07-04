@@ -1,25 +1,26 @@
-import {List} from 'immutable';
+import { List } from 'immutable';
 import * as JsPdf from 'jspdf';
-import {PlannerService} from '../../map/planner.service';
-import {PlanInstruction} from '../../map/planner/plan/plan-instruction';
-import {BitmapIconService} from '../bitmap-icon.service';
-import {PdfPage} from './pdf-page';
-import {PdfSideBar} from './pdf-side-bar';
+import { PlannerService } from '../../map/planner.service';
+import { PlanInstruction } from '../../map/planner/plan/plan-instruction';
+import { BitmapIconService } from '../bitmap-icon.service';
+import { PdfPage } from './pdf-page';
+import { PdfSideBar } from './pdf-side-bar';
 
 export class PdfDirections {
-
   private readonly instructionsPerPage = 19;
-  private readonly instructionHeight = (PdfPage.yContentsBottom - PdfPage.yContentsTop) / this.instructionsPerPage;
+  private readonly instructionHeight =
+    (PdfPage.yContentsBottom - PdfPage.yContentsTop) / this.instructionsPerPage;
   private readonly leftMargin = 30;
   private readonly nodeCircleRadius = 5;
 
   private readonly doc = new JsPdf();
 
-  constructor(private instructions: List<PlanInstruction>,
-              private iconService: BitmapIconService,
-              private plannerService: PlannerService,
-              private name: string) {
-  }
+  constructor(
+    private instructions: List<PlanInstruction>,
+    private iconService: BitmapIconService,
+    private plannerService: PlannerService,
+    private name: string
+  ) {}
 
   print(): void {
     this.printPages();
@@ -38,8 +39,10 @@ export class PdfDirections {
   }
 
   private calculatePageCount(): number {
-    let pageCount = Math.floor(this.instructions.size / this.instructionsPerPage);
-    if ((this.instructions.size % this.instructionsPerPage) > 0) {
+    let pageCount = Math.floor(
+      this.instructions.size / this.instructionsPerPage
+    );
+    if (this.instructions.size % this.instructionsPerPage > 0) {
       pageCount++;
     }
     return pageCount;
@@ -59,10 +62,10 @@ export class PdfDirections {
   private printPage(pageIndex: number, pageCount: number): void {
     const rowCount = this.calculatePageRowCount(pageIndex, pageCount);
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-      const instructionIndex = (this.instructionsPerPage * pageIndex) + rowIndex;
+      const instructionIndex = this.instructionsPerPage * pageIndex + rowIndex;
       if (instructionIndex < this.instructions.size) {
         const instruction = this.instructions.get(instructionIndex);
-        const y = PdfPage.yContentsTop + (this.instructionHeight * rowIndex);
+        const y = PdfPage.yContentsTop + this.instructionHeight * rowIndex;
         this.printInstruction(y, instruction);
       }
     }
@@ -94,7 +97,11 @@ export class PdfDirections {
     this.doc.setLineWidth(0.4);
     this.doc.circle(xCircleCenter, yCircleCenter, this.nodeCircleRadius, 'S');
     this.doc.setFontSize(12);
-    this.doc.text(node, xCircleCenter, yCircleCenter, {align: 'center', baseline: 'middle', lineHeightFactor: '1'});
+    this.doc.text(node, xCircleCenter, yCircleCenter, {
+      align: 'center',
+      baseline: 'middle',
+      lineHeightFactor: '1',
+    });
   }
 
   private instructionText(instruction: PlanInstruction): string {
@@ -102,7 +109,9 @@ export class PdfDirections {
     if (!!instruction.heading) {
       texts = texts.push(this.plannerService.translate('head'));
       texts = texts.push(' ');
-      texts = texts.push(this.plannerService.translate('heading-' + instruction.heading));
+      texts = texts.push(
+        this.plannerService.translate('heading-' + instruction.heading)
+      );
       if (!!instruction.street) {
         texts = texts.push(': ');
         texts = texts.push(instruction.street);
@@ -119,17 +128,20 @@ export class PdfDirections {
   }
 
   private printInstructionIcon(y: number, command: string): void {
-    this.iconService.getIcon(command).subscribe(icon => {
+    this.iconService.getIcon(command).subscribe((icon) => {
       this.doc.addImage(icon, 'PNG', this.leftMargin, y, 80, 80, '', 'FAST');
     });
   }
 
   private printInstructionText(y: number, instruction: PlanInstruction): void {
     this.doc.setFontSize(10);
-    const left = this.leftMargin + (this.nodeCircleRadius * 2) + PdfPage.spacer;
+    const left = this.leftMargin + this.nodeCircleRadius * 2 + PdfPage.spacer;
     const text = this.instructionText(instruction);
-    this.doc.text(text, left, y, {baseline: 'top', lineHeightFactor: '1'});
-    this.doc.text(instruction.distance + ' m', left, y + 5, {baseline: 'top', lineHeightFactor: '1'});
+    this.doc.text(text, left, y, { baseline: 'top', lineHeightFactor: '1' });
+    this.doc.text(instruction.distance + ' m', left, y + 5, {
+      baseline: 'top',
+      lineHeightFactor: '1',
+    });
   }
 
   private printColour(y: number, colour: string): void {
@@ -143,6 +155,9 @@ export class PdfDirections {
     texts = texts.push(' ');
     texts = texts.push(translatedColour);
     const text = texts.join('');
-    this.doc.text(text, this.leftMargin, y + 5, {baseline: 'top', lineHeightFactor: '1'});
+    this.doc.text(text, this.leftMargin, y + 5, {
+      baseline: 'top',
+      lineHeightFactor: '1',
+    });
   }
 }

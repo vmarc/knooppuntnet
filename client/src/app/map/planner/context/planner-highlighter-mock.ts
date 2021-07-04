@@ -1,9 +1,8 @@
-import {PlanNode} from '@api/common/planner/plan-node';
-import {RouteFeature} from '../features/route-feature';
-import {PlannerHighlighter} from './planner-highlighter';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { RouteFeature } from '../features/route-feature';
+import { PlannerHighlighter } from './planner-highlighter';
 
 export class PlannerHighlighterMock implements PlannerHighlighter {
-
   node: PlanNode = null;
   routeFeature: RouteFeature = null;
 
@@ -19,5 +18,4 @@ export class PlannerHighlighterMock implements PlannerHighlighter {
     this.node = null;
     this.routeFeature = null;
   }
-
 }

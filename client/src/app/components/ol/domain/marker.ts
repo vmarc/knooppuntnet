@@ -1,4 +1,4 @@
-import {Coordinate} from 'ol/coordinate';
+import { Coordinate } from 'ol/coordinate';
 
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
@@ -7,7 +7,6 @@ import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import Style from 'ol/style/Style';
 
 export class Marker {
-
   public static create(color: string, coordinate: Coordinate): Feature {
     const style = this.createStyle(color);
     const feature = new Feature(new Point(coordinate));
@@ -22,9 +21,8 @@ export class Marker {
         anchor: [12, 41],
         anchorXUnits: IconAnchorUnits.PIXELS,
         anchorYUnits: IconAnchorUnits.PIXELS,
-        src
-      })
+        src,
+      }),
     });
   }
-
 }

@@ -1,10 +1,9 @@
-import {NetworkType} from '@api/custom/network-type';
+import { NetworkType } from '@api/custom/network-type';
 
 export class RouteAccessibleData {
-
-  constructor(readonly networkType: NetworkType,
-              readonly accessible: boolean,
-              readonly color: string) {
-  }
-
+  constructor(
+    readonly networkType: NetworkType,
+    readonly accessible: boolean,
+    readonly color: string
+  ) {}
 }

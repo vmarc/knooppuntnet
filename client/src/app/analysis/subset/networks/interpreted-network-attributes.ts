@@ -1,9 +1,7 @@
-import {NetworkAttributes} from '@api/common/network/network-attributes';
+import { NetworkAttributes } from '@api/common/network/network-attributes';
 
 export class InterpretedNetworkAttributes {
-
-  constructor(private network: NetworkAttributes) {
-  }
+  constructor(private network: NetworkAttributes) {}
 
   percentageOk(): string {
     return Math.round(this.routePercentageOk()) + '%';
@@ -19,9 +17,11 @@ export class InterpretedNetworkAttributes {
 
   private routePercentageOk() {
     if (this.network.routeCount > 0) {
-      return 100 * (this.network.routeCount - this.network.brokenRouteCount) / this.network.routeCount;
+      return (
+        (100 * (this.network.routeCount - this.network.brokenRouteCount)) /
+        this.network.routeCount
+      );
     }
     return 0;
   }
-
 }

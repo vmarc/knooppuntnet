@@ -1,22 +1,21 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {PageWidth} from '../../components/shared/page-width';
-import {PageWidthService} from '../../components/shared/page-width.service';
-import {PlannerService} from '../planner.service';
-import {PlannerCommandReset} from '../planner/commands/planner-command-reset';
-import {Plan} from '../planner/plan/plan';
-import {PlanReverser} from '../planner/plan/plan-reverser';
-import {PlanOutputDialogComponent} from './plan-output-dialog.component';
-import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { PageWidth } from '../../components/shared/page-width';
+import { PageWidthService } from '../../components/shared/page-width.service';
+import { PlannerService } from '../planner.service';
+import { PlannerCommandReset } from '../planner/commands/planner-command-reset';
+import { Plan } from '../planner/plan/plan';
+import { PlanReverser } from '../planner/plan/plan-reverser';
+import { PlanOutputDialogComponent } from './plan-output-dialog.component';
+import { PlannerCommandReverse } from '../planner/commands/planner-command-reverse';
 
 @Component({
   selector: 'kpn-plan-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="buttons" *ngIf="plan$ | async as plan">
-
       <kpn-plan-action-button
         *ngIf="showUndoButton$ | async"
         (action)="undo()"
@@ -25,7 +24,8 @@ import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse
         text="Undo"
         i18n-text="@@planner.action.undo"
         title="Undo the previous action"
-        i18n-title="@@planner.action.undo.title">
+        i18n-title="@@planner.action.undo.title"
+      >
       </kpn-plan-action-button>
 
       <kpn-plan-action-button
@@ -36,7 +36,8 @@ import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse
         text="Redo"
         i18n-text="@@planner.action.redo"
         title="Redo the action that was previously undone"
-        i18n-title="@@planner.action.redo.title">
+        i18n-title="@@planner.action.redo.title"
+      >
       </kpn-plan-action-button>
 
       <kpn-plan-action-button
@@ -47,7 +48,8 @@ import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse
         text="Reset"
         i18n-text="@@planner.action.reset"
         title="Wipe out current route plan and restart route planning from scratch"
-        i18n-title="@@planner.action.reset.title">
+        i18n-title="@@planner.action.reset.title"
+      >
       </kpn-plan-action-button>
 
       <kpn-plan-action-button
@@ -58,7 +60,8 @@ import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse
         text="Reverse"
         i18n-text="@@planner.action.reverse"
         title="Reverse the route direction (startnode becomes endnode, and vice versa)"
-        i18n-title="@@planner.action.reverse.title">
+        i18n-title="@@planner.action.reverse.title"
+      >
       </kpn-plan-action-button>
 
       <kpn-plan-action-button
@@ -68,21 +71,22 @@ import {PlannerCommandReverse} from '../planner/commands/planner-command-reverse
         text="Output"
         i18n-text="@@planner.action.output"
         title="Output planned route"
-        i18n-title="@@planner.action.output.title">
+        i18n-title="@@planner.action.output.title"
+      >
       </kpn-plan-action-button>
-
     </div>
   `,
-  styles: [`
-    .buttons {
-      display: inline-block;
-      padding-top: 15px;
-      padding-bottom: 15px;
-    }
-  `]
+  styles: [
+    `
+      .buttons {
+        display: inline-block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+    `,
+  ],
 })
 export class PlanActionsComponent implements OnInit {
-
   plan$: Observable<Plan>;
 
   showUndoButton$: Observable<boolean>;
@@ -90,16 +94,25 @@ export class PlanActionsComponent implements OnInit {
   showResetButton$: Observable<boolean>;
   showReverseButton$: Observable<boolean>;
 
-  constructor(private plannerService: PlannerService,
-              private pageWidthService: PageWidthService,
-              private dialog: MatDialog) {
-  }
+  constructor(
+    private plannerService: PlannerService,
+    private pageWidthService: PageWidthService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.plan$ = this.plannerService.context.plan$;
-    this.showUndoButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.veryVerySmall));
+    this.showUndoButton$ = this.pageWidthService.current$.pipe(
+      map((pageWidth) => pageWidth !== PageWidth.veryVerySmall)
+    );
     this.showRedoButton$ = this.showUndoButton$;
-    this.showResetButton$ = this.pageWidthService.current$.pipe(map(pageWidth => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall));
+    this.showResetButton$ = this.pageWidthService.current$.pipe(
+      map(
+        (pageWidth) =>
+          pageWidth !== PageWidth.verySmall &&
+          pageWidth !== PageWidth.veryVerySmall
+      )
+    );
     this.showReverseButton$ = this.showResetButton$;
   }
 
@@ -119,11 +132,11 @@ export class PlanActionsComponent implements OnInit {
   reverse(): void {
     const oldPlan = this.plannerService.context.plan;
     new PlanReverser(this.plannerService.context).reverse(oldPlan).subscribe(
-      newPlan => {
+      (newPlan) => {
         const command = new PlannerCommandReverse(oldPlan, newPlan);
         this.plannerService.context.execute(command);
       },
-      error => this.plannerService.context.errorDialog(error)
+      (error) => this.plannerService.context.errorDialog(error)
     );
   }
 

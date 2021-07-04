@@ -1,24 +1,24 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {NetworkRoutesPage} from '@api/common/network/network-routes-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {Observable} from 'rxjs';
-import {shareReplay} from 'rxjs/operators';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {AppService} from '../../../app.service';
-import {NetworkService} from '../network.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
+import { ApiResponse } from '@api/custom/api-response';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
+import { AppService } from '../../../app.service';
+import { NetworkService } from '../network.service';
 
 @Component({
   selector: 'kpn-network-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <kpn-network-page-header
       [networkId]="networkId$ | async"
       pageName="routes"
       pageTitle="Routes"
-      i18n-pageTitle="@@network-routes.title">
+      i18n-pageTitle="@@network-routes.title"
+    >
     </kpn-network-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
@@ -27,9 +27,14 @@ import {NetworkService} from '../network.service';
       </div>
       <div *ngIf="response.result">
         <p>
-          <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+          <kpn-situation-on
+            [timestamp]="response.situationOn"
+          ></kpn-situation-on>
         </p>
-        <div *ngIf="response.result.routes.isEmpty()" i18n="@@network-routes.no-routes">
+        <div
+          *ngIf="response.result.routes.isEmpty()"
+          i18n="@@network-routes.no-routes"
+        >
           No network routes in network
         </div>
         <kpn-network-route-table
@@ -37,36 +42,39 @@ import {NetworkService} from '../network.service';
           [timeInfo]="response.result.timeInfo"
           [surveyDateInfo]="response.result.surveyDateInfo"
           [networkType]="response.result.networkType"
-          [routes]="response.result.routes">
+          [routes]="response.result.routes"
+        >
         </kpn-network-route-table>
       </div>
     </div>
-  `
+  `,
 })
 export class NetworkRoutesPageComponent implements OnInit {
-
   networkId$: Observable<number>;
   response$: Observable<ApiResponse<NetworkRoutesPage>>;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private appService: AppService,
-              private networkService: NetworkService) {
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private appService: AppService,
+    private networkService: NetworkService
+  ) {}
 
   ngOnInit(): void {
-
     this.networkId$ = this.activatedRoute.params.pipe(
-      map(params => +params['networkId']),
-      tap(networkId => this.networkService.init(networkId)),
+      map((params) => +params['networkId']),
+      tap((networkId) => this.networkService.init(networkId)),
       shareReplay()
     );
 
     this.response$ = this.networkId$.pipe(
-      mergeMap(networkId =>
+      mergeMap((networkId) =>
         this.appService.networkRoutes(networkId).pipe(
-          tap(response => {
+          tap((response) => {
             if (response.result) {
-              this.networkService.update(networkId, response.result.networkSummary);
+              this.networkService.update(
+                networkId,
+                response.result.networkSummary
+              );
             }
           })
         )

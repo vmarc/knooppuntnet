@@ -1,10 +1,9 @@
-import {PlanFragment} from '@api/common/planner/plan-fragment';
-import {List} from 'immutable';
-import {Plan} from '../plan/plan';
-import {PlanInstruction} from '../plan/plan-instruction';
+import { PlanFragment } from '@api/common/planner/plan-fragment';
+import { List } from 'immutable';
+import { Plan } from '../plan/plan';
+import { PlanInstruction } from '../plan/plan-instruction';
 
 export class DirectionsAnalyzer {
-
   private previousFragment: PlanFragment = null;
   private previousStreet: string = null;
   private currentInstruction: PlanInstruction = null;
@@ -14,11 +13,10 @@ export class DirectionsAnalyzer {
     if (plan.sourceNode != null) {
       this.addNodeInstruction(plan.sourceNode.nodeName);
 
-      plan.legs.forEach(leg => {
-        leg.routes.forEach(route => {
+      plan.legs.forEach((leg) => {
+        leg.routes.forEach((route) => {
           let lastColour = '';
-          route.segments.forEach(segment => {
-
+          route.segments.forEach((segment) => {
             if (segment.colour && segment.colour.length > 0) {
               if (segment.colour !== lastColour) {
                 this.addColourInstruction(segment.colour);
@@ -26,8 +24,7 @@ export class DirectionsAnalyzer {
               }
             }
 
-            segment.fragments.forEach(fragment => {
-
+            segment.fragments.forEach((fragment) => {
               let street = '';
               if (fragment.streetIndex != null) {
                 street = route.streets.get(fragment.streetIndex);
@@ -36,15 +33,21 @@ export class DirectionsAnalyzer {
               let command = 'continue';
               if (this.previousFragment == null) {
                 this.newInstruction();
-                this.setInstructionHeading(this.calculateHeading(fragment.orientation));
+                this.setInstructionHeading(
+                  this.calculateHeading(fragment.orientation)
+                );
                 this.setInstructionStreet(street);
                 this.setInstructionCommand(command);
                 this.addInstructionDistance(fragment.meters);
                 this.pushInstruction();
               } else {
-                const delta = fragment.orientation - this.previousFragment.orientation;
+                const delta =
+                  fragment.orientation - this.previousFragment.orientation;
                 command = this.calculateCommand(delta);
-                if (this.isDifferentStreet(this.previousStreet, street) || this.isHardTurn(command)) {
+                if (
+                  this.isDifferentStreet(this.previousStreet, street) ||
+                  this.isHardTurn(command)
+                ) {
                   this.pushInstruction();
                   this.setInstructionCommand(command);
                   this.setInstructionStreet(street);
@@ -56,7 +59,6 @@ export class DirectionsAnalyzer {
                   }
                   this.addInstructionDistance(fragment.meters);
                 }
-
               }
               this.previousStreet = street;
               this.previousFragment = fragment;
@@ -83,17 +85,9 @@ export class DirectionsAnalyzer {
   }
 
   private addColourInstruction(colour: string): void {
-    const instruction = new PlanInstruction(
-      null,
-      null,
-      null,
-      null,
-      0,
-      colour
-    );
+    const instruction = new PlanInstruction(null, null, null, null, 0, colour);
     this.addInstruction(instruction);
   }
-
 
   private addNodeInstruction(nodeName: string): void {
     const instruction = new PlanInstruction(
@@ -219,10 +213,11 @@ export class DirectionsAnalyzer {
   }
 
   private isHardTurn(text: string): boolean {
-    return text === 'turn-left' ||
+    return (
+      text === 'turn-left' ||
       text === 'turn-right' ||
       text === 'turn-sharp-left' ||
-      text === 'turn-sharp-right';
+      text === 'turn-sharp-right'
+    );
   }
-
 }

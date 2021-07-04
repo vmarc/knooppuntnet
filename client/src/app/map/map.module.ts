@@ -68,8 +68,8 @@ import { PlanResultMenuComponent } from './sidebar/plan-result-menu.component';
 import { PlanResultComponent } from './sidebar/plan-result.component';
 import { PlanTipComponent } from './sidebar/plan-tip.component';
 import { PlanComponent } from './sidebar/plan.component';
-import {PoiNamesComponent} from "@app/map/pages/map/poi/poi-names.component";
-import {PlanTranslationsComponent} from "@app/map/sidebar/plan-translations.component";
+import { PoiNamesComponent } from '@app/map/pages/map/poi/poi-names.component';
+import { PlanTranslationsComponent } from '@app/map/sidebar/plan-translations.component';
 
 @NgModule({
   imports: [
@@ -143,15 +143,9 @@ import {PlanTranslationsComponent} from "@app/map/sidebar/plan-translations.comp
     GeolocationTimeoutDialogComponent,
     GeolocationPermissionDeniedDialogComponent,
     GeolocationNotSupportedDialogComponent,
-    GeolocationControlComponent
+    GeolocationControlComponent,
   ],
-  exports: [
-    MapPageComponent
-  ],
-  providers: [
-    PlannerService,
-    PlannerLayerService
-  ]
+  exports: [MapPageComponent],
+  providers: [PlannerService, PlannerLayerService],
 })
-export class MapModule {
-}
+export class MapModule {}

@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
 export class RouteNetworkNodeInfo {
-
-  constructor(readonly id: number,
-              readonly name: string,
-              readonly alternateName: string,
-              readonly lat: string,
-              readonly lon: string) {
-  }
+  constructor(
+    readonly id: number,
+    readonly name: string,
+    readonly alternateName: string,
+    readonly lat: string,
+    readonly lon: string
+  ) {}
 
   public static fromJSON(jsonObject: any): RouteNetworkNodeInfo {
     if (!jsonObject) {

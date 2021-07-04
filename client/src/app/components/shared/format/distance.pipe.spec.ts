@@ -1,4 +1,4 @@
-import {DistancePipe} from './distance.pipe';
+import { DistancePipe } from './distance.pipe';
 
 describe('DistancePipe', () => {
   it('transform', () => {

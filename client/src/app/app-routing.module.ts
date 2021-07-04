@@ -1,48 +1,54 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: 'analysis',
-    loadChildren: () => import('./analysis/analysis/analysis.module').then(m => m.AnalysisModule)
+    loadChildren: () =>
+      import('./analysis/analysis/analysis.module').then(
+        (m) => m.AnalysisModule
+      ),
   },
   {
     path: 'map',
-    loadChildren: () => import('./map/map.module').then(m => m.MapModule)
+    loadChildren: () => import('./map/map.module').then((m) => m.MapModule),
   },
   {
     path: 'status',
-    loadChildren: () => import('./status/status.module').then(m => m.StatusModule)
+    loadChildren: () =>
+      import('./status/status.module').then((m) => m.StatusModule),
   },
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+    loadChildren: () =>
+      import('./settings/settings.module').then((m) => m.SettingsModule),
   },
   {
     path: 'poi',
-    loadChildren: () => import('./poi/poi.module').then(m => m.PoiModule)
+    loadChildren: () => import('./poi/poi.module').then((m) => m.PoiModule),
   },
   {
     path: 'demo',
-    loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule)
+    loadChildren: () => import('./demo/demo.module').then((m) => m.DemoModule),
   },
   {
     path: 'monitor',
-    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
+    loadChildren: () =>
+      import('./monitor/monitor.module').then((m) => m.MonitorModule),
   },
   {
     path: '',
-    loadChildren: () => import('./base/base.module').then(m => m.BaseModule)
-  }
+    loadChildren: () => import('./base/base.module').then((m) => m.BaseModule),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {enableTracing: false, relativeLinkResolution: 'legacy'})
+    RouterModule.forRoot(routes, {
+      enableTracing: false,
+      relativeLinkResolution: 'legacy',
+    }),
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

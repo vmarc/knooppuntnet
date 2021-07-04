@@ -3,5 +3,5 @@ export enum TimestampFilterKind {
   LAST_WEEK,
   LAST_MONTH,
   LAST_YEAR,
-  OLDER
+  OLDER,
 }

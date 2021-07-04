@@ -1,25 +1,28 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {RouteInfo} from '@api/common/route/route-info';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RouteInfo } from '@api/common/route/route-info';
 
 @Component({
   selector: 'kpn-route-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-
-      <p i18n="@@route.meters">
-        {{route.summary.meters}} m
-      </p>
+      <p i18n="@@route.meters">{{ route.summary.meters }} m</p>
 
       <p>
-        <kpn-osm-link-relation [relationId]="route.summary.id"></kpn-osm-link-relation>
+        <kpn-osm-link-relation
+          [relationId]="route.summary.id"
+        ></kpn-osm-link-relation>
         <span class="kpn-brackets-link">
-          <kpn-josm-relation [relationId]="route.summary.id"></kpn-josm-relation>
+          <kpn-josm-relation
+            [relationId]="route.summary.id"
+          ></kpn-josm-relation>
         </span>
       </p>
 
-      <kpn-network-type [networkType]="route.summary.networkType"></kpn-network-type>
+      <kpn-network-type
+        [networkType]="route.summary.networkType"
+      ></kpn-network-type>
 
       <p *ngIf="route.summary.country">
         <kpn-country-name [country]="route.summary.country"></kpn-country-name>
@@ -32,8 +35,8 @@ import {RouteInfo} from '@api/common/route/route-info';
 
       <p *ngIf="isProposed()">
         <markdown i18n="@@route.proposed.explanation">
-          This route has _"state=proposed"_. The route is assumed to still be in a
-          planning phase and likely not signposted in the field.
+          This route has _"state=proposed"_. The route is assumed to still be in
+          a planning phase and likely not signposted in the field.
         </markdown>
       </p>
 
@@ -52,20 +55,20 @@ import {RouteInfo} from '@api/common/route/route-info';
       <p *ngIf="!route.active" class="warning" i18n="@@route.not-active">
         This route is not active anymore.
       </p>
-
     </div>
-  `
+  `,
 })
 export class RouteSummaryComponent {
-
   @Input() route: RouteInfo;
 
   isRouteBroken() {
-    return this.route.facts.map(fact => fact.name).contains('RouteBroken');
+    return this.route.facts.map((fact) => fact.name).contains('RouteBroken');
   }
 
   isRouteIncomplete() {
-    return this.route.facts.map(fact => fact.name).contains('RouteIncomplete');
+    return this.route.facts
+      .map((fact) => fact.name)
+      .contains('RouteIncomplete');
   }
 
   isProposed() {

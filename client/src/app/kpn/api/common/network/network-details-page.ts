@@ -1,18 +1,18 @@
 // this class is generated, please do not modify
 
-import {NetworkAttributes} from './network-attributes';
-import {NetworkFacts} from '../network-facts';
-import {NetworkSummary} from './network-summary';
-import {Tags} from '../../custom/tags';
+import { NetworkAttributes } from './network-attributes';
+import { NetworkFacts } from '../network-facts';
+import { NetworkSummary } from './network-summary';
+import { Tags } from '../../custom/tags';
 
 export class NetworkDetailsPage {
-
-  constructor(readonly networkSummary: NetworkSummary,
-              readonly active: boolean,
-              readonly attributes: NetworkAttributes,
-              readonly tags: Tags,
-              readonly facts: NetworkFacts) {
-  }
+  constructor(
+    readonly networkSummary: NetworkSummary,
+    readonly active: boolean,
+    readonly attributes: NetworkAttributes,
+    readonly tags: Tags,
+    readonly facts: NetworkFacts
+  ) {}
 
   public static fromJSON(jsonObject: any): NetworkDetailsPage {
     if (!jsonObject) {

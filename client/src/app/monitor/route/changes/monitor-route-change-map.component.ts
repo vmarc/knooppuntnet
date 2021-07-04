@@ -1,27 +1,27 @@
-import {Input} from '@angular/core';
-import {OnDestroy} from '@angular/core';
-import {AfterViewInit} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {MonitorRouteNokSegment} from '@api/common/monitor/monitor-route-nok-segment';
-import {MonitorRouteSegment} from '@api/common/monitor/monitor-route-segment';
-import {List} from 'immutable';
-import {GeoJSON} from 'ol/format';
+import { Input } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
+import { List } from 'immutable';
+import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
-import {Stroke} from 'ol/style';
-import {Style} from 'ol/style';
+import { Stroke } from 'ol/style';
+import { Style } from 'ol/style';
 import View from 'ol/View';
-import {ZoomLevel} from '../../../components/ol/domain/zoom-level';
-import {BackgroundLayer} from '../../../components/ol/layers/background-layer';
-import {MapControls} from '../../../components/ol/layers/map-controls';
-import {MapLayer} from '../../../components/ol/layers/map-layer';
-import {MapLayers} from '../../../components/ol/layers/map-layers';
-import {OsmLayer} from '../../../components/ol/layers/osm-layer';
-import {Util} from '../../../components/shared/util';
-import {I18nService} from '../../../i18n/i18n.service';
-import {Subscriptions} from '../../../util/Subscriptions';
+import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
+import { BackgroundLayer } from '../../../components/ol/layers/background-layer';
+import { MapControls } from '../../../components/ol/layers/map-controls';
+import { MapLayer } from '../../../components/ol/layers/map-layer';
+import { MapLayers } from '../../../components/ol/layers/map-layers';
+import { OsmLayer } from '../../../components/ol/layers/osm-layer';
+import { Util } from '../../../components/shared/util';
+import { I18nService } from '../../../i18n/i18n.service';
+import { Subscriptions } from '../../../util/Subscriptions';
 
 @Component({
   selector: 'kpn-monitor-route-change-map',
@@ -30,10 +30,11 @@ import {Subscriptions} from '../../../util/Subscriptions';
     <div [id]="mapId" class="kpn-embedded-map">
       <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
     </div>
-  `
+  `,
 })
-export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy {
-
+export class MonitorRouteChangeMapComponent
+  implements AfterViewInit, OnDestroy
+{
   @Input() mapId: string;
   @Input() referenceJson: string;
   @Input() routeSegments: MonitorRouteSegment[];
@@ -44,17 +45,17 @@ export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy 
 
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private i18nService: I18nService) {
-  }
+  constructor(private i18nService: I18nService) {}
 
   ngAfterViewInit(): void {
-
     const layers: MapLayer[] = [];
     const osmLayer = new OsmLayer(this.i18nService).build();
     osmLayer.layer.setVisible(false);
     layers.push(osmLayer);
 
-    const backgroundLayer = new BackgroundLayer(this.i18nService).build(this.mapId);
+    const backgroundLayer = new BackgroundLayer(this.i18nService).build(
+      this.mapId
+    );
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 
@@ -70,8 +71,8 @@ export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy 
       controls: MapControls.build(),
       view: new View({
         minZoom: 0,
-        maxZoom: ZoomLevel.vectorTileMaxOverZoom
-      })
+        maxZoom: ZoomLevel.vectorTileMaxOverZoom,
+      }),
     });
 
     this.map.getView().fit(Util.toExtent(this.nokSegment.bounds, 0.05));
@@ -86,16 +87,17 @@ export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy 
   }
 
   private buildReferenceLayer(): MapLayer {
-
     const layerStyle = this.fixedStyle('blue', 4);
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return layerStyle;
     };
 
-    const features = new GeoJSON().readFeatures(this.referenceJson, {featureProjection: 'EPSG:3857'});
+    const features = new GeoJSON().readFeatures(this.referenceJson, {
+      featureProjection: 'EPSG:3857',
+    });
     const layer = new VectorLayer({
       zIndex: 50,
-      source: new VectorSource({features}),
+      source: new VectorSource({ features }),
       style: styleFunction,
     });
 
@@ -104,43 +106,45 @@ export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy 
   }
 
   private buildNokSegmentLayer(): MapLayer {
-
     const layerStyle = this.fixedStyle('red', 4);
 
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return layerStyle;
     };
 
-    const features = new GeoJSON().readFeatures(this.nokSegment.geoJson, {featureProjection: 'EPSG:3857'});
+    const features = new GeoJSON().readFeatures(this.nokSegment.geoJson, {
+      featureProjection: 'EPSG:3857',
+    });
 
     const layer = new VectorLayer({
       zIndex: 70,
-      source: new VectorSource({features}),
-      style: styleFunction
+      source: new VectorSource({ features }),
+      style: styleFunction,
     });
     layer.set('name', 'Not OK segment');
     return new MapLayer('not-ok-layer', layer);
   }
 
   private buildOsmRelationLayer(): MapLayer {
-
     const thickStyle = this.fixedStyle('yellow', 10);
-    const styleFunction = function(feature) {
+    const styleFunction = function (feature) {
       return thickStyle;
     };
 
     const features = [];
-    this.routeSegments.forEach(segment => {
-      new GeoJSON().readFeatures(segment.geoJson, {featureProjection: 'EPSG:3857'}).forEach(feature => {
-        feature.set('segmentId', segment.id);
-        features.push(feature);
-      });
+    this.routeSegments.forEach((segment) => {
+      new GeoJSON()
+        .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
+        .forEach((feature) => {
+          feature.set('segmentId', segment.id);
+          features.push(feature);
+        });
     });
 
     const layer = new VectorLayer({
       zIndex: 40,
-      source: new VectorSource({features}),
-      style: styleFunction
+      source: new VectorSource({ features }),
+      style: styleFunction,
     });
     layer.set('name', 'OSM Relation');
     return new MapLayer('osm-relation-layer', layer);
@@ -150,8 +154,8 @@ export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy 
     return new Style({
       stroke: new Stroke({
         color,
-        width
-      })
+        width,
+      }),
     });
   }
 }

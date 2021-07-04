@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {Relation} from '../../custom/relation';
+import { Relation } from '../../custom/relation';
 
 export class RelationMember {
-
-  constructor(readonly relation: Relation,
-              readonly role: string) {
-  }
+  constructor(readonly relation: Relation, readonly role: string) {}
 
   public static fromJSON(jsonObject: any): RelationMember {
     if (!jsonObject) {

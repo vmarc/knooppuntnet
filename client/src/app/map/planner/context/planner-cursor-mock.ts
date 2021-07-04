@@ -1,5 +1,4 @@
 export class PlannerCursorMock {
-
   style = 'default';
 
   setStyleGrab(): void {

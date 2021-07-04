@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-poi-group-shops',
@@ -34,7 +34,6 @@ import {Component} from '@angular/core';
       <kpn-poi-config poiId="toys"></kpn-poi-config>
       <kpn-poi-config poiId="travelagency"></kpn-poi-config>
     </kpn-poi-group>
-  `
+  `,
 })
-export class PoiGroupShopsComponent {
-}
+export class PoiGroupShopsComponent {}

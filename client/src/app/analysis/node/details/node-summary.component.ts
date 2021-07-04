@@ -1,15 +1,14 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {NodeInfo} from '@api/common/node-info';
-import {NetworkType} from '@api/custom/network-type';
-import {List} from 'immutable';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NodeInfo } from '@api/common/node-info';
+import { NetworkType } from '@api/custom/network-type';
+import { List } from 'immutable';
 
 @Component({
   selector: 'kpn-node-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-
       <p>
         <kpn-osm-link-node [nodeId]="nodeInfo.id"></kpn-osm-link-node>
         <span class="kpn-brackets-link">
@@ -24,7 +23,7 @@ import {List} from 'immutable';
       <table *ngIf="hasMultipleNames()">
         <tr *ngFor="let networkType of networkTypes()">
           <td class="network-name">
-            {{networkName(networkType)}}
+            {{ networkName(networkType) }}
           </td>
           <td>
             <kpn-network-type [networkType]="networkType">
@@ -57,25 +56,25 @@ import {List} from 'immutable';
 
       <p *ngIf="isProposed()">
         <markdown i18n="@@node.proposed.explanation">
-          This network node has _"state=proposed"_. The node is assumed to still be
-          in a planning phase and likely not signposted in the field.
+          This network node has _"state=proposed"_. The node is assumed to still
+          be in a planning phase and likely not signposted in the field.
         </markdown>
       </p>
-
     </div>
   `,
-  styles: [`
-    .network-name {
-      padding-right: 1em;
-    }
+  styles: [
+    `
+      .network-name {
+        padding-right: 1em;
+      }
 
-    .network-type {
-      padding-left: 0.4em;
-    }
-  `]
+      .network-type {
+        padding-left: 0.4em;
+      }
+    `,
+  ],
 })
 export class NodeSummaryComponent {
-
   @Input() nodeInfo: NodeInfo;
 
   hasMultipleNames(): boolean {
@@ -83,11 +82,15 @@ export class NodeSummaryComponent {
   }
 
   networkTypes(): List<NetworkType> {
-    return NetworkType.all.filter(networkType => this.networkName(networkType));
+    return NetworkType.all.filter((networkType) =>
+      this.networkName(networkType)
+    );
   }
 
   networkName(networkType: NetworkType): string {
-    const nodeName = this.nodeInfo.names.find(name => name.scopedNetworkType.networkType.id === networkType.id);
+    const nodeName = this.nodeInfo.names.find(
+      (name) => name.scopedNetworkType.networkType.id === networkType.id
+    );
     if (nodeName) {
       return nodeName.name;
     }
@@ -98,5 +101,4 @@ export class NodeSummaryComponent {
     const state = this.nodeInfo.tags.get('state');
     return 'proposed' === state;
   }
-
 }

@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Input} from '@angular/core';
-import {Component} from '@angular/core';
-import {StatusLinks} from './status-links';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { StatusLinks } from './status-links';
 
 /* tslint:disable:template-i18n English only */
 @Component({
@@ -15,10 +15,8 @@ import {StatusLinks} from './status-links';
       <a [routerLink]="links.month">Month</a>
       <a [routerLink]="links.year">Year</a>
     </span>
-  `
+  `,
 })
 export class StatusLinksComponent {
-
   @Input() links: StatusLinks;
-
 }

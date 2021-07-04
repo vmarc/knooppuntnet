@@ -1,26 +1,42 @@
-import {List} from 'immutable';
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerCommandAddPlan} from './planner-command-add-plan';
-import {PlannerCommandSplitLeg} from './planner-command-split-leg';
-import {expectViaFlagCoordinate} from '../../../util/test-support';
-import {expectEndFlagCoordinate} from '../../../util/test-support';
+import { List } from 'immutable';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerCommandAddPlan } from './planner-command-add-plan';
+import { PlannerCommandSplitLeg } from './planner-command-split-leg';
+import { expectViaFlagCoordinate } from '../../../util/test-support';
+import { expectEndFlagCoordinate } from '../../../util/test-support';
 
 describe('PlannerCommandSplitLeg', () => {
-
   it('split leg - do and undo', () => {
-
     const setup = new PlannerTestSetup();
 
     const sourceFlag = PlanFlag.start('sourceFlag', [1, 1]);
     const endFlag = PlanFlag.end('endFlag', [2, 2]);
     const viaFlag = PlanFlag.via('viaFlag', [3, 3]);
 
-    const oldLeg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, endFlag, null);
-    const newLeg1 = PlanUtil.singleRoutePlanLeg('13', setup.node1, setup.node3, viaFlag, null);
-    const newLeg2 = PlanUtil.singleRoutePlanLeg('32', setup.node3, setup.node2, endFlag, null);
+    const oldLeg = PlanUtil.singleRoutePlanLeg(
+      '12',
+      setup.node1,
+      setup.node2,
+      endFlag,
+      null
+    );
+    const newLeg1 = PlanUtil.singleRoutePlanLeg(
+      '13',
+      setup.node1,
+      setup.node3,
+      viaFlag,
+      null
+    );
+    const newLeg2 = PlanUtil.singleRoutePlanLeg(
+      '32',
+      setup.node3,
+      setup.node2,
+      endFlag,
+      null
+    );
 
     const plan = new Plan(setup.node1, sourceFlag, List([oldLeg]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
@@ -72,5 +88,4 @@ describe('PlannerCommandSplitLeg', () => {
       expectEndFlagCoordinate(leg.sinkFlag, [2, 2]);
     }
   });
-
 });

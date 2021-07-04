@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import {BoundsI} from '../bounds-i';
-import {ChangeKeyI} from '../changes/details/change-key-i';
-import {LongdistanceRouteNokSegment} from './longdistance-route-nok-segment';
-import {LongdistanceRouteSegment} from './longdistance-route-segment';
+import { BoundsI } from '../bounds-i';
+import { ChangeKeyI } from '../changes/details/change-key-i';
+import { LongdistanceRouteNokSegment } from './longdistance-route-nok-segment';
+import { LongdistanceRouteSegment } from './longdistance-route-segment';
 
 export interface LongdistanceRouteChange {
   readonly key: ChangeKeyI;

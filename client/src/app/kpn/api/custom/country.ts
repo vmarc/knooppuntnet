@@ -1,7 +1,5 @@
 export class Country {
-
-  constructor(readonly domain: string) {
-  }
+  constructor(readonly domain: string) {}
 
   public static fromJSON(jsonObject: any): Country {
     if (!jsonObject) {

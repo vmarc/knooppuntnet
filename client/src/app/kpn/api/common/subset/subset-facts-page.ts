@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {FactCount} from '../fact-count';
-import {SubsetInfo} from './subset-info';
+import { List } from 'immutable';
+import { FactCount } from '../fact-count';
+import { SubsetInfo } from './subset-info';
 
 export class SubsetFactsPage {
-
-  constructor(readonly subsetInfo: SubsetInfo,
-              readonly factCounts: List<FactCount>) {
-  }
+  constructor(
+    readonly subsetInfo: SubsetInfo,
+    readonly factCounts: List<FactCount>
+  ) {}
 
   public static fromJSON(jsonObject: any): SubsetFactsPage {
     if (!jsonObject) {
@@ -16,7 +16,11 @@ export class SubsetFactsPage {
     }
     return new SubsetFactsPage(
       SubsetInfo.fromJSON(jsonObject.subsetInfo),
-      jsonObject.factCounts ? List(jsonObject.factCounts.map((json: any) => FactCount.fromJSON(json))) : List()
+      jsonObject.factCounts
+        ? List(
+            jsonObject.factCounts.map((json: any) => FactCount.fromJSON(json))
+          )
+        : List()
     );
   }
 }

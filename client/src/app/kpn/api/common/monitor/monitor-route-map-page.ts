@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import {BoundsI} from '../bounds-i';
-import {MonitorRouteNokSegment} from './monitor-route-nok-segment';
-import {MonitorRouteReferenceInfo} from './monitor-route-reference-info';
-import {MonitorRouteSegment} from './monitor-route-segment';
+import { BoundsI } from '../bounds-i';
+import { MonitorRouteNokSegment } from './monitor-route-nok-segment';
+import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
+import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteMapPage {
   readonly routeId: number;

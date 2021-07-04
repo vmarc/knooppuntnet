@@ -13,7 +13,6 @@ import { NetworkVectorTileLayer } from './network-vector-tile-layer';
 import { MapMode } from '../services/map-mode';
 
 export class MainMapLayer {
-
   bitmapTileLayer: MapLayer;
   vectorTileLayer: VectorTileLayer;
 

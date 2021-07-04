@@ -1,20 +1,20 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Bounds} from '../bounds';
-import {LocationSummary} from './location-summary';
-import {TimeInfo} from '../time-info';
+import { List } from 'immutable';
+import { Bounds } from '../bounds';
+import { LocationSummary } from './location-summary';
+import { TimeInfo } from '../time-info';
 
 export class LocationEditPage {
-
-  constructor(readonly timeInfo: TimeInfo,
-              readonly summary: LocationSummary,
-              readonly tooManyNodes: boolean,
-              readonly maxNodes: number,
-              readonly bounds: Bounds,
-              readonly nodeIds: List<number>,
-              readonly routeIds: List<number>) {
-  }
+  constructor(
+    readonly timeInfo: TimeInfo,
+    readonly summary: LocationSummary,
+    readonly tooManyNodes: boolean,
+    readonly maxNodes: number,
+    readonly bounds: Bounds,
+    readonly nodeIds: List<number>,
+    readonly routeIds: List<number>
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationEditPage {
     if (!jsonObject) {

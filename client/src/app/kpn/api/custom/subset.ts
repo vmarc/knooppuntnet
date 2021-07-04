@@ -1,9 +1,8 @@
-import {Countries} from '../../common/countries';
-import {Country} from './country';
-import {NetworkType} from './network-type';
+import { Countries } from '../../common/countries';
+import { Country } from './country';
+import { NetworkType } from './network-type';
 
 export class Subset {
-
   static all = [
     new Subset(Countries.nl, NetworkType.cycling),
     new Subset(Countries.nl, NetworkType.hiking),
@@ -19,12 +18,10 @@ export class Subset {
     new Subset(Countries.fr, NetworkType.cycling),
     new Subset(Countries.fr, NetworkType.hiking),
     new Subset(Countries.at, NetworkType.cycling),
-    new Subset(Countries.es, NetworkType.cycling)
+    new Subset(Countries.es, NetworkType.cycling),
   ];
 
-  constructor(readonly country: Country,
-              readonly networkType: NetworkType) {
-  }
+  constructor(readonly country: Country, readonly networkType: NetworkType) {}
 
   public static fromJSON(jsonObject: any): Subset {
     if (!jsonObject) {
@@ -40,5 +37,4 @@ export class Subset {
   public key(): string {
     return this.networkType.name + '/' + this.country.domain;
   }
-
 }

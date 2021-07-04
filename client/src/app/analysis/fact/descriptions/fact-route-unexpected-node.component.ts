@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-fact-route-unexpected-node',
@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
     <p i18n="@@fact.description.route-unexpected-node">
       The route relation contains 1 or more unexpected nodes
     </p>
-  `
+  `,
 })
-export class FactRouteUnexpectedNodeComponent {
-}
+export class FactRouteUnexpectedNodeComponent {}

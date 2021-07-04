@@ -1,5 +1,5 @@
-import {createAction} from '@ngrx/store';
-import {props} from '@ngrx/store';
+import { createAction } from '@ngrx/store';
+import { props } from '@ngrx/store';
 
 export const actionDemoVideoPlayerAvailable = createAction(
   '[Demo] Video player available'
@@ -25,13 +25,9 @@ export const actionDemoStartVideo = createAction(
   props<{ video: string }>()
 );
 
-export const actionDemoPlay = createAction(
-  '[Demo] Play'
-);
+export const actionDemoPlay = createAction('[Demo] Play');
 
-export const actionDemoPause = createAction(
-  '[Demo] Pause'
-);
+export const actionDemoPause = createAction('[Demo] Pause');
 
 export const actionDemoControlPlay = createAction(
   '[Demo] Control play',
@@ -48,6 +44,4 @@ export const actionDemoEnabledChanged = createAction(
   props<{ enabled: boolean }>()
 );
 
-export const actionDemoEnd = createAction(
-  '[Demo] End'
-);
+export const actionDemoEnd = createAction('[Demo] End');

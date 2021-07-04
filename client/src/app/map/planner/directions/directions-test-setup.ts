@@ -1,19 +1,18 @@
-import {RouteLeg} from '@api/common/planner/route-leg';
-import {List} from 'immutable';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanLeg} from '../plan/plan-leg';
-import {PlanLegBuilder} from '../plan/plan-leg-builder';
-import {Directions1TestSetup} from './directions-1-32-08-test-setup';
-import {Directions2TestSetup} from './directions-2-08-93-test-setup';
-import {Directions3TestSetup} from './directions-3-93-92-test-setup';
-import {Directions4TestSetup} from './directions-4-92-11-test-setup';
-import {Directions5TestSetup} from './directions-5-11-91-test-setup';
-import {Directions6TestSetup} from './directions-6-91-34-test-setup';
-import {Directions7TestSetup} from './directions-7-34-35-test-setup';
+import { RouteLeg } from '@api/common/planner/route-leg';
+import { List } from 'immutable';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanLeg } from '../plan/plan-leg';
+import { PlanLegBuilder } from '../plan/plan-leg-builder';
+import { Directions1TestSetup } from './directions-1-32-08-test-setup';
+import { Directions2TestSetup } from './directions-2-08-93-test-setup';
+import { Directions3TestSetup } from './directions-3-93-92-test-setup';
+import { Directions4TestSetup } from './directions-4-92-11-test-setup';
+import { Directions5TestSetup } from './directions-5-11-91-test-setup';
+import { Directions6TestSetup } from './directions-6-91-34-test-setup';
+import { Directions7TestSetup } from './directions-7-34-35-test-setup';
 
 export class DirectionsTestSetup {
-
   static examplePlan(): Plan {
     const leg1 = this.toLeg(Directions1TestSetup.json_32_08());
     const leg2 = this.toLeg(Directions2TestSetup.json_08_93());
@@ -24,12 +23,15 @@ export class DirectionsTestSetup {
     const leg7 = this.toLeg(Directions7TestSetup.json_34_35());
     const sourceNode = leg1.sourceNode;
     const sourceFlag = PlanFlag.start('s', sourceNode.coordinate);
-    return new Plan(sourceNode, sourceFlag, List([leg1, leg2, leg3, leg4, leg5, leg6, leg7]));
+    return new Plan(
+      sourceNode,
+      sourceFlag,
+      List([leg1, leg2, leg3, leg4, leg5, leg6, leg7])
+    );
   }
 
   private static toLeg(json): PlanLeg {
     const routeLeg = RouteLeg.fromJSON(json);
     return PlanLegBuilder.toPlanLeg2(routeLeg);
   }
-
 }

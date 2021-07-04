@@ -1,9 +1,7 @@
-import {IntegerFormatPipe} from './integer-format.pipe';
+import { IntegerFormatPipe } from './integer-format.pipe';
 
 describe('integer format pipe', () => {
-
   it('transform', () => {
-
     const pipe = new IntegerFormatPipe();
 
     expect(pipe.transform(1)).toEqual('1');
@@ -17,5 +15,4 @@ describe('integer format pipe', () => {
     expect(pipe.transform(123456789)).toEqual('123.456.789');
     expect(pipe.transform(1234567890)).toEqual('1.234.567.890');
   });
-
 });

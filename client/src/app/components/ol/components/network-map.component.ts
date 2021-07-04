@@ -1,20 +1,20 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {OnDestroy} from '@angular/core';
-import {AfterViewInit, Component, Input} from '@angular/core';
-import {NetworkMapPage} from '@api/common/network/network-map-page';
-import {List} from 'immutable';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { NetworkMapPage } from '@api/common/network/network-map-page';
+import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import {Subscriptions} from '../../../util/Subscriptions';
-import {PageService} from '../../shared/page.service';
-import {Util} from '../../shared/util';
-import {ZoomLevel} from '../domain/zoom-level';
-import {MapControls} from '../layers/map-controls';
-import {MapLayer} from '../layers/map-layer';
-import {MapLayers} from '../layers/map-layers';
-import {MapClickService} from '../services/map-click.service';
-import {MapLayerService} from '../services/map-layer.service';
-import {MapZoomService} from '../services/map-zoom.service';
+import { Subscriptions } from '../../../util/Subscriptions';
+import { PageService } from '../../shared/page.service';
+import { Util } from '../../shared/util';
+import { ZoomLevel } from '../domain/zoom-level';
+import { MapControls } from '../layers/map-controls';
+import { MapLayer } from '../layers/map-layer';
+import { MapLayers } from '../layers/map-layers';
+import { MapClickService } from '../services/map-click.service';
+import { MapLayerService } from '../services/map-layer.service';
+import { MapZoomService } from '../services/map-zoom.service';
 
 @Component({
   selector: 'kpn-network-map',
@@ -23,10 +23,9 @@ import {MapZoomService} from '../services/map-zoom.service';
     <div id="network-nodes-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
     </div>
-  `
+  `,
 })
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {
-
   @Input() page: NetworkMapPage;
 
   layers: MapLayers;
@@ -34,14 +33,14 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   private readonly mapId = 'network-nodes-map';
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private mapLayerService: MapLayerService,
-              private mapClickService: MapClickService,
-              private mapZoomService: MapZoomService,
-              private pageService: PageService) {
-  }
+  constructor(
+    private mapLayerService: MapLayerService,
+    private mapClickService: MapClickService,
+    private mapZoomService: MapZoomService,
+    private pageService: PageService
+  ) {}
 
   ngAfterViewInit(): void {
-
     this.layers = this.buildLayers();
 
     this.map = new Map({
@@ -50,8 +49,8 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom
-      })
+        maxZoom: ZoomLevel.maxZoom,
+      }),
     });
 
     const view = this.map.getView();
@@ -61,7 +60,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     this.mapClickService.installOn(this.map);
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(state => {
+      this.pageService.sidebarOpen.subscribe((state) => {
         if (this.map) {
           setTimeout(() => this.map.updateSize(), 250);
         }
@@ -79,9 +78,19 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(this.mapLayerService.backgroundLayer(this.mapId));
-    mapLayers = mapLayers.push(this.mapLayerService.networkNodesTileLayer(this.page.networkSummary.networkType, this.page.nodeIds, this.page.routeIds));
-    mapLayers = mapLayers.push(this.mapLayerService.networkNodesMarkerLayer(this.page.nodes));
+    mapLayers = mapLayers.push(
+      this.mapLayerService.backgroundLayer(this.mapId)
+    );
+    mapLayers = mapLayers.push(
+      this.mapLayerService.networkNodesTileLayer(
+        this.page.networkSummary.networkType,
+        this.page.nodeIds,
+        this.page.routeIds
+      )
+    );
+    mapLayers = mapLayers.push(
+      this.mapLayerService.networkNodesMarkerLayer(this.page.nodes)
+    );
     mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
     return new MapLayers(mapLayers);
   }

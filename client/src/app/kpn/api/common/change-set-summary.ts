@@ -1,26 +1,26 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ChangeKey} from './changes/details/change-key';
-import {ChangeSetSubsetAnalysis} from './change-set-subset-analysis';
-import {ChangeSetSubsetElementRefs} from './change-set-subset-element-refs';
-import {NetworkChanges} from './network-changes';
-import {Subset} from '../custom/subset';
-import {Timestamp} from '../custom/timestamp';
+import { List } from 'immutable';
+import { ChangeKey } from './changes/details/change-key';
+import { ChangeSetSubsetAnalysis } from './change-set-subset-analysis';
+import { ChangeSetSubsetElementRefs } from './change-set-subset-element-refs';
+import { NetworkChanges } from './network-changes';
+import { Subset } from '../custom/subset';
+import { Timestamp } from '../custom/timestamp';
 
 export class ChangeSetSummary {
-
-  constructor(readonly key: ChangeKey,
-              readonly subsets: List<Subset>,
-              readonly timestampFrom: Timestamp,
-              readonly timestampUntil: Timestamp,
-              readonly networkChanges: NetworkChanges,
-              readonly orphanRouteChanges: List<ChangeSetSubsetElementRefs>,
-              readonly orphanNodeChanges: List<ChangeSetSubsetElementRefs>,
-              readonly subsetAnalyses: List<ChangeSetSubsetAnalysis>,
-              readonly happy: boolean,
-              readonly investigate: boolean) {
-  }
+  constructor(
+    readonly key: ChangeKey,
+    readonly subsets: List<Subset>,
+    readonly timestampFrom: Timestamp,
+    readonly timestampUntil: Timestamp,
+    readonly networkChanges: NetworkChanges,
+    readonly orphanRouteChanges: List<ChangeSetSubsetElementRefs>,
+    readonly orphanNodeChanges: List<ChangeSetSubsetElementRefs>,
+    readonly subsetAnalyses: List<ChangeSetSubsetAnalysis>,
+    readonly happy: boolean,
+    readonly investigate: boolean
+  ) {}
 
   public static fromJSON(jsonObject: any): ChangeSetSummary {
     if (!jsonObject) {
@@ -28,13 +28,33 @@ export class ChangeSetSummary {
     }
     return new ChangeSetSummary(
       ChangeKey.fromJSON(jsonObject.key),
-      jsonObject.subsets ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json))) : List(),
+      jsonObject.subsets
+        ? List(jsonObject.subsets.map((json: any) => Subset.fromJSON(json)))
+        : List(),
       Timestamp.fromJSON(jsonObject.timestampFrom),
       Timestamp.fromJSON(jsonObject.timestampUntil),
       NetworkChanges.fromJSON(jsonObject.networkChanges),
-      jsonObject.orphanRouteChanges ? List(jsonObject.orphanRouteChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
-      jsonObject.orphanNodeChanges ? List(jsonObject.orphanNodeChanges.map((json: any) => ChangeSetSubsetElementRefs.fromJSON(json))) : List(),
-      jsonObject.subsetAnalyses ? List(jsonObject.subsetAnalyses.map((json: any) => ChangeSetSubsetAnalysis.fromJSON(json))) : List(),
+      jsonObject.orphanRouteChanges
+        ? List(
+            jsonObject.orphanRouteChanges.map((json: any) =>
+              ChangeSetSubsetElementRefs.fromJSON(json)
+            )
+          )
+        : List(),
+      jsonObject.orphanNodeChanges
+        ? List(
+            jsonObject.orphanNodeChanges.map((json: any) =>
+              ChangeSetSubsetElementRefs.fromJSON(json)
+            )
+          )
+        : List(),
+      jsonObject.subsetAnalyses
+        ? List(
+            jsonObject.subsetAnalyses.map((json: any) =>
+              ChangeSetSubsetAnalysis.fromJSON(json)
+            )
+          )
+        : List(),
       jsonObject.happy,
       jsonObject.investigate
     );

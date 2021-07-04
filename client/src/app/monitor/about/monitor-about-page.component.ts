@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-monitor-about',
@@ -11,9 +11,7 @@ import {Component} from '@angular/core';
       <li>About</li>
     </ul>
 
-    <h1>
-      Monitor
-    </h1>
+    <h1>Monitor</h1>
 
     <kpn-monitor-page-menu pageName="about"></kpn-monitor-page-menu>
 
@@ -23,7 +21,6 @@ import {Component} from '@angular/core';
         OpenStreetMap against a given reference geometry.
       </p>
     </div>
-  `
+  `,
 })
-export class MonitorAboutPageComponent {
-}
+export class MonitorAboutPageComponent {}

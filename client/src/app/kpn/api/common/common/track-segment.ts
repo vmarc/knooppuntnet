@@ -1,15 +1,15 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {TrackPoint} from './track-point';
-import {TrackSegmentFragment} from './track-segment-fragment';
+import { List } from 'immutable';
+import { TrackPoint } from './track-point';
+import { TrackSegmentFragment } from './track-segment-fragment';
 
 export class TrackSegment {
-
-  constructor(readonly surface: string,
-              readonly source: TrackPoint,
-              readonly fragments: List<TrackSegmentFragment>) {
-  }
+  constructor(
+    readonly surface: string,
+    readonly source: TrackPoint,
+    readonly fragments: List<TrackSegmentFragment>
+  ) {}
 
   public static fromJSON(jsonObject: any): TrackSegment {
     if (!jsonObject) {
@@ -18,7 +18,13 @@ export class TrackSegment {
     return new TrackSegment(
       jsonObject.surface,
       TrackPoint.fromJSON(jsonObject.source),
-      jsonObject.fragments ? List(jsonObject.fragments.map((json: any) => TrackSegmentFragment.fromJSON(json))) : List()
+      jsonObject.fragments
+        ? List(
+            jsonObject.fragments.map((json: any) =>
+              TrackSegmentFragment.fromJSON(json)
+            )
+          )
+        : List()
     );
   }
 }

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {AfterViewInit} from '@angular/core';
-import {ElementRef} from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-elevation-profile',
@@ -10,11 +10,10 @@ import {Component} from '@angular/core';
   template: `
     <canvas #profile width="200" height="100"></canvas>
     <mat-divider></mat-divider>
-  `
+  `,
 })
 export class ElevationProfileComponent implements AfterViewInit {
-
-  @ViewChild('profile', {static: true}) canvas: ElementRef;
+  @ViewChild('profile', { static: true }) canvas: ElementRef;
 
   ngAfterViewInit(): void {
     const ctx = this.canvas.nativeElement.getContext('2d');

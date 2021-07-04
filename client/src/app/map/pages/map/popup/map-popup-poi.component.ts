@@ -1,121 +1,202 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {Component} from '@angular/core';
-import {PoiAnalysis} from '@api/common/poi-analysis';
-import {PoiPage} from '@api/common/poi-page';
-import {ApiResponse} from '@api/custom/api-response';
-import {Tags} from '@api/custom/tags';
-import {Coordinate} from 'ol/coordinate';
-import {Observable} from 'rxjs';
-import {filter, mergeMap, tap} from 'rxjs/operators';
-import {AppService} from '../../../../app.service';
-import {PoiClick} from '../../../../components/ol/domain/poi-click';
-import {MapService} from '../../../../components/ol/services/map.service';
-import {InterpretedTags} from '../../../../components/shared/tags/interpreted-tags';
-import {PoiService} from '../../../../services/poi.service';
-import {PlannerService} from '../../../planner.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PoiAnalysis } from '@api/common/poi-analysis';
+import { PoiPage } from '@api/common/poi-page';
+import { ApiResponse } from '@api/custom/api-response';
+import { Tags } from '@api/custom/tags';
+import { Coordinate } from 'ol/coordinate';
+import { Observable } from 'rxjs';
+import { filter, mergeMap, tap } from 'rxjs/operators';
+import { AppService } from '../../../../app.service';
+import { PoiClick } from '../../../../components/ol/domain/poi-click';
+import { MapService } from '../../../../components/ol/services/map.service';
+import { InterpretedTags } from '../../../../components/shared/tags/interpreted-tags';
+import { PoiService } from '../../../../services/poi.service';
+import { PlannerService } from '../../../planner.service';
 
 @Component({
   selector: 'kpn-map-popup-poi',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
     <div *ngIf="response$ | async">
-
-      <div *ngIf="poi == null" class="item" i18n="@@poi.detail.none">No details available</div>
+      <div *ngIf="poi == null" class="item" i18n="@@poi.detail.none">
+        No details available
+      </div>
 
       <div *ngIf="poi != null">
+        <h2 *ngIf="poi.name">{{ poi.name }}</h2>
+        <h2 *ngIf="!poi.name">{{ layerName() }}</h2>
 
-        <h2 *ngIf="poi.name">{{poi.name}}</h2>
-        <h2 *ngIf="!poi.name">{{layerName()}}</h2>
+        <div *ngIf="poi.name" class="item">{{ layerName() }}</div>
 
-        <div *ngIf="poi.name" class="item">{{layerName()}}</div>
-
-        <div *ngIf="poi.subject" class="item">{{poi.subject}}</div>
-        <div *ngIf="poi.denomination" class="item">{{poi.denomination}}</div>
-        <div *ngIf="poi.cuisine" class="item">{{poi.cuisine}}</div>
+        <div *ngIf="poi.subject" class="item">{{ poi.subject }}</div>
+        <div *ngIf="poi.denomination" class="item">{{ poi.denomination }}</div>
+        <div *ngIf="poi.cuisine" class="item">{{ poi.cuisine }}</div>
 
         <div *ngIf="poi.addressLine1 || poi.addressLine2" class="item">
-          <span *ngIf="poi.addressLine1">{{poi.addressLine1}}</span><br/>
-          <span *ngIf="poi.addressLine2">{{poi.addressLine2}}</span>
+          <span *ngIf="poi.addressLine1">{{ poi.addressLine1 }}</span
+          ><br />
+          <span *ngIf="poi.addressLine2">{{ poi.addressLine2 }}</span>
         </div>
 
         <div *ngIf="poi.phone" class="item">
           <span class="kpn-label" i18n="@@poi.detail.phone">Phone</span>
-          {{poi.phone}}
+          {{ poi.phone }}
         </div>
 
         <div *ngIf="poi.fax" class="item">
           <span class="kpn-label" i18n="@@poi.detail.fax">Fax</span>
-          {{poi.fax}}
+          {{ poi.fax }}
         </div>
 
         <div *ngIf="poi.email" class="item">
-          <span class="kpn-label" i18n="@@poi.detail.email">E-mail</span> <a [href]="emailLink()">{{poi.email}}</a>
+          <span class="kpn-label" i18n="@@poi.detail.email">E-mail</span>
+          <a [href]="emailLink()">{{ poi.email }}</a>
         </div>
 
         <div *ngIf="poi.facebook || poi.twitter" class="item">
-          <a *ngIf="poi.facebook" [href]="poi.facebook" target="_blank" rel="nofollow noreferrer">
-            <img src="/assets/images/icons/facebook.png" class="image" title="Facebook">
+          <a
+            *ngIf="poi.facebook"
+            [href]="poi.facebook"
+            target="_blank"
+            rel="nofollow noreferrer"
+          >
+            <img
+              src="/assets/images/icons/facebook.png"
+              class="image"
+              title="Facebook"
+            />
           </a>
-          <a *ngIf="poi.twitter" [href]="poi.twitter" target="_blank" rel="nofollow noreferrer">
-            <img src="/assets/images/icons/twitter.png" class="image" title="Twitter">
+          <a
+            *ngIf="poi.twitter"
+            [href]="poi.twitter"
+            target="_blank"
+            rel="nofollow noreferrer"
+          >
+            <img
+              src="/assets/images/icons/twitter.png"
+              class="image"
+              title="Twitter"
+            />
           </a>
         </div>
 
-        <div *ngIf="poi.description" class="item">{{poi.description}}</div>
+        <div *ngIf="poi.description" class="item">{{ poi.description }}</div>
         <div *ngIf="poi.wheelchair" class="item">
-          <span class="kpn-label" i18n="@@poi.detail.wheelchair">Wheelchair</span>
-          {{poi.wheelchair}}
+          <span class="kpn-label" i18n="@@poi.detail.wheelchair"
+            >Wheelchair</span
+          >
+          {{ poi.wheelchair }}
         </div>
 
         <div *ngIf="poi.openingHours" class="item">
-          <span class="kpn-label" i18n="@@poi.detail.opengingHours">Opening hours</span>
-          {{poi.openingHours}}
+          <span class="kpn-label" i18n="@@poi.detail.opengingHours"
+            >Opening hours</span
+          >
+          {{ poi.openingHours }}
         </div>
         <div *ngIf="poi.serviceTimes" class="item">
-          <span class="kpn-label" i18n="@@poi.detail.serviceHours">Service times</span>
-          {{poi.serviceTimes}}
+          <span class="kpn-label" i18n="@@poi.detail.serviceHours"
+            >Service times</span
+          >
+          {{ poi.serviceTimes }}
         </div>
 
         <div *ngIf="poi.image" class="item">
           <a [href]="poi.image" target="_blank" rel="nofollow noreferrer">
-            <img [src]="thumbnailImage(poi.image)" width="inherit" height="100px" alt="image" class="image"/>
+            <img
+              [src]="thumbnailImage(poi.image)"
+              width="inherit"
+              height="100px"
+              alt="image"
+              class="image"
+            />
           </a>
         </div>
 
         <div *ngIf="poi.imageLink" class="item">
-          <a [href]="poi.imageLink" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.image">Image</a>
+          <a
+            [href]="poi.imageLink"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.image"
+            >Image</a
+          >
         </div>
 
         <div *ngIf="poi.mapillary" class="item">
-          <a [href]="poi.mapillary" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.mapillary">Mapillary</a>
+          <a
+            [href]="poi.mapillary"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.mapillary"
+            >Mapillary</a
+          >
         </div>
 
         <div *ngIf="poi.onroerendErfgoed" class="item">
-          <a [href]="poi.onroerendErfgoed" i18n="@@poi.detail.onroerendErfgoed" class="external" target="_blank"
-             rel="nofollow noreferrer">Onroerend Erfgoed</a>
+          <a
+            [href]="poi.onroerendErfgoed"
+            i18n="@@poi.detail.onroerendErfgoed"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            >Onroerend Erfgoed</a
+          >
         </div>
 
         <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
-          <a *ngIf="poi.website" [href]="poi.website" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.website">Website</a>
-          <a *ngIf="poi.wikidata" [href]="poi.wikidata" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.wikidata">Wikidata</a>
-          <a *ngIf="poi.wikipedia" [href]="poi.wikipedia" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.wikipedia">Wikipedia</a>
+          <a
+            *ngIf="poi.website"
+            [href]="poi.website"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.website"
+            >Website</a
+          >
+          <a
+            *ngIf="poi.wikidata"
+            [href]="poi.wikidata"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.wikidata"
+            >Wikidata</a
+          >
+          <a
+            *ngIf="poi.wikipedia"
+            [href]="poi.wikipedia"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.wikipedia"
+            >Wikipedia</a
+          >
         </div>
 
         <div *ngIf="poi.molenDatabase" class="item">
-          <a [href]="poi.molenDatabase" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.molen-database">Molen database</a>
+          <a
+            [href]="poi.molenDatabase"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.molen-database"
+            >Molen database</a
+          >
         </div>
 
         <div *ngIf="poi.hollandscheMolenDatabase" class="item">
-          <a [href]="poi.hollandscheMolenDatabase" class="external" target="_blank" rel="nofollow noreferrer"
-             i18n="@@poi.detail.hollandsche-molen-database">
+          <a
+            [href]="poi.hollandscheMolenDatabase"
+            class="external"
+            target="_blank"
+            rel="nofollow noreferrer"
+            i18n="@@poi.detail.hollandsche-molen-database"
+          >
             Hollandsche Molen database
           </a>
         </div>
@@ -124,42 +205,45 @@ import {PlannerService} from '../../../planner.service';
           <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
         </div>
 
-        <div *ngIf="poi.extraTags && !poi.extraTags.tags.isEmpty()" class="item">
+        <div
+          *ngIf="poi.extraTags && !poi.extraTags.tags.isEmpty()"
+          class="item"
+        >
           <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
         </div>
-
       </div>
 
       <div class="item">
         <kpn-osm-link
           [kind]="poiClick.poiId.elementType"
           [elementId]="poiClick.poiId.elementId.toString()"
-          title="osm">
+          title="osm"
+        >
         </kpn-osm-link>
         <kpn-josm-link
           [kind]="poiClick.poiId.elementType"
           [elementId]="poiClick.poiId.elementId"
-          title="edit">
+          title="edit"
+        >
         </kpn-josm-link>
       </div>
-
     </div>
   `,
-  styles: [`
-    .item {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
+  styles: [
+    `
+      .item {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
 
-    .item * {
-      margin-right: 10px;
-      align-items: center;
-    }
-
-  `]
+      .item * {
+        margin-right: 10px;
+        align-items: center;
+      }
+    `,
+  ],
 })
 export class MapPopupPoiComponent implements OnInit {
-
   response$: Observable<ApiResponse<PoiPage>>;
 
   poiClick: PoiClick;
@@ -167,22 +251,27 @@ export class MapPopupPoiComponent implements OnInit {
   poi: PoiAnalysis;
   tags: Tags;
 
-  constructor(private mapService: MapService,
-              private appService: AppService,
-              private poiService: PoiService,
-              private plannerService: PlannerService) {
-  }
+  constructor(
+    private mapService: MapService,
+    private appService: AppService,
+    private poiService: PoiService,
+    private plannerService: PlannerService
+  ) {}
 
   ngOnInit(): void {
-
     this.response$ = this.mapService.poiClicked$.pipe(
-      filter(poiClick => poiClick !== null),
-      tap(poiClick => {
+      filter((poiClick) => poiClick !== null),
+      tap((poiClick) => {
         this.plannerService.context.cursor.setStyleWait();
         this.poiClick = poiClick;
       }),
-      mergeMap(poiClick => this.appService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId)),
-      tap(response => {
+      mergeMap((poiClick) =>
+        this.appService.poi(
+          poiClick.poiId.elementType,
+          poiClick.poiId.elementId
+        )
+      ),
+      tap((response) => {
         if (response.result) {
           this.poiPage = response.result;
           this.poi = response.result.analysis;
@@ -224,6 +313,9 @@ export class MapPopupPoiComponent implements OnInit {
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -45), 0);
+    setTimeout(
+      () => this.plannerService.context.overlay.setPosition(coordinate, -45),
+      0
+    );
   }
 }

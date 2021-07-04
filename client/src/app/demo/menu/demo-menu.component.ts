@@ -1,15 +1,14 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {PageService} from '../../components/shared/page.service';
-import {selectDemoEnabled} from '../store/demo.selectors';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { PageService } from '../../components/shared/page.service';
+import { selectDemoEnabled } from '../store/demo.selectors';
 
 @Component({
   selector: 'kpn-demo-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
-    <div *ngIf="enabled$ | async; then enabled else disabled"></div>
+    <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
 
     <ng-template #enabled>
       <p i18n="demo.select-video">
@@ -25,29 +24,28 @@ import {selectDemoEnabled} from '../store/demo.selectors';
       <mat-icon svgIcon="video"></mat-icon>
     </div>
   `,
-  styles: [`
-    .video-icon {
-      padding-top: 5em;
-      display: flex;
-      justify-content: center;
-    }
+  styles: [
+    `
+      .video-icon {
+        padding-top: 5em;
+        display: flex;
+        justify-content: center;
+      }
 
-    .video-icon mat-icon {
-      width: 200px;
-      height: 200px;
-      color: #f8f8f8;
-    }
-  `]
+      .video-icon mat-icon {
+        width: 200px;
+        height: 200px;
+        color: #f8f8f8;
+      }
+    `,
+  ],
 })
 export class DemoMenuComponent implements OnInit {
-
   enabled$ = this.store.select(selectDemoEnabled);
 
-  constructor(private store: Store, private pageService: PageService) {
-  }
+  constructor(private store: Store, private pageService: PageService) {}
 
   ngOnInit(): void {
     this.pageService.defaultMenu();
   }
-
 }

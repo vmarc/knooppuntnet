@@ -1,17 +1,18 @@
-import {Filter} from './filter';
-import {Filters} from './filters';
-import {List} from 'immutable';
-import {FilterOptionGroup} from './filter-option-group';
-import {FilterOption} from './filter-option';
+import { Filter } from './filter';
+import { Filters } from './filters';
+import { List } from 'immutable';
+import { FilterOptionGroup } from './filter-option-group';
+import { FilterOption } from './filter-option';
 
 export class BooleanFilter<T> extends Filter<T> {
-
-  constructor(name: string,
-              private readonly criterium: boolean,
-              private readonly getter: (row: T) => boolean,
-              private readonly all: () => void,
-              private readonly yes: () => void,
-              private readonly no: () => void) {
+  constructor(
+    name: string,
+    private readonly criterium: boolean,
+    private readonly getter: (row: T) => boolean,
+    private readonly all: () => void,
+    private readonly yes: () => void,
+    private readonly no: () => void
+  ) {
     super(name);
   }
 
@@ -26,11 +27,13 @@ export class BooleanFilter<T> extends Filter<T> {
   }
 
   filterOptions(allFilters: Filters<T>, elements: List<T>): FilterOptionGroup {
-
     const filteredElements = allFilters.filterExcept(elements, this);
-    const yesElements = filteredElements.filter(e => this.getter(e));
-    const noElements = filteredElements.filterNot(e => this.getter(e));
-    const active = !filteredElements.isEmpty() && !yesElements.isEmpty() && !noElements.isEmpty();
+    const yesElements = filteredElements.filter((e) => this.getter(e));
+    const noElements = filteredElements.filterNot((e) => this.getter(e));
+    const active =
+      !filteredElements.isEmpty() &&
+      !yesElements.isEmpty() &&
+      !noElements.isEmpty();
 
     if (active) {
       const allOption = new FilterOption(
@@ -58,5 +61,4 @@ export class BooleanFilter<T> extends Filter<T> {
     }
     return null;
   }
-
 }

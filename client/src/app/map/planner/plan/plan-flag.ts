@@ -1,12 +1,12 @@
-import {Coordinate} from 'ol/coordinate';
-import {PlanFlagType} from './plan-flag-type';
+import { Coordinate } from 'ol/coordinate';
+import { PlanFlagType } from './plan-flag-type';
 
 export class PlanFlag {
-
-  constructor(readonly flagType: PlanFlagType,
-              readonly featureId: string,
-              readonly coordinate: Coordinate) {
-  }
+  constructor(
+    readonly flagType: PlanFlagType,
+    readonly featureId: string,
+    readonly coordinate: Coordinate
+  ) {}
 
   static start(featureId: string, coordinate: Coordinate): PlanFlag {
     return new PlanFlag(PlanFlagType.Start, featureId, coordinate);
@@ -43,5 +43,4 @@ export class PlanFlag {
   withCoordinate(coordinate: Coordinate): PlanFlag {
     return new PlanFlag(this.flagType, this.featureId, coordinate);
   }
-
 }

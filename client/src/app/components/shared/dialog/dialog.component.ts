@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-dialog',
@@ -9,18 +9,19 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
     </button>
     <ng-content></ng-content>
   `,
-  styles: [`
-    .close-button {
-      background-color: white;
-      float: right;
-      top: -24px;
-      right: -24px;
-    }
+  styles: [
+    `
+      .close-button {
+        background-color: white;
+        float: right;
+        top: -24px;
+        right: -24px;
+      }
 
-    .mat-icon-button ::ng-deep .mat-button-focus-overlay {
-      display: none;
-    }
-  `]
+      .mat-icon-button ::ng-deep .mat-button-focus-overlay {
+        display: none;
+      }
+    `,
+  ],
 })
-export class DialogComponent {
-}
+export class DialogComponent {}

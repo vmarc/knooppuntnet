@@ -1,13 +1,12 @@
-import {List} from 'immutable';
-import {LatLonImpl} from '@api/common/lat-lon-impl';
-import {PlanRoute} from '@api/common/planner/plan-route';
-import {Plan} from './plan';
-import {PlanFlag} from './plan-flag';
-import {PlanLeg} from './plan-leg';
-import {PlanUtil} from './plan-util';
+import { List } from 'immutable';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { Plan } from './plan';
+import { PlanFlag } from './plan-flag';
+import { PlanLeg } from './plan-leg';
+import { PlanUtil } from './plan-util';
 
 describe('PlanUtil', () => {
-
   it('toUrlString - empty plan', () => {
     expect(PlanUtil.toUrlString(Plan.empty)).toEqual('');
   });
@@ -20,7 +19,6 @@ describe('PlanUtil', () => {
   });
 
   it('toUrlString - plan with multiple legs', () => {
-
     const startNode = PlanUtil.planNode('10', '', new LatLonImpl('', ''));
     const viaNode1 = PlanUtil.planNode('11', '', new LatLonImpl('', ''));
     const viaNode2 = PlanUtil.planNode('12', '', new LatLonImpl('', ''));
@@ -35,9 +33,33 @@ describe('PlanUtil', () => {
     const viaLegEnd2 = PlanUtil.legEndNode(12);
     const endLegEnd = PlanUtil.legEndNode(13);
 
-    const leg1 = new PlanLeg('', '', startLegEnd, viaLegEnd1, null, null, List([route1]));
-    const leg2 = new PlanLeg('', '', viaLegEnd1, viaLegEnd2, null, null, List([route2]));
-    const leg3 = new PlanLeg('', '', viaLegEnd2, endLegEnd, null, null, List([route3]));
+    const leg1 = new PlanLeg(
+      '',
+      '',
+      startLegEnd,
+      viaLegEnd1,
+      null,
+      null,
+      List([route1])
+    );
+    const leg2 = new PlanLeg(
+      '',
+      '',
+      viaLegEnd1,
+      viaLegEnd2,
+      null,
+      null,
+      List([route2])
+    );
+    const leg3 = new PlanLeg(
+      '',
+      '',
+      viaLegEnd2,
+      endLegEnd,
+      null,
+      null,
+      List([route3])
+    );
 
     const startFlag = PlanFlag.start('n1', startNode.coordinate);
     const plan = new Plan(startNode, startFlag, List([leg1, leg2, leg3]));
@@ -65,19 +87,24 @@ describe('PlanUtil', () => {
   });
 
   it('total distance', () => {
-
     const route1 = new PlanRoute(null, null, 1000, List(), List());
     const route2 = new PlanRoute(null, null, 2000, List(), List());
     const route3 = new PlanRoute(null, null, 4000, List(), List());
 
-    const leg1 = new PlanLeg('1', '', null, null, null, null, List([route1, route2]));
+    const leg1 = new PlanLeg(
+      '1',
+      '',
+      null,
+      null,
+      null,
+      null,
+      List([route1, route2])
+    );
     const leg2 = new PlanLeg('2', '', null, null, null, null, List([route3]));
 
     const plan = new Plan(null, null, List([leg1, leg2]));
 
     expect(plan.cumulativeKmLeg(0)).toEqual('3 km');
     expect(plan.cumulativeKmLeg(1)).toEqual('7 km');
-
   });
-
 });

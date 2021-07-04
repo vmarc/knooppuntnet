@@ -1,13 +1,17 @@
-import {Color} from 'ol/color';
+import { Color } from 'ol/color';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import {MainStyleColors} from './main-style-colors';
+import { MainStyleColors } from './main-style-colors';
 
 export class RouteStyle {
-
   private defaultRouteStyle = this.initRouteStyle();
 
-  style(color: Color, zoom: number, highlighted: boolean, proposed: boolean): Style {
+  style(
+    color: Color,
+    zoom: number,
+    highlighted: boolean,
+    proposed: boolean
+  ): Style {
     let width = 1;
     if (zoom < 9) {
       width = 1;
@@ -24,8 +28,7 @@ export class RouteStyle {
     this.defaultRouteStyle.getStroke().setColor(color);
     if (proposed) {
       this.defaultRouteStyle.getStroke().setLineDash([6, 10]);
-    }
-    else {
+    } else {
       this.defaultRouteStyle.getStroke().setLineDash(null);
     }
 
@@ -36,8 +39,8 @@ export class RouteStyle {
     return new Style({
       stroke: new Stroke({
         color: MainStyleColors.veryDarkGreen,
-        width: 1
-      })
+        width: 1,
+      }),
     });
   }
 }

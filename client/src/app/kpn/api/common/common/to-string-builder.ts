@@ -1,12 +1,9 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export class ToStringBuilder {
-
-  constructor(readonly className: string,
-              readonly strings: List<string>) {
-  }
+  constructor(readonly className: string, readonly strings: List<string>) {}
 
   public static fromJSON(jsonObject: any): ToStringBuilder {
     if (!jsonObject) {

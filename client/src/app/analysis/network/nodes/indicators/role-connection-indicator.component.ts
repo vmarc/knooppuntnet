@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {NetworkNodeDetail} from '@api/common/network/network-node-detail';
-import {RoleConnectionIndicatorDialogComponent} from './role-connection-indicator-dialog.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
+import { RoleConnectionIndicatorDialogComponent } from './role-connection-indicator-dialog.component';
 
 @Component({
   selector: 'kpn-role-connection-indicator',
@@ -13,23 +13,25 @@ import {RoleConnectionIndicatorDialogComponent} from './role-connection-indicato
       letter="C"
       i18n-letter="@@role-connection-indicator.letter"
       [color]="color"
-      (openDialog)="onOpenDialog()">
+      (openDialog)="onOpenDialog()"
+    >
     </kpn-indicator>
-  `
+  `,
 })
 export class RoleConnectionIndicatorComponent implements OnInit {
-
   @Input() node: NetworkNodeDetail;
   color: string;
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.color = this.node.roleConnection ? 'blue' : 'gray';
   }
 
   onOpenDialog() {
-    this.dialog.open(RoleConnectionIndicatorDialogComponent, {data: this.color, maxWidth: 600});
+    this.dialog.open(RoleConnectionIndicatorDialogComponent, {
+      data: this.color,
+      maxWidth: 600,
+    });
   }
 }

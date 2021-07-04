@@ -1,13 +1,16 @@
-import {Timestamp} from './timestamp';
+import { Timestamp } from './timestamp';
 
 export class ApiResponse<T> {
+  constructor(
+    public situationOn?: Timestamp,
+    public version?: number,
+    public result?: T
+  ) {}
 
-  constructor(public situationOn?: Timestamp,
-              public version?: number,
-              public result?: T) {
-  }
-
-  public static fromJSON<T>(jsonObject: any, resultsFromJSON: (jsonObject2: any) => T): ApiResponse<T> {
+  public static fromJSON<T>(
+    jsonObject: any,
+    resultsFromJSON: (jsonObject2: any) => T
+  ): ApiResponse<T> {
     if (!jsonObject) {
       return undefined;
     }

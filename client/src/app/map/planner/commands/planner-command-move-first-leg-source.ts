@@ -1,19 +1,19 @@
-import {PlanNode} from '@api/common/planner/plan-node';
-import {PlannerContext} from '../context/planner-context';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlannerCommand} from './planner-command';
-import {PlanLeg} from '../plan/plan-leg';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { PlannerContext } from '../context/planner-context';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlannerCommand } from './planner-command';
+import { PlanLeg } from '../plan/plan-leg';
 
 export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
-
-  constructor(private readonly oldLeg: PlanLeg,
-              private readonly oldSourceNode: PlanNode,
-              private readonly oldSourceFlag: PlanFlag,
-              private readonly newLeg: PlanLeg,
-              private readonly newSourceNode: PlanNode,
-              private readonly newSourceFlag: PlanFlag) {
-  }
+  constructor(
+    private readonly oldLeg: PlanLeg,
+    private readonly oldSourceNode: PlanNode,
+    private readonly oldSourceFlag: PlanFlag,
+    private readonly newLeg: PlanLeg,
+    private readonly newSourceNode: PlanNode,
+    private readonly newSourceFlag: PlanFlag
+  ) {}
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandMoveFirstLegSource');
@@ -59,9 +59,10 @@ export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
     context.markerLayer.updateFlag(toLeg.viaFlag);
     context.markerLayer.updateFlag(toLeg.sinkFlag);
     context.routeLayer.addPlanLeg(toLeg);
-    const newLegs = context.plan.legs.map(leg => leg.featureId === fromLeg.featureId ? toLeg : leg);
+    const newLegs = context.plan.legs.map((leg) =>
+      leg.featureId === fromLeg.featureId ? toLeg : leg
+    );
     const newPlan = new Plan(toSourceNode, toSourceFlag, newLegs);
     context.updatePlan(newPlan);
   }
-
 }

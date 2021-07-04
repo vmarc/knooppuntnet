@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Input} from '@angular/core';
-import {Component} from '@angular/core';
-import {BarChart2D} from '@api/common/status/bar-chart2d';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { BarChart2D } from '@api/common/status/bar-chart2d';
 
 /* tslint:disable:template-i18n English only */
 @Component({
@@ -20,12 +20,12 @@ import {BarChart2D} from '@api/common/status/bar-chart2d';
       [legend]="true"
       [roundDomains]="false"
       [showDataLabel]="false"
-      (select)="onSelect($event)">
+      (select)="onSelect($event)"
+    >
     </ngx-charts-bar-vertical-stacked>
-  `
+  `,
 })
 export class ActionBarChartStackedComponent {
-
   @Input() barChart: BarChart2D;
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;

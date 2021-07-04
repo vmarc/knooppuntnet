@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-geolocation-permission-denied-dialog',
@@ -8,12 +8,14 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
       <div mat-dialog-title i18n="@@geolocation-dialog.permission-denied.title">
         Permission denied
       </div>
-      <div mat-dialog-content i18n="@@geolocation-dialog.permission-denied.message">
+      <div
+        mat-dialog-content
+        i18n="@@geolocation-dialog.permission-denied.message"
+      >
         We cannot determine your location. Knooppuntnet does not have the
         permission to access your location.
       </div>
     </kpn-dialog>
-  `
+  `,
 })
-export class GeolocationPermissionDeniedDialogComponent {
-}
+export class GeolocationPermissionDeniedDialogComponent {}

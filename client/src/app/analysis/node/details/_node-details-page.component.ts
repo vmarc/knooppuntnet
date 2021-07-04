@@ -1,20 +1,20 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {OnInit} from '@angular/core';
-import {Component} from '@angular/core';
-import {Ref} from '@api/common/common/ref';
-import {NodeDetailsPage} from '@api/common/node/node-details-page';
-import {Store} from '@ngrx/store';
-import {List} from 'immutable';
-import {filter} from 'rxjs/operators';
-import {PageService} from '../../../components/shared/page.service';
-import {InterpretedTags} from '../../../components/shared/tags/interpreted-tags';
-import {AppState} from '../../../core/core.state';
-import {FactInfo} from '../../fact/fact-info';
-import {actionNodeDetailsPageInit} from '../store/node.actions';
-import {selectNodeDetailsPage} from '../store/node.selectors';
-import {selectNodeName} from '../store/node.selectors';
-import {selectNodeId} from '../store/node.selectors';
-import {selectNodeChangeCount} from '../store/node.selectors';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Ref } from '@api/common/common/ref';
+import { NodeDetailsPage } from '@api/common/node/node-details-page';
+import { Store } from '@ngrx/store';
+import { List } from 'immutable';
+import { filter } from 'rxjs/operators';
+import { PageService } from '../../../components/shared/page.service';
+import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
+import { AppState } from '../../../core/core.state';
+import { FactInfo } from '../../fact/fact-info';
+import { actionNodeDetailsPageInit } from '../store/node.actions';
+import { selectNodeDetailsPage } from '../store/node.selectors';
+import { selectNodeName } from '../store/node.selectors';
+import { selectNodeId } from '../store/node.selectors';
+import { selectNodeChangeCount } from '../store/node.selectors';
 
 @Component({
   selector: 'kpn-node-details-page',
@@ -22,7 +22,9 @@ import {selectNodeChangeCount} from '../store/node.selectors';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a></li>
+      <li>
+        <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+      </li>
       <li i18n="@@breadcrumb.node">Node</li>
     </ul>
 
@@ -30,7 +32,8 @@ import {selectNodeChangeCount} from '../store/node.selectors';
       pageName="details"
       [nodeId]="nodeId$ | async"
       [nodeName]="nodeName$ | async"
-      [changeCount]="changeCount$ | async">
+      [changeCount]="changeCount$ | async"
+    >
     </kpn-node-page-header>
 
     <kpn-error></kpn-error>
@@ -40,7 +43,6 @@ import {selectNodeChangeCount} from '../store/node.selectors';
         Node not found
       </div>
       <div *ngIf="response.result as page">
-
         <kpn-data title="Summary" i18n-title="@@node.summary">
           <kpn-node-summary [nodeInfo]="page.nodeInfo"></kpn-node-summary>
         </kpn-data>
@@ -50,7 +52,9 @@ import {selectNodeChangeCount} from '../store/node.selectors';
         </kpn-data>
 
         <kpn-data title="Last updated" i18n-title="@@node.last-updated">
-          <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated"></kpn-timestamp>
+          <kpn-timestamp
+            [timestamp]="page.nodeInfo.lastUpdated"
+          ></kpn-timestamp>
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@node.tags">
@@ -58,7 +62,9 @@ import {selectNodeChangeCount} from '../store/node.selectors';
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@node.location">
-          <kpn-node-location [location]="page.nodeInfo.location"></kpn-node-location>
+          <kpn-node-location
+            [location]="page.nodeInfo.location"
+          ></kpn-node-location>
         </kpn-data>
 
         <kpn-data title="Integrity" i18n-title="@@node.integrity">
@@ -68,35 +74,38 @@ import {selectNodeChangeCount} from '../store/node.selectors';
         <kpn-data title="Networks" i18n-title="@@node.networks">
           <kpn-node-network-references
             [nodeInfo]="page.nodeInfo"
-            [references]="page.references.networkReferences">
+            [references]="page.references.networkReferences"
+          >
           </kpn-node-network-references>
         </kpn-data>
 
         <kpn-data title="Orphan routes" i18n-title="@@node.orphan-routes">
           <kpn-node-orphan-route-references
-            [references]="page.references.routeReferences">
+            [references]="page.references.routeReferences"
+          >
           </kpn-node-orphan-route-references>
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
           <kpn-facts [factInfos]="buildFactInfos(page)"></kpn-facts>
         </kpn-data>
-
       </div>
     </div>
-  `
+  `,
 })
 export class NodeDetailsPageComponent implements OnInit {
-
   nodeId$ = this.store.select(selectNodeId);
   nodeName$ = this.store.select(selectNodeName);
   changeCount$ = this.store.select(selectNodeChangeCount);
 
-  response$ = this.store.select(selectNodeDetailsPage).pipe(filter(x => x !== null));
+  response$ = this.store
+    .select(selectNodeDetailsPage)
+    .pipe(filter((x) => x !== null));
 
-  constructor(private pageService: PageService,
-              private store: Store<AppState>) {
-  }
+  constructor(
+    private pageService: PageService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeDetailsPageInit());
@@ -108,12 +117,17 @@ export class NodeDetailsPageComponent implements OnInit {
   }
 
   buildFactInfos(page: NodeDetailsPage): List<FactInfo> {
-    const nodeFacts = page.nodeInfo.facts.map(fact => new FactInfo(fact));
-    const extraFacts = page.references.networkReferences.flatMap(networkReference => networkReference.facts.map(fact => {
-      const networkRef = new Ref(networkReference.networkId, networkReference.networkName);
-      return new FactInfo(fact, networkRef, null, null);
-    }));
+    const nodeFacts = page.nodeInfo.facts.map((fact) => new FactInfo(fact));
+    const extraFacts = page.references.networkReferences.flatMap(
+      (networkReference) =>
+        networkReference.facts.map((fact) => {
+          const networkRef = new Ref(
+            networkReference.networkId,
+            networkReference.networkName
+          );
+          return new FactInfo(fact, networkRef, null, null);
+        })
+    );
     return nodeFacts.concat(extraFacts);
   }
-
 }

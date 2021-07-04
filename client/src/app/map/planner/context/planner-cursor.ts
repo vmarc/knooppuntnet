@@ -1,5 +1,4 @@
 export interface PlannerCursor {
-
   setStylePointer(): void;
 
   setStyleDefault(): void;

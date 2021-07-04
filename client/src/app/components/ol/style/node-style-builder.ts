@@ -4,7 +4,7 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import {MainStyleColors} from "@app/components/ol/style/main-style-colors";
+import { MainStyleColors } from '@app/components/ol/style/main-style-colors';
 
 export const nameStyle = (): Style =>
   new Style({
@@ -48,7 +48,9 @@ export const proposedLarge = (color: Color): Style => {
 };
 
 const buildLarge = (color: Color, proposed: boolean): Style => {
-  const backgroundColor = proposed ? MainStyleColors.proposedWhite : MainStyleColors.white;
+  const backgroundColor = proposed
+    ? MainStyleColors.proposedWhite
+    : MainStyleColors.white;
   const lineDash = proposed ? [3, 6] : null;
 
   return new Style({

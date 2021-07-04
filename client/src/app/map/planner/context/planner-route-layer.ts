@@ -1,14 +1,13 @@
-import {Plan} from '../plan/plan';
-import {PlanLeg} from '../plan/plan-leg';
+import { Plan } from '../plan/plan';
+import { PlanLeg } from '../plan/plan-leg';
 
 export abstract class PlannerRouteLayer {
-
   abstract addPlanLeg(leg: PlanLeg): void;
 
   abstract removePlanLeg(legId: string): void;
 
   removePlan(plan: Plan): void {
-    plan.legs.forEach(leg => {
+    plan.legs.forEach((leg) => {
       this.removePlanLeg(leg.featureId);
     });
   }
@@ -19,5 +18,4 @@ export abstract class PlannerRouteLayer {
       this.addPlanLeg(leg);
     }
   }
-
 }

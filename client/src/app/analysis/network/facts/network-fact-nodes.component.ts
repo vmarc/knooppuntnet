@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {Ref} from '@api/common/common/ref';
-import {List} from 'immutable';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Ref } from '@api/common/common/ref';
+import { List } from 'immutable';
 
 @Component({
   selector: 'kpn-network-fact-nodes',
@@ -17,10 +17,11 @@ import {List} from 'immutable';
       <kpn-link-node
         *ngFor="let node of nodes"
         [nodeId]="node.id"
-        [nodeName]="node.name">
+        [nodeName]="node.name"
+      >
       </kpn-link-node>
     </div>
-  `
+  `,
 })
 export class NetworkFactNodesComponent {
   @Input() nodes: List<Ref>;

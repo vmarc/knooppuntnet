@@ -1,5 +1,5 @@
-import {List} from 'immutable';
-import {Tag} from './tag';
+import { List } from 'immutable';
+import { Tag } from './tag';
 
 export class Tags {
   readonly tags: List<Tag>;
@@ -9,16 +9,14 @@ export class Tags {
   }
 
   static fromArray(array: Array<Array<string>>): Tags {
-    return new Tags(List(array.map(row => new Tag(row[0], row[1]))));
+    return new Tags(List(array.map((row) => new Tag(row[0], row[1]))));
   }
 
   static fromJSON(jsonObject: any): Tags {
     if (!jsonObject) {
       return undefined;
     }
-    return new Tags(
-      List(jsonObject.map((json: any) => Tag.fromJSON(json)))
-    );
+    return new Tags(List(jsonObject.map((json: any) => Tag.fromJSON(json))));
   }
 
   isEmpty() {
@@ -26,11 +24,11 @@ export class Tags {
   }
 
   has(key: string) {
-    return this.tags.filter(t => t.key === key).size > 0;
+    return this.tags.filter((t) => t.key === key).size > 0;
   }
 
   get(key: string) {
-    const values = this.tags.filter(t => t.key === key).map(x => x.value);
+    const values = this.tags.filter((t) => t.key === key).map((x) => x.value);
     if (values.size > 0) {
       return values.get(0);
     }
@@ -38,7 +36,6 @@ export class Tags {
   }
 
   tagsWithKey(key: string): List<Tag> {
-    return this.tags.filter(t => t.key === key);
+    return this.tags.filter((t) => t.key === key);
   }
-
 }

@@ -1,13 +1,16 @@
-import {Route} from '@angular/router';
-import {UrlSegmentGroup} from '@angular/router';
-import {UrlSegment} from '@angular/router';
-import {UrlMatchResult} from '@angular/router';
+import { Route } from '@angular/router';
+import { UrlSegmentGroup } from '@angular/router';
+import { UrlSegment } from '@angular/router';
+import { UrlMatchResult } from '@angular/router';
 
 export class LocationUrlMatcher {
-
-  public static match(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
-
-    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+  public static match(
+    segments: UrlSegment[],
+    group: UrlSegmentGroup,
+    route: Route
+  ): UrlMatchResult {
+    const networkType =
+      /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
     const detail = /(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
@@ -18,7 +21,7 @@ export class LocationUrlMatcher {
     ) {
       return {
         consumed: [],
-        posParams: {}
+        posParams: {},
       };
     }
     if (
@@ -29,18 +32,22 @@ export class LocationUrlMatcher {
     ) {
       return {
         consumed: [],
-        posParams: {}
+        posParams: {},
       };
     }
     return null;
   }
 
-
-  public static subsetUrl(segments: UrlSegment[], group: UrlSegmentGroup, route: Route): UrlMatchResult {
-
-    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+  public static subsetUrl(
+    segments: UrlSegment[],
+    group: UrlSegmentGroup,
+    route: Route
+  ): UrlMatchResult {
+    const networkType =
+      /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
-    const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
+    const target =
+      /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (
       segments.length === 3 &&
@@ -52,7 +59,7 @@ export class LocationUrlMatcher {
         consumed: [],
         posParams: {
           // username: new UrlSegment(url[0].path.substr(1), {})
-        }
+        },
       };
     }
     if (
@@ -65,7 +72,7 @@ export class LocationUrlMatcher {
         consumed: [],
         posParams: {
           // username: new UrlSegment(url[0].path.substr(1), {})
-        }
+        },
       };
     }
     return null;

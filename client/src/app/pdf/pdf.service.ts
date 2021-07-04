@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {PlannerService} from '../map/planner.service';
-import {DirectionsAnalyzer} from '../map/planner/directions/directions-analyzer';
-import {Plan} from '../map/planner/plan/plan';
-import {BitmapIconService} from './bitmap-icon.service';
-import {PdfDirections} from './plan/pdf-directions';
-import {PdfDocument} from './plan/pdf-document';
-import {PdfStripDocument} from './plan/pdf-strip-document';
+import { Injectable } from '@angular/core';
+import { PlannerService } from '../map/planner.service';
+import { DirectionsAnalyzer } from '../map/planner/directions/directions-analyzer';
+import { Plan } from '../map/planner/plan/plan';
+import { BitmapIconService } from './bitmap-icon.service';
+import { PdfDirections } from './plan/pdf-directions';
+import { PdfDocument } from './plan/pdf-document';
+import { PdfStripDocument } from './plan/pdf-strip-document';
 
 @Injectable()
 export class PdfService {
-
-  constructor(private iconService: BitmapIconService,
-              private plannerService: PlannerService) {
-  }
+  constructor(
+    private iconService: BitmapIconService,
+    private plannerService: PlannerService
+  ) {}
 
   printDocument(plan: Plan, planUrl: string, name: string): void {
     new PdfDocument(plan, planUrl, name).print();
@@ -24,7 +24,11 @@ export class PdfService {
 
   printInstructions(plan: Plan, name: string): void {
     const instructions = new DirectionsAnalyzer().analyze(plan);
-    new PdfDirections(instructions, this.iconService, this.plannerService, name).print();
+    new PdfDirections(
+      instructions,
+      this.iconService,
+      this.plannerService,
+      name
+    ).print();
   }
-
 }

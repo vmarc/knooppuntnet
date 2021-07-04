@@ -1,23 +1,18 @@
 export class Day {
-
-  constructor(readonly year: number,
-              readonly month: number,
-              readonly day: number) {
-  }
+  constructor(
+    readonly year: number,
+    readonly month: number,
+    readonly day: number
+  ) {}
 
   public static fromJSON(jsonObject: any): Day {
     if (!jsonObject) {
       return undefined;
     }
-    return new Day(
-      jsonObject.year,
-      jsonObject.month,
-      jsonObject.day
-    );
+    return new Day(jsonObject.year, jsonObject.month, jsonObject.day);
   }
 
   youngerThan(other: Day): boolean {
-
     if (this.year > other.year) {
       return true;
     }
@@ -50,9 +45,11 @@ export class Day {
   }
 
   sameAs(other: Day): boolean {
-    return this.year === other.year &&
+    return (
+      this.year === other.year &&
       this.month === other.month &&
-      this.day === other.day;
+      this.day === other.day
+    );
   }
 
   sameAsOrYoungerThan(other: Day): boolean {

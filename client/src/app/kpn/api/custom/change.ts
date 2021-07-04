@@ -1,11 +1,10 @@
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export class Change {
   readonly action: number;
   readonly elements: List<any>;
 
-  constructor(action: number,
-              elements: List<any>) {
+  constructor(action: number, elements: List<any>) {
     this.action = action;
     this.elements = elements;
   }

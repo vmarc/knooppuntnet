@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-map-sidebar-planner',
@@ -18,18 +18,19 @@ import {Component} from '@angular/core';
       </ng-template>
     </mat-expansion-panel>
   `,
-  styles: [`
-    .header {
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
+  styles: [
+    `
+      .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
 
-    .header h1 {
-      flex: 1;
-      display: inline-block;
-    }
-  `]
+      .header h1 {
+        flex: 1;
+        display: inline-block;
+      }
+    `,
+  ],
 })
-export class MapSidebarPlannerComponent {
-}
+export class MapSidebarPlannerComponent {}

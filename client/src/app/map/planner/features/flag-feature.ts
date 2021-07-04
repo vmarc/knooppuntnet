@@ -1,10 +1,8 @@
-import {MapFeature} from './map-feature';
-import {PlanFlagType} from '../plan/plan-flag-type';
+import { MapFeature } from './map-feature';
+import { PlanFlagType } from '../plan/plan-flag-type';
 
 export class FlagFeature extends MapFeature {
-
-  constructor(readonly flagType: PlanFlagType,
-              readonly id: string) {
+  constructor(readonly flagType: PlanFlagType, readonly id: string) {
     super();
   }
 
@@ -19,5 +17,4 @@ export class FlagFeature extends MapFeature {
   static end(id: string): FlagFeature {
     return new FlagFeature(PlanFlagType.End, id);
   }
-
 }

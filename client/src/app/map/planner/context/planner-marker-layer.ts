@@ -1,9 +1,8 @@
-import {Coordinate} from 'ol/coordinate';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
+import { Coordinate } from 'ol/coordinate';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
 
 export abstract class PlannerMarkerLayer {
-
   abstract addFlag(flag: PlanFlag): void;
 
   abstract removeFlag(flag: PlanFlag): void;
@@ -12,11 +11,14 @@ export abstract class PlannerMarkerLayer {
 
   abstract updateFlag(flag: PlanFlag): void;
 
-  abstract updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
+  abstract updateFlagCoordinate(
+    featureId: string,
+    coordinate: Coordinate
+  ): void;
 
   removePlan(plan: Plan): void {
     this.removeFlag(plan.sourceFlag);
-    plan.legs.forEach(leg => {
+    plan.legs.forEach((leg) => {
       this.removeFlag(leg.viaFlag);
       this.removeFlag(leg.sinkFlag);
     });
@@ -30,5 +32,4 @@ export abstract class PlannerMarkerLayer {
       this.addFlag(leg.sinkFlag);
     }
   }
-
 }

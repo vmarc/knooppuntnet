@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-no-geolocation-dialog',
@@ -9,11 +9,10 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
         Unavailable
       </div>
       <div mat-dialog-content i18n="@@geolocation-dialog.unavailable.message">
-        We cannot determine your location. Verify your settings to allow
-        this application to access you location.
+        We cannot determine your location. Verify your settings to allow this
+        application to access you location.
       </div>
     </kpn-dialog>
-  `
+  `,
 })
-export class GeolocationUnavailableDialogComponent {
-}
+export class GeolocationUnavailableDialogComponent {}

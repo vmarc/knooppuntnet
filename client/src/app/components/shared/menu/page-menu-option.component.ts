@@ -1,32 +1,39 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-page-menu-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a [routerLink]="link" [state]="state" [ngClass]="{'active': active}" class="link">
+    <a
+      [routerLink]="link"
+      [state]="state"
+      [ngClass]="{ active: active }"
+      class="link"
+    >
       <ng-content></ng-content>
-      <span *ngIf="elementCount != null" class="element-count"> ({{elementCount}})</span>
+      <span *ngIf="elementCount != null" class="element-count">
+        ({{ elementCount }})</span
+      >
     </a>
   `,
-  styles: [`
+  styles: [
+    `
+      .link {
+        white-space: nowrap;
+      }
 
-    .link {
-      white-space: nowrap;
-    }
+      .active {
+        font-weight: bold;
+        color: black;
+      }
 
-    .active {
-      font-weight: bold;
-      color: black;
-    }
-
-    .element-count {
-      color: gray;
-      font-weight: normal;
-    }
-
-  `]
+      .element-count {
+        color: gray;
+        font-weight: normal;
+      }
+    `,
+  ],
 })
 export class PageMenuOptionComponent {
   @Input() link: string;

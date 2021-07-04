@@ -1,28 +1,35 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit} from '@angular/core';
-import {NodeInfo} from '@api/common/node-info';
-import {NodeNetworkReference} from '@api/common/node/node-network-reference';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NodeInfo } from '@api/common/node-info';
+import { NodeNetworkReference } from '@api/common/node/node-network-reference';
 
 @Component({
   selector: 'kpn-node-network-reference-statement',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-
-    <markdown *ngIf="summaryStatement == 'role-connection'" i18n="@@node.network.role-connection">
+    <markdown
+      *ngIf="summaryStatement == 'role-connection'"
+      i18n="@@node.network.role-connection"
+    >
       This node has the role _"connection"_ in the networkrelation.
     </markdown>
 
-    <p *ngIf="summaryStatement == 'network-member'" i18n="@@node.network.network-member">
+    <p
+      *ngIf="summaryStatement == 'network-member'"
+      i18n="@@node.network.network-member"
+    >
       This node is included as member in the networkrelation.
     </p>
 
-    <p *ngIf="summaryStatement == 'not-network-member'" i18n="@@node.network.not-network-member">
+    <p
+      *ngIf="summaryStatement == 'not-network-member'"
+      i18n="@@node.network.not-network-member"
+    >
       This node is not included as member in the networkrelation.
     </p>
-  `
+  `,
 })
 export class NodeNetworkReferenceStatementComponent implements OnInit {
-
   @Input() nodeInfo: NodeInfo;
   @Input() reference: NodeNetworkReference;
 
@@ -48,5 +55,4 @@ export class NodeNetworkReferenceStatementComponent implements OnInit {
   private hasExpectedRouteRelationsTag() {
     return this.nodeInfo.tags.has(this.expectedRouteRelationsTag);
   }
-
 }

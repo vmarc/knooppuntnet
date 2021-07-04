@@ -1,12 +1,11 @@
-import {List} from 'immutable';
-import {RawRelation} from '../common/data/raw/raw-relation';
+import { List } from 'immutable';
+import { RawRelation } from '../common/data/raw/raw-relation';
 
 export class Relation {
   readonly raw: RawRelation;
   readonly members: List<any>;
 
-  constructor(raw: RawRelation,
-              members: List<any>) {
+  constructor(raw: RawRelation, members: List<any>) {
     this.raw = raw;
     this.members = members;
   }

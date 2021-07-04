@@ -1,19 +1,19 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Change} from '../../custom/change';
-import {Timestamp} from '../../custom/timestamp';
+import { List } from 'immutable';
+import { Change } from '../../custom/change';
+import { Timestamp } from '../../custom/timestamp';
 
 export class ChangeSet {
-
-  constructor(readonly id: number,
-              readonly timestamp: Timestamp,
-              readonly timestampFrom: Timestamp,
-              readonly timestampUntil: Timestamp,
-              readonly timestampBefore: Timestamp,
-              readonly timestampAfter: Timestamp,
-              readonly changes: List<Change>) {
-  }
+  constructor(
+    readonly id: number,
+    readonly timestamp: Timestamp,
+    readonly timestampFrom: Timestamp,
+    readonly timestampUntil: Timestamp,
+    readonly timestampBefore: Timestamp,
+    readonly timestampAfter: Timestamp,
+    readonly changes: List<Change>
+  ) {}
 
   public static fromJSON(jsonObject: any): ChangeSet {
     if (!jsonObject) {
@@ -26,7 +26,9 @@ export class ChangeSet {
       Timestamp.fromJSON(jsonObject.timestampUntil),
       Timestamp.fromJSON(jsonObject.timestampBefore),
       Timestamp.fromJSON(jsonObject.timestampAfter),
-      jsonObject.changes ? List(jsonObject.changes.map((json: any) => Change.fromJSON(json))) : List()
+      jsonObject.changes
+        ? List(jsonObject.changes.map((json: any) => Change.fromJSON(json)))
+        : List()
     );
   }
 }

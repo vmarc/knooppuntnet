@@ -195,13 +195,25 @@ export class PlannerLayerService {
     return newLayer;
   }
 
-  private buildBitmapLayers(mapMode: MapMode): ImmutableMap<NetworkType, MapLayer> {
-    const keysAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(networkType => [networkType, this.mapLayerService.networkBitmapTileLayer(networkType, mapMode)]);
+  private buildBitmapLayers(
+    mapMode: MapMode
+  ): ImmutableMap<NetworkType, MapLayer> {
+    const keysAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(
+      (networkType) => [
+        networkType,
+        this.mapLayerService.networkBitmapTileLayer(networkType, mapMode),
+      ]
+    );
     return ImmutableMap<NetworkType, MapLayer>(keysAndValues.toArray());
   }
 
   private buildVectorLayers(): ImmutableMap<NetworkType, MapLayer> {
-    const keyAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(networkType => [networkType, this.mapLayerService.networkVectorTileLayer(networkType)]);
+    const keyAndValues: List<[NetworkType, MapLayer]> = NetworkType.all.map(
+      (networkType) => [
+        networkType,
+        this.mapLayerService.networkVectorTileLayer(networkType),
+      ]
+    );
     return ImmutableMap<NetworkType, MapLayer>(keyAndValues.toArray());
   }
 }

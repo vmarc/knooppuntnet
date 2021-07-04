@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {ClientPoiDefinition} from './client-poi-definition';
+import { List } from 'immutable';
+import { ClientPoiDefinition } from './client-poi-definition';
 
 export class ClientPoiGroupDefinition {
-
-  constructor(readonly name: string,
-              readonly enabledDefault: boolean,
-              readonly poiDefinitions: List<ClientPoiDefinition>) {
-  }
+  constructor(
+    readonly name: string,
+    readonly enabledDefault: boolean,
+    readonly poiDefinitions: List<ClientPoiDefinition>
+  ) {}
 
   public static fromJSON(jsonObject: any): ClientPoiGroupDefinition {
     if (!jsonObject) {
@@ -17,7 +17,13 @@ export class ClientPoiGroupDefinition {
     return new ClientPoiGroupDefinition(
       jsonObject.name,
       jsonObject.enabledDefault,
-      jsonObject.poiDefinitions ? List(jsonObject.poiDefinitions.map((json: any) => ClientPoiDefinition.fromJSON(json))) : List()
+      jsonObject.poiDefinitions
+        ? List(
+            jsonObject.poiDefinitions.map((json: any) =>
+              ClientPoiDefinition.fromJSON(json)
+            )
+          )
+        : List()
     );
   }
 }

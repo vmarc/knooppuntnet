@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {select} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {actionDemoUpdateProgress} from '../store/demo.actions';
-import {selectDemoProgress} from '../store/demo.selectors';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { actionDemoUpdateProgress } from '../store/demo.actions';
+import { selectDemoProgress } from '../store/demo.selectors';
 
 @Component({
   selector: 'kpn-demo-video-progress',
@@ -16,24 +16,26 @@ import {selectDemoProgress} from '../store/demo.selectors';
         max="1"
         step="0.005"
         [value]="progress$ | async"
-        (input)="updateProgress($event)">
+        (input)="updateProgress($event)"
+      >
       </mat-slider>
     </div>
   `,
-  styles: [`
-    .progress {
-      z-index: 3;
-      position: absolute;
-      padding-top: 720px;
-    }
+  styles: [
+    `
+      .progress {
+        z-index: 3;
+        position: absolute;
+        padding-top: 720px;
+      }
 
-    .progress mat-slider {
-      width: 1280px;
-    }
-  `]
+      .progress mat-slider {
+        width: 1280px;
+      }
+    `,
+  ],
 })
 export class DemoVideoProgressComponent {
-
   progress$: Observable<number>;
 
   constructor(private store: Store) {
@@ -41,6 +43,6 @@ export class DemoVideoProgressComponent {
   }
 
   updateProgress(event) {
-    this.store.dispatch(actionDemoUpdateProgress({progress: event.value}));
+    this.store.dispatch(actionDemoUpdateProgress({ progress: event.value }));
   }
 }

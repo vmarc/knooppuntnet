@@ -1,10 +1,9 @@
-import {List} from 'immutable';
-import {Tags} from '@api/custom/tags';
-import {InterpretedTags} from './interpreted-tags';
-import {Tag} from '@api/custom/tag';
+import { List } from 'immutable';
+import { Tags } from '@api/custom/tags';
+import { InterpretedTags } from './interpreted-tags';
+import { Tag } from '@api/custom/tag';
 
 describe('TagFilter', () => {
-
   it('empty', () => {
     const filter = InterpretedTags.networkTags(new Tags(List()));
     expect(filter.isEmpty()).toEqual(true);
@@ -15,28 +14,25 @@ describe('TagFilter', () => {
   });
 
   it('tags are filtered out and sorted', () => {
-
-    const unfiltered = Tags.fromArray(
-      [
-        ['c', '6'],
-        ['name', '3'],
-        ['b', '5'],
-        ['type', '2'],
-        ['a', '4'],
-        ['network', '1']
-      ]
-    );
+    const unfiltered = Tags.fromArray([
+      ['c', '6'],
+      ['name', '3'],
+      ['b', '5'],
+      ['type', '2'],
+      ['a', '4'],
+      ['network', '1'],
+    ]);
 
     const expectedStandardTags = [
       ['network', '1'],
       ['type', '2'],
-      ['name', '3']
+      ['name', '3'],
     ];
 
     const expectedExtraTags = [
       ['a', '4'],
       ['b', '5'],
-      ['c', '6']
+      ['c', '6'],
     ];
 
     const filter = InterpretedTags.networkTags(unfiltered);
@@ -49,7 +45,6 @@ describe('TagFilter', () => {
   });
 
   function toArray(tags: List<Tag>): Array<Array<string>> {
-    return tags.map(tag => [tag.key, tag.value]).toArray();
+    return tags.map((tag) => [tag.key, tag.value]).toArray();
   }
-
 });

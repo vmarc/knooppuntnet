@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {List} from 'immutable';
-import {BehaviorSubject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { List } from 'immutable';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpinnerService {
-
   private readonly _spinnerState$ = new BehaviorSubject<boolean>(false);
   private activeActions: List<string> = List();
 
@@ -21,11 +20,10 @@ export class SpinnerService {
   }
 
   end(action: string): void {
-    this.activeActions = this.activeActions.filter(a => a !== action);
+    this.activeActions = this.activeActions.filter((a) => a !== action);
     if (this.activeActions.isEmpty() && this._spinnerState$.value !== false) {
       this._spinnerState$.next(false);
     }
     // console.log(`spinner end ${action} - activeActions = ${this.activeActions}, spinnerState=${this._spinnerState}`);
   }
-
 }

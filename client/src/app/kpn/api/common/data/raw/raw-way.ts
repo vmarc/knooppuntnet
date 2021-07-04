@@ -1,18 +1,18 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Tags} from '../../../custom/tags';
-import {Timestamp} from '../../../custom/timestamp';
+import { List } from 'immutable';
+import { Tags } from '../../../custom/tags';
+import { Timestamp } from '../../../custom/timestamp';
 
 export class RawWay {
-
-  constructor(readonly id: number,
-              readonly version: number,
-              readonly timestamp: Timestamp,
-              readonly changeSetId: number,
-              readonly nodeIds: List<number>,
-              readonly tags: Tags) {
-  }
+  constructor(
+    readonly id: number,
+    readonly version: number,
+    readonly timestamp: Timestamp,
+    readonly changeSetId: number,
+    readonly nodeIds: List<number>,
+    readonly tags: Tags
+  ) {}
 
   public static fromJSON(jsonObject: any): RawWay {
     if (!jsonObject) {

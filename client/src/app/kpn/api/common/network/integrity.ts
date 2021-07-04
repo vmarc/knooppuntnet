@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
 export class Integrity {
-
-  constructor(readonly isOk: boolean,
-              readonly hasChecks: boolean,
-              readonly count: string,
-              readonly okCount: number,
-              readonly nokCount: number,
-              readonly coverage: string,
-              readonly okRate: string,
-              readonly nokRate: string) {
-  }
+  constructor(
+    readonly isOk: boolean,
+    readonly hasChecks: boolean,
+    readonly count: string,
+    readonly okCount: number,
+    readonly nokCount: number,
+    readonly coverage: string,
+    readonly okRate: string,
+    readonly nokRate: string
+  ) {}
 
   public static fromJSON(jsonObject: any): Integrity {
     if (!jsonObject) {

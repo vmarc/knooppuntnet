@@ -1,43 +1,44 @@
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {Actions} from '@ngrx/effects';
-import {createEffect} from '@ngrx/effects';
-import {ofType} from '@ngrx/effects';
-import {Store} from '@ngrx/store';
-import {select} from '@ngrx/store';
-import {tap} from 'rxjs/operators';
-import {mergeMap} from 'rxjs/operators';
-import {withLatestFrom} from 'rxjs/operators';
-import {filter} from 'rxjs/operators';
-import {DemoService} from '../demo.service';
-import {actionDemoStartVideo} from './demo.actions';
-import {actionDemoVideoPlayerAvailable} from './demo.actions';
-import {actionDemoCanPlay} from './demo.actions';
-import {actionDemoUpdateProgress} from './demo.actions';
-import {actionDemoPause} from './demo.actions';
-import {actionDemoPlay} from './demo.actions';
-import {actionDemoEnd} from './demo.actions';
-import {actionDemoControlPlay} from './demo.actions';
-import {selectDemoVideoSource} from './demo.selectors';
-import {selectCurrentVideoState} from './demo.selectors';
-import {selectDemoEnabled} from './demo.selectors';
-import {State} from './demo.state';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
+import { createEffect } from '@ngrx/effects';
+import { ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
+import { withLatestFrom } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+import { DemoService } from '../demo.service';
+import { actionDemoStartVideo } from './demo.actions';
+import { actionDemoVideoPlayerAvailable } from './demo.actions';
+import { actionDemoCanPlay } from './demo.actions';
+import { actionDemoUpdateProgress } from './demo.actions';
+import { actionDemoPause } from './demo.actions';
+import { actionDemoPlay } from './demo.actions';
+import { actionDemoEnd } from './demo.actions';
+import { actionDemoControlPlay } from './demo.actions';
+import { selectDemoVideoSource } from './demo.selectors';
+import { selectCurrentVideoState } from './demo.selectors';
+import { selectDemoEnabled } from './demo.selectors';
+import { State } from './demo.state';
 
 @Injectable()
 export class DemoEffects {
-  constructor(private actions$: Actions,
-              private store: Store<State>,
-              private router: Router,
-              private demoService: DemoService) {
-  }
+  constructor(
+    private actions$: Actions,
+    private store: Store<State>,
+    private router: Router,
+    private demoService: DemoService
+  ) {}
 
   startVideo = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionDemoStartVideo),
-        tap(action => this.router.navigate(['/demo', action.video]))
+        tap((action) => this.router.navigate(['/demo', action.video]))
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   initialStartVideo = createEffect(
@@ -54,52 +55,52 @@ export class DemoEffects {
           this.demoService.setSource(videoSource);
         })
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   canPlay = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionDemoCanPlay),
-        tap(action => this.demoService.play())
+        tap((action) => this.demoService.play())
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   progressUpdate = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionDemoUpdateProgress),
-        tap(action => this.demoService.setProgress(action.progress))
+        tap((action) => this.demoService.setProgress(action.progress))
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   pause = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionDemoPause),
-        tap(action => this.demoService.pause())
+        tap((action) => this.demoService.pause())
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   play = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionDemoPlay),
-        tap(action => this.demoService.play())
+        tap((action) => this.demoService.play())
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   end = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionDemoEnd),
-        tap(action => this.demoService.end())
+        tap((action) => this.demoService.end())
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
 
   controlPlay = createEffect(
@@ -119,7 +120,6 @@ export class DemoEffects {
           }
         })
       ),
-    {dispatch: false}
+    { dispatch: false }
   );
-
 }

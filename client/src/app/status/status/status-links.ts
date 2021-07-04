@@ -1,7 +1,6 @@
-import {ActionTimestamp} from '@api/common/status/action-timestamp';
+import { ActionTimestamp } from '@api/common/status/action-timestamp';
 
 export class StatusLinks {
-
   year: string;
   month: string;
   week: string;
@@ -15,5 +14,4 @@ export class StatusLinks {
     this.day = `${root}/day/${timestamp.year}/${timestamp.month}/${timestamp.day}`;
     this.hour = `${root}/hour/${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}`;
   }
-
 }

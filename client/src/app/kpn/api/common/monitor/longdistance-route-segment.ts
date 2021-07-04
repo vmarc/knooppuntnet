@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import {BoundsI} from '../bounds-i';
+import { BoundsI } from '../bounds-i';
 
 export interface LongdistanceRouteSegment {
   readonly id: number;

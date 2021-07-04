@@ -1,22 +1,22 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
-import {Day} from '../../custom/day';
-import {Ref} from '../common/ref';
-import {Timestamp} from '../../custom/timestamp';
+import { List } from 'immutable';
+import { Day } from '../../custom/day';
+import { Ref } from '../common/ref';
+import { Timestamp } from '../../custom/timestamp';
 
 export class LocationNodeInfo {
-
-  constructor(readonly id: number,
-              readonly name: string,
-              readonly latitude: string,
-              readonly longitude: string,
-              readonly lastUpdated: Timestamp,
-              readonly lastSurvey: Day,
-              readonly factCount: number,
-              readonly expectedRouteCount: string,
-              readonly routeReferences: List<Ref>) {
-  }
+  constructor(
+    readonly id: number,
+    readonly name: string,
+    readonly latitude: string,
+    readonly longitude: string,
+    readonly lastUpdated: Timestamp,
+    readonly lastSurvey: Day,
+    readonly factCount: number,
+    readonly expectedRouteCount: string,
+    readonly routeReferences: List<Ref>
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationNodeInfo {
     if (!jsonObject) {
@@ -31,7 +31,11 @@ export class LocationNodeInfo {
       Day.fromJSON(jsonObject.lastSurvey),
       jsonObject.factCount,
       jsonObject.expectedRouteCount,
-      jsonObject.routeReferences ? List(jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))) : List()
+      jsonObject.routeReferences
+        ? List(
+            jsonObject.routeReferences.map((json: any) => Ref.fromJSON(json))
+          )
+        : List()
     );
   }
 }

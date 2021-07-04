@@ -72,7 +72,7 @@ export class PlannerService {
   updateTranslationRegistry(translationElements: HTMLCollection) {
     if (this.translations === null) {
       const keysAndValues: Array<[string, string]> = [];
-      Array.from(translationElements).forEach(span => {
+      Array.from(translationElements).forEach((span) => {
         const id = span.getAttribute('id');
         const translation = span.textContent;
         keysAndValues.push([id, translation]);
@@ -93,13 +93,15 @@ export class PlannerService {
   }
 
   hasColour(planRoute: PlanRoute): boolean {
-    return planRoute.segments.filter(segment => !!segment.colour).size > 0;
+    return planRoute.segments.filter((segment) => !!segment.colour).size > 0;
   }
 
   colours(planRoute: PlanRoute): string {
-    const colourValues = planRoute.segments.filter(segment => !!segment.colour).map(segment => segment.colour);
+    const colourValues = planRoute.segments
+      .filter((segment) => !!segment.colour)
+      .map((segment) => segment.colour);
     const distinctColours = PlanUtil.distinctColours(colourValues);
-    const colourGroups = distinctColours.map(colour => this.colour(colour));
+    const colourGroups = distinctColours.map((colour) => this.colour(colour));
     return colourGroups.join(' > ');
   }
 

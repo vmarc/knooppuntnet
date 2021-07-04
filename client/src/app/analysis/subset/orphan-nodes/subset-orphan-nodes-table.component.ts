@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {List} from 'immutable';
-import {BehaviorSubject} from 'rxjs';
-import {PaginatorComponent} from '../../../components/shared/paginator/paginator.component';
-import {NodeInfo} from '@api/common/node-info';
-import {TimeInfo} from '@api/common/time-info';
-import {SubsetOrphanNodeFilter} from './subset-orphan-node-filter';
-import {SubsetOrphanNodeFilterCriteria} from './subset-orphan-node-filter-criteria';
-import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { List } from 'immutable';
+import { BehaviorSubject } from 'rxjs';
+import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { NodeInfo } from '@api/common/node-info';
+import { TimeInfo } from '@api/common/time-info';
+import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
+import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
+import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
 
 @Component({
   selector: 'kpn-subset-orphan-nodes-table',
@@ -17,14 +17,14 @@ import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
     <kpn-paginator
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
-      [showFirstLastButtons]="true">
+      [showFirstLastButtons]="true"
+    >
     </kpn-paginator>
 
     <table mat-table [dataSource]="dataSource" class="kpn-columns-table">
-
       <ng-container matColumnDef="rowNumber">
         <td mat-cell *matCellDef="let route; let i = index">
-          {{rowNumber(i)}}
+          {{ rowNumber(i) }}
         </td>
       </ng-container>
 
@@ -34,8 +34,7 @@ import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
         </td>
       </ng-container>
 
-      <tr mat-row *matRowDef="let node; columns: displayedColumns;"></tr>
-
+      <tr mat-row *matRowDef="let node; columns: displayedColumns"></tr>
     </table>
 
     <!--    <kpn-paginator-->
@@ -43,51 +42,57 @@ import {SubsetOrphanNodesService} from './subset-orphan-nodes.service';
     <!--      [pageIndex]="0"-->
     <!--    </kpn-paginator>-->
   `,
-  styles: [`
+  styles: [
+    `
+      table {
+        width: 100%;
+      }
 
-    table {
-      width: 100%;
-    }
+      .mat-column-rowNumber {
+        width: 50px;
+        vertical-align: top;
+        padding-top: 15px;
+      }
 
-    .mat-column-rowNumber {
-      width: 50px;
-      vertical-align: top;
-      padding-top: 15px;
-    }
-
-    td.mat-cell:first-of-type {
-      padding-left: 10px;
-    }
-
-  `]
+      td.mat-cell:first-of-type {
+        padding-left: 10px;
+      }
+    `,
+  ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {
-
   @Input() timeInfo: TimeInfo;
   @Input() nodes: List<NodeInfo>;
 
-  @ViewChild(PaginatorComponent, {static: true}) paginator: PaginatorComponent;
+  @ViewChild(PaginatorComponent, { static: true })
+  paginator: PaginatorComponent;
   dataSource: MatTableDataSource<NodeInfo>;
 
   displayedColumns = ['rowNumber', 'node'];
 
-  private readonly filterCriteria = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
+  private readonly filterCriteria = new BehaviorSubject(
+    new SubsetOrphanNodeFilterCriteria()
+  );
 
-  constructor(private subsetOrphanNodesService: SubsetOrphanNodesService) {
-  }
+  constructor(private subsetOrphanNodesService: SubsetOrphanNodesService) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.matPaginator;
-    this.filterCriteria.subscribe(criteria => {
-      const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria);
+    this.filterCriteria.subscribe((criteria) => {
+      const filter = new SubsetOrphanNodeFilter(
+        this.timeInfo,
+        criteria,
+        this.filterCriteria
+      );
       this.dataSource.data = filter.filter(this.nodes).toArray();
-      this.subsetOrphanNodesService.filterOptions.next(filter.filterOptions(this.nodes));
+      this.subsetOrphanNodesService.filterOptions.next(
+        filter.filterOptions(this.nodes)
+      );
     });
   }
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
   }
-
 }

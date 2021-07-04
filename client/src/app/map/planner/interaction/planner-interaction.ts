@@ -1,15 +1,14 @@
-import {List} from 'immutable';
-import {Interaction} from 'ol/interaction';
-import {platformModifierKeyOnly} from 'ol/events/condition';
+import { List } from 'immutable';
+import { Interaction } from 'ol/interaction';
+import { platformModifierKeyOnly } from 'ol/events/condition';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
-import {MapFeature} from '../features/map-feature';
-import {Features} from './features';
-import {PlannerEngine} from './planner-engine';
+import { MapFeature } from '../features/map-feature';
+import { Features } from './features';
+import { PlannerEngine } from './planner-engine';
 
 export class PlannerInteraction {
-
   private eventDebugLogCount = 0;
   private readonly eventDebugLogEnabled = false;
 
@@ -32,29 +31,44 @@ export class PlannerInteraction {
 
   private buildInteraction(): Interaction {
     return new Interaction({
-
       handleEvent: (evt: MapBrowserEvent) => {
-
         this.eventDebugLog(evt.type);
 
         if (MapBrowserEventType.SINGLECLICK === evt.type) {
-          return this.engine.handleSingleClickEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
+          return this.engine.handleSingleClickEvent(
+            this.getFeaturesAt(evt),
+            evt.coordinate,
+            platformModifierKeyOnly(evt)
+          );
         }
 
         if (MapBrowserEventType.POINTERMOVE === evt.type) {
-          return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, platformModifierKeyOnly(evt));
+          return this.engine.handleMoveEvent(
+            this.getFeaturesAt(evt),
+            evt.coordinate,
+            platformModifierKeyOnly(evt)
+          );
         }
 
         if (MapBrowserEventType.POINTERDRAG === evt.type) {
-          return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
+          return this.engine.handleDragEvent(
+            this.getFeaturesAt(evt),
+            evt.coordinate
+          );
         }
 
         if (MapBrowserEventType.POINTERUP === evt.type) {
-          return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate);
+          return this.engine.handleUpEvent(
+            this.getFeaturesAt(evt),
+            evt.coordinate
+          );
         }
 
         if (MapBrowserEventType.POINTERDOWN === evt.type) {
-          return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
+          return this.engine.handleDownEvent(
+            this.getFeaturesAt(evt),
+            evt.coordinate
+          );
         }
 
         // known unhandled events, propagated to other interactions
@@ -98,15 +112,20 @@ export class PlannerInteraction {
   private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
     const features = evt.map.getFeaturesAtPixel(evt.pixel);
     if (features) {
-      return List(features.map(feature => Features.mapFeature(feature)).filter(f => f !== null));
+      return List(
+        features
+          .map((feature) => Features.mapFeature(feature))
+          .filter((f) => f !== null)
+      );
     }
     return List();
   }
 
   private eventDebugLog(message: string): void {
     if (this.eventDebugLogEnabled) {
-      console.log(`PlannerInteraction ${this.eventDebugLogCount++}: ${message}`);
+      console.log(
+        `PlannerInteraction ${this.eventDebugLogCount++}: ${message}`
+      );
     }
   }
-
 }

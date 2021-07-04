@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
-import {Bounds} from '../bounds';
-import {LocationSummary} from './location-summary';
+import { Bounds } from '../bounds';
+import { LocationSummary } from './location-summary';
 
 export class LocationMapPage {
-
-  constructor(readonly summary: LocationSummary,
-              readonly bounds: Bounds,
-              readonly geoJson: string) {
-  }
+  constructor(
+    readonly summary: LocationSummary,
+    readonly bounds: Bounds,
+    readonly geoJson: string
+  ) {}
 
   public static fromJSON(jsonObject: any): LocationMapPage {
     if (!jsonObject) {

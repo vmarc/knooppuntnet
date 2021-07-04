@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Input} from '@angular/core';
-import {Component} from '@angular/core';
-import {List} from 'immutable';
-import {Location} from '@api/common/location/location';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { List } from 'immutable';
+import { Location } from '@api/common/location/location';
 
 @Component({
   selector: 'kpn-node-location',
@@ -10,12 +10,11 @@ import {Location} from '@api/common/location/location';
   template: `
     <p *ngIf="!hasLocation()" i18n="@@node.location.none">None</p>
     <div class="kpn-comma-list">
-      <span *ngFor="let name of locationNames()">{{name}}</span>
+      <span *ngFor="let name of locationNames()">{{ name }}</span>
     </div>
-  `
+  `,
 })
 export class NodeLocationComponent {
-
   @Input() location: Location;
 
   hasLocation() {

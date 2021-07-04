@@ -1,7 +1,6 @@
-import {Country} from '@api/custom/country';
+import { Country } from '@api/custom/country';
 
 export class Countries {
-
   static nl = new Country('nl');
   static be = new Country('be');
   static de = new Country('de');
@@ -15,11 +14,10 @@ export class Countries {
     Countries.de,
     Countries.fr,
     Countries.at,
-    Countries.es
+    Countries.es,
   ];
 
   public static withDomain(domain: string): Country {
-    return Countries.all.find(n => n.domain === domain);
+    return Countries.all.find((n) => n.domain === domain);
   }
-
 }

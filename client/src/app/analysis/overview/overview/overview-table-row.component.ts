@@ -1,44 +1,48 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {Subset} from '@api/custom/subset';
-import {Stat} from '../domain/stat';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Subset } from '@api/custom/subset';
+import { Stat } from '../domain/stat';
 
 @Component({
   selector: 'kpn-overview-table-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <td>
-      {{stat.configuration.name}}
+      {{ stat.configuration.name }}
     </td>
     <td class="value-cell">
-      {{total()}}
+      {{ total() }}
     </td>
     <td class="value-cell" *ngFor="let subset of subsets()">
       <kpn-overview-value [stat]="stat" [subset]="subset"></kpn-overview-value>
     </td>
     <td class="comment-cell">
-      <markdown *ngIf="stat.configuration.markdown" [data]="comment()"></markdown>
+      <markdown
+        *ngIf="stat.configuration.markdown"
+        [data]="comment()"
+      ></markdown>
       <p *ngIf="!stat.configuration.markdown">
-        {{stat.configuration.comment}}
+        {{ stat.configuration.comment }}
       </p>
     </td>
   `,
-  styles: [`
-    :host {
-      display: table-row;
-    }
+  styles: [
+    `
+      :host {
+        display: table-row;
+      }
 
-    ::ng-deep .comment-cell p:first-child {
-      margin-top: 0;
-    }
+      ::ng-deep .comment-cell p:first-child {
+        margin-top: 0;
+      }
 
-    ::ng-deep .comment-cell p:last-child {
-      margin-bottom: 0;
-    }
-  `]
+      ::ng-deep .comment-cell p:last-child {
+        margin-bottom: 0;
+      }
+    `,
+  ],
 })
 export class OverviewTableRowComponent {
-
   @Input() stat: Stat;
 
   subsets() {
@@ -52,5 +56,4 @@ export class OverviewTableRowComponent {
   comment() {
     return this.stat.configuration.comment.replace('\\', '\n\n');
   }
-
 }

@@ -1,16 +1,16 @@
 // this class is generated, please do not modify
 
-import {NodeData} from './node-data';
-import {NodeMoved} from './node/node-moved';
-import {TagDiffs} from './tag-diffs';
+import { NodeData } from './node-data';
+import { NodeMoved } from './node/node-moved';
+import { TagDiffs } from './tag-diffs';
 
 export class NodeDataUpdate {
-
-  constructor(readonly before: NodeData,
-              readonly after: NodeData,
-              readonly tagDiffs: TagDiffs,
-              readonly nodeMoved: NodeMoved) {
-  }
+  constructor(
+    readonly before: NodeData,
+    readonly after: NodeData,
+    readonly tagDiffs: TagDiffs,
+    readonly nodeMoved: NodeMoved
+  ) {}
 
   public static fromJSON(jsonObject: any): NodeDataUpdate {
     if (!jsonObject) {

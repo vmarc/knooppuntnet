@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-geolocation-timeout-dialog',
@@ -12,7 +12,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
         We cannot determine your location.
       </div>
     </kpn-dialog>
-  `
+  `,
 })
-export class GeolocationTimeoutDialogComponent {
-}
+export class GeolocationTimeoutDialogComponent {}

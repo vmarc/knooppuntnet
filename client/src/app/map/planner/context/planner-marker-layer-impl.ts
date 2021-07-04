@@ -1,24 +1,23 @@
-import {Coordinate} from 'ol/coordinate';
+import { Coordinate } from 'ol/coordinate';
 import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
-import {Marker} from '../../../components/ol/domain/marker';
-import {Layers} from '../../../components/ol/layers/layers';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanFlagType} from '../plan/plan-flag-type';
-import {PlannerMarkerLayer} from './planner-marker-layer';
+import { Marker } from '../../../components/ol/domain/marker';
+import { Layers } from '../../../components/ol/layers/layers';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanFlagType } from '../plan/plan-flag-type';
+import { PlannerMarkerLayer } from './planner-marker-layer';
 import Feature from 'ol/Feature';
-import {List} from 'immutable';
+import { List } from 'immutable';
 import Geometry from 'ol/geom/Geometry';
 
 export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
-
   private source = new VectorSource();
 
   private layer = new VectorLayer({
     zIndex: Layers.zIndexPlannerMarkerLayer,
-    source: this.source
+    source: this.source,
   });
 
   addToMap(map: Map) {
@@ -74,5 +73,4 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   features(): List<Feature<Geometry>> {
     return List(this.source.getFeatures());
   }
-
 }

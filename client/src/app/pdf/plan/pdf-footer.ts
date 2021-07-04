@@ -1,14 +1,11 @@
 import * as JsPdf from 'jspdf';
-import {PdfPage} from './pdf-page';
-import {Util} from '../../components/shared/util';
+import { PdfPage } from './pdf-page';
+import { Util } from '../../components/shared/util';
 
 export class PdfFooter {
-
-  constructor(private doc: JsPdf) {
-  }
+  constructor(private doc: JsPdf) {}
 
   print(pageCount: number, pageIndex: number): void {
-
     const text = this.today() + '  ' + (pageIndex + 1) + '/' + pageCount;
 
     this.doc.setTextColor(180);
@@ -27,5 +24,4 @@ export class PdfFooter {
     const yyyy = date.getFullYear();
     return `${yyyy}-${mm}-${dd}`;
   }
-
 }

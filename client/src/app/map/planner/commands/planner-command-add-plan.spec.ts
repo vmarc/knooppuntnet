@@ -1,21 +1,25 @@
-import {List} from 'immutable';
-import {expectEndFlag} from '../../../util/test-support';
-import {PlannerTestSetup} from '../context/planner-test-setup';
-import {Plan} from '../plan/plan';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerCommandAddPlan} from './planner-command-add-plan';
+import { List } from 'immutable';
+import { expectEndFlag } from '../../../util/test-support';
+import { PlannerTestSetup } from '../context/planner-test-setup';
+import { Plan } from '../plan/plan';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerCommandAddPlan } from './planner-command-add-plan';
 
 describe('PlannerCommandAddPlan', () => {
-
   it('do and undo and redo', () => {
-
     const setup = new PlannerTestSetup();
 
     const startFlag = PlanFlag.start('startFlag', setup.node1.coordinate);
     const sinkFlag = PlanFlag.end('sinkFlag', setup.node2.coordinate);
 
-    const leg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag, null);
+    const leg = PlanUtil.singleRoutePlanLeg(
+      '12',
+      setup.node1,
+      setup.node2,
+      sinkFlag,
+      null
+    );
 
     const plan = new Plan(setup.node1, startFlag, List([leg]));
 
@@ -62,5 +66,4 @@ describe('PlannerCommandAddPlan', () => {
       expect(leg.viaFlag).toEqual(null);
     }
   });
-
 });

@@ -1,13 +1,13 @@
 // this class is generated, please do not modify
 
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 export class IdDiffs {
-
-  constructor(readonly removed: List<number>,
-              readonly added: List<number>,
-              readonly updated: List<number>) {
-  }
+  constructor(
+    readonly removed: List<number>,
+    readonly added: List<number>,
+    readonly updated: List<number>
+  ) {}
 
   public static fromJSON(jsonObject: any): IdDiffs {
     if (!jsonObject) {

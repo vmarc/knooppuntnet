@@ -1,15 +1,14 @@
-import {Color} from 'ol/color';
-import {FeatureLike} from 'ol/Feature';
+import { Color } from 'ol/color';
+import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import {MapMode} from '../services/map-mode';
-import {MapService} from '../services/map.service';
-import {MainStyleColors} from './main-style-colors';
-import {RouteStyle} from './route-style';
-import {SurveyDateStyle} from './survey-date-style';
+import { MapMode } from '../services/map-mode';
+import { MapService } from '../services/map.service';
+import { MainStyleColors } from './main-style-colors';
+import { RouteStyle } from './route-style';
+import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapRouteStyle {
-
   private readonly routeStyleBuilder = new RouteStyle();
   private readonly defaultRouteSelectedStyle = this.initRouteSelectedStyle();
   private readonly surveyDateStyle: SurveyDateStyle;
@@ -27,7 +26,11 @@ export class MainMapRouteStyle {
   private determineRouteSelectedStyle(feature: FeatureLike): Style {
     const featureId = feature.get('id');
     let style = null;
-    if (this.mapService.selectedRouteId && featureId && featureId.startsWith(this.mapService.selectedRouteId)) {
+    if (
+      this.mapService.selectedRouteId &&
+      featureId &&
+      featureId.startsWith(this.mapService.selectedRouteId)
+    ) {
       style = this.defaultRouteSelectedStyle;
     }
     return style;
@@ -35,8 +38,10 @@ export class MainMapRouteStyle {
 
   private determineRouteStyle(feature: FeatureLike, zoom: number): Style {
     const color = this.routeColor(feature);
-    const highligthed = this.mapService.highlightedRouteId && feature.get('id').startsWith(this.mapService.highlightedRouteId);
-    const proposed = feature.get("state") === "proposed";
+    const highligthed =
+      this.mapService.highlightedRouteId &&
+      feature.get('id').startsWith(this.mapService.highlightedRouteId);
+    const proposed = feature.get('state') === 'proposed';
     return this.routeStyleBuilder.style(color, zoom, highligthed, proposed);
   }
 
@@ -44,8 +49,8 @@ export class MainMapRouteStyle {
     return new Style({
       stroke: new Stroke({
         color: MainStyleColors.green,
-        width: 1
-      })
+        width: 1,
+      }),
     });
   }
 
@@ -53,8 +58,8 @@ export class MainMapRouteStyle {
     return new Style({
       stroke: new Stroke({
         color: MainStyleColors.yellow,
-        width: 14
-      })
+        width: 14,
+      }),
     });
   }
 

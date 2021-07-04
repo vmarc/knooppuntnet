@@ -1,17 +1,15 @@
-import {Map} from 'immutable';
-import {Statistic} from '../common/statistics/statistic';
+import { Map } from 'immutable';
+import { Statistic } from '../common/statistics/statistic';
 
 export class Statistics {
-
-  constructor(readonly map: Map<string, Statistic>) {
-  }
+  constructor(readonly map: Map<string, Statistic>) {}
 
   public static fromJSON(jsonObject: any): Statistics {
     if (!jsonObject) {
       return undefined;
     }
     const keysAndValues: Array<[string, Statistic]> = [];
-    Object.keys(jsonObject.map).forEach(key => {
+    Object.keys(jsonObject.map).forEach((key) => {
       const value = jsonObject.map[key];
       const s = Statistic.fromJSON(value);
       keysAndValues.push([key, s]);
@@ -23,5 +21,4 @@ export class Statistics {
   public get(key: string): Statistic {
     return this.map.get(key, null);
   }
-
 }

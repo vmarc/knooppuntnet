@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 /* tslint:disable:template-i18n */
 @Component({
@@ -9,10 +9,10 @@ import {Component} from '@angular/core';
     <a
       class="external"
       rel="nofollow noreferrer"
-      href="https://www.openstreetmap.org">
+      href="https://www.openstreetmap.org"
+    >
       OpenStreetMap
     </a>
-  `
+  `,
 })
-export class OsmWebsiteComponent {
-}
+export class OsmWebsiteComponent {}

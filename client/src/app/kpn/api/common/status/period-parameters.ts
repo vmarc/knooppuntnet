@@ -1,14 +1,14 @@
 // this class is generated, please do not modify
 
 export class PeriodParameters {
-
-  constructor(readonly period: string,
-              readonly year: number,
-              readonly month: number,
-              readonly week: number,
-              readonly day: number,
-              readonly hour: number) {
-  }
+  constructor(
+    readonly period: string,
+    readonly year: number,
+    readonly month: number,
+    readonly week: number,
+    readonly day: number,
+    readonly hour: number
+  ) {}
 
   public static fromJSON(jsonObject: any): PeriodParameters {
     if (!jsonObject) {

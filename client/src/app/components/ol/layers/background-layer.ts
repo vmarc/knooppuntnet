@@ -1,20 +1,17 @@
-import {LngLatLike} from 'maplibre-gl';
+import { LngLatLike } from 'maplibre-gl';
 import * as maplibre from 'maplibre-gl/dist/mapbox-gl-dev';
-import {Layer} from 'ol/layer';
-import {toLonLat} from 'ol/proj';
-import {Source} from 'ol/source';
-import {I18nService} from '../../../i18n/i18n.service';
-import {OsmLibertyStyle} from '../style/osm-liberty-style';
-import {Layers} from './layers';
-import {MapLayer} from './map-layer';
+import { Layer } from 'ol/layer';
+import { toLonLat } from 'ol/proj';
+import { Source } from 'ol/source';
+import { I18nService } from '../../../i18n/i18n.service';
+import { OsmLibertyStyle } from '../style/osm-liberty-style';
+import { Layers } from './layers';
+import { MapLayer } from './map-layer';
 
 export class BackgroundLayer {
-
-  constructor(private i18nService: I18nService) {
-  }
+  constructor(private i18nService: I18nService) {}
 
   build(mapElementId: string): MapLayer {
-
     // see: https://openlayers.org/en/latest/examples/mapbox-layer.html
 
     const mbMap = new maplibre.Map({
@@ -29,14 +26,16 @@ export class BackgroundLayer {
       keyboard: false,
       pitchWithRotate: false,
       scrollZoom: false,
-      touchZoomRotate: false
+      touchZoomRotate: false,
     });
 
-    const osmAttribution = '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
-    const openMapTilesAttribution = '&#169; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a>';
+    const osmAttribution =
+      '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
+    const openMapTilesAttribution =
+      '&#169; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a>';
 
     const source = new Source({
-      attributions: [openMapTilesAttribution, osmAttribution]
+      attributions: [openMapTilesAttribution, osmAttribution],
     });
 
     const layer = new Layer({
@@ -54,18 +53,18 @@ export class BackgroundLayer {
         // adjust view parameters in mapbox
         const rotation = viewState.rotation;
         if (rotation) {
-          mbMap.rotateTo(-rotation * 180 / Math.PI, {
-            animate: false
+          mbMap.rotateTo((-rotation * 180) / Math.PI, {
+            animate: false,
           });
         }
 
         const c = toLonLat(viewState.center);
-        const cc: LngLatLike = {lng: c[0], lat: c[1]};
+        const cc: LngLatLike = { lng: c[0], lat: c[1] };
 
         mbMap.jumpTo({
           center: cc,
           zoom: viewState.zoom - 1,
-          animate: false
+          animate: false,
         });
 
         // cancel the scheduled update & trigger synchronous redraw
@@ -78,12 +77,13 @@ export class BackgroundLayer {
         mbMap._render();
 
         return canvas;
-      }
+      },
     });
 
-    const backgroundLayerName = this.i18nService.translation('@@map.layer.background');
+    const backgroundLayerName = this.i18nService.translation(
+      '@@map.layer.background'
+    );
     layer.set('name', backgroundLayerName);
     return new MapLayer('background-layer', layer);
   }
-
 }

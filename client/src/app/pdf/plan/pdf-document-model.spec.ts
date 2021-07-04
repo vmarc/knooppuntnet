@@ -1,14 +1,13 @@
-import {PdfPlanNode} from './pdf-plan-node';
-import {List} from 'immutable';
-import {PdfDocumentModel} from './pdf-document-model';
+import { PdfPlanNode } from './pdf-plan-node';
+import { List } from 'immutable';
+import { PdfDocumentModel } from './pdf-document-model';
 
 describe('PdfDocumentModel', () => {
-
   function createModel(nodeCount: number): PdfDocumentModel {
     const nodes = new Array<PdfPlanNode>();
     for (let i = 0; i < nodeCount; i++) {
       const nodeName = (i + 1).toString();
-      const distance = i === (nodeCount - 1) ? 'END' : '10 m';
+      const distance = i === nodeCount - 1 ? 'END' : '10 m';
       const cumulativeDistance = i === 0 ? 'START' : `${i * 10} m`;
       nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance));
     }
@@ -52,11 +51,9 @@ describe('PdfDocumentModel', () => {
     expect(createModel(98).pageRowCount(0)).toEqual(14);
     expect(createModel(99).pageRowCount(0)).toEqual(14);
     expect(createModel(99).pageRowCount(1)).toEqual(1);
-
   });
 
   it('columnCount', () => {
-
     const model = createModel(100);
 
     expect(model.columnCount(0, 1, 0)).toEqual(7);
@@ -74,5 +71,4 @@ describe('PdfDocumentModel', () => {
     expect(model.node(0, 2, 0).nodeName).toEqual('15');
     expect(model.node(1, 0, 0).nodeName).toEqual('99');
   });
-
 });
