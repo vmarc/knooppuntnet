@@ -32,10 +32,20 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   private val path2 = TrackPath(2, nodeId3, nodeId4, 200, oneWay = false, Seq(TrackSegment("", trackPoint3, Seq(TrackSegmentFragment(trackPoint4, 0, 0, None)))))
 
   test("graph edge forward path") {
-    withDatabase(keepDatabaseAfterTest = true) { database =>
+    withDatabase { database =>
       doTest(database, RouteMap(forwardPath = Some(path1.copy(oneWay = true)))) should equal(
         Set(
-          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))
+          GraphEdge(nodeId1, nodeId2, 100, proposed = false, TrackPathKey(routeId, 1))
+        )
+      )
+    }
+  }
+
+  test("graph edge proposed route") {
+    withDatabase { database =>
+      doTest(database, RouteMap(forwardPath = Some(path1.copy(oneWay = true))), proposed = true) should equal(
+        Set(
+          GraphEdge(nodeId1, nodeId2, 100, proposed = true, TrackPathKey(routeId, 1))
         )
       )
     }
@@ -45,7 +55,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
     withDatabase { database =>
       doTest(database, RouteMap(backwardPath = Some(path1.copy(oneWay = true)))) should equal(
         Set(
-          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1))
+          GraphEdge(nodeId1, nodeId2, 100, proposed = false, TrackPathKey(routeId, 1))
         )
       )
     }
@@ -55,9 +65,9 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
     withDatabase { database =>
       doTest(database, RouteMap(startTentaclePaths = Seq(path1.copy(oneWay = true), path2))) should equal(
         Set(
-          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
-          GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2)),
-          GraphEdge(nodeId4, nodeId3, 200, TrackPathKey(routeId, 102))
+          GraphEdge(nodeId1, nodeId2, 100, proposed = false, TrackPathKey(routeId, 1)),
+          GraphEdge(nodeId3, nodeId4, 200, proposed = false, TrackPathKey(routeId, 2)),
+          GraphEdge(nodeId4, nodeId3, 200, proposed = false, TrackPathKey(routeId, 102))
         )
       )
     }
@@ -67,22 +77,25 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
     withDatabase { database =>
       doTest(database, RouteMap(endTentaclePaths = Seq(path1, path2.copy(oneWay = true)))) should equal(
         Set(
-          GraphEdge(nodeId1, nodeId2, 100, TrackPathKey(routeId, 1)),
-          GraphEdge(nodeId3, nodeId4, 200, TrackPathKey(routeId, 2)),
-          GraphEdge(nodeId2, nodeId1, 100, TrackPathKey(routeId, 101))
+          GraphEdge(nodeId1, nodeId2, 100, proposed = false, TrackPathKey(routeId, 1)),
+          GraphEdge(nodeId3, nodeId4, 200, proposed = false, TrackPathKey(routeId, 2)),
+          GraphEdge(nodeId2, nodeId1, 100, proposed = false, TrackPathKey(routeId, 101))
         )
       )
     }
   }
 
-  private def doTest(database: Database, routeMap: RouteMap): Set[GraphEdge] = {
+  private def doTest(database: Database, routeMap: RouteMap, proposed: Boolean = false): Set[GraphEdge] = {
     val routeRepository = new RouteRepositoryImpl(database)
-    val routeInfo = buildRoute(routeMap)
+    val routeInfo = buildRoute(routeMap, proposed)
     routeRepository.save(routeInfo)
     GraphEdgesView.query(database, NetworkType.hiking, stale = false).toSet
   }
 
-  private def buildRoute(routeMap: RouteMap): RouteInfo = {
+  private def buildRoute(routeMap: RouteMap, proposed: Boolean): RouteInfo = {
+
+    val tags = if(proposed) Tags.from("state" -> "proposed") else Tags.empty
+
     val summary = RouteSummary(
       id = routeId,
       country = None,
@@ -93,7 +106,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       wayCount = 1,
       timestamp = Timestamp(2018, 8, 11),
       nodeNames = Seq(),
-      tags = Tags.empty
+      tags = tags
     )
 
     RouteInfo(
@@ -104,7 +117,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       changeSetId = 1,
       lastUpdated = Timestamp(2018, 8, 11),
       lastSurvey = None,
-      tags = Tags.empty,
+      tags = tags,
       facts = Seq(),
       analysis = newRouteInfoAnalysis(map = routeMap),
       Seq()

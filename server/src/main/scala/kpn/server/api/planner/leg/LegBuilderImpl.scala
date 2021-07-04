@@ -2,7 +2,6 @@ package kpn.server.api.planner.leg
 
 import kpn.api.common.LatLonImpl
 import kpn.api.common.common.TrackPath
-import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegBuildParams
@@ -40,11 +39,11 @@ class LegBuilderImpl(
     }
   }
 
-  override def plan(networkType: NetworkType, planString: String, encoded: Boolean): Option[PlanLegDetail] = {
+  override def plan(networkType: NetworkType, planString: String, encoded: Boolean, proposed: Boolean): Option[PlanLegDetail] = {
     graphRepository.graph(networkType) match {
       case Some(graph) =>
         val legEnds = LegEnd.fromPlanString(planString, encoded)
-        val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq())
+        val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq(), proposed)
         if (planLegDetails.isEmpty) {
           None
         }
@@ -60,7 +59,13 @@ class LegBuilderImpl(
   }
 
   @scala.annotation.tailrec
-  private def legEndsToPlanLegs(networkType: NetworkType, graph: NodeNetworkGraph, legEnds: Seq[LegEnd], legs: Seq[PlanLegDetail]): Seq[PlanLegDetail] = {
+  private def legEndsToPlanLegs(
+    networkType: NetworkType,
+    graph: NodeNetworkGraph,
+    legEnds: Seq[LegEnd],
+    legs: Seq[PlanLegDetail],
+    proposed: Boolean
+  ): Seq[PlanLegDetail] = {
     if (legEnds.isEmpty) {
       legs
     }
@@ -71,11 +76,12 @@ class LegBuilderImpl(
         val params = LegBuildParams(
           networkType.name,
           source,
-          sink
+          sink,
+          proposed
         )
 
         buildLeg(params, graph) match {
-          case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail.tail, legs :+ routeLeg)
+          case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail.tail, legs :+ routeLeg, proposed)
           case None => Seq()
         }
       }
@@ -85,11 +91,12 @@ class LegBuilderImpl(
         val params = LegBuildParams(
           networkType.name,
           source,
-          sink
+          sink,
+          proposed
         )
 
         buildLeg(params, graph) match {
-          case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail, legs :+ routeLeg)
+          case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail, legs :+ routeLeg, proposed)
           case None => Seq()
         }
       }
@@ -126,7 +133,7 @@ class LegBuilderImpl(
       val sinks = params.sink.vertices
 
       val alternatives = for (source <- sources; sink <- sinks) yield {
-        graph.findPath(source, sink) match {
+        graph.findPath(source, sink, params.proposed) match {
           case Some(graphPath) =>
             val planRoutes = graphPathToPlanRoutes(graphPath)
             val sourceLegEnd = LegEnd.fromString(source)

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -52,6 +53,8 @@ object Json {
 
     b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
     b.deserializerByType(classOf[Geometry], new GeometryJsonDeserializer())
+
+    b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)

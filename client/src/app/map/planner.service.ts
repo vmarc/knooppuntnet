@@ -1,40 +1,46 @@
-import {Injectable} from '@angular/core';
-import {PlanRoute} from '@api/common/planner/plan-route';
-import {Map as TranslationMap} from 'immutable';
+import { Injectable } from '@angular/core';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { Store } from '@ngrx/store';
+import { Map as TranslationMap } from 'immutable';
 import Map from 'ol/Map';
-import {BehaviorSubject} from 'rxjs';
-import {AppService} from '../app.service';
-import {MapService} from '../components/ol/services/map.service';
-import {PlannerContext} from './planner/context/planner-context';
-import {PlannerCursorImpl} from './planner/context/planner-cursor-impl';
-import {PlannerElasticBandImpl} from './planner/context/planner-elastic-band-impl';
-import {PlannerHighlightLayer} from './planner/context/planner-highlight-layer';
-import {PlannerHighlighterImpl} from './planner/context/planner-highlighter-impl';
-import {PlannerLegRepositoryImpl} from './planner/context/planner-leg-repository-impl';
-import {PlannerMarkerLayerImpl} from './planner/context/planner-marker-layer-impl';
-import {PlannerOverlayImpl} from './planner/context/planner-overlay-impl';
-import {PlannerRouteLayerImpl} from './planner/context/planner-route-layer-impl';
-import {PlannerEngine} from './planner/interaction/planner-engine';
-import {PlannerEngineImpl} from './planner/interaction/planner-engine-impl';
-import {PlanUtil} from './planner/plan/plan-util';
-import {ColourTranslator} from './planner/services/colour-translator';
+import { BehaviorSubject } from 'rxjs';
+import { AppService } from '../app.service';
+import { MapService } from '../components/ol/services/map.service';
+import { AppState } from '../core/core.state';
+import { selectPreferencesPlanProposed } from '../core/preferences/preferences.selectors';
+import { PlannerContext } from './planner/context/planner-context';
+import { PlannerCursorImpl } from './planner/context/planner-cursor-impl';
+import { PlannerElasticBandImpl } from './planner/context/planner-elastic-band-impl';
+import { PlannerHighlightLayer } from './planner/context/planner-highlight-layer';
+import { PlannerHighlighterImpl } from './planner/context/planner-highlighter-impl';
+import { PlannerLegRepositoryImpl } from './planner/context/planner-leg-repository-impl';
+import { PlannerMarkerLayerImpl } from './planner/context/planner-marker-layer-impl';
+import { PlannerOverlayImpl } from './planner/context/planner-overlay-impl';
+import { PlannerRouteLayerImpl } from './planner/context/planner-route-layer-impl';
+import { PlannerEngine } from './planner/interaction/planner-engine';
+import { PlannerEngineImpl } from './planner/interaction/planner-engine-impl';
+import { PlanUtil } from './planner/plan/plan-util';
+import { ColourTranslator } from './planner/services/colour-translator';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PlannerService {
-
   engine: PlannerEngine;
   resultMode$ = new BehaviorSubject<string>('compact');
   private translations: TranslationMap<string, string> = null;
-  private routeLayer = new PlannerRouteLayerImpl();
-  private markerLayer = new PlannerMarkerLayerImpl();
-  private cursor = new PlannerCursorImpl();
-  private elasticBand = new PlannerElasticBandImpl();
-  private highlightLayer = new PlannerHighlightLayer();
-  private highlighter = new PlannerHighlighterImpl(this.highlightLayer);
-  private legRepository = new PlannerLegRepositoryImpl(this.appService);
-  private overlay = new PlannerOverlayImpl(this.mapService);
+  private readonly routeLayer = new PlannerRouteLayerImpl();
+  private readonly markerLayer = new PlannerMarkerLayerImpl();
+  private readonly cursor = new PlannerCursorImpl();
+  private readonly elasticBand = new PlannerElasticBandImpl();
+  private readonly highlightLayer = new PlannerHighlightLayer();
+  private readonly highlighter = new PlannerHighlighterImpl(
+    this.highlightLayer
+  );
+  private readonly legRepository = new PlannerLegRepositoryImpl(
+    this.appService
+  );
+  private readonly overlay = new PlannerOverlayImpl(this.mapService);
   context: PlannerContext = new PlannerContext(
     this.routeLayer,
     this.markerLayer,
@@ -42,11 +48,15 @@ export class PlannerService {
     this.elasticBand,
     this.highlighter,
     this.legRepository,
-    this.overlay
+    this.overlay,
+    this.store.select(selectPreferencesPlanProposed)
   );
 
-  constructor(private appService: AppService,
-              private mapService: MapService) {
+  constructor(
+    private appService: AppService,
+    private mapService: MapService,
+    private store: Store<AppState>
+  ) {
     this.engine = new PlannerEngineImpl(this.context);
   }
 

@@ -25,3 +25,28 @@ export const actionPreferencesImpact = createAction(
   '[Preferences] Impact',
   props<{ impact: boolean }>()
 );
+
+export const actionPreferencesShowAppearanceOptions = createAction(
+  '[Preferences] Show appearance options',
+  props<{ value: boolean }>()
+);
+
+export const actionPreferencesShowLegend = createAction(
+  '[Preferences] Show legend',
+  props<{ value: boolean }>()
+);
+
+export const actionPreferencesShowOptions = createAction(
+  '[Preferences] Show options',
+  props<{ value: boolean }>()
+);
+
+export const actionPreferencesShowProposed = createAction(
+  '[Preferences] Show proposed',
+  props<{ value: boolean }>()
+);
+
+export const actionPreferencesPlanProposed = createAction(
+  '[Preferences] Plan proposed',
+  props<{ value: boolean }>()
+);

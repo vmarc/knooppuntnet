@@ -17,6 +17,7 @@ export class MainStyleColors {
   public static readonly white: Color = [255, 255, 255]; // node inner color
   public static readonly orange: Color = [255, 165, 0];
 
+  public static readonly proposedWhite: Color = [240, 240, 240];
   public static readonly proposed: Color = [0, 150, 0, 0.4];
   public static readonly proposedUnpaved: Color = [255, 165, 0, 0.4];
 

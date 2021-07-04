@@ -57,17 +57,17 @@ class PlannerFacadeImpl(
   }
 
   override def leg(user: Option[String], params: LegBuildParams): ApiResponse[PlanLegDetail] = {
-    val args = s"${legEndString(params.source)} to ${legEndString(params.sink)}"
+    val args = s"${legEndString(params.source)} to ${legEndString(params.sink)}, proposed=${params.proposed}"
     api.execute(user, "leg", args) {
       val leg = legBuilder.leg(params)
       ApiResponse(None, 1, leg)
     }
   }
 
-  override def plan(user: Option[String], networkType: NetworkType, planString: String): ApiResponse[PlanLegDetail] = {
+  override def plan(user: Option[String], networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[PlanLegDetail] = {
     val args = s"${networkType.name}: $planString"
     api.execute(user, "plan", args) {
-      val legs = legBuilder.plan(networkType, planString)
+      val legs = legBuilder.plan(networkType, planString, proposed = proposed)
       ApiResponse(None, 1, legs)
     }
   }

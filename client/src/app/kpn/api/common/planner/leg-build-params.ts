@@ -6,7 +6,8 @@ export class LegBuildParams {
 
   constructor(readonly networkType: string,
               readonly source: LegEnd,
-              readonly sink: LegEnd) {
+              readonly sink: LegEnd,
+              readonly proposed: boolean) {
   }
 
   public static fromJSON(jsonObject: any): LegBuildParams {
@@ -16,7 +17,8 @@ export class LegBuildParams {
     return new LegBuildParams(
       jsonObject.networkType,
       LegEnd.fromJSON(jsonObject.source),
-      LegEnd.fromJSON(jsonObject.sink)
+      LegEnd.fromJSON(jsonObject.sink),
+      jsonObject.proposed
     );
   }
 }

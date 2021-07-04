@@ -1,14 +1,12 @@
-import {Color} from 'ol/color';
-import {FeatureLike} from 'ol/Feature';
-import {Style} from 'ol/style';
-import {MapService} from '../services/map.service';
-import {MainStyleColors} from './main-style-colors';
-import {NodeStyle} from './node-style';
+import { Color } from 'ol/color';
+import { FeatureLike } from 'ol/Feature';
+import { Style } from 'ol/style';
+import { MapService } from '../services/map.service';
+import { MainStyleColors } from './main-style-colors';
+import { NodeStyle } from './node-style';
 
 export class SurveyDateStyle {
-
-  constructor(private mapService: MapService) {
-  }
+  constructor(private mapService: MapService) {}
 
   surveyColor(feature: FeatureLike): Color {
     let color = MainStyleColors.gray; // survey date unknown

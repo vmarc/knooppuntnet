@@ -17,8 +17,13 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 export class LegendIconComponent {
 
   @Input() color: string;
+  @Input() proposed: boolean;
 
   style(): string {
-    return `stroke:${this.color};stroke-width:3`;
+    const standard = `stroke:${this.color};stroke-width:3;`;
+    if (this.proposed) {
+      return standard + 'stroke-dasharray:5;';
+    }
+    return standard;
   }
 }

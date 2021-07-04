@@ -8,5 +8,5 @@ trait LegBuilder {
 
   def leg(params: LegBuildParams): Option[PlanLegDetail]
 
-  def plan(networkType: NetworkType, planString: String, encoded: Boolean = true): Option[PlanLegDetail]
+  def plan(networkType: NetworkType, planString: String, encoded: Boolean = true, proposed: Boolean): Option[PlanLegDetail]
 }

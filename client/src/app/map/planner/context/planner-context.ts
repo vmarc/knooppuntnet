@@ -1,33 +1,31 @@
-import {LegEnd} from '@api/common/planner/leg-end';
-import {NetworkType} from '@api/custom/network-type';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {PlannerCommand} from '../commands/planner-command';
-import {PlannerCommandStack} from '../commands/planner-command-stack';
-import {PlannerDragFlag} from '../interaction/planner-drag-flag';
-import {Plan} from '../plan/plan';
-import {PlanLeg} from '../plan/plan-leg';
-import {PlanLegData} from './plan-leg-data';
-import {PlannerCursor} from './planner-cursor';
-import {PlannerElasticBand} from './planner-elastic-band';
-import {PlannerHighlighter} from './planner-highlighter';
-import {PlannerLegRepository} from './planner-leg-repository';
-import {PlannerMarkerLayer} from './planner-marker-layer';
-import {PlannerOverlay} from './planner-overlay';
-import {PlannerRouteLayer} from './planner-route-layer';
+import { LegEnd } from '@api/common/planner/leg-end';
+import { NetworkType } from '@api/custom/network-type';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { PlannerCommand } from '../commands/planner-command';
+import { PlannerCommandStack } from '../commands/planner-command-stack';
+import { PlannerDragFlag } from '../interaction/planner-drag-flag';
+import { Plan } from '../plan/plan';
+import { PlanLeg } from '../plan/plan-leg';
+import { PlanLegData } from './plan-leg-data';
+import { PlannerCursor } from './planner-cursor';
+import { PlannerElasticBand } from './planner-elastic-band';
+import { PlannerHighlighter } from './planner-highlighter';
+import { PlannerLegRepository } from './planner-leg-repository';
+import { PlannerMarkerLayer } from './planner-marker-layer';
+import { PlannerOverlay } from './planner-overlay';
+import { PlannerRouteLayer } from './planner-route-layer';
 
 export class NetworkTypeData {
-  constructor(public plan: Plan,
-              public commandStack: PlannerCommandStack) {
-  }
+  constructor(public plan: Plan, public commandStack: PlannerCommandStack) {}
 }
 
 export class PlannerContext {
-
   plan$: Observable<Plan>;
   networkType$: Observable<NetworkType>;
   error$: Observable<Error>;
+  planProposed: boolean;
 
   private _plan$: BehaviorSubject<Plan>;
   private _networkType$: BehaviorSubject<NetworkType>;
@@ -35,19 +33,27 @@ export class PlannerContext {
   private _commandStack$: BehaviorSubject<PlannerCommandStack>;
   private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
 
-  constructor(readonly routeLayer: PlannerRouteLayer,
-              readonly markerLayer: PlannerMarkerLayer,
-              readonly cursor: PlannerCursor,
-              readonly elasticBand: PlannerElasticBand,
-              readonly highlighter: PlannerHighlighter,
-              readonly legRepository: PlannerLegRepository,
-              readonly overlay: PlannerOverlay) {
+  constructor(
+    readonly routeLayer: PlannerRouteLayer,
+    readonly markerLayer: PlannerMarkerLayer,
+    readonly cursor: PlannerCursor,
+    readonly elasticBand: PlannerElasticBand,
+    readonly highlighter: PlannerHighlighter,
+    readonly legRepository: PlannerLegRepository,
+    readonly overlay: PlannerOverlay,
+    readonly planProposed$: Observable<boolean>
+  ) {
     this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
     this.plan$ = this._plan$.asObservable();
     this._networkType$ = new BehaviorSubject<NetworkType>(null);
     this.networkType$ = this._networkType$.asObservable();
     this.error$ = this._error$.asObservable();
-    this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
+    this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(
+      new PlannerCommandStack()
+    );
+    planProposed$.subscribe(
+      (planProposed) => (this.planProposed = planProposed)
+    );
   }
 
   get networkType(): NetworkType {
@@ -105,8 +111,14 @@ export class PlannerContext {
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
-    const newLegs = this.plan.legs.map(leg => leg.featureId === newLeg.featureId ? newLeg : leg);
-    const newPlan = new Plan(this.plan.sourceNode, this.plan.sourceFlag, newLegs);
+    const newLegs = this.plan.legs.map((leg) =>
+      leg.featureId === newLeg.featureId ? newLeg : leg
+    );
+    const newPlan = new Plan(
+      this.plan.sourceNode,
+      this.plan.sourceFlag,
+      newLegs
+    );
     this.updatePlan(newPlan);
     this.routeLayer.addPlanLeg(newLeg);
   }
@@ -117,12 +129,14 @@ export class PlannerContext {
 
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     this.cursor.setStyleWait();
-    return this.legRepository.planLeg(this.networkType, source, sink).pipe(
-      tap(() => {
-        this.cursor.setStyleDefault();
-        this.highlighter.reset();
-      })
-    );
+    return this.legRepository
+      .planLeg(this.networkType, source, sink, this.planProposed)
+      .pipe(
+        tap(() => {
+          this.cursor.setStyleDefault();
+          this.highlighter.reset();
+        })
+      );
   }
 
   debug(message: string): void {
@@ -134,7 +148,9 @@ export class PlannerContext {
   }
 
   resetDragFlag(dragFlag: PlannerDragFlag): void {
-    this.markerLayer.updateFlagCoordinate(dragFlag.planFlag.featureId, dragFlag.oldNode.coordinate);
+    this.markerLayer.updateFlagCoordinate(
+      dragFlag.planFlag.featureId,
+      dragFlag.oldNode.coordinate
+    );
   }
-
 }

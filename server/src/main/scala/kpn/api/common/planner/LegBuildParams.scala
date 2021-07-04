@@ -3,7 +3,8 @@ package kpn.api.common.planner
 case class LegBuildParams(
   networkType: String,
   source: LegEnd,
-  sink: LegEnd
+  sink: LegEnd,
+  proposed: Boolean
 ) {
 
   def routeIds: Seq[Long] = {

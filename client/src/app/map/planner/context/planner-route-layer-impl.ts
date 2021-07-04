@@ -1,4 +1,4 @@
-import {Coordinate} from 'ol/coordinate';
+import { Coordinate } from 'ol/coordinate';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import Point from 'ol/geom/Point';
@@ -7,28 +7,27 @@ import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import {Marker} from '../../../components/ol/domain/marker';
-import {Layers} from '../../../components/ol/layers/layers';
-import {PlanFlag} from '../plan/plan-flag';
-import {PlanFlagType} from '../plan/plan-flag-type';
-import {PlanLeg} from '../plan/plan-leg';
-import {PlanUtil} from '../plan/plan-util';
-import {PlannerRouteLayer} from './planner-route-layer';
+import { Marker } from '../../../components/ol/domain/marker';
+import { Layers } from '../../../components/ol/layers/layers';
+import { PlanFlag } from '../plan/plan-flag';
+import { PlanFlagType } from '../plan/plan-flag-type';
+import { PlanLeg } from '../plan/plan-leg';
+import { PlanUtil } from '../plan/plan-util';
+import { PlannerRouteLayer } from './planner-route-layer';
 
 export class PlannerRouteLayerImpl extends PlannerRouteLayer {
-
   private legStyle = new Style({
     stroke: new Stroke({
       color: 'rgba(255, 0, 255, 0.5)',
-      width: 12
-    })
+      width: 12,
+    }),
   });
 
   private source = new VectorSource();
 
   private layer = new VectorLayer({
     zIndex: Layers.zIndexPlannerRouteLayer,
-    source: this.source
+    source: this.source,
   });
 
   addToMap(map: Map) {
@@ -83,7 +82,13 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
 
   addPlanLeg(leg: PlanLeg): void {
     this.removePlanLeg(leg.featureId);
-    const feature = new Feature(new LineString(leg.routes.flatMap(route => PlanUtil.planRouteCoordinates(route)).toArray()));
+    const feature = new Feature(
+      new LineString(
+        leg.routes
+          .flatMap((route) => PlanUtil.planRouteCoordinates(route).toArray())
+          .toArray()
+      )
+    );
     feature.setId(leg.featureId);
     feature.set('layer', 'leg');
     feature.setStyle(this.legStyle);
@@ -96,5 +101,4 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
       this.source.removeFeature(feature);
     }
   }
-
 }
