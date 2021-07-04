@@ -474,7 +474,8 @@ trait SharedTestObjects extends MockFactory {
     role: Option[String] = None,
     relationLastUpdated: Timestamp = defaultTimestamp,
     lastUpdated: Timestamp = defaultTimestamp,
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    proposed: Boolean = false
   ): NetworkInfoRoute = {
     NetworkInfoRoute(
       id,
@@ -485,7 +486,8 @@ trait SharedTestObjects extends MockFactory {
       relationLastUpdated,
       lastUpdated: Timestamp,
       None,
-      facts
+      facts,
+      proposed
     )
   }
 

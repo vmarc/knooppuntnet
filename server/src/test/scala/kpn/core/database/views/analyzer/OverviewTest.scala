@@ -77,7 +77,8 @@ class OverviewTest extends UnitTest {
                 facts = Seq(
                   Fact.RouteBroken,
                   Fact.RouteNameMissing
-                )
+                ),
+                proposed = false
               )
             )
           )

@@ -121,9 +121,14 @@ import { I18nService } from './i18n.service';
       <span id="@@filter.no" i18n="@@filter.no">no</span>
       <span id="@@filter.unknown" i18n="@@filter.unknown">unknown</span>
       <span
+        id="@@filter.proposed"
+        i18n="@@filter.proposed"
+        >Proposed</span
+      >
+      <span
         id="@@filter.definedInNetworkRelation"
         i18n="@@filter.definedInNetworkRelation"
-        >Defined in network relation</span
+      >Defined in network relation</span
       >
       <span
         id="@@filter.definedInRouteRelation"

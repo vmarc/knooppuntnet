@@ -51,8 +51,6 @@ object Json {
     b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
     b.deserializerByType(classOf[Geometry], new GeometryJsonDeserializer())
 
-    b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
-
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)
     om

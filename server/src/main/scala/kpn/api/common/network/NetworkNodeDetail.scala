@@ -17,6 +17,7 @@ case class NetworkNodeDetail(
   roleConnection: Boolean,
   definedInRelation: Boolean,
   definedInRoute: Boolean,
+  proposed: Boolean,
   timestamp: Timestamp,
   lastSurvey: Option[Day],
   expectedRouteCount: String,

@@ -44,7 +44,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     )
   }
 
-  def networkRouteInfo(id: Long, name: String = "name", facts: Seq[Fact] = Seq.empty): NetworkInfoRoute = {
+  def networkRouteInfo(id: Long, name: String = "name", facts: Seq[Fact] = Seq.empty, proposed: Boolean): NetworkInfoRoute = {
     NetworkInfoRoute(
       id,
       name = name,
@@ -54,7 +54,8 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       relationLastUpdated = Timestamp(11, 8, 2015),
       lastUpdated = Timestamp(11, 8, 2015),
       lastSurvey = None,
-      facts = facts
+      facts = facts,
+      proposed
     )
   }
 

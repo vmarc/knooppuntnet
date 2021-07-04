@@ -3,16 +3,25 @@ import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
-import { BooleanFilter } from '../../../kpn/filter/boolean-filter';
-import { FilterOptions } from '../../../kpn/filter/filter-options';
-import { Filters } from '../../../kpn/filter/filters';
-import { SurveyDateFilter } from '../../../kpn/filter/survey-date-filter';
-import { SurveyDateFilterKind } from '../../../kpn/filter/survey-date-filter-kind';
-import { TimestampFilter } from '../../../kpn/filter/timestamp-filter';
-import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
+import { BooleanFilter } from '@app/kpn/filter/boolean-filter';
+import { FilterOptions } from '@app/kpn/filter/filter-options';
+import { Filters } from '@app/kpn/filter/filters';
+import { SurveyDateFilter } from '@app/kpn/filter/survey-date-filter';
+import { SurveyDateFilterKind } from '@app/kpn/filter/survey-date-filter-kind';
+import { TimestampFilter } from '@app/kpn/filter/timestamp-filter';
+import { TimestampFilterKind } from '@app/kpn/filter/timestamp-filter-kind';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
 
 export class NetworkRouteFilter {
+  private readonly proposedFilter = new BooleanFilter<NetworkRouteRow>(
+    'proposed',
+    this.criteria.proposed,
+    (row) => row.proposed,
+    this.update({ ...this.criteria, proposed: null }),
+    this.update({ ...this.criteria, proposed: true }),
+    this.update({ ...this.criteria, proposed: false })
+  );
+
   private readonly investigateFilter = new BooleanFilter<NetworkRouteRow>(
     'investigate',
     this.criteria.investigate,
@@ -92,6 +101,7 @@ export class NetworkRouteFilter {
   );
 
   private readonly allFilters = new Filters<NetworkRouteRow>(
+    this.proposedFilter,
     this.investigateFilter,
     this.accessibleFilter,
     this.roleConnectionFilter,
@@ -116,6 +126,11 @@ export class NetworkRouteFilter {
       this.allFilters.passes(route)
     );
 
+    const proposed = this.proposedFilter.filterOptions(
+      this.allFilters,
+      routes
+    );
+
     const investigate = this.investigateFilter.filterOptions(
       this.allFilters,
       routes
@@ -138,6 +153,7 @@ export class NetworkRouteFilter {
     );
 
     const groups = List([
+      proposed,
       investigate,
       accessible,
       roleConnection,

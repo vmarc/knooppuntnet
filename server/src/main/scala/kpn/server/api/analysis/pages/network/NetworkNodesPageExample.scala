@@ -34,6 +34,7 @@ object NetworkNodesPageExample {
       roleConnection = true,
       definedInRelation = true,
       definedInRoute = true,
+      proposed = true,
       timestamp = Timestamp(2020, 1, 1),
       lastSurvey = None,
       expectedRouteCount = "3",
@@ -71,8 +72,8 @@ object NetworkNodesPageExample {
         Ref(13, "01-04")
       ),
       facts = Seq(),
-      tags = Tags.empty
+      tags = Tags.empty,
+      proposed = true
     )
   }
-
 }

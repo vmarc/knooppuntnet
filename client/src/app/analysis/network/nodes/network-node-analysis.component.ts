@@ -20,6 +20,9 @@ import { NetworkType } from '@api/custom/network-type';
         [node]="node"
         [networkType]="networkType"
       ></kpn-integrity-indicator>
+      <kpn-proposed-indicator
+        [node]="node"
+      ></kpn-proposed-indicator>
     </div>
   `,
   styles: [

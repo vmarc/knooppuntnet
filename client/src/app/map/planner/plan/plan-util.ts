@@ -151,11 +151,14 @@ export class PlanUtil {
   }
 
   static planRouteCoordinates(planRoute: PlanRoute): List<Coordinate> {
-    return List([planRoute.sourceNode.coordinate]).concat(
-      planRoute.segments.flatMap((segment) =>
-        segment.fragments.map((fragment) => fragment.coordinate)
+    const coordinates: Array<Coordinate> = [];
+    coordinates.push(planRoute.sourceNode.coordinate);
+    planRoute.segments.forEach((segment) =>
+      segment.fragments.forEach((fragment) =>
+        coordinates.push(fragment.coordinate)
       )
     );
+    return List(coordinates);
   }
 
   static singleRoutePlanLeg(

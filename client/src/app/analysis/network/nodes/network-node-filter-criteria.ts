@@ -11,6 +11,7 @@ export class NetworkNodeFilterCriteria {
     readonly integrityCheck: boolean = null,
     readonly integrityCheckFailed: boolean = null,
     readonly lastUpdated: TimestampFilterKind = TimestampFilterKind.ALL,
-    readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.ALL
+    readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.ALL,
+    readonly proposed: boolean = null
   ) {}
 }

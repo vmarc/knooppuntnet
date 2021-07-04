@@ -1,11 +1,11 @@
 // this class is generated, please do not modify
 
 import { List } from 'immutable';
-import { Day } from '../../custom/day';
-import { Fact } from '../../custom/fact';
+import { Day } from '@api/custom/day';
+import { Fact } from '@api/custom/fact';
 import { Ref } from '../common/ref';
-import { Tags } from '../../custom/tags';
-import { Timestamp } from '../../custom/timestamp';
+import { Tags } from '@api/custom/tags';
+import { Timestamp } from '@api/custom/timestamp';
 
 export class NetworkNodeDetail {
   constructor(
@@ -18,6 +18,7 @@ export class NetworkNodeDetail {
     readonly roleConnection: boolean,
     readonly definedInRelation: boolean,
     readonly definedInRoute: boolean,
+    readonly proposed: boolean,
     readonly timestamp: Timestamp,
     readonly lastSurvey: Day,
     readonly expectedRouteCount: string,
@@ -40,6 +41,7 @@ export class NetworkNodeDetail {
       jsonObject.roleConnection,
       jsonObject.definedInRelation,
       jsonObject.definedInRoute,
+      jsonObject.proposed,
       Timestamp.fromJSON(jsonObject.timestamp),
       Day.fromJSON(jsonObject.lastSurvey),
       jsonObject.expectedRouteCount,

@@ -57,6 +57,8 @@ import { NetworkRoutesSidebarComponent } from './routes/network-routes-sidebar.c
 import { NetworkEffects } from './store/network.effects';
 import { networkReducer } from './store/network.reducer';
 import { networkFeatureKey } from './store/network.state';
+import {ProposedIndicatorDialogComponent} from "@app/analysis/network/nodes/indicators/proposed-indicator-dialog.component";
+import {ProposedIndicatorComponent} from "@app/analysis/network/nodes/indicators/proposed-indicator.component";
 
 @NgModule({
   imports: [
@@ -117,6 +119,8 @@ import { networkFeatureKey } from './store/network.state';
     NetworkChangesSidebarComponent,
     NetworkMapSidebarComponent,
     NetworkMapLegendIconComponent,
+    ProposedIndicatorDialogComponent,
+    ProposedIndicatorComponent,
   ],
 })
 export class NetworkModule {}

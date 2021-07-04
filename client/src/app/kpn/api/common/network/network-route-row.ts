@@ -13,7 +13,8 @@ export class NetworkRouteRow {
     readonly accessible: boolean,
     readonly roleConnection: boolean,
     readonly lastUpdated: Timestamp,
-    readonly lastSurvey: Day
+    readonly lastSurvey: Day,
+    readonly proposed: boolean
   ) {}
 
   public static fromJSON(jsonObject: any): NetworkRouteRow {
@@ -29,7 +30,8 @@ export class NetworkRouteRow {
       jsonObject.accessible,
       jsonObject.roleConnection,
       Timestamp.fromJSON(jsonObject.lastUpdated),
-      Day.fromJSON(jsonObject.lastSurvey)
+      Day.fromJSON(jsonObject.lastSurvey),
+      jsonObject.proposed
     );
   }
 }

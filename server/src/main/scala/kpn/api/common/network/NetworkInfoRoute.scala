@@ -13,5 +13,6 @@ case class NetworkInfoRoute(
   relationLastUpdated: Timestamp,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  facts: Seq[Fact]
+  facts: Seq[Fact],
+  proposed: Boolean
 )
