@@ -49,10 +49,10 @@ if (doc && doc.route && doc.route.analysis && doc.route.active === true) {
 
   var proposed = 0;
   if (doc.route.tags) {
-    for (var i = 0; i < doc.route.tags.tags.length; i++) {
-      var tag = doc.route.tags.tags[i];
-      var key = tag.key;
-      var value = tag.value;
+    for (var i = 0; i < doc.route.tags.length; i++) {
+      var tag = doc.route.tags[i];
+      var key = tag[0];
+      var value = tag[1];
       if (key === "state" && value === "proposed") {
         proposed = 1;
       }

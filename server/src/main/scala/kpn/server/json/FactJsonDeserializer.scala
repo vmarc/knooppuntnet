@@ -10,10 +10,11 @@ import kpn.api.custom.Fact
 class FactJsonDeserializer extends JsonDeserializer[Fact] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Fact = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    Fact.withName(node.asText).getOrElse(
+    val factName = node.asText
+    Fact.withName(factName).getOrElse(
       throw JsonMappingException.from(
         jsonParser,
-        "Could not deserialize fact"
+        s"Could not deserialize fact: $factName"
       )
     )
   }

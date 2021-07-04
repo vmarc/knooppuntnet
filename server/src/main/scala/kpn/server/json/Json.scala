@@ -7,13 +7,7 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
+import kpn.api.custom.{Country, Fact, NetworkScope, NetworkType, ScopedNetworkType, Subset, Tags, Timestamp}
 import kpn.core.database.doc.ChangeSetDatas
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
@@ -38,6 +32,9 @@ object Json {
 
     b.deserializerByType(classOf[NetworkScope], new NetworkScopeJsonDeserializer())
     b.serializerByType(classOf[NetworkScope], new NetworkScopeJsonSerializer())
+
+//    b.deserializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonDeserializer())
+//    b.serializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonSerializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
     b.serializerByType(classOf[Subset], new SubsetJsonSerializer())
