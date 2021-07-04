@@ -13,4 +13,5 @@ export interface NetworkRouteRow {
   readonly roleConnection: boolean;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
+  readonly proposed: boolean;
 }

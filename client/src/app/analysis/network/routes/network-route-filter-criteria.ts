@@ -7,6 +7,7 @@ export class NetworkRouteFilterCriteria {
     readonly accessible: boolean = null,
     readonly roleConnection: boolean = null,
     readonly relationLastUpdated: TimestampFilterKind = TimestampFilterKind.all,
-    readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.all
+    readonly lastSurvey: SurveyDateFilterKind = SurveyDateFilterKind.all,
+    readonly proposed: boolean = null
   ) {}
 }

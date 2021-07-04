@@ -13,6 +13,15 @@ import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 
 export class NetworkNodeFilter {
+  private readonly proposedFilter = new BooleanFilter<NetworkNodeDetail>(
+    'proposed',
+    this.criteria.proposed,
+    (row) => row.proposed,
+    this.update({ ...this.criteria, proposed: null }),
+    this.update({ ...this.criteria, proposed: true }),
+    this.update({ ...this.criteria, proposed: false })
+  );
+
   private readonly definedInNetworkRelationFilter = new BooleanFilter<NetworkNodeDetail>(
     'definedInNetworkRelation',
     this.criteria.definedInNetworkRelation,
@@ -125,6 +134,7 @@ export class NetworkNodeFilter {
   );
 
   private readonly allFilters = new Filters<NetworkNodeDetail>(
+    this.proposedFilter,
     this.definedInNetworkRelationFilter,
     this.definedInRouteRelationFilter,
     this.referencedInRouteFilter,
@@ -151,6 +161,8 @@ export class NetworkNodeFilter {
     const totalCount = nodes.length;
     const filteredCount = nodes.filter((node) => this.allFilters.passes(node))
       .length;
+
+    const proposed = this.proposedFilter.filterOptions(this.allFilters, nodes);
 
     const definedInNetworkRelation = this.definedInNetworkRelationFilter.filterOptions(
       this.allFilters,
@@ -190,6 +202,7 @@ export class NetworkNodeFilter {
     );
 
     const groups = List([
+      proposed,
       definedInNetworkRelation,
       definedInRouteRelation,
       referencedInRoute,

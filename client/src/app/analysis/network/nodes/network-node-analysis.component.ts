@@ -22,6 +22,9 @@ import { IntegrityIndicatorData } from '../../../components/shared/indicator/int
       <kpn-integrity-indicator
         [data]="integrityIndicatorData"
       ></kpn-integrity-indicator>
+      <kpn-proposed-indicator
+        [node]="node"
+      ></kpn-proposed-indicator>
     </div>
   `,
   styles: [

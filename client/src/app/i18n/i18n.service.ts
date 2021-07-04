@@ -204,6 +204,10 @@ export class I18nService {
       $localize`:@@filter.unknown:unknown`,
     ]);
     keysAndValues.push([
+      '@@filter.proposed',
+      $localize`:@@filter.proposed:Proposed`,
+    ]);
+    keysAndValues.push([
       '@@filter.definedInNetworkRelation',
       $localize`:@@filter.definedInNetworkRelation:Defined in network relation`,
     ]);

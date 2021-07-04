@@ -1,16 +1,16 @@
 package kpn.server.analyzer.engine.tiles.raster
 
+import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.TileBuilder
+import kpn.server.analyzer.engine.tiles.TileData
+
+import java.awt.image.BufferedImage
 import java.awt.BasicStroke
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.RenderingHints
-import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
-
 import javax.imageio.ImageIO
-import kpn.server.analyzer.engine.tiles.TileBuilder
-import kpn.server.analyzer.engine.tiles.TileData
-import kpn.server.analyzer.engine.tiles.domain.Tile
 
 class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
 
@@ -42,9 +42,27 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
       2f
     }
 
-    g.setStroke(new BasicStroke(lineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND))
+    val standardStroke = new BasicStroke(
+      lineWidth,
+      BasicStroke.CAP_ROUND,
+      BasicStroke.JOIN_ROUND
+    )
+
+    val proposedStroke = new BasicStroke(
+      lineWidth,
+      BasicStroke.CAP_BUTT,
+      BasicStroke.JOIN_ROUND,
+      5f,
+      Array(6f, 10f),
+      0f
+    )
 
     data.routes.foreach { tileRoute =>
+      val stroke = tileRoute.state match {
+        case Some("proposed") => proposedStroke
+        case _ => standardStroke
+      }
+      g.setStroke(stroke)
       tileRoute.segments.foreach { segment =>
         g.setColor(tileColor.routeColor(tileRoute, segment))
         segment.lines.foreach { line =>
@@ -98,5 +116,4 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
     out.close()
     out.toByteArray
   }
-
 }

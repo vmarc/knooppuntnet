@@ -18,6 +18,9 @@ import { NetworkType } from '@api/custom/network-type';
       <kpn-route-connection-indicator
         [route]="route"
       ></kpn-route-connection-indicator>
+      <kpn-route-proposed-indicator
+        [proposed]="route.proposed"
+      ></kpn-route-proposed-indicator>
     </div>
   `,
   styles: [

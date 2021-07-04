@@ -451,6 +451,7 @@ trait SharedTestObjects extends MockFactory {
     roleConnection: Boolean = false,
     definedInRelation: Boolean = false,
     definedInRoute: Boolean = false,
+    proposed: Boolean = false,
     timestamp: Timestamp = defaultTimestamp,
     routeReferences: Seq[Ref] = Seq.empty,
     integrityCheck: Option[NodeIntegrityCheck] = None,
@@ -467,6 +468,7 @@ trait SharedTestObjects extends MockFactory {
       roleConnection,
       definedInRelation,
       definedInRoute,
+      proposed,
       timestamp,
       None,
       routeReferences,
@@ -484,7 +486,8 @@ trait SharedTestObjects extends MockFactory {
     role: Option[String] = None,
     relationLastUpdated: Timestamp = defaultTimestamp,
     lastUpdated: Timestamp = defaultTimestamp,
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    proposed: Boolean = false
   ): NetworkInfoRoute = {
     NetworkInfoRoute(
       id,
@@ -495,7 +498,8 @@ trait SharedTestObjects extends MockFactory {
       relationLastUpdated,
       lastUpdated: Timestamp,
       None,
-      facts
+      facts,
+      proposed
     )
   }
 

@@ -16,6 +16,7 @@ export interface NetworkNodeDetail {
   readonly roleConnection: boolean;
   readonly definedInRelation: boolean;
   readonly definedInRoute: boolean;
+  readonly proposed: boolean;
   readonly timestamp: Timestamp;
   readonly lastSurvey: Day;
   readonly expectedRouteCount: string;

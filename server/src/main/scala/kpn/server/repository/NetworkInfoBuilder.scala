@@ -27,6 +27,7 @@ class NetworkInfoBuilder {
         info.roleConnection,
         info.definedInRelation,
         info.definedInRoute,
+        info.networkNode.tags.has("state", "proposed"),
         info.networkNode.node.timestamp,
         info.lastSurvey,
         routeReferences,
@@ -47,7 +48,8 @@ class NetworkInfoBuilder {
         route.summary.timestamp,
         route.lastUpdated,
         route.lastSurvey,
-        route.facts
+        route.facts,
+        route.tags.has("state", "proposed")
       )
     }
 

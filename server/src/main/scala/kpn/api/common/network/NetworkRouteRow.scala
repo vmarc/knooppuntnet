@@ -12,5 +12,6 @@ case class NetworkRouteRow(
   accessible: Boolean,
   roleConnection: Boolean,
   lastUpdated: Timestamp,
-  lastSurvey: Option[Day]
+  lastSurvey: Option[Day],
+  proposed: Boolean
 )

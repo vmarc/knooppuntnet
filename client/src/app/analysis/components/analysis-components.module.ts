@@ -10,9 +10,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { OlModule } from '@app/components/ol/ol.module';
+import { SharedModule } from '@app/components/shared/shared.module';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '../../components/ol/ol.module';
-import { SharedModule } from '../../components/shared/shared.module';
 import { FactModule } from '../fact/fact.module';
 import { ChangeHeaderComponent } from './change-set/change-header.component';
 import { ChangeSetTagsComponent } from './change-set/change-set-tags.component';
@@ -51,6 +51,8 @@ import { RouteConnectionIndicatorDialogComponent } from './indicators/route/rout
 import { RouteConnectionIndicatorComponent } from './indicators/route/route-connection-indicator.component';
 import { RouteInvestigateIndicatorDialogComponent } from './indicators/route/route-investigate-indicator-dialog.component';
 import { RouteInvestigateIndicatorComponent } from './indicators/route/route-investigate-indicator.component';
+import { RouteProposedIndicatorDialogComponent } from './indicators/route/route-proposed-indicator-dialog.component';
+import { RouteProposedIndicatorComponent } from './indicators/route/route-proposed-indicator.component';
 
 @NgModule({
   imports: [
@@ -109,6 +111,8 @@ import { RouteInvestigateIndicatorComponent } from './indicators/route/route-inv
     RouteConnectionIndicatorDialogComponent,
     RouteInvestigateIndicatorComponent,
     RouteInvestigateIndicatorDialogComponent,
+    RouteProposedIndicatorComponent,
+    RouteProposedIndicatorDialogComponent,
   ],
   exports: [
     ChangeHeaderComponent,
@@ -141,6 +145,8 @@ import { RouteInvestigateIndicatorComponent } from './indicators/route/route-inv
     RouteConnectionIndicatorDialogComponent,
     RouteInvestigateIndicatorComponent,
     RouteInvestigateIndicatorDialogComponent,
+    RouteProposedIndicatorComponent,
+    RouteProposedIndicatorDialogComponent,
   ],
 })
 export class AnalysisComponentsModule {}
