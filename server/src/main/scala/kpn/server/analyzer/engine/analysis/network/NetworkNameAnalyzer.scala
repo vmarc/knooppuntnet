@@ -18,6 +18,7 @@ object NetworkNameAnalyzer {
     "Knotenpunktnetzwerk ",
     "Knotenpunktsystem ",
     "Knotenpunktwegweisung ",
+    "Wanderwegenetz ",
     "Cycle node network ",
     "Ruiternetwerk ",
     "Ruiterroute ",
