@@ -16,15 +16,10 @@ import { IntegrityIndicatorData } from '../../../components/shared/indicator/int
       <kpn-node-connection-indicator
         [node]="node"
       ></kpn-node-connection-indicator>
-      <kpn-role-connection-indicator
-        [node]="node"
-      ></kpn-role-connection-indicator>
       <kpn-integrity-indicator
         [data]="integrityIndicatorData"
       ></kpn-integrity-indicator>
-      <kpn-proposed-indicator
-        [node]="node"
-      ></kpn-proposed-indicator>
+      <kpn-proposed-indicator [node]="node"></kpn-proposed-indicator>
     </div>
   `,
   styles: [
