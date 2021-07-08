@@ -6,6 +6,7 @@ import kpn.api.common.NetworkExtraMemberWay
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.analysis.Network
+import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
@@ -39,7 +40,13 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val d = new TestData() {
       networkNode(1001, "01")
       node(1002)
-      relation(1, Seq(newMember("node", 1001), newMember("node", 1002)))
+      relation(
+        1,
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+        )
+      )
     }
     val network = analyze(d)
     network.facts.networkExtraMemberNode should equal(Some(Seq(NetworkExtraMemberNode(1002))))
@@ -49,7 +56,12 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
 
     val d = new TestData() {
       way(1)
-      relation(1, Seq(newMember("way", 1)))
+      relation(
+        1,
+        Seq(
+          newMember("way", 1)
+        )
+      )
     }
 
     val network = analyze(d)
@@ -59,8 +71,8 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberRelation") {
 
     val d = new TestData() {
-      relation(10, Seq(), newRouteTags("01-02")) // valid route relation
-      relation(20, Seq(), Tags.empty) // not a route relation
+      relation(10, Seq.empty, newRouteTags("01-02")) // valid route relation
+      relation(20, Seq.empty, Tags.empty) // not a route relation
       relation(
         1,
         Seq(
@@ -77,43 +89,90 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
   test("routes") {
 
     val d = new TestData() {
-      relation(10, Seq(), newRouteTags("01-03"))
-      relation(20, Seq(), newRouteTags("01-02"))
-      relation(30, Seq(), newRouteTags("02-03"))
-      relation(1, Seq(
-        newMember("relation", 10, "forward"),
-        newMember("relation", 20, "backward"),
-        newMember("relation", 30)
-      )
+      relation(10, Seq.empty, newRouteTags("01-03"))
+      relation(20, Seq.empty, newRouteTags("01-02"))
+      relation(30, Seq.empty, newRouteTags("02-03"))
+      relation(
+        1,
+        Seq(
+          newMember("relation", 10, "forward"),
+          newMember("relation", 20, "backward"),
+          newMember("relation", 30)
+        )
       )
     }
 
     val routes = analyze(d).routes
-    routes(0).routeAnalysis.route.summary.name should equal("01-02")
+    routes.head.routeAnalysis.route.summary.name should equal("01-02")
     routes(1).routeAnalysis.route.summary.name should equal("01-03")
-    routes(0).role should equal(Some("backward"))
+    routes.head.role should equal(Some("backward"))
     routes(1).role should equal(Some("forward"))
   }
 
   test("routes - old tagging") {
 
     val d = new TestData() {
-      relation(10, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-03"))
-      relation(20, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02"))
-      relation(30, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "02-03"))
-      relation(1, Seq(
-        newMember("relation", 10, "forward"),
-        newMember("relation", 20, "backward"),
-        newMember("relation", 30)
-      )
+      relation(10, Seq.empty, Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-03"))
+      relation(20, Seq.empty, Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02"))
+      relation(30, Seq.empty, Tags.from("network" -> "rwn", "type" -> "route", "note" -> "02-03"))
+      relation(
+        1,
+        Seq(
+          newMember("relation", 10, "forward"),
+          newMember("relation", 20, "backward"),
+          newMember("relation", 30)
+        )
       )
     }
 
     val routes = analyze(d, oldTagging = true).routes
-    routes(0).routeAnalysis.route.summary.name should equal("01-02")
+    routes.head.routeAnalysis.route.summary.name should equal("01-02")
     routes(1).routeAnalysis.route.summary.name should equal("01-03")
-    routes(0).role should equal(Some("backward"))
+    routes.head.role should equal(Some("backward"))
     routes(1).role should equal(Some("forward"))
+  }
+
+  test("nodes") {
+
+    val d = new TestData() {
+      node(1001, tags = Tags.from("network:type" -> "node_network", "rwn_ref" -> "01"))
+      node(1002, tags = Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "02"))
+      node(1003, tags = Tags.from("network:type" -> "node_network", "rwn_name" -> "Node3"))
+      node(1004, tags = Tags.from("network:type" -> "node_network", "proposed:rwn_name" -> "Node4"))
+      node(1005, tags = Tags.from("network:type" -> "node_network", "rwn_ref" -> "05", "state" -> "proposed"))
+      node(1006, tags = Tags.from("network:type" -> "node_network", "rwn_name" -> "Node6", "state" -> "proposed"))
+      relation(
+        1,
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("node", 1003),
+          newMember("node", 1004),
+          newMember("node", 1005),
+          newMember("node", 1006)
+        )
+      )
+    }
+
+    val nodes = analyze(d).nodes
+
+    def node(id: Long): NetworkNodeInfo = {
+      nodes.find(_.id == id).get
+    }
+
+    node(1001).networkNode.name should equal("01")
+    node(1002).networkNode.name should equal("02")
+    node(1003).networkNode.name should equal("Node3")
+    node(1004).networkNode.name should equal("Node4")
+    node(1005).networkNode.name should equal("05")
+    node(1006).networkNode.name should equal("Node6")
+
+    node(1001).proposed should equal(false)
+    node(1002).proposed should equal(true)
+    node(1003).proposed should equal(false)
+    node(1004).proposed should equal(true)
+    node(1005).proposed should equal(true)
+    node(1006).proposed should equal(true)
   }
 
   private def analyze(d: TestData, oldTagging: Boolean = false): Network = {

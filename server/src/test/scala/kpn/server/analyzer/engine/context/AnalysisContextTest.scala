@@ -19,6 +19,9 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_name" -> "name")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "01")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "proposed:rwn_name" -> "name")))
+
     assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))
     assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_name" -> "name")))
     assert(!isReferencedNetworkNode(Tags.from("rwn_ref" -> "01")))
@@ -36,12 +39,16 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
       context.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
     }
 
-    assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
-    assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_name" -> "name")))
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_name" -> "name")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "proposed:lwn_ref" -> "01")))
+    assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "proposed:lwn_name" -> "name")))
+
     assert(!isReferencedNetworkNode(Tags.from("lwn_ref" -> "01")))
     assert(!isReferencedNetworkNode(Tags.from("lwn_name" -> "name")))
+
+    assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
+    assert(!isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_name" -> "name")))
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01", "rwn_ref" -> "01")))
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01", "lwn_name" -> "name")))
@@ -79,6 +86,11 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "rwn_name" -> "name")))
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "lwn_name" -> "name")))
 
+    assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "01")))
+    assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "proposed:lwn_ref" -> "01")))
+    assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "proposed:rwn_name" -> "name")))
+    assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "proposed:lwn_name" -> "name")))
+
     assert(!isValidNetworkNode(Tags.from("rwn_ref" -> "01")))
     assert(!isValidNetworkNode(Tags.from("lwn_ref" -> "01")))
     assert(!isValidNetworkNode(Tags.from("rwn_name" -> "name")))
@@ -96,6 +108,8 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
     assert(isValidNetworkNode(Tags.from("rwn_ref" -> "01")))
     assert(!isValidNetworkNode(Tags.from("lwn_ref" -> "01"))) // only regional
     assert(!isValidNetworkNode(Tags.from("rwn_name" -> "name"))) // r?n_name tags not supported yet
+    assert(!isValidNetworkNode(Tags.from("proposed:rwn_ref" -> "01"))) // proposed not supported yet
+    assert(!isValidNetworkNode(Tags.from("proposed:rwn_name" -> "name"))) // proposed not supported yet
 
     // ignore "network:type" tag
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
@@ -131,11 +145,6 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
     // map
     assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "map")))
     assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "guidepost")))
-
-    // proposed
-    assert(!isUnexpectedNode(Tags.from("proposed:rwn_ref" -> "01")))
-    assert(!isUnexpectedNode(Tags.from("proposed:lwn_ref" -> "01")))
-    assert(!isUnexpectedNode(Tags.from("proposed:rcn_ref" -> "01")))
 
     // actual node
     assert(!isUnexpectedNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))

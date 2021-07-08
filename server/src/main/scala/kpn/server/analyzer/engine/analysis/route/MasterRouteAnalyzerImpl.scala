@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyze
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteFragmentAnalyzer
@@ -59,6 +60,7 @@ class MasterRouteAnalyzerImpl(
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagRouteAnalyzer,
+        ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
         IncompleteRouteAnalyzer,
         FixmeTodoRouteAnalyzer,

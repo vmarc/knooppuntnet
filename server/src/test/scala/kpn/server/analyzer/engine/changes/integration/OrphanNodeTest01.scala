@@ -15,6 +15,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestData2
 
@@ -34,7 +35,7 @@ class OrphanNodeTest01 extends AbstractTest {
 
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should matchTo(
+        nodeInfo.copy(tiles = Seq.empty) should matchTo(
           NodeInfo(
             1001,
             1001,
@@ -42,15 +43,23 @@ class OrphanNodeTest01 extends AbstractTest {
             orphan = true,
             Some(Country.nl),
             "01",
-            Seq(NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "01", None)),
+            Seq(
+              NodeName(
+                NetworkType.hiking,
+                NetworkScope.regional,
+                "01",
+                None,
+                proposed = false
+              )
+            ),
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
             lastSurvey = None,
             newNodeTags("01"),
-            Seq(),
+            Seq.empty,
             None,
-            Seq()
+            Seq.empty
           )
         )
         true
@@ -90,6 +99,106 @@ class OrphanNodeTest01 extends AbstractTest {
             name = "01",
             after = Some(
               newRawNodeWithName(1001, "01")
+            ),
+            facts = Seq(Fact.OrphanNode),
+            happy = true,
+            impact = true,
+            locationHappy = true,
+            locationImpact = true
+          )
+        )
+        true
+      }
+    )
+  }
+
+  test("create proposed orphan node") {
+
+    val dataAfter = TestData2()
+      .node(1001, tags = Tags.from("proposed:rwn_ref" -> "01", "network:type" -> "node_network"))
+      .data
+
+    val tc = new TestConfig()
+
+    tc.process(ChangeAction.Create, node(dataAfter, 1001))
+
+    assert(tc.analysisContext.data.orphanNodes.watched.contains(1001))
+
+    (tc.nodeRepository.save _).verify(
+      where { nodeInfo: NodeInfo =>
+        nodeInfo.copy(tiles = Seq.empty) should matchTo(
+          NodeInfo(
+            1001,
+            1001,
+            active = true,
+            orphan = true,
+            Some(Country.nl),
+            "01",
+            Seq(
+              NodeName(
+                NetworkType.hiking,
+                NetworkScope.regional,
+                "01",
+                None,
+                proposed = true
+              )
+            ),
+            "0",
+            "0",
+            Timestamp(2015, 8, 11, 0, 0, 0),
+            lastSurvey = None,
+            Tags.from(
+              "proposed:rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            ),
+            Seq.empty,
+            None,
+            Seq.empty
+          )
+        )
+        true
+      }
+    )
+
+    (tc.changeSetRepository.saveChangeSetSummary _).verify(
+      where { changeSetSummary: ChangeSetSummary =>
+        changeSetSummary should matchTo(
+          newChangeSetSummary(
+            subsets = Seq(Subset.nlHiking),
+            orphanNodeChanges = Seq(
+              ChangeSetSubsetElementRefs(
+                Subset.nlHiking,
+                ChangeSetElementRefs(
+                  added = Seq(newChangeSetElementRef(1001, "01", happy = true))
+                )
+              )
+            ),
+            subsetAnalyses = Seq(
+              ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
+            ),
+            happy = true
+          )
+        )
+        true
+      }
+    )
+
+    (tc.changeSetRepository.saveNodeChange _).verify(
+      where { nodeChange: NodeChange =>
+        nodeChange should matchTo(
+          newNodeChange(
+            key = newChangeKey(elementId = 1001),
+            changeType = ChangeType.Create,
+            subsets = Seq(Subset.nlHiking),
+            name = "01",
+            after = Some(
+              newRawNode(
+                1001,
+                tags = Tags.from(
+                  "proposed:rwn_ref" -> "01",
+                  "network:type" -> "node_network"
+                )
+              )
             ),
             facts = Seq(Fact.OrphanNode),
             happy = true,

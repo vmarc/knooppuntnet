@@ -38,9 +38,13 @@ case class ScopedNetworkType(networkScope: NetworkScope, networkType: NetworkTyp
 
   override def toString: String = key
 
-  def nodeRefTagKey: String = key + "_ref"
+  def nodeRefTagKey: String = s"${key}_ref"
 
-  def nodeNameTagKey: String = key + "_name"
+  def nodeNameTagKey: String = s"${key}_name"
+
+  def proposedNodeRefTagKey: String = s"proposed:${key}_ref"
+
+  def proposedNodeNameTagKey: String = s"proposed:${key}_name"
 
   def expectedRouteRelationsTag: String = "expected_" + key + "_route_relations"
 

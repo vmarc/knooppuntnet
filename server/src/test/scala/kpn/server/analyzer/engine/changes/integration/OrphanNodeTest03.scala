@@ -42,7 +42,7 @@ class OrphanNodeTest03 extends AbstractTest {
 
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should matchTo(
+        nodeInfo.copy(tiles = Seq.empty) should matchTo(
           NodeInfo(
             1001,
             1001,
@@ -50,7 +50,15 @@ class OrphanNodeTest03 extends AbstractTest {
             orphan = true,
             Some(Country.nl),
             "01",
-            Seq(NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "01", None)),
+            Seq(
+              NodeName(
+                NetworkType.hiking,
+                NetworkScope.regional,
+                "01",
+                None,
+                proposed = false
+              )
+            ),
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
@@ -58,7 +66,7 @@ class OrphanNodeTest03 extends AbstractTest {
             newNodeTags("01"),
             Seq(Fact.Deleted),
             None,
-            Seq()
+            Seq.empty
           )
         )
         true

@@ -7,11 +7,11 @@ import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkNameMissing
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
@@ -132,12 +132,18 @@ class NetworkAnalyzerImpl(
           case Failure(_) => facts :+ Fact.NodeInvalidSurveyDate
         }
 
+        val proposed = networkNode.tags("state") match {
+          case Some(state) => "proposed" == state || hasProposedLifecycleTag(networkNode, loadedNetwork.scopedNetworkType)
+          case None => hasProposedLifecycleTag(networkNode, loadedNetwork.scopedNetworkType)
+        }
+
         NetworkNodeInfo(
           networkNode,
           connection,
           roleConnection,
           definedInRelation,
           definedInRoute,
+          proposed,
           referencedInRoutes,
           integrityCheck,
           lastSurveyDate,
@@ -177,5 +183,10 @@ class NetworkAnalyzerImpl(
 
   private def networkNameMissing(networkRelation: Relation): Option[NetworkNameMissing] = {
     if (networkRelation.tags.has("name")) None else Some(NetworkNameMissing())
+  }
+
+  private def hasProposedLifecycleTag(networkNode: NetworkNode, scopedNetworkType: ScopedNetworkType): Boolean = {
+    networkNode.tags.has(scopedNetworkType.proposedNodeRefTagKey) ||
+      networkNode.tags.has(scopedNetworkType.proposedNodeNameTagKey)
   }
 }

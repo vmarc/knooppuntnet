@@ -74,8 +74,7 @@ class AnalysisContext(
       node.tags.has(scopedNetworkType.nodeRefTagKey)
     }
     else {
-      (node.tags.has(scopedNetworkType.nodeRefTagKey) || node.tags.has(scopedNetworkType.nodeNameTagKey)) &&
-        hasNetworkTypeNodeNetworkTag(node)
+      hasNodeTagKey(scopedNetworkType, node) && hasNetworkTypeNodeNetworkTag(node)
     }
   }
 
@@ -95,10 +94,10 @@ class AnalysisContext(
       hasNodeRefTagKey && (hasNetworkTypeNodeNetworkTag(node) || isKnownNode(node))
     }
     else {
-      val hasNodeTagKey = ScopedNetworkType.all.filter(_.networkType == networkType).exists { scopedNetworkType =>
-        node.tags.has(scopedNetworkType.nodeRefTagKey) || node.tags.has(scopedNetworkType.nodeNameTagKey)
+      val hasAnyNodeTagKey = ScopedNetworkType.all.filter(_.networkType == networkType).exists { scopedNetworkType =>
+        hasNodeTagKey(scopedNetworkType, node)
       }
-      hasNodeTagKey && hasNetworkTypeNodeNetworkTag(node)
+      hasAnyNodeTagKey && hasNetworkTypeNodeNetworkTag(node)
     }
   }
 
@@ -162,19 +161,12 @@ class AnalysisContext(
   }
 
   def isUnexpectedNode(scopedNetworkType: ScopedNetworkType, node: Node): Boolean = {
-    !isReferencedNetworkNode(scopedNetworkType, node.raw) && !isMap(node) && !isProposed(node)
+    !isReferencedNetworkNode(scopedNetworkType, node.raw) && !isMap(node)
   }
 
   private def isMap(node: Node): Boolean = {
     node.tags.has("tourism", "information") &&
       (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))
-  }
-
-  private def isProposed(node: Node): Boolean = {
-    ScopedNetworkType.all.exists { scopedNetworkType =>
-      val proposedKey = s"proposed:${scopedNetworkType.key}_ref"
-      node.tags.has(proposedKey)
-    }
   }
 
   private def isKnownNode(node: RawNode): Boolean = {
@@ -220,4 +212,10 @@ class AnalysisContext(
     }
   }
 
+  private def hasNodeTagKey(scopedNetworkType: ScopedNetworkType, node: RawNode): Boolean = {
+    node.tags.has(scopedNetworkType.nodeRefTagKey) ||
+      node.tags.has(scopedNetworkType.proposedNodeRefTagKey) ||
+      node.tags.has(scopedNetworkType.nodeNameTagKey) ||
+      node.tags.has(scopedNetworkType.proposedNodeNameTagKey)
+  }
 }

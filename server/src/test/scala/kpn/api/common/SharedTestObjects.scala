@@ -291,7 +291,13 @@ trait SharedTestObjects extends MockFactory {
     val name = ScopedNetworkType.all.flatMap(n => tags(n.nodeRefTagKey)).mkString(" / ")
     val names = ScopedNetworkType.all.flatMap { scopedNetworkType =>
       tags(scopedNetworkType.nodeRefTagKey).map { name =>
-        NodeName(scopedNetworkType, name, None)
+        NodeName(
+          scopedNetworkType.networkType,
+          scopedNetworkType.networkScope,
+          name,
+          None,
+          proposed = false
+        )
       }
     }
 
@@ -319,6 +325,7 @@ trait SharedTestObjects extends MockFactory {
     labels: Seq[String] = Seq.empty,
     active: Boolean = true,
     orphan: Boolean = false,
+    proposed: Boolean = false,
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
     networkScope: NetworkScope = NetworkScope.regional,
@@ -354,6 +361,7 @@ trait SharedTestObjects extends MockFactory {
       summary,
       active,
       orphan,
+      proposed,
       version = 0L,
       changeSetId = 0L,
       lastUpdated,
@@ -834,6 +842,7 @@ trait SharedTestObjects extends MockFactory {
     labels: Seq[String] = Seq.empty,
     active: Boolean = true,
     orphan: Boolean = false,
+    proposed: Boolean = false,
     version: Int = 1,
     changeSetId: Long = 1,
     lastUpdated: Timestamp = defaultTimestamp,
@@ -849,6 +858,7 @@ trait SharedTestObjects extends MockFactory {
       summary,
       active,
       orphan,
+      proposed,
       version,
       changeSetId,
       lastUpdated,

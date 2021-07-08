@@ -728,6 +728,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     }
 
     def networkNodeInfo(nodeId: Long, name: String, tags: Tags): NetworkNodeInfo = {
+
       NetworkNodeInfo(
         networkNode = NetworkNode(
           node = Node(rawNode(nodeId, tags = tags, latLonBefore)),
@@ -740,6 +741,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
         roleConnection = false,
         definedInRelation = false,
         definedInRoute = false,
+        proposed = false,
         referencedInRoutes = Seq.empty,
         integrityCheck = None,
         lastSurvey = None,
