@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeName
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
@@ -10,20 +11,19 @@ class NodeAnalyzerTest extends UnitTest {
 
   test("name - single name") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_ref" -> "01")
-    nodeAnalyzer.name(tags) should equal("01")
+    nodeAnalyzer.name(Tags.from("rwn_ref" -> "01")) should equal("01")
+    nodeAnalyzer.name(Tags.from("proposed:rwn_ref" -> "01")) should equal("01")
   }
 
   test("name - single name - not normalized") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_ref" -> "1")
-    nodeAnalyzer.name(tags) should equal("01")
+    nodeAnalyzer.name(Tags.from("rwn_ref" -> "1")) should equal("01")
   }
 
   test("name - multiple names") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
-    nodeAnalyzer.name(tags) should equal("01 / 02")
+    nodeAnalyzer.name(Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")) should equal("01 / 02")
+    nodeAnalyzer.name(Tags.from("proposed:rwn_ref" -> "01", "rcn_ref" -> "02")) should equal("01 / 02")
   }
 
   test("name - empty string when no name") {
@@ -33,16 +33,54 @@ class NodeAnalyzerTest extends UnitTest {
 
   test("name - ??n_name") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_name" -> "01")
-    nodeAnalyzer.name(tags) should equal("01")
+    nodeAnalyzer.name(Tags.from("rwn_name" -> "01")) should equal("01")
+    nodeAnalyzer.name(Tags.from("proposed:rwn_name" -> "01")) should equal("01")
   }
 
   test("names - single name") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_ref" -> "01")
-    nodeAnalyzer.names(tags) should equal(
+    nodeAnalyzer.names(Tags.from("rwn_ref" -> "01")) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01", None)
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          None,
+          proposed = false
+        )
+      )
+    )
+    nodeAnalyzer.names(Tags.from("proposed:rwn_ref" -> "01")) should equal(
+      Seq(
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          None,
+          proposed = true
+        )
+      )
+    )
+    nodeAnalyzer.names(Tags.from("rwn_name" -> "01")) should equal(
+      Seq(
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          Some("01"),
+          proposed = false
+        )
+      )
+    )
+    nodeAnalyzer.names(Tags.from("proposed:rwn_name" -> "01")) should equal(
+      Seq(
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          Some("01"),
+          proposed = true
+        )
       )
     )
   }
@@ -52,18 +90,36 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "1")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01", None)
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          None,
+          proposed = false
+        )
       )
     )
   }
 
   test("names - multiple names") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
+    val tags = Tags.from("rwn_ref" -> "01", "proposed:rcn_ref" -> "02")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01", None),
-        NodeName(ScopedNetworkType.rcn, "02", None)
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          None,
+          proposed = false
+        ),
+        NodeName(
+          NetworkType.cycling,
+          NetworkScope.regional,
+          "02",
+          None,
+          proposed = true
+        )
       )
     )
   }
@@ -75,11 +131,23 @@ class NodeAnalyzerTest extends UnitTest {
 
   test("names - ??n_name") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val tags = Tags.from("rwn_name" -> "01", "rcn_name" -> "02")
+    val tags = Tags.from("rwn_name" -> "01", "proposed:rcn_name" -> "02")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01", Some("01")),
-        NodeName(ScopedNetworkType.rcn, "02", Some("02"))
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          Some("01"),
+          proposed = false
+        ),
+        NodeName(
+          NetworkType.cycling,
+          NetworkScope.regional,
+          "02",
+          Some("02"),
+          proposed = true
+        )
       )
     )
   }
@@ -89,7 +157,13 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "01", "name:rwn_ref" -> "long name")
     nodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01", Some("long name")),
+        NodeName(
+          NetworkType.hiking,
+          NetworkScope.regional,
+          "01",
+          Some("long name"),
+          proposed = false
+        ),
       )
     )
   }
@@ -99,6 +173,9 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
     nodeAnalyzer.name(NetworkType.hiking, tags) should equal("01")
     nodeAnalyzer.name(NetworkType.cycling, tags) should equal("02")
+    val tags2 = Tags.from("proposed:rwn_ref" -> "01", "proposed:rcn_ref" -> "02")
+    nodeAnalyzer.name(NetworkType.hiking, tags2) should equal("01")
+    nodeAnalyzer.name(NetworkType.cycling, tags2) should equal("02")
   }
 
   test("name - for specific networkType - not normalized") {
@@ -155,5 +232,4 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("name:rwn_ref" -> "long name")
     nodeAnalyzer.scopedLongName(ScopedNetworkType.rwn, tags) should equal(Some("long name"))
   }
-
 }

@@ -8,13 +8,18 @@ import kpn.core.util.UnitTest
 class NodeNameJsonDeserializerTest extends UnitTest {
 
   test("deserializer") {
-    val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01","longName":"long name"}""", classOf[NodeName])
-    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", Some("long name")))
+    val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01","longName":"long name","proposed":true}""", classOf[NodeName])
+    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", Some("long name"), proposed = true))
   }
 
   test("deserializer - no long name") {
-    val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01"}""", classOf[NodeName])
-    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", None))
+    val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01","proposed":false}}""", classOf[NodeName])
+    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", None, proposed = false))
+  }
+
+  test("deserializer backward compatibility - proposed field missing") {
+    val nodeName = Json.value("""{"networkType":"hiking","networkScope":"regional","name":"01","longName":"long name"}""", classOf[NodeName])
+    nodeName should equal(NodeName(NetworkType.hiking, NetworkScope.regional, "01", Some("long name"), proposed = false))
   }
 
   test("deserializer backward compatibility") {
@@ -31,6 +36,6 @@ class NodeNameJsonDeserializerTest extends UnitTest {
         |      }
         |""".stripMargin
     val nodeName = Json.value(serialized, classOf[NodeName])
-    nodeName should equal(NodeName(NetworkType.cycling, NetworkScope.regional, "22", Some("long name")))
+    nodeName should equal(NodeName(NetworkType.cycling, NetworkScope.regional, "22", Some("long name"), proposed = false))
   }
 }

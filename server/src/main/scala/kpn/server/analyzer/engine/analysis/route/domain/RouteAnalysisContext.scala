@@ -20,6 +20,7 @@ case class RouteAnalysisContext(
   loadedRoute: LoadedRoute,
   orphan: Boolean,
   routeNodeInfos: Map[Long, RouteNodeInfo],
+  proposed: Boolean = false,
   facts: Seq[Fact] = Seq.empty,
   unexpectedNodeIds: Option[Seq[Long]] = None,
   unexpectedRelationIds: Option[Seq[Long]] = None,

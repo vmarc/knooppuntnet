@@ -164,6 +164,7 @@ class RouteAnalysisBuilder(
         summary,
         active = true,
         orphan = context.orphan,
+        proposed = context.proposed,
         context.loadedRoute.relation.version,
         context.loadedRoute.relation.changeSetId,
         lastUpdated,

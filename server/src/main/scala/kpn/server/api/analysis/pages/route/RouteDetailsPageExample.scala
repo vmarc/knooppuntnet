@@ -197,6 +197,7 @@ object RouteDetailsPageExample {
       ),
       active = false,
       orphan = true,
+      proposed = true,
       version = 1,
       changeSetId = 1,
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),

@@ -16,6 +16,7 @@ case class RouteInfo(
   summary: RouteSummary,
   active: Boolean,
   orphan: Boolean,
+  proposed: Boolean,
   version: Long,
   changeSetId: Long,
   lastUpdated: Timestamp,
@@ -26,6 +27,7 @@ case class RouteInfo(
   tiles: Seq[String],
   nodeRefs: Seq[Long]
 ) extends Tagable with WithId {
+
   def id: Long = summary.id
 
   def toRef: Ref = Ref(summary.id, summary.name)
@@ -35,6 +37,7 @@ case class RouteInfo(
     field("summary", summary).
     field("active", active).
     field("orphan", orphan).
+    field("proposed", proposed).
     field("version", version).
     field("changeSetId", changeSetId).
     field("lastUpdated", lastUpdated).
