@@ -27,7 +27,7 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "01")
     NodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01")
+        NodeName(ScopedNetworkType.rwn, "01", proposed = false)
       )
     )
   }
@@ -36,8 +36,8 @@ class NodeAnalyzerTest extends UnitTest {
     val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
     NodeAnalyzer.names(tags) should equal(
       Seq(
-        NodeName(ScopedNetworkType.rwn, "01"),
-        NodeName(ScopedNetworkType.rcn, "02")
+        NodeName(ScopedNetworkType.rwn, "01", proposed = false),
+        NodeName(ScopedNetworkType.rcn, "02", proposed = false)
       )
     )
   }

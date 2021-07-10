@@ -10,7 +10,15 @@ class NodeIntegrityAnalyzer(networkType: NetworkType, networkAnalysis: NetworkAn
 
   def analysis: Option[NodeIntegrityCheck] = {
     if (referencedInNetworkRelation && hasIntegrityCheck) {
-      Some(NodeIntegrityCheck(networkNode.name, networkNode.node.id, routesWithNodeReference.size, expectedRouteRelationCount, failed))
+      Some(
+        NodeIntegrityCheck(
+          networkNode.name,
+          networkNode.node.id,
+          routesWithNodeReference.size,
+          expectedRouteRelationCount,
+          failed
+        )
+      )
     }
     else {
       None

@@ -1,10 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network
 
-import kpn.api.common.NetworkExtraMemberNode
-import kpn.api.common.NetworkExtraMemberRelation
-import kpn.api.common.NetworkExtraMemberWay
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
+import kpn.api.common.{NetworkExtraMemberNode, NetworkExtraMemberRelation, NetworkExtraMemberWay}
+import kpn.api.custom.{NetworkType, Tags}
 import kpn.core.analysis.Network
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
@@ -12,12 +9,10 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.AccessibilityAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.{RouteTileAnalyzerImpl, TileCalculatorImpl}
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.scalamock.scalatest.MockFactory
 
@@ -25,7 +20,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
 
   test("relation without members") {
     val d = new TestData() {
-      relation(1)
+      relation(1, tags = Tags.from("network" -> "rwn"))
     }
     val network = analyze(d)
 
@@ -38,7 +33,11 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val d = new TestData() {
       networkNode(1001, "01")
       node(1002)
-      relation(1, Seq(newMember("node", 1001), newMember("node", 1002)))
+      relation(
+        1,
+        Seq(newMember("node", 1001), newMember("node", 1002)),
+        Tags.from("network" -> "rwn")
+      )
     }
     val network = analyze(d)
     network.facts.networkExtraMemberNode should equal(Some(Seq(NetworkExtraMemberNode(1002))))
@@ -48,7 +47,11 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
 
     val d = new TestData() {
       way(1)
-      relation(1, Seq(newMember("way", 1)))
+      relation(
+        1,
+        Seq(newMember("way", 1)),
+        Tags.from("network" -> "rwn")
+      )
     }
 
     val network = analyze(d)
@@ -65,7 +68,8 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
         Seq(
           newMember("relation", 10),
           newMember("relation", 20)
-        )
+        ),
+        Tags.from("network" -> "rwn")
       )
     }
 
@@ -79,11 +83,14 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
       relation(10, Seq(), newRouteTags("01-03"))
       relation(20, Seq(), newRouteTags("01-02"))
       relation(30, Seq(), newRouteTags("02-03"))
-      relation(1, Seq(
-        newMember("relation", 10, "forward"),
-        newMember("relation", 20, "backward"),
-        newMember("relation", 30)
-      )
+      relation(
+        1,
+        Seq(
+          newMember("relation", 10, "forward"),
+          newMember("relation", 20, "backward"),
+          newMember("relation", 30)
+        ),
+        Tags.from("network" -> "rwn")
       )
     }
 
@@ -100,11 +107,14 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
       relation(10, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-03"))
       relation(20, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02"))
       relation(30, Seq(), Tags.from("network" -> "rwn", "type" -> "route", "note" -> "02-03"))
-      relation(1, Seq(
-        newMember("relation", 10, "forward"),
-        newMember("relation", 20, "backward"),
-        newMember("relation", 30)
-      )
+      relation(
+        1,
+        Seq(
+          newMember("relation", 10, "forward"),
+          newMember("relation", 20, "backward"),
+          newMember("relation", 30)
+        ),
+        Tags.from("network" -> "rwn")
       )
     }
 

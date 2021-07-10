@@ -81,9 +81,9 @@ export class MainMapRouteStyle {
     let color = MainStyleColors.green;
     if ('unpaved' === surface) {
       if (proposed) {
-        color = MainStyleColors.orange;
-      } else {
         color = MainStyleColors.proposedUnpaved;
+      } else {
+        color = MainStyleColors.orange;
       }
     } else {
       if (proposed) {

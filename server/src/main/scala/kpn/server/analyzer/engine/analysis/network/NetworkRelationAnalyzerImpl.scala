@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network
 
-import kpn.api.custom.Relation
-import kpn.api.custom.Timestamp
+import kpn.api.custom.{Relation, ScopedNetworkType, Timestamp}
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.springframework.stereotype.Component
@@ -40,8 +39,19 @@ class NetworkRelationAnalyzerImpl(
 
     val elementIds = relationAnalyzer.toElementIds(relation)
 
+    val scopedNetworkTypeOption = ScopedNetworkType.all.find { scopedNetworkType =>
+      relation.tags.has("network", scopedNetworkType.key)
+    }
+
+    if (scopedNetworkTypeOption.isEmpty) {
+      throw new IllegalStateException("unknown scopedNetworkType in tags:" + relation.tags)
+    }
+
+    val scopedNetworkType = scopedNetworkTypeOption.get
+
     NetworkRelationAnalysis(
       country,
+      scopedNetworkType,
       nodes,
       routeRelations,
       networkRelations,

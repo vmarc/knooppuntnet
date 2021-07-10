@@ -24,8 +24,6 @@ import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeInfoBuilderImpl
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.matchers.should.Matchers
 
 class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestObjects {
 
@@ -737,6 +735,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
         roleConnection = false,
         definedInRelation = false,
         definedInRoute = false,
+        proposed = false,
         referencedInRoutes = Seq.empty,
         integrityCheck = None,
         lastSurvey = None,

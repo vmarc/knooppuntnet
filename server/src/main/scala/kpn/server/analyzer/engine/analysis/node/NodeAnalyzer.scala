@@ -1,30 +1,40 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeName
-import kpn.api.custom.NetworkType
-import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom.{NetworkType, ScopedNetworkType, Tags}
 
 object NodeAnalyzer {
 
   def hasNodeTag(tags: Tags): Boolean = {
     ScopedNetworkType.all.exists { scopedNetworkType =>
-      tags.has(scopedNetworkType.nodeTagKey)
+      tags.has(scopedNetworkType.nodeTagKey) || tags.has(scopedNetworkType.proposedNodeTagKey)
     }
   }
 
   def networkTypes(tags: Tags): Seq[NetworkType] = {
-    ScopedNetworkType.all.filter(n => tags.has(n.nodeTagKey)).map(_.networkType).distinct
+    ScopedNetworkType.all.filter { n =>
+      tags.has(n.nodeTagKey) || tags.has(n.proposedNodeTagKey)
+    }.map(_.networkType).distinct
   }
 
   def name(tags: Tags): String = {
-    ScopedNetworkType.all.flatMap(n => tags(n.nodeTagKey)).mkString(" / ")
+    ScopedNetworkType.all.flatMap { n =>
+      tags(n.nodeTagKey) match {
+        case None => tags(n.proposedNodeTagKey)
+        case Some(name) => Some(name)
+      }
+    }.mkString(" / ")
   }
 
   def names(tags: Tags): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      tags(scopedNetworkType.nodeTagKey).map { name =>
-        NodeName(scopedNetworkType, name)
+      tags(scopedNetworkType.nodeTagKey) match {
+        case Some(name) => Some(NodeName(scopedNetworkType, name, proposed = false))
+        case None =>
+          tags(scopedNetworkType.proposedNodeTagKey) match {
+            case Some(name) => Some(NodeName(scopedNetworkType, name, proposed = true))
+            case None => None
+          }
       }
     }
   }
@@ -34,5 +44,4 @@ object NodeAnalyzer {
       tags(scopedNetworkType.nodeTagKey)
     }.mkString(" / ")
   }
-
 }

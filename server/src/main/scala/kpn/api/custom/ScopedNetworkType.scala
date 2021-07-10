@@ -25,7 +25,9 @@ object ScopedNetworkType {
 
 case class ScopedNetworkType(networkScope: NetworkScope, networkType: NetworkType, key: String) {
 
-  def nodeTagKey: String = key + "_ref"
+  def nodeTagKey: String = s"${key}_ref"
+
+  def proposedNodeTagKey: String = s"proposed:${key}_ref"
 
   def expectedRouteRelationsTag: String = "expected_" + key + "_route_relations"
 

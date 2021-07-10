@@ -187,7 +187,7 @@ class AnalysisContext(
 
   private def isNodeNetworkType(networkType: NetworkType, node: RawNode): Boolean = {
     ScopedNetworkType.all.filter(_.networkType == networkType).exists { scopedNetworkType =>
-      node.tags.has(scopedNetworkType.nodeTagKey)
+      node.tags.has(scopedNetworkType.nodeTagKey) || node.tags.has(scopedNetworkType.proposedNodeTagKey)
     }
   }
 

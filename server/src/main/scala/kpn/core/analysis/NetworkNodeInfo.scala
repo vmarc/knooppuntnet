@@ -11,6 +11,7 @@ case class NetworkNodeInfo(
   roleConnection: Boolean,
   definedInRelation: Boolean,
   definedInRoute: Boolean,
+  proposed: Boolean,
   referencedInRoutes: Seq[RouteInfo],
   integrityCheck: Option[NodeIntegrityCheck],
   lastSurvey: Option[Day],

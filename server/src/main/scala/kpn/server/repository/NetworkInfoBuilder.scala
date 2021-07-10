@@ -38,6 +38,7 @@ class NetworkInfoBuilder {
         info.roleConnection,
         info.definedInRelation,
         info.definedInRoute,
+        info.proposed,
         info.networkNode.node.timestamp,
         info.lastSurvey,
         routeReferences,

@@ -49,7 +49,13 @@ class OrphanNodeTest03 extends AbstractTest {
             orphan = true,
             Some(Country.nl),
             "01",
-            Seq(NodeName(ScopedNetworkType(NetworkScope.regional, NetworkType.hiking), "01")),
+            Seq(
+              NodeName(
+                ScopedNetworkType(NetworkScope.regional, NetworkType.hiking),
+                "01",
+                proposed = false
+              )
+            ),
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),

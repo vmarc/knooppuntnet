@@ -18,6 +18,7 @@ case class NetworkInfoNode(
   roleConnection: Boolean,
   definedInRelation: Boolean,
   definedInRoute: Boolean,
+  proposed: Boolean,
   timestamp: Timestamp,
   lastSurvey: Option[Day],
   routeReferences: Seq[Ref],

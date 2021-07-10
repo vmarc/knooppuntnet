@@ -11,7 +11,6 @@ import kpn.core.analysis.Network
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
@@ -132,12 +131,28 @@ class NetworkAnalyzerImpl(
           case Failure(_) => facts :+ Fact.NodeInvalidSurveyDate
         }
 
+        val proposed = networkNode.node.tags("state") match {
+          case Some(state) =>
+            if ("proposed" == state) {
+              true
+            }
+            else {
+              val nodeTagKey = networkRelationAnalysis.scopedNetworkType.proposedNodeTagKey
+              networkNode.node.tags.has(nodeTagKey)
+            }
+
+          case None =>
+            val nodeTagKey = networkRelationAnalysis.scopedNetworkType.proposedNodeTagKey
+            networkNode.node.tags.has(nodeTagKey)
+        }
+
         NetworkNodeInfo(
           networkNode,
           connection,
           roleConnection,
           definedInRelation,
           definedInRoute,
+          proposed,
           referencedInRoutes,
           integrityCheck,
           lastSurveyDate,

@@ -13,9 +13,6 @@ import { NetworkType } from '@api/custom/network-type';
       <kpn-node-connection-indicator
         [node]="node"
       ></kpn-node-connection-indicator>
-      <kpn-role-connection-indicator
-        [node]="node"
-      ></kpn-role-connection-indicator>
       <kpn-integrity-indicator
         [node]="node"
         [networkType]="networkType"
