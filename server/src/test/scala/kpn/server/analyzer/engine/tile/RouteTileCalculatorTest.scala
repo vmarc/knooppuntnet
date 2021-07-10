@@ -7,11 +7,11 @@ import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
 
-class RouteTileAnalyzerTest extends UnitTest {
+class RouteTileCalculatorTest extends UnitTest {
 
   val t = new TestTileSetup()
 
-  val analyzer = new RouteTileAnalyzerImpl(t.tileCalculator)
+  val calculator = new RouteTileCalculatorImpl(t.tileCalculator)
 
   test("single tile route") {
 
@@ -43,7 +43,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       )
     )
 
-    val tiles = analyzer.tiles(13, tileRoute)
+    val tiles = calculator.tiles(13, tileRoute)
 
     tiles.map(_.name).toSet should equal(
       Set(
@@ -77,7 +77,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       )
     )
 
-    val tiles = analyzer.tiles(13, tileRoute)
+    val tiles = calculator.tiles(13, tileRoute)
 
     tiles.map(_.name).toSet should equal(
       Set(
@@ -112,7 +112,7 @@ class RouteTileAnalyzerTest extends UnitTest {
       )
     )
 
-    val tiles = analyzer.tiles(13, tileRoute)
+    val tiles = calculator.tiles(13, tileRoute)
 
     tiles.map(_.name).toSet should equal(
       Set(

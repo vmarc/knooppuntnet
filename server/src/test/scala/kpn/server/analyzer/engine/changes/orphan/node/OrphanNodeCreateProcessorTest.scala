@@ -8,7 +8,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.AnalysisRepository
@@ -66,7 +66,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val tileCalculator = new TileCalculatorImpl()
     val nodeAnalyzer = new NodeAnalyzerImpl()
-    val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
+    val nodeTileAnalyzer = new NodeTileCalculatorImpl(tileCalculator)
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
     (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
     val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)

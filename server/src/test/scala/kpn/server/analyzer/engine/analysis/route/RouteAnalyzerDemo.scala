@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.RouteLoaderImpl
 
@@ -25,14 +25,14 @@ object RouteAnalyzerDemo {
     routeLoader.loadRoute(Timestamp(2018, 5, 24, 8, 59, 2), 101673) match {
       case Some(loadedRoute) =>
         val tileCalculator = new TileCalculatorImpl()
-        val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+        val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
         val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
         val nodeAnalyzer = new NodeAnalyzerImpl()
         val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
         val routeAnalyzer = new MasterRouteAnalyzerImpl(
           analysisContext,
           routeLocationAnalyzer,
-          routeTileAnalyzer,
+          routeTileCalculator,
           routeNodeInfoAnalyzer
         )
         val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)

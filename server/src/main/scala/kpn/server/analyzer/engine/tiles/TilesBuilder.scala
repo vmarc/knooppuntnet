@@ -5,8 +5,8 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
@@ -17,8 +17,8 @@ class TilesBuilder(
   bitmapTileFileRepository: TileFileRepository,
   vectorTileFileRepository: TileFileRepository,
   tileFileBuilder: TileFileBuilder,
-  nodeTileAnalyzer: NodeTileAnalyzer,
-  routeTileAnalyzer: RouteTileAnalyzer
+  nodeTileCalculator: NodeTileCalculator,
+  routeTileCalculator: RouteTileCalculator
 ) {
 
   private val log = Log(classOf[TilesBuilder])
@@ -167,7 +167,7 @@ class TilesBuilder(
       val map = scala.collection.mutable.Map[String, TileNodes]()
 
       allNodes.foreach { node =>
-        val tiles = nodeTileAnalyzer.tiles(z, node)
+        val tiles = nodeTileCalculator.tiles(z, node)
         tiles.foreach { tile =>
           map(tile.name) = map.get(tile.name) match {
             case Some(tileNodes) => TileNodes(tile, tileNodes.nodes :+ node)
@@ -185,7 +185,7 @@ class TilesBuilder(
 
     var progress: Int = 0
     tileRoutes.zipWithIndex.foreach { case (tileRoute, index) =>
-      val tiles = routeTileAnalyzer.tiles(z, tileRoute)
+      val tiles = routeTileCalculator.tiles(z, tileRoute)
       val currentProgress = (100d * (index + 1) / tileRoutes.size).round.toInt
       if (currentProgress != progress) {
         progress = currentProgress

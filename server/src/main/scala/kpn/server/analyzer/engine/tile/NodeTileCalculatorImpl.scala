@@ -5,7 +5,7 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.springframework.stereotype.Component
 
 @Component
-class NodeTileAnalyzerImpl(tileCalculator: TileCalculator) extends NodeTileAnalyzer {
+class NodeTileCalculatorImpl(tileCalculator: TileCalculator) extends NodeTileCalculator {
 
   override def tiles(z: Int, latLon: LatLon): Seq[Tile] = {
 

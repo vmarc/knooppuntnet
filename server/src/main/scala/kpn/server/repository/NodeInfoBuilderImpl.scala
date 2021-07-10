@@ -12,7 +12,7 @@ import kpn.core.analysis.NetworkNodeInfo
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.stereotype.Component
 
@@ -22,7 +22,7 @@ import scala.util.Success
 @Component
 class NodeInfoBuilderImpl(
   nodeAnalyzer: NodeAnalyzer,
-  nodeTileAnalyzer: NodeTileAnalyzer,
+  nodeTileCalculator: NodeTileCalculator,
   nodeLocationAnalyzer: NodeLocationAnalyzer
 ) extends NodeInfoBuilder {
 
@@ -45,7 +45,7 @@ class NodeInfoBuilderImpl(
 
     val tiles = {
       val tiles = (ZoomLevel.nodeMinZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
-        nodeTileAnalyzer.tiles(z, LatLonImpl(latitude, longitude))
+        nodeTileCalculator.tiles(z, LatLonImpl(latitude, longitude))
       }
       tiles.flatMap { tile =>
         nodeNames.map(_.networkType).map { networkType =>

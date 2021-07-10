@@ -19,14 +19,14 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 
 import scala.collection.mutable.ListBuffer
 
 class RouteAnalysisBuilder(
   context: RouteAnalysisContext,
-  routeTileAnalyzer: RouteTileAnalyzer
+  routeTileCalculator: RouteTileCalculator
 ) {
 
   val facts: ListBuffer[Fact] = ListBuffer[Fact]()
@@ -179,7 +179,7 @@ class RouteAnalysisBuilder(
       val tiles = (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
         val b = new TileDataRouteBuilder(z)
         b.build(routeInfo).toSeq.flatMap { tileDataRoute =>
-          routeTileAnalyzer.tiles(z, tileDataRoute)
+          routeTileCalculator.tiles(z, tileDataRoute)
         }
       }
       tiles.map(tile => s"${routeInfo.summary.networkType.name}-${tile.name}")

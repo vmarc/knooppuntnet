@@ -34,7 +34,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
@@ -44,7 +44,7 @@ import scala.annotation.tailrec
 class MasterRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
   routeLocationAnalyzer: RouteLocationAnalyzer,
-  routeTileAnalyzer: RouteTileAnalyzer,
+  routeTileCalculator: RouteTileCalculator,
   routeNodeInfoAnalyzer: RouteNodeInfoAnalyzer
 ) extends MasterRouteAnalyzer {
 
@@ -91,7 +91,7 @@ class MasterRouteAnalyzerImpl(
   @tailrec
   private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): RouteAnalysis = {
     if (analyzers.isEmpty) {
-      new RouteAnalysisBuilder(context, routeTileAnalyzer).build
+      new RouteAnalysisBuilder(context, routeTileCalculator).build
     }
     else {
       val newContext = analyzers.head.analyze(context)

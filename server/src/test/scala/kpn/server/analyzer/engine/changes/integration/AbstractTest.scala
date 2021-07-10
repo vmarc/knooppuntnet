@@ -64,8 +64,8 @@ import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcesso
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
 import kpn.server.analyzer.load.NetworkLoader
@@ -123,14 +123,14 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val routeLoader = new RouteLoaderImpl(overpassQueryExecutor, countryAnalyzer)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
     private val tileCalculator = new TileCalculatorImpl()
-    private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-    private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+    private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileAnalyzer,
+      routeTileCalculator,
       routeNodeInfoAnalyzer
     )
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
@@ -158,7 +158,11 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       networkRouteAnalyzer
     )
 
-    private val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
+    private val nodeInfoBuilder = new NodeInfoBuilderImpl(
+      nodeAnalyzer,
+      nodeTileCalculator,
+      nodeLocationAnalyzer
+    )
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
       analysisContext,
@@ -167,7 +171,10 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       nodeInfoBuilder
     )
 
-    private val tileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
+    private val tileChangeAnalyzer = new TileChangeAnalyzerImpl(
+      taskRepository,
+      routeTileCalculator
+    )
 
     private val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
       analysisContext,

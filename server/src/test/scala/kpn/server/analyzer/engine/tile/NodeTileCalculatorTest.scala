@@ -6,11 +6,11 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TestTileSetup
 
-class NodeTileAnalyzerTest extends UnitTest {
+class NodeTileCalculatorTest extends UnitTest {
 
   val t = new TestTileSetup()
 
-  val analyzer = new NodeTileAnalyzerImpl(t.tileCalculator)
+  val calculator = new NodeTileCalculatorImpl(t.tileCalculator)
 
   test("test") {
 
@@ -40,6 +40,6 @@ class NodeTileAnalyzerTest extends UnitTest {
   }
 
   private def assertTile(latLon: LatLon, expected: Seq[TestTile]): Unit = {
-    analyzer.tiles(t.zoomLevel, latLon).map(_.name).map(t.tilesByName).map(_.id).toSet should equal(expected.map(_.id).toSet)
+    calculator.tiles(t.zoomLevel, latLon).map(_.name).map(t.tilesByName).map(_.id).toSet should equal(expected.map(_.id).toSet)
   }
 }

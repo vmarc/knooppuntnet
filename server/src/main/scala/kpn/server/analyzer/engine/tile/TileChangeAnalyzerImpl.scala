@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class TileChangeAnalyzerImpl(
   taskRepository: TaskRepository,
-  routeTileAnalyzer: RouteTileAnalyzer
+  routeTileCalculator: RouteTileCalculator
 ) extends TileChangeAnalyzer {
 
   def analyzeRoute(routeAnalysis: RouteAnalysis): Unit = {
@@ -72,7 +72,7 @@ class TileChangeAnalyzerImpl(
   }
 
   private def tileNames(networkType: NetworkType, zoomLevel: Int, tileDataRoute: TileDataRoute): Seq[String] = {
-    routeTileAnalyzer.tiles(zoomLevel, tileDataRoute).map(tile => s"${networkType.name}-${tile.name}")
+    routeTileCalculator.tiles(zoomLevel, tileDataRoute).map(tile => s"${networkType.name}-${tile.name}")
   }
 
   private def generateTasks(tileNames: Seq[String]): Unit = {
@@ -80,5 +80,4 @@ class TileChangeAnalyzerImpl(
       taskRepository.add(s"${TileTask.prefix}$tileName")
     }
   }
-
 }

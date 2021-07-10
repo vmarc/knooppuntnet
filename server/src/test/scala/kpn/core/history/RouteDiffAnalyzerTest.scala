@@ -26,7 +26,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.scalamock.scalatest.MockFactory
@@ -437,14 +437,14 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     val analysisContext = new AnalysisContext(oldTagging = true)
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
-    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileAnalyzer,
+      routeTileCalculator,
       routeNodeInfoAnalyzer
     )
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)

@@ -34,8 +34,8 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
@@ -130,7 +130,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     }
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeTileAnalyzer = new RouteTileAnalyzer {
+    val routeTileAnalyzer = new RouteTileCalculator {
       def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = Seq.empty
     }
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(
@@ -188,7 +188,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
       )
 
       val nodeInfoBuilder = {
-        val nodeTileAnalyzer = new NodeTileAnalyzer {
+        val nodeTileAnalyzer = new NodeTileCalculator {
           def tiles(z: Int, latLon: LatLon): Seq[Tile] = Seq.empty
         }
         val nodeLocationAnalyzer = new NodeLocationAnalyzer {

@@ -5,12 +5,12 @@ import kpn.core.poi.PoiInfo
 import kpn.server.analyzer.engine.tiles.domain.TilePois
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzer
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
 
 class PoiTilesBuilder(
   tileBuilder: PoiVectorTileBuilder,
   tileFileRepository: TileFileRepository,
-  nodeTileAnalyzer: NodeTileAnalyzer
+  nodeTileCalculator: NodeTileCalculator
 ) {
 
   private val log = Log(classOf[PoiTilesBuilder])
@@ -66,7 +66,7 @@ class PoiTilesBuilder(
       PoiConfiguration.instance.poiDefinition(poi.layer) match {
         case Some(poiDefinition) =>
           if (z >= poiDefinition.minLevel) {
-            val tiles = nodeTileAnalyzer.tiles(z, poi)
+            val tiles = nodeTileCalculator.tiles(z, poi)
             tiles.foreach { tile =>
               map(tile.name) = map.get(tile.name) match {
                 case Some(tilePois) => TilePois(tile, tilePois.pois :+ poi)

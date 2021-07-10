@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import org.springframework.stereotype.Component
 
 @Component
-class RouteTileAnalyzerImpl(tileCalculator: TileCalculator) extends RouteTileAnalyzer {
+class RouteTileCalculatorImpl(tileCalculator: TileCalculator) extends RouteTileCalculator {
 
   override def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = {
 

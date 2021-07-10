@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedRoute
 
@@ -27,7 +27,7 @@ object CaseStudy {
     val (data, scopedNetworkType, routeRelation) = load(filename)
     val analysisContext = new AnalysisContext(oldTagging = oldTagging)
     val tileCalculator = new TileCalculatorImpl()
-    val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+    val routeTileAnalyzer = new RouteTileCalculatorImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)

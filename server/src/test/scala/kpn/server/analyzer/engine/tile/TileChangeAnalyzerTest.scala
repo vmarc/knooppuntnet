@@ -12,9 +12,9 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
   test("analyzeRoute") {
 
     val taskRepository = stub[TaskRepository]
-    val routeTileAnalyzer = new RouteTileAnalyzerImpl(new TileCalculatorImpl())
+    val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())
 
-    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
+    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileCalculator)
 
     val routeAnalysis = CaseStudy.routeAnalysis("1029885", oldTagging = true)
 
@@ -42,9 +42,9 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
   test("no tile task when no change with impact") {
 
     val taskRepository = stub[TaskRepository]
-    val routeTileAnalyzer = new RouteTileAnalyzerImpl(new TileCalculatorImpl())
+    val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())
 
-    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
+    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileCalculator)
 
     val routeAnalysis = CaseStudy.routeAnalysis("1029885")
 
@@ -56,9 +56,9 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
   test("tile tasks when change with impact") {
 
     val taskRepository = stub[TaskRepository]
-    val routeTileAnalyzer = new RouteTileAnalyzerImpl(new TileCalculatorImpl())
+    val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())
 
-    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileAnalyzer)
+    val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileCalculator)
 
     val routeAnalysis = CaseStudy.routeAnalysis("1029885", oldTagging = true)
 
@@ -70,5 +70,4 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
 
     (taskRepository.add _).verify(*).repeated(14)
   }
-
 }

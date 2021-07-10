@@ -36,8 +36,8 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.Elements
-import kpn.server.analyzer.engine.tile.NodeTileAnalyzerImpl
-import kpn.server.analyzer.engine.tile.RouteTileAnalyzerImpl
+import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.NetworkInitialLoader
 import kpn.server.analyzer.load.NetworkInitialLoaderImpl
@@ -98,9 +98,9 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val nodeRepository = new NodeRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
 
   private val tileCalculator = new TileCalculatorImpl()
-  private val nodeTileAnalyzer = new NodeTileAnalyzerImpl(tileCalculator)
-  val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
-  private val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
+  private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+  val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileCalculator, nodeLocationAnalyzer)
+  private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
     analysisDatabase,
@@ -153,7 +153,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val routeAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,
     routeLocationAnalyzer,
-    routeTileAnalyzer,
+    routeTileCalculator,
     routeNodeInfoAnalyzer
   )
 
