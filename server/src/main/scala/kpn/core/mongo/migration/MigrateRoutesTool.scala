@@ -1,13 +1,17 @@
 package kpn.core.mongo.migration
 
 import kpn.api.common.route.RouteInfo
+import kpn.api.custom.ScopedNetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.mongo.Database
 import kpn.core.mongo.NodeRouteRef
 import kpn.core.mongo.migration.MigrateRoutesTool.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsBuilder
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.repository.RouteRepositoryImpl
 
 object MigrateRoutesTool {
@@ -28,7 +32,6 @@ object MigrateRoutesTool {
 class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Database) {
 
   private val routeRepository = new RouteRepositoryImpl(null, couchDatabase, false)
-  private val routeLabelsBuilder = new RouteLabelsBuilder()
 
   def migrate(): Unit = {
     val batchSize = 25
@@ -63,7 +66,7 @@ class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Dat
           routeInfo.nodeRefs
         }
 
-        val labels = routeLabelsBuilder.build(routeInfo)
+        val labels = generateRouteLabels(routeInfo)
 
         routeInfo.copy(
           _id = routeInfo.id,
@@ -97,5 +100,24 @@ class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Dat
     if (refs.nonEmpty) {
       database.nodeRouteRefs.insertMany(refs)
     }
+  }
+
+  private def generateRouteLabels(routeInfo: RouteInfo): Seq[String] = {
+    val context = RouteAnalysisContext(
+      new AnalysisContext(),
+      LoadedRoute(
+        routeInfo.summary.country,
+        ScopedNetworkType(routeInfo.summary.networkScope, routeInfo.summary.networkType),
+        null,
+        null
+      ),
+      routeInfo.orphan,
+      Map.empty,
+      facts = routeInfo.facts,
+      lastSurvey = routeInfo.lastSurvey,
+      active = routeInfo.active,
+      locationAnalysis = Some(routeInfo.analysis.locationAnalysis)
+    )
+    new RouteLabelsAnalyzer(context).analyze.labels
   }
 }

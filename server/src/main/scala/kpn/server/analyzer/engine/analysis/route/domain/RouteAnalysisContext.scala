@@ -20,6 +20,7 @@ case class RouteAnalysisContext(
   loadedRoute: LoadedRoute,
   orphan: Boolean,
   routeNodeInfos: Map[Long, RouteNodeInfo],
+  active: Boolean = true,
   proposed: Boolean = false,
   facts: Seq[Fact] = Seq.empty,
   unexpectedNodeIds: Option[Seq[Long]] = None,
@@ -37,7 +38,8 @@ case class RouteAnalysisContext(
   streets: Option[Seq[String]] = None,
   geometryDigest: Option[String] = None,
   locationAnalysis: Option[RouteLocationAnalysis] = None,
-  lastSurvey: Option[Day] = None
+  lastSurvey: Option[Day] = None,
+  labels: Seq[String] = Seq.empty
 ) {
 
   def scopedNetworkType: ScopedNetworkType = loadedRoute.scopedNetworkType

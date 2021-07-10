@@ -14,8 +14,8 @@ class RedundantNodeTest extends UnitTest {
 
     route.facts should contain(RouteRedundantNodes)
 
-    route.facts should not contain(RouteNotBackward)
-    route.facts should not contain(RouteNotForward)
-    route.facts should not contain(RouteNotContinious)
+    route.facts should not contain RouteNotBackward
+    route.facts should not contain RouteNotForward
+    route.facts should not contain RouteNotContinious
   }
 }

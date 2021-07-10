@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteFragmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
@@ -79,7 +80,8 @@ class MasterRouteAnalyzerImpl(
         routeLocationAnalyzer,
         IncompleteOkRouteAnalyzer,
         FactCombinationAnalyzer,
-        RouteLastSurveyAnalyzer
+        RouteLastSurveyAnalyzer,
+        RouteLabelsAnalyzer // this always should be the last analyzer
       )
 
       doAnalyze(analyzers, context)
