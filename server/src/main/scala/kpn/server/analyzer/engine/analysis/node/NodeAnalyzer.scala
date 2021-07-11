@@ -41,7 +41,10 @@ object NodeAnalyzer {
 
   def name(networkType: NetworkType, tags: Tags): String = {
     networkType.scopedNetworkTypes.flatMap { scopedNetworkType =>
-      tags(scopedNetworkType.nodeTagKey)
+      tags(scopedNetworkType.nodeTagKey) match {
+        case None => tags(scopedNetworkType.proposedNodeTagKey)
+        case Some(name) => Some(name)
+      }
     }.mkString(" / ")
   }
 }

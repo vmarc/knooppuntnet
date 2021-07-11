@@ -16,14 +16,15 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         *ngIf="isBlue()"
         i18n="@@proposed-indicator.blue.title"
       >
-        OK - Proposed route
+        OK - Proposed node
       </span>
       <markdown
         dialog-body
         *ngIf="isBlue()"
         i18n="@@proposed-indicator.blue.text"
       >
-        This node has _"state=proposed"_. The node is assumed to still be in a planning phase and likely not signposted in the field.
+        This network node is _"proposed"_. The node is assumed to still be in
+        a planning phase and likely not signposted in the field.
       </markdown>
 
       <span
@@ -38,7 +39,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         *ngIf="isGray()"
         i18n="@@proposed-indicator.gray.text"
       >
-        This network node does not have _"state=proposed"_. It is an active node.
+        This network node is not _"proposed"_. It is an active node.
       </markdown>
     </kpn-indicator-dialog>
   `,

@@ -28,6 +28,25 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
     tileDataNode.surveyDate should equal(None)
   }
 
+  test("proposed:rwn_ref") {
+
+    val node = newNodeInfo(
+      id = 1001,
+      tags = Tags.from("proposed:rwn_ref" -> "01"),
+      latitude = "1",
+      longitude = "2"
+    )
+
+    val tileDataNode = new TileDataNodeBuilder().build(NetworkType.hiking, node)
+    tileDataNode.id should equal(1001)
+    tileDataNode.layer should equal("node")
+    tileDataNode.ref should equal(Some("01"))
+    tileDataNode.name should equal(None)
+    tileDataNode.latitude should equal("1")
+    tileDataNode.longitude should equal("2")
+    tileDataNode.surveyDate should equal(None)
+  }
+
   test("rwn_ref = 'o'") {
 
     val node: NodeInfo = newNodeInfo(
@@ -69,12 +88,40 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
     tileDataNode.name should equal(Some("name"))
   }
 
+  test("proposed:rwn_name") {
+
+    val node = newNodeInfo(
+      id = 1001,
+      tags = Tags.from(
+        "proposed:rwn_name" -> "name"
+      )
+    )
+
+    val tileDataNode = new TileDataNodeBuilder().build(NetworkType.hiking, node)
+    tileDataNode.ref should equal(None)
+    tileDataNode.name should equal(Some("name"))
+  }
+
   test("rwn:name") {
 
     val node = newNodeInfo(
       id = 1001,
       tags = Tags.from(
         "rwn:name" -> "name"
+      )
+    )
+
+    val tileDataNode = new TileDataNodeBuilder().build(NetworkType.hiking, node)
+    tileDataNode.ref should equal(None)
+    tileDataNode.name should equal(Some("name"))
+  }
+
+  test("proposed:rwn:name") {
+
+    val node = newNodeInfo(
+      id = 1001,
+      tags = Tags.from(
+        "proposed:rwn:name" -> "name"
       )
     )
 

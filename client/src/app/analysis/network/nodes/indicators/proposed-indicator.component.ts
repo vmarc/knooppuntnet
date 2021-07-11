@@ -25,7 +25,7 @@ export class ProposedIndicatorComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.color = this.node.tags.get('state') == 'proposed' ? 'blue' : 'gray';
+    this.color = this.node.proposed ? 'blue' : 'gray';
   }
 
   onOpenDialog() {

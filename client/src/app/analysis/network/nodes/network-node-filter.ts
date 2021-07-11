@@ -17,7 +17,7 @@ export class NetworkNodeFilter {
     new BooleanFilter<NetworkNodeDetail>(
       'proposed',
       this.criteria.proposed,
-      (row) => row.tags.get("state") === 'proposed',
+      (row) => row.proposed,
       this.update({ ...this.criteria, proposed: null }),
       this.update({ ...this.criteria, proposed: true }),
       this.update({ ...this.criteria, proposed: false })

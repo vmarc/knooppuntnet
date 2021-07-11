@@ -56,8 +56,7 @@ import { List } from 'immutable';
 
       <p *ngIf="isProposed()">
         <markdown i18n="@@node.proposed.explanation">
-          This network node has _"state=proposed"_. The node is assumed to still
-          be in a planning phase and likely not signposted in the field.
+          This network node is assumed to still be in a planning phase and likely not signposted in the field.
         </markdown>
       </p>
     </div>
@@ -98,7 +97,12 @@ export class NodeSummaryComponent {
   }
 
   isProposed() {
-    const state = this.nodeInfo.tags.get('state');
-    return 'proposed' === state;
+    if (this.nodeInfo.tags.get('state') === 'proposed') {
+      return true;
+    }
+    if (this.nodeInfo.tags.tags.find(tag => tag.key.startsWith("proposed:"))) {
+      return true;
+    }
+    return false;
   }
 }

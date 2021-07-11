@@ -52,7 +52,7 @@ class NetworkNodesPageBuilderImpl(
         networkInfoNode.roleConnection,
         networkInfoNode.definedInRelation,
         networkInfoNode.definedInRoute,
-        networkInfoNode.tags.has("state", "proposed"),
+        networkInfoNode.proposed,
         networkInfoNode.timestamp,
         networkInfoNode.lastSurvey,
         networkInfoNode.integrityCheck.map(_.expected.toString).getOrElse("-"),

@@ -2,16 +2,11 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.NodeInfo
 import kpn.api.common.network.NetworkInfoNode
-import kpn.api.custom.Fact
-import kpn.api.custom.FactLevel
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom._
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 
-import scala.util.Failure
-import scala.util.Success
+import scala.util.{Failure, Success}
 
 class TileDataNodeBuilder {
 
@@ -32,19 +27,48 @@ class TileDataNodeBuilder {
 
   private def doBuild(networkType: NetworkType, id: Long, latitude: String, longitude: String, orphan: Boolean, facts: Seq[Fact], tags: Tags): TileDataNode = {
 
+    var proposed = false
+
     val refOption: Option[String] = {
       prioritizedScopes.flatMap { scope =>
-        tags(s"${scope.letter}${networkType.letter}n_ref").filterNot(_ == "o")
+        tags(s"${scope.letter}${networkType.letter}n_ref").filterNot(_ == "o") match {
+          case Some(ref) => Some(ref)
+          case None =>
+            tags(s"proposed:${scope.letter}${networkType.letter}n_ref").filterNot(_ == "o") match {
+              case None => None
+              case Some(ref) =>
+                proposed = true
+                Some(ref)
+            }
+        }
       }.headOption
     }
 
     val nameOption: Option[String] = prioritizedScopes.flatMap { scope =>
-      tags(s"${scope.letter}${networkType.letter}n_name")
+      tags(s"${scope.letter}${networkType.letter}n_name") match {
+        case Some(name) => Some(name)
+        case None =>
+          tags(s"proposed:${scope.letter}${networkType.letter}n_name") match {
+            case None => None
+            case Some(name) =>
+              proposed = true
+              Some(name)
+          }
+      }
     }.headOption match {
       case Some(value) => Some(value)
       case None =>
         prioritizedScopes.flatMap { scope =>
-          tags(s"${scope.letter}${networkType.letter}n:name")
+          tags(s"${scope.letter}${networkType.letter}n:name") match {
+            case Some(name) => Some(name)
+            case None =>
+              tags(s"proposed:${scope.letter}${networkType.letter}n:name") match {
+                case None => None
+                case Some(name) =>
+                  proposed = true
+                  Some(name)
+              }
+          }
         }.headOption
     }
 
@@ -69,6 +93,11 @@ class TileDataNodeBuilder {
       case Failure(_) => None
     }
 
+    val state = tags("state") match {
+      case None => if (proposed) Some("proposed") else None
+      case Some(s) => Some(s)
+    }
+
     TileDataNode(
       id,
       ref,
@@ -77,7 +106,7 @@ class TileDataNodeBuilder {
       longitude,
       layer(orphan, facts),
       surveyDate,
-      tags("state")
+      state
     )
   }
 

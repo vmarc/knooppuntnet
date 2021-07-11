@@ -1,12 +1,14 @@
 // this class is generated, please do not modify
 
-import { ScopedNetworkType } from '../custom/scoped-network-type';
+import {ScopedNetworkType} from '../custom/scoped-network-type';
 
 export class NodeName {
   constructor(
     readonly scopedNetworkType: ScopedNetworkType,
-    readonly name: string
-  ) {}
+    readonly name: string,
+    readonly proposed: boolean
+  ) {
+  }
 
   public static fromJSON(jsonObject: any): NodeName {
     if (!jsonObject) {
@@ -14,7 +16,8 @@ export class NodeName {
     }
     return new NodeName(
       ScopedNetworkType.fromJSON(jsonObject.scopedNetworkType),
-      jsonObject.name
+      jsonObject.name,
+      jsonObject.proposed
     );
   }
 }
