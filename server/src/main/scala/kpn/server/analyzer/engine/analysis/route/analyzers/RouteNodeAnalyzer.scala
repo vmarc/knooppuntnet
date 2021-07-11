@@ -115,10 +115,18 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
           .filter(routeNodeInfo => startNodeName.equals(routeNodeInfo.name))
           .distinct
 
-        val redundantRouteNodeInfos = orderedRouteNodeInfos
-          .filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name))
-          .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
-          .distinct
+        val redundantRouteNodeInfos = {
+          val all = orderedRouteNodeInfos
+            .filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name))
+            .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
+            .distinct
+          if (context.proposed) {
+            all.filter(isProposed)
+          }
+          else {
+            all.filterNot(isProposed)
+          }
+        }
 
         val alternateNameMap = nodeUtil.alternateNames(facts, freeRouteNodeInfos)
 
@@ -131,10 +139,18 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteWithStartNodeName(facts: ListBuffer[Fact], startNodeName: String): RouteNodeAnalysis = {
     val startNodes = filterByNodeName(orderedRouteNodeInfos.distinct, startNodeName)
-    val redundantRouteNodeInfos = orderedRouteNodeInfos
-      .filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name))
-      .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
-      .distinct
+    val redundantRouteNodeInfos = {
+      val all = orderedRouteNodeInfos
+        .filter(routeNodeInfo => !startNodeName.equals(routeNodeInfo.name))
+        .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
+        .distinct
+      if (context.proposed) {
+        all.filter(isProposed)
+      }
+      else {
+        all.filterNot(isProposed)
+      }
+    }
     val alternateNameMap = nodeUtil.alternateNames(facts, startNodes)
     RouteNodeAnalysis(
       startNodes = toRouteNodes(alternateNameMap, startNodes),
@@ -144,10 +160,18 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteWithEndNodeName(facts: ListBuffer[Fact], endNodeName: String): RouteNodeAnalysis = {
     val endNodes = filterByNodeName(orderedRouteNodeInfos.distinct, endNodeName)
-    val redundantRouteNodeInfos = orderedRouteNodeInfos
-      .filter(routeNodeInfo => !endNodeName.equals(routeNodeInfo.name))
-      .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
-      .distinct
+    val redundantRouteNodeInfos = {
+      val all = orderedRouteNodeInfos
+        .filter(routeNodeInfo => !endNodeName.equals(routeNodeInfo.name))
+        .filter(routeNodeInfo => !"*".equals(routeNodeInfo.name))
+        .distinct
+      if (context.proposed) {
+        all.filter(isProposed)
+      }
+      else {
+        all.filterNot(isProposed)
+      }
+    }
     val alternateNameMap = nodeUtil.alternateNames(facts, endNodes)
     RouteNodeAnalysis(
       endNodes = toRouteNodes(alternateNameMap, endNodes),
@@ -218,12 +242,20 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       filterByNodeName(orderedRouteNodeInfos.distinct, endNodeName)
     }
 
-    val redundantRouteNodeInfos = orderedRouteNodeInfos.filter { routeNodeInfo =>
-      val name = routeNodeInfo.name
-      !name.equals(startNodeName) &&
-        !name.equals(endNodeName) &&
-        !name.equals("*")
-    }.distinct
+    val redundantRouteNodeInfos = {
+      val all = orderedRouteNodeInfos.filter { routeNodeInfo =>
+        val name = routeNodeInfo.name
+        !name.equals(startNodeName) &&
+          !name.equals(endNodeName) &&
+          !name.equals("*")
+      }.distinct
+      if (context.proposed) {
+        all.filter(isProposed)
+      }
+      else {
+        all.filterNot(isProposed)
+      }
+    }
 
     val alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
       nodeUtil.alternateNames(facts, startNodes) ++
@@ -265,5 +297,11 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val definedInRelation = nodesInRelation.contains(routeNodeInfo)
     val definedInWay = nodesInWays.contains(routeNodeInfo)
     RouteNode(null, routeNodeInfo.node, routeNodeInfo.name, alternateName, definedInRelation, definedInWay)
+  }
+
+  private def isProposed(routeNodeInfo: RouteNodeInfo): Boolean = {
+    routeNodeInfo.node.tags.has("state", "proposed") ||
+      routeNodeInfo.node.tags.has(context.loadedRoute.scopedNetworkType.proposedNodeRefTagKey) ||
+      routeNodeInfo.node.tags.has(context.loadedRoute.scopedNetworkType.proposedNodeNameTagKey)
   }
 }

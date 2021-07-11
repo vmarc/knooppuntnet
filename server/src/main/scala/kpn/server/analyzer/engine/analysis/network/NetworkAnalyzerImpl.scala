@@ -114,11 +114,22 @@ class NetworkAnalyzerImpl(
           }
         }
 
+        val nodeProposed = networkNode.tags("state") match {
+          case Some(state) => "proposed" == state || hasProposedLifecycleTag(networkNode, loadedNetwork.scopedNetworkType)
+          case None => hasProposedLifecycleTag(networkNode, loadedNetwork.scopedNetworkType)
+        }
+
         val facts = if (!definedInRelation && !connection) {
-          Seq(Fact.NodeMemberMissing)
+          val networkProposed = loadedNetwork.relation.tags.has("state", "proposed")
+          if ((networkProposed && nodeProposed) || (!networkProposed && !nodeProposed)) {
+            Seq(Fact.NodeMemberMissing)
+          }
+          else {
+            Seq.empty
+          }
         }
         else {
-          Seq()
+          Seq.empty
         }
 
         val surveyDateTry = SurveyDateAnalyzer.analyze(networkNode.node.tags)
@@ -132,18 +143,13 @@ class NetworkAnalyzerImpl(
           case Failure(_) => facts :+ Fact.NodeInvalidSurveyDate
         }
 
-        val proposed = networkNode.tags("state") match {
-          case Some(state) => "proposed" == state || hasProposedLifecycleTag(networkNode, loadedNetwork.scopedNetworkType)
-          case None => hasProposedLifecycleTag(networkNode, loadedNetwork.scopedNetworkType)
-        }
-
         NetworkNodeInfo(
           networkNode,
           connection,
           roleConnection,
           definedInRelation,
           definedInRoute,
-          proposed,
+          nodeProposed,
           referencedInRoutes,
           integrityCheck,
           lastSurveyDate,

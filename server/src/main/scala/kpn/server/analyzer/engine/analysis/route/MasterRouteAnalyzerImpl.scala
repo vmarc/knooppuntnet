@@ -69,7 +69,7 @@ class MasterRouteAnalyzerImpl(
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer,
         RouteNameAnalyzer,
-        RouteNodeAnalyzer,
+        RouteNodeAnalyzer, // has ProposedAnalyzer as prerequisite
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
         RouteFragmentAnalyzer,

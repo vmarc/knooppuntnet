@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
@@ -411,7 +412,69 @@ class RouteNodeAnalyzerTest extends UnitTest {
     )
   }
 
-  private def analyze(d: RouteTestData): String = {
+  test("extra 'proposed' nodes in regular route") {
+    val d = new RouteTestData("01-02") {
+      node(1, "01")
+      node(2, "02")
+      rawNode(
+        newRawNode(
+          3,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "rwn_ref" -> "03",
+            "state" -> "proposed"
+          )
+        )
+      )
+      rawNode(
+        newRawNode(
+          4,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "proposed:rwn_ref" -> "04",
+          )
+        )
+      )
+      memberWay(11, "", 1, 3, 4, 2)
+    }
+
+    analyze(d) should equal(
+      "Start=(1/01/01/W),End=(2/02/02/W)"
+    )
+  }
+
+  test("extra regular nodes in proposed route") {
+    val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "proposed")) {
+      rawNode(
+        newRawNode(
+          1,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "rwn_ref" -> "01",
+            "state" -> "proposed"
+          )
+        )
+      )
+      rawNode(
+        newRawNode(
+          2,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "proposed:rwn_ref" -> "02",
+          )
+        )
+      )
+      node(3, "03")
+      node(4, "04")
+      memberWay(11, "", 1, 3, 4, 2)
+    }
+
+    analyze(d, proposed = true) should equal(
+      "Start=(1/01/01/W),End=(2/02/02/W)"
+    )
+  }
+
+  private def analyze(d: RouteTestData, proposed: Boolean = false): String = {
 
     val data = d.data
 
@@ -431,7 +494,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
       analysisContext,
       loadedRoute,
       orphan = false,
-      routeNodeInfos
+      routeNodeInfos,
+      proposed = proposed,
     )
 
     val newContext = RouteNodeAnalyzer.analyze(RouteNameAnalyzer.analyze(context))

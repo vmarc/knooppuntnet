@@ -53,6 +53,51 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     network.facts.networkExtraMemberNode should equal(Some(Seq(NetworkExtraMemberNode(1002))))
   }
 
+  test("networkExtraMemberNode - not generated when proposed node in non-proposed network") {
+    val d = new TestData() {
+      networkNode(1001, "01")
+      node(1002, Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "02"))
+      node(1003, Tags.from("network:type" -> "node_network", "proposed:rwn_name" -> "03"))
+      node(1004, Tags.from("network:type" -> "node_network", "rwn_ref" -> "04", "state" -> "proposed"))
+      node(1005, Tags.from("network:type" -> "node_network", "rwn_name" -> "05", "state" -> "proposed"))
+      relation(
+        1,
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("node", 1003),
+          newMember("node", 1004),
+          newMember("node", 1005)
+        )
+      )
+    }
+    val network = analyze(d)
+    network.facts.networkExtraMemberNode should equal(None)
+  }
+
+  test("networkExtraMemberNode - not generated when non-proposed node in proposed network") {
+    val d = new TestData() {
+      networkNode(1001, "01")
+      node(1002, Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "02"))
+      node(1003, Tags.from("network:type" -> "node_network", "proposed:rwn_name" -> "03"))
+      node(1004, Tags.from("network:type" -> "node_network", "rwn_ref" -> "04", "state" -> "proposed"))
+      node(1005, Tags.from("network:type" -> "node_network", "rwn_name" -> "05", "state" -> "proposed"))
+      relation(
+        1,
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("node", 1003),
+          newMember("node", 1004),
+          newMember("node", 1005)
+        ),
+        tags = Tags.from("state" -> "proposed")
+      )
+    }
+    val network = analyze(d)
+    network.facts.networkExtraMemberNode should equal(None)
+  }
+
   test("networkExtraMemberWay relation without members") {
 
     val d = new TestData() {
