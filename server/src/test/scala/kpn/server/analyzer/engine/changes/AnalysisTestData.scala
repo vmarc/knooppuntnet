@@ -38,7 +38,7 @@ class AnalysisTestData extends SharedTestObjects {
     networkRelation(
       newNetworkId,
       "",
-      Seq()
+      Seq.empty
     )
 
     // watched network

@@ -58,7 +58,7 @@ class SurfaceTagsTool(database: Database) {
 
       val tags: Seq[Tag] = routeLoader.loadRoute(Timestamp(2018, 8, 1), routeId) match {
         case Some(loadedRoute) => loadedRoute.relation.wayMembers.flatMap(_.way.tags.tags)
-        case None => Seq()
+        case None => Seq.empty
       }
 
       tags.foreach { tag =>

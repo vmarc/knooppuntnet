@@ -38,7 +38,7 @@ class RouteChangeInfoBuilder {
               allSegments.flatMap(s => Seq(s.p1, s.p2))
             }
           case None =>
-            Seq()
+            Seq.empty
         }
         Bounds.from(latLons)
       }
@@ -66,7 +66,7 @@ class RouteChangeInfoBuilder {
 
       val routeData = routeChange.before.get
       val ways = WayGeometry.from(routeData)
-      val geometryDiff = new GeometryDiffAnalyzer().analysis(Seq(), ways)
+      val geometryDiff = new GeometryDiffAnalyzer().analysis(Seq.empty, ways)
       val comment = changeSetInfo.flatMap(_.tags("comment"))
 
       val bounds = {
@@ -101,7 +101,7 @@ class RouteChangeInfoBuilder {
 
       val routeData = routeChange.after.get
       val ways = WayGeometry.from(routeData)
-      val geometryDiff = new GeometryDiffAnalyzer().analysis(Seq(), ways)
+      val geometryDiff = new GeometryDiffAnalyzer().analysis(Seq.empty, ways)
       val comment = changeSetInfo.flatMap(_.tags("comment"))
 
       val bounds = {

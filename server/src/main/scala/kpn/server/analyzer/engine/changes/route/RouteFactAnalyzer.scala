@@ -34,7 +34,7 @@ class RouteFactAnalyzer(
       Seq(fact)
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 }

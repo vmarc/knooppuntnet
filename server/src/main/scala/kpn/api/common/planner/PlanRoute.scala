@@ -17,7 +17,7 @@ case class PlanRoute(
         sinkNode,
         sourceNode,
         meters,
-        Seq(),
+        Seq.empty,
         streets
       )
     }

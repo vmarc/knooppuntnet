@@ -123,7 +123,7 @@ class LongdistanceRouteAnalyzerTool(
         afterRoute.osmSegments
       }
       else {
-        Seq()
+        Seq.empty
       }
 
       val change = LongdistanceRouteChange(

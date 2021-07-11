@@ -182,7 +182,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
               longitude = networkNode.node.longitude,
               lastUpdated = networkNode.node.timestamp,
               tags = networkNode.node.tags,
-              facts = Seq()
+              facts = Seq.empty
             )
           )
           loadNodeChange(networkNode)
@@ -372,7 +372,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     def subsets: Seq[Subset] = {
       networkNode.country match {
-        case None => Seq()
+        case None => Seq.empty
         case Some(c) =>
           val networkTypes = NetworkType.all.filter { networkType =>
             config.analysisContext.isValidNetworkNode(networkType, networkNode.node.raw)

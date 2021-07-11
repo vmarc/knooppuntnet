@@ -159,7 +159,7 @@ class TilesBuilder(
 
   private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode], orphanNodes: Seq[NodeInfo]): Map[String, TileNodes] = {
     if (z < ZoomLevel.nodeMinZoom) {
-      Map()
+      Map.empty
     }
     else {
       val allNodes = nodes ++ orphanNodes.map(node => new TileDataNodeBuilder().build(networkType, node))

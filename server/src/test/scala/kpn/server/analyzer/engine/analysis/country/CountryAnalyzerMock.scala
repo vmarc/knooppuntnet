@@ -11,7 +11,7 @@ class CountryAnalyzerMock(relationAnalyzer: RelationAnalyzer) extends CountryAna
       Seq(Country.nl)
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 

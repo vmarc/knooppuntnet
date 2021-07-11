@@ -21,7 +21,7 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
     val routeGeometries: Seq[Geometry] = toGeometries(routeMap)
 
     val candidates: Seq[LocationSelector] = locationConfiguration.locations.flatMap { location =>
-      doLocate(routeGeometries, Seq(), location)
+      doLocate(routeGeometries, Seq.empty, location)
     }.toVector
 
     val locationSelectorCandidates = candidates.map { candidate =>
@@ -65,7 +65,7 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
       }
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 

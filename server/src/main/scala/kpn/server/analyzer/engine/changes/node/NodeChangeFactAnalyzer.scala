@@ -35,7 +35,7 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
       Seq(fact)
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 }

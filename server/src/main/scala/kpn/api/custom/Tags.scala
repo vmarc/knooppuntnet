@@ -2,7 +2,7 @@ package kpn.api.custom
 
 object Tags {
 
-  val empty: Tags = Tags(Seq())
+  val empty: Tags = Tags(Seq.empty)
 
   def from(tags: (String, String)*): Tags = {
     Tags(tags.map(a => Tag(a._1, a._2)))

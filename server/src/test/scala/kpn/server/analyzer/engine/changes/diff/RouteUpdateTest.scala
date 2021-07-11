@@ -30,7 +30,7 @@ class RouteUpdateTest extends UnitTest with SharedTestObjects {
           members = Seq.empty,
           tags = Tags.empty
         ),
-        Seq()
+        Seq.empty
       ),
       route = newRouteInfo(
         summary = newRouteSummary(

@@ -25,13 +25,13 @@ class AnalysisDataDiffReporter {
     if (differences.nonEmpty) {
       Seq(s"$title differences:") ++ differences
     } else {
-      Seq()
+      Seq.empty
     }
   }
 
   private def dataDiff(title: String, left: ElementIdMap, right: ElementIdMap): Seq[String] = {
     if (left.ids.isEmpty && right.ids.isEmpty) {
-      Seq()
+      Seq.empty
     } else {
 
       val leftIds = left.ids.toSet
@@ -57,7 +57,7 @@ class AnalysisDataDiffReporter {
       }
 
       if (leftOnly.isEmpty && rightOnly.isEmpty && diffs.isEmpty) {
-        Seq()
+        Seq.empty
       }
       else {
         Seq("  " + title + ":") ++ leftOnly ++ rightOnly ++ diffs
@@ -71,7 +71,7 @@ class AnalysisDataDiffReporter {
     val rightOnly = right -- left
 
     if (leftOnly.isEmpty && rightOnly.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       Seq(
@@ -85,7 +85,7 @@ class AnalysisDataDiffReporter {
     if (ids.nonEmpty) {
       Seq(s"$title = " + ids.toSeq.sorted.mkString(", "))
     } else {
-      Seq()
+      Seq.empty
     }
   }
 
@@ -95,13 +95,13 @@ class AnalysisDataDiffReporter {
       Seq("Orphan node differences:") ++ differences
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 
   private def orphanNodeDiff(title: String, left: OrphanNodesData, right: OrphanNodesData): Seq[String] = {
     if (left.ids.isEmpty && right.ids.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       val leftIds = left.ids.toSet

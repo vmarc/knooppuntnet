@@ -10,7 +10,7 @@ class GpxRoute() {
 
   def trackSegments(ways: Seq[Way]): Seq[GpxSegment] = {
     if (ways.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else if (ways.size == 1) {
       val trackPoints = ways.head.nodes.map(toTrackPoint)

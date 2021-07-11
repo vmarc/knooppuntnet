@@ -73,7 +73,7 @@ class NetworkUpdateNodeTest01 extends AbstractTest {
     (tc.routeRepository.save _).verify(*).never()
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should equal(
+        nodeInfo.copy(tiles = Seq.empty) should equal(
           newNodeInfo(
             1002,
             orphan = true,

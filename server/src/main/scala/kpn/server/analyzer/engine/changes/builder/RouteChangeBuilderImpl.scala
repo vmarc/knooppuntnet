@@ -59,7 +59,7 @@ class RouteChangeBuilderImpl(
           Seq(Fact.WasOrphan)
         }
         else {
-          Seq()
+          Seq.empty
         }
       ).flatten
 

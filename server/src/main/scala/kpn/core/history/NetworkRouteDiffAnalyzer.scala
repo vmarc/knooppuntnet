@@ -43,7 +43,7 @@ class NetworkRouteDiffAnalyzer(beforeSnapshot: NetworkSnapshot, afterSnapshot: N
       Seq(Fact.LostRouteTags)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     val update = RouteUpdate(

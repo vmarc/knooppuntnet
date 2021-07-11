@@ -47,7 +47,7 @@ class LocalFileSystem(val baseDir: String) extends FileSystem {
       FsUtils.sortFiles(files.toIndexedSeq.map(file => new LocalFileSystem.LocalFile(file)))
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 

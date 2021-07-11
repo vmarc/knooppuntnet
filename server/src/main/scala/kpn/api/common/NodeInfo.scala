@@ -52,7 +52,7 @@ case class NodeInfo(
   def subsets: Seq[Subset] = {
     country match {
       case Some(c) => names.map(_.scopedNetworkType.networkType).map(networkType => Subset(c, networkType))
-      case None => Seq()
+      case None => Seq.empty
     }
   }
 

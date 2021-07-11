@@ -217,7 +217,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
       timestamp,
       timestamp,
       timestamp,
-      Seq()
+      Seq.empty
     )
   )
 }

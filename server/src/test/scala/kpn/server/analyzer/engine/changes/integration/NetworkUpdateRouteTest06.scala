@@ -247,7 +247,7 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
                 )
               )
             ),
-            facts = Seq(),
+            facts = Seq.empty,
             happy = true,
             impact = true,
             locationHappy = true,

@@ -52,15 +52,15 @@ class OrphanNodeTest05 extends AbstractTest {
             orphan = true,
             Some(Country.nl),
             "",
-            Seq(),
+            Seq.empty,
             "0",
             "0",
             Timestamp(2015, 8, 11, 0, 0, 0),
             None,
             Tags.empty,
-            Seq(),
+            Seq.empty,
             None,
-            Seq()
+            Seq.empty
           )
         )
         true

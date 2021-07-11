@@ -81,7 +81,7 @@ class ClassAnalyzer {
           }
         }
 
-      case _ => Seq()
+      case _ => Seq.empty
     }
 
     ClassInfo(

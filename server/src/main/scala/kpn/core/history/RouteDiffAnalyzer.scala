@@ -31,7 +31,7 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
       Seq(Fact.LostRouteTags)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     RouteUpdate(

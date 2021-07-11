@@ -32,7 +32,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeRouteMembers(routeNodeAnalysis: RouteNodeAnalysis): Seq[RouteMember] = {
     // map with key Node.id and value node number
-    val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map()
+    val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map.empty
     val nodeNumberIterator = (1 to 10000).iterator
     val validRouteMembers: Seq[Member] = context.loadedRoute.relation.members.filter { member =>
       context.analysisContext.isValidNetworkMember(context.loadedRoute.scopedNetworkType, member)

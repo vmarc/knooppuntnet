@@ -9,14 +9,14 @@ class RouteAnalyzerTest extends UnitTest {
     analysis.route.facts shouldBe empty
 
     analysis.route.summary.name should equal("")
-    analysis.route.summary.nodeNames should equal(Seq())
+    analysis.route.summary.nodeNames should equal(Seq.empty)
 
     analysis.routeNodeAnalysis.startNodes should equal(
-      Seq()
+      Seq.empty
     )
 
     analysis.routeNodeAnalysis.endNodes should equal(
-      Seq()
+      Seq.empty
     )
 
   }

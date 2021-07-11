@@ -11,5 +11,5 @@ case class NotTagContains(tagKey: String, tagValues: String*) extends TagExpress
     }
   }
 
-  def tagKeys: Seq[String] = Seq()
+  def tagKeys: Seq[String] = Seq.empty
 }

@@ -208,7 +208,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
           )
         )
       ),
-      streets = Seq()
+      streets = Seq.empty
     )
   }
 

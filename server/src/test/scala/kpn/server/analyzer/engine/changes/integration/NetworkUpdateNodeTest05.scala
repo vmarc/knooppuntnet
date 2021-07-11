@@ -182,7 +182,7 @@ class NetworkUpdateNodeTest05 extends AbstractTest {
                   TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
                   TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None)
                 ),
-                Seq()
+                Seq.empty
               )
             ),
             removedFromNetwork = Seq(Ref(1, "name")),

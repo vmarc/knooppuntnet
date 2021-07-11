@@ -20,7 +20,7 @@ object LegEnd {
   def fromPlanString(planString: String, encoded: Boolean = true): Seq[LegEnd] = {
 
     if (planString.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
 

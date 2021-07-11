@@ -44,7 +44,7 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
 
   def alternateNames(facts: ListBuffer[Fact], routeNodeInfos: Seq[RouteNodeInfo]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
     if (routeNodeInfos.size < 2) {
-      Map()
+      Map.empty
     }
     else {
       val suffixes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

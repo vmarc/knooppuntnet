@@ -152,7 +152,7 @@ class NetworkUpdateNodeTest03 extends AbstractTest {
                 )
               )
             ),
-            networkNodes = RefDiffs(Seq(Ref(1002, "02")), Seq(), Seq()),
+            networkNodes = RefDiffs(Seq(Ref(1002, "02")), Seq.empty, Seq.empty),
             investigate = true
           )
         )

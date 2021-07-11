@@ -273,7 +273,7 @@ class NodeChangeBuilderImpl(
           else {
 
             val extraFacts: Seq[Fact] = if (isReferencedNode(after.id)) {
-              Seq()
+              Seq.empty
             }
             else {
               // the node is not referenced anymore by any network or route
@@ -337,11 +337,11 @@ class NodeChangeBuilderImpl(
         val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
         val connectionChanges = if (nodeBefore.connection == nodeAfter.connection) {
-          Seq()
+          Seq.empty
         }
         else {
           context.networkAfter match {
-            case None => Seq()
+            case None => Seq.empty
             case Some(network) =>
               Seq(
                 RefBooleanChange(Ref(network.id, network.name), nodeAfter.connection)
@@ -350,11 +350,11 @@ class NodeChangeBuilderImpl(
         }
 
         val roleConnectionChanges = if (nodeBefore.roleConnection == nodeAfter.roleConnection) {
-          Seq()
+          Seq.empty
         }
         else {
           context.networkAfter match {
-            case None => Seq()
+            case None => Seq.empty
             case Some(network) =>
               Seq(
                 RefBooleanChange(Ref(network.id, network.name), nodeAfter.roleConnection)
@@ -363,11 +363,11 @@ class NodeChangeBuilderImpl(
         }
 
         val definedInNetworkChanges = if (nodeBefore.definedInRelation == nodeAfter.definedInRelation) {
-          Seq()
+          Seq.empty
         }
         else {
           context.networkAfter match {
-            case None => Seq()
+            case None => Seq.empty
             case Some(network) =>
               Seq(
                 RefBooleanChange(Ref(network.id, network.name), nodeAfter.definedInRelation)

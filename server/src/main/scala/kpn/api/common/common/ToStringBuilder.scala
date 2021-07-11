@@ -35,7 +35,7 @@ case class ToStringBuilder(className: String, strings: Seq[String] = Seq.empty) 
 
   private def collection(name: String, coll: Seq[Any]): ToStringBuilder = {
     if (coll.isEmpty) {
-      fieldValue(name, s"Seq()")
+      fieldValue(name, "Seq()")
     }
     else {
       val elementString = coll.map(_.toString).mkString(",\n")

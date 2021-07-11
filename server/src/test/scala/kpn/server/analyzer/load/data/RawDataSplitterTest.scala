@@ -36,7 +36,7 @@ class RawDataSplitterTest extends UnitTest with SharedTestObjects {
           newMember("node", 10004)
         )
       )
-      route(103, "88-99", Seq()) // not referenced
+      route(103, "88-99", Seq.empty) // not referenced
 
       networkRelation(1, "name",
         Seq(
@@ -46,8 +46,8 @@ class RawDataSplitterTest extends UnitTest with SharedTestObjects {
           newMember("relation", 102)
         )
       )
-      networkRelation(2, "name", Seq())
-      networkRelation(3, "name", Seq())
+      networkRelation(2, "name", Seq.empty)
+      networkRelation(3, "name", Seq.empty)
     }.data.raw
 
     {

@@ -20,7 +20,7 @@ object DataBuilder {
 
 class DataBuilder(rawData: RawData, log: Log = DataBuilder.log) {
 
-  private val relationsMap: scala.collection.mutable.Map[Long, Relation] = scala.collection.mutable.Map()
+  private val relationsMap: scala.collection.mutable.Map[Long, Relation] = scala.collection.mutable.Map.empty
 
   private val nodes: Map[Long, Node] = buildNodes
 

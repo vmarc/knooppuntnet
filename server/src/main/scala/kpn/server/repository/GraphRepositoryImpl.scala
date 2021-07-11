@@ -26,7 +26,7 @@ class GraphRepositoryImpl(
 
   private val log = Log(classOf[GraphRepositoryImpl])
 
-  private var graphs: Map[String, NodeNetworkGraph] = Map()
+  private var graphs: Map[String, NodeNetworkGraph] = Map.empty
 
   @PostConstruct
   def loadGraphs(): Unit = {

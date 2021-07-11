@@ -110,7 +110,7 @@ object LongdistanceRouteAnalyzer {
 
   def toRouteSegments(routeRelation: Relation): Seq[LongdistanceRouteSegmentData] = {
 
-    val fragmentMap = withoutTags(new FragmentAnalyzer(Seq(), routeRelation.wayMembers).fragmentMap)
+    val fragmentMap = withoutTags(new FragmentAnalyzer(Seq.empty, routeRelation.wayMembers).fragmentMap)
     val segments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
 
     //    println(s"wayMembers.size=${routeRelation.wayMembers.size}")
