@@ -95,9 +95,9 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     }
 
     val routes = analyze(d).routes
-    routes(0).routeAnalysis.route.summary.name should equal("01-02")
+    routes.head.routeAnalysis.route.summary.name should equal("01-02")
     routes(1).routeAnalysis.route.summary.name should equal("01-03")
-    routes(0).role should equal(Some("backward"))
+    routes.head.role should equal(Some("backward"))
     routes(1).role should equal(Some("forward"))
   }
 
@@ -119,10 +119,53 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     }
 
     val routes = analyze(d, oldTagging = true).routes
-    routes(0).routeAnalysis.route.summary.name should equal("01-02")
+    routes.head.routeAnalysis.route.summary.name should equal("01-02")
     routes(1).routeAnalysis.route.summary.name should equal("01-03")
-    routes(0).role should equal(Some("backward"))
+    routes.head.role should equal(Some("backward"))
     routes(1).role should equal(Some("forward"))
+  }
+
+  test("networkExtraMemberNode - not generated when proposed node in non-proposed network") {
+    val d = new TestData() {
+      networkNode(1001, "01")
+      node(1002, Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "02"))
+      node(1003, Tags.from("network:type" -> "node_network", "rwn_ref" -> "04", "state" -> "proposed"))
+      relation(
+        1,
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("node", 1003)
+        ),
+        tags = Tags.from(
+          "network" -> "rwn"
+        )
+      )
+    }
+    val network = analyze(d)
+    network.facts.networkExtraMemberNode should equal(None)
+  }
+
+  test("networkExtraMemberNode - not generated when non-proposed node in proposed network") {
+    val d = new TestData() {
+      networkNode(1001, "01")
+      node(1002, Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "02"))
+      node(1003, Tags.from("network:type" -> "node_network", "rwn_ref" -> "04", "state" -> "proposed"))
+      relation(
+        1,
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("node", 1003)
+        ),
+        tags = Tags.from(
+          "network" -> "rwn",
+          "state" -> "proposed"
+        )
+      )
+    }
+    val network = analyze(d)
+    network.facts.networkExtraMemberNode should equal(None)
   }
 
   private def analyze(d: TestData, oldTagging: Boolean = false): Network = {

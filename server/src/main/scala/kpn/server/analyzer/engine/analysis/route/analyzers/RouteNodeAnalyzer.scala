@@ -1,16 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.WayMember
-import kpn.api.custom.Fact
-import kpn.api.custom.Fact.RouteNodeMissingInWays
-import kpn.api.custom.Fact.RouteRedundantNodes
+import kpn.api.common.data.{Node, NodeMember, WayMember}
+import kpn.api.custom.Fact.{RouteNodeMissingInWays, RouteRedundantNodes}
+import kpn.api.custom.{Fact, ScopedNetworkType}
 import kpn.core.util.Unique
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeUtil
-import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.node.{NodeAnalyzer, NodeUtil}
+import kpn.server.analyzer.engine.analysis.route.{RouteNode, RouteNodeAnalysis}
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 import scala.collection.mutable.ListBuffer
@@ -135,9 +130,17 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
         nodeUtil.alternateNames(facts, endNodes)
     }
 
-    val redundantNodes = nodeUtil.sortByName(
-      (nodes.toSet -- (startNodes ++ endNodes).toSet).filter(node => nameOf(node) != "*")
-    )
+    val redundantNodes = {
+      val all = nodeUtil.sortByName(
+        (nodes.toSet -- (startNodes ++ endNodes).toSet).filter(node => nameOf(node) != "*")
+      )
+      if (context.loadedRoute.relation.tags.has("state", "proposed")) {
+        all.filter(isProposed)
+      }
+      else {
+        all.filterNot(isProposed)
+      }
+    }
 
     def toRouteNodes(nodes: Seq[Node]): Seq[RouteNode] = {
       nodes.map(toRouteNode)
@@ -186,4 +189,15 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     NodeAnalyzer.name(context.networkType, node.tags)
   }
 
+  private def isProposed(node: Node): Boolean = {
+    val scopedNetworkTypeOption = ScopedNetworkType.all.find { scopedNetworkType =>
+      context.loadedRoute.relation.tags.has("network", scopedNetworkType.key)
+    }
+    if (scopedNetworkTypeOption.isEmpty) {
+      throw new IllegalStateException("unknown scopedNetworkType in tags:" + context.loadedRoute.relation.tags)
+    }
+    val scopedNetworkType = scopedNetworkTypeOption.get
+    node.tags.has("state", "proposed") ||
+      node.tags.has(scopedNetworkType.proposedNodeTagKey)
+  }
 }

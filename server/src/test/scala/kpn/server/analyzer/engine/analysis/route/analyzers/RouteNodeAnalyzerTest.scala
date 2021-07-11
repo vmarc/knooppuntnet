@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.NetworkType
+import kpn.api.custom.{NetworkType, Tags}
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -258,6 +258,59 @@ class RouteNodeAnalyzerTest extends UnitTest {
     analyze(d) should equal(
       "Start=(1/01/01/R)," +
         "End=(3/02/02/RW)"
+    )
+  }
+
+  test("extra 'proposed' nodes in regular route") {
+    val d = new RouteTestData("01-02") {
+      node(1, "01")
+      node(2, "02")
+      rawNode(
+        newRawNode(
+          3,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "rwn_ref" -> "03",
+            "state" -> "proposed"
+          )
+        )
+      )
+      rawNode(
+        newRawNode(
+          4,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "proposed:rwn_ref" -> "04",
+          )
+        )
+      )
+      memberWay(11, "", 1, 3, 4, 2)
+    }
+
+    analyze(d) should equal(
+      "Start=(1/01/01/W),End=(2/02/02/W)"
+    )
+  }
+
+  test("extra regular nodes in proposed route") {
+    val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "proposed")) {
+      rawNode(
+        newRawNode(
+          1,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "rwn_ref" -> "01",
+            "state" -> "proposed"
+          )
+        )
+      )
+      node(2, "02")
+      node(3, "03")
+      memberWay(11, "", 1, 3, 2)
+    }
+
+    analyze(d) should equal(
+      "Start=(1/01/01/W),End=(2/02/02/W)"
     )
   }
 
