@@ -22,12 +22,12 @@ class NodeLocationAnalyzerImpl(
     }
   }
   else {
-    Seq()
+    Seq.empty
   }
 
   def locate(latitude: String, longitude: String): Option[Location] = {
     locators.foreach { locators =>
-      val locationNames = doLocate(latitude, longitude, Seq(), locators)
+      val locationNames = doLocate(latitude, longitude, Seq.empty, locators)
       if (locationNames.isDefined) {
         return Some(Location(locationNames.get))
       }

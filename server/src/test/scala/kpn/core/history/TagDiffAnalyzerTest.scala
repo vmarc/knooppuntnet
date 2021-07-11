@@ -46,6 +46,6 @@ class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    new TagDiffAnalyzer(before, after, Seq()).diffs should equal(Some(expected))
+    new TagDiffAnalyzer(before, after, Seq.empty).diffs should equal(Some(expected))
   }
 }

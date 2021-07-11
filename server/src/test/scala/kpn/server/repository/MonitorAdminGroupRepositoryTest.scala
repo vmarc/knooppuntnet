@@ -11,7 +11,7 @@ class MonitorAdminGroupRepositoryTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
       val repository = new MonitorAdminGroupRepositoryImpl(database)
 
-      repository.groups() should equal(Seq())
+      repository.groups() should equal(Seq.empty)
       repository.group("name1") should equal(None)
 
       repository.saveGroup(MonitorGroup("name1", "description1"))
@@ -33,7 +33,7 @@ class MonitorAdminGroupRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       repository.deleteGroup("name2")
-      repository.groups() should equal(Seq())
+      repository.groups() should equal(Seq.empty)
 
     }
   }

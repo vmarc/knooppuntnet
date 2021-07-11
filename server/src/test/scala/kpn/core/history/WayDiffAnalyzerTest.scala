@@ -40,7 +40,7 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val nodes = Seq(newNode(1001), newNode(1002))
     val before = newWay(101, version = 2, nodes = nodes, tags = Tags.from("a" -> "1"))
     val after = newWay(101, version = 3, nodes = nodes, tags = Tags.from("a" -> "2"))
-    val expectedDiffs = TagDiffs(Seq(), Seq(TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))))
+    val expectedDiffs = TagDiffs(Seq.empty, Seq(TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))))
     val expected = WayUpdate(101, before.toMeta, after.toMeta, tagDiffs = Some(expectedDiffs))
     new WayDiffAnalyzer(before, after).analysis should equal(Some(expected))
   }

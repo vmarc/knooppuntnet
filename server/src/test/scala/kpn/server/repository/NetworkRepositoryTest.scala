@@ -33,7 +33,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(database)
       repository.gpx(1) should equal(None)
 
-      val gpxFile = GpxFile(1, "filename", Seq(), Seq())
+      val gpxFile = GpxFile(1, "filename", Seq.empty, Seq.empty)
       repository.saveGpxFile(gpxFile)
       repository.gpx(1) should equal(Some(gpxFile))
     }

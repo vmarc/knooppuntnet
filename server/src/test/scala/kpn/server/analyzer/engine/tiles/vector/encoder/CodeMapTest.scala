@@ -6,7 +6,7 @@ class CodeMapTest extends UnitTest {
 
   test("empty map") {
     val codeMap = new CodeMap()
-    codeMap.keys should equal(Seq())
+    codeMap.keys should equal(Seq.empty)
   }
 
   test("encode values") {

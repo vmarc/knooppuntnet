@@ -19,7 +19,7 @@ case class TrackPath(
 
   def trackPoints: Seq[TrackPoint] = {
     segments.headOption match {
-      case None => Seq()
+      case None => Seq.empty
       case Some(segment) => segment.source +: segments.flatMap(segment => segment.fragments.map(_.trackPoint))
     }
   }

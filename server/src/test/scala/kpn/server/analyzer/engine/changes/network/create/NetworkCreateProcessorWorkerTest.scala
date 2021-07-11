@@ -42,7 +42,7 @@ class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with Sh
 
     val loadedNetwork = {
       val d = new TestData() {
-        networkRelation(t.networkId, "name", Seq())
+        networkRelation(t.networkId, "name", Seq.empty)
       }
       LoadedNetwork(
         t.networkId,

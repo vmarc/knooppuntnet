@@ -214,7 +214,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
           TagDetail(TagDetailType.Update, "note", Some("01-02"), Some("02-01")),
           TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
         ),
-        Seq()
+        Seq.empty
       )
     )
 

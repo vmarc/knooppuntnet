@@ -15,18 +15,18 @@ class NodeRouteViewTest extends UnitTest with SharedTestObjects {
 
       val repo = new NodeRouteRepositoryImpl(database)
 
-      repo.save(NodeRoute(1001, "01", NetworkType.hiking, Seq(), 2, 3))
-      repo.save(NodeRoute(1002, "02", NetworkType.hiking, Seq(), 4, 5))
-      repo.save(NodeRoute(1003, "03", NetworkType.hiking, Seq(), 6, 7))
-      repo.save(NodeRoute(1004, "04", NetworkType.cycling, Seq(), 8, 9))
+      repo.save(NodeRoute(1001, "01", NetworkType.hiking, Seq.empty, 2, 3))
+      repo.save(NodeRoute(1002, "02", NetworkType.hiking, Seq.empty, 4, 5))
+      repo.save(NodeRoute(1003, "03", NetworkType.hiking, Seq.empty, 6, 7))
+      repo.save(NodeRoute(1004, "04", NetworkType.cycling, Seq.empty, 8, 9))
 
       val nodeRoutes = NodeRouteView.query(database, NetworkType.hiking, stale = false)
 
       nodeRoutes should equal(
         Seq(
-          NodeRoute(1001, "01", NetworkType.hiking, Seq(), 2, 3),
-          NodeRoute(1002, "02", NetworkType.hiking, Seq(), 4, 5),
-          NodeRoute(1003, "03", NetworkType.hiking, Seq(), 6, 7)
+          NodeRoute(1001, "01", NetworkType.hiking, Seq.empty, 2, 3),
+          NodeRoute(1002, "02", NetworkType.hiking, Seq.empty, 4, 5),
+          NodeRoute(1003, "03", NetworkType.hiking, Seq.empty, 6, 7)
         )
       )
     }

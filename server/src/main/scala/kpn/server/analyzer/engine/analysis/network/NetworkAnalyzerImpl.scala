@@ -117,7 +117,7 @@ class NetworkAnalyzerImpl(
           Seq(Fact.NodeMemberMissing)
         }
         else {
-          Seq()
+          Seq.empty
         }
 
         val surveyDateTry = SurveyDateAnalyzer.analyze(networkNode.node.tags)

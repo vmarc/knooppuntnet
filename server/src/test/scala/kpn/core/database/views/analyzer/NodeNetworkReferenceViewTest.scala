@@ -90,7 +90,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.save(buildInactiveNetwork())
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) should equal(Seq.empty)
     }
   }
 

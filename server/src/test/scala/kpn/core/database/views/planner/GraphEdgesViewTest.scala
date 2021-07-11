@@ -105,7 +105,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       isBroken = false,
       wayCount = 1,
       timestamp = Timestamp(2018, 8, 11),
-      nodeNames = Seq(),
+      nodeNames = Seq.empty,
       tags = tags
     )
 
@@ -118,9 +118,9 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       lastUpdated = Timestamp(2018, 8, 11),
       lastSurvey = None,
       tags = tags,
-      facts = Seq(),
+      facts = Seq.empty,
       analysis = newRouteInfoAnalysis(map = routeMap),
-      Seq()
+      Seq.empty
     )
   }
 }

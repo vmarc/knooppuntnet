@@ -81,7 +81,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      ReferenceView.query(database, "node", 1003, stale = false) should equal(Seq())
+      ReferenceView.query(database, "node", 1003, stale = false) should equal(Seq.empty)
 
       ReferenceView.query(database, "route", 10, stale = false) should equal(
         Seq(
@@ -89,7 +89,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      ReferenceView.query(database, "route", 11, stale = false) should equal(Seq())
+      ReferenceView.query(database, "route", 11, stale = false) should equal(Seq.empty)
     }
   }
 }

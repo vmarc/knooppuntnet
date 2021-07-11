@@ -27,7 +27,7 @@ class NodeLoaderImpl(
 
   override def loadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode] = {
     if (nodeIds.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       val datas = nodeIds.sliding(50, 50).toSeq.map { nodeIdSubset =>
@@ -43,7 +43,7 @@ class NodeLoaderImpl(
 
   override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[LoadedNode] = {
     if (nodeIds.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       val datas = nodeIds.sliding(50, 50).toSeq.map { nodeIdSubset =>

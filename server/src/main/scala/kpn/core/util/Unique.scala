@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 object Unique {
 
   def filter[A](objects: Seq[A]): Seq[A] = {
-    recursivelyFilter(Seq(), objects)
+    recursivelyFilter(Seq.empty, objects)
   }
 
   @tailrec
@@ -27,7 +27,7 @@ object Unique {
 
 
   def filter[A](objects: Seq[A], f: (A, A) => Boolean): Seq[A] = {
-    recursivelyFilter(Seq(), objects, f)
+    recursivelyFilter(Seq.empty, objects, f)
   }
 
   @tailrec

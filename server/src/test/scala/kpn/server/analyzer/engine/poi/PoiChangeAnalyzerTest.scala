@@ -340,7 +340,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
       }
     ).once()
 
-    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq())
+    t.taskRepository.all(PoiTileTask.prefix) should equal(Seq.empty)
   }
 
   test("known node poi not in scope anymore") {

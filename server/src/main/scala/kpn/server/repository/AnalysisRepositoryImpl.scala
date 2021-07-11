@@ -83,13 +83,13 @@ class AnalysisRepositoryImpl(
     val nodeInfos: Seq[NodeInfo] = network.nodes.map { node =>
 
       val facts: Seq[Fact] = node.integrityCheck match {
-        case None => Seq()
+        case None => Seq.empty
         case Some(nodeIntegrityCheck) =>
           if (nodeIntegrityCheck.failed) {
             Seq(Fact.IntegrityCheckFailed)
           }
           else {
-            Seq()
+            Seq.empty
           }
       }
 

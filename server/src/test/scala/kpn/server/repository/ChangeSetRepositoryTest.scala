@@ -29,8 +29,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("change set not found") {
     withChangeSetRepository { repository =>
-      repository.changeSet(0L, None, stale = false) should equal(Seq())
-      repository.changeSet(0L, Some(ReplicationId(1, 2, 3)), stale = false) should equal(Seq())
+      repository.changeSet(0L, None, stale = false) should equal(Seq.empty)
+      repository.changeSet(0L, Some(ReplicationId(1, 2, 3)), stale = false) should equal(Seq.empty)
     }
   }
 

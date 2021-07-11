@@ -140,8 +140,8 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
             nodeConnection = false,
             nodeRoleConnection = false,
             None,
-            Seq(),
-            Seq()
+            Seq.empty,
+            Seq.empty
           )
         )
       )

@@ -79,7 +79,7 @@ object Util {
   }
 
   def split[T](separator: T, list: Seq[T]): Seq[Seq[T]] = {
-    split(separator, list, Seq())
+    split(separator, list, Seq.empty)
   }
 
   @tailrec

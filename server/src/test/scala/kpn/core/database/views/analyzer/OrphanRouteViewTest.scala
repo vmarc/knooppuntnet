@@ -22,14 +22,14 @@ class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
   test("regular routes are not included in the view") {
     withDatabase { database =>
       val summaries = route(database, orphan = false)
-      summaries should equal(Seq())
+      summaries should equal(Seq.empty)
     }
   }
 
   test("inactive orphan routes are not included in the view") {
     withDatabase { database =>
       val summaries = route(database, orphan = true, active = false)
-      summaries should equal(Seq())
+      summaries should equal(Seq.empty)
     }
   }
 

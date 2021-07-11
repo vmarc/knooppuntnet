@@ -33,6 +33,6 @@ class RouteChangeTest extends UnitTest with SharedTestObjects {
     newRouteChange(
       before = None,
       after = None
-    ).subsets should equal(Seq())
+    ).subsets should equal(Seq.empty)
   }
 }

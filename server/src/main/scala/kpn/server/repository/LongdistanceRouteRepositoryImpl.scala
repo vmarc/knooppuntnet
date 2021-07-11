@@ -68,7 +68,7 @@ class LongdistanceRouteRepositoryImpl(
 //      .stale(true)
 //    val result = analysisDatabase.execute(query)
 //    result.rows.map(_.doc.longdistanceRouteChange)
-    Seq()
+    Seq.empty
   }
 
   override def change(routeId: Long, changeSetId: Long): Option[LongdistanceRouteChange] = {

@@ -4,7 +4,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.common.ToStringBuilder
 
 object RefChanges {
-  val empty: RefChanges = RefChanges(Seq(), Seq())
+  val empty: RefChanges = RefChanges(Seq.empty, Seq.empty)
 }
 
 case class RefChanges(

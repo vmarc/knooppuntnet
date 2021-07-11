@@ -309,7 +309,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     }
 
     val after = new TestData() {
-      networkRelation(1, "name", Seq())
+      networkRelation(1, "name", Seq.empty)
     }
 
     val analysis = new NetworkDiffAnalyzer(snapshot(before), snapshot(after)).diff
@@ -319,7 +319,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - way added") {
     val before = new TestData() {
-      networkRelation(1, "name", Seq())
+      networkRelation(1, "name", Seq.empty)
     }
 
     val after = new TestData() {
@@ -362,7 +362,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     }
 
     val after = new TestData() {
-      networkRelation(1, "name", Seq())
+      networkRelation(1, "name", Seq.empty)
     }
 
     val analysis = new NetworkDiffAnalyzer(snapshot(before), snapshot(after)).diff
@@ -372,7 +372,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - non route relation added") {
     val before = new TestData() {
-      networkRelation(1, "name", Seq())
+      networkRelation(1, "name", Seq.empty)
     }
 
     val after = new TestData() {

@@ -65,7 +65,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("no node references in routes") {
     withDatabase { database =>
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) should equal(Seq.empty)
     }
   }
 
@@ -91,7 +91,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      queryNode(database, 1001) should equal(Seq())
+      queryNode(database, 1001) should equal(Seq.empty)
     }
   }
 

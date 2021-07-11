@@ -16,9 +16,9 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       ).merged.subsets should equal(expected)
     }
 
-    assertMerged(Seq(), Seq(), Seq())
-    assertMerged(Seq(Subset.beHiking), Seq(), Seq(Subset.beHiking))
-    assertMerged(Seq(), Seq(Subset.nlBicycle), Seq(Subset.nlBicycle))
+    assertMerged(Seq.empty, Seq.empty, Seq.empty)
+    assertMerged(Seq(Subset.beHiking), Seq.empty, Seq(Subset.beHiking))
+    assertMerged(Seq.empty, Seq(Subset.nlBicycle), Seq(Subset.nlBicycle))
     assertMerged(Seq(Subset.beHiking), Seq(Subset.nlBicycle), Seq(Subset.beHiking, Subset.nlBicycle))
   }
 
@@ -70,7 +70,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       ).merged.addedToNetwork should equal(expected)
     }
 
-    assertMerged(Seq(), Seq(), Seq())
+    assertMerged(Seq.empty, Seq.empty, Seq())
     assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq(), Seq(Ref(2, "2"), Ref(3, "3")))
     assertMerged(Seq(), Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2")))
     assertMerged(Seq(Ref(2, "2"), Ref(3, "3")), Seq(Ref(1, "1"), Ref(2, "2")), Seq(Ref(1, "1"), Ref(2, "2"), Ref(3, "3")))
