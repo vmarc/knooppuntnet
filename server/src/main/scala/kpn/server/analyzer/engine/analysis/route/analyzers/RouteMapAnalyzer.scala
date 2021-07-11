@@ -72,10 +72,10 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       forwardBreakPoint = forwardBreakPoint,
       backwardBreakPoint = backwardBreakPoint,
       freeNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.freeNodes),
-      startNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.isEmpty) Seq() else Seq(routeNodeAnalysis.startNodes.head)),
-      endNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.isEmpty) Seq() else Seq(routeNodeAnalysis.endNodes.head)),
-      startTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.size <= 1) Seq() else routeNodeAnalysis.startNodes.tail),
-      endTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.size <= 1) Seq() else routeNodeAnalysis.endNodes.tail),
+      startNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.isEmpty) Seq.empty else Seq(routeNodeAnalysis.startNodes.head)),
+      endNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.isEmpty) Seq.empty else Seq(routeNodeAnalysis.endNodes.head)),
+      startTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.size <= 1) Seq.empty else routeNodeAnalysis.startNodes.tail),
+      endTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.size <= 1) Seq.empty else routeNodeAnalysis.endNodes.tail),
       redundantNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.redundantNodes),
       streets = context.streets.toSeq.flatten
     )
@@ -99,7 +99,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
       }
 
       if (fragment.nodes.size < 2) {
-        Seq()
+        Seq.empty
       }
       else {
         fragment.nodes.sliding(2).toSeq.map { case Seq(p1, p2) =>

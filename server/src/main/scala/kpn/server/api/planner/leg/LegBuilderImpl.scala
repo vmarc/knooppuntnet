@@ -43,7 +43,7 @@ class LegBuilderImpl(
     graphRepository.graph(networkType) match {
       case Some(graph) =>
         val legEnds = LegEnd.fromPlanString(planString, encoded)
-        val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq(), proposed)
+        val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq.empty, proposed)
         if (planLegDetails.isEmpty) {
           None
         }
@@ -82,7 +82,7 @@ class LegBuilderImpl(
 
         buildLeg(params, graph) match {
           case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail.tail, legs :+ routeLeg, proposed)
-          case None => Seq()
+          case None => Seq.empty
         }
       }
       else {
@@ -97,7 +97,7 @@ class LegBuilderImpl(
 
         buildLeg(params, graph) match {
           case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail, legs :+ routeLeg, proposed)
-          case None => Seq()
+          case None => Seq.empty
         }
       }
     }
@@ -190,7 +190,7 @@ class LegBuilderImpl(
 
   private def graphPathToPlanRoutes(graphPath: GraphPath): Seq[PlanRoute] = {
 
-    val segments = combineIdenticalPathSegments(graphPath.segments, Seq())
+    val segments = combineIdenticalPathSegments(graphPath.segments, Seq.empty)
 
     segments.flatMap { graphPathSegment =>
       val routeId = graphPathSegment.pathKey.routeId

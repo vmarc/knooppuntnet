@@ -59,7 +59,7 @@ object NodePageExample {
         Fact.Deleted
       ),
       location = Some(Location(Seq("NL", "North Brabant", "Roosendaal"))),
-      Seq()
+      Seq.empty
     )
   }
 
@@ -125,7 +125,7 @@ object NodePageExample {
     NodeChangesPage(
       nodeInfo.id,
       nodeInfo.name,
-      ChangesFilter(Seq()),
+      ChangesFilter(Seq.empty),
       changes(),
       incompleteWarning = true,
       10,

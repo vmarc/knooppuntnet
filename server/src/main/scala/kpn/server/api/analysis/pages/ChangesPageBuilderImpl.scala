@@ -20,7 +20,7 @@ class ChangesPageBuilderImpl(
       changeSetRepository.changes(parameters)
     }
     else {
-      Seq()
+      Seq.empty
     }
     val changeSetSummaryInfos = new ChangeSetSummaryInfosBuilder(changeSetInfoRepository).toChangeSetSummaryInfos(changeSetSummaries)
     ChangesPage(changesFilter, changeSetSummaryInfos, changeCount)

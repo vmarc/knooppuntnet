@@ -86,7 +86,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     val relations: Seq[RawRelation] = Seq(relation1, relation2)
 
-    val rawData = RawData(None, Seq(), Seq(), relations)
+    val rawData = RawData(None, Seq.empty, Seq.empty, relations)
 
     val log = Log.mock
 
@@ -112,7 +112,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val node = newRawNode(101)
     val way = newRawWay(10, nodeIds = Seq(101, 102))
 
-    val rawData = RawData(None, Seq(node), Seq(way), Seq())
+    val rawData = RawData(None, Seq(node), Seq(way), Seq.empty)
 
     val log = Log.mock
 
@@ -133,7 +133,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     val log = Log.mock
 
-    val rawData = RawData(None, Seq(), Seq(), Seq(relation))
+    val rawData = RawData(None, Seq.empty, Seq.empty, Seq(relation))
     val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
@@ -150,7 +150,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     val log = Log.mock
 
-    val rawData = RawData(None, Seq(), Seq(), Seq(relation))
+    val rawData = RawData(None, Seq.empty, Seq.empty, Seq(relation))
     val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
@@ -167,7 +167,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     val log = Log.mock
 
-    val rawData = RawData(None, Seq(), Seq(), Seq(relation))
+    val rawData = RawData(None, Seq.empty, Seq.empty, Seq(relation))
     val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)
@@ -184,7 +184,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     val log = Log.mock
 
-    val rawData = RawData(None, Seq(), Seq(), Seq(relation))
+    val rawData = RawData(None, Seq.empty, Seq.empty, Seq(relation))
     val data = new DataBuilder(rawData, log).data
 
     log.messages.size should equal(1)

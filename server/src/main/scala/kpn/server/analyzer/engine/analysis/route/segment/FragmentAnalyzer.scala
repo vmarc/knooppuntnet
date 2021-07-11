@@ -40,12 +40,12 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
     if (wayMember.way.nodes.size < 3) {
       // a way with only 2 nodes cannot be split up any further
-      Seq(fragment(wayMember, Seq()))
+      Seq(fragment(wayMember, Seq.empty))
     }
     else {
       val splitIndexes = indexesAtWhichToSplit(wayMember)
       if (splitIndexes.isEmpty) {
-        Seq(fragment(wayMember, Seq()))
+        Seq(fragment(wayMember, Seq.empty))
       }
       else {
         splitIndexes.sliding(2).toSeq.map { case Seq(from, to) =>

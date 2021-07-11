@@ -16,7 +16,7 @@ object PavedUnpavedSplitter {
     }
 
     if (surfaceSegmentFragments.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       val firstFragment = surfaceSegmentFragments.head

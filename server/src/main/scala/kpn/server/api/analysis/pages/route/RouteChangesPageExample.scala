@@ -34,7 +34,7 @@ object RouteChangesPageExample {
         route.summary.name,
         route.summary.networkType
       ),
-      ChangesFilter(Seq()),
+      ChangesFilter(Seq.empty),
       changes(),
       incompleteWarning = true,
       totalCount = 3,

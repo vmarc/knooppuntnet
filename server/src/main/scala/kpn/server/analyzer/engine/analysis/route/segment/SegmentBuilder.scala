@@ -11,7 +11,7 @@ class SegmentBuilder(fragmentMap: FragmentMap) {
 
   def segments(availableFragmentIds: Seq[Int]): Seq[Segment] = {
     val optimize = fragmentMap.size < 50
-    findSegments(optimize, Seq(), availableFragmentIds)
+    findSegments(optimize, Seq.empty, availableFragmentIds)
   }
 
   @tailrec
@@ -24,7 +24,7 @@ class SegmentBuilder(fragmentMap: FragmentMap) {
       val remainingFragmentIds = availableFragmentIds.filterNot(id => id == segmentFragment.fragment.id)
 
       val sfs1 = findFragments(optimize, Seq(segmentFragment), remainingFragmentIds, segmentFragment.endNode)
-      val sfs2 = findFragments(optimize, Seq(), remaining(remainingFragmentIds, sfs1), segmentFragment.startNode)
+      val sfs2 = findFragments(optimize, Seq.empty, remaining(remainingFragmentIds, sfs1), segmentFragment.startNode)
 
       val sfs = reverse(sfs2) ++ sfs1
 

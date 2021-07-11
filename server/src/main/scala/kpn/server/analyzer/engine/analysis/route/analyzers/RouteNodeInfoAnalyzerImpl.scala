@@ -15,7 +15,7 @@ class RouteNodeInfoAnalyzerImpl(analysisContext: AnalysisContext, nodeAnalyzer: 
     val nodes = loadedRoute.relation.members.flatMap {
       case nodeMember: NodeMember => Seq(nodeMember.node)
       case wayMember: WayMember => wayMember.way.nodes
-      case _ => Seq()
+      case _ => Seq.empty
     }
     Unique.filter(nodes).filter(node => analysisContext.isValidNetworkNode(node.raw)).flatMap { node =>
       nodeAnalyzer.scopedName(loadedRoute.scopedNetworkType, node.tags).map { name =>

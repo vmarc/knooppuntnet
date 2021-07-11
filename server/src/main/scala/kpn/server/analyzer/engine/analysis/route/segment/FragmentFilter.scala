@@ -19,7 +19,7 @@ import scala.annotation.tailrec
 object FragmentFilter {
 
   def filter(fragments: Seq[Fragment]): Seq[Fragment] = {
-    recursivelyFilter(Seq(), fragments)
+    recursivelyFilter(Seq.empty, fragments)
   }
 
   @tailrec

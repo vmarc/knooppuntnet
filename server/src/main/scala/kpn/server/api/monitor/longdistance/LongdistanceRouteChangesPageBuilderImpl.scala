@@ -39,7 +39,7 @@ class LongdistanceRouteChangesPageBuilderImpl(
       }.reverse
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     longdistanceRouteRepository.routeWithId(routeId).map { route =>

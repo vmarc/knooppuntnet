@@ -11,14 +11,14 @@ class RouteRelationAnalyzer {
     relation.members.flatMap {
       case nodeMember: NodeMember =>
         if (wayNodeIds.contains(nodeMember.node.id)) {
-          Seq() // we prefer the position of the node in the ways over the position in the route relation
+          Seq.empty // we prefer the position of the node in the ways over the position in the route relation
         }
         else {
           Seq(nodeMember.node.id)
         }
 
       case wayMember: WayMember => wayMember.way.nodes.map(_.id)
-      case _ => Seq()
+      case _ => Seq.empty
     }
   }
 

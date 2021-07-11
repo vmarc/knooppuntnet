@@ -35,7 +35,7 @@ class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNode(1, tags = Tags.from("bbb" -> "5", "ddd" -> "1", "ccc" -> "3"))
     val after = newNode(2, tags = Tags.from("ddd" -> "1", "aaa" -> "2", "ccc" -> "4"))
 
-    new TagDiffAnalyzer(before, after, Seq()).diffs.value should matchTo(
+    new TagDiffAnalyzer(before, after, Seq.empty).diffs.value should matchTo(
       TagDiffs(
         Seq(
         ),

@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 object RingBuilder {
 
   def findRings(ways: Seq[SkeletonWay]): Seq[Ring] = {
-    findRings(ways, Seq())
+    findRings(ways, Seq.empty)
   }
 
   private def findRings(ways: Seq[SkeletonWay], rings: Seq[Ring]): Seq[Ring] = {

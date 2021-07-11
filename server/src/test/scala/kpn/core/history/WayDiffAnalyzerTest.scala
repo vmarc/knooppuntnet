@@ -74,7 +74,7 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
         after.toMeta,
         tagDiffs = Some(
           TagDiffs(
-            Seq(),
+            Seq.empty,
             Seq(
               TagDetail(
                 TagDetailType.Update,

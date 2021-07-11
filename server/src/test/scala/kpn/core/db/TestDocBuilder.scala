@@ -96,9 +96,9 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       attributes.id,
       attributes,
       active,
-      Seq(),
-      Seq(),
-      Seq(),
+      Seq.empty,
+      Seq.empty,
+      Seq.empty,
       facts,
       Tags.empty,
       detail

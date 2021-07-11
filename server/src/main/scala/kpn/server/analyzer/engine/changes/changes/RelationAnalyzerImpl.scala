@@ -69,12 +69,12 @@ object RelationAnalyzerHelper {
       case relationMember: RelationMember =>
         val referencedRelation = relationMember.relation
         if (visitedRelationIds.contains(referencedRelation.id)) {
-          Seq()
+          Seq.empty
         }
         else {
           findReferencedRelations(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id)) + referencedRelation
         }
-      case _ => Seq()
+      case _ => Seq.empty
     }
     refs.toSet
   }

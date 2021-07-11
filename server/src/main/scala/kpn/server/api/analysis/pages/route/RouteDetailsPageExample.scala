@@ -42,7 +42,7 @@ object RouteDetailsPageExample {
           id = 1L,
           memberType = "node",
           isWay = false,
-          nodes = Seq(),
+          nodes = Seq.empty,
           linkName = "n",
           from = "01",
           fromNodeId = 1,
@@ -61,7 +61,7 @@ object RouteDetailsPageExample {
           id = 1L,
           memberType = "way",
           isWay = true,
-          nodes = Seq(),
+          nodes = Seq.empty,
           linkName = "wb003",
           from = "01",
           fromNodeId = 1,
@@ -219,7 +219,7 @@ object RouteDetailsPageExample {
         Fact.RouteInvalidSurveyDate
       ),
       analysis,
-      Seq(),
+      Seq.empty,
       analysis.map.nodeIds
     )
   }

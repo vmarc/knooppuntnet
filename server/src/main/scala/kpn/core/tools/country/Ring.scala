@@ -1,7 +1,7 @@
 package kpn.core.tools.country
 
 object Ring {
-  def apply(): Ring = Ring(Seq())
+  def apply(): Ring = Ring(Seq.empty)
   def apply(way: SkeletonWay): Ring = Ring(Seq(way))
 }
 

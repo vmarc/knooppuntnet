@@ -38,7 +38,7 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   test("tags changed") {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))
     val n2 = nodeData(1, "51.5291500", "4.297700", 4, Timestamp(2015, 8, 11, 12, 0, 0), 100, Tags.from("a" -> "2"))
-    val expectedDiffs = TagDiffs(Seq(), Seq(TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))))
+    val expectedDiffs = TagDiffs(Seq.empty, Seq(TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))))
     new NodeDataDiffAnalyzer(n1, n2).analysis.value should matchTo(NodeDataUpdate(n1, n2, Some(expectedDiffs)))
   }
 
@@ -59,7 +59,7 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   ): NodeData = {
     val rawNode = newNode(id, latitude, longitude, version, timestamp, changeSetId, tags).raw
     NodeData(
-      Seq(),
+      Seq.empty,
       "name",
       rawNode
     )

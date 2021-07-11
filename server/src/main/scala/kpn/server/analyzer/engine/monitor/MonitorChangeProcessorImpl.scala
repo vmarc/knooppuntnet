@@ -155,7 +155,7 @@ class MonitorChangeProcessorImpl(
         afterRoute.osmSegments
       }
       else {
-        Seq()
+        Seq.empty
       }
 
       val groupName = monitorAdminRouteRepository.route(routeId).map(_.groupName).getOrElse("")

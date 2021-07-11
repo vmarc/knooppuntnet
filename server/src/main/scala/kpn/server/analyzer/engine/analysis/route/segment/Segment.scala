@@ -13,7 +13,7 @@ case class Segment(surface: String, fragments: Seq[SegmentFragment]) {
 
   def nodes: Seq[Node] = {
     if (fragments.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else if (fragments.size == 1) {
       fragments.head.nodes

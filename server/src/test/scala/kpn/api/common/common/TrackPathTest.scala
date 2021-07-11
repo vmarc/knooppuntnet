@@ -36,7 +36,7 @@ class TrackPathTest extends UnitTest {
   }
 
   test("trackPoints - path without segments") {
-    val trackPath = TrackPath(0L, 0L, 0L, 0L, oneWay = false, segments = Seq())
+    val trackPath = TrackPath(0L, 0L, 0L, 0L, oneWay = false, segments = Seq.empty)
     trackPath.trackPoints shouldBe empty
   }
 
