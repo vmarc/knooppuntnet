@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RouteElements
@@ -63,6 +64,7 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+    val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeRepository = mockRouteRepository()
     val locationConfiguration = {
       log.info("Location configuration loading")
@@ -77,7 +79,7 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileCalculator,
+      routeTileAnalyzer,
       routeNodeInfoAnalyzer
     )
   }

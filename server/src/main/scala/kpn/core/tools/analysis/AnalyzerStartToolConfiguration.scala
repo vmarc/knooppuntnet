@@ -28,6 +28,7 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
@@ -101,6 +102,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
   val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileCalculator, nodeLocationAnalyzer)
   private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+  private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
     analysisDatabase,
@@ -153,7 +155,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val routeAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,
     routeLocationAnalyzer,
-    routeTileCalculator,
+    routeTileAnalyzer,
     routeNodeInfoAnalyzer
   )
 

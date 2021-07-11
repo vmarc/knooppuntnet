@@ -7,6 +7,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -33,13 +34,14 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
     val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+    val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileCalculator,
+      routeTileAnalyzer,
       routeNodeInfoAnalyzer
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)

@@ -39,7 +39,8 @@ case class RouteAnalysisContext(
   geometryDigest: Option[String] = None,
   locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,
-  labels: Seq[String] = Seq.empty
+  labels: Seq[String] = Seq.empty,
+  tiles: Seq[String] = Seq.empty
 ) {
 
   def scopedNetworkType: ScopedNetworkType = loadedRoute.scopedNetworkType

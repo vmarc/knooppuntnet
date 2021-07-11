@@ -28,6 +28,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
@@ -44,7 +45,7 @@ import scala.annotation.tailrec
 class MasterRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
   routeLocationAnalyzer: RouteLocationAnalyzer,
-  routeTileCalculator: RouteTileCalculator,
+  routeTileAnalyzer: RouteTileAnalyzer,
   routeNodeInfoAnalyzer: RouteNodeInfoAnalyzer
 ) extends MasterRouteAnalyzer {
 
@@ -81,6 +82,7 @@ class MasterRouteAnalyzerImpl(
         IncompleteOkRouteAnalyzer,
         FactCombinationAnalyzer,
         RouteLastSurveyAnalyzer,
+        routeTileAnalyzer,
         RouteLabelsAnalyzer // this always should be the last analyzer
       )
 
@@ -91,7 +93,7 @@ class MasterRouteAnalyzerImpl(
   @tailrec
   private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): RouteAnalysis = {
     if (analyzers.isEmpty) {
-      new RouteAnalysisBuilder(context, routeTileCalculator).build
+      new RouteAnalysisBuilder(context).build
     }
     else {
       val newContext = analyzers.head.analyze(context)

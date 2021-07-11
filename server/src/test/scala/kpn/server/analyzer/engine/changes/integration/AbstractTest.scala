@@ -30,6 +30,7 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -125,12 +126,13 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val tileCalculator = new TileCalculatorImpl()
     private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+    private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
-      routeTileCalculator,
+      routeTileAnalyzer,
       routeNodeInfoAnalyzer
     )
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)

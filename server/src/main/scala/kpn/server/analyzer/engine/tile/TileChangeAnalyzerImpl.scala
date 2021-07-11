@@ -31,8 +31,8 @@ class TileChangeAnalyzerImpl(
 
     (ZoomLevel.minZoom to ZoomLevel.maxZoom).flatMap { zoomLevel =>
       val tileDataRouteBuilder = new TileDataRouteBuilder(zoomLevel)
-      val tileDataRouteBeforeOption = tileDataRouteBuilder.build(routeAnalysisBefore.route)
-      val tileDataRouteAfterOption = tileDataRouteBuilder.build(routeAnalysisAfter.route)
+      val tileDataRouteBeforeOption = tileDataRouteBuilder.fromRouteInfo(routeAnalysisBefore.route)
+      val tileDataRouteAfterOption = tileDataRouteBuilder.fromRouteInfo(routeAnalysisAfter.route)
 
       if (tileDataRouteBeforeOption != tileDataRouteAfterOption) {
         tileDataRouteBeforeOption match {
@@ -62,7 +62,7 @@ class TileChangeAnalyzerImpl(
     val networkType = analysis.route.summary.networkType
     (ZoomLevel.minZoom to ZoomLevel.maxZoom).flatMap { zoomLevel =>
       val tileDataRouteBuilder = new TileDataRouteBuilder(zoomLevel)
-      tileDataRouteBuilder.build(analysis.route) match {
+      tileDataRouteBuilder.fromRouteInfo(analysis.route) match {
         case Some(tileDataRouteBefore) =>
           tileNames(networkType, zoomLevel, tileDataRouteBefore)
         case None =>
