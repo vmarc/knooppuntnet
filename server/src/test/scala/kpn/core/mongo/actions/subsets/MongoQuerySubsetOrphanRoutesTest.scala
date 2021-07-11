@@ -172,7 +172,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
         if (orphan) Some("orphan") else None,
         if (lastSurvey.isDefined) Some("survey") else None,
         if (facts.nonEmpty) Some("facts") else None,
-        Some("location-" + country.domain)
+        Some("location-" + country.domain),
+        Some("network-type-" + networkType.name),
       ).flatten,
       orphan = orphan,
       country = Some(country),
