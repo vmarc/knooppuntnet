@@ -18,7 +18,8 @@ class TilesBuilder(
   vectorTileFileRepository: TileFileRepository,
   tileFileBuilder: TileFileBuilder,
   nodeTileCalculator: NodeTileCalculator,
-  routeTileCalculator: RouteTileCalculator
+  routeTileCalculator: RouteTileCalculator,
+  tileDataNodeBuilder: TileDataNodeBuilder
 ) {
 
   private val log = Log(classOf[TilesBuilder])
@@ -162,7 +163,7 @@ class TilesBuilder(
       Map.empty
     }
     else {
-      val allNodes = nodes ++ orphanNodes.map(node => new TileDataNodeBuilder().build(networkType, node))
+      val allNodes = nodes ++ orphanNodes.flatMap(node => tileDataNodeBuilder.build(networkType, node))
 
       val map = scala.collection.mutable.Map[String, TileNodes]()
 

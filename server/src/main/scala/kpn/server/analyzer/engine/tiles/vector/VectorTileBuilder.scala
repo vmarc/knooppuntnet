@@ -32,7 +32,7 @@ class VectorTileBuilder extends TileBuilder {
         node.ref.map(ref => "ref" -> ref),
         node.name.map(name => "name" -> name),
         node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
-        node.state.map(state => "state" -> state)
+        if (node.proposed) Some("proposed" -> "true") else None
       ).flatten.toMap
 
       encoder.addPointFeature(node.layer, userData, point)

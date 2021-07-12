@@ -82,7 +82,7 @@ export class MainMapNodeStyle {
   }
 
   private determineLargeNodeStyle(feature: FeatureLike, ref: string): Style {
-    const proposed = feature.get('state') === 'proposed';
+    const proposed = feature.get('proposed') === 'true';
 
     let style = NodeStyle.largeGray;
     if (proposed) {

@@ -63,8 +63,8 @@ import { NodeInfo } from '@api/common/node-info';
 
       <p *ngIf="isProposed()">
         <markdown i18n="@@node.proposed.explanation">
-          This network node has _"state=proposed"_. The node is assumed to still
-          be in a planning phase and likely not signposted in the field.
+          The network node is assumed to still be in a planning phase and likely
+          not signposted in the field.
         </markdown>
       </p>
     </div>

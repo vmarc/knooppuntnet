@@ -22,7 +22,8 @@ class TileUpdaterImpl(
   routeRepository: RouteRepository,
   tileRepository: TileRepository,
   tileFileBuilder: TileFileBuilder,
-  tileCalculator: TileCalculator
+  tileCalculator: TileCalculator,
+  tileDataNodeBuilder: TileDataNodeBuilder
 ) extends TileUpdater {
 
   private val log = Log(classOf[TileUpdaterImpl])
@@ -43,7 +44,7 @@ class TileUpdaterImpl(
         routeCache.clear()
         val tasks = allTasks.filter(task => TileTask.zoomLevel(task) == zoomLevel)
         log.debug(s"processing ${tasks.size} tasks at zoomLevel $zoomLevel")
-        tasks.zipWithIndex.foreach { case (task, index) =>
+        tasks.foreach { task =>
           log.debug(s"processing task $task")
           processTask(task)
           taskRepository.delete(task)
@@ -70,7 +71,7 @@ class TileUpdaterImpl(
         nodeCache.getOrElseUpdate(
           nodeId,
           nodeRepository.nodeWithId(nodeId) match {
-            case Some(node) => Some(new TileDataNodeBuilder().build(networkType, node))
+            case Some(node) => tileDataNodeBuilder.build(networkType, node)
             case None =>
               log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.name}-${tile.name} not found in database")
               None
@@ -94,5 +95,4 @@ class TileUpdaterImpl(
       }
     }
   }
-
 }

@@ -39,8 +39,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         *ngIf="isGray()"
         i18n="@@proposed-indicator.gray.text"
       >
-        This network node does not have _"state=proposed"_. It is an active
-        node.
+        This network node is not _"proposed"_. It is an active node.
       </markdown>
     </kpn-indicator-dialog>
   `,

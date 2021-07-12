@@ -5,6 +5,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.DatabaseIndexer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -12,6 +13,7 @@ import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzer
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
 import kpn.server.repository.NetworkRepositoryImpl
@@ -39,6 +41,8 @@ object TileTool {
 
             new DatabaseIndexer(analysisDatabase, null, null, null, null, false).index(true)
 
+            val nodeAnalyzer = new NodeAnalyzerImpl()
+            val tileDataNodeBuilder = new TileDataNodeBuilderImpl(nodeAnalyzer)
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(null, analysisDatabase, false)
               val orphanRepository = new OrphanRepositoryImpl(null, analysisDatabase, false)
@@ -48,7 +52,8 @@ object TileTool {
                 networkRepository,
                 orphanRepository,
                 nodeRepository,
-                routeRepository
+                routeRepository,
+                tileDataNodeBuilder
               )
             }
 
@@ -64,7 +69,8 @@ object TileTool {
               vectorTileFileRepository,
               tileFileBuilder,
               nodeTileCalculator,
-              routeTileCalculator
+              routeTileCalculator,
+              tileDataNodeBuilder
             )
 
             val tileTool = new TileTool(

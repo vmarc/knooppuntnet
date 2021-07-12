@@ -14,7 +14,8 @@ class TileAnalyzerImpl(
   networkRepository: NetworkRepository,
   orphanRepository: OrphanRepository,
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository
+  routeRepository: RouteRepository,
+  tileDataNodeBuilder: TileDataNodeBuilder
 ) extends TileAnalyzer {
 
   private val log = Log(classOf[TileAnalyzerImpl])
@@ -34,7 +35,7 @@ class TileAnalyzerImpl(
       }
     }
 
-    val nodes = details.flatMap(_.nodes).map(node => new TileDataNodeBuilder().build(networkType, node))
+    val nodes = details.flatMap(_.nodes).flatMap(node => tileDataNodeBuilder.build(networkType, node))
 
     val routeInfos = Log.context("network-routes") {
       val routeIds = details.flatMap(_.routes.map(_.id))
@@ -84,7 +85,6 @@ class TileAnalyzerImpl(
 
     val extraNodesInOrphanRouteIds = orphanRouteNodeIds.toSet -- nodes.map(_.id).toSet
     val extrasNodeInOrphanRoutes = extraNodesInOrphanRouteIds.flatMap(nodeId => nodeRepository.nodeWithId(nodeId))
-    extrasNodeInOrphanRoutes.map(node => new TileDataNodeBuilder().build(networkType, node))
+    extrasNodeInOrphanRoutes.flatMap(node => tileDataNodeBuilder.build(networkType, node))
   }
-
 }

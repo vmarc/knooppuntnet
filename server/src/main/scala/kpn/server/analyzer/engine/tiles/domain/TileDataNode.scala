@@ -11,5 +11,5 @@ case class TileDataNode(
   longitude: String,
   layer: String,
   surveyDate: Option[Day],
-  state: Option[String]
+  proposed: Boolean
 ) extends LatLon
