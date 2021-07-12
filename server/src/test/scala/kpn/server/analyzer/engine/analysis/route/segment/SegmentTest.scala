@@ -15,7 +15,7 @@ class SegmentTest extends UnitTest with SharedTestObjects {
   }
 
   test("empty segment") {
-    assertSegmentNodeIds(Seq())
+    assertSegmentNodeIds(Seq.empty)
   }
 
   test("single fragment") {

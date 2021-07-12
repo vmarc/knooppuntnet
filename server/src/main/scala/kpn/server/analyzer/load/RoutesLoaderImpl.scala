@@ -19,7 +19,7 @@ class RoutesLoaderImpl(
 
   override def load(timestamp: Timestamp, routeIds: Seq[Long]): Seq[Option[LoadedRoute]] = {
     if (routeIds.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else {
       log.debugElapsed {

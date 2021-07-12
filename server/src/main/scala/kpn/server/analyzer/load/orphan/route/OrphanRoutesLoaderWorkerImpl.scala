@@ -57,7 +57,7 @@ class OrphanRoutesLoaderWorkerImpl(
                 longitude = networkNode.node.longitude,
                 lastUpdated = networkNode.node.timestamp,
                 tags = networkNode.node.tags,
-                facts = Seq()
+                facts = Seq.empty
               )
             )
           }

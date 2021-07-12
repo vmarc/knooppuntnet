@@ -56,7 +56,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
   }
 
   test("nothing to split") {
-    PavedUnpavedSplitter.split(Seq()) shouldBe empty
+    PavedUnpavedSplitter.split(Seq.empty) shouldBe empty
   }
 
   test("single fragment") {

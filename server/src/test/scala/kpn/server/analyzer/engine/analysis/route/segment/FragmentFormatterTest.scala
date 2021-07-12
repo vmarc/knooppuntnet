@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 class FragmentFormatterTest extends UnitTest with SharedTestObjects {
 
   test("fragment without nodes") {
-    val fragment = Fragment.create(None, None, newWay(10), Seq(), None)
+    val fragment = Fragment.create(None, None, newWay(10), Seq.empty, None)
     assertFormat(fragment, "<10>")
   }
 
@@ -16,7 +16,7 @@ class FragmentFormatterTest extends UnitTest with SharedTestObjects {
     val start = routeNode("01")
     val end = routeNode("02")
     val w = newWay(10)
-    val fragment = Fragment.create(start, end, w, Seq(), None)
+    val fragment = Fragment.create(start, end, w, Seq.empty, None)
     assertFormat(fragment, "<01-02 10>")
   }
 
@@ -33,7 +33,7 @@ class FragmentFormatterTest extends UnitTest with SharedTestObjects {
     val start = routeNode("01a")
     val w = newWay(10)
     val role = Some("backward")
-    val fragment = Fragment.create(start, None, w, Seq(), role)
+    val fragment = Fragment.create(start, None, w, Seq.empty, role)
     assertFormat(fragment, "<01a- 10<")
   }
 

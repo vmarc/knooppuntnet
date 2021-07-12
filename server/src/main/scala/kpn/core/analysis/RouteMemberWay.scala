@@ -24,7 +24,7 @@ case class RouteMemberWay(
 
   val endNodes: Seq[Node] = {
     if (way.nodes.isEmpty) {
-      Seq()
+      Seq.empty
     }
     else if (WayAnalyzer.isRoundabout(way) || WayAnalyzer.isClosedLoop(way)) {
       way.nodes

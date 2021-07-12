@@ -17,10 +17,10 @@ object NetworkChangesPageExample {
       1L,
       attributes = NetworkDetailsPageExample.networkAttributes(),
       active = false,
-      nodeRefs = Seq(),
-      routeRefs = Seq(),
-      networkRefs = Seq(),
-      facts = Seq(),
+      nodeRefs = Seq.empty,
+      routeRefs = Seq.empty,
+      networkRefs = Seq.empty,
+      facts = Seq.empty,
       tags = Tags.empty,
       detail = Some(
         NetworkInfoDetail(
@@ -32,8 +32,8 @@ object NetworkChangesPageExample {
       )
     )
 
-    val filter: ChangesFilter = ChangesFilter(Seq())
-    val changes: Seq[NetworkChangeInfo] = Seq()
+    val filter: ChangesFilter = ChangesFilter(Seq.empty)
+    val changes: Seq[NetworkChangeInfo] = Seq.empty
 
     NetworkChangesPage(
       NetworkSummaryBuilder.toSummary(networkInfo, 123),

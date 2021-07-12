@@ -8,9 +8,9 @@ object NetworkMapPageExample {
 
   val page: NetworkMapPage = {
 
-    val nodes: Seq[NetworkMapNode] = Seq()
-    val nodeIds: Seq[Long] = Seq()
-    val routeIds: Seq[Long] = Seq()
+    val nodes: Seq[NetworkMapNode] = Seq.empty
+    val nodeIds: Seq[Long] = Seq.empty
+    val routeIds: Seq[Long] = Seq.empty
 
     NetworkMapPage(
       NetworkDetailsPageExample.networkSummary(),

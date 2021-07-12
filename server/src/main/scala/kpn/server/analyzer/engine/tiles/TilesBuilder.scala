@@ -33,34 +33,34 @@ class TilesBuilder(
       vectorTileFileRepository.existingTileNames(analysis.networkType.name, z)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     val existingTileNames = if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(analysis.networkType.name, z)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     val existingTileNamesSurface = if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(analysis.networkType.name + "/surface", z)
     }
     else {
-      Seq()
+      Seq.empty
     }
     val existingTileNamesSurvey = if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(analysis.networkType.name + "/survey", z)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     val existingTileNamesAnalysis = if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(analysis.networkType.name + "/analysis", z)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     log.info(s"Processing zoomlevel $z")
@@ -106,11 +106,11 @@ class TilesBuilder(
         }
 
         val nodes = tileNodesOption match {
-          case None => Seq()
+          case None => Seq.empty
           case Some(tn) => tn.nodes
         }
         val routes = tileRoutesOption match {
-          case None => Seq()
+          case None => Seq.empty
           case Some(tr) => tr.routes
         }
 

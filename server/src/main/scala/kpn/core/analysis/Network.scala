@@ -132,21 +132,21 @@ case class Network(
 
   def extraMemberNodeIds: Seq[Long] = {
     facts.networkExtraMemberNode match {
-      case None => Seq()
+      case None => Seq.empty
       case Some(xs) => xs.map(_.memberId).sorted
     }
   }
 
   def extraMemberWayIds: Seq[Long] = {
     facts.networkExtraMemberWay match {
-      case None => Seq()
+      case None => Seq.empty
       case Some(xs) => xs.map(_.memberId).sorted
     }
   }
 
   def extraMemberRelationIds: Seq[Long] = {
     facts.networkExtraMemberRelation match {
-      case None => Seq()
+      case None => Seq.empty
       case Some(xs) => xs.map(_.memberId).sorted
     }
   }

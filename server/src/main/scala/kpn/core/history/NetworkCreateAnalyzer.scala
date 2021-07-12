@@ -44,8 +44,8 @@ class NetworkCreateAnalyzer(network: Network) {
     NetworkNodeDiffs(Seq.empty, addedNetworkNodes, Seq.empty),
     RouteDiffs(Seq.empty, addedRoutes, Seq.empty),
     IdDiffs(Seq.empty, addedNodes, Seq.empty),
-    IdDiffs(Seq.empty, addedWays, Seq()),
-    IdDiffs(Seq(), addedRelations, Seq()),
+    IdDiffs(Seq.empty, addedWays, Seq.empty),
+    IdDiffs(Seq.empty, addedRelations, Seq.empty),
     happy,
     investigate
   )

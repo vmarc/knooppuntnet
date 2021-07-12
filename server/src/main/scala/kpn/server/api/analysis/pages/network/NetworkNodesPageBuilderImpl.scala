@@ -45,7 +45,7 @@ class NetworkNodesPageBuilderImpl(
     val changeCount = mongoNetworkRepository.networkChangeCount(networkInfo.attributes.id)
     val networkInfoNodes = networkInfo.detail match {
       case Some(detail) => NaturalSorting.sortBy(detail.nodes)(_.name)
-      case None => Seq()
+      case None => Seq.empty
     }
     val nodeIds = networkInfoNodes.map(_.id)
     val routeReferences = /* TODO !!! */ nodeRouteRepository.nodesRouteReferences(networkInfo.attributes.scopedNetworkType, nodeIds)
@@ -91,7 +91,7 @@ class NetworkNodesPageBuilderImpl(
     val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
     val networkInfoNodes = networkInfo.detail match {
       case Some(detail) => NaturalSorting.sortBy(detail.nodes)(_.name)
-      case None => Seq()
+      case None => Seq.empty
     }
     val nodeIds = networkInfoNodes.map(_.id)
     val routeReferences = nodeRouteRepository.nodesRouteReferences(networkInfo.attributes.scopedNetworkType, nodeIds)

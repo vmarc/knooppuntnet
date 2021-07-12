@@ -48,12 +48,12 @@ class TileChangeAnalyzerImpl(
           case None =>
             tileDataRouteAfterOption match {
               case Some(tileDataRouteAfter) => tileNames(networkTypeAfter, zoomLevel, tileDataRouteAfter)
-              case None => Seq()
+              case None => Seq.empty
             }
         }
       }
       else {
-        Seq()
+        Seq.empty
       }
     }
   }
@@ -66,7 +66,7 @@ class TileChangeAnalyzerImpl(
         case Some(tileDataRouteBefore) =>
           tileNames(networkType, zoomLevel, tileDataRouteBefore)
         case None =>
-          Seq()
+          Seq.empty
       }
     }
   }

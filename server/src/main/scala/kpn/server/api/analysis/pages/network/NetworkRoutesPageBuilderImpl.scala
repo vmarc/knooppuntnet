@@ -46,7 +46,7 @@ class NetworkRoutesPageBuilderImpl(
 
     val detailRoutes = networkInfo.detail match {
       case Some(detail) => NaturalSorting.sortBy(detail.routes)(_.name)
-      case None => Seq()
+      case None => Seq.empty
     }
 
     val routes = detailRoutes.map { route =>
@@ -83,7 +83,7 @@ class NetworkRoutesPageBuilderImpl(
 
     val detailRoutes = networkInfo.detail match {
       case Some(detail) => NaturalSorting.sortBy(detail.routes)(_.name)
-      case None => Seq()
+      case None => Seq.empty
     }
 
     val routes = detailRoutes.map { route =>

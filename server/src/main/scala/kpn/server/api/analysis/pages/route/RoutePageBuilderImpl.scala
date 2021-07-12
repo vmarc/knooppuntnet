@@ -111,7 +111,7 @@ class RoutePageBuilderImpl(
         changeSetRepository.routeChanges(routeId, parameters)
       }
       else {
-        Seq()
+        Seq.empty
       }
       val changeSetInfos = {
         val changeSetIds = routeChanges.map(_.key.changeSetId)
@@ -138,7 +138,7 @@ class RoutePageBuilderImpl(
         changeSetRepository.routeChanges(route.id, parameters)
       }
       else {
-        Seq()
+        Seq.empty
       }
       val changeSetInfos = {
         val changeSetIds = routeChanges.map(_.key.changeSetId)

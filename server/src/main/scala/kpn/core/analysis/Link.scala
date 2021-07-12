@@ -70,11 +70,11 @@ case class Link(
         sb.append("*")
       }
 
-      val elements = (if (isLoop) Seq("loop") else Seq()) ++
-        (if (isOnewayLoopForwardPart) Seq("fp") else Seq()) ++
-        (if (isOnewayLoopBackwardPart) Seq("bp") else Seq()) ++
-        (if (isOnewayHead) Seq("head") else Seq()) ++
-        (if (isOnewayTail) Seq("tail") else Seq()) ++
+      val elements = (if (isLoop) Seq("loop") else Seq.empty) ++
+        (if (isOnewayLoopForwardPart) Seq("fp") else Seq.empty) ++
+        (if (isOnewayLoopBackwardPart) Seq("bp") else Seq.empty) ++
+        (if (isOnewayHead) Seq("head") else Seq.empty) ++
+        (if (isOnewayTail) Seq("tail") else Seq.empty) ++
         Seq(linkType.toString.toLowerCase)
 
       sb.append(elements.mkString("-"))

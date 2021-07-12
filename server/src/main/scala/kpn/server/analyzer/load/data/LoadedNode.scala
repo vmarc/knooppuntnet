@@ -12,7 +12,7 @@ case class LoadedNode(country: Option[Country], networkTypes: Seq[NetworkType], 
   def subsets: Seq[Subset] = {
     country match {
       case Some(c) => networkTypes.map(n => kpn.api.custom.Subset(c, n))
-      case None => Seq()
+      case None => Seq.empty
     }
   }
 }

@@ -10,7 +10,7 @@ object NetworkRoutesPageExample {
 
   val page: NetworkRoutesPage = {
 
-    val routes: Seq[NetworkRouteRow] = Seq()
+    val routes: Seq[NetworkRouteRow] = Seq.empty
 
     NetworkRoutesPage(
       TimeInfoBuilder.timeInfo,

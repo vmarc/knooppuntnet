@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 class SegmentBuilderTest extends UnitTest with SharedTestObjects {
 
   test("no fragments") {
-    assertSegments(Seq())
+    assertSegments(Seq.empty)
   }
 
   test("two completely separate fragments") {
@@ -18,9 +18,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq(), None)
-    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq(), None)
-    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq(), None)
+    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq.empty, None)
+    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq.empty, None)
+    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq.empty, None)
 
     val fragments: Seq[Fragment] = Seq(fragment1, fragment2, fragment3)
 
@@ -36,9 +36,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq(), None)
-    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq(), None)
-    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq(), None)
+    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq.empty, None)
+    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq.empty, None)
+    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq.empty, None)
 
     val fragments: Seq[Fragment] = Seq(fragment2, fragment3, fragment1)
 

@@ -24,7 +24,7 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
       case "week" => queryWeek()
       case "day" => queryDay()
       case "hour" => queryHour()
-      case _ => Seq()
+      case _ => Seq.empty
     }
   }
 

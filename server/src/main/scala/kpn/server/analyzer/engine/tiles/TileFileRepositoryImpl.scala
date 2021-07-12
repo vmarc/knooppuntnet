@@ -48,7 +48,7 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
       tileNames.sorted
     }
     else {
-      Seq()
+      Seq.empty
     }
   }
 

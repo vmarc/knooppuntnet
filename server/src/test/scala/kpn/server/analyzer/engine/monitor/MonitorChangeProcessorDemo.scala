@@ -28,7 +28,7 @@ class MonitorChangeProcessorDemo {
       ("read relation from file", loadRelation())
     }
 
-    val fragmentMap = new FragmentAnalyzer(Seq(), relation.wayMembers).fragmentMap
+    val fragmentMap = new FragmentAnalyzer(Seq.empty, relation.wayMembers).fragmentMap
 
     log.elapsed {
       ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))

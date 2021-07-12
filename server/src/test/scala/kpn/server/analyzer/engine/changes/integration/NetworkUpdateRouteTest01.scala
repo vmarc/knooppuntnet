@@ -253,7 +253,7 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
             1,
             "name",
             orphanRoutes = RefChanges(
-              Seq(),
+              Seq.empty,
               Seq(Ref(11, "01-02")
               )
             ),

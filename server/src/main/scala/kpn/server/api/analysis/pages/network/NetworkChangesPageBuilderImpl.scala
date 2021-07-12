@@ -50,7 +50,7 @@ class NetworkChangesPageBuilderImpl(
       mongoNetworkRepository.networkChanges(networkInfo.attributes.id, parameters)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     val changeSetIds = changes.map(_.key.changeSetId)
@@ -80,7 +80,7 @@ class NetworkChangesPageBuilderImpl(
       changeSetRepository.networkChanges(networkInfo.attributes.id, parameters)
     }
     else {
-      Seq()
+      Seq.empty
     }
 
     val changeSetIds = changes.map(_.key.changeSetId)

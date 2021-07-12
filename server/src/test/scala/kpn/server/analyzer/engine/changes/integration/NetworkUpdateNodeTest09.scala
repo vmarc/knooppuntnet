@@ -156,7 +156,7 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
               newRawNodeWithName(1002, "02")
             ),
             addedToNetwork = Seq(Ref(1, "name")),
-            facts = Seq(),
+            facts = Seq.empty,
             happy = true,
             impact = true
           )

@@ -78,7 +78,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq()) should equal(
+        nodeInfo.copy(tiles = Seq.empty) should equal(
           newNodeInfo(
             1002,
             country = Some(Country.nl),
@@ -184,7 +184,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
                   TagDetail(TagDetailType.Same, "rcn_ref", Some("03"), Some("03")),
                   TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
                 ),
-                Seq()
+                Seq.empty
               )
             ),
             removedFromNetwork = Seq(Ref(1, "name")),

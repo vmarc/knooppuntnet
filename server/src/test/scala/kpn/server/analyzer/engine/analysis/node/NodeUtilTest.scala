@@ -36,7 +36,7 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
 
   test("alternateNames") {
     val facts = ListBuffer[Fact]()
-    util.alternateNames(facts, Seq()) should equal(Map())
+    util.alternateNames(facts, Seq.empty) should equal(Map.empty)
     val routeNodeInfos = Seq(
       RouteNodeInfo(node(1, "01"), "01"),
       RouteNodeInfo(node(2, "01"), "01"),

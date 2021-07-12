@@ -216,8 +216,8 @@ class NetworkUpdate_Test01 extends AbstractTest {
                 101,
                 MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
                 MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-                Seq(),
-                Seq(),
+                Seq.empty,
+                Seq.empty,
                 Seq(
                   NodeUpdate(
                     newRawNodeWithName(1002, "02"),

@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 class PathSelectorTest extends UnitTest with SharedTestObjects {
 
   test("select from empty collection of paths") {
-    PathSelector.select(Seq()) should equal(None)
+    PathSelector.select(Seq.empty) should equal(None)
   }
 
   test("select from collection with single ok path") {
@@ -49,7 +49,7 @@ class PathSelectorTest extends UnitTest with SharedTestObjects {
   }
 
   private def path(wayId: Long, length: Int, broken: Boolean = false): Path = {
-    val fragment = Fragment.create(None, None, newWay(wayId, length = length), Seq(), None)
+    val fragment = Fragment.create(None, None, newWay(wayId, length = length), Seq.empty, None)
     val segment = Segment("", Seq(SegmentFragment(fragment)))
     Path(
       None,

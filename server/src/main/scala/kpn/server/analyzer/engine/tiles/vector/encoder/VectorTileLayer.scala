@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.tiles.vector.encoder
 
 class VectorTileLayer {
 
-  var features: Seq[VectorTileFeature] = Seq()
+  var features: Seq[VectorTileFeature] = Seq.empty
   private val keyMap = new CodeMap()
   private val valueMap = new CodeMap()
 

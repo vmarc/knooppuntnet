@@ -45,7 +45,7 @@ class NetworkFactsPageBuilderImpl(
 
     val networkFacts: Seq[NetworkFact] = networkInfo.detail match {
 
-      case None => Seq()
+      case None => Seq.empty
 
       case Some(detail) =>
 
@@ -108,7 +108,7 @@ class NetworkFactsPageBuilderImpl(
     }
     else {
       // do not report the fact details when the network is not active anymore
-      Seq()
+      Seq.empty
     }
 
     NetworkFactsPage(
@@ -127,7 +127,7 @@ class NetworkFactsPageBuilderImpl(
 
     val networkFacts: Seq[NetworkFact] = networkInfo.detail match {
 
-      case None => Seq()
+      case None => Seq.empty
 
       case Some(detail) =>
 
@@ -190,7 +190,7 @@ class NetworkFactsPageBuilderImpl(
     }
     else {
       // do not report the fact details when the network is not active anymore
-      Seq()
+      Seq.empty
     }
 
     NetworkFactsPage(
