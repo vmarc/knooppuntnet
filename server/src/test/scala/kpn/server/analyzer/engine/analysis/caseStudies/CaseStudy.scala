@@ -57,6 +57,7 @@ object CaseStudy {
 
     val networkType = rawRouteRelation.tags("network") match {
       case Some("rcn") => NetworkType.cycling
+      case Some("lcn") => NetworkType.cycling
       case Some("rwn") => NetworkType.hiking
       case Some("rpn") => NetworkType.canoe
       case _ => throw new IllegalArgumentException("Network type not found in file " + filename)

@@ -45,6 +45,6 @@ object NodeAnalyzer {
         case None => tags(scopedNetworkType.proposedNodeTagKey)
         case Some(name) => Some(name)
       }
-    }.mkString(" / ")
+    }.distinct.mkString(" / ")
   }
 }
