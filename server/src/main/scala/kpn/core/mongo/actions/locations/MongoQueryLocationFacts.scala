@@ -50,7 +50,7 @@ class MongoQueryLocationFacts(database: Database) {
       and(
         equal("labels", "active"),
         equal("labels", s"network-type-${networkType.name}"),
-        equal("labels", s"location-${locationName}"),
+        equal("labels", s"location-$locationName"),
         equal("labels", "facts")
       )
     )

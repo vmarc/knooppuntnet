@@ -55,8 +55,8 @@ class MongoQuerySubsetInfo(database: Database) {
         subset.country,
         subset.networkType,
         networkCount = statisticValues.filter(_.name == "NetworkCount").map(_.value).sum,
-        factCount = 0,
-        changesCount = 0,
+        factCount = 0, // TODO MONGO
+        changesCount = 0, // TODO MONGO
         orphanNodeCount = statisticValues.filter(_.name == "OrphanNodeCount").map(_.value).sum,
         orphanRouteCount = statisticValues.filter(_.name == "OrphanRouteCount").map(_.value).sum
       )

@@ -4,12 +4,12 @@ import nl.basjes.parse.core.Field
 
 class LogRecord {
 
-  var date: String = null
-  var time: String = null
+  var date: String = _
+  var time: String = _
 
-  var status: String = null
-  var path: String = null
-  var userAgent: String = null
+  var status: String = _
+  var path: String = _
+  var userAgent: String = _
 
   @Field(Array("TIME.DATE:request.receive.time.date_utc"))
   def setDate(value: String): Unit = {
