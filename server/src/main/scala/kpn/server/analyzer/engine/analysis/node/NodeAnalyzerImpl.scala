@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeName
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
@@ -13,7 +14,11 @@ case class Name(name: String, proposed: Boolean)
 class NodeAnalyzerImpl extends NodeAnalyzer {
 
   override def name(tags: Tags): String = {
-    ScopedNetworkType.all.flatMap(scopedNetworkType => scopedName(scopedNetworkType, tags)).mkString(" / ")
+    NetworkType.all.flatMap { networkType =>
+      NetworkScope.all.flatMap { networkScope =>
+        scopedName(ScopedNetworkType.from(networkScope, networkType), tags)
+      }.distinct
+    }.mkString(" / ")
   }
 
   override def longName(tags: Tags): Option[String] = {
@@ -44,7 +49,7 @@ class NodeAnalyzerImpl extends NodeAnalyzer {
   override def name(networkType: NetworkType, tags: Tags): String = {
     networkType.scopedNetworkTypes.flatMap { scopedNetworkType =>
       scopedName(scopedNetworkType, tags)
-    }.mkString(" / ")
+    }.distinct.mkString(" / ")
   }
 
   override def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String] = {

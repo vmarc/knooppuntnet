@@ -23,7 +23,21 @@ class NodeAnalyzerTest extends UnitTest {
   test("name - multiple names") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
     nodeAnalyzer.name(Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")) should equal("01 / 02")
+    nodeAnalyzer.name(Tags.from("rwn_ref" -> "01", "rcn_ref" -> "01")) should equal("01 / 01")
     nodeAnalyzer.name(Tags.from("proposed:rwn_ref" -> "01", "rcn_ref" -> "02")) should equal("01 / 02")
+  }
+
+  test("same name in multiple network scopes") {
+    val nodeAnalyzer = new NodeAnalyzerImpl()
+    nodeAnalyzer.name(Tags.from("rwn_ref" -> "01", "lwn_ref" -> "01")) should equal("01")
+    nodeAnalyzer.name(Tags.from("proposed:lwn_ref" -> "01", "rwn_ref" -> "01")) should equal("01")
+    nodeAnalyzer.name(
+      Tags.from(
+        "rwn_ref" -> "01",
+        "lwn_ref" -> "01",
+        "rcn_ref" -> "01"
+      )
+    ) should equal("01 / 01")
   }
 
   test("name - empty string when no name") {
@@ -170,12 +184,17 @@ class NodeAnalyzerTest extends UnitTest {
 
   test("name - for specific networkType") {
     val nodeAnalyzer = new NodeAnalyzerImpl()
+
     val tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")
     nodeAnalyzer.name(NetworkType.hiking, tags) should equal("01")
     nodeAnalyzer.name(NetworkType.cycling, tags) should equal("02")
+
     val tags2 = Tags.from("proposed:rwn_ref" -> "01", "proposed:rcn_ref" -> "02")
     nodeAnalyzer.name(NetworkType.hiking, tags2) should equal("01")
     nodeAnalyzer.name(NetworkType.cycling, tags2) should equal("02")
+
+    val tags3 = Tags.from("rwn_ref" -> "01", "lwn_ref" -> "01")
+    nodeAnalyzer.name(NetworkType.hiking, tags3) should equal("01")
   }
 
   test("name - for specific networkType - not normalized") {
