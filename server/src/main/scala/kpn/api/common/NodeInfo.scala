@@ -27,7 +27,7 @@ case class NodeInfo(
   lastSurvey: Option[Day],
   tags: Tags,
   facts: Seq[Fact],
-  location: Option[Location],
+  locations: Seq[String],
   tiles: Seq[String]
 ) extends Tagable with LatLon with WithId {
 
@@ -56,10 +56,13 @@ case class NodeInfo(
     }
   }
 
-  def locations: Seq[String] = {
-    location match {
-      case Some(location) => location.names
-      case None => Seq.empty
+  // TODO MONGO temporary method for backward compatibility
+  def oldLocation: Option[Location] = {
+    if (locations.nonEmpty) {
+      Some(Location(locations))
+    }
+    else {
+      None
     }
   }
 

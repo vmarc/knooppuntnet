@@ -70,7 +70,7 @@ class OrphanNodeTest02 extends AbstractTest {
             None,
             Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "after"),
             Seq.empty,
-            None,
+            Seq.empty,
             Seq.empty
           )
         )

@@ -452,7 +452,8 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
 
     val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
 
     val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
       countryAnalyzer,

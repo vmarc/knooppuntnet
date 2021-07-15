@@ -1,6 +1,5 @@
 package kpn.core.database.implementation
 
-import kpn.api.common.location.Location
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
@@ -25,9 +24,7 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
           newNodeInfo(
             1001,
             tags = Tags.from("rcn_ref" -> "01"),
-            location = Some(
-              Location(Seq("country", "province", "municipality"))
-            )
+            locations = Seq("country", "province", "municipality")
           ),
           None
         )
@@ -39,9 +36,7 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
           newNodeInfo(
             1002,
             tags = Tags.from("rcn_ref" -> "01"),
-            location = Some(
-              Location(Seq("country", "province", "municipality"))
-            )
+            locations = Seq("country", "province", "municipality")
           ),
           None
         )

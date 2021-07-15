@@ -26,11 +26,4 @@ case class NetworkNodeInfo(
     case Some(NodeIntegrityCheck(networkNodeName, networkNodeNodeId, actual, expected, failed)) => !failed
     case _ => false
   }
-
-  def locations: Seq[String] = {
-    networkNode.location match {
-      case Some(location) => location.names
-      case None => Seq.empty
-    }
-  }
 }

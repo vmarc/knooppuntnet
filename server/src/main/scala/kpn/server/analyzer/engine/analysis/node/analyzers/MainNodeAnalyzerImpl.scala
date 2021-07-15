@@ -14,8 +14,7 @@ class MainNodeAnalyzerImpl(
 
   override def analyze(node: Node): NodeAnalysis = {
     val country = countryAnalyzer.country(Seq(node))
-    val location = nodeLocationAnalyzer.locate(node.latitude, node.longitude)
-    NodeAnalysis(node, country, location)
+    val locations = nodeLocationAnalyzer.locations(node.latitude, node.longitude)
+    NodeAnalysis(node, country, locations)
   }
-
 }

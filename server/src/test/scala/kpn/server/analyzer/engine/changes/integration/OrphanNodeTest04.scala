@@ -42,7 +42,7 @@ class OrphanNodeTest04 extends AbstractTest {
             None,
             Tags.empty,
             Seq(Fact.Deleted),
-            None,
+            Seq.empty,
             Seq.empty
           )
         )

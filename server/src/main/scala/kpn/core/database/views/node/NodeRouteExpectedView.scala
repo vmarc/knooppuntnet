@@ -31,7 +31,7 @@ object NodeRouteExpectedView extends View {
 
     val result = database.execute(query)
     result.rows.map { row =>
-      val locationNames = row.doc.node.location.toSeq.flatMap(_.names)
+      val locationNames = row.doc.node.locations
       val nodeName = row.doc.node.name(scopedNetworkType)
       val key = Fields(row.key)
       NodeRouteExpectedCount(
@@ -53,7 +53,7 @@ object NodeRouteExpectedView extends View {
 
     val result = database.execute(query)
     result.rows.map { row =>
-      val locationNames = row.doc.node.location.toSeq.flatMap(_.names)
+      val locationNames = row.doc.node.locations
       val nodeName = row.doc.node.networkTypeName(networkType)
       val key = Fields(row.key)
       NodeRouteExpectedCount(

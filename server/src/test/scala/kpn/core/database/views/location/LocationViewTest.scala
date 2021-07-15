@@ -21,9 +21,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
         newNodeInfo(
           id = 1001,
           tags = Tags.from("rcn_ref" -> "01"),
-          location = Some(
-            Location(Seq("country", "province", "municipality"))
-          )
+          locations = Seq("country", "province", "municipality")
         )
       )
 
@@ -136,5 +134,4 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
       )
     }
   }
-
 }

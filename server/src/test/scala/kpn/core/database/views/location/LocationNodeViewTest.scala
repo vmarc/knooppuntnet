@@ -2,7 +2,6 @@ package kpn.core.database.views.location
 
 import kpn.api.common.NodeInfo
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.location.Location
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
@@ -93,9 +92,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
         "lcn_ref" -> "01",
         "expected_lcn_route_relations" -> "3"
       ),
-      location = Some(
-        Location(Seq("nl", "province", "municipality"))
-      )
+      locations = Seq("nl", "province", "municipality")
     )
   }
 

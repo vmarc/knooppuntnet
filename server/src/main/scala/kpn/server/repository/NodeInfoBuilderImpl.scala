@@ -41,7 +41,7 @@ class NodeInfoBuilderImpl(
     val nodeNames = nodeAnalyzer.names(tags)
 
     //val country = countryAnalyzer.country(Seq(LatLonImpl(latitude, longitude)))
-    val location = nodeLocationAnalyzer.locate(latitude, longitude)
+    val locations = nodeLocationAnalyzer.locations(latitude, longitude)
 
     val tiles = {
       val tiles = (ZoomLevel.nodeMinZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
@@ -79,7 +79,7 @@ class NodeInfoBuilderImpl(
       surveyDate,
       tags,
       updatedFacts,
-      location,
+      locations,
       tiles
     )
   }

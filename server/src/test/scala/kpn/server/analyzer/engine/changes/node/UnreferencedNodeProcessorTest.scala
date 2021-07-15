@@ -698,7 +698,8 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     val tileCalculator = new TileCalculatorImpl()
     val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
     val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileCalculator, nodeLocationAnalyzer)
 
     val processor = new UnreferencedNodeProcessorImpl(
@@ -735,7 +736,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
           name = name,
           longName = None,
           country = Some(Country.nl),
-          None
+          Seq.empty
         ),
         connection = false,
         roleConnection = false,

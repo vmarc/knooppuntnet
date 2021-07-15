@@ -68,7 +68,8 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val nodeTileAnalyzer = new NodeTileCalculatorImpl(tileCalculator)
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
     val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(

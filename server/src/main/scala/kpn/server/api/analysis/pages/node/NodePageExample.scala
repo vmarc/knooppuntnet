@@ -58,7 +58,7 @@ object NodePageExample {
         Fact.WasOrphan,
         Fact.Deleted
       ),
-      location = Some(Location(Seq("NL", "North Brabant", "Roosendaal"))),
+      locations = Seq("NL", "North Brabant", "Roosendaal"),
       Seq.empty
     )
   }

@@ -25,36 +25,46 @@ class NodeLocationAnalyzerImpl(
     Seq.empty
   }
 
-  def locate(latitude: String, longitude: String): Option[Location] = {
+  def locations(latitude: String, longitude: String): Seq[String] = {
     locators.foreach { locators =>
       val locationNames = doLocate(latitude, longitude, Seq.empty, locators)
-      if (locationNames.isDefined) {
-        return Some(Location(locationNames.get))
+      if (locationNames.nonEmpty) {
+        return locationNames
       }
     }
-    None
+    Seq.empty
   }
 
-  private def doLocate(latitude: String, longitude: String, names: Seq[String], locator: LocationLocator): Option[Seq[String]] = {
+  def oldLocate(latitude: String, longitude: String): Option[Location] = {
+    val locationNames = locations(latitude, longitude)
+    if (locationNames.nonEmpty) {
+      Some(Location(locationNames))
+    }
+    else {
+      None
+    }
+  }
+
+  private def doLocate(latitude: String, longitude: String, names: Seq[String], locator: LocationLocator): Seq[String] = {
 
     if (locator.contains(latitude, longitude)) {
       val newNames = names :+ locator.locationDefinition.name
 
       if (locator.locationDefinition.children.isEmpty) {
-        Some(newNames)
+        newNames
       }
       else {
         locator.children.foreach { child =>
           val locationNames = doLocate(latitude, longitude, newNames, child)
-          if (locationNames.isDefined) {
+          if (locationNames.nonEmpty) {
             return locationNames
           }
         }
-        None
+        Seq.empty
       }
     }
     else {
-      None
+      Seq.empty
     }
   }
 }

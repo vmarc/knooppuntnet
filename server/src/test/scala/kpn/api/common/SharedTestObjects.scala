@@ -284,7 +284,7 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     tags: Tags = Tags.empty,
     facts: Seq[Fact] = Seq.empty,
-    location: Option[Location] = None,
+    locations: Seq[String] = Seq.empty,
     tiles: Seq[String] = Seq.empty
   ): NodeInfo = {
 
@@ -315,7 +315,7 @@ trait SharedTestObjects extends MockFactory {
       lastSurvey,
       tags,
       facts,
-      location,
+      locations,
       tiles
     )
   }

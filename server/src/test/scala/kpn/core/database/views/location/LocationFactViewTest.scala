@@ -43,9 +43,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
           facts = Seq(
             Fact.IntegrityCheckFailed
           ),
-          location = Some(
-            Location(Seq("nl", "province", "municipality"))
-          )
+          locations = Seq("nl", "province", "municipality")
         )
       )
 

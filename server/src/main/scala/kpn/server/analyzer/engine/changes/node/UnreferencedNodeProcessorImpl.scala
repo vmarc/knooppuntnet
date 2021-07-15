@@ -100,7 +100,7 @@ class UnreferencedNodeProcessorImpl(
             key = key,
             changeType = ChangeType.Update,
             subsets = subsets,
-            location = nodeBefore.networkNode.location,
+            location = nodeBefore.networkNode.oldLocation,
             name = nodeBefore.networkNode.name,
             before = Some(nodeBefore.networkNode.node.raw),
             after = Some(nodeAfter.node.raw),
@@ -139,7 +139,7 @@ class UnreferencedNodeProcessorImpl(
           key = key,
           changeType = ChangeType.Delete,
           subsets = subsets,
-          location = nodeBefore.networkNode.location,
+          location = nodeBefore.networkNode.oldLocation,
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = None,
@@ -171,7 +171,7 @@ class UnreferencedNodeProcessorImpl(
     val tagDiffs = new NodeTagDiffAnalyzer(rawNodeBefore, rawNodeAfter).diffs
     val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
 
-    val location = nodeLocationAnalyzer.locate(nodeAfter.node.latitude, nodeAfter.node.longitude)
+    val location = nodeLocationAnalyzer.oldLocate(nodeAfter.node.latitude, nodeAfter.node.longitude)
 
     val key = context.buildChangeKey(nodeBefore.id)
 

@@ -1,11 +1,11 @@
 if (doc) {
   if (doc.node && doc.node.active === true) {
-    if (doc.node.location) {
+    if (doc.node.locations) {
       for (var i = 0; i < doc.node.names.length; i++) {
         var nodeName = doc.node.names[i];
         var networkType = nodeName.networkType;
-        for (var nodeLocationNameIndex = 0; nodeLocationNameIndex < doc.node.location.names.length; nodeLocationNameIndex++) {
-          var nodeLocationName = doc.node.location.names[nodeLocationNameIndex];
+        for (var nodeLocationNameIndex = 0; nodeLocationNameIndex < doc.node.locations.length; nodeLocationNameIndex++) {
+          var nodeLocationName = doc.node.locations[nodeLocationNameIndex];
           emit(["node", networkType, nodeLocationName], [nodeName.name, doc.node.id]);
         }
       }

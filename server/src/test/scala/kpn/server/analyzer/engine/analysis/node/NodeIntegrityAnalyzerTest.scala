@@ -166,12 +166,11 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       name = "01",
       longName = None,
       country = Some(Country.nl),
-      None
+      Seq.empty
     )
   }
 
   private def analysis(networkAnalysis: NetworkAnalysis, node: NetworkNode): Option[NodeIntegrityCheck] = {
     new NodeIntegrityAnalyzer(ScopedNetworkType.rwn, networkAnalysis, node).analysis
   }
-
 }

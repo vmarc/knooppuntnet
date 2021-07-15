@@ -245,7 +245,8 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer).analyze(networkRelation)
 
     val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
 
     val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
       countryAnalyzer,

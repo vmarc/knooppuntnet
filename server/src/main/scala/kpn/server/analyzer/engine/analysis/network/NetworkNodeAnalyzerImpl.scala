@@ -34,7 +34,7 @@ class NetworkNodeAnalyzerImpl(
               name,
               longName,
               a.country,
-              a.location
+              a.locations
             )
           )
       }

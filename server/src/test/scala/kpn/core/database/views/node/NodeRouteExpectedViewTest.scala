@@ -28,7 +28,7 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
               s"expected_${key}_route_relations" -> expectedRouteRelations.toString,
               s"${key}_ref" -> nodeName
             ),
-            location = Some(Location(Seq("a", "b")))
+            locations = Seq("a", "b")
           )
         )
       }

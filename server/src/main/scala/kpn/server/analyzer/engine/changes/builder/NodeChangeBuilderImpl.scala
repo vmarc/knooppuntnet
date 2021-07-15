@@ -6,6 +6,7 @@ import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.location.Location
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
@@ -90,7 +91,7 @@ class NodeChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Create,
               subsets = subsets,
-              location = nodeAfter.networkNode.location,
+              location = nodeAfter.networkNode.oldLocation,
               name = nodeAfter.networkNode.name,
               before = None,
               after = Some(nodeAfter.networkNode.node.raw),
@@ -128,7 +129,7 @@ class NodeChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Update,
               subsets = subsets,
-              location = nodeAfter.networkNode.location,
+              location = nodeAfter.networkNode.oldLocation,
               name = nodeAfter.networkNode.name,
               before = Some(nodeBefore.node.raw),
               after = Some(nodeAfter.networkNode.node.raw),
@@ -192,7 +193,7 @@ class NodeChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Delete,
               subsets = subsets,
-              location = nodeBefore.networkNode.location,
+              location = nodeBefore.networkNode.oldLocation,
               name = nodeBefore.networkNode.name,
               before = Some(nodeBefore.networkNode.node.raw),
               after = None,
@@ -252,7 +253,7 @@ class NodeChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Update,
                 subsets = subsets,
-                location = nodeInfo.location,
+                location = nodeInfo.oldLocation,
                 name = name,
                 before = Some(before),
                 after = Some(after),
@@ -290,7 +291,7 @@ class NodeChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Update,
                 subsets = subsets,
-                location = nodeBefore.networkNode.location,
+                location = nodeBefore.networkNode.oldLocation,
                 name = nodeBefore.networkNode.name,
                 before = Some(before),
                 after = Some(after),
@@ -390,7 +391,7 @@ class NodeChangeBuilderImpl(
           key = key,
           changeType = ChangeType.Update,
           subsets = subsets,
-          location = nodeAfter.networkNode.location,
+          location = nodeAfter.networkNode.oldLocation,
           name = nodeAfter.networkNode.name,
           before = Some(before),
           after = Some(after),

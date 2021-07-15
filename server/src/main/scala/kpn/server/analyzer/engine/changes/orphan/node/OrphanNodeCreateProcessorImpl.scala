@@ -33,7 +33,7 @@ class OrphanNodeCreateProcessorImpl(
           key = key,
           changeType = ChangeType.Create,
           loadedNode.subsets,
-          location = nodeInfo.location,
+          location = nodeInfo.oldLocation,
           loadedNode.name,
           before = None,
           after = Some(loadedNode.node.raw),

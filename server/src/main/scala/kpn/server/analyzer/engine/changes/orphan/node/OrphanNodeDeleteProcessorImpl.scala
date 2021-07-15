@@ -45,7 +45,7 @@ class OrphanNodeDeleteProcessorImpl(
                 key = key,
                 changeType = ChangeType.Delete,
                 subsets = subsets,
-                location = nodeInfo.location,
+                location = nodeInfo.oldLocation,
                 name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
                 before = loadedNodeDelete.loadedNode.map(_.node.raw),
                 after = None,

@@ -12,7 +12,7 @@ case class NetworkNode(
   name: String,
   longName: Option[String],
   country: Option[Country],
-  location: Option[Location]
+  locations: Seq[String]
 ) extends Tagable {
 
   def id: Long = node.id
@@ -20,4 +20,14 @@ case class NetworkNode(
   def number: Option[Int] = NodeUtil.toNumber(name)
 
   def tags: Tags = node.tags
+
+  // TODO MONGO cleanup
+  def oldLocation: Option[Location] = {
+    if (locations.nonEmpty) {
+      Some(Location(locations))
+    }
+    else {
+      None
+    }
+  }
 }

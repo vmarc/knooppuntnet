@@ -21,7 +21,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1001L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "01")
           )
         )
@@ -31,7 +31,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1002L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "02"),
           )
         )
@@ -87,7 +87,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1001L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "01")
           )
         )
@@ -98,7 +98,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1002L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "02"),
             active = false
           )
@@ -127,7 +127,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1001L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "01"),
             lastSurvey = Some(Day(2020, 8, None))
           )
@@ -138,7 +138,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1002L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "02"),
           )
         )
@@ -181,7 +181,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1001L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "01")
           )
         )
@@ -191,7 +191,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1002L,
-            location = Some(Location(Seq("nl"))),
+            locations = Seq("nl"),
             tags = Tags.from("rwn_ref" -> "02"),
           )
         )
@@ -219,7 +219,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1001L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "01")
           )
         )
@@ -229,7 +229,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1002L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rcn_ref" -> "02"),
           )
         )
@@ -257,7 +257,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1001L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "01")
           )
         )
@@ -267,7 +267,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         new NodeDocBuilder(database).build(
           newNodeInfo(
             1007L,
-            location = Some(Location(Seq("be"))),
+            locations = Seq("be"),
             tags = Tags.from("rwn_ref" -> "07"),
             facts = Seq(Fact.NodeInvalidSurveyDate)
           )
@@ -309,7 +309,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           new NodeDocBuilder(database).build(
             newNodeInfo(
               nodeId,
-              location = Some(Location(Seq("be"))),
+              locations = Seq("be"),
               tags = Tags.from("rwn_ref" -> name)
             )
           )

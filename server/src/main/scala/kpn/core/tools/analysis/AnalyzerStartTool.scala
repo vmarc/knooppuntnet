@@ -223,7 +223,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
                 loadedNode.name,
                 longName,
                 loadedNode.country,
-                nodeInfo.location
+                nodeInfo.locations
               )
               loadNodeChange(networkNode)
           }
@@ -320,7 +320,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             key = key,
             changeType = ChangeType.InitialValue,
             subsets = subsets,
-            location = node.networkNode.location,
+            location = node.networkNode.oldLocation,
             name = node.networkNode.name,
             before = None,
             after = Some(node.networkNode.node.raw),
@@ -389,7 +389,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           key = key,
           changeType = ChangeType.InitialValue,
           subsets = subsets,
-          location = networkNode.location,
+          location = networkNode.oldLocation,
           name = networkNode.name,
           before = None,
           after = Some(networkNode.node.raw),

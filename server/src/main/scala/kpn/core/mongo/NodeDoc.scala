@@ -45,7 +45,7 @@ case class NodeDoc(
       lastSurvey,
       tags,
       facts,
-      Some(Location(locations)),
+      locations,
       tiles
     )
   }

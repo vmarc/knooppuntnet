@@ -138,7 +138,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
 
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
 
     val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
       countryAnalyzer,

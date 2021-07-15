@@ -163,7 +163,8 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
     val nodeAnalyzer = new NodeAnalyzerImpl()
     val nodeTileAnalyzer = new NodeTileCalculatorImpl(tileCalculator)
     private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locate _).when(*, *).returns(None)
+    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
     val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
     val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
 

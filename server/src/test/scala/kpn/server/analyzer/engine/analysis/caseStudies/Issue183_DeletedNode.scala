@@ -148,7 +148,8 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     )
     val networkAnalyzer: NetworkAnalyzer = {
       val nodeLocationAnalyzer = new NodeLocationAnalyzer {
-        def locate(latitude: String, longitude: String): Option[Location] = None
+        def locations(latitude: String, longitude: String): Seq[String] = Seq.empty
+        def oldLocate(latitude: String, longitude: String): Option[Location] = None
       }
       val mainNodeAnalyzer = {
         new MainNodeAnalyzerImpl(
@@ -195,7 +196,8 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
           def tiles(z: Int, latLon: LatLon): Seq[Tile] = Seq.empty
         }
         val nodeLocationAnalyzer = new NodeLocationAnalyzer {
-          def locate(latitude: String, longitude: String): Option[Location] = None
+          def locations(latitude: String, longitude: String): Seq[String] = Seq.empty
+          def oldLocate(latitude: String, longitude: String): Option[Location] = None
         }
         new NodeInfoBuilderImpl(
           nodeAnalyzer,

@@ -58,7 +58,7 @@ class OrphanNodeTest01 extends AbstractTest {
             lastSurvey = None,
             newNodeTags("01"),
             Seq.empty,
-            None,
+            Seq.empty,
             Seq.empty
           )
         )
@@ -152,7 +152,7 @@ class OrphanNodeTest01 extends AbstractTest {
               "network:type" -> "node_network"
             ),
             Seq.empty,
-            None,
+            Seq.empty,
             Seq.empty
           )
         )

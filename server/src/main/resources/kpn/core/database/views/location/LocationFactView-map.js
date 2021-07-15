@@ -1,11 +1,11 @@
 if (doc) {
-  if (doc.node && doc.node.active === true && doc.node.location) {
+  if (doc.node && doc.node.active === true && doc.node.locations) {
     for (var nodeNameIndex = 0; nodeNameIndex < doc.node.names.length; nodeNameIndex++) {
       var nodeName = doc.node.names[nodeNameIndex];
       var country = doc.node.country;
       var networkType = nodeName.networkType;
-      for (var nodeLocationNameIndex = 0; nodeLocationNameIndex < doc.node.location.names.length; nodeLocationNameIndex++) {
-        var nodeLocationName = doc.node.location.names[nodeLocationNameIndex];
+      for (var nodeLocationNameIndex = 0; nodeLocationNameIndex < doc.node.locations.length; nodeLocationNameIndex++) {
+        var nodeLocationName = doc.node.locations[nodeLocationNameIndex];
         for (var nodeFactIndex = 0; nodeFactIndex < doc.node.facts.length; nodeFactIndex++) {
           var nodeFact = doc.node.facts[nodeFactIndex];
           if ("IntegrityCheckFailed" !== nodeFact) {

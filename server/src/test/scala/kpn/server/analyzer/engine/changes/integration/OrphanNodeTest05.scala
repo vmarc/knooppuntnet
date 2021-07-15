@@ -59,7 +59,7 @@ class OrphanNodeTest05 extends AbstractTest {
             None,
             Tags.empty,
             Seq.empty,
-            None,
+            Seq.empty,
             Seq.empty
           )
         )

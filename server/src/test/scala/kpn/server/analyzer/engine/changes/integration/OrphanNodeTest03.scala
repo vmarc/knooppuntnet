@@ -65,7 +65,7 @@ class OrphanNodeTest03 extends AbstractTest {
             None,
             newNodeTags("01"),
             Seq(Fact.Deleted),
-            None,
+            Seq.empty,
             Seq.empty
           )
         )
