@@ -99,10 +99,10 @@ class MongoQueryLocationRoutes(database: Database) {
       Some(equal("labels", s"network-type-${networkType.name}")),
       Some(equal("labels", s"location-$location")),
       locationRoutesType match {
-        case LocationRoutesType.all => None
         case LocationRoutesType.inaccessible => Some(equal("labels", s"fact-RouteUnaccessible"))
         case LocationRoutesType.facts => Some(equal("labels", "facts"))
         case LocationRoutesType.survey => Some(equal("labels", "survey"))
+        case _ => None
       }
     ).flatten
     and(filters: _*)

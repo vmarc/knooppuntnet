@@ -105,16 +105,21 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   private def splitRouteName(routeName: String): (Option[String], Option[String]) = {
     val splitAt = if (routeName.count(_ == '-') > 1) " - " else "-"
     val nameParts = routeName.split(splitAt)
-    val firstPart = nameParts.head.trim
-    val startNodeNameOption = if (firstPart.nonEmpty) Some(NodeNameAnalyzer.normalize(firstPart)) else None
-    val endNodeNameOption = if (nameParts.size > 1) {
-      val secondPart = nameParts(1).trim
-      if (secondPart.nonEmpty) Some(NodeNameAnalyzer.normalize(secondPart)) else None
+    if (nameParts.isEmpty) {
+      (None, None)
     }
     else {
-      None
+      val firstPart = nameParts.head.trim
+      val startNodeNameOption = if (firstPart.nonEmpty) Some(NodeNameAnalyzer.normalize(firstPart)) else None
+      val endNodeNameOption = if (nameParts.size > 1) {
+        val secondPart = nameParts(1).trim
+        if (secondPart.nonEmpty) Some(NodeNameAnalyzer.normalize(secondPart)) else None
+      }
+      else {
+        None
+      }
+      (startNodeNameOption, endNodeNameOption)
     }
-    (startNodeNameOption, endNodeNameOption)
   }
 
   private def analyzeToFromTags(tags: Tags): RouteNameAnalysis = {

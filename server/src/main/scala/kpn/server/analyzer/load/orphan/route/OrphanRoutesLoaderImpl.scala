@@ -35,9 +35,9 @@ class OrphanRoutesLoaderImpl(
         log.info(s"Found ${routeIds.size} routes, ${blackListedRouteIds.size} blacklisted routes, ${candidateOrphanRouteIds.size} candidate orphan routes (unreferenced)")
 
         val futures = candidateOrphanRouteIds.zipWithIndex.map { case (routeId, index) =>
-          val context = Log.contextAnd(s"${index + 1}/${candidateOrphanRouteIds.size}")
+          val context = Log.contextAnd(s"${index + 1}/${candidateOrphanRouteIds.size}, routeId=$routeId")
           runAsync(() => Log.context(context)(worker.process(timestamp, routeId)), analysisExecutor).exceptionally { ex =>
-            val message = "Exception while loading orphan route"
+            val message = s"Exception while loading orphan route $routeId"
             Log.context(context) {
               log.error(message, ex)
             }

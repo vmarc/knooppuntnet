@@ -31,7 +31,7 @@ class ValidateQueriesTool(database: Database) {
     ).flatten
 
     validationResults.foreach(println)
-    println
+    println()
 
     if (validationResults.forall(validationResult => validationResult.isOk)) {
       println("All ok")

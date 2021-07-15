@@ -165,11 +165,11 @@ class MongoQueryLocationNodes(database: Database) {
       Some(equal("labels", s"network-type-${networkType.name}")),
       Some(equal("labels", s"location-$location")),
       locationNodesType match {
-        case LocationNodesType.all => None
         case LocationNodesType.facts => Some(equal("labels", "facts"))
         case LocationNodesType.survey => Some(equal("labels", "survey"))
         case LocationNodesType.integrityCheck => Some(equal("labels", s"integrity-check-${networkType.name}"))
         case LocationNodesType.integrityCheckFailed => Some(equal("labels", s"integrity-check-failed-${networkType.name}"))
+        case _ => None
       }
     ).flatten
     and(filters: _*)

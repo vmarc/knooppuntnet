@@ -5,7 +5,7 @@
 
     <groupId>knooppuntnet</groupId>
     <artifactId>server</artifactId>
-    <version>3.2-snapshot-10</version>
+    <version>3.2-snapshot-12</version>
     <name>server</name>
     <description>knooppuntnet server</description>
 

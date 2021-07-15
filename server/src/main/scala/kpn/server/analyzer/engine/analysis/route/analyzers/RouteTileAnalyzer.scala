@@ -10,18 +10,28 @@ import org.springframework.stereotype.Component
 class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val tiles = (ZoomLevel.minZoom to ZoomLevel.maxZoom).flatMap { zoomLevel =>
-      new TileDataRouteBuilder(zoomLevel).from(
-        context.loadedRoute.id,
-        context.routeNameAnalysis.get.name.get,
-        context.loadedRoute.relation.tags,
-        context.routeMap.get,
-        context.orphan,
-        context.facts
-      ) match {
-        case None => Seq.empty
-        case Some(tileRouteData) =>
-          val tiles = routeTileCalculator.tiles(zoomLevel, tileRouteData)
-          tiles.map(tile => s"${context.loadedRoute.scopedNetworkType.networkType.name}-${tile.name}")
+      context.routeMap.toSeq.flatMap { routeMap =>
+        val name = context.routeNameAnalysis match {
+          case None => "no-name"
+          case Some(routeNameAnalysis) =>
+            routeNameAnalysis.name match {
+              case None => "no-name"
+              case Some(name) => name
+            }
+        }
+        new TileDataRouteBuilder(zoomLevel).from(
+          context.loadedRoute.id,
+          name,
+          context.loadedRoute.relation.tags,
+          routeMap,
+          context.orphan,
+          context.facts
+        ) match {
+          case None => Seq.empty
+          case Some(tileRouteData) =>
+            val tiles = routeTileCalculator.tiles(zoomLevel, tileRouteData)
+            tiles.map(tile => s"${context.loadedRoute.scopedNetworkType.networkType.name}-${tile.name}")
+        }
       }
     }
     context.copy(tiles = tiles)

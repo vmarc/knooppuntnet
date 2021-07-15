@@ -167,6 +167,7 @@ object FindDeletedNodesHistoryTool {
       case HttpStatus.OK =>
         val apiResponse = Json.objectMapper.readValue(response.getBody, classOf[ApiResponse[Long]])
         apiResponse.result.map(replicationNumber => ReplicationId(replicationNumber))
+      case _ => None
     }
   }
 
@@ -184,6 +185,7 @@ object FindDeletedNodesHistoryTool {
       case HttpStatus.OK =>
         val xmlString = response.getBody
         FileUtils.writeStringToFile(new File(s"/kpn/deleted/$nodeId.xml"), xmlString, "UTF-8")
+      case _ =>
     }
   }
 
