@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.NodeName
 import kpn.api.common.NodeRoute
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.NetworkScope
@@ -26,6 +27,16 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
         nodeRepository.save(
           newNodeInfo(
             id = nodeId,
+            name = nodeName,
+            names = Seq(
+              NodeName(
+                networkType,
+                NetworkScope.regional,
+                nodeName,
+                None,
+                proposed = false
+              )
+            ),
             tags = Tags.from(
               s"r${networkType.letter}n_ref" -> nodeName,
               s"expected_r${networkType.letter}n_route_relations" -> expectedRouteRelations.toString

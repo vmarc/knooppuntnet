@@ -1,11 +1,12 @@
 package kpn.core.database.views.location
 
+import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
-import kpn.api.common.location.Location
 import kpn.api.common.location.LocationFact
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -33,6 +34,15 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
         newNodeInfo(
           id = 1001,
           country = Some(Country.nl),
+          names = Seq(
+            NodeName(
+              NetworkType.cycling,
+              NetworkScope.local,
+              "01",
+              None,
+              proposed = false
+            ),
+          ),
           latitude = "1",
           longitude = "2",
           lastUpdated = Timestamp(2019, 8, 11, 12, 34, 56),
@@ -43,7 +53,11 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
           facts = Seq(
             Fact.IntegrityCheckFailed
           ),
-          locations = Seq("nl", "province", "municipality")
+          locations = Seq(
+            "nl",
+            "province",
+            "municipality"
+          )
         )
       )
 

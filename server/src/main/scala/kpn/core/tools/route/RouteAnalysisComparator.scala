@@ -15,7 +15,7 @@ import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Tags
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.NodeNameAnalyzer
+import kpn.server.analyzer.engine.analysis.node.OldNodeNameAnalyzer
 
 class RouteAnalysisComparator {
 
@@ -163,7 +163,7 @@ class RouteAnalysisComparator {
   }
 
   private def normalizeNodeName(nodeName: String): String = {
-    NodeNameAnalyzer.normalize(nodeName)
+    OldNodeNameAnalyzer.normalize(nodeName)
   }
 
   private def normalizeNodes(nodes: Seq[RouteNetworkNodeInfo]): Seq[RouteNetworkNodeInfo] = {

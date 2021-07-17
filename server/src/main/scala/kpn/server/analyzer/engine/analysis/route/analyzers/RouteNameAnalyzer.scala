@@ -4,6 +4,7 @@ import kpn.api.custom.Fact.RouteNameMissing
 import kpn.api.custom.Tags
 import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
+import kpn.server.analyzer.engine.analysis.node.OldNodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
@@ -110,10 +111,10 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
     else {
       val firstPart = nameParts.head.trim
-      val startNodeNameOption = if (firstPart.nonEmpty) Some(NodeNameAnalyzer.normalize(firstPart)) else None
+      val startNodeNameOption = if (firstPart.nonEmpty) Some(OldNodeNameAnalyzer.normalize(firstPart)) else None
       val endNodeNameOption = if (nameParts.size > 1) {
         val secondPart = nameParts(1).trim
-        if (secondPart.nonEmpty) Some(NodeNameAnalyzer.normalize(secondPart)) else None
+        if (secondPart.nonEmpty) Some(OldNodeNameAnalyzer.normalize(secondPart)) else None
       }
       else {
         None
@@ -128,7 +129,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
         tags("to") match {
           case None => RouteNameAnalysis()
           case Some(toNodeName) =>
-            val to = NodeNameAnalyzer.normalize(toNodeName)
+            val to = OldNodeNameAnalyzer.normalize(toNodeName)
             RouteNameAnalysis(
               Some("-" + to),
               None,
@@ -139,15 +140,15 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
       case Some(fromNodeName) =>
         tags("to") match {
           case None =>
-            val from = NodeNameAnalyzer.normalize(fromNodeName)
+            val from = OldNodeNameAnalyzer.normalize(fromNodeName)
             RouteNameAnalysis(
               Some(from + "-"),
               Some(from),
               None
             )
           case Some(toNodeName) =>
-            val to = NodeNameAnalyzer.normalize(toNodeName)
-            val from = NodeNameAnalyzer.normalize(fromNodeName)
+            val to = OldNodeNameAnalyzer.normalize(toNodeName)
+            val from = OldNodeNameAnalyzer.normalize(fromNodeName)
             toRouteNameAnalysisFromNodeNames(from + "-" + to, from, to)
         }
     }

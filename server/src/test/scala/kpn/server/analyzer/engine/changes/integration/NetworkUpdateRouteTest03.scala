@@ -5,6 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NodeInfo
+import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
@@ -18,6 +19,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -117,11 +119,25 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq.empty) should equal(
+        nodeInfo.copy(tiles = Seq.empty) should matchTo(
           newNodeInfo(
             1003,
+            labels = Seq(
+              "facts",
+              "fact-Deleted",
+              "network-type-hiking"
+            ),
             active = false,
             country = Some(Country.nl),
+            name = "03",
+            names = Seq(
+              NodeName(
+                NetworkType.hiking,
+                NetworkScope.regional,
+                "03",None,
+                proposed = false
+              )
+            ),
             tags = newNodeTags("03"),
             facts = Seq(Fact.Deleted)
           )

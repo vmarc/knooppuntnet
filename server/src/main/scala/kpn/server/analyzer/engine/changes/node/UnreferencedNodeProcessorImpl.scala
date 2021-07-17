@@ -9,12 +9,12 @@ import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.NodeInfoBuilder
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -27,8 +27,7 @@ class UnreferencedNodeProcessorImpl(
   analysisContext: AnalysisContext,
   nodeRepository: NodeRepository,
   nodeLoader: NodeLoader,
-  nodeInfoBuilder: NodeInfoBuilder,
-  nodeLocationAnalyzer: NodeLocationAnalyzer
+  nodeAnalyzer: NodeAnalyzer
 ) extends UnreferencedNodeProcessor {
 
   override def process(context: ChangeSetContext, candidateUnreferencedNodes: Seq[NetworkNodeInfo]): Seq[NodeChange] = {
@@ -81,8 +80,8 @@ class UnreferencedNodeProcessorImpl(
       furtherProcess(context, nodeBefore, nodeAfter, facts)
     }
     else {
-      val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = false)
-      nodeRepository.save(nodeInfo)
+      val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, active = false))
+      nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
 
       val subsets = subsetsIn(nodeBefore)
 
@@ -123,8 +122,15 @@ class UnreferencedNodeProcessorImpl(
 
   private def processDeletedNode(context: ChangeSetContext, nodeBefore: NetworkNodeInfo) = {
 
-    val nodeInfo = nodeInfoBuilder.fromNetworkNodeInfo(nodeBefore, active = false, facts = Seq(Fact.Deleted))
-    nodeRepository.save(nodeInfo)
+    val nodeBeforeAnalysis = nodeAnalyzer.analyze(
+      NodeAnalysis(
+        nodeBefore.networkNode.node.raw,
+        active = false,
+        facts = Seq(Fact.Deleted)
+      )
+    )
+
+    nodeRepository.save(nodeBeforeAnalysis.toNodeInfo)
 
     val subsets = subsetsIn(nodeBefore)
 
@@ -139,7 +145,7 @@ class UnreferencedNodeProcessorImpl(
           key = key,
           changeType = ChangeType.Delete,
           subsets = subsets,
-          location = nodeBefore.networkNode.oldLocation,
+          location = nodeBeforeAnalysis.oldLocation,
           name = nodeBefore.networkNode.name,
           before = Some(nodeBefore.networkNode.node.raw),
           after = None,
@@ -162,16 +168,15 @@ class UnreferencedNodeProcessorImpl(
   private def furtherProcess(context: ChangeSetContext, nodeBefore: NetworkNodeInfo, nodeAfter: LoadedNode, changeFacts: Seq[Fact]): Option[NodeChange] = {
 
     analysisContext.data.orphanNodes.watched.add(nodeBefore.id)
-    val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
-    nodeRepository.save(nodeInfo)
+
+    val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, orphan = true))
+    nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
 
     val rawNodeBefore = nodeBefore.networkNode.node.raw
     val rawNodeAfter = nodeAfter.node.raw
 
     val tagDiffs = new NodeTagDiffAnalyzer(rawNodeBefore, rawNodeAfter).diffs
     val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
-
-    val location = nodeLocationAnalyzer.oldLocate(nodeAfter.node.latitude, nodeAfter.node.longitude)
 
     val key = context.buildChangeKey(nodeBefore.id)
 
@@ -182,7 +187,7 @@ class UnreferencedNodeProcessorImpl(
           key = key,
           changeType = ChangeType.Update,
           subsets = nodeAfter.subsets,
-          location = location,
+          location = nodeAfterAnalysis.oldLocation,
           name = nodeAfter.name,
           before = Some(rawNodeBefore),
           after = Some(rawNodeAfter),

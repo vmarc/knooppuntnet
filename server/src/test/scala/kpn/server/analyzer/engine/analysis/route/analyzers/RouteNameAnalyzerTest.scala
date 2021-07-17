@@ -7,7 +7,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -302,8 +302,8 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val analysisContext = new AnalysisContext()
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+    val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
 
     val context = RouteAnalysisContext(
       analysisContext,

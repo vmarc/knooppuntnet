@@ -11,7 +11,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
@@ -74,8 +74,8 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     }
     val routeLocator = new RouteLocatorImpl(locationConfiguration)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+    val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,

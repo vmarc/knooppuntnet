@@ -1,9 +1,11 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.NodeName
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
 import kpn.core.app.stats.Figure
 import kpn.core.database.Database
 import kpn.core.db.TestDocBuilder
@@ -119,9 +121,32 @@ class OverviewTest extends UnitTest {
 
       val b = new TestDocBuilder(database)
 
-      b.node(1001, Country.nl, Tags.from("rcn_ref" -> "01"), orphan = true)
-      b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true)
-      b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true)
+      b.node(
+        1001,
+        Country.nl,
+        names = Seq(
+          NodeName(NetworkType.cycling, NetworkScope.regional, "01", None, proposed = false),
+        ),
+        orphan = true
+      )
+
+      b.node(
+        1002,
+        Country.nl,
+        names = Seq(
+          NodeName(NetworkType.hiking, NetworkScope.regional, "02", None, proposed = false),
+        ),
+        orphan = true
+      )
+
+      b.node(
+        1003,
+        Country.nl,
+        names = Seq(
+          NodeName(NetworkType.hiking, NetworkScope.local, "03", None, proposed = true),
+        ),
+        orphan = true
+      )
 
       queryRows(database) should matchTo(
         Seq(
@@ -137,9 +162,34 @@ class OverviewTest extends UnitTest {
 
       val b = new TestDocBuilder(database)
 
-      b.node(1001, Country.nl, Tags.from("rwn_ref" -> "01"), orphan = true)
-      b.node(1002, Country.nl, Tags.from("rwn_ref" -> "02"), orphan = true, active = false)
-      b.node(1003, Country.nl, Tags.from("rwn_ref" -> "03"), orphan = true, active = false)
+      b.node(
+        1001,
+        Country.nl,
+        names = Seq(
+          NodeName(NetworkType.hiking, NetworkScope.regional, "01", None, proposed = false),
+        ),
+        orphan = true
+      )
+
+      b.node(
+        1002,
+        Country.nl,
+        names = Seq(
+          NodeName(NetworkType.hiking, NetworkScope.regional, "02", None, proposed = false),
+        ),
+        orphan = true,
+        active = false
+      )
+
+      b.node(
+        1003,
+        Country.nl,
+        names = Seq(
+          NodeName(NetworkType.hiking, NetworkScope.regional, "03", None, proposed = false),
+        ),
+        orphan = true,
+        active = false
+      )
 
       queryRows(database) should matchTo(
         Seq(

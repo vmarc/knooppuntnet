@@ -275,9 +275,12 @@ trait SharedTestObjects extends MockFactory {
 
   def newNodeInfo(
     id: Long,
+    labels: Seq[String] = Seq.empty,
     active: Boolean = true,
     orphan: Boolean = false,
     country: Option[Country] = None,
+    name: String = "",
+    names: Seq[NodeName] = Seq.empty,
     latitude: String = "0",
     longitude: String = "0",
     lastUpdated: Timestamp = defaultTimestamp,
@@ -288,22 +291,10 @@ trait SharedTestObjects extends MockFactory {
     tiles: Seq[String] = Seq.empty
   ): NodeInfo = {
 
-    val name = ScopedNetworkType.all.flatMap(n => tags(n.nodeRefTagKey)).mkString(" / ")
-    val names = ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      tags(scopedNetworkType.nodeRefTagKey).map { name =>
-        NodeName(
-          scopedNetworkType.networkType,
-          scopedNetworkType.networkScope,
-          name,
-          None,
-          proposed = false
-        )
-      }
-    }
-
     NodeInfo(
       id,
       id,
+      labels,
       active,
       orphan,
       country,
@@ -316,7 +307,9 @@ trait SharedTestObjects extends MockFactory {
       tags,
       facts,
       locations,
-      tiles
+      tiles,
+      None,
+      Seq.empty
     )
   }
 

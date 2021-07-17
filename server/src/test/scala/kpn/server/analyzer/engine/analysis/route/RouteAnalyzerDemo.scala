@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -29,8 +29,8 @@ object RouteAnalyzerDemo {
         val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
         val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
         val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-        val nodeAnalyzer = new NodeAnalyzerImpl()
-        val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+        val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+        val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
         val routeAnalyzer = new MasterRouteAnalyzerImpl(
           analysisContext,
           routeLocationAnalyzer,

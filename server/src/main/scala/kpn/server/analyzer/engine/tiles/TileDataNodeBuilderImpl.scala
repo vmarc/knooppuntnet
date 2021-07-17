@@ -9,7 +9,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import org.springframework.stereotype.Component
 
@@ -17,7 +17,7 @@ import scala.util.Failure
 import scala.util.Success
 
 @Component
-class TileDataNodeBuilderImpl(nodeAnalyzer: NodeAnalyzer) extends TileDataNodeBuilder {
+class TileDataNodeBuilderImpl(nodeAnalyzer: OldNodeAnalyzer) extends TileDataNodeBuilder {
 
   private val prioritizedScopes = Seq(
     NetworkScope.regional, // prefer regional over local

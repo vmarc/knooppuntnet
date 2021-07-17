@@ -35,6 +35,7 @@ object NodePageExample {
     NodeInfo(
       _id = 1,
       id = 1,
+      labels = Seq.empty,
       active = false,
       orphan = true,
       country = Some(Country.nl),
@@ -59,7 +60,9 @@ object NodePageExample {
         Fact.Deleted
       ),
       locations = Seq("NL", "North Brabant", "Roosendaal"),
-      Seq.empty
+      tiles = Seq.empty,
+      integrity = None, // TODO MONGO move setup from nodeDetailsPage method to here
+      routeReferences = Seq.empty // TODO MONGO move setup from nodeDetailsPage method to here
     )
   }
 

@@ -16,7 +16,6 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -51,6 +50,11 @@ class OrphanNodeTest02 extends AbstractTest {
           NodeInfo(
             1001,
             1001,
+            labels = Seq(
+              "active",
+              "orphan",
+              "network-type-hiking"
+            ),
             active = true,
             orphan = true,
             Some(Country.nl),
@@ -71,6 +75,8 @@ class OrphanNodeTest02 extends AbstractTest {
             Tags.from("rwn_ref" -> "01", "network:type" -> "node_network", "tag" -> "after"),
             Seq.empty,
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )

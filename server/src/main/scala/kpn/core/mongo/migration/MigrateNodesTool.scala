@@ -27,7 +27,6 @@ object MigrateNodesTool {
 class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Database) {
 
   private val nodeRepository = new NodeRepositoryImpl(null, couchDatabase, false)
-  private val nodeDocBuilder = new NodeDocBuilder(database)
 
   def migrate(): Unit = {
     val allNodeIds = findAllNodeIds()
@@ -48,9 +47,6 @@ class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Data
 
   private def migrateNodes(nodeIds: Seq[Long]): Unit = {
     val nodeInfos = nodeRepository.nodesWithIds(nodeIds)
-    val nodeDocs = nodeInfos.map { nodeInfo =>
-      nodeDocBuilder.build(nodeInfo)
-    }
-    database.nodes.insertMany(nodeDocs)
+    database.nodes.insertMany(nodeInfos)
   }
 }

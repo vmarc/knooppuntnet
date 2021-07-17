@@ -4,11 +4,12 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Fact
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.NodeInfoBuilder
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -16,14 +17,15 @@ import org.springframework.stereotype.Component
 class OrphanNodeCreateProcessorImpl(
   analysisContext: AnalysisContext,
   nodeRepository: NodeRepository,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeAnalyzer: NodeAnalyzer
 ) extends OrphanNodeCreateProcessor {
 
   override def process(optionalContext: Option[ChangeSetContext], loadedNode: LoadedNode): Option[NodeChange] = {
 
     analysisContext.data.orphanNodes.watched.add(loadedNode.id)
-    val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
-    nodeRepository.save(nodeInfo)
+
+    val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(loadedNode.node.raw, orphan = true))
+    nodeRepository.save(nodeAnalysis.toNodeInfo)
 
     optionalContext.map { context =>
       val key = context.buildChangeKey(loadedNode.id)
@@ -33,10 +35,10 @@ class OrphanNodeCreateProcessorImpl(
           key = key,
           changeType = ChangeType.Create,
           loadedNode.subsets,
-          location = nodeInfo.oldLocation,
+          location = nodeAnalysis.oldLocation,
           loadedNode.name,
           before = None,
-          after = Some(loadedNode.node.raw),
+          after = Some(nodeAnalysis.node),
           connectionChanges = Seq.empty,
           roleConnectionChanges = Seq.empty,
           definedInNetworkChanges = Seq.empty,

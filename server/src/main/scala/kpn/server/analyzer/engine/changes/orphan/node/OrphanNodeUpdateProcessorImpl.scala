@@ -7,10 +7,11 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.core.history.NodeDataDiffAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.NodeInfoBuilder
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component
 class OrphanNodeUpdateProcessorImpl(
   analysisContext: AnalysisContext,
   nodeRepository: NodeRepository,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeAnalyzer: NodeAnalyzer
 ) extends OrphanNodeUpdateProcessor {
 
   override def process(context: ChangeSetContext, loadedNodeChange: LoadedNodeChange): Option[NodeChange] = {
@@ -61,8 +62,15 @@ class OrphanNodeUpdateProcessorImpl(
 
     val nodeDataUpdate = new NodeDataDiffAnalyzer(before, after).analysis
 
-    val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNodeChange.after, active = isNetworkNodeX, orphan = true)
-    nodeRepository.save(nodeInfo)
+    val nodeAfterAnalysis = nodeAnalyzer.analyze(
+      NodeAnalysis(
+        loadedNodeChange.after.node.raw,
+        active = isNetworkNodeX,
+        orphan = true
+      )
+    )
+
+    nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
 
     val subsets = (loadedNodeChange.before.subsets.toSet ++ loadedNodeChange.after.subsets.toSet).toSeq
     val name = if (loadedNodeChange.after.name.nonEmpty) {
@@ -81,7 +89,7 @@ class OrphanNodeUpdateProcessorImpl(
           key = key,
           changeType = ChangeType.Update,
           subsets = subsets,
-          location = nodeInfo.oldLocation,
+          location = nodeAfterAnalysis.oldLocation,
           name = name,
           before = Some(loadedNodeChange.before.node.raw),
           after = Some(loadedNodeChange.after.node.raw),

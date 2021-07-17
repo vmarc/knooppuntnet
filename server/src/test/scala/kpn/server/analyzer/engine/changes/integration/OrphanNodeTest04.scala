@@ -31,6 +31,11 @@ class OrphanNodeTest04 extends AbstractTest {
           NodeInfo(
             1001,
             1001,
+            labels = Seq(
+              "orphan",
+              "facts",
+              "fact-Deleted"
+            ),
             active = false, // <-- !!
             orphan = true,
             Some(Country.nl),
@@ -43,6 +48,8 @@ class OrphanNodeTest04 extends AbstractTest {
             Tags.empty,
             Seq(Fact.Deleted),
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )

@@ -1,16 +1,15 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
-import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Fact
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.NodeInfoBuilder
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Component
 class OrphanNodeDeleteProcessorImpl(
   analysisContext: AnalysisContext,
   nodeRepository: NodeRepository,
-  countryAnalyzer: CountryAnalyzer,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeAnalyzer: NodeAnalyzer
 ) extends OrphanNodeDeleteProcessor {
 
   private val log = Log(classOf[OrphanNodeDeleteProcessorImpl])
@@ -31,12 +29,17 @@ class OrphanNodeDeleteProcessorImpl(
     loadedNodeDelete.loadedNode match {
       case Some(loadedNode) =>
 
-        val nodeInfo = nodeInfoBuilder.fromLoadedNode(loadedNode, active = false, orphan = true, facts = Seq(Fact.Deleted))
-        nodeRepository.save(nodeInfo)
+        val nodeAnalysis = nodeAnalyzer.analyze(
+          NodeAnalysis(
+            loadedNode.node.raw,
+            active = false,
+            orphan = true,
+            facts = Seq(Fact.Deleted)
+          )
+        )
+        nodeRepository.save(nodeAnalysis.toNodeInfo)
 
-        val subsets = loadedNode.subsets
-
-        if (subsets.nonEmpty) {
+        if (nodeAnalysis.subsets.nonEmpty) {
           val key = context.buildChangeKey(loadedNodeDelete.id)
           Some(
             analyzed(
@@ -44,10 +47,10 @@ class OrphanNodeDeleteProcessorImpl(
                 _id = key.toId,
                 key = key,
                 changeType = ChangeType.Delete,
-                subsets = subsets,
-                location = nodeInfo.oldLocation,
-                name = loadedNodeDelete.loadedNode.map(_.name).getOrElse(""),
-                before = loadedNodeDelete.loadedNode.map(_.node.raw),
+                subsets = nodeAnalysis.subsets,
+                location = nodeAnalysis.oldLocation,
+                name = nodeAnalysis.name,
+                before = Some(nodeAnalysis.node),
                 after = None,
                 connectionChanges = Seq.empty,
                 roleConnectionChanges = Seq.empty,
@@ -73,22 +76,18 @@ class OrphanNodeDeleteProcessorImpl(
         log.warn(s"Could not load the 'before' situation at ${context.timestampBefore.yyyymmddhhmmss} while processing node ${loadedNodeDelete.id} delete" +
           " this is unexpected, please investigate")
 
-        val countryOption = countryAnalyzer.country(Seq(LatLonImpl(loadedNodeDelete.rawNode.latitude, loadedNodeDelete.rawNode.longitude)))
-        countryOption match {
-          case None => None
-          case Some(country) =>
-
-            val nodeInfo = nodeInfoBuilder.fromRawNode(
-              loadedNodeDelete.rawNode,
-              country = Some(country),
-              active = false,
-              orphan = true,
-              facts = Seq(Fact.Deleted)
-            )
-            nodeRepository.save(nodeInfo)
-
-            None
+        val nodeAnalysis = nodeAnalyzer.analyze(
+          NodeAnalysis(
+            loadedNodeDelete.rawNode,
+            active = false,
+            orphan = true,
+            facts = Seq(Fact.Deleted)
+          )
+        )
+        if (nodeAnalysis.country.nonEmpty) {
+          nodeRepository.save(nodeAnalysis.toNodeInfo)
         }
+        None
     }
   }
 

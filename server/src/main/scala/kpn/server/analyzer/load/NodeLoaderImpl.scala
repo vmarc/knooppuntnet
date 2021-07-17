@@ -11,7 +11,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNodes
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.stereotype.Component
@@ -25,7 +25,7 @@ class NodeLoaderImpl(
   analysisContext: AnalysisContext,
   nonCachingOverpassQueryExecutor: OverpassQueryExecutor,
   countryAnalyzer: CountryAnalyzer,
-  nodeAnalyzer: NodeAnalyzer
+  oldNodeAnalyzer: OldNodeAnalyzer
 ) extends NodeLoader {
 
   private val log = Log(classOf[NodeLoader])
@@ -44,7 +44,7 @@ class NodeLoaderImpl(
         val networkTypes = NetworkType.all.filter { networkType =>
           analysisContext.isValidNetworkNode(networkType, node)
         }
-        val name = nodeAnalyzer.name(node.tags)
+        val name = oldNodeAnalyzer.name(node.tags)
         LoadedNode(countries.headOption, networkTypes, name, Node(node))
       }
     }
@@ -114,7 +114,7 @@ class NodeLoaderImpl(
       val networkTypes = NetworkType.all.filter { networkType =>
         analysisContext.isValidNetworkNode(networkType, node.raw)
       }
-      val name = nodeAnalyzer.name(node.tags)
+      val name = oldNodeAnalyzer.name(node.tags)
       LoadedNode(countries.headOption, networkTypes, name, node)
     }
   }

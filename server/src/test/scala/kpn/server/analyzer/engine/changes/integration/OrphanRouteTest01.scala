@@ -1,22 +1,24 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NodeInfo
+import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData
+import kpn.core.test.TestData2
 
 class OrphanRouteTest01 extends AbstractTest {
 
@@ -53,19 +55,47 @@ class OrphanRouteTest01 extends AbstractTest {
       where { nodeInfo: NodeInfo =>
         nodeInfo.id match {
           case 1001 =>
-            nodeInfo.copy(tiles = Seq.empty) should equal(
+            nodeInfo should matchTo(
               newNodeInfo(
                 1001,
+                labels = Seq(
+                  "active",
+                  "network-type-hiking"
+                ),
                 country = Some(Country.nl),
+                name = "01",
+                names = Seq(
+                  NodeName(
+                    NetworkType.hiking,
+                    NetworkScope.regional,
+                    "01",
+                    None,
+                    proposed = false
+                  )
+                ),
                 tags = newNodeTags("01")
               )
             )
 
           case 1002 =>
-            nodeInfo.copy(tiles = Seq.empty) should equal(
+            nodeInfo should matchTo(
               newNodeInfo(
                 1002,
+                labels = Seq(
+                  "active",
+                  "network-type-hiking"
+                ),
                 country = Some(Country.nl),
+                name = "02",
+                names = Seq(
+                  NodeName(
+                    NetworkType.hiking,
+                    NetworkScope.regional,
+                    "02",
+                    None,
+                    proposed = false
+                  )
+                ),
                 tags = newNodeTags("02")
               )
             )

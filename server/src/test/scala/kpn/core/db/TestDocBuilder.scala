@@ -1,6 +1,7 @@
 package kpn.core.db
 
 import kpn.api.common.NetworkFacts
+import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
@@ -110,6 +111,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
   def node(
     id: Long,
     country: Country = Country.nl,
+    names: Seq[NodeName] = Seq.empty,
     tags: Tags = Tags.empty,
     active: Boolean = true,
     orphan: Boolean = false,
@@ -119,6 +121,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       newNodeInfo(
         id,
         country = Some(country),
+        names = names,
         tags = tags,
         active = active,
         orphan = orphan,

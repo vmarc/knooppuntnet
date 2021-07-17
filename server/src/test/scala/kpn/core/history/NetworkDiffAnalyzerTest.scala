@@ -13,13 +13,13 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
@@ -412,8 +412,8 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+    val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeLocationAnalyzer,
@@ -421,16 +421,16 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       routeNodeInfoAnalyzer
     )
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
-    val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
-    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
+    val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
+    (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
+    (oldNodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
 
-    val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
+    val oldMainNodeAnalyzer = new OldMainNodeAnalyzerImpl(
       countryAnalyzer,
-      nodeLocationAnalyzer
+      oldNodeLocationAnalyzer
     )
 
-    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer, nodeAnalyzer)
+    val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, oldMainNodeAnalyzer, oldNodeAnalyzer)
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
       analysisContext,

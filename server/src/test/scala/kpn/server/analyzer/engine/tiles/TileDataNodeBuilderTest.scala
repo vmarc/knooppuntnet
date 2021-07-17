@@ -6,7 +6,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 
 class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
@@ -217,6 +217,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   }
 
   private def tileDataNodeBuilder: TileDataNodeBuilder = {
-    new TileDataNodeBuilderImpl(new NodeAnalyzerImpl())
+    new TileDataNodeBuilderImpl(new OldNodeAnalyzerImpl())
   }
 }

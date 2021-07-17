@@ -5,14 +5,14 @@ import kpn.api.common.data.Node
 import kpn.api.custom.Country
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNode
-import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -63,19 +63,20 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     val analysisContext: AnalysisContext = new AnalysisContext()
     val nodeRepository: NodeRepository = stub[NodeRepository]
-    val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
-    val tileCalculator = new TileCalculatorImpl()
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val nodeTileAnalyzer = new NodeTileCalculatorImpl(tileCalculator)
-    private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
-    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
-    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileAnalyzer, nodeLocationAnalyzer)
+
+    private val nodeAnalyzer: NodeAnalyzer = {
+      new NodeAnalyzerImpl(
+        new NodeCountryAnalyzerNoop,
+        new NodeTileAnalyzerNoop,
+        new NodeLocationsAnalyzerNoop,
+        new NodeRouteReferencesAnalyzerNoop
+      )
+    }
 
     val processor: OrphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
       analysisContext,
       nodeRepository,
-      nodeInfoBuilder
+      nodeAnalyzer
     )
   }
 }

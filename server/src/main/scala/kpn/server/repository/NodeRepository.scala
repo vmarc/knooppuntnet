@@ -2,8 +2,6 @@ package kpn.server.repository
 
 import kpn.api.common.NodeInfo
 import kpn.api.common.common.Reference
-import kpn.api.common.node.NodeOrphanRouteReference
-import kpn.core.mongo.NodeDoc
 
 trait NodeRepository {
 
@@ -14,8 +12,6 @@ trait NodeRepository {
   def bulkSave(nodes: NodeInfo*): Unit
 
   def delete(nodeId: Long): Unit
-
-  def findById(nodeId: Long): Option[NodeDoc]
 
   def nodeWithId(nodeId: Long): Option[NodeInfo]
 

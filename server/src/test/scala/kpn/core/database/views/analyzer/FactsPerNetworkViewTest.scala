@@ -1,5 +1,6 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.NodeName
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Country
@@ -111,7 +112,19 @@ class FactsPerNetworkViewTest extends UnitTest {
         node(
           1001,
           Country.nl,
-          tags = Tags.from(scopedNetworkType.nodeRefTagKey -> "01", "network:type" -> "node_network"),
+          names = Seq(
+            NodeName(
+              scopedNetworkType.networkType,
+              scopedNetworkType.networkScope,
+              "01",
+              None,
+              proposed = false
+            ),
+          ),
+          tags = Tags.from(
+            scopedNetworkType.nodeRefTagKey -> "01",
+            "network:type" -> "node_network"
+          ),
           orphan = true,
           facts = Seq(Fact.IntegrityCheck)
         )

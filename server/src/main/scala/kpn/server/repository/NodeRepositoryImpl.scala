@@ -8,10 +8,19 @@ import kpn.core.database.views.analyzer.NodeRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.mongo.Database
-import kpn.core.mongo.NodeDoc
 import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
-import kpn.core.mongo.migration.NodeDocBuilder
 import kpn.core.util.Log
+import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Sorts.ascending
+import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpServerErrorException
 
@@ -34,20 +43,21 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def save(node: NodeInfo): Unit = {
+  override def save(nodeInfo: NodeInfo): Unit = {
     if (mongoEnabled) {
-      val nodeDoc = new NodeDocBuilder(database).build(node)
-      database.nodes.save(nodeDoc)
+      database.nodes.save(nodeInfo)
     }
     else {
-      bulkSave(node)
+      bulkSave(nodeInfo)
     }
   }
 
-  override def bulkSave(nodes: NodeInfo*): Unit = {
+  override def bulkSave(nodeInfos: NodeInfo*): Unit = {
     if (mongoEnabled) {
-      // https://docs.mongodb.com/manual/core/bulk-write-operations/
-      ??? // TODO MONGO
+      // TODO MONGO https://docs.mongodb.com/manual/core/bulk-write-operations/
+      nodeInfos.foreach { nodeInfo =>
+        database.nodes.save(nodeInfo)
+      }
     }
     else {
       var retry = true
@@ -55,7 +65,7 @@ class NodeRepositoryImpl(
 
       while (retry && retryCount < 3) {
         try {
-          doSave(nodes)
+          doSave(nodeInfos)
           retry = false
         }
         catch {
@@ -129,18 +139,9 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def findById(nodeId: Long): Option[NodeDoc] = {
-    if (mongoEnabled) {
-      database.nodes.findById(nodeId, log)
-    }
-    else {
-      throw new IllegalStateException("couchdb: method not supported")
-    }
-  }
-
   override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
     if (mongoEnabled) {
-      throw new IllegalStateException("mongodb: method not supported")
+      database.nodes.findById(nodeId, log)
     }
     else {
       analysisDatabase.docWithId(docId(nodeId), classOf[kpn.core.database.doc.NodeDoc]).map(_.node)
@@ -150,7 +151,6 @@ class NodeRepositoryImpl(
   override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeInfo] = {
     if (mongoEnabled) {
       database.nodes.findByIds(nodeIds, log)
-      Seq.empty // TODO MONGO
     }
     else {
       val ids = nodeIds.map(id => docId(id))
@@ -170,7 +170,7 @@ class NodeRepositoryImpl(
 
   override def nodeRouteReferences(nodeId: Long, stale: Boolean = true): Seq[Reference] = {
     if (mongoEnabled) {
-      throw new IllegalStateException("mongodb: method not supported - route references are included in NodeDoc")
+      database.routes.aggregate[Reference](routeReferencesPipeline(nodeId))
     }
     else {
       NodeRouteReferenceView.query(analysisDatabase, nodeId, stale)
@@ -198,6 +198,27 @@ class NodeRepositoryImpl(
         (s"${existingNodeIds.size}/${nodeIds.size} existing nodes", existingNodeIds)
       }
     }
+  }
+
+  private def routeReferencesPipeline(nodeId: Long): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          equal("nodeRefs", nodeId)
+        )
+      ),
+      project(
+        fields(
+          excludeId(),
+          computed("networkType", "$summary.networkType"),
+          computed("networkScope", "$summary.networkScope"),
+          computed("id", "$summary.id"),
+          computed("name", "$summary.name")
+        )
+      ),
+      sort(orderBy(ascending("networkType", "networkScope", "routeName")))
+    )
   }
 
   private def docId(nodeId: Long): String = {

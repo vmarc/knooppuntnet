@@ -14,16 +14,15 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.Network
-import kpn.core.analysis.NetworkNode
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.QueryNode
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
-import kpn.server.analyzer.load.data.LoadedNode
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 import java.util.concurrent.CompletableFuture.allOf
@@ -172,20 +171,9 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
 
         allNodes.values.foreach { networkNode =>
-          config.nodeRepository.save(
-            config.nodeInfoBuilder.build(
-              id = networkNode.id,
-              active = true,
-              orphan = false,
-              country = networkNode.country,
-              latitude = networkNode.node.latitude,
-              longitude = networkNode.node.longitude,
-              lastUpdated = networkNode.node.timestamp,
-              tags = networkNode.node.tags,
-              facts = Seq.empty
-            )
-          )
-          loadNodeChange(networkNode)
+          val nodeAnalysis = config.nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw))
+          config.nodeRepository.save(nodeAnalysis.toNodeInfo)
+          loadNodeChange(nodeAnalysis)
         }
 
         val elementIds = config.relationAnalyzer.toElementIds(loadedRoute.relation)
@@ -208,24 +196,10 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           data.nodes.get(nodeId) match {
             case None => log.error("Node not found")
             case Some(node) =>
-              val countries = config.countryAnalyzer.countries(node)
-              val networkTypes = NetworkType.all.filter { networkType =>
-                config.analysisContext.isValidNetworkNode(networkType, node.raw)
-              }
-              val name = config.nodeAnalyzer.name(node.tags)
-              val longName = config.nodeAnalyzer.longName(node.tags)
-              val loadedNode = LoadedNode(countries.headOption, networkTypes, name, node)
-              val nodeInfo = config.nodeInfoBuilder.fromLoadedNode(loadedNode, orphan = true)
+              val nodeAnalysis = config.nodeAnalyzer.analyze(NodeAnalysis(node.raw, orphan = true))
               config.analysisContext.data.orphanNodes.watched.add(nodeId)
-              config.nodeRepository.save(nodeInfo)
-              val networkNode = NetworkNode(
-                loadedNode.node,
-                loadedNode.name,
-                longName,
-                loadedNode.country,
-                nodeInfo.locations
-              )
-              loadNodeChange(networkNode)
+              config.nodeRepository.save(nodeAnalysis.toNodeInfo)
+              loadNodeChange(nodeAnalysis)
           }
         }
       }
@@ -341,23 +315,23 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     }
   }
 
-  private def loadOrphanRouteChange(analysis: RouteAnalysis): Unit = {
+  private def loadOrphanRouteChange(routeAnalysis: RouteAnalysis): Unit = {
 
-    val facts = analysis.route.facts :+ Fact.OrphanRoute
+    val facts = routeAnalysis.route.facts :+ Fact.OrphanRoute
 
-    val key = config.changeSetContext.buildChangeKey(analysis.route.id)
+    val key = config.changeSetContext.buildChangeKey(routeAnalysis.route.id)
     config.changeSetRepository.saveRouteChange(
       RouteChangeAnalyzer.analyzed(
         RouteChange(
           _id = key.toId,
           key = key,
           changeType = ChangeType.InitialValue,
-          name = analysis.route.summary.name,
-          locationAnalysis = analysis.route.analysis.locationAnalysis,
+          name = routeAnalysis.route.summary.name,
+          locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
           before = None,
-          after = Some(analysis.toRouteData),
+          after = Some(routeAnalysis.toRouteData),
           removedWays = Seq.empty,
           addedWays = Seq.empty,
           updatedWays = Seq.empty,
@@ -368,20 +342,18 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     )
   }
 
-  private def loadNodeChange(networkNode: NetworkNode): Unit = {
+  private def loadNodeChange(nodeAnalysis: NodeAnalysis): Unit = {
 
     def subsets: Seq[Subset] = {
-      networkNode.country match {
+      nodeAnalysis.country match {
         case None => Seq.empty
         case Some(c) =>
-          val networkTypes = NetworkType.all.filter { networkType =>
-            config.analysisContext.isValidNetworkNode(networkType, networkNode.node.raw)
-          }
+          val networkTypes = nodeAnalysis.nodeNames.map(_.networkType).distinct
           networkTypes.map(n => Subset(c, n))
       }
     }
 
-    val key = config.changeSetContext.buildChangeKey(networkNode.id)
+    val key = config.changeSetContext.buildChangeKey(nodeAnalysis.node.id)
     config.changeSetRepository.saveNodeChange(
       NodeChangeAnalyzer.analyzed(
         NodeChange(
@@ -389,10 +361,10 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           key = key,
           changeType = ChangeType.InitialValue,
           subsets = subsets,
-          location = networkNode.oldLocation,
-          name = networkNode.name,
+          location = nodeAnalysis.oldLocation,
+          name = nodeAnalysis.name,
           before = None,
-          after = Some(networkNode.node.raw),
+          after = Some(nodeAnalysis.node),
           connectionChanges = Seq.empty,
           roleConnectionChanges = Seq.empty,
           definedInNetworkChanges = Seq.empty,

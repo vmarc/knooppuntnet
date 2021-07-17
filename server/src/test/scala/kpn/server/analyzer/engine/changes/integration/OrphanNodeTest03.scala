@@ -13,7 +13,6 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestData
@@ -46,6 +45,12 @@ class OrphanNodeTest03 extends AbstractTest {
           NodeInfo(
             1001,
             1001,
+            labels = Seq(
+              "orphan",
+              "facts",
+              "fact-Deleted",
+              "network-type-hiking"
+            ),
             active = false, // <-- !!
             orphan = true,
             Some(Country.nl),
@@ -66,6 +71,8 @@ class OrphanNodeTest03 extends AbstractTest {
             newNodeTags("01"),
             Seq(Fact.Deleted),
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )

@@ -16,7 +16,7 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
@@ -24,7 +24,17 @@ import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
@@ -56,7 +66,6 @@ import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -85,14 +94,13 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 
-  val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
-  val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+  val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
+  val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
 
 
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
   val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-  val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(locationConfiguration, true)
 
   val networkRepository = new NetworkRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
   val routeRepository = new RouteRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
@@ -100,7 +108,19 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-  val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileCalculator, nodeLocationAnalyzer)
+
+  val nodeAnalyzer: NodeAnalyzer = {
+    val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(countryAnalyzer)
+    val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
+    val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationConfiguration, true)
+    val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
+    new NodeAnalyzerImpl(
+      nodeCountryAnalyzer: NodeCountryAnalyzer,
+      nodeTileAnalyzer: NodeTileAnalyzer,
+      nodeLocationsAnalyzer: NodeLocationsAnalyzer,
+      nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer
+    )
+  }
   private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
   private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
 
@@ -109,8 +129,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     networkRepository,
     routeRepository,
     nodeRepository,
-    nodeInfoBuilder,
-    relationAnalyzer
+    relationAnalyzer,
+    nodeAnalyzer
   )
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
@@ -139,7 +159,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     analysisContext,
     nonCachingExecutor,
     countryAnalyzer,
-    nodeAnalyzer
+    oldNodeAnalyzer
   )
 
   val routeLoader: RouteLoader = new RouteLoaderImpl(
@@ -162,12 +182,13 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val networkLoader = new NetworkLoaderImpl(cachingExecutor)
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
 
-  val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
+  val oldNodeLocationAnalyzer = new OldNodeLocationAnalyzerImpl(locationConfiguration, true)
+  val oldMainNodeAnalyzer = new OldMainNodeAnalyzerImpl(
     countryAnalyzer,
-    nodeLocationAnalyzer
+    oldNodeLocationAnalyzer
   )
 
-  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, mainNodeAnalyzer, nodeAnalyzer)
+  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, oldMainNodeAnalyzer, oldNodeAnalyzer)
 
   val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
     analysisContext,
@@ -200,8 +221,8 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     routeAnalyzer,
     relationAnalyzer,
     nodeRepository,
-    nodeInfoBuilder,
-    networkNodeAnalyzer
+    networkNodeAnalyzer,
+    nodeAnalyzer
   )
 
   val replicationId: ReplicationId = ReplicationId(1)

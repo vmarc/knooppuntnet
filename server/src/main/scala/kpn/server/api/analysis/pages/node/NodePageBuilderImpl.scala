@@ -74,20 +74,20 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildDetailsPage(nodeId: Long): Option[NodeDetailsPage] = {
-    nodeRepository.findById(nodeId).map { nodeDoc =>
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       val changeCount = changeSetRepository.nodeChangesCount(nodeId)
       val networkReferences = nodeRepository.nodeNetworkReferences(nodeId)
       val mixedNetworkScopes = (
-        nodeDoc.names.map(_.networkScope) ++
-          nodeDoc.routeReferences.map(_.networkScope) ++
+        nodeInfo.names.map(_.networkScope) ++
+          nodeInfo.routeReferences.map(_.networkScope) ++
           networkReferences.map(_.networkScope)
         ).distinct.size > 1
       NodeDetailsPage(
-        nodeDoc.toInfo,
+        nodeInfo,
         mixedNetworkScopes,
-        nodeDoc.routeReferences,
+        nodeInfo.routeReferences,
         networkReferences,
-        nodeDoc.integrity,
+        nodeInfo.integrity,
         changeCount
       )
     }
@@ -117,15 +117,15 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildMapPage(nodeId: Long): Option[NodeMapPage] = {
-    nodeRepository.findById(nodeId).map { nodeDoc =>
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       val changeCount = changeSetRepository.nodeChangesCount(nodeId)
       NodeMapPage(
         NodeMapInfo(
-          nodeDoc._id,
-          nodeDoc.name,
-          nodeDoc.names.map(_.networkType),
-          nodeDoc.latitude,
-          nodeDoc.longitude
+          nodeInfo._id,
+          nodeInfo.name,
+          nodeInfo.names.map(_.networkType),
+          nodeInfo.latitude,
+          nodeInfo.longitude
         ),
         changeCount
       )
@@ -149,7 +149,7 @@ class NodePageBuilderImpl(
   }
 
   private def mongoBuildChangesPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
-    nodeRepository.findById(nodeId).map { nodeDoc =>
+    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
       if (user.isDefined) {
         val nodeChanges = changeSetRepository.nodeChanges(nodeId, parameters)
         val changesFilter = changeSetRepository.nodeChangesFilter(nodeId, parameters.year, parameters.month, parameters.day)
@@ -180,8 +180,8 @@ class NodePageBuilderImpl(
           )
         }
         NodeChangesPage(
-          nodeDoc._id,
-          nodeDoc.name,
+          nodeInfo._id,
+          nodeInfo.name,
           changesFilter,
           changes,
           incompleteWarning,
@@ -192,8 +192,8 @@ class NodePageBuilderImpl(
       else {
         // user is not logged in; we do not show change information
         NodeChangesPage(
-          nodeDoc._id,
-          nodeDoc.name,
+          nodeInfo._id,
+          nodeInfo.name,
           ChangesFilter.empty,
           Seq.empty,
           incompleteWarning = false,

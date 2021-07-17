@@ -5,6 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NodeInfo
+import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
@@ -19,6 +20,7 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -78,11 +80,28 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq.empty) should equal(
+        nodeInfo.copy(tiles = Seq.empty) should matchTo(
           newNodeInfo(
             1002,
+            labels = Seq(
+              "active",
+              "network-type-cycling"
+            ),
             country = Some(Country.nl),
-            tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network")
+            name = "03",
+            names = Seq(
+              NodeName(
+                NetworkType.cycling,
+                NetworkScope.regional,
+                "03",
+                None,
+                proposed = false
+              )
+            ),
+            tags = Tags.from(
+              "rcn_ref" -> "03",
+              "network:type" -> "node_network"
+            )
           )
         )
         true

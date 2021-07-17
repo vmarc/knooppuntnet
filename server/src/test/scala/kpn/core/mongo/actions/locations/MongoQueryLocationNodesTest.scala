@@ -1,14 +1,12 @@
 package kpn.core.mongo.actions.locations
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.location.Location
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Tags
-import kpn.core.mongo.migration.NodeDocBuilder
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -18,22 +16,18 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1001L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "01")
-          )
+        newNodeInfo(
+          1001L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "01")
         )
       )
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1002L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "02"),
-          )
+        newNodeInfo(
+          1002L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "02"),
         )
       )
 
@@ -84,24 +78,20 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       // active
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1001L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "01")
-          )
+        newNodeInfo(
+          1001L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "01")
         )
       )
 
       // not active
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1002L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "02"),
-            active = false
-          )
+        newNodeInfo(
+          1002L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "02"),
+          active = false
         )
       )
 
@@ -124,23 +114,19 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1001L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "01"),
-            lastSurvey = Some(Day(2020, 8, None))
-          )
+        newNodeInfo(
+          1001L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "01"),
+          lastSurvey = Some(Day(2020, 8, None))
         )
       )
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1002L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "02"),
-          )
+        newNodeInfo(
+          1002L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "02"),
         )
       )
 
@@ -178,22 +164,18 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1001L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "01")
-          )
+        newNodeInfo(
+          1001L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "01")
         )
       )
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1002L,
-            locations = Seq("nl"),
-            tags = Tags.from("rwn_ref" -> "02"),
-          )
+        newNodeInfo(
+          1002L,
+          locations = Seq("nl"),
+          tags = Tags.from("rwn_ref" -> "02"),
         )
       )
 
@@ -216,22 +198,18 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1001L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "01")
-          )
+        newNodeInfo(
+          1001L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "01")
         )
       )
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1002L,
-            locations = Seq("be"),
-            tags = Tags.from("rcn_ref" -> "02"),
-          )
+        newNodeInfo(
+          1002L,
+          locations = Seq("be"),
+          tags = Tags.from("rcn_ref" -> "02"),
         )
       )
 
@@ -254,23 +232,19 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1001L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "01")
-          )
+        newNodeInfo(
+          1001L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "01")
         )
       )
 
       database.nodes.save(
-        new NodeDocBuilder(database).build(
-          newNodeInfo(
-            1007L,
-            locations = Seq("be"),
-            tags = Tags.from("rwn_ref" -> "07"),
-            facts = Seq(Fact.NodeInvalidSurveyDate)
-          )
+        newNodeInfo(
+          1007L,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> "07"),
+          facts = Seq(Fact.NodeInvalidSurveyDate)
         )
       )
 
@@ -305,14 +279,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
     withDatabase { database =>
 
       def buildNode(nodeId: Long, name: String): Unit = {
-        database.nodes.save(
-          new NodeDocBuilder(database).build(
-            newNodeInfo(
-              nodeId,
-              locations = Seq("be"),
-              tags = Tags.from("rwn_ref" -> name)
-            )
-          )
+        newNodeInfo(
+          nodeId,
+          locations = Seq("be"),
+          tags = Tags.from("rwn_ref" -> name)
         )
       }
 

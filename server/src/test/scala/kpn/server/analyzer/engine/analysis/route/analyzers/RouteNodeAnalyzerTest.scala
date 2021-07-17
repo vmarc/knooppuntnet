@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -486,8 +486,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
     )
 
     val analysisContext = new AnalysisContext()
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+    val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     val routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
 
     val context = RouteAnalysisContext(

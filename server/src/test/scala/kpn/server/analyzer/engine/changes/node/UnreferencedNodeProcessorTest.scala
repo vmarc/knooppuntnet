@@ -14,17 +14,17 @@ import kpn.core.analysis.NetworkNode
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.NodeInfoBuilderImpl
 import kpn.server.repository.NodeRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -477,8 +477,6 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
 
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId, "01", Tags.from("rwn_ref" -> "01")))
 
-    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl))
-
     pending
 
     //    (t.nodeLoader.loadNode _).when(t.context.timestampAfter, nodeId).returns(
@@ -585,8 +583,6 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
 
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId, "01", Tags.from("rwn_ref" -> "01")))
 
-    (t.countryAnalyzer.country _).when(*).returns(Some(Country.nl))
-
     pending
 
     //    (t.nodeLoader.loadNodes _).when(t.context.timestampAfter, Seq(nodeId)).returns(
@@ -692,22 +688,23 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     val analysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val nodeRepository: NodeRepository = stub[NodeRepository]
+    (nodeRepository.nodeRouteReferences _).when(*, *).returns(Seq.empty)
     val nodeLoader: NodeLoader = stub[NodeLoader]
-    val countryAnalyzer: CountryAnalyzer = stub[CountryAnalyzer]
-    val nodeAnalyzer: NodeAnalyzer = new NodeAnalyzerImpl()
-    val tileCalculator = new TileCalculatorImpl()
-    val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-    private val nodeLocationAnalyzer = stub[NodeLocationAnalyzer]
-    (nodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
-    (nodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
-    val nodeInfoBuilder = new NodeInfoBuilderImpl(nodeAnalyzer, nodeTileCalculator, nodeLocationAnalyzer)
+
+    val nodeAnalyzer: NodeAnalyzer = {
+      new NodeAnalyzerImpl(
+        new NodeCountryAnalyzerNoop,
+        new NodeTileAnalyzerNoop,
+        new NodeLocationsAnalyzerNoop,
+        new NodeRouteReferencesAnalyzerNoop
+      )
+    }
 
     val processor = new UnreferencedNodeProcessorImpl(
       analysisContext,
       nodeRepository,
       nodeLoader,
-      nodeInfoBuilder,
-      nodeLocationAnalyzer
+      nodeAnalyzer
     )
 
     val context: ChangeSetContext = newChangeSetContext()

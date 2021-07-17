@@ -1,8 +1,8 @@
 package kpn.core.database.views.node
 
+import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.NodeRouteExpectedCount
-import kpn.api.common.location.Location
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
@@ -24,6 +24,16 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
         nodeRepository.save(
           newNodeInfo(
             id = nodeId,
+            name = nodeName,
+            names = Seq(
+              NodeName(
+                networkType,
+                networkScope,
+                nodeName,
+                None,
+                proposed = false
+              )
+            ),
             tags = Tags.from(
               s"expected_${key}_route_relations" -> expectedRouteRelations.toString,
               s"${key}_ref" -> nodeName
@@ -172,5 +182,4 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
       )
     }
   }
-
 }

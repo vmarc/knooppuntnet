@@ -6,13 +6,13 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
-import kpn.server.analyzer.engine.analysis.location.NodeLocationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
@@ -41,8 +41,8 @@ object NetworkDiffAnalyzerDemo {
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeLocationAnalyzer: RouteLocationAnalyzer = null
-    val nodeAnalyzer = new NodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, nodeAnalyzer)
+    val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
 
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
@@ -53,20 +53,20 @@ object NetworkDiffAnalyzerDemo {
 
     val locationConfiguration: LocationConfiguration = new LocationConfigurationReader().read()
 
-    val nodeLocationAnalyzer = new NodeLocationAnalyzerImpl(
+    val oldNodeLocationAnalyzer = new OldNodeLocationAnalyzerImpl(
       locationConfiguration,
       analyzerEnabled = true
     )
 
-    val mainNodeAnalyzer = new MainNodeAnalyzerImpl(
+    val oldMainNodeAnalyzer = new OldMainNodeAnalyzerImpl(
       countryAnalyzer,
-      nodeLocationAnalyzer
+      oldNodeLocationAnalyzer
     )
 
     val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
       analysisContext,
-      mainNodeAnalyzer,
-      nodeAnalyzer
+      oldMainNodeAnalyzer,
+      oldNodeAnalyzer
     )
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(

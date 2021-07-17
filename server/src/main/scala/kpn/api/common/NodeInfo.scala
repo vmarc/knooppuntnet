@@ -1,9 +1,11 @@
 package kpn.api.common
 
 import kpn.api.base.WithId
+import kpn.api.common.common.Reference
 import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Tagable
 import kpn.api.common.location.Location
+import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -16,6 +18,7 @@ import kpn.api.custom.Timestamp
 case class NodeInfo(
   _id: Long,
   id: Long, // TODO MONGO remove after migration
+  labels: Seq[String],
   active: Boolean,
   orphan: Boolean,
   country: Option[Country],
@@ -28,7 +31,9 @@ case class NodeInfo(
   tags: Tags,
   facts: Seq[Fact],
   locations: Seq[String],
-  tiles: Seq[String]
+  tiles: Seq[String],
+  integrity: Option[NodeIntegrity],
+  routeReferences: Seq[Reference]
 ) extends Tagable with LatLon with WithId {
 
   def networkTypeName(networkType: NetworkType): String = {
@@ -56,19 +61,10 @@ case class NodeInfo(
     }
   }
 
-  // TODO MONGO temporary method for backward compatibility
-  def oldLocation: Option[Location] = {
-    if (locations.nonEmpty) {
-      Some(Location(locations))
-    }
-    else {
-      None
-    }
-  }
-
   override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
     field("_id", _id).
     field("id", id).
+    field("labels", labels).
     field("active", active).
     field("orphan", orphan).
     field("country", country).
@@ -80,5 +76,7 @@ case class NodeInfo(
     field("tags", tags).
     field("facts", facts).
     field("tiles", tiles).
+    field("integrity", integrity).
+    field("routeReferences", routeReferences).
     build
 }

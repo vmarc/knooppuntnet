@@ -5,12 +5,12 @@ import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 @Component
-class NodeLocationAnalyzerImpl(
+class OldNodeLocationAnalyzerImpl(
   locationConfiguration: LocationConfiguration,
   analyzerEnabled: Boolean
-) extends NodeLocationAnalyzer {
+) extends OldNodeLocationAnalyzer {
 
-  private val log = Log(classOf[NodeLocationAnalyzerImpl])
+  private val log = Log(classOf[OldNodeLocationAnalyzerImpl])
 
   private val locators: Seq[LocationLocator] = if (analyzerEnabled) {
     log.info("Initiating locators")

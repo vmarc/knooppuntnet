@@ -5,7 +5,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.db.couch.Couch
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.DatabaseIndexer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -41,8 +41,8 @@ object TileTool {
 
             new DatabaseIndexer(analysisDatabase, null, null, null, null, false).index(true)
 
-            val nodeAnalyzer = new NodeAnalyzerImpl()
-            val tileDataNodeBuilder = new TileDataNodeBuilderImpl(nodeAnalyzer)
+            val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+            val tileDataNodeBuilder = new TileDataNodeBuilderImpl(oldNodeAnalyzer)
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(null, analysisDatabase, false)
               val orphanRepository = new OrphanRepositoryImpl(null, analysisDatabase, false)

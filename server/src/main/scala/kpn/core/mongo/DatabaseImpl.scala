@@ -2,6 +2,7 @@ package kpn.core.mongo
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
+import kpn.api.common.NodeInfo
 import kpn.api.common.Poi
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkChange
@@ -46,8 +47,8 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[GpxFile]("network-gpxs"))
   }
 
-  override def nodes: DatabaseCollection[NodeDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("nodes"))
+  override def nodes: DatabaseCollection[NodeInfo] = {
+    new DatabaseCollectionImpl(database.getCollection[NodeInfo]("nodes"))
   }
 
   override def routes: DatabaseCollection[RouteInfo] = {

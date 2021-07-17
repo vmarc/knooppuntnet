@@ -1,6 +1,7 @@
 package kpn.core.database.views.location
 
 import kpn.api.common.NodeInfo
+import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
@@ -9,6 +10,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -85,6 +87,15 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
     newNodeInfo(
       id = id,
       country = Some(Country.nl),
+      names = Seq(
+        NodeName(
+          NetworkType.cycling,
+          NetworkScope.local,
+          "01",
+          None,
+          proposed = false
+        )
+      ),
       latitude = "1",
       longitude = "2",
       lastUpdated = Timestamp(2019, 8, 11, 12, 34, 56),

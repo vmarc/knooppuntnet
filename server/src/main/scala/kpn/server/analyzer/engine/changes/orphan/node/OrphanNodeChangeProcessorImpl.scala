@@ -5,7 +5,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
@@ -22,7 +22,7 @@ class OrphanNodeChangeProcessorImpl(
   updateProcessor: OrphanNodeUpdateProcessor,
   deleteProcessor: OrphanNodeDeleteProcessor,
   countryAnalyzer: CountryAnalyzer,
-  nodeAnalyzer: NodeAnalyzer,
+  oldNodeAnalyzer: OldNodeAnalyzer,
   nodeLoader: NodeLoader
 ) extends OrphanNodeChangeProcessor {
 
@@ -67,7 +67,7 @@ class OrphanNodeChangeProcessorImpl(
     val networkTypes = NetworkType.all.filter { networkType =>
       analysisContext.isValidNetworkNode(networkType, rawNode)
     }
-    val name = nodeAnalyzer.name(rawNode.tags)
+    val name = oldNodeAnalyzer.name(rawNode.tags)
     LoadedNode(country, networkTypes, name, Node(rawNode))
   }
 }

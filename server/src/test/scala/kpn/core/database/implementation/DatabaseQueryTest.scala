@@ -1,5 +1,8 @@
 package kpn.core.database.implementation
 
+import kpn.api.common.NodeName
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
 import kpn.core.database.doc.NodeDoc
@@ -23,6 +26,16 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
           "node:1001",
           newNodeInfo(
             1001,
+            name = "01",
+            names = Seq(
+              NodeName(
+                NetworkType.cycling,
+                NetworkScope.regional,
+                "01",
+                None,
+                proposed = false
+              )
+            ),
             tags = Tags.from("rcn_ref" -> "01"),
             locations = Seq("country", "province", "municipality")
           ),
@@ -35,6 +48,16 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
           "node:1002",
           newNodeInfo(
             1002,
+            name = "01",
+            names = Seq(
+              NodeName(
+                NetworkType.cycling,
+                NetworkScope.regional,
+                "01",
+                None,
+                proposed = false
+              )
+            ),
             tags = Tags.from("rcn_ref" -> "01"),
             locations = Seq("country", "province", "municipality")
           ),
@@ -45,7 +68,7 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
       val query = Query(LocationDesign, LocationView, classOf[ViewResult]).stale(false).reduce(false).keyStartsWith("node")
       val result = database.execute(query)
 
-      result should equal(
+      result should matchTo(
         ViewResult(
           6,
           0,

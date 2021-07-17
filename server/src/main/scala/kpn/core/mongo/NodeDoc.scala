@@ -1,10 +1,8 @@
 package kpn.core.mongo
 
 import kpn.api.base.WithId
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
-import kpn.api.common.location.Location
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
 import kpn.api.custom.Day
@@ -29,24 +27,4 @@ case class NodeDoc(
   integrity: Option[NodeIntegrity],
   routeReferences: Seq[Reference]
 ) extends WithId {
-
-  def toInfo: NodeInfo = {
-    NodeInfo(
-      _id,
-      _id,
-      labels.contains("active"),
-      labels.contains("orphan"),
-      country,
-      name,
-      names,
-      latitude,
-      longitude,
-      lastUpdated,
-      lastSurvey,
-      tags,
-      facts,
-      locations,
-      tiles
-    )
-  }
 }

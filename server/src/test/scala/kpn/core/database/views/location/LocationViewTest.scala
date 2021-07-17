@@ -1,12 +1,13 @@
 package kpn.core.database.views.location
 
+import kpn.api.common.NodeName
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
@@ -20,8 +21,20 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
       repo.save(
         newNodeInfo(
           id = 1001,
-          tags = Tags.from("rcn_ref" -> "01"),
-          locations = Seq("country", "province", "municipality")
+          names = Seq(
+            NodeName(
+              NetworkType.cycling,
+              NetworkScope.regional,
+              "01",
+              None,
+              proposed = false
+            ),
+          ),
+          locations = Seq(
+            "country",
+            "province",
+            "municipality"
+          )
         )
       )
 

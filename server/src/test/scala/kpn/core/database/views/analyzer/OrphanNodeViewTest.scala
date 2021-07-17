@@ -1,7 +1,9 @@
 package kpn.core.database.views.analyzer
 
+import kpn.api.common.NodeName
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -25,7 +27,21 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       val nodeTagKey = ScopedNetworkType(NetworkScope.regional, subset.networkType).nodeRefTagKey
-      b.node(1001, Country.nl, tags = Tags.from(nodeTagKey -> "01"), orphan = true)
+      b.node(
+        1001,
+        Country.nl,
+        names = Seq(
+          NodeName(
+            subset.networkType,
+            NetworkScope.regional,
+            "01",
+            None,
+            proposed = false
+          )
+        ),
+        tags = Tags.from(nodeTagKey -> "01"),
+        orphan = true
+      )
 
       val nodeInfos = OrphanNodeView.query(database, subset, stale = false)
       nodeInfos.map(_.id) should equal(Seq(1001))
@@ -36,7 +52,31 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
-      b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02"), orphan = true)
+      b.node(
+        1001,
+        Country.nl,
+        names = Seq(
+          NodeName(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            "01",
+            None,
+            proposed = false
+          ),
+          NodeName(
+            NetworkType.cycling,
+            NetworkScope.regional,
+            "02",
+            None,
+            proposed = false
+          )
+        ),
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "rcn_ref" -> "02"
+        ),
+        orphan = true
+      )
 
       val hikingNodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)
       hikingNodeInfos.map(_.id) should equal(Seq(1001))
@@ -63,5 +103,4 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
       nodeInfos shouldBe empty
     }
   }
-
 }

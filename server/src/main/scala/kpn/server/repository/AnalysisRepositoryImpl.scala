@@ -2,7 +2,6 @@ package kpn.server.repository
 
 import kpn.api.common.NodeInfo
 import kpn.api.common.network.NetworkInfo
-import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
 import kpn.core.analysis._
 import kpn.core.database.Database
@@ -10,6 +9,8 @@ import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RouteElements
@@ -21,8 +22,8 @@ class AnalysisRepositoryImpl(
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository,
-  nodeInfoBuilder: NodeInfoBuilder,
-  relationAnalyzer: RelationAnalyzer
+  relationAnalyzer: RelationAnalyzer,
+  nodeAnalyzer: NodeAnalyzer
 ) extends AnalysisRepository {
 
   private val lastUpdatedDocumentKey = "analysis"
@@ -72,31 +73,8 @@ class AnalysisRepositoryImpl(
   }
 
   private def saveNodeDocs(network: Network): Unit = {
-
     val nodeInfos: Seq[NodeInfo] = network.nodes.map { node =>
-
-      val facts: Seq[Fact] = node.integrityCheck match {
-        case None => Seq.empty
-        case Some(nodeIntegrityCheck) =>
-          if (nodeIntegrityCheck.failed) {
-            Seq(Fact.IntegrityCheckFailed)
-          }
-          else {
-            Seq.empty
-          }
-      }
-
-      nodeInfoBuilder.build(
-        node.networkNode.node.id,
-        active = true,
-        orphan = false,
-        node.networkNode.country,
-        node.networkNode.node.latitude,
-        node.networkNode.node.longitude,
-        node.networkNode.node.timestamp,
-        node.networkNode.node.tags,
-        facts
-      )
+      nodeAnalyzer.analyze(NodeAnalysis(node.networkNode.node.raw)).toNodeInfo
     }
     nodeRepository.bulkSave(nodeInfos: _*)
   }

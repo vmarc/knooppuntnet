@@ -6,7 +6,6 @@ import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.location.Location
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
@@ -15,11 +14,12 @@ import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeFactAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
-import kpn.server.repository.NodeInfoBuilder
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -28,7 +28,7 @@ class NodeChangeBuilderImpl(
   analysisContext: AnalysisContext,
   nodeRepository: NodeRepository,
   nodeLoader: NodeLoader,
-  nodeInfoBuilder: NodeInfoBuilder
+  nodeAnalyzer: NodeAnalyzer
 ) extends NodeChangeBuilder {
 
   private val log = Log(classOf[NodeChangeBuilderImpl])
@@ -167,23 +167,18 @@ class NodeChangeBuilderImpl(
 
           // the node was really deleted from the database
 
-          nodeRepository.save(
-            nodeInfoBuilder.build(
-              id = nodeBefore.id,
+          val nodeAnalysis = nodeAnalyzer.analyze(
+            NodeAnalysis(
+              nodeBefore.networkNode.node.raw,
               active = false,
-              orphan = false,
-              country = nodeBefore.networkNode.country,
-              latitude = nodeBefore.networkNode.node.latitude,
-              longitude = nodeBefore.networkNode.node.longitude,
-              lastUpdated = context.changeSetContext.changeSet.timestamp,
-              tags = nodeBefore.networkNode.node.tags,
               facts = Seq(Fact.Deleted)
             )
           )
+          val nodeInfo = nodeAnalysis.toNodeInfo.copy(lastUpdated = context.changeSetContext.changeSet.timestamp)
+          nodeRepository.save(nodeInfo)
 
           val subsets: Seq[Subset] = context.networkBefore.flatMap { networkBefore =>
-            nodeBefore.networkNode.country.flatMap(c => Subset.of(c,
-              networkBefore.networkType))
+            nodeBefore.networkNode.country.flatMap(c => Subset.of(c, networkBefore.networkType))
           }.toSeq
 
           val key = context.changeSetContext.buildChangeKey(nodeId)
@@ -193,9 +188,9 @@ class NodeChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Delete,
               subsets = subsets,
-              location = nodeBefore.networkNode.oldLocation,
-              name = nodeBefore.networkNode.name,
-              before = Some(nodeBefore.networkNode.node.raw),
+              location = nodeAnalysis.oldLocation,
+              name = nodeAnalysis.name,
+              before = Some(nodeAnalysis.node),
               after = None,
               connectionChanges = Seq.empty,
               roleConnectionChanges = Seq.empty,
@@ -243,8 +238,14 @@ class NodeChangeBuilderImpl(
               nodeBefore.networkNode.name
             }
 
-            val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, active = active)
-            nodeRepository.save(nodeInfo)
+            val nodeAfterAnalysis = nodeAnalyzer.analyze(
+              NodeAnalysis(
+                nodeAfter.node.raw,
+                active = active
+              )
+            )
+
+            nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
 
             val key = context.changeSetContext.buildChangeKey(nodeId)
             analyzed(
@@ -253,7 +254,7 @@ class NodeChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Update,
                 subsets = subsets,
-                location = nodeInfo.oldLocation,
+                location = nodeAfterAnalysis.oldLocation,
                 name = name,
                 before = Some(before),
                 after = Some(after),
@@ -278,8 +279,13 @@ class NodeChangeBuilderImpl(
             }
             else {
               // the node is not referenced anymore by any network or route
-              val nodeInfo = nodeInfoBuilder.fromLoadedNode(nodeAfter, orphan = true)
-              nodeRepository.save(nodeInfo)
+              val nodeAfterAnalysis = nodeAnalyzer.analyze(
+                NodeAnalysis(
+                  nodeAfter.node.raw,
+                  orphan = true
+                )
+              )
+              nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
               analysisContext.data.orphanNodes.watched.add(after.id)
               Seq(Fact.BecomeOrphan)
             }

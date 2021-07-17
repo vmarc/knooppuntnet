@@ -2,6 +2,7 @@ package kpn.core.mongo
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
+import kpn.api.common.NodeInfo
 import kpn.api.common.Poi
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkChange
@@ -39,7 +40,7 @@ trait Database {
 
   def networkGpxs: DatabaseCollection[GpxFile]
 
-  def nodes: DatabaseCollection[NodeDoc]
+  def nodes: DatabaseCollection[NodeInfo]
 
   def routes: DatabaseCollection[RouteInfo]
 

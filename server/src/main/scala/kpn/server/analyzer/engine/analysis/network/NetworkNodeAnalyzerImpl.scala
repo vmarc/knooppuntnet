@@ -4,30 +4,30 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.NetworkNode
 import kpn.core.data.Data
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.MainNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkNodeAnalyzerImpl(
   analysisContext: AnalysisContext,
-  mainNodeAnalyzer: MainNodeAnalyzer,
-  nodeAnalyzer: NodeAnalyzer
+  oldMainNodeAnalyzer: OldMainNodeAnalyzer,
+  oldNodeAnalyzer: OldNodeAnalyzer
 ) extends NetworkNodeAnalyzer {
 
   private val log: Log = Log(classOf[NetworkNodeAnalyzerImpl])
 
   override def analyze(scopedNetworkType: ScopedNetworkType, data: Data): Map[Long, NetworkNode] = {
     val nodes = data.nodes.values.toSeq.filter(node => analysisContext.isReferencedNetworkNode(scopedNetworkType, node.raw))
-    val nodeAnalyses = nodes.map(mainNodeAnalyzer.analyze)
+    val nodeAnalyses = nodes.map(oldMainNodeAnalyzer.analyze)
     val networkNodes = nodeAnalyses.flatMap { a =>
-      nodeAnalyzer.scopedName(scopedNetworkType, a.node.tags) match {
+      oldNodeAnalyzer.scopedName(scopedNetworkType, a.node.tags) match {
         case None =>
           log.warn(s"Could not determine name of node with id ${a.node.id}, tags=${a.node.tags}")
           None
         case Some(name) =>
-          val longName = nodeAnalyzer.scopedLongName(scopedNetworkType, a.node.tags)
+          val longName = oldNodeAnalyzer.scopedLongName(scopedNetworkType, a.node.tags)
           Some(
             NetworkNode(
               a.node,

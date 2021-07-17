@@ -48,6 +48,9 @@ class OrphanNodeTest05 extends AbstractTest {
           NodeInfo(
             1001,
             1001,
+            labels = Seq(
+              "orphan"
+            ),
             active = false, // <-- !!
             orphan = true,
             Some(Country.nl),
@@ -60,6 +63,8 @@ class OrphanNodeTest05 extends AbstractTest {
             Tags.empty,
             Seq.empty,
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )
