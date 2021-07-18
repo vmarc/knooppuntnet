@@ -106,18 +106,6 @@ class NodeLoaderImpl(
     new Parser().parse(xml.head)
   }
 
-  private def loadedNodes(nodeOptions: Seq[(Long, Option[Node])]): Seq[LoadedNode] = {
-    val nodes = nodeOptions.flatMap(_._2)
-    nodes.map { node =>
-      val countries = countryAnalyzer.countries(node)
-      val networkTypes = NetworkType.all.filter { networkType =>
-        analysisContext.isValidNetworkNode(networkType, node.raw)
-      }
-      val name = oldNodeAnalyzer.name(node.tags)
-      LoadedNode(countries.headOption, networkTypes, name, node)
-    }
-  }
-
   private def logMissingNodes(timestamp: Timestamp, xml: Elem, nodeOptions: Seq[(Long, Option[Node])]): Unit = {
     val missingNodeIds = nodeOptions.flatMap { case (nodeId, option) =>
       if (option.isEmpty) Some(nodeId) else None

@@ -45,12 +45,6 @@ class OldNodeAnalyzerImpl extends OldNodeAnalyzer {
     }
   }
 
-  override def name(networkType: NetworkType, tags: Tags): String = {
-    networkType.scopedNetworkTypes.flatMap { scopedNetworkType =>
-      scopedName(scopedNetworkType, tags)
-    }.distinct.mkString(" / ")
-  }
-
   override def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String] = {
     determineScopedName(scopedNetworkType, tags).map(_.name)
   }
