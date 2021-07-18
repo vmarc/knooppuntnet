@@ -5,7 +5,6 @@ import kpn.api.custom.Tags
 import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
-import kpn.server.analyzer.engine.analysis.node.OldNodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
