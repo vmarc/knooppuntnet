@@ -24,16 +24,17 @@ class OrphanNodesLoaderImpl(
   private val log = Log(classOf[OrphanNodesLoaderImpl])
 
   override def load(timestamp: Timestamp): Unit = {
-
     ScopedNetworkType.all.foreach { scopedNetworkType =>
-      databaseIndexer.index(true)
-      val nodeIds = nodeIdsLoader.load(timestamp, scopedNetworkType)
-      val orphanNodeIds = nodeIds.filterNot(isReferenced).toSeq.sorted
-      val loadedNodes = nodesLoader.load(timestamp, scopedNetworkType, orphanNodeIds)
-      loadedNodes.zipWithIndex.foreach { case (loadedNode, index) =>
-        log.unitElapsed {
-          createProcessor.process(None, loadedNode)
-          s"(${index + 1}/${loadedNodes.size}) Loaded node ${loadedNode.id}"
+      Log.context(scopedNetworkType.key) {
+        databaseIndexer.index(true)
+        val nodeIds = nodeIdsLoader.load(timestamp, scopedNetworkType)
+        val orphanNodeIds = nodeIds.filterNot(isReferenced).toSeq.sorted
+        val nodes = nodesLoader.load(timestamp, orphanNodeIds)
+        nodes.zipWithIndex.foreach { case (node, index) =>
+          log.unitElapsed {
+            createProcessor.process(None, node)
+            s"(${index + 1}/${nodes.size}) Loaded node ${node.id}"
+          }
         }
       }
     }

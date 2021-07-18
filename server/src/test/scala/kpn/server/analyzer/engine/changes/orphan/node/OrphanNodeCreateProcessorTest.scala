@@ -22,7 +22,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     val d = new NewOrphanNodeSetup
 
-    d.processor.process(None, d.loadedNode)
+    d.processor.process(None, d.loadedNode.node.raw)
 
     (d.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>
@@ -39,7 +39,7 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     val d = new NewOrphanNodeSetup
 
-    d.processor.process(None, d.loadedNode)
+    d.processor.process(None, d.loadedNode.node.raw)
 
     assert(d.analysisContext.data.orphanNodes.watched.contains(d.loadedNode.id))
   }

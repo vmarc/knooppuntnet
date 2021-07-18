@@ -35,17 +35,17 @@ class OrphanNodeChangeProcessorImpl(
       val analysis = changeAnalyzer.analyze(context.changeSet)
 
       val deletes = {
-        val deletedNodesBefore = nodeLoader.loadNodes(context.timestampBefore, analysis.deletes.map(_.id)).map(loadedNode => loadedNode.id -> loadedNode).toMap
+        val deletedNodesBefore = nodeLoader.oldLoadNodes(context.timestampBefore, analysis.deletes.map(_.id)).map(loadedNode => loadedNode.id -> loadedNode).toMap
         val loadedNodeDeletes = analysis.deletes.map(rawNode => LoadedNodeDelete(rawNode, deletedNodesBefore.get(rawNode.id)))
         loadedNodeDeletes.flatMap(n => deleteProcessor.process(context, n))
       }
 
-      val creates = analysis.creates.flatMap(n => createProcessor.process(Some(context), toLoadedNode(n)))
+      val creates = analysis.creates.flatMap(n => createProcessor.process(Some(context), n))
 
       val updatedNodesAfter = analysis.updates.map(toLoadedNode)
-      val updatedNodesBefore = nodeLoader.loadNodes(context.timestampBefore, updatedNodesAfter.map(_.id)).map(loadedNode => loadedNode.id -> loadedNode).toMap
+      val updatedNodesBefore = nodeLoader.oldLoadNodes(context.timestampBefore, updatedNodesAfter.map(_.id)).map(loadedNode => loadedNode.id -> loadedNode).toMap
       val (updatedNodesWithBefore, updatedNodesWithoutBefore) = updatedNodesAfter.partition(loadedNodeAfter => updatedNodesBefore.contains(loadedNodeAfter.id))
-      val extraCreates = updatedNodesWithoutBefore.flatMap(n => createProcessor.process(Some(context), n))
+      val extraCreates = updatedNodesWithoutBefore.flatMap(n => createProcessor.process(Some(context), n.node.raw))
       val updateNodeChanges = updatedNodesWithBefore.map { loadedNodeAfter =>
         updatedNodesBefore.get(loadedNodeAfter.id) match {
           case Some(loadedNodeBefore) => LoadedNodeChange(loadedNodeBefore, loadedNodeAfter)

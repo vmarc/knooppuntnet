@@ -32,7 +32,7 @@ class UnreferencedNodeProcessorImpl(
 
   override def process(context: ChangeSetContext, candidateUnreferencedNodes: Seq[NetworkNodeInfo]): Seq[NodeChange] = {
     val unreferencedNodes = candidateUnreferencedNodes.filterNot(isReferencedNode)
-    val nodesAfter = nodeLoader.loadNodes(context.timestampAfter, unreferencedNodes.map(_.id))
+    val nodesAfter = nodeLoader.oldLoadNodes(context.timestampAfter, unreferencedNodes.map(_.id))
     unreferencedNodes.flatMap { nodeBefore =>
       val loadedNodeAfter = nodesAfter.find(_.id == nodeBefore.id)
       process1(context, nodeBefore, loadedNodeAfter)

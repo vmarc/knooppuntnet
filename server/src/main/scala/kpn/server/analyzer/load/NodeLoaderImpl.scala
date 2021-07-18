@@ -2,8 +2,8 @@ package kpn.server.analyzer.load
 
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.NetworkType
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -30,13 +30,13 @@ class NodeLoaderImpl(
 
   private val log = Log(classOf[NodeLoader])
 
-  override def loadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode] = {
+  override def oldLoadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode] = {
     if (nodeIds.isEmpty) {
       Seq.empty
     }
     else {
       val datas = nodeIds.sliding(50, 50).toSeq.map { nodeIdSubset =>
-        doLoad(timestamp, nodeIdSubset)
+        oldDoLoad(timestamp, nodeIdSubset)
       }
       val rawData = RawData.merge(datas: _*)
       rawData.nodes.map { node =>
@@ -50,26 +50,25 @@ class NodeLoaderImpl(
     }
   }
 
-  override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[LoadedNode] = {
+  override def load(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
     if (nodeIds.isEmpty) {
       Seq.empty
     }
     else {
       val datas = nodeIds.sliding(50, 50).toSeq.map { nodeIdSubset =>
-        doLoad(timestamp, scopedNetworkType, nodeIdSubset)
+        doLoad(timestamp, nodeIdSubset)
       }
       val rawData = RawData.merge(datas: _*)
       val data = new DataBuilder(rawData).data
-      val nodeOptions = nodeIds.map(id => id -> data.nodes.get(id))
-      loadedNodes(nodeOptions)
+      nodeIds.flatMap(id => data.nodes.get(id)).map(_.raw)
     }
   }
 
-  private def doLoad(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): RawData = {
+  private def doLoad(timestamp: Timestamp, nodeIds: Seq[Long]): RawData = {
 
     val xmlString: String = log.elapsed {
       val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
-      (s"${timestamp.iso} Load ${scopedNetworkType.key} ${nodeIds.size}", xml)
+      (s"${timestamp.iso} Load ${nodeIds.size} nodes", xml)
     }
 
     val xml = try {
@@ -77,7 +76,7 @@ class NodeLoaderImpl(
     }
     catch {
       case e: SAXParseException =>
-        val msg = s"Could not load nodes for networkType ${scopedNetworkType.key} at ${timestamp.yyyymmddhhmmss} [ids=$nodeIds]\n$xmlString"
+        val msg = s"Could not load nodes at ${timestamp.yyyymmddhhmmss} [ids=$nodeIds]\n$xmlString"
         throw new RuntimeException(msg, e)
     }
 
@@ -88,7 +87,7 @@ class NodeLoaderImpl(
     rawData
   }
 
-  private def doLoad(timestamp: Timestamp, nodeIds: Seq[Long]): RawData = {
+  private def oldDoLoad(timestamp: Timestamp, nodeIds: Seq[Long]): RawData = {
 
     val xmlString: String = log.elapsed {
       val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))

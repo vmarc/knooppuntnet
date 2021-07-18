@@ -4,6 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.common.Ref
+import kpn.api.common.data.raw.RawNode
 import kpn.api.common.location.Location
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
@@ -207,9 +208,9 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
 
       val nodeLoader = new NodeLoader {
 
-        def loadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode] = Seq.empty
+        def oldLoadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode] = Seq.empty
 
-        def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[LoadedNode] = Seq.empty
+        def load(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = Seq.empty
       }
 
       val nodeChangeBuilder = new NodeChangeBuilderImpl(

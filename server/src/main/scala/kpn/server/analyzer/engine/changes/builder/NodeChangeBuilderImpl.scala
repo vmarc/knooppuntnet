@@ -53,7 +53,7 @@ class NodeChangeBuilderImpl(
     val nodesBefore1: Seq[NetworkNodeInfo] = Seq.empty // networkNodeInfosIn(context.networkBefore, nodeIds)
     val nodesBefore2 = {
       val missingNodeIds = nodeIds -- nodesBefore1.map(_.id).toSet
-      nodeLoader.loadNodes(context.changeSetContext.timestampBefore, missingNodeIds.toSeq)
+      nodeLoader.oldLoadNodes(context.changeSetContext.timestampBefore, missingNodeIds.toSeq)
     }
     val nodesAfter = networkNodeInfosIn(context.networkAfter, nodeIds)
 
@@ -153,7 +153,7 @@ class NodeChangeBuilderImpl(
   private def nodeChangesRemoved(context: ChangeBuilderContext, nodeIds: Set[Long]): Seq[NodeChange] = {
 
     val nodesBefore = networkNodeInfosIn(context.networkBefore, nodeIds)
-    val nodesAfter = nodeLoader.loadNodes(context.changeSetContext.timestampAfter, nodeIds.toSeq)
+    val nodesAfter = nodeLoader.oldLoadNodes(context.changeSetContext.timestampAfter, nodeIds.toSeq)
 
     nodesBefore.map { nodeBefore =>
 

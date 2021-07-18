@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.orphan.node
 
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Fact
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
@@ -20,23 +21,23 @@ class OrphanNodeCreateProcessorImpl(
   nodeAnalyzer: NodeAnalyzer
 ) extends OrphanNodeCreateProcessor {
 
-  override def process(optionalContext: Option[ChangeSetContext], loadedNode: LoadedNode): Option[NodeChange] = {
+  override def process(optionalContext: Option[ChangeSetContext], node: RawNode): Option[NodeChange] = {
 
-    analysisContext.data.orphanNodes.watched.add(loadedNode.id)
+    analysisContext.data.orphanNodes.watched.add(node.id)
 
-    val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(loadedNode.node.raw, orphan = true))
+    val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(node, orphan = true))
     nodeRepository.save(nodeAnalysis.toNodeInfo)
 
     optionalContext.map { context =>
-      val key = context.buildChangeKey(loadedNode.id)
+      val key = context.buildChangeKey(node.id)
       analyzed(
         NodeChange(
           _id = key.toId,
           key = key,
           changeType = ChangeType.Create,
-          loadedNode.subsets,
+          nodeAnalysis.subsets,
           location = nodeAnalysis.oldLocation,
-          loadedNode.name,
+          nodeAnalysis.name,
           before = None,
           after = Some(nodeAnalysis.node),
           connectionChanges = Seq.empty,
