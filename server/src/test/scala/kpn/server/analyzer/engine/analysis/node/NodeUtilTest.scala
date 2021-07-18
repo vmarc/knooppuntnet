@@ -14,6 +14,14 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
 
   private val util = new NodeUtil(ScopedNetworkType.rwn)
 
+  test("normalize") {
+    NodeUtil.normalize("1") should equal("01")
+    NodeUtil.normalize("01") should equal("01")
+    NodeUtil.normalize("101") should equal("101")
+    NodeUtil.normalize("A") should equal("A")
+    NodeUtil.normalize("A1") should equal("A1")
+  }
+
   test("sortNames") {
     // string sort when not all numeric
     util.sortNames(Seq("B", "C", "A")) should equal(Seq("A", "B", "C"))

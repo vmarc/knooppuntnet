@@ -5,6 +5,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.node.Name
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 object NodeNameAnalyzer extends NodeAspectAnalyzer {
@@ -57,7 +58,7 @@ class NodeNameAnalyzer(analysis: NodeAnalysis) {
           case None => determineScopedLongName(scopedNetworkType)
         }
     }
-    nameOption.map(n => n.copy(name = normalize(n.name)))
+    nameOption.map(n => n.copy(name = NodeUtil.normalize(n.name)))
   }
 
   private def determineScopedLongName(scopedNetworkType: ScopedNetworkType): Option[Name] = {
@@ -83,9 +84,5 @@ class NodeNameAnalyzer(analysis: NodeAnalysis) {
 
   private def stateProposed(): Boolean = {
     analysis.node.tags.has("state", "proposed")
-  }
-
-  private def normalize(nodeName: String): String = {
-    if (nodeName.length == 1 && nodeName(0).isDigit) "0" + nodeName else nodeName
   }
 }

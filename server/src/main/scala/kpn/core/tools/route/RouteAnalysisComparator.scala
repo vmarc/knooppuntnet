@@ -15,7 +15,7 @@ import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Tags
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.OldNodeNameAnalyzer
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 
 class RouteAnalysisComparator {
 
@@ -69,7 +69,7 @@ class RouteAnalysisComparator {
         route.copy(
           summary = route.summary.copy(
             name = normalizeRouteName(route.summary.name),
-            nodeNames = route.summary.nodeNames.map(normalizeNodeName)
+            nodeNames = route.summary.nodeNames.map(NodeUtil.normalize)
           ),
           analysis = analysis.copy(
             members = analysis.members.map { routeMemberInfo =>
@@ -159,17 +159,13 @@ class RouteAnalysisComparator {
 
   private def normalizeRouteName(routeName: String): String = {
     val parts = routeName.split("-")
-    parts.map(normalizeNodeName).mkString("-")
-  }
-
-  private def normalizeNodeName(nodeName: String): String = {
-    OldNodeNameAnalyzer.normalize(nodeName)
+    parts.map(NodeUtil.normalize).mkString("-")
   }
 
   private def normalizeNodes(nodes: Seq[RouteNetworkNodeInfo]): Seq[RouteNetworkNodeInfo] = {
     nodes.map(node =>
       node.copy(
-        name = normalizeNodeName(node.name),
+        name = NodeUtil.normalize(node.name),
         alternateName = "removed"
       )
     )

@@ -68,7 +68,7 @@ class OldNodeAnalyzerImpl extends OldNodeAnalyzer {
           case None => determineScopedLongName(scopedNetworkType, tags)
         }
     }
-    nameOption.map(n => n.copy(name = OldNodeNameAnalyzer.normalize(n.name)))
+    nameOption.map(n => n.copy(name = NodeUtil.normalize(n.name)))
   }
 
   private def determineScopedLongName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[Name] = {

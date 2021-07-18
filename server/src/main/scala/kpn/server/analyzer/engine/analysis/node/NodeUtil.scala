@@ -17,6 +17,11 @@ object NodeUtil {
       case _ => None
     }
   }
+
+  def normalize(nodeName: String): String = {
+    if (nodeName.length == 1 && nodeName(0).isDigit) "0" + nodeName else nodeName
+  }
+
 }
 
 class NodeUtil(scopedNetworkType: ScopedNetworkType) {
