@@ -8,7 +8,10 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
   selector: 'kpn-node-integrity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="integrity.details.length === 0" i18n="@@node.integrity.none">
+    <p
+      *ngIf="!integrity || integrity.details.length === 0"
+      i18n="@@node.integrity.none"
+    >
       There is no integrity information for this node (no
       expected_??n_route_relations tag).
     </p>

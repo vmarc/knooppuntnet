@@ -24,7 +24,6 @@ object TestData {
   def relation(data: Data, id: Long): RawRelation = {
     data.raw.relationWithId(id).get
   }
-
 }
 
 class TestData() extends SharedTestObjects {
@@ -78,7 +77,6 @@ class TestData() extends SharedTestObjects {
   def data: Data = {
     new DataBuilder(rawData).data
   }
-
 }
 
 

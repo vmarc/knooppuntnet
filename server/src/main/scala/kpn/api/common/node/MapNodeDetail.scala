@@ -1,6 +1,5 @@
 package kpn.api.common.node
 
-import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.custom.Timestamp
 

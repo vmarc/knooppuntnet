@@ -15,13 +15,11 @@ import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodePageBuilderImpl(
   nodeRepository: NodeRepository,
-  nodeRouteRepository: NodeRouteRepository,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository,
   // old

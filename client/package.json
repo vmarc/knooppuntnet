@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.2.0-snapshot.1",
+  "version": "3.2.0-snapshot.2",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
