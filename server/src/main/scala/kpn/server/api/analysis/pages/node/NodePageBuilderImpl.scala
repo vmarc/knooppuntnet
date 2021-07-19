@@ -1,6 +1,5 @@
 package kpn.server.api.analysis.pages.node
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeMapInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesFilter
@@ -8,8 +7,6 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
-import kpn.api.common.node.NodeIntegrity
-import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
@@ -110,7 +107,7 @@ class NodePageBuilderImpl(
         mixedNetworkScopes,
         routeReferences,
         networkReferences,
-        oldBuildNodeIntegrity(nodeInfo),
+        filteredNodeInfo.integrity,
         changeCount
       )
     }
@@ -231,28 +228,6 @@ class NodePageBuilderImpl(
         totalCount,
         changesFilter.totalCount
       )
-    }
-  }
-
-  private def oldBuildNodeIntegrity(nodeInfo: NodeInfo): Option[NodeIntegrity] = {
-    val details = nodeInfo.names.flatMap { nodeName =>
-      val tagKey = nodeName.scopedNetworkType.expectedRouteRelationsTag
-      nodeInfo.tags(tagKey).map { tagValue =>
-        val expectedRouteCount: Int = tagValue.toInt
-        val routeRefs = nodeRouteRepository.nodeRouteReferences(nodeName.scopedNetworkType, nodeInfo.id)
-        NodeIntegrityDetail(
-          nodeName.networkType,
-          nodeName.networkScope,
-          expectedRouteCount,
-          routeRefs
-        )
-      }
-    }
-    if (details.nonEmpty) {
-      Some(NodeIntegrity(details))
-    }
-    else {
-      None
     }
   }
 

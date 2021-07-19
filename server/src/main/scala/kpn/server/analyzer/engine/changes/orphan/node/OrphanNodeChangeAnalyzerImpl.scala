@@ -59,14 +59,23 @@ class OrphanNodeChangeAnalyzerImpl(
           nodeCreates,
           nodeUpdates,
           nodeDeletes,
-          ElementChanges(sortedCreates, sortedUpdates, sortedDeletes)
+          ElementChanges(
+            sortedCreates,
+            sortedUpdates,
+            sortedDeletes
+          )
         )
       )
     }
   }
 
   private def nodeMap(changeSet: ChangeSet, action: Int): Map[Long, RawNode] = {
-    changeSet.changes.filter(_.action == action).flatMap(_.elements).collect { case e: RawNode => e }.map(n => n.id -> n).toMap
+    changeSet.changes
+      .filter(_.action == action)
+      .flatMap(_.elements)
+      .collect { case e: RawNode => e }
+      .map(n => n.id -> n)
+      .toMap
   }
 
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {

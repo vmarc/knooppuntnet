@@ -1,15 +1,15 @@
 package kpn.core.test
 
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
-import kpn.core.data.Data
-import kpn.core.data.DataBuilder
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.data.Data
+import kpn.core.data.DataBuilder
 
 import scala.collection.mutable.ListBuffer
 
@@ -93,8 +93,14 @@ case class TestData2(
     copy(nodes = nodes :+ n)
   }
 
-  def node(id: Long, tags: Tags = Tags.empty, latitude: String = "0", longitude: String = "0"): TestData2 = {
-    val n = newRawNode(id, latitude = latitude, longitude = longitude, tags = tags)
+  def node(
+    id: Long,
+    tags: Tags = Tags.empty,
+    latitude: String = "0",
+    longitude: String = "0",
+    timestamp: Timestamp = defaultTimestamp
+  ): TestData2 = {
+    val n = newRawNode(id, latitude = latitude, longitude = longitude, tags = tags, timestamp = timestamp)
     copy(nodes = nodes :+ n)
   }
 
@@ -123,6 +129,4 @@ case class TestData2(
   def data: Data = {
     new DataBuilder(rawData).data
   }
-
 }
-

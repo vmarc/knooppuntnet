@@ -28,7 +28,7 @@ class OrphanNodesLoaderImpl(
       Log.context(scopedNetworkType.key) {
         databaseIndexer.index(true)
         val nodeIds = nodeIdsLoader.load(timestamp, scopedNetworkType)
-        val orphanNodeIds = nodeIds.filterNot(isReferenced).toSeq.sorted
+        val orphanNodeIds = nodeIds.filterNot(isReferenced)
         val nodes = nodesLoader.load(timestamp, orphanNodeIds)
         nodes.zipWithIndex.foreach { case (node, index) =>
           log.unitElapsed {

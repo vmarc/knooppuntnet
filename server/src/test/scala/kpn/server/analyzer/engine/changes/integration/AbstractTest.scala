@@ -420,7 +420,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       overpassQuery(timestamp, QueryNode(nodeId), xml)
     }
 
-    private def overpassQueryNodes(data: Data, timestamp: Timestamp, nodeIds: Seq[Long]): Unit = {
+    def overpassQueryNodes(data: Data, timestamp: Timestamp, nodeIds: Seq[Long]): Unit = {
       val nodes = nodeIds.flatMap(nodeId => data.raw.nodeWithId(nodeId))
       val xml = toXml(RawData(Some(timestamp), nodes))
       overpassQuery(timestamp, QueryNodes("nodes", nodeIds), xml)

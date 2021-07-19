@@ -9,6 +9,21 @@ import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 object NodeNameAnalyzer extends NodeAspectAnalyzer {
+
+  def nodeTagKeys(scopedNetworkType: ScopedNetworkType): Seq[String] = {
+    val key = scopedNetworkType.key
+    Seq(
+      scopedNetworkType.nodeRefTagKey,
+      scopedNetworkType.nodeNameTagKey,
+      s"$key:name",
+      s"name:${key}_ref",
+      scopedNetworkType.proposedNodeRefTagKey,
+      scopedNetworkType.proposedNodeNameTagKey,
+      s"proposed:$key:name",
+      s"proposed:name:${key}_ref"
+    )
+  }
+
   def analyze(analysis: NodeAnalysis): NodeAnalysis = {
     new NodeNameAnalyzer(analysis).analyze
   }

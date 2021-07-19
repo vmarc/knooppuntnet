@@ -13,30 +13,32 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
       expected_??n_route_relations tag).
     </p>
 
-    <div *ngFor="let detail of integrity.details">
-      <div class="kpn-line detail-header">
-        <kpn-network-type-icon
-          [networkType]="detail.networkType"
-        ></kpn-network-type-icon>
-        <div class="detail-header-text">
-          <span *ngIf="happy(detail)" i18n="@@node.integrity.ok">
-            The expected number of routes ({{ detail.expectedRouteCount }})
-            matches the number of routes found.
-          </span>
-          <span *ngIf="!happy(detail)" i18n="@@node.integrity.not-ok">
-            The actual number of routes in this node ({{
-              detail.routeRefs.length
-            }}) does not match the expected number of routes ({{
-              detail.expectedRouteCount
-            }}).
-          </span>
-          <kpn-icon-happy *ngIf="happy(detail)"></kpn-icon-happy>
-          <kpn-icon-investigate *ngIf="!happy(detail)"></kpn-icon-investigate>
-          <span *ngIf="mixedNetworkScopes" class="kpn-brackets kpn-thin">
-            <kpn-network-scope-name
-              [networkScope]="detail.networkScope"
-            ></kpn-network-scope-name>
-          </span>
+    <div *ngIf="integrity">
+      <div *ngFor="let detail of integrity.details">
+        <div class="kpn-line detail-header">
+          <kpn-network-type-icon
+            [networkType]="detail.networkType"
+          ></kpn-network-type-icon>
+          <div class="detail-header-text">
+            <span *ngIf="happy(detail)" i18n="@@node.integrity.ok">
+              The expected number of routes ({{ detail.expectedRouteCount }})
+              matches the number of routes found.
+            </span>
+            <span *ngIf="!happy(detail)" i18n="@@node.integrity.not-ok">
+              The actual number of routes in this node ({{
+                detail.routeRefs.length
+              }}) does not match the expected number of routes ({{
+                detail.expectedRouteCount
+              }}).
+            </span>
+            <kpn-icon-happy *ngIf="happy(detail)"></kpn-icon-happy>
+            <kpn-icon-investigate *ngIf="!happy(detail)"></kpn-icon-investigate>
+            <span *ngIf="mixedNetworkScopes" class="kpn-brackets kpn-thin">
+              <kpn-network-scope-name
+                [networkScope]="detail.networkScope"
+              ></kpn-network-scope-name>
+            </span>
+          </div>
         </div>
       </div>
     </div>
