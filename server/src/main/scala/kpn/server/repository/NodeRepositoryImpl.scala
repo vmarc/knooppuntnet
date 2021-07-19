@@ -8,6 +8,7 @@ import kpn.core.database.views.analyzer.NodeRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.db.NodeDocViewResult
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.nodes.MongoQueryKnownNodeIds
 import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
@@ -22,7 +23,6 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
-import org.springframework.web.client.HttpServerErrorException
 
 @Component
 class NodeRepositoryImpl(
@@ -54,79 +54,58 @@ class NodeRepositoryImpl(
 
   override def bulkSave(nodeInfos: NodeInfo*): Unit = {
     if (mongoEnabled) {
-      // TODO MONGO https://docs.mongodb.com/manual/core/bulk-write-operations/
+      // https://docs.mongodb.com/manual/core/bulk-write-operations/
       nodeInfos.foreach { nodeInfo =>
         database.nodes.save(nodeInfo)
       }
     }
     else {
-      var retry = true
-      var retryCount = 0
+      log.debugElapsed {
 
-      while (retry && retryCount < 3) {
-        try {
-          doSave(nodeInfos)
-          retry = false
+        val nodeIds = nodeInfos.map(nodeInfo => docId(nodeInfo.id))
+        val nodeDocViewResult = analysisDatabase.docsWithIds(nodeIds, classOf[NodeDocViewResult], stale = false)
+        val nodeDocs = nodeDocViewResult.rows.flatMap(_.doc)
+        val nodeDocIds = nodeDocs.map(_.node.id)
+        val (existingNodes, newNodes) = nodeInfos.partition(node => nodeDocIds.contains(node.id))
+
+        val updatedNodes = existingNodes.filter { node =>
+          val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
+          if (fromDb.get.node != node) {
+            //noinspection SideEffectsInMonadicTransformation
+            log.debug("NODE CHANGED: before=" + fromDb.get.node + ", after=" + node)
+            true
+          }
+          else {
+            false
+          }
         }
-        catch {
-          case e: HttpServerErrorException =>
-            if (e.getStatusCode.value() == 404) {
-              retryCount = retryCount + 1
-            }
-            else {
-              throw new IllegalStateException(e)
-            }
+
+        val newDocs = newNodes.map(node => kpn.core.database.doc.NodeDoc(docId(node.id), node, None))
+
+        val updateDocs = updatedNodes.map { node =>
+          val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
+          val rev = fromDb.get._rev
+          kpn.core.database.doc.NodeDoc(docId(node.id), node, rev)
         }
-      }
-    }
-  }
 
-  private def doSave(nodes: Seq[NodeInfo]): Unit = {
-    log.debugElapsed {
+        val docs = newDocs ++ updateDocs
 
-      val nodeIds = nodes.map(node => docId(node.id))
-      val nodeDocViewResult = analysisDatabase.docsWithIds(nodeIds, classOf[NodeDocViewResult], stale = false)
-      val nodeDocs = nodeDocViewResult.rows.flatMap(_.doc)
-      val nodeDocIds = nodeDocs.map(_.node.id)
-      val (existingNodes, newNodes) = nodes.partition(node => nodeDocIds.contains(node.id))
-
-      val updatedNodes = existingNodes.filter { node =>
-        val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
-        if (fromDb.get.node != node) {
-          //noinspection SideEffectsInMonadicTransformation
-          log.debug("NODE CHANGED: before=" + fromDb.get.node + ", after=" + node)
-          true
+        if (newNodes.nonEmpty) {
+          log.info("Adding new node docs " + newNodes.map(_.id).mkString(","))
         }
-        else {
-          false
+        if (updatedNodes.nonEmpty) {
+          log.info("Udating node docs " + updatedNodes.map(_.id).mkString(","))
         }
-      }
 
-      val newDocs = newNodes.map(node => kpn.core.database.doc.NodeDoc(docId(node.id), node, None))
-
-      val updateDocs = updatedNodes.map { node =>
-        val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
-        val rev = fromDb.get._rev
-        kpn.core.database.doc.NodeDoc(docId(node.id), node, rev)
-      }
-
-      val docs = newDocs ++ updateDocs
-
-      if (newNodes.nonEmpty) {
-        log.info("Adding new node docs " + newNodes.map(_.id).mkString(","))
-      }
-      if (updatedNodes.nonEmpty) {
-        log.info("Udating node docs " + updatedNodes.map(_.id).mkString(","))
-      }
-
-      if (docs.nonEmpty) {
-        val groupSize = 50
-        docs.sliding(groupSize, groupSize).toSeq.foreach { docsGroup =>
-          analysisDatabase.bulkSave(docsGroup)
+        if (docs.nonEmpty) {
+          val groupSize = 50
+          docs.sliding(groupSize, groupSize).toSeq.foreach { docsGroup =>
+            analysisDatabase.bulkSave(docsGroup)
+          }
         }
-      }
 
-      (s"save ${nodes.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", ())
+        (s"save ${nodeInfos.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", ())
+      }
     }
   }
 
@@ -179,7 +158,7 @@ class NodeRepositoryImpl(
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO
+      new MongoQueryKnownNodeIds(database).execute(nodeIds.toSeq).toSet
     }
     else {
       log.debugElapsed {
