@@ -13,39 +13,13 @@ import { MonitorChangesPageComponent } from './changes/monitor-changes-page.comp
 import { MonitorGroupChangesPageComponent } from './group/changes/monitor-group-changes-page.component';
 import { MonitorGroupPageComponent } from './group/details/monitor-group-page.component';
 import { MonitorGroupsPageComponent } from './groups/monitor-groups-page.component';
-import { LongdistanceRouteChangesComponent } from './longdistance/route/changes/longdistance-route-changes.component';
-import { LongdistanceRouteDetailsComponent } from './longdistance/route/details/longdistance-route-details.component';
-import { LongdistanceRouteMapSidebarComponent } from './longdistance/route/map/longdistance-route-map-sidebar.component';
-import { LongdistanceRouteMapComponent } from './longdistance/route/map/longdistance-route-map.component';
-import { LongdistanceRoutesComponent } from './longdistance/routes/longdistance-routes.component';
 import { MonitorRouteChangePageComponent } from './route/changes/monitor-route-change-page.component';
 import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-changes-page.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
-import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
+import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 
 const routes: Routes = [
-  Util.routePath(
-    'long-distance-routes',
-    LongdistanceRoutesComponent,
-    SidebarComponent
-  ),
-  Util.routePath(
-    'long-distance-routes/:routeId',
-    LongdistanceRouteDetailsComponent,
-    SidebarComponent
-  ),
-  Util.routePath(
-    'long-distance-routes/:routeId/map',
-    LongdistanceRouteMapComponent,
-    LongdistanceRouteMapSidebarComponent
-  ),
-  Util.routePath(
-    'long-distance-routes/:routeId/changes',
-    LongdistanceRouteChangesComponent,
-    SidebarComponent
-  ),
-
   Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),
   Util.routePath('changes', MonitorChangesPageComponent, SidebarComponent),
   Util.routePath('about', MonitorAboutPageComponent, SidebarComponent),

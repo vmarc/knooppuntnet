@@ -11,16 +11,6 @@ import { actionMonitorChangesPageLoaded } from './monitor.actions';
 import { actionMonitorGroupChangesPageLoaded } from './monitor.actions';
 import { actionMonitorGroupPageLoaded } from './monitor.actions';
 import { actionMonitorNavigateGroup } from './monitor.actions';
-import { actionLongdistanceRouteMapOsmRelationVisible } from './monitor.actions';
-import { actionLongdistanceRouteMapNokVisible } from './monitor.actions';
-import { actionLongdistanceRouteMapOkVisible } from './monitor.actions';
-import { actionLongdistanceRouteMapReferenceVisible } from './monitor.actions';
-import { actionLongdistanceRouteMapMode } from './monitor.actions';
-import { actionLongdistanceRouteChangeLoaded } from './monitor.actions';
-import { actionLongdistanceRouteChangesLoaded } from './monitor.actions';
-import { actionLongdistanceRouteMapLoaded } from './monitor.actions';
-import { actionLongdistanceRouteDetailsLoaded } from './monitor.actions';
-import { actionLongdistanceRoutesLoaded } from './monitor.actions';
 import { actionMonitorGroupUpdateLoaded } from './monitor.actions';
 import { actionMonitorGroupDeleteLoaded } from './monitor.actions';
 import { actionMonitorGroupsPageLoaded } from './monitor.actions';
@@ -220,102 +210,5 @@ export const monitorReducer = createReducer(
   on(actionMonitorRouteMapOsmRelationVisible, (state, { visible }) => ({
     ...state,
     mapOsmRelationVisible: visible,
-  })),
-  on(actionLongdistanceRoutesLoaded, (state, { response }) => ({
-    ...state,
-    longdistanceRoutesPage: response,
-  })),
-  on(actionLongdistanceRouteDetailsLoaded, (state, { response }) => {
-    const longdistanceRouteId = response.result?.id ?? state.routeId;
-    const longdistanceRouteName = response.result?.name ?? state.routeName;
-    return {
-      ...state,
-      longdistanceRouteId,
-      longdistanceRouteName,
-      longdistanceRouteDetailsPage: response,
-    };
-  }),
-  on(actionLongdistanceRouteMapLoaded, (state, { response }) => {
-    const longdistanceRouteId = response.result?.id ?? state.routeId;
-    const longdistanceRouteName = response.result?.name ?? state.routeName;
-    const longdistanceRouteMapGpxVisible = false;
-    const longdistanceRouteMapGpxOkVisible = !!response.result?.okGeometry;
-    const longdistanceRouteMapGpxNokVisible =
-      (response.result?.nokSegments?.length ?? 0) > 0;
-    const longdistanceRouteMapOsmRelationVisible =
-      (response.result?.osmSegments?.length ?? 0) > 0;
-
-    return {
-      ...state,
-      longdistanceRouteId,
-      longdistanceRouteName,
-      longdistanceRouteMapGpxVisible,
-      longdistanceRouteMapGpxOkVisible,
-      longdistanceRouteMapGpxNokVisible,
-      longdistanceRouteMapOsmRelationVisible,
-      longdistanceRouteMapMode: 'comparison',
-      longdistanceRouteMapPage: response,
-    };
-  }),
-  on(actionLongdistanceRouteChangesLoaded, (state, { response }) => {
-    const longdistanceRouteId = response.result?.id ?? state.routeId;
-    const longdistanceRouteName = response.result?.name ?? state.routeName;
-    return {
-      ...state,
-      longdistanceRouteId,
-      longdistanceRouteName,
-      longdistanceRouteChangesPage: response,
-    };
-  }),
-  on(actionLongdistanceRouteChangeLoaded, (state, { response }) => {
-    const longdistanceRouteId = response.result?.id ?? state.routeId;
-    const longdistanceRouteName = response.result?.name ?? state.routeName;
-    return {
-      ...state,
-      longdistanceRouteId,
-      longdistanceRouteName,
-      longdistanceRouteChangePage: response,
-    };
-  }),
-  on(actionLongdistanceRouteMapMode, (state, { mode }) => {
-    const longdistanceRouteMapGpxVisible = false;
-    let longdistanceRouteMapGpxOkVisible = false;
-    let longdistanceRouteMapGpxNokVisible = false;
-    let longdistanceRouteMapOsmRelationVisible = false;
-    if (mode === 'comparison') {
-      longdistanceRouteMapGpxOkVisible = !!state.longdistanceRouteMapPage
-        ?.result?.gpxGeometry;
-      longdistanceRouteMapGpxNokVisible =
-        (state.longdistanceRouteMapPage?.result?.nokSegments?.length ?? 0) > 0;
-      longdistanceRouteMapOsmRelationVisible =
-        (state.longdistanceRouteMapPage.result?.osmSegments?.length ?? 0) > 0;
-    } else if (mode === 'osm-segments') {
-      longdistanceRouteMapOsmRelationVisible = true;
-    }
-
-    return {
-      ...state,
-      longdistanceRouteMapGpxVisible,
-      longdistanceRouteMapGpxOkVisible,
-      longdistanceRouteMapGpxNokVisible,
-      longdistanceRouteMapOsmRelationVisible,
-      longdistanceRouteMapMode: mode,
-    };
-  }),
-  on(actionLongdistanceRouteMapReferenceVisible, (state, { visible }) => ({
-    ...state,
-    longdistanceRouteMapGpxVisible: visible,
-  })),
-  on(actionLongdistanceRouteMapOkVisible, (state, { visible }) => ({
-    ...state,
-    longdistanceRouteMapGpxOkVisible: visible,
-  })),
-  on(actionLongdistanceRouteMapNokVisible, (state, { visible }) => ({
-    ...state,
-    longdistanceRouteMapGpxNokVisible: visible,
-  })),
-  on(actionLongdistanceRouteMapOsmRelationVisible, (state, { visible }) => ({
-    ...state,
-    longdistanceRouteMapOsmRelationVisible: visible,
   }))
 );

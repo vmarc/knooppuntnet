@@ -15,7 +15,6 @@ import { selectRouteParam } from '../../core/core.state';
 import { selectRouteParams } from '../../core/core.state';
 import { selectPreferencesItemsPerPage } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
-import { LongdistanceRouteMapService } from '../longdistance/route/map/longdistance-route-map.service';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
 import { actionMonitorChangesPageIndex } from './monitor.actions';
@@ -27,17 +26,6 @@ import { actionMonitorGroupChangesPageLoaded } from './monitor.actions';
 import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorGroupPageLoaded } from './monitor.actions';
 import { actionMonitorGroupPageInit } from './monitor.actions';
-import { actionLongdistanceRouteMapFocus } from './monitor.actions';
-import { actionLongdistanceRouteChangeLoaded } from './monitor.actions';
-import { actionLongdistanceRouteChangesLoaded } from './monitor.actions';
-import { actionLongdistanceRouteMapLoaded } from './monitor.actions';
-import { actionLongdistanceRouteDetailsLoaded } from './monitor.actions';
-import { actionLongdistanceRoutesLoaded } from './monitor.actions';
-import { actionLongdistanceRouteChangeInit } from './monitor.actions';
-import { actionLongdistanceRouteChangesInit } from './monitor.actions';
-import { actionLongdistanceRouteMapInit } from './monitor.actions';
-import { actionLongdistanceRouteDetailsInit } from './monitor.actions';
-import { actionLongdistanceRoutesInit } from './monitor.actions';
 import { actionMonitorGroupDeleteInit } from './monitor.actions';
 import { actionMonitorGroupUpdateInit } from './monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from './monitor.actions';
@@ -288,97 +276,11 @@ export class MonitorEffects {
     )
   );
 
-  /********************************************************/
-
-  longdistanceRouteMapFocusEffect = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(actionLongdistanceRouteMapFocus),
-        tap((action) => this.longdistanceRouteMapService.focus(action.bounds))
-      ),
-    { dispatch: false }
-  );
-
-  longdistanceRoutesInit = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionLongdistanceRoutesInit),
-      mergeMap((action) =>
-        this.monitorService
-          .longdistanceRoutes()
-          .pipe(map((response) => actionLongdistanceRoutesLoaded({ response })))
-      )
-    )
-  );
-
-  longdistanceRouteDetailsInit = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionLongdistanceRouteDetailsInit),
-      withLatestFrom(this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([action, routeId]) =>
-        this.monitorService
-          .longdistanceRoute(routeId)
-          .pipe(
-            map((response) =>
-              actionLongdistanceRouteDetailsLoaded({ response })
-            )
-          )
-      )
-    )
-  );
-
-  longdistanceRouteMapInit = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionLongdistanceRouteMapInit),
-      withLatestFrom(this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([action, routeId]) =>
-        this.monitorService
-          .longdistanceRouteMap(routeId)
-          .pipe(
-            map((response) => actionLongdistanceRouteMapLoaded({ response }))
-          )
-      )
-    )
-  );
-
-  longdistanceRouteChangesInit = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionLongdistanceRouteChangesInit),
-      withLatestFrom(this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([action, routeId]) =>
-        this.monitorService
-          .longdistanceRouteChanges(routeId)
-          .pipe(
-            map((response) =>
-              actionLongdistanceRouteChangesLoaded({ response })
-            )
-          )
-      )
-    )
-  );
-
-  longdistanceRouteChangeInit = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionLongdistanceRouteChangeInit),
-      withLatestFrom(
-        this.store.select(selectRouteParam('routeId')),
-        this.store.select(selectRouteParam('changeSetId'))
-      ),
-      mergeMap(([action, routeId, changeSetId]) =>
-        this.monitorService
-          .longdistanceRouteChange(routeId, changeSetId)
-          .pipe(
-            map((response) => actionLongdistanceRouteChangeLoaded({ response }))
-          )
-      )
-    )
-  );
-
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
     private router: Router,
     private monitorService: MonitorService,
-    private mapService: MonitorRouteMapService,
-    private longdistanceRouteMapService: LongdistanceRouteMapService
+    private mapService: MonitorRouteMapService
   ) {}
 }

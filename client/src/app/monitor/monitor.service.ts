@@ -1,10 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LongdistanceRouteChangePage } from '@api/common/monitor/longdistance-route-change-page';
-import { LongdistanceRouteChangesPage } from '@api/common/monitor/longdistance-route-changes-page';
-import { LongdistanceRouteDetailsPage } from '@api/common/monitor/longdistance-route-details-page';
-import { LongdistanceRouteMapPage } from '@api/common/monitor/longdistance-route-map-page';
-import { LongdistanceRoutesPage } from '@api/common/monitor/longdistance-routes-page';
 import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
@@ -111,41 +106,5 @@ export class MonitorService {
   public monitorAdminUpdateRouteGroup(group: MonitorGroup): Observable<Object> {
     const url = `/admin-api/monitor/groups/${group.name}`;
     return this.http.put(url, group);
-  }
-
-  /**************************************/
-
-  public longdistanceRoutes(): Observable<ApiResponse<LongdistanceRoutesPage>> {
-    const url = '/api/monitor/longdistance-routes';
-    return this.http.get(url);
-  }
-
-  public longdistanceRoute(
-    routeId: string
-  ): Observable<ApiResponse<LongdistanceRouteDetailsPage>> {
-    const url = `/api/monitor/longdistance-routes/${routeId}`;
-    return this.http.get(url);
-  }
-
-  public longdistanceRouteMap(
-    routeId: string
-  ): Observable<ApiResponse<LongdistanceRouteMapPage>> {
-    const url = `/api/monitor/longdistance-routes/${routeId}/map`;
-    return this.http.get(url);
-  }
-
-  public longdistanceRouteChanges(
-    routeId: string
-  ): Observable<ApiResponse<LongdistanceRouteChangesPage>> {
-    const url = `/api/monitor/longdistance-routes/${routeId}/changes`;
-    return this.http.get(url);
-  }
-
-  public longdistanceRouteChange(
-    routeId: string,
-    changeSetId: string
-  ): Observable<ApiResponse<LongdistanceRouteChangePage>> {
-    const url = `/api/monitor/longdistance-routes/${routeId}/changes/${changeSetId}`;
-    return this.http.get(url);
   }
 }

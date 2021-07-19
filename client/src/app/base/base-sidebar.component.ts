@@ -16,13 +16,6 @@ import { Component } from '@angular/core';
       <ul *ngIf="extraFunctionsEnabled">
         <li>
           <p>
-            <a routerLink="/monitor/long-distance-routes"
-              >Long distance routes</a
-            >
-          </p>
-        </li>
-        <li>
-          <p>
             <a routerLink="/monitor">Route monitor</a>
           </p>
         </li>

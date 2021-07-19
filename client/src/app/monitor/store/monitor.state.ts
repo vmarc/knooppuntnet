@@ -1,8 +1,3 @@
-import { LongdistanceRouteChangePage } from '@api/common/monitor/longdistance-route-change-page';
-import { LongdistanceRouteChangesPage } from '@api/common/monitor/longdistance-route-changes-page';
-import { LongdistanceRouteDetailsPage } from '@api/common/monitor/longdistance-route-details-page';
-import { LongdistanceRouteMapPage } from '@api/common/monitor/longdistance-route-map-page';
-import { LongdistanceRoutesPage } from '@api/common/monitor/longdistance-routes-page';
 import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
@@ -38,19 +33,6 @@ export const initialState: MonitorState = {
   routeChangesPageIndex: 0,
   routeChangesPage: null,
   routeChangePage: null,
-
-  longdistanceRouteId: 0,
-  longdistanceRouteName: '',
-  longdistanceRoutesPage: null,
-  longdistanceRouteDetailsPage: null,
-  longdistanceRouteChangesPage: null,
-  longdistanceRouteChangePage: null,
-  longdistanceRouteMapPage: null,
-  longdistanceRouteMapMode: null,
-  longdistanceRouteMapGpxVisible: null,
-  longdistanceRouteMapGpxOkVisible: null,
-  longdistanceRouteMapGpxNokVisible: null,
-  longdistanceRouteMapOsmRelationVisible: null,
 };
 
 export interface MonitorState {
@@ -76,19 +58,6 @@ export interface MonitorState {
   routeChangesPageIndex: number;
   routeChangesPage: ApiResponse<MonitorRouteChangesPage>;
   routeChangePage: ApiResponse<MonitorRouteChangePage>;
-
-  longdistanceRouteId: number;
-  longdistanceRouteName: string;
-  longdistanceRoutesPage: ApiResponse<LongdistanceRoutesPage>;
-  longdistanceRouteDetailsPage: ApiResponse<LongdistanceRouteDetailsPage>;
-  longdistanceRouteChangesPage: ApiResponse<LongdistanceRouteChangesPage>;
-  longdistanceRouteChangePage: ApiResponse<LongdistanceRouteChangePage>;
-  longdistanceRouteMapPage: ApiResponse<LongdistanceRouteMapPage>;
-  longdistanceRouteMapMode: string;
-  longdistanceRouteMapGpxVisible: boolean;
-  longdistanceRouteMapGpxOkVisible: boolean;
-  longdistanceRouteMapGpxNokVisible: boolean;
-  longdistanceRouteMapOsmRelationVisible: boolean;
 }
 
 export const monitorFeatureKey = 'monitor';

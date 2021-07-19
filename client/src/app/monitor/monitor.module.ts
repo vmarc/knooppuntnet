@@ -37,21 +37,6 @@ import { MonitorGroupPageComponent } from './group/details/monitor-group-page.co
 import { MonitorGroupRouteTableComponent } from './group/details/monitor-group-route-table.component';
 import { MonitorGroupTableComponent } from './groups/monitor-group-table.component';
 import { MonitorGroupsPageComponent } from './groups/monitor-groups-page.component';
-import { LongdistanceRouteChangeHeaderComponent } from './longdistance/route/changes/longdistance-route-change-header.component';
-import { LongdistanceRouteChangeMapComponent } from './longdistance/route/changes/longdistance-route-change-map.component';
-import { LongdistanceRouteChangePageComponent } from './longdistance/route/changes/longdistance-route-change-page.component';
-import { LongdistanceRouteChangesComponent } from './longdistance/route/changes/longdistance-route-changes.component';
-import { LongdistanceRoutePageHeaderComponent } from './longdistance/route/components/longdistance-route-page-header.component';
-import { LongdistanceRouteDetailsComponent } from './longdistance/route/details/longdistance-route-details.component';
-import { LongdistanceRouteMapControlComponent } from './longdistance/route/map/longdistance-route-map-control.component';
-import { LongdistanceRouteMapLayersComponent } from './longdistance/route/map/longdistance-route-map-layers.component';
-import { LongdistanceRouteMapLegendLineComponent } from './longdistance/route/map/longdistance-route-map-legend-line.component';
-import { LongdistanceRouteMapNokSegmentsComponent } from './longdistance/route/map/longdistance-route-map-nok-segments.component';
-import { LongdistanceRouteMapOsmSegmentsComponent } from './longdistance/route/map/longdistance-route-map-osm-segments.component';
-import { LongdistanceRouteMapSidebarComponent } from './longdistance/route/map/longdistance-route-map-sidebar.component';
-import { LongdistanceRouteMapComponent } from './longdistance/route/map/longdistance-route-map.component';
-import { LongdistanceRoutesTableComponent } from './longdistance/routes/longdistance-routes-table.component';
-import { LongdistanceRoutesComponent } from './longdistance/routes/longdistance-routes.component';
 import { MonitorRoutingModule } from './monitor-routing.module';
 import { MonitorService } from './monitor.service';
 import { MonitorRouteChangeMapComponent } from './route/changes/monitor-route-change-map.component';
@@ -64,8 +49,8 @@ import { MonitorRouteMapControlComponent } from './route/map/monitor-route-map-c
 import { MonitorRouteMapLayersComponent } from './route/map/monitor-route-map-layers.component';
 import { MonitorRouteMapNokSegmentsComponent } from './route/map/monitor-route-map-nok-segments.component';
 import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-map-osm-segments.component';
-import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
+import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
 import { monitorFeatureKey } from './store/monitor.state';
@@ -124,22 +109,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorAdminRouteSummaryComponent,
     MonitorAdminRouteReferenceComponent,
     MonitorChangesComponent,
-
-    LongdistanceRoutesComponent,
-    LongdistanceRoutesTableComponent,
-    LongdistanceRouteChangesComponent,
-    LongdistanceRouteChangePageComponent,
-    LongdistanceRouteChangeMapComponent,
-    LongdistanceRouteChangeHeaderComponent,
-    LongdistanceRoutePageHeaderComponent,
-    LongdistanceRouteDetailsComponent,
-    LongdistanceRouteMapComponent,
-    LongdistanceRouteMapControlComponent,
-    LongdistanceRouteMapLayersComponent,
-    LongdistanceRouteMapLegendLineComponent,
-    LongdistanceRouteMapNokSegmentsComponent,
-    LongdistanceRouteMapOsmSegmentsComponent,
-    LongdistanceRouteMapSidebarComponent,
   ],
   exports: [],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'nl-BE' }, MonitorService],

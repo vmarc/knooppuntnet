@@ -15,8 +15,6 @@ object KeyPrefix {
 
   val NodeRoute = "node-route"
 
-  val LongdistanceRoute = "longdistance-route"
-
   val MonitorGroup = "monitor-group"
   val MonitorRoute = "monitor-route"
   val MonitorRouteState = "monitor-route-state"
