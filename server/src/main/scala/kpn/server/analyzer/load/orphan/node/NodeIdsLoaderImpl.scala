@@ -1,8 +1,7 @@
 package kpn.server.analyzer.load.orphan.node
 
-import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Timestamp
-import kpn.core.overpass.{OverpassQuery, OverpassQueryExecutor, QueryNodeIds, QueryProposedNodeIds}
+import kpn.api.custom.{ScopedNetworkType, Timestamp}
+import kpn.core.overpass.{OverpassQuery, OverpassQueryExecutor, QueryNodeIds}
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 
@@ -12,15 +11,13 @@ import scala.xml.XML
 class NodeIdsLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) extends NodeIdsLoader {
 
   override def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Set[Long] = {
-    val nodeIds = {
-      val query = QueryNodeIds(scopedNetworkType)
+    Seq(
+      scopedNetworkType.nodeTagKey,
+      scopedNetworkType.proposedNodeTagKey
+    ).flatMap { nodeTagKey =>
+      val query = QueryNodeIds(nodeTagKey)
       ids(timestamp, "node", query)
-    }
-    val proposedNodeIds = {
-      val query = QueryProposedNodeIds(scopedNetworkType)
-      ids(timestamp, "node", query)
-    }
-    nodeIds ++ proposedNodeIds
+    }.toSet
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Set[Long] = {

@@ -65,7 +65,7 @@ class DeactivateZombiesTool(database: Database, overpassQueryExecutor: OverpassQ
   private def readOverpassNodeIdsWithTagKey(scopedNetworkType: ScopedNetworkType): Set[Long] = {
     println(s"read overpass nodes ${scopedNetworkType.key}")
     //    val xmlString = FileUtils.readFileToString(new File(s"/kpn/tmp/${networkType.name}.xml"))
-    val query = QueryNodeIds(scopedNetworkType)
+    val query = QueryNodeIds(scopedNetworkType.nodeTagKey)
     val xmlString = overpassQueryExecutor.executeQuery(None, query)
     val xml = XML.loadString(xmlString)
     (xml \ "node").map { n => (n \ "@id").text.toLong }.toSet
