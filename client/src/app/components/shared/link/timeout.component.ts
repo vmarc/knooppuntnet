@@ -6,9 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   template: `
     <kpn-dialog>
       <p i18n="@@timeout.message-1">Sorry.</p>
-      <p i18n="@@timeout.message-2">
-        No response from editor within 5 seconds.
-      </p>
+      <p i18n="@@timeout.message-2">No response from editor.</p>
       <p i18n="@@timeout.message-3">
         Has the editor (JOSM) been started? Has remote control been enabled in
         the editor?

@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -37,6 +38,13 @@ export class SpinnerInterceptor implements HttpInterceptor {
           } else {
             httpError = 'error-' + error.status;
           }
+        }
+        if (
+          request.url.includes(
+            'import?url=https://api.openstreetmap.org/api/0.6'
+          )
+        ) {
+          return throwError(error);
         }
         this.store.dispatch(actionSharedHttpError({ httpError }));
         return of(null);
