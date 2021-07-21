@@ -39,8 +39,43 @@ class Issue109_RoundaboutRoute extends UnitTest {
       routeNodeInfoAnalyzer
     )
     val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
-    println(routeAnalysis.route.facts)
-    println(routeAnalysis.structure.unusedSegments)
+
+    assert(routeAnalysis.route.facts.isEmpty)
+    assert(routeAnalysis.structure.unusedSegments.isEmpty)
+
+    routeAnalysis.route.analysis.map.freeNodes.map(_.id).toSet should equal(
+      Set(
+        1015045148L,
+        302102477L,
+        301008714L,
+        301008719L,
+        301008718L,
+        2509722539L,
+        2509722616L,
+        302941691L,
+      )
+    )
+
+    routeAnalysis.route.analysis.map.freePaths.map(path => path.startNodeId -> path.endNodeId).toSet should equal(
+      Set(
+        1015045148L -> 302941691L,
+        302941691L -> 1015045148L,
+        1015045148L -> 302102477L,
+        302102477L -> 1015045148L,
+        302941691L -> 2509722616L,
+        2509722616L -> 302941691L,
+        2509722616L -> 2509722539L,
+        2509722539L -> 2509722616L,
+        2509722539L -> 301008719L,
+        301008719L -> 2509722539L,
+        301008719L -> 301008718L,
+        301008718L -> 301008719L,
+        301008718L -> 301008714L,
+        301008714L -> 301008718L,
+        301008714L -> 302102477L,
+        302102477L -> 301008714L
+      )
+    )
   }
 
   private def readRoute(): LoadedRoute = {
