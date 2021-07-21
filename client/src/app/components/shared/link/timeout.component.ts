@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'kpn-timeout',
@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <kpn-dialog>
       <p i18n="@@timeout.message-1">Sorry.</p>
       <p i18n="@@timeout.message-2">
-        No response from editor within 5 seconds.
+        No response from editor.
       </p>
       <p i18n="@@timeout.message-3">
         Has the editor (JOSM) been started? Has remote control been enabled in
@@ -16,4 +16,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </kpn-dialog>
   `,
 })
-export class TimeoutComponent {}
+export class TimeoutComponent {
+}

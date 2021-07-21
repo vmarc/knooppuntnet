@@ -68,7 +68,7 @@ export class AppService {
   }
 
   public edit(url: string): Observable<Object> {
-    return this.http.get(url, { responseType: 'text' }).pipe(timeout(5000));
+    return this.http.get(url, { responseType: 'text' }).pipe(timeout(3000));
   }
 
   public overview(): Observable<ApiResponse<Statistics>> {
