@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2021-07-22T14:25:28Z"/>
+
+    <node id="45749578" lat="52.2172168" lon="4.4769943" version="7" timestamp="2019-09-12T11:37:34Z" changeset="74389339" uid="7103674" user="Peter Elderson">
+        <tag k="expected_rwn_route_relations" v="4"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="operator:rwn" v="Bollenstreek"/>
+        <tag k="rwn_ref" v="28"/>
+    </node>
+    <node id="1128255638" lat="52.2155041" lon="4.4771505" version="3" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568627" lat="52.2170512" lon="4.4770884" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568632" lat="52.2155305" lon="4.4769862" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568633" lat="52.2156209" lon="4.4768655" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568634" lat="52.2157688" lon="4.4767957" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568635" lat="52.2158657" lon="4.4767045" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568636" lat="52.2159117" lon="4.4765624" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568637" lat="52.2153711" lon="4.4775172" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568638" lat="52.2168021" lon="4.4770179" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <node id="4610568639" lat="52.2164064" lon="4.4764592" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568641" lat="52.2151805" lon="4.4779989" version="4" timestamp="2020-05-31T13:48:32Z" changeset="86009522" uid="294028" user="dvdhoven">
+        <tag k="network:type" v="node_network"/>
+        <tag k="note" v="tussenknooppunt om validatieproblemen vanwege lus te voorkomen"/>
+        <tag k="remark" v="Het lijkt erop dat knooppuntnet moeite heeft met een ref tag met 2x een streepje erin. Daarom 28-vv gewijzigd in vv"/>
+        <tag k="rwn_ref" v="vv"/>
+    </node>
+    <node id="4610568642" lat="52.2165737" lon="4.4766116" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568643" lat="52.2167645" lon="4.4769522" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568644" lat="52.2166688" lon="4.4766798" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568647" lat="52.2152503" lon="4.4776050" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568648" lat="52.2154359" lon="4.4773430" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <node id="4610568652" lat="52.2151741" lon="4.4778088" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568653" lat="52.2159286" lon="4.4763750" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568655" lat="52.2160203" lon="4.4763024" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568658" lat="52.2169929" lon="4.4769968" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568659" lat="52.2161470" lon="4.4763927" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568660" lat="52.2151953" lon="4.4777103" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568661" lat="52.2159683" lon="4.4763030" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <node id="4610568662" lat="52.2162929" lon="4.4764094" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610568663" lat="52.2170826" lon="4.4772049" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
+    <node id="4610578582" lat="52.2168207" lon="4.4770429" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <node id="4610578583" lat="52.2168428" lon="4.4770436" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <node id="4610578588" lat="52.2151688" lon="4.4779079" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <node id="4610586089" lat="52.2155013" lon="4.4770928" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
+    <way id="544200647" version="1" timestamp="2017-12-02T19:13:01Z" changeset="54279156" uid="2812529" user="multimodaal">
+        <nd ref="45749578"/>
+        <nd ref="4610568663"/>
+        <tag k="bicycle" v="no"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="path"/>
+        <tag k="horse" v="yes"/>
+        <tag k="lit" v="no"/>
+        <tag k="motor_vehicle" v="no"/>
+        <tag k="surface" v="dirt"/>
+    </way>
+    <way id="659696133" version="2" timestamp="2019-01-01T20:13:21Z" changeset="65941644" uid="2812529" user="multimodaal">
+        <nd ref="4610568663"/>
+        <nd ref="4610568627"/>
+        <nd ref="4610568658"/>
+        <nd ref="4610578583"/>
+        <nd ref="4610578582"/>
+        <nd ref="4610568638"/>
+        <nd ref="4610568643"/>
+        <nd ref="4610568644"/>
+        <nd ref="4610568642"/>
+        <nd ref="4610568639"/>
+        <nd ref="4610568662"/>
+        <nd ref="4610568659"/>
+        <nd ref="4610568655"/>
+        <nd ref="4610568661"/>
+        <nd ref="4610568653"/>
+        <nd ref="4610568636"/>
+        <nd ref="4610568635"/>
+        <nd ref="4610568634"/>
+        <nd ref="4610568633"/>
+        <nd ref="4610568632"/>
+        <nd ref="4610586089"/>
+        <nd ref="1128255638"/>
+        <nd ref="4610568648"/>
+        <nd ref="4610568637"/>
+        <nd ref="4610568647"/>
+        <nd ref="4610568660"/>
+        <nd ref="4610568652"/>
+        <nd ref="4610578588"/>
+        <nd ref="4610568641"/>
+        <tag k="bicycle" v="no"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="path"/>
+        <tag k="horse" v="yes"/>
+        <tag k="lit" v="no"/>
+        <tag k="motor_vehicle" v="no"/>
+        <tag k="surface" v="dirt"/>
+    </way>
+    <relation id="9174227" version="4" timestamp="2020-05-31T13:48:32Z" changeset="86009522" uid="294028" user="dvdhoven">
+        <member type="way" ref="544200647" role=""/>
+        <member type="way" ref="659696133" role=""/>
+        <tag k="comment" v="route loopt in rondje, begint en eind bij zelfde knooppunt (en daardor foutmelding in www.knooppuntnet.nl)"/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="operator" v="Bollenstreek"/>
+        <tag k="ref" v="28-vv"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
