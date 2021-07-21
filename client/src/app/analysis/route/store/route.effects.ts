@@ -9,6 +9,7 @@ import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
+import { actionRouteId } from './route.actions';
 import { actionRouteChangesPageLoaded } from './route.actions';
 import { actionRouteChangesPageInit } from './route.actions';
 import { actionRouteMapPageInit } from './route.actions';
@@ -22,11 +23,12 @@ export class RouteEffects {
     this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
       withLatestFrom(this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([action, routeId]) =>
-        this.appService
+      mergeMap(([action, routeId]) => {
+        this.store.dispatch(actionRouteId({ routeId }));
+        return this.appService
           .routeDetails(routeId)
-          .pipe(map((response) => actionRouteDetailsPageLoaded({ response })))
-      )
+          .pipe(map((response) => actionRouteDetailsPageLoaded({ response })));
+      })
     )
   );
 
@@ -34,11 +36,12 @@ export class RouteEffects {
     this.actions$.pipe(
       ofType(actionRouteMapPageInit),
       withLatestFrom(this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([action, routeId]) =>
-        this.appService
+      mergeMap(([action, routeId]) => {
+        this.store.dispatch(actionRouteId({ routeId }));
+        return this.appService
           .routeMap(routeId)
-          .pipe(map((response) => actionRouteMapPageLoaded({ response })))
-      )
+          .pipe(map((response) => actionRouteMapPageLoaded({ response })));
+      })
     )
   );
 
@@ -46,11 +49,12 @@ export class RouteEffects {
     this.actions$.pipe(
       ofType(actionRouteChangesPageInit),
       withLatestFrom(this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([action, routeId]) =>
-        this.appService
+      mergeMap(([action, routeId]) => {
+        this.store.dispatch(actionRouteId({ routeId }));
+        return this.appService
           .routeChanges(routeId, null /* TODO PARAMETERS */)
-          .pipe(map((response) => actionRouteChangesPageLoaded({ response })))
-      )
+          .pipe(map((response) => actionRouteChangesPageLoaded({ response })));
+      })
     )
   );
 

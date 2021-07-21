@@ -5,6 +5,11 @@ import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
+export const actionNodeId = createAction(
+  '[Node] Id',
+  props<{ nodeId: string }>()
+);
+
 export const actionNodeLink = createAction(
   '[Node] Link',
   props<{ nodeId: string; nodeName: string }>()

@@ -9,6 +9,7 @@ import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
+import { actionNodeId } from './node.actions';
 import { actionNodeMapPageInit } from './node.actions';
 import { actionNodeChangesPageLoaded } from './node.actions';
 import { actionNodeChangesPageInit } from './node.actions';
@@ -22,11 +23,12 @@ export class NodeEffects {
     this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
       withLatestFrom(this.store.select(selectRouteParam('nodeId'))),
-      mergeMap(([action, nodeId]) =>
-        this.appService
+      mergeMap(([action, nodeId]) => {
+        this.store.dispatch(actionNodeId({ nodeId }));
+        return this.appService
           .nodeDetails(nodeId)
-          .pipe(map((response) => actionNodeDetailsPageLoaded({ response })))
-      )
+          .pipe(map((response) => actionNodeDetailsPageLoaded({ response })));
+      })
     )
   );
 
@@ -34,11 +36,12 @@ export class NodeEffects {
     this.actions$.pipe(
       ofType(actionNodeMapPageInit),
       withLatestFrom(this.store.select(selectRouteParam('nodeId'))),
-      mergeMap(([action, nodeId]) =>
-        this.appService
+      mergeMap(([action, nodeId]) => {
+        this.store.dispatch(actionNodeId({ nodeId }));
+        return this.appService
           .nodeMap(nodeId)
-          .pipe(map((response) => actionNodeMapPageLoaded({ response })))
-      )
+          .pipe(map((response) => actionNodeMapPageLoaded({ response })));
+      })
     )
   );
 
@@ -46,11 +49,12 @@ export class NodeEffects {
     this.actions$.pipe(
       ofType(actionNodeChangesPageInit),
       withLatestFrom(this.store.select(selectRouteParam('nodeId'))),
-      mergeMap(([action, nodeId]) =>
-        this.appService
+      mergeMap(([action, nodeId]) => {
+        this.store.dispatch(actionNodeId({ nodeId }));
+        return this.appService
           .nodeChanges(nodeId, null /* TODO PARAMETERS */)
-          .pipe(map((response) => actionNodeChangesPageLoaded({ response })))
-      )
+          .pipe(map((response) => actionNodeChangesPageLoaded({ response })));
+      })
     )
   );
 

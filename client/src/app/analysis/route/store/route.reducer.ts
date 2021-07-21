@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
+import { actionRouteId } from './route.actions';
 import { actionRouteChangesPageLoaded } from './route.actions';
 import { actionRouteMapPageLoaded } from './route.actions';
 import { actionRouteDetailsPageLoaded } from './route.actions';
@@ -14,6 +15,10 @@ export const routeReducer = createReducer(
     detailsPage: null,
     mapPage: null,
     changesPage: null,
+  })),
+  on(actionRouteId, (state, { routeId }) => ({
+    ...state,
+    routeId,
   })),
   on(actionRouteLink, (state, { routeId, routeName }) => ({
     ...state,

@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
     <kpn-page-header [pageTitle]="routeName" subject="route-page">
       <span i18n="@@route.title">Route</span>
       <span *ngIf="routeName">&nbsp;{{ routeName }}</span>
+      <span *ngIf="!routeName">&nbsp;{{ routeId }}</span>
     </kpn-page-header>
 
     <kpn-page-menu>

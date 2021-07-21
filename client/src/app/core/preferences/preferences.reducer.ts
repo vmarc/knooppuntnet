@@ -69,7 +69,7 @@ export const preferencesReducer = createReducer(
   })),
   on(actionRouteDetailsPageLoaded, (state, { response }) => {
     const networkType =
-      response?.result.route.summary.networkType ?? state.networkType;
+      response?.result?.route.summary.networkType ?? state.networkType;
     return {
       ...state,
       networkType,
@@ -77,7 +77,7 @@ export const preferencesReducer = createReducer(
   }),
   on(actionRouteMapPageLoaded, (state, { response }) => {
     const networkType =
-      response?.result.routeMapInfo.networkType ?? state.networkType;
+      response?.result?.routeMapInfo.networkType ?? state.networkType;
     return {
       ...state,
       networkType,
@@ -85,7 +85,7 @@ export const preferencesReducer = createReducer(
   }),
   on(actionRouteChangesPageLoaded, (state, { response }) => {
     const networkType =
-      response?.result.routeNameInfo.networkType ?? state.networkType;
+      response?.result?.routeNameInfo.networkType ?? state.networkType;
     return {
       ...state,
       networkType,
