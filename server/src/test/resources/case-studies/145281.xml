@@ -1,0 +1,1217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2021-07-22T15:25:13Z"/>
+
+    <node id="15255711" lat="50.7708698" lon="6.0257184" version="8" timestamp="2012-10-20T07:04:15Z" changeset="13564382" uid="685157" user="radler99"/>
+    <node id="36455118" lat="50.7710097" lon="6.0251670" version="10" timestamp="2020-12-01T12:26:09Z" changeset="95094841" uid="183483" user="jeroenrozema74">
+        <tag k="TMC:cid_58:tabcd_1:Class" v="Point"/>
+        <tag k="TMC:cid_58:tabcd_1:LCLversion" v="9.00"/>
+        <tag k="TMC:cid_58:tabcd_1:LocationCode" v="20138"/>
+        <tag k="TMC:cid_58:tabcd_1:NextLocationCode" v="48192"/>
+    </node>
+    <node id="41905449" lat="50.7689364" lon="6.0230359" version="4" timestamp="2010-11-28T18:58:03Z" changeset="6481109" uid="124188" user="Caronna"/>
+    <node id="41905488" lat="50.7690144" lon="6.0227132" version="4" timestamp="2012-10-23T17:10:15Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="41905538" lat="50.7691160" lon="6.0210908" version="5" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41905539" lat="50.7691396" lon="6.0223145" version="3" timestamp="2012-10-23T17:10:15Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="41905584" lat="50.7692130" lon="6.0215205" version="5" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41905585" lat="50.7692517" lon="6.0219034" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41905589" lat="50.7692300" lon="6.0207700" version="2" timestamp="2009-12-23T19:34:46Z" changeset="3437127" uid="12946" user="AND"/>
+    <node id="41905597" lat="50.7692605" lon="6.0218222" version="5" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41905652" lat="50.7693537" lon="6.0218692" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41905723" lat="50.7693909" lon="6.0203671" version="3" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41905783" lat="50.7695800" lon="6.0202000" version="2" timestamp="2009-12-23T19:34:46Z" changeset="3437127" uid="12946" user="AND"/>
+    <node id="41906020" lat="50.7698800" lon="6.0199500" version="2" timestamp="2009-12-23T19:34:46Z" changeset="3437127" uid="12946" user="AND"/>
+    <node id="41906074" lat="50.7699843" lon="6.0198708" version="3" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41906119" lat="50.7700311" lon="6.0196651" version="7" timestamp="2021-03-22T20:16:13Z" changeset="101527372" uid="183483" user="jeroenrozema74"/>
+    <node id="41906161" lat="50.7700893" lon="6.0192509" version="5" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="41906163" lat="50.7700676" lon="6.0194123" version="6" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="41906457" lat="50.7704038" lon="6.0200525" version="6" timestamp="2021-03-22T20:16:13Z" changeset="101527372" uid="183483" user="jeroenrozema74"/>
+    <node id="41906467" lat="50.7705587" lon="6.0230711" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41906653" lat="50.7707881" lon="6.0186876" version="4" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="41906761" lat="50.7708585" lon="6.0186035" version="3" timestamp="2013-01-10T00:46:44Z" changeset="14593146" uid="183483" user="jeroenrozema74"/>
+    <node id="41906792" lat="50.7708483" lon="6.0234023" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41906947" lat="50.7710265" lon="6.0235486" version="7" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41906964" lat="50.7710177" lon="6.0251356" version="10" timestamp="2020-12-01T12:26:09Z" changeset="95094841" uid="183483" user="jeroenrozema74">
+        <tag k="expected_rcn_route_relations" v="2"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="95"/>
+    </node>
+    <node id="41907011" lat="50.7710746" lon="6.0179850" version="5" timestamp="2021-03-26T17:41:28Z" changeset="101808747" uid="183483" user="jeroenrozema74"/>
+    <node id="41907023" lat="50.7711172" lon="6.0205470" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="41907189" lat="50.7712520" lon="6.0173465" version="4" timestamp="2015-02-08T15:48:50Z" changeset="28705048" uid="1794001" user="Imergis"/>
+    <node id="41907232" lat="50.7713516" lon="6.0238550" version="3" timestamp="2012-10-20T12:37:59Z" changeset="13567157" uid="685157" user="radler99"/>
+    <node id="41907445" lat="50.7715710" lon="6.0164118" version="4" timestamp="2017-06-02T00:17:47Z" changeset="49180857" uid="183483" user="jeroenrozema74"/>
+    <node id="41907465" lat="50.7716642" lon="6.0161260" version="3" timestamp="2017-06-02T00:17:47Z" changeset="49180857" uid="183483" user="jeroenrozema74"/>
+    <node id="41907553" lat="50.7717190" lon="6.0159728" version="3" timestamp="2017-06-02T00:17:47Z" changeset="49180857" uid="183483" user="jeroenrozema74"/>
+    <node id="41907608" lat="50.7718100" lon="6.0157900" version="2" timestamp="2009-12-23T19:36:07Z" changeset="3437127" uid="12946" user="AND"/>
+    <node id="41908895" lat="50.7732006" lon="6.0137335" version="4" timestamp="2020-09-09T18:12:04Z" changeset="90660697" uid="183483" user="jeroenrozema74"/>
+    <node id="41909378" lat="50.7737971" lon="6.0128436" version="8" timestamp="2020-02-01T15:56:23Z" changeset="80413809" uid="1296171" user="EOSfoto"/>
+    <node id="41909711" lat="50.7741967" lon="6.0122423" version="4" timestamp="2015-02-08T15:48:50Z" changeset="28705048" uid="1794001" user="Imergis"/>
+    <node id="41909898" lat="50.7742730" lon="6.0123630" version="4" timestamp="2015-02-08T15:48:50Z" changeset="28705048" uid="1794001" user="Imergis"/>
+    <node id="41910268" lat="50.7746785" lon="6.0125251" version="4" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="41911305" lat="50.7756641" lon="6.0102982" version="9" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="41911690" lat="50.7760049" lon="6.0096585" version="4" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="41913577" lat="50.7790793" lon="5.9990509" version="4" timestamp="2019-04-27T11:14:33Z" changeset="69637009" uid="99810" user="Martin Borsje"/>
+    <node id="41913640" lat="50.7793567" lon="5.9899646" version="5" timestamp="2017-06-18T15:15:24Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="41913650" lat="50.7793618" lon="5.9974303" version="3" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41913700" lat="50.7794365" lon="5.9941172" version="4" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41913712" lat="50.7794600" lon="5.9937300" version="2" timestamp="2009-12-23T19:36:57Z" changeset="3437127" uid="12946" user="AND"/>
+    <node id="41913716" lat="50.7794702" lon="5.9897180" version="4" timestamp="2017-06-18T15:15:24Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="41913717" lat="50.7794648" lon="5.9943944" version="3" timestamp="2017-06-18T15:15:24Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="41913745" lat="50.7795258" lon="5.9947511" version="3" timestamp="2017-06-18T15:15:24Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="41913751" lat="50.7795913" lon="5.9959831" version="3" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41913757" lat="50.7795713" lon="5.9908462" version="3" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41913759" lat="50.7795754" lon="5.9921511" version="3" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41913796" lat="50.7796051" lon="5.9956100" version="6" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41913905" lat="50.7798204" lon="5.9894059" version="8" timestamp="2019-09-13T07:37:34Z" changeset="74421722" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="93"/>
+    </node>
+    <node id="41914379" lat="50.7806677" lon="6.0007015" version="5" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41914416" lat="50.7809325" lon="6.0009769" version="5" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="41914492" lat="50.7810117" lon="6.0011030" version="4" timestamp="2017-08-13T23:47:58Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="130022831" lat="50.7690602" lon="6.0244342" version="9" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="130022852" lat="50.7702085" lon="6.0250782" version="4" timestamp="2012-10-20T08:14:56Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="130022853" lat="50.7697396" lon="6.0246475" version="4" timestamp="2012-10-20T08:14:56Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="130022854" lat="50.7693502" lon="6.0245057" version="5" timestamp="2012-10-20T08:14:56Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="138360309" lat="50.7690694" lon="6.0243001" version="5" timestamp="2011-03-20T14:08:12Z" changeset="7616888" uid="124188" user="Caronna"/>
+    <node id="138360320" lat="50.7690717" lon="6.0239422" version="3" timestamp="2012-10-23T17:10:15Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="138360332" lat="50.7690549" lon="6.0238026" version="4" timestamp="2012-10-23T17:10:15Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="316407556" lat="50.7700636" lon="6.0249376" version="2" timestamp="2012-10-20T08:14:58Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="317996203" lat="50.7749011" lon="6.0120882" version="3" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="317996205" lat="50.7754608" lon="6.0108771" version="5" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="317996214" lat="50.7773334" lon="6.0075799" version="6" timestamp="2015-06-14T23:01:44Z" changeset="31972644" uid="388804" user="Allroads"/>
+    <node id="317996226" lat="50.7779757" lon="6.0064701" version="3" timestamp="2013-06-12T11:01:03Z" changeset="16522307" uid="183483" user="jeroenrozema74"/>
+    <node id="317996229" lat="50.7790793" lon="6.0045700" version="8" timestamp="2021-07-22T14:42:45Z" changeset="108435077" uid="294028" user="dvdhoven"/>
+    <node id="317996230" lat="50.7810373" lon="6.0012035" version="5" timestamp="2017-08-13T23:47:59Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="324243493" lat="50.7809871" lon="6.0010618" version="6" timestamp="2021-07-22T14:42:45Z" changeset="108435077" uid="294028" user="dvdhoven"/>
+    <node id="324243494" lat="50.7789882" lon="6.0044259" version="6" timestamp="2021-07-02T10:24:16Z" changeset="107304581" uid="183483" user="jeroenrozema74"/>
+    <node id="324244005" lat="50.7775106" lon="6.0068972" version="8" timestamp="2016-04-05T13:02:08Z" changeset="38316742" uid="130472" user="fx99"/>
+    <node id="324244017" lat="50.7774086" lon="6.0069019" version="6" timestamp="2016-04-05T13:02:08Z" changeset="38316742" uid="130472" user="fx99"/>
+    <node id="324244020" lat="50.7773307" lon="6.0068736" version="8" timestamp="2015-05-06T10:40:21Z" changeset="30838357" uid="183483" user="jeroenrozema74"/>
+    <node id="324244022" lat="50.7772749" lon="6.0069625" version="8" timestamp="2014-02-06T07:54:14Z" changeset="20407205" uid="1396166" user="Pierre1998"/>
+    <node id="324244024" lat="50.7771795" lon="6.0071534" version="6" timestamp="2013-06-12T11:07:25Z" changeset="16522380" uid="183483" user="jeroenrozema74"/>
+    <node id="324244028" lat="50.7772048" lon="6.0072577" version="5" timestamp="2013-06-12T11:07:25Z" changeset="16522380" uid="183483" user="jeroenrozema74"/>
+    <node id="324244030" lat="50.7772118" lon="6.0073270" version="7" timestamp="2016-07-26T07:52:56Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="324244032" lat="50.7772021" lon="6.0074113" version="10" timestamp="2018-04-01T12:13:44Z" changeset="57710859" uid="99810" user="Martin Borsje"/>
+    <node id="324244035" lat="50.7767154" lon="6.0084302" version="9" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="330302852" lat="50.7747247" lon="6.0124116" version="3" timestamp="2014-10-01T16:32:15Z" changeset="25793335" uid="79958" user="wonk"/>
+    <node id="330302855" lat="50.7757096" lon="6.0103671" version="4" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="330302857" lat="50.7760536" lon="6.0097293" version="4" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="330302859" lat="50.7768357" lon="6.0083385" version="8" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="330302862" lat="50.7769086" lon="6.0081589" version="6" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="330302870" lat="50.7745930" lon="6.0124521" version="4" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="455942754" lat="50.7689097" lon="6.0232823" version="4" timestamp="2013-04-20T19:34:07Z" changeset="15802296" uid="255802" user="cboothroyd"/>
+    <node id="455942756" lat="50.7689585" lon="6.0233851" version="3" timestamp="2012-10-23T17:10:17Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="516227161" lat="50.7702851" lon="6.0188634" version="3" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="556111650" lat="50.7791752" lon="5.9987284" version="3" timestamp="2017-06-18T15:15:24Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="652698931" lat="50.7743460" lon="6.0124274" version="2" timestamp="2015-02-08T15:48:50Z" changeset="28705048" uid="1794001" user="Imergis"/>
+    <node id="710657025" lat="50.7797406" lon="5.9894399" version="3" timestamp="2017-06-18T15:15:24Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="760987803" lat="50.7693077" lon="6.0205176" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="903432553" lat="50.7709987" lon="6.0253148" version="6" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74">
+        <tag k="crossing" v="marked"/>
+        <tag k="crossing_ref" v="zebra"/>
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="903457901" lat="50.7712836" lon="6.0241119" version="2" timestamp="2012-10-20T12:38:03Z" changeset="13567157" uid="685157" user="radler99"/>
+    <node id="991809404" lat="50.7738504" lon="6.0127648" version="5" timestamp="2020-03-23T21:09:07Z" changeset="82541273" uid="183483" user="jeroenrozema74"/>
+    <node id="1011408835" lat="50.7689209" lon="6.0231660" version="2" timestamp="2013-04-20T19:08:52Z" changeset="15801886" uid="255802" user="cboothroyd"/>
+    <node id="1011408850" lat="50.7689356" lon="6.0233274" version="4" timestamp="2013-04-20T19:34:07Z" changeset="15802296" uid="255802" user="cboothroyd"/>
+    <node id="1305170577" lat="50.7795193" lon="5.9964155" version="2" timestamp="2017-06-18T15:15:25Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="1305170579" lat="50.7795643" lon="5.9950424" version="2" timestamp="2017-06-18T15:15:25Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="1332647901" lat="50.7703970" lon="6.0188207" version="4" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="1374216379" lat="50.7708342" lon="6.0186460" version="3" timestamp="2017-06-02T00:55:25Z" changeset="49181080" uid="183483" user="jeroenrozema74"/>
+    <node id="1660291928" lat="50.7689119" lon="6.0232508" version="4" timestamp="2018-03-14T20:55:46Z" changeset="57190534" uid="424172" user="JanWandelaar">
+        <tag k="barrier" v="bollard"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+    </node>
+    <node id="1818539631" lat="50.7707706" lon="6.0256217" version="2" timestamp="2012-10-20T07:04:21Z" changeset="13564382" uid="685157" user="radler99"/>
+    <node id="1900016945" lat="50.7793896" lon="5.9971989" version="2" timestamp="2017-08-13T23:48:00Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="1900016955" lat="50.7796045" lon="5.9958017" version="2" timestamp="2017-08-13T23:48:00Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="1906737918" lat="50.7796002" lon="5.9954131" version="3" timestamp="2017-06-18T15:15:25Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="1932975184" lat="50.7805233" lon="6.0017973" version="2" timestamp="2017-08-13T23:48:00Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="1932975189" lat="50.7806250" lon="6.0015911" version="3" timestamp="2017-08-13T23:48:00Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="1932975193" lat="50.7807600" lon="6.0013689" version="2" timestamp="2015-06-14T23:01:43Z" changeset="31972644" uid="388804" user="Allroads"/>
+    <node id="1932975196" lat="50.7808775" lon="6.0012129" version="3" timestamp="2017-08-13T23:48:00Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="1974802604" lat="50.7692147" lon="6.0244517" version="1" timestamp="2012-10-20T08:14:40Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="1974802710" lat="50.7691477" lon="6.0244355" version="1" timestamp="2012-10-20T08:14:42Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="1974802834" lat="50.7698570" lon="6.0247313" version="1" timestamp="2012-10-20T08:14:44Z" changeset="13564784" uid="685157" user="radler99"/>
+    <node id="1979648297" lat="50.7689662" lon="6.0228889" version="1" timestamp="2012-10-23T17:10:04Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="1979648313" lat="50.7707006" lon="6.0224178" version="2" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="1979648337" lat="50.7690653" lon="6.0238680" version="1" timestamp="2012-10-23T17:10:06Z" changeset="13607201" uid="685157" user="radler99"/>
+    <node id="2000485355" lat="50.7691599" lon="6.0212678" version="2" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="2000485490" lat="50.7692980" lon="6.0218335" version="3" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="2103604269" lat="50.7710001" lon="6.0182215" version="2" timestamp="2014-07-24T13:47:52Z" changeset="24330905" uid="1829683" user="Luis36995"/>
+    <node id="2331047322" lat="50.7707067" lon="6.0255599" version="1" timestamp="2013-06-03T20:29:59Z" changeset="16412281" uid="67862" user="HolgerJeromin"/>
+    <node id="2341782250" lat="50.7776253" lon="6.0071933" version="5" timestamp="2016-07-26T07:52:56Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782251" lat="50.7775557" lon="6.0074854" version="4" timestamp="2016-07-26T07:52:56Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782253" lat="50.7776253" lon="6.0071223" version="5" timestamp="2016-07-26T07:52:56Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782254" lat="50.7774470" lon="6.0075487" version="2" timestamp="2015-06-14T23:01:44Z" changeset="31972644" uid="388804" user="Allroads"/>
+    <node id="2341782255" lat="50.7773787" lon="6.0075423" version="4" timestamp="2016-07-26T07:52:56Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782256" lat="50.7776253" lon="6.0072560" version="6" timestamp="2021-05-01T18:05:52Z" changeset="103968533" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782257" lat="50.7775949" lon="6.0074065" version="4" timestamp="2021-05-01T18:05:52Z" changeset="103968533" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782258" lat="50.7776308" lon="6.0070746" version="6" timestamp="2016-07-26T07:52:56Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="2341782259" lat="50.7776102" lon="6.0073662" version="5" timestamp="2021-05-01T18:05:52Z" changeset="103968533" uid="183483" user="jeroenrozema74"/>
+    <node id="2341783408" lat="50.7775789" lon="6.0074499" version="4" timestamp="2021-05-01T18:05:52Z" changeset="103968533" uid="183483" user="jeroenrozema74"/>
+    <node id="2341809060" lat="50.7772709" lon="6.0076716" version="3" timestamp="2015-06-14T23:01:44Z" changeset="31972644" uid="388804" user="Allroads"/>
+    <node id="2790144618" lat="50.7789026" lon="5.9995520" version="4" timestamp="2018-04-01T12:07:26Z" changeset="57710726" uid="99810" user="Martin Borsje"/>
+    <node id="2822456406" lat="50.7772370" lon="6.0070383" version="1" timestamp="2014-04-28T10:51:02Z" changeset="21998797" uid="1890760" user="rivw"/>
+    <node id="3105708508" lat="50.7710295" lon="6.0250923" version="4" timestamp="2020-12-01T12:26:09Z" changeset="95094841" uid="183483" user="jeroenrozema74"/>
+    <node id="3105708509" lat="50.7711051" lon="6.0248860" version="2" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74"/>
+    <node id="3105708512" lat="50.7712053" lon="6.0245235" version="3" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74">
+        <tag k="crossing" v="uncontrolled"/>
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105708515" lat="50.7712748" lon="6.0241432" version="2" timestamp="2018-04-21T18:50:25Z" changeset="58296553" uid="99810" user="Martin Borsje"/>
+    <node id="3105708516" lat="50.7712690" lon="6.0242898" version="5" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74"/>
+    <node id="3105709544" lat="50.7748406" lon="6.0120294" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709545" lat="50.7751214" lon="6.0114101" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709546" lat="50.7751759" lon="6.0114738" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709547" lat="50.7754189" lon="6.0107900" version="3" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709548" lat="50.7754705" lon="6.0108567" version="3" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709549" lat="50.7758074" lon="6.0100228" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709550" lat="50.7758597" lon="6.0100877" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709551" lat="50.7761204" lon="6.0094489" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709552" lat="50.7761743" lon="6.0095184" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709553" lat="50.7766365" lon="6.0085575" version="5" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3105709554" lat="50.7766846" lon="6.0086219" version="3" timestamp="2015-06-14T23:11:04Z" changeset="31972751" uid="388804" user="Allroads">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3107789342" lat="50.7709040" lon="6.0256136" version="3" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74"/>
+    <node id="3107789343" lat="50.7709434" lon="6.0255275" version="3" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74"/>
+    <node id="3107789345" lat="50.7710012" lon="6.0252022" version="2" timestamp="2020-12-01T12:26:09Z" changeset="95094841" uid="183483" user="jeroenrozema74"/>
+    <node id="3107789362" lat="50.7763694" lon="6.0090188" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3107789363" lat="50.7764169" lon="6.0090907" version="2" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="3338052078" lat="50.7702132" lon="6.0188999" version="3" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="3338052080" lat="50.7714132" lon="6.0168450" version="1" timestamp="2015-02-08T15:48:48Z" changeset="28705048" uid="1794001" user="Imergis"/>
+    <node id="3338052085" lat="50.7719766" lon="6.0155389" version="1" timestamp="2015-02-08T15:48:48Z" changeset="28705048" uid="1794001" user="Imergis"/>
+    <node id="3338052090" lat="50.7727846" lon="6.0143505" version="2" timestamp="2020-09-09T18:11:01Z" changeset="90660661" uid="183483" user="jeroenrozema74"/>
+    <node id="3338055394" lat="50.7735852" lon="6.0131538" version="3" timestamp="2020-02-01T15:56:23Z" changeset="80413809" uid="1296171" user="EOSfoto"/>
+    <node id="3338055396" lat="50.7726095" lon="6.0146006" version="2" timestamp="2020-09-09T18:11:01Z" changeset="90660661" uid="183483" user="jeroenrozema74"/>
+    <node id="3338055397" lat="50.7728377" lon="6.0142720" version="2" timestamp="2020-09-09T18:11:01Z" changeset="90660661" uid="183483" user="jeroenrozema74"/>
+    <node id="3446996480" lat="50.7707545" lon="6.0256052" version="4" timestamp="2020-07-06T16:38:09Z" changeset="87611278" uid="553736" user="A67-A67">
+        <tag k="bus" v="yes"/>
+        <tag k="local_ref" v="H4"/>
+        <tag k="name" v="Vaals Grenze"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="public_transport" v="stop_position"/>
+        <tag k="rwn_ref" v="P"/>
+        <tag k="zone" v="6655"/>
+    </node>
+    <node id="3500752433" lat="50.7773636" lon="6.0068786" version="2" timestamp="2018-04-01T12:11:45Z" changeset="57710814" uid="99810" user="Martin Borsje"/>
+    <node id="3595339734" lat="50.7771153" lon="6.0077978" version="2" timestamp="2018-04-01T12:13:44Z" changeset="57710859" uid="99810" user="Martin Borsje"/>
+    <node id="3595385951" lat="50.7774655" lon="6.0069095" version="3" timestamp="2018-04-01T12:13:44Z" changeset="57710859" uid="99810" user="Martin Borsje"/>
+    <node id="3595385952" lat="50.7774927" lon="6.0069049" version="3" timestamp="2018-04-01T12:13:44Z" changeset="57710859" uid="99810" user="Martin Borsje"/>
+    <node id="3595385953" lat="50.7776213" lon="6.0073133" version="4" timestamp="2021-05-01T18:05:52Z" changeset="103968533" uid="183483" user="jeroenrozema74"/>
+    <node id="3595385958" lat="50.7791004" lon="5.9996890" version="2" timestamp="2017-08-13T23:48:01Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="3595385959" lat="50.7798742" lon="6.0001450" version="2" timestamp="2017-08-13T23:48:01Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="3595385960" lat="50.7802610" lon="6.0004148" version="2" timestamp="2017-08-13T23:48:01Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="3595385961" lat="50.7807896" lon="6.0008038" version="1" timestamp="2015-06-14T23:01:11Z" changeset="31972644" uid="388804" user="Allroads"/>
+    <node id="3595385962" lat="50.7808336" lon="6.0012718" version="2" timestamp="2017-08-13T23:48:01Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="3595385963" lat="50.7808574" lon="6.0008697" version="1" timestamp="2015-06-14T23:01:11Z" changeset="31972644" uid="388804" user="Allroads"/>
+    <node id="3595385964" lat="50.7808986" lon="6.0011845" version="2" timestamp="2017-08-13T23:48:01Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="4040693212" lat="50.7795848" lon="5.9895752" version="2" timestamp="2017-06-18T15:15:25Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4092816087" lat="50.7700710" lon="6.0225816" version="2" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="4242830393" lat="50.7770116" lon="6.0079761" version="7" timestamp="2020-12-11T14:27:01Z" changeset="95686719" uid="553736" user="A67-A67">
+        <tag k="bus" v="yes"/>
+        <tag k="name" v="Vaals, Heuvel"/>
+        <tag k="public_transport" v="stop_position"/>
+    </node>
+    <node id="4242830394" lat="50.7770809" lon="6.0078498" version="6" timestamp="2020-12-11T14:27:01Z" changeset="95686719" uid="553736" user="A67-A67">
+        <tag k="bus" v="yes"/>
+        <tag k="name" v="Vaals, Heuvel"/>
+        <tag k="public_transport" v="stop_position"/>
+    </node>
+    <node id="4320723729" lat="50.7771644" lon="6.0075619" version="2" timestamp="2018-04-01T12:13:45Z" changeset="57710859" uid="99810" user="Martin Borsje"/>
+    <node id="4320723730" lat="50.7774955" lon="6.0075380" version="1" timestamp="2016-07-26T07:52:55Z" changeset="41030785" uid="183483" user="jeroenrozema74"/>
+    <node id="4508880477" lat="50.7690768" lon="6.0241224" version="1" timestamp="2016-11-18T17:06:39Z" changeset="43772962" uid="1976209" user="catweazle67"/>
+    <node id="4922353347" lat="50.7794842" lon="5.9945014" version="1" timestamp="2017-06-18T15:15:22Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353352" lat="50.7796018" lon="5.9955200" version="2" timestamp="2017-08-13T23:48:02Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="4922353356" lat="50.7791564" lon="5.9988079" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353357" lat="50.7794529" lon="5.9943138" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353358" lat="50.7794402" lon="5.9942183" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353359" lat="50.7795157" lon="5.9946791" version="2" timestamp="2017-08-13T23:48:02Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="4922353362" lat="50.7794880" lon="5.9945222" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353363" lat="50.7794772" lon="5.9944641" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353390" lat="50.7793318" lon="5.9898715" version="2" timestamp="2017-08-13T23:48:02Z" changeset="51094914" uid="388804" user="Allroads">
+        <tag k="direction" v="forward"/>
+        <tag k="highway" v="give_way"/>
+    </node>
+    <node id="4922353391" lat="50.7793208" lon="5.9898275" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353392" lat="50.7794052" lon="5.9901207" version="2" timestamp="2021-04-29T16:58:31Z" changeset="103859626" uid="183483" user="jeroenrozema74"/>
+    <node id="4922353395" lat="50.7796698" lon="5.9894854" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="4922353397" lat="50.7793950" lon="5.9897856" version="1" timestamp="2017-06-18T15:15:23Z" changeset="49637323" uid="388804" user="Allroads"/>
+    <node id="5033310985" lat="50.7794916" lon="5.9904368" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310986" lat="50.7794523" lon="5.9902995" version="2" timestamp="2021-04-29T16:58:31Z" changeset="103859626" uid="183483" user="jeroenrozema74"/>
+    <node id="5033310987" lat="50.7795349" lon="5.9905897" version="2" timestamp="2021-04-29T16:58:31Z" changeset="103859626" uid="183483" user="jeroenrozema74"/>
+    <node id="5033310988" lat="50.7795665" lon="5.9907740" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310989" lat="50.7795566" lon="5.9906948" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310990" lat="50.7795736" lon="5.9909806" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310991" lat="50.7795713" lon="5.9911155" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310992" lat="50.7795692" lon="5.9915762" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310993" lat="50.7795725" lon="5.9917979" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310994" lat="50.7795480" lon="5.9925808" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310995" lat="50.7795638" lon="5.9924185" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310996" lat="50.7795716" lon="5.9922794" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310997" lat="50.7795352" lon="5.9926944" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310998" lat="50.7795071" lon="5.9929538" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033310999" lat="50.7794740" lon="5.9934981" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033311000" lat="50.7794356" lon="5.9940230" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033311001" lat="50.7794390" lon="5.9939643" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033311002" lat="50.7794485" lon="5.9897419" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033311006" lat="50.7794264" lon="5.9897636" version="1" timestamp="2017-08-13T23:47:54Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312207" lat="50.7793230" lon="5.9977558" version="2" timestamp="2020-05-30T23:48:56Z" changeset="85995679" uid="183483" user="jeroenrozema74"/>
+    <node id="5033312208" lat="50.7792604" lon="5.9981975" version="2" timestamp="2020-05-30T23:48:56Z" changeset="85995679" uid="183483" user="jeroenrozema74"/>
+    <node id="5033312211" lat="50.7794213" lon="5.9969715" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312212" lat="50.7795492" lon="5.9949209" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312213" lat="50.7795859" lon="5.9952355" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312421" lat="50.7789829" lon="5.9996187" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312422" lat="50.7792113" lon="5.9997569" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312423" lat="50.7798179" lon="6.0001125" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312424" lat="50.7797225" lon="6.0000578" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312425" lat="50.7800442" lon="6.0002587" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312426" lat="50.7805034" lon="6.0005836" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312427" lat="50.7807405" lon="6.0007581" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312428" lat="50.7805491" lon="6.0017457" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312429" lat="50.7805813" lon="6.0016761" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312430" lat="50.7807905" lon="6.0013304" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312431" lat="50.7807277" lon="6.0014170" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312432" lat="50.7807044" lon="6.0014549" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312434" lat="50.7810175" lon="6.0011722" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312436" lat="50.7789486" lon="5.9995892" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312437" lat="50.7789388" lon="5.9994520" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312440" lat="50.7790217" lon="5.9996432" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312451" lat="50.7794857" lon="5.9966079" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312452" lat="50.7794499" lon="5.9968006" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312453" lat="50.7795871" lon="5.9960252" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312454" lat="50.7795711" lon="5.9961405" version="1" timestamp="2017-08-13T23:47:52Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312455" lat="50.7795798" lon="5.9960839" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312456" lat="50.7795632" lon="5.9961860" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312457" lat="50.7795962" lon="5.9959288" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312458" lat="50.7796011" lon="5.9958696" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5033312459" lat="50.7796047" lon="5.9957364" version="1" timestamp="2017-08-13T23:47:53Z" changeset="51094914" uid="388804" user="Allroads"/>
+    <node id="5292211962" lat="50.7790424" lon="5.9991599" version="2" timestamp="2019-04-27T11:14:36Z" changeset="69637009" uid="99810" user="Martin Borsje"/>
+    <node id="5569725482" lat="50.7710633" lon="6.0250298" version="2" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74"/>
+    <node id="6432456105" lat="50.7790714" lon="5.9990741" version="1" timestamp="2019-04-27T11:14:31Z" changeset="69637009" uid="99810" user="Martin Borsje"/>
+    <node id="7177386244" lat="50.7771462" lon="6.0076385" version="1" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="7177386270" lat="50.7750222" lon="6.0118085" version="1" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="7177386271" lat="50.7747419" lon="6.0122830" version="1" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="7177386272" lat="50.7747956" lon="6.0123264" version="1" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="7177386273" lat="50.7743029" lon="6.0123981" version="1" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto"/>
+    <node id="7573467298" lat="50.7792038" lon="5.9985801" version="1" timestamp="2020-05-30T22:08:00Z" changeset="85994360" uid="183483" user="jeroenrozema74"/>
+    <node id="7871624248" lat="50.7709215" lon="6.0234574" version="2" timestamp="2021-05-15T17:06:40Z" changeset="104742577" uid="183483" user="jeroenrozema74"/>
+    <node id="7871624249" lat="50.7708927" lon="6.0234442" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624250" lat="50.7709610" lon="6.0234810" version="2" timestamp="2021-05-15T17:06:40Z" changeset="104742577" uid="183483" user="jeroenrozema74"/>
+    <node id="7871624251" lat="50.7708175" lon="6.0233593" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624252" lat="50.7707799" lon="6.0233037" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624253" lat="50.7691747" lon="6.0209683" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624255" lat="50.7692439" lon="6.0216908" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624256" lat="50.7693471" lon="6.0204344" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624257" lat="50.7692111" lon="6.0220888" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624258" lat="50.7706577" lon="6.0226906" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624259" lat="50.7705497" lon="6.0201854" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624260" lat="50.7704882" lon="6.0201043" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624261" lat="50.7705861" lon="6.0202316" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624262" lat="50.7700295" lon="6.0198609" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624263" lat="50.7699221" lon="6.0199118" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624264" lat="50.7700725" lon="6.0198675" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7871624265" lat="50.7701566" lon="6.0199024" version="1" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven"/>
+    <node id="7890936134" lat="50.7726803" lon="6.0144979" version="2" timestamp="2020-09-09T18:11:01Z" changeset="90660661" uid="183483" user="jeroenrozema74"/>
+    <node id="8149810006" lat="50.7738894" lon="6.0127023" version="1" timestamp="2020-11-21T21:05:37Z" changeset="94561712" uid="183483" user="jeroenrozema74">
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="8551471426" lat="50.7700111" lon="6.0197695" version="1" timestamp="2021-03-22T20:16:13Z" changeset="101527372" uid="183483" user="jeroenrozema74"/>
+    <node id="8551471443" lat="50.7701268" lon="6.0190598" version="2" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="8688612186" lat="50.7777651" lon="6.0065172" version="1" timestamp="2021-05-01T18:05:52Z" changeset="103968533" uid="183483" user="jeroenrozema74"/>
+    <node id="8883566542" lat="50.7712490" lon="6.0243782" version="1" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74"/>
+    <node id="8895025304" lat="50.7701638" lon="6.0189535" version="1" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74"/>
+    <node id="8941481202" lat="50.7770397" lon="6.0079249" version="1" timestamp="2021-07-22T12:35:51Z" changeset="108429236" uid="9475151" user="Firestarter322"/>
+    <node id="8941481203" lat="50.7768095" lon="6.0082980" version="1" timestamp="2021-07-22T12:35:51Z" changeset="108429236" uid="9475151" user="Firestarter322"/>
+    <way id="4444295" version="15" timestamp="2020-12-01T12:26:09Z" changeset="95094841" uid="183483" user="jeroenrozema74">
+        <nd ref="3107789345"/>
+        <nd ref="36455118"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="lanes" v="2"/>
+        <tag k="lanes:backward" v="1"/>
+        <tag k="lanes:forward" v="1"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Vaalser Straße"/>
+        <tag k="ref" v="B 1"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6697953" version="14" timestamp="2021-04-29T16:58:31Z" changeset="103859626" uid="183483" user="jeroenrozema74">
+        <nd ref="4922353363"/>
+        <nd ref="41913717"/>
+        <nd ref="4922353357"/>
+        <nd ref="4922353358"/>
+        <nd ref="41913700"/>
+        <nd ref="5033311000"/>
+        <nd ref="5033311001"/>
+        <nd ref="41913712"/>
+        <nd ref="5033310999"/>
+        <nd ref="5033310998"/>
+        <nd ref="5033310997"/>
+        <nd ref="5033310994"/>
+        <nd ref="5033310995"/>
+        <nd ref="5033310996"/>
+        <nd ref="41913759"/>
+        <nd ref="5033310993"/>
+        <nd ref="5033310992"/>
+        <nd ref="5033310991"/>
+        <nd ref="5033310990"/>
+        <nd ref="41913757"/>
+        <nd ref="5033310988"/>
+        <nd ref="5033310989"/>
+        <nd ref="5033310987"/>
+        <nd ref="5033310985"/>
+        <nd ref="5033310986"/>
+        <nd ref="4922353392"/>
+        <nd ref="41913640"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="maxwidth" v="2.1"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698008" version="12" timestamp="2021-02-25T09:54:53Z" changeset="99965458" uid="10417505" user="vonneudeck">
+        <nd ref="1660291928"/>
+        <nd ref="455942754"/>
+        <tag k="highway" v="residential"/>
+        <tag k="horse" v="yes"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="motor_vehicle" v="no"/>
+        <tag k="name" v="Akenerstraat"/>
+        <tag k="name:de" v="Aachener Straße"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="6698033" version="12" timestamp="2021-07-05T13:04:09Z" changeset="107441674" uid="183483" user="jeroenrozema74">
+        <nd ref="41906161"/>
+        <nd ref="8551471443"/>
+        <nd ref="8895025304"/>
+        <nd ref="3338052078"/>
+        <nd ref="516227161"/>
+        <nd ref="1332647901"/>
+        <nd ref="41906653"/>
+        <nd ref="1374216379"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Von Clermontplein"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="6698045" version="10" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <nd ref="41909711"/>
+        <nd ref="41909898"/>
+        <nd ref="7177386273"/>
+        <nd ref="652698931"/>
+        <nd ref="330302870"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Wolfskuilenweg"/>
+    </way>
+    <way id="6698083" version="7" timestamp="2021-02-25T09:45:31Z" changeset="99964612" uid="10417505" user="vonneudeck">
+        <nd ref="41906457"/>
+        <nd ref="7871624260"/>
+        <nd ref="7871624259"/>
+        <nd ref="7871624261"/>
+        <nd ref="41907023"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Koperstraat"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="both"/>
+    </way>
+    <way id="6698087" version="5" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41906947"/>
+        <nd ref="7871624250"/>
+        <nd ref="7871624248"/>
+        <nd ref="7871624249"/>
+        <nd ref="41906792"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Kerkstraat"/>
+        <tag k="name:de" v="Kirchstraße"/>
+    </way>
+    <way id="6698125" version="8" timestamp="2020-09-09T18:11:01Z" changeset="90660661" uid="183483" user="jeroenrozema74">
+        <nd ref="41907553"/>
+        <nd ref="41907608"/>
+        <nd ref="3338052085"/>
+        <nd ref="3338055396"/>
+        <nd ref="7890936134"/>
+        <nd ref="3338052090"/>
+        <nd ref="3338055397"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bloemendalstraat"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698142" version="9" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41905597"/>
+        <nd ref="7871624255"/>
+        <nd ref="41905584"/>
+        <nd ref="2000485355"/>
+        <nd ref="41905538"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Tentstraat"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="oneway:bicycle" v="no"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="6698161" version="6" timestamp="2017-08-12T19:23:01Z" changeset="51066047" uid="9176" user="Maarten Deen">
+        <nd ref="41905652"/>
+        <nd ref="2000485490"/>
+        <nd ref="41905597"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Kerkstraat"/>
+        <tag k="name:de" v="Kirchstraße"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="6698263" version="6" timestamp="2021-03-22T20:16:13Z" changeset="101527372" uid="183483" user="jeroenrozema74">
+        <nd ref="41906074"/>
+        <nd ref="8551471426"/>
+        <nd ref="41906119"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Von Clermontplein"/>
+        <tag k="sidewalk" v="both"/>
+    </way>
+    <way id="6698267" version="10" timestamp="2021-02-25T09:45:22Z" changeset="99964612" uid="10417505" user="vonneudeck">
+        <nd ref="41905538"/>
+        <nd ref="7871624253"/>
+        <nd ref="41905589"/>
+        <nd ref="760987803"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bergstraat"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="6698322" version="6" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41906792"/>
+        <nd ref="7871624251"/>
+        <nd ref="7871624252"/>
+        <nd ref="41906467"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Kerkstraat"/>
+        <tag k="name:de" v="Kirchstraße"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="6698372" version="9" timestamp="2017-08-12T19:23:07Z" changeset="51066047" uid="9176" user="Maarten Deen">
+        <nd ref="41908895"/>
+        <nd ref="3338055394"/>
+        <nd ref="41909378"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bloemendalstraat"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698388" version="6" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41907023"/>
+        <nd ref="1979648313"/>
+        <nd ref="7871624258"/>
+        <nd ref="41906467"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Lindenstraat"/>
+        <tag k="name:de" v="Lindenstraße"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="6698396" version="5" timestamp="2017-08-12T19:23:08Z" changeset="51066047" uid="9176" user="Maarten Deen">
+        <nd ref="41907445"/>
+        <nd ref="41907465"/>
+        <nd ref="41907553"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bloemendalstraat"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698400" version="6" timestamp="2017-08-12T19:23:08Z" changeset="51066047" uid="9176" user="Maarten Deen">
+        <nd ref="41907189"/>
+        <nd ref="3338052080"/>
+        <nd ref="41907445"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bloemendalstraat"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698405" version="8" timestamp="2020-11-21T21:05:37Z" changeset="94561712" uid="183483" user="jeroenrozema74">
+        <nd ref="41909378"/>
+        <nd ref="991809404"/>
+        <nd ref="8149810006"/>
+        <nd ref="41909711"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bloemendalstraat"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698429" version="7" timestamp="2016-04-02T15:59:48Z" changeset="38250863" uid="130472" user="fx99">
+        <nd ref="41906467"/>
+        <nd ref="4092816087"/>
+        <nd ref="41905652"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Kerkstraat"/>
+        <tag k="name:de" v="Kirchstraße"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="6698452" version="5" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41906074"/>
+        <nd ref="7871624262"/>
+        <nd ref="7871624264"/>
+        <nd ref="7871624265"/>
+        <nd ref="41906457"/>
+        <tag k="access" v="yes"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="motor_vehicle" v="yes"/>
+        <tag k="name" v="Koperstraat"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="6698463" version="7" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41907232"/>
+        <nd ref="41906947"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Kerkstraat"/>
+        <tag k="name:de" v="Kirchstraße"/>
+    </way>
+    <way id="6698495" version="11" timestamp="2017-08-12T19:23:11Z" changeset="51066047" uid="9176" user="Maarten Deen">
+        <nd ref="41914492"/>
+        <nd ref="324243493"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="80"/>
+        <tag k="name" v="Schuurmolenweg"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698518" version="11" timestamp="2017-12-18T19:27:15Z" changeset="54740090" uid="424172" user="JanWandelaar">
+        <nd ref="2790144618"/>
+        <nd ref="5033312437"/>
+        <nd ref="5292211962"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698536" version="8" timestamp="2020-03-24T13:10:50Z" changeset="82572172" uid="3298438" user="aixbrick">
+        <nd ref="36455118"/>
+        <nd ref="41906964"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="lanes" v="2"/>
+        <tag k="lanes:backward" v="1"/>
+        <tag k="lanes:forward" v="1"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Vaalser Straße"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698537" version="7" timestamp="2017-11-29T14:27:04Z" changeset="54179139" uid="7103689" user="Silicon1602">
+        <nd ref="41906964"/>
+        <nd ref="3105708508"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="ref" v="N278"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="6698563" version="7" timestamp="2018-10-10T06:38:26Z" changeset="63368701" uid="294028" user="dvdhoven">
+        <nd ref="41910268"/>
+        <nd ref="330302852"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="6698584" version="11" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <nd ref="41911690"/>
+        <nd ref="3105709549"/>
+        <nd ref="41911305"/>
+        <nd ref="3105709547"/>
+        <nd ref="3105709545"/>
+        <nd ref="3105709544"/>
+        <nd ref="7177386271"/>
+        <nd ref="330302852"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="6698692" version="8" timestamp="2017-08-13T23:48:07Z" changeset="51094914" uid="388804" user="Allroads">
+        <nd ref="5033311006"/>
+        <nd ref="5033311002"/>
+        <nd ref="41913716"/>
+        <nd ref="4040693212"/>
+        <nd ref="4922353395"/>
+        <nd ref="710657025"/>
+        <nd ref="41913905"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="foot" v="use_sidepath"/>
+        <tag k="highway" v="tertiary"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="maxwidth" v="2.1"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="oneway" v="no"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="13858666" version="11" timestamp="2020-08-07T11:53:48Z" changeset="89090859" uid="141943" user="Jonathan Haas (Alter Account)">
+        <nd ref="130022831"/>
+        <nd ref="1974802710"/>
+        <nd ref="1974802604"/>
+        <nd ref="130022854"/>
+        <nd ref="130022853"/>
+        <nd ref="1974802834"/>
+        <nd ref="316407556"/>
+        <nd ref="130022852"/>
+        <nd ref="2331047322"/>
+        <nd ref="3446996480"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Püngelerstraße"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="oneway:bicycle" v="no"/>
+        <tag k="source:maxspeed" v="DE:zone30"/>
+    </way>
+    <way id="14336625" version="6" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="138360309"/>
+        <nd ref="130022831"/>
+        <tag k="highway" v="residential"/>
+        <tag k="name" v="Alte Vaalser Straße"/>
+    </way>
+    <way id="28741973" version="12" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="455942754"/>
+        <nd ref="1011408850"/>
+        <nd ref="455942756"/>
+        <nd ref="138360332"/>
+        <nd ref="1979648337"/>
+        <nd ref="138360320"/>
+        <nd ref="4508880477"/>
+        <nd ref="138360309"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Alte Vaalser Straße"/>
+        <tag k="source:maxspeed" v="DE:zone30"/>
+        <tag k="vehicle" v="destination"/>
+    </way>
+    <way id="28927366" version="15" timestamp="2020-02-01T15:44:30Z" changeset="80413470" uid="1296171" user="EOSfoto">
+        <nd ref="330302852"/>
+        <nd ref="7177386272"/>
+        <nd ref="317996203"/>
+        <nd ref="7177386270"/>
+        <nd ref="3105709546"/>
+        <nd ref="317996205"/>
+        <nd ref="3105709548"/>
+        <nd ref="330302855"/>
+        <nd ref="3105709550"/>
+        <nd ref="330302857"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="64795894" version="15" timestamp="2021-07-22T14:42:45Z" changeset="108435077" uid="294028" user="dvdhoven">
+        <nd ref="324243493"/>
+        <nd ref="3595385964"/>
+        <nd ref="1932975196"/>
+        <nd ref="3595385962"/>
+        <nd ref="5033312430"/>
+        <nd ref="1932975193"/>
+        <nd ref="5033312431"/>
+        <nd ref="5033312432"/>
+        <nd ref="1932975189"/>
+        <nd ref="5033312429"/>
+        <nd ref="5033312428"/>
+        <nd ref="1932975184"/>
+        <nd ref="324243494"/>
+        <nd ref="8688612186"/>
+        <nd ref="324244005"/>
+        <nd ref="3595385952"/>
+        <nd ref="3595385951"/>
+        <nd ref="324244017"/>
+        <nd ref="3500752433"/>
+        <nd ref="324244020"/>
+        <nd ref="324244022"/>
+        <nd ref="2822456406"/>
+        <nd ref="324244024"/>
+        <nd ref="324244028"/>
+        <nd ref="324244030"/>
+        <nd ref="324244032"/>
+        <nd ref="4320723729"/>
+        <nd ref="7177386244"/>
+        <nd ref="3595339734"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="name" v="Lemierserberg"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="segregated" v="yes"/>
+    </way>
+    <way id="105358212" version="9" timestamp="2020-05-30T23:48:56Z" changeset="85995679" uid="183483" user="jeroenrozema74">
+        <nd ref="556111650"/>
+        <nd ref="7573467298"/>
+        <nd ref="5033312208"/>
+        <nd ref="5033312207"/>
+        <nd ref="41913650"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="123147549" version="5" timestamp="2021-02-26T00:31:19Z" changeset="100008871" uid="10417505" user="vonneudeck">
+        <nd ref="41906119"/>
+        <nd ref="41906163"/>
+        <nd ref="41906161"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Von Clermontplein"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="sett"/>
+    </way>
+    <way id="123147553" version="6" timestamp="2021-02-26T00:30:21Z" changeset="100008847" uid="10417505" user="vonneudeck">
+        <nd ref="1374216379"/>
+        <nd ref="41906761"/>
+        <nd ref="2103604269"/>
+        <nd ref="41907011"/>
+        <nd ref="41907189"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Von Clermontplein"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="123152243" version="7" timestamp="2021-02-25T09:45:11Z" changeset="99964612" uid="10417505" user="vonneudeck">
+        <nd ref="760987803"/>
+        <nd ref="7871624256"/>
+        <nd ref="41905723"/>
+        <nd ref="41905783"/>
+        <nd ref="41906020"/>
+        <nd ref="7871624263"/>
+        <nd ref="41906074"/>
+        <tag k="access" v="yes"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bergstraat"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="131688025" version="9" timestamp="2017-08-13T23:48:09Z" changeset="51094914" uid="388804" user="Allroads">
+        <nd ref="41913650"/>
+        <nd ref="1900016945"/>
+        <nd ref="5033312211"/>
+        <nd ref="5033312452"/>
+        <nd ref="5033312451"/>
+        <nd ref="1305170577"/>
+        <nd ref="5033312456"/>
+        <nd ref="5033312454"/>
+        <nd ref="5033312455"/>
+        <nd ref="5033312453"/>
+        <nd ref="41913751"/>
+        <nd ref="5033312457"/>
+        <nd ref="5033312458"/>
+        <nd ref="1900016955"/>
+        <nd ref="5033312459"/>
+        <nd ref="41913796"/>
+        <nd ref="4922353352"/>
+        <nd ref="1906737918"/>
+        <nd ref="5033312213"/>
+        <nd ref="1305170579"/>
+        <nd ref="5033312212"/>
+        <nd ref="41913745"/>
+        <nd ref="4922353359"/>
+        <nd ref="4922353362"/>
+        <nd ref="4922353347"/>
+        <nd ref="4922353363"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="maxwidth" v="2.1"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="135717592" version="4" timestamp="2017-08-13T23:48:10Z" changeset="51094914" uid="388804" user="Allroads">
+        <nd ref="317996230"/>
+        <nd ref="5033312434"/>
+        <nd ref="41914492"/>
+        <tag k="highway" v="cycleway"/>
+    </way>
+    <way id="135717594" version="2" timestamp="2014-12-12T21:13:58Z" changeset="27430416" uid="2394881" user="It's so funny_mechanical">
+        <nd ref="330302870"/>
+        <nd ref="41910268"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Wolfskuilenweg"/>
+    </way>
+    <way id="182941738" version="6" timestamp="2017-08-13T23:48:11Z" changeset="51094914" uid="388804" user="Allroads">
+        <nd ref="324243493"/>
+        <nd ref="41914416"/>
+        <nd ref="3595385963"/>
+        <nd ref="3595385961"/>
+        <nd ref="5033312427"/>
+        <nd ref="41914379"/>
+        <nd ref="5033312426"/>
+        <nd ref="3595385960"/>
+        <nd ref="5033312425"/>
+        <nd ref="3595385959"/>
+        <nd ref="5033312423"/>
+        <nd ref="5033312424"/>
+        <nd ref="5033312422"/>
+        <nd ref="3595385958"/>
+        <nd ref="5033312440"/>
+        <nd ref="5033312421"/>
+        <nd ref="5033312436"/>
+        <nd ref="2790144618"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Schuurmolenweg"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="oneway:bicycle" v="no"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="218128143" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="41905597"/>
+        <nd ref="41905585"/>
+        <nd ref="7871624257"/>
+        <nd ref="41905539"/>
+        <nd ref="41905488"/>
+        <nd ref="1979648297"/>
+        <nd ref="41905449"/>
+        <nd ref="1011408835"/>
+        <nd ref="1660291928"/>
+        <tag k="highway" v="residential"/>
+        <tag k="horse" v="yes"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Akenerstraat"/>
+        <tag k="name:de" v="Aachener Straße"/>
+    </way>
+    <way id="225397319" version="19" timestamp="2016-07-26T07:52:55Z" changeset="41030785" uid="183483" user="jeroenrozema74">
+        <nd ref="317996214"/>
+        <nd ref="2341782255"/>
+        <nd ref="2341782254"/>
+        <nd ref="4320723730"/>
+        <nd ref="2341782251"/>
+        <nd ref="2341783408"/>
+        <nd ref="2341782257"/>
+        <nd ref="2341782259"/>
+        <nd ref="3595385953"/>
+        <nd ref="2341782256"/>
+        <nd ref="2341782250"/>
+        <nd ref="2341782253"/>
+        <nd ref="2341782258"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="305878589" version="3" timestamp="2021-02-25T09:53:46Z" changeset="99964426" uid="10417505" user="vonneudeck">
+        <nd ref="3105708515"/>
+        <nd ref="903457901"/>
+        <nd ref="41907232"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="lanes" v="2"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="ref" v="N278"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="305878595" version="5" timestamp="2016-12-15T20:40:56Z" changeset="44432455" uid="9176" user="Maarten Deen">
+        <nd ref="330302857"/>
+        <nd ref="3105709552"/>
+        <nd ref="3107789363"/>
+        <nd ref="3105709554"/>
+        <nd ref="330302859"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="305878596" version="4" timestamp="2021-07-01T17:44:25Z" changeset="107272960" uid="183483" user="jeroenrozema74">
+        <nd ref="3105708508"/>
+        <nd ref="5569725482"/>
+        <nd ref="3105708509"/>
+        <nd ref="3105708512"/>
+        <nd ref="8883566542"/>
+        <nd ref="3105708516"/>
+        <nd ref="3105708515"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="N278"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="306017604" version="4" timestamp="2020-09-03T08:11:01Z" changeset="90346659" uid="294028" user="dvdhoven">
+        <nd ref="15255711"/>
+        <nd ref="3107789342"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="lanes" v="2"/>
+        <tag k="lanes:backward" v="1"/>
+        <tag k="lanes:forward" v="1"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Vaalser Straße"/>
+        <tag k="ref" v="B 1"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="306017605" version="5" timestamp="2020-03-24T13:10:50Z" changeset="82572172" uid="3298438" user="aixbrick">
+        <nd ref="3107789342"/>
+        <nd ref="3107789343"/>
+        <nd ref="903432553"/>
+        <nd ref="3107789345"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="lanes" v="1"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Vaalser Straße"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="B 1"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="343188339" version="2" timestamp="2021-07-22T14:42:45Z" changeset="108435077" uid="294028" user="dvdhoven">
+        <nd ref="2341782258"/>
+        <nd ref="317996226"/>
+        <nd ref="317996229"/>
+        <nd ref="317996230"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="name" v="Lemierserberg"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="segregated" v="no"/>
+    </way>
+    <way id="353721522" version="3" timestamp="2016-12-15T20:40:56Z" changeset="44432455" uid="9176" user="Maarten Deen">
+        <nd ref="330302859"/>
+        <nd ref="330302862"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="353721523" version="3" timestamp="2021-07-22T12:35:51Z" changeset="108429236" uid="9475151" user="Firestarter322">
+        <nd ref="330302862"/>
+        <nd ref="8941481203"/>
+        <nd ref="324244035"/>
+        <nd ref="3105709553"/>
+        <nd ref="3107789362"/>
+        <nd ref="3105709551"/>
+        <nd ref="41911690"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="353722894" version="4" timestamp="2021-07-22T12:35:51Z" changeset="108429236" uid="9475151" user="Firestarter322">
+        <nd ref="4242830394"/>
+        <nd ref="8941481202"/>
+        <nd ref="4242830393"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="353722895" version="1" timestamp="2015-06-14T23:10:54Z" changeset="31972751" uid="388804" user="Allroads">
+        <nd ref="3595339734"/>
+        <nd ref="2341809060"/>
+        <nd ref="317996214"/>
+        <tag k="highway" v="cycleway"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="452696952" version="2" timestamp="2017-08-12T19:23:18Z" changeset="51066047" uid="9176" user="Maarten Deen">
+        <nd ref="3338055397"/>
+        <nd ref="41908895"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Bloemendalstraat"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="470726066" version="1" timestamp="2017-01-31T18:06:57Z" changeset="45692507" uid="3298438" user="aixbrick">
+        <nd ref="4242830393"/>
+        <nd ref="330302862"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="470726067" version="1" timestamp="2017-01-31T18:06:57Z" changeset="45692507" uid="3298438" user="aixbrick">
+        <nd ref="3595339734"/>
+        <nd ref="4242830394"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="highway" v="primary"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Maastrichterlaan"/>
+        <tag k="ref" v="N278"/>
+    </way>
+    <way id="473834797" version="3" timestamp="2021-03-01T15:02:51Z" changeset="100214519" uid="10417505" user="vonneudeck">
+        <nd ref="3446996480"/>
+        <nd ref="1818539631"/>
+        <nd ref="15255711"/>
+        <tag k="highway" v="residential"/>
+        <tag k="name" v="Püngelerstraße"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="oneway:bicycle" v="no"/>
+        <tag k="sidewalk" v="both"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="501418051" version="3" timestamp="2020-11-18T08:50:57Z" changeset="94343196" uid="9176" user="Maarten Deen">
+        <nd ref="41913640"/>
+        <nd ref="4922353390"/>
+        <nd ref="4922353391"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="515373028" version="1" timestamp="2017-08-13T23:47:56Z" changeset="51094914" uid="388804" user="Allroads">
+        <nd ref="4922353391"/>
+        <nd ref="4922353397"/>
+        <nd ref="5033311006"/>
+        <tag k="cycleway" v="lane"/>
+        <tag k="foot" v="yes"/>
+        <tag k="highway" v="tertiary"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="maxwidth" v="2.1"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="oneway" v="no"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="547735332" version="1" timestamp="2017-12-18T19:27:11Z" changeset="54740090" uid="424172" user="JanWandelaar">
+        <nd ref="41913577"/>
+        <nd ref="4922353356"/>
+        <nd ref="556111650"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="name" v="Oude Akerweg"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="547735333" version="2" timestamp="2019-04-27T11:14:43Z" changeset="69637009" uid="99810" user="Martin Borsje">
+        <nd ref="5292211962"/>
+        <nd ref="6432456105"/>
+        <nd ref="41913577"/>
+        <tag k="bridge" v="yes"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="layer" v="1"/>
+        <tag k="maxspeed" v="60"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <relation id="145281" version="41" timestamp="2021-07-22T14:42:45Z" changeset="108435077" uid="294028" user="dvdhoven">
+        <member type="way" ref="6698692" role=""/>
+        <member type="way" ref="515373028" role=""/>
+        <member type="way" ref="501418051" role=""/>
+        <member type="way" ref="6697953" role=""/>
+        <member type="way" ref="131688025" role=""/>
+        <member type="way" ref="105358212" role=""/>
+        <member type="way" ref="547735332" role=""/>
+        <member type="way" ref="547735333" role=""/>
+        <member type="way" ref="6698518" role=""/>
+        <member type="way" ref="182941738" role=""/>
+        <member type="way" ref="64795894" role="forward"/>
+        <member type="way" ref="6698495" role="forward"/>
+        <member type="way" ref="135717592" role="forward"/>
+        <member type="way" ref="343188339" role="forward"/>
+        <member type="way" ref="225397319" role="forward"/>
+        <member type="way" ref="353722895" role="forward"/>
+        <member type="way" ref="470726067" role=""/>
+        <member type="way" ref="353722894" role=""/>
+        <member type="way" ref="470726066" role=""/>
+        <member type="way" ref="353721523" role="forward"/>
+        <member type="way" ref="6698584" role="forward"/>
+        <member type="way" ref="353721522" role="forward"/>
+        <member type="way" ref="305878595" role="forward"/>
+        <member type="way" ref="28927366" role="forward"/>
+        <member type="way" ref="6698563" role=""/>
+        <member type="way" ref="135717594" role=""/>
+        <member type="way" ref="6698045" role=""/>
+        <member type="way" ref="6698405" role=""/>
+        <member type="way" ref="6698372" role=""/>
+        <member type="way" ref="452696952" role=""/>
+        <member type="way" ref="6698125" role=""/>
+        <member type="way" ref="6698396" role=""/>
+        <member type="way" ref="6698400" role=""/>
+        <member type="way" ref="123147553" role=""/>
+        <member type="way" ref="6698033" role=""/>
+        <member type="way" ref="123147549" role=""/>
+        <member type="way" ref="6698263" role=""/>
+        <member type="way" ref="6698452" role="forward"/>
+        <member type="way" ref="6698083" role="forward"/>
+        <member type="way" ref="6698388" role="forward"/>
+        <member type="way" ref="6698429" role="forward"/>
+        <member type="way" ref="6698161" role="forward"/>
+        <member type="way" ref="218128143" role="forward"/>
+        <member type="way" ref="6698008" role="forward"/>
+        <member type="way" ref="28741973" role="forward"/>
+        <member type="way" ref="14336625" role="forward"/>
+        <member type="way" ref="13858666" role="forward"/>
+        <member type="way" ref="473834797" role="forward"/>
+        <member type="way" ref="306017604" role="forward"/>
+        <member type="way" ref="306017605" role="forward"/>
+        <member type="way" ref="4444295" role="forward"/>
+        <member type="way" ref="6698536" role="forward"/>
+        <member type="way" ref="123152243" role="forward"/>
+        <member type="way" ref="6698267" role="forward"/>
+        <member type="way" ref="6698142" role="forward"/>
+        <member type="way" ref="6698161" role="forward"/>
+        <member type="way" ref="6698429" role="forward"/>
+        <member type="way" ref="6698322" role="forward"/>
+        <member type="way" ref="6698087" role="forward"/>
+        <member type="way" ref="6698463" role="forward"/>
+        <member type="way" ref="305878589" role="forward"/>
+        <member type="way" ref="305878596" role="forward"/>
+        <member type="way" ref="6698537" role="forward"/>
+        <tag k="network" v="rcn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="ref" v="93-95"/>
+        <tag k="route" v="bicycle"/>
+        <tag k="source" v="gpsfiestroutes.nl"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
