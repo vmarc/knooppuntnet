@@ -28,7 +28,7 @@ object LogAnalyzerTool {
     // new LogAnalyzerTool().findUserAgents("/kpn/logs/ningx-nl-access.log")
 
     Couch.executeIn("localhost", "frontend-actions") { database =>
-      val repo = new FrontendMetricsRepositoryImpl(null, database, false)
+      val repo = new FrontendMetricsRepositoryImpl(database)
       //new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-access.log", "test")
       new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-be-access.log", "be")
       new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-experimental-access.log", "nl-experimental")

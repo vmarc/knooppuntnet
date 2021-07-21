@@ -44,7 +44,7 @@ object ReplicatorTool {
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
             val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-            val actionsRepository = new BackendMetricsRepositoryImpl(null, actionsDatabase, false)
+            val actionsRepository = new BackendMetricsRepositoryImpl(actionsDatabase)
             new ReplicatorTool(
               dirs.replicate,
               statusRepository,

@@ -12,13 +12,12 @@ import kpn.core.database.doc.SystemStatusDoc
 import kpn.core.database.doc.UpdateActionDoc
 import kpn.core.database.views.metrics.BackendMetricsView
 import kpn.core.db.couch.Couch
-import kpn.core.mongo.Database
 import org.springframework.stereotype.Component
 
 object BackendMetricsRepositoryImpl {
   def main(args: Array[String]): Unit = {
     Couch.executeIn("kpn-frontend", "backend-actions") { database =>
-      val repo = new BackendMetricsRepositoryImpl(null, database, false)
+      val repo = new BackendMetricsRepositoryImpl(database)
 
       {
         val used = repo.lastKnownValue("backend-disk-space-used")
@@ -38,7 +37,6 @@ object BackendMetricsRepositoryImpl {
         val available = repo.lastKnownValue("frontend-disk-space-available")
         report("frontend", used, available, -1)
       }
-
     }
   }
 
@@ -53,67 +51,34 @@ object BackendMetricsRepositoryImpl {
 
 @Component
 class BackendMetricsRepositoryImpl(
-  database: Database,
-  // old
-  backendActionsDatabase: kpn.core.database.Database,
-  mongoEnabled: Boolean
+  backendActionsDatabase: kpn.core.database.Database
 ) extends BackendMetricsRepository {
 
   override def saveReplicationAction(replicationAction: ReplicationAction): Unit = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val id = s"replication-${replicationAction.minuteDiff.id}"
-      backendActionsDatabase.save(ReplicationActionDoc(id, replicationAction))
-    }
+    val id = s"replication-${replicationAction.minuteDiff.id}"
+    backendActionsDatabase.save(ReplicationActionDoc(id, replicationAction))
   }
 
   override def saveUpdateAction(updateAction: UpdateAction): Unit = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val id = s"update-${updateAction.minuteDiff.id}"
-      backendActionsDatabase.save(UpdateActionDoc(id, updateAction))
-    }
+    val id = s"update-${updateAction.minuteDiff.id}"
+    backendActionsDatabase.save(UpdateActionDoc(id, updateAction))
   }
 
   override def saveAnalysisAction(analysisAction: AnalysisAction): Unit = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val id = s"analysis-${analysisAction.minuteDiff.id}"
-      backendActionsDatabase.save(AnalysisActionDoc(id, analysisAction))
-    }
+    val id = s"analysis-${analysisAction.minuteDiff.id}"
+    backendActionsDatabase.save(AnalysisActionDoc(id, analysisAction))
   }
 
   override def saveSystemStatus(systemStatus: SystemStatus): Unit = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val id = s"system-status-${systemStatus.timestamp.toId}"
-      backendActionsDatabase.save(SystemStatusDoc(id, systemStatus))
-    }
+    val id = s"system-status-${systemStatus.timestamp.toId}"
+    backendActionsDatabase.save(SystemStatusDoc(id, systemStatus))
   }
 
   override def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      BackendMetricsView.query(backendActionsDatabase, parameters, action, average, stale)
-    }
+    BackendMetricsView.query(backendActionsDatabase, parameters, action, average, stale)
   }
 
   override def lastKnownValue(action: String, stale: Boolean = true): Long = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      BackendMetricsView.queryLastKnown(backendActionsDatabase, action, stale)
-    }
+    BackendMetricsView.queryLastKnown(backendActionsDatabase, action, stale)
   }
 }

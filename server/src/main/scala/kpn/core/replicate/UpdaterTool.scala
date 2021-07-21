@@ -54,7 +54,7 @@ object UpdaterTool {
             val dirs = Dirs()
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-            val actionsRepository = new BackendMetricsRepositoryImpl(null, actionsDatabase, false)
+            val actionsRepository = new BackendMetricsRepositoryImpl(actionsDatabase)
             val updater = new UpdaterTool(options, statusRepository, actionsRepository, replicationStateRepository)
             updater.launch()
 
