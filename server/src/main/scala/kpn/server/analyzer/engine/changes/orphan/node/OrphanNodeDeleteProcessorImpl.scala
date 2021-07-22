@@ -26,9 +26,9 @@ class OrphanNodeDeleteProcessorImpl(
 
     analysisContext.data.orphanNodes.watched.delete(loadedNodeDelete.id)
 
-    val nodeAnalysis = loadedNodeDelete.loadedNode match {
+    loadedNodeDelete.loadedNode match {
       case Some(loadedNode) =>
-        nodeAnalyzer.analyze(
+        val nodeAnalysis = nodeAnalyzer.analyze(
           NodeAnalysis(
             loadedNode.node.raw,
             active = false,
@@ -36,12 +36,14 @@ class OrphanNodeDeleteProcessorImpl(
             facts = Seq(Fact.Deleted)
           )
         )
+        nodeRepository.save(nodeAnalysis.toNodeInfo)
+        saveNodeChange(context, nodeAnalysis)
 
       case None =>
         log.warn(s"Could not load the 'before' situation at ${context.timestampBefore.yyyymmddhhmmss} while processing node ${loadedNodeDelete.id} delete" +
           " this is unexpected, please investigate")
 
-        nodeAnalyzer.analyze(
+        val nodeAnalysis = nodeAnalyzer.analyze(
           NodeAnalysis(
             loadedNodeDelete.rawNode,
             active = false,
@@ -49,10 +51,14 @@ class OrphanNodeDeleteProcessorImpl(
             facts = Seq(Fact.Deleted)
           )
         )
-    }
 
-    nodeRepository.save(nodeAnalysis.toNodeInfo)
-    saveNodeChange(context, nodeAnalysis)
+        nodeAnalysis.country match {
+          case None => None
+          case _ =>
+            nodeRepository.save(nodeAnalysis.toNodeInfo)
+            saveNodeChange(context, nodeAnalysis)
+        }
+    }
   }
 
   private def saveNodeChange(context: ChangeSetContext, nodeAnalysis: NodeAnalysis): Option[NodeChange] = {

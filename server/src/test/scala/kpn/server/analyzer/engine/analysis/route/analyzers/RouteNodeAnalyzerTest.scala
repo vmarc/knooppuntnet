@@ -294,15 +294,15 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     val d = new RouteTestData("-02") {
       node(1, "01")
-      node(3, "02")
+      node(2, "02")
       memberNode(1)
-      memberNode(3)
-      memberWay(11, "", 2, 3)
+      memberNode(2)
+      memberWay(11, "", 1, 2)
     }
 
     analyze(d) should equal(
-      "End=(3/02/02/RW)," +
-        "Redundant=(1/01/01/R);" +
+      "End=(2/02/02/RW)," +
+        "Redundant=(1/01/01/RW);" +
         "RouteRedundantNodes"
     )
   }
@@ -311,16 +311,16 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     val d = new RouteTestData("01-") {
       node(1, "01")
-      node(3, "02")
+      node(2, "02")
       memberNode(1)
-      memberNode(3)
-      memberWay(11, "", 2, 3)
+      memberNode(2)
+      memberWay(11, "", 1, 2)
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01/R)," +
-        "Redundant=(3/02/02/RW);" +
-        "RouteNodeMissingInWays,RouteRedundantNodes"
+      "Start=(1/01/01/RW)," +
+        "Redundant=(2/02/02/RW);" +
+        "RouteRedundantNodes"
     )
   }
 

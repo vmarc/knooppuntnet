@@ -90,7 +90,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       val routeRepository = new RouteRepositoryImpl(database, null, true)
       val orphanRepository = new OrphanRepositoryImpl(database, null, true)
 
-      val route = createRoute(facts = Seq(Fact.RouteUnaccessible))
+      val route = createRoute(facts = Seq(Fact.RouteBroken))
       routeRepository.save(route)
 
       orphanRepository.orphanRoutes(Subset.nlHiking) should matchTo(
@@ -123,7 +123,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
             id = 100L,
             name = "01-02",
             meters = 123L,
-            isBroken = false,
+            isBroken = true,
             accessible = false,
             lastSurvey = "2020-08-11",
             lastUpdated = Timestamp(2020, 8, 11)
@@ -182,7 +182,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
       meters = 123,
       facts = facts,
       lastUpdated = Timestamp(2020, 8, 11),
-      lastSurvey = Some(Day(2020, 8, Some(11)))
+      lastSurvey = lastSurvey
     )
   }
 }

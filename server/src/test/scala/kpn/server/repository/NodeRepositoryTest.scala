@@ -116,17 +116,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
             2,
             name = "network-2"
           ),
-          detail = Some(
-            newNetworkInfoDetail(
-              nodes = Seq(
-                newNetworkInfoNode(
-                  1001,
-                  "01",
-                  definedInRelation = true
-                )
-              )
-            )
-          )
+          nodeRefs = Seq(1001)
         )
       )
 

@@ -15,6 +15,9 @@ class Issue4_RedundantNodes extends UnitTest {
   }
 
   test("route 24-32") {
+
+    fail("reproduces unresolved issue")
+
     val route = CaseStudy.routeAnalysis("3330377").route
 
     println(route.analysis.structureStrings)
@@ -37,6 +40,9 @@ class Issue4_RedundantNodes extends UnitTest {
   }
 
   test("route 56-58") {
+
+    fail("reproduces unresolved issue")
+
     val route = CaseStudy.routeAnalysis("3715798").route
     println(route.analysis.structureStrings)
     route.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>

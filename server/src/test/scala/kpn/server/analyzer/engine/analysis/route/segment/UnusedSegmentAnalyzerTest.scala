@@ -34,7 +34,7 @@ class UnusedSegmentAnalyzerTest extends UnitTest with SharedTestObjects {
     val segment1 = Segment("", Seq(f1, f2))
     val usedSegments = Seq(segment1)
 
-    analyze(usedSegments, b.fragments.toSeq) should equal(Set(Seq(3, 4, 5), Seq(6, 7, 8)))
+    analyze(usedSegments, b.fragments.toSeq) should equal(Set(Seq(1, 2, 3, 4, 5), Seq(6, 7, 8)))
   }
 
   test("if one roundabout fragment is used, then entire roundabout is considered used") {

@@ -54,7 +54,6 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -141,15 +140,29 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newNetworkTags(name: String = "name"): Tags = {
-    Tags.from("network" -> "rwn", "type" -> "network", "name" -> name, "network:type" -> "node_network")
+    Tags.from(
+      "network" -> "rwn",
+      "type" -> "network",
+      "name" -> name,
+      "network:type" -> "node_network"
+    )
   }
 
   def newRouteTags(name: String = ""): Tags = {
-    Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name, "network:type" -> "node_network")
+    Tags.from(
+      "network" -> "rwn",
+      "type" -> "route",
+      "route" -> "foot",
+      "note" -> name,
+      "network:type" -> "node_network"
+    )
   }
 
   def newNodeTags(name: String = ""): Tags = {
-    Tags.from("rwn_ref" -> name, "network:type" -> "node_network")
+    Tags.from(
+      "rwn_ref" -> name,
+      "network:type" -> "node_network"
+    )
   }
 
   def newChangeKey(
@@ -994,6 +1007,23 @@ trait SharedTestObjects extends MockFactory {
       osmSegments,
       okGeometry,
       nokSegments
+    )
+  }
+
+  def newNodeName(
+    networkType: NetworkType = NetworkType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
+    name: String = "",
+    longName: Option[String] = None,
+    proposed: Boolean = false
+
+  ): NodeName = {
+    NodeName(
+      networkType,
+      networkScope,
+      name,
+      longName,
+      proposed
     )
   }
 }

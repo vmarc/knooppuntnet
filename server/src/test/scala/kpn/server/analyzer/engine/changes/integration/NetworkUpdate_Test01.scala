@@ -20,10 +20,9 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
-import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -32,7 +31,7 @@ import kpn.core.test.TestData2
 
 class NetworkUpdate_Test01 extends AbstractTest {
 
-  test("network update - updated network is saved to the database and watched elements is updated in AnalysisData") {
+  test("network update - updated network is saved to the database and watched elements are updated in AnalysisData") {
 
     val dataBefore = TestData2()
       .networkNode(1001, "01")
@@ -44,9 +43,9 @@ class NetworkUpdate_Test01 extends AbstractTest {
 
     val dataAfter = TestData2()
       .networkNode(1001, "01")
-      .networkNode(1002, "02-changed")
+      .networkNode(1002, "03")
       .way(101, 1001, 1002)
-      .route(11, "01-02", Seq(newMember("way", 101)))
+      .route(11, "01-03", Seq(newMember("way", 101)))
       .networkRelation(1, "name", Seq(newMember("relation", 11)))
       .data
 
@@ -73,10 +72,10 @@ class NetworkUpdate_Test01 extends AbstractTest {
                   1,
                   "name",
                   routeChanges = ChangeSetElementRefs(
-                    updated = Seq(newChangeSetElementRef(11, "01-02"))
+                    updated = Seq(newChangeSetElementRef(11, "01-03"))
                   ),
                   nodeChanges = ChangeSetElementRefs(
-                    updated = Seq(newChangeSetElementRef(1002, "02-changed"))
+                    updated = Seq(newChangeSetElementRef(1002, "03"))
                   )
                 )
               )
@@ -126,15 +125,14 @@ class NetworkUpdate_Test01 extends AbstractTest {
             ),
             networkNodes = RefDiffs(
               updated = Seq(
-                Ref(1002, "02-changed")
+                Ref(1002, "03")
               )
             ),
             routes = RefDiffs(
               updated = Seq(
-                Ref(11, "01-02")
+                Ref(11, "01-03")
               )
-            ),
-            investigate = true
+            )
           )
         )
         true
@@ -147,7 +145,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
           newRouteChange(
             newChangeKey(elementId = 11),
             ChangeType.Update,
-            "01-02",
+            "01-03",
             before = Some(
               newRouteData(
                 Some(Country.nl),
@@ -184,16 +182,16 @@ class NetworkUpdate_Test01 extends AbstractTest {
                   members = Seq(
                     RawMember("way", 101, None)
                   ),
-                  tags = newRouteTags("01-02")
+                  tags = newRouteTags("01-03")
                 ),
-                name = "01-02",
+                name = "01-03",
                 networkNodes = Seq(
                   newRawNodeWithName(1001, "01"),
-                  newRawNodeWithName(1002, "02-changed")
+                  newRawNodeWithName(1002, "03")
                 ),
                 nodes = Seq(
                   newRawNodeWithName(1001, "01"),
-                  newRawNodeWithName(1002, "02-changed")
+                  newRawNodeWithName(1002, "03")
                 ),
                 ways = Seq(
                   newRawWay(
@@ -201,13 +199,6 @@ class NetworkUpdate_Test01 extends AbstractTest {
                     nodeIds = Seq(1001, 1002),
                     tags = Tags.from("highway" -> "unclassified")
                   )
-                ),
-                facts = Seq(
-                  Fact.RouteRedundantNodes,
-                  Fact.RouteNotForward,
-                  Fact.RouteNotBackward,
-                  Fact.RouteNotContinious,
-                  Fact.RouteBroken
                 )
               )
             ),
@@ -221,7 +212,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
                 Seq(
                   NodeUpdate(
                     newRawNodeWithName(1002, "02"),
-                    newRawNodeWithName(1002, "02-changed"),
+                    newRawNodeWithName(1002, "03"),
                     None,
                     None
                   )
@@ -229,11 +220,49 @@ class NetworkUpdate_Test01 extends AbstractTest {
               )
             ),
             diffs = RouteDiff(
-              factDiffs = Some(
-                FactDiffs(introduced = Set(Fact.RouteNodeNameMismatch))
+              nameDiff = Some(
+                RouteNameDiff(
+                  before = "01-02",
+                  after = "01-03"
+                )
+              ),
+              tagDiffs = Some(
+                TagDiffs(
+                  mainTags = Seq(
+                    TagDetail(
+                      action = TagDetailType.Update,
+                      key = "note",
+                      valueBefore = Some("01-02"),
+                      valueAfter = Some("01-03"),
+                    ),
+                    TagDetail(
+                      action = TagDetailType.Same,
+                      key = "network",
+                      valueBefore = Some("rwn"),
+                      valueAfter = Some("rwn")
+                    ),
+                    TagDetail(
+                      action = TagDetailType.Same,
+                      key = "type",
+                      valueBefore = Some("route"),
+                      valueAfter = Some("route"),
+                    ),
+                    TagDetail(
+                      action = TagDetailType.Same,
+                      key = "route",
+                      valueBefore = Some("foot"),
+                      valueAfter = Some("foot")
+                    ),
+                    TagDetail(
+                      action = TagDetailType.Same,
+                      key = "network:type",
+                      valueBefore = Some("node_network"),
+                      valueAfter = Some("node_network")
+                    )
+                  )
+                )
               )
-            ),
-            investigate = true
+            )
           )
         )
         true
@@ -247,12 +276,12 @@ class NetworkUpdate_Test01 extends AbstractTest {
             key = newChangeKey(elementId = 1002),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
-            name = "02-changed",
+            name = "03",
             before = Some(
               newRawNodeWithName(1002, "02")
             ),
             after = Some(
-              newRawNodeWithName(1002, "02-changed")
+              newRawNodeWithName(1002, "03")
             ),
             tagDiffs = Some(
               TagDiffs(
@@ -261,7 +290,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
                     TagDetailType.Update,
                     "rwn_ref",
                     Some("02"),
-                    Some("02-changed")
+                    Some("03")
                   ),
                   TagDetail(
                     TagDetailType.Same,

@@ -29,6 +29,9 @@ import scala.xml.XML
 class Issue2_OverlappingWays extends UnitTest {
 
   test("28-28") {
+
+    fail("reproduces unresolved issue")
+
     val routeAnalysis = analyze("28-28", "vv", 7776398L, 9174227L)
     println(routeAnalysis.route.analysis.structureStrings)
     routeAnalysis.route.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
@@ -39,6 +42,8 @@ class Issue2_OverlappingWays extends UnitTest {
   }
 
   test("32-32") {
+
+    fail("reproduces unresolved issue")
 
     val routeAnalysis = analyze("32-32", "x", 7175609L, 11047960L)
     println(routeAnalysis.route.analysis.structureStrings)

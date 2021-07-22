@@ -6,7 +6,6 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType.hiking
-import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -18,31 +17,34 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1001L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "01")
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          )
         )
       )
 
       database.nodes.save(
         newNodeInfo(
           1002L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "02"),
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          )
         )
       )
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(2)
-
-      val locationNodeInfos = query.find(
-        hiking,
-        "be",
-        LocationNodesType.all,
-        0,
-        5
-      )
-
-      locationNodeInfos should matchTo(
+      query.find(hiking, "be", LocationNodesType.all, 0, 5) should matchTo(
         Seq(
           LocationNodeInfo(
             1001L,
@@ -80,8 +82,14 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1001L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "01")
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          )
         )
       )
 
@@ -89,23 +97,19 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1002L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "02"),
-          active = false
+          labels = Seq(
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          )
         )
       )
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-
-      val locationNodeInfos = query.find(
-        hiking,
-        "be",
-        LocationNodesType.all,
-        0,
-        5
-      )
-
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 0, 5)
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -116,8 +120,15 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1001L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "01"),
+          labels = Seq(
+            "active",
+            "survey",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          ),
           lastSurvey = Some(Day(2020, 8, None))
         )
       )
@@ -125,22 +136,20 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1002L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "02"),
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          )
         )
       )
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.survey) should equal(1)
-
-      val locationNodeInfos = query.find(
-        hiking,
-        "be",
-        LocationNodesType.survey,
-        0,
-        5
-      )
-
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.survey, 0, 5)
       locationNodeInfos should matchTo(
         Seq(
           LocationNodeInfo(
@@ -166,30 +175,34 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1001L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "01")
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          )
         )
       )
 
       database.nodes.save(
         newNodeInfo(
           1002L,
-          locations = Seq("nl"),
-          tags = Tags.from("rwn_ref" -> "02"),
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-nl"
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          )
         )
       )
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-
-      val locationNodeInfos = query.find(
-        hiking,
-        "be",
-        LocationNodesType.all,
-        0,
-        5
-      )
-
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 0, 5)
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -200,30 +213,34 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1001L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "01")
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          )
         )
       )
 
       database.nodes.save(
         newNodeInfo(
           1002L,
-          locations = Seq("be"),
-          tags = Tags.from("rcn_ref" -> "02"),
+          labels = Seq(
+            "active",
+            "network-type-cycling",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          )
         )
       )
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-
-      val locationNodeInfos = query.find(
-        hiking,
-        "be",
-        LocationNodesType.all,
-        0,
-        5
-      )
-
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 0, 5)
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -234,30 +251,41 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeInfo(
           1001L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "01")
+          labels = Seq(
+            "active",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          )
         )
       )
 
       database.nodes.save(
         newNodeInfo(
           1007L,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> "07"),
+          labels = Seq(
+            "active",
+            "facts",
+            "fact-NodeInvalidSurveyDate",
+            "network-type-hiking",
+            "location-be"
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          ),
           facts = Seq(Fact.NodeInvalidSurveyDate)
         )
       )
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.facts) should equal(1)
-
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.facts, 0, 5)
-
-      locationNodeInfos should matchTo(
+      query.find(hiking, "be", LocationNodesType.facts, 0, 5) should matchTo(
         Seq(
           LocationNodeInfo(
             1007L,
-            "07",
+            "02",
             "-",
             "0",
             "0",
@@ -273,16 +301,25 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
   }
 
   test("TODO route references") {
+    pending
   }
 
   test("paging") {
     withDatabase { database =>
 
       def buildNode(nodeId: Long, name: String): Unit = {
-        newNodeInfo(
-          nodeId,
-          locations = Seq("be"),
-          tags = Tags.from("rwn_ref" -> name)
+        database.nodes.save(
+          newNodeInfo(
+            nodeId,
+            labels = Seq(
+              "active",
+              "network-type-hiking",
+              "location-be"
+            ),
+            names = Seq(
+              newNodeName(name = name)
+            )
+          )
         )
       }
 

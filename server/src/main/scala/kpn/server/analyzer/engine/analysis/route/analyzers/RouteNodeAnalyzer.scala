@@ -60,20 +60,8 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     if (routeNodeAnalysis.nodesInWays.isEmpty) {
       facts += RouteNodeMissingInWays
     }
-    else {
-      if (routeNodeAnalysis.freeNodes.isEmpty) {
-        if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
-          facts += RouteNodeMissingInWays
-        }
-        if (routeNodeAnalysis.startNodes.isEmpty || routeNodeAnalysis.endNodes.isEmpty) {
-          facts += RouteNodeMissingInWays
-        }
-      }
-      else {
-        if (routeNodeAnalysis.freeNodes.exists(_.missingInWays)) {
-          facts += RouteNodeMissingInWays
-        }
-      }
+    else if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
+      facts += RouteNodeMissingInWays
     }
 
     if (routeNodeAnalysis.redundantNodes.nonEmpty) {

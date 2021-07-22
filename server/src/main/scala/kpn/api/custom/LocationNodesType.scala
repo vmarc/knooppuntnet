@@ -12,7 +12,13 @@ object LocationNodesType {
   val integrityCheck: LocationNodesType = LocationNodesType("integrityCheck")
   val integrityCheckFailed: LocationNodesType = LocationNodesType("integrityCheckFailed")
 
-  val allValues: Seq[LocationNodesType] = Seq(all, facts, survey, integrityCheck, integrityCheckFailed)
+  val allValues: Seq[LocationNodesType] = Seq(
+    all,
+    facts,
+    survey,
+    integrityCheck,
+    integrityCheckFailed
+  )
 }
 
 case class LocationNodesType(name: String)
