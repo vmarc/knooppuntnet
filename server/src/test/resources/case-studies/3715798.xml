@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2021-07-22T16:22:58Z"/>
+
+    <node id="42902171" lat="51.5226264" lon="6.1275029" version="7" timestamp="2019-09-13T07:29:32Z" changeset="74421242" uid="7103674" user="Peter Elderson">
+        <tag k="rcn_ref" v="58"/>
+        <tag k="network:type" v="node_network"/>
+    </node>
+    <node id="42902870" lat="51.5228800" lon="6.1272700" version="2" timestamp="2009-12-23T19:59:24Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42919709" lat="51.5275800" lon="6.1219866" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42920711" lat="51.5278300" lon="6.1217000" version="2" timestamp="2009-12-23T19:59:00Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42922908" lat="51.5284248" lon="6.1101934" version="4" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42923031" lat="51.5284702" lon="6.1101439" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42925022" lat="51.5290134" lon="6.1103454" version="3" timestamp="2016-05-14T19:40:07Z" changeset="39318737" uid="294028" user="dvdhoven"/>
+    <node id="42925740" lat="51.5291488" lon="6.1103999" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42926201" lat="51.5292110" lon="6.1203340" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42926482" lat="51.5293047" lon="6.1201800" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42926552" lat="51.5293663" lon="6.1200315" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42926707" lat="51.5294187" lon="6.1199018" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42926790" lat="51.5294736" lon="6.1197639" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42927463" lat="51.5296312" lon="6.1103559" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42928130" lat="51.5298400" lon="6.1191300" version="2" timestamp="2009-12-23T19:58:54Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42928359" lat="51.5299000" lon="6.1103300" version="2" timestamp="2009-12-23T19:58:55Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42928991" lat="51.5301000" lon="6.1103600" version="2" timestamp="2009-12-23T19:58:56Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42929695" lat="51.5303100" lon="6.1121900" version="4" timestamp="2019-09-12T15:40:46Z" changeset="74399389" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="03"/>
+    </node>
+    <node id="42929739" lat="51.5303200" lon="6.1104300" version="4" timestamp="2019-09-12T15:40:46Z" changeset="74399389" uid="7103674" user="Peter Elderson">
+        <tag k="rwn_ref" v="07"/>
+        <tag k="network:type" v="node_network"/>
+    </node>
+    <node id="42929860" lat="51.5303600" lon="6.1124600" version="2" timestamp="2009-12-23T19:58:57Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42930975" lat="51.5306739" lon="6.1176119" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42931141" lat="51.5307100" lon="6.1133800" version="2" timestamp="2009-12-23T19:58:42Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42931346" lat="51.5307500" lon="6.1135200" version="2" timestamp="2009-12-23T19:58:43Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42931682" lat="51.5308145" lon="6.1172201" version="3" timestamp="2014-05-04T16:59:07Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="42931784" lat="51.5308800" lon="6.1145600" version="2" timestamp="2009-12-23T19:58:44Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42931936" lat="51.5309000" lon="6.1168600" version="2" timestamp="2009-12-23T19:58:44Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42932006" lat="51.5309300" lon="6.1150900" version="2" timestamp="2009-12-23T19:58:45Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="42932008" lat="51.5309300" lon="6.1157700" version="2" timestamp="2009-12-23T19:58:45Z" changeset="3437223" uid="12946" user="AND"/>
+    <node id="798109030" lat="51.5282094" lon="6.1100634" version="1" timestamp="2010-07-01T10:25:59Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109080" lat="51.5274083" lon="6.1099175" version="1" timestamp="2010-07-01T10:26:00Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109114" lat="51.5260142" lon="6.1095521" version="3" timestamp="2019-09-12T20:54:35Z" changeset="74409042" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="56"/>
+    </node>
+    <node id="798109115" lat="51.5269935" lon="6.1098187" version="1" timestamp="2010-07-01T10:26:00Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109131" lat="51.5283431" lon="6.1101526" version="1" timestamp="2010-07-01T10:26:00Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109165" lat="51.5263140" lon="6.1096542" version="1" timestamp="2010-07-01T10:26:01Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109210" lat="51.5271465" lon="6.1098775" version="1" timestamp="2010-07-01T10:26:02Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109225" lat="51.5278426" lon="6.1099654" version="1" timestamp="2010-07-01T10:26:02Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109248" lat="51.5268371" lon="6.1098006" version="3" timestamp="2019-09-12T15:40:46Z" changeset="74399389" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="08"/>
+    </node>
+    <node id="798109264" lat="51.5264702" lon="6.1097130" version="1" timestamp="2010-07-01T10:26:03Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109303" lat="51.5261129" lon="6.1096100" version="1" timestamp="2010-07-01T10:26:04Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109360" lat="51.5276892" lon="6.1099629" version="1" timestamp="2010-07-01T10:26:04Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109387" lat="51.5266139" lon="6.1097256" version="1" timestamp="2010-07-01T10:26:05Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="798109414" lat="51.5280278" lon="6.1099786" version="1" timestamp="2010-07-01T10:26:05Z" changeset="5119480" uid="310991" user="Fietsrouteplanner3"/>
+    <node id="1230759321" lat="51.5191421" lon="6.1331602" version="4" timestamp="2019-09-27T07:07:06Z" changeset="74991979" uid="294028" user="dvdhoven">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="59"/>
+    </node>
+    <node id="1404679287" lat="51.5307430" lon="6.1174450" version="4" timestamp="2019-09-13T07:23:24Z" changeset="74420913" uid="7103674" user="Peter Elderson">
+        <tag k="rcn_ref" v="14"/>
+        <tag k="network:type" v="node_network"/>
+    </node>
+    <node id="1586867331" lat="51.5194712" lon="6.1326705" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867332" lat="51.5199112" lon="6.1318128" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867333" lat="51.5204254" lon="6.1309974" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867335" lat="51.5207952" lon="6.1303827" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867337" lat="51.5213982" lon="6.1296300" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867340" lat="51.5218896" lon="6.1290642" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867342" lat="51.5219823" lon="6.1289395" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867345" lat="51.5223113" lon="6.1282452" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="1586867349" lat="51.5226034" lon="6.1275851" version="1" timestamp="2012-01-12T11:52:43Z" changeset="10368746" uid="424172" user="JanWandelaar"/>
+    <node id="2271216277" lat="51.5237845" lon="6.1266250" version="1" timestamp="2013-04-17T23:44:30Z" changeset="15768270" uid="672542" user="Nearo"/>
+    <node id="2271216278" lat="51.5239043" lon="6.1269753" version="1" timestamp="2013-04-17T23:44:30Z" changeset="15768270" uid="672542" user="Nearo"/>
+    <node id="2271216279" lat="51.5239830" lon="6.1270757" version="1" timestamp="2013-04-17T23:44:30Z" changeset="15768270" uid="672542" user="Nearo"/>
+    <node id="2271216280" lat="51.5240446" lon="6.1271209" version="1" timestamp="2013-04-17T23:44:30Z" changeset="15768270" uid="672542" user="Nearo"/>
+    <node id="2271216281" lat="51.5255300" lon="6.1280457" version="1" timestamp="2013-04-17T23:44:30Z" changeset="15768270" uid="672542" user="Nearo"/>
+    <node id="2518356410" lat="51.5303191" lon="6.1122390" version="1" timestamp="2013-11-03T09:57:43Z" changeset="18689576" uid="1793227" user="herthe"/>
+    <node id="2836143559" lat="51.5226179" lon="6.1275308" version="3" timestamp="2019-09-12T20:54:35Z" changeset="74409042" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="58"/>
+    </node>
+    <node id="2836143702" lat="51.5255767" lon="6.1279604" version="1" timestamp="2014-05-04T16:58:30Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143720" lat="51.5263232" lon="6.1255580" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143722" lat="51.5266150" lon="6.1246017" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143727" lat="51.5268035" lon="6.1097893" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <tag k="barrier" v="lift_gate"/>
+    </node>
+    <node id="2836143728" lat="51.5268075" lon="6.1240847" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143732" lat="51.5270556" lon="6.1234638" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143733" lat="51.5272321" lon="6.1230700" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143740" lat="51.5275069" lon="6.1225801" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143742" lat="51.5275999" lon="6.1224192" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143744" lat="51.5276480" lon="6.1221037" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="2836143745" lat="51.5276921" lon="6.1222569" version="1" timestamp="2014-05-04T16:58:31Z" changeset="22129879" uid="424172" user="JanWandelaar"/>
+    <node id="3471433648" lat="51.5226533" lon="6.1275010" version="3" timestamp="2019-09-12T15:40:46Z" changeset="74399389" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="24"/>
+    </node>
+    <node id="3508408456" lat="51.5307470" lon="6.1174323" version="2" timestamp="2019-09-12T15:40:46Z" changeset="74399389" uid="7103674" user="Peter Elderson">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="04"/>
+    </node>
+    <node id="4185909415" lat="51.5303180" lon="6.1114092" version="1" timestamp="2016-05-14T19:39:21Z" changeset="39318737" uid="294028" user="dvdhoven"/>
+    <way id="6717741" version="2" timestamp="2014-12-12T21:46:05Z" changeset="27431010" uid="2394881" user="It's so funny_mechanical">
+        <nd ref="42923031"/>
+        <nd ref="42925022"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Jan Vissersstraat"/>
+    </way>
+    <way id="6717742" version="2" timestamp="2014-12-12T21:47:23Z" changeset="27431010" uid="2394881" user="It's so funny_mechanical">
+        <nd ref="42922908"/>
+        <nd ref="42923031"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Monseigneur Martensstraat"/>
+    </way>
+    <way id="6717795" version="3" timestamp="2016-05-14T19:40:01Z" changeset="39318737" uid="294028" user="dvdhoven">
+        <nd ref="42925022"/>
+        <nd ref="42925740"/>
+        <nd ref="42927463"/>
+        <nd ref="42928359"/>
+        <nd ref="42928991"/>
+        <nd ref="42929739"/>
+        <tag k="highway" v="residential"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Kerkstraat"/>
+    </way>
+    <way id="53670821" version="10" timestamp="2015-05-10T11:55:31Z" changeset="30961781" uid="424172" user="JanWandelaar">
+        <nd ref="42902171"/>
+        <nd ref="3471433648"/>
+        <tag k="name" v="Veerweg"/>
+        <tag k="highway" v="unclassified"/>
+    </way>
+    <way id="65284320" version="2" timestamp="2014-05-04T16:58:53Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <nd ref="798109387"/>
+        <nd ref="2836143727"/>
+        <nd ref="798109248"/>
+        <tag k="highway" v="track"/>
+        <tag k="lit" v="no"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="145250230" version="2" timestamp="2014-05-04T16:58:53Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <nd ref="42902171"/>
+        <nd ref="2836143559"/>
+        <tag k="highway" v="track"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="217817782" version="2" timestamp="2014-05-04T16:58:53Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <nd ref="2271216277"/>
+        <nd ref="2271216278"/>
+        <nd ref="2271216279"/>
+        <nd ref="2271216280"/>
+        <nd ref="2271216281"/>
+        <tag k="highway" v="track"/>
+        <tag k="tracktype" v="grade5"/>
+    </way>
+    <way id="279406922" version="3" timestamp="2014-12-12T21:49:07Z" changeset="27431010" uid="2394881" user="It's so funny_mechanical">
+        <nd ref="42919709"/>
+        <nd ref="42920711"/>
+        <nd ref="42926201"/>
+        <nd ref="42926482"/>
+        <nd ref="42926552"/>
+        <nd ref="42926707"/>
+        <nd ref="42926790"/>
+        <nd ref="42928130"/>
+        <nd ref="42930975"/>
+        <nd ref="1404679287"/>
+        <tag k="name" v="Veerweg"/>
+        <tag k="highway" v="unclassified"/>
+    </way>
+    <way id="279406923" version="1" timestamp="2014-05-04T16:58:33Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <nd ref="798109248"/>
+        <nd ref="798109115"/>
+        <nd ref="798109210"/>
+        <nd ref="798109080"/>
+        <nd ref="798109360"/>
+        <nd ref="798109225"/>
+        <nd ref="798109414"/>
+        <nd ref="798109030"/>
+        <nd ref="798109131"/>
+        <nd ref="42922908"/>
+        <tag k="highway" v="track"/>
+        <tag k="lit" v="no"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <way id="279406926" version="1" timestamp="2014-05-04T16:58:33Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <nd ref="42919709"/>
+        <nd ref="2836143744"/>
+        <nd ref="2836143745"/>
+        <nd ref="2836143742"/>
+        <nd ref="2836143740"/>
+        <nd ref="2836143733"/>
+        <nd ref="2836143732"/>
+        <nd ref="2836143728"/>
+        <nd ref="2836143722"/>
+        <nd ref="2836143720"/>
+        <nd ref="2836143702"/>
+        <nd ref="2271216281"/>
+        <tag k="highway" v="track"/>
+        <tag k="tracktype" v="grade5"/>
+    </way>
+    <way id="279406937" version="1" timestamp="2014-05-04T16:58:34Z" changeset="22129879" uid="424172" user="JanWandelaar">
+        <nd ref="798109114"/>
+        <nd ref="798109303"/>
+        <nd ref="798109165"/>
+        <nd ref="798109264"/>
+        <nd ref="798109387"/>
+        <tag k="highway" v="living_street"/>
+        <tag k="lit" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="287185665" version="3" timestamp="2015-05-10T11:55:31Z" changeset="30961781" uid="424172" user="JanWandelaar">
+        <nd ref="1404679287"/>
+        <nd ref="3508408456"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Veerweg"/>
+    </way>
+    <way id="344082488" version="1" timestamp="2015-05-10T11:54:54Z" changeset="30961781" uid="424172" user="JanWandelaar">
+        <nd ref="3508408456"/>
+        <nd ref="42931682"/>
+        <nd ref="42931936"/>
+        <nd ref="42932008"/>
+        <nd ref="42932006"/>
+        <nd ref="42931784"/>
+        <nd ref="42931346"/>
+        <nd ref="42931141"/>
+        <nd ref="42929860"/>
+        <nd ref="2518356410"/>
+        <nd ref="42929695"/>
+        <tag k="name" v="Veerweg"/>
+        <tag k="highway" v="unclassified"/>
+    </way>
+    <way id="344082489" version="2" timestamp="2016-05-14T19:40:04Z" changeset="39318737" uid="294028" user="dvdhoven">
+        <nd ref="42929695"/>
+        <nd ref="4185909415"/>
+        <nd ref="42929739"/>
+        <tag k="name" v="Veerweg"/>
+        <tag k="highway" v="unclassified"/>
+    </way>
+    <way id="344082490" version="1" timestamp="2015-05-10T11:54:54Z" changeset="30961781" uid="424172" user="JanWandelaar">
+        <nd ref="3471433648"/>
+        <nd ref="42902870"/>
+        <nd ref="2271216277"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Veerweg"/>
+    </way>
+    <relation id="3715798" version="5" timestamp="2019-09-12T20:54:35Z" changeset="74409042" uid="7103674" user="Peter Elderson">
+        <member type="node" ref="798109114" role=""/>
+        <member type="way" ref="279406937" role=""/>
+        <member type="way" ref="65284320" role=""/>
+        <member type="way" ref="279406923" role=""/>
+        <member type="way" ref="6717742" role=""/>
+        <member type="way" ref="6717741" role=""/>
+        <member type="way" ref="6717795" role=""/>
+        <member type="way" ref="344082489" role=""/>
+        <member type="way" ref="344082488" role=""/>
+        <member type="way" ref="287185665" role=""/>
+        <member type="way" ref="279406922" role=""/>
+        <member type="way" ref="279406926" role=""/>
+        <member type="way" ref="217817782" role=""/>
+        <member type="way" ref="344082490" role=""/>
+        <member type="way" ref="53670821" role=""/>
+        <member type="way" ref="145250230" role=""/>
+        <member type="node" ref="2836143559" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="note" v="56-58"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
