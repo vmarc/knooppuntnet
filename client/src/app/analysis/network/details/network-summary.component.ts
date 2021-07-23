@@ -39,8 +39,22 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
     <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
       This network is not active anymore.
     </p>
+
+    <p *ngIf="isProposed()" class="kpn-line">
+      <mat-icon svgIcon="warning" style="min-width: 24px"></mat-icon>
+      <markdown i18n="@@network.proposed">
+        Proposed: this network has tag _"state=proposed"_. The network is
+        assumed to still be in a planning phase and likely not signposted in the
+        field.
+      </markdown>
+    </p>
   `,
 })
 export class NetworkSummaryComponent {
   @Input() page: NetworkDetailsPage;
+
+  isProposed() {
+    const stateTag = this.page.tags.tags.find((t) => t.key === 'state');
+    return stateTag && stateTag.value === 'proposed';
+  }
 }

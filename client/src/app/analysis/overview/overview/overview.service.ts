@@ -187,7 +187,7 @@ export class OverviewService {
           [network relation](docs/en.html#glossary-network-relation "relation in glossary")
           and also not added as a member to a valid
           [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
-          (that itself was added as a member to a valid network relation or is an orphan route).`
+          (that itself was added as a member to a valid network relation or is a free route).`
       )
     );
 
@@ -317,7 +317,7 @@ export class OverviewService {
         factDetailCounts,
         $localize`:@@stats.route-without-nodes.name:RouteWithoutNodes`,
         $localize`:@@stats.route-without-nodes.comment:
-          Routes without network nodes (a route is expected to have at least 2 network nodes).`
+          Routes without network nodes.`
       )
     );
 
@@ -340,7 +340,7 @@ export class OverviewService {
         true,
         factDetailCounts,
         $localize`:@@stats.route-name-missing.name:RouteNameMissing`,
-        $localize`:@@stats.route-name-missing.comment:Routes without a *"note"* or *"ref"* tag with the route name.`
+        $localize`:@@stats.route-name-missing.comment:Routes without the required tags from which the route name can be derived.`
       )
     );
 
@@ -376,7 +376,7 @@ export class OverviewService {
         $localize`:@@stats.route-unexpected-node.name:RouteUnexpectedNode`,
         $localize`:@@stats.route-unexpected-node.comment:
           Number of routes with one or more unexpected node members.\\
-          In route relations we expect only nodes with tag *"rwn_ref"* or *"rcn_ref"*.`
+          In route relations we expect only nodes with tags that make it a valid network node.`
       )
     );
 
@@ -389,8 +389,8 @@ export class OverviewService {
         $localize`:@@stats.route-unexpected-relation.name:RouteUnexpectedRelation`,
         $localize`:@@stats.route-unexpected-relation.comment:
           Number of routes with one or more unexpected members.\\In route relations we expect
-          only members of type *"way"*, or members of type *"node"* with a
-          tag *"rwn_ref"* or *"rcn_ref"*.`
+          only members of type *"way"*, or members of type *"node"* with tags
+          that make it a valid network node.`
       )
     );
 
@@ -478,8 +478,7 @@ export class OverviewService {
         $localize`:@@stats.route-node-name-mismatch.name:RouteNodeNameMismatch`,
         $localize`:@@stats.route-node-name-mismatch.comment:
           Routes where the route name does not match with the names of the start node and the end node. The
-          route name is expected to contain the start node name and the end node name, separated by a dash. The
-          start node is expected to have a lower number than the end node.`
+          route name is expected to contain the start node name and the end node name, separated by a dash.`
       )
     );
 

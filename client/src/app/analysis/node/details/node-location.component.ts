@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { Location } from '@api/common/location/location';
 
 @Component({
   selector: 'kpn-node-location',
@@ -14,16 +13,16 @@ import { Location } from '@api/common/location/location';
   `,
 })
 export class NodeLocationComponent {
-  @Input() location: Location;
+  @Input() locations: string[];
 
   hasLocation() {
-    return this.location && this.location.names.length > 0;
+    return this.locations && this.locations.length > 0;
   }
 
   locationNames(): string[] {
-    if (this.location) {
-      const country = this.location.names[0].toUpperCase();
-      const names = [country].concat(this.location.names.slice(1));
+    if (this.locations) {
+      const country = this.locations[0].toUpperCase();
+      const names = [country].concat(this.locations.slice(1));
       return names.reverse();
     }
     return [];

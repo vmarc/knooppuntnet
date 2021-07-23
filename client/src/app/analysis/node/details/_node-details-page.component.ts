@@ -61,7 +61,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
 
         <kpn-data title="Location" i18n-title="@@node.location">
           <kpn-node-location
-            [location]="page.nodeInfo.location"
+            [locations]="page.nodeInfo.locations"
           ></kpn-node-location>
         </kpn-data>
 

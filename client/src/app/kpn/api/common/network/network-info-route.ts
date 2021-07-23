@@ -14,4 +14,5 @@ export interface NetworkInfoRoute {
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
   readonly facts: Fact[];
+  readonly proposed: boolean;
 }

@@ -11,7 +11,7 @@ import { ChangeSetSubsetElementRefs } from '@api/common/change-set-subset-elemen
       <kpn-network-type-icon
         [networkType]="networkType()"
       ></kpn-network-type-icon>
-      <span i18n="@@change-set.orphan-routes">Orphan route(s)</span>
+      <span i18n="@@change-set.orphan-routes">Free route(s)</span>
     </div>
     <kpn-change-set-element-refs
       [elementType]="'route'"

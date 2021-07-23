@@ -8,4 +8,5 @@ export interface NodeName {
   readonly networkScope: NetworkScope;
   readonly name: string;
   readonly longName: string;
+  readonly proposed: boolean;
 }

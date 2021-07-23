@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-without-nodes">
-      The route does not contain any network nodes (we expect the route to
-      contain at least 2 network nodes).
+      The route does not contain any network nodes.
     </p>
   `,
 })

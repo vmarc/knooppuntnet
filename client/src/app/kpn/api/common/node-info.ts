@@ -3,14 +3,16 @@
 import { Country } from '../custom/country';
 import { Day } from '../custom/day';
 import { Fact } from '../custom/fact';
-import { Location } from './location/location';
+import { NodeIntegrity } from './node/node-integrity';
 import { NodeName } from './node-name';
+import { Reference } from './common/reference';
 import { Tags } from '../custom/tags';
 import { Timestamp } from '../custom/timestamp';
 
 export interface NodeInfo {
   readonly _id: number;
   readonly id: number;
+  readonly labels: string[];
   readonly active: boolean;
   readonly orphan: boolean;
   readonly country: Country;
@@ -22,6 +24,8 @@ export interface NodeInfo {
   readonly lastSurvey: Day;
   readonly tags: Tags;
   readonly facts: Fact[];
-  readonly location: Location;
+  readonly locations: string[];
   readonly tiles: string[];
+  readonly integrity: NodeIntegrity;
+  readonly routeReferences: Reference[];
 }

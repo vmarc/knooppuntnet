@@ -57,14 +57,10 @@ import { NodeInfo } from '@api/common/node-info';
       </p>
 
       <p *ngIf="isProposed()" class="kpn-line">
-        <mat-icon svgIcon="warning"></mat-icon>
-        <span class="warning" i18n="@@node.proposed">Proposed</span>
-      </p>
-
-      <p *ngIf="isProposed()">
-        <markdown i18n="@@node.proposed.explanation">
-          The network node is assumed to still be in a planning phase and likely
-          not signposted in the field.
+        <mat-icon svgIcon="warning" style="min-width: 24px"></mat-icon>
+        <markdown i18n="@@node.proposed">
+          Proposed: the network node is assumed to still be in a planning phase
+          and likely not signposted in the field.
         </markdown>
       </p>
     </div>
@@ -84,8 +80,7 @@ import { NodeInfo } from '@api/common/node-info';
 export class NodeSummaryComponent {
   @Input() nodeInfo: NodeInfo;
 
-  isProposed() {
-    const stateTag = this.nodeInfo.tags.tags.find((t) => t.key === 'state');
-    return stateTag && stateTag.value === 'proposed';
+  isProposed(): boolean {
+    return this.nodeInfo.names.some((name) => name.proposed);
   }
 }

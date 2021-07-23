@@ -6,9 +6,8 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-node-name-mismatch">
-      The route name in the _note_ or _ref_ tag in the route relation does not
-      match the expected name as derived from the start and end node of the
-      route.
+      The route name derived from the tags in the route relation does not match
+      the expected name as derived from the start and end node of the route.
     </markdown>
   `,
 })

@@ -13,9 +13,9 @@ import { IntegrityIndicatorData } from '../../../components/shared/indicator/int
     <div class="analysis">
       <kpn-network-indicator [node]="node"></kpn-network-indicator>
       <kpn-node-route-indicator [node]="node"></kpn-node-route-indicator>
-      <kpn-node-connection-indicator
+      <kpn-role-connection-indicator
         [node]="node"
-      ></kpn-node-connection-indicator>
+      ></kpn-role-connection-indicator>
       <kpn-integrity-indicator
         [data]="integrityIndicatorData"
       ></kpn-integrity-indicator>
