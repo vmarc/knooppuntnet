@@ -3,9 +3,11 @@
 import { List } from 'immutable';
 import { NetworkType } from '../../custom/network-type';
 import { Ref } from '../common/ref';
+import {NetworkScope} from "@api/custom/network-scope";
 
 export class NodeIntegrityDetail {
   constructor(
+    readonly networkScope: NetworkScope,
     readonly networkType: NetworkType,
     readonly expectedRouteCount: number,
     readonly routeRefs: List<Ref>
@@ -16,6 +18,7 @@ export class NodeIntegrityDetail {
       return undefined;
     }
     return new NodeIntegrityDetail(
+      NetworkScope.fromJSON(jsonObject.networkScope),
       NetworkType.fromJSON(jsonObject.networkType),
       jsonObject.expectedRouteCount,
       jsonObject.routeRefs

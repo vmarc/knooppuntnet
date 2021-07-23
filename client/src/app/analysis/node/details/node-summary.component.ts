@@ -50,15 +50,12 @@ import { List } from 'immutable';
       </p>
 
       <p *ngIf="isProposed()" class="kpn-line">
-        <mat-icon svgIcon="warning"></mat-icon>
-        <span class="warning" i18n="@@node.proposed">Proposed</span>
-      </p>
-
-      <p *ngIf="isProposed()">
-        <markdown i18n="@@node.proposed.explanation">
-          This network node is assumed to still be in a planning phase and likely not signposted in the field.
+        <mat-icon svgIcon="warning" style="min-width: 24px"></mat-icon>
+        <markdown i18n="@@node.proposed">
+          Proposed: this network node is assumed to still be in a planning phase and likely not signposted in the field.
         </markdown>
       </p>
+
     </div>
   `,
   styles: [

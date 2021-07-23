@@ -28,18 +28,6 @@ import { RouteInfo } from '@api/common/route/route-info';
         <kpn-country-name [country]="route.summary.country"></kpn-country-name>
       </p>
 
-      <p *ngIf="isProposed()" class="kpn-line">
-        <mat-icon svgIcon="warning"></mat-icon>
-        <span class="warning" i18n="@@route.proposed">Proposed</span>
-      </p>
-
-      <p *ngIf="isProposed()">
-        <markdown i18n="@@route.proposed.explanation">
-          This route has _"state=proposed"_. The route is assumed to still be in
-          a planning phase and likely not signposted in the field.
-        </markdown>
-      </p>
-
       <p *ngIf="isRouteBroken()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
         <span i18n="@@route.broken">This route seems broken.</span>
@@ -54,6 +42,17 @@ import { RouteInfo } from '@api/common/route/route-info';
 
       <p *ngIf="!route.active" class="warning" i18n="@@route.not-active">
         This route is not active anymore.
+      </p>
+
+      <p *ngIf="isProposed()" class="kpn-line">
+        <mat-icon svgIcon="warning" style="min-width: 24px"></mat-icon>
+        <markdown i18n="@@route.proposed">
+          Proposed: this route has tag _"state=proposed"_. The route is assumed to still be in
+          a planning phase and likely not signposted in the field.
+        </markdown>
+      </p>
+
+      <p *ngIf="isProposed()">
       </p>
     </div>
   `,

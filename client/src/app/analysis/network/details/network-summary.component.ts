@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
-import { NetworkDetailsPage } from '@api/common/network/network-details-page';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {NetworkDetailsPage} from '@api/common/network/network-details-page';
 
 @Component({
   selector: 'kpn-network-summary',
@@ -32,15 +32,31 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
     <p *ngIf="page.attributes.brokenRouteCount > 0" class="kpn-line">
       <mat-icon svgIcon="warning"></mat-icon>
       <span i18n="@@network-details.contains-broken-routes"
-        >This network contains broken (non-continuous) routes.</span
+      >This network contains broken (non-continuous) routes.</span
       >
     </p>
 
     <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
       This network is not active anymore.
     </p>
+
+    <p *ngIf="isProposed()" class="kpn-line">
+      <mat-icon svgIcon="warning" style="min-width: 24px"></mat-icon>
+      <markdown i18n="@@network.proposed">
+        Proposed: This network has tag _"state=proposed"_. The network is assumed to still be in
+        a planning phase and likely not signposted in the field.
+      </markdown>
+    </p>
+
+    <p *ngIf="isProposed()">
+    </p>
   `,
 })
 export class NetworkSummaryComponent {
   @Input() page: NetworkDetailsPage;
+
+  isProposed(): boolean {
+    return this.page.tags.get('state') === 'proposed';
+  }
+
 }
