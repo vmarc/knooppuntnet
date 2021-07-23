@@ -10,19 +10,15 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.common.node.NodeMapPage
 import kpn.api.common.node.NodeReferences
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Timestamp
+import kpn.api.custom.{Fact, NetworkScope, NetworkType, Timestamp}
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
-import kpn.server.repository.ChangeSetInfoRepository
-import kpn.server.repository.ChangeSetRepository
-import kpn.server.repository.NodeRepository
-import kpn.server.repository.NodeRouteRepository
+import kpn.server.repository.{ChangeSetInfoRepository, ChangeSetRepository, NodeRepository, NodeRouteRepository, RouteRepository}
 import org.springframework.stereotype.Component
 
 @Component
 class NodePageBuilderImpl(
   nodeRepository: NodeRepository,
+  routeRepository: RouteRepository,
   nodeRouteRepository: NodeRouteRepository,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository
@@ -110,16 +106,25 @@ class NodePageBuilderImpl(
 
   private def buildNodeIntegrity(nodeInfo: NodeInfo): NodeIntegrity = {
     NodeIntegrity(
-      NetworkType.all.flatMap { networkType =>
-        val tagKey = s"expected_r${networkType.letter}n_route_relations"
-        nodeInfo.tags(tagKey).map { tagValue =>
-          val expectedRouteCount: Int = tagValue.toInt
-          val routeRefs = nodeRouteRepository.nodeRouteReferences(networkType, nodeInfo.id)
-          NodeIntegrityDetail(
-            networkType,
-            expectedRouteCount,
-            routeRefs
-          )
+      NetworkScope.all.flatMap { networkScope =>
+        NetworkType.all.flatMap { networkType =>
+          val prefix = s"${networkScope.letter}${networkType.letter}n"
+          val tagKey = s"expected_${prefix}_route_relations"
+          nodeInfo.tags(tagKey).map { tagValue =>
+            val expectedRouteCount: Int = tagValue.toInt
+            val routeRefs = nodeRouteRepository.nodeRouteReferences(networkType, nodeInfo.id).filter { routeRef =>
+              routeRepository.routeWithId(routeRef.id) match {
+                case Some(routeInfo) => routeInfo.tags.has("network", prefix)
+                case None => false
+              }
+            }
+            NodeIntegrityDetail(
+              networkScope,
+              networkType,
+              expectedRouteCount,
+              routeRefs
+            )
+          }
         }
       }
     )

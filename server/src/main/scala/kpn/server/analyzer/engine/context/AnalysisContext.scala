@@ -1,16 +1,8 @@
 package kpn.server.analyzer.engine.context
 
-import kpn.api.common.data.Element
-import kpn.api.common.data.Member
-import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationMember
-import kpn.api.common.data.Tagable
-import kpn.api.common.data.raw.RawNode
-import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.NetworkType
-import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Timestamp
+import kpn.api.common.data._
+import kpn.api.common.data.raw.{RawNode, RawRelation}
+import kpn.api.custom.{NetworkType, ScopedNetworkType, Timestamp}
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 
 object AnalysisContext {
@@ -95,6 +87,15 @@ class AnalysisContext(
     }
     else {
       isNodeNetworkType(networkType, node) && hasNetworkTypeTag(node)
+    }
+  }
+
+  def isReferencedNetworkNode2(scopedNetworkType: ScopedNetworkType, node: RawNode): Boolean = {
+    if (oldTagging || beforeNetworkTypeTaggingStart) {
+      isNodeNetworkType(scopedNetworkType.networkType, node)
+    }
+    else {
+      isNodeScopedNetworkType(scopedNetworkType, node) && hasNetworkTypeTag(node)
     }
   }
 
@@ -189,6 +190,10 @@ class AnalysisContext(
     ScopedNetworkType.all.filter(_.networkType == networkType).exists { scopedNetworkType =>
       node.tags.has(scopedNetworkType.nodeTagKey) || node.tags.has(scopedNetworkType.proposedNodeTagKey)
     }
+  }
+
+  private def isNodeScopedNetworkType(scopedNetworkType: ScopedNetworkType, node: RawNode): Boolean = {
+    node.tags.has(scopedNetworkType.nodeTagKey) || node.tags.has(scopedNetworkType.proposedNodeTagKey)
   }
 
   private def isKnownNode(node: RawNode): Boolean = {

@@ -5,8 +5,8 @@ import kpn.api.custom.Fact.{RouteNodeMissingInWays, RouteRedundantNodes}
 import kpn.api.custom.{Fact, ScopedNetworkType}
 import kpn.core.util.Unique
 import kpn.server.analyzer.engine.analysis.node.{NodeAnalyzer, NodeUtil}
-import kpn.server.analyzer.engine.analysis.route.{RouteNode, RouteNodeAnalysis}
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.{RouteNode, RouteNodeAnalysis}
 
 import scala.collection.mutable.ListBuffer
 
@@ -49,7 +49,12 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     val nodes = findNodes()
 
-    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter(node => context.analysisContext.isReferencedNetworkNode(node.raw))
+    val nodesInRelation = context.loadedRoute.relation.nodeMembers.map(_.node).filter { node =>
+      context.scopedNetworkType match {
+        case Some(scopedNetworkType) => context.analysisContext.isReferencedNetworkNode2(scopedNetworkType, node.raw)
+        case None => false
+      }
+    }
 
     val nodesInWays = findNodesInWays()
 
@@ -165,7 +170,12 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private def findNodesInWays(): Seq[Node] = {
     val ways = context.loadedRoute.relation.wayMembers.map(member => member.way)
     val nodes = ways.flatMap(_.nodes)
-    nodes.filter(node => context.analysisContext.isReferencedNetworkNode(node.raw))
+    nodes.filter { node =>
+      context.scopedNetworkType match {
+        case Some(scopedNetworkType) => context.analysisContext.isReferencedNetworkNode2(scopedNetworkType, node.raw)
+        case None => false
+      }
+    }
   }
 
   private def findNodes(): Seq[Node] = {
@@ -174,7 +184,13 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
       case wayMember: WayMember => wayMember.way.nodes
       case _ => Seq()
     }
-    Unique.filter(nodes).filter(n => context.analysisContext.isReferencedNetworkNode(context.networkType, n.raw))
+    Unique.filter(nodes).filter { n =>
+      context.scopedNetworkType match {
+        case None => false
+        case Some(scopedNetworkType) =>
+          context.analysisContext.isReferencedNetworkNode2(scopedNetworkType, n.raw)
+      }
+    }
   }
 
   private def isEquivalent(nodeName1: String, nodeName2: String): Boolean = {

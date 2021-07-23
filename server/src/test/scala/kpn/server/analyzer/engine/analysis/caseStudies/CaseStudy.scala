@@ -19,10 +19,10 @@ import scala.xml.XML
 
 object CaseStudy {
 
-  def routeAnalysis(name: String): RouteAnalysis = {
+  def routeAnalysis(name: String, oldTagging: Boolean = true): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
     val (data, networkType, routeRelation) = load(filename)
-    val analysisContext = new AnalysisContext(oldTagging = true)
+    val analysisContext = new AnalysisContext(oldTagging = oldTagging)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileAnalyzer = new RouteTileAnalyzerImpl(tileCalculator)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
