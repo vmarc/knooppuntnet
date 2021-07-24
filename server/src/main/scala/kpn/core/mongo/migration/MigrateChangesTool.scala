@@ -18,6 +18,10 @@ import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetRepositoryImpl
 
+/*
+  Migrate all changes data from couchdb to mongodb.  If this tool is run
+  multiple times, it will continue where it left off the previous time.
+*/
 object MigrateChangesTool {
 
   case class SummaryViewResultRow(key: Seq[String])
@@ -26,7 +30,7 @@ object MigrateChangesTool {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { mongoDatabase =>
-      Couch.executeIn("kpn-database", "changes") { couchDatabase =>
+      Couch.executeIn("kpn-database", "attic-changes") { couchDatabase =>
         new MigrateChangesTool(couchDatabase, mongoDatabase).migrate()
       }
     }
@@ -42,7 +46,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
 
   def migrate(): Unit = {
     log.elapsedSeconds {
-      val allChanges = readChangeSetIds()
+      val allChanges = collectCouchdbChangeSetIds()
       val migratedChanges = new MongoQueryChangeSetRefs(database).execute()
       val changes = (allChanges.toSet -- migratedChanges.toSet).toSeq.sortBy(c => (c.replicationNumber, c.changeSetId))
       changes.zipWithIndex.foreach { case (changeSetId, index) =>
@@ -108,8 +112,15 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
     if (networkChanges.nonEmpty) {
       log.elapsed {
         val docs = networkChanges.map { networkChange =>
+          val migratedNetworkDataUpdate = networkChange.networkDataUpdate.map { networkDataUpdate =>
+            networkDataUpdate.copy(
+              before = networkDataUpdate.before.migrated,
+              after = networkDataUpdate.after.migrated
+            )
+          }
           networkChange.copy(
             _id = networkChange.key.toId,
+            networkDataUpdate = migratedNetworkDataUpdate,
             impact = networkChange.happy || networkChange.investigate
           )
         }
@@ -151,8 +162,8 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
     }
   }
 
-  private def readChangeSetIds(): Seq[ChangeSetRef] = {
-    log.info("Collecting changeSetIds")
+  private def collectCouchdbChangeSetIds(): Seq[ChangeSetRef] = {
+    log.info("Collect couchdb changeSetIds")
     log.elapsed {
       val query = Query(ChangeDocumentsDesign, ChangeDocumentView, classOf[MigrateChangesTool.SummaryViewResult])
         .keyStartsWith("summary")

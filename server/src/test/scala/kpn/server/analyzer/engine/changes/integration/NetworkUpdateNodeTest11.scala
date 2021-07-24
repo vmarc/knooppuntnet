@@ -10,8 +10,6 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
-import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
@@ -91,26 +89,8 @@ class NetworkUpdateNodeTest11 extends AbstractTest {
             "network-name",
             networkDataUpdate = Some(
               NetworkDataUpdate(
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("node", 1001, Some("connection"))
-                    ),
-                    tags = newNetworkTags("network-name")
-                  ),
-                  "network-name"
-                ),
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("node", 1001, None)
-                    ),
-                    tags = newNetworkTags("network-name")
-                  ),
-                  "network-name"
-                )
+                newNetworkData(name = "network-name"),
+                newNetworkData(name = "network-name")
               )
             ),
             networkNodes = RefDiffs(

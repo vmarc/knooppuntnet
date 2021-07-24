@@ -14,6 +14,7 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.data.raw.RawMember
@@ -21,6 +22,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.RouteData
@@ -1025,5 +1027,14 @@ trait SharedTestObjects extends MockFactory {
       longName,
       proposed
     )
+  }
+
+  def newNetworkData(
+    version: Int = 1,
+    timestamp: Timestamp = defaultTimestamp,
+    changeSetId: Long = 1,
+    name: String
+  ): NetworkData = {
+    NetworkData(MetaData(version, timestamp, changeSetId), name)
   }
 }

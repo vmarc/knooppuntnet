@@ -101,26 +101,8 @@ class NetworkUpdate_Test01 extends AbstractTest {
             "name",
             networkDataUpdate = Some(
               NetworkDataUpdate(
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("relation", 11, None)
-                    ),
-                    tags = newNetworkTags()
-                  ),
-                  "name"
-                ),
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("relation", 11, None)
-                    ),
-                    tags = newNetworkTags()
-                  ),
-                  "name"
-                )
+                newNetworkData(name = "name"),
+                newNetworkData(name = "name")
               )
             ),
             networkNodes = RefDiffs(

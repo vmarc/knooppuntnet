@@ -16,7 +16,6 @@ import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.Both
@@ -259,29 +258,8 @@ class NetworkUpdateRouteTest01 extends AbstractTest {
             ),
             networkDataUpdate = Some(
               NetworkDataUpdate(
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("node", 1001, None),
-                      RawMember("node", 1002, None),
-                      RawMember("relation", 11, None)
-                    ),
-                    tags = Tags.from("network" -> "rwn", "type" -> "network", "name" -> "name", "network:type" -> "node_network")
-                  ),
-                  "name"
-                ),
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("node", 1001, None),
-                      RawMember("node", 1002, None)
-                    ),
-                    tags = Tags.from("network" -> "rwn", "type" -> "network", "name" -> "name", "network:type" -> "node_network")
-                  ),
-                  "name"
-                )
+                newNetworkData(name = "name"),
+                newNetworkData(name = "name")
               )
             ),
             networkNodes = RefDiffs(

@@ -13,7 +13,6 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.RouteInfo
@@ -76,14 +75,14 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
       case Some(elementIds) =>
 
         elementIds.relationIds should contain(11)
-        elementIds.relationIds should not contain (12)
+        elementIds.relationIds should not contain 12
 
         elementIds.wayIds should contain(101)
-        elementIds.wayIds should not contain (102)
+        elementIds.wayIds should not contain 102
 
         elementIds.nodeIds should contain(1001)
         elementIds.nodeIds should contain(1002)
-        elementIds.nodeIds should not contain (1003)
+        elementIds.nodeIds should not contain 1003
     }
 
     (tc.analysisRepository.saveNetwork _).verify(*).once()
@@ -134,7 +133,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
               NodeName(
                 NetworkType.hiking,
                 NetworkScope.regional,
-                "03",None,
+                "03", None,
                 proposed = false
               )
             ),
@@ -191,27 +190,8 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
             "name",
             networkDataUpdate = Some(
               NetworkDataUpdate(
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("relation", 11, None),
-                      RawMember("relation", 12, None)
-                    ),
-                    tags = newNetworkTags()
-                  ),
-                  "name"
-                ),
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("relation", 11, None)
-                    ),
-                    tags = newNetworkTags()
-                  ),
-                  "name"
-                )
+                newNetworkData(name = "name"),
+                newNetworkData(name = "name")
               )
             ),
             networkNodes = RefDiffs(

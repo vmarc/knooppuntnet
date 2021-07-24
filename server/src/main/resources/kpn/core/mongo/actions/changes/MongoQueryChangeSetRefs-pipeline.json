@@ -5,11 +5,5 @@
       "replicationNumber": "$key.replicationNumber",
       "changeSetId": "$key.changeSetId"
     }
-  },
-  {
-    "$sort": {
-      "replicationNumber": 1,
-      "changeSetId": 1
-    }
   }
 ]

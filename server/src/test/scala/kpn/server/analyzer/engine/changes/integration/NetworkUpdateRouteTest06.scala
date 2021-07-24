@@ -10,7 +10,6 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
@@ -136,29 +135,8 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
             "name",
             networkDataUpdate = Some(
               NetworkDataUpdate(
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("node", 1001, None),
-                      RawMember("node", 1002, None)
-                    ),
-                    tags = newNetworkTags()
-                  ),
-                  "name"
-                ),
-                NetworkData(
-                  newRawRelation(
-                    1,
-                    members = Seq(
-                      RawMember("node", 1001, None),
-                      RawMember("node", 1002, None),
-                      RawMember("relation", 11, None)
-                    ),
-                    tags = newNetworkTags()
-                  ),
-                  "name"
-                )
+                newNetworkData(name = "name"),
+                newNetworkData(name = "name")
               )
             ),
             networkNodes = RefDiffs(

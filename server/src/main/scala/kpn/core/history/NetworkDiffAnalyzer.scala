@@ -52,8 +52,8 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
     // TODO CHANGE add diffs at network level - this should include a diff object if just member sorting order was changed
 
     if (before.networkRelation != after.networkRelation) {
-      val networkDataBefore = NetworkData(before.networkRelation.raw, before.network.name)
-      val networkDataAfter = NetworkData(after.networkRelation.raw, after.network.name)
+      val networkDataBefore = NetworkData(before.networkRelation.raw.toMeta, before.network.name)
+      val networkDataAfter = NetworkData(after.networkRelation.raw.toMeta, after.network.name)
       Some(NetworkDataUpdate(networkDataBefore, networkDataAfter))
     }
     else {
@@ -142,8 +142,7 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
   }
 
   private val happy: Boolean = {
-    (networkDataUpdate.isDefined && networkDataUpdate.get.happy) ||
-      addedNetworkNodes.nonEmpty ||
+    addedNetworkNodes.nonEmpty ||
       updatedNetworkNodes.exists(_.happy) ||
       addedRoutes.nonEmpty ||
       updatedRoutes.exists(_.happy) ||
@@ -168,8 +167,7 @@ class NetworkDiffAnalyzer(before: NetworkSnapshot, after: NetworkSnapshot) {
   )
 
   private def investigate(): Boolean = {
-    (networkDataUpdate.isDefined && networkDataUpdate.get.investigate) ||
-      removedNetworkNodes.nonEmpty ||
+    removedNetworkNodes.nonEmpty ||
       removedRoutes.nonEmpty ||
       updatedRoutes.exists(_.investigate) ||
       addedNodes.nonEmpty || // no need for this, will already be reported in network facts?
