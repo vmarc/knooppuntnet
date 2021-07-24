@@ -12,6 +12,7 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RouteElements
@@ -53,6 +54,8 @@ trait Database {
   def routeChanges: DatabaseCollection[RouteChange]
 
   def nodeChanges: DatabaseCollection[NodeChange]
+
+  def changeSetComments: DatabaseCollection[ChangeSetComment]
 
   def changeSetSummaries: DatabaseCollection[ChangeSetSummary]
 

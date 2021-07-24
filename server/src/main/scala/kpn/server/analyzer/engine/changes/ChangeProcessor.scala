@@ -5,7 +5,6 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
-import kpn.server.repository.ChangeSetRepository
 import org.springframework.stereotype.Component
 
 /*

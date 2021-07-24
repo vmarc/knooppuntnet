@@ -149,7 +149,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def ids(log: Log): Seq[Long] = {
     log.debugElapsed {
       val future = collection.aggregate[Id](MongoQueryIds.pipeline.stages).toFuture()
-      val docs = Await.result(future, Duration(2, TimeUnit.MINUTES))
+      val docs = Await.result(future, Duration(10, TimeUnit.MINUTES))
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
@@ -157,7 +157,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def stringIds(log: Log): Seq[String] = {
     log.debugElapsed {
       val future = collection.aggregate[StringId](MongoQueryIds.pipeline.stages).toFuture()
-      val docs = Await.result(future, Duration(2, TimeUnit.MINUTES))
+      val docs = Await.result(future, Duration(20, TimeUnit.MINUTES))
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }

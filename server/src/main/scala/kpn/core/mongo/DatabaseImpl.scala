@@ -12,6 +12,7 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import kpn.server.analyzer.engine.changes.changes.RouteElements
@@ -73,6 +74,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def nodeChanges: DatabaseCollection[NodeChange] = {
     new DatabaseCollectionImpl(database.getCollection[NodeChange]("node-changes"))
+  }
+
+  override def changeSetComments: DatabaseCollection[ChangeSetComment] = {
+    new DatabaseCollectionImpl(database.getCollection[ChangeSetComment]("changeset-comments"))
   }
 
   override def changeSetSummaries: DatabaseCollection[ChangeSetSummary] = {

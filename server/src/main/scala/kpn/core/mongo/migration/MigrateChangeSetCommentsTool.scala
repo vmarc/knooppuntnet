@@ -8,10 +8,10 @@ import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-
+/*
+  Migrate changeset comments from couchdb to mongodb.  If this tool is run
+  multiple times, it will continue where it left off the previous time.
+*/
 object MigrateChangeSetCommentsTool {
 
   private val log = Log(classOf[MigrateChangeSetCommentsTool])
@@ -28,10 +28,12 @@ object MigrateChangeSetCommentsTool {
 
 class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mongoDatabase: Database) {
 
-  private val repo = new ChangeSetInfoRepositoryImpl(null, couchDatabase, false)
+  private val couchChangeSetInfoRepository = new ChangeSetInfoRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
-    val changeSetIds = findAllChangeSetIds()
+    val couchChangeSetIds = collectCouchChangeSetIds()
+    val migratedChangeSetIds = collectMigratedChangeSetIds()
+    val changeSetIds = (couchChangeSetIds.toSet -- migratedChangeSetIds.toSet).toSeq.sorted
     val batchSize = 250
     changeSetIds.sorted.sliding(batchSize, batchSize).zipWithIndex.foreach { case (ids, index) =>
       log.info(s"${index * batchSize}/${changeSetIds.size}")
@@ -39,11 +41,19 @@ class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mo
     }
   }
 
-  private def findAllChangeSetIds(): Seq[Long] = {
-    log.info("Find changeset ids")
+  private def collectCouchChangeSetIds(): Seq[Long] = {
+    log.info("Collect couchdb changeset ids")
     log.elapsed {
       val ids = couchDatabase.allIds().filter(_.startsWith("change-set-info:")).map(toId)
-      (s"${ids.size} changeset ids", ids)
+      (s"${ids.size} couchdb changeset ids", ids)
+    }
+  }
+
+  private def collectMigratedChangeSetIds(): Seq[Long] = {
+    log.info("Collect migrated changeset ids")
+    log.elapsed {
+      val ids = mongoDatabase.changeSetComments.ids()
+      (s"${ids.size} migrated changeset ids", ids)
     }
   }
 
@@ -52,11 +62,9 @@ class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mo
   }
 
   private def migrateChangeSets(changeSetIds: Seq[Long]): Unit = {
-    val docs = repo.all(changeSetIds)
+    val docs = couchChangeSetInfoRepository.all(changeSetIds)
     val comments = docs.map(toComment)
-    val collection = mongoDatabase.getCollection[ChangeSetComment]("changeset-comments")
-    val insertManyResultFuture = collection.insertMany(comments).toFuture()
-    Await.result(insertManyResultFuture, Duration(3, TimeUnit.MINUTES))
+    mongoDatabase.changeSetComments.insertMany(comments)
   }
 
   private def toComment(changeSetInfo: ChangeSetInfo): ChangeSetComment = {
