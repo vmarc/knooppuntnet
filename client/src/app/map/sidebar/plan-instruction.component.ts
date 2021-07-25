@@ -8,7 +8,12 @@ import { PlanInstruction } from '../planner/plan/plan-instruction';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="instruction.node" class="node">
-      <div class="node-number">{{ instruction.node }}</div>
+      <div *ngIf="instruction.node.length <= 3" class="node-number">
+        {{ instruction.node }}
+      </div>
+      <div *ngIf="instruction.node.length > 3" class="node-number-long">
+        {{ instruction.node }}
+      </div>
     </div>
     <div *ngIf="instruction.colour" class="colour">
       {{ translate('follow-colour') }}
@@ -77,6 +82,16 @@ import { PlanInstruction } from '../planner/plan/plan-instruction';
         font-weight: 800;
         line-height: 40px;
         text-align: center;
+        vertical-align: middle;
+        color: #666666;
+      }
+
+      .node-number-long {
+        width: 250px;
+        margin-left: 55px;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 40px;
         vertical-align: middle;
         color: #666666;
       }

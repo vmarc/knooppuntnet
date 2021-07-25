@@ -13,7 +13,7 @@ export const nameStyle = (): Style =>
       text: '',
       textAlign: 'center',
       textBaseline: 'middle',
-      offsetY: 0,
+      offsetY: 28,
       font: '14px Arial, Verdana, Helvetica, sans-serif',
       fill: new Fill({
         color: 'blue',

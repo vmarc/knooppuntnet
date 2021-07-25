@@ -8,7 +8,10 @@ import { PlanRoute } from '@api/common/planner/plan-route';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="plan.sourceNode !== null" class="node user-selected">
-      <div class="text">
+      <div *ngIf="plan.sourceNode.nodeName.length <= 3" class="text">
+        {{ plan.sourceNode.nodeName }}
+      </div>
+      <div *ngIf="plan.sourceNode.nodeName.length > 3" class="text-long">
         {{ plan.sourceNode.nodeName }}
       </div>
     </div>
@@ -17,7 +20,10 @@ import { PlanRoute } from '@api/common/planner/plan-route';
       <div *ngIf="leg.routes.isEmpty()">
         <div class="leg">Calculating...</div>
         <div class="node">
-          <div class="text">
+          <div *ngIf="leg.sinkNode.nodeName.length <= 3" class="text">
+            {{ leg.sinkNode.nodeName }}
+          </div>
+          <div *ngIf="leg.sinkNode.nodeName.length > 3" class="text-long">
             {{ leg.sinkNode.nodeName }}
           </div>
         </div>
@@ -30,7 +36,10 @@ import { PlanRoute } from '@api/common/planner/plan-route';
           </span>
         </div>
         <div class="node" [class.server-selected]="i < leg.routes.size - 1">
-          <div class="text">
+          <div *ngIf="legRoute.sinkNode.nodeName.length <= 3" class="text">
+            {{ legRoute.sinkNode.nodeName }}
+          </div>
+          <div *ngIf="legRoute.sinkNode.nodeName.length > 3" class="text-long">
             {{ legRoute.sinkNode.nodeName }}
           </div>
         </div>
@@ -64,6 +73,12 @@ import { PlanRoute } from '@api/common/planner/plan-route';
         width: 30px;
         margin-top: 5px;
         text-align: center;
+      }
+
+      .text-long {
+        width: 260px;
+        margin-left: 40px;
+        margin-top: 5px;
       }
 
       .colour {

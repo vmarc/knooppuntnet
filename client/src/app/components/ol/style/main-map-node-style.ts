@@ -22,11 +22,17 @@ export class MainMapNodeStyle {
 
   nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
     const featureId = feature.get('id');
-    let ref = feature.get('ref');
+    const ref = feature.get('ref');
     const name = feature.get('name');
 
-    if (name && ref === 'o') {
-      ref = null;
+    let title: string;
+    let subTitle: string;
+
+    if (ref && ref !== 'o') {
+      title = ref;
+      subTitle = name;
+    } else {
+      title = name;
     }
 
     const large = zoom >= this.largeMinZoomLevel;
@@ -35,16 +41,11 @@ export class MainMapNodeStyle {
     if (selectedStyle) {
       styles.push(selectedStyle);
     }
-    const style = this.determineNodeMainStyle(feature, large, ref);
+    const style = this.determineNodeMainStyle(feature, large, title);
     styles.push(style);
 
-    if (large && name) {
-      let offsetY = 0;
-      if (ref) {
-        offsetY = 18;
-      }
-      this.nameStyle.getText().setText(name);
-      this.nameStyle.getText().setOffsetY(offsetY);
+    if (large && subTitle) {
+      this.nameStyle.getText().setText(subTitle);
       styles.push(this.nameStyle);
     }
 
@@ -70,18 +71,18 @@ export class MainMapNodeStyle {
   private determineNodeMainStyle(
     feature: FeatureLike,
     large: boolean,
-    ref: string
+    title: string
   ): Style {
     let style: Style;
-    if (large && '*' !== ref) {
-      style = this.determineLargeNodeStyle(feature, ref);
+    if (large && '*' !== title) {
+      style = this.determineLargeNodeStyle(feature, title);
     } else {
       style = this.determineSmallNodeStyle(feature);
     }
     return style;
   }
 
-  private determineLargeNodeStyle(feature: FeatureLike, ref: string): Style {
+  private determineLargeNodeStyle(feature: FeatureLike, title: string): Style {
     const proposed = feature.get('proposed') === 'true';
 
     let style = NodeStyle.largeGray;
@@ -163,7 +164,7 @@ export class MainMapNodeStyle {
       }
     }
 
-    style.getText().setText(ref);
+    style.getText().setText(title);
     return style;
   }
 

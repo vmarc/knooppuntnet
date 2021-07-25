@@ -20,26 +20,27 @@ export class NodeMapStyle {
         const layer = feature.get('layer');
         if (layer.includes('node')) {
           if (zoom >= 13) {
-            let ref = feature.get('ref');
+            const ref = feature.get('ref');
             const name = feature.get('name');
 
-            if (name && ref === 'o') {
-              ref = null;
+            let title: string;
+            let subTitle: string;
+
+            if (ref && ref !== 'o') {
+              title = ref;
+              subTitle = name;
+            } else {
+              title = name;
             }
 
             const style = proposed
               ? NodeStyle.proposedLargeGreen
               : NodeStyle.largeGreen;
 
-            style.getText().setText(ref);
+            style.getText().setText(title);
 
-            if (name) {
-              let offsetY = 0;
-              if (ref) {
-                offsetY = 18;
-              }
-              this.nameStyle.getText().setText(name);
-              this.nameStyle.getText().setOffsetY(offsetY);
+            if (subTitle) {
+              this.nameStyle.getText().setText(subTitle);
               return [style, this.nameStyle];
             }
             return style;
