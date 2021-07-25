@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.core.util.Haversine
@@ -41,12 +40,4 @@ case class Fragment(
 
   def meters: Long = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
 
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("id", id).
-    field("start", start).
-    field("end", end).
-    field("way", way).
-    field("nodeSubset", nodeSubset).
-    field("role", role).
-    build
 }

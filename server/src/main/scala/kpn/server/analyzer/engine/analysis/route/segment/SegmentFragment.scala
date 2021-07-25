@@ -1,20 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Node
 
 /**
-  * A route fragment with an indication of the direction that the route travels through the fragment way.
-  *
-  * @param fragment the route fragment
-  * @param reversed true if the route direction is the opposite of the fragment way direction
-  */
+ * A route fragment with an indication of the direction that the route travels through the fragment way.
+ *
+ * @param fragment the route fragment
+ * @param reversed true if the route direction is the opposite of the fragment way direction
+ */
 case class SegmentFragment(fragment: Fragment, reversed: Boolean = false) {
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("fragment", fragment).
-    field("reversed", reversed).
-    build
 
   def startNode: Node = {
     if (reversed) {

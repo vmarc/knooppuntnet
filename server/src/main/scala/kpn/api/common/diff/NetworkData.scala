@@ -1,6 +1,5 @@
 package kpn.api.common.diff
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawRelation
 
@@ -49,10 +48,4 @@ case class NetworkData(
         )
     }
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("relation", relation).
-    field("metaData", metaData).
-    field("name", name).
-    build
 }

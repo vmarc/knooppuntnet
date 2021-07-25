@@ -1,6 +1,5 @@
 package kpn.core.tools.typescript
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.raw.RawNode
 import org.apache.commons.io.FileUtils
 
@@ -23,7 +22,6 @@ class TypescriptTool() {
 
   val ignoredClasses: Seq[String] = Seq(
     // following classes have been manually changed in Typescript after changing List to Array, enable again when switching to interfaces
-    classOf[ToStringBuilder].getSimpleName, // TODO should this be in the api ???
   )
 
   def generate(): Unit = {

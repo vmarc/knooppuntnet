@@ -1,6 +1,5 @@
 package kpn.api.common
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.diff.RefDiffs
 
 object ChangeSetElementRefs {
@@ -32,10 +31,4 @@ case class ChangeSetElementRefs(
       updated.map(_.toRef)
     )
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    optionalCollection("removed", removed).
-    optionalCollection("added", added).
-    optionalCollection("updated", updated).
-    build
 }

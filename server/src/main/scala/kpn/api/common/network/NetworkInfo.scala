@@ -1,7 +1,6 @@
 package kpn.api.common.network
 
 import kpn.api.base.WithId
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 
@@ -54,18 +53,6 @@ case class NetworkInfo(
   def factCount: Int = {
     facts.size + networkFactCount + nodeFactCount + routeFactCount
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("_id", _id).
-    field("attributes", attributes).
-    field("active", active).
-    field("nodeRefs", nodeRefs).
-    field("routeRefs", routeRefs).
-    field("networkRefs", networkRefs).
-    field("facts", facts).
-    field("tags", tags).
-    field("detail", detail).
-    build
 
   private def hasNodeFacts: Boolean = {
     detail match {

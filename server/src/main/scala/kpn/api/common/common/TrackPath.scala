@@ -9,15 +9,6 @@ case class TrackPath(
   segments: Seq[TrackSegment]
 ) {
 
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("pathId", pathId).
-    field("startNodeId", startNodeId).
-    field("endNodeId", endNodeId).
-    field("meters", meters).
-    field("oneWay", oneWay).
-    field("segments", segments).
-    build
-
   def trackPoints: Seq[TrackPoint] = {
     segments.headOption match {
       case None => Seq.empty

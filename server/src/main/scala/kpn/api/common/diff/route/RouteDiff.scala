@@ -1,7 +1,6 @@
 package kpn.api.common.diff.route
 
 import kpn.api.common.common.ReferencedElements
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 
@@ -31,12 +30,4 @@ case class RouteDiff(
     ReferencedElements.merge(nodeDiffs.map(_.referencedElements): _*)
   }
 
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("nameDiff", nameDiff).
-    field("roleDiff", roleDiff).
-    field("factDiffs", factDiffs).
-    field("nodeDiffs", nodeDiffs).
-    field("memberOrderChanged", memberOrderChanged).
-    field("tagDiffs", tagDiffs).
-    build
 }

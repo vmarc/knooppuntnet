@@ -1,7 +1,6 @@
 package kpn.api.common.route
 
 import kpn.api.common.common.MapBounds
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
@@ -54,22 +53,4 @@ case class RouteMap(
         }
     }
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("bounds", bounds).
-    field("forwardPath", forwardPath).
-    field("backwardPath", backwardPath).
-    field("unusedSegments", unusedSegments).
-    field("startTentaclePaths", startTentaclePaths).
-    field("endTentaclePaths", endTentaclePaths).
-    field("forwardBreakPoint", forwardBreakPoint).
-    field("backwardBreakPoint", backwardBreakPoint).
-    field("startNodes", startNodes).
-    field("endNodes", endNodes).
-    field("startTentacleNodes", startTentacleNodes).
-    field("endTentacleNodes", endTentacleNodes).
-    field("redundantNodes", redundantNodes).
-    field("streets", streets).
-    build
-
 }

@@ -1,7 +1,6 @@
 package kpn.api.common.network
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
@@ -49,23 +48,4 @@ case class NetworkAttributes(
 
   def veryHappy: Boolean = percentageOk > 99.9
 
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("id", id).
-    field("country", country).
-    field("networkType", networkType).
-    field("networkScope", networkScope).
-    field("name", name).
-    field("km", km).
-    field("meters", meters).
-    field("nodeCount", nodeCount).
-    field("routeCount", routeCount).
-    field("brokenRouteCount", brokenRouteCount).
-    field("brokenRoutePercentage", brokenRoutePercentage).
-    field("integrity", integrity).
-    field("unaccessibleRouteCount", unaccessibleRouteCount).
-    field("connectionCount", connectionCount).
-    field("lastUpdated", lastUpdated).
-    field("relationLastUpdated", relationLastUpdated).
-    field("center", center).
-    build
 }

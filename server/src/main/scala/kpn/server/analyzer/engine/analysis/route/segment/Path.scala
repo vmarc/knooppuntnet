@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.common.TrackPoint
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 
@@ -25,15 +24,5 @@ case class Path(
   def trackPoints: Seq[TrackPoint] = {
     segments.flatMap(_.nodes).map(node => TrackPoint(node.latitude, node.longitude))
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("start", start).
-    field("end", end).
-    field("startNodeId", startNodeId).
-    field("endNodeId", endNodeId).
-    field("segments", segments).
-    field("oneWay", oneWay).
-    field("broken", broken).
-    build
 
 }

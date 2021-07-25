@@ -3,7 +3,6 @@ package kpn.api.common.route
 import kpn.api.base.WithId
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -32,17 +31,4 @@ case class RouteInfo(
 
   def toRef: Ref = Ref(summary.id, summary.name)
 
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("_id", _id).
-    field("summary", summary).
-    field("active", active).
-    field("orphan", orphan).
-    field("proposed", proposed).
-    field("version", version).
-    field("changeSetId", changeSetId).
-    field("lastUpdated", lastUpdated).
-    field("tags", tags).
-    field("facts", facts).
-    field("analysis", analysis).
-    build
 }

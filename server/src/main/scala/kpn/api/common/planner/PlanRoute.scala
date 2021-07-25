@@ -1,7 +1,5 @@
 package kpn.api.common.planner
 
-import kpn.api.common.common.ToStringBuilder
-
 case class PlanRoute(
   sourceNode: PlanNode,
   sinkNode: PlanNode,
@@ -49,13 +47,4 @@ case class PlanRoute(
       )
     }
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("sourceNode", sourceNode).
-    field("sinkNode", sinkNode).
-    field("meters", meters).
-    field("segments", segments).
-    field("streets", streets).
-    build
-
 }

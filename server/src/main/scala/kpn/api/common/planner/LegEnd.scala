@@ -1,6 +1,5 @@
 package kpn.api.common.planner
 
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.common.TrackPathKey
 
 object LegEnd {
@@ -98,10 +97,4 @@ case class LegEnd(
         }
     }
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("node", node).
-    field("route", route).
-    build
-
 }

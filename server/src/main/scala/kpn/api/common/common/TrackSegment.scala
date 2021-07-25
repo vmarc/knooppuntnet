@@ -8,10 +8,4 @@ case class TrackSegment(
 
   def trackPoints: Seq[TrackPoint] = source +: fragments.map(_.trackPoint)
 
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("surface", surface).
-    field("source", source).
-    field("fragments", fragments).
-    build
-
 }

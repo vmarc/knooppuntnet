@@ -1,7 +1,6 @@
 package kpn.api.common.diff
 
 import kpn.api.common.common.Ref
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
@@ -32,16 +31,4 @@ case class RouteData(
 
   def subset: Option[Subset] = country.flatMap(c => Subset.of(c, networkType))
 
-  override def toString: String = ToStringBuilder("RouteData").
-    field("country", country).
-    field("networkType", networkType).
-    field("networkScope", networkScope).
-    field("relation", relation).
-    field("name", name).
-    field("networkNodes", networkNodes).
-    field("nodes", nodes).
-    field("ways", ways).
-    field("relations", relations).
-    field("facts", facts).
-    build
 }

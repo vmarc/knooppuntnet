@@ -4,7 +4,6 @@ import kpn.api.base.WithStringId
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.raw.RawWay
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.WayUpdate
@@ -62,25 +61,4 @@ case class RouteChange(
   private def nodeIdsReferencedIn(routeData: Option[RouteData]): Set[Long] = {
     routeData.toSeq.flatMap(_.networkNodes.map(_.id)).toSet
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("_id", _id).
-    field("key", key).
-    field("changeType", changeType).
-    field("name", name).
-    field("locationAnalysis", locationAnalysis).
-    field("addedToNetwork", addedToNetwork).
-    field("removedFromNetwork", removedFromNetwork).
-    field("before", before).
-    field("after", after).
-    field("removedWays", removedWays).
-    field("addedWays", addedWays).
-    field("updatedWays", updatedWays).
-    field("diffs", diffs).
-    field("facts", facts).
-    field("happy", happy).
-    field("investigate", investigate).
-    field("locationHappy", locationHappy).
-    field("locationInvestigate", locationInvestigate).
-    build
 }

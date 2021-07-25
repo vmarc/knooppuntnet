@@ -2,9 +2,7 @@ package kpn.api.common
 
 import kpn.api.base.WithId
 import kpn.api.common.common.Reference
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.Tagable
-import kpn.api.common.location.Location
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
 import kpn.api.custom.Day
@@ -60,23 +58,4 @@ case class NodeInfo(
       case None => Seq.empty
     }
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("_id", _id).
-    field("id", id).
-    field("labels", labels).
-    field("active", active).
-    field("orphan", orphan).
-    field("country", country).
-    field("name", name).
-    field("names", names).
-    field("latitude", latitude).
-    field("longitude", longitude).
-    field("lastUpdated", lastUpdated).
-    field("tags", tags).
-    field("facts", facts).
-    field("tiles", tiles).
-    field("integrity", integrity).
-    field("routeReferences", routeReferences).
-    build
 }

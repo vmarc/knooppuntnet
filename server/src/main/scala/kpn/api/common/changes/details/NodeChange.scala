@@ -2,7 +2,6 @@ package kpn.api.common.changes.details
 
 import kpn.api.base.WithStringId
 import kpn.api.common.common.Ref
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
@@ -61,31 +60,4 @@ case class NodeChange(
   }
 
   def toRef: Ref = Ref(id, name)
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("_id", _id).
-    field("key", key).
-    field("changeType", changeType).
-    field("subsets", subsets).
-    field("name", name).
-    field("before", before).
-    field("after", after).
-    field("connectionChanges", connectionChanges).
-    field("roleConnectionChanges", roleConnectionChanges).
-    field("definedInNetworkChanges", definedInNetworkChanges).
-    field("tagDiffs", tagDiffs).
-    field("nodeMoved", nodeMoved).
-    field("addedToRoute", addedToRoute).
-    field("removedFromRoute", removedFromRoute).
-    field("addedToNetwork", addedToNetwork).
-    field("removedFromNetwork", removedFromNetwork).
-    field("factDiffs", factDiffs).
-    field("facts", facts).
-    field("happy", happy).
-    field("impact", impact).
-    field("investigate", investigate).
-    field("locationHappy", locationHappy).
-    field("locationInvestigate", locationInvestigate).
-    field("locationImpact", locationImpact).
-    build
 }

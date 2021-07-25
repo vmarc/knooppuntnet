@@ -2,7 +2,6 @@ package kpn.api.common.changes.details
 
 import kpn.api.base.WithStringId
 import kpn.api.common.common.ReferencedElements
-import kpn.api.common.common.ToStringBuilder
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
@@ -49,25 +48,4 @@ case class NetworkChange(
 
     ReferencedElements(nodeIds, routeIds)
   }
-
-  override def toString: String = ToStringBuilder(this.getClass.getSimpleName).
-    field("_id", _id).
-    field("key", key).
-    field("changeType", changeType).
-    field("orphanRoutes", orphanRoutes).
-    field("orphanNodes", orphanNodes).
-    field("country", country).
-    field("networkType", networkType).
-    field("networkId", networkId).
-    field("networkName", networkName).
-    field("networkDataUpdate", networkDataUpdate).
-    field("networkNodes", networkNodes).
-    field("routes", routes).
-    field("nodes", nodes).
-    field("ways", ways).
-    field("relations", relations).
-    field("happy", happy).
-    field("investigate", investigate).
-    field("impact", impact).
-    build
 }
