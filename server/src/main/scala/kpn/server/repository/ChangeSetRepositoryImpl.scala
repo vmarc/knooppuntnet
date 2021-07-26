@@ -32,7 +32,7 @@ import kpn.core.mongo.actions.nodes.MongoQueryNodeChanges
 import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCount
 import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCounts
 import kpn.core.mongo.actions.routes.MongoQueryRouteChanges
-import kpn.core.mongo.migration.MigrateMonitorTool
+import kpn.core.mongo.actions.subsets.MongoQuerySubsetChanges
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
@@ -201,7 +201,7 @@ class ChangeSetRepositoryImpl(
 
   override def changesFilter(subsetOption: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
     if (mongoEnabled) {
-      ???
+      ChangesFilter(Seq.empty) // TODO MONGO
     }
     else {
       val prefix = subsetOption match {
@@ -213,50 +213,49 @@ class ChangeSetRepositoryImpl(
   }
 
   private def changesFilter(keys: Seq[String], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
-      val yearPeriods = changesFilterPeriod(4, keys, stale)
-      if (yearPeriods.isEmpty) {
-        ChangesFilter(Seq.empty)
-      }
-      else {
-        val selectedYear = year.getOrElse(yearPeriods.head.name)
-        val modifiedYears = yearPeriods.map { yearPeriod =>
-          if (yearPeriod.name == selectedYear) {
-            val monthPeriods = changesFilterPeriod(2, keys :+ selectedYear, stale)
-            val modifiedMonthPeriods = monthPeriods.map { monthPeriod: ChangesFilterPeriod =>
-              if (month.contains(monthPeriod.name)) {
-                val dayPeriods = changesFilterPeriod(2, keys ++ Seq(selectedYear, monthPeriod.name), stale)
-                val modifiedDays = dayPeriods.map { dayPeriod =>
-                  if (day.contains(dayPeriod.name)) {
-                    dayPeriod.copy(selected = day.nonEmpty, current = day.nonEmpty)
-                  }
-                  else {
-                    dayPeriod
-                  }
+    val yearPeriods = changesFilterPeriod(4, keys, stale)
+    if (yearPeriods.isEmpty) {
+      ChangesFilter(Seq.empty)
+    }
+    else {
+      val selectedYear = year.getOrElse(yearPeriods.head.name)
+      val modifiedYears = yearPeriods.map { yearPeriod =>
+        if (yearPeriod.name == selectedYear) {
+          val monthPeriods = changesFilterPeriod(2, keys :+ selectedYear, stale)
+          val modifiedMonthPeriods = monthPeriods.map { monthPeriod: ChangesFilterPeriod =>
+            if (month.contains(monthPeriod.name)) {
+              val dayPeriods = changesFilterPeriod(2, keys ++ Seq(selectedYear, monthPeriod.name), stale)
+              val modifiedDays = dayPeriods.map { dayPeriod =>
+                if (day.contains(dayPeriod.name)) {
+                  dayPeriod.copy(selected = day.nonEmpty, current = day.nonEmpty)
                 }
-                monthPeriod.copy(selected = month.nonEmpty, periods = modifiedDays, current = month.nonEmpty && day.isEmpty)
+                else {
+                  dayPeriod
+                }
               }
-              else {
-                monthPeriod
-              }
+              monthPeriod.copy(selected = month.nonEmpty, periods = modifiedDays, current = month.nonEmpty && day.isEmpty)
             }
-            yearPeriod.copy(selected = true, periods = modifiedMonthPeriods, current = year.nonEmpty && month.isEmpty)
+            else {
+              monthPeriod
+            }
           }
-          else {
-            yearPeriod
-          }
+          yearPeriod.copy(selected = true, periods = modifiedMonthPeriods, current = year.nonEmpty && month.isEmpty)
         }
-        ChangesFilter(modifiedYears)
+        else {
+          yearPeriod
+        }
       }
+      ChangesFilter(modifiedYears)
+    }
   }
 
   private def changesFilterPeriod(suffixLength: Int, keys: Seq[String], stale: Boolean): Seq[ChangesFilterPeriod] = {
-      ChangesView.queryPeriod(changeDatabase, suffixLength, keys, stale)
+    ChangesView.queryPeriod(changeDatabase, suffixLength, keys, stale)
   }
 
   override def subsetChanges(subset: Subset, parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
     if (mongoEnabled) {
-      //new MongoQuerySubsetChanges(database).execute(subset, parameters)
-      ???
+      new MongoQuerySubsetChanges(database).execute(subset, parameters)
     }
     else {
       ChangesView.subsetChanges(changeDatabase, subset, parameters, stale)

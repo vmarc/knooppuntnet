@@ -11,7 +11,6 @@
         </Root>
         <logger name="org.mongodb" level="warn"/>
         <logger name="org.mongodb.driver.protocol.command" level="warn"/>
-        <logger name="kpn.core.mongo" level="debug"/>
-        <logger name="kpn.core.mongo.util.JacksonCodec" level="info"/>
+        <logger name="kpn.core.mongo" level="info"/>
     </Loggers>
 </Configuration>

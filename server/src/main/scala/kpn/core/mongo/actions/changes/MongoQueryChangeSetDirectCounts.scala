@@ -72,7 +72,7 @@ class MongoQueryChangeSetDirectCounts(database: Database) {
     }
 
     log.debugElapsed {
-      val future = database.changeSetSummaries.tempCollection.aggregate[ChangeSetCounts](pipeline).allowDiskUse(true).first().toFuture()
+      val future = database.changeSetSummaries.native.aggregate[ChangeSetCounts](pipeline).allowDiskUse(true).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
       val result = s"executeDirectMultiPipeline: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
       (result, counts)

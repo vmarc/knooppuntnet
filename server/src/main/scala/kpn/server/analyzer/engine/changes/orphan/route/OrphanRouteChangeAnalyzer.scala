@@ -49,7 +49,12 @@ class OrphanRouteChangeAnalyzer(
   }
 
   private def routeMap(changeSet: ChangeSet, action: Int): Map[Long, RawRelation] = {
-    changeSet.changes.filter(_.action == action).flatMap(_.elements).collect { case e: RawRelation => e }.map(n => n.id -> n).toMap
+    changeSet.changes
+      .filter(_.action == action)
+      .flatMap(_.elements)
+      .collect { case e: RawRelation => e }
+      .map(n => n.id -> n)
+      .toMap
   }
 
   private def routeRelationIds(relationsById: Map[Long, RawRelation]): Set[Long] = {

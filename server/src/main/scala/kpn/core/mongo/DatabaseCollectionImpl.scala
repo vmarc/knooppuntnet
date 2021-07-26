@@ -22,8 +22,7 @@ import scala.reflect.ClassTag
 
 class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extends DatabaseCollection[T] {
 
-  @deprecated
-  override def tempCollection: MongoCollection[T] = collection
+  override def native: MongoCollection[T] = collection
 
   override def aggregate[R: ClassTag](
     pipeline: Seq[Bson],

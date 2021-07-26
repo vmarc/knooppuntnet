@@ -42,7 +42,6 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
       .data
 
     val tc = new TestConfig()
-
     tc.relationAfter(dataAfter, 1) // new network relation
     tc.relationBefore(dataBefore, 11) // the route existed before
     tc.nodesBefore(dataBefore, 1001, 1002) // the network nodes existed before
@@ -54,6 +53,9 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
     (tc.networkRepository.save _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo.id should equal(1)
+        networkInfo.active should equal(true)
+        networkInfo.nodeRefs should equal(Seq(1001L,1002L))
+        networkInfo.routeRefs should equal(Seq(11L))
         // for remaining network structure - see NetworkAnalyzerTest
         true
       }

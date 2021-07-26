@@ -75,12 +75,23 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
   private def writeSummary(summary: ChangeSetSummary): Unit = {
     log.elapsed {
       val _id = s"${summary.key.changeSetId}:${summary.key.replicationNumber}"
-      val docs = Seq(
+
+      val migratedSummary = if (summary.key.time == null) {
+        val migratedKey = summary.key.copy(time = summary.key.timestamp.toKey)
+        summary.copy(
+          _id = _id,
+          key = migratedKey,
+          impact = summary.happy || summary.investigate
+        )
+      }
+      else {
         summary.copy(
           _id = _id,
           impact = summary.happy || summary.investigate
         )
-      )
+      }
+
+      val docs = Seq(migratedSummary)
       database.changeSetSummaries.insertMany(docs)
       ("changeSetSummary", ())
     }
@@ -97,10 +108,20 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
       else {
         val migrated = docs.map { doc =>
           val _id = s"${summary.key.changeSetId}:${summary.key.replicationNumber}"
-          doc.locationChangeSetSummary.copy(
-            _id = _id,
-            impact = doc.locationChangeSetSummary.happy || doc.locationChangeSetSummary.investigate
-          )
+          if (summary.key.time == null) {
+            val migratedKey = summary.key.copy(time = summary.key.timestamp.toKey)
+            doc.locationChangeSetSummary.copy(
+              _id = _id,
+              key = migratedKey,
+              impact = doc.locationChangeSetSummary.happy || doc.locationChangeSetSummary.investigate
+            )
+          }
+          else {
+            doc.locationChangeSetSummary.copy(
+              _id = _id,
+              impact = doc.locationChangeSetSummary.happy || doc.locationChangeSetSummary.investigate
+            )
+          }
         }
         database.locationChangeSetSummaries.insertMany(migrated)
         ("locationChangeSetSummary", ())
@@ -118,11 +139,23 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
               after = networkDataUpdate.after.migrated
             )
           }
-          networkChange.copy(
-            _id = networkChange.key.toId,
-            networkDataUpdate = migratedNetworkDataUpdate,
-            impact = networkChange.happy || networkChange.investigate
-          )
+
+          if (networkChange.key.time == null) {
+            val migratedKey = networkChange.key.copy(time = networkChange.key.timestamp.toKey)
+            networkChange.copy(
+              _id = networkChange.key.toId,
+              key = migratedKey,
+              networkDataUpdate = migratedNetworkDataUpdate,
+              impact = networkChange.happy || networkChange.investigate
+            )
+          }
+          else {
+            networkChange.copy(
+              _id = networkChange.key.toId,
+              networkDataUpdate = migratedNetworkDataUpdate,
+              impact = networkChange.happy || networkChange.investigate
+            )
+          }
         }
         database.networkChanges.insertMany(docs)
         (s"${docs.size} network changes", ())
@@ -134,11 +167,22 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
     if (routeChanges.nonEmpty) {
       log.elapsed {
         val docs = routeChanges.map { routeChange =>
-          routeChange.copy(
-            _id = routeChange.key.toId,
-            impact = routeChange.happy || routeChange.investigate,
-            locationImpact = routeChange.locationHappy || routeChange.locationInvestigate
-          )
+          if (routeChange.key.time == null) {
+            val migratedKey = routeChange.key.copy(time = routeChange.key.timestamp.toKey)
+            routeChange.copy(
+              _id = routeChange.key.toId,
+              key = migratedKey,
+              impact = routeChange.happy || routeChange.investigate,
+              locationImpact = routeChange.locationHappy || routeChange.locationInvestigate
+            )
+          }
+          else {
+            routeChange.copy(
+              _id = routeChange.key.toId,
+              impact = routeChange.happy || routeChange.investigate,
+              locationImpact = routeChange.locationHappy || routeChange.locationInvestigate
+            )
+          }
         }
         database.routeChanges.insertMany(docs)
         (s"${docs.size} route changes", ())
@@ -150,11 +194,22 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
     if (nodeChanges.nonEmpty) {
       log.elapsed {
         val docs = nodeChanges.map { nodeChange =>
-          nodeChange.copy(
-            _id = nodeChange.key.toId,
-            impact = nodeChange.happy || nodeChange.investigate,
-            locationImpact = nodeChange.locationHappy || nodeChange.locationInvestigate,
-          )
+          if (nodeChange.key.time == null) {
+            val migratedKey = nodeChange.key.copy(time = nodeChange.key.timestamp.toKey)
+            nodeChange.copy(
+              _id = nodeChange.key.toId,
+              key = migratedKey,
+              impact = nodeChange.happy || nodeChange.investigate,
+              locationImpact = nodeChange.locationHappy || nodeChange.locationInvestigate,
+            )
+          }
+          else {
+            nodeChange.copy(
+              _id = nodeChange.key.toId,
+              impact = nodeChange.happy || nodeChange.investigate,
+              locationImpact = nodeChange.locationHappy || nodeChange.locationInvestigate,
+            )
+          }
         }
         database.nodeChanges.insertMany(docs)
         (s"${docs.size} node changes", ())

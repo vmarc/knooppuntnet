@@ -15,8 +15,7 @@ object DatabaseCollection {
 
 trait DatabaseCollection[T] {
 
-  @deprecated
-  def tempCollection: MongoCollection[T]
+  def native: MongoCollection[T]
 
   def aggregate[R: ClassTag](
     pipeline: Seq[Bson],

@@ -22,10 +22,6 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-
 object MongoQueryRouteChanges {
 
   private val log = Log(classOf[MongoQueryRouteChanges])
@@ -94,9 +90,7 @@ class MongoQueryRouteChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("route-changes")
-      val future = collection.aggregate[RouteChange](pipeline).toFuture()
-      val routeChanges = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      val routeChanges = database.routeChanges.aggregate[RouteChange](pipeline)
       (s"${routeChanges.size} route changes", routeChanges)
     }
   }

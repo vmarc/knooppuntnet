@@ -20,7 +20,7 @@ object UpdateRouteNodeRefsTool {
 class UpdateRouteNodeRefsTool(database: Database) {
 
   def update(): Unit = {
-    val future = database.routes.tempCollection.find[RouteInfo](BsonDocument("""{"nodeRefs": {"$exists": false}}""")).toFuture()
+    val future = database.routes.native.find[RouteInfo](BsonDocument("""{"nodeRefs": {"$exists": false}}""")).toFuture()
     val routeInfos = Await.result(future, Duration(30, TimeUnit.SECONDS))
     routeInfos.zipWithIndex.foreach { case (routeInfo, index) =>
       println(s"${index + 1}/${routeInfos.size}")
