@@ -14,11 +14,11 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.analysis.Network
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
 
@@ -51,9 +51,9 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.analysisRepository.saveNetwork _).verify(
-      where { network: Network =>
-        network.id should equal(1)
+    (tc.networkRepository.save _).verify(
+      where { networkInfo: NetworkInfo =>
+        networkInfo.id should equal(1)
         // for remaining network structure - see NetworkAnalyzerTest
         true
       }

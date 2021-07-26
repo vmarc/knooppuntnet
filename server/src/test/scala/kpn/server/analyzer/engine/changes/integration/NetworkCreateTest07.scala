@@ -17,11 +17,11 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.analysis.Network
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
 
@@ -54,9 +54,9 @@ class NetworkCreateTest07 extends AbstractTest {
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.analysisRepository.saveNetwork _).verify(
-      where { network: Network =>
-        network.id should equal(1)
+    (tc.networkRepository.save _).verify(
+      where { networkInfo: NetworkInfo =>
+        networkInfo.id should equal(1)
         // for remaining network structure - see NetworkAnalyzerTest
         true
       }

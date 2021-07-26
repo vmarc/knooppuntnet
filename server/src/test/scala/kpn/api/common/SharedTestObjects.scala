@@ -398,7 +398,8 @@ trait SharedTestObjects extends MockFactory {
     unaccessibleRouteCount: Int = 0,
     connectionCount: Int = 0,
     lastUpdated: Timestamp = defaultTimestamp,
-    relationLastUpdated: Timestamp = defaultTimestamp
+    relationLastUpdated: Timestamp = defaultTimestamp,
+    center: Option[LatLonImpl] = None
   ): NetworkAttributes = {
     NetworkAttributes(
       id,
@@ -417,7 +418,7 @@ trait SharedTestObjects extends MockFactory {
       connectionCount,
       lastUpdated,
       relationLastUpdated,
-      None
+      center
     )
   }
 

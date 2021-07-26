@@ -34,7 +34,7 @@ class SubsetChangesPageBuilderImpl(
     val filter = changeSetRepository.changesFilter(Some(subset), parameters.year, parameters.month, parameters.day)
     val changeCount = filter.currentItemCount(parameters.impact)
     val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {
-      changeSetRepository.changes(parameters)
+      changeSetRepository.subsetChanges(subset, parameters)
     }
     else {
       Seq.empty

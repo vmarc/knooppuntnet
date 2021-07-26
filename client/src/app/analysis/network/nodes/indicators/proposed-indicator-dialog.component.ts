@@ -23,8 +23,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
         *ngIf="isBlue()"
         i18n="@@proposed-indicator.blue.text"
       >
-        This node has _"state=proposed"_. The node is assumed to still be in a
-        planning phase and likely not signposted in the field.
+        This node is _"proposed"_. The node has lifecycle prefix "proposed:" in
+        the tag that makes it a network node, or has has tag _"state=proposed"_.
+        The node is assumed to still be in a planning phase and likely not
+        signposted in the field.
       </markdown>
 
       <span

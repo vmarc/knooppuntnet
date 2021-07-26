@@ -15,13 +15,13 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawWay
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.analysis.Network
 import kpn.core.test.TestData2
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
@@ -63,9 +63,9 @@ class NetworkCreateTest02 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002))
 
-    (tc.analysisRepository.saveNetwork _).verify(
-      where { network: Network =>
-        network.id should equal(1)
+    (tc.networkRepository.save _).verify(
+      where { networkInfo: NetworkInfo =>
+        networkInfo.id should equal(1)
         // for remaining network structure - see NetworkAnalyzerTest
         true
       }

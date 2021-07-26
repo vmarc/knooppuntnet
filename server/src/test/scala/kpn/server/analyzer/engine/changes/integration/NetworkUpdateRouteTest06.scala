@@ -83,10 +83,9 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
     assert(tc.analysisContext.data.networks.watched.isReferencingRelation(11))
     assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
 
-    (tc.analysisRepository.saveNetwork _).verify(*).once()
-    // TODO MONGO dit gaat niet meer kloppen -> wel gesaved via routeRepository en nodeRepository
-    (tc.routeRepository.save _).verify(*).never() // route saved via saveNetwork
-    (tc.nodeRepository.save _).verify(*).never() // nodes saved via saveNetwork
+    (tc.networkRepository.save _).verify(*).once()
+    (tc.routeRepository.save _).verify(*).once()
+    (tc.nodeRepository.save _).verify(*).never()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

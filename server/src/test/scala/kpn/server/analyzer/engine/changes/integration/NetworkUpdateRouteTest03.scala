@@ -15,6 +15,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -85,36 +86,24 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
         elementIds.nodeIds should not contain 1003
     }
 
-    (tc.analysisRepository.saveNetwork _).verify(*).once()
-
-    (tc.routeRepository.save _).verify(
-      where { routeInfo: RouteInfo =>
-        routeInfo should matchTo(
-          newRouteInfo(
-            newRouteSummary(
-              12,
-              Some(Country.nl),
-              NetworkType.hiking,
-              name = "02-03",
-              wayCount = 1,
-              nodeNames = Seq("02", "03"),
-              tags = newRouteTags("02-03")
-            ),
-            labels = Seq(
-              "active",
-              "network-type-hiking"
-            ),
-            active = false,
-            tags = newRouteTags("02-03"),
-            nodeRefs = Seq(
-              1002,
-              1003
-            )
-          )
-        )
+    (tc.networkRepository.save _).verify(
+      where { networkInfo: NetworkInfo =>
+        networkInfo.routeRefs should equal(Seq(11L))
         true
       }
     )
+
+    (tc.routeRepository.save _).verify(
+      where { routeInfo: RouteInfo =>
+        if (routeInfo.id == 11) {
+          routeInfo.active should equal(true)
+        }
+        if (routeInfo.id == 12) {
+          routeInfo.active should equal(false)
+        }
+        true
+      }
+    ).repeat(2)
 
     (tc.nodeRepository.save _).verify(
       where { nodeInfo: NodeInfo =>

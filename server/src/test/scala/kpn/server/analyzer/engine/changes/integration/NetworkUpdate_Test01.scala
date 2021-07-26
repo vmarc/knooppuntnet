@@ -12,7 +12,6 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.RefDiffs
@@ -57,7 +56,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
     tc.process(ChangeAction.Modify, node(dataAfter, 1002))
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
-    (tc.analysisRepository.saveNetwork _).verify(*).once()
+    (tc.networkRepository.save _).verify(*).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

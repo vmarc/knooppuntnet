@@ -83,6 +83,7 @@ import kpn.server.analyzer.load.RouteLoaderImpl
 import kpn.server.analyzer.load.RoutesLoaderSyncImpl
 import kpn.server.analyzer.load.data.RawDataSplitter
 import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.BlackListRepository
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
@@ -115,7 +116,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
-    val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val changeSetRepository: ChangeSetRepository = stub[ChangeSetRepository]
     val nodeRepository: NodeRepository = stub[NodeRepository]
     (nodeRepository.nodeRouteReferences _).when(*, *).returns(Seq.empty)
@@ -177,6 +177,15 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         new NodeRouteReferencesAnalyzerNoop
       )
     }
+
+    val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
+      null,
+      networkRepository,
+      routeRepository,
+      nodeRepository,
+      relationAnalyzer,
+      nodeAnalyzer
+    )
 
     private val nodeChangeBuilder: NodeChangeBuilder = new NodeChangeBuilderImpl(
       analysisContext,

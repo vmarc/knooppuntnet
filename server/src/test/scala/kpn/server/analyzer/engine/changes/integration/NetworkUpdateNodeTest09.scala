@@ -63,7 +63,7 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
     assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002))
 
-    (tc.analysisRepository.saveNetwork _).verify(*).once()
+    (tc.networkRepository.save _).verify(*).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

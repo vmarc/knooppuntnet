@@ -1,11 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.core.analysis.Network
-import kpn.core.test.TestData
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
@@ -19,6 +13,12 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.network.NetworkInfo
+import kpn.api.custom.Country
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.core.test.TestData
+import kpn.core.test.TestData2
 
 class NetworkCreateTest04 extends AbstractTest {
 
@@ -50,10 +50,10 @@ class NetworkCreateTest04 extends AbstractTest {
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.analysisRepository.saveNetwork _).verify(
-      where { network: Network =>
-        network.id should equal(1)
-        network.facts should matchTo(
+    (tc.networkRepository.save _).verify(
+      where { networkInfo: NetworkInfo =>
+        networkInfo.id should equal(1)
+        networkInfo.detail.get.networkFacts should matchTo(
           NetworkFacts(
             networkExtraMemberWay = Some(
               Seq(
