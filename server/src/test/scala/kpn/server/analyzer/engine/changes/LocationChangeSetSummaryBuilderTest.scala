@@ -17,7 +17,7 @@ import kpn.core.TestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 
 class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
@@ -25,7 +25,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     val changes = ChangeSetChanges(
       routeChanges = Seq(
-        RouteChangeAnalyzer.analyzed(
+        RouteChangeStateAnalyzer.analyzed(
           newRouteChange(
             key = newChangeKey(elementId = 11),
             changeType = ChangeType.Delete,
@@ -43,7 +43,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             )
           )
         ),
-        RouteChangeAnalyzer.analyzed(
+        RouteChangeStateAnalyzer.analyzed(
           newRouteChange(
             key = newChangeKey(elementId = 12),
             changeType = ChangeType.Create,
@@ -61,7 +61,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             )
           )
         ),
-        RouteChangeAnalyzer.analyzed(
+        RouteChangeStateAnalyzer.analyzed(
           newRouteChange(
             key = newChangeKey(elementId = 13),
             changeType = ChangeType.Update,

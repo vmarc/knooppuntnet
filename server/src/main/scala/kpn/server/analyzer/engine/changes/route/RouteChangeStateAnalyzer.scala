@@ -4,13 +4,13 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.custom.Fact
 
-object RouteChangeAnalyzer {
+object RouteChangeStateAnalyzer {
   def analyzed(routeChange: RouteChange): RouteChange = {
-    new RouteChangeAnalyzer(routeChange).analyzed()
+    new RouteChangeStateAnalyzer(routeChange).analyzed()
   }
 }
 
-class RouteChangeAnalyzer(routeChange: RouteChange) {
+class RouteChangeStateAnalyzer(routeChange: RouteChange) {
 
   def analyzed(): RouteChange = {
 

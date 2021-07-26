@@ -22,7 +22,7 @@ import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 import java.util.concurrent.CompletableFuture.allOf
@@ -249,7 +249,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
       val key = config.changeSetContext.buildChangeKey(networkMemberRoute.id)
       config.changeSetRepository.saveRouteChange(
-        RouteChangeAnalyzer.analyzed(
+        RouteChangeStateAnalyzer.analyzed(
           RouteChange(
             _id = key.toId,
             key = key,
@@ -321,7 +321,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     val key = config.changeSetContext.buildChangeKey(routeAnalysis.route.id)
     config.changeSetRepository.saveRouteChange(
-      RouteChangeAnalyzer.analyzed(
+      RouteChangeStateAnalyzer.analyzed(
         RouteChange(
           _id = key.toId,
           key = key,

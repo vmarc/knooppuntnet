@@ -12,7 +12,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.analyzer.load.RoutesLoader
@@ -72,7 +72,7 @@ class OrphanRouteChangeProcessorImpl(
 
       val key = context.buildChangeKey(routeAnalysis.id)
 
-      RouteChangeAnalyzer.analyzed(
+      RouteChangeStateAnalyzer.analyzed(
         RouteChange(
           _id = key.toId,
           key = key,
@@ -133,7 +133,7 @@ class OrphanRouteChangeProcessorImpl(
           val key = context.buildChangeKey(routeUpdate.after.id)
 
           Some(
-            RouteChangeAnalyzer.analyzed(
+            RouteChangeStateAnalyzer.analyzed(
               RouteChange(
                 _id = key.toId,
                 key = key,
@@ -188,7 +188,7 @@ class OrphanRouteChangeProcessorImpl(
           val key = context.buildChangeKey(route.id)
 
           Some(
-            RouteChangeAnalyzer.analyzed(
+            RouteChangeStateAnalyzer.analyzed(
               RouteChange(
                 _id = key.toId,
                 key = key,

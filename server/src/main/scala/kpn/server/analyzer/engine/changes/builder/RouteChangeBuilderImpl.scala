@@ -13,7 +13,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RouteElements
-import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -75,7 +75,7 @@ class RouteChangeBuilderImpl(
           tileChangeAnalyzer.analyzeRoute(analysisAfter)
 
           val key = context.changeSetContext.buildChangeKey(analysisAfter.id)
-          RouteChangeAnalyzer.analyzed(
+          RouteChangeStateAnalyzer.analyzed(
             RouteChange(
               _id = key.toId,
               key = key,
@@ -101,7 +101,7 @@ class RouteChangeBuilderImpl(
           tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
           val key = context.changeSetContext.buildChangeKey(routeId)
-          RouteChangeAnalyzer.analyzed(
+          RouteChangeStateAnalyzer.analyzed(
             RouteChange(
               _id = key.toId,
               key = key,
@@ -171,7 +171,7 @@ class RouteChangeBuilderImpl(
 
           val key = context.changeSetContext.buildChangeKey(routeId)
           Some(
-            RouteChangeAnalyzer.analyzed(
+            RouteChangeStateAnalyzer.analyzed(
               RouteChange(
                 _id = key.toId,
                 key = key,
@@ -207,7 +207,7 @@ class RouteChangeBuilderImpl(
     if (analysisContext.data.networks.isReferencingRelation(routeId)) {
       val key = context.changeSetContext.buildChangeKey(routeId)
       Some(
-        RouteChangeAnalyzer.analyzed(
+        RouteChangeStateAnalyzer.analyzed(
           RouteChange(
             _id = key.toId,
             key = key,
@@ -256,7 +256,7 @@ class RouteChangeBuilderImpl(
 
       val key = context.changeSetContext.buildChangeKey(routeId)
       Some(
-        RouteChangeAnalyzer.analyzed(
+        RouteChangeStateAnalyzer.analyzed(
           RouteChange(
             _id = key.toId,
             key = key,
@@ -297,7 +297,7 @@ class RouteChangeBuilderImpl(
 
           val key = context.changeSetContext.buildChangeKey(routeId)
           Some(
-            RouteChangeAnalyzer.analyzed(
+            RouteChangeStateAnalyzer.analyzed(
               RouteChange(
                 _id = key.toId,
                 key = key,
