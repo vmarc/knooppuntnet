@@ -1,7 +1,6 @@
 package kpn.core.mongo.tools.validation
 
 import kpn.core.mongo.Database
-import kpn.core.mongo.actions.base.MongoQueryIds
 
 class ValidateNetworkQueries(database: Database) {
 

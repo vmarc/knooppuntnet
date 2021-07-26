@@ -20,6 +20,20 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
     }
   }
 
+  test("stringIds") {
+    withDatabase { database =>
+      database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1001L)))
+      database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1002L)))
+      database.nodeChanges.stringIds() should equal(Seq("123:1:1001", "123:1:1002"))
+    }
+  }
+
+  test("stringIds from empty collection") {
+    withDatabase { database =>
+      database.nodeChanges.stringIds() should equal(Seq.empty)
+    }
+  }
+
   test("findById") {
     withDatabase { database =>
       val networkInfo = newNetworkInfo(newNetworkAttributes(1L))

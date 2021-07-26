@@ -2,7 +2,6 @@ package kpn.core.mongo
 
 import kpn.api.base.WithId
 import kpn.api.base.WithStringId
-import kpn.core.mongo.actions.base.MongoQueryIds
 import kpn.core.mongo.util.Id
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
@@ -12,6 +11,8 @@ import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.ReplaceOptions
 
 import java.util.concurrent.TimeUnit
@@ -148,16 +149,16 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
 
   override def ids(log: Log): Seq[Long] = {
     log.debugElapsed {
-      val future = collection.aggregate[Id](MongoQueryIds.pipeline.stages).toFuture()
-      val docs = Await.result(future, Duration(10, TimeUnit.MINUTES))
+      val future = collection.find[Id]().projection(fields(include("_id"))).toFuture()
+      val docs = Await.result(future, Duration(15, TimeUnit.MINUTES))
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
 
   override def stringIds(log: Log): Seq[String] = {
     log.debugElapsed {
-      val future = collection.aggregate[StringId](MongoQueryIds.pipeline.stages).toFuture()
-      val docs = Await.result(future, Duration(20, TimeUnit.MINUTES))
+      val future = collection.find[StringId]().projection(fields(include("_id"))).toFuture()
+      val docs = Await.result(future, Duration(15, TimeUnit.MINUTES))
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
