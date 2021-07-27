@@ -2,9 +2,7 @@ package kpn.core.mongo.actions.networks
 
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.core.database.doc.NetworkChangeDoc
 import kpn.core.mongo.Database
-import kpn.core.mongo.actions.base.TimeRange
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -16,16 +14,10 @@ import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.gt
-import org.mongodb.scala.model.Filters.lt
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
-
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 object MongoQueryNetworkChanges {
 
@@ -53,24 +45,17 @@ class MongoQueryNetworkChanges(database: Database) {
 
   def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
 
-    val timeRange = TimeRange.fromParameters(parameters)
-
     val filterElements = Seq(
-      Seq(equal("networkId", networkId)),
+      Some(equal("key.elementId", networkId)),
       if (parameters.impact) {
-        Seq(equal("impact", true))
+        Some(equal("impact", true))
       }
       else {
-        Seq.empty
+        None
       },
-      timeRange match {
-        case None => Seq.empty
-        case Some(range) =>
-          Seq(
-            gt("key.time", range.start),
-            lt("key.time", range.end),
-          )
-      }
+      parameters.year.map(year => equal("key.time.year", year.toInt)),
+      parameters.month.map(month => equal("key.time.month", month.toInt)),
+      parameters.day.map(day => equal("key.time.day", day.toInt))
     ).flatten
 
     val pipeline: Seq[Bson] = Seq(
@@ -98,10 +83,8 @@ class MongoQueryNetworkChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val collection = database.getCollection("network-changes")
-      val future = collection.aggregate[NetworkChangeDoc](pipeline).toFuture()
-      val docs = Await.result(future, Duration(60, TimeUnit.SECONDS))
-      (s"${docs.size} network changes", docs.map(_.networkChange))
+      val docs = database.networkChanges.aggregate[NetworkChange](pipeline)
+      (s"${docs.size} network changes", docs)
     }
   }
 }

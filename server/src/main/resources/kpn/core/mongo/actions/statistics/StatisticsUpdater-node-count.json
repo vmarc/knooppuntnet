@@ -1,7 +1,7 @@
 [
   {
     "$match": {
-      "active": true,
+      "labels": "active",
       "country": {
         "$exists": true
       },

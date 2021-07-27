@@ -10,6 +10,7 @@ import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.routes.MongoQueryKnownRouteIds
 import kpn.core.mongo.actions.routes.MongoQueryRouteMapInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNameInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
@@ -120,7 +121,8 @@ class RouteRepositoryImpl(
 
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {
     if (mongoEnabled) {
-      ??? // TODO MONGO implemented through lookup elsewhere?
+      // TODO MONGO should implement through lookup elsewhere? probably not
+      new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
     }
     else {
       log.debugElapsed {

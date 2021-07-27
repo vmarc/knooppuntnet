@@ -1,14 +1,28 @@
 [
   {
     "$match": {
-      "labels": "active",
-      "labels": "orphan",
-      "country": {
-        "$exists": true
-      },
-      "names": {
-        "$exists": true
-      }
+      "$and": [
+        {
+          "labels": {
+            "$eq": "active"
+          }
+        },
+        {
+          "labels": {
+            "$eq": "orphan"
+          }
+        },
+        {
+          "country": {
+            "$exists": true
+          }
+        },
+        {
+          "names": {
+            "$exists": true
+          }
+        }
+      ]
     }
   },
   {
@@ -29,7 +43,14 @@
   },
   {
     "$project": {
-      "_id": {"$concat": ["$_id.country", ":", "$_id.networkType", ":OrphanNodeCount"]},
+      "_id": {
+        "$concat": [
+          "$_id.country",
+          ":",
+          "$_id.networkType",
+          ":OrphanNodeCount"
+        ]
+      },
       "country": "$_id.country",
       "networkType": "$_id.networkType",
       "name": "OrphanNodeCount",

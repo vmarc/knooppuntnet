@@ -50,11 +50,13 @@ class StatisticsUpdater(database: Database) {
   }
 
   private def updateCounts(collectionName: String, pipeline: Pipeline): Unit = {
-    log.debugElapsed {
-      val collection = database.getCollection(collectionName)
-      val future = collection.aggregate[StatisticValue](pipeline.stages).toFuture()
-      val values = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"${pipeline.name}: ${values.size}", ())
+    Log.context(s"${pipeline.name}") {
+      log.debugElapsed {
+        val collection = database.getCollection(collectionName)
+        val future = collection.aggregate[StatisticValue](pipeline.stages).toFuture()
+        val values = Await.result(future, Duration(30, TimeUnit.SECONDS))
+        (s"${pipeline.name}: ${values.size}", ())
+      }
     }
   }
 }

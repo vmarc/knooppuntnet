@@ -40,11 +40,9 @@ class MongoQuerySubsetInfo(database: Database) {
 
       val pipeline = Seq(
         networkCountPipeline,
-        Seq(unionWith("statistics-route-orphan-count", orphanRouteCountPipeline: _*)),
         Seq(unionWith("statistics-node-orphan-count", orphanNodeCountPipeline: _*)),
+        Seq(unionWith("statistics-route-orphan-count", orphanRouteCountPipeline: _*)),
       ).flatten
-
-      //      println(Mongo.pipelineString(pipeline))
 
       val statisticValues = {
         val collection = database.getCollection[StatisticValue]("statistics-network-count")

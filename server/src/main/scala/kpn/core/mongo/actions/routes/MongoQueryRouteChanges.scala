@@ -3,7 +3,6 @@ package kpn.core.mongo.actions.routes
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.mongo.Database
-import kpn.core.mongo.actions.base.TimeRange
 import kpn.core.mongo.actions.routes.MongoQueryRouteChanges.log
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -15,8 +14,6 @@ import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.gt
-import org.mongodb.scala.model.Filters.lt
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
@@ -29,11 +26,11 @@ object MongoQueryRouteChanges {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { database =>
       val query = new MongoQueryRouteChanges(database)
-      query.execute(20628L, ChangesParameters(impact = true))
-      query.execute(20628L, ChangesParameters(impact = true))
-      query.execute(1599145L, ChangesParameters(impact = true))
-      query.execute(1599145L, ChangesParameters(impact = true))
-      val changes = query.execute(1599145L, ChangesParameters(impact = true))
+      //      query.execute(20628L, ChangesParameters(impact = true))
+      //      query.execute(20628L, ChangesParameters(impact = true))
+      //      query.execute(1599145L, ChangesParameters(impact = true))
+      //      query.execute(1599145L, ChangesParameters(impact = true))
+      val changes = query.execute(1125031L, ChangesParameters(itemsPerPage = 50))
       changes.map(_.key).foreach { key =>
         println(s"${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
       }
@@ -45,24 +42,17 @@ class MongoQueryRouteChanges(database: Database) {
 
   def execute(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
 
-    val timeRange = TimeRange.fromParameters(parameters)
-
     val filterElements = Seq(
-      Seq(equal("key.elementId", routeId)),
+      Some(equal("key.elementId", routeId)),
       if (parameters.impact) {
-        Seq(equal("impact", true))
+        Some(equal("impact", true))
       }
       else {
-        Seq.empty
+        None
       },
-      timeRange match {
-        case None => Seq.empty
-        case Some(range) =>
-          Seq(
-            gt("key.time", range.start),
-            lt("key.time", range.end),
-          )
-      }
+      parameters.year.map(year => equal("key.time.year", year.toInt)),
+      parameters.month.map(month => equal("key.time.month", month.toInt)),
+      parameters.day.map(day => equal("key.time.day", day.toInt))
     ).flatten
 
     val pipeline: Seq[Bson] = Seq(
@@ -72,7 +62,12 @@ class MongoQueryRouteChanges(database: Database) {
       sort(
         orderBy(
           descending(
-            "key.time",
+            "key.time.year",
+            "key.time.month",
+            "key.time.day",
+            "key.time.hour",
+            "key.time.minute",
+            "key.time.second"
           )
         )
       ),
