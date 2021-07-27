@@ -398,18 +398,6 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("allChangeSetIds") {
-
-    withChangeSetRepository { repository =>
-
-      repository.saveChangeSetSummary(summary(1, 1))
-      repository.saveChangeSetSummary(summary(2, 2))
-      repository.saveChangeSetSummary(summary(3, 3))
-
-      repository.allChangeSetIds() should equal(Seq("1", "2", "3"))
-    }
-  }
-
   private def summary(
     changeSetId: Long,
     replicationNumber: Int,

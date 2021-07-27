@@ -49,6 +49,4 @@ trait ChangeSetRepository {
 
   def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long
 
-  def allChangeSetIds(): Seq[String]
-
 }

@@ -21,7 +21,6 @@ import kpn.core.database.doc.NodeChangeDoc
 import kpn.core.database.doc.RouteChangeDoc
 import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangesView
-import kpn.core.db.couch.ViewResult2
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCount
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCounts
@@ -286,21 +285,6 @@ class ChangeSetRepositoryImpl(
     }
     else {
       ChangesView.nodeChanges(changeDatabase, nodeId, parameters, stale)
-    }
-  }
-
-  override def allChangeSetIds(): Seq[String] = {
-    if (mongoEnabled) {
-      ???
-    }
-    else {
-      val query = Query("_all_docs", classOf[ViewResult2])
-        .startKey(""""change:"""")
-        .endKey(""""change:zzz"""")
-        .reduce(false)
-
-      val result = changeDatabase.execute(query)
-      result.rows.flatMap(_.id).map(id => id.split(":")(1)).distinct.sorted
     }
   }
 
