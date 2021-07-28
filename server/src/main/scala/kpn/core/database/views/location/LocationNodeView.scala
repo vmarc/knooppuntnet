@@ -9,7 +9,7 @@ import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
@@ -32,7 +32,7 @@ object LocationNodeView extends View {
   private case class ViewResultRow(
     key: Seq[String],
     value: ViewResultRowValue,
-    doc: NodeDoc
+    doc: CouchNodeDoc
   )
 
   private case class CountViewResult(

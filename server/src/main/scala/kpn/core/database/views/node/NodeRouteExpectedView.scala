@@ -4,7 +4,7 @@ import kpn.api.common.common.NodeRouteExpectedCount
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.database.Database
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
 import kpn.core.database.views.common.View
@@ -18,7 +18,7 @@ object NodeRouteExpectedView extends View {
   private case class ViewResultRow(
     key: Seq[String],
     value: Long,
-    doc: NodeDoc
+    doc: CouchNodeDoc
   )
 
   def queryScopedNetworkType(database: Database, scopedNetworkType: ScopedNetworkType, stale: Boolean): Seq[NodeRouteExpectedCount] = {

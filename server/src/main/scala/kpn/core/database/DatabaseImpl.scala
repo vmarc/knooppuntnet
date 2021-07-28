@@ -1,6 +1,6 @@
 package kpn.core.database
 
-import kpn.core.database.doc.Doc
+import kpn.core.database.doc.CouchDoc
 import kpn.core.database.implementation.DatabaseAllIds
 import kpn.core.database.implementation.DatabaseBulkSave
 import kpn.core.database.implementation.DatabaseContext
@@ -48,11 +48,11 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseAllIds(context).execute(stale)
   }
 
-  override def save[T](doc: Doc): Unit = {
+  override def save[T](doc: CouchDoc): Unit = {
     new DatabaseSave(context).save(doc)
   }
 
-  override def bulkSave[T](docs: Seq[Doc]): Unit = {
+  override def bulkSave[T](docs: Seq[CouchDoc]): Unit = {
     new DatabaseBulkSave(context).bulkSave[T](docs)
   }
 

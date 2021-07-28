@@ -1,6 +1,6 @@
 package kpn.core.mongo.migration
 
-import kpn.core.database.doc.RouteDoc
+import kpn.core.database.doc.CouchRouteDoc
 import kpn.core.mongo.NodeRouteRef
 import kpn.core.mongo.util.Mongo
 import org.mongodb.scala.Observer
@@ -16,10 +16,10 @@ object zzzInsertNodeRouteRefs {
     var count = 0
     val mongoClient = Mongo.client
     val database = Mongo.database(mongoClient, "kpn-test").database
-    val routesCollection = database.getCollection[RouteDoc]("routes")
+    val routesCollection = database.getCollection[CouchRouteDoc]("routes")
     val nodeRouteRefs = database.getCollection[NodeRouteRef]("nodeRouteRefs")
-    routesCollection.find[RouteDoc](equal("route.active", true)).subscribe(new Observer[RouteDoc]() {
-      override def onNext(routeDoc: RouteDoc): Unit = {
+    routesCollection.find[CouchRouteDoc](equal("route.active", true)).subscribe(new Observer[CouchRouteDoc]() {
+      override def onNext(routeDoc: CouchRouteDoc): Unit = {
         count = count + 1
         val refs = routeDoc.route.analysis.map.nodeIds.map { nodeId =>
           val summary = routeDoc.route.summary

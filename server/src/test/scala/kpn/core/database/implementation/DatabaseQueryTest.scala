@@ -5,7 +5,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.database.query.Query
 import kpn.core.database.views.location.LocationDesign
 import kpn.core.database.views.location.LocationView
@@ -22,7 +22,7 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
       new DesignRepositoryImpl(database).save(LocationDesign)
 
       database.save(
-        NodeDoc(
+        CouchNodeDoc(
           "node:1001",
           newNodeInfo(
             1001,
@@ -44,7 +44,7 @@ class DatabaseQueryTest extends UnitTest with TestObjects {
       )
 
       database.save(
-        NodeDoc(
+        CouchNodeDoc(
           "node:1002",
           newNodeInfo(
             1002,

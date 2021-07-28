@@ -5,7 +5,7 @@ import java.util.UUID
 import kpn.core.TestObjects
 import kpn.core.database.Database
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.test.TestSupport.withEnvironment
 import kpn.core.util.UnitTest
@@ -17,14 +17,14 @@ class DatabaseDeleteDocWithIdTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
-      val doc = NodeDoc("123", nodeInfo, None)
+      val doc = CouchNodeDoc("123", nodeInfo, None)
 
       database.save(doc)
-      database.docWithId(doc._id, classOf[NodeDoc]).get.node.id should equal(123)
+      database.docWithId(doc._id, classOf[CouchNodeDoc]).get.node.id should equal(123)
 
       database.deleteDocWithId(doc._id)
 
-      database.docWithId(doc._id, classOf[NodeDoc]) should equal(None)
+      database.docWithId(doc._id, classOf[CouchNodeDoc]) should equal(None)
     }
   }
 
@@ -35,7 +35,7 @@ class DatabaseDeleteDocWithIdTest extends UnitTest with TestObjects {
       database.create()
       try {
         val nodeInfo = newNodeInfo(123)
-        val nodeDoc = NodeDoc("123", nodeInfo, None)
+        val nodeDoc = CouchNodeDoc("123", nodeInfo, None)
         database.save(nodeDoc)
 
         val invalidCouchConfig = couchConfig.copy(password = "wrong-password")

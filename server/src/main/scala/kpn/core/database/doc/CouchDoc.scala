@@ -1,7 +1,7 @@
 package kpn.core.database.doc
 
-trait Doc {
+trait CouchDoc {
   def _id: String
   def _rev: Option[String]
-  def withRev(_rev: Option[String]): Doc
+  def withRev(_rev: Option[String]): CouchDoc
 }

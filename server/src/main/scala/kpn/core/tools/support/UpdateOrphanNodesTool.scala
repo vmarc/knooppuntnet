@@ -2,7 +2,7 @@ package kpn.core.tools.support
 
 
 import kpn.core.database.Database
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 
@@ -29,7 +29,7 @@ class UpdateOrphanNodesTool(database: Database) {
       }
 
       val docId = s"node:$nodeId"
-      database.docWithId(docId, classOf[NodeDoc]) match {
+      database.docWithId(docId, classOf[CouchNodeDoc]) match {
         case None =>
         case Some(nodeDoc) =>
           if (nodeDoc.node.active && nodeDoc.node.orphan) {

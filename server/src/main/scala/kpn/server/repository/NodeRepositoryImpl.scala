@@ -80,12 +80,12 @@ class NodeRepositoryImpl(
           }
         }
 
-        val newDocs = newNodes.map(node => kpn.core.database.doc.NodeDoc(docId(node.id), node, None))
+        val newDocs = newNodes.map(node => kpn.core.database.doc.CouchNodeDoc(docId(node.id), node, None))
 
         val updateDocs = updatedNodes.map { node =>
           val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
           val rev = fromDb.get._rev
-          kpn.core.database.doc.NodeDoc(docId(node.id), node, rev)
+          kpn.core.database.doc.CouchNodeDoc(docId(node.id), node, rev)
         }
 
         val docs = newDocs ++ updateDocs
@@ -123,7 +123,7 @@ class NodeRepositoryImpl(
       database.nodes.findById(nodeId, log)
     }
     else {
-      analysisDatabase.docWithId(docId(nodeId), classOf[kpn.core.database.doc.NodeDoc]).map(_.node)
+      analysisDatabase.docWithId(docId(nodeId), classOf[kpn.core.database.doc.CouchNodeDoc]).map(_.node)
     }
   }
 

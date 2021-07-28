@@ -1,6 +1,6 @@
 package kpn.core.database.implementation
 
-import kpn.core.database.doc.Doc
+import kpn.core.database.doc.CouchDoc
 import kpn.core.database.implementation.DatabaseBulkSave.SaveRequest
 import kpn.core.util.Log
 import org.springframework.http.HttpEntity
@@ -17,7 +17,7 @@ object DatabaseBulkSave {
 
   case class SaveRequest(
     all_or_nothing: String = "false",
-    docs: Seq[Doc]
+    docs: Seq[CouchDoc]
   )
 
   case class SaveDocResult(
@@ -36,7 +36,7 @@ import kpn.core.database.implementation.DatabaseBulkSave._
 
 class DatabaseBulkSave(context: DatabaseContext) {
 
-  def bulkSave[T](docs: Seq[Doc]): Unit = {
+  def bulkSave[T](docs: Seq[CouchDoc]): Unit = {
 
     val body = context.objectMapper.writeValueAsString(SaveRequest(docs = docs))
     val b = UriComponentsBuilder.fromHttpUrl(s"${context.databaseUrl}/_bulk_docs")

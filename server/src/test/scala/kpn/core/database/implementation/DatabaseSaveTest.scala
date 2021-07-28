@@ -2,7 +2,7 @@ package kpn.core.database.implementation
 
 import kpn.core.TestObjects
 import kpn.core.database.DatabaseImpl
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.database.doc.StringValueDoc
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.test.TestSupport.withEnvironment
@@ -17,13 +17,13 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
-      val doc = NodeDoc("123", nodeInfo, None)
+      val doc = CouchNodeDoc("123", nodeInfo, None)
 
-      database.docWithId(doc._id, classOf[NodeDoc]) should equal(None)
+      database.docWithId(doc._id, classOf[CouchNodeDoc]) should equal(None)
 
       database.save(doc)
 
-      database.docWithId(doc._id, classOf[NodeDoc]) match {
+      database.docWithId(doc._id, classOf[CouchNodeDoc]) match {
         case Some(result) => result.node should equal(nodeInfo)
         case None => fail()
       }
@@ -41,7 +41,7 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
 
         try {
           val nodeInfo = newNodeInfo(123)
-          val nodeDoc = NodeDoc("123", nodeInfo, None)
+          val nodeDoc = CouchNodeDoc("123", nodeInfo, None)
           database.save(nodeDoc)
           fail("Expected exception not thrown")
         }
@@ -62,9 +62,9 @@ class DatabaseSaveTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
 
       val nodeInfo = newNodeInfo(123)
-      val doc = NodeDoc("123", nodeInfo, None)
+      val doc = CouchNodeDoc("123", nodeInfo, None)
 
-      database.docWithId(doc._id, classOf[NodeDoc]) should equal(None)
+      database.docWithId(doc._id, classOf[CouchNodeDoc]) should equal(None)
 
       database.save(doc)
       database.save(doc) // without retries, this would result in update conflict

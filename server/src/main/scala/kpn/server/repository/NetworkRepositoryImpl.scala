@@ -4,7 +4,7 @@ import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.database.doc.GpxDoc
-import kpn.core.database.doc.NetworkDoc
+import kpn.core.database.doc.CouchNetworkDoc
 import kpn.core.database.doc.NetworkElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
@@ -40,7 +40,7 @@ class NetworkRepositoryImpl(
       database.networks.findById(networkId, log)
     }
     else {
-      analysisDatabase.docWithId(networkKey(networkId), classOf[NetworkDoc]).map(_.network)
+      analysisDatabase.docWithId(networkKey(networkId), classOf[CouchNetworkDoc]).map(_.network)
     }
   }
 
@@ -70,7 +70,7 @@ class NetworkRepositoryImpl(
     else {
       log.debugElapsed {
         val key = networkKey(network.id)
-        analysisDatabase.save(NetworkDoc(key, network))
+        analysisDatabase.save(CouchNetworkDoc(key, network))
         (s"Save network ${network.id}", ())
       }
     }

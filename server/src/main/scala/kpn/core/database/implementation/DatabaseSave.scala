@@ -1,6 +1,6 @@
 package kpn.core.database.implementation
 
-import kpn.core.database.doc.Doc
+import kpn.core.database.doc.CouchDoc
 import kpn.core.util.Log
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
@@ -14,7 +14,7 @@ class DatabaseSave(context: DatabaseContext, maxRetries: Int = 3, backOffPeriod:
 
   private val log = Log(classOf[DatabaseSave])
 
-  def save[T](doc: Doc): Unit = {
+  def save[T](doc: CouchDoc): Unit = {
 
     var retry = true
     var retryCount = 0
@@ -97,7 +97,7 @@ class DatabaseSave(context: DatabaseContext, maxRetries: Int = 3, backOffPeriod:
     result
   }
 
-  private def writeDoc(url: String, newDoc: Doc): Boolean = {
+  private def writeDoc(url: String, newDoc: CouchDoc): Boolean = {
     val json = context.objectMapper.writeValueAsString(newDoc)
     try {
       val entity = new HttpEntity[String](json)

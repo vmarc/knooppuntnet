@@ -4,7 +4,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
-import kpn.core.database.doc.RouteDoc
+import kpn.core.database.doc.CouchRouteDoc
 import kpn.core.database.doc.RouteElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
@@ -43,7 +43,7 @@ class RouteRepositoryImpl(
     }
     else {
       log.debugElapsed {
-        analysisDatabase.save(RouteDoc(docId(routeInfo.id), routeInfo))
+        analysisDatabase.save(CouchRouteDoc(docId(routeInfo.id), routeInfo))
         (s"Save route ${routeInfo.id}", ())
       }
     }
@@ -78,7 +78,7 @@ class RouteRepositoryImpl(
       database.routes.findById(routeId, log)
     }
     else {
-      analysisDatabase.docWithId(docId(routeId), classOf[RouteDoc]).map(_.route)
+      analysisDatabase.docWithId(docId(routeId), classOf[CouchRouteDoc]).map(_.route)
     }
   }
 

@@ -1,7 +1,7 @@
 package kpn.core.database.implementation
 
 import kpn.core.TestObjects
-import kpn.core.database.doc.NodeDoc
+import kpn.core.database.doc.CouchNodeDoc
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 
@@ -13,12 +13,12 @@ class DatabaseRevisionTest extends UnitTest with TestObjects {
 
       val doc = {
         val nodeInfo = newNodeInfo(123)
-        NodeDoc("123", nodeInfo, None)
+        CouchNodeDoc("123", nodeInfo, None)
       }
 
       database.save(doc)
 
-      val rev = database.docWithId(doc._id, classOf[NodeDoc]).flatMap(_._rev)
+      val rev = database.docWithId(doc._id, classOf[CouchNodeDoc]).flatMap(_._rev)
 
       database.revision(doc._id) should equal(rev)
     }

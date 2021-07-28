@@ -1,8 +1,8 @@
 package kpn.core.tools.support
 
 import kpn.core.database.Database
-import kpn.core.database.doc.NodeDoc
-import kpn.core.database.doc.RouteDoc
+import kpn.core.database.doc.CouchNodeDoc
+import kpn.core.database.doc.CouchRouteDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 
@@ -31,7 +31,7 @@ class SurveyDateUpdateTool(database: Database) {
         println(s"${index + 1}/${nodeIds.size}")
       }
       val docId = s"node:$nodeId"
-      database.docWithId(docId, classOf[NodeDoc]) match {
+      database.docWithId(docId, classOf[CouchNodeDoc]) match {
         case None =>
         case Some(doc) =>
           if (doc.node.lastSurvey.isDefined) {
@@ -53,7 +53,7 @@ class SurveyDateUpdateTool(database: Database) {
         println(s"${index + 1}/${routeIds.size}")
       }
       val docId = s"route:$routeId"
-      database.docWithId(docId, classOf[RouteDoc]) match {
+      database.docWithId(docId, classOf[CouchRouteDoc]) match {
         case None =>
         case Some(doc) =>
           if (doc.route.lastSurvey.isDefined) {

@@ -1,6 +1,6 @@
 package kpn.core.database
 
-import kpn.core.database.doc.Doc
+import kpn.core.database.doc.CouchDoc
 import kpn.core.database.query.Query
 
 trait Database {
@@ -11,9 +11,9 @@ trait Database {
 
   def delete(): Unit
 
-  def save[T](doc: Doc): Unit
+  def save[T](doc: CouchDoc): Unit
 
-  def bulkSave[T](docs: Seq[Doc]): Unit
+  def bulkSave[T](docs: Seq[CouchDoc]): Unit
 
   def deleteDocWithId(docId: String): Unit
 
