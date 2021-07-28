@@ -12,6 +12,7 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -35,7 +36,9 @@ trait Database {
 
   def empty: DatabaseCollection[Any]
 
-  def networks: DatabaseCollection[NetworkInfo]
+  def networks: DatabaseCollection[NetworkDoc]
+
+  def oldNetworks: DatabaseCollection[NetworkInfo]
 
   def networkElements: DatabaseCollection[NetworkElements]
 

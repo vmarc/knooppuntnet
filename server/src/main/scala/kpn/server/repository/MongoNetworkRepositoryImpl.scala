@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component
 class MongoNetworkRepositoryImpl(database: Database) extends MongoNetworkRepository {
 
   override def save(network: NetworkInfo): Unit = {
-    database.networks.save(network)
+    database.oldNetworks.save(network)
   }
 
   override def networkWithId(networkId: Long): Option[NetworkInfo] = {
-    database.networks.findById(networkId)
+    database.oldNetworks.findById(networkId)
   }
 
   override def networkChangeCount(networkId: Long): Long = {

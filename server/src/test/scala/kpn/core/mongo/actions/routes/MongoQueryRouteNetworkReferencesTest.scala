@@ -14,8 +14,8 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
     withDatabase { database =>
       val query = new MongoQueryRouteNetworkReferences(database)
 
-      database.networks.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
-      database.networks.save(buildNetwork(2L, "network-2", Seq(11L, 13L)))
+      database.oldNetworks.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
+      database.oldNetworks.save(buildNetwork(2L, "network-2", Seq(11L, 13L)))
 
       query.execute(11L) should equal(
         Seq(
@@ -42,8 +42,8 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
     withDatabase { database =>
       val query = new MongoQueryRouteNetworkReferences(database)
 
-      database.networks.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
-      database.networks.save(buildNetwork(2L, "network-2", Seq(11L, 13L), active = false))
+      database.oldNetworks.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
+      database.oldNetworks.save(buildNetwork(2L, "network-2", Seq(11L, 13L), active = false))
 
       query.execute(11L) should equal(
         Seq(

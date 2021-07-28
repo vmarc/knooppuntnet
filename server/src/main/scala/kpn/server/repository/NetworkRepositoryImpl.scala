@@ -28,7 +28,7 @@ class NetworkRepositoryImpl(
 
   override def allNetworkIds(): Seq[Long] = {
     if (mongoEnabled) {
-      database.networks.ids(log)
+      database.oldNetworks.ids(log)
     }
     else {
       DocumentView.allNetworkIds(analysisDatabase)
@@ -37,7 +37,7 @@ class NetworkRepositoryImpl(
 
   override def network(networkId: Long): Option[NetworkInfo] = {
     if (mongoEnabled) {
-      database.networks.findById(networkId, log)
+      database.oldNetworks.findById(networkId, log)
     }
     else {
       analysisDatabase.docWithId(networkKey(networkId), classOf[CouchNetworkDoc]).map(_.network)
@@ -65,7 +65,7 @@ class NetworkRepositoryImpl(
 
   override def save(network: NetworkInfo): Unit = {
     if (mongoEnabled) {
-      database.networks.save(network, log)
+      database.oldNetworks.save(network, log)
     }
     else {
       log.debugElapsed {
@@ -78,7 +78,7 @@ class NetworkRepositoryImpl(
 
   override def delete(networkId: Long): Unit = {
     if (mongoEnabled) {
-      database.networks.delete(networkId, log)
+      database.oldNetworks.delete(networkId, log)
     }
     else {
       analysisDatabase.deleteDocWithId(networkKey(networkId))

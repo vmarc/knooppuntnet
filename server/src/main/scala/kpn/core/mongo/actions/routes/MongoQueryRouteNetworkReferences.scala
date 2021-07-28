@@ -36,7 +36,7 @@ class MongoQueryRouteNetworkReferences(database: Database) {
           )
         )
       )
-      val references = database.networks.aggregate[Reference](pipeline, log)
+      val references = database.oldNetworks.aggregate[Reference](pipeline, log)
       (s"route network references: ${references.size}", references)
     }
   }

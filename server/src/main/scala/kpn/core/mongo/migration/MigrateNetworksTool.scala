@@ -60,7 +60,7 @@ class MigrateNetworksTool(couchDatabase: kpn.core.database.Database, database: D
 
   private def migrateNetwork(networkInfo: NetworkInfo): Unit = {
     val migratedNetworkInfo = networkInfo.copy(_id = networkInfo.id)
-    database.networks.save(migratedNetworkInfo)
+    database.oldNetworks.save(migratedNetworkInfo)
     migrateNodeNetworkRefs(migratedNetworkInfo)
     migrateRouteNetworkRefs(migratedNetworkInfo)
   }

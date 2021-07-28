@@ -1,8 +1,12 @@
 package kpn.api.common.network
 
 import kpn.api.base.WithId
+import kpn.api.common.NetworkFacts
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.NetworkDoc
+import kpn.core.mongo.doc.NetworkNodeRef
+import kpn.core.mongo.doc.NetworkRouteRef
 
 case class NetworkInfo(
   _id: Long,
@@ -89,4 +93,43 @@ case class NetworkInfo(
     }
   }
 
+  def toNetworkDoc: NetworkDoc = {
+    val nodeRefs: Seq[NetworkNodeRef] = detail match {
+      case None => Seq.empty
+      case Some(d) =>
+        d.nodes.map { networkInfoNode =>
+          NetworkNodeRef(
+            networkInfoNode.id,
+            if (networkInfoNode.roleConnection) Some("connection") else None
+          )
+        }
+    }
+
+    val routeRefs: Seq[NetworkRouteRef] = detail match {
+      case None => Seq.empty
+      case Some(d) =>
+        d.routes.map { networkInfoRoute =>
+          NetworkRouteRef(
+            networkInfoRoute.id,
+            networkInfoRoute.role
+          )
+        }
+    }
+
+    NetworkDoc(
+      _id,
+      // labels: Seq[String], TODO MONGO include country, networkType, networkScope?
+      attributes.country,
+      attributes.networkType,
+      attributes.networkScope,
+      attributes.name,
+      attributes.lastUpdated,
+      attributes.relationLastUpdated,
+      nodeRefs,
+      routeRefs,
+      detail.map(_.networkFacts).getOrElse(NetworkFacts()),
+      Seq.empty, // TODO MONGO not needed?
+      tags
+    )
+  }
 }

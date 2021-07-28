@@ -14,8 +14,8 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
     withDatabase { database =>
       val query = new MongoQueryNodeNetworkReferences(database)
 
-      database.networks.save(buildNetwork(1L, "network-1", Seq(1001L, 1002L)))
-      database.networks.save(buildNetwork(2L, "network-2", Seq(1001L, 1003L)))
+      database.oldNetworks.save(buildNetwork(1L, "network-1", Seq(1001L, 1002L)))
+      database.oldNetworks.save(buildNetwork(2L, "network-2", Seq(1001L, 1003L)))
 
       query.execute(1001L) should equal(
         Seq(
@@ -30,8 +30,8 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
     withDatabase { database =>
       val query = new MongoQueryNodeNetworkReferences(database)
 
-      database.networks.save(buildNetwork(1L, "network-1", Seq(1001L, 1002L)))
-      database.networks.save(buildNetwork(2L, "network-2", Seq(1001L, 1003L), active = false))
+      database.oldNetworks.save(buildNetwork(1L, "network-1", Seq(1001L, 1002L)))
+      database.oldNetworks.save(buildNetwork(2L, "network-2", Seq(1001L, 1003L), active = false))
 
       query.execute(1001L) should equal(
         Seq(

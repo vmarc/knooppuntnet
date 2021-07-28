@@ -52,6 +52,10 @@ case class NodeInfo(
     names.filter(_.scopedNetworkType == scopedNetworkType).map(_.name).mkString(" / ")
   }
 
+  def longName(scopedNetworkType: ScopedNetworkType): String = {
+    names.filter(_.scopedNetworkType == scopedNetworkType).flatMap(_.longName).mkString(" / ")
+  }
+
   def subsets: Seq[Subset] = {
     country match {
       case Some(c) => names.map(_.scopedNetworkType.networkType).map(networkType => Subset(c, networkType))

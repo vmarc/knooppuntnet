@@ -16,7 +16,7 @@ class ValidateNetworkQueries(database: Database) {
 
   private def validateQueryIds(): ValidationResult = {
     ValidationResult.validate("MongoQueryIds/networks") {
-      val networkIds = database.networks.ids()
+      val networkIds = database.oldNetworks.ids()
       if (networkIds.size < 300) {
         Some(s"number of networks is less than expected 300 (actual: ${networkIds.size})")
       }
@@ -28,7 +28,7 @@ class ValidateNetworkQueries(database: Database) {
 
   private def validateQueryFindById(): ValidationResult = {
     ValidationResult.validate("MongoFindById/networks") {
-      database.networks.findById(1066154L) match {
+      database.oldNetworks.findById(1066154L) match {
         case None => Some("network with id 1066154 not found")
         case Some(networkInfo) =>
           if (networkInfo.attributes.name != "Achterhoek") {

@@ -12,6 +12,7 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -36,8 +37,12 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[Any]("empty"))
   }
 
-  override def networks: DatabaseCollection[NetworkInfo] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfo]("networks"))
+  override def networks: DatabaseCollection[NetworkDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[NetworkDoc]("networks"))
+  }
+
+  override def oldNetworks: DatabaseCollection[NetworkInfo] = {
+    new DatabaseCollectionImpl(database.getCollection[NetworkInfo]("old-networks"))
   }
 
   override def networkElements: DatabaseCollection[NetworkElements] = {

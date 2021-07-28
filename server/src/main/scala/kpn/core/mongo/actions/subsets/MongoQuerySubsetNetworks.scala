@@ -47,7 +47,7 @@ class MongoQuerySubsetNetworks(database: Database) {
     )
 
     log.debugElapsed {
-      val networks = database.networks.aggregate[NetworkInfo](pipeline, log)
+      val networks = database.oldNetworks.aggregate[NetworkInfo](pipeline, log)
       val result = s"subset ${subset.name} networks: ${networks.size}"
       (result, networks.map(_.attributes))
     }
