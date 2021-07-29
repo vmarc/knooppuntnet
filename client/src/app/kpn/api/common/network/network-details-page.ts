@@ -6,7 +6,7 @@ import { NetworkSummary } from './network-summary';
 import { Tags } from '../../custom/tags';
 
 export interface NetworkDetailsPage {
-  readonly networkSummary: NetworkSummary;
+  readonly summary: NetworkSummary;
   readonly active: boolean;
   readonly attributes: NetworkAttributes;
   readonly tags: Tags;

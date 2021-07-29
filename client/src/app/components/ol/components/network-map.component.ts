@@ -83,7 +83,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     );
     mapLayers = mapLayers.push(
       this.mapLayerService.networkNodesTileLayer(
-        this.page.networkSummary.networkType,
+        this.page.summary.networkType,
         this.page.nodeIds,
         this.page.routeIds
       )

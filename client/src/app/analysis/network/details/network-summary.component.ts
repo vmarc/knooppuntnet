@@ -10,11 +10,11 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
       {{ page.attributes.km }}
     </p>
     <p>
-      {{ page.networkSummary.nodeCount }}
+      {{ page.summary.nodeCount }}
       <ng-container i18n="@@network-details.nodes">nodes</ng-container>
     </p>
     <p>
-      {{ page.networkSummary.routeCount }}
+      {{ page.summary.routeCount }}
       <ng-container i18n="@@network-details.routes">routes</ng-container>
     </p>
     <p>

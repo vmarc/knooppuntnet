@@ -10,7 +10,7 @@ import { TimeInfo } from '../time-info';
 export interface NetworkNodesPage {
   readonly timeInfo: TimeInfo;
   readonly surveyDateInfo: SurveyDateInfo;
-  readonly networkSummary: NetworkSummary;
+  readonly summary: NetworkSummary;
   readonly networkType: NetworkType;
   readonly networkScope: NetworkScope;
   readonly nodes: NetworkNodeDetail[];

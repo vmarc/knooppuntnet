@@ -9,7 +9,7 @@ import kpn.api.common.network.NetworkInfoNode
 import kpn.api.common.network.NetworkInfoRoute
 import kpn.core.analysis.Network
 
-class NetworkInfoBuilder {
+class OldNetworkInfoBuilder {
 
   def build(network: Network): NetworkInfo = {
 

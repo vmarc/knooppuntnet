@@ -4,6 +4,7 @@ import { NetworkFact } from '../network-fact';
 import { NetworkSummary } from './network-summary';
 
 export interface NetworkFactsPage {
-  readonly networkSummary: NetworkSummary;
+  readonly _id: number;
+  readonly summary: NetworkSummary;
   readonly facts: NetworkFact[];
 }

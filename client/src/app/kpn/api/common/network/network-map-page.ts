@@ -5,7 +5,7 @@ import { NetworkMapNode } from './network-map-node';
 import { NetworkSummary } from './network-summary';
 
 export interface NetworkMapPage {
-  readonly networkSummary: NetworkSummary;
+  readonly summary: NetworkSummary;
   readonly nodes: NetworkMapNode[];
   readonly nodeIds: number[];
   readonly routeIds: number[];

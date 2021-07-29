@@ -70,10 +70,7 @@ export class NetworkNodesPageComponent implements OnInit {
         this.appService.networkNodes(networkId).pipe(
           tap((response) => {
             if (response.result) {
-              this.networkService.update(
-                networkId,
-                response.result.networkSummary
-              );
+              this.networkService.update(networkId, response.result.summary);
             }
           })
         )

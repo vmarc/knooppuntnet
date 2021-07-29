@@ -67,10 +67,7 @@ export class NetworkFactsPageComponent implements OnInit {
         this.appService.networkFacts(networkId).pipe(
           tap((response) => {
             if (response.result) {
-              this.networkService.update(
-                networkId,
-                response.result.networkSummary
-              );
+              this.networkService.update(networkId, response.result.summary);
             }
           })
         )
