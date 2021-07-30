@@ -92,13 +92,13 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.13.5</version>
+            <version>2.13.6</version>
         </dependency>
 
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-reflect</artifactId>
-            <version>2.13.5</version>
+            <version>2.13.6</version>
         </dependency>
 
         <dependency>
@@ -110,7 +110,7 @@
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
             <artifactId>scala-parallel-collections_2.13</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </dependency>
 
         <dependency>
@@ -152,13 +152,13 @@
         <dependency>
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
-            <version>1.18.0</version>
+            <version>1.18.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.locationtech.jts.io</groupId>
             <artifactId>jts-io-common</artifactId>
-            <version>1.18.0</version>
+            <version>1.18.1</version>
         </dependency>
 
         <dependency>
@@ -188,32 +188,32 @@
         <dependency>
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-core</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.1</version>
             <!-- 1.5.0 is java 11 only-->
         </dependency>
 
         <dependency>
             <groupId>com.github.scopt</groupId>
             <artifactId>scopt_2.13</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.14.0</version>
+            <version>2.14.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.14.0</version>
+            <version>2.14.1</version>
         </dependency>
 
         <dependency>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
-            <version>2.14.2</version>
+            <version>2.14.6</version>
         </dependency>
 
         <dependency>
@@ -277,13 +277,13 @@
         <dependency>
             <groupId>com.softwaremill.diffx</groupId>
             <artifactId>diffx-scalatest_2.13</artifactId>
-            <version>0.4.5</version>
+            <version>0.5.4</version>
         </dependency>
 
         <dependency>
             <groupId>org.mongodb.scala</groupId>
             <artifactId>mongo-scala-driver_2.13</artifactId>
-            <version>4.2.3</version>
+            <version>4.3.0</version>
         </dependency>
 
     </dependencies>
