@@ -3,6 +3,7 @@ package kpn.api.common.network
 import kpn.api.common.NetworkFact
 
 case class NetworkFactsPage(
-  networkSummary: NetworkSummary,
+  _id: Long,
+  summary: NetworkSummary,
   facts: Seq[NetworkFact]
 )

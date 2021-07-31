@@ -48,7 +48,7 @@ class AnalysisRepositoryImpl(
   }
 
   private def saveNetworkDoc(network: Network): Unit = {
-    val networkInfo = new NetworkInfoBuilder().build(network)
+    val networkInfo = new OldNetworkInfoBuilder().build(network)
     networkRepository.save(networkInfo)
     networkRepository.saveElements(
       NetworkElements(

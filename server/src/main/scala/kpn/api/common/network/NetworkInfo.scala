@@ -94,31 +94,41 @@ case class NetworkInfo(
   }
 
   def toNetworkDoc: NetworkDoc = {
-    val nodeRefs: Seq[NetworkNodeRef] = detail match {
-      case None => Seq.empty
-      case Some(d) =>
-        d.nodes.map { networkInfoNode =>
-          NetworkNodeRef(
-            networkInfoNode.id,
-            if (networkInfoNode.roleConnection) Some("connection") else None
-          )
-        }
+    val nodeRefs: Seq[NetworkNodeRef] = if (active) {
+      detail match {
+        case None => Seq.empty
+        case Some(d) =>
+          d.nodes.map { networkInfoNode =>
+            NetworkNodeRef(
+              networkInfoNode.id,
+              if (networkInfoNode.roleConnection) Some("connection") else None
+            )
+          }
+      }
+    }
+    else {
+      Seq.empty
     }
 
-    val routeRefs: Seq[NetworkRouteRef] = detail match {
-      case None => Seq.empty
-      case Some(d) =>
-        d.routes.map { networkInfoRoute =>
-          NetworkRouteRef(
-            networkInfoRoute.id,
-            networkInfoRoute.role
-          )
-        }
+    val routeRefs: Seq[NetworkRouteRef] = if (active) {
+      detail match {
+        case None => Seq.empty
+        case Some(d) =>
+          d.routes.map { networkInfoRoute =>
+            NetworkRouteRef(
+              networkInfoRoute.id,
+              networkInfoRoute.role
+            )
+          }
+      }
+    }
+    else {
+      Seq.empty
     }
 
     NetworkDoc(
       _id,
-      // labels: Seq[String], TODO MONGO include country, networkType, networkScope?
+      active,
       attributes.country,
       attributes.networkType,
       attributes.networkScope,

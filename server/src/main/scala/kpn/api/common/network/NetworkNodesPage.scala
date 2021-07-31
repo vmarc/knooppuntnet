@@ -8,7 +8,7 @@ import kpn.api.custom.NetworkType
 case class NetworkNodesPage(
   timeInfo: TimeInfo,
   surveyDateInfo: SurveyDateInfo,
-  networkSummary: NetworkSummary,
+  summary: NetworkSummary,
   networkType: NetworkType,
   networkScope: NetworkScope,
   nodes: Seq[NetworkNodeDetail],

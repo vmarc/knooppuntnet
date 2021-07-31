@@ -4,7 +4,7 @@ import kpn.api.common.NetworkFacts
 import kpn.api.custom.Tags
 
 case class NetworkDetailsPage(
-  networkSummary: NetworkSummary,
+  summary: NetworkSummary,
   active: Boolean,
   attributes: NetworkAttributes,
   tags: Tags = Tags.empty,

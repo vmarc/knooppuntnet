@@ -22,6 +22,9 @@ import kpn.core.database.doc.RouteChangeDoc
 import kpn.core.database.query.Query
 import kpn.core.database.views.changes.ChangesView
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.changes.MongoQueryChangeSet
+import kpn.core.mongo.actions.changes.MongoQueryChangeSetDirectCounts
+import kpn.core.mongo.actions.changes.MongoQueryChangeSetSummaries
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCount
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChanges
@@ -97,7 +100,7 @@ class ChangeSetRepositoryImpl(
 
   override def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean): Seq[ChangeSetData] = {
     if (mongoEnabled) {
-      ???
+      new MongoQueryChangeSet(database).execute(changeSetId, replicationId)
     }
     else {
       val repl = if (replicationId.isDefined) ":" + replicationId.get.number else ""
@@ -122,7 +125,7 @@ class ChangeSetRepositoryImpl(
 
   override def changes(parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
     if (mongoEnabled) {
-      ???
+      new MongoQueryChangeSetSummaries(database).execute(parameters)
     }
     else {
       ChangesView.changes(changeDatabase, parameters, stale)
@@ -198,16 +201,22 @@ class ChangeSetRepositoryImpl(
     }
   }
 
-  override def changesFilter(subsetOption: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
+  override def changesFilter(subsetOption: Option[Subset], yearOption: Option[String], monthOption: Option[String], dayOption: Option[String], stale: Boolean): ChangesFilter = {
     if (mongoEnabled) {
-      ChangesFilter(Seq.empty) // TODO MONGO
+      val year = yearOption match {
+        case None => Time.now.year
+        case Some(year) => year.toInt
+      }
+      // TODO MONGO does not support subsetOption yet !!!
+      val changeSetCounts = new MongoQueryChangeSetDirectCounts(database).execute(year, monthOption.map(_.toInt))
+      ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
     }
     else {
       val prefix = subsetOption match {
         case Some(subset) => subset.country.domain + ":" + subset.networkType.name + ":change-set"
         case None => "change-set"
       }
-      changesFilter(Seq(prefix), year, month, day, stale)
+      changesFilter(Seq(prefix), yearOption, monthOption, dayOption, stale)
     }
   }
 

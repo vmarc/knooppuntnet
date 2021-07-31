@@ -33,8 +33,9 @@ object NetworkDetailsPageExample {
 
   def networkSummary(): NetworkSummary = {
     NetworkSummary(
-      NetworkType.hiking,
       "network name",
+      NetworkType.hiking,
+      NetworkScope.regional,
       3,
       4,
       5,

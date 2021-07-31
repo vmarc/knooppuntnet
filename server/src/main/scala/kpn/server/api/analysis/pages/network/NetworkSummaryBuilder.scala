@@ -25,8 +25,9 @@ object NetworkSummaryBuilder {
     }
 
     NetworkSummary(
-      networkInfo.attributes.networkType,
       networkInfo.attributes.name,
+      networkInfo.attributes.networkType,
+      networkInfo.attributes.networkScope,
       factCount,
       nodeCount,
       routeCount,

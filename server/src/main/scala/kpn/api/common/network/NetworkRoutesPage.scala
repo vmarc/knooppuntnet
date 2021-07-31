@@ -8,6 +8,6 @@ case class NetworkRoutesPage(
   timeInfo: TimeInfo,
   surveyDateInfo: SurveyDateInfo,
   networkType: NetworkType,
-  networkSummary: NetworkSummary,
+  summary: NetworkSummary,
   routes: Seq[NetworkRouteRow]
 )
