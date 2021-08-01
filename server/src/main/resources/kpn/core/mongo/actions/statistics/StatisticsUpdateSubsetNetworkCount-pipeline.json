@@ -2,8 +2,7 @@
   {
     "$match": {
       "active": true,
-      "orphan": true,
-      "summary.country": {
+      "country": {
         "$exists": true
       }
     }
@@ -11,26 +10,26 @@
   {
     "$group": {
       "_id": {
-        "country": "$summary.country",
+        "country": "$country",
         "networkType": "$summary.networkType"
       },
-      "routeCount": {
+      "networkCount": {
         "$sum": 1
       }
     }
   },
   {
     "$project": {
-      "_id": {"$concat": ["$_id.country", ":", "$_id.networkType", ":OrphanRouteCount"]},
+      "_id": {"$concat": ["$_id.country", ":", "$_id.networkType", ":NetworkCount"]},
       "country": "$_id.country",
       "networkType": "$_id.networkType",
-      "name": "OrphanRouteCount",
-      "value": "$routeCount"
+      "name": "NetworkCount",
+      "value": "$networkCount"
     }
   },
   {
     "$merge": {
-      "into": "statistics-route-orphan-count",
+      "into": "statistics-network-count",
       "on": "_id"
     }
   }

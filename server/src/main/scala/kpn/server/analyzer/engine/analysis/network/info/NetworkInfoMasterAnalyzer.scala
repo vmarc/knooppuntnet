@@ -19,22 +19,23 @@ import scala.annotation.tailrec
 object NetworkInfoMasterAnalyzer {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { database =>
-      val analysisContext = new AnalysisContext()
 
-      val networkInfoTagAnalyzer = new NetworkInfoTagAnalyzer(analysisContext)
-      val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
-      val networkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
-      val networkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
-      val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
-
-      val analyzer = new NetworkInfoMasterAnalyzer(
-        database,
-        networkInfoTagAnalyzer,
-        networkInfoRouteAnalyzer,
-        networkInfoNodeAnalyzer,
-        networkInfoFactAnalyzer,
-        networkInfoChangeAnalyzer
-      )
+      val analyzer = {
+        val analysisContext = new AnalysisContext()
+        val networkInfoTagAnalyzer = new NetworkInfoTagAnalyzer(analysisContext)
+        val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
+        val networkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
+        val networkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
+        val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
+        new NetworkInfoMasterAnalyzer(
+          database,
+          networkInfoTagAnalyzer,
+          networkInfoRouteAnalyzer,
+          networkInfoNodeAnalyzer,
+          networkInfoFactAnalyzer,
+          networkInfoChangeAnalyzer
+        )
+      }
 
       analyzer.updateAll()
     }
@@ -80,9 +81,9 @@ class NetworkInfoMasterAnalyzer(
   }
 
   def updateNetworks(networkIds: Seq[Long]): Unit = {
-    networkIds.zipWithIndex.foreach { case (networkDoc, index) =>
+    networkIds.zipWithIndex.foreach { case (networkId, index) =>
       Log.context(s"${index + 1}/${networkIds.size}") {
-        updateNetwork(networkDoc)
+        updateNetwork(networkId)
       }
     }
   }

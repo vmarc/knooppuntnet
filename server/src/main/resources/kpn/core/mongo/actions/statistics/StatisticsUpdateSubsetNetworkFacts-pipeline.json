@@ -2,7 +2,7 @@
   {
     "$match": {
       "active": true,
-      "attributes.country": {
+      "country": {
         "$exists": true
       },
       "facts": {
@@ -19,9 +19,9 @@
   {
     "$group": {
       "_id": {
-        "country": "$attributes.country",
-        "networkType": "$attributes.networkType",
-        "factName": "$facts"
+        "country": "$country",
+        "networkType": "$summary.networkType",
+        "name": "$facts.name"
       },
       "factCount": {
         "$sum": 1
@@ -36,12 +36,12 @@
           ":",
           "$_id.networkType",
           ":",
-          "$_id.factName"
+          "$_id.name"
         ]
       },
       "country": "$_id.country",
       "networkType": "$_id.networkType",
-      "name": "$_id.factName",
+      "name": "$_id.name",
       "value": "$factCount"
     }
   },

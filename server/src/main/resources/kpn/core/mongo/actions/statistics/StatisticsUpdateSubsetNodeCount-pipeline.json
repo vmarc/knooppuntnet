@@ -37,7 +37,7 @@
   },
   {
     "$merge": {
-      "into": "statistics-node-count",
+      "into": "statistics-subset-node-count",
       "on": "_id"
     }
   }

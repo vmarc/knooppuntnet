@@ -1,29 +1,58 @@
 package kpn.core.mongo.actions.subsets
 
-import kpn.api.common.OrphanRouteInfo
 import kpn.api.custom.Subset
 import kpn.core.mongo.Database
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanRoutes.log
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanRoutes.pipeline
+import kpn.core.mongo.doc.OrphanRouteDoc
+import kpn.core.mongo.util.Id
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
 object MongoQuerySubsetOrphanRoutes extends MongoQuery {
   private val log = Log(classOf[MongoQuerySubsetOrphanRoutes])
-  private val pipeline = readPipelineString("pipeline")
 }
 
 class MongoQuerySubsetOrphanRoutes(database: Database) {
 
-  def execute(subset: Subset): Seq[OrphanRouteInfo] = {
-    val args = Map(
-      "@country" -> subset.country.domain,
-      "@networkType" -> subset.networkType.name
+  def execute(subset: Subset, log: Log = MongoQuerySubsetOrphanRoutes.log): Seq[OrphanRouteDoc] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("country", subset.country.domain),
+          equal("networkType", subset.networkType.name)
+        )
+      )
     )
     log.debugElapsed {
-      val routes = database.routes.stringPipelineAggregate[OrphanRouteInfo](pipeline, args, log)
-      val result = s"subset ${subset.name} orphan routes: ${routes.size}"
-      (result, routes)
+      val docs = database.orphanRoutes.aggregate[OrphanRouteDoc](pipeline, log)
+      val message = s"subset ${subset.name} orphan routes: ${docs.size}"
+      (message, docs)
+    }
+  }
+
+  def ids(subset: Subset, log: Log = MongoQuerySubsetOrphanRoutes.log): Seq[Long] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("country", subset.country.domain),
+          equal("networkType", subset.networkType.name)
+        )
+      ),
+      project(
+        fields(
+          include("_id")
+        )
+      )
+    )
+    log.debugElapsed {
+      val ids = database.orphanRoutes.aggregate[Id](pipeline, log).map(_._id)
+      val message = s"subset ${subset.name} orphan route ids: ${ids.size}"
+      (message, ids)
     }
   }
 }

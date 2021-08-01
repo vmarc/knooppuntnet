@@ -39,11 +39,15 @@ import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.common.network.NetworkInfoNode
 import kpn.api.common.network.NetworkInfoRoute
+import kpn.api.common.network.NetworkNodeDetail
+import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkShape
+import kpn.api.common.network.NetworkSummary
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
@@ -59,6 +63,7 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -1037,5 +1042,81 @@ trait SharedTestObjects extends MockFactory {
     name: String
   ): NetworkData = {
     NetworkData(MetaData(version, timestamp, changeSetId), name)
+  }
+
+  def newNetworkInfoDoc(
+    _id: Long,
+    active: Boolean = true,
+    country: Option[Country] = Some(Country.nl),
+    summary: NetworkSummary = newNetworkSummary(),
+    detail: NetworkDetail = newNetworkDetail(),
+    facts: Seq[NetworkFact] = Seq.empty,
+    nodes: Seq[NetworkNodeDetail] = Seq.empty,
+    routes: Seq[NetworkRouteRow] = Seq.empty,
+    nodeIds: Seq[Long] = Seq.empty
+  ): NetworkInfoDoc = {
+    NetworkInfoDoc(
+      _id,
+      active,
+      country,
+      summary,
+      detail,
+      facts,
+      nodes,
+      routes,
+      nodeIds
+    )
+  }
+
+  def newNetworkSummary(
+    name: String = "",
+    networkType: NetworkType = NetworkType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
+    factCount: Long = 0,
+    nodeCount: Long = 0,
+    routeCount: Long = 0,
+    changeCount: Long = 0,
+    active: Boolean = false
+  ): NetworkSummary = {
+    NetworkSummary(
+      name,
+      networkType,
+      networkScope,
+      factCount,
+      nodeCount,
+      routeCount,
+      changeCount,
+      active
+    )
+  }
+
+  def newNetworkDetail(
+    km: Long = 0,
+    meters: Long = 0,
+    lastUpdated: Timestamp = defaultTimestamp,
+    relationLastUpdated: Timestamp = defaultTimestamp,
+    lastSurvey: Option[Day] = None,
+    tags: Tags = Tags.empty,
+    brokenRouteCount: Long = 0,
+    brokenRoutePercentage: String = "-",
+    integrity: Integrity = Integrity(),
+    unaccessibleRouteCount: Long = 0,
+    connectionCount: Long = 0,
+    center: Option[LatLonImpl] = None
+  ): NetworkDetail = {
+    NetworkDetail(
+      km,
+      meters,
+      lastUpdated,
+      relationLastUpdated,
+      lastSurvey,
+      tags,
+      brokenRouteCount,
+      brokenRoutePercentage,
+      integrity,
+      unaccessibleRouteCount,
+      connectionCount,
+      center
+    )
   }
 }
