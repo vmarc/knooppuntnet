@@ -12,9 +12,12 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.actions.statistics.StatisticValue
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkShapeDoc
+import kpn.core.mongo.doc.OrphanNodeDoc
+import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -67,8 +70,16 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[NodeInfo]("nodes"))
   }
 
+  override def orphanNodes: DatabaseCollection[OrphanNodeDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[OrphanNodeDoc]("orphan-nodes"))
+  }
+
   override def routes: DatabaseCollection[RouteInfo] = {
     new DatabaseCollectionImpl(database.getCollection[RouteInfo]("routes"))
+  }
+
+  override def orphanRoutes: DatabaseCollection[OrphanRouteDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[OrphanRouteDoc]("orphan-routes"))
   }
 
   override def routeEdges: DatabaseCollection[GraphEdge] = {
@@ -149,5 +160,42 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteChangeGeometry]("monitor-route-change-geometries"))
+  }
+
+
+  override def statisticsSubsetNetworkCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-network-count"))
+  }
+
+  override def statisticsSubsetNodeCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-node-count"))
+  }
+
+  override def statisticsSubsetRouteCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-route-count"))
+  }
+
+  override def statisticsSubsetFactCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-fact-count"))
+  }
+
+  override def statisticsSubsetOrphanNodeCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-orphan-node-count"))
+  }
+
+  override def statisticsSubsetOrphanRouteCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-orphan-route-count"))
+  }
+
+  override def statisticsSubsetRouteDistance: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-route-distance"))
+  }
+
+  override def statisticsSubsetFacts: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-facts"))
+  }
+
+  override def statisticsSubsetChangeCount: DatabaseCollection[StatisticValue] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticValue]("statistics-subset-change-count"))
   }
 }

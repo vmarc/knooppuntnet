@@ -43,7 +43,7 @@ class TileAnalyzerImpl(
     }
 
     val orphanRouteInfos = Log.context("orphan-routes") {
-      val orphanRouteIds = subsets.flatMap(subset => orphanRepository.orphanRoutes(subset)).map(_.id)
+      val orphanRouteIds = subsets.flatMap(subset => orphanRepository.orphanRouteIds(subset))
       loadRouteAnalyses(routeRepository, orphanRouteIds)
     }
     val extraNodesInOrphanRoutes = findExtraNodesInOrphanRoutes(networkType, nodes, orphanRouteInfos)

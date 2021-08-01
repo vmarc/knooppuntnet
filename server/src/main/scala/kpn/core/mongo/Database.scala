@@ -12,9 +12,12 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.actions.statistics.StatisticValue
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkShapeDoc
+import kpn.core.mongo.doc.OrphanNodeDoc
+import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -52,7 +55,11 @@ trait Database {
 
   def nodes: DatabaseCollection[NodeInfo]
 
+  def orphanNodes: DatabaseCollection[OrphanNodeDoc]
+
   def routes: DatabaseCollection[RouteInfo]
+
+  def orphanRoutes: DatabaseCollection[OrphanRouteDoc]
 
   def routeEdges: DatabaseCollection[GraphEdge]
 
@@ -94,4 +101,21 @@ trait Database {
 
   def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry]
 
+  def statisticsSubsetNetworkCount: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetFactCount: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetNodeCount: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetOrphanNodeCount: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetRouteCount: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetRouteDistance: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetFacts: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetOrphanRouteCount: DatabaseCollection[StatisticValue]
+
+  def statisticsSubsetChangeCount: DatabaseCollection[StatisticValue]
 }

@@ -7,6 +7,7 @@ case class OrphanNodeInfo(
   name: String,
   longName: String,
   lastUpdated: Timestamp,
+  proposed: Boolean,
   lastSurvey: String,
   factCount: Long,
 )

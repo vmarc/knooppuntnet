@@ -8,6 +8,8 @@ trait OrphanRepository {
 
   def orphanRoutes(subset: Subset): Seq[OrphanRouteInfo]
 
+  def orphanRouteIds(subset: Subset): Seq[Long]
+
   def orphanNodes(subset: Subset): Seq[NodeInfo]
 
 }

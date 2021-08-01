@@ -17,6 +17,8 @@ trait DatabaseCollection[T] {
 
   def native: MongoCollection[T]
 
+  def name: String = native.namespace.getCollectionName
+
   def aggregate[R: ClassTag](
     pipeline: Seq[Bson],
     log: Log = collectionLog,

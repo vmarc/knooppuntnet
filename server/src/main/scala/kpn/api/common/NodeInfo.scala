@@ -48,6 +48,10 @@ case class NodeInfo(
     }
   }
 
+  def networkTypeProposed(networkType: NetworkType): Boolean = {
+    names.filter(_.networkType == networkType).exists(_.proposed)
+  }
+
   def name(scopedNetworkType: ScopedNetworkType): String = {
     names.filter(_.scopedNetworkType == scopedNetworkType).map(_.name).mkString(" / ")
   }

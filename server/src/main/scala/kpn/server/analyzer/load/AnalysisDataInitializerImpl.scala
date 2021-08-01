@@ -41,7 +41,7 @@ class AnalysisDataInitializerImpl(
   }
 
   private def loadOrphanRoutes(): Unit = {
-    val orphanRouteIds = Subset.all.flatMap(subset => orphanRepository.orphanRoutes(subset)).map(_.id)
+    val orphanRouteIds = Subset.all.flatMap(subset => orphanRepository.orphanRouteIds(subset))
     orphanRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       Log.context(s"${index + 1}/${orphanRouteIds.size}, $routeId") {
         log.elapsed {
