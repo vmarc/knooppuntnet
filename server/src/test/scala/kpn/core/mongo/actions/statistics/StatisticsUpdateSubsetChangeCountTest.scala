@@ -1,9 +1,14 @@
 package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
+import kpn.api.custom.Country.de
+import kpn.api.custom.Country.nl
+import kpn.api.custom.NetworkType.cycling
+import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Subset
+import kpn.api.custom.Subset.deHiking
+import kpn.api.custom.Subset.nlBicycle
+import kpn.api.custom.Subset.nlHiking
 import kpn.core.mongo.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -13,21 +18,21 @@ class StatisticsUpdateSubsetChangeCountTest extends UnitTest with SharedTestObje
   test("execute") {
     withDatabase { database =>
 
-      buildChangeSetSummary(database, 1L, Seq(Subset.nlHiking))
-      buildChangeSetSummary(database, 2L, Seq(Subset.nlHiking))
-      buildChangeSetSummary(database, 3L, Seq(Subset.nlHiking))
-      buildChangeSetSummary(database, 4L, Seq(Subset.nlBicycle))
-      buildChangeSetSummary(database, 5L, Seq(Subset.nlBicycle))
-      buildChangeSetSummary(database, 6L, Seq(Subset.beHiking))
+      buildChangeSetSummary(database, 1L, Seq(nlHiking))
+      buildChangeSetSummary(database, 2L, Seq(nlHiking))
+      buildChangeSetSummary(database, 3L, Seq(nlHiking))
+      buildChangeSetSummary(database, 4L, Seq(nlBicycle))
+      buildChangeSetSummary(database, 5L, Seq(nlBicycle))
+      buildChangeSetSummary(database, 6L, Seq(deHiking))
 
       new StatisticsUpdateSubsetChangeCount(database).execute()
 
       val counts = new MongoQueryStatistics(database).execute()
 
       counts.size should equal(3)
-      counts should contain(StatisticValue(Country.nl, NetworkType.hiking, "ChangeCount", 3))
-      counts should contain(StatisticValue(Country.nl, NetworkType.cycling, "ChangeCount", 2))
-      counts should contain(StatisticValue(Country.be, NetworkType.hiking, "ChangeCount", 1))
+      counts should contain(StatisticValue(nl, hiking, "ChangeCount", 3))
+      counts should contain(StatisticValue(nl, cycling, "ChangeCount", 2))
+      counts should contain(StatisticValue(de, hiking, "ChangeCount", 1))
     }
   }
 

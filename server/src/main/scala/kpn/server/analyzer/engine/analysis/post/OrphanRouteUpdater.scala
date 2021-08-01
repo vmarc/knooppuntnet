@@ -12,6 +12,7 @@ import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.MergeOptions
 import org.mongodb.scala.model.Projections.computed
@@ -48,7 +49,7 @@ class OrphanRouteUpdater(database: Database) {
         filter(
           and(
             equal("labels", "active"),
-            BsonDocument("""{"summary.country": {"$exists": true}}""")
+            exists("summary.country")
           )
         ),
         project(

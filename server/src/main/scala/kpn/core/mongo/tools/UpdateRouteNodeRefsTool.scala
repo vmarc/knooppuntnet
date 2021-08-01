@@ -3,7 +3,7 @@ package kpn.core.mongo.tools
 import kpn.api.common.route.RouteInfo
 import kpn.core.mongo.Database
 import kpn.core.mongo.util.Mongo
-import org.mongodb.scala.bson.BsonDocument
+import org.mongodb.scala.model.Filters.exists
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -20,7 +20,7 @@ object UpdateRouteNodeRefsTool {
 class UpdateRouteNodeRefsTool(database: Database) {
 
   def update(): Unit = {
-    val future = database.routes.native.find[RouteInfo](BsonDocument("""{"nodeRefs": {"$exists": false}}""")).toFuture()
+    val future = database.routes.native.find[RouteInfo](exists("nodeRefs", exists = false)).toFuture()
     val routeInfos = Await.result(future, Duration(30, TimeUnit.SECONDS))
     routeInfos.zipWithIndex.foreach { case (routeInfo, index) =>
       println(s"${index + 1}/${routeInfos.size}")

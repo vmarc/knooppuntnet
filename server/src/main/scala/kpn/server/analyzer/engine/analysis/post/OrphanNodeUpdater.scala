@@ -12,6 +12,7 @@ import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.MergeOptions
 import org.mongodb.scala.model.Projections.computed
@@ -50,8 +51,8 @@ class OrphanNodeUpdater(database: Database) {
         filter(
           and(
             equal("labels", "active"),
-            BsonDocument("""{"country": {"$exists": true}}"""),
-            BsonDocument("""{"names": {"$exists": true}}"""),
+            exists("country"),
+            exists("names")
           )
         ),
         project(

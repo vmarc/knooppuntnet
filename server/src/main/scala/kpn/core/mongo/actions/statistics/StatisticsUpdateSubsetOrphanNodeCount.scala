@@ -2,17 +2,16 @@ package kpn.core.mongo.actions.statistics
 
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetOrphanNodeCount.log
+import kpn.core.mongo.util.MongoProjections.concat
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.Document
-import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.merge
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.MergeOptions
 import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 
 object StatisticsUpdateSubsetOrphanNodeCount extends MongoQuery {
@@ -32,8 +31,7 @@ class StatisticsUpdateSubsetOrphanNodeCount(database: Database) {
         ),
         project(
           fields(
-            excludeId(),
-            BsonDocument("""{"_id": {"$concat": ["$_id.country",":","$_id.networkType",":OrphanNodeCount"]}}"""),
+            concat("_id", "$_id.country", ":", "$_id.networkType", ":OrphanNodeCount"),
             computed("country", "$_id.country"),
             computed("networkType", "$_id.networkType"),
             computed("name", "OrphanNodeCount"),

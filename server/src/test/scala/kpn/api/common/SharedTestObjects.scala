@@ -64,6 +64,8 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.mongo.doc.OrphanNodeDoc
+import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -1117,6 +1119,54 @@ trait SharedTestObjects extends MockFactory {
       unaccessibleRouteCount,
       connectionCount,
       center
+    )
+  }
+
+  def newOrphanNodeDoc(
+    country: Country,
+    networkType: NetworkType,
+    nodeId: Long,
+    name: String = "",
+    longName: Option[String] = None,
+    proposed: Boolean = false,
+    lastUpdated: Timestamp = defaultTimestamp,
+    lastSurvey: Option[Day] = None,
+    facts: Seq[Fact] = Seq.empty
+  ): OrphanNodeDoc = {
+    val _id = s"${country.domain}:${networkType.name}:$nodeId"
+    OrphanNodeDoc(
+      _id,
+      country,
+      networkType,
+      nodeId,
+      name,
+      longName,
+      proposed,
+      lastUpdated,
+      lastSurvey,
+      facts
+    )
+  }
+
+  def newOrphanRouteDoc(
+    _id: Long,
+    country: Country,
+    networkType: NetworkType,
+    name: String = "",
+    meters: Long = 0L,
+    facts: Seq[Fact] = Seq.empty,
+    lastSurvey: String = "-",
+    lastUpdated: Timestamp = defaultTimestamp
+  ): OrphanRouteDoc = {
+    OrphanRouteDoc(
+      _id,
+      country,
+      networkType,
+      name,
+      meters,
+      facts,
+      lastSurvey,
+      lastUpdated
     )
   }
 }
