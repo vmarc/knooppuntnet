@@ -22,8 +22,8 @@ case class RouteAnalysisContext(
   relation: Relation,
   loadedRoute: LoadedRoute,
   orphan: Boolean,
-  routeNodeInfos: Map[Long, RouteNodeInfo],
   // analysis results start here...
+  routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
   active: Boolean = true,

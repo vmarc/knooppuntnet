@@ -301,15 +301,11 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val analysisContext = new AnalysisContext()
-    val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
-
     val context = RouteAnalysisContext(
       analysisContext,
       loadedRoute.relation,
       loadedRoute,
-      orphan = false,
-      routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
+      orphan = false
     )
 
     RouteNameAnalyzer.analyze(context)

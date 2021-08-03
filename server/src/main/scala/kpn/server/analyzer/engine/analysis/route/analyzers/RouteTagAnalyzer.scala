@@ -9,13 +9,13 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 import scala.collection.mutable.ListBuffer
 
-object RouteTagRouteAnalyzer extends RouteAnalyzer {
+object RouteTagAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new RouteTagRouteAnalyzer(context).analyze
+    new RouteTagAnalyzer(context).analyze
   }
 }
 
-class RouteTagRouteAnalyzer(context: RouteAnalysisContext) {
+class RouteTagAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
 

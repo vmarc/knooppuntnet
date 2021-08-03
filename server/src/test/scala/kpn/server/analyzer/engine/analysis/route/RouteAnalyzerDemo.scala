@@ -6,7 +6,6 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -27,14 +26,11 @@ object RouteAnalyzerDemo {
         val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
         val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
         val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-        val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
-        val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
         val routeAnalyzer = new MasterRouteAnalyzerImpl(
           analysisContext,
           routeCountryAnalyzer,
           routeLocationAnalyzer,
-          routeTileAnalyzer,
-          routeNodeInfoAnalyzer
+          routeTileAnalyzer
         )
         val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
         println("facts=" + routeAnalysis.route.facts)

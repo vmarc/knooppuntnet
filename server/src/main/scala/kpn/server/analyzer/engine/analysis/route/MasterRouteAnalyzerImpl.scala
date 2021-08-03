@@ -25,10 +25,10 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
@@ -46,25 +46,22 @@ class MasterRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
   routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
-  routeTileAnalyzer: RouteTileAnalyzer,
-  routeNodeInfoAnalyzer: RouteNodeInfoAnalyzer
+  routeTileAnalyzer: RouteTileAnalyzer
 ) extends MasterRouteAnalyzer {
 
   override def analyze(loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
     Log.context("route=%07d".format(loadedRoute.id)) {
 
-      val routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
       val context = RouteAnalysisContext(
         analysisContext,
         loadedRoute.relation,
         loadedRoute,
-        orphan,
-        routeNodeInfos
+        orphan
       )
 
       val analyzers: List[RouteAnalyzer] = List(
         routeCountryAnalyzer,
-        RouteTagRouteAnalyzer,
+        RouteTagAnalyzer,
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
         IncompleteRouteAnalyzer,
@@ -72,6 +69,7 @@ class MasterRouteAnalyzerImpl(
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer,
         RouteNameAnalyzer,
+        RouteNodeTagAnalyzer,
         RouteNodeAnalyzer, // has ProposedAnalyzer as prerequisite
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK

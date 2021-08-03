@@ -31,7 +31,6 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImp
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
@@ -143,16 +142,11 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     }
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
 
-    val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(
-      analysisContext,
-      oldNodeAnalyzer
-    )
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
       routeCountryAnalyzer,
       routeLocationAnalyzer,
-      routeTileAnalyzer,
-      routeNodeInfoAnalyzer
+      routeTileAnalyzer
     )
     val networkAnalyzer: NetworkAnalyzer = {
       val oldNodeLocationAnalyzer = new OldNodeLocationAnalyzer {
