@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData

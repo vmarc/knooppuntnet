@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteWithoutWays
-import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl

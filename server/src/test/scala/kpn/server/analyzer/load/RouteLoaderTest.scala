@@ -2,7 +2,6 @@ package kpn.server.analyzer.load
 
 import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
-import kpn.api.custom.Country
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer

@@ -1,6 +1,5 @@
 package kpn.server.analyzer.load.data
 
-import kpn.api.custom.Country
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
