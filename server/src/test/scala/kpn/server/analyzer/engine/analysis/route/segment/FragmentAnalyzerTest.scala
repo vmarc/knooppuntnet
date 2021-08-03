@@ -162,6 +162,7 @@ class FragmentAnalyzerTest extends UnitTest {
 
     val context1 = RouteAnalysisContext(
       analysisContext,
+      relation = relation,
       loadedRoute = LoadedRoute(
         country = None,
         scopedNetworkType = ScopedNetworkType.rwn,

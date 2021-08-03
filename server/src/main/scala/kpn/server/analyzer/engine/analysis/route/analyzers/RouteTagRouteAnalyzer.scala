@@ -13,7 +13,7 @@ object RouteTagRouteAnalyzer extends RouteAnalyzer {
 class RouteTagRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    context.loadedRoute.relation.tags("route") match {
+    context.relation.tags("route") match {
       case None => context.withFact(RouteTagMissing)
       case Some(routeTagValue) =>
         if (!isValid(routeTagValue)) {

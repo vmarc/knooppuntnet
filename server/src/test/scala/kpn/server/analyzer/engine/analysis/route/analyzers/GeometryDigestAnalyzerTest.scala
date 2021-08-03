@@ -33,6 +33,7 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
     RouteAnalysisContext(
       null,
       null,
+      null,
       orphan = false,
       Map.empty,
       allWayNodes = Some(

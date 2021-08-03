@@ -48,7 +48,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     )
 
     RouteAnalysis(
-      context.loadedRoute.relation,
+      context.relation,
       route = route,
       structure = context.structure.get,
       routeNodeAnalysis = context.routeNodeAnalysis.get,
@@ -127,7 +127,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     )
 
     val lastUpdatedElement: Element = {
-      val elements: Seq[Element] = Seq(context.loadedRoute.relation) ++ routeWays ++ routeNodeAnalysis.routeNodes.map(rn => rn.node)
+      val elements: Seq[Element] = Seq(context.relation) ++ routeWays ++ routeNodeAnalysis.routeNodes.map(rn => rn.node)
       elements.reduceLeft((a, b) => if (a.timestamp > b.timestamp) a else b)
     }
 
@@ -138,7 +138,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       routeAnalysis.map.endNodes.map(_.name)
 
     val summary = RouteSummary(
-      context.loadedRoute.relation.id,
+      context.relation.id,
       context.loadedRoute.country,
       context.loadedRoute.scopedNetworkType.networkType,
       context.loadedRoute.scopedNetworkType.networkScope,
@@ -146,9 +146,9 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       length,
       facts.contains(Fact.RouteBroken),
       routeWays.size,
-      context.loadedRoute.relation.timestamp,
+      context.relation.timestamp,
       nodeNames,
-      context.loadedRoute.relation.tags
+      context.relation.tags
     )
 
     RouteInfo(
@@ -158,11 +158,11 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       active = true,
       orphan = context.orphan,
       proposed = context.proposed,
-      context.loadedRoute.relation.version,
-      context.loadedRoute.relation.changeSetId,
+      context.relation.version,
+      context.relation.changeSetId,
       lastUpdated,
       context.lastSurvey,
-      context.loadedRoute.relation.tags,
+      context.relation.tags,
       facts.toSeq,
       routeAnalysis,
       context.tiles,

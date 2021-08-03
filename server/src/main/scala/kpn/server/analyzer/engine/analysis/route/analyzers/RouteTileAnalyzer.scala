@@ -22,7 +22,7 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
         new TileDataRouteBuilder(zoomLevel).from(
           context.loadedRoute.id,
           name,
-          context.loadedRoute.relation.tags,
+          context.relation.tags,
           routeMap,
           context.orphan,
           context.facts

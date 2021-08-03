@@ -28,7 +28,7 @@ object RouteNameAnalyzer extends RouteAnalyzer {
 class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val tags = context.loadedRoute.relation.tags
+    val tags = context.relation.tags
     val routeNameAnalysis = tags("ref") match {
       case Some(ref) => analyzeRouteName(ref)
       case None =>

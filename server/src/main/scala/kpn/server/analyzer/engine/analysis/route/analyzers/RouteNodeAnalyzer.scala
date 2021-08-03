@@ -31,7 +31,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   private val nodesInRelation = findNodesInRelation(nodes)
   private val nodeUtil = new NodeUtil(context.scopedNetworkType)
 
-  private val orderedRouteNodeInfos = new RouteRelationAnalyzer().orderedNodeIds(context.loadedRoute.relation).flatMap { nodeId =>
+  private val orderedRouteNodeInfos = new RouteRelationAnalyzer().orderedNodeIds(context.relation).flatMap { nodeId =>
     context.routeNodeInfos.get(nodeId)
   }
 
@@ -197,11 +197,11 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
         false
       }
       else {
-        if (context.loadedRoute.relation.wayMembers.isEmpty) {
+        if (context.relation.wayMembers.isEmpty) {
           false
         }
         else {
-          val firstWay = context.loadedRoute.relation.wayMembers.head.way
+          val firstWay = context.relation.wayMembers.head.way
           val firstWayNodeIds = firstWay.nodes.map(_.id)
 
           if (firstWayNodeIds.exists(startNodeIds.contains) && firstWayNodeIds.exists(endNodeIds.contains)) {
@@ -263,12 +263,12 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def findNodesInWays(routeNodeInfos: Seq[RouteNodeInfo]): Seq[RouteNodeInfo] = {
-    val wayNodeIds = context.loadedRoute.relation.wayMembers.flatMap(member => member.way.nodes).map(_.id).toSet
+    val wayNodeIds = context.relation.wayMembers.flatMap(member => member.way.nodes).map(_.id).toSet
     routeNodeInfos.filter(node => wayNodeIds.contains(node.node.id))
   }
 
   private def findNodesInRelation(routeNodeInfos: Seq[RouteNodeInfo]): Seq[RouteNodeInfo] = {
-    val relationNodeIds = context.loadedRoute.relation.nodeMembers.map(_.node).map(_.id).toSet
+    val relationNodeIds = context.relation.nodeMembers.map(_.node).map(_.id).toSet
     routeNodeInfos.filter(node => relationNodeIds.contains(node.node.id))
   }
 

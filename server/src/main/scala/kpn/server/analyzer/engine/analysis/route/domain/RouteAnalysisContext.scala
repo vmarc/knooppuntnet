@@ -6,6 +6,7 @@ import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
@@ -17,6 +18,7 @@ import kpn.server.analyzer.load.data.LoadedRoute
 
 case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
+  relation: Relation,
   loadedRoute: LoadedRoute,
   orphan: Boolean,
   routeNodeInfos: Map[Long, RouteNodeInfo],
@@ -84,6 +86,6 @@ case class RouteAnalysisContext(
     expectedFacts.exists(f => facts.contains(f))
   }
 
-  def connection: Boolean = loadedRoute.relation.tags.has("state", "connection")
+  def connection: Boolean = relation.tags.has("state", "connection")
 
 }

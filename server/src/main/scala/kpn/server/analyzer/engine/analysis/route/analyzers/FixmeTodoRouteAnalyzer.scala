@@ -21,6 +21,6 @@ class FixmeTodoRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def hasFixmeTodoTag: Boolean = {
-    context.loadedRoute.relation.tags.has("fixmetodo")
+    context.relation.tags.has("fixmetodo")
   }
 }

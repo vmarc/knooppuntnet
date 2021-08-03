@@ -10,7 +10,7 @@ object ProposedAnalyzer extends RouteAnalyzer {
 
 class ProposedAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
-    if (context.loadedRoute.relation.tags.has("state", "proposed")) {
+    if (context.relation.tags.has("state", "proposed")) {
       context.copy(proposed = true)
     }
     else {

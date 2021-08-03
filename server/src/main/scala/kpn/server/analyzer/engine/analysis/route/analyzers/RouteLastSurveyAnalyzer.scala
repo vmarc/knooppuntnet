@@ -15,7 +15,7 @@ object RouteLastSurveyAnalyzer extends RouteAnalyzer {
 
 class RouteLastSurveyAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
-    val surveyDateTry = SurveyDateAnalyzer.analyze(context.loadedRoute.relation.tags)
+    val surveyDateTry = SurveyDateAnalyzer.analyze(context.relation.tags)
     surveyDateTry match {
       case Success(surveyDate) => context.copy(lastSurvey = surveyDate)
       case Failure(_) => context.withFact(Fact.RouteInvalidSurveyDate)

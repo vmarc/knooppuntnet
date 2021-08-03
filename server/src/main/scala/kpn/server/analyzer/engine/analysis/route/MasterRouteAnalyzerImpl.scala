@@ -55,6 +55,7 @@ class MasterRouteAnalyzerImpl(
       val routeNodeInfos = routeNodeInfoAnalyzer.analyze(loadedRoute)
       val context = RouteAnalysisContext(
         analysisContext,
+        loadedRoute.relation,
         loadedRoute,
         orphan,
         routeNodeInfos

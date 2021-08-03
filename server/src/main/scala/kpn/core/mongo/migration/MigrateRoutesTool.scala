@@ -105,6 +105,7 @@ class MigrateRoutesTool(couchDatabase: kpn.core.database.Database, database: Dat
   private def generateRouteLabels(routeInfo: RouteInfo): Seq[String] = {
     val context = RouteAnalysisContext(
       new AnalysisContext(),
+      null,
       LoadedRoute(
         routeInfo.summary.country,
         ScopedNetworkType(routeInfo.summary.networkScope, routeInfo.summary.networkType),

@@ -56,7 +56,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
       try {
         new SegmentAnalyzer(
           context.scopedNetworkType.networkType,
-          context.loadedRoute.relation.id,
+          context.relation.id,
           context.routeNameAnalysis.exists(_.isStartNodeNameSameAsEndNodeName),
           fragmentMap,
           routeNodeAnalysis
@@ -83,10 +83,10 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
           }
           else {
 
-            val oneWayRouteForward = context.loadedRoute.relation.tags.has("direction", "forward")
-            val oneWayRouteBackward = context.loadedRoute.relation.tags.has("direction", "backward")
+            val oneWayRouteForward = context.relation.tags.has("direction", "forward")
+            val oneWayRouteBackward = context.relation.tags.has("direction", "backward")
 
-            val oneWayRoute = context.loadedRoute.relation.tags.tags.exists { tag =>
+            val oneWayRoute = context.relation.tags.tags.exists { tag =>
               (tag.key == "comment" && tag.value.contains("to be used in one direction")) ||
                 (tag.key == "oneway" && tag.value == "yes") ||
                 (tag.key == "signed_direction" && tag.value == "yes")

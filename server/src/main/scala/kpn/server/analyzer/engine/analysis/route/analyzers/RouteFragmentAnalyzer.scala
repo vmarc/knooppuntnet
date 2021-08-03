@@ -13,7 +13,7 @@ class RouteFragmentAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     val usedNodes = context.routeNodeAnalysis.get.usedNodes
-    val wayMembers = context.loadedRoute.relation.wayMembers
+    val wayMembers = context.relation.wayMembers
     val fragmentMap = new FragmentAnalyzer(usedNodes, wayMembers).fragmentMap
     context.copy(fragmentMap = Some(fragmentMap))
   }

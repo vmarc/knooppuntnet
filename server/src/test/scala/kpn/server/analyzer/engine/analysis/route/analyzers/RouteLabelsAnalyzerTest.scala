@@ -69,6 +69,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
     RouteAnalysisContext(
       analysisContext = analysisContext,
+      loadedRoute.relation,
       loadedRoute = loadedRoute,
       orphan = true,
       Map.empty,

@@ -84,6 +84,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
     val context = RouteAnalysisContext(
       new AnalysisContext(),
+      loadedRoute.relation,
       loadedRoute,
       orphan = false,
       Map.empty

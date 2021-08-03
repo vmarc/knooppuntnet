@@ -21,7 +21,7 @@ class WithoutWaysRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def routeHasWays: Boolean = {
-    context.loadedRoute.relation.members.exists(_.isWay)
+    context.relation.members.exists(_.isWay)
   }
 
 }

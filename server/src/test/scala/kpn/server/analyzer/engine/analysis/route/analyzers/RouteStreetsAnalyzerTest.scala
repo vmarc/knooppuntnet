@@ -26,6 +26,7 @@ class RouteStreetsAnalyzerTest extends UnitTest {
 
     val context = RouteAnalysisContext(
       analysisContext,
+      relation = null,
       loadedRoute = null,
       orphan = false,
       Map.empty,

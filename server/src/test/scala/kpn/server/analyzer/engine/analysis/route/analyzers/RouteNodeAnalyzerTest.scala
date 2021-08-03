@@ -492,6 +492,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     val context = RouteAnalysisContext(
       analysisContext,
+      loadedRoute.relation,
       loadedRoute,
       orphan = false,
       routeNodeInfos,
