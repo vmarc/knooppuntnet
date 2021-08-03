@@ -18,10 +18,6 @@ import org.xml.sax.SAXParseException
 import scala.xml.Elem
 import scala.xml.XML
 
-/*
-   Loads the network state at a given moment in time from the Overpass database and transforms the XML into
-   object format.
-*/
 @Component
 class NetworkLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) extends NetworkLoader {
 

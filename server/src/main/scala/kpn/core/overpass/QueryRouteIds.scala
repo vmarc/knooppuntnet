@@ -1,12 +1,10 @@
 package kpn.core.overpass
 
-import kpn.api.custom.ScopedNetworkType
+case class QueryRouteIds() extends OverpassQuery {
 
-case class QueryRouteIds(scopedNetworkType: ScopedNetworkType) extends OverpassQuery {
-
-  def name: String = s"route-ids-${scopedNetworkType.key}"
+  def name: String = s"route-ids"
 
   def string: String = {
-    s"relation['type'='route']['network:type'='node_network']['network'='${scopedNetworkType.key}'];out ids;"
+    s"relation['type'='route']['network:type'='node_network']['network'];out ids;"
   }
 }

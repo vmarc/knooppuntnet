@@ -210,7 +210,10 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
 
         def oldLoadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode] = Seq.empty
 
+        def oldLoad2(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = Seq.empty
+
         def load(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = Seq.empty
+
       }
 
       val nodeChangeBuilder = new NodeChangeBuilderImpl(

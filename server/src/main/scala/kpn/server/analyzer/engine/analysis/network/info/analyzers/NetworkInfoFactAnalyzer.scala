@@ -114,7 +114,7 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
       }
     ).flatten
 
-    val networkInfoFacts = context.networkDoc.facts.map(f => NetworkFact(f.name))
+    val networkInfoFacts = context.facts.map(f => NetworkFact(f.name))
     networkInfoFacts ++ networkInfoDocFacts
   }
 }

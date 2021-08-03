@@ -1,12 +1,8 @@
 package kpn.api.common.network
 
 import kpn.api.base.WithId
-import kpn.api.common.NetworkFacts
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NetworkNodeRef
-import kpn.core.mongo.doc.NetworkRouteRef
 
 case class NetworkInfo(
   _id: Long,
@@ -91,55 +87,5 @@ case class NetworkInfo(
       case Some(d) => d.routes.map(_.facts.count(Fact.reportedFacts.contains)).sum
       case None => 0
     }
-  }
-
-  def toNetworkDoc: NetworkDoc = {
-    val nodeRefs: Seq[NetworkNodeRef] = if (active) {
-      detail match {
-        case None => Seq.empty
-        case Some(d) =>
-          d.nodes.map { networkInfoNode =>
-            NetworkNodeRef(
-              networkInfoNode.id,
-              if (networkInfoNode.roleConnection) Some("connection") else None
-            )
-          }
-      }
-    }
-    else {
-      Seq.empty
-    }
-
-    val routeRefs: Seq[NetworkRouteRef] = if (active) {
-      detail match {
-        case None => Seq.empty
-        case Some(d) =>
-          d.routes.map { networkInfoRoute =>
-            NetworkRouteRef(
-              networkInfoRoute.id,
-              networkInfoRoute.role
-            )
-          }
-      }
-    }
-    else {
-      Seq.empty
-    }
-
-    NetworkDoc(
-      _id,
-      active,
-      attributes.country,
-      attributes.networkType,
-      attributes.networkScope,
-      attributes.name,
-      attributes.lastUpdated,
-      attributes.relationLastUpdated,
-      nodeRefs,
-      routeRefs,
-      detail.map(_.networkFacts).getOrElse(NetworkFacts()),
-      Seq.empty, // TODO MONGO not needed?
-      tags
-    )
   }
 }

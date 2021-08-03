@@ -16,6 +16,7 @@ import kpn.core.mongo.actions.statistics.StatisticValue
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkShapeDoc
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
@@ -68,6 +69,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def nodes: DatabaseCollection[NodeInfo] = {
     new DatabaseCollectionImpl(database.getCollection[NodeInfo]("nodes"))
+  }
+
+  override def nodeDocs: DatabaseCollection[NodeDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("node-docs"))
   }
 
   override def orphanNodes: DatabaseCollection[OrphanNodeDoc] = {

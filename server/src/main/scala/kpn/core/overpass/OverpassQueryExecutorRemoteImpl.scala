@@ -13,12 +13,14 @@ class OverpassQueryExecutorRemoteImpl() extends OverpassQueryExecutor {
   private val log = Log(classOf[OverpassQueryExecutorRemoteImpl])
 
   def execute(queryString: String): String = {
-    val url: String = "http://kpn:9011/api/overpass"
-    val headers = new HttpHeaders()
-    headers.setContentType(MediaType.TEXT_PLAIN)
-    val entity = new HttpEntity[String](queryString, headers)
-    val restTemplate = new RestTemplate()
-    val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
-    response.getBody
+    log.debugElapsed {
+      val url: String = "http://kpn:9011/api/overpass"
+      val headers = new HttpHeaders()
+      headers.setContentType(MediaType.TEXT_PLAIN)
+      val entity = new HttpEntity[String](queryString, headers)
+      val restTemplate = new RestTemplate()
+      val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])
+      (queryString, response.getBody)
+    }
   }
 }

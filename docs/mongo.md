@@ -109,7 +109,7 @@ db.createUser(
 db.grantRolesToUser(
     "kpn-app",
     [
-      { role: "readWrite", db: "kpn-test" }
+      { role: "readWrite", db: "kpn-experimental" }
     ]
 )
 ```

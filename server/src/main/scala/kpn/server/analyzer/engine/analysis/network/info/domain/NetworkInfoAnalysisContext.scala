@@ -6,14 +6,18 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkShape
+import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NodeDoc
 
 case class NetworkInfoAnalysisContext(
   networkDoc: NetworkDoc,
-  scopedNetworkType: ScopedNetworkType = null, // TODO can do better?
+  scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
+  country: Option[Country] = None,
+  name: String = "",
   nodes: Seq[NodeDoc] = Seq.empty,
   facts: Seq[NetworkFact] = Seq.empty,
   nodeDetails: Seq[NetworkNodeDetail] = Seq.empty,
@@ -23,6 +27,7 @@ case class NetworkInfoAnalysisContext(
   changeCount: Long = 0,
   km: Long = 0,
   meters: Long = 0,
+  lastUpdated: Option[Timestamp] = None,
   lastSurvey: Option[Day] = None,
   brokenRouteCount: Long = 0,
   brokenRoutePercentage: String = "-",
@@ -31,4 +36,11 @@ case class NetworkInfoAnalysisContext(
   connectionCount: Long = 0,
   center: Option[LatLonImpl] = None,
   shape: Option[NetworkShape] = None
-)
+) {
+
+  def scopedNetworkType: ScopedNetworkType = {
+    scopedNetworkTypeOption.getOrElse {
+      throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
+    }
+  }
+}

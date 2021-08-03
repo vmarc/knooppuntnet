@@ -54,19 +54,19 @@ class ElementsSnapshotTool(
 
   private def readNodeIds: Seq[Long] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      nodeIdsLoader.load(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
+      nodeIdsLoader.loadByType(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
     }
   }
 
   private def readRouteIds: Seq[Long] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      routeIdsLoader.load(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
+      routeIdsLoader.loadByType(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
     }
   }
 
   private def readNetworkIds: Seq[Long] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      networkIdsLoader.load(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
+      networkIdsLoader.loadByType(AnalysisContext.networkTypeTaggingStart, scopedNetworkType)
     }
   }
 

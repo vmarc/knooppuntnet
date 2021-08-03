@@ -16,6 +16,7 @@ import kpn.core.mongo.actions.statistics.StatisticValue
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkShapeDoc
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
@@ -54,6 +55,8 @@ trait Database {
   def networkGpxs: DatabaseCollection[GpxFile]
 
   def nodes: DatabaseCollection[NodeInfo]
+
+  def nodeDocs: DatabaseCollection[NodeDoc]
 
   def orphanNodes: DatabaseCollection[OrphanNodeDoc]
 

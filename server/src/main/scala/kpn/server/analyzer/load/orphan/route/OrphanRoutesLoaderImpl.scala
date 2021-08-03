@@ -28,7 +28,7 @@ class OrphanRoutesLoaderImpl(
     ScopedNetworkType.all.foreach { scopedNetworkType =>
       Log.context(scopedNetworkType.key) {
         databaseIndexer.index(true)
-        val routeIds = routeIdsLoader.load(timestamp, scopedNetworkType)
+        val routeIds = routeIdsLoader.loadByType(timestamp, scopedNetworkType)
         val blackListedRouteIds = blackListRepository.get.routes.map(_.id).toSet
         val candidateOrphanRouteIds = (routeIds -- blackListedRouteIds).filterNot(isReferenced).toSeq.sorted
 

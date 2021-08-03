@@ -27,7 +27,7 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
 
     val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
-    val networkNodeIds = context.networkDoc.nodeRefs.map(_.nodeId)
+    val networkNodeIds = context.networkDoc.nodeMembers.map(_.nodeId)
     val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
     val nodeDocs = queryNodes(nodeIds)
     val nodeDetails = buildNetworkNodes(context.networkDoc, context.scopedNetworkType, nodeDocs)
@@ -42,7 +42,7 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
     val routeReferences = nodesRouteReferences(scopedNetworkType, sortedNodeDocs.map(_._id))
     val nodeRouteReferencesMap = routeReferences.map(nrr => nrr.nodeId -> nrr.routeRefs).toMap
     sortedNodeDocs.map { nodeDoc =>
-      val roleConnection: Boolean = networkDoc.nodeRefs.find(_.nodeId == nodeDoc._id) match {
+      val roleConnection: Boolean = networkDoc.nodeMembers.find(_.nodeId == nodeDoc._id) match {
         case Some(nodeRef) => nodeRef.role.contains("connection")
         case None => false
       }
@@ -56,7 +56,7 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
         nodeDoc.longitude,
         connection = false, // not supported anymore
         roleConnection = roleConnection,
-        definedInRelation = networkDoc.nodeRefs.exists(_.nodeId == nodeDoc._id),
+        definedInRelation = networkDoc.nodeMembers.exists(_.nodeId == nodeDoc._id),
         definedInRoute = false, // not supported anymore
         proposed = nodeDoc.labels.contains("proposed"), // networkInfoNode.proposed,
         nodeDoc.lastUpdated,

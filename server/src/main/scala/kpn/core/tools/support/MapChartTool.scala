@@ -82,7 +82,7 @@ class MapChartTool(
   private def analyze(timestamp: Timestamp): Unit = {
     Log.context(timestamp.yyyymmdd) {
       log.info(s"collecting routeIds")
-      val routeIds = routeIdsLoader.load(timestamp, ScopedNetworkType.rwn).toSeq.sorted
+      val routeIds = routeIdsLoader.loadByType(timestamp, ScopedNetworkType.rwn).toSeq.sorted
       val nlRouteCount = countNlRoutes(timestamp, routeIds)
       log.warn(s"NL hiking routes: $nlRouteCount")
       println(s"${timestamp.yyyymmdd} $nlRouteCount")

@@ -19,12 +19,12 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
   private val log = Log(classOf[NetworkInfoRouteAnalyzer])
 
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    val routeIds = context.networkDoc.routeRefs.map(_.routeId)
+    val routeIds = context.networkDoc.relationMembers.map(_.relationId)
+    // TODO MONGO create fact for all relations for which no route is found: NetworkExtraMemberRelation
     val routeDetails = queryRouteDetails(routeIds)
 
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)
-
 
     context.copy(
       routeDetails = routeDetails,

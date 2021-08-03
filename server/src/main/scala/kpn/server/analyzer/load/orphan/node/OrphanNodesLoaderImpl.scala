@@ -27,9 +27,9 @@ class OrphanNodesLoaderImpl(
     ScopedNetworkType.all.foreach { scopedNetworkType =>
       Log.context(scopedNetworkType.key) {
         databaseIndexer.index(true)
-        val nodeIds = nodeIdsLoader.load(timestamp, scopedNetworkType)
+        val nodeIds = nodeIdsLoader.loadByType(timestamp, scopedNetworkType)
         val orphanNodeIds = nodeIds.filterNot(isReferenced)
-        val nodes = nodesLoader.load(timestamp, orphanNodeIds)
+        val nodes = nodesLoader.oldLoad2(timestamp, orphanNodeIds)
         nodes.zipWithIndex.foreach { case (node, index) =>
           log.unitElapsed {
             createProcessor.process(None, node)

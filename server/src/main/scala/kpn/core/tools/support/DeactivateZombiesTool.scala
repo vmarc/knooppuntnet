@@ -7,7 +7,7 @@ import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNode
-import kpn.core.overpass.QueryNodeIds
+import kpn.core.overpass.QueryNodeIdsByType
 
 import scala.xml.XML
 
@@ -64,7 +64,7 @@ class DeactivateZombiesTool(database: Database, overpassQueryExecutor: OverpassQ
 
   private def readOverpassNodeIdsWithTagKey(scopedNetworkType: ScopedNetworkType): Set[Long] = {
     println(s"read overpass nodes ${scopedNetworkType.key}")
-    val query = QueryNodeIds(scopedNetworkType.nodeRefTagKey) // note: looks at scopedNetworkType.nodeRefTagKey, there are now also other node tags supported!!
+    val query = QueryNodeIdsByType(scopedNetworkType.nodeRefTagKey) // note: looks at scopedNetworkType.nodeRefTagKey, there are now also other node tags supported!!
     val xmlString = overpassQueryExecutor.executeQuery(None, query)
     val xml = XML.loadString(xmlString)
     (xml \ "node").map { n => (n \ "@id").text.toLong }.toSet

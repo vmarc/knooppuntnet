@@ -20,7 +20,7 @@ class NetworksLoaderImpl(
   }
 
   private def load(timestamp: Timestamp, scopedNetworkType: ScopedNetworkType): Unit = {
-    val networkIds = networkIdsLoader.load(timestamp, scopedNetworkType)
+    val networkIds = networkIdsLoader.loadByType(timestamp, scopedNetworkType)
     networkInitialLoader.load(timestamp, networkIds)
   }
 }

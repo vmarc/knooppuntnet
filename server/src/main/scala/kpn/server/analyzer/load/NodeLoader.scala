@@ -8,6 +8,8 @@ trait NodeLoader {
 
   def oldLoadNodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[LoadedNode]
 
+  def oldLoad2(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode]
+
   def load(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode]
 
 }

@@ -19,7 +19,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     NetworkInfoDoc(
       context.networkDoc._id,
       context.networkDoc.active,
-      context.networkDoc.country,
+      context.country,
       summary,
       detail,
       context.facts,
@@ -31,9 +31,9 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
 
   private def buildSummary(): NetworkSummary = {
     NetworkSummary(
-      context.networkDoc.name,
-      context.networkDoc.networkType,
-      context.networkDoc.networkScope,
+      context.name,
+      context.scopedNetworkType.networkType,
+      context.scopedNetworkType.networkScope,
       context.facts.size,
       context.nodeDetails.size,
       context.routeDetails.size,
@@ -46,7 +46,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     NetworkDetail(
       context.km,
       context.meters,
-      context.networkDoc.lastUpdated,
+      context.lastUpdated.get,
       context.networkDoc.relationLastUpdated,
       context.lastSurvey,
       context.networkDoc.tags,
@@ -62,7 +62,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
   private def buildNetworkRoutes(): Seq[NetworkRouteRow] = {
     val sortedRouteDetails = NaturalSorting.sortBy(context.routeDetails)(_.name)
     sortedRouteDetails.map { routeDetail =>
-      val role = context.networkDoc.routeRefs.find(_.routeId == routeDetail.id).flatMap(_.role)
+      val role = context.networkDoc.relationMembers.find(_.relationId == routeDetail.id).flatMap(_.role)
       NetworkRouteRow(
         routeDetail.id,
         routeDetail.name,

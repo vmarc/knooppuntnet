@@ -50,7 +50,7 @@ class NodeLoaderImpl(
     }
   }
 
-  override def load(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
+  override def oldLoad2(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
     if (nodeIds.isEmpty) {
       Seq.empty
     }
@@ -59,6 +59,17 @@ class NodeLoaderImpl(
         doLoad(timestamp, nodeIdSubset)
       }
       val rawData = RawData.merge(datas: _*)
+      val data = new DataBuilder(rawData).data
+      nodeIds.flatMap(id => data.nodes.get(id)).map(_.raw)
+    }
+  }
+
+  override def load(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
+    if (nodeIds.isEmpty) {
+      Seq.empty
+    }
+    else {
+      val rawData = doLoad(timestamp, nodeIds)
       val data = new DataBuilder(rawData).data
       nodeIds.flatMap(id => data.nodes.get(id)).map(_.raw)
     }

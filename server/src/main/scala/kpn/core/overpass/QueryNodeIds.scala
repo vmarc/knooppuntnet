@@ -1,10 +1,10 @@
 package kpn.core.overpass
 
-case class QueryNodeIds(nodeTagKey: String) extends OverpassQuery {
+case class QueryNodeIds() extends OverpassQuery {
 
-  def name: String = s"node-ids-$nodeTagKey"
+  def name: String = s"node-ids"
 
   def string: String = {
-    s"node['network:type'='node_network']['$nodeTagKey'];out ids;"
+    s"node['network:type'='node_network'];out ids;"
   }
 }
