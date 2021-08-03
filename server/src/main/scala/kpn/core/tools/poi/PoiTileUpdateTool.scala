@@ -1,6 +1,6 @@
 package kpn.core.tools.poi
 
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiTileBuilderImpl
 import kpn.server.analyzer.engine.poi.PoiTileUpdaterImpl
@@ -17,31 +17,29 @@ object PoiTileUpdateTool {
     val exit = PoiTileUpdateToolOptions.parse(args) match {
       case Some(options) =>
 
-        Couch.executeIn(options.host, options.poiDatabaseName) { poiDatabase =>
-          Couch.executeIn(options.host, options.taskDatabaseName) { taskDatabase =>
+        Mongo.executeIn(options.poiDatabaseName) { database =>
 
-            val tool = {
-              val poiTileBuilder = {
-                val tileBuilder = new PoiVectorTileBuilder()
-                val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
-                val tileCalculator = new TileCalculatorImpl()
-                val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
-                new PoiTileBuilderImpl(
-                  poiRepository,
-                  tileCalculator,
-                  tileFileRepository,
-                  tileBuilder
-                )
-              }
-              val taskRepository = new TaskRepositoryImpl(null, taskDatabase, false)
-              val poiTileUpdater = new PoiTileUpdaterImpl(
-                poiTileBuilder,
-                taskRepository
+          val tool = {
+            val poiTileBuilder = {
+              val tileBuilder = new PoiVectorTileBuilder()
+              val poiRepository = new PoiRepositoryImpl(database, null, mongoEnabled = false)
+              val tileCalculator = new TileCalculatorImpl()
+              val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
+              new PoiTileBuilderImpl(
+                poiRepository,
+                tileCalculator,
+                tileFileRepository,
+                tileBuilder
               )
-              new PoiTileUpdateTool(poiTileUpdater)
             }
-            tool.update()
+            val taskRepository = new TaskRepositoryImpl(database)
+            val poiTileUpdater = new PoiTileUpdaterImpl(
+              poiTileBuilder,
+              taskRepository
+            )
+            new PoiTileUpdateTool(poiTileUpdater)
           }
+          tool.update()
         }
 
         0

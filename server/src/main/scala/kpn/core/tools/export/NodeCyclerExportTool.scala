@@ -1,15 +1,14 @@
 package kpn.core.tools.export
 
 import java.io.File
-
 import kpn.api.common.common.TrackPath
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoNode
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.json.Json
 import kpn.server.repository.NetworkRepositoryImpl
@@ -28,7 +27,7 @@ object NodeCyclerExportTool {
       NodeCyclerExportToolOptions.parse(args) match {
         case Some(options) =>
 
-          Couch.executeIn(options.host, options.database) { database =>
+          Mongo.executeIn(options.database) { database =>
             new NodeCyclerExportTool(database, options.exportDir).export()
           }
 
@@ -56,8 +55,8 @@ class NodeCyclerExportTool(database: Database, exportDir: String) {
   import NodeCyclerExportTool.log
 
   private val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
-  private val networkRepository = new NetworkRepositoryImpl(null, database, false)
-  private val routeRepository = new RouteRepositoryImpl(null, database, false)
+  private val networkRepository = new NetworkRepositoryImpl(database, null, true)
+  private val routeRepository = new RouteRepositoryImpl( database,null, true)
 
   def export(): Unit = {
     val networks = cyclingNetworksFromDatabase()

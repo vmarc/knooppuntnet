@@ -4,7 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.custom.Timestamp
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.monitor.MonitorChangeImpactAnalyzerFileImpl
@@ -21,22 +21,18 @@ object MonitorRouteAnalyzerTool {
 
   def main(args: Array[String]): Unit = {
 
-    Couch.executeIn("kpn-database", "changesets2") { changeSetDatabase =>
-      Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
-
-        val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
-        val monitorAdminRouteRepository = new MonitorAdminRouteRepositoryImpl(null, monitorDatabase, false)
-        val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(null, changeSetDatabase, false)
-        val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerFileImpl()
-        val monitorChangeProcessor = new MonitorChangeProcessorImpl(
-          analyzerHistory = true,
-          monitorAdminRouteRepository,
-          monitorRouteLoader,
-          monitorChangeImpactAnalyzer
-        )
-
-        new MonitorRouteAnalyzerTool(monitorChangeProcessor, changeSetInfoRepository).analyze()
-      }
+    Mongo.executeIn("kpn-test") { database =>
+      val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
+      val monitorAdminRouteRepository = new MonitorAdminRouteRepositoryImpl(database)
+      val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database, null, mongoEnabled = false)
+      val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerFileImpl()
+      val monitorChangeProcessor = new MonitorChangeProcessorImpl(
+        analyzerHistory = true,
+        monitorAdminRouteRepository,
+        monitorRouteLoader,
+        monitorChangeImpactAnalyzer
+      )
+      new MonitorRouteAnalyzerTool(monitorChangeProcessor, changeSetInfoRepository).analyze()
     }
   }
 }

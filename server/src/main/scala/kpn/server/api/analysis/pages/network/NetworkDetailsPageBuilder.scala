@@ -1,24 +1,14 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.api.common.NetworkFacts
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.util.Log
-import kpn.server.repository.ChangeSetRepository
-import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkDetailsPageBuilder(
-  mongoEnabled: Boolean,
-  // old
-  networkRepository: NetworkRepository,
-  changeSetRepository: ChangeSetRepository,
-  // new
-  database: Database
-) {
+class NetworkDetailsPageBuilder(database: Database) {
 
   private val log = Log(classOf[NetworkDetailsPageBuilder])
 
@@ -27,12 +17,7 @@ class NetworkDetailsPageBuilder(
       Some(NetworkDetailsPageExample.page)
     }
     else {
-      if (mongoEnabled) {
-        buildPage(networkId)
-      }
-      else {
-        oldBuildPage(networkId)
-      }
+      buildPage(networkId)
     }
   }
 
@@ -68,20 +53,5 @@ class NetworkDetailsPageBuilder(
       networkInfoDoc.detail.tags
       // TODO MONGO networkInfoDoc.networkFacts ??
     )
-  }
-
-  // *** old couchdb based code ***
-
-  private def oldBuildPage(networkId: Long): Option[NetworkDetailsPage] = {
-    networkRepository.network(networkId).map { networkInfo =>
-      val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
-      NetworkDetailsPage(
-        NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
-        networkInfo.active,
-        networkInfo.attributes,
-        networkInfo.tags,
-        networkInfo.detail.map(_.networkFacts).getOrElse(NetworkFacts())
-      )
-    }
   }
 }

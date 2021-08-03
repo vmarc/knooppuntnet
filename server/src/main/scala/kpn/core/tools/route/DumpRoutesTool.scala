@@ -1,9 +1,9 @@
 package kpn.core.tools.route
 
 import kpn.api.custom.Timestamp
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
 import kpn.core.loadOld.Parser
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
@@ -25,7 +25,7 @@ object DumpRoutesTool {
     val host = args(0)
     val analysisDatabaseName = args(1)
     val executor = new OverpassQueryExecutorImpl()
-    Couch.executeIn(host, analysisDatabaseName) { database =>
+    Mongo.executeIn(analysisDatabaseName) { database =>
       new DumpRoutesTool(database, executor).run()
     }
   }
@@ -34,7 +34,7 @@ object DumpRoutesTool {
 class DumpRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
   private val log = Log(classOf[DumpRoutesTool])
-  private val routeRepository = new RouteRepositoryImpl(null, database, false)
+  private val routeRepository = new RouteRepositoryImpl(database, null, mongoEnabled = true)
 
   def run(): Unit = {
 

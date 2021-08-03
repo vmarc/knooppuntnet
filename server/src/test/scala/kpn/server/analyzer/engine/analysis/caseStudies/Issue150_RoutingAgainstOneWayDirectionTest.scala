@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
 import kpn.api.custom.NetworkType
-import kpn.core.database.views.planner.GraphEdgesView
+import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraph
-import kpn.core.test.TestSupport.withCouchDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.core.tools.export.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.api.planner.leg.LegBuilderImpl
@@ -17,16 +17,17 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
   test("bicyle routing against one-way direction 1") {
 
-    withCouchDatabase { database =>
+    withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(database, null, false)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
       val routeAnalysis2 = CaseStudy.routeAnalysis("1029893")
 
       routeRepository.save(routeAnalysis1.route)
       routeRepository.save(routeAnalysis2.route)
 
-      val graphRepository = new GraphRepositoryImpl(null, database, graphLoadEnabled = true, mongoEnabled = false)
+      pending // GraphRepositoryImpl not fully ported to mongodb yet
+      val graphRepository = new GraphRepositoryImpl(database, null, graphLoadEnabled = true)
       graphRepository.loadGraphs()
 
       val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
@@ -69,16 +70,16 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
   test("bicyle routing against one-way direction") {
 
-    withCouchDatabase { database =>
+    withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(database, null, false)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
       val routeAnalysis2 = CaseStudy.routeAnalysis("1029893")
 
       routeRepository.save(routeAnalysis1.route)
       routeRepository.save(routeAnalysis2.route)
 
-      val graphRepository = new GraphRepositoryImpl(null, database, graphLoadEnabled = true, mongoEnabled = false)
+      val graphRepository = new GraphRepositoryImpl(database, null, graphLoadEnabled = true)
       graphRepository.loadGraphs()
 
       val graph: NodeNetworkGraph = graphRepository.graph(NetworkType.cycling).get
@@ -132,7 +133,8 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       route2forwardPath.startNodeId should equal(7751484678L) // node 09-53_09.a  (node on the left)
       route2forwardPath.endNodeId should equal(42784896L) // node 53
 
-      val graphEdges = GraphEdgesView.query(database, NetworkType.cycling, stale = false)
+      pending // no couchdb database anymore
+      val graphEdges: Seq[GraphEdge] = Seq.empty // GraphEdgesView.query(database, NetworkType.cycling, stale = false)
 
       graphEdges.foreach { edge =>
         print(s"${edge.pathKey.routeId} ${edge.pathKey.pathId} ${edge.sourceNodeId} ${edge.sinkNodeId} ${edge.meters} ")

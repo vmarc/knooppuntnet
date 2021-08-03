@@ -1,7 +1,7 @@
 package kpn.core.tools.poi
 
 import kpn.api.common.Poi
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
@@ -27,12 +27,12 @@ object PoiTileAnalyzerTool {
     val exit = PoiTileAnalyzerToolOptions.parse(args) match {
       case Some(options) =>
 
-        Couch.executeIn(options.host, options.poiDatabaseName) { poiDatabase =>
+        Mongo.executeIn(options.poiDatabaseName) { poiDatabase =>
           val poiLoader = {
             val nonCachingExecutor = new OverpassQueryExecutorImpl()
             new PoiLoaderImpl(nonCachingExecutor)
           }
-          val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
+          val poiRepository = new PoiRepositoryImpl(poiDatabase, null, mongoEnabled = false)
           val poiScopeAnalyzer = {
             val analysisContext = new AnalysisContext()
             val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)

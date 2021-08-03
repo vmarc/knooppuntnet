@@ -1,6 +1,6 @@
 package kpn.core.tools.poi
 
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.repository.PoiRepository
@@ -14,8 +14,8 @@ import kpn.server.repository.PoiRepositoryImpl
 object PoiTileCleanTool {
   def main(args: Array[String]): Unit = {
     println("Start")
-    Couch.executeIn("knooppuntnet.server", "pois4") { poiDatabase =>
-      val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
+    Mongo.executeIn("kpn-test") { poiDatabase =>
+      val poiRepository = new PoiRepositoryImpl(poiDatabase, null, mongoEnabled = false)
       val tileFileRepository = new TileFileRepositoryImpl("/kpn/tiles", "mvt")
       new PoiTileCleanTool(poiRepository, tileFileRepository).clean()
     }

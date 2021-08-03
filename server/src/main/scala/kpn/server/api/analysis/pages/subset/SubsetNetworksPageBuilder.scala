@@ -7,8 +7,6 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
-import kpn.server.repository.NetworkRepository
-import kpn.server.repository.OverviewRepository
 import kpn.server.repository.SubsetRepository
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -23,22 +21,14 @@ import org.springframework.stereotype.Component
 
 @Component
 class SubsetNetworksPageBuilder(
-  mongoEnabled: Boolean,
   database: Database,
-  overviewRepository: OverviewRepository,
-  networkRepository: NetworkRepository,
   subsetRepository: SubsetRepository
 ) {
 
   private val log = Log(classOf[SubsetNetworksPageBuilder])
 
   def build(subset: Subset): SubsetNetworksPage = {
-    if (mongoEnabled) {
-      buildPage(subset)
-    }
-    else {
-      oldBuildPage(subset)
-    }
+    buildPage(subset)
   }
 
   private def buildPage(subset: Subset): SubsetNetworksPage = {
@@ -87,34 +77,6 @@ class SubsetNetworksPageBuilder(
       unaccessibleRouteCount = networks.map(_.detail.unaccessibleRouteCount).sum,
       analysisUpdatedTime = "TODO",
       networks = xx
-    )
-  }
-
-  private def oldBuildPage(subset: Subset): SubsetNetworksPage = {
-
-    val figures = overviewRepository.figures()
-    val subsetInfo = SubsetInfoBuilder.newSubsetInfo(subset, figures)
-    val networks = networkRepository.networks(subset)
-
-    val routeCount = networks.map(_.routeCount).sum
-    val brokenRouteNetworkCount = networks.count(_.brokenRouteCount > 0)
-    val brokenRouteNetworkPercentage = percentage(brokenRouteNetworkCount, networks.size)
-    val brokenRouteCount = networks.map(_.brokenRouteCount).sum
-    val brokenRoutePercentage = percentage(brokenRouteCount, routeCount)
-
-    SubsetNetworksPage(
-      subsetInfo,
-      km = networks.map(_.meters).sum / 1000,
-      networkCount = networks.size,
-      nodeCount = networks.map(_.nodeCount).sum,
-      routeCount = routeCount,
-      brokenRouteNetworkCount = brokenRouteNetworkCount,
-      brokenRouteNetworkPercentage = brokenRouteNetworkPercentage,
-      brokenRouteCount = networks.map(_.brokenRouteCount).sum,
-      brokenRoutePercentage = brokenRoutePercentage,
-      unaccessibleRouteCount = networks.map(_.unaccessibleRouteCount).sum,
-      analysisUpdatedTime = "TODO",
-      networks = networks
     )
   }
 

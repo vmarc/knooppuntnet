@@ -1,14 +1,11 @@
 package kpn.core.tools.analysis
 
-import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContextImpl
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.replicate.Oper
 import kpn.core.tools.config._
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
-import kpn.server.json.Json
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.TaskRepository
@@ -24,24 +21,16 @@ object ChangeSetInfoTool {
       case Some(options) =>
 
         try {
-
-          val taskRepository = {
-            val taskDatabase = new DatabaseImpl(DatabaseContextImpl(Couch.config, Json.objectMapper, options.tasksDatabaseName))
-            new TaskRepositoryImpl(null, taskDatabase, false)
+          Mongo.executeIn(options.tasksDatabaseName) { database =>
+            val taskRepository = new TaskRepositoryImpl(database)
+            val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)
+            val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database, null, true)
+            new ChangeSetInfoTool(
+              taskRepository,
+              changeSetInfoApi,
+              changeSetInfoRepository
+            ).loop()
           }
-
-          val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)
-
-          val changeSetInfoRepository = {
-            val changeDatabase = new DatabaseImpl(DatabaseContextImpl(Couch.config, Json.objectMapper, options.changeSetsDatabaseName))
-            new ChangeSetInfoRepositoryImpl(null, changeDatabase, false)
-          }
-
-          new ChangeSetInfoTool(
-            taskRepository,
-            changeSetInfoApi,
-            changeSetInfoRepository
-          ).loop()
         }
         catch {
           case e: Throwable => log.fatal("Exception thrown during analysis", e)

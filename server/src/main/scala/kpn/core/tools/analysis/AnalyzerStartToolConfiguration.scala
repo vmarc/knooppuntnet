@@ -13,7 +13,6 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
-import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzerImpl
@@ -136,15 +135,13 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisDatabaseIndexer: DatabaseIndexer = new DatabaseIndexer(analysisDatabase, changeDatabase, null, null, null, false)
-
   val analysisData: AnalysisData = AnalysisData()
 
   val changeSetRepository = new ChangeSetRepositoryImpl(null, changeDatabase, false)
 
   private val blackListRepository = new BlackListRepositoryImpl(null, analysisDatabase, false)
 
-  val orphanRepository = new OrphanRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
+  val orphanRepository = new OrphanRepositoryImpl(mongoDatabase)
 
   val factRepository = new FactRepositoryImpl(null, analysisDatabase, false)
 

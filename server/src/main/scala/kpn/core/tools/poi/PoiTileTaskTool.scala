@@ -1,6 +1,6 @@
 package kpn.core.tools.poi
 
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiTileTask
 import kpn.server.repository.PoiRepository
@@ -15,13 +15,11 @@ object PoiTileTaskTool {
     val exit = PoiTileTaskToolOptions.parse(args) match {
       case Some(options) =>
 
-        Couch.executeIn(options.host, options.poiDatabaseName) { poiDatabase =>
-          Couch.executeIn(options.host, options.taskDatabaseName) { taskDatabase =>
-            val poiRepository = new PoiRepositoryImpl(null, poiDatabase, false)
-            val taskRepository = new TaskRepositoryImpl(null, taskDatabase, false)
-            val tool = new PoiTileTaskTool(poiRepository, taskRepository)
-            tool.generateTasks()
-          }
+        Mongo.executeIn(options.poiDatabaseName) { database =>
+          val poiRepository = new PoiRepositoryImpl(database, null, mongoEnabled = false)
+          val taskRepository = new TaskRepositoryImpl(database)
+          val tool = new PoiTileTaskTool(poiRepository, taskRepository)
+          tool.generateTasks()
         }
 
         0

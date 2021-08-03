@@ -2,9 +2,8 @@ package kpn.core.tools.tile
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -37,17 +36,15 @@ object TileTool {
       TileToolOptions.parse(args) match {
         case Some(options) =>
 
-          Couch.executeIn(options.analysisDatabaseHost, options.analysisDatabaseName) { analysisDatabase =>
-
-            new DatabaseIndexer(analysisDatabase, null, null, null, null, false).index(true)
+          Mongo.executeIn(options.analysisDatabaseName) { database =>
 
             val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
             val tileDataNodeBuilder = new TileDataNodeBuilderImpl(oldNodeAnalyzer)
             val tileAnalyzer = {
-              val networkRepository = new NetworkRepositoryImpl(null, analysisDatabase, false)
-              val orphanRepository = new OrphanRepositoryImpl(null, analysisDatabase, false)
-              val nodeRepository = new NodeRepositoryImpl(null, analysisDatabase, false)
-              val routeRepository = new RouteRepositoryImpl(null, analysisDatabase, false)
+              val networkRepository = new NetworkRepositoryImpl(database, null, true)
+              val orphanRepository = new OrphanRepositoryImpl(database)
+              val nodeRepository = new NodeRepositoryImpl(database, null, true)
+              val routeRepository = new RouteRepositoryImpl(database, null, true)
               new TileAnalyzerImpl(
                 networkRepository,
                 orphanRepository,

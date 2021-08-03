@@ -3,7 +3,6 @@ package kpn.server.analyzer.load.orphan.node
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.NodeLoader
@@ -17,8 +16,7 @@ class OrphanNodesLoaderImpl(
   analysisContext: AnalysisContext,
   nodeIdsLoader: NodeIdsLoader,
   nodesLoader: NodeLoader,
-  createProcessor: OrphanNodeCreateProcessor,
-  databaseIndexer: DatabaseIndexer
+  createProcessor: OrphanNodeCreateProcessor
 ) extends OrphanNodesLoader {
 
   private val log = Log(classOf[OrphanNodesLoaderImpl])
@@ -26,7 +24,6 @@ class OrphanNodesLoaderImpl(
   override def load(timestamp: Timestamp): Unit = {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
       Log.context(scopedNetworkType.key) {
-        databaseIndexer.index(true)
         val nodeIds = nodeIdsLoader.loadByType(timestamp, scopedNetworkType)
         val orphanNodeIds = nodeIds.filterNot(isReferenced)
         val nodes = nodesLoader.oldLoad2(timestamp, orphanNodeIds)

@@ -1,16 +1,15 @@
 package kpn.server.analyzer.load.orphan.route
 
-import java.util.concurrent.CompletableFuture.allOf
-import java.util.concurrent.CompletableFuture.runAsync
-import java.util.concurrent.Executor
-
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.DatabaseIndexer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.BlackListRepository
 import org.springframework.stereotype.Component
+
+import java.util.concurrent.CompletableFuture.allOf
+import java.util.concurrent.CompletableFuture.runAsync
+import java.util.concurrent.Executor
 
 @Component
 class OrphanRoutesLoaderImpl(
@@ -18,7 +17,6 @@ class OrphanRoutesLoaderImpl(
   analysisContext: AnalysisContext,
   routeIdsLoader: RouteIdsLoader,
   blackListRepository: BlackListRepository,
-  databaseIndexer: DatabaseIndexer,
   worker: OrphanRoutesLoaderWorker
 ) extends OrphanRoutesLoader {
 
@@ -27,7 +25,6 @@ class OrphanRoutesLoaderImpl(
   def load(timestamp: Timestamp): Unit = {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
       Log.context(scopedNetworkType.key) {
-        databaseIndexer.index(true)
         val routeIds = routeIdsLoader.loadByType(timestamp, scopedNetworkType)
         val blackListedRouteIds = blackListRepository.get.routes.map(_.id).toSet
         val candidateOrphanRouteIds = (routeIds -- blackListedRouteIds).filterNot(isReferenced).toSeq.sorted

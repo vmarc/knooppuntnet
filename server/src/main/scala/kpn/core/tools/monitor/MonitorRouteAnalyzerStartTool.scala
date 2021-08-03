@@ -2,7 +2,7 @@ package kpn.core.tools.monitor
 
 import kpn.api.common.BoundsI
 import kpn.api.custom.Timestamp
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoader
@@ -18,9 +18,9 @@ import java.io.File
 object MonitorRouteAnalyzerStartTool {
 
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-database", "monitor") { monitorDatabase =>
+    Mongo.executeIn("kpn-test") { database =>
       val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
-      val monitorRouteRepository = new MonitorAdminRouteRepositoryImpl(null, monitorDatabase, false)
+      val monitorRouteRepository = new MonitorAdminRouteRepositoryImpl(database)
       new MonitorRouteAnalyzerStartTool(monitorRouteLoader, monitorRouteRepository).buildInitialRouteDocuments()
     }
   }

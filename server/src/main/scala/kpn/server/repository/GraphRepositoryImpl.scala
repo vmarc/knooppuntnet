@@ -20,8 +20,7 @@ import scala.annotation.tailrec
 class GraphRepositoryImpl(
   database: Database,
   analysisDatabase: kpn.core.database.Database,
-  graphLoadEnabled: Boolean,
-  mongoEnabled: Boolean
+  graphLoadEnabled: Boolean
 ) extends GraphRepository {
 
   private val log = Log(classOf[GraphRepositoryImpl])
@@ -32,18 +31,12 @@ class GraphRepositoryImpl(
   def loadGraphs(): Unit = {
     if (graphLoadEnabled) {
       log.infoElapsed("Loading graphs") {
-        graphs = if (mongoEnabled) {
+        graphs = {
           val graphEdges = new MongoQueryGraphEdges(database).execute()
           graphEdges.map { edges =>
             val graph = new NodeNetworkGraphImpl()
             edges.edges.foreach(graph.add)
             (edges.networkType.name, graph)
-          }.toMap
-        }
-        else {
-          NetworkType.all.map { networkType =>
-            val graph = buildGraph(networkType)
-            (networkType.name, graph)
           }.toMap
         }
       }

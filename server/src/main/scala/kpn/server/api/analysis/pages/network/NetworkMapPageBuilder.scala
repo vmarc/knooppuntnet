@@ -11,11 +11,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkMapPageBuilder(
-  mongoEnabled: Boolean,
-  // old
-  networkRepository: NetworkRepository,
-  changeSetRepository: ChangeSetRepository,
-  // new
   mongoNetworkRepository: MongoNetworkRepository
 ) {
 
@@ -24,12 +19,7 @@ class NetworkMapPageBuilder(
       Some(NetworkMapPageExample.page)
     }
     else {
-      if (mongoEnabled) {
-        mongoBuildPage(networkId)
-      }
-      else {
-        oldBuildPage(networkId)
-      }
+      mongoBuildPage(networkId)
     }
   }
 
@@ -40,35 +30,6 @@ class NetworkMapPageBuilder(
   private def mongoBuildPageContents(networkInfo: NetworkInfo): NetworkMapPage = {
 
     val changeCount = mongoNetworkRepository.networkChangeCount(networkInfo.attributes.id)
-    val networkNodeInfos = networkInfo.detail.toSeq.flatMap(_.nodes)
-    val bounds = Bounds.from(networkNodeInfos)
-
-    val nodes = networkNodeInfos.map { networkNodeInfo =>
-      NetworkMapNode(
-        networkNodeInfo.id,
-        networkNodeInfo.name,
-        networkNodeInfo.latitude,
-        networkNodeInfo.longitude,
-        networkNodeInfo.roleConnection
-      )
-    }
-
-    NetworkMapPage(
-      NetworkSummaryBuilder.toSummary(networkInfo, changeCount),
-      nodes,
-      networkInfo.nodeRefs,
-      networkInfo.routeRefs,
-      bounds
-    )
-  }
-
-  private def oldBuildPage(networkId: Long): Option[NetworkMapPage] = {
-    networkRepository.network(networkId).map(oldBuildPageContents)
-  }
-
-  private def oldBuildPageContents(networkInfo: NetworkInfo): NetworkMapPage = {
-
-    val changeCount = changeSetRepository.networkChangesCount(networkInfo.attributes.id)
     val networkNodeInfos = networkInfo.detail.toSeq.flatMap(_.nodes)
     val bounds = Bounds.from(networkNodeInfos)
 

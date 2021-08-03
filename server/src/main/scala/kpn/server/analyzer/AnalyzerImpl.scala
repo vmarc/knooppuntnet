@@ -1,23 +1,20 @@
 package kpn.server.analyzer
 
-import java.io.File
-
-import javax.annotation.PreDestroy
 import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalyzerEngine
-import kpn.server.analyzer.engine.DatabaseIndexer
 import org.springframework.stereotype.Component
 
+import java.io.File
+import javax.annotation.PreDestroy
 import scala.annotation.tailrec
 
 @Component
 class AnalyzerImpl(
   analyzerStatusFile: String,
   statusRepository: StatusRepository,
-  databaseIndexer: DatabaseIndexer,
   engine: AnalyzerEngine,
   dirs: Dirs
 ) extends Analyzer {
@@ -43,7 +40,6 @@ class AnalyzerImpl(
     readStatus() match {
       case None => log.error(s"Could not start: failed to read analysis status $analyzerStatusFile")
       case Some(replicationId) =>
-        databaseIndexer.index(true)
         engine.load(replicationId)
     }
   }

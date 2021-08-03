@@ -1,13 +1,6 @@
 package kpn.server.repository
 
 import kpn.api.common.monitor.MonitorChangesParameters
-import kpn.core.database.doc.MonitorRouteChangeDoc
-import kpn.core.database.doc.MonitorRouteChangeGeometryDoc
-import kpn.core.database.doc.MonitorRouteDoc
-import kpn.core.database.doc.MonitorRouteReferenceDoc
-import kpn.core.database.doc.MonitorRouteStateDoc
-import kpn.core.database.views.monitor.MonitorChangesView
-import kpn.core.database.views.monitor.MonitorRouteView
 import kpn.core.mongo.Database
 import kpn.core.util.Log
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -20,215 +13,123 @@ import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.springframework.stereotype.Component
 
-object MonitorRouteRepositoryImpl {
-
-  case class ViewResultRow(doc: MonitorRouteDoc)
-
-  case class ViewResult(rows: Seq[ViewResultRow])
-
-  case class ChangeViewRow(doc: MonitorRouteChangeDoc)
-
-  case class ChangeViewResult(total_rows: Long, offset: Option[Long], rows: Seq[ChangeViewRow])
-
-}
-
 @Component
-class MonitorRouteRepositoryImpl(
-  database: Database,
-  // old:
-  monitorDatabase: kpn.core.database.Database,
-  mongoEnabled: Boolean
-) extends MonitorRouteRepository {
+class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteRepository {
 
   private val log = Log(classOf[NetworkRepositoryImpl])
 
   override def route(routeId: Long): Option[MonitorRoute] = {
-    if (mongoEnabled) {
-      database.monitorRoutes.findById(routeId, log)
-    }
-    else {
-      monitorDatabase.docWithId(
-        MonitorDocId.routeDocId(routeId),
-        classOf[MonitorRouteDoc]
-      ).map(_.monitorRoute)
-    }
+    database.monitorRoutes.findById(routeId, log)
   }
 
   override def routeState(routeId: Long): Option[MonitorRouteState] = {
-    if (mongoEnabled) {
-      database.monitorRouteStates.findById(routeId, log)
-    }
-    else {
-      monitorDatabase.docWithId(
-        MonitorDocId.routeStateDocId(routeId),
-        classOf[MonitorRouteStateDoc]
-      ).map(_.monitorRouteState)
-    }
+    database.monitorRouteStates.findById(routeId, log)
   }
 
   override def routeReference(routeId: Long, key: String): Option[MonitorRouteReference] = {
-    if (mongoEnabled) {
-      database.monitorRouteReferences.findByStringId(s"$routeId:$key", log)
-    }
-    else {
-      monitorDatabase.docWithId(
-        MonitorDocId.routeReferenceDocId(routeId, key),
-        classOf[MonitorRouteReferenceDoc]
-      ).map(_.monitorRouteReference)
-    }
+    database.monitorRouteReferences.findByStringId(s"$routeId:$key", log)
   }
 
   override def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange] = {
-    if (mongoEnabled) {
-      val _id = s"$routeId:$changeSetId:$replicationNumber"
-      database.monitorRouteChanges.findByStringId(_id, log)
-    }
-    else {
-      monitorDatabase.docWithId(
-        MonitorDocId.routeChangeDocId(routeId, changeSetId, replicationNumber),
-        classOf[MonitorRouteChangeDoc]
-      ).map(_.monitorRouteChange)
-    }
+    val _id = s"$routeId:$changeSetId:$replicationNumber"
+    database.monitorRouteChanges.findByStringId(_id, log)
   }
 
   override def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry] = {
-    if (mongoEnabled) {
-      val _id = s"$routeId:$changeSetId:$replicationNumber"
-      database.monitorRouteChangeGeometries.findByStringId(_id, log)
-    }
-    else {
-      monitorDatabase.docWithId(
-        MonitorDocId.routeChangeGeometryDocId(routeId, changeSetId, replicationNumber),
-        classOf[MonitorRouteChangeGeometryDoc]
-      ).map(_.monitorRouteChangeGeometry)
-    }
+    val _id = s"$routeId:$changeSetId:$replicationNumber"
+    database.monitorRouteChangeGeometries.findByStringId(_id, log)
   }
 
   override def changesCount(parameters: MonitorChangesParameters): Long = {
-    if (mongoEnabled) {
-      if (parameters.impact) {
-        database.monitorRouteChanges.countDocuments(
-          filter(
-            equal("impact", true)
-          ),
-          log
-        )
-      }
-      else {
-        database.monitorRouteChanges.countDocuments(log)
-      }
+    if (parameters.impact) {
+      database.monitorRouteChanges.countDocuments(
+        filter(
+          equal("impact", true)
+        ),
+        log
+      )
     }
     else {
-      MonitorChangesView.changesCount(monitorDatabase, parameters)
+      database.monitorRouteChanges.countDocuments(log)
     }
   }
 
   override def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
-    if (mongoEnabled) {
-      // TODO MONGO add query with aggregation
-      database.monitorRouteChanges.findAll(log)
-    }
-    else {
-      MonitorChangesView.changes(monitorDatabase, parameters)
-    }
+    // TODO MONGO add query with aggregation
+    database.monitorRouteChanges.findAll(log)
   }
 
   override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {
-    if (mongoEnabled) {
-      val changesFilter = if (parameters.impact) {
-        filter(
-          and(
-            equal("groupName", groupName),
-            equal("impact", parameters.impact)
-          )
-        )
-      }
-      else {
-        filter(
+    val changesFilter = if (parameters.impact) {
+      filter(
+        and(
           equal("groupName", groupName),
+          equal("impact", parameters.impact)
         )
-      }
-      database.monitorRouteChanges.countDocuments(changesFilter, log)
+      )
     }
     else {
-      MonitorChangesView.groupChangesCount(monitorDatabase, groupName, parameters)
+      filter(
+        equal("groupName", groupName),
+      )
     }
+    database.monitorRouteChanges.countDocuments(changesFilter, log)
   }
 
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
-    if (mongoEnabled) {
-      // TODO MONGO create query with aggregate
-      val changesFilter = if (parameters.impact) {
-        filter(
-          and(
-            equal("groupName", groupName),
-            equal("impact", parameters.impact)
-          )
-        )
-      }
-      else {
-        filter(
+    // TODO MONGO create query with aggregate
+    val changesFilter = if (parameters.impact) {
+      filter(
+        and(
           equal("groupName", groupName),
+          equal("impact", parameters.impact)
         )
-      }
-      database.monitorRouteChanges.find(changesFilter, log)
+      )
     }
     else {
-      MonitorChangesView.groupChanges(monitorDatabase, groupName, parameters)
+      filter(
+        equal("groupName", groupName),
+      )
     }
+    database.monitorRouteChanges.find(changesFilter, log)
   }
 
   override def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long = {
-    if (mongoEnabled) {
-      val changesFilter = if (parameters.impact) {
-        filter(
-          and(
-            equal("routeId", routeId),
-            equal("impact", parameters.impact)
-          )
+    val changesFilter = if (parameters.impact) {
+      filter(
+        and(
+          equal("routeId", routeId),
+          equal("impact", parameters.impact)
         )
-      }
-      else {
-        filter(
-          equal("routeId", routeId)
-        )
-      }
-      database.monitorRouteChanges.countDocuments(changesFilter, log)
+      )
     }
     else {
-      MonitorChangesView.routeChangesCount(monitorDatabase, routeId, parameters)
+      filter(
+        equal("routeId", routeId)
+      )
     }
+    database.monitorRouteChanges.countDocuments(changesFilter, log)
   }
 
   override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
-    if (mongoEnabled) {
-      // TODO MONGO create query with aggregate
-      val changesFilter = if (parameters.impact) {
-        filter(
-          and(
-            equal("routeId", routeId),
-            equal("impact", parameters.impact)
-          )
+    // TODO MONGO create query with aggregate
+    val changesFilter = if (parameters.impact) {
+      filter(
+        and(
+          equal("routeId", routeId),
+          equal("impact", parameters.impact)
         )
-      }
-      else {
-        filter(
-          equal("routeId", routeId)
-        )
-      }
-      database.monitorRouteChanges.find(changesFilter, log)
+      )
     }
     else {
-      MonitorChangesView.routeChanges(monitorDatabase, routeId, parameters)
+      filter(
+        equal("routeId", routeId)
+      )
     }
+    database.monitorRouteChanges.find(changesFilter, log)
   }
 
   override def routes(): Seq[MonitorRoute] = {
-    if (mongoEnabled) {
-      database.monitorRoutes.findAll(log)
-    }
-    else {
-      MonitorRouteView.routes(monitorDatabase)
-    }
+    database.monitorRoutes.findAll(log)
   }
 }
