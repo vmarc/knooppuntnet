@@ -6,7 +6,6 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
@@ -15,8 +14,7 @@ import scala.xml.XML
 
 @Component
 class RouteLoaderImpl(
-  cachingOverpassQueryExecutor: OverpassQueryExecutor,
-  countryAnalyzer: CountryAnalyzer
+  cachingOverpassQueryExecutor: OverpassQueryExecutor
 ) extends RouteLoader {
 
   private val log = Log(classOf[RouteLoaderImpl])
@@ -65,8 +63,7 @@ class RouteLoaderImpl(
             case Some(scopedNetworkType) =>
               val data = new DataBuilder(rawData).data
               val relation = data.relations(routeId)
-              val country = countryAnalyzer.relationCountry(relation)
-              Some(LoadedRoute(country, scopedNetworkType, data, relation))
+              Some(LoadedRoute(scopedNetworkType, data, relation))
             case None =>
               log.warn(s"Route $routeId load at ${timestamp.iso} does not contain networkType (tag 'network'), continue processing\n---\n$xmlString\n---")
               None

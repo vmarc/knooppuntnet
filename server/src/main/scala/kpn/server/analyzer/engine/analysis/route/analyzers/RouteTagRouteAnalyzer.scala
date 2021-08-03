@@ -1,8 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteTagInvalid
 import kpn.api.custom.Fact.RouteTagMissing
+import kpn.api.custom.Fact.RouteUnsupportedNetworkType
+import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+
+import scala.collection.mutable.ListBuffer
 
 object RouteTagRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -13,20 +18,31 @@ object RouteTagRouteAnalyzer extends RouteAnalyzer {
 class RouteTagRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    context.relation.tags("route") match {
-      case None => context.withFact(RouteTagMissing)
-      case Some(routeTagValue) =>
-        if (!isValid(routeTagValue)) {
-          context.withFact(RouteTagInvalid)
-        }
-        else {
-          context
+
+    val facts = ListBuffer[Fact]()
+
+    val scopedNetworkTypeOption = context.relation.tags("network") match {
+      case None => throw new IllegalStateException(s"""route ${context.relation.id}: relation does not contain the required "network" tag""")
+      case Some(key) =>
+        ScopedNetworkType.withKey(key) match {
+          case None =>
+            facts += RouteUnsupportedNetworkType
+            None
+
+          case Some(scopedNetworkType) =>
+            context.relation.tags("route") match {
+              case None => facts += RouteTagMissing
+              case Some(routeTagValue) =>
+                if (!scopedNetworkType.networkType.routeTagValues.contains(routeTagValue)) {
+                  facts += RouteTagInvalid
+                }
+            }
+            Some(scopedNetworkType)
         }
     }
-  }
 
-  private def isValid(routeTagValue: String): Boolean = {
-    context.scopedNetworkType.networkType.routeTagValues.contains(routeTagValue)
+    context.copy(
+      scopedNetworkTypeOption = scopedNetworkTypeOption
+    ).withFacts(facts.toSeq: _*)
   }
-
 }

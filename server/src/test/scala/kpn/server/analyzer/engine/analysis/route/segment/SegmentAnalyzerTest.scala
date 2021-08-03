@@ -519,13 +519,13 @@ class SegmentAnalyzerTest extends UnitTest {
       analysisContext,
       relation = routeRelation,
       loadedRoute = LoadedRoute(
-        country = None,
-        scopedNetworkType = d.scopedNetworkType,
+        scopedNetworkType = null,
         data = data,
         relation = routeRelation
       ),
       orphan = false,
-      routeNodeInfos
+      routeNodeInfos,
+      scopedNetworkTypeOption = Some(d.scopedNetworkType)
     )
     val context2 = new RouteNameAnalyzer(context1).analyze
     val context3 = new RouteNodeAnalyzer(context2).analyze

@@ -56,8 +56,7 @@ class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
     val data = new RouteTestData("01-02", routeTags = routeTags).data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = ScopedNetworkType.rwn,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )

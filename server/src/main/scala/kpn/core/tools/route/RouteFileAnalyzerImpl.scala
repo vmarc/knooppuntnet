@@ -15,6 +15,7 @@ import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -36,19 +37,12 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
   private val log = Log(classOf[RouteFileAnalyzerImpl])
   private val routeAnalyzer = setupRouteAnalyzer()
 
-  private val countryAnalyzer = {
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    new CountryAnalyzerImpl(relationAnalyzer)
-  }
-
   def analyze(routeId: Long): Option[RouteAnalysis] = {
     try {
       readRouteRelation(routeId).flatMap { data =>
         data.relations.get(routeId).map { routeRelation =>
           val scopedNetworkType = RelationAnalyzer.scopedNetworkType(routeRelation.raw).get
-          val country = countryAnalyzer.relationCountry(routeRelation)
-          val loadedRoute = LoadedRoute(country, scopedNetworkType, data, routeRelation)
+          val loadedRoute = LoadedRoute(scopedNetworkType, data, routeRelation)
           routeAnalyzer.analyze(loadedRoute, orphan = false)
         }
       }
@@ -72,12 +66,16 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
       log.info("Location configuration loaded")
       config
     }
+    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
+    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocator = new RouteLocatorImpl(locationConfiguration)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     new MasterRouteAnalyzerImpl(
       analysisContext,
+      routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer,
       routeNodeInfoAnalyzer

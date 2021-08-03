@@ -6,9 +6,11 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -27,19 +29,22 @@ object CaseStudy {
     val filename = s"/case-studies/$name.xml"
     val (data, scopedNetworkType, routeRelation) = load(filename)
     val analysisContext = new AnalysisContext()
+    val countryAnalyzer = new CountryAnalyzerNoop()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
+      routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer,
       routeNodeInfoAnalyzer
     )
-    val loadedRoute = LoadedRoute(Some(Country.nl), scopedNetworkType, data, routeRelation)
+    val loadedRoute = LoadedRoute(scopedNetworkType, data, routeRelation)
     routeAnalyzer.analyze(loadedRoute, orphan = false)
   }
 

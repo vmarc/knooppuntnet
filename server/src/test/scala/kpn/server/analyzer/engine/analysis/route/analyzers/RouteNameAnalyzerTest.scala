@@ -295,7 +295,6 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     val data = new DataBuilder(rawData).data
 
     val loadedRoute = LoadedRoute(
-      country = None,
       ScopedNetworkType.rwn,
       data,
       data.relations(11L)

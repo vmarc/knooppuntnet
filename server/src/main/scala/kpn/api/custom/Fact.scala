@@ -45,6 +45,10 @@ object Fact {
 
   private val f = new FactFactory()
 
+
+  // new errors
+  val RouteUnsupportedNetworkType: Fact = f.error("RouteUnsupportedNetworkType")
+
   // errors
   val RouteNotContinious: Fact = f.error("RouteNotContinious")
   val RouteNotForward: Fact = f.error("RouteNotForward")

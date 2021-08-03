@@ -30,7 +30,7 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
           case None => Seq.empty
           case Some(tileRouteData) =>
             val tiles = routeTileCalculator.tiles(zoomLevel, tileRouteData)
-            tiles.map(tile => s"${context.loadedRoute.scopedNetworkType.networkType.name}-${tile.name}")
+            tiles.map(tile => s"${context.scopedNetworkType.networkType.name}-${tile.name}")
         }
       }
     }

@@ -1,18 +1,18 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.data.raw.RawData
-import kpn.api.custom.Country
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -26,14 +26,17 @@ class Issue109_RoundaboutRoute extends UnitTest {
   test("analysis") {
     val loadedRoute = readRoute()
     val analysisContext = new AnalysisContext()
+    val countryAnalyzer = new CountryAnalyzerNoop()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
+      routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer,
       routeNodeInfoAnalyzer
@@ -93,9 +96,7 @@ class Issue109_RoundaboutRoute extends UnitTest {
       routeRelation1.members ++ routeRelation2.members
     )
 
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    LoadedRoute(Some(Country.nl), ScopedNetworkType.rcn, data, routeRelation)
+    LoadedRoute(ScopedNetworkType.rcn, data, routeRelation)
   }
 
   private def readData(routeId: Long): RawData = {

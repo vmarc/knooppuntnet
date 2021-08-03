@@ -59,8 +59,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     val data = new RouteTestData("01-02").data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = ScopedNetworkType.rwn,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )
@@ -73,6 +72,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       loadedRoute = loadedRoute,
       orphan = true,
       Map.empty,
+      scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       lastSurvey = Some(Day(2020, 8, None)),
       facts = Seq(Fact.RouteBroken),
       locationAnalysis = Some(

@@ -50,8 +50,7 @@ class RouteTagRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     val data = new DataBuilder(rawData).data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType,
+      null,
       data,
       data.relations(1L)
     )
@@ -61,7 +60,8 @@ class RouteTagRouteAnalyzerTest extends UnitTest with SharedTestObjects {
       loadedRoute.relation,
       loadedRoute,
       orphan = false,
-      Map.empty
+      Map.empty,
+      scopedNetworkTypeOption = Some(scopedNetworkType)
     )
 
     RouteTagRouteAnalyzer.analyze(context)

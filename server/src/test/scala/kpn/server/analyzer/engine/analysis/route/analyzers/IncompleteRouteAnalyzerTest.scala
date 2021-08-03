@@ -27,8 +27,7 @@ class IncompleteRouteAnalyzerTest extends UnitTest {
     val data = routeTestData.data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = routeTestData.scopedNetworkType,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )

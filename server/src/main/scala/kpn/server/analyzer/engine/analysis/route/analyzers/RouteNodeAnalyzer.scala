@@ -289,7 +289,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def isProposed(routeNodeInfo: RouteNodeInfo): Boolean = {
     routeNodeInfo.node.tags.has("state", "proposed") ||
-      routeNodeInfo.node.tags.has(context.loadedRoute.scopedNetworkType.proposedNodeRefTagKey) ||
-      routeNodeInfo.node.tags.has(context.loadedRoute.scopedNetworkType.proposedNodeNameTagKey)
+      routeNodeInfo.node.tags.has(context.scopedNetworkType.proposedNodeRefTagKey) ||
+      routeNodeInfo.node.tags.has(context.scopedNetworkType.proposedNodeNameTagKey)
   }
 }

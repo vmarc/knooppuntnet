@@ -6,7 +6,6 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.data.Data
 
 case class LoadedRoute(
-  country: Option[Country],
   scopedNetworkType: ScopedNetworkType,
   data: Data,
   relation: Relation

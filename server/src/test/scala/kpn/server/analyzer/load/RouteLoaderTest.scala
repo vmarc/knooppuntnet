@@ -22,9 +22,8 @@ class RouteLoaderTest extends UnitTest with MockFactory {
     val countryAnalyzer = stub[CountryAnalyzer]
 
     (executor.executeQuery _).when(*, *).returns(queryResult)
-    (countryAnalyzer.relationCountry _).when(*).returns(Some(Country.nl))
 
-    val routeLoader = new RouteLoaderImpl(executor, countryAnalyzer)
+    val routeLoader = new RouteLoaderImpl(executor)
     //    val loadedRoutes = routeLoader.loadRoutes(Timestamp(2020, 8, 11), routeIds)
     //
     //    assertRoute(loadedRoutes.head, 3148634L, "01-57", "01", "57")

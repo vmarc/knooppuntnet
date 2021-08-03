@@ -50,7 +50,7 @@ class NetworkRouteAnalyzerImpl(
     RelationAnalyzer.scopedNetworkType(routeRelation.raw) match {
       case Some(routeScopedNetworkType) =>
         if (loadedNetwork.scopedNetworkType == routeScopedNetworkType) {
-          val loadedRoute = LoadedRoute(country, routeScopedNetworkType, loadedNetwork.data, routeRelation)
+          val loadedRoute = LoadedRoute(routeScopedNetworkType, loadedNetwork.data, routeRelation)
           val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
           Some(routeAnalysis)
         }

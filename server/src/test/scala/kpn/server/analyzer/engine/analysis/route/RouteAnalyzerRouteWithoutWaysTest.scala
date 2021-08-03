@@ -4,7 +4,9 @@ import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -25,21 +27,23 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
     }.data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = ScopedNetworkType.rwn,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )
 
     val analysisContext = new AnalysisContext()
+    val countryAnalyzer = new CountryAnalyzerNoop()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val routeNodeInfoAnalyzer = new RouteNodeInfoAnalyzerImpl(analysisContext, oldNodeAnalyzer)
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
+      routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer,
       routeNodeInfoAnalyzer

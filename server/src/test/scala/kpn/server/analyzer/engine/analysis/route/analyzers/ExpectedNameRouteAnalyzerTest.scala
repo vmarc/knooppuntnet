@@ -104,8 +104,7 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = ScopedNetworkType.rwn,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )

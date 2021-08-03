@@ -139,9 +139,9 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
     val summary = RouteSummary(
       context.relation.id,
-      context.loadedRoute.country,
-      context.loadedRoute.scopedNetworkType.networkType,
-      context.loadedRoute.scopedNetworkType.networkScope,
+      context.country,
+      context.scopedNetworkType.networkType,
+      context.scopedNetworkType.networkScope,
       title,
       length,
       facts.contains(Fact.RouteBroken),

@@ -479,8 +479,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     val data = d.data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = ScopedNetworkType.rwn,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )
@@ -496,6 +495,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       loadedRoute,
       orphan = false,
       routeNodeInfos,
+      scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       proposed = proposed,
     )
 

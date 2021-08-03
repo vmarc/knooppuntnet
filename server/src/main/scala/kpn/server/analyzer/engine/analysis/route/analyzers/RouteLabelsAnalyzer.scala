@@ -14,7 +14,7 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
     val basicLabels = buildBasicLabels()
     val factLabels = context.facts.map(fact => s"fact-${fact.name}")
-    val networkTypeLabels = Seq(s"network-type-${context.loadedRoute.scopedNetworkType.networkType.name}")
+    val networkTypeLabels = Seq(s"network-type-${context.scopedNetworkType.networkType.name}")
     val locationLabels = context.locationAnalysis.toSeq.flatMap(_.locationNames).map(location => s"location-$location")
     val labels = (basicLabels ++ factLabels ++ networkTypeLabels ++ locationLabels).sorted
     context.copy(labels = labels)

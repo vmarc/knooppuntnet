@@ -76,8 +76,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val data = routeTestData.data
 
     val loadedRoute = LoadedRoute(
-      country = None,
-      scopedNetworkType = routeTestData.scopedNetworkType,
+      scopedNetworkType = null,
       data,
       data.relations(1L)
     )
@@ -87,7 +86,8 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
       loadedRoute.relation,
       loadedRoute,
       orphan = false,
-      Map.empty
+      Map.empty,
+      scopedNetworkTypeOption = Some(routeTestData.scopedNetworkType)
     )
 
     UnexpectedNodeRouteAnalyzer.analyze(context)

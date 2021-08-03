@@ -4,6 +4,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
+import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
@@ -22,6 +23,9 @@ case class RouteAnalysisContext(
   loadedRoute: LoadedRoute,
   orphan: Boolean,
   routeNodeInfos: Map[Long, RouteNodeInfo],
+  // analysis results start here...
+  scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
+  country: Option[Country] = None,
   active: Boolean = true,
   proposed: Boolean = false,
   facts: Seq[Fact] = Seq.empty,
@@ -45,7 +49,11 @@ case class RouteAnalysisContext(
   tiles: Seq[String] = Seq.empty
 ) {
 
-  def scopedNetworkType: ScopedNetworkType = loadedRoute.scopedNetworkType
+  def scopedNetworkType: ScopedNetworkType = {
+    scopedNetworkTypeOption.getOrElse {
+      throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
+    }
+  }
 
   def withFact(fact: Fact): RouteAnalysisContext = {
     copy(facts = facts :+ fact)

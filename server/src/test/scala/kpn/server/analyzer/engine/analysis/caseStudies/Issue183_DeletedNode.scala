@@ -29,6 +29,7 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAna
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -135,6 +136,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
       )
     }
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeTileCalculator = new RouteTileCalculator {
       def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = Seq.empty
@@ -147,6 +149,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     )
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
+      routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer,
       routeNodeInfoAnalyzer

@@ -16,6 +16,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyz
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteFragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
@@ -35,7 +36,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
@@ -44,6 +44,7 @@ import scala.annotation.tailrec
 @Component
 class MasterRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
+  routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer,
   routeNodeInfoAnalyzer: RouteNodeInfoAnalyzer
@@ -62,6 +63,7 @@ class MasterRouteAnalyzerImpl(
       )
 
       val analyzers: List[RouteAnalyzer] = List(
+        routeCountryAnalyzer,
         RouteTagRouteAnalyzer,
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
