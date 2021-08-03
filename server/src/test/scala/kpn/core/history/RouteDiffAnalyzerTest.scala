@@ -435,7 +435,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     // TODO share with NetworkDiffAnalyzerTest
     val data = d.data
     val countryAnalyzer = new CountryAnalyzerNoop()
-    val analysisContext = new AnalysisContext(oldTagging = true)
+    val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)

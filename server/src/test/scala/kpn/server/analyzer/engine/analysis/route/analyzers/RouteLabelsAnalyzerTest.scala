@@ -65,7 +65,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       data.relations(1L)
     )
 
-    val analysisContext = new AnalysisContext(oldTagging = false)
+    val analysisContext = new AnalysisContext()
 
     RouteAnalysisContext(
       analysisContext = analysisContext,

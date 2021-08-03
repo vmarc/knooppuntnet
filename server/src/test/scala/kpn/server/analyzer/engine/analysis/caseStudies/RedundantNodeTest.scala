@@ -10,6 +10,7 @@ class RedundantNodeTest extends UnitTest {
 
   test("redundant node in the middle should not prevent forward and backward path calculation") {
 
+    pending // old tagging is not supported anymore
     val route = CaseStudy.routeAnalysis("2614657", oldTagging = true).route
 
     route.facts should contain(RouteRedundantNodes)

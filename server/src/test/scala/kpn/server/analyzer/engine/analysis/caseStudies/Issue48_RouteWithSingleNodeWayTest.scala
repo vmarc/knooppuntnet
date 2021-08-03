@@ -25,7 +25,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
 
   test("ignore ways with less than 2 nodes in route analysis") {
     val loadedRoute = readRoute()
-    val analysisContext = new AnalysisContext(oldTagging = true)
+    val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
@@ -45,7 +45,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
   private def readRoute(): LoadedRoute = {
     val data = readData()
     val routeRelation = data.relations(2941800L)
-    val analysisContext = new AnalysisContext(oldTagging = true)
+    val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     LoadedRoute(Some(Country.nl), ScopedNetworkType.rwn, data, routeRelation)
   }

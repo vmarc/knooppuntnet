@@ -59,7 +59,6 @@ class AnalyzerEngineImpl(
       log.elapsed {
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
-        analysisContext.beforeNetworkTypeTaggingStart = timestamp < AnalysisContext.networkTypeTaggingStart
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
         changeSets.foreach { changeSet =>
           Log.context(s"${changeSet.id}") {

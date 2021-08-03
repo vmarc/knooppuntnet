@@ -46,7 +46,6 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.context.Elements
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -69,9 +68,7 @@ import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
-import org.apache.commons.io.FileUtils
 
-import java.io.File
 import java.util.concurrent.Executor
 
 class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: AnalyzerStartToolOptions) {
@@ -85,12 +82,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   private val analysisDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.analysisDatabaseName))
   private val changeDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.changeDatabaseName))
 
-  private val snapshotKnownElements = {
-    val string = FileUtils.readFileToString(new File(AnalysisContext.networkTypeTaggingStartSnapshotFilename), "UTF-8")
-    Json.value(string, classOf[Elements])
-  }
-
-  val analysisContext = new AnalysisContext(snapshotKnownElements, beforeNetworkTypeTaggingStart = true)
+  val analysisContext = new AnalysisContext()
 
   val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
 

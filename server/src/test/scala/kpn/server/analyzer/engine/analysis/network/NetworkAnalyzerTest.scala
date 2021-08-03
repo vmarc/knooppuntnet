@@ -155,29 +155,6 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     routes(1).role should equal(Some("forward"))
   }
 
-  test("routes - old tagging") {
-
-    val d = new TestData() {
-      relation(10, Seq.empty, Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-03"))
-      relation(20, Seq.empty, Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02"))
-      relation(30, Seq.empty, Tags.from("network" -> "rwn", "type" -> "route", "note" -> "02-03"))
-      relation(
-        1,
-        Seq(
-          newMember("relation", 10, "forward"),
-          newMember("relation", 20, "backward"),
-          newMember("relation", 30)
-        )
-      )
-    }
-
-    val routes = analyze(d, oldTagging = true).routes
-    routes.head.routeAnalysis.route.summary.name should equal("01-02")
-    routes(1).routeAnalysis.route.summary.name should equal("01-03")
-    routes.head.role should equal(Some("backward"))
-    routes(1).role should equal(Some("forward"))
-  }
-
   test("nodes") {
 
     val d = new TestData() {
@@ -228,7 +205,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val countryAnalyzer = stub[CountryAnalyzer]
     (countryAnalyzer.country _).when(*).returns(None)
     (countryAnalyzer.relationCountry _).when(*).returns(None)
-    val analysisContext = new AnalysisContext(oldTagging = oldTagging)
+    val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)

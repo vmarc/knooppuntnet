@@ -49,16 +49,6 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     doTestLostNodeTag("rin_name", Fact.LostInlineSkateNodeTag)
   }
 
-  test("lost node tag fact - old tagging") {
-
-    val context = new AnalysisContext(oldTagging = true)
-    val before = newRawNode(tags = Tags.from("rwn_ref" -> "01"))
-    val after = newRawNode()
-
-    val analyzer = new NodeChangeFactAnalyzer(context)
-    analyzer.facts(before, after) should equal(Seq(Fact.LostHikingNodeTag))
-  }
-
   test("no lost node tag fact when switching network scope only") {
 
     val context = new AnalysisContext()

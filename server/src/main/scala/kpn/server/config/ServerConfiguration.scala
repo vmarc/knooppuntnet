@@ -43,7 +43,7 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def analysisExecutor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
+  def analysisExecutor(@Value("${app.analyzer-thread-pool-size:9}") poolSize: Int): Executor = {
     buildExecutor("analyzer", poolSize)
   }
 

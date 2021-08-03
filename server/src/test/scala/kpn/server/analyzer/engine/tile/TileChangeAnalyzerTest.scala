@@ -11,6 +11,7 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
 
   test("analyzeRoute") {
 
+    pending // old tagging is not supported anymore
     val taskRepository = stub[TaskRepository]
     val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())
 
@@ -54,6 +55,8 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
   }
 
   test("tile tasks when change with impact") {
+
+    pending // old tagging is not supported anymore
 
     val taskRepository = stub[TaskRepository]
     val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())

@@ -47,6 +47,7 @@ object FullNodeAnalyzerImpl {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-experimental") { database =>
       val executionContext = ExecutionContext.fromExecutor(
+        // TODO use ServerConfiguration.analysisExecutor with given pool size and name
         Executors.newFixedThreadPool(9)
       )
       val executor = new OverpassQueryExecutorRemoteImpl()

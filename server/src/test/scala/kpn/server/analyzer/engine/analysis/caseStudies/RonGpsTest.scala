@@ -16,16 +16,19 @@ import kpn.core.util.UnitTest
 class RonGpsTest extends UnitTest {
 
   test("RonGps original definition is reported to be broken") {
+    pending // old tagging is not supported anymore
     val route = CaseStudy.routeAnalysis("RonGpsOriginal", oldTagging = true).route
     route.facts should be(empty)
   }
 
   test("ways for lower to higher branch moved to front, before ways for higher to lower branch") {
+    pending // old tagging is not supported anymore
     val route = CaseStudy.routeAnalysis("RonGpsFixed", oldTagging = true).route
     route.facts should be(empty)
   }
 
   test("all forward roles changed to backward - oneway ways are followed in the wrong direction") {
+    pending // old tagging is not supported anymore
     val route = CaseStudy.routeAnalysis("RonGpsBackward", oldTagging = true).route
     route.facts should be(empty)
   }

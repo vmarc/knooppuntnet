@@ -5,6 +5,7 @@ import kpn.core.util.UnitTest
 class Issue42_RouteSegmentSourceProblemTest extends UnitTest {
 
   test("segment problem") {
+    pending // old tagging is not supported anymore
     val analysis = CaseStudy.routeAnalysis("9499242", oldTagging = true).route.analysis
 
     val forwardPath = analysis.map.forwardPath.get

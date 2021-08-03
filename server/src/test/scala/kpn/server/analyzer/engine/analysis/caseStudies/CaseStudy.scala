@@ -26,7 +26,7 @@ object CaseStudy {
   def routeAnalysis(name: String, oldTagging: Boolean = false): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
     val (data, scopedNetworkType, routeRelation) = load(filename)
-    val analysisContext = new AnalysisContext(oldTagging = oldTagging)
+    val analysisContext = new AnalysisContext()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
