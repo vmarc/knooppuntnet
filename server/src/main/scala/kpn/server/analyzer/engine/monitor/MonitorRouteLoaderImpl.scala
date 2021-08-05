@@ -34,7 +34,7 @@ class MonitorRouteLoaderImpl(nonCachingOverpassQueryExecutor: OverpassQueryExecu
 
   private def load(timestamp: Timestamp, routeId: Long): Option[Relation] = {
 
-    val xmlString: String = log.elapsed {
+    val xmlString: String = log.infoElapsed {
       val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
       ("Load at " + timestamp.iso, xml)
     }

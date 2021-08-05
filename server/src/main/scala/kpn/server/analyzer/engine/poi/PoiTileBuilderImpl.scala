@@ -20,7 +20,7 @@ class PoiTileBuilderImpl(
 
   override def build(tileName: String): Unit = {
 
-    log.elapsed {
+    log.infoElapsed {
 
       val tile = tileCalculator.tileNamed(tileName)
       val poiInfos = poiRepository.tilePoiInfos(tileName, stale = false)

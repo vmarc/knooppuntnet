@@ -43,7 +43,7 @@ class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mo
 
   private def collectCouchChangeSetIds(): Seq[Long] = {
     log.info("Collect couchdb changeset ids")
-    log.elapsed {
+    log.infoElapsed {
       val ids = couchDatabase.allIds().filter(_.startsWith("change-set-info:")).map(toId)
       (s"${ids.size} couchdb changeset ids", ids)
     }
@@ -51,7 +51,7 @@ class MigrateChangeSetCommentsTool(couchDatabase: kpn.core.database.Database, mo
 
   private def collectMigratedChangeSetIds(): Seq[Long] = {
     log.info("Collect migrated changeset ids")
-    log.elapsed {
+    log.infoElapsed {
       val ids = mongoDatabase.changeSetComments.ids()
       (s"${ids.size} migrated changeset ids", ids)
     }

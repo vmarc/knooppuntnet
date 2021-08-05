@@ -36,7 +36,7 @@ class AuthenticationFacadeImpl(
   )
 
   override def login(callbackUrl: String): OAuthToken = {
-    log.elapsed {
+    log.infoElapsed {
       val token = oauthTemplate.fetchRequestToken(callbackUrl, null)
       (s"fetched requestToken", token)
     }

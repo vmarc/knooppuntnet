@@ -29,7 +29,7 @@ class OrphanRouteProcessorImpl(
   def process(context: ChangeSetContext, loadedRoute: LoadedRoute): Option[RouteAnalysis] = {
 
     Log.context(s"route=${loadedRoute.id}") {
-      log.elapsed {
+      log.infoElapsed {
         try {
           val analysis = routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/).get
           val route = analysis.route.copy(/*orphan = true*/)

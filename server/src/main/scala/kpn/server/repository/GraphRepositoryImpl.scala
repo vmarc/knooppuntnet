@@ -30,7 +30,7 @@ class GraphRepositoryImpl(
   @PostConstruct
   def loadGraphs(): Unit = {
     if (graphLoadEnabled) {
-      log.infoElapsed("Loading graphs") {
+      log.infoElapsed {
         graphs = {
           val graphEdges = new MongoQueryGraphEdges(database).execute()
           graphEdges.map { edges =>
@@ -39,6 +39,7 @@ class GraphRepositoryImpl(
             (edges.networkType.name, graph)
           }.toMap
         }
+        ("Loading graphs", ())
       }
     }
   }
@@ -57,7 +58,7 @@ class GraphRepositoryImpl(
     val memoryBefore = Util.memoryUsed()
 
     val graph = new NodeNetworkGraphImpl()
-    val edges = log.elapsed {
+    val edges = log.infoElapsed {
       val result = readEdges(networkType)
       (s"Loaded ${networkType.name} ${result.size} edges", result)
     }

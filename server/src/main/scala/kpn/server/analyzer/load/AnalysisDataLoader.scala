@@ -23,7 +23,7 @@ class AnalysisDataLoader(
   def load(timestamp: Timestamp): Unit = {
     Log.context(timestamp.yyyymmddhhmmss) {
       log.info("Start loading complete analysis state")
-      log.elapsed {
+      log.infoElapsed {
         networksLoader.load(timestamp)
         orphanRoutesLoader.load(timestamp)
         orphanNodesLoader.load(timestamp)

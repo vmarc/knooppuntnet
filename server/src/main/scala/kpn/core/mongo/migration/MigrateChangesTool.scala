@@ -45,7 +45,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
   private val changeSetRepository = new ChangeSetRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
-    log.elapsedSeconds {
+    log.infoElapsed {
       val allChanges = collectCouchdbChangeSetIds()
       val migratedChanges = new MongoQueryChangeSetRefs(database).execute()
       val changes = (allChanges.toSet -- migratedChanges.toSet).toSeq.sortBy(c => (c.replicationNumber, c.changeSetId))
@@ -59,7 +59,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
   }
 
   private def migrateChangeSet(changeSetRef: ChangeSetRef): Unit = {
-    log.elapsed {
+    log.infoElapsed {
       val datas = changeSetRepository.changeSet(changeSetRef.changeSetId, Some(ReplicationId(changeSetRef.replicationNumber)), stale)
       datas.foreach { data =>
         writeSummary(data.summary)
@@ -73,7 +73,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
   }
 
   private def writeSummary(summary: ChangeSetSummary): Unit = {
-    log.elapsed {
+    log.infoElapsed {
       val _id = s"${summary.key.changeSetId}:${summary.key.replicationNumber}"
 
       val migratedSummary = if (summary.key.time == null) {
@@ -98,7 +98,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
   }
 
   private def writeLocationSummary(summary: ChangeSetSummary): Unit = {
-    log.elapsed {
+    log.infoElapsed {
       val key = summary.key
       val id = s"change:${key.changeSetId}:${key.replicationNumber}:location-summary:${key.elementId}"
       val docs = couchDatabase.docWithId(id, classOf[LocationChangeSetSummaryDoc]).toSeq
@@ -131,7 +131,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
 
   private def writeNetworkChanges(networkChanges: Seq[NetworkChange]): Unit = {
     if (networkChanges.nonEmpty) {
-      log.elapsed {
+      log.infoElapsed {
         val docs = networkChanges.map { networkChange =>
           val migratedNetworkDataUpdate = networkChange.networkDataUpdate.map { networkDataUpdate =>
             networkDataUpdate.copy(
@@ -165,7 +165,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
 
   private def writeRouteChanges(routeChanges: Seq[RouteChange]): Unit = {
     if (routeChanges.nonEmpty) {
-      log.elapsed {
+      log.infoElapsed {
         val docs = routeChanges.map { routeChange =>
           if (routeChange.key.time == null) {
             val migratedKey = routeChange.key.copy(time = routeChange.key.timestamp.toKey)
@@ -192,7 +192,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
 
   private def writeNodeChanges(nodeChanges: Seq[NodeChange]): Unit = {
     if (nodeChanges.nonEmpty) {
-      log.elapsed {
+      log.infoElapsed {
         val docs = nodeChanges.map { nodeChange =>
           if (nodeChange.key.time == null) {
             val migratedKey = nodeChange.key.copy(time = nodeChange.key.timestamp.toKey)
@@ -219,7 +219,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
 
   private def collectCouchdbChangeSetIds(): Seq[ChangeSetRef] = {
     log.info("Collect couchdb changeSetIds")
-    log.elapsed {
+    log.infoElapsed {
       val query = Query(ChangeDocumentsDesign, ChangeDocumentView, classOf[MigrateChangesTool.SummaryViewResult])
         .keyStartsWith("summary")
         .reduce(true)

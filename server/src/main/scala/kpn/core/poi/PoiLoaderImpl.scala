@@ -16,7 +16,7 @@ class PoiLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends PoiLoa
                     bbox: String,
                     condition: String): Seq[Poi] = {
 
-    log.elapsed {
+    log.infoElapsed {
       val query = PoiQuery(elementType, layer, bbox, condition)
       val xmlString = overpassQueryExecutor.executeQuery(None, query)
 

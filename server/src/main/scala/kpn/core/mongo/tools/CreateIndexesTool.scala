@@ -271,7 +271,7 @@ class CreateIndexesTool(database: Database) {
         log.info("Index already exists")
       }
       else {
-        log.elapsedSeconds {
+        log.infoElapsed {
           val collection = database.getCollection(index.collectionName)
           val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
           Await.result(future, Duration(25, TimeUnit.MINUTES))

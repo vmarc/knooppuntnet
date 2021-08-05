@@ -24,8 +24,8 @@ class NetworkInitialLoaderWorkerImpl(
 
   def load(timestamp: Timestamp, networkId: Long): Unit = {
     try {
-      log.unitElapsed {
-        if (blackListRepository.get.containsNetwork(networkId)) {
+      log.infoElapsed {
+        val message = if (blackListRepository.get.containsNetwork(networkId)) {
           s"Ignored blacklisted network $networkId"
         }
         else {
@@ -37,6 +37,7 @@ class NetworkInitialLoaderWorkerImpl(
               s"Failed to load network $networkId"
           }
         }
+        (message, ())
       }
     }
     catch {

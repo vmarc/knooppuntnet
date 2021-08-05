@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis.post
 
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetChangeCount
-import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetNetworkCount
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetFactCount
+import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetNetworkCount
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetNodeCount
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetOrphanNodeCount
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetOrphanRouteCount
@@ -19,7 +19,7 @@ class StatisticsUpdater(database: Database) {
   private val log = Log(classOf[StatisticsUpdater])
 
   def update(): Unit = {
-    log.infoElapsed("update") {
+    log.infoElapsed {
       new StatisticsUpdateSubsetNodeCount(database).execute()
       new StatisticsUpdateSubsetOrphanNodeCount(database).execute()
       new StatisticsUpdateSubsetRouteCount(database).execute()
@@ -29,6 +29,7 @@ class StatisticsUpdater(database: Database) {
       new StatisticsUpdateSubsetNetworkCount(database).execute()
       new StatisticsUpdateSubsetFactCount(database).execute()
       new StatisticsUpdateSubsetChangeCount(database).execute()
+      ("update", ())
     }
   }
 }

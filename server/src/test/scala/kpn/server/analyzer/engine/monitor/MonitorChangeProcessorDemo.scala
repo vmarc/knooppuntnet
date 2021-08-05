@@ -24,19 +24,19 @@ class MonitorChangeProcessorDemo {
   private val log = Log(classOf[MonitorChangeProcessorDemo])
 
   def analyze(): Unit = {
-    val relation = log.elapsed {
+    val relation = log.infoElapsed {
       ("read relation from file", loadRelation())
     }
 
     val fragmentMap = new FragmentAnalyzer(Seq.empty, relation.wayMembers).fragmentMap
 
-    log.elapsed {
+    log.infoElapsed {
       ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
     }
-    log.elapsed {
+    log.infoElapsed {
       ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
     }
-    val segments = log.elapsed {
+    val segments = log.infoElapsed {
       ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
     }
 

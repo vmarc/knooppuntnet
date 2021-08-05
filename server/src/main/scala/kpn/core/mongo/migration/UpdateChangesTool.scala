@@ -95,7 +95,7 @@ class UpdateChangesTool(database: Database) {
 
   private def migrateCollection(message: String, collection: DatabaseCollection[_])(migrationFunction: String => Unit): Unit = {
     Log.context(message) {
-      log.elapsedSeconds {
+      log.infoElapsed {
         val ids = collectIds(collection)
         ids.zipWithIndex.foreach { case (id, index) =>
           if ((index + 1) % 100 == 0) {

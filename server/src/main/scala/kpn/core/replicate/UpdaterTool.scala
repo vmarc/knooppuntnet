@@ -130,7 +130,7 @@ class UpdaterTool(
           if (oper.isActive) {
             val batchSize = lastReplicationId.number - previousReplicationId.next.number + 1
             LOG.info(s"Processing batch ${previousReplicationId.next.name} to ${lastReplicationId.name} [$batchSize]")
-            LOG.elapsed {
+            LOG.infoElapsed {
               new OverpassUpdate(options.overpassUpdate, options.tmpDir).update(timestampOption.get)
               (s"${timestampOption.get.yyyymmddhhmmss}", ())
             }

@@ -23,7 +23,7 @@ class RouteLoaderImpl(
       Seq.empty
     }
     else {
-      val xmlString: String = log.elapsed {
+      val xmlString: String = log.infoElapsed {
         val query = QueryRelations(routeIds)
         val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), query)
         (s"Load ${routeIds.size} routes at ${timestamp.iso}", xml)

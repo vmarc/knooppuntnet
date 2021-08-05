@@ -77,7 +77,7 @@ class NodeLoaderImpl(
 
   private def doLoad(timestamp: Timestamp, nodeIds: Seq[Long]): RawData = {
 
-    val xmlString: String = log.elapsed {
+    val xmlString: String = log.infoElapsed {
       val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
       (s"${timestamp.iso} Load ${nodeIds.size} nodes", xml)
     }
@@ -100,7 +100,7 @@ class NodeLoaderImpl(
 
   private def oldDoLoad(timestamp: Timestamp, nodeIds: Seq[Long]): RawData = {
 
-    val xmlString: String = log.elapsed {
+    val xmlString: String = log.infoElapsed {
       val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryNodes("nodes", nodeIds))
       (s"${timestamp.iso} Load ${nodeIds.size} nodes", xml)
     }

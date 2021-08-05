@@ -56,7 +56,7 @@ class AnalyzerEngineImpl(
   def process(replicationId: ReplicationId): Unit = {
     Log.context(s"${replicationId.name}") {
       log.debug("Start")
-      log.elapsed {
+      log.infoElapsed {
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)

@@ -34,7 +34,7 @@ class OldRouteLoaderImpl(
 
   private def doLoadRoute(timestamp: Timestamp, routeId: Long): Option[LoadedRoute] = {
 
-    val xmlString: String = log.elapsed {
+    val xmlString: String = log.infoElapsed {
       val xml = cachingOverpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
       (s"Load route $routeId at ${timestamp.iso}", xml)
     }

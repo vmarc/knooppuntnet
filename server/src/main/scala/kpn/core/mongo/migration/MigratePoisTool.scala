@@ -32,7 +32,7 @@ class MigratePoisTool(couchDatabase: kpn.core.database.Database, database: Datab
   private val couchRepository = new PoiRepositoryImpl(null, couchDatabase, false)
 
   def migrate(): Unit = {
-    log.elapsedSeconds {
+    log.infoElapsed {
       log.info("Reading poiRefs")
       val poiRefs = Seq(
         couchRepository.relationIds(stale).map(id => PoiRef("relation", id)),

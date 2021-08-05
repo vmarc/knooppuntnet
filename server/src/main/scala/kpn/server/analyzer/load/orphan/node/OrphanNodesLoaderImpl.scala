@@ -28,9 +28,9 @@ class OrphanNodesLoaderImpl(
         val orphanNodeIds = nodeIds.filterNot(isReferenced)
         val nodes = nodesLoader.oldLoad2(timestamp, orphanNodeIds)
         nodes.zipWithIndex.foreach { case (node, index) =>
-          log.unitElapsed {
+          log.infoElapsed {
             createProcessor.process(None, node)
-            s"(${index + 1}/${nodes.size}) Loaded node ${node.id}"
+            (s"(${index + 1}/${nodes.size}) Loaded node ${node.id}", ())
           }
         }
       }

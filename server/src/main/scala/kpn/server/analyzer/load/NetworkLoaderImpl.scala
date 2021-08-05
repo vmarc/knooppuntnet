@@ -25,7 +25,7 @@ class NetworkLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) ext
 
   def load(timestamp: Option[Timestamp], networkId: Long): Option[LoadedNetwork] = {
 
-    val xmlString: String = log.elapsed {
+    val xmlString: String = log.infoElapsed {
       val xml = cachingOverpassQueryExecutor.executeQuery(timestamp, QueryRelation(networkId))
       ("Load at " + timestamp.getOrElse(Time.now).iso, xml)
     }

@@ -39,7 +39,7 @@ class MigrateNodesTool(couchDatabase: kpn.core.database.Database, database: Data
 
   private def findAllNodeIds(): Seq[Long] = {
     log.info("find nodeIds")
-    log.elapsed {
+    log.infoElapsed {
       val ids = nodeRepository.allNodeIds()
       (s"${ids.size} nodes", ids)
     }

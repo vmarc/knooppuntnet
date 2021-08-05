@@ -41,7 +41,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
   def migrate(): Unit = {
     log.info("Migrate change keys")
-    log.elapsedSeconds {
+    log.infoElapsed {
       migrateNetworkChanges()
       migrateRouteChanges()
       migrateNodeChanges()
@@ -69,7 +69,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
     )
 
     Log.context("network-changes") {
-      log.elapsedSeconds {
+      log.infoElapsed {
         val collection = database.getCollection[NetworkChangeDoc]("network-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.networkChange
@@ -104,7 +104,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
     )
 
     Log.context("route-changes") {
-      log.elapsedSeconds {
+      log.infoElapsed {
         val collection = database.getCollection[RouteChangeDoc]("route-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.routeChange
@@ -140,7 +140,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
     )
 
     Log.context("node-changes") {
-      log.elapsedSeconds {
+      log.infoElapsed {
         val collection = database.getCollection[NodeChangeDoc]("node-changes")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.nodeChange
@@ -176,7 +176,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
     )
 
     Log.context("changeset-summaries") {
-      log.elapsedSeconds {
+      log.infoElapsed {
         val collection = database.getCollection[ChangeSetSummaryDoc]("changeset-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.changeSetSummary
@@ -211,7 +211,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
     )
 
     Log.context("change-location-summaries") {
-      log.elapsedSeconds {
+      log.infoElapsed {
         val collection = database.getCollection[LocationChangeSetSummaryDoc]("change-location-summaries")
         migrateCollection(collection, pipeline) { doc =>
           val change = doc.locationChangeSetSummary
@@ -232,7 +232,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
     val ids = findIds(collection, pipeline)
     ids.zipWithIndex.foreach { case (id, index) =>
       Log.context(s"${index + 1}/${ids.size}, $id") {
-        log.elapsed {
+        log.infoElapsed {
           val newDoc = {
             val future = collection.find[T](equal("_id", id)).first().toFuture()
             val doc = Await.result(future, Duration(60, TimeUnit.SECONDS))
@@ -248,7 +248,7 @@ class zzzMigrateChangeKeyTool(database: Database) {
 
   private def findIds[T](collection: MongoCollection[T], pipeline: Seq[Bson]): Seq[String] = {
     log.info("collecting ids")
-    log.elapsedSeconds {
+    log.infoElapsed {
       val future = collection.aggregate[StringId](pipeline).toFuture()
       val docs = Await.result(future, Duration(60, TimeUnit.MINUTES))
       (s"${docs.size} docs", docs.map(_._id))

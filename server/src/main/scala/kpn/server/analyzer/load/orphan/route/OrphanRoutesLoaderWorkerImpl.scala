@@ -29,7 +29,7 @@ class OrphanRoutesLoaderWorkerImpl(
   private val log = Log(classOf[OrphanRoutesLoaderWorkerImpl])
 
   override def process(timestamp: Timestamp, routeId: Long): Unit = {
-    log.unitElapsed {
+    log.infoElapsed {
       val loadedRouteOption = routeLoader.loadRoute(timestamp, routeId)
       loadedRouteOption match {
         case Some(loadedRoute) =>
@@ -57,7 +57,7 @@ class OrphanRoutesLoaderWorkerImpl(
 
         case None => // error already logged in routeLoader
       }
-      s"""Loaded route $routeId"""
+      (s"""Loaded route $routeId""", ())
     }
   }
 }

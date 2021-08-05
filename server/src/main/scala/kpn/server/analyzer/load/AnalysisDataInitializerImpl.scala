@@ -28,7 +28,7 @@ class AnalysisDataInitializerImpl(
     val networkIds = networkRepository.allNetworkIds()
     networkIds.zipWithIndex.foreach { case (networkId, index) =>
       Log.context(s"${index + 1}/${networkIds.size}, $networkId") {
-        log.elapsed {
+        log.infoElapsed {
           networkRepository.elements(networkId) match {
             case None => log.error(s"Could not load elements for network with id $networkId")
             case Some(networkElements) =>
@@ -44,7 +44,7 @@ class AnalysisDataInitializerImpl(
     val orphanRouteIds = Subset.all.flatMap(subset => orphanRepository.orphanRouteIds(subset))
     orphanRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       Log.context(s"${index + 1}/${orphanRouteIds.size}, $routeId") {
-        log.elapsed {
+        log.infoElapsed {
           routeRepository.routeElementsWithId(routeId) match {
             case None => log.error(s"Could not load elements of route with id $routeId")
             case Some(routeElements) =>

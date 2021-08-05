@@ -39,7 +39,7 @@ class MonitorChangeProcessorImpl(
     Log.context(timestamp.yyyymmddhhmmss) {
       Log.context("load") {
         log.info("Start loading monitor routes")
-        log.elapsed {
+        log.infoElapsed {
           monitorAdminRouteRepository.allRouteIds.foreach { routeId =>
             monitorRouteLoader.loadInitial(timestamp, routeId) match {
               case Some(routeRelation) =>
@@ -59,7 +59,7 @@ class MonitorChangeProcessorImpl(
     elementIdMap.foreach { (routeId, elementIds) =>
       if (monitorChangeImpactAnalyzer.hasImpact(changeSetContext.changeSet, routeId, elementIds)) {
         Log.context(routeId.toString) {
-          log.elapsed {
+          log.infoElapsed {
             processRoute(changeSetContext, routeId)
             ("process route", ())
           }
@@ -85,7 +85,7 @@ class MonitorChangeProcessorImpl(
                 referenceOption match {
                   case None => log.warn(s"$routeId TODO geen reference --> alleen andere changes loggen ???")
                   case Some(reference) =>
-                    log.elapsed {
+                    log.infoElapsed {
                       analyze(
                         changeSetContext,
                         routeId,
@@ -103,17 +103,17 @@ class MonitorChangeProcessorImpl(
 
   private def analyze(context: ChangeSetContext, routeId: Long, beforeRelation: Relation, afterRelation: Relation, reference: MonitorRouteReference): Unit = {
 
-    val beforeRouteSegments = log.elapsed {
+    val beforeRouteSegments = log.infoElapsed {
       ("toRouteSegments before", MonitorRouteAnalyzer.toRouteSegments(beforeRelation))
     }
-    val beforeRoute = log.elapsed {
+    val beforeRoute = log.infoElapsed {
       ("analyze change before", analyzeChange(reference, beforeRelation, beforeRouteSegments))
     }
 
-    val afterRouteSegments = log.elapsed {
+    val afterRouteSegments = log.infoElapsed {
       ("toRouteSegments after", MonitorRouteAnalyzer.toRouteSegments(afterRelation))
     }
-    val afterRoute = log.elapsed {
+    val afterRoute = log.infoElapsed {
       ("analyze change after", analyzeChange(reference, afterRelation, afterRouteSegments))
     }
 

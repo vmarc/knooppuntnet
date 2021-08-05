@@ -101,8 +101,9 @@ class FullNodeAnalyzerImpl(
 
     val existingNodeIds = findActiveNodeIds()
 
-    val allNodeIds = log.infoElapsed("load node ids") {
-      nodeIdsLoader.load(context.timestamp)
+    val allNodeIds = log.infoElapsed {
+      val ids = nodeIdsLoader.load(context.timestamp)
+      ("load node ids", ids)
     }
 
     val batchSize = 500
@@ -130,12 +131,13 @@ class FullNodeAnalyzerImpl(
             )
           }
 
-          log.infoElapsed("save") {
+          log.infoElapsed {
             val requests = nodeDocs.map { doc =>
               ReplaceOneModel[NodeDoc](Filters.equal("_id", doc._id), doc, ReplaceOptions().upsert(true))
             }
             val future = database.nodeDocs.native.bulkWrite(requests).toFuture()
             Await.result(future, Duration(2, TimeUnit.MINUTES))
+            ("save", ())
           }
           rawNodes.map(_.id)
         }

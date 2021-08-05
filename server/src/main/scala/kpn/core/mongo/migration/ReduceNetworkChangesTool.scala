@@ -17,12 +17,12 @@ class ReduceNetworkChangesTool(database: Database) {
   private val log = Log(classOf[ReduceNetworkChangesTool])
 
   def migrate(): Unit = {
-    log.elapsedSeconds {
+    log.infoElapsed {
       val ids = database.networkChanges.stringIds()
       log.info(s"ids.size=${ids.size}")
       ids.zipWithIndex.foreach { case (id, index) =>
         Log.context(s"${index + 1}/${ids.size}") {
-          log.infoElapsed(id) {
+          log.infoElapsed {
             database.networkChanges.findByStringId(id) match {
               case None =>
               case Some(networkChange) =>
@@ -35,6 +35,7 @@ class ReduceNetworkChangesTool(database: Database) {
                 val migratedNetworkChange = networkChange.copy(networkDataUpdate = migratedNetworkDataUpdate)
                 database.networkChanges.save(migratedNetworkChange)
             }
+            (id, ())
           }
         }
       }

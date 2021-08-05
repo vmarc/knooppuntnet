@@ -39,13 +39,13 @@ object MonitorRouteAnalyzer {
 
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
-    val originalFragmentMap = log.elapsed {
+    val originalFragmentMap = log.infoElapsed {
       ("fragment analyzer", new FragmentAnalyzer(Seq.empty, routeRelation.wayMembers).fragmentMap)
     }
 
     val fragmentMap = withoutTags(originalFragmentMap)
 
-    val segments = log.elapsed {
+    val segments = log.infoElapsed {
       ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
     }
     //    println(s"wayMembers.size=${routeRelation.wayMembers.size}")

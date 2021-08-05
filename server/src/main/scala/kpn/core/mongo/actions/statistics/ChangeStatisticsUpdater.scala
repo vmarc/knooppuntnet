@@ -30,12 +30,13 @@ class ChangeStatisticsUpdater(database: Database) {
   private val log = Log(classOf[ChangeStatisticsUpdater])
 
   def execute(): Unit = {
-    log.infoElapsed("update") {
+    log.infoElapsed {
       // updateCounts("network-changes", changeNetworks)
       // updateCounts("route-changes", changeRoutes)
       // updateCounts("node-changes", changeNodes)
       updateCounts("changeset-summaries", changesetSummaries)
       // updateCounts("change-location-summaries", changeLocationSummaries)
+      ("update", ())
     }
   }
 

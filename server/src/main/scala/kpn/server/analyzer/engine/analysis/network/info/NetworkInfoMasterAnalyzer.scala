@@ -70,13 +70,14 @@ class NetworkInfoMasterAnalyzer(
   )
 
   def updateAll(): Unit = {
-    log.infoElapsedSeconds("done") {
+    log.infoElapsed {
       val networkIds = database.networks.ids(log)
       networkIds.zipWithIndex.foreach { case (networkDoc, index) =>
         Log.context(s"${index + 1}/${networkIds.size}") {
           updateNetwork(networkDoc)
         }
       }
+      ("done", ())
     }
   }
 
@@ -90,12 +91,13 @@ class NetworkInfoMasterAnalyzer(
 
   def updateNetwork(networkId: Long): Unit = {
     Log.context(networkId.toString) {
-      log.infoElapsed("update") {
+      log.infoElapsed {
         database.networks.findById(networkId, log).foreach { networkDoc =>
           val context = NetworkInfoAnalysisContext(networkDoc)
           val doc = doAnalyze(analyzers, context)
           database.networkInfos.save(doc, log)
         }
+        ("update", ())
       }
     }
   }
