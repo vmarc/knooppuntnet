@@ -12,7 +12,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
@@ -405,7 +405,7 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def snapshot(d: TestData): NetworkSnapshot = {
     val data = d.data
-    val countryAnalyzer = new CountryAnalyzerNoop()
+    val countryAnalyzer = new CountryAnalyzerFixed()
     val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()

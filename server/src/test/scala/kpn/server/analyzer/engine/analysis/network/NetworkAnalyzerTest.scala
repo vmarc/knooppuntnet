@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.network
 import kpn.api.common.NetworkExtraMemberNode
 import kpn.api.common.NetworkExtraMemberRelation
 import kpn.api.common.NetworkExtraMemberWay
+import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.analysis.Network
@@ -203,8 +204,8 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     val networkRelation = data.relations(1)
     val loadedNetwork = LoadedNetwork(1, ScopedNetworkType.rwn, "name", data, networkRelation)
     val countryAnalyzer = stub[CountryAnalyzer]
-    (countryAnalyzer.country _).when(*).returns(None)
-    (countryAnalyzer.relationCountry _).when(*).returns(None)
+    (countryAnalyzer.country _).when(*).returns(Some(Country.nl))
+    (countryAnalyzer.relationCountry _).when(*).returns(Some(Country.nl))
     val analysisContext = new AnalysisContext()
     val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()

@@ -26,13 +26,12 @@ class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with Sh
 
     (t.watchedProcessor.process _).verify(*, *).never()
 
-    t.mockLog.messages should equal(
-      Seq(
-        """|ERROR Processing network create from changeset 000/000/001
-           |Could not load network with id 123 at 2015-08-11 00:00:04.
-           |Continue processing changeset without this network.""".stripMargin,
-        "DEBUG 0 change(s)"
-      )
+    t.mockLog.messages.size should equal(2)
+    t.mockLog.messages(1) should startWith("DEBUG 0 change(s)")
+    t.mockLog.messages.head should equal(
+      """|ERROR Processing network create from changeset 000/000/001
+         |Could not load network with id 123 at 2015-08-11 00:00:04.
+         |Continue processing changeset without this network.""".stripMargin
     )
   }
 
@@ -59,7 +58,8 @@ class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with Sh
 
     t.networkCreateProcessor.process(t.context, t.networkId)
 
-    t.mockLog.messages should equal(Seq("DEBUG 1 change(s)"))
+    t.mockLog.messages.size should equal(1)
+    t.mockLog.messages.head should startWith("DEBUG 1 change(s)")
   }
 
   test("fatal error") {

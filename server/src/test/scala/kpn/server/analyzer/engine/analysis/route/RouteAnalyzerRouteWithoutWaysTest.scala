@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -23,7 +23,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
     }.data.relations(1L)
 
     val analysisContext = new AnalysisContext()
-    val countryAnalyzer = new CountryAnalyzerNoop()
+    val countryAnalyzer = new CountryAnalyzerFixed()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
