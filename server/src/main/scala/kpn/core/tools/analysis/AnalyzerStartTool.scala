@@ -142,8 +142,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
       case None => log.info(s"Could not load route $routeId")
       case Some(loadedRoute) =>
 
-        val analysis = config.routeAnalyzer.analyze(loadedRoute, orphan = true)
-        val route = analysis.route.copy(orphan = true)
+        val analysis = config.routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/)
+        val route = analysis.route.copy(/*orphan = true*/)
         config.routeRepository.save(route)
         config.routeRepository.saveElements(
           RouteElements(

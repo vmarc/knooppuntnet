@@ -54,8 +54,8 @@ import kpn.server.analyzer.load.NetworkInitialLoaderWorker
 import kpn.server.analyzer.load.NetworkInitialLoaderWorkerImpl
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
-import kpn.server.analyzer.load.RouteLoader
-import kpn.server.analyzer.load.RouteLoaderImpl
+import kpn.server.analyzer.load.OldRouteLoader
+import kpn.server.analyzer.load.OldRouteLoaderImpl
 import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderWorkerImpl
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
@@ -149,7 +149,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     oldNodeAnalyzer
   )
 
-  val routeLoader: RouteLoader = new RouteLoaderImpl(
+  val routeLoader: OldRouteLoader = new OldRouteLoaderImpl(
     cachingExecutor
   )
 

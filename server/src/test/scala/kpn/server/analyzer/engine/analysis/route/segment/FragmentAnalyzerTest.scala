@@ -5,10 +5,10 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 class FragmentAnalyzerTest extends UnitTest {
 
@@ -149,31 +149,17 @@ class FragmentAnalyzerTest extends UnitTest {
   }
 
   private def fragments(d: RouteTestData): String = {
-    val data = d.data
-    val relation = data.relations(d.routeRelationId)
+    val relation = d.data.relations(d.routeRelationId)
     val analysisContext = new AnalysisContext()
-
-    val routeNodeInfos = data.nodes.values.flatMap { node =>
-      node.tags(d.scopedNetworkType.nodeRefTagKey).map { ref =>
-        node.id -> RouteNodeInfo(node, ref)
-      }
-    }.toMap
-
     val context1 = RouteAnalysisContext(
       analysisContext,
-      relation = relation,
-      loadedRoute = LoadedRoute(
-        scopedNetworkType = null,
-        data = data,
-        relation = relation
-      ),
-      orphan = false,
-      routeNodeInfos,
-      scopedNetworkTypeOption = Some(d.scopedNetworkType)
+      relation,
     )
-    val context2 = new RouteNameAnalyzer(context1).analyze
-    val context3 = new RouteNodeAnalyzer(context2).analyze
-    val fragmentMap = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragmentMap
+    val context2 = new RouteTagAnalyzer(context1).analyze
+    val context3 = new RouteNameAnalyzer(context2).analyze
+    val context4 = new RouteNodeTagAnalyzer(context3).analyze
+    val context5 = new RouteNodeAnalyzer(context4).analyze
+    val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragmentMap
     fragmentMap.all.map(fragment => new FragmentFormatter(fragment).string).mkString
   }
 }

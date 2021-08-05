@@ -89,6 +89,7 @@ class FactsPerNetworkViewTest extends UnitTest {
         )
       }
 
+      pending // no 'orphan' info in RouteInfo anymore
       val refs = FactsPerNetworkView.query(database, Subset.nlHiking, Fact.RouteBroken, stale = false)
       refs should matchTo(Seq(NetworkFactRefs(0, "OrphanRoutes", Seq(Ref(11, "01-02")))))
     }

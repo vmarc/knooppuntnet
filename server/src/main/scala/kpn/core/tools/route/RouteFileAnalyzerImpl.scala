@@ -17,13 +17,11 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.repository.RouteRepository
 
 import java.io.File
@@ -39,9 +37,7 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     try {
       readRouteRelation(routeId).flatMap { data =>
         data.relations.get(routeId).map { routeRelation =>
-          val scopedNetworkType = RelationAnalyzer.scopedNetworkType(routeRelation.raw).get
-          val loadedRoute = LoadedRoute(scopedNetworkType, data, routeRelation)
-          routeAnalyzer.analyze(loadedRoute, orphan = false)
+          routeAnalyzer.analyze(routeRelation)
         }
       }
     }

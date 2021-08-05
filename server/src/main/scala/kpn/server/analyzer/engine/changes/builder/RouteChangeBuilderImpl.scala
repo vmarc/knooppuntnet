@@ -232,7 +232,7 @@ class RouteChangeBuilderImpl(
       val elementIds = relationAnalyzer.toElementIds(analysisAfter.relation)
       analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
 
-      routeRepository.save(analysisAfter.route.copy(orphan = true))
+      routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
 
       routeRepository.saveElements(
         RouteElements(

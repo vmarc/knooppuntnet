@@ -79,7 +79,7 @@ import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
-import kpn.server.analyzer.load.RouteLoaderImpl
+import kpn.server.analyzer.load.OldRouteLoaderImpl
 import kpn.server.analyzer.load.RoutesLoaderSyncImpl
 import kpn.server.analyzer.load.data.RawDataSplitter
 import kpn.server.repository.AnalysisRepository
@@ -129,7 +129,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     (() => blackListRepository.get).when().returns(BlackList())
 
     private val nodeLoader = new NodeLoaderImpl(analysisContext, overpassQueryExecutor, countryAnalyzer, oldNodeAnalyzer)
-    private val routeLoader = new RouteLoaderImpl(overpassQueryExecutor)
+    private val routeLoader = new OldRouteLoaderImpl(overpassQueryExecutor)
     private val networkLoader: NetworkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
     private val tileCalculator = new TileCalculatorImpl()
     private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)

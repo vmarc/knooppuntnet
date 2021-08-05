@@ -1,6 +1,5 @@
 package kpn.server.analyzer.full.node
 
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NodeDoc

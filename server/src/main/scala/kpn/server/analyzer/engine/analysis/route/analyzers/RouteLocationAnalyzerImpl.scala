@@ -20,7 +20,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
         context.routeMap match {
           case None => throw new IllegalStateException("routeMap not known (route analyzers in wrong order?)")
           case Some(routeMap) =>
-            routeRepository.routeWithId(context.loadedRoute.id) match {
+            routeRepository.routeWithId(context.relation.id) match {
               case Some(route) =>
                 if (route.analysis.geometryDigest == geometryDigest) {
                   context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))

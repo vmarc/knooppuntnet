@@ -72,13 +72,9 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
   private def analyze(tags: Tags): RouteAnalysisContext = {
 
     val relation = Relation(newRawRelation(1L, tags = tags), Seq.empty)
-
     val context = RouteAnalysisContext(
       new AnalysisContext(),
-      relation,
-      null,
-      orphan = false,
-      Map.empty
+      relation
     )
 
     RouteTagAnalyzer.analyze(context)

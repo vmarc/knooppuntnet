@@ -7,7 +7,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 class RouteNodeAnalyzerTest extends UnitTest {
 
@@ -475,21 +474,11 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
   private def analyze(d: RouteTestData, proposed: Boolean = false): String = {
 
-    val data = d.data
-
-    val loadedRoute = LoadedRoute(
-      scopedNetworkType = null,
-      data,
-      data.relations(1L)
-    )
-
+    val relation = d.data.relations(1L)
     val analysisContext = new AnalysisContext()
-
     val context = RouteAnalysisContext(
       analysisContext,
-      loadedRoute.relation,
-      loadedRoute,
-      orphan = false,
+      relation,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       proposed = proposed,
     )

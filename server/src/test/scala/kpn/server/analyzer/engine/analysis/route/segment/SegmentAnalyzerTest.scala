@@ -10,10 +10,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 class SegmentAnalyzerTest extends UnitTest {
 
@@ -506,39 +506,23 @@ class SegmentAnalyzerTest extends UnitTest {
 
   private def assertSegments(d: RouteTestData, expected: String): Unit = {
     val data = d.data
-    val routeRelation = data.relations(1)
+    val relation = data.relations(1)
     val analysisContext = new AnalysisContext()
-
-    val routeNodeInfos = data.nodes.values.flatMap { node =>
-      node.tags(d.scopedNetworkType.nodeRefTagKey).map { ref =>
-        node.id -> RouteNodeInfo(node, ref)
-      }
-    }.toMap
-
-    val context1 = RouteAnalysisContext(
-      analysisContext,
-      relation = routeRelation,
-      loadedRoute = LoadedRoute(
-        scopedNetworkType = null,
-        data = data,
-        relation = routeRelation
-      ),
-      orphan = false,
-      routeNodeInfos,
-      scopedNetworkTypeOption = Some(d.scopedNetworkType)
-    )
-    val context2 = new RouteNameAnalyzer(context1).analyze
-    val context3 = new RouteNodeAnalyzer(context2).analyze
-    if (context3.routeNodeAnalysis.get.startNodes.isEmpty) fail("expected start node, but found none")
-    if (context3.routeNodeAnalysis.get.endNodes.isEmpty) fail("expected end node, but found none")
-    val fragmentMap = new FragmentAnalyzer(context3.routeNodeAnalysis.get.usedNodes, routeRelation.wayMembers).fragmentMap
+    val context1 = RouteAnalysisContext(analysisContext, relation)
+    val context2 = new RouteTagAnalyzer(context1).analyze
+    val context3 = new RouteNameAnalyzer(context2).analyze
+    val context4 = new RouteNodeTagAnalyzer(context3).analyze
+    val context5 = new RouteNodeAnalyzer(context4).analyze
+    if (context5.routeNodeAnalysis.get.startNodes.isEmpty) fail("expected start node, but found none")
+    if (context5.routeNodeAnalysis.get.endNodes.isEmpty) fail("expected end node, but found none")
+    val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragmentMap
 
     val structure: RouteStructure = new SegmentAnalyzer(
       d.scopedNetworkType.networkType,
       1,
       false,
       FragmentMap(FragmentFilter.filter(fragmentMap.all)),
-      context3.routeNodeAnalysis.get
+      context5.routeNodeAnalysis.get
     ).structure
 
     val actual = new RouteStructureFormatter(structure).string

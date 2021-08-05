@@ -31,8 +31,8 @@ class OrphanRouteProcessorImpl(
     Log.context(s"route=${loadedRoute.id}") {
       log.elapsed {
         try {
-          val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
-          val route = analysis.route.copy(orphan = true)
+          val analysis = routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/)
+          val route = analysis.route.copy(/*orphan = true*/)
           routeRepository.save(route)
           routeRepository.saveElements(
             RouteElements(

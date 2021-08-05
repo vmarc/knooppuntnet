@@ -118,7 +118,6 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
       Seq.empty,
       summary = summary,
       active = true,
-      orphan = false,
       proposed = false,
       version = 1,
       changeSetId = 1,

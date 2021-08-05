@@ -9,7 +9,6 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -24,7 +23,6 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         "location-Essen",
         "location-be",
         "network-type-hiking",
-        "orphan",
         "survey",
       )
     )
@@ -34,12 +32,6 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = buildContext().copy(active = false)
     val labels = RouteLabelsAnalyzer.analyze(context).labels
     labels should not contain "active"
-  }
-
-  test("orphan false") {
-    val context = buildContext().copy(orphan = false)
-    val labels = RouteLabelsAnalyzer.analyze(context).labels
-    labels should not contain "orphan"
   }
 
   test("no survey") {
@@ -57,21 +49,13 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def buildContext(): RouteAnalysisContext = {
     val data = new RouteTestData("01-02").data
-
-    val loadedRoute = LoadedRoute(
-      scopedNetworkType = null,
-      data,
-      data.relations(1L)
-    )
+    val relation = data.relations(1L)
 
     val analysisContext = new AnalysisContext()
 
     RouteAnalysisContext(
       analysisContext = analysisContext,
-      loadedRoute.relation,
-      loadedRoute = loadedRoute,
-      orphan = true,
-      Map.empty,
+      relation,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       lastSurvey = Some(Day(2020, 8, None)),
       facts = Seq(Fact.RouteBroken),

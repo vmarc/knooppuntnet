@@ -9,7 +9,7 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.RouteLoader
+import kpn.server.analyzer.load.OldRouteLoader
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component
 @Component
 class OrphanRoutesLoaderWorkerImpl(
   analysisContext: AnalysisContext,
-  routeLoader: RouteLoader,
+  routeLoader: OldRouteLoader,
   routeRepository: RouteRepository,
   routeAnalyzer: MasterRouteAnalyzer,
   relationAnalyzer: RelationAnalyzer,
@@ -34,8 +34,8 @@ class OrphanRoutesLoaderWorkerImpl(
       loadedRouteOption match {
         case Some(loadedRoute) =>
 
-          val analysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
-          val route = analysis.route.copy(orphan = true)
+          val analysis = routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/)
+          val route = analysis.route.copy(/*orphan = true*/)
           routeRepository.save(route)
           routeRepository.saveElements(
             RouteElements(

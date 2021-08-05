@@ -4,7 +4,6 @@ import kpn.api.common.LatLonImpl
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.data.raw.RawData
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -19,7 +18,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.json.Json
 
 import scala.xml.InputSource
@@ -74,7 +72,6 @@ class Issue2_OverlappingWays extends UnitTest {
     )
 
     val analysisContext = new AnalysisContext()
-    val loadedRoute = LoadedRoute(ScopedNetworkType.rwn, data, routeRelation)
 
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
@@ -88,7 +85,7 @@ class Issue2_OverlappingWays extends UnitTest {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(loadedRoute, orphan = false)
+    routeAnalyzer.analyze(routeRelation)
   }
 
   private def readData(routeId: Long): RawData = {

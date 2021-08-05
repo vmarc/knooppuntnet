@@ -8,7 +8,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
-import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
 @Component
@@ -50,8 +49,7 @@ class NetworkRouteAnalyzerImpl(
     RelationAnalyzer.scopedNetworkType(routeRelation.raw) match {
       case Some(routeScopedNetworkType) =>
         if (loadedNetwork.scopedNetworkType == routeScopedNetworkType) {
-          val loadedRoute = LoadedRoute(routeScopedNetworkType, loadedNetwork.data, routeRelation)
-          val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
+          val routeAnalysis = routeAnalyzer.analyze(routeRelation)
           Some(routeAnalysis)
         }
         else {

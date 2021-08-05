@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -14,7 +14,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 
 import scala.xml.InputSource
 import scala.xml.XML
@@ -22,7 +21,7 @@ import scala.xml.XML
 class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
 
   test("ignore ways with less than 2 nodes in route analysis") {
-    val loadedRoute = readRoute()
+    val routeRelation = readRoute()
     val analysisContext = new AnalysisContext()
     val countryAnalyzer = new CountryAnalyzerNoop()
     val tileCalculator = new TileCalculatorImpl()
@@ -36,15 +35,13 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
+    val routeAnalysis = routeAnalyzer.analyze(routeRelation)
     assert(routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays))
   }
 
-  private def readRoute(): LoadedRoute = {
+  private def readRoute(): Relation = {
     val data = readData()
-    val routeRelation = data.relations(2941800L)
-    val analysisContext = new AnalysisContext()
-    LoadedRoute(ScopedNetworkType.rwn, data, routeRelation)
+    data.relations(2941800L)
   }
 
   private def readData(): Data = {

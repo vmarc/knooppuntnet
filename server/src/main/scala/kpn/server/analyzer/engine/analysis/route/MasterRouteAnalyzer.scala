@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.server.analyzer.load.data.LoadedRoute
+import kpn.api.custom.Relation
 
 trait MasterRouteAnalyzer {
-  def analyze(loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis
+  def analyze(relation: Relation): RouteAnalysis
 }

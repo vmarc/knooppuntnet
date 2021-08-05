@@ -7,7 +7,6 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -52,22 +51,11 @@ class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def analyze(routeTags: Tags): Option[Day] = {
 
-    val data = new RouteTestData("01-02", routeTags = routeTags).data
-
-    val loadedRoute = LoadedRoute(
-      scopedNetworkType = null,
-      data,
-      data.relations(1L)
-    )
-
+    val relation = new RouteTestData("01-02", routeTags = routeTags).data.relations(1L)
     val analysisContext = new AnalysisContext()
-
     val context = RouteAnalysisContext(
-      analysisContext = analysisContext,
-      loadedRoute.relation,
-      loadedRoute = loadedRoute,
-      orphan = false,
-      Map.empty
+      analysisContext,
+      relation
     )
 
     RouteLastSurveyAnalyzer.analyze(context).lastSurvey

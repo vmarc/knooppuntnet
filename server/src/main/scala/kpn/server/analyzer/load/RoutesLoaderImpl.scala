@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 @Component
 class RoutesLoaderImpl(
   routeLoaderExecutor: Executor,
-  routeLoader: RouteLoader
+  routeLoader: OldRouteLoader
 ) extends RoutesLoader {
 
   private val log = Log(classOf[RoutesLoaderImpl])

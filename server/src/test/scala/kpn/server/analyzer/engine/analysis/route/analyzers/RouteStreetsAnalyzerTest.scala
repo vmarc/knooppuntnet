@@ -23,13 +23,9 @@ class RouteStreetsAnalyzerTest extends UnitTest {
     val ways: Seq[Way] = d.data.ways.values.toSeq
 
     val analysisContext = new AnalysisContext()
-
     val context = RouteAnalysisContext(
       analysisContext,
       relation = null,
-      loadedRoute = null,
-      orphan = false,
-      Map.empty,
       ways = Some(ways)
     )
 

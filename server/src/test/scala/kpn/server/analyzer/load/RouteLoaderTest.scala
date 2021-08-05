@@ -22,7 +22,7 @@ class RouteLoaderTest extends UnitTest with MockFactory {
 
     (executor.executeQuery _).when(*, *).returns(queryResult)
 
-    val routeLoader = new RouteLoaderImpl(executor)
+    val routeLoader = new OldRouteLoaderImpl(executor)
     //    val loadedRoutes = routeLoader.loadRoutes(Timestamp(2020, 8, 11), routeIds)
     //
     //    assertRoute(loadedRoutes.head, 3148634L, "01-57", "01", "57")

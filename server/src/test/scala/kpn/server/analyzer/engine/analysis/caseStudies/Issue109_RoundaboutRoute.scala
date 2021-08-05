@@ -23,7 +23,6 @@ import scala.xml.XML
 class Issue109_RoundaboutRoute extends UnitTest {
 
   test("analysis") {
-    val loadedRoute = readRoute()
     val analysisContext = new AnalysisContext()
     val countryAnalyzer = new CountryAnalyzerNoop()
     val tileCalculator = new TileCalculatorImpl()
@@ -37,7 +36,8 @@ class Issue109_RoundaboutRoute extends UnitTest {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = false)
+    val relation = readRoute()
+    val routeAnalysis = routeAnalyzer.analyze(relation)
 
     assert(routeAnalysis.route.facts.isEmpty)
     assert(routeAnalysis.structure.unusedSegments.isEmpty)
@@ -77,7 +77,7 @@ class Issue109_RoundaboutRoute extends UnitTest {
     )
   }
 
-  private def readRoute(): LoadedRoute = {
+  private def readRoute(): Relation = {
     val rawData1 = readData(11512870L)
     val rawData2 = readData(11512871L)
     val rawData = RawData.merge(rawData1, rawData2)
@@ -92,7 +92,7 @@ class Issue109_RoundaboutRoute extends UnitTest {
       routeRelation1.members ++ routeRelation2.members
     )
 
-    LoadedRoute(ScopedNetworkType.rcn, data, routeRelation)
+    routeRelation
   }
 
   private def readData(routeId: Long): RawData = {

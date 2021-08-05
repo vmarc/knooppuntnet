@@ -7,7 +7,7 @@ import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.db.couch.Couch
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.RouteLoaderImpl
+import kpn.server.analyzer.load.OldRouteLoaderImpl
 
 object SurfaceTagsTool {
   def main(args: Array[String]): Unit = {
@@ -44,7 +44,7 @@ class SurfaceTagsTool(database: Database) {
 
     val executor = new OverpassQueryExecutorImpl()
     val analysisContext = new AnalysisContext()
-    val routeLoader = new RouteLoaderImpl(executor)
+    val routeLoader = new OldRouteLoaderImpl(executor)
 
     val counts = new scala.collection.mutable.HashMap[String, Int]
 

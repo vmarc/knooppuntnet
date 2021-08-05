@@ -14,7 +14,6 @@ case class RouteInfo(
   labels: Seq[String],
   summary: RouteSummary,
   active: Boolean,
-  orphan: Boolean,
   proposed: Boolean,
   version: Long,
   changeSetId: Long,

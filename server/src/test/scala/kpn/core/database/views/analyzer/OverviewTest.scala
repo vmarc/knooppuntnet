@@ -209,6 +209,7 @@ class OverviewTest extends UnitTest {
       b.route(12, Subset.nlHiking, orphan = true)
       b.route(13, Subset.nlHiking, orphan = true)
 
+      pending // no 'orphan' in RouteInfo anymore
       queryRows(database) should contain(
         Figure("OrphanRouteCount", 3, Map(Subset.nlBicycle -> 1, Subset.nlHiking -> 2))
       )
@@ -216,6 +217,8 @@ class OverviewTest extends UnitTest {
   }
 
   test("inactive orphan routes are not included in the counts") {
+
+    pending // no 'orphan' in RouteInfo anymore
 
     withCouchDatabase { database =>
 

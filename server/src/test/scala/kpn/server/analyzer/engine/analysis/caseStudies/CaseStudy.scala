@@ -1,8 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedNetworkType
-import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
@@ -11,11 +9,9 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 
 import scala.xml.InputSource
 import scala.xml.XML
@@ -24,7 +20,7 @@ object CaseStudy {
 
   def routeAnalysis(name: String, oldTagging: Boolean = false): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
-    val (data, scopedNetworkType, routeRelation) = load(filename)
+    val routeRelation = load(filename)
     val analysisContext = new AnalysisContext()
     val countryAnalyzer = new CountryAnalyzerNoop()
     val tileCalculator = new TileCalculatorImpl()
@@ -38,11 +34,10 @@ object CaseStudy {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val loadedRoute = LoadedRoute(scopedNetworkType, data, routeRelation)
-    routeAnalyzer.analyze(loadedRoute, orphan = false)
+    routeAnalyzer.analyze(routeRelation)
   }
 
-  private def load(filename: String): (Data, ScopedNetworkType, Relation) = {
+  private def load(filename: String): Relation = {
 
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
@@ -63,10 +58,6 @@ object CaseStudy {
       throw new IllegalArgumentException(s"Relation does not have expected tag type=route in file $filename")
     }
 
-    val scopedNetworkType = RelationAnalyzer.scopedNetworkType(rawRouteRelation).get
-
-    val data = new DataBuilder(rawData).data
-    val routeRelation = data.relations(rawRouteRelation.id)
-    (data, scopedNetworkType, routeRelation)
+    new DataBuilder(rawData).data.relations(rawRouteRelation.id)
   }
 }

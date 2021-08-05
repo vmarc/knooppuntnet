@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
+import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
@@ -36,7 +37,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -49,15 +49,10 @@ class MasterRouteAnalyzerImpl(
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends MasterRouteAnalyzer {
 
-  override def analyze(loadedRoute: LoadedRoute, orphan: Boolean): RouteAnalysis = {
-    Log.context("route=%07d".format(loadedRoute.id)) {
+  override def analyze(relation: Relation): RouteAnalysis = {
+    Log.context("route=%07d".format(relation.id)) {
 
-      val context = RouteAnalysisContext(
-        analysisContext,
-        loadedRoute.relation,
-        loadedRoute,
-        orphan
-      )
+      val context = RouteAnalysisContext(analysisContext, relation)
 
       val analyzers: List[RouteAnalyzer] = List(
         routeCountryAnalyzer,

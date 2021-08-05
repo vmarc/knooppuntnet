@@ -15,6 +15,9 @@ import kpn.server.repository.RouteRepositoryImpl
 class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
 
   test("orphan routes are included in the view") {
+
+    pending // no 'orphan' in RouteInfo anymore
+
     withCouchDatabase { database =>
       val orphanRouteInfos = route(database, orphan = true)
       orphanRouteInfos should matchTo(

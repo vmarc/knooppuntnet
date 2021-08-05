@@ -15,13 +15,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
   relation: Relation,
-  loadedRoute: LoadedRoute,
-  orphan: Boolean,
   // analysis results start here...
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,

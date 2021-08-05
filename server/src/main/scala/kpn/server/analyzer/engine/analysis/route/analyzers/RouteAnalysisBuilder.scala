@@ -156,7 +156,6 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.labels,
       summary,
       active = true,
-      orphan = context.orphan,
       proposed = context.proposed,
       context.relation.version,
       context.relation.changeSetId,

@@ -36,7 +36,7 @@ class TileDataRouteBuilder(z: Int) {
       routeInfo.summary.name,
       routeInfo.tags,
       routeInfo.analysis.map,
-      routeInfo.orphan,
+      orphan = false,
       routeInfo.facts
     )
   }

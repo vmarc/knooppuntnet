@@ -1,6 +1,8 @@
 package kpn.core.overpass
 
-case class QueryRelations(name: String, relationIds: Seq[Long]) extends OverpassQuery {
+case class QueryRelations(relationIds: Seq[Long]) extends OverpassQuery {
+
+  def name: String = "relations"
 
   def string: String = {
     val relations = relationIds.map(id => s"relation($id);(>>;);").mkString
@@ -9,6 +11,6 @@ case class QueryRelations(name: String, relationIds: Seq[Long]) extends Overpass
 
   override def detailString: String = {
     val relations = relationIds.map(_.toString).mkString("\"", "\", \"", "\"")
-    s"$name, relationIds: $relations"
+    s"relationIds: $relations"
   }
 }

@@ -7,7 +7,6 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Fact._
-import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
@@ -20,7 +19,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.data.LoadedRoute
 import org.scalamock.scalatest.MockFactory
 
 /*
@@ -354,13 +352,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(
-      LoadedRoute(
-        ScopedNetworkType.rwn,
-        data,
-        routeRelation
-      ),
-      orphan = false
-    )
+    routeAnalyzer.analyze(routeRelation)
   }
 }

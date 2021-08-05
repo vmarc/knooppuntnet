@@ -3,20 +3,19 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.RouteLoaderImpl
+import kpn.server.analyzer.load.OldRouteLoaderImpl
 
 object RouteAnalyzerDemo {
   def main(args: Array[String]): Unit = {
     val analysisContext = new AnalysisContext()
     val executor = new OverpassQueryExecutorImpl()
-    val routeLoader = new RouteLoaderImpl(executor)
+    val routeLoader = new OldRouteLoaderImpl(executor)
 
     routeLoader.loadRoute(Timestamp(2018, 5, 24, 8, 59, 2), 101673) match {
       case Some(loadedRoute) =>
@@ -32,7 +31,7 @@ object RouteAnalyzerDemo {
           routeLocationAnalyzer,
           routeTileAnalyzer
         )
-        val routeAnalysis = routeAnalyzer.analyze(loadedRoute, orphan = true)
+        val routeAnalysis = routeAnalyzer.analyze(loadedRoute.relation)
         println("facts=" + routeAnalysis.route.facts)
       case None => println("could not load route")
     }

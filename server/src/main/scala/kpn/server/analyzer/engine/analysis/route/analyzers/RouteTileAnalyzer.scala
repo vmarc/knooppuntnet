@@ -20,11 +20,11 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
             }
         }
         new TileDataRouteBuilder(zoomLevel).from(
-          context.loadedRoute.id,
+          context.relation.id,
           name,
           context.relation.tags,
           routeMap,
-          context.orphan,
+          orphan = false,
           context.facts
         ) match {
           case None => Seq.empty

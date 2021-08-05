@@ -5,7 +5,6 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedRoute
 
 class WithoutWaysRouteAnalyzerTest extends UnitTest {
 
@@ -29,23 +28,8 @@ class WithoutWaysRouteAnalyzerTest extends UnitTest {
   }
 
   private def analyze(routeTestData: RouteTestData): RouteAnalysisContext = {
-
-    val data = routeTestData.data
-
-    val loadedRoute = LoadedRoute(
-      scopedNetworkType = null,
-      data,
-      data.relations(1L)
-    )
-
-    val context = RouteAnalysisContext(
-      new AnalysisContext(),
-      loadedRoute.relation,
-      loadedRoute,
-      orphan = false,
-      Map.empty
-    )
-
+    val relation = routeTestData.data.relations(1L)
+    val context = RouteAnalysisContext(new AnalysisContext(), relation)
     WithoutWaysRouteAnalyzer.analyze(context)
   }
 
