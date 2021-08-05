@@ -42,6 +42,7 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
     }
 
     context.copy(
+      abort = scopedNetworkTypeOption.isEmpty,
       scopedNetworkTypeOption = scopedNetworkTypeOption
     ).withFacts(facts.toSeq: _*)
   }

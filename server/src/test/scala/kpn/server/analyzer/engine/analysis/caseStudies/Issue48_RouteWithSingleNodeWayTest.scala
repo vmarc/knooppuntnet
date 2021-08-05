@@ -35,7 +35,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(routeRelation)
+    val routeAnalysis = routeAnalyzer.analyze(routeRelation).get
     assert(routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays))
   }
 

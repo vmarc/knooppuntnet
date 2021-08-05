@@ -352,6 +352,6 @@ class NetworkRouteBuilderTest extends UnitTest with MockFactory with SharedTestO
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation)
+    routeAnalyzer.analyze(routeRelation).get
   }
 }

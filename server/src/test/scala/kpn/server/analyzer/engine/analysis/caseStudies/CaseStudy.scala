@@ -34,7 +34,7 @@ object CaseStudy {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation)
+    routeAnalyzer.analyze(routeRelation).get
   }
 
   private def load(filename: String): Relation = {

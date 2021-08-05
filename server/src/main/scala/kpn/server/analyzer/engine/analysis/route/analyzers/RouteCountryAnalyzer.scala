@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component
 class RouteCountryAnalyzer(countryAnalyzer: CountryAnalyzer) extends RouteAnalyzer {
 
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+    val countryOption = countryAnalyzer.relationCountry(context.relation)
     context.copy(
-      country = countryAnalyzer.relationCountry(context.relation)
+      country = countryOption,
+      abort = countryOption.isEmpty
     )
   }
 }

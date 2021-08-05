@@ -35,7 +35,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(relation)
+    val routeAnalysis = routeAnalyzer.analyze(relation).get
     routeAnalysis.route.facts should equal(Seq(RouteWithoutWays, RouteBroken))
   }
 }

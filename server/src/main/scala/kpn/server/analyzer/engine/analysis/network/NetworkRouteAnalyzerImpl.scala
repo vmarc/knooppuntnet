@@ -49,8 +49,7 @@ class NetworkRouteAnalyzerImpl(
     RelationAnalyzer.scopedNetworkType(routeRelation.raw) match {
       case Some(routeScopedNetworkType) =>
         if (loadedNetwork.scopedNetworkType == routeScopedNetworkType) {
-          val routeAnalysis = routeAnalyzer.analyze(routeRelation)
-          Some(routeAnalysis)
+          routeAnalyzer.analyze(routeRelation)
         }
         else {
           val msg = s"Route scopedNetworkType (${routeScopedNetworkType.key}) does not match the network relation networkType ${loadedNetwork.name}."

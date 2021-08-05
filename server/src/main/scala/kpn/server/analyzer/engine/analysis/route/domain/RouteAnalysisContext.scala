@@ -43,7 +43,8 @@ case class RouteAnalysisContext(
   locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,
   labels: Seq[String] = Seq.empty,
-  tiles: Seq[String] = Seq.empty
+  tiles: Seq[String] = Seq.empty,
+  abort: Boolean = false
 ) {
 
   def scopedNetworkType: ScopedNetworkType = {

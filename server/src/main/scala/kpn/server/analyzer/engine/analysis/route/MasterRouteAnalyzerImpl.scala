@@ -49,7 +49,7 @@ class MasterRouteAnalyzerImpl(
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends MasterRouteAnalyzer {
 
-  override def analyze(relation: Relation): RouteAnalysis = {
+  override def analyze(relation: Relation): Option[RouteAnalysis] = {
     Log.context("route=%07d".format(relation.id)) {
 
       val context = RouteAnalysisContext(analysisContext, relation)
@@ -87,9 +87,12 @@ class MasterRouteAnalyzerImpl(
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): RouteAnalysis = {
-    if (analyzers.isEmpty) {
-      new RouteAnalysisBuilder(context).build
+  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteAnalysis] = {
+    if (context.abort) {
+      None
+    }
+    else if (analyzers.isEmpty) {
+      Some(new RouteAnalysisBuilder(context).build)
     }
     else {
       val newContext = analyzers.head.analyze(context)

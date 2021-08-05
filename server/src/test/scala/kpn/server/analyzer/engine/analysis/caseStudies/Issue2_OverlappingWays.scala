@@ -85,7 +85,7 @@ class Issue2_OverlappingWays extends UnitTest {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation)
+    routeAnalyzer.analyze(routeRelation).get
   }
 
   private def readData(routeId: Long): RawData = {

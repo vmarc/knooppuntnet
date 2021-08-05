@@ -49,7 +49,7 @@ class ChangeBuilderImpl(
 
   private def collectRouteAnalysesAfter(context: ChangeSetContext, networkAfter: Option[Network], removedRouteIds: Seq[Long]) = {
     val extraLoadedRoutesAfter: Seq[LoadedRoute] = routesLoader.load(context.timestampAfter, removedRouteIds).flatten
-    val extraAnalysesAfter = extraLoadedRoutesAfter.map { loadedRoute =>
+    val extraAnalysesAfter = extraLoadedRoutesAfter.flatMap { loadedRoute =>
       routeAnalyzer.analyze(loadedRoute.relation)
     }
     networkAfter.toSeq.flatMap(_.routes.map(_.routeAnalysis)) ++ extraAnalysesAfter
@@ -57,7 +57,7 @@ class ChangeBuilderImpl(
 
   private def collectRouteAnalysesBefore(context: ChangeSetContext, networkBefore: Option[Network], addedRouteIds: Seq[Long]) = {
     val extraLoadedRoutesBefore: Seq[LoadedRoute] = routesLoader.load(context.timestampBefore, addedRouteIds).flatten
-    val extraAnalysesBefore = extraLoadedRoutesBefore.map { loadedRoute =>
+    val extraAnalysesBefore = extraLoadedRoutesBefore.flatMap { loadedRoute =>
       val orphan = analysisContext.data.orphanRoutes.contains(loadedRoute.id)
       routeAnalyzer.analyze(loadedRoute.relation /*, orphan*/)
     }

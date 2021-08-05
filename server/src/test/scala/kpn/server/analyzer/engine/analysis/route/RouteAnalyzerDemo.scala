@@ -31,7 +31,7 @@ object RouteAnalyzerDemo {
           routeLocationAnalyzer,
           routeTileAnalyzer
         )
-        val routeAnalysis = routeAnalyzer.analyze(loadedRoute.relation)
+        val routeAnalysis = routeAnalyzer.analyze(loadedRoute.relation).get
         println("facts=" + routeAnalysis.route.facts)
       case None => println("could not load route")
     }

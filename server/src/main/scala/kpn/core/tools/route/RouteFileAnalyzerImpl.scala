@@ -36,7 +36,7 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
   def analyze(routeId: Long): Option[RouteAnalysis] = {
     try {
       readRouteRelation(routeId).flatMap { data =>
-        data.relations.get(routeId).map { routeRelation =>
+        data.relations.get(routeId).flatMap { routeRelation =>
           routeAnalyzer.analyze(routeRelation)
         }
       }

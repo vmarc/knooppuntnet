@@ -34,7 +34,7 @@ class OrphanRoutesLoaderWorkerImpl(
       loadedRouteOption match {
         case Some(loadedRoute) =>
 
-          val analysis = routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/)
+          val analysis = routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/).get
           val route = analysis.route.copy(/*orphan = true*/)
           routeRepository.save(route)
           routeRepository.saveElements(

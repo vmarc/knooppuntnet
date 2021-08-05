@@ -102,7 +102,7 @@ class FullRouteAnalyzerImpl(
 
     // val existingRouteIds = findActiveRouteIds()
 
-    val allRouteIds = collectRouteIds(context.timestamp).drop(5000).take(5000)
+    val allRouteIds = collectRouteIds(context.timestamp).drop(10000)
 
     val batchSize = 100
     val updateFutures = allRouteIds.sliding(batchSize, batchSize).zipWithIndex.map { case (routeIds, index) =>
@@ -111,11 +111,11 @@ class FullRouteAnalyzerImpl(
 
 
           val relations = routeLoader.load(context.timestamp, routeIds)
-          val routeInfos = relations.map { relation =>
+          val routeInfos = relations.flatMap { relation =>
 
             Log.context(s"route=${relation.id}") {
               try {
-                masterRouteAnalyzer.analyze(relation).route
+                masterRouteAnalyzer.analyze(relation).map(_.route)
               } catch {
                 case e: Exception =>
                   log.error(s"Error processing route ${relation.id}", e)
