@@ -1,31 +1,14 @@
 package kpn.server.analyzer.full.node
 
-import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.util.Id
-import kpn.core.mongo.util.Mongo
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.analyzer.load.NodeLoader
-import kpn.server.analyzer.load.NodeLoaderImpl
 import kpn.server.analyzer.load.orphan.node.NodeIdsLoader
-import kpn.server.analyzer.load.orphan.node.NodeIdsLoaderImpl
-import kpn.server.repository.NodeRepositoryImpl
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters
@@ -34,65 +17,21 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.ReplaceOneModel
 import org.mongodb.scala.model.ReplaceOptions
+import org.springframework.stereotype.Component
 
-import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 
-object FullNodeAnalyzerImpl {
-  def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
-      val executionContext = ExecutionContext.fromExecutor(
-        // TODO use ServerConfiguration.analysisExecutor with given pool size and name
-        Executors.newFixedThreadPool(9)
-      )
-      val executor = new OverpassQueryExecutorRemoteImpl()
-      val nodeIdsLoader = new NodeIdsLoaderImpl(executor)
-      val nodeLoader = new NodeLoaderImpl(null, executor, null, null)
-      val analysisContext = new AnalysisContext()
-      val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-      val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-      val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(countryAnalyzer)
-      val tileCalculator = new TileCalculatorImpl()
-      val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-      val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
-      val locationConfiguration = new LocationConfigurationReader().read()
-      val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(
-        locationConfiguration,
-        analyzerEnabled = true
-      )
-      val nodeRepository = new NodeRepositoryImpl(database, null, true)
-      val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository) // TODO this should not be here???
-      val nodeAnalyzer = new NodeAnalyzerImpl(
-        nodeCountryAnalyzer,
-        nodeTileAnalyzer,
-        nodeLocationsAnalyzer,
-        nodeRouteReferencesAnalyzer
-      )
-      val analyzer = new FullNodeAnalyzerImpl(
-        database,
-        nodeIdsLoader,
-        nodeLoader,
-        nodeAnalyzer,
-        executionContext
-      )
-      val context = FullAnalysisContext(Timestamp(2021, 8, 2, 0, 0, 0))
-      val contextAfter = analyzer.analyze(context)
-      println("nodeIds: " + contextAfter.nodeIds.size)
-      println("obsolete nodeIds: " + contextAfter.obsoleteNodeIds)
-    }
-  }
-}
-
+@Component
 class FullNodeAnalyzerImpl(
   database: Database,
   nodeIdsLoader: NodeIdsLoader,
   nodeLoader: NodeLoader,
   nodeAnalyzer: NodeAnalyzer,
-  implicit val executionContext: ExecutionContext
+  implicit val analysisExecutionContext: ExecutionContext
 ) extends FullNodeAnalyzer {
 
   private val log = Log(classOf[FullNodeAnalyzerImpl])

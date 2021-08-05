@@ -21,6 +21,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 import java.util.concurrent.Executor
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+import scala.concurrent.ExecutionContext
 
 @Configuration
 class ServerConfiguration() {
@@ -40,6 +41,11 @@ class ServerConfiguration() {
   @Bean
   def analyzerStatusFile(@Value("${app.analyzer-status:/kpn/status/status}") value: String): String = {
     value
+  }
+
+  @Bean
+  def analysisExecutionContext(@Value("${app.analyzer-thread-pool-size:9}") poolSize: Int): ExecutionContext = {
+    ExecutionContext.fromExecutor(buildExecutor("analysis", poolSize))
   }
 
   @Bean
@@ -130,7 +136,7 @@ class ServerConfiguration() {
   @Bean
   def database(@Value("${mongodb.url:url}") mongodbUrl: String): Database = {
     val mongoClient = MongoClient(mongodbUrl)
-    new DatabaseImpl(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
+    new DatabaseImpl(mongoClient.getDatabase("kpn-experimental").withCodecRegistry(Mongo.codecRegistry))
   }
 
   private def buildExecutor(name: String, poolSize: Int): Executor = {

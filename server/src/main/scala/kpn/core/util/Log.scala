@@ -44,7 +44,7 @@ trait Log {
     val t1 = System.nanoTime()
     val (message, result) = f
     val t2 = System.nanoTime()
-    val elapsed = Elapsed((t2 - t1) / 1000)
+    val elapsed = Elapsed((t2 - t1) / 1000000)
     (s"$message ($elapsed)", result)
   }
 

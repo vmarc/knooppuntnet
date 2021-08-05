@@ -22,7 +22,7 @@ class AnalyzerJob(applicationName: String, analyzer: Analyzer, mailer: Mailer) {
     if (!init) {
       load()
     }
-    process()
+    // process()
   }
 
   private def load(): Unit = {

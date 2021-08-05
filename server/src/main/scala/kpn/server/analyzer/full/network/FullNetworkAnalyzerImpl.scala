@@ -2,52 +2,25 @@ package kpn.server.analyzer.full.network
 
 import kpn.api.common.NetworkFacts
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkNodeMember
 import kpn.core.mongo.doc.NetworkRelationMember
 import kpn.core.mongo.doc.NetworkWayMember
 import kpn.core.mongo.util.Id
-import kpn.core.mongo.util.Mongo
-import kpn.core.overpass.CachingOverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.analyzer.load.NetworkIdsLoader
-import kpn.server.analyzer.load.NetworkIdsLoaderImpl
 import kpn.server.analyzer.load.NetworkRelationLoader
-import kpn.server.analyzer.load.NetworkRelationLoaderImpl
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
+import org.springframework.stereotype.Component
 
-import java.io.File
 
-object FullNetworkAnalyzerImpl {
-  def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
-      val executor = new CachingOverpassQueryExecutor(
-        new File("/kpn/cache"),
-        new OverpassQueryExecutorRemoteImpl()
-      )
-      val networkIdsLoader = new NetworkIdsLoaderImpl(executor)
-      val networkRelationLoader = new NetworkRelationLoaderImpl(executor)
-      val analyzer = new FullNetworkAnalyzerImpl(
-        database,
-        networkIdsLoader,
-        networkRelationLoader
-      )
-      val context = FullAnalysisContext(Timestamp(2021, 8, 2, 0, 0, 0))
-      val contextAfter = analyzer.analyze(context)
-      println("networkIds: " + contextAfter.networkIds.size)
-      println("obsolete networkIds: " + contextAfter.obsoleteNetworkIds)
-    }
-  }
-}
-
+@Component
 class FullNetworkAnalyzerImpl(
   database: Database,
   networkIdsLoader: NetworkIdsLoader,

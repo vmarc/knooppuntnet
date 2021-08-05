@@ -73,7 +73,8 @@ object CreateIndexesTool {
     Index(
       "routes",
       "labels",
-      "labels"
+      "labels",
+      "_id"
     ),
     Index(
       "routes",
@@ -249,7 +250,7 @@ object CreateIndexesTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       new CreateIndexesTool(database).createIndexes(indexes)
     }
   }

@@ -12,8 +12,8 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiTileUpdater
 import kpn.server.analyzer.engine.tile.TileUpdater
+import kpn.server.analyzer.full.FullAnalyzer
 import kpn.server.analyzer.load.AnalysisDataInitializer
-import kpn.server.analyzer.load.AnalysisDataLoader
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
 
@@ -24,7 +24,7 @@ class AnalyzerEngineImpl(
   analyzerTileUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
-  analysisDataLoader: AnalysisDataLoader,
+  fullAnalyzer: FullAnalyzer,
   changeProcessor: ChangeProcessor,
   analysisRepository: AnalysisRepository,
   tileUpdater: TileUpdater,
@@ -46,7 +46,7 @@ class AnalyzerEngineImpl(
     }
 
     if (analyzerReload) {
-      analysisDataLoader.load(timestampAfter)
+      fullAnalyzer.analyze(timestampAfter)
     }
     else {
       analysisDataInitializer.load()
