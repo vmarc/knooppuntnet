@@ -1,34 +1,21 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom.Fact
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 
+import scala.collection.mutable.ListBuffer
+
 @Component
-class NetworkInfoTagAnalyzer(
-  analysisContext: AnalysisContext
-) extends NetworkInfoAnalyzer {
+class NetworkInfoTagAnalyzer extends NetworkInfoAnalyzer {
+
+  private val log = Log(classOf[NetworkInfoTagAnalyzer])
 
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-
-    val scopedNetworkType = determineScopedNetworkType(context.networkDoc.tags)
+    val facts = ListBuffer[Fact]()
     // TODO MONGO other tag related analysis
-    // TODO MONGO determine network name here - should not rely on NetworkDoc
-    context.copy(
-      scopedNetworkTypeOption = Some(scopedNetworkType)
-    )
+    context
   }
 
-  private def determineScopedNetworkType(tags: Tags): ScopedNetworkType = {
-    tags("network") match {
-      case None => throw new IllegalStateException("xxx")
-      case Some(key) =>
-        ScopedNetworkType.withKey(key) match {
-          case None => throw new IllegalStateException("xxx")
-          case Some(value) => value
-        }
-    }
-  }
 }

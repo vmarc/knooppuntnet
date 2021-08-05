@@ -22,7 +22,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
       context.country,
       summary,
       detail,
-      context.facts,
+      context.networkFacts,
       context.nodeDetails,
       routes,
       context.nodeIds
@@ -34,7 +34,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
       context.name,
       context.scopedNetworkType.networkType,
       context.scopedNetworkType.networkScope,
-      context.facts.size,
+      context.networkFacts.size,
       context.nodeDetails.size,
       context.routeDetails.size,
       context.changeCount,

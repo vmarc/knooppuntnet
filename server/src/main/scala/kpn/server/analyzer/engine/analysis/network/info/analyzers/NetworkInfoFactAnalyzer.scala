@@ -25,7 +25,7 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
         brokenRouteCount = brokenRouteCount,
         brokenRoutePercentage = brokenRoutePercentage,
         unaccessibleRouteCount = unaccessibleRouteCount,
-        facts = facts
+        networkFacts = facts
       )
     }
     else {
@@ -114,7 +114,7 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
       }
     ).flatten
 
-    val networkInfoFacts = context.facts.map(f => NetworkFact(f.name))
+    val networkInfoFacts = context.networkFacts.map(f => NetworkFact(f.name))
     networkInfoFacts ++ networkInfoDocFacts
   }
 }

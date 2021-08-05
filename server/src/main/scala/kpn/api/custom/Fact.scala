@@ -113,6 +113,7 @@ object Fact {
 
   val NodeInvalidSurveyDate: Fact = f.error("NodeInvalidSurveyDate")
   val RouteInvalidSurveyDate: Fact = f.error("RouteInvalidSurveyDate")
+  val NetworkInvalidSurveyDate: Fact = f.error("NetworkInvalidSurveyDate")
 
   val all: Seq[Fact] = f.all
 

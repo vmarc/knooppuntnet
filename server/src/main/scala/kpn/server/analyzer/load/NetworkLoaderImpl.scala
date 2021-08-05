@@ -9,7 +9,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.network.NetworkNameAnalyzer
+import kpn.server.analyzer.engine.analysis.network.OldNetworkNameAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.springframework.stereotype.Component
@@ -81,7 +81,7 @@ class NetworkLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) ext
 
           val data = new DataBuilder(improvedRawData).data
           val relation = data.relations(networkId)
-          val networkName = new NetworkNameAnalyzer(relation).name
+          val networkName = new OldNetworkNameAnalyzer(relation).name
           Some(LoadedNetwork(networkId, scopedNetworkType, networkName, data, relation))
       }
     }

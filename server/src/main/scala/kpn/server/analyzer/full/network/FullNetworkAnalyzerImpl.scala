@@ -19,7 +19,6 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
-
 @Component
 class FullNetworkAnalyzerImpl(
   database: Database,

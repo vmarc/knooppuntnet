@@ -8,6 +8,7 @@ import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Country
 import kpn.api.custom.Day
+import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NetworkDoc
@@ -19,7 +20,8 @@ case class NetworkInfoAnalysisContext(
   country: Option[Country] = None,
   name: String = "",
   nodes: Seq[NodeDoc] = Seq.empty,
-  facts: Seq[NetworkFact] = Seq.empty,
+  facts: Seq[Fact] = Seq.empty,
+  networkFacts: Seq[NetworkFact] = Seq.empty,
   nodeDetails: Seq[NetworkNodeDetail] = Seq.empty,
   routeDetails: Seq[NetworkRouteDetail] = Seq.empty,
   routes: Seq[NetworkRouteRow] = Seq.empty, // TODO MONGO use better name
@@ -35,7 +37,8 @@ case class NetworkInfoAnalysisContext(
   unaccessibleRouteCount: Long = 0,
   connectionCount: Long = 0,
   center: Option[LatLonImpl] = None,
-  shape: Option[NetworkShape] = None
+  shape: Option[NetworkShape] = None,
+  abort: Boolean = false
 ) {
 
   def scopedNetworkType: ScopedNetworkType = {
@@ -43,4 +46,9 @@ case class NetworkInfoAnalysisContext(
       throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
     }
   }
+
+  def withFact(fact: Fact): NetworkInfoAnalysisContext = {
+    copy(facts = facts :+ fact)
+  }
+
 }

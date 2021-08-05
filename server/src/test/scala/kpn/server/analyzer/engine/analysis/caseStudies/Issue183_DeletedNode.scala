@@ -16,7 +16,7 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkNameAnalyzer
+import kpn.server.analyzer.engine.analysis.network.OldNetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
@@ -116,7 +116,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     val rawData = new Parser().parse(xml.head)
     val data = new DataBuilder(rawData).data
     val relation = data.relations(networkId)
-    val networkName = new NetworkNameAnalyzer(relation).name
+    val networkName = new OldNetworkNameAnalyzer(relation).name
     LoadedNetwork(networkId, ScopedNetworkType.rmn, networkName, data, relation)
   }
 
