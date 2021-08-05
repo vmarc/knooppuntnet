@@ -7,8 +7,7 @@ import kpn.core.mongo.actions.routes.MongoQueryRouteIds
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
-import kpn.server.analyzer.load.RouteLoader
-import kpn.server.analyzer.load.orphan.route.RouteIdsLoader
+import kpn.server.overpass.OverpassRepository
 import org.mongodb.scala.model.Filters
 import org.mongodb.scala.model.ReplaceOneModel
 import org.mongodb.scala.model.ReplaceOptions
@@ -23,8 +22,7 @@ import scala.concurrent.duration.Duration
 @Component
 class FullRouteAnalyzerImpl(
   database: Database,
-  routeIdsLoader: RouteIdsLoader,
-  routeLoader: RouteLoader,
+  overpassRepository: OverpassRepository,
   masterRouteAnalyzer: MasterRouteAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullRouteAnalyzer {
@@ -51,7 +49,7 @@ class FullRouteAnalyzerImpl(
   private def collectOverpassRouteIds(timestamp: Timestamp): Seq[Long] = {
     log.info(s"Collecting overpass route ids")
     log.infoElapsed {
-      val ids = routeIdsLoader.load(timestamp).toSeq.sorted
+      val ids = overpassRepository.routeIds(timestamp)
       (s"${ids.size} overpass route ids", ids)
     }
   }
@@ -75,7 +73,7 @@ class FullRouteAnalyzerImpl(
 
   private def analyzerRouteBatch(timestamp: Timestamp, routeIds: Seq[Long]): Seq[Long] = {
 
-    val relations = routeLoader.load(timestamp, routeIds)
+    val relations = overpassRepository.fullRelations(timestamp, routeIds)
     val routeInfos = relations.flatMap { relation =>
       Log.context(s"route=${relation.id}") {
         try {

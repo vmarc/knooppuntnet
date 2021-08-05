@@ -1,7 +1,5 @@
 package kpn.server.analyzer.engine.changes.network
 
-import java.util.concurrent.CompletableFuture.completedFuture
-
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSet
@@ -14,6 +12,8 @@ import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import org.scalamock.scalatest.MockFactory
+
+import java.util.concurrent.CompletableFuture.completedFuture
 
 class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjects {
 
@@ -93,9 +93,10 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     val processor = new NetworkChangeProcessorImpl(
       changeAnalyzer,
-      createProcessor,
-      updateProcessor,
-      deleteProcessor
+      //  createProcessor,
+      //  updateProcessor,
+      //  deleteProcessor,
+      null
     )
   }
 

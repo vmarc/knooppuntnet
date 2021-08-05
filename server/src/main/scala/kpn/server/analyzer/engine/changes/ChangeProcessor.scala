@@ -21,13 +21,16 @@ class ChangeProcessor(
 
   def process(context: ChangeSetContext): Unit = {
 
-    val networkChangeSetChanges = networkChangeProcessor.process(context)
-    val orphanRouteChangeSetChanges = orphanRouteChangeProcessor.process(context)
+    //val routeChangeSetChanges = routeChangeProcessor.process(context)
+
+     val networkChangeSetChanges = networkChangeProcessor.process(context)
+     val orphanRouteChangeSetChanges = orphanRouteChangeProcessor.process(context)
     val orphanNodeChangeSetChanges = orphanNodeChangeProcessor.process(context)
 
     val changeSetChanges = merge(
-      networkChangeSetChanges,
-      orphanRouteChangeSetChanges,
+      //routeChangeSetChanges,
+      //      networkChangeSetChanges,
+      //      orphanRouteChangeSetChanges,
       orphanNodeChangeSetChanges
     )
 

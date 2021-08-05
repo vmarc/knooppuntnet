@@ -284,9 +284,10 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
       new NetworkChangeProcessorImpl(
         networkChangeAnalyzer,
-        networkCreateProcessor,
-        networkUpdateProcessor,
-        networkDeleteProcessor
+        //  networkCreateProcessor,
+        //  networkUpdateProcessor,
+        //  networkDeleteProcessor,
+        null
       )
     }
 

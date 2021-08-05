@@ -78,7 +78,7 @@ class NetworkCreateWatchedProcessorImpl(
       impact = true
     )
 
-    merge(ChangeSetChanges(Seq(networkChange)), nodeAndRouteChanges)
+    merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)
   }
 
   private def nodesWithFact(nodeChanges: Seq[NodeChange], fact: Fact): Seq[Ref] = {

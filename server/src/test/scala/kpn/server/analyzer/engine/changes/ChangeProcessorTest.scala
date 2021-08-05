@@ -91,6 +91,7 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
     )
 
     val mergedChanges = ChangeSetChanges(
+      Seq.empty,
       Seq(networkChange),
       Seq(routeChange),
       Seq(nodeChange)

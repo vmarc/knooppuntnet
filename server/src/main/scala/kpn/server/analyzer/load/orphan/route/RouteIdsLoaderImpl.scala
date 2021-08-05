@@ -19,11 +19,6 @@ class RouteIdsLoaderImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) ex
     ids(timestamp, "relation", overpassQuery)
   }
 
-  override def load(timestamp: Timestamp): Set[Long] = {
-    val overpassQuery = QueryRouteIds()
-    ids(timestamp, "relation", overpassQuery)
-  }
-
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Set[Long] = {
     parseIds(elementTag, cachingOverpassQueryExecutor.executeQuery(Some(timestamp), query))
   }
