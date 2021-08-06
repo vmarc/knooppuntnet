@@ -6,6 +6,7 @@ import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
+import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -60,14 +61,14 @@ class RouteChangeAnalyzer(
 
   private def findRouteRelationIds(relationsById: Map[Long, RawRelation]): Set[Long] = {
     relationsById.values.
-      filter(analysisContext.isValidRouteRelation).
+      filter(r => TagInterpreter.isRouteRelation(r.tags)).
       filterNot(isBlackListed).
       map(_.id).
       toSet
   }
 
   private def isKnownOrphanRouteWithRequiredTagsMissing(relation: RawRelation): Boolean = {
-    isKnownOrphanRoute(relation.id) && !analysisContext.isValidRouteRelation(relation)
+    isKnownOrphanRoute(relation.id) && !TagInterpreter.isValidRouteRelation(relation)
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {

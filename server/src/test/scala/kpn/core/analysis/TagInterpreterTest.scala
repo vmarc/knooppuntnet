@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.context
+package kpn.core.analysis
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.NetworkScope
@@ -6,15 +6,15 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.context.AnalysisContext
 
-class AnalysisContextTest extends UnitTest with SharedTestObjects {
+class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
   test("isReferencedNetworkNode rwn") {
 
     def isReferencedNetworkNode(tags: Tags): Boolean = {
-      val context = new AnalysisContext()
       val node = newRawNode(tags = tags)
-      context.isReferencedNetworkNode(ScopedNetworkType.rwn, node)
+      TagInterpreter.isReferencedNetworkNode(ScopedNetworkType.rwn, node)
     }
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
@@ -34,9 +34,8 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
   test("isReferencedNetworkNode lwn") {
 
     def isReferencedNetworkNode(tags: Tags): Boolean = {
-      val context = new AnalysisContext()
       val node = newRawNode(tags = tags)
-      context.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
+      TagInterpreter.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
     }
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))
@@ -57,9 +56,8 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
   test("isValidNetworkNode") {
 
     def isValidNetworkNode(tags: Tags): Boolean = {
-      val context = new AnalysisContext()
       val node = newRawNode(tags = tags)
-      context.isValidNetworkNode(NetworkType.hiking, node)
+      TagInterpreter.isValidNetworkNode(NetworkType.hiking, node)
     }
 
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
@@ -83,7 +81,7 @@ class AnalysisContextTest extends UnitTest with SharedTestObjects {
     def isUnexpectedNode(tags: Tags): Boolean = {
       val context = new AnalysisContext()
       val node = newNode(1L, tags = tags)
-      context.isUnexpectedNode(ScopedNetworkType.rwn, node)
+      TagInterpreter.isUnexpectedNode(ScopedNetworkType.rwn, node)
     }
 
     // map

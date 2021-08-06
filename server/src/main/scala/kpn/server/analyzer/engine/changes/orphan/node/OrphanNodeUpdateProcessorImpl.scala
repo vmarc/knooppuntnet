@@ -6,6 +6,7 @@ import kpn.api.common.diff.NodeData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+import kpn.core.analysis.TagInterpreter
 import kpn.core.history.NodeDataDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
@@ -42,7 +43,7 @@ class OrphanNodeUpdateProcessorImpl(
       }
     }
 
-    val isNetworkNodeX = analysisContext.isValidNetworkNode(loadedNodeChange.after.node.raw)
+    val isNetworkNodeX = TagInterpreter.isValidNetworkNode(loadedNodeChange.after.node.raw)
 
     if (!isNetworkNodeX) {
       analysisContext.data.orphanNodes.watched.delete(loadedNodeChange.id)
@@ -114,8 +115,8 @@ class OrphanNodeUpdateProcessorImpl(
   }
 
   private def lostNodeTag(networkType: NetworkType, loadedNodeChange: LoadedNodeChange, fact: Fact): Option[Fact] = {
-    if (analysisContext.isValidNetworkNode(networkType, loadedNodeChange.before.node.raw) &&
-      !analysisContext.isValidNetworkNode(networkType, loadedNodeChange.after.node.raw)) {
+    if (TagInterpreter.isValidNetworkNode(networkType, loadedNodeChange.before.node.raw) &&
+      !TagInterpreter.isValidNetworkNode(networkType, loadedNodeChange.after.node.raw)) {
       Some(fact)
     }
     else {

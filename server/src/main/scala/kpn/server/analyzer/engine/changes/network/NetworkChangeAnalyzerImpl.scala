@@ -6,6 +6,7 @@ import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
+import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
@@ -56,7 +57,7 @@ class NetworkChangeAnalyzerImpl(
 
   private def findNetworkRelationChanges(changeSet: ChangeSet, action: ChangeAction): Set[Long] = {
     changeSet.relations(action).
-      filter(analysisContext.isNetworkRelation).
+      filter(TagInterpreter.isNetworkRelation).
       filterNot(isBlackListed).
       map(_.id).
       toSet

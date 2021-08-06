@@ -143,7 +143,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val factRepository = new FactRepositoryImpl(null, analysisDatabase, false)
 
   val nodeLoader = new NodeLoaderImpl(
-    analysisContext,
     nonCachingExecutor,
     countryAnalyzer,
     oldNodeAnalyzer
@@ -176,15 +175,12 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     oldNodeLocationAnalyzer
   )
 
-  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(analysisContext, oldMainNodeAnalyzer, oldNodeAnalyzer)
+  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(oldMainNodeAnalyzer, oldNodeAnalyzer)
 
   val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
-    analysisContext,
     countryAnalyzer,
-    relationAnalyzer,
     routeAnalyzer
   )
-
 
   val networkAnalyzer = new NetworkAnalyzerImpl(relationAnalyzer, networkNodeAnalyzer, networkRouteAnalyzer)
 

@@ -2,16 +2,15 @@ package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.NetworkNode
+import kpn.core.analysis.TagInterpreter
 import kpn.core.data.Data
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkNodeAnalyzerImpl(
-  analysisContext: AnalysisContext,
   oldMainNodeAnalyzer: OldMainNodeAnalyzer,
   oldNodeAnalyzer: OldNodeAnalyzer
 ) extends NetworkNodeAnalyzer {
@@ -19,7 +18,7 @@ class NetworkNodeAnalyzerImpl(
   private val log: Log = Log(classOf[NetworkNodeAnalyzerImpl])
 
   override def analyze(scopedNetworkType: ScopedNetworkType, data: Data): Map[Long, NetworkNode] = {
-    val nodes = data.nodes.values.toSeq.filter(node => analysisContext.isReferencedNetworkNode(scopedNetworkType, node.raw))
+    val nodes = data.nodes.values.toSeq.filter(node => TagInterpreter.isReferencedNetworkNode(scopedNetworkType, node.raw))
     val nodeAnalyses = nodes.map(oldMainNodeAnalyzer.analyze)
     val networkNodes = nodeAnalyses.flatMap { a =>
       oldNodeAnalyzer.scopedName(scopedNetworkType, a.node.tags) match {

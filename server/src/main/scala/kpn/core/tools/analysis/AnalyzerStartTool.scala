@@ -14,6 +14,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.Network
+import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
@@ -265,7 +266,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
       val subsets: Seq[Subset] = {
         val networkTypes = NetworkType.all.filter { networkType =>
-          config.analysisContext.isValidNetworkNode(networkType, node.networkNode.node.raw)
+          TagInterpreter.isValidNetworkNode(networkType, node.networkNode.node.raw)
         }
         node.networkNode.country.toSeq.flatMap {
           c => networkTypes.flatMap(n => Subset.of(c, n))

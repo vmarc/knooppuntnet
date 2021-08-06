@@ -7,6 +7,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.core.analysis.TagInterpreter
 import kpn.core.history.NodeMovedAnalyzer
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
@@ -76,7 +77,7 @@ class UnreferencedNodeProcessorImpl(
       }
     }
 
-    if (facts.isEmpty || analysisContext.isValidNetworkNode(after)) {
+    if (facts.isEmpty || TagInterpreter.isValidNetworkNode(after)) {
       furtherProcess(context, nodeBefore, nodeAfter, facts)
     }
     else {
@@ -218,7 +219,7 @@ class UnreferencedNodeProcessorImpl(
 
   private def subsetsIn(node: NetworkNodeInfo): Seq[Subset] = {
     val networkTypes = NetworkType.all.filter { networkType =>
-      analysisContext.isValidNetworkNode(networkType, node.networkNode.node.raw)
+      TagInterpreter.isValidNetworkNode(networkType, node.networkNode.node.raw)
     }
     networkTypes.flatMap { networkType =>
       node.networkNode.country.flatMap(country => Subset.of(country, networkType))

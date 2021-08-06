@@ -16,10 +16,10 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.OldNetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.OldNetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
@@ -161,15 +161,12 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
         )
       }
       val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
-        analysisContext,
         oldMainNodeAnalyzer,
         oldNodeAnalyzer
       )
 
       val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
-        analysisContext,
         countryAnalyzer,
-        relationAnalyzer,
         routeAnalyzer
       )
 

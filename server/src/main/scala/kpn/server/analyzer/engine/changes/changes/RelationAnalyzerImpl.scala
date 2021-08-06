@@ -7,6 +7,7 @@ import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
+import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 
@@ -91,7 +92,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
   override def referencedNetworkNodes(relation: Relation): Set[Node] = {
     RelationAnalyzer.scopedNetworkType(relation.raw) match {
       case Some(scopedNetworkType) =>
-        RelationAnalyzerHelper.referencedNodes(relation).filter(n => analysisContext.isReferencedNetworkNode(scopedNetworkType, n.raw))
+        RelationAnalyzerHelper.referencedNodes(relation).filter(n => TagInterpreter.isReferencedNetworkNode(scopedNetworkType, n.raw))
       case None => Set()
     }
   }
@@ -100,7 +101,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
     RelationAnalyzer.scopedNetworkType(relation.raw) match {
       case None => Set()
       case Some(scopedNetworkType) =>
-        referencedRelations(relation).filter(r => analysisContext.isReferencedRouteRelation(scopedNetworkType, r.raw))
+        referencedRelations(relation).filter(r => TagInterpreter.isReferencedRouteRelation(scopedNetworkType, r.raw))
     }
   }
 
@@ -108,7 +109,7 @@ class RelationAnalyzerImpl(analysisContext: AnalysisContext) extends RelationAna
     RelationAnalyzer.networkType(relation.raw) match {
       case None => Set()
       case Some(networkType) =>
-        referencedRelations(relation).filter(r => r.id != relation.id && analysisContext.isNetworkRelation(networkType, r.raw))
+        referencedRelations(relation).filter(r => r.id != relation.id && TagInterpreter.isNetworkRelation(networkType, r.raw))
     }
   }
 

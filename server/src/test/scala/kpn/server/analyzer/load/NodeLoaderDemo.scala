@@ -33,7 +33,7 @@ object NodeLoaderDemo {
     val log = Log(classOf[NodeLoaderDemo])
 
     val loadedNodes: Seq[LoadedNode] = log.infoElapsed {
-      ("done", new NodeLoaderImpl(analysisContext, executor, countryAnalyzer, oldNodeAnalyzer).oldLoadNodes(Timestamp(2015, 1, 1, 0, 0, 0), ids))
+      ("done", new NodeLoaderImpl(executor, countryAnalyzer, oldNodeAnalyzer).oldLoadNodes(Timestamp(2015, 1, 1, 0, 0, 0), ids))
     }
 
     loadedNodes.foreach(println)

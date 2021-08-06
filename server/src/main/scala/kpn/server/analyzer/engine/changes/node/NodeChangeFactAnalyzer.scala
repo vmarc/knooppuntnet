@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.node
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
+import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.context.AnalysisContext
 
 class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
@@ -20,13 +21,13 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
   }
 
   private def hasLostNodeTag(networkType: NetworkType, before: RawNode, after: RawNode): Boolean = {
-    val nodeTagBefore: Boolean = analysisContext.isValidNetworkNode(networkType, before)
-    val nodeTagAfter: Boolean = analysisContext.isValidNetworkNode(networkType, after)
+    val nodeTagBefore: Boolean = TagInterpreter.isValidNetworkNode(networkType, before)
+    val nodeTagAfter: Boolean = TagInterpreter.isValidNetworkNode(networkType, after)
     nodeTagBefore && !nodeTagAfter
   }
 
   private def wasOrphan(before: RawNode, after: RawNode) = {
-    !analysisContext.isValidNetworkNode(after) &&
+    !TagInterpreter.isValidNetworkNode(after) &&
       analysisContext.data.orphanNodes.watched.contains(before.id)
   }
 

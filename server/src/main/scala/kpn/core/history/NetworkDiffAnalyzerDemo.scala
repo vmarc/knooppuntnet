@@ -64,15 +64,12 @@ object NetworkDiffAnalyzerDemo {
     )
 
     val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(
-      analysisContext,
       oldMainNodeAnalyzer,
       oldNodeAnalyzer
     )
 
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
-      analysisContext,
       countryAnalyzer,
-      relationAnalyzer,
       routeAnalyzer
     )
 

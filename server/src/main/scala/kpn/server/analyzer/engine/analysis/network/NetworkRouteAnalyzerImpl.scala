@@ -1,20 +1,18 @@
 package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.custom.Relation
+import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkRouteAnalyzerImpl(
-  analysisContext: AnalysisContext,
   countryAnalyzer: CountryAnalyzer,
-  relationAnalyzer: RelationAnalyzer,
   routeAnalyzer: MasterRouteAnalyzer
 ) extends NetworkRouteAnalyzer {
 
@@ -23,7 +21,7 @@ class NetworkRouteAnalyzerImpl(
   override def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Map[Long, RouteAnalysis] = {
 
     val routeRelations = loadedNetwork.data.relations.values.filter { rel =>
-      analysisContext.isReferencedRouteRelation(loadedNetwork.scopedNetworkType, rel.raw)
+      TagInterpreter.isReferencedRouteRelation(loadedNetwork.scopedNetworkType, rel.raw)
     }
 
     val routeAnalyses = routeRelations.flatMap { routeRelation =>

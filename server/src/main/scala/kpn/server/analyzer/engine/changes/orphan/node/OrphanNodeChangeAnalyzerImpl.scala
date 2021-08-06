@@ -6,6 +6,7 @@ import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawNode
+import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -81,7 +82,7 @@ class OrphanNodeChangeAnalyzerImpl(
 
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {
     nodesById.values.
-      filter(analysisContext.isValidNetworkNode).
+      filter(TagInterpreter.isValidNetworkNode).
       filterNot(isBlackListed).
       map(_.id).
       toSet

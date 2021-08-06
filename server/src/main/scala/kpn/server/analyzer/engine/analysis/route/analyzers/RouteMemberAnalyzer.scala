@@ -8,6 +8,7 @@ import kpn.core.analysis.LinkType
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
+import kpn.core.analysis.TagInterpreter
 import kpn.core.obsolete.OldLinkBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -35,7 +36,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map.empty
     val nodeNumberIterator = (1 to 10000).iterator
     val validRouteMembers: Seq[Member] = context.relation.members.filter { member =>
-      context.analysisContext.isValidNetworkMember(context.scopedNetworkType, member)
+      TagInterpreter.isValidNetworkMember(context.scopedNetworkType, member)
     }
 
     val wayRelationMembers = validRouteMembers.flatMap {
@@ -79,7 +80,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         // relationMember.isWay)
         val link = linkIterator.next()
         val way = wayMember.way
-        val wayNetworkNodes = way.nodes.filter(n => context.analysisContext.isReferencedNetworkNode(context.scopedNetworkType, n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
+        val wayNetworkNodes = way.nodes.filter(n => TagInterpreter.isReferencedNetworkNode(context.scopedNetworkType, n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
           .id == n.id))
         val name = way.tags("name").getOrElse("")
 

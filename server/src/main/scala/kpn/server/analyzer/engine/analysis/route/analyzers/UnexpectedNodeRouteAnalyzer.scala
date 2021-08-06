@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.data.Node
 import kpn.api.custom.Fact.RouteUnexpectedNode
+import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object UnexpectedNodeRouteAnalyzer extends RouteAnalyzer {
@@ -18,7 +19,7 @@ class UnexpectedNodeRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def findUnexpectedNodeIds: Seq[Long] = {
-    routeNodes.filter(n => context.analysisContext.isUnexpectedNode(context.scopedNetworkType, n)).map(_.id)
+    routeNodes.filter(n => TagInterpreter.isUnexpectedNode(context.scopedNetworkType, n)).map(_.id)
   }
 
   private def routeNodes: Seq[Node] = {
