@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.ChangeAction.ChangeAction
 
 case class ElementChanges(
   creates: Seq[Long] = Seq.empty,
@@ -14,7 +15,7 @@ case class ElementChanges(
 
   def elementIds: Seq[Long] = (creates ++ updates ++ deletes).distinct.sorted
 
-  def action(elementId: Long): Int = {
+  def action(elementId: Long): ChangeAction = {
     if (creates.contains(elementId)) {
       ChangeAction.Create
     }

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
-import kpn.api.custom.Change.modify
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.AnalysisTestData
@@ -51,7 +51,7 @@ class OrphanRouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("'Delete' existing orphan route because relation does not have the route tags anymore") {
-    elementChanges(modify(relationWithoutTags(d.watchedOrphanRoute))) should equal(ElementChanges(deletes = Seq(d.watchedOrphanRoute)))
+    elementChanges(Change(Modify, Seq(relationWithoutTags(d.watchedOrphanRoute)))) should equal(ElementChanges(deletes = Seq(d.watchedOrphanRoute)))
   }
 
   test("'Delete' of unknown route does not have any effect") {

@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeAction.Create
+import kpn.api.common.changes.ChangeAction.Delete
+import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.custom.Change
-import kpn.api.custom.Change.create
-import kpn.api.custom.Change.delete
-import kpn.api.custom.Change.modify
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
@@ -102,22 +102,22 @@ class AnalysisTestData extends SharedTestObjects {
   analysisContext.data.orphanRoutes.watched.add(watchedOrphanRoute, relationAnalyzer.toElementIds(d.relations(watchedOrphanRoute)))
   analysisContext.data.orphanNodes.watched.add(watchedOrphanNode)
 
-  def createNode(nodeId: Long): Change = create(d.nodes(nodeId).raw)
+  def createNode(nodeId: Long): Change = Change(Create, Seq(d.nodes(nodeId).raw))
 
-  def modifyNode(nodeId: Long): Change = modify(d.nodes(nodeId).raw)
+  def modifyNode(nodeId: Long): Change = Change(Modify, Seq(d.nodes(nodeId).raw))
 
-  def deleteNode(nodeId: Long): Change = delete(newRawNode(nodeId))
+  def deleteNode(nodeId: Long): Change = Change(Delete, Seq(newRawNode(nodeId)))
 
-  def createWay(wayId: Long): Change = create(d.ways(wayId).raw)
+  def createWay(wayId: Long): Change = Change(Create, Seq(d.ways(wayId).raw))
 
-  def modifyWay(wayId: Long): Change = modify(d.ways(wayId).raw)
+  def modifyWay(wayId: Long): Change = Change(Modify, Seq(d.ways(wayId).raw))
 
-  def deleteWay(wayId: Long): Change = delete(newRawWay(wayId))
+  def deleteWay(wayId: Long): Change = Change(Delete, Seq(newRawWay(wayId)))
 
-  def createRelation(relationId: Long): Change = create(d.relations(relationId).raw)
+  def createRelation(relationId: Long): Change = Change(Create, Seq(d.relations(relationId).raw))
 
-  def modifyRelation(relationId: Long): Change = modify(d.relations(relationId).raw)
+  def modifyRelation(relationId: Long): Change = Change(Modify, Seq(d.relations(relationId).raw))
 
-  def deleteRelation(relationId: Long): Change = delete(newRawRelation(relationId))
+  def deleteRelation(relationId: Long): Change = Change(Delete, Seq(newRawRelation(relationId)))
 
 }

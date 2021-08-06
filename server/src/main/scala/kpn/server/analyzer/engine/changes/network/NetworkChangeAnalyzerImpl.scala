@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.network
 
+import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
@@ -53,7 +54,7 @@ class NetworkChangeAnalyzerImpl(
     networkIds.filterNot(analysisContext.data.networks.watched.contains)
   }
 
-  private def findNetworkRelationChanges(changeSet: ChangeSet, action: Int): Set[Long] = {
+  private def findNetworkRelationChanges(changeSet: ChangeSet, action: ChangeAction): Set[Long] = {
     changeSet.relations(action).
       filter(analysisContext.isNetworkRelation).
       filterNot(isBlackListed).

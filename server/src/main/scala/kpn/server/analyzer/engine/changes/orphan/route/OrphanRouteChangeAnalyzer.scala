@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.orphan.route
 
+import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
@@ -48,7 +49,7 @@ class OrphanRouteChangeAnalyzer(
     ElementChanges(sortedCreates, sortedUpdates, sortedDeletes)
   }
 
-  private def routeMap(changeSet: ChangeSet, action: Int): Map[Long, RawRelation] = {
+  private def routeMap(changeSet: ChangeSet, action: ChangeAction): Map[Long, RawRelation] = {
     changeSet.changes
       .filter(_.action == action)
       .flatMap(_.elements)

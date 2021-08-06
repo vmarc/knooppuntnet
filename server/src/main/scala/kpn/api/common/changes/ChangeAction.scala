@@ -1,7 +1,6 @@
 package kpn.api.common.changes
 
-object ChangeAction {
-  val Create = 1
-  val Modify = 2
-  val Delete = 3
+object ChangeAction extends Enumeration {
+  type ChangeAction = Value
+  val Create, Modify, Delete = Value
 }

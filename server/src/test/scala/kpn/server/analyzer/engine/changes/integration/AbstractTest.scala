@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
@@ -372,7 +373,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
     }
 
-    def process(action: Int, element: RawElement): Unit = {
+    def process(action: ChangeAction, element: RawElement): Unit = {
       val changes = Seq(Change(action, Seq(element)))
       process(changes)
     }

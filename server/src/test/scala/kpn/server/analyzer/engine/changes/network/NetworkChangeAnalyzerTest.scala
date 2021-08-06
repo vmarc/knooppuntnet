@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.network
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
 import kpn.core.test.TestData
@@ -50,7 +51,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("delete existing network because relation does not have the network tags anymore") {
-    elementChanges(Change.delete(relationWithoutTags(d.watchedNetwork))) should matchTo(ElementChanges(deletes = Seq(d.watchedNetwork)))
+    elementChanges(Change(Delete, Seq(relationWithoutTags(d.watchedNetwork)))) should matchTo(ElementChanges(deletes = Seq(d.watchedNetwork)))
     // TODO make this work? elementChanges(delete(relationWithoutTags(d.ignoredNetwork))) should equal(ElementChanges(deletes = Seq(d.ignoredNetwork)))
   }
 

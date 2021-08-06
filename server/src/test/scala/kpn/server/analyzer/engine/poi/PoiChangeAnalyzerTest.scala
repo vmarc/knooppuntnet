@@ -3,6 +3,9 @@ package kpn.server.analyzer.engine.poi
 import kpn.api.common.LatLonImpl
 import kpn.api.common.Poi
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.ChangeAction.Create
+import kpn.api.common.changes.ChangeAction.Delete
+import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
@@ -12,7 +15,6 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.repository.MockTaskRepository
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
-import org.scalamock.scalatest.MockFactory
 
 class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -30,12 +32,15 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.create(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2",
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Create,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2",
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -81,11 +86,14 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.create(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2"
+          Change(
+            Create,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2"
+              )
             )
           )
         )
@@ -130,12 +138,15 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.modify(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2",
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Modify,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2",
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -186,12 +197,15 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.modify(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2",
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Modify,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2",
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -239,11 +253,14 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.delete(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2"
+          Change(
+            Delete,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2"
+              )
             )
           )
         )
@@ -279,11 +296,14 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.delete(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2"
+          Change(
+            Delete,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2"
+              )
             )
           )
         )
@@ -319,11 +339,14 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.delete(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2"
+          Change(
+            Delete,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2"
+              )
             )
           )
         )
@@ -354,12 +377,15 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.modify(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2",
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Modify,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2",
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -396,12 +422,15 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.modify(
-            newRawNode(
-              id = 123L,
-              latitude = "1",
-              longitude = "2",
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Modify,
+            Seq(
+              newRawNode(
+                id = 123L,
+                latitude = "1",
+                longitude = "2",
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -430,10 +459,13 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.create(
-            newRawWay(
-              id = 123L,
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Create,
+            Seq(
+              newRawWay(
+                id = 123L,
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -480,10 +512,13 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.create(
-            newRawWay(
-              id = 123L,
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Create,
+            Seq(
+              newRawWay(
+                id = 123L,
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
@@ -519,10 +554,13 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change.create(
-            newRawRelation(
-              id = 123L,
-              tags = Tags.from("shop" -> "bicycle")
+          Change(
+            Create,
+            Seq(
+              newRawRelation(
+                id = 123L,
+                tags = Tags.from("shop" -> "bicycle")
+              )
             )
           )
         )
