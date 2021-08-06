@@ -31,13 +31,16 @@ class RouteChangeAnalyzer(
     val routeCreateIds1 = createdRouteIds.filterNot(isKnownRoute)
     val routeCreateIds2 = updatedRouteIds.filterNot(isKnownRoute)
 
-    val routeUpdateIds1 = analysisContext.data.orphanRoutes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
-    val routeUpdateIds2 = updatedRouteIds.filter(isKnownOrphanRoute)
+    val routeUpdateIds1 = analysisContext.data.routes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
+    val routeUpdateIds2 = updatedRouteIds.filter(isKnownRoute)
 
     val deletes = {
-      val knownOrphanRouteDeletes = deletedRelationsById.keySet.filter(isKnownOrphanRoute)
-      val knownOrphanRoutesWithRequiredTagsMissing = updatedRelationsById.values.filter(isKnownOrphanRouteWithRequiredTagsMissing).map(_.id)
-      knownOrphanRouteDeletes ++ knownOrphanRoutesWithRequiredTagsMissing
+      val routeDeletes = deletedRelationsById.values.filter { rawRelation =>
+        (isKnownRoute(rawRelation.id) || TagInterpreter.isRouteRelation(rawRelation.tags)) &&
+          !isBlackListed(rawRelation.id)
+      }.map(_.id)
+      val knownRoutesWithRequiredTagsMissing = updatedRelationsById.values.filter(isKnownRouteWithRequiredTagsMissing).map(_.id)
+      routeDeletes ++ knownRoutesWithRequiredTagsMissing
     }
 
     val updates = routeUpdateIds1 ++ routeUpdateIds2 -- deletes
@@ -62,25 +65,20 @@ class RouteChangeAnalyzer(
   private def findRouteRelationIds(relationsById: Map[Long, RawRelation]): Set[Long] = {
     relationsById.values.
       filter(r => TagInterpreter.isRouteRelation(r.tags)).
-      filterNot(isBlackListed).
+      filterNot(r => isBlackListed(r.id)).
       map(_.id).
       toSet
   }
 
-  private def isKnownOrphanRouteWithRequiredTagsMissing(relation: RawRelation): Boolean = {
-    isKnownOrphanRoute(relation.id) && !TagInterpreter.isValidRouteRelation(relation)
+  private def isKnownRouteWithRequiredTagsMissing(relation: RawRelation): Boolean = {
+    isKnownRoute(relation.id) && !TagInterpreter.isRouteRelation(relation.tags)
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {
-    isKnownOrphanRoute(routeId) ||
-      analysisContext.data.networks.watched.isReferencingRelation(routeId)
+    analysisContext.data.routes.watched.contains(routeId)
   }
 
-  private def isKnownOrphanRoute(routeId: Long): Boolean = {
-    analysisContext.data.orphanRoutes.watched.contains(routeId)
-  }
-
-  private def isBlackListed(relation: RawRelation): Boolean = {
-    blackListRepository.get.containsRoute(relation.id)
+  private def isBlackListed(routeId: Long): Boolean = {
+    blackListRepository.get.containsRoute(routeId)
   }
 }
