@@ -9,7 +9,7 @@ class AnalysisDataDiffReporter {
 
   def report(left: AnalysisData, right: AnalysisData): Seq[String] = {
     val differences = diff("Network", left.networks, right.networks) ++
-      diff("Route", left.orphanRoutes, right.orphanRoutes) ++
+      diff("Route", left.routes, right.routes) ++
       orphanNodeDiff(left.orphanNodes, right.orphanNodes)
 
     if (differences.isEmpty) {

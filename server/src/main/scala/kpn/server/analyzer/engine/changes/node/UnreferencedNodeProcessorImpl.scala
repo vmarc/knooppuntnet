@@ -210,7 +210,7 @@ class UnreferencedNodeProcessorImpl(
 
   private def isReferencedNode(node: NetworkNodeInfo): Boolean = {
     analysisContext.data.networks.isReferencingNode(node.id) ||
-      analysisContext.data.orphanRoutes.watched.isReferencingNode(node.id)
+      analysisContext.data.routes.watched.isReferencingNode(node.id)
   }
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {

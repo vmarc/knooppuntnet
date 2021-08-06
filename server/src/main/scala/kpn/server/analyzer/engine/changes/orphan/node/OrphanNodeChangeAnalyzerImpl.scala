@@ -96,7 +96,7 @@ class OrphanNodeChangeAnalyzerImpl(
 
   private def isReferencedNode(nodeId: Long): Boolean = {
     analysisContext.data.networks.isReferencingNode(nodeId) ||
-      analysisContext.data.orphanRoutes.isReferencingNode(nodeId)
+      analysisContext.data.routes.isReferencingNode(nodeId)
   }
 
   private def isKnownOrphanNode(nodeId: Long): Boolean = {

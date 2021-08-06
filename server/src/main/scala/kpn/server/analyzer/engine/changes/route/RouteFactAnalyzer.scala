@@ -21,7 +21,7 @@ class RouteFactAnalyzer(
   }
 
   private def wasOrphan(after: RouteAnalysis) = {
-    analysisData.orphanRoutes.watched.contains(after.id)
+    analysisData.routes.watched.contains(after.id)
   }
 
   private def hasRouteTags(routeAnalysis: RouteAnalysis): Boolean = {

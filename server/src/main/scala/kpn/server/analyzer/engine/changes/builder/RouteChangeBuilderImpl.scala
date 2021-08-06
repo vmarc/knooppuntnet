@@ -54,8 +54,8 @@ class RouteChangeBuilderImpl(
       val routeId = analysisAfter.id
 
       val extraFacts = Seq(
-        if (analysisContext.data.orphanRoutes.watched.contains(routeId)) {
-          analysisContext.data.orphanRoutes.watched.delete(routeId)
+        if (analysisContext.data.routes.watched.contains(routeId)) {
+          analysisContext.data.routes.watched.delete(routeId)
           Seq(Fact.WasOrphan)
         }
         else {
@@ -230,7 +230,7 @@ class RouteChangeBuilderImpl(
     else {
 
       val elementIds = relationAnalyzer.toElementIds(analysisAfter.relation)
-      analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
+      analysisContext.data.routes.watched.add(routeId, elementIds)
 
       routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
 

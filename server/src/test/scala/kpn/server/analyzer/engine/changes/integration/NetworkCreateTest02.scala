@@ -49,17 +49,17 @@ class NetworkCreateTest02 extends AbstractTest {
     tc.nodesBefore(dataBefore, 1001, 1002)
     tc.relationAfter(dataAfter, 1)
 
-    tc.analysisContext.data.orphanRoutes.watched.add(11, ElementIds())
+    tc.analysisContext.data.routes.watched.add(11, ElementIds())
     tc.analysisContext.data.orphanNodes.watched.add(1001L)
     tc.analysisContext.data.orphanNodes.watched.add(1002L)
 
-    assert(tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(tc.analysisContext.data.routes.watched.contains(11))
     assert(tc.analysisContext.data.orphanNodes.watched.contains(1001))
     assert(tc.analysisContext.data.orphanNodes.watched.contains(1002))
 
     tc.process(ChangeAction.Create, relation(dataAfter, 1))
 
-    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(!tc.analysisContext.data.routes.watched.contains(11))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002))
 

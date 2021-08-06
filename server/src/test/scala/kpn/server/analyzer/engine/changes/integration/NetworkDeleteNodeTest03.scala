@@ -34,12 +34,12 @@ class NetworkDeleteNodeTest03 extends AbstractTest {
     tc.nodesAfter(dataAfter, 1001)
 
     tc.analysisContext.data.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
-    tc.analysisContext.data.orphanRoutes.watched.add(11, tc.relationAnalyzer.toElementIds(dataBefore.relations(11)))
+    tc.analysisContext.data.routes.watched.add(11, tc.relationAnalyzer.toElementIds(dataBefore.relations(11)))
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
     assert(!tc.analysisContext.data.networks.watched.contains(1))
-    assert(tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(tc.analysisContext.data.routes.watched.contains(11))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     (tc.networkRepository.save _).verify(

@@ -61,8 +61,8 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
     // network 1 is no longer in memory
     assert(!tc.analysisContext.data.networks.watched.contains(1))
 
-    assert(tc.analysisContext.data.orphanRoutes.watched.contains(11)) // network 1 was removed, route no longer referenced
-    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(12)) // network 1 was removed, but route still referenced in network 2
+    assert(tc.analysisContext.data.routes.watched.contains(11)) // network 1 was removed, route no longer referenced
+    assert(!tc.analysisContext.data.routes.watched.contains(12)) // network 1 was removed, but route still referenced in network 2
 
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002)) // still referenced in orphan route

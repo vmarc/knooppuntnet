@@ -458,7 +458,7 @@ class NodeChangeBuilderImpl(
   }
 
   private def isReferencedNode(nodeId: Long): Boolean = {
-    analysisContext.data.networks.isReferencingNode(nodeId) || analysisContext.data.orphanRoutes.watched.isReferencingNode(nodeId)
+    analysisContext.data.networks.isReferencingNode(nodeId) || analysisContext.data.routes.watched.isReferencingNode(nodeId)
   }
 
   private def nodeIdsIn(network: Option[Network]): Set[Long] = {

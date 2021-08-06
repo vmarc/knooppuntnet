@@ -77,15 +77,15 @@ class AnalysisDataDiffReporterTest extends UnitTest {
       relationIds = Set(1031, 1033)
     )
 
-    left.orphanRoutes.watched.add(10, leftElementIds)
-    left.orphanRoutes.watched.add(11, ElementIds())
-    left.orphanRoutes.watched.add(12, ElementIds())
-    left.orphanRoutes.watched.add(13, ElementIds())
+    left.routes.watched.add(10, leftElementIds)
+    left.routes.watched.add(11, ElementIds())
+    left.routes.watched.add(12, ElementIds())
+    left.routes.watched.add(13, ElementIds())
 
-    right.orphanRoutes.watched.add(10, rightElementIds)
-    right.orphanRoutes.watched.add(11, ElementIds())
-    right.orphanRoutes.watched.add(14, ElementIds())
-    right.orphanRoutes.watched.add(15, ElementIds())
+    right.routes.watched.add(10, rightElementIds)
+    right.routes.watched.add(11, ElementIds())
+    right.routes.watched.add(14, ElementIds())
+    right.routes.watched.add(15, ElementIds())
 
     val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
 

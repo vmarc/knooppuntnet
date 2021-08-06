@@ -48,7 +48,7 @@ class AnalysisDataInitializerImpl(
           routeRepository.routeElementsWithId(routeId) match {
             case None => log.error(s"Could not load elements of route with id $routeId")
             case Some(routeElements) =>
-              analysisContext.data.orphanRoutes.watched.add(routeId, routeElements.elementIds)
+              analysisContext.data.routes.watched.add(routeId, routeElements.elementIds)
           }
           (s"Loaded route $routeId elements", ())
         }

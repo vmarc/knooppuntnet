@@ -12,12 +12,12 @@ class OrphanRouteTest04 extends AbstractTest with SharedTestObjects {
     val dataEmpty = TestData2().data
     val tc = new TestConfig()
     tc.relationBefore(dataEmpty, 11)
-    tc.analysisContext.data.orphanRoutes.watched.add(11, ElementIds())
+    tc.analysisContext.data.routes.watched.add(11, ElementIds())
     tc.relationAfter(dataEmpty, 11)
 
     tc.process(ChangeAction.Delete, newRawRelation(11))
 
-    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(!tc.analysisContext.data.routes.watched.contains(11))
 
     (tc.routeRepository.save _).verify(*).never() // too difficult to save meaningful data
     (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()

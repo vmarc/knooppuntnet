@@ -53,7 +53,7 @@ class OrphanRoutesLoaderWorkerImpl(
           }
 
           val elementIds = relationAnalyzer.toElementIds(loadedRoute.relation)
-          analysisContext.data.orphanRoutes.watched.add(loadedRoute.id, elementIds)
+          analysisContext.data.routes.watched.add(loadedRoute.id, elementIds)
 
         case None => // error already logged in routeLoader
       }

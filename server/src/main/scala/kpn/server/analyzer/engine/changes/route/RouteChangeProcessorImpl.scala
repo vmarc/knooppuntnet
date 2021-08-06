@@ -123,7 +123,7 @@ class RouteChangeProcessorImpl(
             val routeUpdate = new RouteDiffAnalyzer(beforeRouteAnalysis, afterRouteAnalysis).analysis
 
             if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-              analysisContext.data.orphanRoutes.watched.delete(routeUpdate.id)
+              analysisContext.data.routes.watched.delete(routeUpdate.id)
             }
 
             val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
@@ -159,7 +159,7 @@ class RouteChangeProcessorImpl(
       }
     }
     else if (action == ChangeAction.Delete) {
-      analysisContext.data.orphanRoutes.watched.delete(data.routeId)
+      analysisContext.data.routes.watched.delete(data.routeId)
       before match {
         case None =>
           //noinspection SideEffectsInMonadicTransformation

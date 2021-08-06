@@ -39,6 +39,6 @@ class OrphanNodesLoaderImpl(
 
   private def isReferenced(nodeId: Long): Boolean = {
     analysisContext.data.networks.isReferencingNode(nodeId) ||
-      analysisContext.data.orphanRoutes.isReferencingNode(nodeId)
+      analysisContext.data.routes.isReferencingNode(nodeId)
   }
 }

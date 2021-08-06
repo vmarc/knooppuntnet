@@ -89,14 +89,14 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
 
     // before:
     assert(tc.analysisContext.data.networks.watched.isReferencingRelation(11))
-    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(!tc.analysisContext.data.routes.watched.contains(11))
 
     // act:
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
 
     // after:
     assert(tc.analysisContext.data.networks.watched.isReferencingRelation(11))
-    assert(!tc.analysisContext.data.orphanRoutes.watched.contains(11))
+    assert(!tc.analysisContext.data.routes.watched.contains(11))
 
     (tc.networkRepository.save _).verify(*).once()
     (tc.routeRepository.save _).verify(*).never()

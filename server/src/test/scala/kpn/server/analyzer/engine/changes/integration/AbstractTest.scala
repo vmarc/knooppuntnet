@@ -411,7 +411,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     def watchOrphanRoute(data: Data, routeId: Long): Unit = {
       val elementIds = relationAnalyzer.toElementIds(data.relations(routeId))
-      analysisContext.data.orphanRoutes.watched.add(routeId, elementIds)
+      analysisContext.data.routes.watched.add(routeId, elementIds)
     }
 
     def watchOrphanNode(nodeId: Long): Unit = {

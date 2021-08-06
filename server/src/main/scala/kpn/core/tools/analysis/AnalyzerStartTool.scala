@@ -164,7 +164,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         }
 
         val elementIds = config.relationAnalyzer.toElementIds(loadedRoute.relation)
-        config.analysisContext.data.orphanRoutes.watched.add(loadedRoute.id, elementIds)
+        config.analysisContext.data.routes.watched.add(loadedRoute.id, elementIds)
     }
   }
 
