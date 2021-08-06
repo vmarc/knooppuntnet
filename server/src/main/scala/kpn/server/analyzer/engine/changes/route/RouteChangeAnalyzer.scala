@@ -34,13 +34,8 @@ class RouteChangeAnalyzer(
     val routeUpdateIds1 = analysisContext.data.routes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
     val routeUpdateIds2 = updatedRouteIds.filter(isKnownRoute)
 
-    val deletes = {
-      val routeDeletes = deletedRelationsById.values.filter { rawRelation =>
-        (isKnownRoute(rawRelation.id) || TagInterpreter.isRouteRelation(rawRelation.tags)) &&
-          !isBlackListed(rawRelation.id)
-      }.map(_.id)
-      val knownRoutesWithRequiredTagsMissing = updatedRelationsById.values.filter(isKnownRouteWithRequiredTagsMissing).map(_.id)
-      routeDeletes ++ knownRoutesWithRequiredTagsMissing
+    val deletes = deletedRelationsById.keySet.filter { routeId =>
+      isKnownRoute(routeId) && !isBlackListed(routeId)
     }
 
     val updates = routeUpdateIds1 ++ routeUpdateIds2 -- deletes
@@ -68,10 +63,6 @@ class RouteChangeAnalyzer(
       filterNot(r => isBlackListed(r.id)).
       map(_.id).
       toSet
-  }
-
-  private def isKnownRouteWithRequiredTagsMissing(relation: RawRelation): Boolean = {
-    isKnownRoute(relation.id) && !TagInterpreter.isRouteRelation(relation.tags)
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {

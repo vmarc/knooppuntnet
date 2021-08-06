@@ -24,13 +24,20 @@ object TagInterpreter {
     }
   }
 
-  def isNetworkRelation(relation: RawRelation): Boolean = {
-    NetworkType.all.exists(networkType => isNetworkRelation(networkType, relation))
+  def isNetworkRelation(tags: Tags): Boolean = {
+    tags.has("network:type", "node_network") &&
+      tags.has("type", "network") && {
+      tags("network") match {
+        case Some(value) => ScopedNetworkType.all.map(_.key).contains(value)
+        case None => false
+      }
+    }
   }
 
   def isNetworkRelation(networkType: NetworkType, relation: RawRelation): Boolean = {
     isElementNetworkRelation(networkType, relation)
   }
+
 
   def isNetworkRelation(networkType: NetworkType, member: Member): Boolean = {
     member match {

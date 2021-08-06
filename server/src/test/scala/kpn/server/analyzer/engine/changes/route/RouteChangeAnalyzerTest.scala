@@ -81,44 +81,23 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  test("'Delete' existing route because relation does not have the route tags anymore") {
-    val setup = new Setup()
-    setup.analysisContext.data.routes.watched.add(11L, ElementIds())
-    val change = Change(Modify, Seq(buildRoute(11L, "UNKNOWN")))
-    setup.analyze(change) should matchTo(
-      ElementChanges(
-        deletes = Seq(11L)
-      )
-    )
-  }
-
-  test("'Delete' of unknown route") {
-    val setup = new Setup()
-    val change = Change(Delete, Seq(buildRoute(11L)))
-    setup.analyze(change) should matchTo(
-      ElementChanges(
-        deletes = Seq(11L)
-      )
-    )
-  }
-
   test("Ignore 'Create' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListRepository.save(BlackList(routes = Seq(BlackListEntry(11L, "", ""))))
+    setup.blackListRoute(11L)
     val change = Change(Create, Seq(buildRoute(11L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Modify' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListRepository.save(BlackList(routes = Seq(BlackListEntry(11L, "", ""))))
+    setup.blackListRoute(11L)
     val change = Change(Modify, Seq(buildRoute(11L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Delete' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListRepository.save(BlackList(routes = Seq(BlackListEntry(11L, "", ""))))
+    setup.blackListRoute(11L)
     val change = Change(Delete, Seq(buildRoute(11L)))
     assert(setup.analyze(change).isEmpty)
   }
@@ -135,7 +114,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(setup.analyze(change).isEmpty)
   }
 
-  test("Ignore 'Delete' of non-route relation") {
+  test("Ignore 'Delete' of unknown route relation") {
     val setup = new Setup()
     val change = Change(Delete, Seq(newRawRelation(11L)))
     assert(setup.analyze(change).isEmpty)
@@ -155,7 +134,11 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    val blackListRepository = new MockBlackListRepository()
+    private val blackListRepository = new MockBlackListRepository()
+
+    def blackListRoute(routeId: Long): Unit = {
+      blackListRepository.save(BlackList(routes = Seq(BlackListEntry(routeId, "", ""))))
+    }
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))

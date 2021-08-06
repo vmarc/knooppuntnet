@@ -57,7 +57,7 @@ class NetworkChangeAnalyzerImpl(
 
   private def findNetworkRelationChanges(changeSet: ChangeSet, action: ChangeAction): Set[Long] = {
     changeSet.relations(action).
-      filter(TagInterpreter.isNetworkRelation).
+      filter(r => TagInterpreter.isNetworkRelation(r.tags)).
       filterNot(isBlackListed).
       map(_.id).
       toSet
