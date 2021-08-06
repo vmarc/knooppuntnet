@@ -1,5 +1,6 @@
 package kpn.core.mongo.actions.statistics
 
+import kpn.api.common.statistics.StatisticValue
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetRouteFacts.log
 import kpn.core.mongo.util.MongoProjections.concat

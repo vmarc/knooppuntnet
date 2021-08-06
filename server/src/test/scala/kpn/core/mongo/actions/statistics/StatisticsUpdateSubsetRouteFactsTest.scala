@@ -1,6 +1,7 @@
 package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.statistics.StatisticValue
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
@@ -35,12 +36,12 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
       println(counts)
       counts.size should equal(6)
 
-      counts should contain(StatisticValue(nl, hiking, "RouteBroken", 2))
-      counts should contain(StatisticValue(nl, hiking, "RouteUnaccessible", 1))
-      counts should contain(StatisticValue(nl, hiking, "RouteFixmetodo", 1))
+      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "RouteBroken", 2))
+      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "RouteUnaccessible", 1))
+      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "RouteFixmetodo", 1))
       counts should contain(StatisticValue(nl, cycling, "RouteBroken", 1))
-      counts should contain(StatisticValue(de, cycling, "RouteBroken", 1))
-      counts should contain(StatisticValue(de, hiking, "RouteBroken", 2))
+      counts should contain(kpn.api.common.statistics.StatisticValue(de, cycling, "RouteBroken", 1))
+      counts should contain(kpn.api.common.statistics.StatisticValue(de, hiking, "RouteBroken", 2))
     }
   }
 

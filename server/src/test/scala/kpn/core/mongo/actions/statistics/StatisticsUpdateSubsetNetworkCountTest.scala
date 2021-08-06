@@ -1,6 +1,7 @@
 package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.statistics.StatisticValue
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
@@ -32,9 +33,9 @@ class StatisticsUpdateSubsetNetworkCountTest extends UnitTest with SharedTestObj
 
       counts.size should equal(4)
       counts should contain(StatisticValue(nl, hiking, "NetworkCount", 2))
-      counts should contain(StatisticValue(nl, cycling, "NetworkCount", 1))
-      counts should contain(StatisticValue(de, hiking, "NetworkCount", 2))
-      counts should contain(StatisticValue(de, cycling, "NetworkCount", 1))
+      counts should contain(kpn.api.common.statistics.StatisticValue(nl, cycling, "NetworkCount", 1))
+      counts should contain(kpn.api.common.statistics.StatisticValue(de, hiking, "NetworkCount", 2))
+      counts should contain(kpn.api.common.statistics.StatisticValue(de, cycling, "NetworkCount", 1))
     }
   }
 

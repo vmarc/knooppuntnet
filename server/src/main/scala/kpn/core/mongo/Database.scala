@@ -11,8 +11,8 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
+import kpn.api.common.statistics.StatisticValue
 import kpn.core.gpx.GpxFile
-import kpn.core.mongo.actions.statistics.StatisticValue
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkShapeDoc

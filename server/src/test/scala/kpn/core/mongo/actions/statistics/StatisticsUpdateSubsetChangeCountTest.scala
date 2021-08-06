@@ -1,6 +1,7 @@
 package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.statistics.StatisticValue
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
 import kpn.api.custom.NetworkType.cycling
@@ -31,8 +32,8 @@ class StatisticsUpdateSubsetChangeCountTest extends UnitTest with SharedTestObje
 
       counts.size should equal(3)
       counts should contain(StatisticValue(nl, hiking, "ChangeCount", 3))
-      counts should contain(StatisticValue(nl, cycling, "ChangeCount", 2))
-      counts should contain(StatisticValue(de, hiking, "ChangeCount", 1))
+      counts should contain(kpn.api.common.statistics.StatisticValue(nl, cycling, "ChangeCount", 2))
+      counts should contain(kpn.api.common.statistics.StatisticValue(de, hiking, "ChangeCount", 1))
     }
   }
 

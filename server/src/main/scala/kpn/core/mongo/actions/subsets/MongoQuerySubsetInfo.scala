@@ -1,9 +1,9 @@
 package kpn.core.mongo.actions.subsets
 
+import kpn.api.common.statistics.StatisticValue
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.custom.Subset
 import kpn.core.mongo.Database
-import kpn.core.mongo.actions.statistics.StatisticValue
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
