@@ -13,7 +13,6 @@ object AnalyzerDesign extends Design {
     NodeRouteReferenceView,
     OrphanRouteView,
     OrphanNodeView,
-    Overview,
     ReferenceView
   )
 }
