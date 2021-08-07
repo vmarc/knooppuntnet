@@ -26,7 +26,7 @@ export class OverviewService {
 
     configurations.push(
       new StatisticConfiguration(
-        'km',
+        'Distance',
         '',
         false,
         null,

@@ -36,7 +36,7 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
       counts should equal(
         Seq(
           StatisticValues(
-            "RouteBroken",
+            "RouteBrokenCount",
             Seq(
               StatisticValue(de, cycling, 1),
               StatisticValue(de, hiking, 2),
@@ -45,13 +45,13 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
             )
           ),
           StatisticValues(
-            "RouteFixmetodo",
+            "RouteFixmetodoCount",
             Seq(
               StatisticValue(nl, hiking, 1)
             )
           ),
           StatisticValues(
-            "RouteUnaccessible",
+            "RouteUnaccessibleCount",
             Seq(
               StatisticValue(nl, hiking, 1)
             )

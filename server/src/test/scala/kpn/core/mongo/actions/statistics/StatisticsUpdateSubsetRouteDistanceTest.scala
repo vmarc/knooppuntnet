@@ -18,13 +18,13 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
   test("execute") {
     withDatabase { database =>
 
-      buildRouteInfo(database, 11L, nl, hiking, 100)
-      buildRouteInfo(database, 12L, nl, hiking, 200)
-      buildRouteInfo(database, 13L, nl, cycling, 300)
-      buildRouteInfo(database, 14L, de, hiking, 400)
-      buildRouteInfo(database, 15L, de, hiking, 500)
-      buildRouteInfo(database, 16L, de, cycling, 600)
-      buildRouteInfo(database, 17L, de, cycling, 700, active = false)
+      buildRouteInfo(database, 11L, nl, hiking, 1000)
+      buildRouteInfo(database, 12L, nl, hiking, 2000)
+      buildRouteInfo(database, 13L, nl, cycling, 3000)
+      buildRouteInfo(database, 14L, de, hiking, 4000)
+      buildRouteInfo(database, 15L, de, hiking, 5000)
+      buildRouteInfo(database, 16L, de, cycling, 6000)
+      buildRouteInfo(database, 17L, de, cycling, 7000, active = false)
 
       new StatisticsUpdateSubsetRouteDistance(database).execute()
 
@@ -35,10 +35,10 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
           StatisticValues(
             "Distance",
             Seq(
-              StatisticValue(de, cycling, 600),
-              StatisticValue(de, hiking, 900),
-              StatisticValue(nl, cycling, 300),
-              StatisticValue(nl, hiking, 300),
+              StatisticValue(de, cycling, 6),
+              StatisticValue(de, hiking, 9),
+              StatisticValue(nl, cycling, 3),
+              StatisticValue(nl, hiking, 3),
             )
           )
         )

@@ -31,6 +31,7 @@ import { MapRouteDetail } from '@api/common/route/map-route-detail';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
+import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { LogPage } from '@api/common/status/log-page';
 import { PeriodParameters } from '@api/common/status/period-parameters';
 import { ReplicationStatusPage } from '@api/common/status/replication-status-page';
@@ -49,7 +50,6 @@ import { ApiResponse } from '@api/custom/api-response';
 import { Country } from '@api/custom/country';
 import { LocationKey } from '@api/custom/location-key';
 import { NetworkType } from '@api/custom/network-type';
-import { Statistics } from '@api/custom/statistics';
 import { Subset } from '@api/custom/subset';
 import { MarkdownService } from 'ngx-markdown';
 import { Observable } from 'rxjs';
@@ -70,7 +70,7 @@ export class AppService {
     return this.http.get(url, { responseType: 'text' }).pipe(timeout(3000));
   }
 
-  overview(): Observable<ApiResponse<Statistics>> {
+  overview(): Observable<ApiResponse<StatisticValues[]>> {
     const url = '/api/overview';
     return this.http.get(url);
   }

@@ -3,6 +3,7 @@ package kpn.core.mongo.actions.statistics
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetRouteFacts.log
+import kpn.core.mongo.util.MongoProjections.concat
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.Document
@@ -54,7 +55,7 @@ class StatisticsUpdateSubsetRouteFacts(database: Database) {
         sort(orderBy(ascending("_id"))),
         project(
           fields(
-            computed("factName", "$_id.factName"),
+            concat("factName", "$_id.factName", "Count"),
             computed(
               "values",
               fields(

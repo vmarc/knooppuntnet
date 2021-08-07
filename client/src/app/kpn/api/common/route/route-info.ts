@@ -12,7 +12,6 @@ export interface RouteInfo {
   readonly labels: string[];
   readonly summary: RouteSummary;
   readonly active: boolean;
-  readonly orphan: boolean;
   readonly proposed: boolean;
   readonly version: number;
   readonly changeSetId: number;

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { Statistics } from '@api/custom/statistics';
-import { List } from 'immutable';
+import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { Stat } from '../domain/stat';
 import { OverviewService } from './overview.service';
 
@@ -15,24 +14,21 @@ import { OverviewService } from './overview.service';
   `,
 })
 export class OverviewListComponent implements OnInit {
-  @Input() statistics: Statistics;
+  @Input() statistics: StatisticValues[];
 
-  stats: List<Stat>;
+  stats: Stat[];
 
   constructor(private overviewService: OverviewService) {}
 
   ngOnInit(): void {
     this.stats = this.overviewService.statisticConfigurations
-      .map((configuration) => {
-        const figures = this.statistics.map[configuration.id];
-        if (figures !== null) {
-          return new Stat(figures, configuration);
-        }
-        console.log(
-          `DEBUG OverviewListComponent figures not found: ${configuration.id}`
-        );
-        return null;
-      })
-      .filter((stat) => stat !== null);
+      .toArray()
+      .flatMap((configuration) => {
+        return this.statistics
+          .filter((statisticValue) => {
+            return statisticValue._id === configuration.id;
+          })
+          .map((statisticValues) => new Stat(statisticValues, configuration));
+      });
   }
 }

@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { ApiResponse } from '@api/custom/api-response';
-import { Statistics } from '@api/custom/statistics';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PageService } from '../../../components/shared/page.service';
@@ -24,8 +23,8 @@ import { PageService } from '../../../components/shared/page.service';
     <kpn-page-header
       subject="overview-in-numbers-page"
       i18n="@@overview-page.title"
-      >Overview</kpn-page-header
-    >
+      >Overview
+    </kpn-page-header>
 
     <kpn-error></kpn-error>
 
@@ -40,10 +39,12 @@ import { PageService } from '../../../components/shared/page.service';
           *ngIf="veryLarge$ | async; then table; else list"
         ></ng-content>
         <ng-template #table>
-          <kpn-overview-table [statistics]="stats"></kpn-overview-table>
+          <kpn-overview-table
+            [statistics]="response.result"
+          ></kpn-overview-table>
         </ng-template>
         <ng-template #list>
-          <kpn-overview-list [statistics]="stats"></kpn-overview-list>
+          <kpn-overview-list [statistics]="response.result"></kpn-overview-list>
         </ng-template>
       </div>
     </div>
@@ -58,8 +59,7 @@ import { PageService } from '../../../components/shared/page.service';
 })
 export class OverviewPageComponent implements OnInit {
   veryLarge$: Observable<boolean>;
-  response$: Observable<ApiResponse<Statistics>>;
-  stats: Statistics;
+  response$: Observable<ApiResponse<StatisticValues[]>>;
 
   constructor(
     private appService: AppService,
@@ -73,12 +73,6 @@ export class OverviewPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageService.defaultMenu();
-    this.response$ = this.appService.overview().pipe(
-      tap((response) => {
-        if (response.result) {
-          this.stats = response.result;
-        }
-      })
-    );
+    this.response$ = this.appService.overview();
   }
 }

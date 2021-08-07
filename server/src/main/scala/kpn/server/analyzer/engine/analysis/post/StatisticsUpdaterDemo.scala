@@ -4,7 +4,7 @@ import kpn.core.mongo.util.Mongo
 
 object StatisticsUpdaterDemo {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       new StatisticsUpdater(database).update()
     }
   }

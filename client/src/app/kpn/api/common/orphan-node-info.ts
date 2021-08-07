@@ -7,6 +7,7 @@ export interface OrphanNodeInfo {
   readonly name: string;
   readonly longName: string;
   readonly lastUpdated: Timestamp;
+  readonly proposed: boolean;
   readonly lastSurvey: string;
   readonly factCount: number;
 }
