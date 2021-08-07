@@ -11,7 +11,7 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
-import kpn.api.common.statistics.StatisticValue
+import kpn.api.common.statistics.StatisticValues
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
@@ -104,21 +104,6 @@ trait Database {
 
   def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry]
 
-  def statisticsSubsetNetworkCount: DatabaseCollection[StatisticValue]
+  def statistics: DatabaseCollection[StatisticValues]
 
-  def statisticsSubsetFactCount: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetNodeCount: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetOrphanNodeCount: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetRouteCount: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetRouteDistance: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetFacts: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetOrphanRouteCount: DatabaseCollection[StatisticValue]
-
-  def statisticsSubsetChangeCount: DatabaseCollection[StatisticValue]
 }

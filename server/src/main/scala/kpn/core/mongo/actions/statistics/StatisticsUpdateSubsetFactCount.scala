@@ -3,24 +3,28 @@ package kpn.core.mongo.actions.statistics
 import kpn.api.common.statistics.StatisticValue
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetFactCount.log
-import kpn.core.mongo.util.MongoProjections.concat
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.merge
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Aggregates.unionWith
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.MergeOptions
+import org.mongodb.scala.model.MergeOptions.WhenMatched
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Sorts.ascending
+import org.mongodb.scala.model.Sorts.orderBy
 
 object StatisticsUpdateSubsetFactCount extends MongoQuery {
   private val log = Log(classOf[StatisticsUpdateSubsetFactCount])
@@ -35,6 +39,8 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
         Seq(unionWith(database.routes.name, routeFactCountPipeline(): _*)),
         combineFactCounts()
       ).flatten
+
+
       val values = database.networkInfos.aggregate[StatisticValue](pipeline)
       (s"${values.size} values", ())
     }
@@ -112,16 +118,33 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
       ),
       project(
         fields(
-          concat("_id", "$_id.country", ":", "$_id.networkType", ":FactCount"),
           computed("country", "$_id.country"),
           computed("networkType", "$_id.networkType"),
-          computed("name", "FactCount"),
           computed("value", "$factCount")
         )
       ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "FactCount",
+        push("values", "$values")
+      ),
       merge(
-        database.statisticsSubsetFactCount.name,
-        new MergeOptions().uniqueIdentifier("_id")
+        database.statistics.name,
+        new MergeOptions()
+          .uniqueIdentifier("_id")
+          .whenMatched(WhenMatched.REPLACE)
       )
     )
   }

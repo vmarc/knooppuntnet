@@ -26,6 +26,7 @@ import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
@@ -38,7 +39,6 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
 
@@ -83,7 +83,7 @@ trait AnalysisFacade {
   // TODO not used anymore? have to re-implement? cleanup?
   def gpx(user: Option[String], networkId: Long): Option[GpxFile]
 
-  def overview(user: Option[String]): ApiResponse[Statistics]
+  def overview(user: Option[String]): ApiResponse[Seq[StatisticValues]]
 
   def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
 

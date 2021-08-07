@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.statistics.StatisticValue
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
@@ -29,11 +30,19 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
 
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts.size should equal(4)
-      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "Distance", 300))
-      counts should contain(kpn.api.common.statistics.StatisticValue(nl, cycling, "Distance", 300))
-      counts should contain(StatisticValue(de, hiking, "Distance", 900))
-      counts should contain(kpn.api.common.statistics.StatisticValue(de, cycling, "Distance", 600))
+      counts should equal(
+        Seq(
+          StatisticValues(
+            "Distance",
+            Seq(
+              StatisticValue(de, cycling, 600),
+              StatisticValue(de, hiking, 900),
+              StatisticValue(nl, cycling, 300),
+              StatisticValue(nl, hiking, 300),
+            )
+          )
+        )
+      )
     }
   }
 

@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.statistics.StatisticValue
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
@@ -27,12 +28,19 @@ class StatisticsUpdateSubsetOrphanNodeCountTest extends UnitTest with SharedTest
       new StatisticsUpdateSubsetOrphanNodeCount(database).execute()
 
       val counts = new MongoQueryStatistics(database).execute()
-
-      counts.size should equal(4)
-      counts should contain(StatisticValue(nl, hiking, "OrphanNodeCount", 2))
-      counts should contain(kpn.api.common.statistics.StatisticValue(nl, cycling, "OrphanNodeCount", 1))
-      counts should contain(kpn.api.common.statistics.StatisticValue(de, hiking, "OrphanNodeCount", 2))
-      counts should contain(kpn.api.common.statistics.StatisticValue(de, cycling, "OrphanNodeCount", 1))
+      counts should equal(
+        Seq(
+          StatisticValues(
+            "OrphanNodeCount",
+            Seq(
+              StatisticValue(de, cycling, 1),
+              StatisticValue(de, hiking, 2),
+              StatisticValue(nl, cycling, 1),
+              StatisticValue(nl, hiking, 2),
+            )
+          )
+        )
+      )
     }
   }
 

@@ -27,6 +27,7 @@ import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
@@ -39,7 +40,6 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
 import kpn.server.api.CurrentUser
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RestController
 class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/overview"))
-  def overview(): ApiResponse[Statistics] = {
+  def overview(): ApiResponse[Seq[StatisticValues]] = {
     analysisFacade.overview(CurrentUser.name)
   }
 

@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.statistics
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.statistics.StatisticValue
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
@@ -30,18 +31,33 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
       buildRouteInfo(database, 17L, de, cycling, Seq(RouteBroken), active = false)
 
       new StatisticsUpdateSubsetRouteFacts(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
 
-      println(counts)
-      counts.size should equal(6)
-
-      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "RouteBroken", 2))
-      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "RouteUnaccessible", 1))
-      counts should contain(kpn.api.common.statistics.StatisticValue(nl, hiking, "RouteFixmetodo", 1))
-      counts should contain(StatisticValue(nl, cycling, "RouteBroken", 1))
-      counts should contain(kpn.api.common.statistics.StatisticValue(de, cycling, "RouteBroken", 1))
-      counts should contain(kpn.api.common.statistics.StatisticValue(de, hiking, "RouteBroken", 2))
+      counts should equal(
+        Seq(
+          StatisticValues(
+            "RouteBroken",
+            Seq(
+              StatisticValue(de, cycling, 1),
+              StatisticValue(de, hiking, 2),
+              StatisticValue(nl, cycling, 1),
+              StatisticValue(nl, hiking, 2)
+            )
+          ),
+          StatisticValues(
+            "RouteFixmetodo",
+            Seq(
+              StatisticValue(nl, hiking, 1)
+            )
+          ),
+          StatisticValues(
+            "RouteUnaccessible",
+            Seq(
+              StatisticValue(nl, hiking, 1)
+            )
+          )
+        )
+      )
     }
   }
 

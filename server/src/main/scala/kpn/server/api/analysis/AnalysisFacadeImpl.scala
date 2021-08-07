@@ -26,6 +26,7 @@ import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactsPage
@@ -37,11 +38,8 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
-import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
-import kpn.core.app.stats.StatisticsBuilder
 import kpn.core.common.TimestampLocal
 import kpn.core.gpx.GpxFile
 import kpn.server.api.Api
@@ -71,14 +69,14 @@ import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NetworkRepository
-import kpn.server.repository.OverviewRepository
+import kpn.server.repository.StatisticsRepository
 import org.springframework.stereotype.Component
 
 @Component
 class AnalysisFacadeImpl(
   api: Api,
   networkRepository: NetworkRepository,
-  overviewRepository: OverviewRepository,
+  overviewRepository: StatisticsRepository,
   analysisRepository: AnalysisRepository,
   // ---
   nodePageBuilder: NodePageBuilder,
@@ -227,12 +225,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def overview(user: Option[String]): ApiResponse[Statistics] = {
+  override def overview(user: Option[String]): ApiResponse[Seq[StatisticValues]] = {
     api.execute(user, "overview", "") {
-      // TODO move into separate StaticsPageBuilder, and return StatisticsPage instead?
-      val figures = overviewRepository.figures()
-      val page = StatisticsBuilder.build(figures)
-      reply(Some(page))
+      reply(Some(overviewRepository.statisticValues()))
     }
   }
 

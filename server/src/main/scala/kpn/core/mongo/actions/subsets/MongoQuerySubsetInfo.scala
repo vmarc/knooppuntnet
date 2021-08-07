@@ -1,18 +1,13 @@
 package kpn.core.mongo.actions.subsets
 
-import kpn.api.common.statistics.StatisticValue
+import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.custom.Subset
 import kpn.core.mongo.Database
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unionWith
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Filters.in
 
 object MongoQuerySubsetInfo {
 
@@ -31,27 +26,27 @@ class MongoQuerySubsetInfo(database: Database) {
 
   def execute(subset: Subset, log: Log = MongoQuerySubsetInfo.log): SubsetInfo = {
     log.debugElapsed {
-
-      val networkCountPipeline = buildPipeline(subset, "NetworkCount")
-      val orphanNodeCountPipeline = buildPipeline(subset, "OrphanNodeCount")
-      val orphanRouteCountPipeline = buildPipeline(subset, "OrphanRouteCount")
-      val factCountPipeline = buildPipeline(subset, "FactCount")
-      val changeCountPipeline = buildPipeline(subset, "ChangeCount")
-
       val pipeline = Seq(
-        networkCountPipeline,
-        Seq(unionWith(database.statisticsSubsetOrphanNodeCount.name, orphanNodeCountPipeline: _*)),
-        Seq(unionWith(database.statisticsSubsetOrphanRouteCount.name, orphanRouteCountPipeline: _*)),
-        Seq(unionWith(database.statisticsSubsetFactCount.name, factCountPipeline: _*)),
-        Seq(unionWith(database.statisticsSubsetChangeCount.name, changeCountPipeline: _*)),
-      ).flatten
+        filter(
+          in(
+            "_id",
+            Seq(
+              "NetworkCount",
+              "FactCount",
+              "ChangeCount",
+              "OrphanNodeCount",
+              "OrphanRouteCount",
+            )
+          )
+        )
+      )
 
-      val statisticValues = database.statisticsSubsetNetworkCount.aggregate[StatisticValue](pipeline)
-      val networkCount = statisticValues.filter(_.name == "NetworkCount").map(_.value).sum
-      val factCount = statisticValues.filter(_.name == "FactCount").map(_.value).sum
-      val changesCount = statisticValues.filter(_.name == "ChangeCount").map(_.value).sum
-      val orphanNodeCount = statisticValues.filter(_.name == "OrphanNodeCount").map(_.value).sum
-      val orphanRouteCount = statisticValues.filter(_.name == "OrphanRouteCount").map(_.value).sum
+      val statisticValuess = database.statistics.aggregate[StatisticValues](pipeline)
+      val networkCount = extractCount(subset, statisticValuess, "NetworkCount")
+      val factCount = extractCount(subset, statisticValuess, "FactCount")
+      val changesCount = extractCount(subset, statisticValuess, "ChangeCount")
+      val orphanNodeCount = extractCount(subset, statisticValuess, "OrphanNodeCount")
+      val orphanRouteCount = extractCount(subset, statisticValuess, "OrphanRouteCount")
 
       val subsetInfo = SubsetInfo(
         subset.country,
@@ -66,16 +61,10 @@ class MongoQuerySubsetInfo(database: Database) {
     }
   }
 
-  private def buildPipeline(subset: Subset, name: String): Seq[Bson] = {
-    Seq(
-      filter(
-        equal("_id", s"${subset.country.domain}:${subset.networkType.name}:$name"),
-      ),
-      project(
-        fields(
-          excludeId(),
-        )
-      )
-    )
+  private def extractCount(subset: Subset, statisticValuess: Seq[StatisticValues], factname: String): Long = {
+    statisticValuess.filter(_._id == factname).map { statisticValues =>
+      statisticValues.values.filter(statisticValue => statisticValue.country == subset.country && statisticValue.networkType == subset.networkType).map(_.value).sum
+    }.sum
   }
+
 }
