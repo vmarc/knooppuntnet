@@ -21,6 +21,8 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
   test("node") {
 
+    pending
+
     withCouchDatabase { database =>
 
       val updater = {

@@ -29,6 +29,8 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
 
   test("network update - route no longer part of the network after deletion") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

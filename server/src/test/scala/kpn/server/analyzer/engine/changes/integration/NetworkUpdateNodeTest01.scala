@@ -25,6 +25,8 @@ class NetworkUpdateNodeTest01 extends AbstractTest {
 
   test("network update - node that is no longer part of the network after update, becomes orphan node if also not referenced in any other network or orphan route") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

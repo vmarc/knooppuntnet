@@ -8,6 +8,8 @@ class NetworkDelete_Test02 extends AbstractTest {
 
   test("network delete - no info saved when before sitution cannot be loaded") {
 
+    pending
+
     val data = TestData2().data
     val tc = new TestConfig()
     tc.relationBefore(data, 1)

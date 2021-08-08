@@ -15,6 +15,9 @@ import kpn.core.util.UnitTest
 class OrphanNodeViewTest extends UnitTest with TestObjects {
 
   test("orphan nodes are included in the view") {
+
+    pending
+
     doOrphanNodeTest(Subset.nlBicycle)
     doOrphanNodeTest(Subset.nlHiking)
     doOrphanNodeTest(Subset.nlHorseRiding)
@@ -49,6 +52,9 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   }
 
   test("nodes have both network types hiking and bicycle") {
+
+    pending
+
 
     withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
@@ -87,6 +93,9 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   }
 
   test("regular nodes are not included in the view") {
+
+    pending
+
     withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"))
@@ -96,6 +105,9 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   }
 
   test("inactive orphan nodes are not included in the view") {
+
+    pending
+
     withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
       b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"), /*orphan = true,*/ active = false)

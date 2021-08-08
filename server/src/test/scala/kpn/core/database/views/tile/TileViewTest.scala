@@ -10,6 +10,8 @@ class TileViewTest extends UnitTest with TestObjects {
 
   test("nodeIds") {
 
+    pending
+
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)
@@ -28,6 +30,8 @@ class TileViewTest extends UnitTest with TestObjects {
   }
 
   test("non-active nodes are not included") {
+
+    pending
 
     withCouchDatabase { database =>
 

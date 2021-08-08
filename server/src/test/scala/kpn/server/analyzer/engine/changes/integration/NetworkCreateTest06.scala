@@ -28,6 +28,8 @@ class NetworkCreateTest06 extends AbstractTest {
 
   test("network create - with new route") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

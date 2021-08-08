@@ -19,6 +19,8 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
   test("network creates are processed by createProcessor") {
 
+    pending
+
     val t = new TestSetup()
 
     (t.changeAnalyzer.analyze _).when(*).returns(ElementChanges(creates = Seq(t.createdNetworkId)))
@@ -32,6 +34,9 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
   }
 
   test("network updates are processed by updateProcessor") {
+
+    pending
+
     val t = new TestSetup()
 
     (t.changeAnalyzer.analyze _).when(*).returns(ElementChanges(updates = Seq(t.updatedNetworkId)))
@@ -45,6 +50,9 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
   }
 
   test("network deletes are processed by deleteProcessor") {
+
+    pending
+
     val t = new TestSetup()
 
     (t.changeAnalyzer.analyze _).when(*).returns(ElementChanges(deletes = Seq(t.deletedNetworkId)))

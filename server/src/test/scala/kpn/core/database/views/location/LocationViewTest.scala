@@ -16,6 +16,9 @@ import kpn.server.repository.RouteRepositoryImpl
 class LocationViewTest extends UnitTest with SharedTestObjects {
 
   test("node location") {
+
+    pending
+
     withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(null, database, false)
       repo.save(

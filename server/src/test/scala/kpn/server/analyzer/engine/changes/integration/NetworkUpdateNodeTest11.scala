@@ -21,6 +21,8 @@ class NetworkUpdateNodeTest11 extends AbstractTest {
 
   test("network update - node role 'connection' removed") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkRelation(

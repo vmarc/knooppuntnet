@@ -25,6 +25,8 @@ class NetworkUpdateNodeTest05 extends AbstractTest {
 
   test("network update - node that looses required tags and is removed from network becomes inactive") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

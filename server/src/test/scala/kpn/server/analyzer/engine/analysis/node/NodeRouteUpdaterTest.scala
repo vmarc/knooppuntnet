@@ -16,6 +16,9 @@ import kpn.server.repository.RouteRepositoryImpl
 class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
   test("added NodeRoute documents") {
+
+    pending
+
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)

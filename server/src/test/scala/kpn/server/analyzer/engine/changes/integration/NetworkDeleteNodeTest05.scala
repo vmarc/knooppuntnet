@@ -24,6 +24,8 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
 
   test("network delete - lost hiking node tag, but still retain bicyle node tag and become orphan") {
 
+    pending
+
     val dataBefore = TestData2()
       .node(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
       .networkRelation(1, "network", Seq(newMember("node", 1001)))

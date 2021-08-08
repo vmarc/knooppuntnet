@@ -24,6 +24,8 @@ class NetworkCreateTest04 extends AbstractTest {
 
   test("network create - investigate flag is set when issue in added network") {
 
+    pending
+
     val dataAfter = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

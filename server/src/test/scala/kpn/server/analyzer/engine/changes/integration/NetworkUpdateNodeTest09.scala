@@ -20,6 +20,8 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
 
   test("network update - an ignored node that is added to the network is no longer ignored") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02") // ignored node, not referenced by the network

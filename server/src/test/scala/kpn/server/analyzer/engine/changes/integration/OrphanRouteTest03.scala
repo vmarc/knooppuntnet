@@ -20,6 +20,8 @@ class OrphanRouteTest03 extends AbstractTest {
 
   test("delete orphan route") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

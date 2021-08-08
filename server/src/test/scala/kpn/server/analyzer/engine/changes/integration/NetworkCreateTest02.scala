@@ -29,6 +29,8 @@ class NetworkCreateTest02 extends AbstractTest {
 
   test("network create - orphan routes and orphan nodes are no longer orphan when part of the added network") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

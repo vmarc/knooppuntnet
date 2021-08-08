@@ -1,27 +1,13 @@
 package kpn.core.database.views.analyzer
 
 import kpn.core.TestObjects
-import kpn.core.database.views.analyzer.DocumentView.DocumentCount
 import kpn.core.gpx.GpxFile
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NetworkRepositoryImpl
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
 class DocumentViewTest extends UnitTest with TestObjects {
-
-  test("allNodeIds") {
-
-    withCouchDatabase { database =>
-      val repo = new NodeRepositoryImpl(null, database, false)
-      repo.save(newNodeDoc(1001))
-      repo.save(newNodeDoc(1002))
-      repo.save(newNodeDoc(1003))
-
-      DocumentView.allNodeIds(database) should equal(Seq(1001, 1002, 1003))
-    }
-  }
 
   test("allRouteIds") {
 
@@ -49,20 +35,4 @@ class DocumentViewTest extends UnitTest with TestObjects {
     }
   }
 
-  test("counts") {
-
-    withCouchDatabase { database =>
-
-      val nodeRepository = new NodeRepositoryImpl(null, database, false)
-      nodeRepository.save(newNodeDoc(1001))
-      nodeRepository.save(newNodeDoc(1002))
-
-      val repo = new RouteRepositoryImpl(null, database, false)
-      repo.save(newRouteInfo(newRouteSummary(10)))
-      repo.save(newRouteInfo(newRouteSummary(20)))
-      repo.save(newRouteInfo(newRouteSummary(30)))
-
-      DocumentView.counts(database, AnalyzerDesign) should matchTo(Seq(DocumentCount("node", 2), DocumentCount("route", 3)))
-    }
-  }
 }

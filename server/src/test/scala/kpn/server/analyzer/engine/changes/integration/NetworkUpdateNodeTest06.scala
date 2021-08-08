@@ -28,6 +28,8 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
   test("network update - removed node that looses required tags, but still has tags of other networkType does not become inactive") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))

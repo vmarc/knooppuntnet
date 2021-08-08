@@ -26,6 +26,8 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
 
   test("network create - added to watched list in memory and added to repository") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

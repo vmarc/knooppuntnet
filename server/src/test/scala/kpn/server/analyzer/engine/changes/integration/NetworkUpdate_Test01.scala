@@ -32,6 +32,8 @@ class NetworkUpdate_Test01 extends AbstractTest {
 
   test("network update - updated network is saved to the database and watched elements are updated in AnalysisData") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

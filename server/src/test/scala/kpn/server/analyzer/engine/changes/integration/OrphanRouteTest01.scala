@@ -24,6 +24,8 @@ class OrphanRouteTest01 extends AbstractTest {
 
   test("create orphan route") {
 
+    pending
+
     val dataBefore = TestData2().data
 
     val dataAfter = TestData2()

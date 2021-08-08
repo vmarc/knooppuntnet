@@ -15,6 +15,8 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("view keys and  values") {
 
+    pending
+
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)

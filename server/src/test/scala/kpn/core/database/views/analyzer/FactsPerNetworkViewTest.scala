@@ -96,6 +96,9 @@ class FactsPerNetworkViewTest extends UnitTest {
   }
 
   test("orphan node") {
+
+    pending
+
     orphanNodeTest(NetworkType.cycling)
     orphanNodeTest(NetworkType.hiking)
     orphanNodeTest(NetworkType.horseRiding)

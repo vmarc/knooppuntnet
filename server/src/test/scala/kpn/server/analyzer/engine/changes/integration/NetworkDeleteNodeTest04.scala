@@ -22,6 +22,8 @@ class NetworkDeleteNodeTest04 extends AbstractTest {
 
   test("network delete - node looses node tag") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkRelation(1, "network", Seq(newMember("node", 1001)))

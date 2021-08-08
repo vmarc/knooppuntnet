@@ -39,6 +39,8 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
 
   test("changeSet is saved and changeSetInfo is fetched when there is a least one change") {
 
+    pending
+
     val t = new TestSetup()
 
     val changeSetId = 333L
@@ -65,6 +67,8 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
   }
 
   test("network, orphan route and orphan node changes are merged") {
+
+    pending
 
     val t = new TestSetup()
 

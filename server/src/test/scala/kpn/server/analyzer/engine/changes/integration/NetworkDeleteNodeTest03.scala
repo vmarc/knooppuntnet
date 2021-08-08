@@ -18,6 +18,8 @@ class NetworkDeleteNodeTest03 extends AbstractTest {
 
   test("network delete - node still referenced in orphan route does not become orphan") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .route(11, "01-02", Seq(newMember("node", 1001)))

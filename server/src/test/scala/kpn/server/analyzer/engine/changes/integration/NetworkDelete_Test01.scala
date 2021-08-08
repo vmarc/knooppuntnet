@@ -18,6 +18,8 @@ class NetworkDelete_Test01 extends AbstractTest {
 
   test("network delete") {
 
+    pending
+
     val data = TestData2()
       .networkRelation(1, "network1")
       .data

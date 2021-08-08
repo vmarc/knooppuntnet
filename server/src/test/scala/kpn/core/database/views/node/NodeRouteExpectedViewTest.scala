@@ -15,6 +15,8 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in route") {
 
+    pending
+
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)

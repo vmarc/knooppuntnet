@@ -26,6 +26,8 @@ class OrphanRouteTest05 extends AbstractTest {
 
   test("orphan route looses route tags") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

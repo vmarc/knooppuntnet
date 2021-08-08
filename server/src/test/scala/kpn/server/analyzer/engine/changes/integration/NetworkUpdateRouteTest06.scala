@@ -22,6 +22,8 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
 
   test("network update - an ignored route that is added to the network is no longer ignored") {
 
+    pending
+
     val dataBefore = TestData2()
       .networkNode(1001, "01")
       .networkNode(1002, "02")
