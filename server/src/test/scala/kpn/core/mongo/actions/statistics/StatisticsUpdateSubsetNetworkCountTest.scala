@@ -29,7 +29,6 @@ class StatisticsUpdateSubsetNetworkCountTest extends UnitTest with SharedTestObj
       buildNetwork(database, 7L, de, cycling, active = false)
 
       new StatisticsUpdateSubsetNetworkCount(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should equal(

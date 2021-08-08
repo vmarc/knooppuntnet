@@ -4,7 +4,6 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
@@ -23,6 +22,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData2
 
 class NetworkUpdateRouteTest03 extends AbstractTest {
@@ -106,9 +106,9 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
     ).repeat(2)
 
     (tc.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq.empty) should matchTo(
-          newNodeInfo(
+      where { nodeDoc: NodeDoc =>
+        nodeDoc.copy(tiles = Seq.empty) should matchTo(
+          newNodeDoc(
             1003,
             labels = Seq(
               "facts",

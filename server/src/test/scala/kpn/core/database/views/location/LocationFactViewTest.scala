@@ -31,7 +31,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
       val repo = new NodeRepositoryImpl(null, database, false)
 
       repo.save(
-        newNodeInfo(
+        newNodeDoc(
           id = 1001,
           country = Some(Country.nl),
           names = Seq(

@@ -25,7 +25,7 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
       def node(nodeId: Long, nodeName: String, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
         nodeRepository.save(
-          newNodeInfo(
+          newNodeDoc(
             id = nodeId,
             name = nodeName,
             names = Seq(
@@ -128,8 +128,8 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
       )
 
       // no more expected_rwn_route_relations in nodes 1002 and 1004
-      nodeRepository.save(newNodeInfo(id = 1002))
-      nodeRepository.save(newNodeInfo(id = 1004))
+      nodeRepository.save(newNodeDoc(id = 1002))
+      nodeRepository.save(newNodeDoc(id = 1004))
 
       nodeRouteUpdater.update()
 

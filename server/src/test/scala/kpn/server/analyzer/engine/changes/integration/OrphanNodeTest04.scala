@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData2
-import kpn.api.common.NodeInfo
-import kpn.api.common.changes.ChangeAction
 
 class OrphanNodeTest04 extends AbstractTest {
 
@@ -26,10 +26,9 @@ class OrphanNodeTest04 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     (tc.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo should matchTo(
-          NodeInfo(
-            1001,
+      where { nodeDoc: NodeDoc =>
+        nodeDoc should matchTo(
+          NodeDoc(
             1001,
             labels = Seq(
               "orphan",
@@ -37,7 +36,7 @@ class OrphanNodeTest04 extends AbstractTest {
               "fact-Deleted"
             ),
             active = false, // <-- !!
-            orphan = true,
+            // orphan = true,
             Some(Country.nl),
             "",
             Seq.empty,
@@ -48,8 +47,6 @@ class OrphanNodeTest04 extends AbstractTest {
             Tags.empty,
             Seq(Fact.Deleted),
             Seq.empty,
-            Seq.empty,
-            None,
             Seq.empty
           )
         )

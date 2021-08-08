@@ -64,6 +64,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -295,11 +296,10 @@ trait SharedTestObjects extends MockFactory {
     Way(way, nodes, length)
   }
 
-  def newNodeInfo(
+  def newNodeDoc(
     id: Long,
     labels: Seq[String] = Seq.empty,
     active: Boolean = true,
-    orphan: Boolean = false,
     country: Option[Country] = None,
     name: String = "",
     names: Seq[NodeName] = Seq.empty,
@@ -311,14 +311,12 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     locations: Seq[String] = Seq.empty,
     tiles: Seq[String] = Seq.empty
-  ): NodeInfo = {
+  ): NodeDoc = {
 
-    NodeInfo(
-      id,
+    NodeDoc(
       id,
       labels,
       active,
-      orphan,
       country,
       name,
       names,
@@ -329,9 +327,7 @@ trait SharedTestObjects extends MockFactory {
       tags,
       facts,
       locations,
-      tiles,
-      None,
-      Seq.empty
+      tiles
     )
   }
 

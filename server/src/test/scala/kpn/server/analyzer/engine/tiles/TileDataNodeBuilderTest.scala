@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
@@ -13,7 +13,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_ref") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("rwn_ref" -> "01"),
       latitude = "1",
@@ -32,7 +32,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("proposed:rwn_ref") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("proposed:rwn_ref" -> "01")
     )
@@ -43,7 +43,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_ref = 'o'") {
 
-    val node: NodeInfo = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("rwn_ref" -> "o")
     )
@@ -53,7 +53,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("proposed:rwn_ref = 'o'") {
 
-    val node: NodeInfo = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("proposed:rwn_ref" -> "o")
     )
@@ -63,7 +63,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_ref and rwn_name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "rwn_ref" -> "01",
@@ -78,7 +78,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "rwn_name" -> "name"
@@ -92,7 +92,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("proposed:rwn_name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "proposed:rwn_name" -> "name"
@@ -106,7 +106,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn:name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "rwn:name" -> "name"
@@ -120,7 +120,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("proposed:rwn:name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "proposed:rwn:name" -> "name"
@@ -134,7 +134,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_name length less than or equal to 3 characters") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "rwn_name" -> "123"
@@ -148,7 +148,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("lwn_ref") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("lwn_ref" -> "01")
     )
@@ -160,7 +160,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("prefer rwn_ref over lwn_ref") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "lwn_ref" -> "01",
@@ -175,7 +175,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("lwn_name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("lwn_name" -> "name")
     )
@@ -187,7 +187,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("lwn:name") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from("lwn:name" -> "name")
     )
@@ -199,7 +199,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("survey date") {
 
-    val node = newNodeInfo(
+    val node = newNodeDoc(
       id = 1001,
       tags = Tags.from(
         "rwn_ref" -> "01",
@@ -212,7 +212,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   }
 
 
-  private def buildTileDataNode(node: NodeInfo): TileDataNode = {
+  private def buildTileDataNode(node: NodeDoc): TileDataNode = {
     tileDataNodeBuilder.build(NetworkType.hiking, node).get
   }
 

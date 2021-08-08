@@ -1,6 +1,5 @@
 package kpn.server.repository
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis._
@@ -9,6 +8,7 @@ import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
+import kpn.core.mongo.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
@@ -73,10 +73,10 @@ class AnalysisRepositoryImpl(
   }
 
   private def saveNodeDocs(network: Network): Unit = {
-    val nodeInfos: Seq[NodeInfo] = network.nodes.map { node =>
-      nodeAnalyzer.analyze(NodeAnalysis(node.networkNode.node.raw)).toNodeInfo
+    val nodeDocs: Seq[NodeDoc] = network.nodes.map { node =>
+      nodeAnalyzer.analyze(NodeAnalysis(node.networkNode.node.raw)).toNodeDoc
     }
-    nodeRepository.bulkSave(nodeInfos: _*)
+    nodeRepository.bulkSave(nodeDocs: _*)
   }
 
   private def saveGpxDoc(network: Network): Unit = {

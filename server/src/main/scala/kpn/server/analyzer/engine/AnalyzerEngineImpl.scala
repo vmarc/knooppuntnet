@@ -8,7 +8,6 @@ import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiTileUpdater
 import kpn.server.analyzer.engine.tile.TileUpdater
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalyzerEngineImpl(
-  analysisContext: AnalysisContext,
   analyzerHistory: Boolean,
   analyzerTileUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,

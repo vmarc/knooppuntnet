@@ -27,7 +27,6 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
       buildRouteInfo(database, 17L, de, cycling, 7000, active = false)
 
       new StatisticsUpdateSubsetRouteDistance(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should equal(

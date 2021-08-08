@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCalculator
@@ -158,7 +158,7 @@ class TilesBuilder(
     }
   }
 
-  private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode], orphanNodes: Seq[NodeInfo]): Map[String, TileNodes] = {
+  private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode], orphanNodes: Seq[NodeDoc]): Map[String, TileNodes] = {
     if (z < ZoomLevel.nodeMinZoom) {
       Map.empty
     }

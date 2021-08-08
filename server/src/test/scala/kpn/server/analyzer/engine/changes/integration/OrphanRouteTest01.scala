@@ -4,7 +4,6 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
@@ -17,6 +16,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
 
@@ -52,11 +52,11 @@ class OrphanRouteTest01 extends AbstractTest {
     ).once()
 
     (tc.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo.id match {
+      where { nodeDoc: NodeDoc =>
+        nodeDoc._id match {
           case 1001 =>
-            nodeInfo should matchTo(
-              newNodeInfo(
+            nodeDoc should matchTo(
+              newNodeDoc(
                 1001,
                 labels = Seq(
                   "active",
@@ -78,8 +78,8 @@ class OrphanRouteTest01 extends AbstractTest {
             )
 
           case 1002 =>
-            nodeInfo should matchTo(
-              newNodeInfo(
+            nodeDoc should matchTo(
+              newNodeDoc(
                 1002,
                 labels = Seq(
                   "active",

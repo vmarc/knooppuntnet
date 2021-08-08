@@ -54,9 +54,7 @@ trait Database {
 
   def networkGpxs: DatabaseCollection[GpxFile]
 
-  def nodes: DatabaseCollection[NodeInfo]
-
-  def nodeDocs: DatabaseCollection[NodeDoc]
+  def nodes: DatabaseCollection[NodeDoc]
 
   def orphanNodes: DatabaseCollection[OrphanNodeDoc]
 

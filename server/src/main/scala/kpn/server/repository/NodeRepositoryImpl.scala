@@ -1,15 +1,14 @@
 package kpn.server.repository
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.common.Reference
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NodeNetworkReferenceView
 import kpn.core.database.views.analyzer.NodeRouteReferenceView
 import kpn.core.db.KeyPrefix
-import kpn.core.db.NodeDocViewResult
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryKnownNodeIds
 import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
@@ -43,69 +42,71 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def save(nodeInfo: NodeInfo): Unit = {
+  override def save(nodeDoc: NodeDoc): Unit = {
     if (mongoEnabled) {
-      database.nodes.save(nodeInfo)
+      database.nodes.save(nodeDoc)
     }
     else {
-      bulkSave(nodeInfo)
+      // bulkSave(nodeDoc)
+      throw new RuntimeException("not supported anymore")
     }
   }
 
-  override def bulkSave(nodeInfos: NodeInfo*): Unit = {
+  override def bulkSave(nodeDocs: NodeDoc*): Unit = {
     if (mongoEnabled) {
       // https://docs.mongodb.com/manual/core/bulk-write-operations/
-      nodeInfos.foreach { nodeInfo =>
+      nodeDocs.foreach { nodeInfo =>
         database.nodes.save(nodeInfo)
       }
     }
     else {
-      log.debugElapsed {
-
-        val nodeIds = nodeInfos.map(nodeInfo => docId(nodeInfo.id))
-        val nodeDocViewResult = analysisDatabase.docsWithIds(nodeIds, classOf[NodeDocViewResult], stale = false)
-        val nodeDocs = nodeDocViewResult.rows.flatMap(_.doc)
-        val nodeDocIds = nodeDocs.map(_.node.id)
-        val (existingNodes, newNodes) = nodeInfos.partition(node => nodeDocIds.contains(node.id))
-
-        val updatedNodes = existingNodes.filter { node =>
-          val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
-          if (fromDb.get.node != node) {
-            //noinspection SideEffectsInMonadicTransformation
-            log.debug("NODE CHANGED: before=" + fromDb.get.node + ", after=" + node)
-            true
-          }
-          else {
-            false
-          }
-        }
-
-        val newDocs = newNodes.map(node => kpn.core.database.doc.CouchNodeDoc(docId(node.id), node, None))
-
-        val updateDocs = updatedNodes.map { node =>
-          val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
-          val rev = fromDb.get._rev
-          kpn.core.database.doc.CouchNodeDoc(docId(node.id), node, rev)
-        }
-
-        val docs = newDocs ++ updateDocs
-
-        if (newNodes.nonEmpty) {
-          log.info("Adding new node docs " + newNodes.map(_.id).mkString(","))
-        }
-        if (updatedNodes.nonEmpty) {
-          log.info("Udating node docs " + updatedNodes.map(_.id).mkString(","))
-        }
-
-        if (docs.nonEmpty) {
-          val groupSize = 50
-          docs.sliding(groupSize, groupSize).toSeq.foreach { docsGroup =>
-            analysisDatabase.bulkSave(docsGroup)
-          }
-        }
-
-        (s"save ${nodeInfos.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", ())
-      }
+      throw new RuntimeException("not supported anymore")
+      //      log.debugElapsed {
+      //
+      //        val nodeIds = nodeDocs.map(nodeInfo => docId(nodeInfo.id))
+      //        val nodeDocViewResult = analysisDatabase.docsWithIds(nodeIds, classOf[NodeDocViewResult], stale = false)
+      //        val nodeDocs = nodeDocViewResult.rows.flatMap(_.doc)
+      //        val nodeDocIds = nodeDocs.map(_.node.id)
+      //        val (existingNodes, newNodes) = nodeDocs.partition(node => nodeDocIds.contains(node.id))
+      //
+      //        val updatedNodes = existingNodes.filter { node =>
+      //          val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
+      //          if (fromDb.get.node != node) {
+      //            //noinspection SideEffectsInMonadicTransformation
+      //            log.debug("NODE CHANGED: before=" + fromDb.get.node + ", after=" + node)
+      //            true
+      //          }
+      //          else {
+      //            false
+      //          }
+      //        }
+      //
+      //        val newDocs = newNodes.map(node => kpn.core.database.doc.CouchNodeDoc(docId(node.id), node, None))
+      //
+      //        val updateDocs = updatedNodes.map { node =>
+      //          val fromDb = nodeDocs.find(doc => doc.node.id == node.id)
+      //          val rev = fromDb.get._rev
+      //          kpn.core.database.doc.CouchNodeDoc(docId(node.id), node, rev)
+      //        }
+      //
+      //        val docs = newDocs ++ updateDocs
+      //
+      //        if (newNodes.nonEmpty) {
+      //          log.info("Adding new node docs " + newNodes.map(_.id).mkString(","))
+      //        }
+      //        if (updatedNodes.nonEmpty) {
+      //          log.info("Udating node docs " + updatedNodes.map(_.id).mkString(","))
+      //        }
+      //
+      //        if (docs.nonEmpty) {
+      //          val groupSize = 50
+      //          docs.sliding(groupSize, groupSize).toSeq.foreach { docsGroup =>
+      //            analysisDatabase.bulkSave(docsGroup)
+      //          }
+      //        }
+      //
+      //        (s"save ${nodeDocs.size} nodes (new=${newDocs.size}, updated=${updateDocs.size})", ())
+      //      }
     }
   }
 
@@ -118,23 +119,25 @@ class NodeRepositoryImpl(
     }
   }
 
-  override def nodeWithId(nodeId: Long): Option[NodeInfo] = {
+  override def nodeWithId(nodeId: Long): Option[NodeDoc] = {
     if (mongoEnabled) {
       database.nodes.findById(nodeId, log)
     }
     else {
-      analysisDatabase.docWithId(docId(nodeId), classOf[kpn.core.database.doc.CouchNodeDoc]).map(_.node)
+      // analysisDatabase.docWithId(docId(nodeId), classOf[kpn.core.database.doc.CouchNodeDoc]).map(_.node)
+      throw new RuntimeException("not supported anymore")
     }
   }
 
-  override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeInfo] = {
+  override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeDoc] = {
     if (mongoEnabled) {
       database.nodes.findByIds(nodeIds, log)
     }
     else {
-      val ids = nodeIds.map(id => docId(id))
-      val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
-      nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
+      //  val ids = nodeIds.map(id => docId(id))
+      //  val nodeDocViewResult = analysisDatabase.docsWithIds(ids, classOf[NodeDocViewResult], stale)
+      //  nodeDocViewResult.rows.flatMap(r => r.doc.map(_.node))
+      Seq.empty
     }
   }
 

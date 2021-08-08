@@ -17,17 +17,17 @@ class MapNodeDetailBuilderImpl(
 
   def build(user: Option[String], networkType: NetworkType, nodeId: Long): Option[MapNodeDetail] = {
 
-    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+    nodeRepository.nodeWithId(nodeId).map { nodeDoc =>
 
-      val networkReferences = buildNetworkReferences(networkType, nodeInfo.id)
-      val routeReferences = buildRouteReferences(networkReferences, networkType, nodeInfo.id)
+      val networkReferences = buildNetworkReferences(networkType, nodeDoc._id)
+      val routeReferences = buildRouteReferences(networkReferences, networkType, nodeDoc._id)
 
       MapNodeDetail(
-        nodeInfo.id,
-        nodeInfo.networkTypeName(networkType),
-        nodeInfo.latitude,
-        nodeInfo.longitude,
-        nodeInfo.lastUpdated,
+        nodeDoc._id,
+        nodeDoc.networkTypeName(networkType),
+        nodeDoc.latitude,
+        nodeDoc.longitude,
+        nodeDoc.lastUpdated,
         networkReferences,
         routeReferences
       )

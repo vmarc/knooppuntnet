@@ -22,7 +22,7 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
       def node(nodeId: Long, nodeName: String, networkScope: NetworkScope, networkType: NetworkType, expectedRouteRelations: Int): Unit = {
         val key = s"${networkScope.letter}${networkType.letter}n"
         nodeRepository.save(
-          newNodeInfo(
+          newNodeDoc(
             id = nodeId,
             name = nodeName,
             names = Seq(
@@ -65,7 +65,7 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
       node(1011, "11", NetworkScope.regional, NetworkType.inlineSkating, 11)
       node(1012, "12", NetworkScope.national, NetworkType.inlineSkating, 12)
 
-      nodeRepository.save(newNodeInfo(id = 1013))
+      nodeRepository.save(newNodeDoc(id = 1013))
 
       queryNetworkType(NetworkType.hiking) should matchTo(
         Seq(

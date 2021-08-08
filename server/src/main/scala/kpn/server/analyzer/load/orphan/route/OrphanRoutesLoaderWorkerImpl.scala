@@ -49,7 +49,7 @@ class OrphanRoutesLoaderWorkerImpl(
 
           allNodes.values.foreach { networkNode =>
             val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw))
-            nodeRepository.save(nodeAnalysis.toNodeInfo)
+            nodeRepository.save(nodeAnalysis.toNodeDoc)
           }
 
           val elementIds = relationAnalyzer.toElementIds(loadedRoute.relation)

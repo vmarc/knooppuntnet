@@ -17,6 +17,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData2
 
 class OrphanNodeTest05 extends AbstractTest {
@@ -43,16 +44,15 @@ class OrphanNodeTest05 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     (tc.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo should matchTo(
-          NodeInfo(
-            1001,
+      where { nodeDoc: NodeDoc =>
+        nodeDoc should matchTo(
+          NodeDoc(
             1001,
             labels = Seq(
               "orphan"
             ),
             active = false, // <-- !!
-            orphan = true,
+            // orphan = true,
             Some(Country.nl),
             "",
             Seq.empty,
@@ -63,8 +63,6 @@ class OrphanNodeTest05 extends AbstractTest {
             Tags.empty,
             Seq.empty,
             Seq.empty,
-            Seq.empty,
-            None,
             Seq.empty
           )
         )

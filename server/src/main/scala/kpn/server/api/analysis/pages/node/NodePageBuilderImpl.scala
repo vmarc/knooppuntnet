@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.node
 
+import kpn.api.common.NodeInfo
 import kpn.api.common.NodeMapInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesFilter
@@ -10,7 +11,6 @@ import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
@@ -49,20 +49,43 @@ class NodePageBuilderImpl(
   }
 
   private def doBuildDetailsPage(nodeId: Long): Option[NodeDetailsPage] = {
-    nodeRepository.nodeWithId(nodeId).map { nodeInfo =>
+    nodeRepository.nodeWithId(nodeId).map { nodeDoc =>
       val changeCount = changeSetRepository.nodeChangesCount(nodeId)
       val networkReferences = nodeRepository.nodeNetworkReferences(nodeId)
+      val nodeRouteReferences = nodeRepository.nodeRouteReferences(nodeId)
       val mixedNetworkScopes = (
-        nodeInfo.names.map(_.networkScope) ++
-          nodeInfo.routeReferences.map(_.networkScope) ++
+        nodeDoc.names.map(_.networkScope) ++
+          nodeRouteReferences.map(_.networkScope) ++
           networkReferences.map(_.networkScope)
         ).distinct.size > 1
+
+      val nodeInfo = NodeInfo( // TODO MONGO create specifice class used by this page builder only
+        _id = nodeDoc._id,
+        id = nodeDoc._id,
+        labels = nodeDoc.labels,
+        active = nodeDoc.active,
+        orphan = false,
+        country = nodeDoc.country,
+        name = nodeDoc.name,
+        names = nodeDoc.names,
+        latitude = nodeDoc.latitude,
+        longitude = nodeDoc.longitude,
+        lastUpdated = nodeDoc.lastUpdated,
+        lastSurvey = nodeDoc.lastSurvey,
+        tags = nodeDoc.tags,
+        facts = nodeDoc.facts,
+        locations = nodeDoc.locations,
+        tiles = nodeDoc.tiles,
+        integrity = None,
+        routeReferences = Seq.empty
+      )
+
       NodeDetailsPage(
         nodeInfo,
         mixedNetworkScopes,
-        nodeInfo.routeReferences,
+        nodeRouteReferences,
         networkReferences,
-        nodeInfo.integrity,
+        None, // TODO MONGO implement
         changeCount
       )
     }

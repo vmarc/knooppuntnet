@@ -159,7 +159,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
         allNodes.values.foreach { networkNode =>
           val nodeAnalysis = config.nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw))
-          config.nodeRepository.save(nodeAnalysis.toNodeInfo)
+          config.nodeRepository.save(nodeAnalysis.toNodeDoc)
           loadNodeChange(nodeAnalysis)
         }
 

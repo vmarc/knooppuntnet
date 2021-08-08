@@ -126,7 +126,7 @@ class FactsPerNetworkViewTest extends UnitTest {
             scopedNetworkType.nodeRefTagKey -> "01",
             "network:type" -> "node_network"
           ),
-          orphan = true,
+          // orphan = true,
           facts = Seq(Fact.IntegrityCheck)
         )
       }

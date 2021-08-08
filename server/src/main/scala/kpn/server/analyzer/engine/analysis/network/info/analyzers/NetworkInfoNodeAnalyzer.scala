@@ -79,7 +79,7 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
           ),
         )
       )
-      val nodes = database.nodeDocs.aggregate[NodeDoc](pipeline, log)
+      val nodes = database.nodes.aggregate[NodeDoc](pipeline, log)
       (s"nodes: ${nodes.size}", nodes)
     }
   }

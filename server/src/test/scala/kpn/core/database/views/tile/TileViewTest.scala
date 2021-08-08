@@ -13,9 +13,9 @@ class TileViewTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)
-      nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeInfo(1002, tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeInfo(1003, tiles = Seq("cycling-10-001-002")))
+      nodeRepository.save(newNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1003, tiles = Seq("cycling-10-001-002")))
 
       TileView.nodeIds(database, "cycling-10-001-001") should equal(
         Seq(1001, 1002)
@@ -32,8 +32,8 @@ class TileViewTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)
-      nodeRepository.save(newNodeInfo(1001, tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeInfo(1002, tiles = Seq("cycling-10-001-001"), active = false))
+      nodeRepository.save(newNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001"), active = false))
 
       TileView.nodeIds(database, "cycling-10-001-001") should equal(
         Seq(1001)

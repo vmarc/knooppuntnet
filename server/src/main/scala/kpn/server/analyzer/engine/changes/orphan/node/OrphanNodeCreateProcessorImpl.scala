@@ -26,7 +26,7 @@ class OrphanNodeCreateProcessorImpl(
     analysisContext.data.orphanNodes.watched.add(node.id)
 
     val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(node, orphan = true))
-    nodeRepository.save(nodeAnalysis.toNodeInfo)
+    nodeRepository.save(nodeAnalysis.toNodeDoc)
 
     optionalContext.map { context =>
       val key = context.buildChangeKey(node.id)

@@ -57,7 +57,7 @@ class AnalysisDataInitializerImpl(
   }
 
   private def loadOrphanNodes(): Unit = {
-    val orphanNodeIds = Subset.all.flatMap(subset => orphanRepository.orphanNodes(subset)).map(_.id)
+    val orphanNodeIds = Subset.all.flatMap(subset => orphanRepository.orphanNodes(subset)).map(_._id)
     orphanNodeIds.foreach { nodeId =>
       analysisContext.data.orphanNodes.watched.add(nodeId)
     }

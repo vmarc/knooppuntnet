@@ -26,8 +26,8 @@ class StatisticsUpdateSubsetOrphanNodeCountTest extends UnitTest with SharedTest
       buildOrphanNodeDoc(database, 6L, de, cycling)
 
       new StatisticsUpdateSubsetOrphanNodeCount(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
+
       counts should equal(
         Seq(
           StatisticValues(

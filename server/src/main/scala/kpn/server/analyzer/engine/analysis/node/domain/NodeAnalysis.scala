@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.node.domain
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.RawNode
@@ -11,6 +10,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.core.mongo.doc.NodeDoc
 
 case class NodeAnalysis(
   node: RawNode,
@@ -39,13 +39,11 @@ case class NodeAnalysis(
     }
   }
 
-  def toNodeInfo: NodeInfo = {
-    NodeInfo(
-      node.id,
+  def toNodeDoc: NodeDoc = {
+    NodeDoc(
       node.id,
       labels,
       active,
-      orphan,
       country,
       name,
       nodeNames,
@@ -56,11 +54,10 @@ case class NodeAnalysis(
       node.tags,
       facts,
       locations,
-      tiles,
-      integrity,
-      routeReferences
+      tiles
     )
   }
+
 
   // TODO MONGO temporary method for backward compatibility
   def oldLocation: Option[Location] = {

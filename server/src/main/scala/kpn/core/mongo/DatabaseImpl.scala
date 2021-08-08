@@ -67,11 +67,7 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[GpxFile]("network-gpxs"))
   }
 
-  override def nodes: DatabaseCollection[NodeInfo] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeInfo]("nodes"))
-  }
-
-  override def nodeDocs: DatabaseCollection[NodeDoc] = {
+  override def nodes: DatabaseCollection[NodeDoc] = {
     new DatabaseCollectionImpl(database.getCollection[NodeDoc]("node-docs"))
   }
 

@@ -195,7 +195,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     active: Boolean = true
   ): Unit = {
     database.nodes.save(
-      newNodeInfo(
+      newNodeDoc(
         nodeId,
         active = active,
         country = Some(country),

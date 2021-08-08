@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.network.NetworkInfoNode
 import kpn.api.custom.Fact
@@ -8,6 +7,7 @@ import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
@@ -26,13 +26,12 @@ class TileDataNodeBuilderImpl(nodeAnalyzer: OldNodeAnalyzer) extends TileDataNod
     NetworkScope.international
   )
 
-  def build(networkType: NetworkType, node: NodeInfo): Option[TileDataNode] = {
+  def build(networkType: NetworkType, node: NodeDoc): Option[TileDataNode] = {
     doBuild(
       networkType,
-      node.id,
+      node._id,
       node.latitude,
       node.longitude,
-      node.orphan,
       node.facts,
       node.tags
     )
@@ -44,7 +43,6 @@ class TileDataNodeBuilderImpl(nodeAnalyzer: OldNodeAnalyzer) extends TileDataNod
       node.id,
       node.latitude,
       node.longitude,
-      node.facts.contains(Fact.OrphanNode),
       node.facts,
       node.tags
     )
@@ -55,10 +53,11 @@ class TileDataNodeBuilderImpl(nodeAnalyzer: OldNodeAnalyzer) extends TileDataNod
     id: Long,
     latitude: String,
     longitude: String,
-    orphan: Boolean,
     facts: Seq[Fact],
     tags: Tags
   ): Option[TileDataNode] = {
+
+    val orphan = false
 
     val nodeNameOption: Option[NodeName] = {
       val unprioritizedNames = nodeAnalyzer

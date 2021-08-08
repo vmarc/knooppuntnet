@@ -40,7 +40,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
           )
         ),
         tags = Tags.from(nodeTagKey -> "01"),
-        orphan = true
+        // orphan = true
       )
 
       val nodeInfos = OrphanNodeView.query(database, subset, stale = false)
@@ -75,7 +75,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
           "rwn_ref" -> "01",
           "rcn_ref" -> "02"
         ),
-        orphan = true
+        // orphan = true
       )
 
       val hikingNodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)
@@ -98,7 +98,7 @@ class OrphanNodeViewTest extends UnitTest with TestObjects {
   test("inactive orphan nodes are not included in the view") {
     withCouchDatabase { database =>
       val b = new TestDocBuilder(database)
-      b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"), orphan = true, active = false)
+      b.node(1001, Country.nl, tags = Tags.from("rwn_ref" -> "01"), /*orphan = true,*/ active = false)
       val nodeInfos = OrphanNodeView.query(database, Subset.nlHiking, stale = false)
       nodeInfos shouldBe empty
     }

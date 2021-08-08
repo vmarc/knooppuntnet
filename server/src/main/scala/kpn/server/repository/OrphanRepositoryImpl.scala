@@ -7,6 +7,7 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodes
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanNodes
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanRoutes
+import kpn.core.mongo.doc.NodeDoc
 import org.springframework.stereotype.Component
 
 @Component
@@ -20,7 +21,7 @@ class OrphanRepositoryImpl(database: Database) extends OrphanRepository {
     new MongoQuerySubsetOrphanRoutes(database).ids(subset)
   }
 
-  override def orphanNodes(subset: Subset): Seq[NodeInfo] = {
+  override def orphanNodes(subset: Subset): Seq[NodeDoc] = {
     val orphanNodeIds = new MongoQuerySubsetOrphanNodes(database).ids(subset)
     new MongoQueryNodes(database).execute(orphanNodeIds)
   }

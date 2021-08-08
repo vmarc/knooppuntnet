@@ -28,7 +28,6 @@ class StatisticsUpdateSubsetChangeCountTest extends UnitTest with SharedTestObje
       buildChangeSetSummary(database, 6L, Seq(deHiking))
 
       new StatisticsUpdateSubsetChangeCount(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should equal(

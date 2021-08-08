@@ -4,7 +4,6 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
@@ -15,6 +14,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
 
@@ -40,10 +40,9 @@ class OrphanNodeTest03 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
     (tc.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo.copy(tiles = Seq.empty) should matchTo(
-          NodeInfo(
-            1001,
+      where { nodeDoc: NodeDoc =>
+        nodeDoc.copy(tiles = Seq.empty) should matchTo(
+          NodeDoc(
             1001,
             labels = Seq(
               "orphan",
@@ -52,7 +51,7 @@ class OrphanNodeTest03 extends AbstractTest {
               "network-type-hiking"
             ),
             active = false, // <-- !!
-            orphan = true,
+            // orphan = true,
             Some(Country.nl),
             "01",
             Seq(
@@ -71,8 +70,6 @@ class OrphanNodeTest03 extends AbstractTest {
             newNodeTags("01"),
             Seq(Fact.Deleted),
             Seq.empty,
-            Seq.empty,
-            None,
             Seq.empty
           )
         )

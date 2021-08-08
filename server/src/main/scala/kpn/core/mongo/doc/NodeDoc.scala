@@ -7,6 +7,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -35,5 +36,11 @@ case class NodeDoc(
   def longName(scopedNetworkType: ScopedNetworkType): String = {
     names.filter(_.scopedNetworkType == scopedNetworkType).flatMap(_.longName).mkString(" / ")
   }
+
+  def networkTypeName(networkType: NetworkType): String = {
+    names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
+  }
+
+
 
 }

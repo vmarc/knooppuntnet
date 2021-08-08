@@ -36,7 +36,7 @@ class OrphanNodeDeleteProcessorImpl(
             facts = Seq(Fact.Deleted)
           )
         )
-        nodeRepository.save(nodeAnalysis.toNodeInfo)
+        nodeRepository.save(nodeAnalysis.toNodeDoc)
         saveNodeChange(context, nodeAnalysis)
 
       case None =>
@@ -55,7 +55,7 @@ class OrphanNodeDeleteProcessorImpl(
         nodeAnalysis.country match {
           case None => None
           case _ =>
-            nodeRepository.save(nodeAnalysis.toNodeInfo)
+            nodeRepository.save(nodeAnalysis.toNodeDoc)
             saveNodeChange(context, nodeAnalysis)
         }
     }

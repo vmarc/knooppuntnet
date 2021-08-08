@@ -29,7 +29,6 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
       buildNode(database, 7L, de, cycling, active = false)
 
       new StatisticsUpdateSubsetNodeCount(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should equal(
@@ -50,7 +49,7 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
 
   private def buildNode(database: Database, nodeId: Long, country: Country, networkType: NetworkType, active: Boolean = true): Unit = {
     database.nodes.save(
-      newNodeInfo(
+      newNodeDoc(
         nodeId,
         labels = if (active) {
           Seq("active")

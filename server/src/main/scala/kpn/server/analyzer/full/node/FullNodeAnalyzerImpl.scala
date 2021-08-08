@@ -51,30 +51,14 @@ class FullNodeAnalyzerImpl(
         Log.context(s"${index * batchSize}/${allNodeIds.size}") {
           val rawNodes = nodeLoader.load(context.timestamp, nodeIdsBatch)
           val nodeDocs = rawNodes.map { rawNode =>
-            val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(rawNode))
-            NodeDoc(
-              nodeAnalysis.node.id,
-              nodeAnalysis.labels,
-              nodeAnalysis.active,
-              nodeAnalysis.country,
-              nodeAnalysis.name,
-              nodeAnalysis.nodeNames,
-              nodeAnalysis.node.latitude,
-              nodeAnalysis.node.longitude,
-              nodeAnalysis.node.timestamp,
-              nodeAnalysis.lastSurvey,
-              nodeAnalysis.node.tags,
-              nodeAnalysis.facts,
-              nodeAnalysis.locations,
-              nodeAnalysis.tiles
-            )
+            nodeAnalyzer.analyze(NodeAnalysis(rawNode)).toNodeDoc
           }
 
           log.infoElapsed {
             val requests = nodeDocs.map { doc =>
               ReplaceOneModel[NodeDoc](Filters.equal("_id", doc._id), doc, ReplaceOptions().upsert(true))
             }
-            val future = database.nodeDocs.native.bulkWrite(requests).toFuture()
+            val future = database.nodes.native.bulkWrite(requests).toFuture()
             Await.result(future, Duration(2, TimeUnit.MINUTES))
             ("save", ())
           }

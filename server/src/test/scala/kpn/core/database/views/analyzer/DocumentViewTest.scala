@@ -15,9 +15,9 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(null, database, false)
-      repo.save(newNodeInfo(1001))
-      repo.save(newNodeInfo(1002))
-      repo.save(newNodeInfo(1003))
+      repo.save(newNodeDoc(1001))
+      repo.save(newNodeDoc(1002))
+      repo.save(newNodeDoc(1003))
 
       DocumentView.allNodeIds(database) should equal(Seq(1001, 1002, 1003))
     }
@@ -54,8 +54,8 @@ class DocumentViewTest extends UnitTest with TestObjects {
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)
-      nodeRepository.save(newNodeInfo(1001))
-      nodeRepository.save(newNodeInfo(1002))
+      nodeRepository.save(newNodeDoc(1001))
+      nodeRepository.save(newNodeDoc(1002))
 
       val repo = new RouteRepositoryImpl(null, database, false)
       repo.save(newRouteInfo(newRouteSummary(10)))

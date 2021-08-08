@@ -174,8 +174,8 @@ class NodeChangeBuilderImpl(
               facts = Seq(Fact.Deleted)
             )
           )
-          val nodeInfo = nodeAnalysis.toNodeInfo.copy(lastUpdated = context.changeSetContext.changeSet.timestamp)
-          nodeRepository.save(nodeInfo)
+          val nodeDoc = nodeAnalysis.toNodeDoc.copy(lastUpdated = context.changeSetContext.changeSet.timestamp)
+          nodeRepository.save(nodeDoc)
 
           val subsets: Seq[Subset] = context.networkBefore.flatMap { networkBefore =>
             nodeBefore.networkNode.country.flatMap(c => Subset.of(c, networkBefore.networkType))
@@ -245,7 +245,7 @@ class NodeChangeBuilderImpl(
               )
             )
 
-            nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
+            nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
 
             val key = context.changeSetContext.buildChangeKey(nodeId)
             analyzed(
@@ -285,7 +285,7 @@ class NodeChangeBuilderImpl(
                   orphan = true
                 )
               )
-              nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
+              nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
               analysisContext.data.orphanNodes.watched.add(after.id)
               Seq(Fact.BecomeOrphan)
             }

@@ -11,6 +11,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.TestObjects
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
@@ -41,9 +42,9 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
     assert(!t.analysisContext.data.orphanNodes.watched.contains(nodeId))
 
     (t.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo should matchTo(
-          newNodeInfo(
+      where { nodeDoc: NodeDoc =>
+        nodeDoc should matchTo(
+          newNodeDoc(
             nodeId,
             labels = Seq(
               "orphan",
@@ -52,7 +53,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
             ),
             country = Some(Country.nl),
             active = false,
-            orphan = true,
+            // orphan = true,
             facts = Seq(Fact.Deleted)
           )
         )
@@ -73,9 +74,9 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
     (t.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo should matchTo(
-          newNodeInfo(
+      where { nodeDoc: NodeDoc =>
+        nodeDoc should matchTo(
+          newNodeDoc(
             nodeId,
             labels = Seq(
               "orphan",
@@ -84,7 +85,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
             ),
             country = Some(Country.nl),
             active = false,
-            orphan = true,
+            // orphan = true,
             facts = Seq(Fact.Deleted)
           )
         )
@@ -133,9 +134,9 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
     )
 
     (t.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo should matchTo(
-          newNodeInfo(
+      where { nodeDoc: NodeDoc =>
+        nodeDoc should matchTo(
+          newNodeDoc(
             nodeId,
             labels = Seq(
               "orphan",
@@ -144,7 +145,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
               "network-type-hiking"
             ),
             active = false,
-            orphan = true,
+            // orphan = true,
             name = "01",
             names = Seq(
               NodeName(NetworkType.hiking, NetworkScope.regional, "01", None, proposed = false)
@@ -172,9 +173,9 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
     t.processor.process(context, loadedNodeDelete) should equal(None)
 
     (t.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo should matchTo(
-          newNodeInfo(
+      where { nodeDoc: NodeDoc =>
+        nodeDoc should matchTo(
+          newNodeDoc(
             nodeId,
             labels = Seq(
               "orphan",
@@ -182,7 +183,7 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
               "fact-Deleted"
             ),
             active = false,
-            orphan = true,
+            // orphan = true,
             country = None,
             facts = Seq(Fact.Deleted)
           )

@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.orphan.node
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.data.Node
 import kpn.api.custom.Country
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
@@ -25,11 +25,11 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
     d.processor.process(None, d.loadedNode.node.raw)
 
     (d.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
-        nodeInfo.id should equal(d.loadedNode.id)
-        assert(nodeInfo.orphan)
-        nodeInfo.name should equal(d.loadedNode.name)
-        nodeInfo.facts shouldBe empty
+      where { nodeDoc: NodeDoc =>
+        nodeDoc._id should equal(d.loadedNode.id)
+        // assert(nodeDoc.orphan)
+        nodeDoc.name should equal(d.loadedNode.name)
+        nodeDoc.facts shouldBe empty
         true
       }
     )

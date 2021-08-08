@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData2
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
@@ -30,16 +30,16 @@ class Issue184_NodeDeletion extends AbstractTest {
 
     var saveIndex = 0
     (tc.nodeRepository.save _).verify(
-      where { nodeInfo: NodeInfo =>
+      where { nodeDoc: NodeDoc =>
         saveIndex = saveIndex + 1
         if (saveIndex == 1) {
-          nodeInfo.active
+          nodeDoc.active
         }
         else if (saveIndex == 2) {
-          nodeInfo.active
+          nodeDoc.active
         }
         else if (saveIndex == 3) {
-          !nodeInfo.active
+          !nodeDoc.active
         }
         else {
           false

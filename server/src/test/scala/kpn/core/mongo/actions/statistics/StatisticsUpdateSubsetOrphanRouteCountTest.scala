@@ -26,7 +26,6 @@ class StatisticsUpdateSubsetOrphanRouteCountTest extends UnitTest with SharedTes
       buildOrphanRouteDoc(database, 16L, de, cycling)
 
       new StatisticsUpdateSubsetOrphanRouteCount(database).execute()
-
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should equal(

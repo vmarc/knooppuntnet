@@ -1,6 +1,5 @@
 package kpn.core.database.views.location
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.LocationNodeInfo
@@ -15,6 +14,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.database.Database
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
@@ -83,8 +83,8 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def buildNode(id: Long): NodeInfo = {
-    newNodeInfo(
+  private def buildNode(id: Long): NodeDoc = {
+    newNodeDoc(
       id = id,
       country = Some(Country.nl),
       names = Seq(

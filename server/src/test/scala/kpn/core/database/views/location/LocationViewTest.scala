@@ -19,7 +19,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
     withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(null, database, false)
       repo.save(
-        newNodeInfo(
+        newNodeDoc(
           id = 1001,
           names = Seq(
             NodeName(

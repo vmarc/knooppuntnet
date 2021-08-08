@@ -71,7 +71,7 @@ class OrphanNodeUpdateProcessorImpl(
       )
     )
 
-    nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
+    nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
 
     val subsets = (loadedNodeChange.before.subsets.toSet ++ loadedNodeChange.after.subsets.toSet).toSeq
     val name = if (loadedNodeChange.after.name.nonEmpty) {

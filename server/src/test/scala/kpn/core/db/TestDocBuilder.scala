@@ -114,17 +114,15 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
     names: Seq[NodeName] = Seq.empty,
     tags: Tags = Tags.empty,
     active: Boolean = true,
-    orphan: Boolean = false,
     facts: Seq[Fact] = Seq.empty
   ): Unit = {
     nodeRepository.save(
-      newNodeInfo(
+      newNodeDoc(
         id,
         country = Some(country),
         names = names,
         tags = tags,
         active = active,
-        orphan = orphan,
         facts = facts
       )
     )

@@ -18,9 +18,9 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
     withCouchDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(null, database, false)
-      nodeRepository.save(newNodeInfo(1001, tags = Tags.from("rwn_ref" -> "01")))
-      nodeRepository.save(newNodeInfo(1002, tags = Tags.from("rwn_ref" -> "02")))
-      nodeRepository.save(newNodeInfo(1003, tags = Tags.from("rwn_ref" -> "03"))) // orphan node
+      nodeRepository.save(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.save(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.save(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))) // orphan node
 
       val routeRepository = new RouteRepositoryImpl(null, database, false)
       routeRepository.save(

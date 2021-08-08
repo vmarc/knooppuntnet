@@ -3,6 +3,7 @@ package kpn.core.mongo.actions.nodes
 import kpn.api.common.NodeInfo
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodes.log
+import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.util.Count
 import kpn.core.util.Log
 import org.mongodb.scala.model.Accumulators.sum
@@ -24,7 +25,7 @@ object MongoQueryNodes {
 // TODO MONGO cleanup - no longer used?
 class MongoQueryNodes(database: Database) {
 
-  def execute(nodeIds: Seq[Long]): Seq[NodeInfo] = {
+  def execute(nodeIds: Seq[Long]): Seq[NodeDoc] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -34,7 +35,7 @@ class MongoQueryNodes(database: Database) {
           ),
         )
       )
-      val nodes = database.nodes.aggregate[NodeInfo](pipeline, log)
+      val nodes = database.nodes.aggregate[NodeDoc](pipeline, log)
       (s"nodes: ${nodes.size}", nodes)
     }
   }

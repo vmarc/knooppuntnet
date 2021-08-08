@@ -82,7 +82,7 @@ class UnreferencedNodeProcessorImpl(
     }
     else {
       val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, active = false))
-      nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
+      nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
 
       val subsets = subsetsIn(nodeBefore)
 
@@ -131,7 +131,7 @@ class UnreferencedNodeProcessorImpl(
       )
     )
 
-    nodeRepository.save(nodeBeforeAnalysis.toNodeInfo)
+    nodeRepository.save(nodeBeforeAnalysis.toNodeDoc)
 
     val subsets = subsetsIn(nodeBefore)
 
@@ -171,7 +171,7 @@ class UnreferencedNodeProcessorImpl(
     analysisContext.data.orphanNodes.watched.add(nodeBefore.id)
 
     val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, orphan = true))
-    nodeRepository.save(nodeAfterAnalysis.toNodeInfo)
+    nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
 
     val rawNodeBefore = nodeBefore.networkNode.node.raw
     val rawNodeAfter = nodeAfter.node.raw
