@@ -62,7 +62,7 @@ class NodeCyclerExportTool(database: Database, exportDir: String) {
     val networks = cyclingNetworksFromDatabase()
     networks.zipWithIndex.foreach { case (networkAttributes, index) =>
       log.info(s"${index + 1}/${networks.size} ${networkAttributes.name}")
-      networkRepository.network(networkAttributes.id) match {
+      networkRepository.findById(networkAttributes.id) match {
         case None =>
         case Some(network) =>
           exportNodes(network)

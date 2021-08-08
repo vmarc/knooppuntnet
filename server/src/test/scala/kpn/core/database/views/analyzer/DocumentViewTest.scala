@@ -25,9 +25,9 @@ class DocumentViewTest extends UnitTest with TestObjects {
 
     withCouchDatabase { database =>
       val repo = new NetworkRepositoryImpl(null, database, false)
-      repo.save(newNetworkInfo(newNetworkAttributes(1)))
-      repo.save(newNetworkInfo(newNetworkAttributes(2)))
-      repo.save(newNetworkInfo(newNetworkAttributes(3)))
+      repo.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1)))
+      repo.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(2)))
+      repo.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(3)))
       repo.saveGpxFile(GpxFile(4, 4, "4", Seq.empty, Seq.empty))
       repo.saveGpxFile(GpxFile(5, 5, "4", Seq.empty, Seq.empty))
 

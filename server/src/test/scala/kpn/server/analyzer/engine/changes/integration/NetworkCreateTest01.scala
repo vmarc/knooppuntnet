@@ -52,7 +52,7 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo.id should equal(1)
         networkInfo.active should equal(true)

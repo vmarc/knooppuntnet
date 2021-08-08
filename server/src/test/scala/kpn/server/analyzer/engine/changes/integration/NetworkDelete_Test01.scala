@@ -32,7 +32,7 @@ class NetworkDelete_Test01 extends AbstractTest {
 
     assert(!tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         assert(!networkInfo.active)
         true

@@ -88,7 +88,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
         elementIds.nodeIds should not contain 1003
     }
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo.routeRefs should equal(Seq(11L))
         true

@@ -13,7 +13,7 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
   test("network - get network by id") {
     withCouchDatabase { database =>
       val repository = new NetworkRepositoryImpl(null, database, false)
-      repository.network(1) should equal(None)
+      repository.findById(1) should equal(None)
 
       val testNetwork = newNetworkInfo(
         newNetworkAttributes(
@@ -23,8 +23,8 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
           name = "name"
         )
       )
-      repository.save(testNetwork)
-      repository.network(1) should equal(Some(testNetwork))
+      repository.oldSaveNetworkInfo(testNetwork)
+      repository.findById(1) should equal(Some(testNetwork))
     }
   }
 
@@ -46,10 +46,10 @@ class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(null, database, false)
 
       // sorting order different from 'by network name'
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), NetworkType.hiking, name = "be-rwn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), NetworkType.hiking, name = "be-rwn-1")))
-      repository.save(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-1")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-2")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), NetworkType.hiking, name = "be-rwn-2")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), NetworkType.hiking, name = "be-rwn-1")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), NetworkType.cycling, name = "nl-rcn-1")))
 
       repository.networks(Subset.nlBicycle, stale = false) should matchTo(
         Seq(

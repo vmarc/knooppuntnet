@@ -13,6 +13,7 @@ import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
+import org.mongodb.scala.model.ReplaceOneModel
 import org.mongodb.scala.model.ReplaceOptions
 
 import java.util.concurrent.TimeUnit
@@ -126,6 +127,19 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
       (s"save - collection: '$collectionName', _id: $id", result)
     }
+  }
+
+  override def bulkSave(docs: Seq[T], log: Log): Unit = {
+    val requests = docs.map { doc =>
+      val filter = doc match {
+        case withId: WithId => equal("_id", withId._id)
+        case withStringId: WithStringId => equal("_id", withStringId._id)
+        case _ => throw new IllegalArgumentException("document does not have een id")
+      }
+      ReplaceOneModel[T](filter, doc, ReplaceOptions().upsert(true))
+    }
+    val future = native.bulkWrite(requests).toFuture()
+    Await.result(future, Duration(2, TimeUnit.MINUTES))
   }
 
   override def delete(_id: Long, log: Log): Unit = {

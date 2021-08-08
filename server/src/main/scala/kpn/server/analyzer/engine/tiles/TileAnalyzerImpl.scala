@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -23,17 +24,18 @@ class TileAnalyzerImpl(
   def analysis(networkType: NetworkType): TileAnalysis = {
 
     val subsets = Subset.all.filter(_.networkType == networkType)
-    val details = subsets.flatMap { subset =>
-      Log.context(subset.country.domain) {
-        networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
-          //noinspection SideEffectsInMonadicTransformation
-          log.info(s"network ${networkAttributes.name}")
-          networkRepository.network(networkAttributes.id).flatMap { network =>
-            network.detail
-          }
-        }
-      }
-    }
+    val details: Seq[NetworkInfoDetail] = Seq.empty
+//    val details: Seq[NetworkInfoDetail] = subsets.flatMap { subset =>
+//      Log.context(subset.country.domain) {
+//        networkRepository.networks(subset, stale = false).flatMap { networkAttributes =>
+//          //noinspection SideEffectsInMonadicTransformation
+//          log.info(s"network ${networkAttributes.name}")
+//          networkRepository.findById(networkAttributes.id).flatMap { network =>
+//            network.detail
+//          }
+//        }
+//      }
+//    }
 
     val nodes = details.flatMap(_.nodes).flatMap(node => tileDataNodeBuilder.build(networkType, node))
 

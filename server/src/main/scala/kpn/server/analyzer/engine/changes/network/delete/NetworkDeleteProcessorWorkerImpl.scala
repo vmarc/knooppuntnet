@@ -116,7 +116,7 @@ class NetworkDeleteProcessorWorkerImpl(
       )
     )
 
-    networkRepository.save(
+    networkRepository.oldSaveNetworkInfo(
       NetworkInfo(
         _id = networkBefore.id,
         NetworkAttributes(

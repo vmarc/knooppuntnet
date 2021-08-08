@@ -75,7 +75,7 @@ class NetworkAddRouteTest01 extends AbstractTest {
 
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo should matchTo(
           newNetworkInfo(

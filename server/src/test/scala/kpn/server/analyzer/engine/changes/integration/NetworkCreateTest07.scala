@@ -56,7 +56,7 @@ class NetworkCreateTest07 extends AbstractTest {
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo.id should equal(1)
         // for remaining network structure - see NetworkAnalyzerTest

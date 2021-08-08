@@ -36,7 +36,7 @@ class AnalysisRepositoryImpl(
   }
 
   override def saveIgnoredNetwork(networkInfo: NetworkInfo): Unit = {
-    networkRepository.save(networkInfo)
+    networkRepository.oldSaveNetworkInfo(networkInfo)
   }
 
   override def lastUpdated(): Option[Timestamp] = {
@@ -49,7 +49,7 @@ class AnalysisRepositoryImpl(
 
   private def saveNetworkDoc(network: Network): Unit = {
     val networkInfo = new OldNetworkInfoBuilder().build(network)
-    networkRepository.save(networkInfo)
+    networkRepository.oldSaveNetworkInfo(networkInfo)
     networkRepository.saveElements(
       NetworkElements(
         network.id,

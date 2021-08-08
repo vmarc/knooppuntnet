@@ -40,7 +40,7 @@ class NetworkDeleteNodeTest08 extends AbstractTest {
     assert(!tc.analysisContext.data.networks.watched.contains(1))
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo should matchTo(
           newNetworkInfo(

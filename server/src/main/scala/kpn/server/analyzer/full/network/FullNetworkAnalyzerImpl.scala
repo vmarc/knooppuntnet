@@ -2,78 +2,81 @@ package kpn.server.analyzer.full.network
 
 import kpn.api.common.NetworkFacts
 import kpn.api.common.data.raw.RawRelation
-import kpn.core.mongo.Database
+import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkNodeMember
 import kpn.core.mongo.doc.NetworkRelationMember
 import kpn.core.mongo.doc.NetworkWayMember
-import kpn.core.mongo.util.Id
 import kpn.core.util.Log
 import kpn.server.analyzer.full.FullAnalysisContext
-import kpn.server.analyzer.load.NetworkIdsLoader
-import kpn.server.analyzer.load.NetworkRelationLoader
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.server.overpass.OverpassRepository
+import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
 
 @Component
 class FullNetworkAnalyzerImpl(
-  database: Database,
-  networkIdsLoader: NetworkIdsLoader,
-  networkRelationLoader: NetworkRelationLoader
+  overpassRepository: OverpassRepository,
+  networkRepository: NetworkRepository
 ) extends FullNetworkAnalyzer {
 
   private val log = Log(classOf[FullNetworkAnalyzerImpl])
 
   override def analyze(context: FullAnalysisContext): FullAnalysisContext = {
-
-    val existingNetworkIds = findActiveNetworkIds()
-
-    val allNetworkIds = networkIdsLoader.load(context.timestamp)
-
-    val networkIds = allNetworkIds.zipWithIndex.flatMap { case (networkId, index) =>
-      Log.context(s"${index + 1}/${allNetworkIds.size}, $networkId") {
-        networkRelationLoader.load(Some(context.timestamp), networkId).map { rawRelation =>
-          database.networks.save(toDoc(rawRelation))
-          networkId
-        }
+    Log.context("full-network-analysis") {
+      log.infoElapsed {
+        val activeNetworkIds = collectActiveNetworkIds()
+        val overpassNetworkIds = collectOverpassNetworkIds(context.timestamp)
+        val analyzedNetworkIds = analyzeNetworks(context, overpassNetworkIds)
+        val obsoleteNetworkIds = (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
+        deactivateObsoleteNetworks(obsoleteNetworkIds)
+        context.copy(
+          obsoleteNetworkIds = obsoleteNetworkIds,
+          networkIds = analyzedNetworkIds,
+        )
+        (s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)", context)
       }
     }
-
-    val obsoleteNetworkIds = (existingNetworkIds.toSet -- networkIds).toSeq.sorted
-    deactivateObsoleteNetworks(obsoleteNetworkIds)
-
-    context.copy(
-      obsoleteNetworkIds = obsoleteNetworkIds,
-      networkIds = networkIds,
-    )
   }
 
-  private def findActiveNetworkIds(): Seq[Long] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(equal("active", true)),
-        project(
-          fields(
-            include("_id")
-          )
-        )
-      )
-      val networkIds = database.networks.aggregate[Id](pipeline, log).map(_._id)
-      (s"{$networkIds.size} existing networks", networkIds)
+  private def collectActiveNetworkIds(): Seq[Long] = {
+    log.infoElapsed {
+      val ids = networkRepository.activeNetworkIds()
+      (s"Collected ${ids.size} active network ids", ids)
     }
+  }
+
+  private def collectOverpassNetworkIds(timestamp: Timestamp): Seq[Long] = {
+    log.info("Collecting overpass network ids")
+    log.infoElapsed {
+      val ids = overpassRepository.networkIds(timestamp)
+      (s"Collected ${ids.size} overpass network ids", ids)
+    }
+  }
+
+  private def analyzeNetworks(context: FullAnalysisContext, overpassNetworkIds: Seq[Long]) = {
+    val batchSize = 25
+    val networkIds = overpassNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
+      Log.context(s"${index * batchSize}/${overpassNetworkIds.size}") {
+        log.infoElapsed {
+          val networkDocs = overpassRepository.relations(context.timestamp, networkIdsBatch).map(toDoc)
+          networkRepository.bulkSave(networkDocs)
+          val ids = networkDocs.map(_._id)
+          (s"analyzed ${ids.size} networks: ${ids.mkString(", ")}", ids)
+        }
+      }
+    }.toSeq
+    networkIds
   }
 
   private def deactivateObsoleteNetworks(networkIds: Seq[Long]): Unit = {
-    networkIds.foreach { networkId =>
-      database.networks.findById(networkId, log).map { networkDoc =>
-        // TODO log.warn(...)
-        database.networks.save(networkDoc.copy(active = false), log)
+    if (networkIds.nonEmpty) {
+      networkIds.foreach { networkId =>
+        networkRepository.findById(networkId).map { networkDoc =>
+          log.warn(s"de-activating network ${networkDoc._id}")
+          networkRepository.save(networkDoc.copy(active = false))
+        }
+        // TODO also deactivate NetworkInfoDoc's in  PostProcessor
       }
-      // TODO should also deactivate NetworkInfoDoc's? Better do this in  PostProcessor?
     }
   }
 

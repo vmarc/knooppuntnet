@@ -52,6 +52,8 @@ trait DatabaseCollection[T] {
 
   def save(doc: T, log: Log = collectionLog): Unit
 
+  def bulkSave(docs: Seq[T], log: Log = collectionLog): Unit
+
   def delete(_id: Long, log: Log = collectionLog): Unit
 
   def deleteByStringId(_id: String, log: Log = collectionLog): Unit

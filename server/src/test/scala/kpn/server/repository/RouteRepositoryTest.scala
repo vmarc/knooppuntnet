@@ -27,7 +27,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      new NetworkRepositoryImpl(null, database, false).save(
+      new NetworkRepositoryImpl(null, database, false).oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(1,
             name = "network-name"

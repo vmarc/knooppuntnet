@@ -58,7 +58,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
     tc.process(ChangeAction.Modify, node(dataAfter, 1002))
 
     assert(tc.analysisContext.data.networks.watched.contains(1))
-    (tc.networkRepository.save _).verify(*).once()
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(*).once()
 
     (tc.changeSetRepository.saveChangeSetSummary _).verify(
       where { changeSetSummary: ChangeSetSummary =>

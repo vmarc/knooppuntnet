@@ -50,7 +50,7 @@ class ReferenceViewTest extends UnitTest with SharedTestObjects {
       )
 
       val networkRepository = new NetworkRepositoryImpl(null, database, false)
-      networkRepository.save(
+      networkRepository.oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(
             1,

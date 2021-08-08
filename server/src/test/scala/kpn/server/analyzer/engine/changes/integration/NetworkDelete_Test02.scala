@@ -20,7 +20,7 @@ class NetworkDelete_Test02 extends AbstractTest {
 
     assert(!tc.analysisContext.data.networks.watched.contains(1))
 
-    (tc.networkRepository.save _).verify(*).never()
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(*).never()
     (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()
     (tc.changeSetRepository.saveNetworkChange _).verify(*).never()
     (tc.changeSetRepository.saveRouteChange _).verify(*).never()

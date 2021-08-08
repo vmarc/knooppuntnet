@@ -105,7 +105,7 @@ class TestDocBuilder(database: Database) extends SharedTestObjects {
       detail
     )
 
-    networkRepository.save(networkInfo)
+    networkRepository.oldSaveNetworkInfo(networkInfo)
   }
 
   def node(

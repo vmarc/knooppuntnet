@@ -9,6 +9,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryFullRelations
+import kpn.core.overpass.QueryNetworkIds
 import kpn.core.overpass.QueryNodeIds
 import kpn.core.overpass.QueryRelations
 import kpn.core.overpass.QueryRouteIds
@@ -25,6 +26,21 @@ class OverpassRepositoryImpl(
 
   private val log = Log(classOf[OverpassRepositoryImpl])
 
+  override def nodeIds(timestamp: Timestamp): Seq[Long] = {
+    val query = QueryNodeIds()
+    ids(timestamp, "node", query).distinct.sorted
+  }
+
+  override def routeIds(timestamp: Timestamp): Seq[Long] = {
+    val overpassQuery = QueryRouteIds()
+    ids(timestamp, "relation", overpassQuery)
+  }
+
+  override def networkIds(timestamp: Timestamp): Seq[Long] = {
+    val query = QueryNetworkIds()
+    ids(timestamp, "relation", query).distinct.sorted
+  }
+
   def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {
     val rawData = relationsQuery(timestamp, QueryRelations(relationIds), relationIds)
     rawData.relations
@@ -36,16 +52,6 @@ class OverpassRepositoryImpl(
     relationIds.map { routeId =>
       data.relations(routeId)
     }
-  }
-
-  override def routeIds(timestamp: Timestamp): Seq[Long] = {
-    val overpassQuery = QueryRouteIds()
-    ids(timestamp, "relation", overpassQuery)
-  }
-
-  override def nodeIds(timestamp: Timestamp): Seq[Long] = {
-    val query = QueryNodeIds()
-    ids(timestamp, "node", query).distinct.sorted
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Seq[Long] = {
@@ -67,7 +73,7 @@ class OverpassRepositoryImpl(
       RawData()
     }
     else {
-      val xmlString: String = log.infoElapsed {
+      val xmlString: String = log.debugElapsed {
         val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), query)
         (s"Load ${relationIds.size} relations at ${timestamp.iso}", xml)
       }

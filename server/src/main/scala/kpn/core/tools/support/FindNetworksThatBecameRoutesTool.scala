@@ -44,7 +44,7 @@ class FindNetworksThatBecameRoutesTool(database: Database) {
   }
 
   private def bothActive(id: Long): Boolean = {
-    networkRepository.network(id) match {
+    networkRepository.findById(id) match {
       case None => false
       case Some(network) =>
         if (network.active) {

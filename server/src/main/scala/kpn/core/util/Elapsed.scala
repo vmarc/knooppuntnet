@@ -19,19 +19,19 @@ object Elapsed {
     val milliseconds = minutesRemainder - (seconds * millisPerSecond)
 
     if (hours > 0) {
-      "%dhrs, %dmins, %ds".format(hours, minutes, seconds)
+      "%d:%02d:%02d".format(hours, minutes, seconds)
     }
     else if (minutes > 0) {
-      "%dmins, %ds".format(minutes, seconds)
+      "%d:%02d".format(minutes, seconds)
     }
     else if (seconds > 10) {
       "%ds".format(seconds)
     }
     else if (seconds > 0) {
-      "%ds, %dms".format(seconds, milliseconds)
+      "%s.%03ds".format(seconds, milliseconds)
     }
     else {
-      "%dms".format(milliseconds)
+      "0.%03ds".format(milliseconds)
     }
   }
 }

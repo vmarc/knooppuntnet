@@ -18,10 +18,10 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(null, database, false)
 
       // sorting order different from 'by network name'
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1")))
-      repository.save(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1")))
 
       NetworkView.query(database, Subset.beHiking, stale = false) should matchTo(
         Seq(
@@ -46,8 +46,8 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
       val repository = new NetworkRepositoryImpl(null, database, false)
 
       // sorting order different from 'by network name'
-      repository.save(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
-      repository.save(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2"), active = false))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
+      repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2"), active = false))
 
       NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
         Seq(

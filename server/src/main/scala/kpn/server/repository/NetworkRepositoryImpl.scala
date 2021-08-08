@@ -3,15 +3,17 @@ package kpn.server.repository
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
-import kpn.core.database.doc.GpxDoc
 import kpn.core.database.doc.CouchNetworkDoc
+import kpn.core.database.doc.GpxDoc
 import kpn.core.database.doc.NetworkElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.Database
+import kpn.core.mongo.actions.networks.MongoQueryNetworkIds
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
+import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import org.springframework.stereotype.Component
@@ -35,7 +37,11 @@ class NetworkRepositoryImpl(
     }
   }
 
-  override def network(networkId: Long): Option[NetworkInfo] = {
+  override def activeNetworkIds(): Seq[Long] = {
+    new MongoQueryNetworkIds(database).execute()
+  }
+
+  override def findById(networkId: Long): Option[NetworkInfo] = {
     if (mongoEnabled) {
       database.oldNetworks.findById(networkId, log)
     }
@@ -63,9 +69,9 @@ class NetworkRepositoryImpl(
     }
   }
 
-  override def save(network: NetworkInfo): Unit = {
+  override def oldSaveNetworkInfo(network: NetworkInfo): Unit = {
     if (mongoEnabled) {
-      database.oldNetworks.save(network, log)
+      throw new IllegalStateException("calling obsolete oldSaveNetworkInfo()")
     }
     else {
       log.debugElapsed {
@@ -74,6 +80,14 @@ class NetworkRepositoryImpl(
         (s"Save network ${network.id}", ())
       }
     }
+  }
+
+  override def save(networkDoc: NetworkDoc): Unit = {
+    database.networks.save(networkDoc, log)
+  }
+
+  override def bulkSave(networkDocs: Seq[NetworkDoc]): Unit = {
+    database.networks.bulkSave(networkDocs, log)
   }
 
   override def delete(networkId: Long): Unit = {

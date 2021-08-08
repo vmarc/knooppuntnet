@@ -70,7 +70,7 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002)) // still referenced in orphan route
     assert(!tc.analysisContext.data.orphanNodes.watched.contains(1003))
 
-    (tc.networkRepository.save _).verify(
+    (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>
         networkInfo should matchTo(
           newNetworkInfo(

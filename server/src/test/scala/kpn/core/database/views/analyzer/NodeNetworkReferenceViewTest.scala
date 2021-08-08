@@ -21,8 +21,8 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(null, database, false)
-      networkRepository.save(buildNetworkWithNode1001and1002())
-      networkRepository.save(buildNetworkWithNode1001())
+      networkRepository.oldSaveNetworkInfo(buildNetworkWithNode1001and1002())
+      networkRepository.oldSaveNetworkInfo(buildNetworkWithNode1001())
 
       queryNode(database, 1001) should matchTo(
         Seq(
@@ -58,7 +58,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
       val networkRepository = new NetworkRepositoryImpl(null, database, false)
-      networkRepository.save(buildInactiveNetwork())
+      networkRepository.oldSaveNetworkInfo(buildInactiveNetwork())
       queryNode(database, 1001) shouldBe empty
     }
   }
