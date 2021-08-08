@@ -4862,7 +4862,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem *&quot;route&q
       </trans-unit>
       <trans-unit id="route.broken" datatype="html">
         <source>This route seems broken.</source>
-        <target>Diese Route scheint unterbrochen zu sein.</target>
+        <target>Mit dieser Route scheint etwas nicht zu stimmen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">27,34</context>
