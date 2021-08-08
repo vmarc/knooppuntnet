@@ -30,7 +30,9 @@ import { RouteInfo } from '@api/common/route/route-info';
 
       <p *ngIf="isRouteBroken()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
-        <span i18n="@@route.broken">This route seems broken.</span>
+        <span i18n="@@route.broken"
+          >Something seems wrong with this route.</span
+        >
       </p>
 
       <p *ngIf="isRouteIncomplete()" class="kpn-line">
