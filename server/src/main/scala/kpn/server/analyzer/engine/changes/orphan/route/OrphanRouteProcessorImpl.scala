@@ -7,7 +7,6 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.repository.NodeRepository
@@ -33,13 +32,6 @@ class OrphanRouteProcessorImpl(
           val analysis = routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/).get
           val route = analysis.route.copy(/*orphan = true*/)
           routeRepository.save(route)
-          routeRepository.saveElements(
-            RouteElements(
-              loadedRoute.id,
-              loadedRoute.id,
-              RelationAnalyzer.toElementIds(analysis.relation)
-            )
-          )
           analysis.routeNodeAnalysis.routeNodes.foreach { routeNode =>
             val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(routeNode.node.raw))
             nodeRepository.save(nodeAnalysis.toNodeDoc)

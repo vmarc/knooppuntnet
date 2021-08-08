@@ -9,8 +9,6 @@ import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -175,13 +173,6 @@ class OrphanRouteChangeProcessorImpl(
 
           val route = routeAnalysis.route.copy(/*orphan = true, */ active = false)
           routeRepository.save(route)
-          routeRepository.saveElements(
-            RouteElements(
-              loadedRoute.id,
-              loadedRoute.id,
-              RelationAnalyzer.toElementIds(routeAnalysis.relation)
-            )
-          )
           tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
           val key = context.buildChangeKey(route.id)

@@ -49,6 +49,7 @@ class AnalyzerEngineImpl(
     else {
       analysisDataInitializer.load()
     }
+    System.exit(0)
   }
 
   def process(replicationId: ReplicationId): Unit = {

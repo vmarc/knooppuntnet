@@ -16,8 +16,6 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
-import kpn.server.analyzer.engine.changes.changes.NetworkElements
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -106,14 +104,6 @@ class NetworkDeleteProcessorWorkerImpl(
   }
 
   private def saveDeletedNetworkInfo(context: ChangeSetContext, networkBefore: Network): Unit = {
-
-    networkRepository.saveElements(
-      NetworkElements(
-        networkBefore.id,
-        networkBefore.id,
-        RelationAnalyzer.toElementIds(networkBefore.relation)
-      )
-    )
 
     networkRepository.oldSaveNetworkInfo(
       NetworkInfo(

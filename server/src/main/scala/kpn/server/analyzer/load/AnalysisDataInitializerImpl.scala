@@ -1,11 +1,10 @@
 package kpn.server.analyzer.load
 
-import kpn.api.custom.Subset
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
-import kpn.server.repository.OrphanRepository
+import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -14,45 +13,50 @@ class AnalysisDataInitializerImpl(
   analysisContext: AnalysisContext,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
-  orphanRepository: OrphanRepository
+  nodeRepository: NodeRepository
 ) extends AnalysisDataInitializer {
 
   private val log = Log(classOf[AnalysisDataInitializerImpl])
 
   override def load(): Unit = {
-    loadNetworks()
-    loadRoutes()
-    loadOrphanNodes()
-  }
-
-  private def loadNetworks(): Unit = {
-    val networkIds = networkRepository.activeNetworkIds()
-    networkIds.foreach(networkId => analysisContext.data.networks.watched.add(networkId, ElementIds()))
-  }
-
-  private def loadRoutes(): Unit = {
-    val routeIds = routeRepository.activeRouteIds()
-
-
-    val orphanRouteIds = Subset.all.flatMap(subset => orphanRepository.orphanRouteIds(subset))
-    orphanRouteIds.zipWithIndex.foreach { case (routeId, index) =>
-      Log.context(s"${index + 1}/${orphanRouteIds.size}, $routeId") {
-        log.infoElapsed {
-          routeRepository.routeElementsWithId(routeId) match {
-            case None => log.error(s"Could not load elements of route with id $routeId")
-            case Some(routeElements) =>
-              analysisContext.data.routes.watched.add(routeId, routeElements.elementIds)
-          }
-          (s"Loaded route $routeId elements", ())
-        }
+    Log.context("load-watched") {
+      log.infoElapsed {
+        val networkCount = loadWatchedNetworks()
+        val routeCount = loadWatchedRoutes()
+        val nodeCount = loadWatchedNodes()
+        (s"completed: $networkCount networks, $routeCount routes, $nodeCount nodes", ())
       }
     }
   }
 
-  private def loadOrphanNodes(): Unit = {
-    val orphanNodeIds = Subset.all.flatMap(subset => orphanRepository.orphanNodes(subset)).map(_._id)
-    orphanNodeIds.foreach { nodeId =>
-      analysisContext.data.orphanNodes.watched.add(nodeId)
+  private def loadWatchedNetworks(): Int = {
+    log.infoElapsed {
+      networkRepository.activeNetworkIds().foreach { networkId =>
+        analysisContext.data.networks.watched.add(networkId, ElementIds())
+      }
+      val networkCount = analysisContext.data.networks.watched.size
+      (s"$networkCount networks", networkCount)
     }
   }
+
+  private def loadWatchedRoutes(): Int = {
+    log.infoElapsed {
+      routeRepository.activeRouteElementIds().foreach { routeElementIds =>
+        analysisContext.data.routes.watched.add(routeElementIds._id, routeElementIds.elementIds)
+      }
+      val routeCount = analysisContext.data.routes.watched.size
+      (s"$routeCount routes", routeCount)
+    }
+  }
+
+  private def loadWatchedNodes(): Int = {
+    log.infoElapsed {
+      nodeRepository.activeNodeIds().foreach { nodeId =>
+        analysisContext.data.orphanNodes.watched.add(nodeId)
+      }
+      val nodeCount = analysisContext.data.orphanNodes.watched.size
+      (s"$nodeCount counts", nodeCount)
+    }
+  }
+
 }

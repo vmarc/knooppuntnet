@@ -5,18 +5,18 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.core.database.doc.CouchRouteDoc
-import kpn.core.database.doc.RouteElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryKnownRouteIds
+import kpn.core.mongo.actions.routes.MongoQueryRouteElementIds
 import kpn.core.mongo.actions.routes.MongoQueryRouteIds
 import kpn.core.mongo.actions.routes.MongoQueryRouteMapInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNameInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.changes.changes.RouteElements
+import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import org.springframework.stereotype.Component
 
 @Component
@@ -42,6 +42,10 @@ class RouteRepositoryImpl(
     new MongoQueryRouteIds(database).execute(log).sorted
   }
 
+  override def activeRouteElementIds(): Seq[ReferencedElementIds] = {
+    new MongoQueryRouteElementIds(database).execute()
+  }
+
   override def save(routeInfo: RouteInfo): Unit = {
     if (mongoEnabled) {
       database.routes.save(routeInfo, log)
@@ -58,27 +62,13 @@ class RouteRepositoryImpl(
     database.routes.bulkSave(routeInfo, log)
   }
 
-  override def saveElements(routeElements: RouteElements): Unit = {
-    if (mongoEnabled) {
-      database.routeElements.save(routeElements, log)
-    }
-    else {
-      log.debugElapsed {
-        analysisDatabase.save(RouteElementsDoc(elementsDocId(routeElements.routeId), routeElements))
-        (s"Save route elements ${routeElements.routeId}", ())
-      }
-    }
-  }
-
   override def delete(routeId: Long): Unit = {
     if (mongoEnabled) {
       database.routes.delete(routeId, log)
-      database.routeElements.delete(routeId, log)
       // TODO MONGO should also delete references, changes, etc?
     }
     else {
       analysisDatabase.deleteDocWithId(docId(routeId))
-      analysisDatabase.deleteDocWithId(elementsDocId(routeId))
     }
   }
 
@@ -106,15 +96,6 @@ class RouteRepositoryImpl(
     }
     else {
       throw new IllegalStateException("couchdb: method not supported")
-    }
-  }
-
-  override def routeElementsWithId(routeId: Long): Option[RouteElements] = {
-    if (mongoEnabled) {
-      database.routeElements.findById(routeId, log)
-    }
-    else {
-      analysisDatabase.docWithId(elementsDocId(routeId), classOf[RouteElementsDoc]).map(_.routeElements)
     }
   }
 
@@ -156,7 +137,4 @@ class RouteRepositoryImpl(
     s"${KeyPrefix.Route}:$routeId"
   }
 
-  private def elementsDocId(routeId: Long): String = {
-    s"${KeyPrefix.RouteElements}:$routeId"
-  }
 }

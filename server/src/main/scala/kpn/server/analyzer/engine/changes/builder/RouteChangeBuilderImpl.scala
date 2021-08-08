@@ -12,7 +12,6 @@ import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
@@ -157,14 +156,6 @@ class RouteChangeBuilderImpl(
             lastUpdated = context.changeSetContext.changeSet.timestamp
           )
 
-          routeRepository.saveElements(
-            RouteElements(
-              analysisBefore.route.id,
-              analysisBefore.route.id,
-              RelationAnalyzer.toElementIds(analysisBefore.relation)
-            )
-          )
-
           routeRepository.save(routeInfo)
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
@@ -232,15 +223,6 @@ class RouteChangeBuilderImpl(
       analysisContext.data.routes.watched.add(routeId, elementIds)
 
       routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
-
-      routeRepository.saveElements(
-        RouteElements(
-          analysisBefore.route.id,
-          analysisBefore.route.id,
-          RelationAnalyzer.toElementIds(analysisAfter.relation)
-        )
-      )
-
 
       //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
       //          val country = countryAnalyzer.country(Seq(routeNode.node))

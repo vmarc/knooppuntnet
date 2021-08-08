@@ -17,7 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RouteElements
+import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -111,8 +111,6 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
 
       override def save(routes: RouteInfo): Unit = ???
 
-      override def saveElements(routeElements: RouteElements): Unit = ???
-
       override def delete(routeId: Long): Unit = ???
 
       override def findById(routeId: Long): Option[RouteInfo] = None
@@ -121,11 +119,11 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
 
       override def nameInfo(routeId: Long): Option[RouteNameInfo] = None
 
-      override def routeElementsWithId(routeId: Long): Option[RouteElements] = ???
-
       override def networkReferences(routeId: Long, stale: Boolean): Seq[Reference] = ???
 
       override def filterKnown(routeIds: Set[Long]): Set[Long] = ???
+
+      override def activeRouteElementIds(): Seq[ReferencedElementIds] = ???
     }
   }
 }

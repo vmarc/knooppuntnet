@@ -19,7 +19,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
@@ -147,13 +146,6 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         val analysis = config.routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/).get
         val route = analysis.route.copy(/*orphan = true*/)
         config.routeRepository.save(route)
-        config.routeRepository.saveElements(
-          RouteElements(
-            loadedRoute.id,
-            loadedRoute.id,
-            RelationAnalyzer.toElementIds(analysis.relation)
-          )
-        )
         loadOrphanRouteChange(analysis)
 
         val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)

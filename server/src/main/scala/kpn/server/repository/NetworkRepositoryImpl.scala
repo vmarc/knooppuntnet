@@ -5,7 +5,6 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.database.doc.CouchNetworkDoc
 import kpn.core.database.doc.GpxDoc
-import kpn.core.database.doc.NetworkElementsDoc
 import kpn.core.database.views.analyzer.DocumentView
 import kpn.core.database.views.analyzer.NetworkView
 import kpn.core.db._
@@ -15,7 +14,6 @@ import kpn.core.mongo.actions.networks.MongoQueryNetworkIds
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.changes.changes.NetworkElements
 import org.springframework.stereotype.Component
 
 @Component
@@ -43,25 +41,6 @@ class NetworkRepositoryImpl(
 
   override def findById(networkId: Long): Option[NetworkDoc] = {
     database.networks.findById(networkId, log)
-  }
-
-  override def elements(networkId: Long): Option[NetworkElements] = {
-    if (mongoEnabled) {
-      database.networkElements.findById(networkId, log)
-    }
-    else {
-      analysisDatabase.docWithId(networkElementsKey(networkId), classOf[NetworkElementsDoc]).map(_.networkElements)
-    }
-  }
-
-  override def saveElements(networkElements: NetworkElements): Unit = {
-    if (mongoEnabled) {
-      database.networkElements.save(networkElements, log)
-    }
-    else {
-      val key = networkElementsKey(networkElements._id)
-      analysisDatabase.save(NetworkElementsDoc(key, networkElements))
-    }
   }
 
   override def oldSaveNetworkInfo(network: NetworkInfo): Unit = {

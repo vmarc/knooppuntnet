@@ -11,9 +11,6 @@ import kpn.core.gpx.WayPoint
 import kpn.core.mongo.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
-import kpn.server.analyzer.engine.changes.changes.NetworkElements
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RouteElements
 import org.springframework.stereotype.Component
 
 @Component
@@ -49,25 +46,11 @@ class AnalysisRepositoryImpl(
   private def saveNetworkDoc(network: Network): Unit = {
     val networkInfo = new OldNetworkInfoBuilder().build(network)
     networkRepository.oldSaveNetworkInfo(networkInfo)
-    networkRepository.saveElements(
-      NetworkElements(
-        network.id,
-        network.id,
-        RelationAnalyzer.toElementIds(network.relation)
-      )
-    )
   }
 
   private def saveRouteDocs(network: Network): Unit = {
     network.routes.foreach { networkMemberRoute =>
       routeRepository.save(networkMemberRoute.routeAnalysis.route)
-      routeRepository.saveElements(
-        RouteElements(
-          networkMemberRoute.id,
-          networkMemberRoute.id,
-          RelationAnalyzer.toElementIds(networkMemberRoute.routeAnalysis.relation)
-        )
-      )
     }
   }
 

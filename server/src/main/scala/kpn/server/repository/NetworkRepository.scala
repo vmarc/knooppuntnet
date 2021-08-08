@@ -5,7 +5,6 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.doc.NetworkDoc
-import kpn.server.analyzer.engine.changes.changes.NetworkElements
 
 trait NetworkRepository {
 
@@ -20,10 +19,6 @@ trait NetworkRepository {
   def save(networkDoc: NetworkDoc): Unit
 
   def bulkSave(networkDocs: Seq[NetworkDoc]): Unit
-
-  def elements(networkId: Long): Option[NetworkElements]
-
-  def saveElements(networkElements: NetworkElements): Unit
 
   def gpx(networkId: Long): Option[GpxFile]
 

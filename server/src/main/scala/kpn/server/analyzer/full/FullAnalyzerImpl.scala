@@ -28,6 +28,5 @@ class FullAnalyzerImpl(
       postProcessor.process(context4.networkIds)
       ("full analysis completed", ())
     }
-    System.exit(0)
   }
 }
