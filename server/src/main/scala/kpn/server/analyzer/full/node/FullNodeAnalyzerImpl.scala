@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.analyzer.load.NodeLoader
-import kpn.server.analyzer.load.orphan.node.NodeIdsLoader
+import kpn.server.overpass.OverpassRepository
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters
@@ -28,7 +28,7 @@ import scala.concurrent.duration.Duration
 @Component
 class FullNodeAnalyzerImpl(
   database: Database,
-  nodeIdsLoader: NodeIdsLoader,
+  overpassRepository: OverpassRepository,
   nodeLoader: NodeLoader,
   nodeAnalyzer: NodeAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
@@ -41,7 +41,7 @@ class FullNodeAnalyzerImpl(
     val existingNodeIds = findActiveNodeIds()
 
     val allNodeIds = log.infoElapsed {
-      val ids = nodeIdsLoader.load(context.timestamp)
+      val ids = overpassRepository.nodeIds(context.timestamp)
       ("load node ids", ids)
     }
 

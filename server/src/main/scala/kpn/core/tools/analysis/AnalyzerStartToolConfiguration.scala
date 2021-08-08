@@ -56,7 +56,6 @@ import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
 import kpn.server.analyzer.load.OldRouteLoader
 import kpn.server.analyzer.load.OldRouteLoaderImpl
-import kpn.server.analyzer.load.orphan.route.OrphanRoutesLoaderWorkerImpl
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
@@ -196,17 +195,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
     analysisExecutor,
     networkInitialLoaderWorker
-  )
-
-  val orphanRoutesLoaderWorker = new OrphanRoutesLoaderWorkerImpl(
-    analysisContext,
-    routeLoader,
-    routeRepository,
-    routeAnalyzer,
-    relationAnalyzer,
-    nodeRepository,
-    networkNodeAnalyzer,
-    nodeAnalyzer
   )
 
   val replicationId: ReplicationId = ReplicationId(1)

@@ -12,4 +12,6 @@ trait OverpassRepository {
 
   def routeIds(timestamp: Timestamp): Seq[Long]
 
+  def nodeIds(timestamp: Timestamp): Seq[Long]
+
 }

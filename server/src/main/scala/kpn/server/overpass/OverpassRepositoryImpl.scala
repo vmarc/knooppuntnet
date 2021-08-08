@@ -9,6 +9,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryFullRelations
+import kpn.core.overpass.QueryNodeIds
 import kpn.core.overpass.QueryRelations
 import kpn.core.overpass.QueryRouteIds
 import kpn.core.util.Log
@@ -40,6 +41,11 @@ class OverpassRepositoryImpl(
   override def routeIds(timestamp: Timestamp): Seq[Long] = {
     val overpassQuery = QueryRouteIds()
     ids(timestamp, "relation", overpassQuery)
+  }
+
+  override def nodeIds(timestamp: Timestamp): Seq[Long] = {
+    val query = QueryNodeIds()
+    ids(timestamp, "node", query).distinct.sorted
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Seq[Long] = {
