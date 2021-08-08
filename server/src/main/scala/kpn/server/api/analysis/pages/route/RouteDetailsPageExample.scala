@@ -17,6 +17,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 
 object RouteDetailsPageExample {
 
@@ -219,7 +220,8 @@ object RouteDetailsPageExample {
       ),
       analysis,
       Seq.empty,
-      analysis.map.nodeIds
+      analysis.map.nodeIds,
+      ElementIds()
     )
   }
 }

@@ -69,6 +69,7 @@ import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -355,7 +356,8 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     facts: Seq[Fact] = Seq.empty,
-    tiles: Seq[String] = Seq.empty
+    tiles: Seq[String] = Seq.empty,
+    elementIds: ElementIds = ElementIds()
   ): RouteInfo = {
 
     val summary = RouteSummary(
@@ -386,7 +388,8 @@ trait SharedTestObjects extends MockFactory {
       facts,
       analysis,
       tiles,
-      analysis.map.nodeIds
+      analysis.map.nodeIds,
+      elementIds
     )
   }
 
@@ -867,7 +870,8 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     tiles: Seq[String] = Seq.empty,
-    nodeRefs: Seq[Long] = Seq.empty
+    nodeRefs: Seq[Long] = Seq.empty,
+    elementIds: ElementIds = ElementIds()
   ): RouteInfo = {
     RouteInfo(
       summary.id,
@@ -883,7 +887,8 @@ trait SharedTestObjects extends MockFactory {
       facts,
       analysis,
       tiles,
-      nodeRefs
+      nodeRefs,
+      elementIds
     )
   }
 

@@ -4,8 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.core.data.Data
 import kpn.core.test.TestData2
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
 class AnalysisDataTest extends UnitTest with SharedTestObjects {
 
@@ -13,14 +12,9 @@ class AnalysisDataTest extends UnitTest with SharedTestObjects {
 
     val data = buildData()
 
-    val relationAnalyzer = {
-      val analysisContext = new AnalysisContext()
-      new RelationAnalyzerImpl(analysisContext)
-    }
-
     val analysisData = AnalysisData()
-    analysisData.networks.watched.add(1, relationAnalyzer.toElementIds(data.relations(1)))
-    analysisData.networks.watched.add(2, relationAnalyzer.toElementIds(data.relations(2)))
+    analysisData.networks.watched.add(1, RelationAnalyzer.toElementIds(data.relations(1)))
+    analysisData.networks.watched.add(2, RelationAnalyzer.toElementIds(data.relations(2)))
 
     assert(analysisData.networks.isReferencingRelation(11))
     assert(analysisData.networks.isReferencingRelation(12))

@@ -5,15 +5,15 @@ import kpn.api.custom.Country
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-abstract class CountryAnalyzerAbstract(relationAnalyzer: RelationAnalyzer) extends CountryAnalyzer {
+abstract class CountryAnalyzerAbstract() extends CountryAnalyzer {
 
   override def relationCountry(relation: Relation): Option[Country] = {
-    val nodes = relationAnalyzer.referencedNetworkNodes(relation)
+    val nodes = RelationAnalyzer.referencedNetworkNodes(relation)
     if (nodes.nonEmpty) {
       country(nodes)
     }
     else {
-      val ways = relationAnalyzer.referencedWays(relation)
+      val ways = RelationAnalyzer.referencedWays(relation)
       val nodes = ways.flatMap { w =>
         if (w.nodes.nonEmpty) {
           Seq(w.nodes.head, w.nodes.last)

@@ -5,23 +5,14 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.data.LoadedNode
 
 object NodeLoaderDemo {
 
   def main(args: Array[String]): Unit = {
 
-    val analysisContext = new AnalysisContext()
     val executor = new OverpassQueryExecutorImpl()
-
-    val countryAnalyzer = {
-      val analysisContext = new AnalysisContext()
-      val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-      new CountryAnalyzerImpl(relationAnalyzer)
-    }
-
+    val countryAnalyzer = new CountryAnalyzerImpl()
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
 
     val ids = Seq(

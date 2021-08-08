@@ -32,8 +32,7 @@ class NetworkDeleteProcessorWorkerImpl(
   networkLoader: NetworkLoader,
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
-  changeBuilder: ChangeBuilder,
-  relationAnalyzer: RelationAnalyzer
+  changeBuilder: ChangeBuilder
 ) extends NetworkDeleteProcessorWorker {
 
   private val log = Log(classOf[NetworkDeleteProcessorWorkerImpl])
@@ -112,7 +111,7 @@ class NetworkDeleteProcessorWorkerImpl(
       NetworkElements(
         networkBefore.id,
         networkBefore.id,
-        relationAnalyzer.toElementIds(networkBefore.relation)
+        RelationAnalyzer.toElementIds(networkBefore.relation)
       )
     )
 

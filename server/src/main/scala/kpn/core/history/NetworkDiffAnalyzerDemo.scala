@@ -17,7 +17,6 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -35,8 +34,7 @@ object NetworkDiffAnalyzerDemo {
     val timestampAfter = Timestamp(2017, 8, 11, 10, 35, 59)
 
     val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+    val countryAnalyzer = new CountryAnalyzerImpl()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
@@ -74,13 +72,11 @@ object NetworkDiffAnalyzerDemo {
     )
 
     val networkAnalyzer = new NetworkAnalyzerImpl(
-      relationAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )
 
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(
-      relationAnalyzer,
       countryAnalyzer
     )
 

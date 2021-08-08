@@ -165,7 +165,8 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       facts.toSeq,
       routeAnalysis,
       context.tiles,
-      routeAnalysis.map.nodeIds
+      routeAnalysis.map.nodeIds,
+      context.elementIds
     )
   }
 }

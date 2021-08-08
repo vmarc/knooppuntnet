@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.springframework.stereotype.Component
 
 @Component
-class CountryAnalyzerImpl(relationAnalyzer: RelationAnalyzer) extends CountryAnalyzerAbstract(relationAnalyzer) {
+class CountryAnalyzerImpl() extends CountryAnalyzerAbstract {
 
   private val log = Log(classOf[CountryAnalyzerImpl])
 

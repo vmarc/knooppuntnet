@@ -17,7 +17,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -60,8 +59,7 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
       log.info("Location configuration loaded")
       config
     }
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+    val countryAnalyzer = new CountryAnalyzerImpl()
     val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocator = new RouteLocatorImpl(locationConfiguration)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)

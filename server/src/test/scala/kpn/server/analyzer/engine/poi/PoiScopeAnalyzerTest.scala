@@ -3,15 +3,11 @@ package kpn.server.analyzer.engine.poi
 import kpn.api.common.LatLonImpl
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class PoiScopeAnalyzerTest extends UnitTest {
 
   val poiScopeAnalyzer: PoiScopeAnalyzer = {
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+    val countryAnalyzer = new CountryAnalyzerImpl()
     new PoiScopeAnalyzerImpl(countryAnalyzer)
   }
 

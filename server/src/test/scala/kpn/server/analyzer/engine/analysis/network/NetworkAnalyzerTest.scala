@@ -18,7 +18,6 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -207,7 +206,6 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     (countryAnalyzer.country _).when(*).returns(Some(Country.nl))
     (countryAnalyzer.relationCountry _).when(*).returns(Some(Country.nl))
     val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
@@ -220,7 +218,7 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer).analyze(networkRelation)
+    val networkRelationAnalysis = new NetworkRelationAnalyzerImpl(countryAnalyzer).analyze(networkRelation)
 
     val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
     (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
@@ -239,7 +237,6 @@ class NetworkAnalyzerTest extends UnitTest with MockFactory {
     )
 
     val analyzer = new NetworkAnalyzerImpl(
-      relationAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )

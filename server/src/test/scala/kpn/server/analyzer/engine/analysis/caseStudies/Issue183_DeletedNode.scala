@@ -37,7 +37,6 @@ import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilderImpl
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -126,14 +125,10 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     val analysisRepository = stub[AnalysisRepository]
     val nodeRepository = stub[NodeRepository]
     (nodeRepository.nodeRouteReferences _).when(*, *).returns(Seq.empty)
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
-    val networkRelationAnalyzer = {
-      new NetworkRelationAnalyzerImpl(
-        relationAnalyzer,
-        countryAnalyzer
-      )
-    }
+    val countryAnalyzer = new CountryAnalyzerImpl()
+    val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(
+      countryAnalyzer
+    )
     val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
@@ -171,7 +166,6 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
       )
 
       new NetworkAnalyzerImpl(
-        relationAnalyzer,
         networkNodeAnalyzer,
         networkRouteAnalyzer
       )
@@ -186,7 +180,6 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
       }
       val routeChangeBuilder = new RouteChangeBuilderImpl(
         analysisContext,
-        relationAnalyzer,
         routeRepository,
         tileChangeAnalyzer
       )

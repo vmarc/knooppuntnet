@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component
 class OrphanRouteProcessorImpl(
   analysisContext: AnalysisContext,
   nodeRepository: NodeRepository,
-  relationAnalyzer: RelationAnalyzer,
   routeRepository: RouteRepository,
   routeAnalyzer: MasterRouteAnalyzer,
   nodeAnalyzer: NodeAnalyzer
@@ -38,7 +37,7 @@ class OrphanRouteProcessorImpl(
             RouteElements(
               loadedRoute.id,
               loadedRoute.id,
-              relationAnalyzer.toElementIds(analysis.relation)
+              RelationAnalyzer.toElementIds(analysis.relation)
             )
           )
           analysis.routeNodeAnalysis.routeNodes.foreach { routeNode =>
@@ -46,7 +45,7 @@ class OrphanRouteProcessorImpl(
             nodeRepository.save(nodeAnalysis.toNodeDoc)
           }
 
-          val elementIds = relationAnalyzer.toElementIds(loadedRoute.relation)
+          val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
           analysisContext.data.routes.watched.add(loadedRoute.id, elementIds)
           ("orphan route analysis", Some(analysis))
         }

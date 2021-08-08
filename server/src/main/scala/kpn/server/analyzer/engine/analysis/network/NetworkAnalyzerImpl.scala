@@ -25,7 +25,6 @@ import scala.util.Success
 
 @Component
 class NetworkAnalyzerImpl(
-  relationAnalyzer: RelationAnalyzer,
   networkNodeAnalyzer: NetworkNodeAnalyzer,
   networkRouteAnalyzer: NetworkRouteAnalyzer
 ) extends NetworkAnalyzer {
@@ -68,7 +67,7 @@ class NetworkAnalyzerImpl(
 
     val allNodesInNetwork: Set[NetworkNode] = networkNodesInRelation ++ networkNodesInRouteWays ++ networkNodesInRouteRelations
 
-    val shape = new NetworkShapeAnalyzer(relationAnalyzer, loadedNetwork.relation).shape
+    val shape = new NetworkShapeAnalyzer(loadedNetwork.relation).shape
 
     val analysis = NetworkAnalysis(
       networkExtraMemberWay = networkExtraMemberWay,

@@ -41,8 +41,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
@@ -82,13 +80,11 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val analysisContext = new AnalysisContext()
 
-  val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-
   val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
 
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
-  val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+  val countryAnalyzer = new CountryAnalyzerImpl()
 
   val networkRepository = new NetworkRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
   val routeRepository = new RouteRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
@@ -117,7 +113,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     networkRepository,
     routeRepository,
     nodeRepository,
-    relationAnalyzer,
     nodeAnalyzer
   )
 
@@ -166,7 +161,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   )
 
   val networkLoader = new NetworkLoaderImpl(cachingExecutor)
-  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+  val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
 
   val oldNodeLocationAnalyzer = new OldNodeLocationAnalyzerImpl(locationConfiguration, true)
   val oldMainNodeAnalyzer = new OldMainNodeAnalyzerImpl(
@@ -181,7 +176,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     routeAnalyzer
   )
 
-  val networkAnalyzer = new NetworkAnalyzerImpl(relationAnalyzer, networkNodeAnalyzer, networkRouteAnalyzer)
+  val networkAnalyzer = new NetworkAnalyzerImpl(networkNodeAnalyzer, networkRouteAnalyzer)
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
     analysisContext,

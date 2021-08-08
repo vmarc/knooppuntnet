@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 
 case class RouteAnalysisContext(
@@ -44,6 +45,7 @@ case class RouteAnalysisContext(
   lastSurvey: Option[Day] = None,
   labels: Seq[String] = Seq.empty,
   tiles: Seq[String] = Seq.empty,
+  elementIds: ElementIds = ElementIds(),
   abort: Boolean = false
 ) {
 

@@ -6,8 +6,6 @@ import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Relation
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class NetworkShapeAnalyzerTest extends UnitTest {
 
@@ -64,9 +62,7 @@ class NetworkShapeAnalyzerTest extends UnitTest {
   }
 
   private def analyze(networkRelation: Relation): Option[NetworkShape] = {
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    new NetworkShapeAnalyzer(relationAnalyzer, networkRelation).shape
+    new NetworkShapeAnalyzer(networkRelation).shape
   }
 
 }

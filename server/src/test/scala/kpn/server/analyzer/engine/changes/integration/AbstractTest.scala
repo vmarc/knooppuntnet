@@ -49,7 +49,6 @@ import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
@@ -111,9 +110,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     val analysisContext = new AnalysisContext()
 
-    val relationAnalyzer: RelationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-
-    val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock(relationAnalyzer)
+    val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock()
     val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
@@ -144,7 +141,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(relationAnalyzer, countryAnalyzer)
+    private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
 
     private val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
     (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
@@ -163,7 +160,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     )
 
     private val networkAnalyzer = new NetworkAnalyzerImpl(
-      relationAnalyzer,
       networkNodeAnalyzer,
       networkRouteAnalyzer
     )
@@ -182,7 +178,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       networkRepository,
       routeRepository,
       nodeRepository,
-      relationAnalyzer,
       nodeAnalyzer
     )
 
@@ -200,7 +195,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     private val routeChangeBuilder: RouteChangeBuilder = new RouteChangeBuilderImpl(
       analysisContext,
-      relationAnalyzer,
       routeRepository,
       tileChangeAnalyzer
     )
@@ -272,8 +266,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
           networkLoader,
           networkRelationAnalyzer,
           networkAnalyzer,
-          changeBuilder,
-          relationAnalyzer
+          changeBuilder
         )
 
         new NetworkDeleteProcessorSyncImpl(
@@ -299,7 +292,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
         analysisContext,
         nodeRepository,
-        relationAnalyzer,
         routeRepository,
         masterRouteAnalyzer,
         nodeAnalyzer
@@ -316,7 +308,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         routesLoader,
         masterRouteAnalyzer,
         routeRepository,
-        relationAnalyzer,
         tileChangeAnalyzer
       )
     }
@@ -406,11 +397,11 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     }
 
     def watchNetwork(data: Data, networkId: Long): Unit = {
-      analysisContext.data.networks.watched.add(networkId, relationAnalyzer.toElementIds(data.relations(networkId)))
+      analysisContext.data.networks.watched.add(networkId, RelationAnalyzer.toElementIds(data.relations(networkId)))
     }
 
     def watchOrphanRoute(data: Data, routeId: Long): Unit = {
-      val elementIds = relationAnalyzer.toElementIds(data.relations(routeId))
+      val elementIds = RelationAnalyzer.toElementIds(data.relations(routeId))
       analysisContext.data.routes.watched.add(routeId, elementIds)
     }
 

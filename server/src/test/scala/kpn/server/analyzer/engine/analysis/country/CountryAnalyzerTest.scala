@@ -4,16 +4,10 @@ import kpn.api.common.LatLon
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class CountryAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  private val analyzer = {
-    val analysisContext = new AnalysisContext()
-    val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-    new CountryAnalyzerImpl(relationAnalyzer)
-  }
+  private val analyzer = new CountryAnalyzerImpl()
 
   private val be1 = node("51.47464736069959", "4.478302001953125")
   private val be2 = node("51.43563788497879", "4.941433668136596")

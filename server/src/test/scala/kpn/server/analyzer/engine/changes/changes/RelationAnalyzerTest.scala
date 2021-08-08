@@ -7,7 +7,6 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -33,9 +32,9 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
       networkRelation(1, "name", Seq(newMember("relation", 11)))
     }.data.relations(1)
 
-    relationAnalyzer().referencedNodes(network).map(_.id) should equal(Set(1001L, 1002L, 1003L))
-    relationAnalyzer().referencedWays(network).map(_.id) should equal(Set(101L))
-    relationAnalyzer().referencedRelations(network).map(_.id) should equal(Set(11L))
+    RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L, 1002L, 1003L))
+    RelationAnalyzer.referencedWays(network).map(_.id) should equal(Set(101L))
+    RelationAnalyzer.referencedRelations(network).map(_.id) should equal(Set(11L))
   }
 
   test("node reference in route way") {
@@ -50,7 +49,7 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     }.data.relations(11)
 
-    relationAnalyzer().referencedNodes(network).map(_.id) should equal(Set(1001L))
+    RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L))
   }
 
   private def testScopedNetworkType(networkTagValue: String, expectedNetworkScope: NetworkScope, expectedNetworkType: NetworkType): Unit = {
@@ -58,11 +57,6 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
     RelationAnalyzer.scopedNetworkType(relation).value should matchTo(
       ScopedNetworkType(expectedNetworkScope, expectedNetworkType)
     )
-  }
-
-  private def relationAnalyzer(): RelationAnalyzer = {
-    val analysisContext = new AnalysisContext()
-    new RelationAnalyzerImpl(analysisContext)
   }
 
 }

@@ -27,7 +27,6 @@ class OrphanRouteChangeProcessorImpl(
   routesLoader: RoutesLoader,
   routeAnalyzer: MasterRouteAnalyzer,
   routeRepository: RouteRepository,
-  relationAnalyzer: RelationAnalyzer,
   tileChangeAnalyzer: TileChangeAnalyzer
 ) extends OrphanRouteChangeProcessor {
 
@@ -180,7 +179,7 @@ class OrphanRouteChangeProcessorImpl(
             RouteElements(
               loadedRoute.id,
               loadedRoute.id,
-              relationAnalyzer.toElementIds(routeAnalysis.relation)
+              RelationAnalyzer.toElementIds(routeAnalysis.relation)
             )
           )
           tileChangeAnalyzer.analyzeRoute(routeAnalysis)

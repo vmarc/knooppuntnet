@@ -18,6 +18,7 @@ import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RouteElements
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
@@ -150,7 +151,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           RouteElements(
             loadedRoute.id,
             loadedRoute.id,
-            config.relationAnalyzer.toElementIds(analysis.relation)
+            RelationAnalyzer.toElementIds(analysis.relation)
           )
         )
         loadOrphanRouteChange(analysis)
@@ -163,7 +164,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           loadNodeChange(nodeAnalysis)
         }
 
-        val elementIds = config.relationAnalyzer.toElementIds(loadedRoute.relation)
+        val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
         config.analysisContext.data.routes.watched.add(loadedRoute.id, elementIds)
     }
   }

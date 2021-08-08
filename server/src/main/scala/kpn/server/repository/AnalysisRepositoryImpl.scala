@@ -22,7 +22,6 @@ class AnalysisRepositoryImpl(
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository,
-  relationAnalyzer: RelationAnalyzer,
   nodeAnalyzer: NodeAnalyzer
 ) extends AnalysisRepository {
 
@@ -54,7 +53,7 @@ class AnalysisRepositoryImpl(
       NetworkElements(
         network.id,
         network.id,
-        relationAnalyzer.toElementIds(network.relation)
+        RelationAnalyzer.toElementIds(network.relation)
       )
     )
   }
@@ -66,7 +65,7 @@ class AnalysisRepositoryImpl(
         RouteElements(
           networkMemberRoute.id,
           networkMemberRoute.id,
-          relationAnalyzer.toElementIds(networkMemberRoute.routeAnalysis.relation)
+          RelationAnalyzer.toElementIds(networkMemberRoute.routeAnalysis.relation)
         )
       )
     }

@@ -11,8 +11,6 @@ import kpn.core.poi.PoiLocation
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculator
@@ -34,9 +32,7 @@ object PoiTileAnalyzerTool {
           }
           val poiRepository = new PoiRepositoryImpl(poiDatabase, null, mongoEnabled = false)
           val poiScopeAnalyzer = {
-            val analysisContext = new AnalysisContext()
-            val relationAnalyzer = new RelationAnalyzerImpl(analysisContext)
-            val countryAnalyzer = new CountryAnalyzerImpl(relationAnalyzer)
+            val countryAnalyzer = new CountryAnalyzerImpl()
             new PoiScopeAnalyzerImpl(countryAnalyzer)
           }
           val tileCalculator: TileCalculator = new TileCalculatorImpl()

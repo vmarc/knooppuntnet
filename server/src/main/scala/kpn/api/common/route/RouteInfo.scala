@@ -8,6 +8,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 
 case class RouteInfo(
   _id: Long, // routeId
@@ -23,7 +24,8 @@ case class RouteInfo(
   facts: Seq[Fact],
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],
-  nodeRefs: Seq[Long]
+  nodeRefs: Seq[Long],
+  elementIds: ElementIds
 ) extends Tagable with WithId {
 
   def id: Long = summary.id

@@ -26,6 +26,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestData2
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
 class NetworkAddRouteTest01 extends AbstractTest {
 
@@ -71,7 +72,7 @@ class NetworkAddRouteTest01 extends AbstractTest {
     tc.relationAfter(dataAfter, 1)
     tc.relationAfter(dataAfter, 11)
 
-    tc.analysisContext.data.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
+    tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(dataBefore.relations(1)))
 
     tc.process(ChangeAction.Modify, relation(dataAfter, 1))
 

@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component
 @Component
 class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
-  relationAnalyzer: RelationAnalyzer,
   routeRepository: RouteRepository,
   tileChangeAnalyzer: TileChangeAnalyzer
 ) extends RouteChangeBuilder {
@@ -162,7 +161,7 @@ class RouteChangeBuilderImpl(
             RouteElements(
               analysisBefore.route.id,
               analysisBefore.route.id,
-              relationAnalyzer.toElementIds(analysisBefore.relation)
+              RelationAnalyzer.toElementIds(analysisBefore.relation)
             )
           )
 
@@ -229,7 +228,7 @@ class RouteChangeBuilderImpl(
     }
     else {
 
-      val elementIds = relationAnalyzer.toElementIds(analysisAfter.relation)
+      val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
       analysisContext.data.routes.watched.add(routeId, elementIds)
 
       routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
@@ -238,7 +237,7 @@ class RouteChangeBuilderImpl(
         RouteElements(
           analysisBefore.route.id,
           analysisBefore.route.id,
-          relationAnalyzer.toElementIds(analysisAfter.relation)
+          RelationAnalyzer.toElementIds(analysisAfter.relation)
         )
       )
 

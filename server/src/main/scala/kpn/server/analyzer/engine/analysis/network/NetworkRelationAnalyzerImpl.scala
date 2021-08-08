@@ -8,15 +8,14 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkRelationAnalyzerImpl(
-  relationAnalyzer: RelationAnalyzer,
   countryAnalyzer: CountryAnalyzer
 ) extends NetworkRelationAnalyzer {
 
   def analyze(relation: Relation): NetworkRelationAnalysis = {
 
-    val nodes = relationAnalyzer.referencedNetworkNodes(relation).toSeq.sortBy(_.id)
-    val routeRelations = relationAnalyzer.referencedRoutes(relation).toSeq.sortBy(_.id)
-    val networkRelations = relationAnalyzer.referencedNetworks(relation).toSeq.sortBy(_.id)
+    val nodes = RelationAnalyzer.referencedNetworkNodes(relation).toSeq.sortBy(_.id)
+    val routeRelations = RelationAnalyzer.referencedRoutes(relation).toSeq.sortBy(_.id)
+    val networkRelations = RelationAnalyzer.referencedNetworks(relation).toSeq.sortBy(_.id)
 
     val nodeRefs = nodes.map(_.id)
     val routeRefs = routeRelations.map(_.id)
@@ -38,7 +37,7 @@ class NetworkRelationAnalyzerImpl(
       timestamps.max
     }
 
-    val elementIds = relationAnalyzer.toElementIds(relation)
+    val elementIds = RelationAnalyzer.toElementIds(relation)
 
     NetworkRelationAnalysis(
       country,

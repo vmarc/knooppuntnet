@@ -17,6 +17,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.TestData2
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
 class NetworkDeleteRouteTest03 extends AbstractTest {
 
@@ -55,8 +56,8 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
     tc.relationAfter(dataAfter, 12)
     tc.nodesAfter(dataAfter, 1001, 1002, 1003)
 
-    tc.analysisContext.data.networks.watched.add(1, tc.relationAnalyzer.toElementIds(dataBefore.relations(1)))
-    tc.analysisContext.data.networks.watched.add(2, tc.relationAnalyzer.toElementIds(dataBefore.relations(2)))
+    tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(dataBefore.relations(1)))
+    tc.analysisContext.data.networks.watched.add(2, RelationAnalyzer.toElementIds(dataBefore.relations(2)))
 
     tc.process(ChangeAction.Delete, newRawRelation(1))
 
