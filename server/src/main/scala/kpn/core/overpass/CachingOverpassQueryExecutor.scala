@@ -30,11 +30,11 @@ class CachingOverpassQueryExecutor(cacheRootDir: File, val overpassQueryExecutor
           val oldCacheDir = new File("/kpn/cache-old/", TimestampUtil.cacheDir(t))
           val oldCacheFile = new File(oldCacheDir, query.name + ".xml.gz")
           if (oldCacheFile.exists()) {
-            log.info(s"Re-using request result ${query.name}.xml.gz")
+            log.debug(s"Re-using request result ${query.name}.xml.gz")
             FileUtils.copyFile(oldCacheFile, cacheFile)
           }
           else {
-            log.info(s"Not found in old cache: ${oldCacheFile.getAbsolutePath}")
+            log.debug(s"Not found in old cache: ${oldCacheFile.getAbsolutePath}")
           }
         }
         // temp code until here

@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
-import { RouteInfo } from '@api/common/route/route-info';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {RouteInfo} from '@api/common/route/route-info';
 
 @Component({
   selector: 'kpn-route-summary',
@@ -30,7 +30,7 @@ import { RouteInfo } from '@api/common/route/route-info';
 
       <p *ngIf="isRouteBroken()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
-        <span i18n="@@route.broken">This route seems broken.</span>
+        <span i18n="@@route.broken">There seems to be something wrong with this route.</span>
       </p>
 
       <p *ngIf="isRouteIncomplete()" class="kpn-line">

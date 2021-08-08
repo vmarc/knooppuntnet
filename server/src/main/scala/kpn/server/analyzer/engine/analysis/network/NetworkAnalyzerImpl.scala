@@ -63,8 +63,8 @@ class NetworkAnalyzerImpl(
     val networkNodesInRelation = nodeMembers.map(member => allNodes(member.node.id)).toSet
 
     val routeNodes = networkMemberRoutes.flatMap(_.routeAnalysis.routeNodeAnalysis.routeNodes)
-    val networkNodesInRouteWays = routeNodes.filter(_.definedInWay).map(routeNode => allNodes(routeNode.id)).toSet
-    val networkNodesInRouteRelations = routeNodes.filter(_.definedInRelation).map(routeNode => allNodes(routeNode.id)).toSet
+    val networkNodesInRouteWays = routeNodes.filter(_.definedInWay).flatMap(routeNode => allNodes.get(routeNode.id)).toSet
+    val networkNodesInRouteRelations = routeNodes.filter(_.definedInRelation).flatMap(routeNode => allNodes.get(routeNode.id)).toSet
 
     val allNodesInNetwork: Set[NetworkNode] = networkNodesInRelation ++ networkNodesInRouteWays ++ networkNodesInRouteRelations
 
