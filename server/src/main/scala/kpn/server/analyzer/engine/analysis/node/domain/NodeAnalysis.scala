@@ -54,7 +54,9 @@ case class NodeAnalysis(
       node.tags,
       facts,
       locations,
-      tiles
+      tiles,
+      integrity,
+      routeReferences
     )
   }
 

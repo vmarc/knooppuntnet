@@ -23,6 +23,8 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
   test("node") {
 
+    pending
+
     withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(null, database, false)
       repo.save(
@@ -51,6 +53,8 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
 
   test("node with lastSurvey") {
 
+    pending
+
     withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(null, database, false)
       repo.save(buildNode(1001))
@@ -68,6 +72,8 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
   }
 
   test("node with facts") {
+
+    pending
 
     withCouchDatabase { database =>
       val repo = new NodeRepositoryImpl(null, database, false)

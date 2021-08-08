@@ -61,6 +61,8 @@ class OrphanNodeTest01 extends AbstractTest {
             newNodeTags("01"),
             Seq.empty,
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )
@@ -159,6 +161,8 @@ class OrphanNodeTest01 extends AbstractTest {
             ),
             Seq.empty,
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )

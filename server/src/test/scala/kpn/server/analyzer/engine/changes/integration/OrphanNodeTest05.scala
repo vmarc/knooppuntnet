@@ -5,7 +5,6 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.NodeInfo
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
@@ -63,6 +62,8 @@ class OrphanNodeTest05 extends AbstractTest {
             Tags.empty,
             Seq.empty,
             Seq.empty,
+            Seq.empty,
+            None,
             Seq.empty
           )
         )

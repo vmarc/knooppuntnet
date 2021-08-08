@@ -3,7 +3,9 @@ package kpn.core.mongo.doc
 import kpn.api.base.WithId
 import kpn.api.common.LatLon
 import kpn.api.common.NodeName
+import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
+import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -26,7 +28,9 @@ case class NodeDoc(
   tags: Tags,
   facts: Seq[Fact],
   locations: Seq[String],
-  tiles: Seq[String]
+  tiles: Seq[String],
+  integrity: Option[NodeIntegrity] = None,
+  routeReferences: Seq[Reference]
 ) extends Tagable with LatLon with WithId {
 
   def name(scopedNetworkType: ScopedNetworkType): String = {

@@ -10,6 +10,7 @@ import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackPoint
@@ -48,6 +49,7 @@ import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
+import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
@@ -310,7 +312,9 @@ trait SharedTestObjects extends MockFactory {
     tags: Tags = Tags.empty,
     facts: Seq[Fact] = Seq.empty,
     locations: Seq[String] = Seq.empty,
-    tiles: Seq[String] = Seq.empty
+    tiles: Seq[String] = Seq.empty,
+    integrity: Option[NodeIntegrity] = None,
+    routeReferences: Seq[Reference] = Seq.empty
   ): NodeDoc = {
 
     NodeDoc(
@@ -327,7 +331,9 @@ trait SharedTestObjects extends MockFactory {
       tags,
       facts,
       locations,
-      tiles
+      tiles,
+      integrity,
+      routeReferences
     )
   }
 
