@@ -10,13 +10,17 @@ trait RouteRepository {
 
   def allRouteIds(): Seq[Long]
 
-  def save(routes: RouteInfo): Unit
+  def activeRouteIds(): Seq[Long]
+
+  def save(route: RouteInfo): Unit
+
+  def bulkSave(routes: Seq[RouteInfo]): Unit
 
   def saveElements(routeElements: RouteElements): Unit
 
   def delete(routeId: Long): Unit
 
-  def routeWithId(routeId: Long): Option[RouteInfo]
+  def findById(routeId: Long): Option[RouteInfo]
 
   def mapInfo(routeId: Long): Option[RouteMapInfo]
 

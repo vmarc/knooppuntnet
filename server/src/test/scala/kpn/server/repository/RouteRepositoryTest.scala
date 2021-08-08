@@ -17,9 +17,9 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
 
-      routeRepository.routeWithId(10) should equal(Some(newRoute(10)))
-      routeRepository.routeWithId(20) should equal(Some(newRoute(20)))
-      routeRepository.routeWithId(30) should equal(None)
+      routeRepository.findById(10) should equal(Some(newRoute(10)))
+      routeRepository.findById(20) should equal(Some(newRoute(20)))
+      routeRepository.findById(30) should equal(None)
     }
   }
 
@@ -58,32 +58,32 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
       routeRepository.save(newRoute(10, name = "01-02"))
       routeRepository.save(newRoute(20, name = "02-03"))
 
-      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02")))
-      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-03")))
-      routeRepository.routeWithId(30) should equal(None)
+      routeRepository.findById(10) should equal(Some(newRoute(10, name = "01-02")))
+      routeRepository.findById(20) should equal(Some(newRoute(20, name = "02-03")))
+      routeRepository.findById(30) should equal(None)
 
       // save again without change
       routeRepository.save(newRoute(10, name = "01-02"))
       routeRepository.save(newRoute(20, name = "02-03"))
 
-      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02")))
-      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-03")))
-      routeRepository.routeWithId(30) should equal(None)
+      routeRepository.findById(10) should equal(Some(newRoute(10, name = "01-02")))
+      routeRepository.findById(20) should equal(Some(newRoute(20, name = "02-03")))
+      routeRepository.findById(30) should equal(None)
 
       // update
       routeRepository.save(newRoute(10, name = "01-02"))
       routeRepository.save(newRoute(20, name = "02-04"))
 
-      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02")))
-      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-04"))) // updated
-      routeRepository.routeWithId(30) should equal(None)
+      routeRepository.findById(10) should equal(Some(newRoute(10, name = "01-02")))
+      routeRepository.findById(20) should equal(Some(newRoute(20, name = "02-04"))) // updated
+      routeRepository.findById(30) should equal(None)
 
       // update
       routeRepository.save(newRoute(20, name = "02-05"))
 
-      routeRepository.routeWithId(10) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
-      routeRepository.routeWithId(20) should equal(Some(newRoute(20, name = "02-05"))) // updated
-      routeRepository.routeWithId(30) should equal(None)
+      routeRepository.findById(10) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
+      routeRepository.findById(20) should equal(Some(newRoute(20, name = "02-05"))) // updated
+      routeRepository.findById(30) should equal(None)
     }
   }
 

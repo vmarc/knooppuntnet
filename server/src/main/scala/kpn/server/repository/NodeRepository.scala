@@ -7,6 +7,8 @@ trait NodeRepository {
 
   def allNodeIds(): Seq[Long]
 
+  def activeNodeIds(): Seq[Long]
+
   def save(node: NodeDoc): Unit
 
   def bulkSave(nodes: NodeDoc*): Unit

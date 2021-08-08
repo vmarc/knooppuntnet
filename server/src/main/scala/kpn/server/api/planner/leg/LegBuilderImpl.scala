@@ -116,7 +116,7 @@ class LegBuilderImpl(
 
     val routeIds = params.routeIds
     val routeInfos = routeIds.flatMap { routeId =>
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case Some(routeInfo) => Some(routeInfo.id -> routeInfo)
         case None =>
           log.error(s"via-route $routeId not found")
@@ -194,7 +194,7 @@ class LegBuilderImpl(
 
     segments.flatMap { graphPathSegment =>
       val routeId = graphPathSegment.pathKey.routeId
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case Some(route) =>
           val pathId = if (graphPathSegment.pathKey.pathId < 100) graphPathSegment.pathKey.pathId else graphPathSegment.pathKey.pathId - 100
           val colour = route.tags("colour")

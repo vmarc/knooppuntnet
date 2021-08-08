@@ -1,18 +1,19 @@
 package kpn.core.tools.export
 
-import java.io.File
 import kpn.api.common.common.TrackPath
 import kpn.api.common.network.NetworkAttributes
-import kpn.api.common.network.NetworkInfo
-import kpn.api.common.network.NetworkInfoNode
+import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.json.Json
-import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NetworkInfoRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
+
+import java.io.File
 
 /*
   Exports cycling network nodes and connections between nodes to GeoJson files.
@@ -55,14 +56,14 @@ class NodeCyclerExportTool(database: Database, exportDir: String) {
   import NodeCyclerExportTool.log
 
   private val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
-  private val networkRepository = new NetworkRepositoryImpl(database, null, true)
-  private val routeRepository = new RouteRepositoryImpl( database,null, true)
+  private val networkInfoRepository = new NetworkInfoRepositoryImpl(database)
+  private val routeRepository = new RouteRepositoryImpl(database, null, true)
 
   def export(): Unit = {
     val networks = cyclingNetworksFromDatabase()
     networks.zipWithIndex.foreach { case (networkAttributes, index) =>
       log.info(s"${index + 1}/${networks.size} ${networkAttributes.name}")
-      networkRepository.findById(networkAttributes.id) match {
+      networkInfoRepository.findById(networkAttributes.id) match {
         case None =>
         case Some(network) =>
           exportNodes(network)
@@ -73,30 +74,30 @@ class NodeCyclerExportTool(database: Database, exportDir: String) {
 
   private def cyclingNetworksFromDatabase(): Seq[NetworkAttributes] = {
     val subsets = Subset.all.filter(_.networkType == NetworkType.cycling)
-    subsets.flatMap(subset => networkRepository.networks(subset, stale = false))
+    subsets.flatMap(subset => networkInfoRepository.networks(subset, stale = false))
   }
 
-  private def exportNodes(networkInfo: NetworkInfo): Unit = {
-    val nodes = networkInfo.detail.toSeq.flatMap(_.nodes).map(nodeToGeoJson)
+  private def exportNodes(networkInfoDoc: NetworkInfoDoc): Unit = {
+    val nodes = networkInfoDoc.nodes.map(nodeToGeoJson)
     val collection = GeoJson.featureCollection(nodes)
-    json.writeValue(new File(s"$exportDir/nodes-${networkInfo.id}.json"), collection)
+    json.writeValue(new File(s"$exportDir/nodes-${networkInfoDoc._id}.json"), collection)
   }
 
-  private def exportRoutes(networkInfo: NetworkInfo): Unit = {
-    val routeIds = networkInfo.detail.toSeq.flatMap(_.routes).map(_.id)
+  private def exportRoutes(networkInfo: NetworkInfoDoc): Unit = {
+    val routeIds = networkInfo.routes.map(_.id)
     val paths = routeIds.flatMap { routeId =>
-      routeRepository.routeWithId(routeId).toSeq.flatMap(_.analysis.map.paths)
+      routeRepository.findById(routeId).toSeq.flatMap(_.analysis.map.paths)
     }
     val collection = GeoJson.featureCollection(paths.map(trackPathToGeoJson))
-    json.writeValue(new File(s"$exportDir/routes-${networkInfo.id}.json"), collection)
+    json.writeValue(new File(s"$exportDir/routes-${networkInfo._id}.json"), collection)
   }
 
-  private def nodeToGeoJson(networkInfoNode: NetworkInfoNode): GeoJsonFeature = {
+  private def nodeToGeoJson(networkNodeDetail: NetworkNodeDetail): GeoJsonFeature = {
     GeoJson.feature(
-      GeoJson.pointGeometry(networkInfoNode.latitude, networkInfoNode.longitude),
+      GeoJson.pointGeometry(networkNodeDetail.latitude, networkNodeDetail.longitude),
       GeoJson.properties(
-        id = Some(networkInfoNode.id.toString),
-        name = Some(networkInfoNode.name)
+        id = Some(networkNodeDetail.id.toString),
+        name = Some(networkNodeDetail.name)
       )
     )
   }

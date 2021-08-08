@@ -107,13 +107,17 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
     new RouteRepository() {
       override def allRouteIds(): Seq[Long] = ???
 
+      def activeRouteIds(): Seq[Long] = ???
+
+      def bulkSave(routes: Seq[kpn.api.common.route.RouteInfo]): Unit = ???
+
       override def save(routes: RouteInfo): Unit = ???
 
       override def saveElements(routeElements: RouteElements): Unit = ???
 
       override def delete(routeId: Long): Unit = ???
 
-      override def routeWithId(routeId: Long): Option[RouteInfo] = None
+      override def findById(routeId: Long): Option[RouteInfo] = None
 
       override def mapInfo(routeId: Long): Option[RouteMapInfo] = None
 

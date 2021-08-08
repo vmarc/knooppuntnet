@@ -30,7 +30,7 @@ class FindNonNodeNetworkRoutesTool(database: Database) {
       if ((index + 1) % 500 == 0) {
         println(s"${index + 1}/${routeIds.size}")
       }
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case None =>
         case Some(routeInfo) =>
           if (routeInfo.active) {

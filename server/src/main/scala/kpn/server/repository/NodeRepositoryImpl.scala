@@ -7,6 +7,7 @@ import kpn.core.database.views.analyzer.NodeRouteReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryKnownNodeIds
+import kpn.core.mongo.actions.nodes.MongoQueryNodeIds
 import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.Log
@@ -40,6 +41,10 @@ class NodeRepositoryImpl(
     else {
       DocumentView.allNodeIds(analysisDatabase)
     }
+  }
+
+  override def activeNodeIds(): Seq[Long] = {
+    new MongoQueryNodeIds(database).execute()
   }
 
   override def save(nodeDoc: NodeDoc): Unit = {

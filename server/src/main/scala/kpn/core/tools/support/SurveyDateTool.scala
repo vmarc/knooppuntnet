@@ -25,7 +25,7 @@ class SurveyDateTool(database: Database) {
     val routeIds = DocumentView.allRouteIds(database) //.take(5)
     routeIds.foreach { routeId =>
 
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case Some(route) =>
           route.tags.tags.foreach { tag =>
             val key = tag.key.toLowerCase()

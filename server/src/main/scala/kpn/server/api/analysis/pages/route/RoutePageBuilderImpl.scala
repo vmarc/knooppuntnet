@@ -46,7 +46,7 @@ class RoutePageBuilderImpl(
   }
 
   private def doBuildDetailsPage(routeId: Long): Option[RouteDetailsPage] = {
-    routeRepository.routeWithId(routeId).map { route =>
+    routeRepository.findById(routeId).map { route =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
       val networkReferences = routeRepository.networkReferences(routeId)
       RouteDetailsPage(route, networkReferences, changeCount)

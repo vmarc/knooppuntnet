@@ -51,10 +51,10 @@ class GraphTestData extends SharedTestObjects with MockFactory {
 
   val routeRepository: RouteRepository = {
     val routeRepository = stub[RouteRepository]
-    (routeRepository.routeWithId _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute1, node1, node2)))
-    (routeRepository.routeWithId _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute2, node2, node3)))
-    (routeRepository.routeWithId _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute3, node3, node4)))
-    (routeRepository.routeWithId _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute4, node1, node3)))
+    (routeRepository.findById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute1, node1, node2)))
+    (routeRepository.findById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute2, node2, node3)))
+    (routeRepository.findById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute3, node3, node4)))
+    (routeRepository.findById _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeInfo(legEndRoute4, node1, node3)))
     routeRepository
   }
 

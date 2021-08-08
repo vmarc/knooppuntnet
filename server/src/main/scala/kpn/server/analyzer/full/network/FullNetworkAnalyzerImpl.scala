@@ -29,11 +29,13 @@ class FullNetworkAnalyzerImpl(
         val analyzedNetworkIds = analyzeNetworks(context, overpassNetworkIds)
         val obsoleteNetworkIds = (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
         deactivateObsoleteNetworks(obsoleteNetworkIds)
-        context.copy(
-          obsoleteNetworkIds = obsoleteNetworkIds,
-          networkIds = analyzedNetworkIds,
+        (
+          s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)",
+          context.copy(
+            obsoleteNetworkIds = obsoleteNetworkIds,
+            networkIds = analyzedNetworkIds,
+          )
         )
-        (s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)", context)
       }
     }
   }

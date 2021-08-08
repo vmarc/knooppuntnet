@@ -84,7 +84,7 @@ class DuplicateRoutesReport(database: Database) {
       if (index % 100 == 0) {
         println(s"${routeIds.size}/$index")
       }
-      routeRepository.routeWithId(routeId).flatMap { routeInfo =>
+      routeRepository.findById(routeId).flatMap { routeInfo =>
         val country = routeInfo.summary.country
         val networkType = routeInfo.summary.networkType
         val name = routeInfo.summary.name

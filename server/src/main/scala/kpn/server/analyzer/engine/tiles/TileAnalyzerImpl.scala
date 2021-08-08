@@ -69,7 +69,7 @@ class TileAnalyzerImpl(
           log.info(s"Load route ${index + 1}/${routeIds.size} $progress%")
           progress = currentProgress
         }
-        routeRepo.routeWithId(routeId)
+        routeRepo.findById(routeId)
       }
     }
   }

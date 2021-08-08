@@ -41,13 +41,8 @@ class NetworkRepositoryImpl(
     new MongoQueryNetworkIds(database).execute()
   }
 
-  override def findById(networkId: Long): Option[NetworkInfo] = {
-    if (mongoEnabled) {
-      database.oldNetworks.findById(networkId, log)
-    }
-    else {
-      analysisDatabase.docWithId(networkKey(networkId), classOf[CouchNetworkDoc]).map(_.network)
-    }
+  override def findById(networkId: Long): Option[NetworkDoc] = {
+    database.networks.findById(networkId, log)
   }
 
   override def elements(networkId: Long): Option[NetworkElements] = {

@@ -96,7 +96,7 @@ class RouteAnalysisTool(
           case Some(newRouteAnalysis) =>
             Log.context(newRouteAnalysis.route.summary.name) {
               routeRepository.save(newRouteAnalysis.route)
-              analysisRouteRepository.routeWithId(newRouteAnalysis.route.id) match {
+              analysisRouteRepository.findById(newRouteAnalysis.route.id) match {
                 case None => log.info("route not found in analysis database")
                 case Some(oldRoute) =>
                   if (!oldRoute.active) {

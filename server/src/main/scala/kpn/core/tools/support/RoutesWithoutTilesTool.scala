@@ -24,7 +24,7 @@ class RoutesWithoutTilesTool(database: Database) {
       if ((index + 1) % 500 == 0) {
         println(s"${index + 1}/${routeIds.size}")
       }
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case None =>
         case Some(route) =>
           if (route.active && !route.summary.isBroken && route.tiles.isEmpty) {

@@ -1,22 +1,13 @@
 package kpn.server.analyzer.full.node
 
+import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NodeDoc
-import kpn.core.mongo.util.Id
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.full.FullAnalysisContext
-import kpn.server.analyzer.load.NodeLoader
 import kpn.server.overpass.OverpassRepository
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.ReplaceOneModel
-import org.mongodb.scala.model.ReplaceOptions
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 import java.util.concurrent.TimeUnit
@@ -29,7 +20,7 @@ import scala.concurrent.duration.Duration
 class FullNodeAnalyzerImpl(
   database: Database,
   overpassRepository: OverpassRepository,
-  nodeLoader: NodeLoader,
+  nodeRepository: NodeRepository,
   nodeAnalyzer: NodeAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullNodeAnalyzer {
@@ -37,63 +28,57 @@ class FullNodeAnalyzerImpl(
   private val log = Log(classOf[FullNodeAnalyzerImpl])
 
   override def analyze(context: FullAnalysisContext): FullAnalysisContext = {
-
-    val existingNodeIds = findActiveNodeIds()
-
-    val allNodeIds = log.infoElapsed {
-      val ids = overpassRepository.nodeIds(context.timestamp)
-      ("load node ids", ids)
+    Log.context("full-node-analysis") {
+      log.infoElapsed {
+        val activeNodeIds = collectActiveNodeIds()
+        val overpassNodeIds = collectOverpassNodeIds(context.timestamp)
+        val analyzedNodeIds = analyzeNodes(context, overpassNodeIds)
+        val obsoleteNodeIds = (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
+        deactivateObsoleteNodes(obsoleteNodeIds)
+        (
+          s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)",
+          context.copy(
+            obsoleteNodeIds = obsoleteNodeIds,
+            nodeIds = analyzedNodeIds
+          )
+        )
+      }
     }
+  }
 
+  private def collectActiveNodeIds(): Seq[Long] = {
+    nodeRepository.activeNodeIds()
+  }
+
+  private def collectOverpassNodeIds(timestamp: Timestamp): Seq[Long] = {
+    log.info("Collecting overpass node ids")
+    log.infoElapsed {
+      val ids = overpassRepository.nodeIds(timestamp)
+      (s"Collected ${ids.size} overpass node ids", ids)
+    }
+  }
+
+  private def analyzeNodes(context: FullAnalysisContext, overpassNodeIds: Seq[Long]): Seq[Long] = {
     val batchSize = 500
-    val updateFutures = allNodeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (nodeIdsBatch, index) =>
+    val updateFutures = overpassNodeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (nodeIdsBatch, index) =>
       Future(
-        Log.context(s"${index * batchSize}/${allNodeIds.size}") {
-          val rawNodes = nodeLoader.load(context.timestamp, nodeIdsBatch)
-          val nodeDocs = rawNodes.map { rawNode =>
-            nodeAnalyzer.analyze(NodeAnalysis(rawNode)).toNodeDoc
-          }
-
+        Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
           log.infoElapsed {
-            val requests = nodeDocs.map { doc =>
-              ReplaceOneModel[NodeDoc](Filters.equal("_id", doc._id), doc, ReplaceOptions().upsert(true))
+            val rawNodes = overpassRepository.nodes(context.timestamp, nodeIdsBatch)
+            val nodeDocs = rawNodes.map { rawNode =>
+              nodeAnalyzer.analyze(NodeAnalysis(rawNode)).toNodeDoc
             }
-            val future = database.nodes.native.bulkWrite(requests).toFuture()
-            Await.result(future, Duration(2, TimeUnit.MINUTES))
-            ("save", ())
+            database.nodes.bulkSave(nodeDocs)
+            val ids = nodeDocs.map(_._id)
+            (s"analyzed ${ids.size} nodes: ${ids.mkString(", ")}", ids)
           }
-          rawNodes.map(_.id)
         }
       )
     }.toSeq
 
     val loadIdFuturesSeq = Future.sequence(updateFutures)
-
     val updateResult = Await.result(loadIdFuturesSeq, Duration(20, TimeUnit.MINUTES))
-    val nodeIds = updateResult.flatten
-
-    val obsoleteNodeIds = (existingNodeIds.toSet -- nodeIds).toSeq.sorted
-    deactivateObsoleteNodes(obsoleteNodeIds)
-
-    context.copy(
-      obsoleteNodeIds = obsoleteNodeIds,
-      nodeIds = nodeIds
-    )
-  }
-
-  private def findActiveNodeIds(): Seq[Long] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(equal("labels", "active")),
-        project(
-          fields(
-            include("_id")
-          )
-        )
-      )
-      val nodeIds = database.nodes.aggregate[Id](pipeline, log).map(_._id)
-      (s"{$nodeIds.size} existing nodes", nodeIds)
-    }
+    updateResult.flatten
   }
 
   private def deactivateObsoleteNodes(nodeIds: Seq[Long]): Unit = {

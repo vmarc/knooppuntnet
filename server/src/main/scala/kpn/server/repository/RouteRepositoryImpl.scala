@@ -11,6 +11,7 @@ import kpn.core.database.views.analyzer.ReferenceView
 import kpn.core.db.KeyPrefix
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryKnownRouteIds
+import kpn.core.mongo.actions.routes.MongoQueryRouteIds
 import kpn.core.mongo.actions.routes.MongoQueryRouteMapInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNameInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
@@ -37,6 +38,10 @@ class RouteRepositoryImpl(
     }
   }
 
+  override def activeRouteIds(): Seq[Long] = {
+    new MongoQueryRouteIds(database).execute(log).sorted
+  }
+
   override def save(routeInfo: RouteInfo): Unit = {
     if (mongoEnabled) {
       database.routes.save(routeInfo, log)
@@ -47,6 +52,10 @@ class RouteRepositoryImpl(
         (s"Save route ${routeInfo.id}", ())
       }
     }
+  }
+
+  override def bulkSave(routeInfo: Seq[RouteInfo]): Unit = {
+    database.routes.bulkSave(routeInfo, log)
   }
 
   override def saveElements(routeElements: RouteElements): Unit = {
@@ -73,7 +82,7 @@ class RouteRepositoryImpl(
     }
   }
 
-  override def routeWithId(routeId: Long): Option[RouteInfo] = {
+  override def findById(routeId: Long): Option[RouteInfo] = {
     if (mongoEnabled) {
       database.routes.findById(routeId, log)
     }

@@ -1,6 +1,7 @@
 package kpn.server.overpass
 
 import kpn.api.common.data.raw.RawData
+import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
@@ -11,6 +12,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryFullRelations
 import kpn.core.overpass.QueryNetworkIds
 import kpn.core.overpass.QueryNodeIds
+import kpn.core.overpass.QueryNodes
 import kpn.core.overpass.QueryRelations
 import kpn.core.overpass.QueryRouteIds
 import kpn.core.util.Log
@@ -39,6 +41,31 @@ class OverpassRepositoryImpl(
   override def networkIds(timestamp: Timestamp): Seq[Long] = {
     val query = QueryNetworkIds()
     ids(timestamp, "relation", query).distinct.sorted
+  }
+
+  override def nodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
+    if (nodeIds.isEmpty) {
+      Seq.empty
+    }
+    else {
+      val query = QueryNodes("nodes", nodeIds)
+
+      val xmlString: String = log.debugElapsed {
+        val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), query)
+        (s"Load ${nodeIds.size} nodes at ${timestamp.iso}", xml)
+      }
+
+      val xml = try {
+        XML.loadString(xmlString)
+      }
+      catch {
+        case e: Exception =>
+          throw new RuntimeException(s"Could not load nodes at ${timestamp.iso}", e)
+      }
+
+      val rawData = new Parser().parse(xml.head)
+      rawData.nodes
+    }
   }
 
   def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {

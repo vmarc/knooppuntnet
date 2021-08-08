@@ -26,7 +26,7 @@ class RouteTool(database: Database) {
       if (((index + 1) % 100) == 0) {
         println(s"${index + 1}/${allRouteIds.size}")
       }
-      routeRepository.routeWithId(routeId).foreach { routeInfo =>
+      routeRepository.findById(routeId).foreach { routeInfo =>
         if (routeInfo.active) {
           if (!ignoreRouteName(routeInfo.summary.name)) {
             println(s"""== $routeId ${routeInfo.summary.name}""")
@@ -88,7 +88,7 @@ class RouteTool(database: Database) {
       if (((index + 1) % 100) == 0) {
         println(s"${index + 1}/${allRouteIds.size}")
       }
-      routeRepository.routeWithId(routeId).foreach { routeInfo =>
+      routeRepository.findById(routeId).foreach { routeInfo =>
         if (routeInfo.tags.has("state")) {
           println(s"""== $routeId state=${routeInfo.tags("state").getOrElse("")}""")
         }
@@ -101,7 +101,7 @@ class RouteTool(database: Database) {
     val blackListRepository = new BlackListRepositoryImpl(null, database, false)
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
     blackListedRouteIds.foreach { routeId =>
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case None => println(s"$routeId no")
         case Some(routeInfo) => println(s"$routeId yes")
           routeRepository.delete(routeId)
@@ -122,7 +122,7 @@ class RouteTool(database: Database) {
     val blackListedRouteIds = blackListRepository.get.routes.map(_.id)
 
     blackListedRouteIds.foreach { routeId =>
-      routeRepository.routeWithId(routeId) match {
+      routeRepository.findById(routeId) match {
         case None => println(s"route $routeId not in database")
         case Some(route) =>
           val redundantNodeCount = route.analysis.map.redundantNodes.size

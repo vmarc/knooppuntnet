@@ -23,10 +23,9 @@ class FullAnalyzerImpl(
   override def analyze(timestamp: Timestamp): Unit = {
     log.infoElapsed {
       val context1 = FullAnalysisContext(timestamp)
-      val context2 = fullNetworkAnalyzer.analyze(context1)
-
+      // val context2 = fullNetworkAnalyzer.analyze(context1)
       // val context2 = fullRouteAnalyzer.analyze(context1)
-      // val context3 = fullNodeAnalyzer.analyze(context2)
+      val context3 = fullNodeAnalyzer.analyze(context1)
       // postProcessor.process(context4.networkIds)
       ("full analysis completed", ())
     }

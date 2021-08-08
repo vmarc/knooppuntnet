@@ -10,7 +10,7 @@ class MapRouteDetailBuilderImpl(
   routeRepository: RouteRepository
 ) extends MapRouteDetailBuilder {
   def build(user: Option[String], routeId: Long): Option[MapRouteDetail] = {
-    routeRepository.routeWithId(routeId).map { route =>
+    routeRepository.findById(routeId).map { route =>
       val networkReferences = buildNetworkReferences(routeId)
       MapRouteDetail(
         routeId,
