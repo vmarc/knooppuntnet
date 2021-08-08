@@ -14,7 +14,7 @@ object MongoQuerySubsetInfo {
   private val log = Log(classOf[MongoQuerySubsetInfo])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       val query = new MongoQuerySubsetInfo(database)
       println(query.execute(Subset.nlBicycle))
       println(query.execute(Subset.deBicycle))
@@ -30,13 +30,11 @@ class MongoQuerySubsetInfo(database: Database) {
         filter(
           in(
             "_id",
-            Seq(
-              "NetworkCount",
-              "FactCount",
-              "ChangeCount",
-              "OrphanNodeCount",
-              "OrphanRouteCount",
-            )
+            "NetworkCount",
+            "FactCount",
+            "ChangeCount",
+            "OrphanNodeCount",
+            "OrphanRouteCount"
           )
         )
       )
@@ -63,7 +61,10 @@ class MongoQuerySubsetInfo(database: Database) {
 
   private def extractCount(subset: Subset, statisticValuess: Seq[StatisticValues], factname: String): Long = {
     statisticValuess.filter(_._id == factname).map { statisticValues =>
-      statisticValues.values.filter(statisticValue => statisticValue.country == subset.country && statisticValue.networkType == subset.networkType).map(_.value).sum
+      statisticValues.values.filter(statisticValue =>
+        statisticValue.country == subset.country &&
+          statisticValue.networkType == subset.networkType
+      ).map(_.value).sum
     }.sum
   }
 

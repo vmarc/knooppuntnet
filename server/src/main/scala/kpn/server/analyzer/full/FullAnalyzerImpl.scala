@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class FullAnalyzerImpl(
-  database: Database,
   fullNetworkAnalyzer: FullNetworkAnalyzer,
   fullRouteAnalyzer: FullRouteAnalyzer,
   fullNodeAnalyzer: FullNodeAnalyzer,
@@ -23,10 +22,10 @@ class FullAnalyzerImpl(
   override def analyze(timestamp: Timestamp): Unit = {
     log.infoElapsed {
       val context1 = FullAnalysisContext(timestamp)
-      // val context2 = fullNetworkAnalyzer.analyze(context1)
-      // val context2 = fullRouteAnalyzer.analyze(context1)
-      val context3 = fullNodeAnalyzer.analyze(context1)
-      // postProcessor.process(context4.networkIds)
+      val context2 = fullNetworkAnalyzer.analyze(context1)
+      val context3 = fullRouteAnalyzer.analyze(context2)
+      val context4 = fullNodeAnalyzer.analyze(context3)
+      postProcessor.process(context4.networkIds)
       ("full analysis completed", ())
     }
     System.exit(0)

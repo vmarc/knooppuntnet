@@ -2,6 +2,7 @@ package kpn.server.analyzer.load
 
 import kpn.api.custom.Subset
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.OrphanRepository
@@ -20,27 +21,19 @@ class AnalysisDataInitializerImpl(
 
   override def load(): Unit = {
     loadNetworks()
-    loadOrphanRoutes()
+    loadRoutes()
     loadOrphanNodes()
   }
 
   private def loadNetworks(): Unit = {
-    val networkIds = networkRepository.allNetworkIds()
-    networkIds.zipWithIndex.foreach { case (networkId, index) =>
-      Log.context(s"${index + 1}/${networkIds.size}, $networkId") {
-        log.infoElapsed {
-          networkRepository.elements(networkId) match {
-            case None => log.error(s"Could not load elements for network with id $networkId")
-            case Some(networkElements) =>
-              analysisContext.data.networks.watched.add(networkId, networkElements.elementsIds)
-          }
-          ("Loaded", networkId)
-        }
-      }
-    }
+    val networkIds = networkRepository.activeNetworkIds()
+    networkIds.foreach(networkId => analysisContext.data.networks.watched.add(networkId, ElementIds()))
   }
 
-  private def loadOrphanRoutes(): Unit = {
+  private def loadRoutes(): Unit = {
+    val routeIds = routeRepository.activeRouteIds()
+
+
     val orphanRouteIds = Subset.all.flatMap(subset => orphanRepository.orphanRouteIds(subset))
     orphanRouteIds.zipWithIndex.foreach { case (routeId, index) =>
       Log.context(s"${index + 1}/${orphanRouteIds.size}, $routeId") {
