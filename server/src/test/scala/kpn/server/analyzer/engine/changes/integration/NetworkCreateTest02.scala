@@ -46,7 +46,7 @@ class NetworkCreateTest02 extends AbstractTest {
       .networkRelation(1, "name", Seq(newMember("relation", 11)))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 11)
     tc.nodesBefore(dataBefore, 1001, 1002)
     tc.relationAfter(dataAfter, 1)

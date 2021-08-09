@@ -32,7 +32,7 @@ class NetworkDeleteNodeTest01 extends AbstractTest {
       .networkNode(1001, "01")
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 1)
     tc.nodesAfter(dataAfter, 1001)
 

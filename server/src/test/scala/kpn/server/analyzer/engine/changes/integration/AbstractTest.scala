@@ -42,6 +42,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.ElementIdAnalyzerSyncImpl
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilder
@@ -68,10 +69,12 @@ import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessorI
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessorImpl
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeDeleteProcessorImpl
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeUpdateProcessorImpl
-import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeAnalyzer
-import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessor
-import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteProcessorImpl
+import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
+import kpn.server.analyzer.engine.changes.route.RouteChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.route.create.RouteCreateProcessor
+import kpn.server.analyzer.engine.changes.route.delete.RouteDeleteProcessor
+import kpn.server.analyzer.engine.changes.route.update.RouteUpdateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -83,6 +86,7 @@ import kpn.server.analyzer.load.NodeLoaderImpl
 import kpn.server.analyzer.load.OldRouteLoaderImpl
 import kpn.server.analyzer.load.RoutesLoaderSyncImpl
 import kpn.server.analyzer.load.data.RawDataSplitter
+import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.BlackListRepository
@@ -96,6 +100,8 @@ import org.scalamock.scalatest.MockFactory
 
 import java.io.PrintWriter
 import java.io.StringWriter
+import java.util.concurrent.Executors
+import scala.concurrent.ExecutionContext
 
 abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObjects {
 
@@ -107,9 +113,12 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     data.raw.relationWithId(id).get
   }
 
-  protected class TestConfig() {
+  protected class OldTestConfig(dataBefore: Data, dataAfter: Data) {
 
     val analysisContext = new AnalysisContext()
+
+    val overpassRepository: OverpassRepository = new OverpassRepositoryMock(dataBefore, dataAfter)
+    val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock()
     val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
@@ -143,6 +152,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       routeTileAnalyzer
     )
     private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
+
+    private val elementIdAnalyzer = new ElementIdAnalyzerSyncImpl()
 
     private val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
     (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
@@ -289,27 +300,29 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       taskRepository
     )
 
-    private val orphanRouteChangeProcessor = {
-      val orphanRouteProcessor: OrphanRouteProcessor = new OrphanRouteProcessorImpl(
+    private val routeChangeProcessor: RouteChangeProcessor = {
+
+      val routeChangeAnalyzer = new RouteChangeAnalyzer(
         analysisContext,
-        nodeRepository,
-        routeRepository,
-        masterRouteAnalyzer,
-        nodeAnalyzer
+        blackListRepository,
+        elementIdAnalyzer
       )
 
-      val orphanRouteChangeAnalyzer = new OrphanRouteChangeAnalyzer(
+      val createProcessor: RouteCreateProcessor = null
+      val updateProcessor: RouteUpdateProcessor = null
+      val deleteProcessor: RouteDeleteProcessor = null
+
+      new RouteChangeProcessorImpl(
         analysisContext,
-        blackListRepository
-      )
-      new OrphanRouteChangeProcessorImpl(
-        analysisContext,
-        orphanRouteChangeAnalyzer,
-        orphanRouteProcessor,
-        routesLoader,
+        routeChangeAnalyzer,
+        createProcessor,
+        updateProcessor,
+        deleteProcessor,
+        overpassRepository,
         masterRouteAnalyzer,
+        tileChangeAnalyzer,
         routeRepository,
-        tileChangeAnalyzer
+        analysisExecutionContext
       )
     }
 
@@ -349,14 +362,16 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
     }
 
+
     val changeProcessor: ChangeProcessor = {
       val changeSaver = new ChangeSaverImpl(
         changeSetRepository
       )
+
       new ChangeProcessor(
-        null,
+        routeChangeProcessor,
         networkChangeProcessor,
-        orphanRouteChangeProcessor,
+        null,
         orphanNodeChangeProcessor,
         changeSetInfoUpdater,
         changeSaver
@@ -375,26 +390,32 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       changeProcessor.process(changeSetContext)
     }
 
+    @deprecated
     def relationBefore(data: Data, relationId: Long): Unit = {
       overpassQueryRelation(data, timestampBeforeValue, relationId)
     }
 
+    @deprecated
     def relationAfter(data: Data, relationId: Long): Unit = {
       overpassQueryRelation(data, timestampAfterValue, relationId)
     }
 
+    @deprecated
     def nodeBefore(data: Data, nodeId: Long): Unit = {
       overpassQueryNode(data, timestampBeforeValue, nodeId)
     }
 
+    @deprecated
     def nodeAfter(data: Data, nodeId: Long): Unit = {
       overpassQueryNode(data, timestampAfterValue, nodeId)
     }
 
+    @deprecated
     def nodesBefore(data: Data, nodeIds: Long*): Unit = {
       overpassQueryNodes(data, timestampBeforeValue, nodeIds)
     }
 
+    @deprecated
     def nodesAfter(data: Data, nodeIds: Long*): Unit = {
       overpassQueryNodes(data, timestampAfterValue, nodeIds)
     }

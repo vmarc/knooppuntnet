@@ -50,7 +50,7 @@ class NetworkUpdateNodeTest08 extends AbstractTest {
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.watchOrphanNode(1002)
     tc.relationBefore(dataBefore, 1)
     tc.watchNetwork(dataBefore, 1)

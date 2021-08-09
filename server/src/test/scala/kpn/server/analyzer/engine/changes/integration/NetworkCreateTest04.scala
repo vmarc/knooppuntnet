@@ -17,6 +17,7 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.core.data.Data
 import kpn.core.test.TestData
 import kpn.core.test.TestData2
 
@@ -42,7 +43,7 @@ class NetworkCreateTest04 extends AbstractTest {
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(Data.empty, dataAfter)
 
     tc.relationAfter(dataAfter, 1) // new network relation
     tc.relationBefore(dataAfter, 11) // the route existed before

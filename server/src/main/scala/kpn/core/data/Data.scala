@@ -6,6 +6,17 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 
+object Data {
+  def empty: Data = {
+    Data(
+      RawData(),
+      Map.empty,
+      Map.empty,
+      Map.empty
+    )
+  }
+}
+
 case class Data(
   raw: RawData,
   nodes: Map[Long, Node],

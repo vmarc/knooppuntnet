@@ -64,7 +64,7 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.watchOrphanRoute(dataBefore, 11)
     tc.relationBefore(dataBefore, 1)
     tc.watchNetwork(dataBefore, 1)

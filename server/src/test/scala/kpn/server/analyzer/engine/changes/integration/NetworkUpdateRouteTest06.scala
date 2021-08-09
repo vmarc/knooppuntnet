@@ -68,7 +68,7 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 11)
     tc.watchNetwork(dataBefore, 1)
     tc.relationBefore(dataBefore, 1)

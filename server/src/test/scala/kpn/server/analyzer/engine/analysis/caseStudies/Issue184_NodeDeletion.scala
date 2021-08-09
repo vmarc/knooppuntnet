@@ -4,6 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.data.Data
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData2
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -17,7 +18,7 @@ class Issue184_NodeDeletion extends AbstractTest {
 
   test("simulate node create/modify/delete") {
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(Data.empty, Data.empty)
 
     processCreate(tc)
     tc.analysisContext.data.orphanNodes.watched.ids.toSeq should equal(Seq(8813846463L))
@@ -48,14 +49,14 @@ class Issue184_NodeDeletion extends AbstractTest {
     ).repeat(3)
   }
 
-  private def processCreate(tc: TestConfig): Unit = {
+  private def processCreate(tc: OldTestConfig): Unit = {
     val changeSet = buildChangeSet(xmlCreate(), Timestamp(2021, 6, 8, 7, 15, 58))
     val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     val context = ChangeSetContext(ReplicationId(1), changeSet, elementIds)
     tc.changeProcessor.process(context)
   }
 
-  private def processModify(tc: TestConfig): Unit = {
+  private def processModify(tc: OldTestConfig): Unit = {
 
     val nodeBeforeModify = TestData2()
       .node(
@@ -74,7 +75,7 @@ class Issue184_NodeDeletion extends AbstractTest {
     tc.changeProcessor.process(context)
   }
 
-  private def processDelete(tc: TestConfig): Unit = {
+  private def processDelete(tc: OldTestConfig): Unit = {
 
     val nodeBeforeDelete = TestData2()
       .node(

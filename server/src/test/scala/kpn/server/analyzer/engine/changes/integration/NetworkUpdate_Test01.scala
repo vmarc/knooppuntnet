@@ -50,7 +50,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
       .networkRelation(1, "name", Seq(newMember("relation", 11)))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 1)
     tc.watchNetwork(dataBefore, 1)
     tc.relationAfter(dataAfter, 1)

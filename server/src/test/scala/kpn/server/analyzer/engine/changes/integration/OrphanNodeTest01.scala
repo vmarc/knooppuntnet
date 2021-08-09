@@ -15,6 +15,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.data.Data
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData2
 
@@ -26,7 +27,7 @@ class OrphanNodeTest01 extends AbstractTest {
       .networkNode(1001, "01")
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(Data.empty, dataAfter)
 
     tc.process(ChangeAction.Create, node(dataAfter, 1001))
 
@@ -122,7 +123,7 @@ class OrphanNodeTest01 extends AbstractTest {
       .node(1001, tags = Tags.from("proposed:rwn_ref" -> "01", "network:type" -> "node_network"))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(Data.empty, dataAfter)
 
     tc.process(ChangeAction.Create, node(dataAfter, 1001))
 

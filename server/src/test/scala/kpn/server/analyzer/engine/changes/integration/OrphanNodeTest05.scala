@@ -31,7 +31,7 @@ class OrphanNodeTest05 extends AbstractTest {
       .node(1001) // rwn_ref tag no longer available, but node still exists
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
 
     tc.analysisContext.data.orphanNodes.watched.add(1001)
 

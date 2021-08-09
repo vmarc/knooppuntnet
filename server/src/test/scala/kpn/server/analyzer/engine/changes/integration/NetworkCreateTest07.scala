@@ -46,7 +46,7 @@ class NetworkCreateTest07 extends AbstractTest {
       .networkRelation(1, "name", Seq(newMember("relation", 11)))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
 
     tc.relationAfter(dataAfter, 1) // new network relation
     tc.relationBefore(dataBefore, 11) // the route existed before

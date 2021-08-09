@@ -16,7 +16,7 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.route.RouteInfo
 
-class OrphanRouteTest03 extends AbstractTest {
+class RouteDeleteTest01 extends AbstractTest {
 
   test("delete orphan route") {
 
@@ -35,7 +35,7 @@ class OrphanRouteTest03 extends AbstractTest {
 
     val dataAfter = TestData2().data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
 
     tc.relationBefore(dataBefore, 11)
     tc.watchOrphanRoute(dataBefore, 11)

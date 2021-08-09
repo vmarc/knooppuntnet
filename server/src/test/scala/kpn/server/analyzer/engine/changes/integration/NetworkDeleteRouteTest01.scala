@@ -41,7 +41,7 @@ class NetworkDeleteRouteTest01 extends AbstractTest {
       .route(11, "01-02", Seq(newMember("way", 101)))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 1)
     tc.relationAfter(dataAfter, 11)
     tc.nodesAfter(dataAfter, 1001, 1002)

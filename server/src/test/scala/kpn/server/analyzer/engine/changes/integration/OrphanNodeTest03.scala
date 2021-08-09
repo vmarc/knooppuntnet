@@ -28,7 +28,7 @@ class OrphanNodeTest03 extends AbstractTest {
 
     val dataAfter = new TestData().data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
 
     tc.analysisContext.data.orphanNodes.watched.add(1001)
 

@@ -33,7 +33,7 @@ class OrphanNodeTest02 extends AbstractTest {
       .networkNode(1001, "01", extraTags = Tags.from("tag" -> "after"))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
 
     tc.analysisContext.data.orphanNodes.watched.add(1001)
 

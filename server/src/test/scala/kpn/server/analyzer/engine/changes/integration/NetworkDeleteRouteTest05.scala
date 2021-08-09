@@ -50,7 +50,7 @@ class NetworkDeleteRouteTest05 extends AbstractTest {
       .networkRelation(2, "network2", Seq(newMember("relation", 12)))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 1)
     tc.relationAfter(dataAfter, 11)
     tc.relationAfter(dataAfter, 12)

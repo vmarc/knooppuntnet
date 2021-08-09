@@ -36,7 +36,7 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
       .node(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 1)
     tc.nodesAfter(dataAfter, 1001)
 

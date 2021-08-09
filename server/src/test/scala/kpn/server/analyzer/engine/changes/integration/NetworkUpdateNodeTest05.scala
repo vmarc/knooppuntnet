@@ -53,7 +53,7 @@ class NetworkUpdateNodeTest05 extends AbstractTest {
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.relationBefore(dataBefore, 1)
     tc.watchNetwork(dataBefore, 1)
     tc.relationAfter(dataAfter, 1)

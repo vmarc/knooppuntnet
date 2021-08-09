@@ -14,6 +14,7 @@ object RawData {
       RawData(datas.head.timestamp, nodes, ways, relations)
     }
   }
+
 }
 
 case class RawData(

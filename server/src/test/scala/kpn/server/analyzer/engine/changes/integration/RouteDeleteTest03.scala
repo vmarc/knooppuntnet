@@ -1,12 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.custom.Country
-import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.test.TestData
-import kpn.core.test.TestData2
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -18,12 +11,20 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteInfo
+import kpn.api.custom.Country
+import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.test.TestData
+import kpn.core.test.TestData2
 
-class OrphanRouteTest02 extends AbstractTest {
+class RouteDeleteTest03 extends AbstractTest {
 
-  test("update orphan route") {
+  test("orphan route looses route tags") {
 
     pending
 
@@ -34,8 +35,7 @@ class OrphanRouteTest02 extends AbstractTest {
       .route(11, "01-02",
         Seq(
           newMember("way", 101)
-        ),
-        Tags.from("key" -> "value1")
+        )
       )
       .data
 
@@ -43,22 +43,23 @@ class OrphanRouteTest02 extends AbstractTest {
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
-      .route(11, "01-02",
+      .relation(
+        11,
         Seq(
           newMember("way", 101)
         ),
-        Tags.from("key" -> "value2")
+        Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02", "network:type" -> "node_network")
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
 
     tc.relationBefore(dataBefore, 11)
     tc.watchOrphanRoute(dataBefore, 11)
     tc.relationAfter(dataAfter, 11)
     tc.process(ChangeAction.Modify, TestData.relation(dataAfter, 11))
 
-    assert(tc.analysisContext.data.routes.watched.contains(11))
+    assert(!tc.analysisContext.data.routes.watched.contains(11))
 
     (tc.routeRepository.save _).verify(
       where { routeInfo: RouteInfo =>
@@ -78,13 +79,14 @@ class OrphanRouteTest02 extends AbstractTest {
               ChangeSetSubsetElementRefs(
                 Subset.nlHiking,
                 ChangeSetElementRefs(
-                  updated = Seq(newChangeSetElementRef(11, "01-02"))
+                  updated = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
                 )
               )
             ),
             subsetAnalyses = Seq(
-              ChangeSetSubsetAnalysis(Subset.nlHiking)
-            )
+              ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+            ),
+            investigate = true
           )
         )
         true
@@ -110,10 +112,9 @@ class OrphanRouteTest02 extends AbstractTest {
                   tags = Tags.from(
                     "network" -> "rwn",
                     "type" -> "route",
-                    "route" -> "foot",
+                    "route" -> "foot", // this is removed in 'after' situation
                     "note" -> "01-02",
-                    "network:type" -> "node_network",
-                    "key" -> "value1" // <--
+                    "network:type" -> "node_network"
                   )
                 ),
                 name = "01-02",
@@ -145,11 +146,9 @@ class OrphanRouteTest02 extends AbstractTest {
                   ),
                   tags = Tags.from(
                     "network" -> "rwn",
-                    "type" -> "route",
-                    "route" -> "foot",
+                    "type" -> "route", // route=foot is missing
                     "note" -> "01-02",
-                    "network:type" -> "node_network",
-                    "key" -> "value2" // <--
+                    "network:type" -> "node_network"
                   )
                 ),
                 name = "01-02",
@@ -167,26 +166,39 @@ class OrphanRouteTest02 extends AbstractTest {
                     nodeIds = Seq(1001, 1002),
                     tags = Tags.from("highway" -> "unclassified")
                   )
+                ),
+                facts = Seq(
+                  Fact.RouteTagMissing,
+                  Fact.RouteBroken
                 )
               )
             ),
             diffs = RouteDiff(
+              factDiffs = Some(
+                FactDiffs(
+                  introduced = Set(
+                    Fact.RouteTagMissing,
+                    Fact.RouteBroken
+                  )
+                )
+              ),
               tagDiffs = Some(
                 TagDiffs(
                   mainTags = Seq(
                     TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
                     TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
                     TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
-                    TagDetail(TagDetailType.Same, "route", Some("foot"), Some("foot")),
+                    TagDetail(TagDetailType.Delete, "route", Some("foot"), None), // <--
                     TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
-                  ),
-                  extraTags = Seq(
-                    TagDetail(TagDetailType.Update, "key", Some("value1"), Some("value2"))
                   )
                 )
               )
             ),
-            facts = Seq(Fact.OrphanRoute)
+            facts = Seq(Fact.WasOrphan, Fact.LostRouteTags),
+            investigate = true,
+            impact = true,
+            locationInvestigate = true,
+            locationImpact = true
           )
         )
         true

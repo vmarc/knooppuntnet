@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.core.test.TestData2
 import kpn.api.common.changes.ChangeAction
+import kpn.core.data.Data
 
 class NetworkDelete_Test02 extends AbstractTest {
 
@@ -10,9 +11,8 @@ class NetworkDelete_Test02 extends AbstractTest {
 
     pending
 
-    val data = TestData2().data
-    val tc = new TestConfig()
-    tc.relationBefore(data, 1)
+    val dataBefore = TestData2().data
+    val tc = new OldTestConfig(dataBefore, Data.empty)
 
     tc.analysisContext.data.networks.watched.add(1, ElementIds())
 

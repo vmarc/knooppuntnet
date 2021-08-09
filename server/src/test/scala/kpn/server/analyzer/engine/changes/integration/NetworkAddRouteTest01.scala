@@ -63,7 +63,7 @@ class NetworkAddRouteTest01 extends AbstractTest {
       )
       .data
 
-    val tc = new TestConfig()
+    val tc = new OldTestConfig(dataBefore, dataAfter)
     tc.nodesBefore(dataAfter, 1001, 1002)
     tc.relationBefore(dataBefore, 1)
     tc.relationBefore(dataBefore, 11)
