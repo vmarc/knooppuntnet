@@ -52,9 +52,9 @@ class AnalysisDataInitializerImpl(
   private def loadWatchedNodes(): Int = {
     log.infoElapsed {
       nodeRepository.activeNodeIds().foreach { nodeId =>
-        analysisContext.data.orphanNodes.watched.add(nodeId)
+        analysisContext.data.nodes.watched.add(nodeId)
       }
-      val nodeCount = analysisContext.data.orphanNodes.watched.size
+      val nodeCount = analysisContext.data.nodes.watched.size
       (s"$nodeCount counts", nodeCount)
     }
   }

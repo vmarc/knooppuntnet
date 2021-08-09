@@ -21,13 +21,13 @@ class Issue184_NodeDeletion extends AbstractTest {
     val tc = new OldTestConfig(Data.empty, Data.empty)
 
     processCreate(tc)
-    tc.analysisContext.data.orphanNodes.watched.ids.toSeq should equal(Seq(8813846463L))
+    tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq(8813846463L))
 
     processModify(tc)
-    tc.analysisContext.data.orphanNodes.watched.ids.toSeq should equal(Seq(8813846463L))
+    tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq(8813846463L))
 
     processDelete(tc)
-    tc.analysisContext.data.orphanNodes.watched.ids.toSeq should equal(Seq.empty)
+    tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq.empty)
 
     var saveIndex = 0
     (tc.nodeRepository.save _).verify(

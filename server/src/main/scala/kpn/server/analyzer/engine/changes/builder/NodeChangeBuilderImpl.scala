@@ -62,8 +62,8 @@ class NodeChangeBuilderImpl(
       val nodeId = nodeAfter.id
 
       val extraFacts = Seq(
-        if (analysisContext.data.orphanNodes.watched.contains(nodeId)) {
-          analysisContext.data.orphanNodes.watched.delete(nodeId)
+        if (analysisContext.data.nodes.watched.contains(nodeId)) {
+          analysisContext.data.nodes.watched.delete(nodeId)
           Some(Fact.WasOrphan)
         } else {
           None
@@ -286,7 +286,7 @@ class NodeChangeBuilderImpl(
                 )
               )
               nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
-              analysisContext.data.orphanNodes.watched.add(after.id)
+              analysisContext.data.nodes.watched.add(after.id)
               Seq(Fact.BecomeOrphan)
             }
 
@@ -383,8 +383,8 @@ class NodeChangeBuilderImpl(
         }
 
         val extraFacts = Seq(
-          if (analysisContext.data.orphanNodes.watched.contains(nodeId)) {
-            analysisContext.data.orphanNodes.watched.delete(nodeId)
+          if (analysisContext.data.nodes.watched.contains(nodeId)) {
+            analysisContext.data.nodes.watched.delete(nodeId)
             Some(Fact.WasOrphan)
           } else {
             None

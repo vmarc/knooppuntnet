@@ -52,18 +52,18 @@ class NetworkCreateTest02 extends AbstractTest {
     tc.relationAfter(dataAfter, 1)
 
     tc.analysisContext.data.routes.watched.add(11, ElementIds())
-    tc.analysisContext.data.orphanNodes.watched.add(1001L)
-    tc.analysisContext.data.orphanNodes.watched.add(1002L)
+    tc.analysisContext.data.nodes.watched.add(1001L)
+    tc.analysisContext.data.nodes.watched.add(1002L)
 
     assert(tc.analysisContext.data.routes.watched.contains(11))
-    assert(tc.analysisContext.data.orphanNodes.watched.contains(1001))
-    assert(tc.analysisContext.data.orphanNodes.watched.contains(1002))
+    assert(tc.analysisContext.data.nodes.watched.contains(1001))
+    assert(tc.analysisContext.data.nodes.watched.contains(1002))
 
     tc.process(ChangeAction.Create, relation(dataAfter, 1))
 
     assert(!tc.analysisContext.data.routes.watched.contains(11))
-    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
-    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002))
+    assert(!tc.analysisContext.data.nodes.watched.contains(1001))
+    assert(!tc.analysisContext.data.nodes.watched.contains(1002))
 
     (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>

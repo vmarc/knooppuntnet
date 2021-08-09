@@ -23,7 +23,7 @@ class OrphanNodeCreateProcessorImpl(
 
   override def process(optionalContext: Option[ChangeSetContext], node: RawNode): Option[NodeChange] = {
 
-    analysisContext.data.orphanNodes.watched.add(node.id)
+    analysisContext.data.nodes.watched.add(node.id)
 
     val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(node, orphan = true))
     nodeRepository.save(nodeAnalysis.toNodeDoc)

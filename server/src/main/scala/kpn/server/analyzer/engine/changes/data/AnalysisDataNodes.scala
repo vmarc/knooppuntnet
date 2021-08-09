@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.data
 
-case class AnalysisDataOrphanNodes(
-  watched: OrphanNodesData = OrphanNodesData()
+case class AnalysisDataNodes(
+  watched: NodesData = NodesData()
 ) {
 
   def isEmpty: Boolean = watched.isEmpty

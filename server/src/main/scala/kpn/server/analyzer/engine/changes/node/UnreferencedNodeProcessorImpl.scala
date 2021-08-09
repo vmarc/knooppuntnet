@@ -89,7 +89,7 @@ class UnreferencedNodeProcessorImpl(
       val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
       val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
-      analysisContext.data.orphanNodes.watched.delete(before.id)
+      analysisContext.data.nodes.watched.delete(before.id)
 
       val key = context.buildChangeKey(nodeBefore.id)
 
@@ -168,7 +168,7 @@ class UnreferencedNodeProcessorImpl(
 
   private def furtherProcess(context: ChangeSetContext, nodeBefore: NetworkNodeInfo, nodeAfter: LoadedNode, changeFacts: Seq[Fact]): Option[NodeChange] = {
 
-    analysisContext.data.orphanNodes.watched.add(nodeBefore.id)
+    analysisContext.data.nodes.watched.add(nodeBefore.id)
 
     val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, orphan = true))
     nodeRepository.save(nodeAfterAnalysis.toNodeDoc)

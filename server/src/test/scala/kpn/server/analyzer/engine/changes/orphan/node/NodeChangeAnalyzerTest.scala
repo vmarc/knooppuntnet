@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.repository.MockBlackListRepository
 
-class OrphanNodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   val d = new AnalysisTestData()
 
@@ -87,10 +87,6 @@ class OrphanNodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def elementChanges(change: Change): ElementChanges = {
     val cs = newChangeSet(changes = Seq(change))
-    val analysis = new OrphanNodeChangeAnalyzerImpl(d.analysisContext, new MockBlackListRepository()).analyze(cs)
-    analysis.creates.map(_.id) should equal(analysis.changes.creates)
-    analysis.updates.map(_.id) should equal(analysis.changes.updates)
-    analysis.deletes.map(_.id) should equal(analysis.changes.deletes)
-    analysis.changes
+    new NodeChangeAnalyzerImpl(d.analysisContext, new MockBlackListRepository()).analyze(cs)
   }
 }

@@ -2,15 +2,15 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.server.analyzer.engine.changes.data.AnalysisData
 import kpn.server.analyzer.engine.changes.data.AnalysisDataDetail
-import kpn.server.analyzer.engine.changes.data.AnalysisDataOrphanNodes
-import kpn.server.analyzer.engine.changes.data.OrphanNodesData
+import kpn.server.analyzer.engine.changes.data.AnalysisDataNodes
+import kpn.server.analyzer.engine.changes.data.NodesData
 
 class AnalysisDataDiffReporter {
 
   def report(left: AnalysisData, right: AnalysisData): Seq[String] = {
     val differences = diff("Network", left.networks, right.networks) ++
       diff("Route", left.routes, right.routes) ++
-      orphanNodeDiff(left.orphanNodes, right.orphanNodes)
+      orphanNodeDiff(left.nodes, right.nodes)
 
     if (differences.isEmpty) {
       Seq("No differences")
@@ -89,7 +89,7 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def orphanNodeDiff(left: AnalysisDataOrphanNodes, right: AnalysisDataOrphanNodes): Seq[String] = {
+  private def orphanNodeDiff(left: AnalysisDataNodes, right: AnalysisDataNodes): Seq[String] = {
     val differences = orphanNodeDiff("watched", left.watched, right.watched)
     if (differences.nonEmpty) {
       Seq("Orphan node differences:") ++ differences
@@ -99,7 +99,7 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def orphanNodeDiff(title: String, left: OrphanNodesData, right: OrphanNodesData): Seq[String] = {
+  private def orphanNodeDiff(title: String, left: NodesData, right: NodesData): Seq[String] = {
     if (left.ids.isEmpty && right.ids.isEmpty) {
       Seq.empty
     }

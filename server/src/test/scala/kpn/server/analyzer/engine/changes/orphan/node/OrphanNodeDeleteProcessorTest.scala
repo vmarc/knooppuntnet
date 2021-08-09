@@ -32,14 +32,14 @@ class OrphanNodeDeleteProcessorTest extends UnitTest with MockFactory with TestO
 
     val nodeId = 456L
 
-    t.analysisContext.data.orphanNodes.watched.add(nodeId)
+    t.analysisContext.data.nodes.watched.add(nodeId)
 
     val context = newChangeSetContext()
     val loadedNodeDelete = LoadedNodeDelete(newRawNode(nodeId), None)
 
     t.processor.process(context, loadedNodeDelete)
 
-    assert(!t.analysisContext.data.orphanNodes.watched.contains(nodeId))
+    assert(!t.analysisContext.data.nodes.watched.contains(nodeId))
 
     (t.nodeRepository.save _).verify(
       where { nodeDoc: NodeDoc =>

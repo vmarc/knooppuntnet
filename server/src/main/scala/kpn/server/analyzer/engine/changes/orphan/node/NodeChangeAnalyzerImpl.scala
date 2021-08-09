@@ -14,14 +14,14 @@ import kpn.server.repository.BlackListRepository
 import org.springframework.stereotype.Component
 
 @Component
-class OrphanNodeChangeAnalyzerImpl(
+class NodeChangeAnalyzerImpl(
   analysisContext: AnalysisContext,
   blackListRepository: BlackListRepository
-) extends OrphanNodeChangeAnalyzer {
+) extends NodeChangeAnalyzer {
 
-  private val log = Log(classOf[OrphanNodeChangeAnalyzerImpl])
+  private val log = Log(classOf[NodeChangeAnalyzerImpl])
 
-  def analyze(changeSet: ChangeSet): OrphanNodeChangeAnalysis = {
+  def analyze(changeSet: ChangeSet): ElementChanges = {
 
     log.debugElapsed {
 
@@ -35,11 +35,11 @@ class OrphanNodeChangeAnalyzerImpl(
       val nodeCreateIds1 = withoutKnownNodes(createdNetworkNodeIds)
       val nodeCreateIds2 = withoutKnownNodes(updatedNetworkNodeIds)
 
-      val nodeUpdateIds1 = createdNetworkNodeIds.filter(isKnownOrphanNode)
-      val nodeUpdateIds2 = updatedNetworkNodeIds.filter(isKnownOrphanNode)
-      val nodeUpdateIds3 = updatedNodesById.keySet.filter(isKnownOrphanNode)
+      val nodeUpdateIds1 = createdNetworkNodeIds.filter(isKnownNode)
+      val nodeUpdateIds2 = updatedNetworkNodeIds.filter(isKnownNode)
+      val nodeUpdateIds3 = updatedNodesById.keySet.filter(isKnownNode)
 
-      val deletes = deletedNodesById.keySet.filter(isKnownOrphanNode)
+      val deletes = deletedNodesById.keySet.filter(isKnownNode)
       val updates = nodeUpdateIds1 ++ nodeUpdateIds2 ++ nodeUpdateIds3 -- deletes
       val creates = nodeCreateIds1 ++ nodeCreateIds2 -- updates -- deletes
 
@@ -54,20 +54,13 @@ class OrphanNodeChangeAnalyzerImpl(
       val nodeDeletes = sortedDeletes.flatMap(nodesById.get)
 
       val message = s"creates=${creates.size}, updates=${updates.size}, deletes=${deletes.size}"
-
-      (
-        message,
-        OrphanNodeChangeAnalysis(
-          nodeCreates,
-          nodeUpdates,
-          nodeDeletes,
-          ElementChanges(
-            sortedCreates,
-            sortedUpdates,
-            sortedDeletes
-          )
-        )
+      val elementChanges = ElementChanges(
+        sortedCreates,
+        sortedUpdates,
+        sortedDeletes
       )
+
+      (message, elementChanges)
     }
   }
 
@@ -82,25 +75,18 @@ class OrphanNodeChangeAnalyzerImpl(
 
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {
     nodesById.values.
-      filter(TagInterpreter.isValidNetworkNode).
+      filter(n => TagInterpreter.isNetworkNode(n.tags)).
       filterNot(isBlackListed).
       map(_.id).
       toSet
   }
 
   private def withoutKnownNodes(nodeIds: Set[Long]): Set[Long] = {
-    nodeIds.filterNot { nodeId =>
-      isReferencedNode(nodeId) || isKnownOrphanNode(nodeId)
-    }
+    nodeIds.filterNot(isKnownNode)
   }
 
-  private def isReferencedNode(nodeId: Long): Boolean = {
-    analysisContext.data.networks.isReferencingNode(nodeId) ||
-      analysisContext.data.routes.isReferencingNode(nodeId)
-  }
-
-  private def isKnownOrphanNode(nodeId: Long): Boolean = {
-    analysisContext.data.orphanNodes.watched.contains(nodeId)
+  private def isKnownNode(nodeId: Long): Boolean = {
+    analysisContext.data.nodes.watched.contains(nodeId)
   }
 
   private def isBlackListed(node: RawNode): Boolean = {

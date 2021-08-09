@@ -46,7 +46,7 @@ class OrphanNodeUpdateProcessorImpl(
     val isNetworkNodeX = TagInterpreter.isValidNetworkNode(loadedNodeChange.after.node.raw)
 
     if (!isNetworkNodeX) {
-      analysisContext.data.orphanNodes.watched.delete(loadedNodeChange.id)
+      analysisContext.data.nodes.watched.delete(loadedNodeChange.id)
     }
 
     val before = NodeData(

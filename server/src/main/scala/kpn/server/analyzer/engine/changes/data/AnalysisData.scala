@@ -6,15 +6,15 @@ package kpn.server.analyzer.engine.changes.data
 case class AnalysisData(
   networks: AnalysisDataDetail = AnalysisDataDetail(),
   routes: AnalysisDataDetail = AnalysisDataDetail(),
-  orphanNodes: AnalysisDataOrphanNodes = AnalysisDataOrphanNodes()
+  nodes: AnalysisDataNodes = AnalysisDataNodes()
 ) {
   def summary: String = {
     s"watchedNetworks=${networks.watched.size}, " +
       s"watchedRoutes=${routes.watched.size}, " +
-      s"watchedOrphanNodes=${orphanNodes.watched.size}"
+      s"watchedOrphanNodes=${nodes.watched.size}"
   }
 
   def isEmpty: Boolean = {
-    networks.isEmpty && routes.isEmpty && orphanNodes.isEmpty
+    networks.isEmpty && routes.isEmpty && nodes.isEmpty
   }
 }

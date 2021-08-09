@@ -473,7 +473,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
 
     val nodeId: Long = 1001L
 
-    t.analysisContext.data.orphanNodes.watched.add(nodeId)
+    t.analysisContext.data.nodes.watched.add(nodeId)
 
     val candidateUnreferencedNodes = Seq(t.networkNodeInfo(nodeId, "01", Tags.from("rwn_ref" -> "01")))
 

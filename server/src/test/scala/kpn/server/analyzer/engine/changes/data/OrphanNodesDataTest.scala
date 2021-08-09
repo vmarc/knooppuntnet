@@ -6,7 +6,7 @@ class OrphanNodesDataTest extends UnitTest {
 
   test("test methods") {
 
-    val data = new OrphanNodesData()
+    val data = new NodesData()
 
     data.size should equal(0)
     assert(!data.contains(1001))

@@ -97,7 +97,7 @@ class AnalysisTestData extends SharedTestObjects {
   val analysisContext = new AnalysisContext()
   analysisContext.data.networks.watched.add(watchedNetwork, RelationAnalyzer.toElementIds(d.relations(watchedNetwork)))
   analysisContext.data.routes.watched.add(watchedOrphanRoute, RelationAnalyzer.toElementIds(d.relations(watchedOrphanRoute)))
-  analysisContext.data.orphanNodes.watched.add(watchedOrphanNode)
+  analysisContext.data.nodes.watched.add(watchedOrphanNode)
 
   def createNode(nodeId: Long): Change = Change(Create, Seq(d.nodes(nodeId).raw))
 

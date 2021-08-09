@@ -55,8 +55,8 @@ class NetworkDeleteRouteTest02 extends AbstractTest {
     assert(tc.analysisContext.data.networks.watched.contains(2))
     assert(!tc.analysisContext.data.routes.watched.contains(11))
 
-    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1001))
-    assert(!tc.analysisContext.data.orphanNodes.watched.contains(1002))
+    assert(!tc.analysisContext.data.nodes.watched.contains(1001))
+    assert(!tc.analysisContext.data.nodes.watched.contains(1002))
 
     (tc.networkRepository.oldSaveNetworkInfo _).verify(
       where { networkInfo: NetworkInfo =>

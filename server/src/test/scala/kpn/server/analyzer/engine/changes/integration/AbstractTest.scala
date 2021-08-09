@@ -71,7 +71,8 @@ import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkPro
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorSyncImpl
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorWorkerImpl
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeAnalyzerImpl
+import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessorImpl
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeDeleteProcessorImpl
@@ -342,7 +343,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     private val orphanNodeChangeProcessor = {
 
-      val orphanNodeChangeAnalyzer = new OrphanNodeChangeAnalyzerImpl(
+      val orphanNodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
         analysisContext,
         blackListRepository
       )
@@ -365,14 +366,17 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         nodeAnalyzer
       )
 
+      val nodeChangeAnalyzer: NodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
+        analysisContext,
+        blackListRepository
+      )
+
       new NodeChangeProcessorImpl(
-        orphanNodeChangeAnalyzer,
-        orphanNodeCreateProcessor,
-        orphanNodeUpdateProcessor,
-        orphanNodeDeleteProcessor,
-        countryAnalyzer,
-        oldNodeAnalyzer,
-        nodeLoader
+        analysisContext,
+        nodeChangeAnalyzer,
+        overpassRepository,
+        nodeRepository,
+        nodeAnalyzer
       )
     }
 
@@ -444,7 +448,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     }
 
     def watchOrphanNode(nodeId: Long): Unit = {
-      analysisContext.data.orphanNodes.watched.add(nodeId)
+      analysisContext.data.nodes.watched.add(nodeId)
     }
 
     private def overpassQueryRelation(data: Data, timestamp: Timestamp, relationId: Long): Unit = {
@@ -688,12 +692,12 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
     }
 
-    private val orphanNodeChangeProcessor = {
+    val nodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
+      analysisContext,
+      blackListRepository
+    )
 
-      val orphanNodeChangeAnalyzer = new OrphanNodeChangeAnalyzerImpl(
-        analysisContext,
-        blackListRepository
-      )
+    private val orphanNodeChangeProcessor = {
 
       val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
         analysisContext,
@@ -714,13 +718,11 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
 
       new NodeChangeProcessorImpl(
-        orphanNodeChangeAnalyzer,
-        orphanNodeCreateProcessor,
-        orphanNodeUpdateProcessor,
-        orphanNodeDeleteProcessor,
-        countryAnalyzer,
-        oldNodeAnalyzer,
-        nodeLoader
+        analysisContext,
+        nodeChangeAnalyzer,
+        overpassRepository,
+        nodeRepository,
+        nodeAnalyzer
       )
     }
 
@@ -761,7 +763,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     }
 
     def watchOrphanNode(nodeId: Long): Unit = {
-      analysisContext.data.orphanNodes.watched.add(nodeId)
+      analysisContext.data.nodes.watched.add(nodeId)
     }
 
     def findRouteById(routeId: Long): RouteInfo = {
@@ -790,7 +792,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     def findChangeSetSummaryById(id: String): ChangeSetSummary = {
       database.changeSetSummaries.findByStringId(id).getOrElse {
-        val ids = database.changeSetSummaries.ids()
+        val ids = database.changeSetSummaries.stringIds()
         if (ids.isEmpty) {
           fail(s"Could not find changeSetSummary $id, no changeSetSummaries in database")
         }

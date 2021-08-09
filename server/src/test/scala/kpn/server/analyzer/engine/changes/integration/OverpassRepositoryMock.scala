@@ -25,7 +25,15 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
   }
 
   override def nodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
-    Seq.empty
+    if (timestamp == timestampBeforeValue) {
+      nodeIds.flatMap(beforeData.nodes.get).map(_.raw).sortBy(_.id)
+    }
+    else if (timestamp == timestampAfterValue) {
+      nodeIds.flatMap(afterData.nodes.get).map(_.raw).sortBy(_.id)
+    }
+    else {
+      throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
+    }
   }
 
   override def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {

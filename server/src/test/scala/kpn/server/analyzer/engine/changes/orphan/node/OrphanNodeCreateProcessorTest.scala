@@ -41,11 +41,11 @@ class OrphanNodeCreateProcessorTest extends UnitTest with MockFactory {
 
     d.processor.process(None, d.loadedNode.node.raw)
 
-    assert(d.analysisContext.data.orphanNodes.watched.contains(d.loadedNode.id))
+    assert(d.analysisContext.data.nodes.watched.contains(d.loadedNode.id))
   }
 
   private class NewOrphanNodeSetup extends Setup {
-    analysisContext.data.orphanNodes.watched.add(loadedNode.id)
+    analysisContext.data.nodes.watched.add(loadedNode.id)
   }
 
   private class Setup {

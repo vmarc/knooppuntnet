@@ -24,7 +24,7 @@ class OrphanNodeDeleteProcessorImpl(
 
   override def process(context: ChangeSetContext, loadedNodeDelete: LoadedNodeDelete): Option[NodeChange] = {
 
-    analysisContext.data.orphanNodes.watched.delete(loadedNodeDelete.id)
+    analysisContext.data.nodes.watched.delete(loadedNodeDelete.id)
 
     loadedNodeDelete.loadedNode match {
       case Some(loadedNode) =>

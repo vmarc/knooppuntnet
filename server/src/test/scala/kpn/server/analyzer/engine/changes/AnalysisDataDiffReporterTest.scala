@@ -114,15 +114,15 @@ class AnalysisDataDiffReporterTest extends UnitTest {
     val left = AnalysisData()
     val right = AnalysisData()
 
-    left.orphanNodes.watched.add(10)
-    left.orphanNodes.watched.add(11)
-    left.orphanNodes.watched.add(12)
-    left.orphanNodes.watched.add(13)
+    left.nodes.watched.add(10)
+    left.nodes.watched.add(11)
+    left.nodes.watched.add(12)
+    left.nodes.watched.add(13)
 
-    right.orphanNodes.watched.add(10)
-    right.orphanNodes.watched.add(11)
-    right.orphanNodes.watched.add(14)
-    right.orphanNodes.watched.add(15)
+    right.nodes.watched.add(10)
+    right.nodes.watched.add(11)
+    right.nodes.watched.add(14)
+    right.nodes.watched.add(15)
 
     val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
 

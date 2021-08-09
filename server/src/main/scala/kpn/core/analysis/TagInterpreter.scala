@@ -34,6 +34,11 @@ object TagInterpreter {
     }
   }
 
+  def isNetworkNode(tags: Tags): Boolean = {
+    tags.has("network:type", "node_network") &&
+      ScopedNetworkType.all.exists(scopedNetworkType => hasNodeTagKey(scopedNetworkType, tags))
+  }
+
   def isNetworkRelation(networkType: NetworkType, relation: RawRelation): Boolean = {
     isElementNetworkRelation(networkType, relation)
   }
@@ -55,7 +60,7 @@ object TagInterpreter {
      this method when checking a node that is a member of a network or route relation.
    */
   def isReferencedNetworkNode(scopedNetworkType: ScopedNetworkType, node: RawNode): Boolean = {
-    hasNodeTagKey(scopedNetworkType, node) && hasNetworkTypeNodeNetworkTag(node)
+    hasNodeTagKey(scopedNetworkType, node.tags) && hasNetworkTypeNodeNetworkTag(node)
   }
 
   /*
@@ -67,7 +72,7 @@ object TagInterpreter {
    */
   def isValidNetworkNode(networkType: NetworkType, node: RawNode): Boolean = {
     val hasAnyNodeTagKey = ScopedNetworkType.all.filter(_.networkType == networkType).exists { scopedNetworkType =>
-      hasNodeTagKey(scopedNetworkType, node)
+      hasNodeTagKey(scopedNetworkType, node.tags)
     }
     hasAnyNodeTagKey && hasNetworkTypeNodeNetworkTag(node)
   }
@@ -143,11 +148,11 @@ object TagInterpreter {
       hasNetworkTypeNodeNetworkTag(element)
   }
 
-  private def hasNodeTagKey(scopedNetworkType: ScopedNetworkType, node: RawNode): Boolean = {
-    node.tags.has(scopedNetworkType.nodeRefTagKey) ||
-      node.tags.has(scopedNetworkType.proposedNodeRefTagKey) ||
-      node.tags.has(scopedNetworkType.nodeNameTagKey) ||
-      node.tags.has(scopedNetworkType.proposedNodeNameTagKey)
+  private def hasNodeTagKey(scopedNetworkType: ScopedNetworkType, tags: Tags): Boolean = {
+    tags.has(scopedNetworkType.nodeRefTagKey) ||
+      tags.has(scopedNetworkType.proposedNodeRefTagKey) ||
+      tags.has(scopedNetworkType.nodeNameTagKey) ||
+      tags.has(scopedNetworkType.proposedNodeNameTagKey)
   }
 
 }
