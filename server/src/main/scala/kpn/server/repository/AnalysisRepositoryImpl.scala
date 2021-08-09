@@ -1,28 +1,30 @@
 package kpn.server.repository
 
-import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis._
-import kpn.core.database.Database
-import kpn.core.database.doc.TimestampDoc
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxRoute
 import kpn.core.gpx.WayPoint
+import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NodeDoc
+import kpn.server.analyzer.engine.analysis.AnalysisStatus
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
+import org.mongodb.scala.model.Filters.equal
 import org.springframework.stereotype.Component
+
+import java.util.concurrent.TimeUnit
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 @Component
 class AnalysisRepositoryImpl(
-  analysisDatabase: Database,
+  database: Database,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository,
   nodeAnalyzer: NodeAnalyzer
 ) extends AnalysisRepository {
-
-  private val lastUpdatedDocumentKey = "analysis"
 
   override def saveNetwork(network: Network): Unit = {
     saveNetworkDoc(network)
@@ -31,16 +33,13 @@ class AnalysisRepositoryImpl(
     saveGpxDoc(network)
   }
 
-  override def saveIgnoredNetwork(networkInfo: NetworkInfo): Unit = {
-    networkRepository.oldSaveNetworkInfo(networkInfo)
-  }
-
   override def lastUpdated(): Option[Timestamp] = {
-    analysisDatabase.docWithId(lastUpdatedDocumentKey, classOf[TimestampDoc]).map(_.value)
+    val future = database.status.native.find[AnalysisStatus](equal("_id", AnalysisStatus.id)).headOption
+    Await.result(future, Duration(30, TimeUnit.SECONDS)).map(_.timestamp)
   }
 
   override def saveLastUpdated(timestamp: Timestamp): Unit = {
-    analysisDatabase.save(TimestampDoc(lastUpdatedDocumentKey, timestamp))
+    database.status.save(AnalysisStatus(Timestamp.redaction))
   }
 
   private def saveNetworkDoc(network: Network): Unit = {

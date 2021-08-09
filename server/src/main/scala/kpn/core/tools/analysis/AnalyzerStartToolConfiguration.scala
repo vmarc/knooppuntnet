@@ -109,7 +109,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
 
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
-    analysisDatabase,
+    mongoDatabase,
     networkRepository,
     routeRepository,
     nodeRepository,

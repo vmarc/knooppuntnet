@@ -1,5 +1,6 @@
 package kpn.core.mongo
 
+import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.Poi
@@ -97,4 +98,5 @@ trait Database {
 
   def statistics: DatabaseCollection[StatisticValues]
 
+  def status: DatabaseCollection[WithStringId]
 }

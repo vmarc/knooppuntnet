@@ -1,5 +1,6 @@
 package kpn.core.mongo
 
+import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.Poi
@@ -154,6 +155,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def statistics: DatabaseCollection[StatisticValues] = {
     new DatabaseCollectionImpl(database.getCollection[StatisticValues]("statistics"))
+  }
+
+  override def status: DatabaseCollection[WithStringId] = {
+    new DatabaseCollectionImpl(database.getCollection[WithStringId]("status"))
   }
 
 }
