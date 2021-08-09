@@ -49,13 +49,13 @@ class ElementIdMap {
   /*
    * Finds the ids of all the elements that contain at least 1 of given elements.
    */
-  def referencedBy(elementIds: ElementIds): Iterable[Long] = {
+  def referencedBy(elementIds: ElementIds): Set[Long] = {
     elementMap.filter { case (key, value) =>
       value.relationIds.contains(key) ||
-        elementIds.relationIds.exists(value.relationIds.contains) ||
-        elementIds.wayIds.exists(value.wayIds.contains) ||
-        elementIds.nodeIds.exists(value.nodeIds.contains)
-    }.keySet
+        value.relationIds.exists(elementIds.relationIds.contains) ||
+        value.wayIds.exists(elementIds.wayIds.contains) ||
+        value.nodeIds.exists(elementIds.nodeIds.contains)
+    }.keySet.toSet
   }
 
   def foreach(f: (Long, ElementIds) => Unit): Unit = {

@@ -76,8 +76,8 @@ class OverpassRepositoryImpl(
   def fullRelations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[Relation] = {
     val rawData = relationsQuery(timestamp, QueryFullRelations(relationIds), relationIds)
     val data = new DataBuilder(rawData).data
-    relationIds.map { routeId =>
-      data.relations(routeId)
+    relationIds.flatMap { routeId =>
+      data.relations.get(routeId)
     }
   }
 

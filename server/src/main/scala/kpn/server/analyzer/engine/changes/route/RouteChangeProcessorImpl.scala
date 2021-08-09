@@ -43,6 +43,11 @@ class RouteChangeProcessorImpl(
       val routeElementChanges = changeAnalyzer.analyze(context.changeSet)
       val batchSize = 50
       val allRouteIds = routeElementChanges.elementIds
+
+      if (allRouteIds.nonEmpty) {
+        log.info(s"$allRouteIds routes impacted")
+      }
+
       val routeChanges = allRouteIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (routeIds, index) =>
         processBatch(context, routeElementChanges, routeIds)
       }.toSeq
@@ -69,7 +74,7 @@ class RouteChangeProcessorImpl(
   private def processXxx(context: ChangeSetContext, data: RouteChangeData, action: ChangeAction): Option[RouteChange] = {
 
     val before = data.before.flatMap(masterRouteAnalyzer.analyze)
-    val after = data.before.flatMap(masterRouteAnalyzer.analyze)
+    val after = data.after.flatMap(masterRouteAnalyzer.analyze)
 
     if (action == ChangeAction.Create) {
       after.map { routeAnalysisAfter =>

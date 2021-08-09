@@ -10,6 +10,8 @@ case class ElementIds(
 
   def nonEmpty: Boolean = !isEmpty
 
+  def size: Int = nodeIds.size + wayIds.size + relationIds.size
+
   def intersect(other: ElementIds): ElementIds = ElementIds(
     nodeIds.intersect(other.nodeIds),
     wayIds.intersect(other.wayIds),

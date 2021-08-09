@@ -95,7 +95,12 @@ class FullRouteAnalyzerImpl(
       routeIds.foreach { routeId =>
         routeRepository.findById(routeId).map { routeInfo =>
           log.warn(s"de-activating route ${routeInfo._id}")
-          routeRepository.save(routeInfo.copy(active = false))
+          routeRepository.save(
+            routeInfo.copy(
+              labels = routeInfo.labels.filterNot(_ == "active"),
+              active = false
+            )
+          )
         }
       }
     }

@@ -8,6 +8,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.changes.ElementChanges
+import kpn.server.analyzer.engine.changes.ElementIdAnalyzer
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.BlackListRepository
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Component
 @Component
 class RouteChangeAnalyzer(
   analysisContext: AnalysisContext,
-  blackListRepository: BlackListRepository
+  blackListRepository: BlackListRepository,
+  elementIdAnalyzer: ElementIdAnalyzer
 ) {
 
   def analyze(changeSet: ChangeSet): ElementChanges = {
@@ -31,7 +33,11 @@ class RouteChangeAnalyzer(
     val routeCreateIds1 = createdRouteIds.filterNot(isKnownRoute)
     val routeCreateIds2 = updatedRouteIds.filterNot(isKnownRoute)
 
-    val routeUpdateIds1 = analysisContext.data.routes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
+    val routeUpdateIds1 = elementIdAnalyzer.referencedBy(
+      analysisContext.data.routes.watched,
+      ChangeSetBuilder.elementIdsIn(changeSet)
+    )
+
     val routeUpdateIds2 = updatedRouteIds.filter(isKnownRoute)
 
     val deletes = deletedRelationsById.keySet.filter { routeId =>
