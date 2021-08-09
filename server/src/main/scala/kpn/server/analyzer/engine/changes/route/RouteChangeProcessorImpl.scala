@@ -40,7 +40,7 @@ class RouteChangeProcessorImpl(
 
   override def process(context: ChangeSetContext): ChangeSetChanges = {
     log.debugElapsed {
-      val routeElementChanges = changeAnalyzer.analyze(context.changeSet)
+      val routeElementChanges = changeAnalyzer.analyze(context)
       val batchSize = 50
       val allRouteIds = routeElementChanges.elementIds
 

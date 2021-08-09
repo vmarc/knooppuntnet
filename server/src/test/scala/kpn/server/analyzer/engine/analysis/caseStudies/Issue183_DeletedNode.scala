@@ -37,6 +37,7 @@ import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilderImpl
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -238,9 +239,11 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
       timestampAfter = Timestamp(2021, 5, 15, 15, 8, 20),
       changes = Seq.empty
     )
+    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     ChangeSetContext(
       ReplicationId(replicationNumber),
-      changeSet
+      changeSet,
+      elementIds
     )
   }
 }

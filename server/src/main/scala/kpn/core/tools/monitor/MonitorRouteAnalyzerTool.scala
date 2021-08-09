@@ -7,6 +7,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.monitor.MonitorChangeImpactAnalyzerFileImpl
 import kpn.server.analyzer.engine.monitor.MonitorChangeProcessor
 import kpn.server.analyzer.engine.monitor.MonitorChangeProcessorImpl
@@ -74,7 +75,8 @@ class MonitorRouteAnalyzerTool(
         timestamp,
         timestamp,
         Seq.empty
-      )
+      ),
+      ElementIds()
     )
   }
 }

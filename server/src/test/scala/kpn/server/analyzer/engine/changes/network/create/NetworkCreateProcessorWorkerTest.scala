@@ -10,6 +10,7 @@ import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.data.LoadedNetwork
@@ -88,9 +89,11 @@ class NetworkCreateProcessorWorkerTest extends UnitTest with MockFactory with Sh
 
     val changeSet: ChangeSet = newChangeSet()
 
+    private val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     val context = ChangeSetContext(
       replicationId = ReplicationId(1),
-      changeSet
+      changeSet,
+      elementIds
     )
 
     val networkLoader: NetworkLoader = stub[NetworkLoader]

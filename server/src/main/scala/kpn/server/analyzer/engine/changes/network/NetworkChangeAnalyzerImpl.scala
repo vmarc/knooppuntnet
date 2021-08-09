@@ -8,6 +8,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
 import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -22,19 +23,19 @@ class NetworkChangeAnalyzerImpl(
 
   private val log = Log(classOf[NetworkChangeAnalyzerImpl])
 
-  def analyze(changeSet: ChangeSet): ElementChanges = {
+  def analyze(context: ChangeSetContext): ElementChanges = {
 
     log.debugElapsed {
 
-      val networkCreateIds1 = findNetworkRelationChanges(changeSet, Create)
-      val networkCreateIds2 = findUpdatesToUnknownNetworks(changeSet)
+      val networkCreateIds1 = findNetworkRelationChanges(context.changeSet, Create)
+      val networkCreateIds2 = findUpdatesToUnknownNetworks(context.changeSet)
 
-      val networkUpdateIds1 = analysisContext.data.networks.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
-      val networkUpdateIds2 = findNetworkRelationChanges(changeSet, Modify)
+      val networkUpdateIds1 = analysisContext.data.networks.watched.referencedBy(context.elementIds)
+      val networkUpdateIds2 = findNetworkRelationChanges(context.changeSet, Modify)
 
       val deletes = {
-        val networkRelationDeletes = findNetworkRelationChanges(changeSet, Delete).filter(analysisContext.data.networks.watched.contains)
-        val knownNetworkDeletes = findKnownNetworkDeletes(changeSet)
+        val networkRelationDeletes = findNetworkRelationChanges(context.changeSet, Delete).filter(analysisContext.data.networks.watched.contains)
+        val knownNetworkDeletes = findKnownNetworkDeletes(context.changeSet)
         networkRelationDeletes ++ knownNetworkDeletes
       }
 

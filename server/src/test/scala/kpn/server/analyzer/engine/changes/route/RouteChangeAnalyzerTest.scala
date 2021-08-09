@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.route
 
+import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
@@ -8,8 +9,10 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerSyncImpl
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
@@ -145,7 +148,13 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))
-      new RouteChangeAnalyzer(analysisContext, blackListRepository, elementIdAnalyzer).analyze(changeSet)
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      val context = ChangeSetContext(
+        ReplicationId(1),
+        changeSet,
+        elementIds
+      )
+      new RouteChangeAnalyzer(analysisContext, blackListRepository, elementIdAnalyzer).analyze(context)
     }
   }
 }

@@ -50,7 +50,8 @@ class Issue184_NodeDeletion extends AbstractTest {
 
   private def processCreate(tc: TestConfig): Unit = {
     val changeSet = buildChangeSet(xmlCreate(), Timestamp(2021, 6, 8, 7, 15, 58))
-    val context = ChangeSetContext(ReplicationId(1), changeSet)
+    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+    val context = ChangeSetContext(ReplicationId(1), changeSet, elementIds)
     tc.changeProcessor.process(context)
   }
 
@@ -68,7 +69,8 @@ class Issue184_NodeDeletion extends AbstractTest {
     tc.overpassQueryNodes(nodeBeforeModify, Timestamp(2021, 6, 8, 7, 16, 24), Seq(8813846463L))
 
     val changeSet = buildChangeSet(xmlModify(), Timestamp(2021, 6, 8, 7, 16, 57))
-    val context = ChangeSetContext(ReplicationId(2), changeSet)
+    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+    val context = ChangeSetContext(ReplicationId(2), changeSet, elementIds)
     tc.changeProcessor.process(context)
   }
 
@@ -87,7 +89,8 @@ class Issue184_NodeDeletion extends AbstractTest {
     tc.overpassQueryNodes(nodeBeforeDelete, Timestamp(2021, 6, 8, 18, 46, 36), Seq(8813846463L))
 
     val changeSet = buildChangeSet(xmlDelete(), Timestamp(2021, 6, 8, 18, 45, 43))
-    val context = ChangeSetContext(ReplicationId(3), changeSet)
+    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+    val context = ChangeSetContext(ReplicationId(3), changeSet, elementIds)
     tc.changeProcessor.process(context)
   }
 

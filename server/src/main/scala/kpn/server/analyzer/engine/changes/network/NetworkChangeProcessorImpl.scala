@@ -19,7 +19,7 @@ class NetworkChangeProcessorImpl(
   def process(context: ChangeSetContext): ChangeSetChanges = {
     log.debugElapsed {
       val batchSize = 100
-      val networkChanges = changeAnalyzer.analyze(context.changeSet)
+      val networkChanges = changeAnalyzer.analyze(context)
       val allNetworkIds = networkChanges.elementIds
       val networkChangeDatas = allNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIds, index) =>
         Log.context(s"$index/${allNetworkIds.size}") {

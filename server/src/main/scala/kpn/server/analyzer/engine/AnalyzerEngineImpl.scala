@@ -49,7 +49,6 @@ class AnalyzerEngineImpl(
     else {
       analysisDataInitializer.load()
     }
-    System.exit(0)
   }
 
   def process(replicationId: ReplicationId): Unit = {
@@ -61,13 +60,14 @@ class AnalyzerEngineImpl(
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
         changeSets.foreach { changeSet =>
           Log.context(s"${changeSet.id}") {
-            val context = ChangeSetContext(replicationId, changeSet)
+            val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+            val context = ChangeSetContext(replicationId, changeSet, elementIds)
             changeProcessor.process(context)
           }
         }
 
         if (!analyzerHistory) {
-          nodeRouteUpdater.update()
+          // nodeRouteUpdater.update() TODO MONGO remove when sure no longer needed
         }
 
         if (analyzerTileUpdateEnabled) {

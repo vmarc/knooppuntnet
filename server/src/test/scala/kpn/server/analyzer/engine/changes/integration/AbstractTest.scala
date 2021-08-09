@@ -48,6 +48,7 @@ import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilderImpl
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
@@ -369,7 +370,8 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
     def process(changes: Seq[Change]): Unit = {
       val changeSet = newChangeSet(changes = changes)
-      val changeSetContext = ChangeSetContext(ReplicationId(1), changeSet)
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      val changeSetContext = ChangeSetContext(ReplicationId(1), changeSet, elementIds)
       changeProcessor.process(changeSetContext)
     }
 

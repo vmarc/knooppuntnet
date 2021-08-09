@@ -7,9 +7,9 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
 import kpn.core.analysis.TagInterpreter
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzer
-import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.BlackListRepository
 import org.springframework.stereotype.Component
@@ -21,11 +21,11 @@ class RouteChangeAnalyzer(
   elementIdAnalyzer: ElementIdAnalyzer
 ) {
 
-  def analyze(changeSet: ChangeSet): ElementChanges = {
+  def analyze(context: ChangeSetContext): ElementChanges = {
 
-    val createdRelationsById = buildRelationMap(changeSet, Create)
-    val updatedRelationsById = buildRelationMap(changeSet, Modify)
-    val deletedRelationsById = buildRelationMap(changeSet, Delete)
+    val createdRelationsById = buildRelationMap(context.changeSet, Create)
+    val updatedRelationsById = buildRelationMap(context.changeSet, Modify)
+    val deletedRelationsById = buildRelationMap(context.changeSet, Delete)
 
     val createdRouteIds = findRouteRelationIds(createdRelationsById)
     val updatedRouteIds = findRouteRelationIds(updatedRelationsById)
@@ -35,7 +35,7 @@ class RouteChangeAnalyzer(
 
     val routeUpdateIds1 = elementIdAnalyzer.referencedBy(
       analysisContext.data.routes.watched,
-      ChangeSetBuilder.elementIdsIn(changeSet)
+      context.elementIds
     )
 
     val routeUpdateIds2 = updatedRouteIds.filter(isKnownRoute)

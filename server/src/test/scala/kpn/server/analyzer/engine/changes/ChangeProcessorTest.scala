@@ -4,6 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
@@ -20,7 +21,8 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
     val context: ChangeSetContext = {
       val replicationId = ReplicationId(1)
       val changeSet = newChangeSet()
-      ChangeSetContext(replicationId, changeSet)
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      ChangeSetContext(replicationId, changeSet, elementIds)
     }
 
     (t.networkChangeProcessor.process _).when(*).returns(ChangeSetChanges())
@@ -48,7 +50,8 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
     val context: ChangeSetContext = {
       val replicationId = ReplicationId(1)
       val changeSet = newChangeSet(changeSetId)
-      ChangeSetContext(replicationId, changeSet)
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      ChangeSetContext(replicationId, changeSet, elementIds)
     }
 
     val networkChanges = ChangeSetChanges(
@@ -75,7 +78,8 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
     val context: ChangeSetContext = {
       val replicationId = ReplicationId(1)
       val changeSet = newChangeSet()
-      ChangeSetContext(replicationId, changeSet)
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      ChangeSetContext(replicationId, changeSet, elementIds)
     }
 
     val networkChange = newNetworkChange()

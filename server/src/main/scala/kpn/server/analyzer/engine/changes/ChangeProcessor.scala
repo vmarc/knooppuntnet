@@ -5,6 +5,7 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
+import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import org.springframework.stereotype.Component
 
 /*
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 class ChangeProcessor(
+  routeChangeProcessor: RouteChangeProcessor,
   networkChangeProcessor: NetworkChangeProcessor,
   orphanRouteChangeProcessor: OrphanRouteChangeProcessor,
   orphanNodeChangeProcessor: OrphanNodeChangeProcessor,
@@ -21,17 +23,17 @@ class ChangeProcessor(
 
   def process(context: ChangeSetContext): Unit = {
 
-    //val routeChangeSetChanges = routeChangeProcessor.process(context)
+    val routeChangeSetChanges = routeChangeProcessor.process(context)
 
-     val networkChangeSetChanges = networkChangeProcessor.process(context)
-     val orphanRouteChangeSetChanges = orphanRouteChangeProcessor.process(context)
-    val orphanNodeChangeSetChanges = orphanNodeChangeProcessor.process(context)
+    //    val networkChangeSetChanges = networkChangeProcessor.process(context)
+    //    val orphanRouteChangeSetChanges = orphanRouteChangeProcessor.process(context)
+    //    val orphanNodeChangeSetChanges = orphanNodeChangeProcessor.process(context)
 
     val changeSetChanges = merge(
-      //routeChangeSetChanges,
-      //      networkChangeSetChanges,
-      //      orphanRouteChangeSetChanges,
-      orphanNodeChangeSetChanges
+      routeChangeSetChanges,
+      // networkChangeSetChanges,
+      // orphanRouteChangeSetChanges,
+      // orphanNodeChangeSetChanges
     )
 
     if (changeSetChanges.nonEmpty) {

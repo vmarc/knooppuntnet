@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.network
 
+import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
@@ -9,7 +10,9 @@ import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.AnalysisTestData
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
@@ -147,7 +150,13 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))
-      new NetworkChangeAnalyzerImpl(analysisContext, blackListRepository).analyze(changeSet)
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      val context = ChangeSetContext(
+        ReplicationId(1),
+        changeSet,
+        elementIds
+      )
+      new NetworkChangeAnalyzerImpl(analysisContext, blackListRepository).analyze(context)
     }
   }
 

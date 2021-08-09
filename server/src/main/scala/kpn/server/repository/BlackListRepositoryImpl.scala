@@ -21,7 +21,7 @@ class BlackListRepositoryImpl(
 
   def get: BlackList = {
     if (mongoEnabled) {
-      ???
+      BlackList() // TODO MONGO implement
     }
     else {
       val now = System.currentTimeMillis()

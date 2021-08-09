@@ -7,6 +7,7 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
+import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessor
@@ -73,9 +74,11 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     val changeSet: ChangeSet = newChangeSet()
 
+    private val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     val context: ChangeSetContext = ChangeSetContext(
       replicationId = ReplicationId(1),
-      changeSet
+      changeSet,
+      elementIds
     )
 
     val changeAnalyzer: NetworkChangeAnalyzer = stub[NetworkChangeAnalyzer]
