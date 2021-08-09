@@ -16,7 +16,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class NetworkUpdateRouteTest02 extends AbstractTest {
 
@@ -24,7 +24,7 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
 
     pending
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
@@ -53,7 +53,7 @@ class NetworkUpdateRouteTest02 extends AbstractTest {
       )
       .data
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)

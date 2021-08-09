@@ -19,17 +19,17 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NodeDoc
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class OrphanNodeTest02 extends AbstractTest {
 
   test("update orphan node") {
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01", extraTags = Tags.from("tag" -> "before"))
       .data
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .networkNode(1001, "01", extraTags = Tags.from("tag" -> "after"))
       .data
 

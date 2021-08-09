@@ -16,7 +16,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
 class NetworkDeleteRouteTest04 extends AbstractTest {
@@ -25,7 +25,7 @@ class NetworkDeleteRouteTest04 extends AbstractTest {
 
     pending
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01") // referenced in network1 and network2 and orphan route
       .networkNode(1002, "02") // referenced in network1
       .networkNode(1003, "03") // referenced in network2
@@ -38,7 +38,7 @@ class NetworkDeleteRouteTest04 extends AbstractTest {
       .networkRelation(2, "network2", Seq(newMember("relation", 12)))
       .data
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .networkNode(1003, "03")

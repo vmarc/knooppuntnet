@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.data.ChangeSetChangesMerger.merge
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
+import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import org.springframework.stereotype.Component
@@ -16,7 +16,7 @@ class ChangeProcessor(
   routeChangeProcessor: RouteChangeProcessor,
   networkChangeProcessor: NetworkChangeProcessor,
   orphanRouteChangeProcessor: OrphanRouteChangeProcessor,
-  orphanNodeChangeProcessor: OrphanNodeChangeProcessor,
+  orphanNodeChangeProcessor: NodeChangeProcessor,
   changeSetInfoUpdater: ChangeSetInfoUpdater,
   changeSaver: ChangeSaver
 ) {
@@ -27,7 +27,7 @@ class ChangeProcessor(
 
     //    val networkChangeSetChanges = networkChangeProcessor.process(context)
     //    val orphanRouteChangeSetChanges = orphanRouteChangeProcessor.process(context)
-    //    val orphanNodeChangeSetChanges = orphanNodeChangeProcessor.process(context)
+    val orphanNodeChangeSetChanges = orphanNodeChangeProcessor.process(context)
 
     val changeSetChanges = merge(
       routeChangeSetChanges,

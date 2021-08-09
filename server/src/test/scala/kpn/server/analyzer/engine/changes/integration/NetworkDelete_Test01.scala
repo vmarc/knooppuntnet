@@ -12,7 +12,7 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
 class NetworkDelete_Test01 extends AbstractTest {
@@ -21,7 +21,7 @@ class NetworkDelete_Test01 extends AbstractTest {
 
     pending
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkRelation(1, "network1")
       .data
     val tc = new OldTestConfig(dataBefore, Data.empty)

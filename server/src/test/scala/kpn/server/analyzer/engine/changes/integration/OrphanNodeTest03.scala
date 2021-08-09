@@ -16,13 +16,13 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.TestData
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class OrphanNodeTest03 extends AbstractTest {
 
   test("delete orphan node") {
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .data
 

@@ -17,13 +17,13 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.mongo.doc.NodeDoc
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class OrphanNodeTest01 extends AbstractTest {
 
   test("create orphan node") {
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .networkNode(1001, "01")
       .data
 
@@ -119,7 +119,7 @@ class OrphanNodeTest01 extends AbstractTest {
 
   test("create proposed orphan node") {
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .node(1001, tags = Tags.from("proposed:rwn_ref" -> "01", "network:type" -> "node_network"))
       .data
 

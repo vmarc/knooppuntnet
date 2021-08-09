@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChangeProcessor
+import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
 import org.scalamock.scalatest.MockFactory
@@ -119,7 +119,7 @@ class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjec
     val changeSetRepository: ChangeSetRepository = stub[ChangeSetRepository]
     val networkChangeProcessor: NetworkChangeProcessor = stub[NetworkChangeProcessor]
     val orphanRouteChangeProcessor: OrphanRouteChangeProcessor = stub[OrphanRouteChangeProcessor]
-    val orphanNodeChangeProcessor: OrphanNodeChangeProcessor = stub[OrphanNodeChangeProcessor]
+    val orphanNodeChangeProcessor: NodeChangeProcessor = stub[NodeChangeProcessor]
     val changeSetInfoUpdater: ChangeSetInfoUpdater = stub[ChangeSetInfoUpdater]
     val changeSaver: ChangeSaver = stub[ChangeSaver]
 

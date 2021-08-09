@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.changes.data
 
 import kpn.api.common.SharedTestObjects
 import kpn.core.data.Data
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
@@ -22,7 +22,7 @@ class AnalysisDataTest extends UnitTest with SharedTestObjects {
   }
 
   private def buildData(): Data = {
-    TestData2()
+    OverpassData()
       .networkNode(1001, "01") // referenced in network1 and network2 and orphan route
       .networkNode(1002, "02") // referenced in network1
       .networkNode(1003, "03") // referenced in network2

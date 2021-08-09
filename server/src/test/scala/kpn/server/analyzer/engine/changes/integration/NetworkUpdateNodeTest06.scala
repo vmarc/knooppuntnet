@@ -22,7 +22,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.mongo.doc.NodeDoc
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class NetworkUpdateNodeTest06 extends AbstractTest {
 
@@ -30,7 +30,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
 
     pending
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))
       .networkRelation(
@@ -43,7 +43,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
       )
       .data
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .networkNode(1001, "01")
       .node(1002, tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network"))
       .networkRelation(

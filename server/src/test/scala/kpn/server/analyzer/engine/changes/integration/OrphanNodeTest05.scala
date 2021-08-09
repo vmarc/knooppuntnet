@@ -17,17 +17,17 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NodeDoc
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class OrphanNodeTest05 extends AbstractTest {
 
   test("orphan node looses node tag") {
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .data
 
-    val dataAfter = TestData2()
+    val dataAfter = OverpassData()
       .node(1001) // rwn_ref tag no longer available, but node still exists
       .data
 

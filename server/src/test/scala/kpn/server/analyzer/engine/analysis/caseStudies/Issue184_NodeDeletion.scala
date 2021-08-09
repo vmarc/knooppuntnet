@@ -6,7 +6,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.mongo.doc.NodeDoc
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
@@ -58,7 +58,7 @@ class Issue184_NodeDeletion extends AbstractTest {
 
   private def processModify(tc: OldTestConfig): Unit = {
 
-    val nodeBeforeModify = TestData2()
+    val nodeBeforeModify = OverpassData()
       .node(
         id = 8813846463L,
         tags = Tags.from(
@@ -77,7 +77,7 @@ class Issue184_NodeDeletion extends AbstractTest {
 
   private def processDelete(tc: OldTestConfig): Unit = {
 
-    val nodeBeforeDelete = TestData2()
+    val nodeBeforeDelete = OverpassData()
       .node(
         id = 8813846463L,
         tags = Tags.from(

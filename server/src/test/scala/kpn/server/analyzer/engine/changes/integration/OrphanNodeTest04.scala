@@ -7,13 +7,13 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.mongo.doc.NodeDoc
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 
 class OrphanNodeTest04 extends AbstractTest {
 
   test("delete orphan node, and 'before' situation cannot be found in overpass database") {
 
-    val noData = TestData2().data
+    val noData = OverpassData().data
 
     val tc = new OldTestConfig(Data.empty, Data.empty)
 

@@ -5,7 +5,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.test.TestData2
+import kpn.core.test.OverpassData
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -22,7 +22,7 @@ class RouteDeleteTest01 extends AbstractTest {
 
     pending
 
-    val dataBefore = TestData2()
+    val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
@@ -33,7 +33,7 @@ class RouteDeleteTest01 extends AbstractTest {
       )
       .data
 
-    val dataAfter = TestData2().data
+    val dataAfter = OverpassData().data
 
     val tc = new OldTestConfig(dataBefore, dataAfter)
 
