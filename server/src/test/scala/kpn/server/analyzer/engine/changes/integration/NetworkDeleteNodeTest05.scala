@@ -19,7 +19,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-class NetworkDeleteNodeTest05 extends AbstractTest {
+class NetworkDeleteNodeTest05 extends AbstractIntegrationTest {
 
   test("network delete - lost hiking node tag, but still retain bicyle node tag and become orphan") {
 
@@ -34,7 +34,7 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
       val dataAfter = OverpassData()
         .node(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
 

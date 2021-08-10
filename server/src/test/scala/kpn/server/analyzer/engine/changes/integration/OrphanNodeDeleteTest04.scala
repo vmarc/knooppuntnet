@@ -17,7 +17,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeDeleteTest04 extends AbstractTest {
+class OrphanNodeDeleteTest04 extends AbstractIntegrationTest {
 
   test("orphan node looses node tag") {
 
@@ -29,9 +29,7 @@ class OrphanNodeDeleteTest04 extends AbstractTest {
       val dataAfter = OverpassData()
         .node(1001) // rwn_ref tag no longer available, but node still exists
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.nodes.watched.add(1001)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
 

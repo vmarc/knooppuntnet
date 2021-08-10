@@ -15,7 +15,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest11 extends AbstractTest {
+class NetworkUpdateNodeTest11 extends AbstractIntegrationTest {
 
   test("network update - node role 'connection' removed") {
 
@@ -43,7 +43,7 @@ class NetworkUpdateNodeTest11 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchNetwork(tc.before, 1)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))

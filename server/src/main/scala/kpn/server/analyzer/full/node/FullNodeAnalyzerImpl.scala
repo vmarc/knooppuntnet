@@ -68,7 +68,9 @@ class FullNodeAnalyzerImpl(
             val nodeDocs = rawNodes.flatMap { rawNode =>
               nodeAnalyzer.analyze(NodeAnalysis(rawNode)).map(_.toNodeDoc)
             }
-            database.nodes.bulkSave(nodeDocs)
+            if (nodeDocs.nonEmpty) {
+              database.nodes.bulkSave(nodeDocs)
+            }
             val ids = nodeDocs.map(_._id)
             (s"analyzed ${ids.size} nodes: ${ids.mkString(", ")}", ids)
           }

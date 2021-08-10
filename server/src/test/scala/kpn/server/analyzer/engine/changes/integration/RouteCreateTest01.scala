@@ -6,7 +6,6 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -17,7 +16,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class RouteCreateTest01 extends AbstractTest {
+class RouteCreateTest01 extends AbstractIntegrationTest {
 
   test("create route") {
 
@@ -35,13 +34,13 @@ class RouteCreateTest01 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(11))
 
       assert(tc.analysisContext.data.routes.watched.contains(11))
-      // assert(tc.analysisContext.data.orphanNodes.watched.contains(1001))
-      // assert(tc.analysisContext.data.orphanNodes.watched.contains(1002))
+      assert(tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(tc.analysisContext.data.nodes.watched.contains(1002))
 
       val routeInfo = tc.findRouteById(11)
       routeInfo.summary.name should equal("01-02")

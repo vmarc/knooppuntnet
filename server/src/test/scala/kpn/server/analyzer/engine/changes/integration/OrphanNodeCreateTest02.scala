@@ -14,7 +14,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeCreateTest02 extends AbstractTest {
+class OrphanNodeCreateTest02 extends AbstractIntegrationTest {
 
   test("create proposed orphan node") {
 
@@ -30,7 +30,7 @@ class OrphanNodeCreateTest02 extends AbstractTest {
         )
       )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 

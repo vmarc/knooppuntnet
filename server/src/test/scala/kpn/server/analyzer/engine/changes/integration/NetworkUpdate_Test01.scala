@@ -25,7 +25,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdate_Test01 extends AbstractTest {
+class NetworkUpdate_Test01 extends AbstractIntegrationTest {
 
   test("network update - updated network is saved to the database and watched elements are updated in AnalysisData") {
 
@@ -47,7 +47,7 @@ class NetworkUpdate_Test01 extends AbstractTest {
         .route(11, "01-03", Seq(newMember("way", 101)))
         .networkRelation(1, "name", Seq(newMember("relation", 11)))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Modify, dataAfter.rawNodeWithId(1002))
 

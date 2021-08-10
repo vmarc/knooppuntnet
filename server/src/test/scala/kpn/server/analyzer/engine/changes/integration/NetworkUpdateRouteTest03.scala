@@ -22,7 +22,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateRouteTest03 extends AbstractTest {
+class NetworkUpdateRouteTest03 extends AbstractIntegrationTest {
 
   test("network update - route no longer part of the network after deletion") {
 
@@ -60,7 +60,7 @@ class NetworkUpdateRouteTest03 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchNetwork(tc.before, 1)
 
       tc.process(ChangeAction.Delete, newRawRelation(12))

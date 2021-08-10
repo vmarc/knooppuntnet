@@ -62,7 +62,7 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   override def nodes: DatabaseCollection[NodeDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("node-docs"))
+    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("nodes"))
   }
 
   override def orphanNodes: DatabaseCollection[OrphanNodeDoc] = {

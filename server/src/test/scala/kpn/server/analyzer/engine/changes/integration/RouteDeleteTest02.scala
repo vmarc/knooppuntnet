@@ -6,12 +6,14 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
-class RouteDeleteTest02 extends AbstractTest with SharedTestObjects {
+class RouteDeleteTest02 extends AbstractIntegrationTest with SharedTestObjects {
 
   test("delete orphan route, and 'before' situation cannot be found in overpass database") {
 
+    pending
+
     withDatabase { database =>
-      val tc = new TestContext(database, OverpassData.empty, OverpassData.empty)
+      val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
       tc.analysisContext.data.routes.watched.add(11, ElementIds())
 
       tc.process(ChangeAction.Delete, newRawRelation(11))

@@ -22,7 +22,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest06 extends AbstractTest {
+class NetworkUpdateNodeTest06 extends AbstractIntegrationTest {
 
   test("network update - removed node that looses required tags, but still has tags of other networkType does not become inactive") {
 
@@ -54,7 +54,7 @@ class NetworkUpdateNodeTest06 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchNetwork(tc.before, 1)
 
       // before:

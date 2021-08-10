@@ -19,7 +19,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest01 extends AbstractTest {
+class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
 
   test("network update - node that is no longer part of the network after update, becomes orphan node if also not referenced in any other network or orphan route") {
 
@@ -51,7 +51,7 @@ class NetworkUpdateNodeTest01 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchNetwork(tc.before, 1)
 
       // before:

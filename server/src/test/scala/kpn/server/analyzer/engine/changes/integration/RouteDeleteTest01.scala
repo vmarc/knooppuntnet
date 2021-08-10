@@ -3,23 +3,22 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class RouteDeleteTest01 extends AbstractTest {
+class RouteDeleteTest01 extends AbstractIntegrationTest {
 
-  test("delete orphan route") {
-
-    pending
+  test("delete route") {
 
     withDatabase { database =>
 
@@ -33,23 +32,67 @@ class RouteDeleteTest01 extends AbstractTest {
           )
         )
 
-      val dataAfter = OverpassData.empty
+      val dataAfter = OverpassData()
+        .networkNode(1001, "01")
+        .networkNode(1002, "02")
+        .way(101, 1001, 1002)
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
-      tc.watchOrphanRoute(tc.before, 11)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Delete, newRawRelation(11))
 
+      assert(tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(tc.analysisContext.data.nodes.watched.contains(1002))
       assert(!tc.analysisContext.data.routes.watched.contains(11))
 
-      (tc.routeRepository.save _).verify(
-        where { routeInfo: RouteInfo =>
-          routeInfo.id should equal(11)
-          // assert(routeInfo.orphan)
-          assert(!routeInfo.active)
-          true
-        }
-      ).once()
+      val routeInfo = tc.findRouteById(11)
+      routeInfo.id should equal(11)
+      assert(!routeInfo.active)
+
+      tc.findNodeById(1001) should matchTo {
+        newNodeDoc(
+          1001,
+          labels = Seq(
+            "active",
+            "network-type-hiking"
+          ),
+          country = Some(Country.nl),
+          name = "01",
+          names = Seq(
+            NodeName(
+              NetworkType.hiking,
+              NetworkScope.regional,
+              "01",
+              None,
+              proposed = false
+            )
+          ),
+          tags = newNodeTags("01")
+        )
+      }
+
+      tc.findNodeById(1002) should matchTo {
+        newNodeDoc(
+          1002,
+          labels = Seq(
+            "active",
+            "network-type-hiking"
+          ),
+          country = Some(Country.nl),
+          name = "02",
+          names = Seq(
+            NodeName(
+              NetworkType.hiking,
+              NetworkScope.regional,
+              "02",
+              None,
+              proposed = false
+            )
+          ),
+          tags = newNodeTags("02")
+        )
+      }
+
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
@@ -59,6 +102,17 @@ class RouteDeleteTest01 extends AbstractTest {
               Subset.nlHiking,
               ChangeSetElementRefs(
                 removed = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
+              )
+            )
+          ),
+          orphanNodeChanges = Seq(
+            ChangeSetSubsetElementRefs(
+              Subset.nlHiking,
+              ChangeSetElementRefs(
+                updated = Seq(
+                  newChangeSetElementRef(1001, "01"),
+                  newChangeSetElementRef(1002, "02")
+                )
               )
             )
           ),
@@ -103,13 +157,50 @@ class RouteDeleteTest01 extends AbstractTest {
               )
             )
           ),
-          facts = Seq(Fact.WasOrphan, Fact.Deleted),
+          facts = Seq(Fact.WasOrphan, Fact.Deleted), // TODO Fact.WasOrphan should not be here anymore???!!!
+          impactedNodeIds = Seq(1001, 1002),
           investigate = true,
           impact = true,
           locationInvestigate = true,
           locationImpact = true
         )
       )
+
+      tc.findNodeChangeById("123:1:1001") should matchTo {
+        newNodeChange(
+          newChangeKey(elementId = 1001),
+          ChangeType.Update,
+          Seq(Subset.nlHiking),
+          name = "01",
+          before = Some(
+            newRawNodeWithName(1001, "01")
+          ),
+          after = Some(
+            newRawNodeWithName(1001, "01")
+          ),
+          removedFromRoute = Seq(
+            // TODO Ref(11, "01-02")
+          )
+        )
+      }
+
+      tc.findNodeChangeById("123:1:1002") should matchTo {
+        newNodeChange(
+          newChangeKey(elementId = 1002),
+          ChangeType.Update,
+          Seq(Subset.nlHiking),
+          name = "02",
+          before = Some(
+            newRawNodeWithName(1002, "02")
+          ),
+          after = Some(
+            newRawNodeWithName(1002, "02")
+          ),
+          removedFromRoute = Seq(
+            // TODO Ref(11, "01-02")
+          )
+        )
+      }
     }
   }
 }

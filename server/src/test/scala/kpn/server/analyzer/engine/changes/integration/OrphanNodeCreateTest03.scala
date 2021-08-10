@@ -5,7 +5,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeCreateTest03 extends AbstractTest {
+class OrphanNodeCreateTest03 extends AbstractIntegrationTest {
 
   test("ignore node create in unsupported country") {
 
@@ -23,7 +23,7 @@ class OrphanNodeCreateTest03 extends AbstractTest {
         )
       )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 

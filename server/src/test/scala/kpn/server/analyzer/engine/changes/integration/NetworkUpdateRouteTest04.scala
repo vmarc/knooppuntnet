@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateRouteTest04 extends AbstractTest {
+class NetworkUpdateRouteTest04 extends AbstractIntegrationTest {
 
   test("delete route that is part of network") {
 

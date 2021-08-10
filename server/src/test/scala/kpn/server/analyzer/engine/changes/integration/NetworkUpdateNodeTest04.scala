@@ -14,7 +14,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest04 extends AbstractTest {
+class NetworkUpdateNodeTest04 extends AbstractIntegrationTest {
 
   test("network update - node that is no longer part of the network after update, does not become orphan node if still referenced in an orphan route") {
 
@@ -62,7 +62,7 @@ class NetworkUpdateNodeTest04 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchOrphanRoute(tc.before, 11)
       tc.watchNetwork(tc.before, 1)
 

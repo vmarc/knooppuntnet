@@ -22,7 +22,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
-class NetworkCreateTest02 extends AbstractTest {
+class NetworkCreateTest02 extends AbstractIntegrationTest {
 
   test("network create - orphan routes and orphan nodes are no longer orphan when part of the added network") {
 
@@ -43,7 +43,7 @@ class NetworkCreateTest02 extends AbstractTest {
         .route(11, "01-02", Seq(newMember("way", 101)))
         .networkRelation(1, "name", Seq(newMember("relation", 11)))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.analysisContext.data.routes.watched.add(11, ElementIds())
       tc.analysisContext.data.nodes.watched.add(1001L)

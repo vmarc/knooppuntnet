@@ -5,7 +5,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeDeleteTest05 extends AbstractTest {
+class OrphanNodeDeleteTest05 extends AbstractIntegrationTest {
 
   test("ignore delete in foreign country") {
 
@@ -24,7 +24,7 @@ class OrphanNodeDeleteTest05 extends AbstractTest {
 
       val dataAfter = OverpassData.empty
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Delete, dataBefore.rawNodeWithId(1001))
 

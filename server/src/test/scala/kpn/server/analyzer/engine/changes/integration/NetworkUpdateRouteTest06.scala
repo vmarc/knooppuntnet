@@ -16,7 +16,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateRouteTest06 extends AbstractTest {
+class NetworkUpdateRouteTest06 extends AbstractIntegrationTest {
 
   test("network update - an ignored route that is added to the network is no longer ignored") {
 
@@ -66,7 +66,7 @@ class NetworkUpdateRouteTest06 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchNetwork(tc.before, 1)
 
       // before:

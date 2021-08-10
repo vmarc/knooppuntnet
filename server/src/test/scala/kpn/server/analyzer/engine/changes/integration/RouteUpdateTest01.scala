@@ -10,7 +10,6 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
@@ -19,9 +18,9 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class RouteUpdateTest01 extends AbstractTest {
+class RouteUpdateTest01 extends AbstractIntegrationTest {
 
-  test("update orphan route") {
+  test("update route") {
 
     pending
 
@@ -49,21 +48,15 @@ class RouteUpdateTest01 extends AbstractTest {
           Tags.from("key" -> "value2")
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
-      tc.watchOrphanRoute(tc.before, 11)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
       assert(tc.analysisContext.data.routes.watched.contains(11))
 
-      (tc.routeRepository.save _).verify(
-        where { routeInfo: RouteInfo =>
-          routeInfo.id should equal(11)
-          assert(routeInfo.active)
-          // assert(routeInfo.orphan)
-          true
-        }
-      ).once()
+      val routeInfo = tc.findRouteById(11)
+      routeInfo.id should equal(11)
+      assert(routeInfo.active)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(

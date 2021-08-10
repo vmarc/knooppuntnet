@@ -6,18 +6,18 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.integration.AbstractTest
+import kpn.server.analyzer.engine.changes.integration.AbstractIntegrationTest
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
 
-class ChangeProcessorTest extends AbstractTest {
+class ChangeProcessorTest extends AbstractIntegrationTest {
 
   test("changeset not saved when there are no relevant changes") {
 
     withDatabase { database =>
-      val tc = new TestContext(database, OverpassData.empty, OverpassData.empty)
+      val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
 
       val context: ChangeSetContext = {
         val replicationId = ReplicationId(1)

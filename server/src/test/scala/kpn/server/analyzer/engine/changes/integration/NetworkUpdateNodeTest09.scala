@@ -14,7 +14,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest09 extends AbstractTest {
+class NetworkUpdateNodeTest09 extends AbstractIntegrationTest {
 
   test("network update - an ignored node that is added to the network is no longer ignored") {
 
@@ -46,7 +46,7 @@ class NetworkUpdateNodeTest09 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchNetwork(tc.before, 1)
 
       // before:

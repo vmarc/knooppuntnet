@@ -21,7 +21,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkCreateTest07 extends AbstractTest {
+class NetworkCreateTest07 extends AbstractIntegrationTest {
 
   test("network create - containing existing route with update") {
 
@@ -42,7 +42,7 @@ class NetworkCreateTest07 extends AbstractTest {
         .route(11, "01-02", Seq(newMember("way", 101)), tags = Tags.from("newkey" -> "value"))
         .networkRelation(1, "name", Seq(newMember("relation", 11)))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 

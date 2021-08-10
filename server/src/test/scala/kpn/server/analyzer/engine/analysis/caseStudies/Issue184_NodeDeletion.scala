@@ -10,11 +10,11 @@ import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
-import kpn.server.analyzer.engine.changes.integration.AbstractTest
+import kpn.server.analyzer.engine.changes.integration.AbstractIntegrationTest
 
 import scala.xml.XML
 
-class Issue184_NodeDeletion extends AbstractTest {
+class Issue184_NodeDeletion extends AbstractIntegrationTest {
 
   test("simulate node create/modify/delete") {
 

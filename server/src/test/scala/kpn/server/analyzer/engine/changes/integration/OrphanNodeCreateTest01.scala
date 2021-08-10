@@ -6,7 +6,6 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -14,7 +13,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeCreateTest01 extends AbstractTest {
+class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
 
   test("create orphan node") {
 
@@ -24,7 +23,7 @@ class OrphanNodeCreateTest01 extends AbstractTest {
       val dataAfter = OverpassData()
         .networkNode(1001, "01")
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 

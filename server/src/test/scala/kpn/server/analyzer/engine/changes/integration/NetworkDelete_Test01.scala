@@ -13,7 +13,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
-class NetworkDelete_Test01 extends AbstractTest {
+class NetworkDelete_Test01 extends AbstractIntegrationTest {
 
   test("network delete") {
 
@@ -23,7 +23,7 @@ class NetworkDelete_Test01 extends AbstractTest {
 
       val dataBefore = OverpassData().networkRelation(1, "network1")
 
-      val tc = new TestContext(database, dataBefore, OverpassData.empty)
+      val tc = new IntegrationTestContext(database, dataBefore, OverpassData.empty)
 
       tc.analysisContext.data.networks.watched.add(1, ElementIds())
 

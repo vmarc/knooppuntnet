@@ -13,7 +13,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-class NetworkDeleteNodeTest02 extends AbstractTest {
+class NetworkDeleteNodeTest02 extends AbstractIntegrationTest {
 
   test("network delete - node still referenced in other network does not become orphan") {
 
@@ -30,7 +30,7 @@ class NetworkDeleteNodeTest02 extends AbstractTest {
         .networkNode(1001, "01")
         .networkRelation(2, "network2", Seq(newMember("node", 1001)))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
       tc.analysisContext.data.networks.watched.add(2, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(2)))

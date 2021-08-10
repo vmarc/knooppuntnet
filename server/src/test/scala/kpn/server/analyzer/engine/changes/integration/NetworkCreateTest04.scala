@@ -18,7 +18,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkCreateTest04 extends AbstractTest {
+class NetworkCreateTest04 extends AbstractIntegrationTest {
 
   test("network create - investigate flag is set when issue in added network") {
 
@@ -41,7 +41,7 @@ class NetworkCreateTest04 extends AbstractTest {
           )
         )
 
-      val tc = new TestContext(database, OverpassData.empty, dataAfter)
+      val tc = new IntegrationTestContext(database, OverpassData.empty, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 

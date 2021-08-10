@@ -20,7 +20,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class RouteDeleteTest03 extends AbstractTest {
+class RouteDeleteTest03 extends AbstractIntegrationTest {
 
   test("orphan route looses route tags") {
 
@@ -50,7 +50,7 @@ class RouteDeleteTest03 extends AbstractTest {
           Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02", "network:type" -> "node_network")
         )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       tc.watchOrphanRoute(tc.before, 11)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))

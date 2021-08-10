@@ -20,7 +20,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeUpdateTest01 extends AbstractTest {
+class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
 
   test("update orphan node") {
 
@@ -42,9 +42,7 @@ class OrphanNodeUpdateTest01 extends AbstractTest {
         )
       )
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.nodes.watched.add(1001)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
 

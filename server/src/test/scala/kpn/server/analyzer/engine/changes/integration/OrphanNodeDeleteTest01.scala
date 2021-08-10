@@ -13,7 +13,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeDeleteTest01 extends AbstractTest {
+class OrphanNodeDeleteTest01 extends AbstractIntegrationTest {
 
   test("delete orphan node") {
 
@@ -24,9 +24,7 @@ class OrphanNodeDeleteTest01 extends AbstractTest {
 
       val dataAfter = OverpassData.empty
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.nodes.watched.add(1001)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Delete, newRawNode(1001))
 

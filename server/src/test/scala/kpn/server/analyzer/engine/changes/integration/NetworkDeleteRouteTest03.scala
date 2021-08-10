@@ -17,7 +17,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-class NetworkDeleteRouteTest03 extends AbstractTest {
+class NetworkDeleteRouteTest03 extends AbstractIntegrationTest {
 
   test("network delete - route looses route tags") {
 
@@ -48,7 +48,7 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
         .route(12, "01-03", Seq(newMember("way", 102)))
         .networkRelation(2, "network2", Seq(newMember("relation", 12)))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
       tc.analysisContext.data.networks.watched.add(2, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(2)))
@@ -123,7 +123,7 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
     }
   }
 
-  private def assertRoute11(tc: TestContext): Unit = {
+  private def assertRoute11(tc: IntegrationTestContext): Unit = {
 
     val routeData = newRouteData(
       Some(Country.nl),
@@ -168,7 +168,7 @@ class NetworkDeleteRouteTest03 extends AbstractTest {
     )
   }
 
-  private def assertRoute12(tc: TestContext): Unit = {
+  private def assertRoute12(tc: IntegrationTestContext): Unit = {
 
     val routeData = newRouteData(
       Some(Country.nl),

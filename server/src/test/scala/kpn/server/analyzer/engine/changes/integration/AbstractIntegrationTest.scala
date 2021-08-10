@@ -37,6 +37,13 @@ import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFactAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoTagAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
@@ -47,6 +54,10 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerN
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
+import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
+import kpn.server.analyzer.engine.analysis.post.PostProcessor
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -90,6 +101,15 @@ import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
+import kpn.server.analyzer.full.FullAnalyzerImpl
+import kpn.server.analyzer.full.network.FullNetworkAnalyzer
+import kpn.server.analyzer.full.network.FullNetworkAnalyzerImpl
+import kpn.server.analyzer.full.node.FullNodeAnalyzer
+import kpn.server.analyzer.full.node.FullNodeAnalyzerImpl
+import kpn.server.analyzer.full.route.FullRouteAnalyzer
+import kpn.server.analyzer.full.route.FullRouteAnalyzerImpl
+import kpn.server.analyzer.load.AnalysisDataInitializer
+import kpn.server.analyzer.load.AnalysisDataInitializerImpl
 import kpn.server.analyzer.load.NetworkLoader
 import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoader
@@ -120,7 +140,7 @@ import java.io.StringWriter
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
 
-abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObjects {
+abstract class AbstractIntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
 
   protected def node(data: Data, id: Long): RawNode = {
     data.raw.nodeWithId(id).get
@@ -459,8 +479,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     }
   }
 
-
-  protected class TestContext(database: Database, dataBefore: OverpassData, dataAfter: OverpassData) {
+  protected class IntegrationTestContext(database: Database, dataBefore: OverpassData, dataAfter: OverpassData) {
 
     val before: Data = dataBefore.data
     val after: Data = dataAfter.data
@@ -706,7 +725,76 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
     }
 
+
+    private val fullNetworkAnalyzer: FullNetworkAnalyzer = new FullNetworkAnalyzerImpl(
+      overpassRepository,
+      networkRepository
+    )
+
+    private val fullRouteAnalyzer: FullRouteAnalyzer = new FullRouteAnalyzerImpl(
+      overpassRepository,
+      routeRepository,
+      masterRouteAnalyzer,
+      analysisExecutionContext: ExecutionContext
+    )
+
+    private val fullNodeAnalyzer: FullNodeAnalyzer = new FullNodeAnalyzerImpl(
+      database,
+      overpassRepository,
+      nodeRepository,
+      nodeAnalyzer,
+      analysisExecutionContext
+    )
+
+    private val networkInfoTagAnalyzer: NetworkInfoTagAnalyzer = new NetworkInfoTagAnalyzer()
+    private val networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
+    private val networkInfoNodeAnalyzer: NetworkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
+    private val networkInfoFactAnalyzer: NetworkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
+    private val networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
+    private val networkCountryAnalyzer: NetworkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
+
+    private val networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer = new NetworkInfoMasterAnalyzer(
+      database,
+      networkInfoTagAnalyzer,
+      networkInfoRouteAnalyzer,
+      networkInfoNodeAnalyzer,
+      networkInfoFactAnalyzer,
+      networkInfoChangeAnalyzer,
+      networkCountryAnalyzer
+    )
+    private val orphanNodeUpdater: OrphanNodeUpdater = new OrphanNodeUpdater(database)
+    private val orphanRouteUpdater: OrphanRouteUpdater = new OrphanRouteUpdater(database)
+    private val statisticsUpdater: StatisticsUpdater = new StatisticsUpdater(database)
+
+    private val postProcessor: PostProcessor = new PostProcessor(
+      networkInfoMasterAnalyzer,
+      orphanNodeUpdater,
+      orphanRouteUpdater,
+      statisticsUpdater
+    )
+
+    private val fullAnalyzer = new FullAnalyzerImpl(
+      fullNetworkAnalyzer,
+      fullRouteAnalyzer,
+      fullNodeAnalyzer,
+      postProcessor
+    )
+
+    private val analysisDataInitializer: AnalysisDataInitializer = new AnalysisDataInitializerImpl(
+      analysisContext,
+      networkRepository,
+      routeRepository,
+      nodeRepository
+    )
+
+    /*
+      Full analysis of the initial situation
+     */
     def process(action: ChangeAction, element: RawElement): Unit = {
+      fullAnalyzer.analyze(timestampBeforeValue)
+      analysisDataInitializer.load()
+
+
       val changes = Seq(Change(action, Seq(element)))
       process(changes)
     }
@@ -716,19 +804,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
       val changeSetContext = ChangeSetContext(ReplicationId(1), changeSet, elementIds)
       changeProcessor.process(changeSetContext)
-    }
-
-    def watchNetwork(data: Data, networkId: Long): Unit = {
-      analysisContext.data.networks.watched.add(networkId, RelationAnalyzer.toElementIds(data.relations(networkId)))
-    }
-
-    def watchOrphanRoute(data: Data, routeId: Long): Unit = {
-      val elementIds = RelationAnalyzer.toElementIds(data.relations(routeId))
-      analysisContext.data.routes.watched.add(routeId, elementIds)
-    }
-
-    def watchOrphanNode(nodeId: Long): Unit = {
-      analysisContext.data.nodes.watched.add(nodeId)
     }
 
     def findRouteById(routeId: Long): RouteInfo = {
@@ -815,7 +890,6 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       }
     }
 
-
     def beforeNodeWithId(nodeId: Long): Node = {
       before.nodes.getOrElse(
         nodeId,
@@ -835,6 +909,22 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         relationId,
         throw new IllegalArgumentException(s"No relation with id $relationId in after test data")
       )
+    }
+
+    @deprecated
+    def watchNetwork(data: Data, networkId: Long): Unit = {
+      analysisContext.data.networks.watched.add(networkId, RelationAnalyzer.toElementIds(data.relations(networkId)))
+    }
+
+    @deprecated
+    def watchOrphanRoute(data: Data, routeId: Long): Unit = {
+      val elementIds = RelationAnalyzer.toElementIds(data.relations(routeId))
+      analysisContext.data.routes.watched.add(routeId, elementIds)
+    }
+
+    @deprecated
+    def watchOrphanNode(nodeId: Long): Unit = {
+      analysisContext.data.nodes.watched.add(nodeId)
     }
 
     @deprecated
@@ -900,5 +990,4 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       sw.toString
     }
   }
-
 }

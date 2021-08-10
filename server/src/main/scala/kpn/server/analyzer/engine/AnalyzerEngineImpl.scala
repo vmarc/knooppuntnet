@@ -46,9 +46,7 @@ class AnalyzerEngineImpl(
     if (analyzerReload) {
       fullAnalyzer.analyze(timestampAfter)
     }
-    else {
       analysisDataInitializer.load()
-    }
   }
 
   def process(replicationId: ReplicationId): Unit = {

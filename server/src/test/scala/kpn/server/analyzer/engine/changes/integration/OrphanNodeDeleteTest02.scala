@@ -15,7 +15,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeDeleteTest02 extends AbstractTest {
+class OrphanNodeDeleteTest02 extends AbstractIntegrationTest {
 
   test("delete orphan node, 'before' not in overpass, but NodeDoc in mongodb") {
 
@@ -24,8 +24,7 @@ class OrphanNodeDeleteTest02 extends AbstractTest {
       val dataBefore = OverpassData.empty
       val dataAfter = OverpassData.empty
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
-      tc.analysisContext.data.nodes.watched.add(1001)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
       setupNodeDoc(tc)
 
       tc.process(ChangeAction.Delete, newRawNode(1001))
@@ -95,7 +94,7 @@ class OrphanNodeDeleteTest02 extends AbstractTest {
     }
   }
 
-  private def setupNodeDoc(tc: TestContext): Unit = {
+  private def setupNodeDoc(tc: IntegrationTestContext): Unit = {
     tc.nodeRepository.save(
       newNodeDoc(
         1001,

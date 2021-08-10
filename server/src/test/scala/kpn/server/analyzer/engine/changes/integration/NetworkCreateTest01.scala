@@ -17,7 +17,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
+class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects {
 
   test("network create - added to watched list in memory and added to repository") {
 
@@ -38,7 +38,7 @@ class NetworkCreateTest01 extends AbstractTest with SharedTestObjects {
         .route(11, "01-02", Seq(newMember("way", 101)))
         .networkRelation(1, "name", Seq(newMember("relation", 11)))
 
-      val tc = new TestContext(database, dataBefore, dataAfter)
+      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       tc.process(ChangeAction.Create, dataAfter.rawNodeWithId(1))
 
