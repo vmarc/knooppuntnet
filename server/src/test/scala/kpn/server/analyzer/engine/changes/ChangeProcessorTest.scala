@@ -1,42 +1,41 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.ReplicationId
-import kpn.api.common.SharedTestObjects
-import kpn.core.util.UnitTest
+import kpn.core.test.OverpassData
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
+import kpn.server.analyzer.engine.changes.integration.AbstractTest
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
-import org.scalamock.scalatest.MockFactory
 
-class ChangeProcessorTest extends UnitTest with MockFactory with SharedTestObjects {
+class ChangeProcessorTest extends AbstractTest {
 
   test("changeset not saved when there are no relevant changes") {
 
-    val t = new TestSetup()
+    withDatabase { database =>
+      val tc = new TestContext(database, OverpassData.empty, OverpassData.empty)
 
-    val context: ChangeSetContext = {
-      val replicationId = ReplicationId(1)
-      val changeSet = newChangeSet()
-      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-      ChangeSetContext(replicationId, changeSet, elementIds)
+      val context: ChangeSetContext = {
+        val replicationId = ReplicationId(1)
+        val changeSet = newChangeSet()
+        val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+        ChangeSetContext(replicationId, changeSet, elementIds)
+      }
+
+      tc.changeProcessor.process(context)
+
+      assert(database.changeSetSummaries.findAll().isEmpty)
+      assert(database.nodeChanges.findAll().isEmpty)
+      assert(database.routeChanges.findAll().isEmpty)
+      assert(database.networkChanges.findAll().isEmpty)
+      assert(database.nodes.findAll().isEmpty)
+      assert(database.routes.findAll().isEmpty)
+      assert(database.networks.findAll().isEmpty)
     }
-
-    (t.networkChangeProcessor.process _).when(*).returns(ChangeSetChanges())
-    (t.orphanRouteChangeProcessor.process _).when(*).returns(ChangeSetChanges())
-    (t.orphanNodeChangeProcessor.process _).when(*).returns(ChangeSetChanges())
-
-    t.changeProcessor.process(context)
-
-    (t.networkChangeProcessor.process _).verify(context).once()
-    (t.orphanRouteChangeProcessor.process _).verify(context).once()
-    (t.orphanNodeChangeProcessor.process _).verify(context).once()
-
-    (t.changeSetInfoUpdater.changeSetInfo _).verify(*).never()
-    (t.changeSaver.save _).verify(*, *, *).never()
   }
 
   test("changeSet is saved and changeSetInfo is fetched when there is a least one change") {

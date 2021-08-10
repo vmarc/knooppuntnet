@@ -71,7 +71,7 @@ class OrphanNodeDeleteProcessorImpl(
             key = key,
             changeType = ChangeType.Delete,
             subsets = nodeAnalysis.subsets,
-            location = nodeAnalysis.oldLocation,
+            locations = nodeAnalysis.locations,
             name = nodeAnalysis.name,
             before = Some(nodeAnalysis.node),
             after = None,

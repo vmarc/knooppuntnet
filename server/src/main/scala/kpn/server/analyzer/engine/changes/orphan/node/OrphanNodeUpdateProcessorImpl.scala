@@ -90,7 +90,7 @@ class OrphanNodeUpdateProcessorImpl(
           key = key,
           changeType = ChangeType.Update,
           subsets = subsets,
-          location = nodeAfterAnalysis.oldLocation,
+          locations = nodeAfterAnalysis.locations,
           name = name,
           before = Some(loadedNodeChange.before.node.raw),
           after = Some(loadedNodeChange.after.node.raw),

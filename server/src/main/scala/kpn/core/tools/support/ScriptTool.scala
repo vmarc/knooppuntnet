@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
-import kpn.core.common.Elapsed
 import kpn.core.common.Time
+import kpn.core.util.Elapsed
 
 import java.io.IOException
 import java.lang.ProcessBuilder.Redirect
@@ -37,7 +37,7 @@ class ScriptTool(name: String) {
     }
 
     val end = System.currentTimeMillis()
-    val elapsed = Elapsed.string(end - start)
+    val elapsed = Elapsed(end - start)
     val subject = (if (success) "Done: " else "Error: ") + name
     val text = s"$command\n$elapsed"
     mailSender.send(subject, text)

@@ -10,7 +10,6 @@ import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -36,7 +35,7 @@ class OrphanNodeCreateProcessorImpl(
           key = key,
           changeType = ChangeType.Create,
           nodeAnalysis.subsets,
-          location = nodeAnalysis.oldLocation,
+          locations = nodeAnalysis.locations,
           nodeAnalysis.name,
           before = None,
           after = Some(nodeAnalysis.node),

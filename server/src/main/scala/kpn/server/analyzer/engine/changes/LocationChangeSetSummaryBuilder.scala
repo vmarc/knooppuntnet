@@ -27,14 +27,23 @@ class LocationChangeSetSummaryBuilder() {
       val nodeChanges = changes.nodeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
       val routeChanges = changes.routeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
       val locations = {
-        val nodeLocations = nodeChanges.flatMap(_.location)
+        val nodeLocations = nodeChanges.flatMap { nodeChange =>
+          if (nodeChange.locations.nonEmpty) {
+            Some(
+              Location(nodeChange.locations)
+            )
+          }
+          else {
+            None
+          }
+        }
         val routeLocations = routeChanges.flatMap(_.locationAnalysis.candidates.map(_.location))
         (nodeLocations ++ routeLocations).distinct
       }
 
       val leafNodes = locations.map { location =>
         val leafNodeNodeChanges = {
-          val locationNodeChanges = nodeChanges.filter(_.location.contains(location))
+          val locationNodeChanges = nodeChanges.filter(_.locations == location.names)
           val removed = locationNodeChanges.filter(_.changeType == ChangeType.Delete).map(toRef)
           val added = locationNodeChanges.filter(_.changeType == ChangeType.Create).map(toRef)
           val updated = locationNodeChanges.filter(_.changeType == ChangeType.Update).map(toRef)

@@ -89,7 +89,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1001),
             changeType = ChangeType.Delete,
             subsets = Seq(Subset.nlHiking),
-            location = Some(Location(Seq("nl", "North Brabant", "Roosendaal"))),
+            locations = Seq("nl", "North Brabant", "Roosendaal"),
             name = "01"
           )
         ),
@@ -98,7 +98,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1002),
             changeType = ChangeType.Create,
             subsets = Seq(Subset.nlHiking),
-            location = Some(Location(Seq("nl", "North Brabant", "Roosendaal"))),
+            locations = Seq("nl", "North Brabant", "Roosendaal"),
             name = "02"
           )
         ),
@@ -107,7 +107,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1003),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
-            location = Some(Location(Seq("nl", "North Brabant", "Roosendaal"))),
+            locations = Seq("nl", "North Brabant", "Roosendaal"),
             name = "03"
           )
         )
@@ -215,7 +215,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1001),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
-            location = Some(Location(Seq("nl", "North Brabant", "Roosendaal"))),
+            locations = Seq("nl", "North Brabant", "Roosendaal"),
             name = "01"
           )
         ),
@@ -224,7 +224,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1002),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
-            location = Some(Location(Seq("nl", "North Brabant", "Roosendaal"))),
+            locations = Seq("nl", "North Brabant", "Roosendaal"),
             name = "02"
           )
         ),
@@ -233,7 +233,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1003),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.beHiking),
-            location = Some(Location(Seq("be", "Antwerp province", "Antwerp arrondissement", "Essen BE"))),
+            locations = Seq("be", "Antwerp province", "Antwerp arrondissement", "Essen BE"),
             name = "03"
           )
         ),
@@ -242,7 +242,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1004),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.beBicycle),
-            location = Some(Location(Seq("be", "Antwerp province", "Antwerp arrondissement", "Essen BE"))),
+            locations = Seq("be", "Antwerp province", "Antwerp arrondissement", "Essen BE"),
             name = "04"
           )
         )

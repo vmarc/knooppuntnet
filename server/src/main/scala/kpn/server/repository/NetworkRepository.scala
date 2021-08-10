@@ -5,6 +5,7 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Subset
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.doc.NetworkDoc
+import kpn.core.mongo.doc.NetworkInfoDoc
 
 trait NetworkRepository {
 
@@ -17,6 +18,8 @@ trait NetworkRepository {
   def oldSaveNetworkInfo(network: NetworkInfo): Unit
 
   def save(networkDoc: NetworkDoc): Unit
+
+  def saveNetworkInfo(networkInfoDoc: NetworkInfoDoc): Unit
 
   def bulkSave(networkDocs: Seq[NetworkDoc]): Unit
 

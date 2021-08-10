@@ -30,7 +30,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
           left.key,
           mergedChangeType(),
           mergedSubsets(),
-          location = left.location,
+          locations = left.locations,
           left.name,
           mergedBefore(),
           mergedAfter(),

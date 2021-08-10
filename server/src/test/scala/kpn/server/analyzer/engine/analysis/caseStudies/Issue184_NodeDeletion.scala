@@ -18,6 +18,8 @@ class Issue184_NodeDeletion extends AbstractTest {
 
   test("simulate node create/modify/delete") {
 
+    pending
+
     val tc = new OldTestConfig(Data.empty, Data.empty)
 
     processCreate(tc)

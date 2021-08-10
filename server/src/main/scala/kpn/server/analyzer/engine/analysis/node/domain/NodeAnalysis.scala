@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.node.domain
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.RawNode
-import kpn.api.common.location.Location
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
 import kpn.api.custom.Day
@@ -58,16 +57,5 @@ case class NodeAnalysis(
       integrity,
       routeReferences
     )
-  }
-
-
-  // TODO MONGO temporary method for backward compatibility
-  def oldLocation: Option[Location] = {
-    if (locations.nonEmpty) {
-      Some(Location(locations))
-    }
-    else {
-      None
-    }
   }
 }

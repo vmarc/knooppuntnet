@@ -13,6 +13,7 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.actions.networks.MongoQueryNetworkIds
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.mongo.doc.NetworkDoc
+import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
@@ -58,6 +59,10 @@ class NetworkRepositoryImpl(
 
   override def save(networkDoc: NetworkDoc): Unit = {
     database.networks.save(networkDoc, log)
+  }
+
+  override def saveNetworkInfo(networkInfoDoc: NetworkInfoDoc): Unit = {
+    database.networkInfos.save(networkInfoDoc, log)
   }
 
   override def bulkSave(networkDocs: Seq[NetworkDoc]): Unit = {

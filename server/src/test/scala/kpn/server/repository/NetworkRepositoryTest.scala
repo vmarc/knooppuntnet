@@ -10,24 +10,6 @@ import kpn.core.util.UnitTest
 
 class NetworkRepositoryTest extends UnitTest with SharedTestObjects {
 
-  test("network - get network by id") {
-    withCouchDatabase { database =>
-      val repository = new NetworkRepositoryImpl(null, database, false)
-      repository.findById(1) should equal(None)
-
-      val testNetwork = newNetworkInfo(
-        newNetworkAttributes(
-          1,
-          Some(Country.nl),
-          NetworkType.cycling,
-          name = "name"
-        )
-      )
-      repository.oldSaveNetworkInfo(testNetwork)
-      repository.findById(1) should equal(Some(testNetwork))
-    }
-  }
-
   test("gpx - get gpx file by network id") {
     withCouchDatabase { database =>
       val repository = new NetworkRepositoryImpl(null, database, false)

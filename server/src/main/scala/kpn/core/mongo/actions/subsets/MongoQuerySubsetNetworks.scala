@@ -12,6 +12,7 @@ import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
@@ -33,15 +34,15 @@ class MongoQuerySubsetNetworks(database: Database) {
           // equal("labels", s"location-${subset.country.domain}"),
           // equal("labels", s"network-type-${subset.networkType.name}")
           equal("active", true),
-          equal("attributes.country", subset.country.domain),
-          equal("attributes.networkType", subset.networkType.name)
+          equal("country", subset.country.domain),
+          equal("summary.networkType", subset.networkType.name)
         )
       ),
-      sort(orderBy(ascending("attributes.name"))),
+      sort(orderBy(ascending("summary.name"))),
       project(
         fields(
           excludeId(),
-          include("attributes")
+          computed("attributes", "summary")
         )
       )
     )
