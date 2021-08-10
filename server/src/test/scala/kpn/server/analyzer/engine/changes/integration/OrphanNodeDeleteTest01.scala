@@ -92,5 +92,4 @@ class OrphanNodeDeleteTest01 extends AbstractTest {
       )
     }
   }
-
 }

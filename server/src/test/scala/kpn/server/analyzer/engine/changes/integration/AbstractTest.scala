@@ -4,19 +4,24 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.ChangeAction
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Change
 import kpn.api.custom.Country
+import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.loadOld.OsmDataXmlWriter
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
@@ -483,9 +488,12 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
 
   protected class TestContext(database: Database, dataBefore: OverpassData, dataAfter: OverpassData) {
 
+    val before: Data = dataBefore.data
+    val after: Data = dataAfter.data
+
     val analysisContext = new AnalysisContext()
 
-    val overpassRepository: OverpassRepository = new OverpassRepositoryMock(dataBefore.data, dataAfter.data)
+    val overpassRepository: OverpassRepository = new OverpassRepositoryMock(before, after)
     val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock()
@@ -790,6 +798,18 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       }
     }
 
+    def findNetworkInfoById(networkId: Long): NetworkInfoDoc = {
+      database.networkInfos.findById(networkId).getOrElse {
+        val ids = database.networkInfos.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find NetworkInfoDoc $networkId, no networks in database")
+        }
+        else {
+          fail(s"Could not find NetworkInfoDoc $networkId (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
     def findChangeSetSummaryById(id: String): ChangeSetSummary = {
       database.changeSetSummaries.findByStringId(id).getOrElse {
         val ids = database.changeSetSummaries.stringIds()
@@ -798,6 +818,18 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         }
         else {
           fail(s"Could not find changeSetSummary $id (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
+    def findNetworkChangeById(id: String): NetworkChange = {
+      database.networkChanges.findByStringId(id).getOrElse {
+        val ids = database.networkChanges.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find NetworkChange $id, no network changes in database")
+        }
+        else {
+          fail(s"Could not find NetworkChange $id (but found: ${ids.mkString(", ")})")
         }
       }
     }
@@ -826,6 +858,27 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       }
     }
 
+
+    def beforeNodeWithId(nodeId: Long): Node = {
+      before.nodes.getOrElse(
+        nodeId,
+        throw new IllegalArgumentException(s"No node with id $nodeId in test data")
+      )
+    }
+
+    def beforeRelationWithId(relationId: Long): Relation = {
+      before.relations.getOrElse(
+        relationId,
+        throw new IllegalArgumentException(s"No relation with id $relationId in before test data")
+      )
+    }
+
+    def afterRelationWithId(relationId: Long): Relation = {
+      after.relations.getOrElse(
+        relationId,
+        throw new IllegalArgumentException(s"No relation with id $relationId in after test data")
+      )
+    }
 
     @deprecated
     def relationBefore(data: Data, relationId: Long): Unit = {

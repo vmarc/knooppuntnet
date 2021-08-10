@@ -1,12 +1,9 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
-import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
@@ -19,6 +16,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
 class NetworkDeleteNodeTest05 extends AbstractTest {
@@ -27,125 +25,109 @@ class NetworkDeleteNodeTest05 extends AbstractTest {
 
     pending
 
-    val dataBefore = OverpassData()
-      .node(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
-      .networkRelation(1, "network", Seq(newMember("node", 1001)))
-      .data
+    withDatabase { database =>
 
-    val dataAfter = OverpassData()
-      .node(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
-      .data
+      val dataBefore = OverpassData()
+        .node(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
+        .networkRelation(1, "network", Seq(newMember("node", 1001)))
 
-    val tc = new OldTestConfig(dataBefore, dataAfter)
-    tc.relationBefore(dataBefore, 1)
-    tc.nodesAfter(dataAfter, 1001)
+      val dataAfter = OverpassData()
+        .node(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
 
-    tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(dataBefore.relations(1)))
+      val tc = new TestContext(database, dataBefore, dataAfter)
 
-    tc.process(ChangeAction.Delete, newRawRelation(1))
+      tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
 
-    assert(!tc.analysisContext.data.networks.watched.contains(1))
-    // assert(tc.analysisContext.data.orphanNodes.watched.contains(1001)) TODO CHANGE !!!
+      tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    (tc.networkRepository.oldSaveNetworkInfo _).verify(
-      where { networkInfo: NetworkInfo =>
-        networkInfo should matchTo(
-          newNetworkInfo(
-            newNetworkAttributes(
-              1,
-              Some(Country.nl),
-              NetworkType.hiking,
-              name = "network",
-              lastUpdated = timestampAfterValue,
-              relationLastUpdated = timestampAfterValue
-            ),
-            active = false // <--- !!!
+      assert(!tc.analysisContext.data.networks.watched.contains(1))
+      // assert(tc.analysisContext.data.orphanNodes.watched.contains(1001)) TODO CHANGE !!!
+
+      (tc.networkRepository.oldSaveNetworkInfo _).verify(
+        where { networkInfo: NetworkInfo =>
+          networkInfo should matchTo(
+            newNetworkInfo(
+              newNetworkAttributes(
+                1,
+                Some(Country.nl),
+                NetworkType.hiking,
+                name = "network",
+                lastUpdated = timestampAfterValue,
+                relationLastUpdated = timestampAfterValue
+              ),
+              active = false // <--- !!!
+            )
           )
-        )
-        true
-      }
-    )
+          true
+        }
+      )
 
-    (tc.nodeRepository.save _).verify(*).once()
+      (tc.nodeRepository.save _).verify(*).once()
 
-    (tc.changeSetRepository.saveChangeSetSummary _).verify(
-      where { changeSetSummary: ChangeSetSummary =>
-        changeSetSummary should matchTo(
-          newChangeSetSummary(
-            subsets = Seq(Subset.nlHiking),
-            networkChanges = NetworkChanges(
-              deletes = Seq(
-                newChangeSetNetwork(
-                  Some(Country.nl),
-                  NetworkType.hiking,
-                  1,
-                  "network",
-                  investigate = true
-                )
+      tc.findChangeSetSummaryById("123:1") should matchTo(
+        newChangeSetSummary(
+          subsets = Seq(Subset.nlHiking),
+          networkChanges = NetworkChanges(
+            deletes = Seq(
+              newChangeSetNetwork(
+                Some(Country.nl),
+                NetworkType.hiking,
+                1,
+                "network",
+                investigate = true
               )
-            ),
-            subsetAnalyses = Seq(
-              ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-            ),
-            investigate = true
-          )
+            )
+          ),
+          subsetAnalyses = Seq(
+            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+          ),
+          investigate = true
         )
-        true
-      }
-    )
+      )
 
-    (tc.changeSetRepository.saveNetworkChange _).verify(
-      where { networkChange: NetworkChange =>
-        networkChange should matchTo(
-          newNetworkChange(
-            newChangeKey(elementId = 1),
-            ChangeType.Delete,
-            Some(Country.nl),
-            NetworkType.hiking,
-            1,
-            "network",
-            investigate = true
-          )
+      tc.findNetworkChangeById("123:1:1") should matchTo(
+        newNetworkChange(
+          newChangeKey(elementId = 1),
+          ChangeType.Delete,
+          Some(Country.nl),
+          NetworkType.hiking,
+          1,
+          "network",
+          investigate = true
         )
-        true
-      }
-    )
+      )
 
-    (tc.changeSetRepository.saveNodeChange _).verify(
-      where { nodeChange: NodeChange =>
-        nodeChange should matchTo(
-          newNodeChange(
-            key = newChangeKey(elementId = 1001),
-            changeType = ChangeType.Update,
-            subsets = Seq(Subset.nlHiking),
-            name = "02",
-            before = Some(
-              newRawNode(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
-            ),
-            after = Some(
-              newRawNode(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
-            ),
-            tagDiffs = Some(
-              TagDiffs(
-                mainTags = Seq(
-                  TagDetail(Delete, "rwn_ref", Some("01"), None),
-                  TagDetail(Same, "rcn_ref", Some("02"), Some("02")),
-                  TagDetail(Same, "network:type", Some("node_network"), Some("node_network"))
-                )
+      tc.findNodeChangeById("123:1:1001") should matchTo(
+        newNodeChange(
+          key = newChangeKey(elementId = 1001),
+          changeType = ChangeType.Update,
+          subsets = Seq(Subset.nlHiking),
+          name = "02",
+          before = Some(
+            newRawNode(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
+          ),
+          after = Some(
+            newRawNode(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
+          ),
+          tagDiffs = Some(
+            TagDiffs(
+              mainTags = Seq(
+                TagDetail(Delete, "rwn_ref", Some("01"), None),
+                TagDetail(Same, "rcn_ref", Some("02"), Some("02")),
+                TagDetail(Same, "network:type", Some("node_network"), Some("node_network"))
               )
-            ),
-            removedFromNetwork = Seq(
-              Ref(1, "network")
-            ),
-            facts = Seq(Fact.LostHikingNodeTag),
-            investigate = true,
-            impact = true,
-            locationInvestigate = true,
-            locationImpact = true
-          )
+            )
+          ),
+          removedFromNetwork = Seq(
+            Ref(1, "network")
+          ),
+          facts = Seq(Fact.LostHikingNodeTag),
+          investigate = true,
+          impact = true,
+          locationInvestigate = true,
+          locationImpact = true
         )
-        true
-      }
-    )
+      )
+    }
   }
 }

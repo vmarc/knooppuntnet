@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.core.test.OverpassData
 import kpn.api.common.changes.ChangeAction
-import kpn.core.data.Data
+import kpn.core.test.OverpassData
+import kpn.core.test.TestSupport.withDatabase
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 
 class NetworkDelete_Test02 extends AbstractTest {
 
@@ -11,19 +11,21 @@ class NetworkDelete_Test02 extends AbstractTest {
 
     pending
 
-    val dataBefore = OverpassData().data
-    val tc = new OldTestConfig(dataBefore, Data.empty)
+    withDatabase { database =>
 
-    tc.analysisContext.data.networks.watched.add(1, ElementIds())
+      val tc = new TestContext(database, OverpassData.empty, OverpassData.empty)
 
-    tc.process(ChangeAction.Delete, newRawRelation(1))
+      tc.analysisContext.data.networks.watched.add(1, ElementIds())
 
-    assert(!tc.analysisContext.data.networks.watched.contains(1))
+      tc.process(ChangeAction.Delete, newRawRelation(1))
 
-    (tc.networkRepository.oldSaveNetworkInfo _).verify(*).never()
-    (tc.changeSetRepository.saveChangeSetSummary _).verify(*).never()
-    (tc.changeSetRepository.saveNetworkChange _).verify(*).never()
-    (tc.changeSetRepository.saveRouteChange _).verify(*).never()
+      assert(!tc.analysisContext.data.networks.watched.contains(1))
+
+      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).never()
+
+      assert(database.changeSetSummaries.findAll().isEmpty)
+      assert(database.networkChanges.findAll().isEmpty)
+      assert(database.routeChanges.findAll().isEmpty)
+    }
   }
-
 }
