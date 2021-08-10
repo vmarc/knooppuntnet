@@ -39,7 +39,10 @@ class NodeChangeAnalyzerImpl(
       val nodeUpdateIds2 = updatedNetworkNodeIds.filter(isKnownNode)
       val nodeUpdateIds3 = updatedNodesById.keySet.filter(isKnownNode)
 
-      val deletes = deletedNodesById.keySet.filter(isKnownNode)
+      val nodeDeleteIds1 = networkNodeIds(deletedNodesById)
+      val nodeDeleteIds2 = deletedNodesById.keySet.filter(isKnownNode)
+
+      val deletes = nodeDeleteIds1 ++ nodeDeleteIds2
       val updates = nodeUpdateIds1 ++ nodeUpdateIds2 ++ nodeUpdateIds3 -- deletes
       val creates = nodeCreateIds1 ++ nodeCreateIds2 -- updates -- deletes
 
@@ -48,10 +51,6 @@ class NodeChangeAnalyzerImpl(
       val sortedDeletes = deletes.toList.sorted
 
       val nodesById = createdNodesById ++ updatedNodesById ++ deletedNodesById
-
-      val nodeCreates = sortedCreates.flatMap(nodesById.get)
-      val nodeUpdates = sortedUpdates.flatMap(nodesById.get)
-      val nodeDeletes = sortedDeletes.flatMap(nodesById.get)
 
       val message = s"creates=${creates.size}, updates=${updates.size}, deletes=${deletes.size}"
       val elementChanges = ElementChanges(
@@ -69,6 +68,7 @@ class NodeChangeAnalyzerImpl(
       .filter(_.action == action)
       .flatMap(_.elements)
       .collect { case e: RawNode => e }
+      .filterNot(isBlackListed)
       .map(n => n.id -> n)
       .toMap
   }
@@ -76,7 +76,6 @@ class NodeChangeAnalyzerImpl(
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {
     nodesById.values.
       filter(n => TagInterpreter.isNetworkNode(n.tags)).
-      filterNot(isBlackListed).
       map(_.id).
       toSet
   }
@@ -90,6 +89,6 @@ class NodeChangeAnalyzerImpl(
   }
 
   private def isBlackListed(node: RawNode): Boolean = {
-    blackListRepository.get.containsRoute(node.id)
+    blackListRepository.get.containsNode(node.id)
   }
 }
