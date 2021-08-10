@@ -78,7 +78,6 @@ class OrphanNodeCreateTest01 extends AbstractTest {
           after = Some(
             newRawNodeWithName(1001, "01")
           ),
-          facts = Seq(Fact.OrphanNode),
           happy = true,
           impact = true,
           locationHappy = true,

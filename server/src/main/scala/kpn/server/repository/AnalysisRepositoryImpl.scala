@@ -54,8 +54,8 @@ class AnalysisRepositoryImpl(
   }
 
   private def saveNodeDocs(network: Network): Unit = {
-    val nodeDocs: Seq[NodeDoc] = network.nodes.map { node =>
-      nodeAnalyzer.analyze(NodeAnalysis(node.networkNode.node.raw)).toNodeDoc
+    val nodeDocs: Seq[NodeDoc] = network.nodes.flatMap { node =>
+      nodeAnalyzer.analyze(NodeAnalysis(node.networkNode.node.raw)).map(_.toNodeDoc)
     }
     nodeRepository.bulkSave(nodeDocs: _*)
   }

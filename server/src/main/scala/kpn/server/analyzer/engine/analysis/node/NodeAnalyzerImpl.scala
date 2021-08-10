@@ -23,7 +23,7 @@ class NodeAnalyzerImpl(
   nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer
 ) extends NodeAnalyzer {
 
-  override def analyze(analysis: NodeAnalysis): NodeAnalysis = {
+  override def analyze(analysis: NodeAnalysis): Option[NodeAnalysis] = {
     Log.context("node=%07d".format(analysis.node.id)) {
       val analyzers = List(
         nodeCountryAnalyzer,
@@ -40,9 +40,12 @@ class NodeAnalyzerImpl(
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[NodeAspectAnalyzer], analysis: NodeAnalysis): NodeAnalysis = {
-    if (analyzers.isEmpty) {
-      analysis
+  private def doAnalyze(analyzers: List[NodeAspectAnalyzer], analysis: NodeAnalysis): Option[NodeAnalysis] = {
+    if (analysis.abort) {
+      None
+    }
+    else if (analyzers.isEmpty) {
+      Some(analysis)
     }
     else {
       val newAnalysis = analyzers.head.analyze(analysis)

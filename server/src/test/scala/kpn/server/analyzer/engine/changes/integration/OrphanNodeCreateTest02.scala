@@ -93,7 +93,6 @@ class OrphanNodeCreateTest02 extends AbstractTest {
               )
             )
           ),
-          facts = Seq(Fact.OrphanNode),
           happy = true,
           impact = true,
           locationHappy = true,

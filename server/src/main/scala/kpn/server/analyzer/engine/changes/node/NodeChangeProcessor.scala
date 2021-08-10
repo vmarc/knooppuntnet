@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.orphan.node
+package kpn.server.analyzer.engine.changes.node
 
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges

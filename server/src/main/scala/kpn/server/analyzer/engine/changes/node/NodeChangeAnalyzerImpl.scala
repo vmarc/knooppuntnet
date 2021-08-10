@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.orphan.node
+package kpn.server.analyzer.engine.changes.node
 
 import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.ChangeAction.Create
@@ -50,16 +50,14 @@ class NodeChangeAnalyzerImpl(
       val sortedUpdates = updates.toList.sorted
       val sortedDeletes = deletes.toList.sorted
 
-      val nodesById = createdNodesById ++ updatedNodesById ++ deletedNodesById
-
-      val message = s"creates=${creates.size}, updates=${updates.size}, deletes=${deletes.size}"
-      val elementChanges = ElementChanges(
-        sortedCreates,
-        sortedUpdates,
-        sortedDeletes
+      (
+        s"creates=${creates.size}, updates=${updates.size}, deletes=${deletes.size}",
+        ElementChanges(
+          sortedCreates,
+          sortedUpdates,
+          sortedDeletes
+        )
       )
-
-      (message, elementChanges)
     }
   }
 

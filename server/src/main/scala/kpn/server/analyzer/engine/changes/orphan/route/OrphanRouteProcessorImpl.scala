@@ -34,7 +34,7 @@ class OrphanRouteProcessorImpl(
           routeRepository.save(route)
           analysis.routeNodeAnalysis.routeNodes.foreach { routeNode =>
             val nodeAnalysis = nodeAnalyzer.analyze(NodeAnalysis(routeNode.node.raw))
-            nodeRepository.save(nodeAnalysis.toNodeDoc)
+            nodeRepository.save(nodeAnalysis.get.toNodeDoc)
           }
 
           val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)

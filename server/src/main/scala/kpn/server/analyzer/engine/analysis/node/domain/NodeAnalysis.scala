@@ -24,7 +24,8 @@ case class NodeAnalysis(
   integrity: Option[NodeIntegrity] = None,
   labels: Seq[String] = Seq.empty,
   routeReferences: Seq[Reference] = Seq.empty,
-  tiles: Seq[String] = Seq.empty
+  tiles: Seq[String] = Seq.empty,
+  abort: Boolean = false
 ) {
 
   def networkTypes: Seq[NetworkType] = {

@@ -65,8 +65,8 @@ class FullNodeAnalyzerImpl(
         Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
           log.infoElapsed {
             val rawNodes = overpassRepository.nodes(context.timestamp, nodeIdsBatch)
-            val nodeDocs = rawNodes.map { rawNode =>
-              nodeAnalyzer.analyze(NodeAnalysis(rawNode)).toNodeDoc
+            val nodeDocs = rawNodes.flatMap { rawNode =>
+              nodeAnalyzer.analyze(NodeAnalysis(rawNode)).map(_.toNodeDoc)
             }
             database.nodes.bulkSave(nodeDocs)
             val ids = nodeDocs.map(_._id)

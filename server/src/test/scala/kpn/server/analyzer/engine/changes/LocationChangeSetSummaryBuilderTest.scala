@@ -16,7 +16,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.TestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 
 class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
@@ -84,7 +84,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
         )
       ),
       nodeChanges = Seq(
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1001),
             changeType = ChangeType.Delete,
@@ -93,7 +93,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             name = "01"
           )
         ),
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1002),
             changeType = ChangeType.Create,
@@ -102,7 +102,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             name = "02"
           )
         ),
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1003),
             changeType = ChangeType.Update,
@@ -210,7 +210,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     val changes = ChangeSetChanges(
       nodeChanges = Seq(
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1001),
             changeType = ChangeType.Update,
@@ -219,7 +219,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             name = "01"
           )
         ),
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1002),
             changeType = ChangeType.Update,
@@ -228,7 +228,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             name = "02"
           )
         ),
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1003),
             changeType = ChangeType.Update,
@@ -237,7 +237,7 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             name = "03"
           )
         ),
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           newNodeChange(
             key = newChangeKey(elementId = 1004),
             changeType = ChangeType.Update,

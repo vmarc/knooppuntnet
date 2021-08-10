@@ -19,7 +19,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
-import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
@@ -151,9 +151,12 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
 
         allNodes.values.foreach { networkNode =>
-          val nodeAnalysis = config.nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw))
-          config.nodeRepository.save(nodeAnalysis.toNodeDoc)
-          loadNodeChange(nodeAnalysis)
+          config.nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw)) match {
+            case None => // TODO message?
+            case Some(nodeAnalysis) =>
+              config.nodeRepository.save(nodeAnalysis.toNodeDoc)
+              loadNodeChange(nodeAnalysis)
+          }
         }
 
         val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
@@ -268,7 +271,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
       val key = config.changeSetContext.buildChangeKey(node.id)
       config.changeSetRepository.saveNodeChange(
-        NodeChangeAnalyzer.analyzed(
+        NodeChangeStateAnalyzer.analyzed(
           NodeChange(
             _id = key.toId,
             key = key,
@@ -335,7 +338,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
     val key = config.changeSetContext.buildChangeKey(nodeAnalysis.node.id)
     config.changeSetRepository.saveNodeChange(
-      NodeChangeAnalyzer.analyzed(
+      NodeChangeStateAnalyzer.analyzed(
         NodeChange(
           _id = key.toId,
           key = key,

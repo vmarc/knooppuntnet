@@ -160,7 +160,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
   }
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {
-    new NodeChangeAnalyzer(nodeChange).analyzed()
+    new NodeChangeStateAnalyzer(nodeChange).analyzed()
   }
 
 }

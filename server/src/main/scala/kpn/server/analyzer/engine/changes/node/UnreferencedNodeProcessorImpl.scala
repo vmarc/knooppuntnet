@@ -81,131 +81,144 @@ class UnreferencedNodeProcessorImpl(
       furtherProcess(context, nodeBefore, nodeAfter, facts)
     }
     else {
-      val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, active = false))
-      nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
+      val nodeAfterAnalysisOption = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, active = false))
 
-      val subsets = subsetsIn(nodeBefore)
+      nodeAfterAnalysisOption match {
+        case None => None
+        case Some(nodeAfterAnalysis) =>
+          nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
 
-      val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
-      val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
+          val subsets = subsetsIn(nodeBefore)
 
-      analysisContext.data.nodes.watched.delete(before.id)
+          val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
+          val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
-      val key = context.buildChangeKey(nodeBefore.id)
+          analysisContext.data.nodes.watched.delete(before.id)
 
-      Some(
-        analyzed(
-          NodeChange(
-            _id = key.toId,
-            key = key,
-            changeType = ChangeType.Update,
-            subsets = subsets,
-            locations = nodeBefore.networkNode.locations,
-            name = nodeBefore.networkNode.name,
-            before = Some(nodeBefore.networkNode.node.raw),
-            after = Some(nodeAfter.node.raw),
-            connectionChanges = Seq.empty,
-            roleConnectionChanges = Seq.empty,
-            definedInNetworkChanges = Seq.empty,
-            tagDiffs = tagDiffs,
-            nodeMoved = nodeMoved,
-            addedToRoute = Seq.empty,
-            removedFromRoute = Seq.empty,
-            addedToNetwork = Seq.empty,
-            removedFromNetwork = Seq.empty,
-            factDiffs = FactDiffs(),
-            facts = facts
+          val key = context.buildChangeKey(nodeBefore.id)
+
+          Some(
+            analyzed(
+              NodeChange(
+                _id = key.toId,
+                key = key,
+                changeType = ChangeType.Update,
+                subsets = subsets,
+                locations = nodeBefore.networkNode.locations,
+                name = nodeBefore.networkNode.name,
+                before = Some(nodeBefore.networkNode.node.raw),
+                after = Some(nodeAfter.node.raw),
+                connectionChanges = Seq.empty,
+                roleConnectionChanges = Seq.empty,
+                definedInNetworkChanges = Seq.empty,
+                tagDiffs = tagDiffs,
+                nodeMoved = nodeMoved,
+                addedToRoute = Seq.empty,
+                removedFromRoute = Seq.empty,
+                addedToNetwork = Seq.empty,
+                removedFromNetwork = Seq.empty,
+                factDiffs = FactDiffs(),
+                facts = facts
+              )
+            )
           )
-        )
-      )
+      }
     }
   }
 
   private def processDeletedNode(context: ChangeSetContext, nodeBefore: NetworkNodeInfo) = {
 
-    val nodeBeforeAnalysis = nodeAnalyzer.analyze(
+    val nodeBeforeAnalysisOption = nodeAnalyzer.analyze(
       NodeAnalysis(
         nodeBefore.networkNode.node.raw,
         active = false,
         facts = Seq(Fact.Deleted)
       )
     )
+    nodeBeforeAnalysisOption match {
+      case None => None
+      case Some(nodeBeforeAnalysis) =>
+        nodeRepository.save(nodeBeforeAnalysis.toNodeDoc)
 
-    nodeRepository.save(nodeBeforeAnalysis.toNodeDoc)
+        val subsets = subsetsIn(nodeBefore)
 
-    val subsets = subsetsIn(nodeBefore)
+        // TODO CHANGE remove from orphan/ignored node lists? + add in test
 
-    // TODO CHANGE remove from orphan/ignored node lists? + add in test
+        val key = context.buildChangeKey(nodeBefore.id)
 
-    val key = context.buildChangeKey(nodeBefore.id)
-
-    Some(
-      analyzed(
-        NodeChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Delete,
-          subsets = subsets,
-          locations = nodeBeforeAnalysis.locations,
-          name = nodeBefore.networkNode.name,
-          before = Some(nodeBefore.networkNode.node.raw),
-          after = None,
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = None,
-          nodeMoved = None,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts = Seq(Fact.Deleted)
+        Some(
+          analyzed(
+            NodeChange(
+              _id = key.toId,
+              key = key,
+              changeType = ChangeType.Delete,
+              subsets = subsets,
+              locations = nodeBeforeAnalysis.locations,
+              name = nodeBefore.networkNode.name,
+              before = Some(nodeBefore.networkNode.node.raw),
+              after = None,
+              connectionChanges = Seq.empty,
+              roleConnectionChanges = Seq.empty,
+              definedInNetworkChanges = Seq.empty,
+              tagDiffs = None,
+              nodeMoved = None,
+              addedToRoute = Seq.empty,
+              removedFromRoute = Seq.empty,
+              addedToNetwork = Seq.empty,
+              removedFromNetwork = Seq.empty,
+              factDiffs = FactDiffs(),
+              facts = Seq(Fact.Deleted)
+            )
+          )
         )
-      )
-    )
+    }
   }
 
   private def furtherProcess(context: ChangeSetContext, nodeBefore: NetworkNodeInfo, nodeAfter: LoadedNode, changeFacts: Seq[Fact]): Option[NodeChange] = {
 
     analysisContext.data.nodes.watched.add(nodeBefore.id)
 
-    val nodeAfterAnalysis = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, orphan = true))
-    nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
+    val nodeAfterAnalysisOption = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, orphan = true))
 
-    val rawNodeBefore = nodeBefore.networkNode.node.raw
-    val rawNodeAfter = nodeAfter.node.raw
+    nodeAfterAnalysisOption match {
+      case None => None
+      case Some(nodeAfterAnalysis) =>
+        nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
 
-    val tagDiffs = new NodeTagDiffAnalyzer(rawNodeBefore, rawNodeAfter).diffs
-    val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
+        val rawNodeBefore = nodeBefore.networkNode.node.raw
+        val rawNodeAfter = nodeAfter.node.raw
 
-    val key = context.buildChangeKey(nodeBefore.id)
+        val tagDiffs = new NodeTagDiffAnalyzer(rawNodeBefore, rawNodeAfter).diffs
+        val nodeMoved = new NodeMovedAnalyzer(rawNodeBefore, rawNodeAfter).analysis
 
-    Some(
-      analyzed(
-        NodeChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Update,
-          subsets = nodeAfter.subsets,
-          locations = nodeAfterAnalysis.locations,
-          name = nodeAfter.name,
-          before = Some(rawNodeBefore),
-          after = Some(rawNodeAfter),
-          connectionChanges = Seq.empty, // TODO CHANGE supply value here
-          roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
-          definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
-          tagDiffs = tagDiffs,
-          nodeMoved = nodeMoved,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
-          facts = changeFacts :+ Fact.BecomeOrphan
+        val key = context.buildChangeKey(nodeBefore.id)
+
+        Some(
+          analyzed(
+            NodeChange(
+              _id = key.toId,
+              key = key,
+              changeType = ChangeType.Update,
+              subsets = nodeAfter.subsets,
+              locations = nodeAfterAnalysis.locations,
+              name = nodeAfter.name,
+              before = Some(rawNodeBefore),
+              after = Some(rawNodeAfter),
+              connectionChanges = Seq.empty, // TODO CHANGE supply value here
+              roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
+              definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
+              tagDiffs = tagDiffs,
+              nodeMoved = nodeMoved,
+              addedToRoute = Seq.empty,
+              removedFromRoute = Seq.empty,
+              addedToNetwork = Seq.empty,
+              removedFromNetwork = Seq.empty,
+              factDiffs = FactDiffs(),
+              facts = changeFacts :+ Fact.BecomeOrphan
+            )
+          )
         )
-      )
-    )
+    }
   }
 
   private def isReferencedNode(node: NetworkNodeInfo): Boolean = {
@@ -214,7 +227,7 @@ class UnreferencedNodeProcessorImpl(
   }
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {
-    new NodeChangeAnalyzer(nodeChange).analyzed()
+    new NodeChangeStateAnalyzer(nodeChange).analyzed()
   }
 
   private def subsetsIn(node: NetworkNodeInfo): Seq[Subset] = {

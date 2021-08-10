@@ -7,12 +7,10 @@ import org.springframework.stereotype.Component
 @Component
 class NodeCountryAnalyzerImpl(countryAnalyzer: CountryAnalyzer) extends NodeCountryAnalyzer {
   def analyze(analysis: NodeAnalysis): NodeAnalysis = {
-    if (analysis.country.isEmpty) {
-      val country = countryAnalyzer.country(Seq(analysis.node))
-      analysis.copy(country = country)
-    }
-    else {
-      analysis
-    }
+    val country = countryAnalyzer.country(Seq(analysis.node))
+    analysis.copy(
+      abort = country.isEmpty,
+      country = country
+    )
   }
 }

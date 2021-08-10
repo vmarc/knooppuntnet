@@ -18,6 +18,7 @@ class OrphanNodeDeleteTest01 extends AbstractTest {
   test("delete orphan node") {
 
     withDatabase { database =>
+
       val dataBefore = OverpassData()
         .networkNode(1001, "01")
 

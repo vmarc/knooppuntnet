@@ -12,7 +12,6 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Change
 import kpn.api.custom.Country
@@ -42,6 +41,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerNoop
@@ -76,12 +76,9 @@ import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkPro
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorSyncImpl
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorWorkerImpl
-import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeAnalyzerImpl
-import kpn.server.analyzer.engine.changes.orphan.node.NodeChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeCreateProcessorImpl
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeDeleteProcessorImpl
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeUpdateProcessorImpl
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
+import kpn.server.analyzer.engine.changes.node.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessorImpl
@@ -346,30 +343,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       )
     }
 
-    private val orphanNodeChangeProcessor = {
-
-      val orphanNodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
-        analysisContext,
-        blackListRepository
-      )
-
-      val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
-        analysisContext,
-        nodeRepository,
-        nodeAnalyzer
-      )
-
-      val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
-        analysisContext,
-        nodeRepository,
-        nodeAnalyzer
-      )
-
-      val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
-        analysisContext,
-        nodeRepository,
-        nodeAnalyzer
-      )
+    private val nodeChangeProcessor = {
 
       val nodeChangeAnalyzer: NodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
         analysisContext,
@@ -395,7 +369,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         routeChangeProcessor,
         networkChangeProcessor,
         null,
-        orphanNodeChangeProcessor,
+        nodeChangeProcessor,
         changeSetInfoUpdater,
         changeSaver
       )
@@ -551,8 +525,9 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
     )
 
     private val nodeAnalyzer: NodeAnalyzer = {
+      val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(countryAnalyzer)
       new NodeAnalyzerImpl(
-        new NodeCountryAnalyzerMock(Some(Country.nl)),
+        nodeCountryAnalyzer,
         new NodeTileAnalyzerNoop,
         new NodeLocationsAnalyzerNoop,
         new NodeRouteReferencesAnalyzerNoop
@@ -705,25 +680,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       blackListRepository
     )
 
-    private val orphanNodeChangeProcessor = {
-
-      val orphanNodeDeleteProcessor = new OrphanNodeDeleteProcessorImpl(
-        analysisContext,
-        nodeRepository,
-        nodeAnalyzer
-      )
-
-      val orphanNodeCreateProcessor = new OrphanNodeCreateProcessorImpl(
-        analysisContext,
-        nodeRepository,
-        nodeAnalyzer
-      )
-
-      val orphanNodeUpdateProcessor = new OrphanNodeUpdateProcessorImpl(
-        analysisContext,
-        nodeRepository,
-        nodeAnalyzer
-      )
+    private val nodeChangeProcessor = {
 
       new NodeChangeProcessorImpl(
         analysisContext,
@@ -743,7 +700,7 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
         routeChangeProcessor,
         networkChangeProcessor,
         null,
-        orphanNodeChangeProcessor,
+        nodeChangeProcessor,
         changeSetInfoUpdater,
         changeSaver
       )
