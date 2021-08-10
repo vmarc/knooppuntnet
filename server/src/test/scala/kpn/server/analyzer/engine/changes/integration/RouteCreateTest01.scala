@@ -90,7 +90,7 @@ class RouteCreateTest01 extends AbstractTest {
         )
       }
 
-      tc.findChangeSetSummaryById("1:123") should matchTo {
+      tc.findChangeSetSummaryById("123:1") should matchTo {
         newChangeSetSummary(
           subsets = Seq(Subset.nlHiking),
           orphanRouteChanges = Seq(
@@ -101,6 +101,17 @@ class RouteCreateTest01 extends AbstractTest {
               )
             )
           ),
+          orphanNodeChanges = Seq(
+            ChangeSetSubsetElementRefs(
+              Subset.nlHiking,
+              ChangeSetElementRefs(
+                added = Seq(
+                  newChangeSetElementRef(1001, "01", happy = true),
+                  newChangeSetElementRef(1002, "02", happy = true)
+                )
+              )
+            )
+          ),
           subsetAnalyses = Seq(
             ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
           ),
@@ -108,7 +119,7 @@ class RouteCreateTest01 extends AbstractTest {
         )
       }
 
-      tc.findRouteChangeById("1:132:route:11") should matchTo {
+      tc.findRouteChangeById("123:1:11") should matchTo {
         newRouteChange(
           newChangeKey(elementId = 11),
           ChangeType.Create,
@@ -143,6 +154,7 @@ class RouteCreateTest01 extends AbstractTest {
             )
           ),
           facts = Seq(Fact.OrphanRoute),
+          impactedNodeIds = Seq(1001, 1002),
           happy = true,
           impact = true,
           locationHappy = true,
@@ -150,35 +162,43 @@ class RouteCreateTest01 extends AbstractTest {
         )
       }
 
-      tc.findNodeChangeById("1:132:node:1001") should matchTo {
+      tc.findNodeChangeById("123:1:1001") should matchTo {
         newNodeChange(
           newChangeKey(elementId = 1001),
           ChangeType.Create,
           Seq(Subset.nlHiking),
-          //"01",
+          name = "01",
           before = None,
           after = Some(
             newRawNodeWithName(1001, "01")
           ),
           addedToRoute = Seq(
-            Ref(11, "01-02")
-          )
+            // TODO Ref(11, "01-02")
+          ),
+          happy = true,
+          impact = true,
+          locationHappy = true,
+          locationImpact = true
         )
       }
 
-      tc.findNodeChangeById("1:132:node:1002") should matchTo {
+      tc.findNodeChangeById("123:1:1002") should matchTo {
         newNodeChange(
           newChangeKey(elementId = 1002),
           ChangeType.Create,
           Seq(Subset.nlHiking),
-          // "02",
+          name = "02",
           before = None,
           after = Some(
             newRawNodeWithName(1002, "02")
           ),
           addedToRoute = Seq(
-            Ref(11, "01-02")
-          )
+            // TODO Ref(11, "01-02")
+          ),
+          happy = true,
+          impact = true,
+          locationHappy = true,
+          locationImpact = true
         )
       }
     }

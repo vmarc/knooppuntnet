@@ -59,7 +59,7 @@ class ChangeProcessorTest extends AbstractTest {
 
     (t.networkChangeProcessor.process _).when(*).returns(networkChanges)
     (t.orphanRouteChangeProcessor.process _).when(*).returns(ChangeSetChanges())
-    (t.orphanNodeChangeProcessor.process _).when(*).returns(ChangeSetChanges())
+    (t.orphanNodeChangeProcessor.process _).when(*, *).returns(ChangeSetChanges())
 
     t.changeProcessor.process(context)
 
@@ -106,7 +106,7 @@ class ChangeProcessorTest extends AbstractTest {
 
     (t.networkChangeProcessor.process _).when(*).returns(networkChanges)
     (t.orphanRouteChangeProcessor.process _).when(*).returns(orphanRouteChanges)
-    (t.orphanNodeChangeProcessor.process _).when(*).returns(orphanNodeChanges)
+    (t.orphanNodeChangeProcessor.process _).when(*, *).returns(orphanNodeChanges)
 
     t.changeProcessor.process(context)
 

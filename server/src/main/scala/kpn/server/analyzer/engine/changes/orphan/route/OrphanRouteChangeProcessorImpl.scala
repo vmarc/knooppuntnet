@@ -67,6 +67,9 @@ class OrphanRouteChangeProcessorImpl(
         None
       }
 
+      throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
+      val impactedNodeIds: Seq[Long] = Seq.empty
+
       val key = context.buildChangeKey(routeAnalysis.id)
 
       RouteChangeStateAnalyzer.analyzed(
@@ -86,7 +89,8 @@ class OrphanRouteChangeProcessorImpl(
           diffs = RouteDiff(
             factDiffs = factDiffs
           ),
-          facts = Seq(Fact.OrphanRoute)
+          facts = Seq(Fact.OrphanRoute),
+          impactedNodeIds
         )
       )
     }
@@ -127,6 +131,9 @@ class OrphanRouteChangeProcessorImpl(
             Seq(Fact.OrphanRoute) ++ routeUpdate.facts
           }
 
+          throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
+          val impactedNodeIds: Seq[Long] = Seq.empty
+
           val key = context.buildChangeKey(routeUpdate.after.id)
 
           Some(
@@ -145,7 +152,8 @@ class OrphanRouteChangeProcessorImpl(
                 addedWays = routeUpdate.addedWays,
                 updatedWays = routeUpdate.updatedWays,
                 diffs = routeUpdate.diffs,
-                facts = facts
+                facts = facts,
+                impactedNodeIds
               )
             )
           )
@@ -175,6 +183,9 @@ class OrphanRouteChangeProcessorImpl(
           routeRepository.save(route)
           tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
+          throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
+          val impactedNodeIds: Seq[Long] = Seq.empty
+
           val key = context.buildChangeKey(route.id)
 
           Some(
@@ -193,7 +204,8 @@ class OrphanRouteChangeProcessorImpl(
                 addedWays = Seq.empty,
                 updatedWays = Seq.empty,
                 diffs = RouteDiff(),
-                facts = Seq(Fact.WasOrphan, Fact.Deleted)
+                facts = Seq(Fact.WasOrphan, Fact.Deleted),
+                impactedNodeIds
               )
             )
           )

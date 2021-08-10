@@ -26,7 +26,11 @@ class ChangeProcessor(
     val routeChangeSetChanges = routeChangeProcessor.process(context)
     // val networkChangeSetChanges = networkChangeProcessor.process(context)
     // val orphanRouteChangeSetChanges = orphanRouteChangeProcessor.process(context)
-    val nodeChangeSetChanges = nodeChangeProcessor.process(context)
+
+
+    val impactedNodeIds = routeChangeSetChanges.routeChanges.flatMap(_.impactedNodeIds).distinct.sorted
+
+    val nodeChangeSetChanges = nodeChangeProcessor.process(context, impactedNodeIds)
 
     val changeSetChanges = merge(
       routeChangeSetChanges,

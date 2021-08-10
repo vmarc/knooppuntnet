@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
@@ -34,13 +33,13 @@ class NodeChangeProcessorImpl(
 
   private val log = Log(classOf[NodeChangeProcessorImpl])
 
-  def process(context: ChangeSetContext): ChangeSetChanges = {
+  def process(context: ChangeSetContext, impactedNodeIds: Seq[Long]): ChangeSetChanges = {
 
     log.debugElapsed {
 
       val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
       val batchSize = 500
-      val changedNodeIds = nodeElementChanges.elementIds
+      val changedNodeIds = (nodeElementChanges.elementIds ++ impactedNodeIds).distinct.sorted
       if (changedNodeIds.nonEmpty) {
         log.info(s"${changedNodeIds.size} node(s) impacted: ${changedNodeIds.mkString(", ")}")
       }
@@ -72,18 +71,22 @@ class NodeChangeProcessorImpl(
   }
 
   private def processChangeData(context: ChangeSetContext, data: NodeChangeData, action: ChangeAction): Option[NodeChange] = {
-
-    if (action == ChangeAction.Create) {
-      processCreate(context, data)
-    }
-    else if (action == ChangeAction.Modify) {
-      processUpdate(context, data)
-    }
-    else if (action == ChangeAction.Delete) {
-      processDelete(context, data)
-    }
-    else {
-      None
+    data.before match {
+      case None =>
+        data.after match {
+          case None =>
+            // TODO message ?
+            None
+          case Some(after) =>
+            processCreate(context, data)
+        }
+      case Some(before) =>
+        data.after match {
+          case None =>
+            processDelete(context, data)
+          case Some(after) =>
+            processUpdate(context, data)
+        }
     }
   }
 

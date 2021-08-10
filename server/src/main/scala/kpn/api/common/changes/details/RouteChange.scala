@@ -29,6 +29,7 @@ case class RouteChange(
   updatedWays: Seq[WayUpdate],
   diffs: RouteDiff,
   facts: Seq[Fact],
+  impactedNodeIds: Seq[Long],
   // following values are filled in by RouteChangeAnalyzer.analyzed
   happy: Boolean = false,
   investigate: Boolean = false,

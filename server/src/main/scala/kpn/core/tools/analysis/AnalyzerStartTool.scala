@@ -249,7 +249,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             diffs = RouteDiff(
               factDiffs = factDiffs
             ),
-            facts = networkMemberRoute.routeAnalysis.route.facts
+            facts = networkMemberRoute.routeAnalysis.route.facts,
+            Seq.empty
           )
         )
       )
@@ -319,7 +320,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           addedWays = Seq.empty,
           updatedWays = Seq.empty,
           diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts.toSet))),
-          facts = facts
+          facts = facts,
+          Seq.empty
         )
       )
     )

@@ -81,6 +81,10 @@ class RouteChangeProcessorImpl(
     val before = data.before.flatMap(masterRouteAnalyzer.analyze)
     val after = data.after.flatMap(masterRouteAnalyzer.analyze)
 
+    val impactedNodeIds: Seq[Long] = (before.toSeq ++ after.toSeq).flatMap { routeAnalysis =>
+      routeAnalysis.routeNodeAnalysis.routeNodes.map(_.node.id)
+    }.distinct.sorted
+
     if (action == ChangeAction.Create) {
       after.map { routeAnalysisAfter =>
 
@@ -117,7 +121,8 @@ class RouteChangeProcessorImpl(
             diffs = RouteDiff(
               factDiffs = factDiffs
             ),
-            facts = Seq(Fact.OrphanRoute)
+            facts = Seq(Fact.OrphanRoute),
+            impactedNodeIds = impactedNodeIds
           )
         )
       }
@@ -168,7 +173,8 @@ class RouteChangeProcessorImpl(
                   addedWays = routeUpdate.addedWays,
                   updatedWays = routeUpdate.updatedWays,
                   diffs = routeUpdate.diffs,
-                  facts = facts
+                  facts = facts,
+                  impactedNodeIds = impactedNodeIds
                 )
               )
             )
@@ -213,7 +219,8 @@ class RouteChangeProcessorImpl(
                 addedWays = Seq.empty,
                 updatedWays = Seq.empty,
                 diffs = RouteDiff(),
-                facts = Seq(Fact.WasOrphan, Fact.Deleted)
+                facts = Seq(Fact.WasOrphan, Fact.Deleted),
+                impactedNodeIds = impactedNodeIds
               )
             )
           )
