@@ -16,7 +16,6 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.orphan.node.OrphanNodeChange
 import kpn.server.analyzer.engine.changes.route.OrphanRouteChange
 
 class ChangeSetSummaryBuilder() {
@@ -29,7 +28,7 @@ class ChangeSetSummaryBuilder() {
 
     val networkChanges = toNetworkChanges(changes)
     val orphanRouteChanges = toOrphanRouteChanges(changes)
-    val orphanNodeChanges = toOrphanNodeChanges(changes)
+    val nodeChanges = toNodeChanges(changes)
 
     ChangeSetSummary(
       ChangeKey(
@@ -42,7 +41,7 @@ class ChangeSetSummaryBuilder() {
       changeSet.timestampUntil,
       networkChanges,
       orphanRouteChanges,
-      orphanNodeChanges
+      nodeChanges
     )
   }
 
@@ -135,17 +134,16 @@ class ChangeSetSummaryBuilder() {
     }
   }
 
-  private def toOrphanNodeChanges(orphanNodeChanges: ChangeSetChanges): Seq[ChangeSetSubsetElementRefs] = {
+  private def toNodeChanges(changeSetChanges: ChangeSetChanges): Seq[ChangeSetSubsetElementRefs] = {
 
-    val changes = orphanNodeChanges.nodeChanges.filter(OrphanNodeChange.isOrphanNodeChange)
-    val subsets: Seq[Subset] = changes.flatMap(_.subsets).distinct.sorted
+    val subsets: Seq[Subset] = changeSetChanges.nodeChanges.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap {
       subset =>
 
-        val removed = toNodeChangeRefs(changes, subset, ChangeType.Delete)
-        val added = toNodeChangeRefs(changes, subset, ChangeType.Create)
-        val updated = toNodeChangeRefs(changes, subset, ChangeType.Update)
+        val removed = toNodeChangeRefs(changeSetChanges.nodeChanges, subset, ChangeType.Delete)
+        val added = toNodeChangeRefs(changeSetChanges.nodeChanges, subset, ChangeType.Create)
+        val updated = toNodeChangeRefs(changeSetChanges.nodeChanges, subset, ChangeType.Update)
 
         if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
           Some(

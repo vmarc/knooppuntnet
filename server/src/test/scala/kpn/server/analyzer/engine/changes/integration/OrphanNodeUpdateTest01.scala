@@ -141,8 +141,7 @@ class OrphanNodeUpdateTest01 extends AbstractTest {
                 TagDetail(TagDetailType.Update, "tag", Some("before"), Some("after"))
               )
             )
-          ),
-          facts = Seq(Fact.OrphanNode)
+          )
         )
       )
     }

@@ -1031,7 +1031,6 @@ trait SharedTestObjects extends MockFactory {
     name: String = "",
     longName: Option[String] = None,
     proposed: Boolean = false
-
   ): NodeName = {
     NodeName(
       networkType,

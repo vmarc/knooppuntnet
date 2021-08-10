@@ -118,88 +118,97 @@ class NetworkDeleteRouteTest04 extends AbstractTest {
         )
       )
 
-      val routeData11 = newRouteData(
-        Some(Country.nl),
-        NetworkType.hiking,
-        relation = newRawRelation(
-          11,
-          members = Seq(
-            RawMember("way", 101, None)
-          ),
-          tags = newRouteTags("01-02")
-        ),
-        name = "01-02",
-        networkNodes = Seq(
-          newRawNodeWithName(1001, "01"),
-          newRawNodeWithName(1002, "02")
-        ),
-        nodes = Seq(
-          newRawNodeWithName(1001, "01"),
-          newRawNodeWithName(1002, "02")
-        ),
-        ways = Seq(
-          newRawWay(
-            101,
-            nodeIds = Seq(1001, 1002),
-            tags = Tags.from("highway" -> "unclassified")
-          )
-        )
-      )
-
-      tc.findRouteChangeById("123:1:11") should matchTo(
-        newRouteChange(
-          newChangeKey(elementId = 11),
-          ChangeType.Update,
-          "01-02",
-          removedFromNetwork = Seq(Ref(1, "network1")),
-          before = Some(routeData11),
-          after = Some(routeData11),
-          facts = Seq(Fact.BecomeOrphan),
-          investigate = true,
-          impact = true
-        )
-      )
-
-      val routeData12 = newRouteData(
-        Some(Country.nl),
-        NetworkType.hiking,
-        relation = newRawRelation(
-          12,
-          members = Seq(
-            RawMember("way", 102, None)
-          ),
-          tags = newRouteTags("01-03")
-        ),
-        name = "01-03",
-        networkNodes = Seq(
-          newRawNodeWithName(1001, "01"),
-          newRawNodeWithName(1003, "03")
-        ),
-        nodes = Seq(
-          newRawNodeWithName(1001, "01"),
-          newRawNodeWithName(1003, "03")
-        ),
-        ways = Seq(
-          newRawWay(
-            102,
-            nodeIds = Seq(1001, 1003),
-            tags = Tags.from("highway" -> "unclassified")
-          )
-        )
-      )
-
-      tc.findRouteChangeById("123:1:12") should matchTo(
-        newRouteChange(
-          newChangeKey(elementId = 12),
-          ChangeType.Update,
-          "01-03",
-          removedFromNetwork = Seq(Ref(1, "network1")),
-          before = Some(routeData12),
-          after = Some(routeData12),
-          investigate = true,
-          impact = true
-        )
-      )
+      assertRoute11(tc)
+      assertRoute12(tc)
     }
+  }
+
+  private def assertRoute11(tc: TestContext): Unit = {
+
+    val routeData = newRouteData(
+      Some(Country.nl),
+      NetworkType.hiking,
+      relation = newRawRelation(
+        11,
+        members = Seq(
+          RawMember("way", 101, None)
+        ),
+        tags = newRouteTags("01-02")
+      ),
+      name = "01-02",
+      networkNodes = Seq(
+        newRawNodeWithName(1001, "01"),
+        newRawNodeWithName(1002, "02")
+      ),
+      nodes = Seq(
+        newRawNodeWithName(1001, "01"),
+        newRawNodeWithName(1002, "02")
+      ),
+      ways = Seq(
+        newRawWay(
+          101,
+          nodeIds = Seq(1001, 1002),
+          tags = Tags.from("highway" -> "unclassified")
+        )
+      )
+    )
+
+    tc.findRouteChangeById("123:1:11") should matchTo(
+      newRouteChange(
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        "01-02",
+        removedFromNetwork = Seq(Ref(1, "network1")),
+        before = Some(routeData),
+        after = Some(routeData),
+        facts = Seq(Fact.BecomeOrphan),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
+
+  private def assertRoute12(tc: TestContext): Unit = {
+
+    val routeData = newRouteData(
+      Some(Country.nl),
+      NetworkType.hiking,
+      relation = newRawRelation(
+        12,
+        members = Seq(
+          RawMember("way", 102, None)
+        ),
+        tags = newRouteTags("01-03")
+      ),
+      name = "01-03",
+      networkNodes = Seq(
+        newRawNodeWithName(1001, "01"),
+        newRawNodeWithName(1003, "03")
+      ),
+      nodes = Seq(
+        newRawNodeWithName(1001, "01"),
+        newRawNodeWithName(1003, "03")
+      ),
+      ways = Seq(
+        newRawWay(
+          102,
+          nodeIds = Seq(1001, 1003),
+          tags = Tags.from("highway" -> "unclassified")
+        )
+      )
+    )
+
+    tc.findRouteChangeById("123:1:12") should matchTo(
+      newRouteChange(
+        newChangeKey(elementId = 12),
+        ChangeType.Update,
+        "01-03",
+        removedFromNetwork = Seq(Ref(1, "network1")),
+        before = Some(routeData),
+        after = Some(routeData),
+        investigate = true,
+        impact = true
+      )
+    )
   }
 }

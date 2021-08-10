@@ -297,7 +297,7 @@ object ChangeSetPageExample {
       //            )
       //          )
       //        ),
-      orphanRouteChanges = Seq(
+      routeChanges = Seq(
         ChangeSetSubsetElementRefs(
           subset = Subset.nlHiking,
           elementRefs = ChangeSetElementRefs(
@@ -334,7 +334,7 @@ object ChangeSetPageExample {
           )
         )
       ),
-      orphanNodeChanges = Seq(
+      nodeChanges = Seq(
         ChangeSetSubsetElementRefs(
           subset = Subset.beBicycle,
           elementRefs = ChangeSetElementRefs(
