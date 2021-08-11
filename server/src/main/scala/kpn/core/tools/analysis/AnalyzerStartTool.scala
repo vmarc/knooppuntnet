@@ -281,7 +281,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             locations = node.networkNode.locations,
             name = node.networkNode.name,
             before = None,
-            after = Some(node.networkNode.node.raw),
+            after = Some(node.networkNode.node.toMeta),
             connectionChanges = Seq.empty,
             roleConnectionChanges = Seq.empty,
             definedInNetworkChanges = Seq.empty,
@@ -293,6 +293,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
             removedFromNetwork = Seq.empty,
             factDiffs = FactDiffs(remaining = node.facts.toSet),
             facts = node.facts,
+            tiles = Seq.empty // TODO MONGO
           )
         )
       )
@@ -349,7 +350,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           locations = nodeAnalysis.locations,
           name = nodeAnalysis.name,
           before = None,
-          after = Some(nodeAnalysis.node),
+          after = Some(nodeAnalysis.node.toMeta),
           connectionChanges = Seq.empty,
           roleConnectionChanges = Seq.empty,
           definedInNetworkChanges = Seq.empty,
@@ -360,7 +361,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
-          facts = Seq.empty
+          facts = Seq.empty,
+          tiles = nodeAnalysis.tiles
         )
       )
     )

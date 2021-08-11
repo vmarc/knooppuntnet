@@ -235,10 +235,10 @@ class NetworkUpdateRouteTest03 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "02",
           before = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           removedFromRoute = Seq(Ref(12, "02-03")),
           investigate = true,
@@ -255,7 +255,7 @@ class NetworkUpdateRouteTest03 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "03",
           before = Some(
-            newRawNodeWithName(1003, "03")
+            newMetaData()
           ),
           after = None,
           removedFromRoute = Seq(Ref(12, "02-03")),

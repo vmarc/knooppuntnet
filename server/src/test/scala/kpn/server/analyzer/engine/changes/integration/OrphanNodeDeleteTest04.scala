@@ -24,10 +24,10 @@ class OrphanNodeDeleteTest04 extends AbstractIntegrationTest {
     withDatabase { database =>
 
       val dataBefore = OverpassData()
-        .networkNode(1001, "01")
+        .networkNode(1001, "01", version = 1)
 
       val dataAfter = OverpassData()
-        .node(1001) // rwn_ref tag no longer available, but node still exists
+        .node(1001, version = 2) // rwn_ref tag no longer available, but node still exists
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
@@ -35,74 +35,73 @@ class OrphanNodeDeleteTest04 extends AbstractIntegrationTest {
 
       assert(!tc.analysisContext.data.nodes.watched.contains(1001))
 
-      tc.findNodeById(1001) should matchTo(
-        newNodeDoc(
-          1001,
-          labels = Seq.empty, // <-- !!
-          active = false, // <-- !!
-          Some(Country.nl),
-          "",
-          Seq.empty,
-          "0",
-          "0",
-          Timestamp(2015, 8, 11, 0, 0, 0),
-          None,
-          Tags.empty,
-          Seq.empty,
-          Seq.empty,
-          Seq.empty,
-          None,
-          Seq.empty
-        )
-      )
-
-      tc.findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          orphanNodeChanges = Seq(
-            ChangeSetSubsetElementRefs(
-              Subset.nlHiking,
-              ChangeSetElementRefs(
-                updated = Seq(
-                  ChangeSetElementRef(1001, "01", happy = false, investigate = true)
-                )
-              )
-            )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
-      )
-
-      tc.findNodeChangeById("123:1:1001") should matchTo(
-        newNodeChange(
-          key = newChangeKey(elementId = 1001),
-          changeType = ChangeType.Update,
-          subsets = Seq(Subset.nlHiking),
-          name = "01",
-          before = Some(
-            newRawNodeWithName(1001, "01")
-          ),
-          after = Some(
-            newRawNode(1001)
-          ),
-          tagDiffs = Some(
-            TagDiffs(
-              Seq(
-                TagDetail(TagDetailType.Delete, "rwn_ref", Some("01"), None),
-                TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None)
-              )
-            )
-          ),
-          facts = Seq(Fact.LostHikingNodeTag),
-          investigate = true,
-          impact = true,
-          locationInvestigate = true,
-          locationImpact = true
-        )
-      )
+      assertNode(tc)
+      assertChangeSetSummary(tc)
+      assertNodeChange(tc)
     }
+  }
+
+  private def assertNode(tc: IntegrationTestContext) = {
+    tc.findNodeById(1001) should matchTo(
+      newNodeDoc(
+        1001,
+        version = 2,
+        labels = Seq.empty, // <-- !!
+        active = false, // <-- !!
+        country = Some(Country.nl),
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
+    tc.findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        orphanNodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                ChangeSetElementRef(1001, "01", happy = false, investigate = true)
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertNodeChange(tc: IntegrationTestContext) = {
+    tc.findNodeChangeById("123:1:1001") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Delete,
+        subsets = Seq(Subset.nlHiking),
+        name = "01",
+        before = Some(
+          newMetaData(version = 1)
+        ),
+        after = Some(
+          newMetaData(version = 2)
+        ),
+        tagDiffs = Some(
+          TagDiffs(
+            Seq(
+              TagDetail(TagDetailType.Delete, "rwn_ref", Some("01"), None),
+              TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None)
+            )
+          )
+        ),
+        facts = Seq(Fact.LostHikingNodeTag),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
+      )
+    )
   }
 }

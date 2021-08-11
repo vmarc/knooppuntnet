@@ -14,6 +14,7 @@ class OrphanNodeCreateTest03 extends AbstractIntegrationTest {
       val dataBefore = OverpassData.empty
       val dataAfter = OverpassData().node(
         1001,
+        version = 1,
         latitude = "999",
         longitude = "999",
         tags = Tags.from(

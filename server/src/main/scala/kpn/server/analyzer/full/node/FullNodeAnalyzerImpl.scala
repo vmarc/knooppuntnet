@@ -3,8 +3,7 @@ package kpn.server.analyzer.full.node
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
+import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.NodeRepository
@@ -21,7 +20,7 @@ class FullNodeAnalyzerImpl(
   database: Database,
   overpassRepository: OverpassRepository,
   nodeRepository: NodeRepository,
-  nodeAnalyzer: NodeAnalyzer,
+  bulkNodeAnalyzer: BulkNodeAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullNodeAnalyzer {
 
@@ -64,14 +63,7 @@ class FullNodeAnalyzerImpl(
       Future(
         Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
           log.infoElapsed {
-            val rawNodes = overpassRepository.nodes(context.timestamp, nodeIdsBatch)
-            val nodeDocs = rawNodes.flatMap { rawNode =>
-              nodeAnalyzer.analyze(NodeAnalysis(rawNode)).map(_.toNodeDoc)
-            }
-            if (nodeDocs.nonEmpty) {
-              database.nodes.bulkSave(nodeDocs)
-            }
-            val ids = nodeDocs.map(_._id)
+            val ids = bulkNodeAnalyzer.analyze(context.timestamp, nodeIdsBatch).map(_._id)
             (s"analyzed ${ids.size} nodes: ${ids.mkString(", ")}", ids)
           }
         }

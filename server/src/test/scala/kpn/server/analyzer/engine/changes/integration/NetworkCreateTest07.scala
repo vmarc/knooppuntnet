@@ -196,10 +196,10 @@ class NetworkCreateTest07 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "01",
           before = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           addedToNetwork = Seq(
             Ref(1, "name")
@@ -216,10 +216,10 @@ class NetworkCreateTest07 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "02",
           before = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           addedToNetwork = Seq(
             Ref(1, "name")

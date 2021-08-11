@@ -23,8 +23,8 @@ case class OverpassData(
   relations: Seq[RawRelation] = Seq.empty
 ) extends SharedTestObjects {
 
-  def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty): OverpassData = {
-    val n = newRawNode(id, tags = newNodeTags(name) ++ extraTags)
+  def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty, version: Long = 0): OverpassData = {
+    val n = newRawNode(id, tags = newNodeTags(name) ++ extraTags, version = version)
     copy(nodes = nodes :+ n)
   }
 
@@ -33,9 +33,17 @@ case class OverpassData(
     tags: Tags = Tags.empty,
     latitude: String = "0",
     longitude: String = "0",
+    version: Long = 0,
     timestamp: Timestamp = defaultTimestamp
   ): OverpassData = {
-    val n = newRawNode(id, latitude = latitude, longitude = longitude, tags = tags, timestamp = timestamp)
+    val n = newRawNode(
+      id,
+      latitude = latitude,
+      longitude = longitude,
+      version = version,
+      tags = tags,
+      timestamp = timestamp
+    )
     copy(nodes = nodes :+ n)
   }
 

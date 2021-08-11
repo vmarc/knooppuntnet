@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.integration.AbstractIntegrationTest
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.NewNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
 
@@ -118,7 +118,7 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
     val changeSetRepository: ChangeSetRepository = stub[ChangeSetRepository]
     val networkChangeProcessor: NetworkChangeProcessor = stub[NetworkChangeProcessor]
     val orphanRouteChangeProcessor: OrphanRouteChangeProcessor = stub[OrphanRouteChangeProcessor]
-    val orphanNodeChangeProcessor: NodeChangeProcessor = stub[NodeChangeProcessor]
+    val orphanNodeChangeProcessor: NewNodeChangeProcessor = stub[NewNodeChangeProcessor]
     val changeSetInfoUpdater: ChangeSetInfoUpdater = stub[ChangeSetInfoUpdater]
     val changeSaver: ChangeSaver = stub[ChangeSaver]
 

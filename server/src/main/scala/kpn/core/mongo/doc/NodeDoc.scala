@@ -4,6 +4,7 @@ import kpn.api.base.WithId
 import kpn.api.common.LatLon
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
@@ -21,6 +22,8 @@ case class NodeDoc(
   country: Option[Country],
   name: String,
   names: Seq[NodeName],
+  version: Long,
+  changeSetId: Long,
   latitude: String,
   longitude: String,
   lastUpdated: Timestamp,
@@ -33,6 +36,14 @@ case class NodeDoc(
   routeReferences: Seq[Reference]
 ) extends Tagable with LatLon with WithId {
 
+  def toMeta: MetaData = {
+    MetaData(
+      version,
+      lastUpdated,
+      changeSetId
+    )
+  }
+
   def name(scopedNetworkType: ScopedNetworkType): String = {
     names.filter(_.scopedNetworkType == scopedNetworkType).map(_.name).mkString(" / ")
   }
@@ -44,7 +55,4 @@ case class NodeDoc(
   def networkTypeName(networkType: NetworkType): String = {
     names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
   }
-
-
-
 }

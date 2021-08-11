@@ -148,10 +148,10 @@ class NetworkCreateTest06 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "01",
           before = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           addedToRoute = Seq(
             Ref(11, "01-02")
@@ -173,10 +173,10 @@ class NetworkCreateTest06 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "02",
           before = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1002, "02", Tags.from("tag" -> "after"))
+            newMetaData()
           ),
           tagDiffs = Some(
             TagDiffs(

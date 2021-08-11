@@ -1,6 +1,6 @@
 package kpn.core.util
 
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.LatLon
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 
@@ -32,13 +32,13 @@ object Haversine {
     R * c
   }
 
-  def meters(nodes: Seq[RawNode]): Int = {
+  def meters(nodes: Seq[LatLon]): Int = {
     if (nodes.size < 2) {
       0
     }
     else {
       val km = nodes.sliding(2).map { case Seq(node1, node2) =>
-        Haversine.km(node1.latitude.toDouble, node1.longitude.toDouble, node2.latitude.toDouble, node2.longitude.toDouble)
+        Haversine.km(node1.lat, node1.lon, node2.lat, node2.lon)
       }.sum
       (km * 1000).toInt
     }

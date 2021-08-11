@@ -152,10 +152,10 @@ class NetworkDeleteRouteTest02 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "01",
           before = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           removedFromNetwork = Seq(
             Ref(1, "network1")
@@ -172,10 +172,10 @@ class NetworkDeleteRouteTest02 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "02",
           before = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           after = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           removedFromNetwork = Seq(
             Ref(1, "network1")

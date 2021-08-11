@@ -106,7 +106,7 @@ class NodeChangeProcessorImpl(
             locations = nodeAnalysis.locations,
             nodeAnalysis.name,
             before = None,
-            after = Some(nodeAnalysis.node),
+            after = Some(nodeAnalysis.toMeta),
             connectionChanges = Seq.empty,
             roleConnectionChanges = Seq.empty,
             definedInNetworkChanges = Seq.empty,
@@ -117,6 +117,7 @@ class NodeChangeProcessorImpl(
             addedToNetwork = Seq.empty,
             removedFromNetwork = Seq.empty,
             factDiffs = FactDiffs(),
+            Seq.empty,
             Seq.empty
           )
         )
@@ -194,8 +195,8 @@ class NodeChangeProcessorImpl(
                           subsets = subsets,
                           locations = nodeAfterAnalysis.locations,
                           name = name,
-                          before = Some(before.raw),
-                          after = Some(after.raw),
+                          before = Some(before.toMeta),
+                          after = Some(after.toMeta),
                           connectionChanges = Seq.empty,
                           roleConnectionChanges = Seq.empty,
                           definedInNetworkChanges = Seq.empty,
@@ -206,7 +207,8 @@ class NodeChangeProcessorImpl(
                           addedToNetwork = Seq.empty,
                           removedFromNetwork = Seq.empty,
                           factDiffs = FactDiffs(),
-                          lostNodeTagFacts
+                          lostNodeTagFacts,
+                          Seq.empty
                         )
                       )
                     )
@@ -279,7 +281,8 @@ class NodeChangeProcessorImpl(
               addedToNetwork = Seq.empty,
               removedFromNetwork = Seq.empty,
               factDiffs = FactDiffs(),
-              Seq(Fact.Deleted)
+              Seq(Fact.Deleted),
+              Seq.empty
             )
           )
         }
@@ -337,7 +340,7 @@ class NodeChangeProcessorImpl(
             subsets = nodeAnalysis.subsets,
             locations = nodeAnalysis.locations,
             name = nodeAnalysis.name,
-            before = Some(nodeAnalysis.node),
+            before = Some(nodeAnalysis.toMeta),
             after = None,
             connectionChanges = Seq.empty,
             roleConnectionChanges = Seq.empty,
@@ -349,7 +352,8 @@ class NodeChangeProcessorImpl(
             addedToNetwork = Seq.empty,
             removedFromNetwork = Seq.empty,
             factDiffs = FactDiffs(),
-            Seq(Fact.WasOrphan, Fact.Deleted)
+            Seq(Fact.WasOrphan, Fact.Deleted),
+            Seq.empty
           )
         )
       )

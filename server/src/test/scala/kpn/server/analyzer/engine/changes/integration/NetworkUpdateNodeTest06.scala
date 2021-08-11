@@ -155,10 +155,10 @@ class NetworkUpdateNodeTest06 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "03",
           before = Some(
-            newRawNode(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))
+            newMetaData()
           ),
           after = Some(
-            newRawNode(1002, tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network"))
+            newMetaData()
           ),
           tagDiffs = Some(
             TagDiffs(

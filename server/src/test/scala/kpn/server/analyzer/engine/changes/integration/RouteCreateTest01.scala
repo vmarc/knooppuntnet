@@ -169,7 +169,7 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
           name = "01",
           before = None,
           after = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           addedToRoute = Seq(
             // TODO Ref(11, "01-02")
@@ -189,7 +189,7 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
           name = "02",
           before = None,
           after = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           addedToRoute = Seq(
             // TODO Ref(11, "01-02")

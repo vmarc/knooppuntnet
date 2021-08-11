@@ -13,5 +13,6 @@ case class RawNode(
   changeSetId: Long,
   tags: Tags
 ) extends RawElement with LatLon {
+
   override def isNode: Boolean = true
 }

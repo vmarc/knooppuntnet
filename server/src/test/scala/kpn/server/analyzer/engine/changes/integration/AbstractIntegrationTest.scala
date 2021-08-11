@@ -44,6 +44,8 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFac
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoTagAnalyzer
+import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
@@ -87,9 +89,9 @@ import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkPro
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorSyncImpl
 import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorWorkerImpl
+import kpn.server.analyzer.engine.changes.node.NewNodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
-import kpn.server.analyzer.engine.changes.node.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessorImpl
@@ -370,8 +372,15 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         blackListRepository
       )
 
-      new NodeChangeProcessorImpl(
+      val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
+        null,
+        overpassRepository,
+        nodeAnalyzer
+      )
+
+      new NewNodeChangeProcessorImpl(
         analysisContext,
+        bulkNodeAnalyzer,
         nodeChangeAnalyzer,
         overpassRepository,
         nodeRepository,
@@ -699,16 +708,20 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       blackListRepository
     )
 
-    private val nodeChangeProcessor = {
+    val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
+      database,
+      overpassRepository,
+      nodeAnalyzer
+    )
 
-      new NodeChangeProcessorImpl(
-        analysisContext,
-        nodeChangeAnalyzer,
-        overpassRepository,
-        nodeRepository,
-        nodeAnalyzer
-      )
-    }
+    private val nodeChangeProcessor = new NewNodeChangeProcessorImpl(
+      analysisContext,
+      bulkNodeAnalyzer,
+      nodeChangeAnalyzer,
+      overpassRepository,
+      nodeRepository,
+      nodeAnalyzer
+    )
 
     val changeProcessor: ChangeProcessor = {
       val changeSaver = new ChangeSaverImpl(
@@ -742,7 +755,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       database,
       overpassRepository,
       nodeRepository,
-      nodeAnalyzer,
+      bulkNodeAnalyzer,
       analysisExecutionContext
     )
 

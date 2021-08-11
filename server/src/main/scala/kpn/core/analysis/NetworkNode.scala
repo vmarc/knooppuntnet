@@ -1,5 +1,6 @@
 package kpn.core.analysis
 
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Tagable
 import kpn.api.common.location.Location
@@ -20,6 +21,14 @@ case class NetworkNode(
   def number: Option[Int] = NodeUtil.toNumber(name)
 
   def tags: Tags = node.tags
+
+  def toMeta: MetaData = {
+    MetaData(
+      node.version,
+      node.timestamp,
+      node.changeSetId
+    )
+  }
 
   // TODO MONGO cleanup
   def oldLocation: Option[Location] = {

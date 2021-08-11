@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.node.domain
 
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Country
@@ -39,6 +40,14 @@ case class NodeAnalysis(
     }
   }
 
+  def toMeta: MetaData = {
+    MetaData(
+      node.version,
+      node.timestamp,
+      node.changeSetId
+    )
+  }
+
   def toNodeDoc: NodeDoc = {
     NodeDoc(
       node.id,
@@ -47,6 +56,8 @@ case class NodeAnalysis(
       country,
       name,
       nodeNames,
+      node.version,
+      node.changeSetId,
       node.latitude,
       node.longitude,
       node.timestamp,

@@ -88,7 +88,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long = 1,
     latitude: String = "0",
     longitude: String = "0",
-    version: Int = 0,
+    version: Long = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
     tags: Tags = Tags.empty
@@ -189,6 +189,18 @@ trait SharedTestObjects extends MockFactory {
       timestamp,
       changeSetId,
       elementId
+    )
+  }
+
+  def newMetaData(
+    version: Long = 0,
+    timestamp: Timestamp = defaultTimestamp,
+    changeSetId: Long = 0
+  ): MetaData = {
+    MetaData(
+      version,
+      timestamp,
+      changeSetId
     )
   }
 
@@ -308,6 +320,8 @@ trait SharedTestObjects extends MockFactory {
     country: Option[Country] = None,
     name: String = "",
     names: Seq[NodeName] = Seq.empty,
+    version: Long = 0,
+    changeSetId: Long = 0,
     latitude: String = "0",
     longitude: String = "0",
     lastUpdated: Timestamp = defaultTimestamp,
@@ -327,6 +341,8 @@ trait SharedTestObjects extends MockFactory {
       country,
       name,
       names,
+      version,
+      changeSetId,
       latitude,
       longitude,
       lastUpdated,
@@ -673,8 +689,8 @@ trait SharedTestObjects extends MockFactory {
     subsets: Seq[Subset] = Seq.empty,
     locations: Seq[String] = Seq.empty,
     name: String = "",
-    before: Option[RawNode] = None,
-    after: Option[RawNode] = None,
+    before: Option[MetaData] = None,
+    after: Option[MetaData] = None,
     connectionChanges: Seq[RefBooleanChange] = Seq.empty,
     roleConnectionChanges: Seq[RefBooleanChange] = Seq.empty,
     definedInNetworkChanges: Seq[RefBooleanChange] = Seq.empty,
@@ -686,6 +702,7 @@ trait SharedTestObjects extends MockFactory {
     removedFromNetwork: Seq[Ref] = Seq.empty,
     factDiffs: FactDiffs = FactDiffs(),
     facts: Seq[Fact] = Seq.empty,
+    tiles: Seq[String] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false,
     impact: Boolean = false,
@@ -713,6 +730,7 @@ trait SharedTestObjects extends MockFactory {
       removedFromNetwork,
       factDiffs,
       facts,
+      tiles,
       happy,
       investigate,
       impact,

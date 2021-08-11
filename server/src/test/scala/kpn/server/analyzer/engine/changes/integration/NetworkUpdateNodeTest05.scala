@@ -135,10 +135,10 @@ class NetworkUpdateNodeTest05 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "02",
           before = Some(
-            newRawNodeWithName(1002, "02")
+            newMetaData()
           ),
           after = Some(
-            newRawNode(1002)
+            newMetaData()
           ),
           tagDiffs = Some(
             TagDiffs(

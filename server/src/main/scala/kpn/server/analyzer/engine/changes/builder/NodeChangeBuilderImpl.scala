@@ -94,7 +94,7 @@ class NodeChangeBuilderImpl(
               locations = nodeAfter.networkNode.locations,
               name = nodeAfter.networkNode.name,
               before = None,
-              after = Some(nodeAfter.networkNode.node.raw),
+              after = Some(nodeAfter.networkNode.node.toMeta),
               connectionChanges = Seq.empty,
               roleConnectionChanges = Seq.empty,
               definedInNetworkChanges = Seq.empty,
@@ -105,7 +105,8 @@ class NodeChangeBuilderImpl(
               addedToNetwork = context.networkRef.toSeq,
               removedFromNetwork = Seq.empty,
               factDiffs = FactDiffs(),
-              facts = extraFacts
+              facts = extraFacts,
+              tiles = Seq.empty
             )
           )
 
@@ -131,8 +132,8 @@ class NodeChangeBuilderImpl(
               subsets = subsets,
               locations = nodeAfter.networkNode.locations,
               name = nodeAfter.networkNode.name,
-              before = Some(nodeBefore.node.raw),
-              after = Some(nodeAfter.networkNode.node.raw),
+              before = Some(nodeBefore.node.toMeta),
+              after = Some(nodeAfter.networkNode.node.toMeta),
               connectionChanges = Seq.empty,
               roleConnectionChanges = Seq.empty,
               definedInNetworkChanges = Seq.empty,
@@ -143,7 +144,8 @@ class NodeChangeBuilderImpl(
               addedToNetwork = context.networkRef.toSeq,
               removedFromNetwork = Seq.empty,
               factDiffs = FactDiffs(),
-              facts = extraFacts ++ facts
+              facts = extraFacts ++ facts,
+              tiles = Seq.empty
             )
           )
       }
@@ -195,7 +197,7 @@ class NodeChangeBuilderImpl(
                     subsets = subsets,
                     locations = nodeAnalysis.locations,
                     name = nodeAnalysis.name,
-                    before = Some(nodeAnalysis.node),
+                    before = Some(nodeAnalysis.toMeta),
                     after = None,
                     connectionChanges = Seq.empty,
                     roleConnectionChanges = Seq.empty,
@@ -207,7 +209,8 @@ class NodeChangeBuilderImpl(
                     addedToNetwork = Seq.empty,
                     removedFromNetwork = context.networkRef.toSeq,
                     factDiffs = FactDiffs(),
-                    facts = Seq(Fact.Deleted)
+                    facts = Seq(Fact.Deleted),
+                    tiles = Seq.empty
                   )
                 )
               )
@@ -266,8 +269,8 @@ class NodeChangeBuilderImpl(
                       subsets = subsets,
                       locations = nodeAfterAnalysis.locations,
                       name = name,
-                      before = Some(before),
-                      after = Some(after),
+                      before = Some(before.toMeta),
+                      after = Some(after.toMeta),
                       connectionChanges = Seq.empty,
                       roleConnectionChanges = Seq.empty,
                       definedInNetworkChanges = Seq.empty,
@@ -278,7 +281,8 @@ class NodeChangeBuilderImpl(
                       addedToNetwork = Seq.empty,
                       removedFromNetwork = context.networkRef.toSeq,
                       factDiffs = FactDiffs(),
-                      facts = nodeFacts
+                      facts = nodeFacts,
+                      tiles = Seq.empty
                     )
                   )
                 )
@@ -316,8 +320,8 @@ class NodeChangeBuilderImpl(
                   subsets = subsets,
                   locations = nodeBefore.networkNode.locations,
                   name = nodeBefore.networkNode.name,
-                  before = Some(before),
-                  after = Some(after),
+                  before = Some(before.toMeta),
+                  after = Some(after.toMeta),
                   connectionChanges = Seq.empty,
                   roleConnectionChanges = Seq.empty,
                   definedInNetworkChanges = Seq.empty,
@@ -328,7 +332,8 @@ class NodeChangeBuilderImpl(
                   addedToNetwork = Seq.empty,
                   removedFromNetwork = context.networkRef.toSeq,
                   factDiffs = FactDiffs(),
-                  facts = extraFacts ++ nodeFacts
+                  facts = extraFacts ++ nodeFacts,
+                  tiles = Seq.empty
                 )
               )
             )
@@ -417,8 +422,8 @@ class NodeChangeBuilderImpl(
           subsets = subsets,
           locations = nodeAfter.networkNode.locations,
           name = nodeAfter.networkNode.name,
-          before = Some(before),
-          after = Some(after),
+          before = Some(before.toMeta),
+          after = Some(after.toMeta),
           connectionChanges = connectionChanges,
           roleConnectionChanges = roleConnectionChanges,
           definedInNetworkChanges = definedInNetworkChanges,
@@ -429,7 +434,8 @@ class NodeChangeBuilderImpl(
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
-          facts = extraFacts ++ facts
+          facts = extraFacts ++ facts,
+          Seq.empty
         )
 
         if (nodeChange.isEmpty) {

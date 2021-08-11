@@ -2,11 +2,10 @@ package kpn.api.common.changes.details
 
 import kpn.api.base.WithStringId
 import kpn.api.common.common.Ref
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.MetaData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
-import kpn.api.common.location.Location
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 
@@ -20,8 +19,8 @@ case class NodeChange(
   subsets: Seq[Subset],
   locations: Seq[String],
   name: String,
-  before: Option[RawNode],
-  after: Option[RawNode],
+  before: Option[MetaData],
+  after: Option[MetaData],
   connectionChanges: Seq[RefBooleanChange],
   roleConnectionChanges: Seq[RefBooleanChange],
   definedInNetworkChanges: Seq[RefBooleanChange],
@@ -33,6 +32,7 @@ case class NodeChange(
   removedFromNetwork: Seq[Ref],
   factDiffs: FactDiffs,
   facts: Seq[Fact],
+  tiles: Seq[String],
   // following values are filled in by NodeChangeAnalyzer.analyzed
   happy: Boolean = false,
   investigate: Boolean = false,

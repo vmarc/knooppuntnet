@@ -20,7 +20,7 @@ class OrphanNodeDeleteTest01 extends AbstractIntegrationTest {
     withDatabase { database =>
 
       val dataBefore = OverpassData()
-        .networkNode(1001, "01")
+        .networkNode(1001, "01", version = 1)
 
       val dataAfter = OverpassData.empty
 
@@ -30,65 +30,73 @@ class OrphanNodeDeleteTest01 extends AbstractIntegrationTest {
 
       assert(!tc.analysisContext.data.nodes.watched.contains(1001))
 
-      tc.findNodeById(1001) should matchTo(
-        newNodeDoc(
-          1001,
-          labels = Seq(
-            "facts",
-            "fact-Deleted",
-            "network-type-hiking"
-          ),
-          active = false, // <-- !!
-          country = Some(Country.nl),
-          name = "01",
-          names = Seq(
-            newNodeName(
-              NetworkType.hiking,
-              NetworkScope.regional,
-              "01"
-            )
-          ),
-          tags = newNodeTags("01"),
-          facts = Seq(Fact.Deleted)
-        )
-      )
+      assertNode(tc)
+      assertChangeSetSummary(tc)
+      assertNodeChange(tc)
+    }
+  }
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          orphanNodeChanges = Seq(
-            ChangeSetSubsetElementRefs(
-              Subset.nlHiking,
-              ChangeSetElementRefs(
-                removed = Seq(
-                  newChangeSetElementRef(1001, "01", investigate = true)
-                )
+  private def assertNode(tc: IntegrationTestContext): Unit = {
+    tc.findNodeById(1001) should matchTo(
+      newNodeDoc(
+        1001,
+        labels = Seq(
+          "network-type-hiking"
+        ),
+        active = false, // <-- !!
+        country = Some(Country.nl),
+        name = "01",
+        names = Seq(
+          newNodeName(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            "01"
+          )
+        ),
+        version = 1,
+        tags = newNodeTags("01")
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
+    tc.findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        orphanNodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true)
               )
             )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
+    )
+  }
 
-      tc.findNodeChangeById("123:1:1001") should matchTo(
-        newNodeChange(
-          key = newChangeKey(elementId = 1001),
-          changeType = ChangeType.Delete,
-          subsets = Seq(Subset.nlHiking),
-          name = "01",
-          before = Some(
-            newRawNodeWithName(1001, "01")
-          ),
-          facts = Seq(Fact.WasOrphan, Fact.Deleted),
-          investigate = true,
-          impact = true,
-          locationInvestigate = true,
-          locationImpact = true
-        )
+  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
+    tc.findNodeChangeById("123:1:1001") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Delete,
+        subsets = Seq(Subset.nlHiking),
+        name = "01",
+        before = Some(
+          newMetaData(version = 1)
+        ),
+        facts = Seq(Fact.Deleted),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
       )
-    }
+    )
   }
 }

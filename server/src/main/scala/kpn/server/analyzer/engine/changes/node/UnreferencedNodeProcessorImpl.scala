@@ -106,8 +106,8 @@ class UnreferencedNodeProcessorImpl(
                 subsets = subsets,
                 locations = nodeBefore.networkNode.locations,
                 name = nodeBefore.networkNode.name,
-                before = Some(nodeBefore.networkNode.node.raw),
-                after = Some(nodeAfter.node.raw),
+                before = Some(nodeBefore.networkNode.node.toMeta),
+                after = Some(nodeAfter.node.toMeta),
                 connectionChanges = Seq.empty,
                 roleConnectionChanges = Seq.empty,
                 definedInNetworkChanges = Seq.empty,
@@ -118,7 +118,8 @@ class UnreferencedNodeProcessorImpl(
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 factDiffs = FactDiffs(),
-                facts = facts
+                facts = facts,
+                Seq.empty
               )
             )
           )
@@ -155,7 +156,7 @@ class UnreferencedNodeProcessorImpl(
               subsets = subsets,
               locations = nodeBeforeAnalysis.locations,
               name = nodeBefore.networkNode.name,
-              before = Some(nodeBefore.networkNode.node.raw),
+              before = Some(nodeBefore.networkNode.node.toMeta),
               after = None,
               connectionChanges = Seq.empty,
               roleConnectionChanges = Seq.empty,
@@ -167,7 +168,8 @@ class UnreferencedNodeProcessorImpl(
               addedToNetwork = Seq.empty,
               removedFromNetwork = Seq.empty,
               factDiffs = FactDiffs(),
-              facts = Seq(Fact.Deleted)
+              facts = Seq(Fact.Deleted),
+              Seq.empty
             )
           )
         )
@@ -202,8 +204,8 @@ class UnreferencedNodeProcessorImpl(
               subsets = nodeAfter.subsets,
               locations = nodeAfterAnalysis.locations,
               name = nodeAfter.name,
-              before = Some(rawNodeBefore),
-              after = Some(rawNodeAfter),
+              before = Some(rawNodeBefore.toMeta),
+              after = Some(rawNodeAfter.toMeta),
               connectionChanges = Seq.empty, // TODO CHANGE supply value here
               roleConnectionChanges = Seq.empty, // TODO CHANGE supply value here
               definedInNetworkChanges = Seq.empty, // TODO CHANGE supply value here
@@ -214,7 +216,8 @@ class UnreferencedNodeProcessorImpl(
               addedToNetwork = Seq.empty,
               removedFromNetwork = Seq.empty,
               factDiffs = FactDiffs(),
-              facts = changeFacts :+ Fact.BecomeOrphan
+              facts = changeFacts :+ Fact.BecomeOrphan,
+              Seq.empty
             )
           )
         )

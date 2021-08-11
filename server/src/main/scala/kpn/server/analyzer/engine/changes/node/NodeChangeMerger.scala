@@ -4,7 +4,7 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.MetaData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -44,7 +44,8 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
           mergedAddedToNetwork(),
           mergedRemovedFromNetwork(),
           mergedFactDiffs(),
-          mergedFacts()
+          mergedFacts(),
+          tiles = (left.tiles ++ right.tiles).distinct.sorted
         )
       )
     }
@@ -78,7 +79,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
     (left.subsets ++ right.subsets).distinct
   }
 
-  private def mergedBefore(): Option[RawNode] = {
+  private def mergedBefore(): Option[MetaData] = {
     if (left.before.isEmpty && right.before.isEmpty) {
       None
     }
@@ -95,7 +96,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
     }
   }
 
-  private def mergedAfter(): Option[RawNode] = {
+  private def mergedAfter(): Option[MetaData] = {
     if (left.after.isEmpty && right.after.isEmpty) {
       None
     }

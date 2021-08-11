@@ -6,7 +6,7 @@ import kpn.core.test.TestSupport.withDatabase
 
 class OrphanNodeDeleteTest03 extends AbstractIntegrationTest {
 
-  test("delete orphan node, 'before' situation not in overpass and also not in mongodb") {
+  test("delete orphan node, 'before' situation not in overpass") {
 
     withDatabase { database =>
 

@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.node
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Subset
 import kpn.core.util.UnitTest
@@ -27,7 +28,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
   }
 
   test("mergedBefore") {
-    def assertMerged(left: Option[RawNode], right: Option[RawNode], expected: Option[RawNode]): Unit = {
+    def assertMerged(left: Option[MetaData], right: Option[MetaData], expected: Option[MetaData]): Unit = {
       new NodeChangeMerger(
         newNodeChange(before = left),
         newNodeChange(before = right)
@@ -35,13 +36,13 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
     }
 
     assertMerged(None, None, None)
-    assertMerged(Some(newRawNode()), None, Some(newRawNode()))
-    assertMerged(None, Some(newRawNode()), Some(newRawNode()))
-    assertMerged(Some(newRawNode()), Some(newRawNode()), Some(newRawNode()))
+    assertMerged(Some(newMetaData()), None, Some(newMetaData()))
+    assertMerged(None, Some(newMetaData()), Some(newMetaData()))
+    assertMerged(Some(newMetaData()), Some(newMetaData()), Some(newMetaData()))
   }
 
   test("mergedAfter") {
-    def assertMerged(left: Option[RawNode], right: Option[RawNode], expected: Option[RawNode]): Unit = {
+    def assertMerged(left: Option[MetaData], right: Option[MetaData], expected: Option[MetaData]): Unit = {
       new NodeChangeMerger(
         newNodeChange(after = left),
         newNodeChange(after = right)
@@ -49,9 +50,9 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
     }
 
     assertMerged(None, None, None)
-    assertMerged(Some(newRawNode()), None, Some(newRawNode()))
-    assertMerged(None, Some(newRawNode()), Some(newRawNode()))
-    assertMerged(Some(newRawNode()), Some(newRawNode()), Some(newRawNode()))
+    assertMerged(Some(newMetaData()), None, Some(newMetaData()))
+    assertMerged(None, Some(newMetaData()), Some(newMetaData()))
+    assertMerged(Some(newMetaData()), Some(newMetaData()), Some(newMetaData()))
   }
 
   test("mergedTagDiffs") {

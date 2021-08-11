@@ -103,10 +103,10 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
           subsets = Seq(Subset.nlHiking),
           name = "01",
           before = Some(
-            newRawNodeWithName(1001, "01")
+            newMetaData()
           ),
           after = Some(
-            newRawNode(1001)
+            newMetaData()
           ),
           tagDiffs = Some(
             TagDiffs(
