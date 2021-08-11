@@ -382,9 +382,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         analysisContext,
         bulkNodeAnalyzer,
         nodeChangeAnalyzer,
-        overpassRepository,
-        nodeRepository,
-        nodeAnalyzer
+        nodeRepository
       )
     }
 
@@ -718,9 +716,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       analysisContext,
       bulkNodeAnalyzer,
       nodeChangeAnalyzer,
-      overpassRepository,
-      nodeRepository,
-      nodeAnalyzer
+      nodeRepository
     )
 
     val changeProcessor: ChangeProcessor = {

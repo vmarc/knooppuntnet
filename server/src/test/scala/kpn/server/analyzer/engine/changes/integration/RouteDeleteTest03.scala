@@ -11,7 +11,6 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
@@ -22,9 +21,7 @@ import kpn.core.test.TestSupport.withDatabase
 
 class RouteDeleteTest03 extends AbstractIntegrationTest {
 
-  test("orphan route looses route tags") {
-
-    pending
+  test("route looses route tags") {
 
     withDatabase { database =>
 
@@ -47,149 +44,153 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
           Seq(
             newMember("way", 101)
           ),
-          Tags.from("network" -> "rwn", "type" -> "route", "note" -> "01-02", "network:type" -> "node_network")
+          Tags.empty
         )
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchOrphanRoute(tc.before, 11)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
       assert(!tc.analysisContext.data.routes.watched.contains(11))
 
-      (tc.routeRepository.save _).verify(
-        where { routeInfo: RouteInfo =>
-          routeInfo.id should equal(11)
-          assert(routeInfo.active)
-          // assert(routeInfo.orphan)
-          true
-        }
-      ).once()
+      assertRoute(tc)
+      assertChangeSetSummary(tc)
+      assertRouteChange(tc)
+    }
+  }
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          orphanRouteChanges = Seq(
-            ChangeSetSubsetElementRefs(
-              Subset.nlHiking,
-              ChangeSetElementRefs(
-                updated = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
-              )
+  private def assertRoute(tc: IntegrationTestContext): Unit = {
+    val routeInfo = tc.findRouteById(11)
+    routeInfo.id should equal(11)
+    assert(routeInfo.active)
+  }
+
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
+    tc.findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
             )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
+    )
+  }
 
-      tc.findRouteChangeById("123:1:11") should matchTo(
-        newRouteChange(
-          newChangeKey(elementId = 11),
-          ChangeType.Update,
-          "01-02",
-          before = Some(
-            newRouteData(
-              Some(Country.nl),
-              NetworkType.hiking,
-              relation = newRawRelation(
-                11,
-                members = Seq(
-                  RawMember("way", 101, None)
-                ),
-                tags = Tags.from(
-                  "network" -> "rwn",
-                  "type" -> "route",
-                  "route" -> "foot", // this is removed in 'after' situation
-                  "note" -> "01-02",
-                  "network:type" -> "node_network"
-                )
+  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
+    tc.findRouteChangeById("123:1:11") should matchTo(
+      newRouteChange(
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        "01-02",
+        before = Some(
+          newRouteData(
+            Some(Country.nl),
+            NetworkType.hiking,
+            relation = newRawRelation(
+              11,
+              members = Seq(
+                RawMember("way", 101, None)
               ),
-              name = "01-02",
-              networkNodes = Seq(
-                newRawNodeWithName(1001, "01"),
-                newRawNodeWithName(1002, "02")
-              ),
-              nodes = Seq(
-                newRawNodeWithName(1001, "01"),
-                newRawNodeWithName(1002, "02")
-              ),
-              ways = Seq(
-                newRawWay(
-                  101,
-                  nodeIds = Seq(1001, 1002),
-                  tags = Tags.from("highway" -> "unclassified")
-                )
+              tags = Tags.from(
+                "network" -> "rwn",
+                "type" -> "route",
+                "route" -> "foot", // this is removed in 'after' situation
+                "note" -> "01-02",
+                "network:type" -> "node_network"
+              )
+            ),
+            name = "01-02",
+            networkNodes = Seq(
+              newRawNodeWithName(1001, "01"),
+              newRawNodeWithName(1002, "02")
+            ),
+            nodes = Seq(
+              newRawNodeWithName(1001, "01"),
+              newRawNodeWithName(1002, "02")
+            ),
+            ways = Seq(
+              newRawWay(
+                101,
+                nodeIds = Seq(1001, 1002),
+                tags = Tags.from("highway" -> "unclassified")
               )
             )
-          ),
-          after = Some(
-            newRouteData(
-              Some(Country.nl),
-              NetworkType.hiking,
-              relation = newRawRelation(
-                11,
-                members = Seq(
-                  RawMember("way", 101, None)
-                ),
-                tags = Tags.from(
-                  "network" -> "rwn",
-                  "type" -> "route", // route=foot is missing
-                  "note" -> "01-02",
-                  "network:type" -> "node_network"
-                )
+          )
+        ),
+        after = Some(
+          newRouteData(
+            Some(Country.nl),
+            NetworkType.hiking,
+            relation = newRawRelation(
+              11,
+              members = Seq(
+                RawMember("way", 101, None)
               ),
-              name = "01-02",
-              networkNodes = Seq(
-                newRawNodeWithName(1001, "01"),
-                newRawNodeWithName(1002, "02")
-              ),
-              nodes = Seq(
-                newRawNodeWithName(1001, "01"),
-                newRawNodeWithName(1002, "02")
-              ),
-              ways = Seq(
-                newRawWay(
-                  101,
-                  nodeIds = Seq(1001, 1002),
-                  tags = Tags.from("highway" -> "unclassified")
-                )
-              ),
-              facts = Seq(
+              tags = Tags.from(
+                "network" -> "rwn",
+                "type" -> "route", // route=foot is missing
+                "note" -> "01-02",
+                "network:type" -> "node_network"
+              )
+            ),
+            name = "01-02",
+            networkNodes = Seq(
+              newRawNodeWithName(1001, "01"),
+              newRawNodeWithName(1002, "02")
+            ),
+            nodes = Seq(
+              newRawNodeWithName(1001, "01"),
+              newRawNodeWithName(1002, "02")
+            ),
+            ways = Seq(
+              newRawWay(
+                101,
+                nodeIds = Seq(1001, 1002),
+                tags = Tags.from("highway" -> "unclassified")
+              )
+            ),
+            facts = Seq(
+              Fact.RouteTagMissing,
+              Fact.RouteBroken
+            )
+          )
+        ),
+        diffs = RouteDiff(
+          factDiffs = Some(
+            FactDiffs(
+              introduced = Set(
                 Fact.RouteTagMissing,
                 Fact.RouteBroken
               )
             )
           ),
-          diffs = RouteDiff(
-            factDiffs = Some(
-              FactDiffs(
-                introduced = Set(
-                  Fact.RouteTagMissing,
-                  Fact.RouteBroken
-                )
-              )
-            ),
-            tagDiffs = Some(
-              TagDiffs(
-                mainTags = Seq(
-                  TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
-                  TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
-                  TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
-                  TagDetail(TagDetailType.Delete, "route", Some("foot"), None), // <--
-                  TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
-                )
+          tagDiffs = Some(
+            TagDiffs(
+              mainTags = Seq(
+                TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
+                TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
+                TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
+                TagDetail(TagDetailType.Delete, "route", Some("foot"), None), // <--
+                TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
               )
             )
-          ),
-          facts = Seq(Fact.WasOrphan, Fact.LostRouteTags),
-          investigate = true,
-          impact = true,
-          locationInvestigate = true,
-          locationImpact = true
-        )
+          )
+        ),
+        facts = Seq(Fact.WasOrphan, Fact.LostRouteTags),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
       )
-    }
+    )
   }
 }

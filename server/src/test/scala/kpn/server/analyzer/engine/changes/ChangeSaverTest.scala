@@ -114,7 +114,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
         changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
-            orphanRouteChanges = Seq(
+            routeChanges = Seq(
               ChangeSetSubsetElementRefs(
                 Subset.nlHiking,
                 ChangeSetElementRefs(
@@ -166,7 +166,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
         changeSetSummary should matchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
-            orphanNodeChanges = Seq(
+            nodeChanges = Seq(
               ChangeSetSubsetElementRefs(
                 Subset.nlHiking,
                 ChangeSetElementRefs(

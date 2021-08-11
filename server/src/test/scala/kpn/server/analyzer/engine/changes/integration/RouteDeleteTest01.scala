@@ -45,162 +45,183 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
       assert(tc.analysisContext.data.nodes.watched.contains(1002))
       assert(!tc.analysisContext.data.routes.watched.contains(11))
 
-      val routeInfo = tc.findRouteById(11)
-      routeInfo.id should equal(11)
-      assert(!routeInfo.active)
+      assertRoute(tc)
+      assertNode1001(tc)
+      assertNode1002(tc)
+      assertChangeSetSummary(tc)
+      assertRouteChange(tc)
+      assertNodeChange1001(tc)
+      assertNodeChange1002(tc)
+    }
+  }
 
-      tc.findNodeById(1001) should matchTo {
-        newNodeDoc(
-          1001,
-          labels = Seq(
-            "active",
-            "network-type-hiking"
-          ),
-          country = Some(Country.nl),
-          name = "01",
-          names = Seq(
-            NodeName(
-              NetworkType.hiking,
-              NetworkScope.regional,
-              "01",
-              None,
-              proposed = false
+  private def assertRoute(tc: IntegrationTestContext): Unit = {
+    val routeInfo = tc.findRouteById(11)
+    routeInfo.id should equal(11)
+    assert(!routeInfo.active)
+  }
+
+  private def assertNode1001(tc: IntegrationTestContext): Unit = {
+    tc.findNodeById(1001) should matchTo {
+      newNodeDoc(
+        1001,
+        labels = Seq(
+          "active",
+          "network-type-hiking"
+        ),
+        country = Some(Country.nl),
+        name = "01",
+        names = Seq(
+          NodeName(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            "01",
+            None,
+            proposed = false
+          )
+        ),
+        tags = newNodeTags("01")
+      )
+    }
+  }
+
+  private def assertNode1002(tc: IntegrationTestContext): Unit = {
+    tc.findNodeById(1002) should matchTo {
+      newNodeDoc(
+        1002,
+        labels = Seq(
+          "active",
+          "network-type-hiking"
+        ),
+        country = Some(Country.nl),
+        name = "02",
+        names = Seq(
+          NodeName(
+            NetworkType.hiking,
+            NetworkScope.regional,
+            "02",
+            None,
+            proposed = false
+          )
+        ),
+        tags = newNodeTags("02")
+      )
+    }
+  }
+
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
+    tc.findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
             )
-          ),
-          tags = newNodeTags("01")
-        )
-      }
-
-      tc.findNodeById(1002) should matchTo {
-        newNodeDoc(
-          1002,
-          labels = Seq(
-            "active",
-            "network-type-hiking"
-          ),
-          country = Some(Country.nl),
-          name = "02",
-          names = Seq(
-            NodeName(
-              NetworkType.hiking,
-              NetworkScope.regional,
-              "02",
-              None,
-              proposed = false
-            )
-          ),
-          tags = newNodeTags("02")
-        )
-      }
-
-
-      tc.findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          orphanRouteChanges = Seq(
-            ChangeSetSubsetElementRefs(
-              Subset.nlHiking,
-              ChangeSetElementRefs(
-                removed = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+                newChangeSetElementRef(1002, "02")
               )
             )
-          ),
-          orphanNodeChanges = Seq(
-            ChangeSetSubsetElementRefs(
-              Subset.nlHiking,
-              ChangeSetElementRefs(
-                updated = Seq(
-                  newChangeSetElementRef(1001, "01"),
-                  newChangeSetElementRef(1002, "02")
-                )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
+    tc.findRouteChangeById("123:1:11") should matchTo(
+      newRouteChange(
+        newChangeKey(elementId = 11),
+        ChangeType.Delete,
+        "01-02",
+        before = Some(
+          newRouteData(
+            Some(Country.nl),
+            NetworkType.hiking,
+            relation = newRawRelation(
+              11,
+              members = Seq(
+                RawMember("way", 101, None)
+              ),
+              tags = newRouteTags("01-02")
+            ),
+            name = "01-02",
+            networkNodes = Seq(
+              newRawNodeWithName(1001, "01"),
+              newRawNodeWithName(1002, "02")
+            ),
+            nodes = Seq(
+              newRawNodeWithName(1001, "01"),
+              newRawNodeWithName(1002, "02")
+            ),
+            ways = Seq(
+              newRawWay(
+                101,
+                nodeIds = Seq(1001, 1002),
+                tags = Tags.from("highway" -> "unclassified")
               )
             )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
+          )
+        ),
+        facts = Seq(Fact.WasOrphan, Fact.Deleted), // TODO Fact.WasOrphan should not be here anymore???!!!
+        impactedNodeIds = Seq(1001, 1002),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
+      )
+    )
+  }
+
+  private def assertNodeChange1001(tc: IntegrationTestContext): Unit = {
+    tc.findNodeChangeById("123:1:1001") should matchTo {
+      newNodeChange(
+        newChangeKey(elementId = 1001),
+        ChangeType.Update,
+        Seq(Subset.nlHiking),
+        name = "01",
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromRoute = Seq(
+          // TODO Ref(11, "01-02")
         )
       )
+    }
+  }
 
-      tc.findRouteChangeById("123:1:11") should matchTo(
-        newRouteChange(
-          newChangeKey(elementId = 11),
-          ChangeType.Delete,
-          "01-02",
-          before = Some(
-            newRouteData(
-              Some(Country.nl),
-              NetworkType.hiking,
-              relation = newRawRelation(
-                11,
-                members = Seq(
-                  RawMember("way", 101, None)
-                ),
-                tags = newRouteTags("01-02")
-              ),
-              name = "01-02",
-              networkNodes = Seq(
-                newRawNodeWithName(1001, "01"),
-                newRawNodeWithName(1002, "02")
-              ),
-              nodes = Seq(
-                newRawNodeWithName(1001, "01"),
-                newRawNodeWithName(1002, "02")
-              ),
-              ways = Seq(
-                newRawWay(
-                  101,
-                  nodeIds = Seq(1001, 1002),
-                  tags = Tags.from("highway" -> "unclassified")
-                )
-              )
-            )
-          ),
-          facts = Seq(Fact.WasOrphan, Fact.Deleted), // TODO Fact.WasOrphan should not be here anymore???!!!
-          impactedNodeIds = Seq(1001, 1002),
-          investigate = true,
-          impact = true,
-          locationInvestigate = true,
-          locationImpact = true
+  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
+    tc.findNodeChangeById("123:1:1002") should matchTo {
+      newNodeChange(
+        newChangeKey(elementId = 1002),
+        ChangeType.Update,
+        Seq(Subset.nlHiking),
+        name = "02",
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromRoute = Seq(
+          // TODO Ref(11, "01-02")
         )
       )
-
-      tc.findNodeChangeById("123:1:1001") should matchTo {
-        newNodeChange(
-          newChangeKey(elementId = 1001),
-          ChangeType.Update,
-          Seq(Subset.nlHiking),
-          name = "01",
-          before = Some(
-            newMetaData()
-          ),
-          after = Some(
-            newMetaData()
-          ),
-          removedFromRoute = Seq(
-            // TODO Ref(11, "01-02")
-          )
-        )
-      }
-
-      tc.findNodeChangeById("123:1:1002") should matchTo {
-        newNodeChange(
-          newChangeKey(elementId = 1002),
-          ChangeType.Update,
-          Seq(Subset.nlHiking),
-          name = "02",
-          before = Some(
-            newMetaData()
-          ),
-          after = Some(
-            newMetaData()
-          ),
-          removedFromRoute = Seq(
-            // TODO Ref(11, "01-02")
-          )
-        )
-      }
     }
   }
 }

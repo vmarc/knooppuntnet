@@ -63,7 +63,7 @@ class OrphanNodeDeleteTest01 extends AbstractIntegrationTest {
     tc.findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
-        orphanNodeChanges = Seq(
+        nodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
