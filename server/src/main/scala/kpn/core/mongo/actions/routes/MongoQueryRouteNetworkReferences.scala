@@ -24,23 +24,20 @@ class MongoQueryRouteNetworkReferences(database: Database) {
   def execute(routeId: Long, log: Log = MongoQueryRouteNetworkReferences.log): Seq[Reference] = {
     log.debugElapsed {
       val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("routeRefs", routeId),
-          )
-        ),
+        filter(equal("active", true)),
+        unwind("$routes"),
+        filter(equal("routes.id", routeId)),
         project(
           fields(
             excludeId(),
-            computed("networkType", "$attributes.networkType"),
-            computed("networkScope", "$attributes.networkScope"),
+            computed("networkType", "$summary.networkType"),
+            computed("networkScope", "$summary.networkScope"),
             computed("id", "$_id"),
-            computed("name", "$attributes.name"),
+            computed("name", "$summary.name"),
           )
         )
       )
-      val references = database.oldNetworks.aggregate[Reference](pipeline, log)
+      val references = database.networkInfos.aggregate[Reference](pipeline, log)
       (s"route network references: ${references.size}", references)
     }
   }

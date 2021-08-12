@@ -32,7 +32,7 @@ object MongoQueryLocationFacts {
   def main(args: Array[String]): Unit = {
     println("MongoQueryLocationFacts")
     Mongo.executeIn("kpn-test") { database =>
-      database.oldNetworks.findById(0)
+      database.networks.findById(0)
       val query = new MongoQueryLocationFacts(database)
       val locationFacts = query.execute(NetworkType.cycling, "de")
       locationFacts.foreach { locationFact =>

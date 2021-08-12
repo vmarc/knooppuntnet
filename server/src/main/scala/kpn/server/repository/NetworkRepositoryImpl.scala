@@ -1,17 +1,9 @@
 package kpn.server.repository
 
-import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkInfo
-import kpn.api.custom.Subset
-import kpn.core.database.doc.CouchNetworkDoc
-import kpn.core.database.doc.GpxDoc
-import kpn.core.database.views.analyzer.DocumentView
-import kpn.core.database.views.analyzer.NetworkView
-import kpn.core.db._
 import kpn.core.gpx.GpxFile
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.networks.MongoQueryNetworkIds
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetNetworks
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.util.Log
@@ -28,12 +20,7 @@ class NetworkRepositoryImpl(
   private val log = Log(classOf[NetworkRepositoryImpl])
 
   override def allNetworkIds(): Seq[Long] = {
-    if (mongoEnabled) {
-      database.oldNetworks.ids(log)
-    }
-    else {
-      DocumentView.allNetworkIds(analysisDatabase)
-    }
+    database.networks.ids(log)
   }
 
   override def activeNetworkIds(): Seq[Long] = {
@@ -45,16 +32,7 @@ class NetworkRepositoryImpl(
   }
 
   override def oldSaveNetworkInfo(network: NetworkInfo): Unit = {
-    if (mongoEnabled) {
-      throw new IllegalStateException("calling obsolete oldSaveNetworkInfo()")
-    }
-    else {
-      log.debugElapsed {
-        val key = networkKey(network.id)
-        analysisDatabase.save(CouchNetworkDoc(key, network))
-        (s"Save network ${network.id}", ())
-      }
-    }
+    throw new IllegalStateException("calling obsolete oldSaveNetworkInfo()")
   }
 
   override def save(networkDoc: NetworkDoc): Unit = {
@@ -70,46 +48,15 @@ class NetworkRepositoryImpl(
   }
 
   override def delete(networkId: Long): Unit = {
-    if (mongoEnabled) {
-      database.oldNetworks.delete(networkId, log)
-    }
-    else {
-      analysisDatabase.deleteDocWithId(networkKey(networkId))
-      analysisDatabase.deleteDocWithId(networkElementsKey(networkId))
-    }
+    database.networks.delete(networkId, log)
+    database.networkInfos.delete(networkId, log)
   }
 
-  private def networkKey(networkId: Long): String = s"${KeyPrefix.Network}:$networkId"
-
-  private def networkElementsKey(networkId: Long): String = s"${KeyPrefix.NetworkElements}:$networkId"
-
   override def gpx(networkId: Long): Option[GpxFile] = {
-    if (mongoEnabled) {
-      database.networkGpxs.findById(networkId, log)
-    }
-    else {
-      analysisDatabase.docWithId(gpxKey(networkId), classOf[GpxDoc]).map(_.file)
-    }
+    database.networkGpxs.findById(networkId, log)
   }
 
   override def saveGpxFile(gpxFile: GpxFile): Unit = {
-    if (mongoEnabled) {
-      database.networkGpxs.save(gpxFile, log)
-    }
-    else {
-      val key = gpxKey(gpxFile._id)
-      analysisDatabase.save(GpxDoc(key, gpxFile))
-    }
-  }
-
-  private def gpxKey(networkId: Long): String = s"${KeyPrefix.NetworkGpx}:$networkId"
-
-  override def networks(subset: Subset, stale: Boolean): Seq[NetworkAttributes] = {
-    if (mongoEnabled) {
-      new MongoQuerySubsetNetworks(database).execute(subset)
-    }
-    else {
-      NetworkView.query(analysisDatabase, subset, stale)
-    }
+    database.networkGpxs.save(gpxFile, log)
   }
 }

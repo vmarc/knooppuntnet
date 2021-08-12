@@ -37,8 +37,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
       context.networkFacts.size,
       context.nodeDetails.size,
       context.routeDetails.size,
-      context.changeCount,
-      context.networkDoc.active
+      context.changeCount
     )
   }
 

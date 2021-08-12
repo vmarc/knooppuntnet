@@ -8,15 +8,15 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
 
   test("ids") {
     withDatabase { database =>
-      database.oldNetworks.save(newNetworkInfo(newNetworkAttributes(1L)))
-      database.oldNetworks.save(newNetworkInfo(newNetworkAttributes(2L)))
-      database.oldNetworks.ids() should equal(Seq(1L, 2L))
+      database.networks.save(newNetwork(1L))
+      database.networks.save(newNetwork(2L))
+      database.networks.ids() should equal(Seq(1L, 2L))
     }
   }
 
   test("ids from empty collection") {
     withDatabase { database =>
-      database.oldNetworks.ids() should equal(Seq.empty)
+      database.networks.ids() should equal(Seq.empty)
     }
   }
 
@@ -36,35 +36,35 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
 
   test("findById") {
     withDatabase { database =>
-      val networkInfo = newNetworkInfo(newNetworkAttributes(1L))
-      database.oldNetworks.save(networkInfo)
-      database.oldNetworks.findById(1L) should equal(Some(networkInfo))
+      val network = newNetwork(1L)
+      database.networks.save(network)
+      database.networks.findById(1L) should equal(Some(network))
     }
   }
 
   test("findById - not found") {
     withDatabase { database =>
-      database.oldNetworks.findById(1L) should equal(None)
+      database.networks.findById(1L) should equal(None)
     }
   }
 
   test("findByIds") {
     withDatabase { database =>
-      val networkInfo1 = newNetworkInfo(newNetworkAttributes(1L))
-      val networkInfo2 = newNetworkInfo(newNetworkAttributes(2L))
-      val networkInfo3 = newNetworkInfo(newNetworkAttributes(3L))
-      database.oldNetworks.insertMany(Seq(networkInfo1, networkInfo2, networkInfo3))
+      val network1 = newNetwork(1L)
+      val network2 = newNetwork(2L)
+      val network3 = newNetwork(3L)
+      database.networks.insertMany(Seq(network1, network2, network3))
 
-      database.oldNetworks.findByIds(Seq(1L, 2L)) should equal(
+      database.networks.findByIds(Seq(1L, 2L)) should equal(
         Seq(
-          networkInfo1,
-          networkInfo2
+          network1,
+          network2
         )
       )
-      database.oldNetworks.findByIds(Seq(2L, 3L)) should equal(
+      database.networks.findByIds(Seq(2L, 3L)) should equal(
         Seq(
-          networkInfo2,
-          networkInfo3
+          network2,
+          network3
         )
       )
     }
@@ -72,7 +72,7 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
 
   test("findByIds - not found") {
     withDatabase { database =>
-      database.oldNetworks.findByIds(Seq(1L, 2L)) should equal(Seq.empty)
+      database.networks.findByIds(Seq(1L, 2L)) should equal(Seq.empty)
     }
   }
 }

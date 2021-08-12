@@ -65,7 +65,11 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.mongo.doc.NetworkNodeMember
+import kpn.core.mongo.doc.NetworkRelationMember
+import kpn.core.mongo.doc.NetworkWayMember
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
@@ -1091,6 +1095,29 @@ trait SharedTestObjects extends MockFactory {
     NetworkData(MetaData(version, timestamp, changeSetId), name)
   }
 
+  def newNetwork(
+    _id: Long,
+    active: Boolean = true,
+    relationLastUpdated: Timestamp = defaultTimestamp,
+    nodeMembers: Seq[NetworkNodeMember] = Seq.empty,
+    wayMembers: Seq[NetworkWayMember] = Seq.empty,
+    relationMembers: Seq[NetworkRelationMember] = Seq.empty,
+    networkFacts: NetworkFacts = NetworkFacts(),
+    tags: Tags = Tags.empty
+  ): NetworkDoc = {
+    NetworkDoc(
+      _id,
+      active,
+      relationLastUpdated,
+      nodeMembers,
+      wayMembers,
+      relationMembers,
+      networkFacts,
+      tags
+    )
+  }
+
+
   def newNetworkInfoDoc(
     _id: Long,
     active: Boolean = true,
@@ -1122,8 +1149,7 @@ trait SharedTestObjects extends MockFactory {
     factCount: Long = 0,
     nodeCount: Long = 0,
     routeCount: Long = 0,
-    changeCount: Long = 0,
-    active: Boolean = false
+    changeCount: Long = 0
   ): NetworkSummary = {
     NetworkSummary(
       name,
@@ -1132,8 +1158,71 @@ trait SharedTestObjects extends MockFactory {
       factCount,
       nodeCount,
       routeCount,
-      changeCount,
-      active
+      changeCount
+    )
+  }
+
+  def newNetworkNodeDetail(
+    id: Long,
+    name: String = "",
+    longName: String = "",
+    latitude: String = "",
+    longitude: String = "",
+    connection: Boolean = false,
+    roleConnection: Boolean = false,
+    definedInRelation: Boolean = false,
+    definedInRoute: Boolean = false,
+    proposed: Boolean = false,
+    timestamp: Timestamp = defaultTimestamp,
+    lastSurvey: Option[Day] = None,
+    expectedRouteCount: String = "",
+    routeReferences: Seq[Reference] = Seq.empty,
+    facts: Seq[Fact] = Seq.empty,
+    tags: Tags = Tags.empty
+  ): NetworkNodeDetail = {
+    NetworkNodeDetail(
+      id,
+      name,
+      longName,
+      latitude,
+      longitude,
+      connection,
+      roleConnection,
+      definedInRelation,
+      definedInRoute,
+      proposed,
+      timestamp,
+      lastSurvey,
+      expectedRouteCount,
+      routeReferences,
+      facts,
+      tags
+    )
+  }
+
+  def newNetworkRouteRow(
+    id: Long,
+    name: String = "",
+    length: Long = 0,
+    role: Option[String] = None,
+    investigate: Boolean = false,
+    accessible: Boolean = false,
+    roleConnection: Boolean = false,
+    lastUpdated: Timestamp = defaultTimestamp,
+    lastSurvey: Option[Day] = None,
+    proposed: Boolean = false
+  ): NetworkRouteRow = {
+    NetworkRouteRow(
+      id,
+      name,
+      length,
+      role,
+      investigate,
+      accessible,
+      roleConnection,
+      lastUpdated,
+      lastSurvey,
+      proposed
     )
   }
 

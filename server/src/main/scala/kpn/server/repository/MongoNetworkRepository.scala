@@ -3,15 +3,11 @@ package kpn.server.repository
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.api.common.network.NetworkInfo
+import kpn.core.mongo.doc.NetworkInfoDoc
 
 trait MongoNetworkRepository {
 
-  def save(network: NetworkInfo): Unit
-
-  def networkWithId(networkId: Long): Option[NetworkInfo]
-
-  def networkChangeCount(networkId: Long): Long
+  def networkWithId(networkId: Long): Option[NetworkInfoDoc]
 
   def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange]
 

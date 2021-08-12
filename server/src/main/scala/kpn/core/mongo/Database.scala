@@ -47,8 +47,6 @@ trait Database {
 
   def networkShapes: DatabaseCollection[NetworkShapeDoc]
 
-  def oldNetworks: DatabaseCollection[NetworkInfo]
-
   def networkGpxs: DatabaseCollection[GpxFile]
 
   def nodes: DatabaseCollection[NodeDoc]

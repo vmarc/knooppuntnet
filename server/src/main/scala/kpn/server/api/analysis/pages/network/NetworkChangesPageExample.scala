@@ -7,6 +7,9 @@ import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.common.network.NetworkShape
+import kpn.api.common.network.NetworkSummary
+import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 
 object NetworkChangesPageExample {
@@ -36,7 +39,15 @@ object NetworkChangesPageExample {
     val changes: Seq[NetworkChangeInfo] = Seq.empty
 
     NetworkChangesPage(
-      NetworkSummaryBuilder.toSummary(networkInfo, 123),
+      NetworkSummary(
+        "name",
+        NetworkType.hiking,
+        NetworkScope.regional,
+        1,
+        2,
+        3,
+        4
+      ),
       filter,
       changes,
       totalCount = 10

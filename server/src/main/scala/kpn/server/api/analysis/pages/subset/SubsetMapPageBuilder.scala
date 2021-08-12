@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.subset
 
 import kpn.api.common.Bounds
+import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.common.subset.SubsetMapPage
 import kpn.api.custom.Subset
@@ -19,7 +20,7 @@ class SubsetMapPageBuilder(
     val subsetInfo = subsetRepository.subsetInfo(subset)
 
     // TODO MONGO specific call to only get the information that is actually used
-    val networks = networkRepository.networks(subset)
+    val networks: Seq[NetworkAttributes] = Seq.empty // TODO MONGO = networkRepository.networks(subset)
     val subsetMapNetworks = networks.flatMap { network =>
       network.center.map { center =>
         SubsetMapNetwork(

@@ -24,7 +24,7 @@ object MongoQueryLocationFactCount {
   def main(args: Array[String]): Unit = {
     println("MongoQueryLocationFactCount")
     Mongo.executeIn("kpn-test") { database =>
-      database.oldNetworks.findById(0)
+      database.networks.findById(0)
       val query = new MongoQueryLocationFactCount(database)
       query.execute(NetworkType.hiking, "de")
     }

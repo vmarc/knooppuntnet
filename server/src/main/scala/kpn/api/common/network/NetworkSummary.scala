@@ -10,6 +10,5 @@ case class NetworkSummary(
   factCount: Long,
   nodeCount: Long,
   routeCount: Long,
-  changeCount: Long,
-  active: Boolean
+  changeCount: Long
 )

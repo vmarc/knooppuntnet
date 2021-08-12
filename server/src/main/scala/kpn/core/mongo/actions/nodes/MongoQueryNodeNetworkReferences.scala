@@ -7,7 +7,6 @@ import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
@@ -24,23 +23,20 @@ class MongoQueryNodeNetworkReferences(database: Database) {
   def execute(nodeId: Long, log: Log = MongoQueryNodeNetworkReferences.log): Seq[Reference] = {
     log.debugElapsed {
       val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("nodeRefs", nodeId),
-          )
-        ),
+        filter(equal("active", true)),
+        unwind("$nodes"),
+        filter(equal("nodes.id", nodeId)),
         project(
           fields(
             excludeId(),
-            computed("networkType", "$attributes.networkType"),
-            computed("networkScope", "$attributes.networkScope"),
+            computed("networkType", "$summary.networkType"),
+            computed("networkScope", "$summary.networkScope"),
             computed("id", "$_id"),
-            computed("name", "$attributes.name"),
+            computed("name", "$summary.name"),
           )
         )
       )
-      val references = database.oldNetworks.aggregate[Reference](pipeline, log)
+      val references = database.networkInfos.aggregate[Reference](pipeline, log)
       (s"node network references: ${references.size}", references)
     }
   }
