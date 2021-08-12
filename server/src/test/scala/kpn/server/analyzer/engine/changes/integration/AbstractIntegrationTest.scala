@@ -807,14 +807,13 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       nodeRepository
     )
 
+    fullAnalyzer.analyze(timestampBeforeValue)
+    analysisDataInitializer.load()
+
     /*
       Full analysis of the initial situation
      */
     def process(action: ChangeAction, element: RawElement): Unit = {
-      fullAnalyzer.analyze(timestampBeforeValue)
-      analysisDataInitializer.load()
-
-
       val changes = Seq(Change(action, Seq(element)))
       process(changes)
     }

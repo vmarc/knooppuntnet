@@ -5,6 +5,7 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Fact
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
@@ -20,15 +21,8 @@ class NetworkInfoChangeProcessorImpl(
 ) extends NetworkInfoChangeProcessor {
 
   def analyze(context: ChangeSetContext): ChangeSetContext = {
-    val impactedNetworkIds1 = context.changes.newNetworkChanges.map(_.networkId)
-    val impactedRouteIds = context.changes.routeChanges.map(_.id)
-    val impactedNetworkIds2 = new MongoQueryRouteNetworkReferences(database).executeRouteIds(impactedRouteIds)
-    val impactedNodeIds1 = context.changes.newNetworkChanges.flatMap(_.impactedNodeIds)
-    val impactedNodeIds2 = context.changes.routeChanges.flatMap(_.impactedNodeIds)
-    val impactedNodeIds3 = context.changes.nodeChanges.map(_.id)
-    val impactedNodeIds = (impactedNodeIds1 ++ impactedNodeIds2 ++ impactedNodeIds3).distinct.sorted
-    val impactedNetworkIds3 = new MongoQueryNodeNetworkReferences(database).executeNodeIds(impactedNodeIds)
-    val impactedNetworkIds = (impactedNetworkIds1 ++ impactedNetworkIds2 ++ impactedNetworkIds3).distinct.sorted
+
+    val impactedNetworkIds = analyzeImpact(context)
 
     val networkChanges = impactedNetworkIds.flatMap { networkId =>
       val beforeOption = database.networkInfos.findById(networkId)
@@ -55,7 +49,48 @@ class NetworkInfoChangeProcessorImpl(
     )
   }
 
+  private def analyzeImpact(context: ChangeSetContext): Seq[Long] = {
+    val impactedNetworkIds1 = context.changes.newNetworkChanges.map(_.networkId)
+    val impactedRouteIds = context.changes.routeChanges.map(_.id)
+    val impactedNetworkIds2 = new MongoQueryRouteNetworkReferences(database).executeRouteIds(impactedRouteIds)
+    val impactedNodeIds1 = context.changes.newNetworkChanges.flatMap(_.impactedNodeIds)
+    val impactedNodeIds2 = context.changes.routeChanges.flatMap(_.impactedNodeIds)
+    val impactedNodeIds3 = context.changes.nodeChanges.map(_.id)
+    val impactedNodeIds = (impactedNodeIds1 ++ impactedNodeIds2 ++ impactedNodeIds3).distinct.sorted
+    val impactedNetworkIds3 = new MongoQueryNodeNetworkReferences(database).executeNodeIds(impactedNodeIds)
+    (impactedNetworkIds1 ++ impactedNetworkIds2 ++ impactedNetworkIds3).distinct.sorted
+  }
+
   private def processCreate(context: ChangeSetContext, after: NetworkInfoDoc): Option[NetworkChange] = {
+
+    val networkChangeOption = context.changes.newNetworkChanges.find(_.networkId == after._id)
+
+    val oldOrphanRouteRefs = after.routes.map(_.id).flatMap { routeId =>
+      context.changes.routeChanges.find(_.id == routeId) match {
+        case None => None
+        case Some(routeChange) =>
+          if (routeChange.facts.contains(Fact.WasOrphan)) {
+            Some(routeChange.toRef)
+          }
+          else {
+            None
+          }
+      }
+    }
+
+    val oldOrphanNodeRefs = after.nodes.map(_.id).flatMap { nodeId =>
+      context.changes.nodeChanges.find(_.id == nodeId) match {
+        case None => None
+        case Some(nodeChange) =>
+          if (nodeChange.facts.contains(Fact.WasOrphan)) {
+            Some(nodeChange.toRef)
+          }
+          else {
+            None
+          }
+      }
+    }
+
     val key = context.buildChangeKey(after._id)
     Some(
       NetworkChange(
@@ -66,17 +101,25 @@ class NetworkInfoChangeProcessorImpl(
         networkType = after.scopedNetworkType.networkType,
         networkId = after._id,
         networkName = after.summary.name,
-        orphanRoutes = RefChanges(), // ??
-        orphanNodes = RefChanges(), // ??
-        networkDataUpdate = None, // Option[NetworkDataUpdate],
-        networkNodes = RefDiffs(), // ??
-        routes = RefDiffs(), // ??
-        nodes = IdDiffs(), // ??
-        ways = IdDiffs(), // ??
-        relations = IdDiffs(), // ??
-        happy = true, // ??
-        investigate = false, // ??
-        impact = true // ??
+        orphanRoutes = RefChanges(
+          oldRefs = oldOrphanRouteRefs
+        ),
+        orphanNodes = RefChanges(
+          oldRefs = oldOrphanNodeRefs
+        ),
+        networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
+        networkNodes = RefDiffs(
+          added = after.nodes.map(_.toRef)
+        ),
+        routes = RefDiffs(
+          added = after.routes.map(_.toRef)
+        ),
+        nodes = networkChangeOption.map(_.nodes).getOrElse(IdDiffs.empty),
+        ways = networkChangeOption.map(_.ways).getOrElse(IdDiffs.empty),
+        relations = networkChangeOption.map(_.relations).getOrElse(IdDiffs.empty),
+        happy = true,
+        investigate = false,
+        impact = true
       )
     )
   }

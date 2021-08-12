@@ -6,7 +6,6 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
-import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
@@ -19,106 +18,120 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
 
   test("network delete - node becomes orphan") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(
+        1,
+        "network",
+        Seq(
+          newMember("node", 1001)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkRelation(1, "network", Seq(newMember("node", 1001)))
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
 
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
       assert(!tc.analysisContext.data.networks.watched.contains(1))
       assert(tc.analysisContext.data.nodes.watched.contains(1001))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(
-        where { networkInfo: NetworkInfo =>
-          networkInfo should matchTo(
-            newNetworkInfo(
-              newNetworkAttributes(
-                1,
-                Some(Country.nl),
-                NetworkType.hiking,
-                name = "network",
-                lastUpdated = timestampAfterValue,
-                relationLastUpdated = timestampAfterValue
-              ),
-              active = false // <--- !!!
-            )
-          )
-          true
-        }
-      )
-
-      tc.findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          networkChanges = NetworkChanges(
-            deletes = Seq(
-              newChangeSetNetwork(
-                Some(Country.nl),
-                NetworkType.hiking,
-                1,
-                "network",
-                investigate = true
-              )
-            )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
-      )
-
-      tc.findNetworkChangeById("123:1:1") should matchTo(
-        newNetworkChange(
-          newChangeKey(elementId = 1),
-          ChangeType.Delete,
-          Some(Country.nl),
-          NetworkType.hiking,
-          1,
-          "network",
-          orphanNodes = RefChanges(
-            newRefs = Seq(
-              Ref(1001, "01")
-            )
-          ),
-          investigate = true
-        )
-      )
-
       assert(database.routeChanges.findAll().isEmpty)
 
-      tc.findNodeChangeById("123:1:1001") should matchTo(
-        newNodeChange(
-          key = newChangeKey(elementId = 1001),
-          changeType = ChangeType.Update,
-          subsets = Seq(Subset.nlHiking),
-          name = "01",
-          before = Some(
-            newMetaData()
-          ),
-          after = Some(
-            newMetaData()
-          ),
-          removedFromNetwork = Seq(
-            Ref(1, "network")
-          ),
-          facts = Seq(Fact.BecomeOrphan),
-          investigate = true,
-          impact = true
-        )
-      )
+      assertNetwork(tc)
+      assertNetworkInfo(tc)
+      assertChangeSetSummary(tc)
+      assertNetworkChange(tc)
+      assertNodeChange(tc)
+
+      // TODO database.orphanNodes.findByStringId()
     }
   }
 
+  private def assertNetwork(tc: IntegrationTestContext): Unit = {
+    tc.findNetworkById(1) should matchTo(
+      newNetwork(
+        1,
+        active = false,
+      )
+    )
+  }
+
+  private def assertNetworkInfo(tc: IntegrationTestContext): Unit = {
+    tc.findNetworkInfoById(1) should matchTo(
+      newNetworkInfoDoc(
+        1,
+        active = false,
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
+    tc.findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          deletes = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "network",
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertNetworkChange(tc: IntegrationTestContext): Unit = {
+    tc.findNetworkChangeById("123:1:1") should matchTo(
+      newNetworkChange(
+        newChangeKey(elementId = 1),
+        ChangeType.Delete,
+        Some(Country.nl),
+        NetworkType.hiking,
+        1,
+        "network",
+        orphanNodes = RefChanges(
+          newRefs = Seq(
+            Ref(1001, "01")
+          )
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
+    tc.findNodeChangeById("123:1:1001") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        name = "01",
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromNetwork = Seq(
+          Ref(1, "network")
+        ),
+        facts = Seq(Fact.BecomeOrphan),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
 }

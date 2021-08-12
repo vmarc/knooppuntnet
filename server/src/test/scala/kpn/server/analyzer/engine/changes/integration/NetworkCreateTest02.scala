@@ -26,38 +26,47 @@ class NetworkCreateTest02 extends AbstractIntegrationTest {
 
   test("network create - orphan routes and orphan nodes are no longer orphan when part of the added network") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(
+        11,
+        "01-02",
+        Seq(
+          newMember("way", 101)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(
+        11,
+        "01-02",
+        Seq(
+          newMember("way", 101)
+        )
+      )
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("relation", 11)
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(11, "01-02", Seq(newMember("way", 101)))
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(11, "01-02", Seq(newMember("way", 101)))
-        .networkRelation(1, "name", Seq(newMember("relation", 11)))
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.routes.watched.add(11, ElementIds())
-      tc.analysisContext.data.nodes.watched.add(1001L)
-      tc.analysisContext.data.nodes.watched.add(1002L)
-
-      assert(tc.analysisContext.data.routes.watched.contains(11))
-      assert(tc.analysisContext.data.nodes.watched.contains(1001))
-      assert(tc.analysisContext.data.nodes.watched.contains(1002))
 
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
-      assert(!tc.analysisContext.data.routes.watched.contains(11))
-      assert(!tc.analysisContext.data.nodes.watched.contains(1001))
-      assert(!tc.analysisContext.data.nodes.watched.contains(1002))
+      assert(tc.analysisContext.data.networks.watched.contains(1))
+      assert(tc.analysisContext.data.routes.watched.contains(11))
+      assert(tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(tc.analysisContext.data.nodes.watched.contains(1002))
 
       (tc.networkRepository.oldSaveNetworkInfo _).verify(
         where { networkInfo: NetworkInfo =>

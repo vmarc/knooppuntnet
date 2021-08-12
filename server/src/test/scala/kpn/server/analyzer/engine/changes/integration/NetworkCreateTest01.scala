@@ -9,9 +9,11 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.custom.Country
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -64,14 +66,7 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
       assert(tc.analysisContext.data.networks.watched.contains(1))
 
       assertNetworkDoc(tc)
-
-      // val networkInfoDoc = tc.findNetworkInfoById(1)
-      // networkInfoDoc._id should equal(1)
-      // networkInfoDoc.active should equal(true)
-      // TODO networkInfoDoc.nodeRefs should equal(Seq(1001L,1002L))
-      // TODO networkInfoDoc.routeRefs should equal(Seq(11L))
-      // for remaining network structure - see NetworkAnalyzerTest
-
+      assertNetworkInfoDoc(tc)
       assertChangeSetSummary(tc)
       assertNetworkChange(tc)
       assertRouteChange(tc)
@@ -97,6 +92,67 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
           "type" -> "network",
           "network" -> "rwn",
           "name" -> "name",
+        )
+      )
+    )
+  }
+
+  private def assertNetworkInfoDoc(tc: IntegrationTestContext): Unit = {
+    tc.findNetworkInfoById(1) should matchTo(
+      newNetworkInfoDoc(
+        1,
+        summary = newNetworkSummary(
+          name = "name",
+          nodeCount = 2,
+          routeCount = 1
+        ),
+        detail = newNetworkDetail(
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "type" -> "network",
+            "network" -> "rwn",
+            "name" -> "name"
+          )
+        ),
+        nodes = Seq(
+          newNetworkNodeDetail(
+            1001,
+            "01",
+            routeReferences = Seq(
+              Reference(
+                NetworkType.hiking,
+                NetworkScope.regional,
+                11,
+                "01-02"
+              )
+            ),
+            tags = Tags.from(
+              "rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            )
+          ),
+          newNetworkNodeDetail(
+            1002,
+            "02",
+            routeReferences = Seq(
+              Reference(
+                NetworkType.hiking,
+                NetworkScope.regional,
+                11,
+                "01-02"
+              )
+            ),
+            tags = Tags.from(
+              "rwn_ref" -> "02",
+              "network:type" -> "node_network"
+            )
+          )
+        ),
+        routes = Seq(
+          newNetworkRouteRow(
+            11,
+            "01-02"
+          )
         )
       )
     )

@@ -18,7 +18,7 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
       val facts = networkFacts ++ routeFacts ++ nodeFacts
 
       val brokenRouteCount: Long = 0 // TODO MONGO
-      val brokenRoutePercentage: String = "" // TODO MONGO
+      val brokenRoutePercentage: String = "-" // TODO MONGO
       val unaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteUnaccessible))
 
       context.copy(

@@ -25,4 +25,9 @@ case class NetworkNodeDetail(
   routeReferences: Seq[Reference],
   facts: Seq[Fact],
   tags: Tags
-) extends LatLon
+) extends LatLon {
+
+  def toRef: Ref = {
+    Ref(id, name)
+  }
+}
