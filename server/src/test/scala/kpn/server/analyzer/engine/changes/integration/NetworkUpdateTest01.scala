@@ -25,7 +25,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdate_Test01 extends AbstractIntegrationTest {
+class NetworkUpdateTest01 extends AbstractIntegrationTest {
 
   test("network update - updated network is saved to the database and watched elements are updated in AnalysisData") {
 

@@ -5,7 +5,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
-class NetworkDelete_Test02 extends AbstractIntegrationTest {
+class NetworkDeleteTest02 extends AbstractIntegrationTest {
 
   test("network delete - no info saved when before sitution cannot be loaded") {
 

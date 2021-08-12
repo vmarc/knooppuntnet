@@ -8,8 +8,10 @@ import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.integration.AbstractIntegrationTest
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
+import kpn.server.analyzer.engine.changes.network.NetworkInfoChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NewNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcessor
+import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
 
 class ChangeProcessorTest extends AbstractIntegrationTest {
@@ -58,8 +60,8 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
     )
 
     //(t.networkChangeProcessor.process _).when(*).returns(networkChanges)
-    (t.orphanRouteChangeProcessor.process _).when(*).returns(ChangeSetChanges())
-    (t.orphanNodeChangeProcessor.process _).when(*, *).returns(ChangeSetChanges())
+    //(t.orphanRouteChangeProcessor.process _).when(*).returns(ChangeSetChanges())
+    //(t.orphanNodeChangeProcessor.process _).when(*, *).returns(ChangeSetChanges())
 
     t.changeProcessor.process(context)
 
@@ -105,8 +107,8 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
     )
 
     // (t.networkChangeProcessor.process _).when(*).returns(networkChanges)
-    (t.orphanRouteChangeProcessor.process _).when(*).returns(orphanRouteChanges)
-    (t.orphanNodeChangeProcessor.process _).when(*, *).returns(orphanNodeChanges)
+    // (t.orphanRouteChangeProcessor.process _).when(*).returns(orphanRouteChanges)
+    // (t.orphanNodeChangeProcessor.process _).when(*, *).returns(orphanNodeChanges)
 
     t.changeProcessor.process(context)
 
@@ -120,13 +122,16 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
     val orphanRouteChangeProcessor: OrphanRouteChangeProcessor = stub[OrphanRouteChangeProcessor]
     val orphanNodeChangeProcessor: NewNodeChangeProcessor = stub[NewNodeChangeProcessor]
     val changeSetInfoUpdater: ChangeSetInfoUpdater = stub[ChangeSetInfoUpdater]
+    val routeChangeProcessor: RouteChangeProcessor = null
+    val networkInfoChangeProcessor: NetworkInfoChangeProcessor = null
+
     val changeSaver: ChangeSaver = stub[ChangeSaver]
 
     val changeProcessor = new ChangeProcessor(
-      null,
       networkChangeProcessor,
-      orphanRouteChangeProcessor,
+      routeChangeProcessor,
       orphanNodeChangeProcessor,
+      networkInfoChangeProcessor,
       changeSetInfoUpdater,
       changeSaver
     )

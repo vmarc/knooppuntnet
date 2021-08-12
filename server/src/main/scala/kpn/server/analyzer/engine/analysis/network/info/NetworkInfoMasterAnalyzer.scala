@@ -69,17 +69,19 @@ class NetworkInfoMasterAnalyzer(
     }
   }
 
-  def updateNetwork(networkId: Long): Unit = {
+  def updateNetwork(networkId: Long): Option[NetworkInfoDoc] = {
     Log.context(networkId.toString) {
       log.infoElapsed {
-        database.networks.findById(networkId, log).foreach { networkDoc =>
+        val networkInfoDoc = database.networks.findById(networkId, log).flatMap { networkDoc =>
           val context = NetworkInfoAnalysisContext(networkDoc)
           doAnalyze(analyzers, context) match {
-            case Some(doc) => database.networkInfos.save(doc, log)
-            case None =>
+            case Some(doc) =>
+              database.networkInfos.save(doc, log)
+              Some(doc)
+            case None => None
           }
         }
-        ("updated", ())
+        ("updated", networkInfoDoc)
       }
     }
   }

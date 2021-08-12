@@ -13,7 +13,7 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 
-class NetworkDelete_Test01 extends AbstractIntegrationTest {
+class NetworkDeleteTest01 extends AbstractIntegrationTest {
 
   test("network delete") {
 

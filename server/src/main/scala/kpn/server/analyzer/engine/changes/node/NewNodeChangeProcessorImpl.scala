@@ -29,9 +29,14 @@ class NewNodeChangeProcessorImpl(
 
   private val log = Log(classOf[NewNodeChangeProcessorImpl])
 
-  def process(context: ChangeSetContext, impactedNodeIds: Seq[Long]): ChangeSetChanges = {
+  def process(context: ChangeSetContext): ChangeSetContext = {
 
     log.debugElapsed {
+
+      val impactedNodeIds = (
+        context.changes.routeChanges.flatMap(_.impactedNodeIds) ++
+          context.changes.newNetworkChanges.flatMap(_.impactedNodeIds)
+        ).distinct.sorted
 
       val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
       val batchSize = 500
@@ -42,7 +47,15 @@ class NewNodeChangeProcessorImpl(
       val nodeChanges = changedNodeIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (nodeIds, index) =>
         processBatch(context, nodeElementChanges, nodeIds)
       }.toSeq
-      ("", ChangeSetChanges(nodeChanges = nodeChanges))
+
+      (
+        s"${nodeChanges.size} node changes",
+        context.copy(
+          changes = context.changes.copy(
+            nodeChanges = nodeChanges
+          )
+        )
+      )
     }
   }
 

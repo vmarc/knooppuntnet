@@ -102,7 +102,6 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-
   private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
     tc.findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(

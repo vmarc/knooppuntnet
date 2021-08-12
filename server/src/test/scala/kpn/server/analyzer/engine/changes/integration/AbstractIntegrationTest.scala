@@ -80,6 +80,7 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.network.NetworkInfoChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessorSyncImpl
@@ -387,6 +388,10 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       )
     }
 
+    val networkInfoChangeProcessor = new NetworkInfoChangeProcessorImpl(
+      null,
+      null
+    )
 
     val changeProcessor: ChangeProcessor = {
       val changeSaver = new ChangeSaverImpl(
@@ -394,10 +399,10 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       )
 
       new ChangeProcessor(
-        routeChangeProcessor,
         networkChangeProcessor,
-        null,
+        routeChangeProcessor,
         nodeChangeProcessor,
+        networkInfoChangeProcessor,
         changeSetInfoUpdater,
         changeSaver
       )
@@ -719,16 +724,38 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       nodeRepository
     )
 
+    private val networkInfoTagAnalyzer: NetworkInfoTagAnalyzer = new NetworkInfoTagAnalyzer()
+    private val networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
+    private val networkInfoNodeAnalyzer: NetworkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
+    private val networkInfoFactAnalyzer: NetworkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
+    private val networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
+    private val networkCountryAnalyzer: NetworkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
+
+    private val networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer = new NetworkInfoMasterAnalyzer(
+      database,
+      networkInfoTagAnalyzer,
+      networkInfoRouteAnalyzer,
+      networkInfoNodeAnalyzer,
+      networkInfoFactAnalyzer,
+      networkInfoChangeAnalyzer,
+      networkCountryAnalyzer
+    )
+
+    val networkInfoChangeProcessor = new NetworkInfoChangeProcessorImpl(
+      database,
+      networkInfoMasterAnalyzer
+    )
+
     val changeProcessor: ChangeProcessor = {
       val changeSaver = new ChangeSaverImpl(
         changeSetRepository
       )
 
       new ChangeProcessor(
-        routeChangeProcessor,
         networkChangeProcessor,
-        null,
+        routeChangeProcessor,
         nodeChangeProcessor,
+        networkInfoChangeProcessor,
         changeSetInfoUpdater,
         changeSaver
       )
@@ -755,22 +782,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       analysisExecutionContext
     )
 
-    private val networkInfoTagAnalyzer: NetworkInfoTagAnalyzer = new NetworkInfoTagAnalyzer()
-    private val networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
-    private val networkInfoNodeAnalyzer: NetworkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
-    private val networkInfoFactAnalyzer: NetworkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
-    private val networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
-    private val networkCountryAnalyzer: NetworkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
-
-    private val networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer = new NetworkInfoMasterAnalyzer(
-      database,
-      networkInfoTagAnalyzer,
-      networkInfoRouteAnalyzer,
-      networkInfoNodeAnalyzer,
-      networkInfoFactAnalyzer,
-      networkInfoChangeAnalyzer,
-      networkCountryAnalyzer
-    )
     private val orphanNodeUpdater: OrphanNodeUpdater = new OrphanNodeUpdater(database)
     private val orphanRouteUpdater: OrphanRouteUpdater = new OrphanRouteUpdater(database)
     private val statisticsUpdater: StatisticsUpdater = new StatisticsUpdater(database)

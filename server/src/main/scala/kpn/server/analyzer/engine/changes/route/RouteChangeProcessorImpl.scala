@@ -12,7 +12,6 @@ import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
 import kpn.server.overpass.OverpassRepository
@@ -34,7 +33,7 @@ class RouteChangeProcessorImpl(
 
   private val log = Log(classOf[RouteChangeProcessorImpl])
 
-  override def process(context: ChangeSetContext): ChangeSetChanges = {
+  override def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
 
       val impactedRelationIds = context.changes.newNetworkChanges.flatMap(_.impactedRelationIds).distinct.sorted
@@ -47,7 +46,15 @@ class RouteChangeProcessorImpl(
       val routeChanges = changedRouteIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (routeIds, index) =>
         processBatch(context, routeElementChanges, routeIds)
       }.toSeq
-      ("", ChangeSetChanges(routeChanges = routeChanges))
+
+      (
+        s"${routeChanges.size} route changes",
+        context.copy(
+          changes = context.changes.copy(
+            routeChanges = routeChanges
+          )
+        )
+      )
     }
   }
 
@@ -81,19 +88,17 @@ class RouteChangeProcessorImpl(
         afterOption match {
           case None => None // TODO message ?
           case Some(after) =>
-            Some(processCreate(context, after))
+            Some(processCreate(context, after, data.routeId))
         }
       case Some(before) =>
         afterOption match {
-          case None => Some(processDelete(context, before))
-          case Some(after) => Some(processUpdate(context, before, after))
+          case None => Some(processDelete(context, before, data.routeId))
+          case Some(after) => Some(processUpdate(context, before, after, data.routeId))
         }
     }
   }
 
-  private def processCreate(context: ChangeSetContext, after: RouteAnalysis): RouteChange = {
-
-    val routeId = after.id
+  private def processCreate(context: ChangeSetContext, after: RouteAnalysis, routeId: Long): RouteChange = {
 
     routeRepository.save(after.route)
     analysisContext.data.routes.watched.add(routeId, after.route.elementIds)
@@ -154,9 +159,7 @@ class RouteChangeProcessorImpl(
     )
   }
 
-  private def processDelete(context: ChangeSetContext, before: RouteAnalysis): RouteChange = {
-
-    val routeId = before.id
+  private def processDelete(context: ChangeSetContext, before: RouteAnalysis, routeId: Long): RouteChange = {
 
     analysisContext.data.routes.watched.delete(routeId)
 
@@ -211,9 +214,7 @@ class RouteChangeProcessorImpl(
     )
   }
 
-  def processUpdate(context: ChangeSetContext, before: RouteAnalysis, after: RouteAnalysis): RouteChange = {
-
-    val routeId = after.id
+  def processUpdate(context: ChangeSetContext, before: RouteAnalysis, after: RouteAnalysis, routeId: Long): RouteChange = {
 
     tileChangeAnalyzer.analyzeRouteChange(before, after)
 
