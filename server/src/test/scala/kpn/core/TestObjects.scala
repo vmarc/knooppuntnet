@@ -8,6 +8,10 @@ import kpn.server.analyzer.engine.changes.changes.ElementIds
 trait TestObjects extends SharedTestObjects {
 
   def newChangeSetContext(): ChangeSetContext = {
-    ChangeSetContext(ReplicationId(1), newChangeSet(), ElementIds())
+    ChangeSetContext(
+      ReplicationId(1),
+      newChangeSet(),
+      ElementIds()
+    )
   }
 }

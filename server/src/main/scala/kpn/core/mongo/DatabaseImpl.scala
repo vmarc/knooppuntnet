@@ -21,6 +21,7 @@ import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
+import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -79,6 +80,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def routeEdges: DatabaseCollection[GraphEdge] = {
     new DatabaseCollectionImpl(database.getCollection[GraphEdge]("route-edges"))
+  }
+
+  override def newNetworkChanges: DatabaseCollection[NewNetworkChange] = {
+    new DatabaseCollectionImpl(database.getCollection[NewNetworkChange]("new-network-changes"))
   }
 
   override def networkChanges: DatabaseCollection[NetworkChange] = {

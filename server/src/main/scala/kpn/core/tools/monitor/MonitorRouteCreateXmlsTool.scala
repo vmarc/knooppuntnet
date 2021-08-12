@@ -80,7 +80,11 @@ class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, r
       elementIdMap.foreach { (routeId, elementIds) =>
         if (monitorChangeImpactAnalyzer.hasImpact(changeSet, routeId, elementIds)) {
           val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-          val context = ChangeSetContext(replicationId, changeSet, elementIds)
+          val context = ChangeSetContext(
+            replicationId,
+            changeSet,
+            elementIds
+          )
           val dir = s"/kpn/wrk/${changeSet.id}"
           new File(dir).mkdir()
           writeXml(routeId, s"$dir/$routeId-before.xml", context.timestampBefore)

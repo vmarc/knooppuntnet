@@ -20,6 +20,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.loadOld.OsmDataXmlWriter
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.overpass.OverpassQuery
@@ -79,6 +80,7 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessorSyncImpl
 import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessorWorkerImpl
@@ -326,6 +328,8 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       }
 
       new NetworkChangeProcessorImpl(
+        null,
+        analysisContext,
         networkChangeAnalyzer,
         //  networkCreateProcessor,
         //  networkUpdateProcessor,
@@ -354,9 +358,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       new RouteChangeProcessorImpl(
         analysisContext,
         routeChangeAnalyzer,
-        createProcessor,
-        updateProcessor,
-        deleteProcessor,
         overpassRepository,
         masterRouteAnalyzer,
         tileChangeAnalyzer,
@@ -662,11 +663,13 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       }
 
       new NetworkChangeProcessorImpl(
+        database,
+        analysisContext,
         networkChangeAnalyzer,
         //  networkCreateProcessor,
         //  networkUpdateProcessor,
         //  networkDeleteProcessor,
-        null
+        overpassRepository
       )
     }
 
@@ -690,9 +693,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       new RouteChangeProcessorImpl(
         analysisContext,
         routeChangeAnalyzer,
-        createProcessor,
-        updateProcessor,
-        deleteProcessor,
         overpassRepository,
         masterRouteAnalyzer,
         tileChangeAnalyzer,
@@ -839,6 +839,18 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       }
     }
 
+    def findNetworkById(networkId: Long): NetworkDoc = {
+      database.networks.findById(networkId).getOrElse {
+        val ids = database.networks.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find NetworkDoc $networkId, no networks in database")
+        }
+        else {
+          fail(s"Could not find NetworkDoc $networkId (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
     def findNetworkInfoById(networkId: Long): NetworkInfoDoc = {
       database.networkInfos.findById(networkId).getOrElse {
         val ids = database.networkInfos.ids()
@@ -859,6 +871,18 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         }
         else {
           fail(s"Could not find changeSetSummary $id (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
+    def findNewNetworkChangeById(id: String): NewNetworkChange = {
+      database.newNetworkChanges.findByStringId(id).getOrElse {
+        val ids = database.networkChanges.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find NewNetworkChange $id, no network changes in database")
+        }
+        else {
+          fail(s"Could not find NewNetworkChange $id (but found: ${ids.mkString(", ")})")
         }
       }
     }

@@ -5,11 +5,13 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 
 case class ChangeSetContext(
   replicationId: ReplicationId,
   changeSet: ChangeSet,
-  elementIds: ElementIds
+  elementIds: ElementIds,
+  changes: ChangeSetChanges = ChangeSetChanges()
 ) {
 
   def timestampBefore: Timestamp = changeSet.timestampBefore

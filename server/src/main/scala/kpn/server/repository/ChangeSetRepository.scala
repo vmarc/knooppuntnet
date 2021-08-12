@@ -10,12 +10,15 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
+import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 
 trait ChangeSetRepository {
 
   def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit
 
   def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit
+
+  def saveNewNetworkChange(networkChange: NewNetworkChange): Unit
 
   def saveNetworkChange(networkChange: NetworkChange): Unit
 

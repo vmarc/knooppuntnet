@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
@@ -36,6 +37,15 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Réseau Pédestre - ",
     "Réseau pédestre "
   )
+
+  def name(tags: Tags): String = {
+    val nameTagValue = tags("name").getOrElse("no-name")
+    val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
+    prefixOption match {
+      case Some(substring) => nameTagValue.replace(substring, "").trim
+      case None => nameTagValue.trim
+    }
+  }
 
   def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     new NetworkNameAnalyzer(context).analyze

@@ -19,8 +19,8 @@ class ChangeSaverImpl(
 
     if (changes.nonEmpty) {
 
-      changes.networkChanges.foreach { networkChange =>
-        changeSetRepository.saveNetworkChange(networkChange)
+      changes.newNetworkChanges.foreach { networkChange =>
+        changeSetRepository.saveNewNetworkChange(networkChange)
       }
 
       changes.routeChanges.foreach { routeChange =>

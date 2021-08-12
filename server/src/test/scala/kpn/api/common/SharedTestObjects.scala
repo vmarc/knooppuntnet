@@ -70,6 +70,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -154,10 +155,10 @@ trait SharedTestObjects extends MockFactory {
 
   def newNetworkTags(name: String = "name"): Tags = {
     Tags.from(
-      "network" -> "rwn",
+      "network:type" -> "node_network",
       "type" -> "network",
+      "network" -> "rwn",
       "name" -> name,
-      "network:type" -> "node_network"
     )
   }
 
@@ -777,6 +778,26 @@ trait SharedTestObjects extends MockFactory {
       happy,
       investigate,
       happy || investigate
+    )
+  }
+
+  def newNewNetworkChange(
+    key: ChangeKey = newChangeKey(),
+    networkName: String = "",
+    changeType: ChangeType,
+    nodes: IdDiffs = IdDiffs.empty,
+    ways: IdDiffs = IdDiffs.empty,
+    relations: IdDiffs = IdDiffs.empty,
+  ): NewNetworkChange = {
+    NewNetworkChange(
+      key.toId,
+      key,
+      key.elementId,
+      networkName,
+      changeType,
+      nodes,
+      ways,
+      relations,
     )
   }
 

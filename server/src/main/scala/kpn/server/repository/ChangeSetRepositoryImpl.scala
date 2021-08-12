@@ -36,6 +36,7 @@ import kpn.core.mongo.actions.routes.MongoQueryRouteChangeCounts
 import kpn.core.mongo.actions.routes.MongoQueryRouteChanges
 import kpn.core.mongo.actions.subsets.MongoQuerySubsetChanges
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 import org.springframework.stereotype.Component
 
 @Component
@@ -66,6 +67,10 @@ class ChangeSetRepositoryImpl(
       val id = docId("location-summary", locationChangeSetSummary.key)
       changeDatabase.save(LocationChangeSetSummaryDoc(id, locationChangeSetSummary))
     }
+  }
+
+  override def saveNewNetworkChange(networkChange: NewNetworkChange): Unit = {
+    database.newNetworkChanges.save(networkChange, log)
   }
 
   override def saveNetworkChange(networkChange: NetworkChange): Unit = {

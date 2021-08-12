@@ -26,9 +26,9 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     (t.changeAnalyzer.analyze _).when(*).returns(ElementChanges(creates = Seq(t.createdNetworkId)))
 
-    val changeSetChanges = t.processor.process(t.context)
+    val context = t.processor.process(t.context)
 
-    changeSetChanges should matchTo(t.createChangeSetChanges)
+    context.changes should matchTo(t.createChangeSetChanges)
 
     (t.updateProcessor.process _).verify(*, *).never()
     (t.deleteProcessor.process _).verify(*, *).never()
@@ -42,9 +42,9 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     (t.changeAnalyzer.analyze _).when(*).returns(ElementChanges(updates = Seq(t.updatedNetworkId)))
 
-    val changeSetChanges = t.processor.process(t.context)
+    val context = t.processor.process(t.context)
 
-    changeSetChanges should matchTo(t.updateChangeSetChanges)
+    context.changes should matchTo(t.updateChangeSetChanges)
 
     (t.createProcessor.process _).verify(*, *).never()
     (t.deleteProcessor.process _).verify(*, *).never()
@@ -58,9 +58,9 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
 
     (t.changeAnalyzer.analyze _).when(*).returns(ElementChanges(deletes = Seq(t.deletedNetworkId)))
 
-    val changeSetChanges = t.processor.process(t.context)
+    val context = t.processor.process(t.context)
 
-    changeSetChanges should matchTo(t.deleteChangeSetChanges)
+    context.changes should matchTo(t.deleteChangeSetChanges)
 
     (t.createProcessor.process _).verify(*, *).never()
     (t.updateProcessor.process _).verify(*, *).never()
@@ -103,6 +103,8 @@ class NetworkChangeProcessorTest extends UnitTest with MockFactory with SharedTe
     (deleteProcessor.process _).when(context, deletedNetworkId).returns(completedFuture(deleteChangeSetChanges))
 
     val processor = new NetworkChangeProcessorImpl(
+      null,
+      null,
       changeAnalyzer,
       //  createProcessor,
       //  updateProcessor,

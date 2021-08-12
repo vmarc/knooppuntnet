@@ -57,7 +57,7 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
       networkChanges = Seq(newNetworkChange())
     )
 
-    (t.networkChangeProcessor.process _).when(*).returns(networkChanges)
+    //(t.networkChangeProcessor.process _).when(*).returns(networkChanges)
     (t.orphanRouteChangeProcessor.process _).when(*).returns(ChangeSetChanges())
     (t.orphanNodeChangeProcessor.process _).when(*, *).returns(ChangeSetChanges())
 
@@ -104,7 +104,7 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
       Seq(nodeChange)
     )
 
-    (t.networkChangeProcessor.process _).when(*).returns(networkChanges)
+    // (t.networkChangeProcessor.process _).when(*).returns(networkChanges)
     (t.orphanRouteChangeProcessor.process _).when(*).returns(orphanRouteChanges)
     (t.orphanNodeChangeProcessor.process _).when(*, *).returns(orphanNodeChanges)
 

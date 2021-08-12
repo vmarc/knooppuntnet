@@ -54,7 +54,11 @@ class Issue184_NodeDeletion extends AbstractIntegrationTest {
   private def processCreate(tc: OldTestConfig): Unit = {
     val changeSet = buildChangeSet(xmlCreate(), Timestamp(2021, 6, 8, 7, 15, 58))
     val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-    val context = ChangeSetContext(ReplicationId(1), changeSet, elementIds)
+    val context = ChangeSetContext(
+      ReplicationId(1),
+      changeSet,
+      elementIds
+    )
     tc.changeProcessor.process(context)
   }
 
