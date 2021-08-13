@@ -13,6 +13,10 @@ class PostProcessor(
 
   def process(networkIds: Seq[Long]): Unit = {
     networkInfoMasterAnalyzer.updateNetworks(networkIds)
+    processPhase2()
+  }
+
+  def processPhase2(): Unit = {
     orphanNodeUpdater.update()
     orphanRouteUpdater.update()
     statisticsUpdater.update()

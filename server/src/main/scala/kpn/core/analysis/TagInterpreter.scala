@@ -24,6 +24,16 @@ object TagInterpreter {
     }
   }
 
+  def isRouteRelation(tags: Tags, networkType: NetworkType): Boolean = {
+    tags.has("network:type", "node_network") &&
+      tags.has("type", "route") && {
+      tags("network") match {
+        case Some(value) => networkType.scopedNetworkTypes.map(_.key).contains(value)
+        case None => false
+      }
+    }
+  }
+
   def isNetworkRelation(tags: Tags): Boolean = {
     tags.has("network:type", "node_network") &&
       tags.has("type", "network") && {

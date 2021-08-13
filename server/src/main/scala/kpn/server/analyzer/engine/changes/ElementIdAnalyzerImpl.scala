@@ -23,13 +23,18 @@ class ElementIdAnalyzerImpl(
     val futures = keys.sliding(batchSize, batchSize).map { keysSubset =>
       Future {
         keysSubset.filter { key =>
-          elementIdMap.get(key) match {
-            case None => false
-            case Some(mapElementIds) =>
-              mapElementIds.relationIds.contains(key) ||
-                elementIds.relationIds.exists(mapElementIds.relationIds.contains) ||
-                elementIds.wayIds.exists(mapElementIds.wayIds.contains) ||
-                elementIds.nodeIds.exists(mapElementIds.nodeIds.contains)
+          if (elementIds.relationIds.contains(key)) {
+            true
+          }
+          else {
+            elementIdMap.get(key) match {
+              case None => false
+              case Some(mapElementIds) =>
+                mapElementIds.relationIds.contains(key) ||
+                  elementIds.relationIds.exists(mapElementIds.relationIds.contains) ||
+                  elementIds.wayIds.exists(mapElementIds.wayIds.contains) ||
+                  elementIds.nodeIds.exists(mapElementIds.nodeIds.contains)
+            }
           }
         }
       }

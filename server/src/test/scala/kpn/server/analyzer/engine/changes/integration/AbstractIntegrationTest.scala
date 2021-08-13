@@ -23,6 +23,7 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NodeDoc
+import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
@@ -67,7 +68,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.ElementIdAnalyzerSyncImpl
+import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilder
 import kpn.server.analyzer.engine.changes.builder.ChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.builder.NodeChangeBuilder
@@ -143,7 +144,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
     val analysisContext = new AnalysisContext()
 
     val overpassRepository: OverpassRepository = new OverpassRepositoryMock(dataBefore, dataAfter)
-    val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
+    implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock()
     val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
@@ -175,7 +176,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       routeTileAnalyzer
     )
 
-    private val elementIdAnalyzer = new ElementIdAnalyzerSyncImpl()
+    private val elementIdAnalyzer = new ElementIdAnalyzerImpl
 
     private val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
     (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
@@ -412,7 +413,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
     val analysisContext = new AnalysisContext()
 
     val overpassRepository: OverpassRepository = new OverpassRepositoryMock(before, after)
-    val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
+    implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
     val countryAnalyzer: CountryAnalyzer = new CountryAnalyzerMock()
     val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
@@ -442,7 +443,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       routeTileAnalyzer
     )
 
-    private val elementIdAnalyzer = new ElementIdAnalyzerSyncImpl()
+    private val elementIdAnalyzer = new ElementIdAnalyzerImpl
 
     private val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
     (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
@@ -651,18 +652,20 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
     fullAnalyzer.analyze(timestampBeforeValue)
     analysisDataInitializer.load()
 
-    /*
-      Full analysis of the initial situation
-     */
     def process(action: ChangeAction, element: RawElement): Unit = {
       val changes = Seq(Change(action, Seq(element)))
       process(changes)
+      postProcessor.processPhase2()
     }
 
     def process(changes: Seq[Change]): Unit = {
       val changeSet = newChangeSet(changes = changes)
       val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-      val changeSetContext = ChangeSetContext(ReplicationId(1), changeSet, elementIds)
+      val changeSetContext = ChangeSetContext(
+        ReplicationId(1),
+        changeSet,
+        elementIds
+      )
       changeProcessor.process(changeSetContext)
     }
 
@@ -698,6 +701,18 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         }
         else {
           fail(s"Could not find route $nodeId (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
+    def findOrphanNodeById(_id: String): OrphanNodeDoc = {
+      database.orphanNodes.findByStringId(_id).getOrElse {
+        val ids = database.orphanNodes.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find orphan node ${_id}, no orphan nodes in database")
+        }
+        else {
+          fail(s"Could not find orphan node ${_id} (but found: ${ids.mkString(", ")})")
         }
       }
     }

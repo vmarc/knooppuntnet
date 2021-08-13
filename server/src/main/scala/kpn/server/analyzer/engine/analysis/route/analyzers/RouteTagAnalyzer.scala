@@ -22,7 +22,7 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
     val facts = ListBuffer[Fact]()
 
     val scopedNetworkTypeOption = context.relation.tags("network") match {
-      case None => throw new IllegalStateException(s"""route ${context.relation.id}: relation does not contain the required "network" tag""")
+      case None => None
       case Some(key) =>
         ScopedNetworkType.withKey(key) match {
           case None =>

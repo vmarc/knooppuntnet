@@ -47,14 +47,9 @@ class RouteRepositoryImpl(
   }
 
   override def save(routeInfo: RouteInfo): Unit = {
-    if (mongoEnabled) {
-      database.routes.save(routeInfo, log)
-    }
-    else {
-      log.debugElapsed {
-        analysisDatabase.save(CouchRouteDoc(docId(routeInfo.id), routeInfo))
-        (s"Save route ${routeInfo.id}", ())
-      }
+    database.routes.save(routeInfo, log)
+    if (!routeInfo.active) {
+      database.orphanRoutes.delete(routeInfo._id, log)
     }
   }
 
@@ -63,13 +58,9 @@ class RouteRepositoryImpl(
   }
 
   override def delete(routeId: Long): Unit = {
-    if (mongoEnabled) {
-      database.routes.delete(routeId, log)
-      // TODO MONGO should also delete references, changes, etc?
-    }
-    else {
-      analysisDatabase.deleteDocWithId(docId(routeId))
-    }
+    database.routes.delete(routeId, log)
+    database.orphanRoutes.delete(routeId, log)
+    // TODO MONGO should also delete references, changes, etc?
   }
 
   override def findById(routeId: Long): Option[RouteInfo] = {

@@ -11,13 +11,16 @@ import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.analyzer.engine.changes.ElementIdAnalyzerSyncImpl
+import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.MockBlackListRepository
+
+import java.util.concurrent.Executors
+import scala.concurrent.ExecutionContext
 
 class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -144,7 +147,8 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
       blackListRepository.save(BlackList(routes = Seq(BlackListEntry(routeId, "", ""))))
     }
 
-    private val elementIdAnalyzer = new ElementIdAnalyzerSyncImpl()
+    implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
+    private val elementIdAnalyzer = new ElementIdAnalyzerImpl
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))

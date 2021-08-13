@@ -11,7 +11,6 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAna
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
@@ -29,23 +28,23 @@ class NetworkChangeProcessorImpl(
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
       val batchSize = 100
-      val networkChanges = changeAnalyzer.analyze(context)
-      val changedNetworkIds = networkChanges.elementIds
+      val elementChanges = changeAnalyzer.analyze(context)
+      val changedNetworkIds = elementChanges.elementIds
       if (changedNetworkIds.nonEmpty) {
         log.info(s"${changedNetworkIds.size} network(s) impacted: ${changedNetworkIds.mkString(", ")}")
       }
 
-      val newNetworkChanges = changedNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIds, index) =>
+      val networkChanges = changedNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIds, index) =>
         Log.context(s"$index/${changedNetworkIds.size}") {
-          process(context, networkChanges, networkIds)
+          process(context, elementChanges, networkIds)
         }
       }.toSeq
 
       (
-        "",
+        s"${networkChanges.size} network changes",
         context.copy(
-          changes = ChangeSetChanges(
-            networkChanges = newNetworkChanges
+          changes = context.changes.copy(
+            networkChanges = networkChanges
           )
         )
       )

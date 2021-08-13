@@ -17,12 +17,30 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
 
   def analyze(): Option[NodeChange] = {
 
-    if (before == after) {
+    val addedToNetwork = context.changes.networkChanges.filter { networkChange =>
+      networkChange.nodes.added.contains(before._id)
+    }.map(_.toRef)
+
+    val removedFromNetwork = context.changes.networkChanges.filter { networkChange =>
+      networkChange.nodes.removed.contains(before._id)
+    }.map(_.toRef)
+
+    val addedToRoute = context.changes.routeChanges.filter { routeChange =>
+      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.nodes).exists(_.id == before._id)
+      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.nodes).exists(_.id == before._id)
+      !hasNodeBefore && hasNodeAfter
+    }.map(_.toRef)
+
+    val removedFromRoute = context.changes.routeChanges.filter { routeChange =>
+      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.nodes).exists(_.id == before._id)
+      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.nodes).exists(_.id == before._id)
+      hasNodeBefore && !hasNodeAfter
+    }.map(_.toRef)
+
+    if (before == after && addedToNetwork.isEmpty && removedFromNetwork.isEmpty && addedToRoute.isEmpty && removedFromRoute.isEmpty) {
       None
     }
     else {
-
-
       val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
       val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
       val subsets = (subsetsBefore ++ subsetsAfter).distinct
@@ -45,10 +63,10 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
             definedInNetworkChanges = Seq.empty,
             tagDiffs = tagDiffs,
             nodeMoved = nodeMoved,
-            addedToRoute = Seq.empty, // TODO MONGO should do better !!!
-            removedFromRoute = Seq.empty, // TODO MONGO should do better !!!
-            addedToNetwork = Seq.empty,
-            removedFromNetwork = Seq.empty,
+            addedToRoute = addedToRoute,
+            removedFromRoute = removedFromRoute,
+            addedToNetwork = addedToNetwork,
+            removedFromNetwork = removedFromNetwork,
             factDiffs = FactDiffs(), // TODO MONGO should do better !!!
             facts = Seq.empty,
             (before.tiles ++ after.tiles).distinct.sorted
