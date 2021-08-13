@@ -34,9 +34,7 @@ import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
@@ -82,27 +80,13 @@ import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.NetworkInfoChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.NewNetworkChange
-import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessor
-import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessorSyncImpl
-import kpn.server.analyzer.engine.changes.network.create.NetworkCreateProcessorWorkerImpl
-import kpn.server.analyzer.engine.changes.network.create.NetworkCreateWatchedProcessorImpl
-import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessorSyncImpl
-import kpn.server.analyzer.engine.changes.network.delete.NetworkDeleteProcessorWorkerImpl
-import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateNetworkProcessorImpl
-import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessor
-import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorSyncImpl
-import kpn.server.analyzer.engine.changes.network.update.NetworkUpdateProcessorWorkerImpl
 import kpn.server.analyzer.engine.changes.node.NewNodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.route.create.RouteCreateProcessor
-import kpn.server.analyzer.engine.changes.route.delete.RouteDeleteProcessor
-import kpn.server.analyzer.engine.changes.route.update.RouteUpdateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
@@ -115,8 +99,6 @@ import kpn.server.analyzer.full.route.FullRouteAnalyzer
 import kpn.server.analyzer.full.route.FullRouteAnalyzerImpl
 import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.analyzer.load.AnalysisDataInitializerImpl
-import kpn.server.analyzer.load.NetworkLoader
-import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoader
 import kpn.server.analyzer.load.NodeLoaderImpl
 import kpn.server.analyzer.load.OldRouteLoader
@@ -180,9 +162,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     private val nodeLoader = new NodeLoaderImpl(overpassQueryExecutor, countryAnalyzer, oldNodeAnalyzer)
     private val routeLoader = new OldRouteLoaderImpl(overpassQueryExecutor)
-    private val networkLoader: NetworkLoader = new NetworkLoaderImpl(overpassQueryExecutor)
     private val tileCalculator = new TileCalculatorImpl()
-    private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
@@ -193,7 +173,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
 
     private val elementIdAnalyzer = new ElementIdAnalyzerSyncImpl()
 
@@ -211,11 +190,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
       countryAnalyzer,
       masterRouteAnalyzer
-    )
-
-    private val networkAnalyzer = new NetworkAnalyzerImpl(
-      networkNodeAnalyzer,
-      networkRouteAnalyzer
     )
 
     private val nodeAnalyzer: NodeAnalyzer = {
@@ -272,69 +246,10 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         blackListRepository
       )
 
-      val networkCreateProcessor: NetworkCreateProcessor = {
-
-        val watchedProcessor = new NetworkCreateWatchedProcessorImpl(
-          analysisContext,
-          analysisRepository,
-          networkRelationAnalyzer,
-          networkAnalyzer,
-          changeBuilder
-        )
-
-        val worker = new NetworkCreateProcessorWorkerImpl(
-          networkLoader,
-          watchedProcessor
-        )
-
-        new NetworkCreateProcessorSyncImpl(
-          worker
-        )
-      }
-
-      val networkUpdateProcessor: NetworkUpdateProcessor = {
-
-        val networkUpdateNetworkProcessor = new NetworkUpdateNetworkProcessorImpl(
-          analysisContext,
-          analysisRepository,
-          networkRelationAnalyzer,
-          networkAnalyzer,
-          changeBuilder
-        )
-
-        val worker = new NetworkUpdateProcessorWorkerImpl(
-          networkLoader,
-          networkUpdateNetworkProcessor
-        )
-
-        new NetworkUpdateProcessorSyncImpl(
-          worker
-        )
-      }
-
-      val networkDeleteProcessor = {
-
-        val worker = new NetworkDeleteProcessorWorkerImpl(
-          analysisContext,
-          networkRepository,
-          networkLoader,
-          networkRelationAnalyzer,
-          networkAnalyzer,
-          changeBuilder
-        )
-
-        new NetworkDeleteProcessorSyncImpl(
-          worker
-        )
-      }
-
       new NetworkChangeProcessorImpl(
         null,
         analysisContext,
         networkChangeAnalyzer,
-        //  networkCreateProcessor,
-        //  networkUpdateProcessor,
-        //  networkDeleteProcessor,
         null
       )
     }
@@ -351,10 +266,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         blackListRepository,
         elementIdAnalyzer
       )
-
-      val createProcessor: RouteCreateProcessor = null
-      val updateProcessor: RouteUpdateProcessor = null
-      val deleteProcessor: RouteDeleteProcessor = null
 
       new RouteChangeProcessorImpl(
         analysisContext,
@@ -518,9 +429,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     private val nodeLoader: NodeLoader = null
     private val routeLoader: OldRouteLoader = null
-    private val networkLoader: NetworkLoader = null
     private val tileCalculator = new TileCalculatorImpl()
-    private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
@@ -531,7 +440,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    private val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
 
     private val elementIdAnalyzer = new ElementIdAnalyzerSyncImpl()
 
@@ -549,11 +457,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
     val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
       countryAnalyzer,
       masterRouteAnalyzer
-    )
-
-    private val networkAnalyzer = new NetworkAnalyzerImpl(
-      networkNodeAnalyzer,
-      networkRouteAnalyzer
     )
 
     private val nodeAnalyzer: NodeAnalyzer = {
@@ -611,69 +514,10 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         blackListRepository
       )
 
-      val networkCreateProcessor: NetworkCreateProcessor = {
-
-        val watchedProcessor = new NetworkCreateWatchedProcessorImpl(
-          analysisContext,
-          analysisRepository,
-          networkRelationAnalyzer,
-          networkAnalyzer,
-          changeBuilder
-        )
-
-        val worker = new NetworkCreateProcessorWorkerImpl(
-          networkLoader,
-          watchedProcessor
-        )
-
-        new NetworkCreateProcessorSyncImpl(
-          worker
-        )
-      }
-
-      val networkUpdateProcessor: NetworkUpdateProcessor = {
-
-        val networkUpdateNetworkProcessor = new NetworkUpdateNetworkProcessorImpl(
-          analysisContext,
-          analysisRepository,
-          networkRelationAnalyzer,
-          networkAnalyzer,
-          changeBuilder
-        )
-
-        val worker = new NetworkUpdateProcessorWorkerImpl(
-          networkLoader,
-          networkUpdateNetworkProcessor
-        )
-
-        new NetworkUpdateProcessorSyncImpl(
-          worker
-        )
-      }
-
-      val networkDeleteProcessor = {
-
-        val worker = new NetworkDeleteProcessorWorkerImpl(
-          analysisContext,
-          networkRepository,
-          networkLoader,
-          networkRelationAnalyzer,
-          networkAnalyzer,
-          changeBuilder
-        )
-
-        new NetworkDeleteProcessorSyncImpl(
-          worker
-        )
-      }
-
       new NetworkChangeProcessorImpl(
         database,
         analysisContext,
         networkChangeAnalyzer,
-        //  networkCreateProcessor,
-        //  networkUpdateProcessor,
-        //  networkDeleteProcessor,
         overpassRepository
       )
     }
@@ -690,10 +534,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         blackListRepository,
         elementIdAnalyzer
       )
-
-      val createProcessor: RouteCreateProcessor = null
-      val updateProcessor: RouteUpdateProcessor = null
-      val deleteProcessor: RouteDeleteProcessor = null
 
       new RouteChangeProcessorImpl(
         analysisContext,
