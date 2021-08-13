@@ -6,8 +6,6 @@ import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
-import kpn.api.common.ReplicationId
-import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChange
@@ -15,40 +13,34 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.custom.Subset
-import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.route.OrphanRouteChange
 
 class ChangeSetSummaryBuilder() {
 
-  def build(
-    replicationId: ReplicationId,
-    changeSet: ChangeSet,
-    changes: ChangeSetChanges
-  ): ChangeSetSummary = {
+  def build(context: ChangeSetContext): ChangeSetSummary = {
 
-    val networkChanges = toNetworkChanges(changes)
-    val orphanRouteChanges = toOrphanRouteChanges(changes)
-    val nodeChanges = toNodeChanges(changes)
+    val networkChanges = toNetworkChanges(context)
+    val routeChanges = toRouteChanges(context)
+    val nodeChanges = toNodeChanges(context)
 
     ChangeSetSummary(
       ChangeKey(
-        replicationId.number,
-        changeSet.timestamp,
-        changeSet.id,
+        context.replicationId.number,
+        context.changeSet.timestamp,
+        context.changeSet.id,
         0L
       ),
-      changeSet.timestampFrom,
-      changeSet.timestampUntil,
+      context.changeSet.timestampFrom,
+      context.changeSet.timestampUntil,
       networkChanges,
-      orphanRouteChanges,
+      routeChanges,
       nodeChanges
     )
   }
 
-  private def toNetworkChanges(changes: ChangeSetChanges): NetworkChanges = {
-    val creates = toChangeSetNetworks(changes.networkChanges, ChangeType.Create)
-    val updates = toChangeSetNetworks(changes.networkChanges, ChangeType.Update)
-    val deletes = toChangeSetNetworks(changes.networkChanges, ChangeType.Delete)
+  private def toNetworkChanges(context: ChangeSetContext): NetworkChanges = {
+    val creates = toChangeSetNetworks(context.changes.networkChanges, ChangeType.Create)
+    val updates = toChangeSetNetworks(context.changes.networkChanges, ChangeType.Update)
+    val deletes = toChangeSetNetworks(context.changes.networkChanges, ChangeType.Delete)
     NetworkChanges(creates, updates, deletes)
   }
 
@@ -92,9 +84,9 @@ class ChangeSetSummaryBuilder() {
     )
   }
 
-  private def toOrphanRouteChanges(orphanRouteChanges: ChangeSetChanges): Seq[ChangeSetSubsetElementRefs] = {
+  private def toRouteChanges(context: ChangeSetContext): Seq[ChangeSetSubsetElementRefs] = {
 
-    val changes = orphanRouteChanges.routeChanges.filter(OrphanRouteChange.isOrphanRouteChange)
+    val changes = context.changes.routeChanges
     val subsets = changes.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap { subset =>
@@ -134,16 +126,16 @@ class ChangeSetSummaryBuilder() {
     }
   }
 
-  private def toNodeChanges(changeSetChanges: ChangeSetChanges): Seq[ChangeSetSubsetElementRefs] = {
+  private def toNodeChanges(context: ChangeSetContext): Seq[ChangeSetSubsetElementRefs] = {
 
-    val subsets: Seq[Subset] = changeSetChanges.nodeChanges.flatMap(_.subsets).distinct.sorted
+    val subsets: Seq[Subset] = context.changes.nodeChanges.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap {
       subset =>
 
-        val removed = toNodeChangeRefs(changeSetChanges.nodeChanges, subset, ChangeType.Delete)
-        val added = toNodeChangeRefs(changeSetChanges.nodeChanges, subset, ChangeType.Create)
-        val updated = toNodeChangeRefs(changeSetChanges.nodeChanges, subset, ChangeType.Update)
+        val removed = toNodeChangeRefs(context.changes.nodeChanges, subset, ChangeType.Delete)
+        val added = toNodeChangeRefs(context.changes.nodeChanges, subset, ChangeType.Create)
+        val updated = toNodeChangeRefs(context.changes.nodeChanges, subset, ChangeType.Update)
 
         if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
           Some(

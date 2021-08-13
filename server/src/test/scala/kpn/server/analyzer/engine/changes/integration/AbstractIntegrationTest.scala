@@ -23,6 +23,7 @@ import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NodeDoc
+import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryNode
@@ -673,6 +674,18 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         }
         else {
           fail(s"Could not find route $routeId (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
+    def findOrphanRouteById(routeId: Long): OrphanRouteDoc = {
+      database.orphanRoutes.findById(routeId).getOrElse {
+        val ids = database.orphanRoutes.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find orphan route $routeId, no orphan routes in database")
+        }
+        else {
+          fail(s"Could not find orphan route $routeId (but found: ${ids.mkString(", ")})")
         }
       }
     }

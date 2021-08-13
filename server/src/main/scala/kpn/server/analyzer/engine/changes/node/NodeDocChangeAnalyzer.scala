@@ -15,38 +15,47 @@ import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer.analyzed
 
 class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: NodeDoc) {
 
-  def analyze(): NodeChange = {
+  def analyze(): Option[NodeChange] = {
 
-    val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
-    val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
-    val subsets = (subsetsBefore ++ subsetsAfter).distinct
-    val tagDiffs = analyzeTagDiffs
-    val nodeMoved = analyzeNodeMoved
-    val key = context.buildChangeKey(after._id)
-    analyzed(
-      NodeChange(
-        _id = key.toId,
-        key = key,
-        changeType = ChangeType.Update,
-        subsets = subsets,
-        locations = (before.locations ++ after.locations).distinct.sorted,
-        name = after.name,
-        before = Some(before.toMeta),
-        after = Some(after.toMeta),
-        connectionChanges = Seq.empty,
-        roleConnectionChanges = Seq.empty,
-        definedInNetworkChanges = Seq.empty,
-        tagDiffs = tagDiffs,
-        nodeMoved = nodeMoved,
-        addedToRoute = Seq.empty, // TODO MONGO should do better !!!
-        removedFromRoute = Seq.empty, // TODO MONGO should do better !!!
-        addedToNetwork = Seq.empty,
-        removedFromNetwork = Seq.empty,
-        factDiffs = FactDiffs(), // TODO MONGO should do better !!!
-        facts = Seq.empty,
-        (before.tiles ++ after.tiles).distinct.sorted
+    if (before == after) {
+      None
+    }
+    else {
+
+
+      val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
+      val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
+      val subsets = (subsetsBefore ++ subsetsAfter).distinct
+      val tagDiffs = analyzeTagDiffs
+      val nodeMoved = analyzeNodeMoved
+      val key = context.buildChangeKey(after._id)
+      Some(
+        analyzed(
+          NodeChange(
+            _id = key.toId,
+            key = key,
+            changeType = ChangeType.Update,
+            subsets = subsets,
+            locations = (before.locations ++ after.locations).distinct.sorted,
+            name = after.name,
+            before = Some(before.toMeta),
+            after = Some(after.toMeta),
+            connectionChanges = Seq.empty,
+            roleConnectionChanges = Seq.empty,
+            definedInNetworkChanges = Seq.empty,
+            tagDiffs = tagDiffs,
+            nodeMoved = nodeMoved,
+            addedToRoute = Seq.empty, // TODO MONGO should do better !!!
+            removedFromRoute = Seq.empty, // TODO MONGO should do better !!!
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = Seq.empty,
+            factDiffs = FactDiffs(), // TODO MONGO should do better !!!
+            facts = Seq.empty,
+            (before.tiles ++ after.tiles).distinct.sorted
+          )
+        )
       )
-    )
+    }
   }
 
   private def analyzeTagDiffs: Option[TagDiffs] = {

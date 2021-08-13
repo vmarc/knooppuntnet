@@ -15,6 +15,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.TestObjects
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
@@ -114,7 +115,14 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
       )
     )
 
-    val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(ReplicationId(0, 0, 1), newChangeSet(), changes)
+    val context = ChangeSetContext(
+      ReplicationId(0, 0, 1),
+      newChangeSet(),
+      ElementIds(),
+      changes
+    )
+
+    val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(context)
 
     locationChangeSetSummary should matchTo(
       LocationChangeSetSummary(
@@ -249,7 +257,14 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
       )
     )
 
-    val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(ReplicationId(0, 0, 1), newChangeSet(), changes)
+    val context = ChangeSetContext(
+      ReplicationId(0, 0, 1),
+      newChangeSet(),
+      ElementIds(),
+      changes
+    )
+
+    val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(context)
 
     locationChangeSetSummary should matchTo(
       LocationChangeSetSummary(

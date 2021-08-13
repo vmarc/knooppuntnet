@@ -14,7 +14,7 @@ case class ChangeSetChanges(
 
   def isEmpty: Boolean = networkChanges.isEmpty && routeChanges.isEmpty && nodeChanges.isEmpty
 
-  def nonEmpty: Boolean = networkChanges.nonEmpty || routeChanges.nonEmpty || nodeChanges.nonEmpty
+  def nonEmpty: Boolean = newNetworkChanges.nonEmpty || networkChanges.nonEmpty || routeChanges.nonEmpty || nodeChanges.nonEmpty
 
   def size: Int = networkChanges.size + routeChanges.size + nodeChanges.size
 

@@ -1289,7 +1289,7 @@ trait SharedTestObjects extends MockFactory {
     name: String = "",
     meters: Long = 0L,
     facts: Seq[Fact] = Seq.empty,
-    lastSurvey: String = "-",
+    lastSurvey: Option[Day] = None,
     lastUpdated: Timestamp = defaultTimestamp
   ): OrphanRouteDoc = {
     OrphanRouteDoc(

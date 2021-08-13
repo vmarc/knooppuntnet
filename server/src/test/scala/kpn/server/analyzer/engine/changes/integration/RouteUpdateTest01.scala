@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -12,7 +11,6 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -23,29 +21,29 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
 
   test("update route") {
 
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(11, "01-02",
+        Seq(
+          newMember("way", 101)
+        ),
+        Tags.from("key" -> "value1")
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(11, "01-02",
+        Seq(
+          newMember("way", 101)
+        ),
+        Tags.from("key" -> "value2")
+      )
+
     withDatabase { database =>
-
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(11, "01-02",
-          Seq(
-            newMember("way", 101)
-          ),
-          Tags.from("key" -> "value1")
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(11, "01-02",
-          Seq(
-            newMember("way", 101)
-          ),
-          Tags.from("key" -> "value2")
-        )
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
@@ -56,6 +54,9 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
       assertRoute(tc)
       assertChangeSetSummary(tc)
       assertRouteChange(tc)
+      assertOrphanRoute(tc)
+
+      assert(database.nodeChanges.findAll().isEmpty)
     }
   }
 
@@ -74,17 +75,6 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
             Subset.nlHiking,
             ChangeSetElementRefs(
               updated = Seq(newChangeSetElementRef(11, "01-02"))
-            )
-          )
-        ),
-        nodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001,"01"),
-                newChangeSetElementRef(1002,"02")
-              )
             )
           )
         ),
@@ -189,8 +179,18 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
             )
           )
         ),
-        facts = Seq(Fact.OrphanRoute),
         impactedNodeIds = Seq(1001, 1002)
+      )
+    )
+  }
+
+  private def assertOrphanRoute(tc: IntegrationTestContext): Unit = {
+    tc.findOrphanRouteById(11L) should matchTo(
+      newOrphanRouteDoc(
+        11L,
+        country = Country.nl,
+        networkType = NetworkType.hiking,
+        name = "01-02"
       )
     )
   }

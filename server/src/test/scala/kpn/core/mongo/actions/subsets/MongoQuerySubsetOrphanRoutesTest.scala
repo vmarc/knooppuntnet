@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.subsets
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -26,7 +27,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
             name = "01-02",
             meters = 123,
             facts = Seq.empty,
-            lastSurvey = "-",
+            lastSurvey = None,
             lastUpdated = Timestamp(2020, 8, 11),
           )
         )
@@ -60,7 +61,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
             name = "01-02",
             meters = 123,
             facts = Seq(Fact.RouteBroken),
-            lastSurvey = "-",
+            lastSurvey = None,
             lastUpdated = Timestamp(2020, 8, 11),
           )
         )
@@ -71,7 +72,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
   private def createOrphanRouteDoc(
     country: Country = Country.nl,
     networkType: NetworkType = NetworkType.hiking,
-    lastSurvey: String = "-",
+    lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanRouteDoc = {
     newOrphanRouteDoc(

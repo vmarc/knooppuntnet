@@ -26,11 +26,7 @@ class ChangeProcessor(
 
     if (context4.changes.nonEmpty) {
       changeSetInfoUpdater.changeSetInfo(context4.changeSet.id)
-      changeSaver.save(
-        context4.replicationId,
-        context4.changeSet,
-        context4.changes
-      )
+      changeSaver.save(context4)
     }
   }
 }

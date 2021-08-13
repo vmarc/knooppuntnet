@@ -14,7 +14,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
@@ -198,9 +197,7 @@ class NewNodeChangeProcessorImpl(
       )
     }
     else {
-      Some(
-        new NodeDocChangeAnalyzer(context, nodeDocBefore, nodeDocAfter).analyze()
-      )
+      new NodeDocChangeAnalyzer(context, nodeDocBefore, nodeDocAfter).analyze()
     }
   }
 

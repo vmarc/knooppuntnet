@@ -32,12 +32,12 @@ class NetworkInfoChangeProcessorImpl(
           afterOption match {
             case None => None // TODO message ?
             case Some(after) =>
-              processCreate(context, after)
+              processCreate(context, after, networkId)
           }
         case Some(before) =>
           afterOption match {
-            case None => processDelete(context, before)
-            case Some(after) => processUpdate(context, before, after)
+            case None => processDelete(context, before, networkId)
+            case Some(after) => processUpdate(context, before, after, networkId)
           }
       }
     }
@@ -61,9 +61,9 @@ class NetworkInfoChangeProcessorImpl(
     (impactedNetworkIds1 ++ impactedNetworkIds2 ++ impactedNetworkIds3).distinct.sorted
   }
 
-  private def processCreate(context: ChangeSetContext, after: NetworkInfoDoc): Option[NetworkChange] = {
+  private def processCreate(context: ChangeSetContext, after: NetworkInfoDoc, networkId: Long): Option[NetworkChange] = {
 
-    val networkChangeOption = context.changes.newNetworkChanges.find(_.networkId == after._id)
+    val networkChangeOption = context.changes.newNetworkChanges.find(_.networkId == networkId)
 
     val oldOrphanRouteRefs = after.routes.map(_.id).flatMap { routeId =>
       context.changes.routeChanges.find(_.id == routeId) match {
@@ -91,7 +91,7 @@ class NetworkInfoChangeProcessorImpl(
       }
     }
 
-    val key = context.buildChangeKey(after._id)
+    val key = context.buildChangeKey(networkId)
     Some(
       NetworkChange(
         key.toId,
@@ -124,11 +124,76 @@ class NetworkInfoChangeProcessorImpl(
     )
   }
 
-  private def processDelete(context: ChangeSetContext, before: NetworkInfoDoc): Option[NetworkChange] = {
-    None
+  private def processDelete(context: ChangeSetContext, before: NetworkInfoDoc, networkId: Long): Option[NetworkChange] = {
+
+    val networkChangeOption = context.changes.newNetworkChanges.find(_.networkId == networkId)
+
+    val newOrphanRouteRefs = before.routes.map(_.id).flatMap { routeId =>
+      context.changes.routeChanges.find(_.id == routeId) match {
+        case None => None
+        case Some(routeChange) =>
+          if (routeChange.facts.contains(Fact.BecomeOrphan)) {
+            Some(routeChange.toRef)
+          }
+          else {
+            None
+          }
+      }
+    }
+
+    val newOrphanNodeRefs = before.nodes.map(_.id).flatMap { nodeId =>
+      context.changes.nodeChanges.find(_.id == nodeId) match {
+        case None => None
+        case Some(nodeChange) =>
+          if (nodeChange.facts.contains(Fact.BecomeOrphan)) {
+            Some(nodeChange.toRef)
+          }
+          else {
+            None
+          }
+      }
+    }
+
+    val key = context.buildChangeKey(networkId)
+    Some(
+      NetworkChange(
+        key.toId,
+        key,
+        changeType = ChangeType.Delete,
+        country = before.country,
+        networkType = before.scopedNetworkType.networkType,
+        networkId = networkId,
+        networkName = before.summary.name,
+        orphanRoutes = RefChanges(
+          newRefs = newOrphanRouteRefs
+        ),
+        orphanNodes = RefChanges(
+          newRefs = newOrphanNodeRefs
+        ),
+        networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
+        networkNodes = RefDiffs(
+          removed = before.nodes.map(_.toRef)
+        ),
+        routes = RefDiffs(
+          removed = before.routes.map(_.toRef)
+        ),
+        nodes = networkChangeOption.map(_.nodes).getOrElse(IdDiffs.empty),
+        ways = networkChangeOption.map(_.ways).getOrElse(IdDiffs.empty),
+        relations = networkChangeOption.map(_.relations).getOrElse(IdDiffs.empty),
+        happy = false,
+        investigate = true,
+        impact = true
+      )
+    )
   }
 
-  private def processUpdate(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc): Option[NetworkChange] = {
-    None
+  private def processUpdate(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc, networkId: Long): Option[NetworkChange] = {
+
+    if (!after.active) {
+      processDelete(context, before, networkId)
+    }
+    else {
+      None
+    }
   }
 }

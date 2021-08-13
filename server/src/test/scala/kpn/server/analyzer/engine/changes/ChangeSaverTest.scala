@@ -16,6 +16,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.repository.ChangeSetRepository
 import org.scalamock.scalatest.MockFactory
@@ -26,13 +27,14 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val changeSetRepository = stub[ChangeSetRepository]
 
-    new ChangeSaverImpl(
-      changeSetRepository
-    ).save(
+    val context = ChangeSetContext(
       ReplicationId(1, 2, 3),
       newChangeSet(),
+      ElementIds(),
       ChangeSetChanges()
     )
+
+    new ChangeSaverImpl(changeSetRepository).save(context)
 
     (changeSetRepository.saveNetworkChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
@@ -187,12 +189,12 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   private def save(changeSetRepository: ChangeSetRepository, changeSetChanges: ChangeSetChanges): Unit = {
-    new ChangeSaverImpl(
-      changeSetRepository
-    ).save(
+    val context = ChangeSetContext(
       ReplicationId(0, 0, 1),
       newChangeSet(),
+      ElementIds(),
       changeSetChanges
     )
+    new ChangeSaverImpl(changeSetRepository).save(context)
   }
 }

@@ -1,8 +1,5 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.api.common.ReplicationId
-import kpn.api.common.changes.ChangeSet
-import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.repository.ChangeSetRepository
 import org.springframework.stereotype.Component
 
@@ -11,30 +8,30 @@ class ChangeSaverImpl(
   changeSetRepository: ChangeSetRepository
 ) extends ChangeSaver {
 
-  def save(
-    replicationId: ReplicationId,
-    changeSet: ChangeSet,
-    changes: ChangeSetChanges
-  ): Unit = {
+  def save(context: ChangeSetContext): Unit = {
 
-    if (changes.nonEmpty) {
+    if (context.changes.nonEmpty) {
 
-      changes.newNetworkChanges.foreach { networkChange =>
+      context.changes.newNetworkChanges.foreach { networkChange =>
         changeSetRepository.saveNewNetworkChange(networkChange)
       }
 
-      changes.routeChanges.foreach { routeChange =>
+      context.changes.networkChanges.foreach { networkChange =>
+        changeSetRepository.saveNetworkChange(networkChange)
+      }
+
+      context.changes.routeChanges.foreach { routeChange =>
         changeSetRepository.saveRouteChange(routeChange)
       }
 
-      changes.nodeChanges.foreach { nodeChange =>
+      context.changes.nodeChanges.foreach { nodeChange =>
         changeSetRepository.saveNodeChange(nodeChange)
       }
 
-      val changeSetSummary = new ChangeSetSummaryBuilder().build(replicationId, changeSet, changes)
+      val changeSetSummary = new ChangeSetSummaryBuilder().build(context)
       changeSetRepository.saveChangeSetSummary(changeSetSummary)
 
-      val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(replicationId, changeSet, changes)
+      val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(context)
       changeSetRepository.saveLocationChangeSetSummary(locationChangeSetSummary)
     }
   }

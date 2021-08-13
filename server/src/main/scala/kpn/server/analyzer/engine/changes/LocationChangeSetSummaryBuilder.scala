@@ -5,27 +5,20 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.LocationChangesTree
 import kpn.api.common.LocationChangesTreeNode
-import kpn.api.common.ReplicationId
-import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.location.Location
 import kpn.api.custom.NetworkType
-import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 
 class LocationChangeSetSummaryBuilder() {
 
-  def build(
-    replicationId: ReplicationId,
-    changeSet: ChangeSet,
-    changes: ChangeSetChanges
-  ): LocationChangeSetSummary = {
+  def build(context: ChangeSetContext): LocationChangeSetSummary = {
 
     val trees: Seq[LocationChangesTree] = NetworkType.all.flatMap { networkType =>
-      val nodeChanges = changes.nodeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
-      val routeChanges = changes.routeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
+      val nodeChanges = context.changes.nodeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
+      val routeChanges = context.changes.routeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
       val locations = {
         val nodeLocations = nodeChanges.flatMap { nodeChange =>
           if (nodeChange.locations.nonEmpty) {
@@ -100,17 +93,17 @@ class LocationChangeSetSummaryBuilder() {
     val investigate = trees.exists(_.investigate)
 
     val key = ChangeKey(
-      replicationId.number,
-      changeSet.timestamp,
-      changeSet.id,
+      context.replicationId.number,
+      context.changeSet.timestamp,
+      context.changeSet.id,
       0L
     )
 
     LocationChangeSetSummary(
       key.toShortId,
       key,
-      changeSet.timestampFrom,
-      changeSet.timestampUntil,
+      context.changeSet.timestampFrom,
+      context.changeSet.timestampUntil,
       trees,
       happy,
       investigate,
