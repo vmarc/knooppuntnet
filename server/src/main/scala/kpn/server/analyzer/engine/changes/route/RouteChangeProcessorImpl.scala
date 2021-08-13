@@ -36,7 +36,7 @@ class RouteChangeProcessorImpl(
   override def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
 
-      val impactedRelationIds = context.changes.newNetworkChanges.flatMap(_.impactedRelationIds).distinct.sorted
+      val impactedRelationIds = context.changes.networkChanges.flatMap(_.impactedRelationIds).distinct.sorted
       val routeElementChanges = changeAnalyzer.analyze(context)
       val batchSize = 50
       val changedRouteIds = (routeElementChanges.elementIds ++ impactedRelationIds).distinct.sorted
@@ -118,7 +118,7 @@ class RouteChangeProcessorImpl(
 
     val key = context.buildChangeKey(routeId)
 
-    val addedToNetwork = context.changes.newNetworkChanges.flatMap { networkChanges =>
+    val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.added.contains(routeId)) {
         Some(networkChanges.toRef)
       }
@@ -127,7 +127,7 @@ class RouteChangeProcessorImpl(
       }
     }
 
-    val removedFromNetwork = context.changes.newNetworkChanges.flatMap { networkChanges =>
+    val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.removed.contains(routeId)) {
         Some(networkChanges.toRef)
       }
@@ -173,7 +173,7 @@ class RouteChangeProcessorImpl(
     tileChangeAnalyzer.analyzeRoute(before)
     val impactedNodeIds: Seq[Long] = before.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
-    val addedToNetwork = context.changes.newNetworkChanges.flatMap { networkChanges =>
+    val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.added.contains(routeId)) {
         Some(networkChanges.toRef)
       }
@@ -182,7 +182,7 @@ class RouteChangeProcessorImpl(
       }
     }
 
-    val removedFromNetwork = context.changes.newNetworkChanges.flatMap { networkChanges =>
+    val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.removed.contains(routeId)) {
         Some(networkChanges.toRef)
       }
@@ -238,7 +238,7 @@ class RouteChangeProcessorImpl(
       routeAnalysis.routeNodeAnalysis.routeNodes.map(_.node.id)
     }.distinct.sorted
 
-    val addedToNetwork = context.changes.newNetworkChanges.flatMap { networkChanges =>
+    val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.added.contains(routeId)) {
         Some(networkChanges.toRef)
       }
@@ -247,7 +247,7 @@ class RouteChangeProcessorImpl(
       }
     }
 
-    val removedFromNetwork = context.changes.newNetworkChanges.flatMap { networkChanges =>
+    val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.removed.contains(routeId)) {
         Some(networkChanges.toRef)
       }

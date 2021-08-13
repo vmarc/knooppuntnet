@@ -4,13 +4,13 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
-import kpn.server.analyzer.engine.changes.network.NewNetworkChange
+import kpn.server.analyzer.engine.changes.network.NetworkChange
 
 trait ChangeSetRepository {
 
@@ -18,9 +18,9 @@ trait ChangeSetRepository {
 
   def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit
 
-  def saveNewNetworkChange(networkChange: NewNetworkChange): Unit
-
   def saveNetworkChange(networkChange: NetworkChange): Unit
+
+  def saveNetworkInfoChange(networkInfoChange: NetworkInfoChange): Unit
 
   def saveRouteChange(routeChange: RouteChange): Unit
 
@@ -34,7 +34,7 @@ trait ChangeSetRepository {
 
   def subsetChanges(subset: Subset, parameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary]
 
-  def networkChanges(networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange]
+  def networkChanges(networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkInfoChange]
 
   def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
 

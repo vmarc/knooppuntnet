@@ -1,6 +1,6 @@
 package kpn.core.mongo.actions.networks
 
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.networks.MongoQueryNetworkChanges.log
@@ -43,7 +43,7 @@ object MongoQueryNetworkChanges {
 
 class MongoQueryNetworkChanges(database: Database) {
 
-  def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
+  def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
 
     val filterElements = Seq(
       Some(equal("key.elementId", networkId)),
@@ -83,7 +83,7 @@ class MongoQueryNetworkChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val docs = database.networkChanges.aggregate[NetworkChange](pipeline)
+      val docs = database.networkInfoChanges.aggregate[NetworkInfoChange](pipeline)
       (s"${docs.size} network changes", docs)
     }
   }

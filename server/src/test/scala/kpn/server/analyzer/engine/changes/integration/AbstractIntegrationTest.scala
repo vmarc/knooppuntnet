@@ -4,7 +4,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.ChangeAction
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
@@ -77,10 +77,10 @@ import kpn.server.analyzer.engine.changes.builder.RouteChangeBuilderImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.NetworkInfoChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.network.NewNetworkChange
 import kpn.server.analyzer.engine.changes.node.NewNodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
@@ -738,18 +738,6 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       }
     }
 
-    def findNewNetworkChangeById(id: String): NewNetworkChange = {
-      database.newNetworkChanges.findByStringId(id).getOrElse {
-        val ids = database.networkChanges.ids()
-        if (ids.isEmpty) {
-          fail(s"Could not find NewNetworkChange $id, no network changes in database")
-        }
-        else {
-          fail(s"Could not find NewNetworkChange $id (but found: ${ids.mkString(", ")})")
-        }
-      }
-    }
-
     def findNetworkChangeById(id: String): NetworkChange = {
       database.networkChanges.findByStringId(id).getOrElse {
         val ids = database.networkChanges.ids()
@@ -758,6 +746,18 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         }
         else {
           fail(s"Could not find NetworkChange $id (but found: ${ids.mkString(", ")})")
+        }
+      }
+    }
+
+    def findNetworkInfoChangeById(id: String): NetworkInfoChange = {
+      database.networkInfoChanges.findByStringId(id).getOrElse {
+        val ids = database.networkInfoChanges.ids()
+        if (ids.isEmpty) {
+          fail(s"Could not find NetworkInfoChange $id, no network info changes in database")
+        }
+        else {
+          fail(s"Could not find NetworkInfoChange $id (but found: ${ids.mkString(", ")})")
         }
       }
     }

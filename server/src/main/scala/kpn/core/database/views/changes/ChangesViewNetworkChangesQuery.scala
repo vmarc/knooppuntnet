@@ -1,6 +1,6 @@
 package kpn.core.database.views.changes
 
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.database.Database
 import kpn.core.database.query.Query
@@ -8,13 +8,13 @@ import kpn.server.repository.QueryParameters
 
 object ChangesViewNetworkChangesQuery {
 
-  private case class ViewResultRowDoc(networkChange: NetworkChange)
+  private case class ViewResultRowDoc(networkChange: NetworkInfoChange)
 
   private case class ViewResultRow(doc: ViewResultRowDoc)
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def networkChanges(database: Database, networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange] = {
+  def networkChanges(database: Database, networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkInfoChange] = {
 
     val queryParameters = QueryParameters.networkParametersFrom(networkId, parameters)
 

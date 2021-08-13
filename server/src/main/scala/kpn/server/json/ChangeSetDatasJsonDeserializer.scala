@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.ChangeSetData
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.core.database.doc.ChangeSetDatas
@@ -17,7 +17,7 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
 
   private class ChangeSetElements {
     val summaries: ArrayBuffer[ChangeSetSummary] = ArrayBuffer()
-    val networkChanges: ArrayBuffer[NetworkChange] = ArrayBuffer()
+    val networkChanges: ArrayBuffer[NetworkInfoChange] = ArrayBuffer()
     val routeChanges: ArrayBuffer[RouteChange] = ArrayBuffer()
     val nodeChanges: ArrayBuffer[NodeChange] = ArrayBuffer()
   }
@@ -61,7 +61,7 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
 
     val networkChangeNode = doc.get("networkChange")
     if (networkChangeNode != null) {
-      val networkChange = jsonParser.getCodec.treeToValue(networkChangeNode, classOf[NetworkChange])
+      val networkChange = jsonParser.getCodec.treeToValue(networkChangeNode, classOf[NetworkInfoChange])
       elements.networkChanges += networkChange
     }
 

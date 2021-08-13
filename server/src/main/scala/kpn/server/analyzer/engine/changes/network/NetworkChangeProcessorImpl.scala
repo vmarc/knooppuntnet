@@ -45,14 +45,14 @@ class NetworkChangeProcessorImpl(
         "",
         context.copy(
           changes = ChangeSetChanges(
-            newNetworkChanges = newNetworkChanges
+            networkChanges = newNetworkChanges
           )
         )
       )
     }
   }
 
-  private def process(context: ChangeSetContext, networkChanges: ElementChanges, networkIds: Seq[Long]): Seq[NewNetworkChange] = {
+  private def process(context: ChangeSetContext, networkChanges: ElementChanges, networkIds: Seq[Long]): Seq[NetworkChange] = {
     val beforeRelations = overpassRepository.relations(context.timestampBefore, networkIds)
     val afterRelations = overpassRepository.relations(context.timestampAfter, networkIds)
     networkIds.flatMap { networkId =>
@@ -82,14 +82,14 @@ class NetworkChangeProcessorImpl(
     }
   }
 
-  def processCreate(context: ChangeSetContext, after: RawRelation): NewNetworkChange = {
+  def processCreate(context: ChangeSetContext, after: RawRelation): NetworkChange = {
 
     analysisContext.data.networks.watched.add(after.id, ElementIds())
     database.networks.save(NetworkDoc.from(after))
 
     val key = context.buildChangeKey(after.id)
 
-    NewNetworkChange(
+    NetworkChange(
       _id = key.toId,
       key = key,
       networkId = after.id,
@@ -101,7 +101,7 @@ class NetworkChangeProcessorImpl(
     )
   }
 
-  def processDelete(context: ChangeSetContext, before: RawRelation): NewNetworkChange = {
+  def processDelete(context: ChangeSetContext, before: RawRelation): NetworkChange = {
     analysisContext.data.networks.watched.delete(before.id)
     database.networks.save(
       NetworkDoc(
@@ -117,7 +117,7 @@ class NetworkChangeProcessorImpl(
     )
     val key = context.buildChangeKey(before.id)
 
-    NewNetworkChange(
+    NetworkChange(
       _id = key.toId,
       key = key,
       networkId = before.id,
@@ -129,7 +129,7 @@ class NetworkChangeProcessorImpl(
     )
   }
 
-  def processUpdate(context: ChangeSetContext, before: RawRelation, after: RawRelation): NewNetworkChange = {
+  def processUpdate(context: ChangeSetContext, before: RawRelation, after: RawRelation): NetworkChange = {
     analysisContext.data.networks.watched.add(after.id, ElementIds())
     database.networks.save(NetworkDoc.from(after))
     val key = context.buildChangeKey(after.id)
@@ -149,7 +149,7 @@ class NetworkChangeProcessorImpl(
     val relationsAdded = (relationsAfter -- relationsBefore).toSeq.sorted
     val relationsRemoved = (relationsBefore -- relationsAfter).toSeq.sorted
 
-    NewNetworkChange(
+    NetworkChange(
       _id = key.toId,
       key = key,
       networkId = after.id,

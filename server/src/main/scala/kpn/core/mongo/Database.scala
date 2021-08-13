@@ -5,7 +5,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.Poi
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
@@ -21,7 +21,7 @@ import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
 import kpn.core.planner.graph.GraphEdge
-import kpn.server.analyzer.engine.changes.network.NewNetworkChange
+import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -59,9 +59,9 @@ trait Database {
 
   def routeEdges: DatabaseCollection[GraphEdge]
 
-  def newNetworkChanges: DatabaseCollection[NewNetworkChange]
-
   def networkChanges: DatabaseCollection[NetworkChange]
+
+  def networkInfoChanges: DatabaseCollection[NetworkInfoChange]
 
   def routeChanges: DatabaseCollection[RouteChange]
 

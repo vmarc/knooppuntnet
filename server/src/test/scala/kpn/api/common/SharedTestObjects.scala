@@ -3,7 +3,7 @@ package kpn.api.common
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
@@ -74,7 +74,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.network.NewNetworkChange
+import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -745,7 +745,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkChange(
+  def newNetworkInfoChange(
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
     country: Option[Country] = None,
@@ -762,8 +762,8 @@ trait SharedTestObjects extends MockFactory {
     relations: IdDiffs = IdDiffs.empty,
     happy: Boolean = false,
     investigate: Boolean = false
-  ): NetworkChange = {
-    NetworkChange(
+  ): NetworkInfoChange = {
+    NetworkInfoChange(
       key.toId,
       key,
       changeType,
@@ -785,15 +785,15 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNewNetworkChange(
+  def newNetworkChange(
     key: ChangeKey = newChangeKey(),
     networkName: String = "",
     changeType: ChangeType,
     nodes: IdDiffs = IdDiffs.empty,
     ways: IdDiffs = IdDiffs.empty,
     relations: IdDiffs = IdDiffs.empty,
-  ): NewNetworkChange = {
-    NewNetworkChange(
+  ): NetworkChange = {
+    NetworkChange(
       key.toId,
       key,
       key.elementId,

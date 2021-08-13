@@ -9,8 +9,8 @@ object ChangeSetChangesMerger {
 
   def merge(sources: ChangeSetChanges*): ChangeSetChanges = {
     ChangeSetChanges(
-      sources.flatMap(_.newNetworkChanges).toList,
       sources.flatMap(_.networkChanges).toList,
+      sources.flatMap(_.networkInfoChanges).toList,
       mergeRouteChanges(sources.flatMap(_.routeChanges)).toList,
       mergeNodeChanges(sources.flatMap(_.nodeChanges)).toList
     )

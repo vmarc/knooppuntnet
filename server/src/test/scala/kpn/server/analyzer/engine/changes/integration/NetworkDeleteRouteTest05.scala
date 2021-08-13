@@ -105,8 +105,8 @@ class NetworkDeleteRouteTest05 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNetworkChangeById("123:1:1") should matchTo(
-        newNetworkChange(
+      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+        newNetworkInfoChange(
           newChangeKey(elementId = 1),
           ChangeType.Delete,
           Some(Country.nl),

@@ -2,7 +2,7 @@ package kpn.core.database.views.changes
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.details.LocationChange
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilterPeriod
@@ -68,7 +68,7 @@ object ChangesView extends View {
     ChangesViewLocationChangesQuery.locationChanges(database, location: String, parameters, stale)
   }
 
-  def networkChanges(database: Database, networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkChange] = {
+  def networkChanges(database: Database, networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkInfoChange] = {
     ChangesViewNetworkChangesQuery.networkChanges(database, networkId, parameters, stale)
   }
 

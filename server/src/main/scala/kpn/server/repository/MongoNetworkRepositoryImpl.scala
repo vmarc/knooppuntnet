@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
@@ -17,7 +17,7 @@ class MongoNetworkRepositoryImpl(database: Database) extends MongoNetworkReposit
     database.networkInfos.findById(networkId)
   }
 
-  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
+  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
     new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
 

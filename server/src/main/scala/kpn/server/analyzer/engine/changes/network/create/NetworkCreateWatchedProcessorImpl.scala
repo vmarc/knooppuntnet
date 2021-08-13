@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.network.create
 
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
@@ -57,7 +57,7 @@ class NetworkCreateWatchedProcessorImpl(
 
     val key = context.buildChangeKey(networkAfter.id)
 
-    val networkChange = NetworkChange(
+    val networkChange = NetworkInfoChange(
       _id = key.toId,
       key = key,
       changeType = ChangeType.Create,
@@ -78,7 +78,7 @@ class NetworkCreateWatchedProcessorImpl(
       impact = true
     )
 
-    merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)
+    merge(ChangeSetChanges(networkInfoChanges = Seq(networkChange)), nodeAndRouteChanges)
   }
 
   private def nodesWithFact(nodeChanges: Seq[NodeChange], fact: Fact): Seq[Ref] = {

@@ -12,12 +12,12 @@ class ChangeSaverImpl(
 
     if (context.changes.nonEmpty) {
 
-      context.changes.newNetworkChanges.foreach { networkChange =>
-        changeSetRepository.saveNewNetworkChange(networkChange)
-      }
-
       context.changes.networkChanges.foreach { networkChange =>
         changeSetRepository.saveNetworkChange(networkChange)
+      }
+
+      context.changes.networkInfoChanges.foreach { networkInfoChange =>
+        changeSetRepository.saveNetworkInfoChange(networkInfoChange)
       }
 
       context.changes.routeChanges.foreach { routeChange =>

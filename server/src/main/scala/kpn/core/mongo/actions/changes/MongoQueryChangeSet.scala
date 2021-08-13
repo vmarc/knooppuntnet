@@ -3,7 +3,7 @@ package kpn.core.mongo.actions.changes
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.core.mongo.Database
@@ -57,9 +57,9 @@ class MongoQueryChangeSet(database: Database) {
     }
   }
 
-  private def findNetworkChanges(changeSetId: Long, replicationNumber: Long): Seq[NetworkChange] = {
+  private def findNetworkChanges(changeSetId: Long, replicationNumber: Long): Seq[NetworkInfoChange] = {
     findChanges(changeSetId, replicationNumber) { pipeline =>
-      val networkChanges = database.networkChanges.aggregate[NetworkChange](pipeline)
+      val networkChanges = database.networkInfoChanges.aggregate[NetworkInfoChange](pipeline)
       (s"${networkChanges.size} network changes", networkChanges)
     }
   }

@@ -24,7 +24,7 @@ class NetworkDeleteTest02 extends AbstractIntegrationTest {
       (tc.networkRepository.oldSaveNetworkInfo _).verify(*).never()
 
       assert(database.changeSetSummaries.findAll().isEmpty)
-      assert(database.networkChanges.findAll().isEmpty)
+      assert(database.networkInfoChanges.findAll().isEmpty)
       assert(database.routeChanges.findAll().isEmpty)
     }
   }

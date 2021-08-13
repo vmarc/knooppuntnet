@@ -46,13 +46,13 @@ class UpdateChangesTool(database: Database) {
   }
 
   private def updateNetworkChanges(): Unit = {
-    migrateCollection("networkChanges", database.networkChanges) { id =>
-      database.networkChanges.findByStringId(id, log) match {
+    migrateCollection("networkChanges", database.networkInfoChanges) { id =>
+      database.networkInfoChanges.findByStringId(id, log) match {
         case None =>
         case Some(networkChange) =>
           val migratedKey = networkChange.key.copy(time = networkChange.key.timestamp.toKey)
           val migratedNetworkChange = networkChange.copy(key = migratedKey)
-          database.networkChanges.save(migratedNetworkChange, log)
+          database.networkInfoChanges.save(migratedNetworkChange, log)
       }
     }
   }

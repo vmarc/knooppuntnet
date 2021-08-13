@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.network.delete
 
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
@@ -71,7 +71,7 @@ class NetworkDeleteProcessorWorkerImpl(
 
           val key = context.buildChangeKey(networkId)
 
-          val networkChange = NetworkChange(
+          val networkChange = NetworkInfoChange(
             _id = key.toId,
             key = key,
             changeType = ChangeType.Delete,
@@ -92,7 +92,7 @@ class NetworkDeleteProcessorWorkerImpl(
             impact = true
           )
 
-          merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)
+          merge(ChangeSetChanges(networkInfoChanges = Seq(networkChange)), nodeAndRouteChanges)
       }
     }
     catch {

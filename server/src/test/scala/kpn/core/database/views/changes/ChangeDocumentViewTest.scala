@@ -14,8 +14,8 @@ class ChangeDocumentViewTest extends UnitTest with SharedTestObjects {
 
       repo.saveChangeSetSummary(newChangeSetSummary(newChangeKey()))
 
-      repo.saveNetworkChange(newNetworkChange(newChangeKey(elementId = 1)))
-      repo.saveNetworkChange(newNetworkChange(newChangeKey(elementId = 2)))
+      repo.saveNetworkInfoChange(newNetworkInfoChange(newChangeKey(elementId = 1)))
+      repo.saveNetworkInfoChange(newNetworkInfoChange(newChangeKey(elementId = 2)))
 
       repo.saveRouteChange(newRouteChange(newChangeKey(elementId = 11)))
       repo.saveRouteChange(newRouteChange(newChangeKey(elementId = 12)))

@@ -8,7 +8,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
@@ -38,13 +38,13 @@ class ChangeSetSummaryBuilder() {
   }
 
   private def toNetworkChanges(context: ChangeSetContext): NetworkChanges = {
-    val creates = toChangeSetNetworks(context.changes.networkChanges, ChangeType.Create)
-    val updates = toChangeSetNetworks(context.changes.networkChanges, ChangeType.Update)
-    val deletes = toChangeSetNetworks(context.changes.networkChanges, ChangeType.Delete)
+    val creates = toChangeSetNetworks(context.changes.networkInfoChanges, ChangeType.Create)
+    val updates = toChangeSetNetworks(context.changes.networkInfoChanges, ChangeType.Update)
+    val deletes = toChangeSetNetworks(context.changes.networkInfoChanges, ChangeType.Delete)
     NetworkChanges(creates, updates, deletes)
   }
 
-  private def toChangeSetNetworks(networkChanges: Seq[NetworkChange], changeType: ChangeType): Seq[ChangeSetNetwork] = {
+  private def toChangeSetNetworks(networkChanges: Seq[NetworkInfoChange], changeType: ChangeType): Seq[ChangeSetNetwork] = {
 
     val changeTypeNetworkChanges = networkChanges.filter(_.changeType == changeType)
 

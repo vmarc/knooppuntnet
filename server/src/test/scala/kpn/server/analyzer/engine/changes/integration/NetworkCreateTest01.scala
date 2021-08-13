@@ -193,8 +193,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
   }
 
   private def assertNetworkChange(tc: IntegrationTestContext): Unit = {
-    tc.findNewNetworkChangeById("123:1:1") should matchTo(
-      newNewNetworkChange(
+    tc.findNetworkChangeById("123:1:1") should matchTo(
+      newNetworkChange(
         newChangeKey(elementId = 1),
         networkName = "name",
         changeType = ChangeType.Create,

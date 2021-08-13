@@ -8,7 +8,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.custom.Country
@@ -36,7 +36,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     new ChangeSaverImpl(changeSetRepository).save(context)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
+    (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
     (changeSetRepository.saveChangeSetSummary _).verify(*).never()
@@ -44,10 +44,10 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("save network changes") {
 
-    val networkChange = newNetworkChange(newChangeKey(elementId = 1))
+    val networkChange = newNetworkInfoChange(newChangeKey(elementId = 1))
 
     val changeSetChanges = ChangeSetChanges(
-      networkChanges = Seq(networkChange)
+      networkInfoChanges = Seq(networkChange)
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
@@ -57,8 +57,8 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     (changeSetRepository.saveRouteChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
 
-    (changeSetRepository.saveNetworkChange _).verify(
-      where { savedNetworkChange: NetworkChange =>
+    (changeSetRepository.saveNetworkInfoChange _).verify(
+      where { savedNetworkChange: NetworkInfoChange =>
         savedNetworkChange should matchTo(networkChange)
         true
       }
@@ -101,7 +101,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     save(changeSetRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
+    (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
 
     (changeSetRepository.saveRouteChange _).verify(
@@ -153,7 +153,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     save(changeSetRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
+    (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
 
     (changeSetRepository.saveNodeChange _).verify(

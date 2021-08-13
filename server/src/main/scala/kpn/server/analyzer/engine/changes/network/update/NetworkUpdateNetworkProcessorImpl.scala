@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.network.update
 
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
@@ -96,7 +96,7 @@ class NetworkUpdateNetworkProcessorImpl(
 
     val key = context.buildChangeKey(networkId)
 
-    val networkChange = NetworkChange(
+    val networkChange = NetworkInfoChange(
       _id = key.toId,
       key = key,
       ChangeType.Update,
@@ -117,6 +117,6 @@ class NetworkUpdateNetworkProcessorImpl(
       happy || investigate
     )
 
-    merge(ChangeSetChanges(networkChanges = Seq(networkChange)), nodeAndRouteChanges)
+    merge(ChangeSetChanges(networkInfoChanges = Seq(networkChange)), nodeAndRouteChanges)
   }
 }

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.network
 
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
@@ -44,16 +44,16 @@ class NetworkInfoChangeProcessorImpl(
 
     context.copy(
       changes = context.changes.copy(
-        networkChanges = networkChanges
+        networkInfoChanges = networkChanges
       )
     )
   }
 
   private def analyzeImpact(context: ChangeSetContext): Seq[Long] = {
-    val impactedNetworkIds1 = context.changes.newNetworkChanges.map(_.networkId)
+    val impactedNetworkIds1 = context.changes.networkChanges.map(_.networkId)
     val impactedRouteIds = context.changes.routeChanges.map(_.id)
     val impactedNetworkIds2 = new MongoQueryRouteNetworkReferences(database).executeRouteIds(impactedRouteIds)
-    val impactedNodeIds1 = context.changes.newNetworkChanges.flatMap(_.impactedNodeIds)
+    val impactedNodeIds1 = context.changes.networkChanges.flatMap(_.impactedNodeIds)
     val impactedNodeIds2 = context.changes.routeChanges.flatMap(_.impactedNodeIds)
     val impactedNodeIds3 = context.changes.nodeChanges.map(_.id)
     val impactedNodeIds = (impactedNodeIds1 ++ impactedNodeIds2 ++ impactedNodeIds3).distinct.sorted
@@ -61,9 +61,9 @@ class NetworkInfoChangeProcessorImpl(
     (impactedNetworkIds1 ++ impactedNetworkIds2 ++ impactedNetworkIds3).distinct.sorted
   }
 
-  private def processCreate(context: ChangeSetContext, after: NetworkInfoDoc, networkId: Long): Option[NetworkChange] = {
+  private def processCreate(context: ChangeSetContext, after: NetworkInfoDoc, networkId: Long): Option[NetworkInfoChange] = {
 
-    val networkChangeOption = context.changes.newNetworkChanges.find(_.networkId == networkId)
+    val networkChangeOption = context.changes.networkChanges.find(_.networkId == networkId)
 
     val oldOrphanRouteRefs = after.routes.map(_.id).flatMap { routeId =>
       context.changes.routeChanges.find(_.id == routeId) match {
@@ -93,7 +93,7 @@ class NetworkInfoChangeProcessorImpl(
 
     val key = context.buildChangeKey(networkId)
     Some(
-      NetworkChange(
+      NetworkInfoChange(
         key.toId,
         key,
         changeType = ChangeType.Create,
@@ -124,9 +124,9 @@ class NetworkInfoChangeProcessorImpl(
     )
   }
 
-  private def processDelete(context: ChangeSetContext, before: NetworkInfoDoc, networkId: Long): Option[NetworkChange] = {
+  private def processDelete(context: ChangeSetContext, before: NetworkInfoDoc, networkId: Long): Option[NetworkInfoChange] = {
 
-    val networkChangeOption = context.changes.newNetworkChanges.find(_.networkId == networkId)
+    val networkChangeOption = context.changes.networkChanges.find(_.networkId == networkId)
 
     val newOrphanRouteRefs = before.routes.map(_.id).flatMap { routeId =>
       context.changes.routeChanges.find(_.id == routeId) match {
@@ -156,7 +156,7 @@ class NetworkInfoChangeProcessorImpl(
 
     val key = context.buildChangeKey(networkId)
     Some(
-      NetworkChange(
+      NetworkInfoChange(
         key.toId,
         key,
         changeType = ChangeType.Delete,
@@ -187,7 +187,7 @@ class NetworkInfoChangeProcessorImpl(
     )
   }
 
-  private def processUpdate(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc, networkId: Long): Option[NetworkChange] = {
+  private def processUpdate(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc, networkId: Long): Option[NetworkInfoChange] = {
 
     if (!after.active) {
       processDelete(context, before, networkId)

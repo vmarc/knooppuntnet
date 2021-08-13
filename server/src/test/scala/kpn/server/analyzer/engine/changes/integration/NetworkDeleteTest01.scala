@@ -104,7 +104,7 @@ class NetworkDeleteTest01 extends AbstractIntegrationTest {
   }
 
   private def assertNetworkChange(tc: IntegrationTestContext): Unit = {
-    val networkChange = tc.findNetworkChangeById("123:1:1")
+    val networkChange = tc.findNetworkInfoChangeById("123:1:1")
     networkChange.key.changeSetId should equal(123)
     networkChange.key.elementId should equal(1)
     networkChange.changeType should equal(ChangeType.Delete)

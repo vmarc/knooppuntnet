@@ -33,7 +33,7 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
       assert(database.changeSetSummaries.findAll().isEmpty)
       assert(database.nodeChanges.findAll().isEmpty)
       assert(database.routeChanges.findAll().isEmpty)
-      assert(database.networkChanges.findAll().isEmpty)
+      assert(database.networkInfoChanges.findAll().isEmpty)
       assert(database.nodes.findAll().isEmpty)
       assert(database.routes.findAll().isEmpty)
       assert(database.networks.findAll().isEmpty)
@@ -56,7 +56,7 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
     }
 
     val networkChanges = ChangeSetChanges(
-      networkChanges = Seq(newNetworkChange())
+      networkInfoChanges = Seq(newNetworkInfoChange())
     )
 
     //(t.networkChangeProcessor.process _).when(*).returns(networkChanges)
@@ -83,12 +83,12 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
       ChangeSetContext(replicationId, changeSet, elementIds)
     }
 
-    val networkChange = newNetworkChange()
+    val networkChange = newNetworkInfoChange()
     val routeChange = newRouteChange()
     val nodeChange = newNodeChange()
 
     val networkChanges = ChangeSetChanges(
-      networkChanges = Seq(networkChange)
+      networkInfoChanges = Seq(networkChange)
     )
 
     val orphanRouteChanges = ChangeSetChanges(

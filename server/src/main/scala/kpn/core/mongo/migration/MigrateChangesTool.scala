@@ -2,7 +2,7 @@ package kpn.core.mongo.migration
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.core.database.doc.LocationChangeSetSummaryDoc
@@ -129,7 +129,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
     }
   }
 
-  private def writeNetworkChanges(networkChanges: Seq[NetworkChange]): Unit = {
+  private def writeNetworkChanges(networkChanges: Seq[NetworkInfoChange]): Unit = {
     if (networkChanges.nonEmpty) {
       log.infoElapsed {
         val docs = networkChanges.map { networkChange =>
@@ -157,7 +157,7 @@ class MigrateChangesTool(couchDatabase: kpn.core.database.Database, database: Da
             )
           }
         }
-        database.networkChanges.insertMany(docs)
+        database.networkInfoChanges.insertMany(docs)
         (s"${docs.size} network changes", ())
       }
     }

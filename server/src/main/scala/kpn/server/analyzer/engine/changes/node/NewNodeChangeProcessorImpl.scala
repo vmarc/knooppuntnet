@@ -34,7 +34,7 @@ class NewNodeChangeProcessorImpl(
 
       val impactedNodeIds = (
         context.changes.routeChanges.flatMap(_.impactedNodeIds) ++
-          context.changes.newNetworkChanges.flatMap(_.impactedNodeIds)
+          context.changes.networkChanges.flatMap(_.impactedNodeIds)
         ).distinct.sorted
 
       val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)

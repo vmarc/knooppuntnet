@@ -1,7 +1,7 @@
 package kpn.core.tools.analysis
 
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
@@ -195,8 +195,8 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     val nodeRefs = network.nodes.map(node => Ref(node.id, node.networkNode.name))
     val routeRefs = network.routes.map(route => Ref(route.id, route.routeAnalysis.name))
     val key = config.changeSetContext.buildChangeKey(network.id)
-    config.changeSetRepository.saveNetworkChange(
-      NetworkChange(
+    config.changeSetRepository.saveNetworkInfoChange(
+      NetworkInfoChange(
         _id = key.toId,
         key = key,
         changeType = ChangeType.InitialValue,

@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
-import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -69,7 +69,7 @@ class ChangeSetPageBuilderImpl(
     )
   }
 
-  private def toNetworkChangeInfo(networkChange: NetworkChange): NetworkChangeInfo = {
+  private def toNetworkChangeInfo(networkChange: NetworkInfoChange): NetworkChangeInfo = {
     new NetworkChangeInfoBuilder().build(networkChange, Seq.empty)
   }
 

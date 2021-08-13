@@ -11,7 +11,7 @@ import kpn.api.custom.NetworkType
 /*
   Describes the changes made to a given network in a given changeset.
  */
-case class NetworkChange(
+case class NetworkInfoChange(
   _id: String,
   key: ChangeKey,
   changeType: ChangeType,
