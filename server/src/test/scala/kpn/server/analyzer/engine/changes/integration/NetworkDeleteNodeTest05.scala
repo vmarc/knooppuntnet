@@ -9,7 +9,6 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
 import kpn.api.common.diff.TagDetailType.Same
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
@@ -23,46 +22,59 @@ class NetworkDeleteNodeTest05 extends AbstractIntegrationTest {
 
   test("network delete - lost hiking node tag, but still retain bicyle node tag and become orphan") {
 
-    pending
+    val dataBefore = OverpassData()
+      .node(
+        1001,
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "rcn_ref" -> "02",
+          "network:type" -> "node_network"
+        )
+      )
+      .networkRelation(
+        1,
+        "network",
+        Seq(
+          newMember("node", 1001)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .node(
+        1001,
+        tags = Tags.from(
+          "rcn_ref" -> "02",
+          "network:type" -> "node_network"
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .node(1001, tags = Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02", "network:type" -> "node_network"))
-        .networkRelation(1, "network", Seq(newMember("node", 1001)))
-
-      val dataAfter = OverpassData()
-        .node(1001, tags = Tags.from("rcn_ref" -> "02", "network:type" -> "node_network"))
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
 
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
       assert(!tc.analysisContext.data.networks.watched.contains(1))
       // assert(tc.analysisContext.data.orphanNodes.watched.contains(1001)) TODO CHANGE !!!
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(
-        where { networkInfo: NetworkInfo =>
-          networkInfo should matchTo(
-            newNetworkInfo(
-              newNetworkAttributes(
-                1,
-                Some(Country.nl),
-                NetworkType.hiking,
-                name = "network",
-                lastUpdated = timestampAfterValue,
-                relationLastUpdated = timestampAfterValue
-              ),
-              active = false // <--- !!!
-            )
+      tc.findNetworkInfoById(1) should matchTo(
+        newNetworkInfoDoc(
+          1,
+          active = false, // <--- !!!
+          country = Some(Country.nl),
+          newNetworkSummary(
+            name = "network",
+            networkType = NetworkType.hiking,
+          ),
+          newNetworkDetail(
+            lastUpdated = timestampAfterValue,
+            relationLastUpdated = timestampAfterValue
           )
-          true
-        }
+        )
       )
 
-      (tc.nodeRepository.save _).verify(*).once()
+      val networkDoc = tc.findNetworkById(1)
+      networkDoc._id should equal(1)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(

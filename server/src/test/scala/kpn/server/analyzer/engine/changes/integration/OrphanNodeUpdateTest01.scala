@@ -22,25 +22,25 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
 
   test("update orphan node") {
 
+    val dataBefore = OverpassData().networkNode(
+      1001,
+      "01",
+      version = 1,
+      extraTags = Tags.from(
+        "tag" -> "before"
+      )
+    )
+
+    val dataAfter = OverpassData().networkNode(
+      1001,
+      "01",
+      version = 2,
+      extraTags = Tags.from("" +
+        "tag" -> "after"
+      )
+    )
+
     withDatabase { database =>
-
-      val dataBefore = OverpassData().networkNode(
-        1001,
-        "01",
-        version = 1,
-        extraTags = Tags.from(
-          "tag" -> "before"
-        )
-      )
-
-      val dataAfter = OverpassData().networkNode(
-        1001,
-        "01",
-        version = 2,
-        extraTags = Tags.from("" +
-          "tag" -> "after"
-        )
-      )
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
@@ -54,7 +54,7 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNode(tc: IntegrationTestContext) = {
+  private def assertNode(tc: IntegrationTestContext): Unit = {
     tc.findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
@@ -84,7 +84,7 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext) = {
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
     tc.findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
@@ -105,7 +105,7 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange(tc: IntegrationTestContext) = {
+  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
     tc.findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),

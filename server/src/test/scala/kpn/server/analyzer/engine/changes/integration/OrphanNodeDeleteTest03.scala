@@ -8,10 +8,10 @@ class OrphanNodeDeleteTest03 extends AbstractIntegrationTest {
 
   test("delete orphan node, 'before' situation not in overpass") {
 
-    withDatabase { database =>
+    val dataBefore = OverpassData.empty
+    val dataAfter = OverpassData.empty
 
-      val dataBefore = OverpassData.empty
-      val dataAfter = OverpassData.empty
+    withDatabase { database =>
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFacts
 import kpn.api.common.SharedTestObjects
@@ -18,6 +19,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.mongo.doc.NetworkDoc
+import kpn.core.mongo.doc.NetworkNodeMember
 import kpn.core.mongo.doc.NetworkRelationMember
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
@@ -53,6 +55,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
         1,
         "name",
         Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
           newMember("relation", 11)
         )
       )
@@ -61,9 +65,15 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
+      assert(database.orphanNodes.findAll().isEmpty)
+      assert(database.orphanRoutes.findAll().size == 1)
+
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
       assert(tc.analysisContext.data.networks.watched.contains(1))
+      assert(tc.analysisContext.data.routes.watched.contains(11))
+      assert(tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(tc.analysisContext.data.nodes.watched.contains(1002))
 
       assertNetworkDoc(tc)
       assertNetworkInfoDoc(tc)
@@ -72,6 +82,9 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+
+      assert(database.orphanNodes.findAll().isEmpty)
+      assert(database.orphanRoutes.findAll().isEmpty)
     }
   }
 
@@ -81,7 +94,10 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
         1,
         active = true,
         relationLastUpdated = defaultTimestamp,
-        nodeMembers = Seq.empty,
+        nodeMembers = Seq(
+          NetworkNodeMember(1001, None),
+          NetworkNodeMember(1002, None)
+        ),
         wayMembers = Seq.empty,
         relationMembers = Seq(
           NetworkRelationMember(11L, None)
@@ -118,6 +134,7 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
           newNetworkNodeDetail(
             1001,
             "01",
+            definedInRelation = true,
             routeReferences = Seq(
               Reference(
                 NetworkType.hiking,
@@ -134,6 +151,7 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
           newNetworkNodeDetail(
             1002,
             "02",
+            definedInRelation = true,
             routeReferences = Seq(
               Reference(
                 NetworkType.hiking,
@@ -184,6 +202,27 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
             )
           )
         ),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(11, "01-02", happy = true)
+              )
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+                newChangeSetElementRef(1002, "02", happy = true)
+              )
+            )
+          )
+        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
         ),
@@ -198,6 +237,7 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
         newChangeKey(elementId = 1),
         networkName = "name",
         changeType = ChangeType.Create,
+        nodes = IdDiffs(added = Seq(1001, 1002)),
         relations = IdDiffs(added = Seq(11))
       )
     )
@@ -269,8 +309,7 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
           )
         ),
         impactedNodeIds = Seq(1001, 1002),
-
-        happy = true, // TODO should change so that adding a route to a network becomes neutral?
+        happy = true,
         impact = true,
         locationHappy = true,
         locationImpact = true
@@ -290,7 +329,12 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
         ),
         after = Some(
           newMetaData()
-        )
+        ),
+        addedToNetwork = Seq(
+          Ref(1, "name")
+        ),
+        happy = true,
+        impact = true
       )
     )
   }
@@ -307,7 +351,12 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
         ),
         after = Some(
           newMetaData()
-        )
+        ),
+        addedToNetwork = Seq(
+          Ref(1, "name")
+        ),
+        happy = true,
+        impact = true
       )
     )
   }

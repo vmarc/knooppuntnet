@@ -48,9 +48,6 @@ class RouteRepositoryImpl(
 
   override def save(routeInfo: RouteInfo): Unit = {
     database.routes.save(routeInfo, log)
-    if (!routeInfo.active) {
-      database.orphanRoutes.delete(routeInfo._id, log)
-    }
   }
 
   override def bulkSave(routeInfo: Seq[RouteInfo]): Unit = {
@@ -59,7 +56,6 @@ class RouteRepositoryImpl(
 
   override def delete(routeId: Long): Unit = {
     database.routes.delete(routeId, log)
-    database.orphanRoutes.delete(routeId, log)
     // TODO MONGO should also delete references, changes, etc?
   }
 

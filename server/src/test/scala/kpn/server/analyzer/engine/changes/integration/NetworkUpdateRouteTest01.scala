@@ -16,7 +16,6 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.Both
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -31,54 +30,51 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
 
   test("network update - route that is no longer part of the network after update, becomes orphan route if also not referenced in any other network") {
 
-    pending // no 'orphan' in RouteInfo anymore
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(
+        11,
+        "01-02",
+        Seq(
+          newMember("way", 101)
+        )
+      )
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("relation", 11)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route( // route still exists
+        11,
+        "01-02",
+        Seq(
+          newMember("way", 101)
+        )
+      )
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+          // route member is no longer included here
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(
-          11,
-          "01-02",
-          Seq(
-            newMember("way", 101)
-          )
-        )
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002),
-            newMember("relation", 11)
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route( // route still exists
-          11,
-          "01-02",
-          Seq(
-            newMember("way", 101)
-          )
-        )
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-            // route member is no longer included here
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchNetwork(tc.before, 1)
 
       // before:
       assert(tc.analysisContext.data.networks.watched.isReferencingRelation(11))
@@ -91,111 +87,107 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.data.networks.watched.isReferencingRelation(11))
       assert(tc.analysisContext.data.routes.watched.contains(11))
 
-      (tc.routeRepository.save _).verify(
-        where { routeInfo: RouteInfo =>
-          routeInfo should matchTo(
-            newRouteInfo(
-              newRouteSummary(
-                11,
-                name = "01-02",
-                country = Some(Country.nl),
-                wayCount = 1,
-                nodeNames = Seq("01", "02"),
-                tags = newRouteTags("01-02")
-              ),
-              labels = Seq(
-                "active",
-                "network-type-hiking"
-              ),
-              orphan = true,
-              tags = newRouteTags("01-02"),
-              analysis = newRouteInfoAnalysis(
-                members = Seq(
-                  kpn.api.custom.RouteMemberInfo(
-                    101,
-                    "way",
-                    isWay = true,
-                    Seq(
-                      RouteNetworkNodeInfo(1001, "01", "01", "0", "0"),
-                      RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
-                    ),
-                    "wn003",
-                    "1",
-                    1002,
-                    "2",
-                    1001,
-                    "",
-                    Timestamp(2015, 8, 11, 0, 0, 0),
-                    accessible = true,
-                    "0 m",
-                    "2",
-                    "",
-                    Both,
-                    Tags.empty
-                  )
+
+      tc.findRouteById(11) should matchTo(
+        newRouteInfo(
+          newRouteSummary(
+            11,
+            name = "01-02",
+            country = Some(Country.nl),
+            wayCount = 1,
+            nodeNames = Seq("01", "02"),
+            tags = newRouteTags("01-02")
+          ),
+          labels = Seq(
+            "active",
+            "network-type-hiking"
+          ),
+          orphan = true,
+          tags = newRouteTags("01-02"),
+          analysis = newRouteInfoAnalysis(
+            members = Seq(
+              kpn.api.custom.RouteMemberInfo(
+                101,
+                "way",
+                isWay = true,
+                Seq(
+                  RouteNetworkNodeInfo(1001, "01", "01", "0", "0"),
+                  RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
                 ),
-                expectedName = "01-02",
-                map = newRouteMap(
-                  bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
-                  forwardPath = Some(
-                    TrackPath(
-                      pathId = 1,
-                      startNodeId = 1001,
-                      endNodeId = 1002,
-                      meters = 0,
-                      oneWay = false,
-                      segments = Seq(
-                        TrackSegment(
-                          "paved",
-                          TrackPoint("0", "0"),
-                          Seq(TrackSegmentFragment(TrackPoint("0", "0"),
-                            0,
-                            90,
-                            None)
-                          )
-                        )
-                      )
-                    )
-                  ),
-                  backwardPath = Some(
-                    TrackPath(
-                      pathId = 2,
-                      startNodeId = 1002,
-                      endNodeId = 1001,
-                      meters = 0,
-                      oneWay = false,
-                      segments = Seq(
-                        TrackSegment(
-                          "paved",
-                          TrackPoint("0", "0"),
-                          Seq(
-                            TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
-                          )
-                        )
-                      )
-                    )
-                  ),
-                  startNodes = Seq(
-                    RouteNetworkNodeInfo(1001, "01", "01", "0", "0")
-                  ),
-                  endNodes = Seq(
-                    RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
-                  )
-                ),
-                structureStrings = Seq(
-                  "forward=(01-02 via +<01-02 101>)",
-                  "backward=(02-01 via -<01-02 101>)"
-                ),
-                geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
-              ),
-              nodeRefs = Seq(
+                "wn003",
+                "1",
+                1002,
+                "2",
                 1001,
-                1002
+                "",
+                Timestamp(2015, 8, 11, 0, 0, 0),
+                accessible = true,
+                "0 m",
+                "2",
+                "",
+                Both,
+                Tags.empty
               )
-            )
+            ),
+            expectedName = "01-02",
+            map = newRouteMap(
+              bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
+              forwardPath = Some(
+                TrackPath(
+                  pathId = 1,
+                  startNodeId = 1001,
+                  endNodeId = 1002,
+                  meters = 0,
+                  oneWay = false,
+                  segments = Seq(
+                    TrackSegment(
+                      "paved",
+                      TrackPoint("0", "0"),
+                      Seq(TrackSegmentFragment(TrackPoint("0", "0"),
+                        0,
+                        90,
+                        None)
+                      )
+                    )
+                  )
+                )
+              ),
+              backwardPath = Some(
+                TrackPath(
+                  pathId = 2,
+                  startNodeId = 1002,
+                  endNodeId = 1001,
+                  meters = 0,
+                  oneWay = false,
+                  segments = Seq(
+                    TrackSegment(
+                      "paved",
+                      TrackPoint("0", "0"),
+                      Seq(
+                        TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
+                      )
+                    )
+                  )
+                )
+              ),
+              startNodes = Seq(
+                RouteNetworkNodeInfo(1001, "01", "01", "0", "0")
+              ),
+              endNodes = Seq(
+                RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
+              )
+            ),
+            structureStrings = Seq(
+              "forward=(01-02 via +<01-02 101>)",
+              "backward=(02-01 via -<01-02 101>)"
+            ),
+            geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
+          ),
+          nodeRefs = Seq(
+            1001,
+            1002
           )
-          true
-        }
+        )
       )
 
       tc.findChangeSetSummaryById("123:1") should matchTo(

@@ -17,12 +17,12 @@ class OrphanNodeDeleteTest01 extends AbstractIntegrationTest {
 
   test("delete orphan node") {
 
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01", version = 1)
+
+    val dataAfter = OverpassData.empty
+
     withDatabase { database =>
-
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01", version = 1)
-
-      val dataAfter = OverpassData.empty
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 

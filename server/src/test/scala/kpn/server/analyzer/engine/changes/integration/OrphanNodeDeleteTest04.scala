@@ -21,13 +21,13 @@ class OrphanNodeDeleteTest04 extends AbstractIntegrationTest {
 
   test("orphan node looses node tag") {
 
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01", version = 1)
+
+    val dataAfter = OverpassData()
+      .node(1001, version = 2) // rwn_ref tag no longer available, but node still exists
+
     withDatabase { database =>
-
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01", version = 1)
-
-      val dataAfter = OverpassData()
-        .node(1001, version = 2) // rwn_ref tag no longer available, but node still exists
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
@@ -41,7 +41,7 @@ class OrphanNodeDeleteTest04 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNode(tc: IntegrationTestContext) = {
+  private def assertNode(tc: IntegrationTestContext): Unit = {
     tc.findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
@@ -75,7 +75,7 @@ class OrphanNodeDeleteTest04 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange(tc: IntegrationTestContext) = {
+  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
     tc.findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),

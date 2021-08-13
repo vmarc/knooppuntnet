@@ -8,7 +8,6 @@ import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -45,8 +44,8 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
 
       assertNetwork(tc)
       assertNetworkInfo(tc)
-      // assertChangeSetSummary(tc)
-      //assertNetworkChange(tc)
+      assertChangeSetSummary(tc)
+      assertNetworkChange(tc)
       assertNodeChange(tc)
 
       // TODO database.orphanNodes.findByStringId()
@@ -148,9 +147,8 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
           newMetaData()
         ),
         removedFromNetwork = Seq(
-          Ref(1, "network")
+          Ref(1, "network-name")
         ),
-        facts = Seq(Fact.BecomeOrphan),
         investigate = true,
         impact = true
       )

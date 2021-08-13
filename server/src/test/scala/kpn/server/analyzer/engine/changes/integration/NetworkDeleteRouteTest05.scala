@@ -7,7 +7,6 @@ import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
@@ -21,37 +20,32 @@ class NetworkDeleteRouteTest05 extends AbstractIntegrationTest {
 
   test("network delete - route deleted") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01") // referenced in network1 and network2 and orphan route
+      .networkNode(1002, "02") // referenced in network1
+      .networkNode(1003, "03") // referenced in network2
+      .networkNode(1004, "04") // referenced in orphan route
+      .way(101, 1001, 1002) // route 11 only referenced in network 1
+      .route(11, "01-02", Seq(newMember("way", 101)))
+      .way(102, 1001, 1003) // route 12 referenced in network 1 and network 2
+      .route(12, "01-03", Seq(newMember("way", 102)))
+      .networkRelation(1, "network1", Seq(newMember("relation", 11), newMember("relation", 12)))
+      .networkRelation(2, "network2", Seq(newMember("relation", 12)))
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkNode(1003, "03")
+      .networkNode(1004, "04")
+      .way(101, 1001, 1002)
+      .route(11, "01-02", Seq(newMember("way", 101))) // route has become orphan
+      .way(102, 1001, 1003) // route 12 still referenced in network 2
+      .route(12, "01-03", Seq(newMember("way", 102)))
+      .networkRelation(2, "network2", Seq(newMember("relation", 12)))
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01") // referenced in network1 and network2 and orphan route
-        .networkNode(1002, "02") // referenced in network1
-        .networkNode(1003, "03") // referenced in network2
-        .networkNode(1004, "04") // referenced in orphan route
-        .way(101, 1001, 1002) // route 11 only referenced in network 1
-        .route(11, "01-02", Seq(newMember("way", 101)))
-        .way(102, 1001, 1003) // route 12 referenced in network 1 and network 2
-        .route(12, "01-03", Seq(newMember("way", 102)))
-        .networkRelation(1, "network1", Seq(newMember("relation", 11), newMember("relation", 12)))
-        .networkRelation(2, "network2", Seq(newMember("relation", 12)))
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkNode(1003, "03")
-        .networkNode(1004, "04")
-        .way(101, 1001, 1002)
-        .route(11, "01-02", Seq(newMember("way", 101))) // route has become orphan
-        .way(102, 1001, 1003) // route 12 still referenced in network 2
-        .route(12, "01-03", Seq(newMember("way", 102)))
-        .networkRelation(2, "network2", Seq(newMember("relation", 12)))
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
-      tc.analysisContext.data.networks.watched.add(2, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(2)))
 
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
@@ -65,23 +59,20 @@ class NetworkDeleteRouteTest05 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.data.nodes.watched.contains(1002)) // still referenced in orphan route
       assert(!tc.analysisContext.data.nodes.watched.contains(1003))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(
-        where { networkInfo: NetworkInfo =>
-          networkInfo should matchTo(
-            newNetworkInfo(
-              newNetworkAttributes(
-                1,
-                Some(Country.nl),
-                NetworkType.hiking,
-                name = "network1",
-                lastUpdated = timestampAfterValue,
-                relationLastUpdated = timestampAfterValue
-              ),
-              active = false // <--- !!!
-            )
+      tc.findNetworkInfoById(1) should matchTo(
+        newNetworkInfoDoc(
+          1,
+          active = false, // <--- !!!
+          country = Some(Country.nl),
+          newNetworkSummary(
+            name = "network1",
+            networkType = NetworkType.hiking,
+          ),
+          newNetworkDetail(
+            lastUpdated = timestampAfterValue,
+            relationLastUpdated = timestampAfterValue
           )
-          true
-        }
+        )
       )
 
       tc.findChangeSetSummaryById("123:1") should matchTo(

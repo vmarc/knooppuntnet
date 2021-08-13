@@ -6,6 +6,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
@@ -20,22 +21,22 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
 
   test("delete route") {
 
-    withDatabase { database =>
-
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(11, "01-02",
-          Seq(
-            newMember("way", 101)
-          )
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(11, "01-02",
+        Seq(
+          newMember("way", 101)
         )
+      )
 
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+
+    withDatabase { database =>
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
@@ -52,6 +53,10 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+      assertOrphanNode1001(tc)
+      assertOrphanNode1002(tc)
+
+      assert(database.orphanRoutes.findAll().isEmpty)
     }
   }
 
@@ -126,8 +131,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
             Subset.nlHiking,
             ChangeSetElementRefs(
               updated = Seq(
-                newChangeSetElementRef(1001, "01"),
-                newChangeSetElementRef(1002, "02")
+                newChangeSetElementRef(1001, "01", investigate = true),
+                newChangeSetElementRef(1002, "02", investigate = true)
               )
             )
           )
@@ -175,7 +180,7 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
             )
           )
         ),
-        facts = Seq(Fact.WasOrphan, Fact.Deleted), // TODO Fact.WasOrphan should not be here anymore???!!!
+        facts = Seq(Fact.Deleted),
         impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true,
@@ -199,8 +204,12 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
           newMetaData()
         ),
         removedFromRoute = Seq(
-          // TODO Ref(11, "01-02")
-        )
+          Ref(11, "01-02")
+        ),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
       )
     }
   }
@@ -219,9 +228,35 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
           newMetaData()
         ),
         removedFromRoute = Seq(
-          // TODO Ref(11, "01-02")
-        )
+          Ref(11, "01-02")
+        ),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
       )
     }
+  }
+
+  private def assertOrphanNode1001(tc: IntegrationTestContext): Unit = {
+    tc.findOrphanNodeById("nl:hiking:1001") should matchTo(
+      newOrphanNodeDoc(
+        country = Country.nl,
+        networkType = NetworkType.hiking,
+        nodeId = 1001L,
+        name = "01"
+      )
+    )
+  }
+
+  private def assertOrphanNode1002(tc: IntegrationTestContext): Unit = {
+    tc.findOrphanNodeById("nl:hiking:1002") should matchTo(
+      newOrphanNodeDoc(
+        country = Country.nl,
+        networkType = NetworkType.hiking,
+        nodeId = 1002L,
+        name = "02"
+      )
+    )
   }
 }

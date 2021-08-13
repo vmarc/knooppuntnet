@@ -9,8 +9,6 @@ class NetworkDeleteTest02 extends AbstractIntegrationTest {
 
   test("network delete - no info saved when before sitution cannot be loaded") {
 
-    pending
-
     withDatabase { database =>
 
       val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
@@ -21,8 +19,8 @@ class NetworkDeleteTest02 extends AbstractIntegrationTest {
 
       assert(!tc.analysisContext.data.networks.watched.contains(1))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).never()
-
+      assert(database.networks.findAll().isEmpty)
+      assert(database.networkInfos.findAll().isEmpty)
       assert(database.changeSetSummaries.findAll().isEmpty)
       assert(database.networkInfoChanges.findAll().isEmpty)
       assert(database.routeChanges.findAll().isEmpty)

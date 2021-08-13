@@ -19,34 +19,37 @@ class NetworkUpdateNodeTest10 extends AbstractIntegrationTest {
 
   test("network update - node role 'connection' added") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(
+        1,
+        "network-name",
+        Seq(
+          newMember("node", 1001)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(
+        1,
+        "network-name",
+        Seq(
+          newMember("node", 1001, "connection")
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkRelation(
-          1,
-          "network-name",
-          Seq(
-            newMember("node", 1001)
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkRelation(
-          1,
-          "network-name",
-          Seq(
-            newMember("node", 1001, "connection")
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchNetwork(tc.before, 1)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+
+      val networkDoc = tc.findNetworkById(1)
+      networkDoc._id should equal(1)
+
+      val networkInfoDoc = tc.findNetworkInfoById(1)
+      networkInfoDoc._id should equal(1)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(

@@ -9,20 +9,20 @@ class OrphanNodeDeleteTest05 extends AbstractIntegrationTest {
 
   test("ignore delete in foreign country") {
 
+    val dataBefore = OverpassData()
+      .node(
+        1001,
+        tags = Tags.from(
+          "network:type" -> "node_network",
+          "rwn_ref" -> "01"
+        ),
+        "999",
+        "999"
+      )
+
+    val dataAfter = OverpassData.empty
+
     withDatabase { database =>
-
-      val dataBefore = OverpassData()
-        .node(
-          1001,
-          tags = Tags.from(
-            "network:type" -> "node_network",
-            "rwn_ref" -> "01"
-          ),
-          "999",
-          "999"
-        )
-
-      val dataAfter = OverpassData.empty
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 

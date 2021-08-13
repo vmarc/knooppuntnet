@@ -9,20 +9,20 @@ class OrphanNodeCreateTest03 extends AbstractIntegrationTest {
 
   test("ignore node create in unsupported country") {
 
-    withDatabase { database =>
-
-      val dataBefore = OverpassData.empty
-      val dataAfter = OverpassData().node(
-        1001,
-        version = 1,
-        latitude = "999",
-        longitude = "999",
-        tags = Tags.from(
-          "proposed:rwn_ref" -> "01",
-          "network:type" ->
-            "node_network"
-        )
+    val dataBefore = OverpassData.empty
+    val dataAfter = OverpassData().node(
+      1001,
+      version = 1,
+      latitude = "999",
+      longitude = "999",
+      tags = Tags.from(
+        "proposed:rwn_ref" -> "01",
+        "network:type" ->
+          "node_network"
       )
+    )
+
+    withDatabase { database =>
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 

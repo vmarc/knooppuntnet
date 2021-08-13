@@ -15,7 +15,6 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
@@ -23,36 +22,33 @@ class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
 
   test("network update - node that is no longer part of the network after update, becomes orphan node if also not referenced in any other network or orphan route") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001)
+          // node 02 no longer part of the network
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001)
-            // node 02 no longer part of the network
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchNetwork(tc.before, 1)
 
       // before:
       assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
@@ -65,35 +61,33 @@ class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.data.networks.watched.isReferencingNode(1002))
       assert(tc.analysisContext.data.nodes.watched.contains(1002))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).once()
+      val networkInfoDoc = tc.findNetworkInfoById(1)
+      networkInfoDoc._id should equal(1)
+
       (tc.routeRepository.save _).verify(*).never()
-      (tc.nodeRepository.save _).verify(
-        where { nodeDoc: NodeDoc =>
-          nodeDoc.copy(tiles = Seq.empty) should matchTo(
-            newNodeDoc(
-              1002,
-              labels = Seq(
-                "active",
-                "orphan",
-                "network-type-hiking"
-              ),
-              // orphan = true,
-              country = Some(Country.nl),
-              name = "02",
-              names = Seq(
-                NodeName(
-                  NetworkType.hiking,
-                  NetworkScope.regional,
-                  "02",
-                  None,
-                  proposed = false
-                )
-              ),
-              tags = newNodeTags("02")
+
+      tc.findNodeById(1002) should matchTo(
+        newNodeDoc(
+          1002,
+          labels = Seq(
+            "active",
+            "orphan",
+            "network-type-hiking"
+          ),
+          // orphan = true,
+          country = Some(Country.nl),
+          name = "02",
+          names = Seq(
+            NodeName(
+              NetworkType.hiking,
+              NetworkScope.regional,
+              "02",
+              None,
+              proposed = false
             )
-          )
-          true
-        }
+          ),
+          tags = newNodeTags("02")
+        )
       )
 
       tc.findChangeSetSummaryById("123:1") should matchTo(

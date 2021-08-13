@@ -8,7 +8,6 @@ import kpn.api.common.common.Ref
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.network.NetworkInfo
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
@@ -21,42 +20,35 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
 
   test("network delete - node looses node tag") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(1, "network", Seq(newMember("node", 1001)))
+
+    val dataAfter = OverpassData()
+      .node(1001)
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkRelation(1, "network", Seq(newMember("node", 1001)))
-
-      val dataAfter = OverpassData()
-        .node(1001)
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-
-      tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
 
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
       assert(!tc.analysisContext.data.networks.watched.contains(1))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(
-        where { networkInfo: NetworkInfo =>
-          networkInfo should matchTo(
-            newNetworkInfo(
-              newNetworkAttributes(
-                1,
-                Some(Country.nl),
-                NetworkType.hiking,
-                name = "network",
-                lastUpdated = timestampAfterValue,
-                relationLastUpdated = timestampAfterValue
-              ),
-              active = false // <--- !!!
-            )
+      tc.findNetworkInfoById(1) should matchTo(
+        newNetworkInfoDoc(
+          1,
+          active = false, // <--- !!!
+          country = Some(Country.nl),
+          newNetworkSummary(
+            name = "network",
+            networkType = NetworkType.hiking,
+          ),
+          newNetworkDetail(
+            lastUpdated = timestampAfterValue,
+            relationLastUpdated = timestampAfterValue
           )
-          true
-        }
+        )
       )
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
@@ -80,7 +72,7 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
         )
       )
 
-      (tc.nodeRepository.save _).verify(*).once()
+      val nodeDoc = tc.findNodeById(1001)
 
       tc.findNetworkInfoChangeById("123:1:1") should matchTo(
         newNetworkInfoChange(

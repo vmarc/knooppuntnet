@@ -17,11 +17,11 @@ class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
 
   test("create orphan node") {
 
-    withDatabase { database =>
+    val dataBefore = OverpassData.empty
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01", version = 1)
 
-      val dataBefore = OverpassData.empty
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01", version = 1)
+    withDatabase { database =>
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 

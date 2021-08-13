@@ -5,16 +5,14 @@ import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.util.Id
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.merge
+import org.mongodb.scala.model.Aggregates.out
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.MergeOptions
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
@@ -96,10 +94,7 @@ class OrphanRouteUpdater(database: Database) {
             computed("lastUpdated", "$lastUpdated")
           )
         ),
-        merge(
-          database.orphanRoutes.name,
-          MergeOptions().uniqueIdentifier("_id")
-        )
+        out(database.orphanRoutes.name)
       )
       val orphanRoutes = database.routes.aggregate[OrphanRouteDoc](pipeline, log)
       (s"${orphanRoutes.size} orphan routes", ())

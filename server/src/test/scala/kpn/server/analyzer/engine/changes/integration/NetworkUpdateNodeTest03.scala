@@ -18,53 +18,49 @@ class NetworkUpdateNodeTest03 extends AbstractIntegrationTest {
 
   test("network update - node that is no longer part of the network after update, does not become orphan node if still referenced in another network") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+        )
+      )
+      .networkRelation(
+        2,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001)
+          // node 02 no longer part of the network
+        )
+      )
+      .networkRelation(
+        2,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002) // node 02 still referenced in other network
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-          )
-        )
-        .networkRelation(
-          2,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001)
-            // node 02 no longer part of the network
-          )
-        )
-        .networkRelation(
-          2,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002) // node 02 still referenced in other network
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchNetwork(tc.before, 1)
-      tc.watchNetwork(tc.before, 2)
 
       // before:
       assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
@@ -77,8 +73,13 @@ class NetworkUpdateNodeTest03 extends AbstractIntegrationTest {
       assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
       assert(!tc.analysisContext.data.nodes.watched.contains(1001))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).once()
-      (tc.nodeRepository.save _).verify(*).never()
+      val networkDoc = tc.findNetworkById(1)
+      networkDoc._id should equal(1)
+
+      val networkInfoDoc = tc.findNetworkInfoById(1)
+      networkInfoDoc._id should equal(1)
+
+      assert(database.nodes.findAll().isEmpty)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(

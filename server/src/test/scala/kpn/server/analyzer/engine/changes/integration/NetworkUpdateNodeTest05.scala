@@ -23,36 +23,33 @@ class NetworkUpdateNodeTest05 extends AbstractIntegrationTest {
 
   test("network update - node that looses required tags and is removed from network becomes inactive") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .node(1002)
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001)
+          // node 02 no longer part of the network
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .node(1002)
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001)
-            // node 02 no longer part of the network
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchNetwork(tc.before, 1)
 
       // before:
       assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
@@ -65,21 +62,21 @@ class NetworkUpdateNodeTest05 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.data.networks.watched.isReferencingNode(1002))
       assert(!tc.analysisContext.data.nodes.watched.contains(1001))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).once()
-      (tc.routeRepository.save _).verify(*).never()
+      val networkDoc = tc.findNetworkById(1)
+      networkDoc._id should equal(1)
 
-      (tc.nodeRepository.save _).verify(
-        where { nodeDoc: NodeDoc =>
-          nodeDoc should matchTo(
+      val networkInfoDoc = tc.findNetworkInfoById(1)
+      networkInfoDoc._id should equal(1)
+
+      assert(database.routes.findAll().isEmpty)
+
+      tc.findNodeById(1002) should matchTo(
             newNodeDoc(
               1002,
               active = false,
               country = Some(Country.nl)
             )
           )
-          true
-        }
-      )
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(

@@ -18,7 +18,6 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
@@ -26,36 +25,33 @@ class NetworkUpdateNodeTest06 extends AbstractIntegrationTest {
 
   test("network update - removed node that looses required tags, but still has tags of other networkType does not become inactive") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .node(1002, tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network"))
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001)
+          // node 02 no longer part of the network
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .node(1002, tags = Tags.from("rcn_ref" -> "03", "network:type" -> "node_network"))
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001)
-            // node 02 no longer part of the network
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchNetwork(tc.before, 1)
 
       // before:
       assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
@@ -68,37 +64,37 @@ class NetworkUpdateNodeTest06 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.data.networks.watched.isReferencingNode(1002))
       assert(!tc.analysisContext.data.nodes.watched.contains(1001))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).once()
-      (tc.routeRepository.save _).verify(*).never()
+      val networkDoc = tc.findNetworkById(1)
+      networkDoc._id should equal(1)
 
-      (tc.nodeRepository.save _).verify(
-        where { nodeDoc: NodeDoc =>
-          nodeDoc.copy(tiles = Seq.empty) should matchTo(
-            newNodeDoc(
-              1002,
-              labels = Seq(
-                "active",
-                "network-type-cycling"
-              ),
-              country = Some(Country.nl),
-              name = "03",
-              names = Seq(
-                NodeName(
-                  NetworkType.cycling,
-                  NetworkScope.regional,
-                  "03",
-                  None,
-                  proposed = false
-                )
-              ),
-              tags = Tags.from(
-                "rcn_ref" -> "03",
-                "network:type" -> "node_network"
-              )
+      val networkInfoDoc = tc.findNetworkInfoById(1)
+      networkInfoDoc._id should equal(1)
+
+      assert(database.routes.findAll().isEmpty)
+
+      tc.findNodeById(1002) should matchTo(
+        newNodeDoc(
+          1002,
+          labels = Seq(
+            "active",
+            "network-type-cycling"
+          ),
+          country = Some(Country.nl),
+          name = "03",
+          names = Seq(
+            NodeName(
+              NetworkType.cycling,
+              NetworkScope.regional,
+              "03",
+              None,
+              proposed = false
             )
+          ),
+          tags = Tags.from(
+            "rcn_ref" -> "03",
+            "network:type" -> "node_network"
           )
-          true
-        }
+        )
       )
 
       tc.findChangeSetSummaryById("123:1") should matchTo(

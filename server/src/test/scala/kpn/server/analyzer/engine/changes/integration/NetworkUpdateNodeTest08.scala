@@ -20,37 +20,33 @@ class NetworkUpdateNodeTest08 extends AbstractIntegrationTest {
 
   test("network update - an orphan node that is added to the network is no longer orphan") {
 
-    pending
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02") // orphan node, not referenced by the network
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001)
+          // the network does not reference the orphan node
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002) // reference to the previous orphan node
+        )
+      )
 
     withDatabase { database =>
 
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02") // orphan node, not referenced by the network
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001)
-            // the network does not reference the orphan node
-          )
-        )
-
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "name",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002) // reference to the previous orphan node
-          )
-        )
-
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-      tc.watchOrphanNode(1002)
-      tc.watchNetwork(tc.before, 1)
 
       // before:
       assert(!tc.analysisContext.data.networks.watched.isReferencingNode(1002))
@@ -63,7 +59,11 @@ class NetworkUpdateNodeTest08 extends AbstractIntegrationTest {
       assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
       assert(!tc.analysisContext.data.nodes.watched.contains(1002))
 
-      (tc.networkRepository.oldSaveNetworkInfo _).verify(*).once()
+      val networkDoc = tc.findNetworkById(1)
+      networkDoc._id should equal(1)
+
+      val networkInfoDoc = tc.findNetworkInfoById(1)
+      networkInfoDoc._id should equal(1)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
