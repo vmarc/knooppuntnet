@@ -1,6 +1,6 @@
 package kpn.core.database.views.poi
 
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.server.repository.PoiRepositoryImpl
 
 /*
@@ -11,8 +11,8 @@ object PoiTileViewDemo {
   def main(args: Array[String]): Unit = {
     val tileName = "13-4195-2748"
     println(s"Tile $tileName - reading pois")
-    Couch.executeIn("kpn-server", "pois5") { database =>
-      val repo = new PoiRepositoryImpl(null, database, false)
+    Mongo.executeIn("kpn-test") { database =>
+      val repo = new PoiRepositoryImpl(database)
       val t1 = System.currentTimeMillis()
       val poiInfos = repo.tilePoiInfos(tileName)
       val t2 = System.currentTimeMillis()

@@ -15,7 +15,7 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repository = new NetworkRepositoryImpl(null, database, false)
+      val repository = new NetworkRepositoryImpl(null)
 
       // sorting order different from 'by network name'
       repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
@@ -43,7 +43,7 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repository = new NetworkRepositoryImpl(null, database, false)
+      val repository = new NetworkRepositoryImpl(null)
 
       // sorting order different from 'by network name'
       repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))

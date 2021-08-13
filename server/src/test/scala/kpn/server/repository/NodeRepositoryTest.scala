@@ -14,7 +14,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(102))
@@ -31,7 +31,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(102))
@@ -44,7 +44,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")))
       nodeRepository.save(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")))
@@ -83,7 +83,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(101))
@@ -96,7 +96,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
   test("filterKnown") {
 
     withDatabase { database =>
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(102))
@@ -111,7 +111,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
       pending
 
-      new NetworkRepositoryImpl(database, null, true).oldSaveNetworkInfo(
+      new NetworkRepositoryImpl(database).oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(
             2,
@@ -121,7 +121,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
+      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
       nodeRepository.nodeNetworkReferences(1001, stale = false) should matchTo(
         Seq(
           Reference(

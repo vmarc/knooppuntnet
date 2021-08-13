@@ -5,9 +5,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.network.NetworkInfo
-import kpn.api.common.node.NodeNetworkIntegrityCheck
-import kpn.api.common.node.NodeNetworkReference
-import kpn.api.common.node.NodeNetworkRouteReference
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.core.database.Database
@@ -20,7 +17,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
   test("node network reference") {
 
     withCouchDatabase { database =>
-      val networkRepository = new NetworkRepositoryImpl(null, database, false)
+      val networkRepository = new NetworkRepositoryImpl(null)
       networkRepository.oldSaveNetworkInfo(buildNetworkWithNode1001and1002())
       networkRepository.oldSaveNetworkInfo(buildNetworkWithNode1001())
 
@@ -57,7 +54,7 @@ class NodeNetworkReferenceViewTest extends UnitTest with SharedTestObjects {
   test("no node network references when network not active") {
 
     withCouchDatabase { database =>
-      val networkRepository = new NetworkRepositoryImpl(null, database, false)
+      val networkRepository = new NetworkRepositoryImpl(null)
       networkRepository.oldSaveNetworkInfo(buildInactiveNetwork())
       queryNode(database, 1001) shouldBe empty
     }

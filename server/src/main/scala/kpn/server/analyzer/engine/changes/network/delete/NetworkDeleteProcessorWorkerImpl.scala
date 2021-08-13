@@ -31,11 +31,11 @@ class NetworkDeleteProcessorWorkerImpl(
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
   changeBuilder: ChangeBuilder
-) extends NetworkDeleteProcessorWorker {
+) {
 
   private val log = Log(classOf[NetworkDeleteProcessorWorkerImpl])
 
-  override def process(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
+  def process(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
     Log.context(s"network=$networkId") {
       log.debugElapsed {
         ("", doProcess(context, networkId))

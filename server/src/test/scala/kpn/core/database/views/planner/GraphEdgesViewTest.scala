@@ -88,7 +88,7 @@ class GraphEdgesViewTest extends UnitTest with TestObjects {
   }
 
   private def doTest(database: Database, routeMap: RouteMap, proposed: Boolean = false): Set[GraphEdge] = {
-    val routeRepository = new RouteRepositoryImpl(null, database, false)
+    val routeRepository = new RouteRepositoryImpl(null)
     val routeInfo = buildRoute(routeMap, proposed)
     routeRepository.save(routeInfo)
     GraphEdgesView.query(database, NetworkType.hiking, stale = false).toSet

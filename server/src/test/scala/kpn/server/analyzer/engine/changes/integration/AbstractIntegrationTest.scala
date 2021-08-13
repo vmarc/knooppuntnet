@@ -419,11 +419,11 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
     val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
 
-    val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database, null, true)
-    val nodeRepository: NodeRepository = new NodeRepositoryImpl(database, null, true)
-    val routeRepository: RouteRepository = new RouteRepositoryImpl(database, null, true)
-    val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database, null, true)
-    val changeSetInfoRepository: ChangeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database, null, true)
+    val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database, null)
+    val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+    val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+    val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
+    val changeSetInfoRepository: ChangeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
 
     private val taskRepository: TaskRepository = stub[TaskRepository]
     private val blackListRepository: BlackListRepository = stub[BlackListRepository]

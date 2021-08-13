@@ -24,7 +24,7 @@ object ChangeSetInfoTool {
           Mongo.executeIn(options.tasksDatabaseName) { database =>
             val taskRepository = new TaskRepositoryImpl(database)
             val changeSetInfoApi = new ChangeSetInfoApiImpl(Dirs().changeSets)
-            val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database, null, true)
+            val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
             new ChangeSetInfoTool(
               taskRepository,
               changeSetInfoApi,

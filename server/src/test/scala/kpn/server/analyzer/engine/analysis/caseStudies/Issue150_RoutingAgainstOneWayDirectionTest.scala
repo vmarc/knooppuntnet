@@ -19,7 +19,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val routeRepository = new RouteRepositoryImpl(database)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
       val routeAnalysis2 = CaseStudy.routeAnalysis("1029893")
 
@@ -72,7 +72,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database, null, true)
+      val routeRepository = new RouteRepositoryImpl(database)
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
       val routeAnalysis2 = CaseStudy.routeAnalysis("1029893")
 

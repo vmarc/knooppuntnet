@@ -41,10 +41,10 @@ object TileTool {
             val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
             val tileDataNodeBuilder = new TileDataNodeBuilderImpl(oldNodeAnalyzer)
             val tileAnalyzer = {
-              val networkRepository = new NetworkRepositoryImpl(database, null, true)
+              val networkRepository = new NetworkRepositoryImpl(database)
               val orphanRepository = new OrphanRepositoryImpl(database)
-              val nodeRepository = new NodeRepositoryImpl(database, null, true)
-              val routeRepository = new RouteRepositoryImpl(database, null, true)
+              val nodeRepository = new NodeRepositoryImpl(database)
+              val routeRepository = new RouteRepositoryImpl(database)
               new TileAnalyzerImpl(
                 networkRepository,
                 orphanRepository,

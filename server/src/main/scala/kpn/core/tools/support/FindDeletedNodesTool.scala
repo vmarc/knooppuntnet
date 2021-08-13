@@ -1,9 +1,9 @@
 package kpn.core.tools.support
 
 import kpn.core.data.DataBuilder
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
 import kpn.core.loadOld.Parser
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNodes
@@ -17,13 +17,13 @@ object FindDeletedNodesTool {
   def main(args: Array[String]): Unit = {
 
     if (args.length < 2) {
-      println("Usage: FindDeletedNodesTool host analysisDatabaseName")
+      println("Usage: FindDeletedNodesTool host databaseName")
       System.exit(-1)
     }
     val host = args(0)
-    val analysisDatabaseName = args(1)
+    val databaseName = args(1)
     val executor = new OverpassQueryExecutorImpl()
-    Couch.executeIn(host, analysisDatabaseName) { database =>
+    Mongo.executeIn(databaseName) { database =>
       new FindDeletedNodesTool(database, executor).report()
     }
   }
@@ -34,7 +34,7 @@ class FindDeletedNodesTool(
   executor: OverpassQueryExecutor
 ) {
 
-  private val nodeRepository = new NodeRepositoryImpl(null, database, false)
+  private val nodeRepository = new NodeRepositoryImpl(database)
 
   def report(): Unit = {
     println("Collecting node ids")

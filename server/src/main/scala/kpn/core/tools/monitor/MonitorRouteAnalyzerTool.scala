@@ -25,7 +25,7 @@ object MonitorRouteAnalyzerTool {
     Mongo.executeIn("kpn-test") { database =>
       val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
       val monitorAdminRouteRepository = new MonitorAdminRouteRepositoryImpl(database)
-      val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database, null, mongoEnabled = false)
+      val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
       val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerFileImpl()
       val monitorChangeProcessor = new MonitorChangeProcessorImpl(
         analyzerHistory = true,

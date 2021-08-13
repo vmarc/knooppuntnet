@@ -11,7 +11,7 @@ class PoiRelationIdViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repo = new PoiRepositoryImpl(null, database, false)
+      val repo = new PoiRepositoryImpl(null)
 
       repo.save(newPoi("relation", 1))
       repo.save(newPoi("relation", 2))

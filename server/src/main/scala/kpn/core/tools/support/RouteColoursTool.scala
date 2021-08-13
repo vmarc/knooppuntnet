@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
 
 /*
@@ -10,7 +10,7 @@ import kpn.server.repository.RouteRepositoryImpl
  */
 object RouteColoursTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("kpn-database", "analysis") { database =>
+    Mongo.executeIn("kpn-test") { database =>
       new RouteColoursTool(database).report()
     }
   }
@@ -33,7 +33,7 @@ class RouteColoursTool(database: Database) {
     "yellow"
   )
 
-  private val routeRepository = new RouteRepositoryImpl(null, database, false)
+  private val routeRepository = new RouteRepositoryImpl(database)
 
   def report(): Unit = {
     println("Collecting route ids")

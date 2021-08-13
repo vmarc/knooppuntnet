@@ -72,7 +72,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val dirs: Dirs = Dirs()
 
-  private val mongoEnabled = false
   private val mongoDatabase = Mongo.database(Mongo.client, "kpn-test")
 
   private val couchConfig = Couch.config
@@ -87,9 +86,9 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
   val countryAnalyzer = new CountryAnalyzerImpl()
 
-  val networkRepository = new NetworkRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
-  val routeRepository = new RouteRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
-  val nodeRepository = new NodeRepositoryImpl(mongoDatabase, analysisDatabase, mongoEnabled)
+  val networkRepository = new NetworkRepositoryImpl(mongoDatabase)
+  val routeRepository = new RouteRepositoryImpl(mongoDatabase)
+  val nodeRepository = new NodeRepositoryImpl(mongoDatabase)
 
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
@@ -129,7 +128,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val analysisData: AnalysisData = AnalysisData()
 
-  val changeSetRepository = new ChangeSetRepositoryImpl(null, changeDatabase, false)
+  val changeSetRepository = new ChangeSetRepositoryImpl(mongoDatabase, changeDatabase)
 
   private val blackListRepository = new BlackListRepositoryImpl(null, analysisDatabase, false)
 

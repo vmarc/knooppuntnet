@@ -12,7 +12,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("routeWithId") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -27,7 +27,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      new NetworkRepositoryImpl(null, database, false).oldSaveNetworkInfo(
+      new NetworkRepositoryImpl(null).oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(1,
             name = "network-name"
@@ -42,7 +42,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
       routeRepository.networkReferences(10, stale = false) should equal(
         Seq(Reference(NetworkType.hiking, NetworkScope.regional, 1, "network-name"))
       )
@@ -52,7 +52,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("save") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
 
       // first save
       routeRepository.save(newRoute(10, name = "01-02"))
@@ -90,7 +90,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
   test("filterKnown") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))

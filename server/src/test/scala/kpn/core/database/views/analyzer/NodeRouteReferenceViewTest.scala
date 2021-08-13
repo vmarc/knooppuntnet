@@ -14,7 +14,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   test("node references in route") {
 
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
       routeRepository.save(
         newRoute(
           id = 10,
@@ -76,7 +76,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
 
   test("node references in non-active orphan routes are ignored") {
     withCouchDatabase { database =>
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
       routeRepository.save(
         newRoute(
           id = 10,

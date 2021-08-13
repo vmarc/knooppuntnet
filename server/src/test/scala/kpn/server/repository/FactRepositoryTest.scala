@@ -22,7 +22,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null, database, false)
+      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null)
       networkRepository.oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(
@@ -107,7 +107,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null, database, false)
+      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null)
       networkRepository.oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(

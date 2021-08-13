@@ -21,8 +21,8 @@ class NodeRouteUpdaterTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val nodeRepository = new NodeRepositoryImpl(null, database, false)
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val nodeRepository = new NodeRepositoryImpl(null)
+      val routeRepository = new RouteRepositoryImpl(null)
       val nodeRouteRepository = new NodeRouteRepositoryImpl(null, database, false)
       val nodeRouteUpdater = new NodeRouteUpdaterImpl(nodeRouteRepository)
 

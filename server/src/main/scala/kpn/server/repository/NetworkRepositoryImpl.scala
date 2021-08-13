@@ -10,12 +10,7 @@ import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkRepositoryImpl(
-  database: Database,
-  // old
-  analysisDatabase: kpn.core.database.Database,
-  mongoEnabled: Boolean
-) extends NetworkRepository {
+class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
 
   private val log = Log(classOf[NetworkRepositoryImpl])
 

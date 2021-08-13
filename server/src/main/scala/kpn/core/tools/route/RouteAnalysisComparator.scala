@@ -19,7 +19,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeUtil
 
 class RouteAnalysisComparator {
 
-  private val log = Log(classOf[RouteAnalysisTool])
+  private val log = Log(classOf[RouteAnalysisComparator])
 
   def compareRouteInfos(oldRoute: RouteInfo, newRoute: RouteInfo): Unit = {
 

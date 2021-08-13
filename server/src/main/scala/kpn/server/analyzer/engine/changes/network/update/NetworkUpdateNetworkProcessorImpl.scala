@@ -27,11 +27,11 @@ class NetworkUpdateNetworkProcessorImpl(
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
   changeBuilder: ChangeBuilder
-) extends NetworkUpdateNetworkProcessor {
+) {
 
   private val log = Log(classOf[NetworkUpdateNetworkProcessorImpl])
 
-  override def process(
+  def process(
     context: ChangeSetContext,
     loadedNetworkBefore: LoadedNetwork,
     loadedNetworkAfter: LoadedNetwork

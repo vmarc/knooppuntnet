@@ -30,7 +30,7 @@ object PoiTileAnalyzerTool {
             val nonCachingExecutor = new OverpassQueryExecutorImpl()
             new PoiLoaderImpl(nonCachingExecutor)
           }
-          val poiRepository = new PoiRepositoryImpl(poiDatabase, null, mongoEnabled = false)
+          val poiRepository = new PoiRepositoryImpl(poiDatabase)
           val poiScopeAnalyzer = {
             val countryAnalyzer = new CountryAnalyzerImpl()
             new PoiScopeAnalyzerImpl(countryAnalyzer)

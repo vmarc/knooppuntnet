@@ -39,7 +39,7 @@ class PoiTileViewTest extends UnitTest with SharedTestObjects {
 
   private def setupData(database: Database): Unit = {
 
-    val repo = new PoiRepositoryImpl(null, database, false)
+    val repo = new PoiRepositoryImpl(null)
 
     repo.save(
       newPoi(

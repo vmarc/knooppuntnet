@@ -11,7 +11,7 @@ class PoiNodeIdViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repo = new PoiRepositoryImpl(null, database, false)
+      val repo = new PoiRepositoryImpl(null)
 
       repo.save(newPoi("node", 1001))
       repo.save(newPoi("node", 1002))

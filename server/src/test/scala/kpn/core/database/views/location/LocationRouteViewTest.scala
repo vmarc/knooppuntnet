@@ -23,7 +23,7 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
   test("route") {
     withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      val routeRepository = new RouteRepositoryImpl(null)
 
       routeRepository.save(
         newRoute(

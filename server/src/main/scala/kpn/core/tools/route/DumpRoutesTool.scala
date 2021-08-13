@@ -34,7 +34,7 @@ object DumpRoutesTool {
 class DumpRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
   private val log = Log(classOf[DumpRoutesTool])
-  private val routeRepository = new RouteRepositoryImpl(database, null, mongoEnabled = true)
+  private val routeRepository = new RouteRepositoryImpl(database)
 
   def run(): Unit = {
 

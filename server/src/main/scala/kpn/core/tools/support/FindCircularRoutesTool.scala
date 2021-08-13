@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
 
 object FindCircularRoutesTool {
@@ -12,7 +12,7 @@ object FindCircularRoutesTool {
     }
     val host = args(0)
     val analysisDatabaseName = args(1)
-    Couch.executeIn(host, analysisDatabaseName) { database =>
+    Mongo.executeIn(analysisDatabaseName) { database =>
       new FindCircularRoutesTool(database).report()
     }
   }
@@ -20,7 +20,7 @@ object FindCircularRoutesTool {
 
 class FindCircularRoutesTool(database: Database) {
 
-  private val routeRepository = new RouteRepositoryImpl(null, database, false)
+  private val routeRepository = new RouteRepositoryImpl(database)
 
   def report(): Unit = {
     println("Collecting route ids")

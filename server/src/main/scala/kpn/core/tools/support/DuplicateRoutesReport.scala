@@ -2,14 +2,13 @@ package kpn.core.tools.support
 
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
-import kpn.core.database.Database
-import kpn.core.database.views.analyzer.DocumentView
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("master1") { database =>
+    Mongo.executeIn("master1") { database =>
       new DuplicateRoutesReport(database).run()
     }
     println("Done")
@@ -36,7 +35,7 @@ class DuplicateRoutesReport(database: Database) {
 
   def run(): Unit = {
 
-    val routeIds = DocumentView.allRouteIds(database)
+    val routeIds = database.routes.ids()
     val routes = loadRoutes(routeIds)
 
     Country.all.foreach { country =>
@@ -79,7 +78,7 @@ class DuplicateRoutesReport(database: Database) {
   }
 
   private def loadRoutes(routeIds: Seq[Long]): Seq[RouteWays] = {
-    val routeRepository = new RouteRepositoryImpl(null, database, false)
+    val routeRepository = new RouteRepositoryImpl(database)
     routeIds.zipWithIndex.flatMap { case (routeId, index) =>
       if (index % 100 == 0) {
         println(s"${routeIds.size}/$index")

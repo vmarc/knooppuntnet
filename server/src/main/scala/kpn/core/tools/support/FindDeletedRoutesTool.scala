@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
@@ -20,7 +20,7 @@ object FindDeletedRoutesTool {
     val host = args(0)
     val analysisDatabaseName = args(1)
     val executor = new OverpassQueryExecutorImpl()
-    Couch.executeIn(host, analysisDatabaseName) { database =>
+    Mongo.executeIn(analysisDatabaseName) { database =>
       new FindDeletedRoutesTool(database, executor).report()
     }
   }
@@ -28,7 +28,7 @@ object FindDeletedRoutesTool {
 
 class FindDeletedRoutesTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
-  private val routeRepository = new RouteRepositoryImpl(null, database, false)
+  private val routeRepository = new RouteRepositoryImpl(database)
 
   def report(): Unit = {
     println("Collecting route ids")

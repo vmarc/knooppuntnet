@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
-import kpn.core.database.Database
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -14,7 +14,7 @@ object FindNetworksThatBecameRoutesTool {
     }
     val host = args(0)
     val analysisDatabaseName = args(1)
-    Couch.executeIn(host, analysisDatabaseName) { database =>
+    Mongo.executeIn(analysisDatabaseName) { database =>
       new FindNetworksThatBecameRoutesTool(database).report()
     }
   }
@@ -22,8 +22,8 @@ object FindNetworksThatBecameRoutesTool {
 
 class FindNetworksThatBecameRoutesTool(database: Database) {
 
-  private val networkRepository = new NetworkRepositoryImpl(null, database, false)
-  private val routeRepository = new RouteRepositoryImpl(null, database, false)
+  private val networkRepository = new NetworkRepositoryImpl(database)
+  private val routeRepository = new RouteRepositoryImpl(database)
 
   def report(): Unit = {
     println("Collecting network ids")

@@ -4,7 +4,6 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
-import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -36,8 +35,7 @@ import org.springframework.stereotype.Component
 class ChangeSetRepositoryImpl(
   database: Database,
   // old
-  changeDatabase: kpn.core.database.Database,
-  mongoEnabled: Boolean
+  changeDatabase: kpn.core.database.Database
 ) extends ChangeSetRepository {
 
   private val log = Log(classOf[ChangeSetRepositoryImpl])
@@ -165,42 +163,18 @@ class ChangeSetRepositoryImpl(
   }
 
   override def subsetChanges(subset: Subset, parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
-    if (mongoEnabled) {
-      new MongoQuerySubsetChanges(database).execute(subset, parameters)
-    }
-    else {
-      ChangesView.subsetChanges(changeDatabase, subset, parameters, stale)
-    }
+    new MongoQuerySubsetChanges(database).execute(subset, parameters)
   }
 
   override def networkChanges(networkId: Long, parameters: ChangesParameters, stale: Boolean): Seq[NetworkInfoChange] = {
-    if (mongoEnabled) {
-      new MongoQueryNetworkChanges(database).execute(networkId, parameters)
-    }
-    else {
-      ChangesView.networkChanges(changeDatabase, networkId, parameters, stale)
-    }
+    new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
 
   override def routeChanges(routeId: Long, parameters: ChangesParameters, stale: Boolean): Seq[RouteChange] = {
-    if (mongoEnabled) {
-      new MongoQueryRouteChanges(database).execute(routeId, parameters)
-    }
-    else {
-      ChangesView.routeChanges(changeDatabase, routeId, parameters, stale)
-    }
+    new MongoQueryRouteChanges(database).execute(routeId, parameters)
   }
 
   override def nodeChanges(nodeId: Long, parameters: ChangesParameters, stale: Boolean): Seq[NodeChange] = {
-    if (mongoEnabled) {
-      new MongoQueryNodeChanges(database).execute(nodeId, parameters)
-    }
-    else {
-      ChangesView.nodeChanges(changeDatabase, nodeId, parameters, stale)
-    }
-  }
-
-  private def docId(elementType: String, key: ChangeKey): String = {
-    s"change:${key.changeSetId}:${key.replicationNumber}:$elementType:${key.elementId}"
+    new MongoQueryNodeChanges(database).execute(nodeId, parameters)
   }
 }

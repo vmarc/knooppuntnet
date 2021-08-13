@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.poi.image
 import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.nio.JpegWriter
 import kpn.api.common.PoiAnalysis
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 import kpn.server.api.analysis.pages.poi.analyzers.PoiImageAnalyzer
@@ -29,8 +29,8 @@ object PoiImageRetrieverImpl {
 
   def main2(args: Array[String]): Unit = {
 
-    Couch.executeIn("kpn-server", "pois4") { database =>
-      val repo = new PoiRepositoryImpl(null, database, false)
+    Mongo.executeIn("kpn-test") { database =>
+      val repo = new PoiRepositoryImpl(database)
 
       val poiRefs = {
         val source = Source.fromFile("/kpn/tmp/pois.txt")

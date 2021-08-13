@@ -16,7 +16,7 @@ object PoiTileTaskTool {
       case Some(options) =>
 
         Mongo.executeIn(options.poiDatabaseName) { database =>
-          val poiRepository = new PoiRepositoryImpl(database, null, mongoEnabled = false)
+          val poiRepository = new PoiRepositoryImpl(database)
           val taskRepository = new TaskRepositoryImpl(database)
           val tool = new PoiTileTaskTool(poiRepository, taskRepository)
           tool.generateTasks()

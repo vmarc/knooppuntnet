@@ -22,7 +22,7 @@ object PoiTileUpdateTool {
           val tool = {
             val poiTileBuilder = {
               val tileBuilder = new PoiVectorTileBuilder()
-              val poiRepository = new PoiRepositoryImpl(database, null, mongoEnabled = false)
+              val poiRepository = new PoiRepositoryImpl(database)
               val tileCalculator = new TileCalculatorImpl()
               val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
               new PoiTileBuilderImpl(

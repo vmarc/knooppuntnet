@@ -30,7 +30,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
         new NodeRouteUpdaterImpl(nodeRouteRepository)
       }
 
-      val repo = new NodeRepositoryImpl(null, database, false)
+      val repo = new NodeRepositoryImpl(null)
 
       repo.save(
         newNodeDoc(
@@ -87,7 +87,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
 
     withCouchDatabase { database =>
 
-      val repo = new RouteRepositoryImpl(null, database, false)
+      val repo = new RouteRepositoryImpl(null)
       repo.save(
         newRouteInfo(
           summary = newRouteSummary(

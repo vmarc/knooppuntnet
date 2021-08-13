@@ -28,7 +28,7 @@ class NetworkCreateWatchedProcessorImpl(
   networkRelationAnalyzer: NetworkRelationAnalyzer,
   networkAnalyzer: NetworkAnalyzer,
   changeBuilder: ChangeBuilder
-) extends NetworkCreateWatchedProcessor {
+) {
 
   def process(context: ChangeSetContext, loadedNetworkAfter: LoadedNetwork): ChangeSetChanges = {
 

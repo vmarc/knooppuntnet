@@ -1,14 +1,14 @@
 package kpn.core.tools.poi
 
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.util.Mongo
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
 object PoiExplorerTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("pois4") { database =>
-      val repo = new PoiRepositoryImpl(null, database, false)
+    Mongo.executeIn("pois4") { database =>
+      val repo = new PoiRepositoryImpl(database)
       val poiRefs = loadPoiRefs(repo)
       val tagValues = poiRefs.zipWithIndex.flatMap { case (poiRef, index) =>
         if (index % 1000 == 0) {
