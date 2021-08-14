@@ -1,7 +1,6 @@
 package kpn.server.analyzer.load
 
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
@@ -32,9 +31,9 @@ class AnalysisDataInitializerImpl(
   private def loadWatchedNetworks(): Int = {
     log.infoElapsed {
       networkRepository.activeNetworkIds().foreach { networkId =>
-        analysisContext.data.networks.watched.add(networkId, ElementIds())
+        analysisContext.watched.networks.add(networkId)
       }
-      val networkCount = analysisContext.data.networks.watched.size
+      val networkCount = analysisContext.watched.networks.size
       (s"$networkCount networks", networkCount)
     }
   }
@@ -42,9 +41,9 @@ class AnalysisDataInitializerImpl(
   private def loadWatchedRoutes(): Int = {
     log.infoElapsed {
       routeRepository.activeRouteElementIds().foreach { routeElementIds =>
-        analysisContext.data.routes.watched.add(routeElementIds._id, routeElementIds.elementIds)
+        analysisContext.watched.routes.add(routeElementIds._id, routeElementIds.elementIds)
       }
-      val routeCount = analysisContext.data.routes.watched.size
+      val routeCount = analysisContext.watched.routes.size
       (s"$routeCount routes", routeCount)
     }
   }
@@ -52,9 +51,9 @@ class AnalysisDataInitializerImpl(
   private def loadWatchedNodes(): Int = {
     log.infoElapsed {
       nodeRepository.activeNodeIds().foreach { nodeId =>
-        analysisContext.data.nodes.watched.add(nodeId)
+        analysisContext.watched.nodes.add(nodeId)
       }
-      val nodeCount = analysisContext.data.nodes.watched.size
+      val nodeCount = analysisContext.watched.nodes.size
       (s"$nodeCount counts", nodeCount)
     }
   }

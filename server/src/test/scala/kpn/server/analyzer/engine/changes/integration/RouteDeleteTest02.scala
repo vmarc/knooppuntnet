@@ -15,7 +15,7 @@ class RouteDeleteTest02 extends AbstractIntegrationTest with SharedTestObjects {
 
       tc.process(ChangeAction.Delete, newRawRelation(11))
 
-      assert(!tc.analysisContext.data.routes.watched.contains(11))
+      assert(!tc.analysisContext.watched.routes.contains(11))
 
       assert(database.routes.findAll().isEmpty)
       assert(database.changeSetSummaries.findAll().isEmpty)

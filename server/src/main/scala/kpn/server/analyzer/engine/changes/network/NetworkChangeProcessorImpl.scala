@@ -83,7 +83,7 @@ class NetworkChangeProcessorImpl(
 
   def processCreate(context: ChangeSetContext, after: RawRelation): NetworkChange = {
 
-    analysisContext.data.networks.watched.add(after.id, ElementIds())
+    analysisContext.watched.networks.add(after.id)
     database.networks.save(NetworkDoc.from(after))
 
     val key = context.buildChangeKey(after.id)
@@ -101,7 +101,7 @@ class NetworkChangeProcessorImpl(
   }
 
   def processDelete(context: ChangeSetContext, before: RawRelation): NetworkChange = {
-    analysisContext.data.networks.watched.delete(before.id)
+    analysisContext.watched.networks.delete(before.id)
     database.networks.save(
       NetworkDoc(
         before.id,
@@ -129,7 +129,7 @@ class NetworkChangeProcessorImpl(
   }
 
   def processUpdate(context: ChangeSetContext, before: RawRelation, after: RawRelation): NetworkChange = {
-    analysisContext.data.networks.watched.add(after.id, ElementIds())
+    analysisContext.watched.networks.add(after.id)
     database.networks.save(NetworkDoc.from(after))
     val key = context.buildChangeKey(after.id)
 

@@ -83,7 +83,7 @@ class NodeChangeAnalyzerImpl(
   }
 
   private def isKnownNode(nodeId: Long): Boolean = {
-    analysisContext.data.nodes.watched.contains(nodeId)
+    analysisContext.watched.nodes.contains(nodeId)
   }
 
   private def isBlackListed(node: RawNode): Boolean = {

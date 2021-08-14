@@ -13,11 +13,9 @@ class NetworkDeleteTest02 extends AbstractIntegrationTest {
 
       val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
 
-      tc.analysisContext.data.networks.watched.add(1, ElementIds())
-
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!tc.analysisContext.data.networks.watched.contains(1))
+      assert(!tc.analysisContext.watched.networks.contains(1))
 
       assert(database.networks.findAll().isEmpty)
       assert(database.networkInfos.findAll().isEmpty)

@@ -61,7 +61,7 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
-      tc.analysisContext.data.networks.watched.add(1, RelationAnalyzer.toElementIds(tc.beforeRelationWithId(1)))
+      tc.analysisContext.watched.networks.add(1)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 

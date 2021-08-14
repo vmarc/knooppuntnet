@@ -1,16 +1,14 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.server.analyzer.engine.changes.data.AnalysisData
-import kpn.server.analyzer.engine.changes.data.AnalysisDataDetail
-import kpn.server.analyzer.engine.changes.data.AnalysisDataNodes
-import kpn.server.analyzer.engine.changes.data.NodesData
+import kpn.server.analyzer.engine.changes.data.ElementIdSet
+import kpn.server.analyzer.engine.changes.data.Watched
 
 class AnalysisDataDiffReporter {
 
-  def report(left: AnalysisData, right: AnalysisData): Seq[String] = {
-    val differences = diff("Network", left.networks, right.networks) ++
+  def report(left: Watched, right: Watched): Seq[String] = {
+    val differences = elementIdDiff("Network", left.networks, right.networks) ++
       diff("Route", left.routes, right.routes) ++
-      orphanNodeDiff(left.nodes, right.nodes)
+      elementIdDiff("Node", left.nodes, right.nodes)
 
     if (differences.isEmpty) {
       Seq("No differences")
@@ -20,8 +18,8 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def diff(title: String, left: AnalysisDataDetail, right: AnalysisDataDetail): Seq[String] = {
-    val differences = dataDiff("watched", left.watched, right.watched)
+  private def diff(title: String, left: ElementIdMap, right: ElementIdMap): Seq[String] = {
+    val differences = dataDiff("watched", left, right)
     if (differences.nonEmpty) {
       Seq(s"$title differences:") ++ differences
     } else {
@@ -89,17 +87,7 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def orphanNodeDiff(left: AnalysisDataNodes, right: AnalysisDataNodes): Seq[String] = {
-    val differences = orphanNodeDiff("watched", left.watched, right.watched)
-    if (differences.nonEmpty) {
-      Seq("Orphan node differences:") ++ differences
-    }
-    else {
-      Seq.empty
-    }
-  }
-
-  private def orphanNodeDiff(title: String, left: NodesData, right: NodesData): Seq[String] = {
+  private def elementIdDiff(title: String, left: ElementIdSet, right: ElementIdSet): Seq[String] = {
     if (left.ids.isEmpty && right.ids.isEmpty) {
       Seq.empty
     }

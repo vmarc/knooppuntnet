@@ -38,7 +38,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of an existing node") {
     val setup = new Setup()
-    setup.analysisContext.data.nodes.watched.add(1001L)
+    setup.analysisContext.watched.nodes.add(1001L)
     val change = Change(Modify, Seq(createNode(1001L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -49,7 +49,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Delete' of an existing node") {
     val setup = new Setup()
-    setup.analysisContext.data.nodes.watched.add(1001L)
+    setup.analysisContext.watched.nodes.add(1001L)
     val change = Change(Delete, Seq(newRawNode(1001L)))
     setup.analyze(change) should matchTo(
       ElementChanges(

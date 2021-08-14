@@ -38,7 +38,7 @@ class OrphanRouteProcessorImpl(
           }
 
           val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
-          analysisContext.data.routes.watched.add(loadedRoute.id, elementIds)
+          analysisContext.watched.routes.add(loadedRoute.id, elementIds)
           ("orphan route analysis", Some(analysis))
         }
         catch {

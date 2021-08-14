@@ -70,12 +70,12 @@ class NetworkDeleteRouteTest02 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!tc.analysisContext.data.networks.watched.contains(1))
-      assert(tc.analysisContext.data.networks.watched.contains(2))
-      assert(!tc.analysisContext.data.routes.watched.contains(11))
+      assert(!tc.analysisContext.watched.networks.contains(1))
+      assert(tc.analysisContext.watched.networks.contains(2))
+      assert(!tc.analysisContext.watched.routes.contains(11))
 
-      assert(!tc.analysisContext.data.nodes.watched.contains(1001))
-      assert(!tc.analysisContext.data.nodes.watched.contains(1002))
+      assert(!tc.analysisContext.watched.nodes.contains(1001))
+      assert(!tc.analysisContext.watched.nodes.contains(1002))
 
       assertNetworkInfo(tc)
       assertNetworkInfoChange(tc)

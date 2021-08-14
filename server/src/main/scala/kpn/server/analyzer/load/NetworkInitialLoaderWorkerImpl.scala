@@ -53,6 +53,6 @@ class NetworkInitialLoaderWorkerImpl(
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(loadedNetwork.relation)
     val network = networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
     analysisRepository.saveNetwork(network)
-    analysisContext.data.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
+    analysisContext.watched.networks.add(loadedNetwork.networkId)
   }
 }

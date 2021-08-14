@@ -62,8 +62,8 @@ class NodeChangeBuilderImpl(
       val nodeId = nodeAfter.id
 
       val extraFacts = Seq(
-        if (analysisContext.data.nodes.watched.contains(nodeId)) {
-          analysisContext.data.nodes.watched.delete(nodeId)
+        if (analysisContext.watched.nodes.contains(nodeId)) {
+          analysisContext.watched.nodes.delete(nodeId)
           Some(Fact.WasOrphan)
         } else {
           None
@@ -305,7 +305,7 @@ class NodeChangeBuilderImpl(
                 case None => Seq.empty
                 case Some(nodeAfterAnalysis) =>
                   nodeRepository.save(nodeAfterAnalysis.toNodeDoc)
-                  analysisContext.data.nodes.watched.add(after.id)
+                  analysisContext.watched.nodes.add(after.id)
                   Seq(Fact.BecomeOrphan)
               }
             }
@@ -406,8 +406,8 @@ class NodeChangeBuilderImpl(
         }
 
         val extraFacts = Seq(
-          if (analysisContext.data.nodes.watched.contains(nodeId)) {
-            analysisContext.data.nodes.watched.delete(nodeId)
+          if (analysisContext.watched.nodes.contains(nodeId)) {
+            analysisContext.watched.nodes.delete(nodeId)
             Some(Fact.WasOrphan)
           } else {
             None
@@ -482,7 +482,7 @@ class NodeChangeBuilderImpl(
   }
 
   private def isReferencedNode(nodeId: Long): Boolean = {
-    analysisContext.data.networks.isReferencingNode(nodeId) || analysisContext.data.routes.watched.isReferencingNode(nodeId)
+    analysisContext.watched.routes.isReferencingNode(nodeId)
   }
 
   private def nodeIdsIn(network: Option[Network]): Set[Long] = {

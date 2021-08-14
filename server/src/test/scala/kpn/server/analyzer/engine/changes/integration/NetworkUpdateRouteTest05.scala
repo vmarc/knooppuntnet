@@ -68,16 +68,9 @@ class NetworkUpdateRouteTest05 extends AbstractIntegrationTest {
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
-      // before:
-      assert(!tc.analysisContext.data.networks.watched.isReferencingRelation(11))
-      assert(tc.analysisContext.data.routes.watched.contains(11))
-
-      // act:
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      // after:
-      assert(tc.analysisContext.data.networks.watched.isReferencingRelation(11))
-      assert(!tc.analysisContext.data.routes.watched.contains(11))
+      assert(!tc.analysisContext.watched.routes.contains(11))
 
       assertNetwork(tc)
       assertNetworkInfo(tc)

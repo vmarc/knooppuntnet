@@ -42,7 +42,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.changes.data.Watched
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -126,7 +126,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 
-  val analysisData: AnalysisData = AnalysisData()
+  val analysisData: Watched = Watched()
 
   val changeSetRepository = new ChangeSetRepositoryImpl(mongoDatabase, changeDatabase)
 

@@ -73,7 +73,7 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Modify, dataAfter.rawNodeWithId(1002))
 
-      assert(tc.analysisContext.data.networks.watched.contains(1))
+      assert(tc.analysisContext.watched.networks.contains(1))
 
       assertNetwork(tc)
       assertNetworkInfo(tc)

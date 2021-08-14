@@ -107,7 +107,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
           val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)
           val network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
           config.analysisRepository.saveNetwork(network)
-          config.analysisContext.data.networks.watched.add(loadedNetwork.networkId, networkRelationAnalysis.elementIds)
+          config.analysisContext.watched.networks.add(loadedNetwork.networkId)
           loadNetworkChange(network)
           loadNetworkRouteChanges(network)
           loadNetworkNodeChanges(network)
@@ -160,7 +160,7 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         }
 
         val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
-        config.analysisContext.data.routes.watched.add(loadedRoute.id, elementIds)
+        config.analysisContext.watched.routes.add(loadedRoute.id, elementIds)
     }
   }
 

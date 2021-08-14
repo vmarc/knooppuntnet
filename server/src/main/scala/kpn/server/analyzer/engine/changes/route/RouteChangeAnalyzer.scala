@@ -34,7 +34,7 @@ class RouteChangeAnalyzer(
     val routeCreateIds2 = updatedRouteIds.filterNot(isKnownRoute)
 
     val routeUpdateIds1 = elementIdAnalyzer.referencedBy(
-      analysisContext.data.routes.watched,
+      analysisContext.watched.routes,
       context.elementIds
     )
 
@@ -72,7 +72,7 @@ class RouteChangeAnalyzer(
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {
-    analysisContext.data.routes.watched.contains(routeId)
+    analysisContext.watched.routes.contains(routeId)
   }
 
   private def isBlackListed(routeId: Long): Boolean = {

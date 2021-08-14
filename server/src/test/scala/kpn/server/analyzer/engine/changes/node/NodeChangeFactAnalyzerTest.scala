@@ -61,7 +61,7 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("WasOrphan") {
     val context = new AnalysisContext()
-    context.data.nodes.watched.add(1)
+    context.watched.nodes.add(1)
     val before = newRawNode()
     val after = newRawNode()
 
@@ -73,7 +73,7 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("Orphan node that remains orphan") {
     val context = new AnalysisContext()
-    context.data.nodes.watched.add(1001)
+    context.watched.nodes.add(1001)
     val before = newRawNodeWithName(1001, "01")
     val after = newRawNodeWithName(1001, "01")
 

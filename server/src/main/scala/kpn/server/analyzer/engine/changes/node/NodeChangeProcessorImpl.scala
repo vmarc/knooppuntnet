@@ -101,7 +101,7 @@ class NodeChangeProcessorImpl(
 
   private def processCreate(context: ChangeSetContext, nodeDoc: NodeDoc, action: ChangeAction): Option[NodeChange] = {
 
-    analysisContext.data.nodes.watched.add(nodeDoc._id)
+    analysisContext.watched.nodes.add(nodeDoc._id)
     val key = context.buildChangeKey(nodeDoc._id)
     val subsets = nodeDoc.country.toSeq.flatMap { country =>
       nodeDoc.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType))
@@ -151,7 +151,7 @@ class NodeChangeProcessorImpl(
     ).flatten
 
     if (!TagInterpreter.isNetworkNode(nodeDocAfter.tags)) {
-      analysisContext.data.nodes.watched.delete(nodeDocBefore._id)
+      analysisContext.watched.nodes.delete(nodeDocBefore._id)
       val deletedNodeDoc = nodeDocAfter.copy(
         active = false,
         labels = nodeDocAfter.labels.filterNot(label =>
@@ -213,7 +213,7 @@ class NodeChangeProcessorImpl(
 
   private def processDelete(context: ChangeSetContext, nodeDoc: NodeDoc): Option[NodeChange] = {
 
-    analysisContext.data.nodes.watched.delete(nodeDoc._id)
+    analysisContext.watched.nodes.delete(nodeDoc._id)
 
     val deletedNodeDoc = nodeDoc.copy(
       active = false,

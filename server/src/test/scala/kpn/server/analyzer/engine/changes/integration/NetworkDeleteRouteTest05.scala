@@ -50,14 +50,14 @@ class NetworkDeleteRouteTest05 extends AbstractIntegrationTest {
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
       // network 1 is no longer in memory
-      assert(!tc.analysisContext.data.networks.watched.contains(1))
+      assert(!tc.analysisContext.watched.networks.contains(1))
 
-      assert(tc.analysisContext.data.routes.watched.contains(11)) // network 1 was removed, route no longer referenced
-      assert(!tc.analysisContext.data.routes.watched.contains(12)) // network 1 was removed, but route still referenced in network 2
+      assert(tc.analysisContext.watched.routes.contains(11)) // network 1 was removed, route no longer referenced
+      assert(!tc.analysisContext.watched.routes.contains(12)) // network 1 was removed, but route still referenced in network 2
 
-      assert(!tc.analysisContext.data.nodes.watched.contains(1001))
-      assert(!tc.analysisContext.data.nodes.watched.contains(1002)) // still referenced in orphan route
-      assert(!tc.analysisContext.data.nodes.watched.contains(1003))
+      assert(!tc.analysisContext.watched.nodes.contains(1001))
+      assert(!tc.analysisContext.watched.nodes.contains(1002)) // still referenced in orphan route
+      assert(!tc.analysisContext.watched.nodes.contains(1003))
 
       tc.findNetworkInfoById(1) should matchTo(
         newNetworkInfoDoc(

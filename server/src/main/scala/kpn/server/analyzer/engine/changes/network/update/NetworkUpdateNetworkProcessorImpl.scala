@@ -59,7 +59,7 @@ class NetworkUpdateNetworkProcessorImpl(
     val networkAfter = networkAnalyzer.analyze(networkRelationAnalysisAfter, loadedNetworkAfter)
     val snapshotAfter = NetworkSnapshot(context.timestampAfter, loadedNetworkAfter.data, networkAfter)
 
-    analysisContext.data.networks.watched.add(networkId, networkRelationAnalysisAfter.elementIds)
+    analysisContext.watched.networks.add(networkId)
     analysisRepository.saveNetwork(snapshotAfter.network)
 
     val networkDiff = new NetworkDiffAnalyzer(snapshotBefore, snapshotAfter).diff

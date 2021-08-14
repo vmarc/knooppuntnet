@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.changes.route
 import kpn.api.custom.Fact
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.changes.data.Watched
 
 class RouteFactAnalyzer(
-  analysisData: AnalysisData
+  analysisData: Watched
 ) {
 
   def facts(before: Option[RouteAnalysis], after: RouteAnalysis): Seq[Fact] = {
@@ -21,7 +21,7 @@ class RouteFactAnalyzer(
   }
 
   private def wasOrphan(after: RouteAnalysis) = {
-    analysisData.routes.watched.contains(after.id)
+    analysisData.routes.contains(after.id)
   }
 
   private def hasRouteTags(routeAnalysis: RouteAnalysis): Boolean = {

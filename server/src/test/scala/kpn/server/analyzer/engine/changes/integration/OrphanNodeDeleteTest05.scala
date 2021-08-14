@@ -28,7 +28,7 @@ class OrphanNodeDeleteTest05 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Delete, dataBefore.rawNodeWithId(1001))
 
-      assert(!tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(!tc.analysisContext.watched.nodes.contains(1001))
       assert(database.nodes.findAll().isEmpty)
       assert(database.nodeChanges.findAll().isEmpty)
       assert(database.changeSetSummaries.findAll().isEmpty)

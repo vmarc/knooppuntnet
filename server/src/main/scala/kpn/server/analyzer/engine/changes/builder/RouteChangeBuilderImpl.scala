@@ -52,8 +52,8 @@ class RouteChangeBuilderImpl(
       val routeId = analysisAfter.id
 
       val extraFacts = Seq(
-        if (analysisContext.data.routes.watched.contains(routeId)) {
-          analysisContext.data.routes.watched.delete(routeId)
+        if (analysisContext.watched.routes.contains(routeId)) {
+          analysisContext.watched.routes.delete(routeId)
           Seq(Fact.WasOrphan)
         }
         else {
@@ -205,77 +205,46 @@ class RouteChangeBuilderImpl(
     val routeId = analysisBefore.id
     val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
 
-    val facts = new RouteFactAnalyzer(analysisContext.data).facts(Some(analysisBefore), analysisAfter).filter(f => f == Fact.LostRouteTags)
+    val facts = new RouteFactAnalyzer(analysisContext.watched).facts(Some(analysisBefore), analysisAfter).filter(f => f == Fact.LostRouteTags)
 
-    if (analysisContext.data.networks.isReferencingRelation(routeId)) {
-      throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-      val impactedNodeIds: Seq[Long] = Seq.empty
-      val key = context.changeSetContext.buildChangeKey(routeId)
-      Some(
-        RouteChangeStateAnalyzer.analyzed(
-          RouteChange(
-            _id = key.toId,
-            key = key,
-            changeType = ChangeType.Update,
-            name = analysisAfter.name,
-            locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
-            addedToNetwork = Seq.empty,
-            removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
-            before = Some(analysisBefore.toRouteData),
-            after = Some(analysisAfter.toRouteData),
-            removedWays = routeUpdate.removedWays,
-            addedWays = routeUpdate.addedWays,
-            updatedWays = routeUpdate.updatedWays,
-            diffs = routeUpdate.diffs,
-            facts = facts,
-            impactedNodeIds
-          )
+    val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
+    analysisContext.watched.routes.add(routeId, elementIds)
+
+    routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
+
+    //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
+    //          val country = countryAnalyzer.country(Seq(routeNode.node))
+    //          val loadedNode = LoadedNode.from(country, routeNode.node.raw)
+    //          val nodeInfo = NodeInfoBuilder.fromLoadedNode(loadedNode)
+    //          analysisRepository.saveNode(nodeInfo)
+    //        }
+
+    tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
+    throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
+    val impactedNodeIds: Seq[Long] = Seq.empty
+
+    val key = context.changeSetContext.buildChangeKey(routeId)
+    Some(
+      RouteChangeStateAnalyzer.analyzed(
+        RouteChange(
+          _id = key.toId,
+          key = key,
+          changeType = ChangeType.Update,
+          name = analysisAfter.name,
+          locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
+          addedToNetwork = Seq.empty,
+          removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
+          before = Some(analysisBefore.toRouteData),
+          after = Some(analysisAfter.toRouteData),
+          removedWays = Seq.empty, // routeUpdate.removedWays,
+          addedWays = Seq.empty, // routeUpdate.addedWays,
+          updatedWays = Seq.empty, // routeUpdate.updatedWays,
+          diffs = RouteDiff(), // routeUpdate.diffs,
+          facts = facts :+ Fact.BecomeOrphan,
+          impactedNodeIds
         )
       )
-    }
-    else {
-
-      val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
-      analysisContext.data.routes.watched.add(routeId, elementIds)
-
-      routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
-
-      //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
-      //          val country = countryAnalyzer.country(Seq(routeNode.node))
-      //          val loadedNode = LoadedNode.from(country, routeNode.node.raw)
-      //          val nodeInfo = NodeInfoBuilder.fromLoadedNode(loadedNode)
-      //          analysisRepository.saveNode(nodeInfo)
-      //        }
-
-      val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
-
-      tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
-      throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-      val impactedNodeIds: Seq[Long] = Seq.empty
-
-      val key = context.changeSetContext.buildChangeKey(routeId)
-      Some(
-        RouteChangeStateAnalyzer.analyzed(
-          RouteChange(
-            _id = key.toId,
-            key = key,
-            changeType = ChangeType.Update,
-            name = analysisAfter.name,
-            locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
-            addedToNetwork = Seq.empty,
-            removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
-            before = Some(analysisBefore.toRouteData),
-            after = Some(analysisAfter.toRouteData),
-            removedWays = routeUpdate.removedWays,
-            addedWays = routeUpdate.addedWays,
-            updatedWays = routeUpdate.updatedWays,
-            diffs = routeUpdate.diffs,
-            facts = facts :+ Fact.BecomeOrphan,
-            impactedNodeIds
-          )
-        )
-      )
-    }
+    )
   }
 
   private def routeChangesUpdated(context: ChangeBuilderContext, routeIds: Set[Long]): Seq[RouteChange] = {

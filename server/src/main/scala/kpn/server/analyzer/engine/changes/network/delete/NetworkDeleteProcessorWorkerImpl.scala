@@ -45,7 +45,7 @@ class NetworkDeleteProcessorWorkerImpl(
 
   private def doProcess(context: ChangeSetContext, networkId: Long): ChangeSetChanges = {
     try {
-      analysisContext.data.networks.watched.delete(networkId)
+      analysisContext.watched.networks.delete(networkId)
       networkLoader.load(Some(context.timestampBefore), networkId) match {
         case None =>
           log.error(

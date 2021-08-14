@@ -13,7 +13,6 @@ import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -47,7 +46,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of known network relation") {
     val setup = new Setup()
-    setup.analysisContext.data.networks.watched.add(1L, ElementIds())
+    setup.analysisContext.watched.networks.add(1L)
     val change = Change(Modify, Seq(buildNetwork(1L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -58,7 +57,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of route in known network") {
     val setup = new Setup()
-    setup.analysisContext.data.networks.watched.add(1L, ElementIds(relationIds = Set(11L)))
+    setup.analysisContext.watched.networks.add(1L)
     val change = Change(Modify, Seq(newRawRelation(11L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -69,7 +68,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of node in known network") {
     val setup = new Setup()
-    setup.analysisContext.data.networks.watched.add(1L, ElementIds(nodeIds = Set(1001L)))
+    setup.analysisContext.watched.networks.add(1L)
     val change = Change(Modify, Seq(newRawNode(1001L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -80,7 +79,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Delete' known network") {
     val setup = new Setup()
-    setup.analysisContext.data.networks.watched.add(1L, ElementIds())
+    setup.analysisContext.watched.networks.add(1L)
     val change = Change(Delete, Seq(buildNetwork(1L)))
     setup.analyze(change) should matchTo(
       ElementChanges(

@@ -27,7 +27,7 @@ class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 
-      assert(tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(tc.analysisContext.watched.nodes.contains(1001))
 
       assertNode(tc)
       assertNodeChange(tc)

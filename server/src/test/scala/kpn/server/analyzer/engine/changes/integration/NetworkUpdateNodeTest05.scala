@@ -51,16 +51,9 @@ class NetworkUpdateNodeTest05 extends AbstractIntegrationTest {
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
-      // before:
-      assert(tc.analysisContext.data.networks.watched.isReferencingNode(1002))
-      assert(!tc.analysisContext.data.nodes.watched.contains(1001))
-
-      // act:
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      // after:
-      assert(!tc.analysisContext.data.networks.watched.isReferencingNode(1002))
-      assert(!tc.analysisContext.data.nodes.watched.contains(1001))
+      assert(!tc.analysisContext.watched.nodes.contains(1001))
 
       val networkDoc = tc.findNetworkById(1)
       networkDoc._id should equal(1)

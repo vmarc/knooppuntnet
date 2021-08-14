@@ -28,7 +28,7 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
 
   private def wasOrphan(before: RawNode, after: RawNode) = {
     !TagInterpreter.isValidNetworkNode(after) &&
-      analysisContext.data.nodes.watched.contains(before.id)
+      analysisContext.watched.nodes.contains(before.id)
   }
 
   private def test(fact: Fact, exists: Boolean): Seq[Fact] = {

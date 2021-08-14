@@ -94,7 +94,7 @@ class _ObsoleteNodeChangeProcessorImpl(
 
     data.after.flatMap { node =>
       nodeAnalyzer.analyze(NodeAnalysis(node.raw)).map { nodeAnalysis =>
-        analysisContext.data.nodes.watched.add(data.nodeId)
+        analysisContext.watched.nodes.add(data.nodeId)
         nodeRepository.save(nodeAnalysis.toNodeDoc)
         val key = context.buildChangeKey(node.id)
         analyzed(
@@ -150,7 +150,7 @@ class _ObsoleteNodeChangeProcessorImpl(
             // val isNetworkNodeX = TagInterpreter.isValidNetworkNode(after.raw)
 
             if (lostNodeTagFacts.nonEmpty) {
-              analysisContext.data.nodes.watched.delete(data.nodeId)
+              analysisContext.watched.nodes.delete(data.nodeId)
             }
 
             nodeAnalyzer.analyze(NodeAnalysis(before.raw)) match {
@@ -238,7 +238,7 @@ class _ObsoleteNodeChangeProcessorImpl(
 
   private def processDelete(context: ChangeSetContext, data: NodeChangeData): Option[NodeChange] = {
 
-    analysisContext.data.nodes.watched.delete(data.nodeId)
+    analysisContext.watched.nodes.delete(data.nodeId)
 
     data.before match {
       case None =>

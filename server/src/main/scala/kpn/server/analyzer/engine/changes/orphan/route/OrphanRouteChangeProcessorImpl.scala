@@ -121,7 +121,7 @@ class OrphanRouteChangeProcessorImpl(
           val routeUpdate = new RouteDiffAnalyzer(beforeRouteAnalysis, afterRouteAnalysis).analysis
 
           if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-            analysisContext.data.routes.watched.delete(routeUpdate.id)
+            analysisContext.watched.routes.delete(routeUpdate.id)
           }
 
           val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
@@ -167,7 +167,7 @@ class OrphanRouteChangeProcessorImpl(
 
     routeIds.flatMap { routeId =>
 
-      analysisContext.data.routes.watched.delete(routeId)
+      analysisContext.watched.routes.delete(routeId)
 
       loadedRoutes.find(_.id == routeId) match {
         case None =>

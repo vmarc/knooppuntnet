@@ -33,7 +33,7 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!tc.analysisContext.data.networks.watched.contains(1))
+      assert(!tc.analysisContext.watched.networks.contains(1))
 
       tc.findNetworkInfoById(1) should matchTo(
         newNetworkInfoDoc(

@@ -31,7 +31,7 @@ class OrphanRouteChangeAnalyzer(
     val routeCreateIds1 = createdRouteIds.filterNot(isKnownRoute)
     val routeCreateIds2 = updatedRouteIds.filterNot(isKnownRoute)
 
-    val routeUpdateIds1 = analysisContext.data.routes.watched.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
+    val routeUpdateIds1 = analysisContext.watched.routes.referencedBy(ChangeSetBuilder.elementIdsIn(changeSet)).toSet
     val routeUpdateIds2 = updatedRouteIds.filter(isKnownOrphanRoute)
 
     val deletes = {
@@ -72,12 +72,11 @@ class OrphanRouteChangeAnalyzer(
   }
 
   private def isKnownRoute(routeId: Long): Boolean = {
-    isKnownOrphanRoute(routeId) ||
-      analysisContext.data.networks.watched.isReferencingRelation(routeId)
+    isKnownOrphanRoute(routeId)
   }
 
   private def isKnownOrphanRoute(routeId: Long): Boolean = {
-    analysisContext.data.routes.watched.contains(routeId)
+    analysisContext.watched.routes.contains(routeId)
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {

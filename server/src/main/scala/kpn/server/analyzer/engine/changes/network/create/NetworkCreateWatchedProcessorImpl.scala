@@ -37,7 +37,7 @@ class NetworkCreateWatchedProcessorImpl(
 
     analysisRepository.saveNetwork(networkAfter)
 
-    analysisContext.data.networks.watched.add(loadedNetworkAfter.networkId, networkRelationAnalysis.elementIds)
+    analysisContext.watched.networks.add(loadedNetworkAfter.networkId)
 
     val addedNetworkNodes: Seq[NetworkNodeData] = {
       networkAfter.nodes.map { networkNodeInfo =>

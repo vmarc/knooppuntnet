@@ -93,7 +93,7 @@ class UnreferencedNodeProcessorImpl(
           val tagDiffs = new NodeTagDiffAnalyzer(before, after).diffs
           val nodeMoved = new NodeMovedAnalyzer(before, after).analysis
 
-          analysisContext.data.nodes.watched.delete(before.id)
+          analysisContext.watched.nodes.delete(before.id)
 
           val key = context.buildChangeKey(nodeBefore.id)
 
@@ -178,7 +178,7 @@ class UnreferencedNodeProcessorImpl(
 
   private def furtherProcess(context: ChangeSetContext, nodeBefore: NetworkNodeInfo, nodeAfter: LoadedNode, changeFacts: Seq[Fact]): Option[NodeChange] = {
 
-    analysisContext.data.nodes.watched.add(nodeBefore.id)
+    analysisContext.watched.nodes.add(nodeBefore.id)
 
     val nodeAfterAnalysisOption = nodeAnalyzer.analyze(NodeAnalysis(nodeAfter.node.raw, orphan = true))
 
@@ -225,8 +225,7 @@ class UnreferencedNodeProcessorImpl(
   }
 
   private def isReferencedNode(node: NetworkNodeInfo): Boolean = {
-    analysisContext.data.networks.isReferencingNode(node.id) ||
-      analysisContext.data.routes.watched.isReferencingNode(node.id)
+    analysisContext.watched.routes.isReferencingNode(node.id)
   }
 
   private def analyzed(nodeChange: NodeChange): NodeChange = {

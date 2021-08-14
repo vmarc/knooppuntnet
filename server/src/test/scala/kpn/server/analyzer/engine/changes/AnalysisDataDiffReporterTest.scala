@@ -2,14 +2,14 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.data.AnalysisData
+import kpn.server.analyzer.engine.changes.data.Watched
 
 class AnalysisDataDiffReporterTest extends UnitTest {
 
   test("No differences") {
-    val left = AnalysisData()
-    val right = AnalysisData()
-    val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
+    val left = Watched()
+    val right = Watched()
+    val report = new AnalysisDataDiffReporter().report(left: Watched, right: Watched).mkString("\n")
     report should equal("No differences")
   }
 
@@ -17,8 +17,8 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
     pending
 
-    val left = AnalysisData()
-    val right = AnalysisData()
+    val left = Watched()
+    val right = Watched()
 
     val leftElementIds = ElementIds(
       nodeIds = Set(1011, 1012),
@@ -32,14 +32,14 @@ class AnalysisDataDiffReporterTest extends UnitTest {
       relationIds = Set(1031, 1033)
     )
 
-    left.networks.watched.add(10, leftElementIds)
-    left.networks.watched.add(11, ElementIds())
-    left.networks.watched.add(12, ElementIds())
-    right.networks.watched.add(10, rightElementIds)
-    right.networks.watched.add(11, ElementIds())
-    right.networks.watched.add(13, ElementIds())
+    left.networks.add(10)
+    left.networks.add(11)
+    left.networks.add(12)
+    right.networks.add(10)
+    right.networks.add(11)
+    right.networks.add(13)
 
-    val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
+    val report = new AnalysisDataDiffReporter().report(left: Watched, right: Watched).mkString("\n")
 
     val expected =
       """|Network differences:
@@ -62,8 +62,8 @@ class AnalysisDataDiffReporterTest extends UnitTest {
     pending
 
 
-    val left = AnalysisData()
-    val right = AnalysisData()
+    val left = Watched()
+    val right = Watched()
 
     val leftElementIds = ElementIds(
       nodeIds = Set(1011, 1012),
@@ -77,17 +77,17 @@ class AnalysisDataDiffReporterTest extends UnitTest {
       relationIds = Set(1031, 1033)
     )
 
-    left.routes.watched.add(10, leftElementIds)
-    left.routes.watched.add(11, ElementIds())
-    left.routes.watched.add(12, ElementIds())
-    left.routes.watched.add(13, ElementIds())
+    left.routes.add(10, leftElementIds)
+    left.routes.add(11, ElementIds())
+    left.routes.add(12, ElementIds())
+    left.routes.add(13, ElementIds())
 
-    right.routes.watched.add(10, rightElementIds)
-    right.routes.watched.add(11, ElementIds())
-    right.routes.watched.add(14, ElementIds())
-    right.routes.watched.add(15, ElementIds())
+    right.routes.add(10, rightElementIds)
+    right.routes.add(11, ElementIds())
+    right.routes.add(14, ElementIds())
+    right.routes.add(15, ElementIds())
 
-    val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
+    val report = new AnalysisDataDiffReporter().report(left: Watched, right: Watched).mkString("\n")
 
     val expected =
       """|Orphan route differences:
@@ -111,20 +111,20 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
     pending
 
-    val left = AnalysisData()
-    val right = AnalysisData()
+    val left = Watched()
+    val right = Watched()
 
-    left.nodes.watched.add(10)
-    left.nodes.watched.add(11)
-    left.nodes.watched.add(12)
-    left.nodes.watched.add(13)
+    left.nodes.add(10)
+    left.nodes.add(11)
+    left.nodes.add(12)
+    left.nodes.add(13)
 
-    right.nodes.watched.add(10)
-    right.nodes.watched.add(11)
-    right.nodes.watched.add(14)
-    right.nodes.watched.add(15)
+    right.nodes.add(10)
+    right.nodes.add(11)
+    right.nodes.add(14)
+    right.nodes.add(15)
 
-    val report = new AnalysisDataDiffReporter().report(left: AnalysisData, right: AnalysisData).mkString("\n")
+    val report = new AnalysisDataDiffReporter().report(left: Watched, right: Watched).mkString("\n")
 
     val expected =
       """|Orphan node differences:

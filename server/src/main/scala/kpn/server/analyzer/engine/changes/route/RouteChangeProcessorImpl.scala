@@ -101,7 +101,7 @@ class RouteChangeProcessorImpl(
 
     masterRouteAnalyzer.analyze(relationAfter).map { after =>
       routeRepository.save(after.route)
-      analysisContext.data.routes.watched.add(routeId, after.route.elementIds)
+      analysisContext.watched.routes.add(routeId, after.route.elementIds)
 
       val factDiffs = if (after.route.facts.nonEmpty) {
         Some(
@@ -162,7 +162,7 @@ class RouteChangeProcessorImpl(
 
   private def processDelete(context: ChangeSetContext, relationBefore: Relation, routeId: Long): Option[RouteChange] = {
 
-    analysisContext.data.routes.watched.delete(routeId)
+    analysisContext.watched.routes.delete(routeId)
 
     masterRouteAnalyzer.analyze(relationBefore).map { before =>
 
@@ -242,10 +242,10 @@ class RouteChangeProcessorImpl(
               val routeUpdate = new RouteDiffAnalyzer(before, after).analysis
 
               if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-                analysisContext.data.routes.watched.delete(routeUpdate.id)
+                analysisContext.watched.routes.delete(routeUpdate.id)
               }
               else {
-                analysisContext.data.routes.watched.add(after.id, after.route.elementIds)
+                analysisContext.watched.routes.add(after.id, after.route.elementIds)
               }
 
               //    val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
@@ -311,7 +311,7 @@ class RouteChangeProcessorImpl(
 
   private def processLostRouteTags(context: ChangeSetContext, routeAnalysisBefore: RouteAnalysis, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
 
-    analysisContext.data.routes.watched.delete(routeId)
+    analysisContext.watched.routes.delete(routeId)
 
     // TODO add tiles!! tileChangeAnalyzer.analyzeRouteChange(before, after)
 

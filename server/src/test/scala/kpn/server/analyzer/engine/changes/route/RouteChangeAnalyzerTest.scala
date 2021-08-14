@@ -46,7 +46,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of existing route relation") {
     val setup = new Setup()
-    setup.analysisContext.data.routes.watched.add(11L, ElementIds())
+    setup.analysisContext.watched.routes.add(11L, ElementIds())
     val change = Change(Modify, Seq(buildRoute(11L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -57,7 +57,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of existing route way") {
     val setup = new Setup()
-    setup.analysisContext.data.routes.watched.add(11L, ElementIds(wayIds = Set(101L)))
+    setup.analysisContext.watched.routes.add(11L, ElementIds(wayIds = Set(101L)))
     val change = Change(Modify, Seq(newRawWay(101L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -68,7 +68,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Modify' of existing route node") {
     val setup = new Setup()
-    setup.analysisContext.data.routes.watched.add(11L, ElementIds(nodeIds = Set(1001L)))
+    setup.analysisContext.watched.routes.add(11L, ElementIds(nodeIds = Set(1001L)))
     val change = Change(Modify, Seq(newRawNode(1001L)))
     setup.analyze(change) should matchTo(
       ElementChanges(
@@ -79,7 +79,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Delete' known route") {
     val setup = new Setup()
-    setup.analysisContext.data.routes.watched.add(11L, ElementIds())
+    setup.analysisContext.watched.routes.add(11L, ElementIds())
     val change = Change(Delete, Seq(newRawRelation(11L)))
     setup.analyze(change) should matchTo(
       ElementChanges(

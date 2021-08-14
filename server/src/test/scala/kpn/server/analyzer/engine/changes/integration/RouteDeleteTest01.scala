@@ -42,9 +42,9 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Delete, newRawRelation(11))
 
-      assert(tc.analysisContext.data.nodes.watched.contains(1001))
-      assert(tc.analysisContext.data.nodes.watched.contains(1002))
-      assert(!tc.analysisContext.data.routes.watched.contains(11))
+      assert(tc.analysisContext.watched.nodes.contains(1001))
+      assert(tc.analysisContext.watched.nodes.contains(1002))
+      assert(!tc.analysisContext.watched.routes.contains(11))
 
       assertRoute(tc)
       assertNode1001(tc)

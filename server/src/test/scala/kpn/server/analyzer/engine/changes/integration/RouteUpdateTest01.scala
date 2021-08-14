@@ -49,7 +49,7 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      assert(tc.analysisContext.data.routes.watched.contains(11))
+      assert(tc.analysisContext.watched.routes.contains(11))
 
       assertRoute(tc)
       assertRouteChange(tc)

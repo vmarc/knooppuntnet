@@ -70,10 +70,10 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
 
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
-      assert(tc.analysisContext.data.networks.watched.contains(1))
-      assert(tc.analysisContext.data.routes.watched.contains(11))
-      assert(tc.analysisContext.data.nodes.watched.contains(1001))
-      assert(tc.analysisContext.data.nodes.watched.contains(1002))
+      assert(tc.analysisContext.watched.networks.contains(1))
+      assert(tc.analysisContext.watched.routes.contains(11))
+      assert(tc.analysisContext.watched.nodes.contains(1001))
+      assert(tc.analysisContext.watched.nodes.contains(1002))
 
       assertNetworkDoc(tc)
       assertNetworkInfoDoc(tc)
