@@ -45,8 +45,8 @@ class NetworkCreateTest04 extends AbstractIntegrationTest {
 
       assertNetwork(tc)
       assertNetworkInfo(tc)
-      assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

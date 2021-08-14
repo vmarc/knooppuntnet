@@ -20,4 +20,14 @@ case class NetworkRouteRow(
   def toRef: Ref = {
     Ref(id, name)
   }
+
+  def isSameAs(other: NetworkRouteRow): Boolean = {
+    name == other.name &&
+      length == other.length &&
+      role == other.role &&
+      accessible == other.accessible &&
+      roleConnection == other.roleConnection &&
+      lastSurvey == other.lastSurvey &&
+      proposed == other.proposed
+  }
 }

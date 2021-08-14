@@ -79,11 +79,11 @@ class NetworkUpdateRouteTest03 extends AbstractIntegrationTest {
       assertRoute1(tc)
       assertRoute2(tc)
       assertNode1003(tc)
-      assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
       assertNodeChange1002(tc)
       assertNodeChange1003(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

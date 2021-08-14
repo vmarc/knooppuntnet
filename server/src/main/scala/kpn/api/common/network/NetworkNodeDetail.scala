@@ -30,4 +30,19 @@ case class NetworkNodeDetail(
   def toRef: Ref = {
     Ref(id, name)
   }
+
+  def isSameAs(other: NetworkNodeDetail): Boolean = {
+    name == other.name &&
+      longName == other.longName &&
+      latitude == other.latitude &&
+      longitude == other.longitude &&
+      connection == other.connection &&
+      roleConnection == other.roleConnection &&
+      definedInRelation == other.definedInRelation &&
+      definedInRoute == other.definedInRoute &&
+      proposed == other.proposed &&
+      lastSurvey == other.lastSurvey &&
+      expectedRouteCount == other.expectedRouteCount &&
+      facts == other.facts
+  }
 }

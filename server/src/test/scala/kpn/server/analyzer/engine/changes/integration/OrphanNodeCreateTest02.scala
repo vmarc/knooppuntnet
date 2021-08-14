@@ -37,8 +37,8 @@ class OrphanNodeCreateTest02 extends AbstractIntegrationTest {
       assert(tc.analysisContext.data.nodes.watched.contains(1001))
 
       assertNode(tc)
-      assertChangeSetSummary(tc)
       assertNodeChange(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

@@ -60,11 +60,11 @@ class NetworkDeleteRouteTest01 extends AbstractIntegrationTest {
       assert(tc.analysisContext.data.routes.watched.contains(11))
 
       assertNetworkInfo(tc)
-      assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

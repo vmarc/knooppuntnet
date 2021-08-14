@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.network
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
+import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Fact
@@ -193,7 +194,117 @@ class NetworkInfoChangeProcessorImpl(
       processDelete(context, before, networkId)
     }
     else {
-      None
+      if (before == after) {
+        None
+      }
+      else {
+
+        // TODO see: NetworkDiffAnalyzer
+
+        val nodeDiffs = analyzeNodeDiffs(before, after)
+        val routeDiffs = analyzeRouteDiffs(before, after)
+
+        val nodes = IdDiffs.empty // TODO
+        val ways = IdDiffs.empty // TODO
+        val relations = IdDiffs.empty // TODO
+
+        val happy = nodeDiffs.added.nonEmpty || routeDiffs.added.nonEmpty
+
+        val investigate = nodeDiffs.removed.nonEmpty ||
+          routeDiffs.removed.nonEmpty ||
+          nodes.added.nonEmpty ||
+          ways.added.nonEmpty ||
+          relations.added.nonEmpty
+
+        val impact = happy || investigate
+
+        //        case class NetworkDataUpdate(
+        //          before: NetworkData,
+        //          after: NetworkData
+        //        )
+
+        val key = context.buildChangeKey(networkId)
+        Some(
+          NetworkInfoChange(
+            key.toId,
+            key,
+            changeType = ChangeType.Update,
+            country = after.country,
+            networkType = after.scopedNetworkType.networkType,
+            networkId = networkId,
+            networkName = after.summary.name,
+            orphanRoutes = RefChanges(
+              // TODO oldRefs = oldOrphanRouteRefs
+            ),
+            orphanNodes = RefChanges(
+              // TODO oldRefs = oldOrphanNodeRefs
+            ),
+            networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
+            networkNodes = nodeDiffs,
+            routes = routeDiffs,
+            nodes = nodes,
+            ways = ways,
+            relations = relations,
+            happy = happy,
+            investigate = investigate,
+            impact = impact
+          )
+        )
+      }
     }
+  }
+
+  private def analyzeNodeDiffs(before: NetworkInfoDoc, after: NetworkInfoDoc): RefDiffs = {
+    val nodeIdsBefore = before.nodes.map(_.id).toSet
+    val nodeIdsAfter = after.nodes.map(_.id).toSet
+    val nodeIdsAdded = nodeIdsAfter -- nodeIdsBefore
+    val nodeIdsRemoved = nodeIdsBefore -- nodeIdsAfter
+    val nodeIdsCommon = nodeIdsBefore.intersect(nodeIdsAfter)
+    val nodeRefsAdded = after.nodes.filter(node => nodeIdsAdded.contains(node.id)).map(node => Ref(node.id, node.name)).sortBy(_.id)
+    val nodeRefsRemoved = before.nodes.filter(node => nodeIdsRemoved.contains(node.id)).map(node => Ref(node.id, node.name)).sortBy(_.id)
+    val nodeRefsUpdated = nodeIdsCommon.toSeq.sorted.flatMap { nodeId =>
+      before.nodes.find(node => node.id == nodeId).flatMap { nodeBefore =>
+        after.nodes.find(node => node.id == nodeId).flatMap { nodeAfter =>
+          if (!nodeBefore.isSameAs(nodeAfter)) {
+            Some(Ref(nodeId, nodeAfter.name))
+          }
+          else {
+            None
+          }
+        }
+      }
+    }
+    RefDiffs(
+      removed = nodeRefsRemoved,
+      added = nodeRefsAdded,
+      updated = nodeRefsUpdated
+    )
+  }
+
+  private def analyzeRouteDiffs(before: NetworkInfoDoc, after: NetworkInfoDoc): RefDiffs = {
+    val routeIdsBefore = before.routes.map(_.id).toSet
+    val routeIdsAfter = after.routes.map(_.id).toSet
+    val routeIdsAdded = routeIdsAfter -- routeIdsBefore
+    val routeIdsRemoved = routeIdsBefore -- routeIdsAfter
+    val routeIdsCommon = routeIdsBefore.intersect(routeIdsAfter)
+    val routeRefsAdded = after.routes.filter(route => routeIdsAdded.contains(route.id)).map(route => Ref(route.id, route.name)).sortBy(_.id)
+    val routeRefsRemoved = before.routes.filter(route => routeIdsRemoved.contains(route.id)).map(route => Ref(route.id, route.name)).sortBy(_.id)
+    val routeRefsUpdated = routeIdsCommon.toSeq.sorted.flatMap { routeId =>
+      before.routes.find(route => route.id == routeId).flatMap { routeBefore =>
+        after.routes.find(route => route.id == routeId).flatMap { routeAfter =>
+          if (!routeBefore.isSameAs(routeAfter)) {
+            Some(Ref(routeId, routeAfter.name))
+          }
+          else {
+            None
+          }
+        }
+      }
+    }
+    RefDiffs(
+      removed = routeRefsRemoved,
+      added = routeRefsAdded,
+      updated = routeRefsUpdated
+    )
   }
 }

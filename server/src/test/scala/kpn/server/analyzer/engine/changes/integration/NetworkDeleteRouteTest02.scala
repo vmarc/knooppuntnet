@@ -78,11 +78,11 @@ class NetworkDeleteRouteTest02 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.data.nodes.watched.contains(1002))
 
       assertNetworkInfo(tc)
-      assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

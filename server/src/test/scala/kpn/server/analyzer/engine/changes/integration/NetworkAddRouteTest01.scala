@@ -66,78 +66,78 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       tc.findNetworkInfoById(1) // TODO should matchTo(
-        newNetworkInfo(
-          newNetworkAttributes(
-            1,
-            Some(Country.nl),
-            NetworkType.hiking,
-            name = "network",
-            lastUpdated = defaultTimestamp,
-            relationLastUpdated = defaultTimestamp,
-            nodeCount = 2,
-            routeCount = 1,
-            brokenRoutePercentage = "-",
-            integrity = newIntegrity(
-              isOk = false,
-              coverage = "-",
-              okRate = "-",
-              nokRate = "-"
+      newNetworkInfo(
+        newNetworkAttributes(
+          1,
+          Some(Country.nl),
+          NetworkType.hiking,
+          name = "network",
+          lastUpdated = defaultTimestamp,
+          relationLastUpdated = defaultTimestamp,
+          nodeCount = 2,
+          routeCount = 1,
+          brokenRoutePercentage = "-",
+          integrity = newIntegrity(
+            isOk = false,
+            coverage = "-",
+            okRate = "-",
+            nokRate = "-"
+          ),
+          center = Some(LatLonImpl("0.0", "0.0"))
+        ),
+        nodeRefs = Seq(
+          1001L,
+          1002L
+        ),
+        routeRefs = Seq(
+          11L
+        ),
+        tags = Tags.from(
+          "network" -> "rwn",
+          "type" -> "network",
+          "name" -> "network",
+          "network:type" -> "node_network"
+        ),
+        detail = Some(
+          NetworkInfoDetail(
+            nodes = Seq(
+              newNetworkInfoNode(
+                1001,
+                "01",
+                latitude = "0",
+                longitude = "0",
+                definedInRelation = true,
+                routeReferences = Seq(Ref(11, "01-02")),
+                tags = Tags.from(
+                  "rwn_ref" -> "01",
+                  "network:type" -> "node_network"
+                )
+              ),
+              newNetworkInfoNode(
+                1002,
+                "02",
+                latitude = "0",
+                longitude = "0",
+                definedInRelation = true,
+                routeReferences = Seq(Ref(11, "01-02")),
+                tags = Tags.from(
+                  "rwn_ref" -> "02",
+                  "network:type" -> "node_network"
+                )
+              )
             ),
-            center = Some(LatLonImpl("0.0", "0.0"))
-          ),
-          nodeRefs = Seq(
-            1001L,
-            1002L
-          ),
-          routeRefs = Seq(
-            11L
-          ),
-          tags = Tags.from(
-            "network" -> "rwn",
-            "type" -> "network",
-            "name" -> "network",
-            "network:type" -> "node_network"
-          ),
-          detail = Some(
-            NetworkInfoDetail(
-              nodes = Seq(
-                newNetworkInfoNode(
-                  1001,
-                  "01",
-                  latitude = "0",
-                  longitude = "0",
-                  definedInRelation = true,
-                  routeReferences = Seq(Ref(11, "01-02")),
-                  tags = Tags.from(
-                    "rwn_ref" -> "01",
-                    "network:type" -> "node_network"
-                  )
-                ),
-                newNetworkInfoNode(
-                  1002,
-                  "02",
-                  latitude = "0",
-                  longitude = "0",
-                  definedInRelation = true,
-                  routeReferences = Seq(Ref(11, "01-02")),
-                  tags = Tags.from(
-                    "rwn_ref" -> "02",
-                    "network:type" -> "node_network"
-                  )
-                )
-              ),
-              routes = Seq(
-                newNetworkInfoRoute(
-                  11,
-                  "01-02",
-                  wayCount = 1
-                )
-              ),
-              networkFacts = NetworkFacts(),
-              shape = None
-            )
+            routes = Seq(
+              newNetworkInfoRoute(
+                11,
+                "01-02",
+                wayCount = 1
+              )
+            ),
+            networkFacts = NetworkFacts(),
+            shape = None
           )
         )
+      )
       //)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
@@ -201,13 +201,11 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
           networkDataUpdate = Some(
             NetworkDataUpdate(
               NetworkData(
-                None,
-                Some(MetaData(1, Timestamp(2015, 8, 11, 0, 0, 0), 1)),
+                MetaData(1, Timestamp(2015, 8, 11, 0, 0, 0), 1),
                 "network"
               ),
               NetworkData(
-                None,
-                Some(MetaData(1, Timestamp(2015, 8, 11, 0, 0, 0), 1)),
+                MetaData(1, Timestamp(2015, 8, 11, 0, 0, 0), 1),
                 "network"
               )
             )

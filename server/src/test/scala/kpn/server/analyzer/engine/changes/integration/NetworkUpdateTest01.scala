@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
@@ -27,7 +27,7 @@ import kpn.core.test.TestSupport.withDatabase
 
 class NetworkUpdateTest01 extends AbstractIntegrationTest {
 
-  test("network update - updated network is saved to the database and watched elements are updated in AnalysisData") {
+  test("network update - node and route name changed") {
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -50,11 +50,11 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
 
     val dataAfter = OverpassData()
       .networkNode(1001, "01")
-      .networkNode(1002, "03")
+      .networkNode(1002, "03") // <-- node name changed
       .way(101, 1001, 1002)
       .route(
         11,
-        "01-03",
+        "01-03", // <-- route name changed
         Seq(
           newMember("way", 101)
         )
@@ -77,10 +77,11 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
 
       assertNetwork(tc)
       assertNetworkInfo(tc)
-      //assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
-      assertNodeChange(tc)
+      database.nodeChanges.stringIds() should equal(Seq("123:1:1002")) // 1001 not changed
+      assertNodeChange1002(tc)
+      assertChangeSetSummary(tc)
     }
   }
 
@@ -94,33 +95,6 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
     networkInfoDoc._id should equal(1)
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        networkChanges = NetworkChanges(
-          updates = Seq(
-            newChangeSetNetwork(
-              Some(Country.nl),
-              NetworkType.hiking,
-              1,
-              "name",
-              routeChanges = ChangeSetElementRefs(
-                updated = Seq(newChangeSetElementRef(11, "01-03"))
-              ),
-              nodeChanges = ChangeSetElementRefs(
-                updated = Seq(newChangeSetElementRef(1002, "03"))
-              )
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking)
-        )
-      )
-    )
-  }
-
   private def assertNetworkInfoChange(tc: IntegrationTestContext): Unit = {
     tc.findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
@@ -130,12 +104,7 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
+        networkDataUpdate = None,
         networkNodes = RefDiffs(
           updated = Seq(
             Ref(1002, "03")
@@ -272,13 +241,14 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
               )
             )
           )
-        )
+        ),
+        impactedNodeIds = Seq(1001, 1002)
       )
     )
   }
 
-  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
+    tc.findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -307,6 +277,53 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
               )
             )
           )
+        )
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
+    tc.findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          updates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "name",
+              routeChanges = ChangeSetElementRefs(
+                updated = Seq(newChangeSetElementRef(11, "01-03"))
+              ),
+              nodeChanges = ChangeSetElementRefs(
+                updated = Seq(newChangeSetElementRef(1002, "03"))
+              )
+            )
+          )
+        ),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(11, "01-03")
+              )
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1002, "03")
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking)
         )
       )
     )

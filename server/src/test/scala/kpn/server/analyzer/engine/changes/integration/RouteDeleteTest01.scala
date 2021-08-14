@@ -49,14 +49,13 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
       assertRoute(tc)
       assertNode1001(tc)
       assertNode1002(tc)
-      assertChangeSetSummary(tc)
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
       assertOrphanNode1001(tc)
       assertOrphanNode1002(tc)
-
       assert(database.orphanRoutes.findAll().isEmpty)
+      assertChangeSetSummary(tc)
     }
   }
 

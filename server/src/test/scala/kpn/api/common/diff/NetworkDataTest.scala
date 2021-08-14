@@ -1,8 +1,7 @@
 package kpn.api.common.diff
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.raw.RawMember
-import kpn.api.custom.Tags
+import kpn.api.common.data.MetaData
 import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
 import kpn.server.json.Json
@@ -13,20 +12,11 @@ class NetworkDataTest extends UnitTest with SharedTestObjects {
   test("backward compatibility for json deserialization") {
 
     val networkData = NetworkData(
-      Some(
-        newRawRelation(
-          id = 123L,
-          version = 4,
-          timestamp = Timestamp(2020, 8, 11, 1, 2, 3),
-          changeSetId = 567L,
-          members = Seq(
-            RawMember("node", 101, None),
-            RawMember("way", 11, None)
-          ),
-          tags = Tags.from("a" -> "b")
-        )
+      MetaData(
+        version = 4,
+        timestamp = Timestamp(2020, 8, 11, 1, 2, 3),
+        changeSetId = 567L
       ),
-      None,
       "network-name"
     )
 

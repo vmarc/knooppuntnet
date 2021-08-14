@@ -44,10 +44,10 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
       assertOrphanRoute(tc)
       assertNode1001(tc)
       assertNode1002(tc)
-      assertChangeSetSummary(tc)
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+      assertChangeSetSummary(tc)
 
       assert(database.orphanNodes.findAll().isEmpty)
     }

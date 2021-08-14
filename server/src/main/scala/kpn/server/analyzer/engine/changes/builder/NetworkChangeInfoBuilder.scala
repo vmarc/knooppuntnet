@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.builder
 
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NetworkChangeInfo
+import kpn.api.common.changes.details.NetworkInfoChange
 
 class NetworkChangeInfoBuilder {
 
@@ -20,8 +20,8 @@ class NetworkChangeInfoBuilder {
       change.networkType,
       change.networkId,
       change.networkName,
-      change.networkDataUpdate.map(_.before.meta),
-      change.networkDataUpdate.map(_.after.meta),
+      change.networkDataUpdate.map(_.before.metaData),
+      change.networkDataUpdate.map(_.after.metaData),
       change.orphanRoutes,
       change.orphanNodes,
       change.networkDataUpdate.isDefined,

@@ -44,9 +44,9 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
 
       assertNetwork(tc)
       assertNetworkInfo(tc)
-      assertChangeSetSummary(tc)
       assertNetworkChange(tc)
       assertNodeChange(tc)
+      assertChangeSetSummary(tc)
 
       // TODO database.orphanNodes.findByStringId()
     }

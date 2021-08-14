@@ -52,11 +52,10 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
       assert(tc.analysisContext.data.routes.watched.contains(11))
 
       assertRoute(tc)
-      assertChangeSetSummary(tc)
       assertRouteChange(tc)
       assertOrphanRoute(tc)
-
       assert(database.nodeChanges.findAll().isEmpty)
+      assertChangeSetSummary(tc)
     }
   }
 

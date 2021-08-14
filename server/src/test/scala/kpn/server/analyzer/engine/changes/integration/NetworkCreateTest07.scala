@@ -66,11 +66,11 @@ class NetworkCreateTest07 extends AbstractIntegrationTest {
 
       assertNetwork(tc)
       assertNetworkInfo(tc)
-      assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

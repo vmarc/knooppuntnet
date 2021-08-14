@@ -29,7 +29,6 @@ class NetworkDeleteTest01 extends AbstractIntegrationTest {
 
       assertNetwork(tc)
       assertNetworkInfo(tc)
-      assertChangeSetSummary(tc)
 
       // TODO add delete test where before network contains nodes and routes that become orphan because of the delete
       //    orphanRoutes = RefChanges(newRefs = newOrphanRoutes),
@@ -38,6 +37,7 @@ class NetworkDeleteTest01 extends AbstractIntegrationTest {
       //    ignoredNodes = RefChanges(newRefs = newIgnoredNodes),
 
       assertNetworkChange(tc)
+      assertChangeSetSummary(tc)
     }
   }
 

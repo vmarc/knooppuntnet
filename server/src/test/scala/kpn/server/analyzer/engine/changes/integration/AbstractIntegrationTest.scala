@@ -425,7 +425,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     def findOrphanNodeById(_id: String): OrphanNodeDoc = {
       database.orphanNodes.findByStringId(_id).getOrElse {
-        val ids = database.orphanNodes.ids()
+        val ids = database.orphanNodes.stringIds()
         if (ids.isEmpty) {
           fail(s"Could not find orphan node ${_id}, no orphan nodes in database")
         }
@@ -473,7 +473,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     def findNetworkChangeById(id: String): NetworkChange = {
       database.networkChanges.findByStringId(id).getOrElse {
-        val ids = database.networkChanges.ids()
+        val ids = database.networkChanges.stringIds()
         if (ids.isEmpty) {
           fail(s"Could not find NetworkChange $id, no network changes in database")
         }
@@ -485,7 +485,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     def findNetworkInfoChangeById(id: String): NetworkInfoChange = {
       database.networkInfoChanges.findByStringId(id).getOrElse {
-        val ids = database.networkInfoChanges.ids()
+        val ids = database.networkInfoChanges.stringIds()
         if (ids.isEmpty) {
           fail(s"Could not find NetworkInfoChange $id, no network info changes in database")
         }
@@ -497,7 +497,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     def findRouteChangeById(id: String): RouteChange = {
       database.routeChanges.findByStringId(id).getOrElse {
-        val ids = database.routeChanges.ids()
+        val ids = database.routeChanges.stringIds()
         if (ids.isEmpty) {
           fail(s"Could not find RouteChange $id, no route changes in database")
         }
@@ -509,7 +509,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
 
     def findNodeChangeById(id: String): NodeChange = {
       database.nodeChanges.findByStringId(id).getOrElse {
-        val ids = database.nodeChanges.ids()
+        val ids = database.nodeChanges.stringIds()
         if (ids.isEmpty) {
           fail(s"Could not find NodeChange $id, no node changes in database")
         }

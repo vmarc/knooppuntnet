@@ -77,11 +77,11 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
 
       assertNetworkDoc(tc)
       assertNetworkInfoDoc(tc)
-      assertChangeSetSummary(tc)
       assertNetworkChange(tc)
       assertRouteChange(tc)
       assertNodeChange1001(tc)
       assertNodeChange1002(tc)
+      assertChangeSetSummary(tc)
 
       assert(database.orphanNodes.findAll().isEmpty)
       assert(database.orphanRoutes.findAll().isEmpty)

@@ -82,10 +82,10 @@ class NetworkUpdateRouteTest05 extends AbstractIntegrationTest {
       assertNetwork(tc)
       assertNetworkInfo(tc)
       assert(database.nodes.findAll().isEmpty)
-      assertChangeSetSummary(tc)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
       assert(database.nodeChanges.findAll().isEmpty)
+      assertChangeSetSummary(tc)
     }
   }
 
