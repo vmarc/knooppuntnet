@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.data.Watched
+import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.Watched
 
 class AnalysisDataDiffReporterTest extends UnitTest {
 

@@ -7,8 +7,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.ElementIdMap
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
+import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer.toMeters
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry

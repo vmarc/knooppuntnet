@@ -17,7 +17,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.context.ElementIds
 
 object RouteDetailsPageExample {
 

@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.route
 import kpn.api.custom.Fact
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.changes.data.Watched
+import kpn.server.analyzer.engine.context.Watched
 
 class RouteFactAnalyzer(
   analysisData: Watched

@@ -1,6 +1,4 @@
-package kpn.server.analyzer.engine.changes.data
-
-import kpn.server.analyzer.engine.changes.ElementIdMap
+package kpn.server.analyzer.engine.context
 
 case class Watched(
   networks: ElementIdSet = ElementIdSet(),

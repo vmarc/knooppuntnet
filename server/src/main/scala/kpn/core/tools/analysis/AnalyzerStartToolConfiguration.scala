@@ -41,9 +41,9 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
-import kpn.server.analyzer.engine.changes.changes.ElementIds
-import kpn.server.analyzer.engine.changes.data.Watched
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.Watched
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl

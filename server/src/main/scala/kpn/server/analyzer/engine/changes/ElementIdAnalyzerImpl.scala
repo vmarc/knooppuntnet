@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.context.ElementIdMap
+import kpn.server.analyzer.engine.context.ElementIds
 import org.springframework.stereotype.Component
 
 import java.util.concurrent.TimeUnit

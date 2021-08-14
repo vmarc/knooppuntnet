@@ -8,7 +8,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.context.ElementIds
 
 case class RouteInfo(
   _id: Long, // routeId

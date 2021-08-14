@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.changes
+package kpn.server.analyzer.engine.context
 
 case class ElementIds(
   nodeIds: Set[Long] = Set.empty,

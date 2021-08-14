@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.data
 
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.context.ElementIdSet
 
 class OrphanNodesDataTest extends UnitTest {
 

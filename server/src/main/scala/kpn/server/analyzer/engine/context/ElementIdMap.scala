@@ -1,13 +1,9 @@
-package kpn.server.analyzer.engine.changes
-
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+package kpn.server.analyzer.engine.context
 
 import scala.collection.concurrent.TrieMap
 
 object ElementIdMap {
-
   def apply(): ElementIdMap = new ElementIdMap()
-
 }
 
 class ElementIdMap {

@@ -73,8 +73,8 @@ import kpn.core.mongo.doc.NetworkWayMember
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.network.NetworkChange
+import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState

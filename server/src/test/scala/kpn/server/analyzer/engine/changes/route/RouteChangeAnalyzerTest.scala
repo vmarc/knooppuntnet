@@ -13,10 +13,10 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.data.BlackListEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.MockBlackListRepository
 
 import java.util.concurrent.Executors

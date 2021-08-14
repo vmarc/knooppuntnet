@@ -11,6 +11,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.TagInterpreter
+import kpn.server.analyzer.engine.context.ElementIds
 
 object RelationAnalyzerHelper {
 

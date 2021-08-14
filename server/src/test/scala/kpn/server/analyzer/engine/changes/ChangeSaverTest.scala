@@ -16,8 +16,8 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
+import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.ChangeSetRepository
 import org.scalamock.scalatest.MockFactory
 

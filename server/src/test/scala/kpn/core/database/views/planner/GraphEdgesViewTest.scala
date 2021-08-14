@@ -13,7 +13,7 @@ import kpn.core.database.Database
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.test.TestSupport.withCouchDatabase
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RouteRepositoryImpl
 
 class GraphEdgesViewTest extends UnitTest with TestObjects {

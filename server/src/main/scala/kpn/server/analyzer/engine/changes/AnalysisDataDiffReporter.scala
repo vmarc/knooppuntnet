@@ -1,7 +1,8 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.server.analyzer.engine.changes.data.ElementIdSet
-import kpn.server.analyzer.engine.changes.data.Watched
+import kpn.server.analyzer.engine.context.ElementIdMap
+import kpn.server.analyzer.engine.context.ElementIdSet
+import kpn.server.analyzer.engine.context.Watched
 
 class AnalysisDataDiffReporter {
 

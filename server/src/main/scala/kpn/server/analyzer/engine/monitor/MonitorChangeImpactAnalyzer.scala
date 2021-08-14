@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.changes.ChangeSet
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.context.ElementIds
 
 trait MonitorChangeImpactAnalyzer {
 

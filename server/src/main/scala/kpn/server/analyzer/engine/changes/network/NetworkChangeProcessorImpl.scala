@@ -10,8 +10,8 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.analyzer.engine.changes.changes.ElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
 

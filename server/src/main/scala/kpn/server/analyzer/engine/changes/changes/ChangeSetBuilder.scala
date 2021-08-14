@@ -4,6 +4,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Change
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
+import kpn.server.analyzer.engine.context.ElementIds
 
 object ChangeSetBuilder {
 

@@ -4,7 +4,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
-import kpn.server.analyzer.engine.changes.changes.ElementIds
+import kpn.server.analyzer.engine.context.ElementIds
 import org.springframework.stereotype.Component
 
 @Component
