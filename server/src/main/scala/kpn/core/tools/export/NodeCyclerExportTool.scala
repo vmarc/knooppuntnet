@@ -74,7 +74,7 @@ class NodeCyclerExportTool(database: Database, exportDir: String) {
 
   private def cyclingNetworksFromDatabase(): Seq[NetworkAttributes] = {
     val subsets = Subset.all.filter(_.networkType == NetworkType.cycling)
-    subsets.flatMap(subset => networkInfoRepository.networks(subset, stale = false))
+    subsets.flatMap(subset => networkInfoRepository.networks(subset))
   }
 
   private def exportNodes(networkInfoDoc: NetworkInfoDoc): Unit = {

@@ -54,7 +54,7 @@ class NodeRouteRepositoryImpl(
       ???
     }
     else {
-      NodeRouteView.query(analysisDatabase, scopedNetworkType, stale = false)
+      NodeRouteView.query(analysisDatabase, scopedNetworkType)
     }
   }
 
@@ -63,7 +63,7 @@ class NodeRouteRepositoryImpl(
       ???
     }
     else {
-      NodeRouteReferenceView.query(analysisDatabase, scopedNetworkType, nodeId, stale = true)
+      NodeRouteReferenceView.query(analysisDatabase, scopedNetworkType, nodeId)
     }
   }
 
@@ -84,7 +84,7 @@ class NodeRouteRepositoryImpl(
       }
     }
     else {
-      NodeRouteReferenceView.queryNodeIds(analysisDatabase, scopedNetworkType, nodeIds, stale = true)
+      NodeRouteReferenceView.queryNodeIds(analysisDatabase, scopedNetworkType, nodeIds)
     }
   }
 
@@ -93,7 +93,7 @@ class NodeRouteRepositoryImpl(
       ???
     }
     else {
-      NodeRouteReferenceView.queryCount(analysisDatabase, scopedNetworkType, stale = false)
+      NodeRouteReferenceView.queryCount(analysisDatabase, scopedNetworkType)
     }
   }
 
@@ -102,7 +102,7 @@ class NodeRouteRepositoryImpl(
       ???
     }
     else {
-      NodeRouteExpectedView.queryScopedNetworkType(analysisDatabase, scopedNetworkType, stale = false)
+      NodeRouteExpectedView.queryScopedNetworkType(analysisDatabase, scopedNetworkType)
     }
   }
 

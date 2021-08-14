@@ -28,7 +28,6 @@ case class Query[T](
   startKey: Option[String] = None,
   endKey: Option[String] = None,
   keys: Option[Seq[String]] = None,
-  stale: Option[String] = None,
   reduce: Option[String] = None,
   descending: Option[String] = None,
   includeDocs: Option[String] = None,
@@ -51,10 +50,6 @@ case class Query[T](
 
   def includeDocs(value: Boolean): Query[T] = {
     copy(includeDocs = Some(value.toString))
-  }
-
-  def stale(ok: Boolean): Query[T] = {
-    if (ok) copy(stale = Some("ok")) else this
   }
 
   def key(value: String): Query[T] = {
@@ -118,7 +113,6 @@ case class Query[T](
     groupLevel.foreach(level => parameters.append(s"group_level=$level"))
     limit.foreach(rowCount => parameters.append(s"limit=$rowCount"))
     skip.foreach(rowCount => parameters.append(s"skip=$rowCount"))
-    stale.foreach(arg => parameters.append(s"stale=$arg"))
 
     val b = new StringBuilder
     b.append(url)

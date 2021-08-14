@@ -32,7 +32,7 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean): Seq[LocationNodeInfo] = {
+  override def nodes(locationKey: LocationKey, parameters: LocationNodesParameters): Seq[LocationNodeInfo] = {
     new MongoQueryLocationNodes(database).find(
       locationKey.networkType,
       locationKey.name,
@@ -42,11 +42,11 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean): Long = {
+  override def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType): Long = {
     new MongoQueryLocationNodes(database).countDocuments(locationKey.networkType, locationKey.name, locationNodesType)
   }
 
-  override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo] = {
+  override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {
     new MongoQueryLocationRoutes(database).find(
       locationKey.networkType,
       locationKey.name,
@@ -56,7 +56,7 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long = {
+  override def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType): Long = {
     new MongoQueryLocationRoutes(database).countDocuments(
       locationKey.networkType,
       locationKey.name,
@@ -64,18 +64,18 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount] = {
+  override def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount] = {
     new MongoQueryLocationNodeCounts(database).find(
       networkType,
       country
     )
   }
 
-  override def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact] = {
+  override def facts(networkType: NetworkType, locationName: String): Seq[LocationFact] = {
     new MongoQueryLocationFacts(database).execute(networkType, locationName)
   }
 
-  override def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long = {
+  override def factCount(networkType: NetworkType, locationName: String): Long = {
     new MongoQueryLocationFactCount(database).execute(networkType, locationName)
   }
 }

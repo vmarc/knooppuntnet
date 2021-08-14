@@ -74,11 +74,11 @@ class BackendMetricsRepositoryImpl(
     backendActionsDatabase.save(SystemStatusDoc(id, systemStatus))
   }
 
-  override def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    BackendMetricsView.query(backendActionsDatabase, parameters, action, average, stale)
+  override def query(parameters: PeriodParameters, action: String, average: Boolean): Seq[NameValue] = {
+    BackendMetricsView.query(backendActionsDatabase, parameters, action, average)
   }
 
-  override def lastKnownValue(action: String, stale: Boolean = true): Long = {
-    BackendMetricsView.queryLastKnown(backendActionsDatabase, action, stale)
+  override def lastKnownValue(action: String): Long = {
+    BackendMetricsView.queryLastKnown(backendActionsDatabase, action)
   }
 }

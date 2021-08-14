@@ -12,7 +12,7 @@ class MonitorRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       val routeRepository = new MonitorAdminRouteRepositoryImpl(database)
       routeRepository.saveRouteState(newMonitorRouteState(101L, referenceKey = Some("20200811000000")))
       pending // no more couchdb database
-      MonitorRouteReferenceView.reference(null, 101L, stale = false) should equal(Some("20200811000000"))
+      MonitorRouteReferenceView.reference(null, 101L) should equal(Some("20200811000000"))
     }
   }
 }

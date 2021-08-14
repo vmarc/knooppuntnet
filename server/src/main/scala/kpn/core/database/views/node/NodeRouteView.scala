@@ -17,10 +17,9 @@ object NodeRouteView extends View {
     doc: NodeRouteDoc
   )
 
-  def query(database: Database, scopedNetworkType: ScopedNetworkType, stale: Boolean): Seq[NodeRoute] = {
+  def query(database: Database, scopedNetworkType: ScopedNetworkType): Seq[NodeRoute] = {
 
     val query = Query(NodeRouteDesign, NodeRouteView, classOf[ViewResult])
-      .stale(stale)
       .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name)
       .includeDocs(true)
       .reduce(false)

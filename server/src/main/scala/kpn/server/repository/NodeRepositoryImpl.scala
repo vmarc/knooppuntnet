@@ -49,15 +49,15 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     database.nodes.findById(nodeId, log)
   }
 
-  override def nodesWithIds(nodeIds: Seq[Long], stale: Boolean): Seq[NodeDoc] = {
+  override def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
     database.nodes.findByIds(nodeIds, log)
   }
 
-  override def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[Reference] = {
+  override def nodeNetworkReferences(nodeId: Long): Seq[Reference] = {
     new MongoQueryNodeNetworkReferences(database).execute(nodeId)
   }
 
-  override def nodeRouteReferences(nodeId: Long, stale: Boolean = true): Seq[Reference] = {
+  override def nodeRouteReferences(nodeId: Long): Seq[Reference] = {
     database.routes.aggregate[Reference](routeReferencesPipeline(nodeId))
   }
 

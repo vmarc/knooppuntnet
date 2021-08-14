@@ -28,7 +28,7 @@ class FrontendMetricsRepositoryImpl(
     frontendActionsDatabase.save(LogActionDoc(id, logAction))
   }
 
-  override def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    FrontendMetricsView.query(frontendActionsDatabase, parameters, action, average, stale)
+  override def query(parameters: PeriodParameters, action: String, average: Boolean): Seq[NameValue] = {
+    FrontendMetricsView.query(frontendActionsDatabase, parameters, action, average)
   }
 }

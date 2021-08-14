@@ -17,11 +17,11 @@ trait NodeRepository {
 
   def nodeWithId(nodeId: Long): Option[NodeDoc]
 
-  def nodesWithIds(nodeIds: Seq[Long], stale: Boolean = true): Seq[NodeDoc]
+  def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
 
-  def nodeNetworkReferences(nodeId: Long, stale: Boolean = true): Seq[Reference]
+  def nodeNetworkReferences(nodeId: Long): Seq[Reference]
 
-  def nodeRouteReferences(nodeId: Long, stale: Boolean = true): Seq[Reference]
+  def nodeRouteReferences(nodeId: Long): Seq[Reference]
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]
 }

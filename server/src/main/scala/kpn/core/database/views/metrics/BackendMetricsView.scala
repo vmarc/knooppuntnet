@@ -9,12 +9,12 @@ object BackendMetricsView extends View {
 
   override def reduce: Option[String] = sumAndCount
 
-  def query(database: Database, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue] = {
-    new MetricsQuery(database, BackendMetricsDesign, BackendMetricsView, parameters, action, average, stale).query()
+  def query(database: Database, parameters: PeriodParameters, action: String, average: Boolean): Seq[NameValue] = {
+    new MetricsQuery(database, BackendMetricsDesign, BackendMetricsView, parameters, action, average).query()
   }
 
-  def queryLastKnown(database: Database, action: String, stale: Boolean = true): Long = {
-    new LastKnownMetricsQuery(database, BackendMetricsDesign, BackendMetricsView, action, stale).value()
+  def queryLastKnown(database: Database, action: String): Long = {
+    new LastKnownMetricsQuery(database, BackendMetricsDesign, BackendMetricsView, action).value()
   }
 
 }

@@ -26,7 +26,7 @@ trait RouteRepository {
 
   def nameInfo(routeId: Long): Option[RouteNameInfo]
 
-  def networkReferences(routeId: Long, stale: Boolean = true): Seq[Reference]
+  def networkReferences(routeId: Long): Seq[Reference]
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
 }

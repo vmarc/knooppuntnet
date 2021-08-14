@@ -124,7 +124,7 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
     val analysisContext = new AnalysisContext()
     val analysisRepository = stub[AnalysisRepository]
     val nodeRepository = stub[NodeRepository]
-    (nodeRepository.nodeRouteReferences _).when(*, *).returns(Seq.empty)
+    (nodeRepository.nodeRouteReferences _).when(*).returns(Seq.empty)
     val countryAnalyzer = new CountryAnalyzerImpl()
     val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(
       countryAnalyzer

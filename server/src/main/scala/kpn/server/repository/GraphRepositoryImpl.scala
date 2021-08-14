@@ -73,7 +73,7 @@ class GraphRepositoryImpl(
   @tailrec
   private def readEdges(networkType: NetworkType): Seq[GraphEdge] = {
     try {
-      GraphEdgesView.query(analysisDatabase, networkType, stale = false)
+      GraphEdgesView.query(analysisDatabase, networkType)
     }
     catch {
       case e: HttpServerErrorException =>

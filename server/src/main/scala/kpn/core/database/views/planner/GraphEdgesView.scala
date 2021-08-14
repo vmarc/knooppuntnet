@@ -17,12 +17,11 @@ object GraphEdgesView extends View {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def query(database: Database, networkType: NetworkType, stale: Boolean = true): Seq[GraphEdge] = {
+  def query(database: Database, networkType: NetworkType): Seq[GraphEdge] = {
 
     val query = Query(PlannerDesign, GraphEdgesView, classOf[ViewResult])
       .keyStartsWith(networkType.name)
       .reduce(false)
-      .stale(stale)
 
     val result = database.execute(query)
 

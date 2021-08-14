@@ -57,7 +57,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteNameInfo(database).execute(routeId, log)
   }
 
-  override def networkReferences(routeId: Long, stale: Boolean): Seq[Reference] = {
+  override def networkReferences(routeId: Long): Seq[Reference] = {
     new MongoQueryRouteNetworkReferences(database).execute(routeId, log)
   }
 

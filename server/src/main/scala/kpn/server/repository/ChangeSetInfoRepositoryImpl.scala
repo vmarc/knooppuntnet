@@ -18,7 +18,7 @@ class ChangeSetInfoRepositoryImpl(database: Database) extends ChangeSetInfoRepos
     database.changeSets.findById(changeSetId, log)
   }
 
-  override def all(changeSetIds: Seq[Long], stale: Boolean): Seq[ChangeSetInfo] = {
+  override def all(changeSetIds: Seq[Long]): Seq[ChangeSetInfo] = {
     database.changeSets.findByIds(changeSetIds, log)
   }
 

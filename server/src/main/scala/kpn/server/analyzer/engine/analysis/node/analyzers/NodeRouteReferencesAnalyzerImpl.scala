@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class NodeRouteReferencesAnalyzerImpl(nodeRepository: NodeRepository) extends NodeRouteReferencesAnalyzer {
   override def analyze(analysis: NodeAnalysis): NodeAnalysis = {
-    val routReferences = nodeRepository.nodeRouteReferences(analysis.node.id, stale = false)
+    val routReferences = nodeRepository.nodeRouteReferences(analysis.node.id)
     analysis.copy(routeReferences = routReferences)
   }
 }

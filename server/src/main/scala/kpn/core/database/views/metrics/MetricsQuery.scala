@@ -10,10 +10,11 @@ import kpn.core.database.views.common.View
 
 object MetricsQuery {
   private case class ViewResultRow(key: Seq[String], value: Seq[Long])
+
   private case class ViewResult(rows: Seq[ViewResultRow])
 }
 
-class MetricsQuery(database: Database, design: Design, view: View, parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true) {
+class MetricsQuery(database: Database, design: Design, view: View, parameters: PeriodParameters, action: String, average: Boolean) {
 
   import MetricsQuery._
 
@@ -34,7 +35,6 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
       .keyStartsWith("week", action, parameters.year)
       .reduce(true)
       .groupLevel(4)
-      .stale(stale)
     val result = database.execute(query)
     val nameValues = result.rows.map { row =>
       val key = Fields(row.key)
@@ -60,7 +60,6 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
       .keyStartsWith("time", action, parameters.year, parameters.month.get)
       .reduce(true)
       .groupLevel(5)
-      .stale(stale)
     val result = database.execute(query)
     val nameValues = result.rows.map { row =>
       val key = Fields(row.key)
@@ -86,7 +85,6 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
       .keyStartsWith("week", action, parameters.year, parameters.week.get)
       .reduce(true)
       .groupLevel(5)
-      .stale(stale)
     val result = database.execute(query)
     val nameValues = result.rows.map { row =>
       val key = Fields(row.key)
@@ -111,7 +109,6 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
       .keyStartsWith("time", action, parameters.year, parameters.month.get, parameters.day.get)
       .reduce(true)
       .groupLevel(6)
-      .stale(stale)
     val result = database.execute(query)
     val nameValues = result.rows.map { row =>
       val key = Fields(row.key)
@@ -136,7 +133,6 @@ class MetricsQuery(database: Database, design: Design, view: View, parameters: P
       .keyStartsWith("time", action, parameters.year, parameters.month.get, parameters.day.get, parameters.hour.get)
       .reduce(true)
       .groupLevel(7)
-      .stale(stale)
     val result = database.execute(query)
     val nameValues = result.rows.map { row =>
       val key = Fields(row.key)

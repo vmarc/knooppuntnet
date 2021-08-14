@@ -1,13 +1,6 @@
 package kpn.core.database.views.changes
 
-import kpn.api.common.ChangeSetSummary
-import kpn.api.common.changes.details.LocationChange
-import kpn.api.common.changes.details.NetworkInfoChange
-import kpn.api.common.changes.details.NodeChange
-import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilterPeriod
-import kpn.api.common.changes.filter.ChangesParameters
-import kpn.api.custom.Subset
 import kpn.core.database.Database
 import kpn.core.database.query.Fields
 import kpn.core.database.query.Query
@@ -19,7 +12,7 @@ object ChangesView extends View {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def queryPeriod(database: Database, suffixLength: Int, keys: Seq[String], stale: Boolean = true): Seq[ChangesFilterPeriod] = {
+  def queryPeriod(database: Database, suffixLength: Int, keys: Seq[String]): Seq[ChangesFilterPeriod] = {
 
     def keyString(values: Seq[String]): String = values.mkString("[\"", "\", \"", "\"]")
 
@@ -34,7 +27,6 @@ object ChangesView extends View {
       .reduce(true)
       .descending(true)
       .groupLevel(keys.size + 1)
-      .stale(stale)
 
     val result = database.execute(query)
     result.rows.map { row =>
@@ -47,11 +39,10 @@ object ChangesView extends View {
     }
   }
 
-  def queryChangeCount(database: Database, elementType: String, elementId: Long, stale: Boolean = true): Long = {
+  def queryChangeCount(database: Database, elementType: String, elementId: Long): Long = {
     val query = Query(ChangesDesign, ChangesView, classOf[ViewResult])
       .keyStartsWith(elementType, elementId.toString)
       .groupLevel(2)
-      .stale(stale)
     val result = database.execute(query)
     result.rows.map(_.value.head).sum
   }

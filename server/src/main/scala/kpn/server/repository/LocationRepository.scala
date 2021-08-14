@@ -17,18 +17,18 @@ trait LocationRepository {
 
   def summary(locationKey: LocationKey): LocationSummary
 
-  def nodes(locationKey: LocationKey, parameters: LocationNodesParameters, stale: Boolean = true): Seq[LocationNodeInfo]
+  def nodes(locationKey: LocationKey, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
 
-  def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType, stale: Boolean = true): Long
+  def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType): Long
 
-  def routes(locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean = true): Seq[LocationRouteInfo]
+  def routes(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
 
-  def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean = true): Long
+  def routeCount(locationKey: LocationKey, locationRoutesType: LocationRoutesType): Long
 
-  def countryLocations(networkType: NetworkType, country: Country, stale: Boolean = true): Seq[LocationNodeCount]
+  def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount]
 
-  def facts(networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[LocationFact]
+  def facts(networkType: NetworkType, locationName: String): Seq[LocationFact]
 
-  def factCount(networkType: NetworkType, locationName: String, stale: Boolean = true): Long
+  def factCount(networkType: NetworkType, locationName: String): Long
 
 }

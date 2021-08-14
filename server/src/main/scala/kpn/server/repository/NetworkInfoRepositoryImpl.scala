@@ -13,7 +13,7 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
     database.networkInfos.findById(networkId)
   }
 
-  override def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes] = {
+  override def networks(subset: Subset): Seq[NetworkAttributes] = {
     throw new IllegalStateException("not implemented")
   }
 

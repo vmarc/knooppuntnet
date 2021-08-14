@@ -133,8 +133,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
     LocationNodeView.query(
       database,
       LocationKey(NetworkType.cycling, Country.nl, locationName),
-      parameters,
-      stale = false
+      parameters
     )
   }
 
@@ -142,8 +141,7 @@ class LocationNodeViewTest extends UnitTest with SharedTestObjects {
     LocationNodeView.queryCount(
       database,
       LocationKey(NetworkType.cycling, Country.nl, locationName),
-      locationNodesType,
-      stale = false
+      locationNodesType
     )
   }
 }

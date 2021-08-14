@@ -119,7 +119,7 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
 
       override def nameInfo(routeId: Long): Option[RouteNameInfo] = None
 
-      override def networkReferences(routeId: Long, stale: Boolean): Seq[Reference] = ???
+      override def networkReferences(routeId: Long): Seq[Reference] = ???
 
       override def filterKnown(routeIds: Set[Long]): Set[Long] = ???
 

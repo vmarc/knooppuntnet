@@ -44,10 +44,9 @@ object NodeRouteReferenceView extends View {
     value: Long
   )
 
-  def query(database: Database, scopedNetworkType: ScopedNetworkType, nodeId: Long, stale: Boolean): Seq[Ref] = {
+  def query(database: Database, scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref] = {
 
     val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[ViewResult])
-      .stale(stale)
       .reduce(false)
       .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name, nodeId)
 
@@ -61,7 +60,7 @@ object NodeRouteReferenceView extends View {
     }
   }
 
-  def queryNodeIds(database: Database, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long], stale: Boolean): Seq[NodeRouteRefs] = {
+  def queryNodeIds(database: Database, scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
 
     val sw = new StringWriter
     sw.append("""{ "queries": [ """)
@@ -70,7 +69,6 @@ object NodeRouteReferenceView extends View {
     val body = sw.toString
 
     val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[MultiViewResult])
-      .stale(stale)
       .reduce(false)
 
     val result = database.post(query, body, classOf[MultiViewResult])
@@ -95,10 +93,9 @@ object NodeRouteReferenceView extends View {
     }
   }
 
-  def queryCount(database: Database, scopedNetworkType: ScopedNetworkType, stale: Boolean): Seq[NodeRouteCount] = {
+  def queryCount(database: Database, scopedNetworkType: ScopedNetworkType): Seq[NodeRouteCount] = {
 
     val query = Query(NodeRouteDesign, NodeRouteReferenceView, classOf[CountResult])
-      .stale(stale)
       .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name)
       .reduce(true)
       .groupLevel(3)

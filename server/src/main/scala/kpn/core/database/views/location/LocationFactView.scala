@@ -22,10 +22,9 @@ object LocationFactView extends View {
     value: Long
   )
 
-  def query(database: Database, networkType: NetworkType, locationName: String, stale: Boolean): Seq[LocationFact] = {
+  def query(database: Database, networkType: NetworkType, locationName: String): Seq[LocationFact] = {
 
     val query = Query(LocationDesign, LocationFactView, classOf[ViewResult])
-      .stale(stale)
       .keyStartsWith(networkType.name, locationName)
       .reduce(false)
 
@@ -49,10 +48,9 @@ object LocationFactView extends View {
     }
   }
 
-  def queryCount(database: Database, networkType: NetworkType, locationName: String, stale: Boolean): Long = {
+  def queryCount(database: Database, networkType: NetworkType, locationName: String): Long = {
 
     val query = Query(LocationDesign, LocationFactView, classOf[ViewResult])
-      .stale(stale)
       .keyStartsWith(networkType.name, locationName)
       .groupLevel(2)
       .reduce(true)

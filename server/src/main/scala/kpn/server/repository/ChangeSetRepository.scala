@@ -26,30 +26,30 @@ trait ChangeSetRepository {
 
   def saveNodeChange(nodeChange: NodeChange): Unit
 
-  def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean = true): Seq[ChangeSetData]
+  def changeSet(changeSetId: Long, replicationId: Option[ReplicationId]): Seq[ChangeSetData]
 
-  def changes(changesParameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary]
+  def changes(changesParameters: ChangesParameters): Seq[ChangeSetSummary]
 
-  def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
 
-  def subsetChanges(subset: Subset, parameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary]
+  def subsetChanges(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary]
 
-  def networkChanges(networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkInfoChange]
+  def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange]
 
-  def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def networkChangesFilter(networkId: Long, year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
 
-  def networkChangesCount(networkId: Long, stale: Boolean = true): Long
+  def networkChangesCount(networkId: Long): Long
 
-  def routeChanges(routeId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange]
+  def routeChanges(routeId: Long, parameters: ChangesParameters): Seq[RouteChange]
 
-  def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
 
-  def routeChangesCount(routeId: Long, stale: Boolean = true): Long
+  def routeChangesCount(routeId: Long): Long
 
-  def nodeChanges(nodeId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange]
+  def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange]
 
-  def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String], stale: Boolean = true): ChangesFilter
+  def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
 
-  def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long
+  def nodeChangesCount(nodeId: Long): Long
 
 }

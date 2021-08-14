@@ -10,11 +10,10 @@ object MonitorRouteReferenceView extends View {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def reference(database: Database, routeId: Long, stale: Boolean = true): Option[String] = {
+  def reference(database: Database, routeId: Long): Option[String] = {
     val query = Query(MonitorDesign, MonitorRouteReferenceView, classOf[ViewResult])
       .keyLong(routeId)
       .reduce(false)
-      .stale(stale)
     val result = database.execute(query)
     if (result.rows.size == 1) {
       Some(result.rows.head.value)

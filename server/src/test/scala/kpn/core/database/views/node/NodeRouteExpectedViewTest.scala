@@ -46,12 +46,12 @@ class NodeRouteExpectedViewTest extends UnitTest with SharedTestObjects {
       }
 
       def queryNetworkType(networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
-        NodeRouteExpectedView.queryNetworkType(database, networkType, stale = false)
+        NodeRouteExpectedView.queryNetworkType(database, networkType)
       }
 
       def queryScopedNetworkType(networkScope: NetworkScope, networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
         val scopedNetworkType = ScopedNetworkType.from(networkScope, networkType)
-        NodeRouteExpectedView.queryScopedNetworkType(database, scopedNetworkType, stale = false)
+        NodeRouteExpectedView.queryScopedNetworkType(database, scopedNetworkType)
       }
 
       node(1001, "01", NetworkScope.local, NetworkType.hiking, 1)

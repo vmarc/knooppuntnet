@@ -8,6 +8,6 @@ trait NetworkInfoRepository {
 
   def findById(networkId: Long): Option[NetworkInfoDoc]
 
-  def networks(subset: Subset, stale: Boolean = true): Seq[NetworkAttributes]
+  def networks(subset: Subset): Seq[NetworkAttributes]
 
 }

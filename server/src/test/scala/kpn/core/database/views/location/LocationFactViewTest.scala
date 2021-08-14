@@ -66,7 +66,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
       updater.update()
 
       def testQuery(locationName: String): Unit = {
-        LocationFactView.query(database, NetworkType.cycling, locationName, stale = false) should matchTo(
+        LocationFactView.query(database, NetworkType.cycling, locationName) should matchTo(
           Seq(
             LocationFact(
               elementType = "node",
@@ -111,7 +111,7 @@ class LocationFactViewTest extends UnitTest with SharedTestObjects {
       )
 
       def testQuery(locationName: String): Unit = {
-        LocationFactView.query(database, NetworkType.cycling, locationName, stale = false) should matchTo(
+        LocationFactView.query(database, NetworkType.cycling, locationName) should matchTo(
           Seq(
             LocationFact(
               elementType = "route",

@@ -5,5 +5,5 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 
 trait FactRepository {
-  def factsPerNetwork(subset: Subset, fact: Fact, stale: Boolean = true): Seq[NetworkFactRefs]
+  def factsPerNetwork(subset: Subset, fact: Fact): Seq[NetworkFactRefs]
 }

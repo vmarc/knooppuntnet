@@ -688,7 +688,7 @@ class UnreferencedNodeProcessorTest extends UnitTest with MockFactory with TestO
     val analysisContext = new AnalysisContext()
     val analysisRepository: AnalysisRepository = stub[AnalysisRepository]
     val nodeRepository: NodeRepository = stub[NodeRepository]
-    (nodeRepository.nodeRouteReferences _).when(*, *).returns(Seq.empty)
+    (nodeRepository.nodeRouteReferences _).when(*).returns(Seq.empty)
     val nodeLoader: NodeLoader = stub[NodeLoader]
 
     val nodeAnalyzer: NodeAnalyzer = {

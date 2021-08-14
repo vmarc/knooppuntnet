@@ -64,15 +64,15 @@ class ChangeSetRepositoryImpl(
     database.nodeChanges.save(nodeChange, log)
   }
 
-  override def changeSet(changeSetId: Long, replicationId: Option[ReplicationId], stale: Boolean): Seq[ChangeSetData] = {
+  override def changeSet(changeSetId: Long, replicationId: Option[ReplicationId]): Seq[ChangeSetData] = {
     new MongoQueryChangeSet(database).execute(changeSetId, replicationId)
   }
 
-  override def changes(parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
+  override def changes(parameters: ChangesParameters): Seq[ChangeSetSummary] = {
     new MongoQueryChangeSetSummaries(database).execute(parameters)
   }
 
-  override def nodeChangesFilter(nodeId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String], stale: Boolean): ChangesFilter = {
+  override def nodeChangesFilter(nodeId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
     val year = yearOption match {
       case None => Time.now.year
       case Some(year) => year.toInt
@@ -81,11 +81,11 @@ class ChangeSetRepositoryImpl(
     ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
   }
 
-  override def nodeChangesCount(nodeId: Long, stale: Boolean = true): Long = {
+  override def nodeChangesCount(nodeId: Long): Long = {
     new MongoQueryNodeChangeCount(database).execute(nodeId)
   }
 
-  override def routeChangesFilter(routeId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String], stale: Boolean): ChangesFilter = {
+  override def routeChangesFilter(routeId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
     val year = yearOption match {
       case None => Time.now.year
       case Some(year) => year.toInt
@@ -94,11 +94,11 @@ class ChangeSetRepositoryImpl(
     ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
   }
 
-  override def routeChangesCount(routeId: Long, stale: Boolean = true): Long = {
+  override def routeChangesCount(routeId: Long): Long = {
     new MongoQueryRouteChangeCount(database).execute(routeId)
   }
 
-  override def networkChangesFilter(networkId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String], stale: Boolean): ChangesFilter = {
+  override def networkChangesFilter(networkId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
     val year = yearOption match {
       case None => Time.now.year
       case Some(year) => year.toInt
@@ -107,11 +107,11 @@ class ChangeSetRepositoryImpl(
     ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
   }
 
-  override def networkChangesCount(networkId: Long, stale: Boolean = true): Long = {
+  override def networkChangesCount(networkId: Long): Long = {
     new MongoQueryNetworkChangeCount(database).execute(networkId)
   }
 
-  override def changesFilter(subsetOption: Option[Subset], yearOption: Option[String], monthOption: Option[String], dayOption: Option[String], stale: Boolean): ChangesFilter = {
+  override def changesFilter(subsetOption: Option[Subset], yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
     val year = yearOption match {
       case None => Time.now.year
       case Some(year) => year.toInt
@@ -121,8 +121,8 @@ class ChangeSetRepositoryImpl(
     ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
   }
 
-  private def changesFilter(keys: Seq[String], year: Option[String], month: Option[String], day: Option[String], stale: Boolean): ChangesFilter = {
-    val yearPeriods = changesFilterPeriod(4, keys, stale)
+  private def changesFilter(keys: Seq[String], year: Option[String], month: Option[String], day: Option[String]): ChangesFilter = {
+    val yearPeriods = changesFilterPeriod(4, keys)
     if (yearPeriods.isEmpty) {
       ChangesFilter(Seq.empty)
     }
@@ -130,10 +130,10 @@ class ChangeSetRepositoryImpl(
       val selectedYear = year.getOrElse(yearPeriods.head.name)
       val modifiedYears = yearPeriods.map { yearPeriod =>
         if (yearPeriod.name == selectedYear) {
-          val monthPeriods = changesFilterPeriod(2, keys :+ selectedYear, stale)
+          val monthPeriods = changesFilterPeriod(2, keys :+ selectedYear)
           val modifiedMonthPeriods = monthPeriods.map { monthPeriod: ChangesFilterPeriod =>
             if (month.contains(monthPeriod.name)) {
-              val dayPeriods = changesFilterPeriod(2, keys ++ Seq(selectedYear, monthPeriod.name), stale)
+              val dayPeriods = changesFilterPeriod(2, keys ++ Seq(selectedYear, monthPeriod.name))
               val modifiedDays = dayPeriods.map { dayPeriod =>
                 if (day.contains(dayPeriod.name)) {
                   dayPeriod.copy(selected = day.nonEmpty, current = day.nonEmpty)
@@ -158,23 +158,23 @@ class ChangeSetRepositoryImpl(
     }
   }
 
-  private def changesFilterPeriod(suffixLength: Int, keys: Seq[String], stale: Boolean): Seq[ChangesFilterPeriod] = {
-    ChangesView.queryPeriod(changeDatabase, suffixLength, keys, stale)
+  private def changesFilterPeriod(suffixLength: Int, keys: Seq[String]): Seq[ChangesFilterPeriod] = {
+    ChangesView.queryPeriod(changeDatabase, suffixLength, keys)
   }
 
-  override def subsetChanges(subset: Subset, parameters: ChangesParameters, stale: Boolean): Seq[ChangeSetSummary] = {
+  override def subsetChanges(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary] = {
     new MongoQuerySubsetChanges(database).execute(subset, parameters)
   }
 
-  override def networkChanges(networkId: Long, parameters: ChangesParameters, stale: Boolean): Seq[NetworkInfoChange] = {
+  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
     new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
 
-  override def routeChanges(routeId: Long, parameters: ChangesParameters, stale: Boolean): Seq[RouteChange] = {
+  override def routeChanges(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
     new MongoQueryRouteChanges(database).execute(routeId, parameters)
   }
 
-  override def nodeChanges(nodeId: Long, parameters: ChangesParameters, stale: Boolean): Seq[NodeChange] = {
+  override def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange] = {
     new MongoQueryNodeChanges(database).execute(nodeId, parameters)
   }
 }

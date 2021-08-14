@@ -36,7 +36,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(102))
 
-      nodeRepository.nodesWithIds(Seq(101, 102, 103), stale = false) should matchTo(Seq(newNodeDoc(101), newNodeDoc(102)))
+      nodeRepository.nodesWithIds(Seq(101, 102, 103)) should matchTo(Seq(newNodeDoc(101), newNodeDoc(102)))
     }
   }
 
@@ -122,7 +122,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.nodeNetworkReferences(1001, stale = false) should matchTo(
+      nodeRepository.nodeNetworkReferences(1001) should matchTo(
         Seq(
           Reference(
             NetworkType.hiking,

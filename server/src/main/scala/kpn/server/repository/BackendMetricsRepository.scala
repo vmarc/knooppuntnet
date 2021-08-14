@@ -17,8 +17,8 @@ trait BackendMetricsRepository {
 
   def saveSystemStatus(systemStatus: SystemStatus): Unit
 
-  def query(parameters: PeriodParameters, action: String, average: Boolean = false, stale: Boolean = true): Seq[NameValue]
+  def query(parameters: PeriodParameters, action: String, average: Boolean = false): Seq[NameValue]
 
-  def lastKnownValue(action: String, stale: Boolean = true): Long
+  def lastKnownValue(action: String): Long
 
 }

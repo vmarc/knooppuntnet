@@ -171,7 +171,7 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
       route(routeRepository, 13, 1001, 1004)
       route(routeRepository, 14, 1002, 1005)
 
-      val refCounts = NodeRouteReferenceView.queryCount(database, ScopedNetworkType.rwn, stale = false)
+      val refCounts = NodeRouteReferenceView.queryCount(database, ScopedNetworkType.rwn)
 
       refCounts should equal(
         Seq(
@@ -186,11 +186,11 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   }
 
   private def queryNode(database: Database, nodeId: Long): Seq[Ref] = {
-    NodeRouteReferenceView.query(database, ScopedNetworkType.rwn, nodeId, stale = false)
+    NodeRouteReferenceView.query(database, ScopedNetworkType.rwn, nodeId)
   }
 
   private def queryNodeIds(database: Database, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
-    NodeRouteReferenceView.queryNodeIds(database, ScopedNetworkType.rwn, nodeIds, stale = false)
+    NodeRouteReferenceView.queryNodeIds(database, ScopedNetworkType.rwn, nodeIds)
   }
 
   private def route(routeRepository: RouteRepository, routeId: Long, startNodeId: Long, endNodeId: Long): Unit = {

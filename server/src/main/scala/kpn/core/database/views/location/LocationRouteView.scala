@@ -38,13 +38,12 @@ object LocationRouteView extends View {
     value: Long
   )
 
-  def query(database: Database, locationKey: LocationKey, parameters: LocationRoutesParameters, stale: Boolean): Seq[LocationRouteInfo] = {
+  def query(database: Database, locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {
 
     val skip = parameters.itemsPerPage * parameters.pageIndex
     val limit = parameters.itemsPerPage
 
     val query = Query(LocationDesign, LocationRouteView, classOf[ViewResult])
-      .stale(stale)
       .keyStartsWith(
         locationKey.networkType.name,
         locationKey.name,
@@ -76,10 +75,9 @@ object LocationRouteView extends View {
     }
   }
 
-  def queryCount(database: Database, locationKey: LocationKey, locationRoutesType: LocationRoutesType, stale: Boolean): Long = {
+  def queryCount(database: Database, locationKey: LocationKey, locationRoutesType: LocationRoutesType): Long = {
 
     val query = Query(LocationDesign, LocationRouteView, classOf[CountViewResult])
-      .stale(stale)
       .keyStartsWith(
         locationKey.networkType.name,
         locationKey.name,

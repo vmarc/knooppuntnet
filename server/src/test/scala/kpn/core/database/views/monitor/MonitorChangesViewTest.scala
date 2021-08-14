@@ -29,8 +29,8 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
       groupRepository.saveRouteChange(change5)
 
       pending // no couchdb database anymore
-      MonitorChangesView.changesCount(null, MonitorChangesParameters(), stale = false) should equal(5)
-      MonitorChangesView.changes(null, MonitorChangesParameters(), stale = false) should equal(
+      MonitorChangesView.changesCount(null, MonitorChangesParameters()) should equal(5)
+      MonitorChangesView.changes(null, MonitorChangesParameters()) should equal(
         Seq(
           change5,
           change4,
@@ -40,16 +40,16 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      MonitorChangesView.changesCount(null, MonitorChangesParameters(impact = true), stale = false) should equal(2)
-      MonitorChangesView.changes(null, MonitorChangesParameters(impact = true), stale = false) should matchTo(
+      MonitorChangesView.changesCount(null, MonitorChangesParameters(impact = true)) should equal(2)
+      MonitorChangesView.changes(null, MonitorChangesParameters(impact = true)) should matchTo(
         Seq(
           change5,
           change2
         )
       )
 
-      MonitorChangesView.groupChangesCount(null, "group-1", MonitorChangesParameters(), stale = false) should equal(3)
-      MonitorChangesView.groupChanges(null, "group-1", MonitorChangesParameters(), stale = false) should matchTo(
+      MonitorChangesView.groupChangesCount(null, "group-1", MonitorChangesParameters()) should equal(3)
+      MonitorChangesView.groupChanges(null, "group-1", MonitorChangesParameters()) should matchTo(
         Seq(
           change3,
           change2,
@@ -57,23 +57,23 @@ class MonitorChangesViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      MonitorChangesView.groupChangesCount(null, "group-1", MonitorChangesParameters(impact = true), stale = false) should equal(1)
-      MonitorChangesView.groupChanges(null, "group-1", MonitorChangesParameters(impact = true), stale = false) should matchTo(
+      MonitorChangesView.groupChangesCount(null, "group-1", MonitorChangesParameters(impact = true)) should equal(1)
+      MonitorChangesView.groupChanges(null, "group-1", MonitorChangesParameters(impact = true)) should matchTo(
         Seq(
           change2
         )
       )
 
-      MonitorChangesView.routeChangesCount(null, 101L, MonitorChangesParameters(), stale = false) should equal(2)
-      MonitorChangesView.routeChanges(null, 101L, MonitorChangesParameters(), stale = false) should matchTo(
+      MonitorChangesView.routeChangesCount(null, 101L, MonitorChangesParameters()) should equal(2)
+      MonitorChangesView.routeChanges(null, 101L, MonitorChangesParameters()) should matchTo(
         Seq(
           change2,
           change1
         )
       )
 
-      MonitorChangesView.routeChangesCount(null, 101L, MonitorChangesParameters(impact = true), stale = false) should equal(1)
-      MonitorChangesView.routeChanges(null, 101L, MonitorChangesParameters(impact = true), stale = false) should matchTo(
+      MonitorChangesView.routeChangesCount(null, 101L, MonitorChangesParameters(impact = true)) should equal(1)
+      MonitorChangesView.routeChanges(null, 101L, MonitorChangesParameters(impact = true)) should matchTo(
         Seq(
           change2
         )

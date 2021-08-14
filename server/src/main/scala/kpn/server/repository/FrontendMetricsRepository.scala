@@ -11,6 +11,6 @@ trait FrontendMetricsRepository {
 
   def saveLogAction(action: LogAction): Unit
 
-  def query(parameters: PeriodParameters, action: String, average: Boolean, stale: Boolean = true): Seq[NameValue]
+  def query(parameters: PeriodParameters, action: String, average: Boolean): Seq[NameValue]
 
 }

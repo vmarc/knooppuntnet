@@ -23,7 +23,7 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
       groupRepository.saveGroup(group3)
 
       pending // no more couchdb database
-      MonitorRouteView.groups(null, stale = false) should matchTo(
+      MonitorRouteView.groups(null) should matchTo(
         Seq(
           group1,
           group2,
@@ -47,8 +47,8 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRoute(route3)
 
       pending // no more couchdb database
-      MonitorRouteView.groupRoutes(null, "group-1", stale = false) should matchTo(Seq(route1, route2))
-      MonitorRouteView.groupRoutes(null, "group-2", stale = false) should matchTo(Seq(route3))
+      MonitorRouteView.groupRoutes(null, "group-1") should matchTo(Seq(route1, route2))
+      MonitorRouteView.groupRoutes(null, "group-2") should matchTo(Seq(route3))
     }
   }
 
@@ -67,7 +67,7 @@ class MonitorRouteViewTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRoute(route3)
 
       pending // no more couchdb database
-      MonitorRouteView.allRouteIds(null, stale = false) should equal(Seq(101L, 102L, 103L))
+      MonitorRouteView.allRouteIds(null) should equal(Seq(101L, 102L, 103L))
     }
   }
 }

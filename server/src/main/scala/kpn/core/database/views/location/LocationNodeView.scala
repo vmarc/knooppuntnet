@@ -56,14 +56,12 @@ object LocationNodeView extends View {
     database: Database,
     locationKey: LocationKey,
     parameters: LocationNodesParameters,
-    stale: Boolean
   ): Seq[LocationNodeInfo] = {
 
     val skip = parameters.itemsPerPage * parameters.pageIndex
     val limit = parameters.itemsPerPage
 
     val query = Query(LocationDesign, LocationNodeView, classOf[ViewResult])
-      .stale(stale)
       .includeDocs(true)
       .keyStartsWith(
         locationKey.networkType.name,
@@ -119,34 +117,14 @@ object LocationNodeView extends View {
   def queryCount(
     database: Database,
     locationKey: LocationKey,
-    locationNodesType: LocationNodesType,
-    stale: Boolean
+    locationNodesType: LocationNodesType
   ): Long = {
-
-    val query = Query(LocationDesign, LocationNodeView, classOf[CountViewResult])
-      .stale(stale)
-      .keyStartsWith(
-        locationKey.networkType.name,
-        locationKey.country.domain,
-        locationKey.name,
-        locationNodesType.name
-      )
-      .reduce(true)
-      .groupLevel(4)
-
-    val result = database.execute(query)
-    if (result.rows.nonEmpty) {
-      result.rows.head.value
-    }
-    else {
-      0L
-    }
+    0L
   }
 
-  def countryLocations(database: Database, networkType: NetworkType, country: Country, stale: Boolean): Seq[LocationNodeCount] = {
+  def countryLocations(database: Database, networkType: NetworkType, country: Country): Seq[LocationNodeCount] = {
 
     val query = Query(LocationDesign, LocationNodeView, classOf[CountryViewResult])
-      .stale(stale)
       .keyStartsWith(networkType.name, country.domain)
       .groupLevel(3)
       .reduce(true)

@@ -23,7 +23,7 @@ class NodeRouteViewTest extends UnitTest with SharedTestObjects {
       repo.save(NodeRoute(1004, "04", NetworkType.cycling, NetworkScope.regional, Seq.empty, 8, 9))
       repo.save(NodeRoute(1005, "05", NetworkType.hiking, NetworkScope.local, Seq.empty, 9, 10))
 
-      val nodeRoutes = NodeRouteView.query(database, ScopedNetworkType.rwn, stale = false)
+      val nodeRoutes = NodeRouteView.query(database, ScopedNetworkType.rwn)
 
       nodeRoutes should matchTo(
         Seq(

@@ -21,10 +21,9 @@ object NodeRouteExpectedView extends View {
     doc: CouchNodeDoc
   )
 
-  def queryScopedNetworkType(database: Database, scopedNetworkType: ScopedNetworkType, stale: Boolean): Seq[NodeRouteExpectedCount] = {
+  def queryScopedNetworkType(database: Database, scopedNetworkType: ScopedNetworkType): Seq[NodeRouteExpectedCount] = {
 
     val query = Query(NodeRouteDesign, NodeRouteExpectedView, classOf[ViewResult])
-      .stale(stale)
       .includeDocs(true)
       .reduce(false)
       .keyStartsWith(scopedNetworkType.networkType.name, scopedNetworkType.networkScope.name)
@@ -43,10 +42,9 @@ object NodeRouteExpectedView extends View {
     }.sortBy(n => (n.nodeName, n.nodeId))
   }
 
-  def queryNetworkType(database: Database, networkType: NetworkType, stale: Boolean): Seq[NodeRouteExpectedCount] = {
+  def queryNetworkType(database: Database, networkType: NetworkType): Seq[NodeRouteExpectedCount] = {
 
     val query = Query(NodeRouteDesign, NodeRouteExpectedView, classOf[ViewResult])
-      .stale(stale)
       .includeDocs(true)
       .reduce(false)
       .keyStartsWith(networkType.name)

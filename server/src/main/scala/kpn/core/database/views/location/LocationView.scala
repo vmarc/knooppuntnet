@@ -13,12 +13,11 @@ object LocationView extends View {
 
   private case class ViewResult(rows: Seq[ViewResultRow])
 
-  def query(database: Database, elementType: String, networkType: NetworkType, locationName: String, stale: Boolean = true): Seq[Ref] = {
+  def query(database: Database, elementType: String, networkType: NetworkType, locationName: String): Seq[Ref] = {
 
     val query = Query(LocationDesign, LocationView, classOf[ViewResult])
       .keyStartsWith(elementType, networkType.name, locationName)
       .reduce(false)
-      .stale(stale)
 
     val result = database.execute(query)
     result.rows.map { row =>

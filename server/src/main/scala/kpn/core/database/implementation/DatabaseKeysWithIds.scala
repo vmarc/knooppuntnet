@@ -11,15 +11,12 @@ import org.springframework.web.util.UriComponentsBuilder
 
 class DatabaseKeysWithIds(context: DatabaseContext) {
 
-  def keysWithIds(docIds: Seq[String], stale: Boolean): Seq[String] = {
+  def keysWithIds(docIds: Seq[String]): Seq[String] = {
 
     val body = context.objectMapper.writeValueAsString(Keys(docIds))
 
     val b = UriComponentsBuilder.fromHttpUrl(s"${context.databaseUrl}/_all_docs")
     b.queryParam("include_docs", "false")
-    if (stale) {
-      b.queryParam("stale", "ok")
-    }
     val url = b.toUriString
 
     val headers = new HttpHeaders()

@@ -10,7 +10,7 @@ object LastKnownMetricsQuery {
   private case class ViewResult(rows: Seq[ViewResultRow])
 }
 
-class LastKnownMetricsQuery(database: Database, design: Design, view: View, action: String, stale: Boolean = true) {
+class LastKnownMetricsQuery(database: Database, design: Design, view: View, action: String) {
 
   import LastKnownMetricsQuery._
 
@@ -22,7 +22,6 @@ class LastKnownMetricsQuery(database: Database, design: Design, view: View, acti
       .reduce(false)
       .descending(true)
       .limit(1)
-      .stale(stale)
     val result = database.execute(query)
     if (result.rows.isEmpty) {
       0

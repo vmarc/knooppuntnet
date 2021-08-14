@@ -25,12 +25,12 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseDocWithId(context).docWithId(docId, docType)
   }
 
-  override def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T = {
-    new DatabaseDocsWithIds(context).docsWithIds(docIds, docType, stale)
+  override def docsWithIds[T](docIds: Seq[String], docType: Class[T]): T = {
+    new DatabaseDocsWithIds(context).docsWithIds(docIds, docType)
   }
 
-  override def allIds(stale: Boolean = true): Seq[String] = {
-    new DatabaseAllIds(context).execute(stale)
+  override def allIds(): Seq[String] = {
+    new DatabaseAllIds(context).execute()
   }
 
   override def save[T](doc: CouchDoc): Unit = {
@@ -60,8 +60,8 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseQuery(context).execute(query)
   }
 
-  override def keysWithIds(docIds: Seq[String], stale: Boolean): Seq[String] = {
-    new DatabaseKeysWithIds(context).keysWithIds(docIds, stale)
+  override def keysWithIds(docIds: Seq[String]): Seq[String] = {
+    new DatabaseKeysWithIds(context).keysWithIds(docIds)
   }
 
   override def post[T](query: Query[T], body: String, docType: Class[T]): T = {

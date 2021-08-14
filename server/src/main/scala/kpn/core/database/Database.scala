@@ -15,11 +15,11 @@ trait Database {
 
   def docWithId[T](docId: String, docType: Class[T]): Option[T]
 
-  def docsWithIds[T](docIds: Seq[String], docType: Class[T], stale: Boolean = true): T
+  def docsWithIds[T](docIds: Seq[String], docType: Class[T]): T
 
-  def allIds(stale: Boolean = true): Seq[String]
+  def allIds(): Seq[String]
 
-  def keysWithIds(docIds: Seq[String], stale: Boolean = true): Seq[String]
+  def keysWithIds(docIds: Seq[String]): Seq[String]
 
   def revision(docId: String): Option[String]
 

@@ -41,19 +41,19 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      LocationView.query(database, "node", NetworkType.cycling, "country", stale = false) should matchTo(
+      LocationView.query(database, "node", NetworkType.cycling, "country") should matchTo(
         Seq(
           Ref(1001, "01")
         )
       )
 
-      LocationView.query(database, "node", NetworkType.cycling, "province", stale = false) should matchTo(
+      LocationView.query(database, "node", NetworkType.cycling, "province") should matchTo(
         Seq(
           Ref(1001, "01")
         )
       )
 
-      LocationView.query(database, "node", NetworkType.cycling, "municipality", stale = false) should matchTo(
+      LocationView.query(database, "node", NetworkType.cycling, "municipality") should matchTo(
         Seq(
           Ref(1001, "01")
         )
@@ -107,7 +107,7 @@ class LocationViewTest extends UnitTest with SharedTestObjects {
       routeRepository.save(route2)
 
       def query(locationName: String): Seq[Ref] = {
-        LocationView.query(database, "route", NetworkType.hiking, locationName, stale = false)
+        LocationView.query(database, "route", NetworkType.hiking, locationName)
       }
 
       query("country") should matchTo(

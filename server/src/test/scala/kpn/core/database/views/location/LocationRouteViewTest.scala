@@ -67,12 +67,12 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
       def query(locationRoutesType: LocationRoutesType, locationName: String): Seq[LocationRouteInfo] = {
         val key = LocationKey(NetworkType.hiking, Country.nl, locationName)
         val parameters = LocationRoutesParameters(locationRoutesType)
-        LocationRouteView.query(database, key, parameters, stale = false)
+        LocationRouteView.query(database, key, parameters)
       }
 
       def queryCount(locationRoutesType: LocationRoutesType, locationName: String): Long = {
         val key = LocationKey(NetworkType.hiking, Country.nl, locationName)
-        LocationRouteView.queryCount(database, key, locationRoutesType, stale = false)
+        LocationRouteView.queryCount(database, key, locationRoutesType)
       }
 
       val expectedRouteInfo1 = LocationRouteInfo(
@@ -118,8 +118,8 @@ class LocationRouteViewTest extends UnitTest with SharedTestObjects {
     withCouchDatabase { database =>
       val key = LocationKey(NetworkType.hiking, Country.nl, "unknown")
       val parameters = LocationRoutesParameters(LocationRoutesType.all)
-      LocationRouteView.query(database, key, parameters, stale = false) shouldBe empty
-      LocationRouteView.queryCount(database, key, LocationRoutesType.all, stale = false) should equal(0)
+      LocationRouteView.query(database, key, parameters) shouldBe empty
+      LocationRouteView.queryCount(database, key, LocationRoutesType.all) should equal(0)
     }
   }
 }
