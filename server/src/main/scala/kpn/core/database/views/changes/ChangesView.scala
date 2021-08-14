@@ -56,29 +56,5 @@ object ChangesView extends View {
     result.rows.map(_.value.head).sum
   }
 
-  def changes(database: Database, parameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary] = {
-    ChangesViewChangesQuery.changes(database, parameters, stale)
-  }
-
-  def subsetChanges(database: Database, subset: Subset, parameters: ChangesParameters, stale: Boolean = true): Seq[ChangeSetSummary] = {
-    ChangesViewChangesQuery.subsetChanges(database, subset, parameters, stale)
-  }
-
-  def locationChanges(database: Database, location: String, parameters: ChangesParameters, stale: Boolean = true): Seq[LocationChange] = {
-    ChangesViewLocationChangesQuery.locationChanges(database, location: String, parameters, stale)
-  }
-
-  def networkChanges(database: Database, networkId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NetworkInfoChange] = {
-    ChangesViewNetworkChangesQuery.networkChanges(database, networkId, parameters, stale)
-  }
-
-  def routeChanges(database: Database, routeId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[RouteChange] = {
-    ChangesViewRouteChangesQuery.routeChanges(database, routeId, parameters, stale)
-  }
-
-  def nodeChanges(database: Database, nodeId: Long, parameters: ChangesParameters, stale: Boolean = true): Seq[NodeChange] = {
-    ChangesViewNodeChangesQuery.nodeChanges(database, nodeId, parameters, stale)
-  }
-
   override val reduce: Option[String] = Some("_sum")
 }

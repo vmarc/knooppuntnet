@@ -102,6 +102,8 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
   }
 
   def queryNode(database: Database, nodeId: Long): Seq[Reference] = {
-    NodeRouteReferenceView.query(database, nodeId, stale = false)
+    pending
+    // NodeRouteReferenceView.query(database, nodeId, stale = false)
+    Seq.empty
   }
 }

@@ -134,7 +134,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val orphanRepository = new OrphanRepositoryImpl(mongoDatabase)
 
-  val factRepository = new FactRepositoryImpl(null, analysisDatabase, false)
+  val factRepository = new FactRepositoryImpl(mongoDatabase)
 
   val nodeLoader = new NodeLoaderImpl(
     nonCachingExecutor,

@@ -23,19 +23,20 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
       repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1")))
       repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1")))
 
-      NetworkView.query(database, Subset.beHiking, stale = false) should matchTo(
-        Seq(
-          newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1"),
-          newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2")
-        )
-      )
-
-      NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
-        Seq(
-          newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1"),
-          newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")
-        )
-      )
+      pending
+//      NetworkView.query(database, Subset.beHiking, stale = false) should matchTo(
+//        Seq(
+//          newNetworkAttributes(3, Some(Country.be), hiking, name = "be-rwn-1"),
+//          newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2")
+//        )
+//      )
+//
+//      NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
+//        Seq(
+//          newNetworkAttributes(4, Some(Country.nl), cycling, name = "nl-rcn-1"),
+//          newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")
+//        )
+//      )
     }
   }
 
@@ -49,11 +50,12 @@ class NetworkViewTest extends UnitTest with SharedTestObjects {
       repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")))
       repository.oldSaveNetworkInfo(newNetworkInfo(newNetworkAttributes(2, Some(Country.be), hiking, name = "be-rwn-2"), active = false))
 
-      NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
-        Seq(
-          newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")
-        )
-      )
+      pending
+//      NetworkView.query(database, Subset.nlBicycle, stale = false) should matchTo(
+//        Seq(
+//          newNetworkAttributes(1, Some(Country.nl), cycling, name = "nl-rcn-2")
+//        )
+//      )
     }
   }
 }

@@ -67,6 +67,8 @@ class OrphanRouteViewTest extends UnitTest with SharedTestObjects {
     val routeRepository = new RouteRepositoryImpl(null)
     routeRepository.save(routeInfo)
 
-    OrphanRouteView.query(database, Subset.nlHiking, stale = false)
+    pending
+    // OrphanRouteView.query(database, Subset.nlHiking, stale = false)
+    Seq.empty
   }
 }

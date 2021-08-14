@@ -4,13 +4,10 @@ import kpn.core.database.doc.CouchDoc
 import kpn.core.database.implementation.DatabaseAllIds
 import kpn.core.database.implementation.DatabaseBulkSave
 import kpn.core.database.implementation.DatabaseContext
-import kpn.core.database.implementation.DatabaseCreate
-import kpn.core.database.implementation.DatabaseDelete
 import kpn.core.database.implementation.DatabaseDeleteDocWithId
 import kpn.core.database.implementation.DatabaseDeleteDocsWithIds
 import kpn.core.database.implementation.DatabaseDocWithId
 import kpn.core.database.implementation.DatabaseDocsWithIds
-import kpn.core.database.implementation.DatabaseExists
 import kpn.core.database.implementation.DatabaseKeysWithIds
 import kpn.core.database.implementation.DatabaseQuery
 import kpn.core.database.implementation.DatabaseRevision
@@ -23,18 +20,6 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 
 class DatabaseImpl(context: DatabaseContext) extends Database {
-
-  override def exists: Boolean = {
-    new DatabaseExists(context).exists
-  }
-
-  def create(): Unit = {
-    new DatabaseCreate(context).create()
-  }
-
-  def delete(): Unit = {
-    new DatabaseDelete(context).delete()
-  }
 
   override def docWithId[T](docId: String, docType: Class[T]): Option[T] = {
     new DatabaseDocWithId(context).docWithId(docId, docType)

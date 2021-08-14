@@ -5,12 +5,6 @@ import kpn.core.database.query.Query
 
 trait Database {
 
-  def exists: Boolean
-
-  def create(): Unit
-
-  def delete(): Unit
-
   def save[T](doc: CouchDoc): Unit
 
   def bulkSave[T](docs: Seq[CouchDoc]): Unit

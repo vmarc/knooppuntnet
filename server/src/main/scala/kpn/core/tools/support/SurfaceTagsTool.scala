@@ -2,16 +2,14 @@ package kpn.core.tools.support
 
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
-import kpn.core.database.Database
-import kpn.core.database.views.analyzer.DocumentView
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.Database
+import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.OldRouteLoaderImpl
 
 object SurfaceTagsTool {
   def main(args: Array[String]): Unit = {
-    Couch.executeIn("server", "master2b") { database =>
+    Mongo.executeIn("test") { database =>
       new SurfaceTagsTool(database).analyze()
     }
   }
@@ -43,12 +41,11 @@ class SurfaceTagsTool(database: Database) {
   def analyze(): Unit = {
 
     val executor = new OverpassQueryExecutorImpl()
-    val analysisContext = new AnalysisContext()
     val routeLoader = new OldRouteLoaderImpl(executor)
 
     val counts = new scala.collection.mutable.HashMap[String, Int]
 
-    val routeIds = DocumentView.allRouteIds(database) //.take(500)
+    val routeIds = database.routes.ids() //.take(500)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
 
       println(s"$index/${routeIds.size}")
@@ -74,7 +71,5 @@ class SurfaceTagsTool(database: Database) {
     counts.keys.toSeq.sorted.foreach { key =>
       println(key + "\t" + counts(key))
     }
-
   }
-
 }
