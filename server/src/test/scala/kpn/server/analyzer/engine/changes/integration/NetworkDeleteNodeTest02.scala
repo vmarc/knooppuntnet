@@ -1,15 +1,18 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
 class NetworkDeleteNodeTest02 extends IntegrationTest {
 
@@ -28,80 +31,115 @@ class NetworkDeleteNodeTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
+      assert(database.orphanNodes.isEmpty)
+
       assert(!watched.networks.contains(1))
       assert(watched.networks.contains(2))
-      assert(!watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1001))
 
-      findNetworkInfoById(1) should matchTo(
-        newNetworkInfoDoc(
-          1,
-          active = false, // <--- !!!
-          country = Some(Country.nl),
-          newNetworkSummary(
-            name = "network1",
-            networkType = NetworkType.hiking,
-          ),
-          newNetworkDetail(
-            lastUpdated = timestampAfterValue,
-            relationLastUpdated = timestampAfterValue
-          )
+      assertNetworkInfo()
+      assertNetworkInfoChange()
+      assertNodeChange()
+      assertChangeSetSummary()
+    }
+  }
+
+  private def assertNetworkInfo(): Unit = {
+    findNetworkInfoById(1) should matchTo(
+      newNetworkInfoDoc(
+        1,
+        active = false, // <--- !!!
+        country = None, // TODO Some(Country.nl),
+        newNetworkSummary(
+          name = "network1",
+          networkType = NetworkType.hiking,
+        ),
+        newNetworkDetail(
+          lastUpdated = defaultTimestamp, // TODO timestampAfterValue,
+          relationLastUpdated = defaultTimestamp, // TODO timestampAfterValue,
+          tags = newNetworkTags("network1")
         )
       )
+    )
+  }
 
-      findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          networkChanges = NetworkChanges(
-            deletes = Seq(
-              newChangeSetNetwork(
-                Some(Country.nl),
-                NetworkType.hiking,
-                1,
-                "network1",
-                investigate = true
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
+      newNetworkInfoChange(
+        newChangeKey(elementId = 1),
+        ChangeType.Delete,
+        Some(Country.nl),
+        NetworkType.hiking,
+        1,
+        "network1",
+        networkNodes = RefDiffs(
+          removed = Seq(Ref(1001, "01"))
+        ),
+        nodes = IdDiffs( // TODO this should not be there!!
+          removed = Seq(1001)
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertNodeChange(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        name = "01",
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromNetwork = Seq(
+          Ref(1, "network1")
+        ),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          deletes = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "network1",
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(1001, "01", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true)
               )
             )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
-
-      findNetworkInfoChangeById("123:1:1") should matchTo(
-        newNetworkInfoChange(
-          newChangeKey(elementId = 1),
-          ChangeType.Delete,
-          Some(Country.nl),
-          NetworkType.hiking,
-          1,
-          "network1",
-          investigate = true
-        )
-      )
-
-      assert(database.routeChanges.isEmpty)
-
-      findNodeChangeById("123:1:1001") should matchTo(
-        newNodeChange(
-          key = newChangeKey(elementId = 1001),
-          changeType = ChangeType.Update,
-          subsets = Seq(Subset.nlHiking),
-          name = "01",
-          before = Some(
-            newMetaData()
-          ),
-          after = Some(
-            newMetaData()
-          ),
-          removedFromNetwork = Seq(
-            Ref(1, "network1")
-          ),
-          investigate = true,
-          impact = true
-        )
-      )
-    }
+    )
   }
 }

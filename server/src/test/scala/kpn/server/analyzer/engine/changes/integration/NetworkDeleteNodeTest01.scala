@@ -1,18 +1,20 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
 class NetworkDeleteNodeTest01 extends IntegrationTest {
 
@@ -42,11 +44,11 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
 
       assertNetwork()
       assertNetworkInfo()
-      assertNetworkChange()
+      assertNetworkInfoChange()
       assertNodeChange()
       assertChangeSetSummary()
 
-      // TODO database.orphanNodes.findByStringId()
+      assertOrphanNode()
     }
   }
 
@@ -86,30 +88,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        networkChanges = NetworkChanges(
-          deletes = Seq(
-            newChangeSetNetwork(
-              Some(Country.nl),
-              NetworkType.hiking,
-              1,
-              "network",
-              investigate = true
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-        ),
-        investigate = true
-      )
-    )
-  }
-
-  private def assertNetworkChange(): Unit = {
+  private def assertNetworkInfoChange(): Unit = {
     findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
@@ -119,12 +98,15 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         1,
         "network-name",
         orphanNodes = RefChanges(
-          newRefs = Seq(
-            Ref(1001, "01")
-          )
+          //  newRefs = Seq( TODO MONGO
+          //    Ref(1001, "01")
+          //  )
         ),
         networkNodes = RefDiffs(
           removed = Seq(Ref(1001, "01"))
+        ),
+        nodes = IdDiffs( // TODO MONGO should not have this
+          removed = Seq(1001)
         ),
         investigate = true
       )
@@ -149,6 +131,55 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         ),
         investigate = true,
         impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          deletes = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "network-name",
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(1001, "01", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            subset = Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true)
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertOrphanNode(): Unit = {
+    findOrphanNodeById("nl:hiking:1001") should matchTo(
+      newOrphanNodeDoc(
+        country = Country.nl,
+        networkType = NetworkType.hiking,
+        nodeId = 1001,
+        name = "01"
       )
     )
   }

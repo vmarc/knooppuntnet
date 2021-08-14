@@ -54,116 +54,136 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
 
       assert(!watched.nodes.contains(1001))
 
-      val networkDoc = findNetworkById(1)
-      networkDoc._id should equal(1)
-
-      val networkInfoDoc = findNetworkInfoById(1)
-      networkInfoDoc._id should equal(1)
+      assertNetwork()
+      assertNetworkInfo()
 
       assert(database.routes.isEmpty)
 
-      findNodeById(1002) should matchTo(
-        newNodeDoc(
-          1002,
-          labels = Seq(
-            "active",
-            "network-type-cycling"
-          ),
-          country = Some(Country.nl),
-          name = "03",
-          names = Seq(
-            NodeName(
-              NetworkType.cycling,
-              NetworkScope.regional,
-              "03",
-              None,
-              proposed = false
-            )
-          ),
-          tags = Tags.from(
-            "rcn_ref" -> "03",
-            "network:type" -> "node_network"
-          )
-        )
-      )
-
-      findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          networkChanges = NetworkChanges(
-            updates = Seq(
-              newChangeSetNetwork(
-                Some(Country.nl),
-                NetworkType.hiking,
-                1,
-                "name",
-                nodeChanges = ChangeSetElementRefs(
-                  removed = Seq(
-                    newChangeSetElementRef(1002, "02", investigate = true)
-                  )
-                ),
-                investigate = true
-              )
-            )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
-      )
-
-      findNetworkInfoChangeById("123:1:1") should matchTo(
-        newNetworkInfoChange(
-          newChangeKey(elementId = 1),
-          ChangeType.Update,
-          Some(Country.nl),
-          NetworkType.hiking,
-          1,
-          "name",
-          networkDataUpdate = Some(
-            NetworkDataUpdate(
-              newNetworkData(name = "name"),
-              newNetworkData(name = "name")
-            )
-          ),
-          networkNodes = RefDiffs(
-            removed = Seq(Ref(1002, "02"))
-          ),
-          investigate = true
-        )
-      )
-
-      findNodeChangeById("123:1:1001") should matchTo(
-        newNodeChange(
-          key = newChangeKey(elementId = 1002),
-          changeType = ChangeType.Update,
-          subsets = Seq(Subset.nlHiking),
-          name = "03",
-          before = Some(
-            newMetaData()
-          ),
-          after = Some(
-            newMetaData()
-          ),
-          tagDiffs = Some(
-            TagDiffs(
-              Seq(
-                TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
-                TagDetail(TagDetailType.Same, "rcn_ref", Some("03"), Some("03")),
-                TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
-              ),
-              Seq.empty
-            )
-          ),
-          removedFromNetwork = Seq(Ref(1, "name")),
-          facts = Seq(Fact.LostHikingNodeTag),
-          investigate = true,
-          impact = true,
-          locationInvestigate = true,
-          locationImpact = true
-        )
-      )
+      assertNode()
+      assertNetworkInfoChange()
+      assertNodeChange()
+      assertChangeSetSummary()
     }
+  }
+
+  private def assertNetwork(): Unit = {
+    val networkDoc = findNetworkById(1)
+    networkDoc._id should equal(1)
+  }
+
+  private def assertNetworkInfo(): Unit = {
+    val networkInfoDoc = findNetworkInfoById(1)
+    networkInfoDoc._id should equal(1)
+  }
+
+  private def assertNode(): Unit = {
+    findNodeById(1002) should matchTo(
+      newNodeDoc(
+        1002,
+        labels = Seq(
+          "active",
+          "network-type-cycling"
+        ),
+        country = Some(Country.nl),
+        name = "03",
+        names = Seq(
+          NodeName(
+            NetworkType.cycling,
+            NetworkScope.regional,
+            "03",
+            None,
+            proposed = false
+          )
+        ),
+        tags = Tags.from(
+          "rcn_ref" -> "03",
+          "network:type" -> "node_network"
+        )
+      )
+    )
+  }
+
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
+      newNetworkInfoChange(
+        newChangeKey(elementId = 1),
+        ChangeType.Update,
+        Some(Country.nl),
+        NetworkType.hiking,
+        1,
+        "name",
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            newNetworkData(name = "name"),
+            newNetworkData(name = "name")
+          )
+        ),
+        networkNodes = RefDiffs(
+          removed = Seq(Ref(1002, "02"))
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertNodeChange(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1002),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        name = "03",
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        tagDiffs = Some(
+          TagDiffs(
+            Seq(
+              TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
+              TagDetail(TagDetailType.Same, "rcn_ref", Some("03"), Some("03")),
+              TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
+            ),
+            Seq.empty
+          )
+        ),
+        removedFromNetwork = Seq(Ref(1, "name")),
+        facts = Seq(Fact.LostHikingNodeTag),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          updates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "name",
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(1002, "02", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
+      )
+    )
   }
 }

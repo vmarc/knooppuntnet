@@ -56,6 +56,25 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
     )
   }
 
+  private def assertNodeChange(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Delete,
+        subsets = Seq(Subset.nlHiking),
+        name = "01",
+        before = Some(
+          newMetaData(version = 1)
+        ),
+        facts = Seq(Fact.Deleted),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
+      )
+    )
+  }
+
   private def assertChangeSetSummary(): Unit = {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
@@ -74,25 +93,6 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
         ),
         investigate = true
-      )
-    )
-  }
-
-  private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
-      newNodeChange(
-        key = newChangeKey(elementId = 1001),
-        changeType = ChangeType.Delete,
-        subsets = Seq(Subset.nlHiking),
-        name = "01",
-        before = Some(
-          newMetaData(version = 1)
-        ),
-        facts = Seq(Fact.Deleted),
-        investigate = true,
-        impact = true,
-        locationInvestigate = true,
-        locationImpact = true
       )
     )
   }

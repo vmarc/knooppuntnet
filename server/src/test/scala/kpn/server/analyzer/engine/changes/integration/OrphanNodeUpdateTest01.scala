@@ -81,27 +81,6 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        nodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001, "01")
-              )
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking)
-        )
-      )
-    )
-  }
-
   private def assertNodeChange(): Unit = {
     findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
@@ -125,6 +104,27 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
               TagDetail(TagDetailType.Update, "tag", Some("before"), Some("after"))
             )
           )
+        )
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01")
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking)
         )
       )
     )

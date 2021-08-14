@@ -110,37 +110,6 @@ class RouteCreateTest01 extends IntegrationTest {
     }
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo {
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        routeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              added = Seq(newChangeSetElementRef(11, "01-02", happy = true))
-            )
-          )
-        ),
-        nodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              added = Seq(
-                newChangeSetElementRef(1001, "01", happy = true),
-                newChangeSetElementRef(1002, "02", happy = true)
-              )
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
-        ),
-        happy = true
-      )
-    }
-  }
-
   private def assertRouteChange(): Unit = {
     findRouteChangeById("123:1:11") should matchTo {
       newRouteChange(
@@ -225,6 +194,37 @@ class RouteCreateTest01 extends IntegrationTest {
         impact = true,
         locationHappy = true,
         locationImpact = true
+      )
+    }
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo {
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              added = Seq(newChangeSetElementRef(11, "01-02", happy = true))
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+                newChangeSetElementRef(1002, "02", happy = true)
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
+        ),
+        happy = true
       )
     }
   }

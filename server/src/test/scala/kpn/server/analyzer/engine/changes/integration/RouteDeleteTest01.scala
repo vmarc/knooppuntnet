@@ -110,37 +110,6 @@ class RouteDeleteTest01 extends IntegrationTest {
     }
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        routeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              removed = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
-            )
-          )
-        ),
-        nodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001, "01", investigate = true),
-                newChangeSetElementRef(1002, "02", investigate = true)
-              )
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-        ),
-        investigate = true
-      )
-    )
-  }
-
   private def assertRouteChange(): Unit = {
     findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
@@ -252,6 +221,37 @@ class RouteDeleteTest01 extends IntegrationTest {
         networkType = NetworkType.hiking,
         nodeId = 1002L,
         name = "02"
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(newChangeSetElementRef(11, "01-02", investigate = true))
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true),
+                newChangeSetElementRef(1002, "02", investigate = true)
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
     )
   }

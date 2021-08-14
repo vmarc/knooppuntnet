@@ -62,25 +62,6 @@ class RouteUpdateTest01 extends IntegrationTest {
     assert(routeInfo.active)
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        routeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(newChangeSetElementRef(11, "01-02"))
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking)
-        )
-      )
-    )
-  }
-
   private def assertRouteChange(): Unit = {
     findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
@@ -187,6 +168,25 @@ class RouteUpdateTest01 extends IntegrationTest {
         country = Country.nl,
         networkType = NetworkType.hiking,
         name = "01-02"
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(newChangeSetElementRef(11, "01-02"))
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking)
+        )
       )
     )
   }

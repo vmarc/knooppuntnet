@@ -131,36 +131,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        networkChanges = NetworkChanges(
-          updates = Seq(
-            newChangeSetNetwork(
-              Some(Country.nl),
-              NetworkType.hiking,
-              1,
-              "name",
-              routeChanges = ChangeSetElementRefs(
-                removed = Seq(newChangeSetElementRef(12, "02-03", investigate = true))
-              ),
-              nodeChanges = ChangeSetElementRefs(
-                removed = Seq(newChangeSetElementRef(1003, "03", investigate = true)),
-                updated = Seq(newChangeSetElementRef(1002, "02"))
-              ),
-              investigate = true
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-        ),
-        investigate = true
-      )
-    )
-  }
-
   private def assertNetworkInfoChange(): Unit = {
     findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
@@ -277,6 +247,36 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         impact = true,
         locationInvestigate = true,
         locationImpact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          updates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "name",
+              routeChanges = ChangeSetElementRefs(
+                removed = Seq(newChangeSetElementRef(12, "02-03", investigate = true))
+              ),
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(newChangeSetElementRef(1003, "03", investigate = true)),
+                updated = Seq(newChangeSetElementRef(1002, "02"))
+              ),
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
     )
   }

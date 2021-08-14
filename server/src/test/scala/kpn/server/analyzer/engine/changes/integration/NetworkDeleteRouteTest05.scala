@@ -55,59 +55,45 @@ class NetworkDeleteRouteTest05 extends IntegrationTest {
       assert(!watched.nodes.contains(1002)) // still referenced in orphan route
       assert(!watched.nodes.contains(1003))
 
-      findNetworkInfoById(1) should matchTo(
-        newNetworkInfoDoc(
-          1,
-          active = false, // <--- !!!
-          country = Some(Country.nl),
-          newNetworkSummary(
-            name = "network1",
-            networkType = NetworkType.hiking,
-          ),
-          newNetworkDetail(
-            lastUpdated = timestampAfterValue,
-            relationLastUpdated = timestampAfterValue
-          )
-        )
-      )
-
-      findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          networkChanges = NetworkChanges(
-            deletes = Seq(
-              newChangeSetNetwork(
-                Some(Country.nl),
-                NetworkType.hiking,
-                1,
-                "network1",
-                investigate = true
-              )
-            )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
-      )
-
-      findNetworkInfoChangeById("123:1:1") should matchTo(
-        newNetworkInfoChange(
-          newChangeKey(elementId = 1),
-          ChangeType.Delete,
-          Some(Country.nl),
-          NetworkType.hiking,
-          1,
-          "network1",
-          orphanRoutes = RefChanges(newRefs = Seq(Ref(11, "01-02"))),
-          investigate = true
-        )
-      )
-
+      assertNetworkInfo()
+      assertNetworkInfoChange()
       assertRoute11()
       assertRoute12()
+      assertChangeSetSummary()
     }
+  }
+
+  private def assertNetworkInfo(): Unit = {
+    findNetworkInfoById(1) should matchTo(
+      newNetworkInfoDoc(
+        1,
+        active = false, // <--- !!!
+        country = Some(Country.nl),
+        newNetworkSummary(
+          name = "network1",
+          networkType = NetworkType.hiking,
+        ),
+        newNetworkDetail(
+          lastUpdated = timestampAfterValue,
+          relationLastUpdated = timestampAfterValue
+        )
+      )
+    )
+  }
+
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
+      newNetworkInfoChange(
+        newChangeKey(elementId = 1),
+        ChangeType.Delete,
+        Some(Country.nl),
+        NetworkType.hiking,
+        1,
+        "network1",
+        orphanRoutes = RefChanges(newRefs = Seq(Ref(11, "01-02"))),
+        investigate = true
+      )
+    )
   }
 
   private def assertRoute11(): Unit = {
@@ -195,6 +181,29 @@ class NetworkDeleteRouteTest05 extends IntegrationTest {
         after = Some(routeData),
         investigate = true,
         impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          deletes = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "network1",
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
     )
   }
