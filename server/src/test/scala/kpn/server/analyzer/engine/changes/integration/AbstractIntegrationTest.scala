@@ -82,7 +82,7 @@ import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.NetworkInfoChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.node.NewNodeChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.node.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
@@ -293,7 +293,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
         nodeAnalyzer
       )
 
-      new NewNodeChangeProcessorImpl(
+      new NodeChangeProcessorImpl(
         analysisContext,
         bulkNodeAnalyzer,
         nodeChangeAnalyzer,
@@ -559,7 +559,7 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       nodeAnalyzer
     )
 
-    private val nodeChangeProcessor = new NewNodeChangeProcessorImpl(
+    private val nodeChangeProcessor = new NodeChangeProcessorImpl(
       analysisContext,
       bulkNodeAnalyzer,
       nodeChangeAnalyzer,
