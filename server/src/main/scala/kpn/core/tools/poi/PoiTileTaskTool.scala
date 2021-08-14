@@ -31,7 +31,6 @@ object PoiTileTaskTool {
 
     System.exit(exit)
   }
-
 }
 
 class PoiTileTaskTool(
@@ -44,7 +43,7 @@ class PoiTileTaskTool(
   def generateTasks(): Unit = {
 
     log.info("Reading tile names")
-    val tiles = poiRepository.allTiles(stale = false).sorted
+    val tiles = poiRepository.allTiles().sorted
 
     log.info(s"Generating ${tiles.size} tile tasks")
     tiles.zipWithIndex.foreach { case (tileName, index) =>

@@ -8,18 +8,18 @@ trait PoiRepository {
 
   def save(poi: Poi): Unit
 
-  def nodeIds(stale: Boolean = true): Seq[Long]
+  def nodeIds(): Seq[Long]
 
-  def wayIds(stale: Boolean = true): Seq[Long]
+  def wayIds(): Seq[Long]
 
-  def relationIds(stale: Boolean = true): Seq[Long]
+  def relationIds(): Seq[Long]
 
   def get(poiRef: PoiRef): Option[Poi]
 
   def delete(poiRef: PoiRef): Unit
 
-  def allTiles(stale: Boolean = true): Seq[String]
+  def allTiles(): Seq[String]
 
-  def tilePoiInfos(tileName: String, stale: Boolean = true): Seq[PoiInfo]
+  def tilePoiInfos(tileName: String): Seq[PoiInfo]
 
 }

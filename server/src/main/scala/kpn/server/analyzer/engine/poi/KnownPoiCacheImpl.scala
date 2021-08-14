@@ -48,21 +48,21 @@ class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) 
 
   private def loadRelationIds(): Set[Long] = {
     log.infoElapsed {
-      val ids = poiRepository.relationIds(stale = false).toSet
+      val ids = poiRepository.relationIds().toSet
       (s"Loaded ${ids.size} relation ids", ids)
     }
   }
 
   private def loadWayIds(): Set[Long] = {
     log.infoElapsed {
-      val ids = poiRepository.wayIds(stale = false).toSet
+      val ids = poiRepository.wayIds().toSet
       (s"Loaded ${ids.size} way ids", ids)
     }
   }
 
   private def loadNodeIds(): Set[Long] = {
     log.infoElapsed {
-      val ids = poiRepository.nodeIds(stale = false).toSet
+      val ids = poiRepository.nodeIds().toSet
       (s"Loaded ${ids.size} node ids", ids)
     }
   }

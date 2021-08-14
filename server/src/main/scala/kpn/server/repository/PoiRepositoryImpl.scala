@@ -19,15 +19,15 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
     database.pois.save(poi)
   }
 
-  override def nodeIds(stale: Boolean = true): Seq[Long] = {
+  override def nodeIds(): Seq[Long] = {
     new MongoQueryPoiElementIds(database).execute("node")
   }
 
-  override def wayIds(stale: Boolean = true): Seq[Long] = {
+  override def wayIds(): Seq[Long] = {
     new MongoQueryPoiElementIds(database).execute("way")
   }
 
-  override def relationIds(stale: Boolean = true): Seq[Long] = {
+  override def relationIds(): Seq[Long] = {
     new MongoQueryPoiElementIds(database).execute("relation")
   }
 
@@ -39,11 +39,11 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
     database.pois.deleteByStringId(poiRef.toId, log)
   }
 
-  override def allTiles(stale: Boolean): Seq[String] = {
+  override def allTiles(): Seq[String] = {
     new MongoQueryPoiAllTiles(database).execute()
   }
 
-  override def tilePoiInfos(tileName: String, stale: Boolean): Seq[PoiInfo] = {
+  override def tilePoiInfos(tileName: String): Seq[PoiInfo] = {
     new MongoQueryTilePois(database).execute(tileName)
   }
 }

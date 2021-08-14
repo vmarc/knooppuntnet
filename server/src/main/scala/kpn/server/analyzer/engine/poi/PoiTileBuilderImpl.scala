@@ -23,7 +23,7 @@ class PoiTileBuilderImpl(
     log.infoElapsed {
 
       val tile = tileCalculator.tileNamed(tileName)
-      val poiInfos = poiRepository.tilePoiInfos(tileName, stale = false)
+      val poiInfos = poiRepository.tilePoiInfos(tileName)
       val tileData = PoiTileData(
         tile,
         poiInfos
