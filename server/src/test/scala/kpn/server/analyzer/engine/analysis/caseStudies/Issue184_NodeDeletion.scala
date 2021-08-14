@@ -4,9 +4,9 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.data.Data
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.test.OverpassData
+import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
@@ -20,38 +20,40 @@ class Issue184_NodeDeletion extends AbstractIntegrationTest {
 
     pending
 
-    val tc = new OldTestConfig(Data.empty, Data.empty)
+    withDatabase { database =>
+      val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
 
-    processCreate(tc)
-    tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq(8813846463L))
+      processCreate(tc)
+      tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq(8813846463L))
 
-    processModify(tc)
-    tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq(8813846463L))
+      processModify(tc)
+      tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq(8813846463L))
 
-    processDelete(tc)
-    tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq.empty)
+      processDelete(tc)
+      tc.analysisContext.data.nodes.watched.ids.toSeq should equal(Seq.empty)
 
-    var saveIndex = 0
-    (tc.nodeRepository.save _).verify(
-      where { nodeDoc: NodeDoc =>
-        saveIndex = saveIndex + 1
-        if (saveIndex == 1) {
-          nodeDoc.active
+      var saveIndex = 0
+      (tc.nodeRepository.save _).verify(
+        where { nodeDoc: NodeDoc =>
+          saveIndex = saveIndex + 1
+          if (saveIndex == 1) {
+            nodeDoc.active
+          }
+          else if (saveIndex == 2) {
+            nodeDoc.active
+          }
+          else if (saveIndex == 3) {
+            !nodeDoc.active
+          }
+          else {
+            false
+          }
         }
-        else if (saveIndex == 2) {
-          nodeDoc.active
-        }
-        else if (saveIndex == 3) {
-          !nodeDoc.active
-        }
-        else {
-          false
-        }
-      }
-    ).repeat(3)
+      ).repeat(3)
+    }
   }
 
-  private def processCreate(tc: OldTestConfig): Unit = {
+  private def processCreate(tc: IntegrationTestContext): Unit = {
     val changeSet = buildChangeSet(xmlCreate(), Timestamp(2021, 6, 8, 7, 15, 58))
     val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     val context = ChangeSetContext(
@@ -62,7 +64,7 @@ class Issue184_NodeDeletion extends AbstractIntegrationTest {
     tc.changeProcessor.process(context)
   }
 
-  private def processModify(tc: OldTestConfig): Unit = {
+  private def processModify(tc: IntegrationTestContext): Unit = {
 
     val nodeBeforeModify = OverpassData()
       .node(
@@ -73,15 +75,13 @@ class Issue184_NodeDeletion extends AbstractIntegrationTest {
         )
       ).data
 
-    tc.overpassQueryNodes(nodeBeforeModify, Timestamp(2021, 6, 8, 7, 16, 24), Seq(8813846463L))
-
     val changeSet = buildChangeSet(xmlModify(), Timestamp(2021, 6, 8, 7, 16, 57))
     val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     val context = ChangeSetContext(ReplicationId(2), changeSet, elementIds)
     tc.changeProcessor.process(context)
   }
 
-  private def processDelete(tc: OldTestConfig): Unit = {
+  private def processDelete(tc: IntegrationTestContext): Unit = {
 
     val nodeBeforeDelete = OverpassData()
       .node(
@@ -92,8 +92,6 @@ class Issue184_NodeDeletion extends AbstractIntegrationTest {
           "rwn_ref" -> "11"
         )
       ).data
-
-    tc.overpassQueryNodes(nodeBeforeDelete, Timestamp(2021, 6, 8, 18, 46, 36), Seq(8813846463L))
 
     val changeSet = buildChangeSet(xmlDelete(), Timestamp(2021, 6, 8, 18, 45, 43))
     val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
