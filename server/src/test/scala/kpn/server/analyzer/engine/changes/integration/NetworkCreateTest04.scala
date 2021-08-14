@@ -13,9 +13,8 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class NetworkCreateTest04 extends AbstractIntegrationTest {
+class NetworkCreateTest04 extends IntegrationTest {
 
   test("network create - investigate flag is set when issue in added network") {
 
@@ -35,28 +34,26 @@ class NetworkCreateTest04 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
-      tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
+      assert(watched.networks.contains(1))
 
-      assert(tc.analysisContext.watched.networks.contains(1))
-
-      assertNetwork(tc)
-      assertNetworkInfo(tc)
-      assertNetworkInfoChange(tc)
-      assertChangeSetSummary(tc)
+      assertNetwork()
+      assertNetworkInfo()
+      assertNetworkInfoChange()
+      assertChangeSetSummary()
     }
   }
 
-  private def assertNetwork(tc: IntegrationTestContext): Unit = {
-    val networkDoc = tc.findNetworkById(1)
+  private def assertNetwork(): Unit = {
+    val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(tc: IntegrationTestContext): Unit = {
-    val networkInfoDoc = tc.findNetworkInfoById(1)
+  private def assertNetworkInfo(): Unit = {
+    val networkInfoDoc = findNetworkInfoById(1)
     networkInfoDoc._id should equal(1)
     //  networkInfoDoc.detail.networkFacts should matchTo(
     //    NetworkFacts(
@@ -69,8 +66,8 @@ class NetworkCreateTest04 extends AbstractIntegrationTest {
     //  )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -105,8 +102,8 @@ class NetworkCreateTest04 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Create,

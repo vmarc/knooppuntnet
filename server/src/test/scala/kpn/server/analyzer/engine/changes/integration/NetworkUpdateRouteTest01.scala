@@ -24,9 +24,8 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
+class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   test("network update - route that is no longer part of the network after update, becomes orphan route if also not referenced in any other network") {
 
@@ -72,15 +71,13 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      assert(watched.routes.contains(11))
 
-      assert(tc.analysisContext.watched.routes.contains(11))
-
-      tc.findRouteById(11) should matchTo(
+      findRouteById(11) should matchTo(
         newRouteInfo(
           newRouteSummary(
             11,
@@ -182,7 +179,7 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
+      findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
           subsets = Seq(Subset.nlHiking),
           networkChanges = NetworkChanges(
@@ -214,7 +211,7 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+      findNetworkInfoChangeById("123:1:1") should matchTo(
         newNetworkInfoChange(
           newChangeKey(elementId = 1),
           ChangeType.Update,
@@ -276,7 +273,7 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findRouteChangeById("123:1:11") should matchTo(
+      findRouteChangeById("123:1:11") should matchTo(
         newRouteChange(
           newChangeKey(elementId = 11),
           ChangeType.Update,

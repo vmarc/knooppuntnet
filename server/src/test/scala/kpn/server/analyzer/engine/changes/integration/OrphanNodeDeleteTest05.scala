@@ -3,9 +3,8 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeDeleteTest05 extends AbstractIntegrationTest {
+class OrphanNodeDeleteTest05 extends IntegrationTest {
 
   test("ignore delete in foreign country") {
 
@@ -22,13 +21,11 @@ class OrphanNodeDeleteTest05 extends AbstractIntegrationTest {
 
     val dataAfter = OverpassData.empty
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Delete, dataBefore.rawNodeWithId(1001))
 
-      tc.process(ChangeAction.Delete, dataBefore.rawNodeWithId(1001))
-
-      assert(!tc.analysisContext.watched.nodes.contains(1001))
+      assert(!watched.nodes.contains(1001))
       assert(database.nodes.isEmpty)
       assert(database.nodeChanges.isEmpty)
       assert(database.changeSetSummaries.isEmpty)

@@ -15,9 +15,8 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class RouteDeleteTest01 extends AbstractIntegrationTest {
+class RouteDeleteTest01 extends IntegrationTest {
 
   test("delete route") {
 
@@ -36,37 +35,35 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Delete, newRawRelation(11))
 
-      tc.process(ChangeAction.Delete, newRawRelation(11))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(!watched.routes.contains(11))
 
-      assert(tc.analysisContext.watched.nodes.contains(1001))
-      assert(tc.analysisContext.watched.nodes.contains(1002))
-      assert(!tc.analysisContext.watched.routes.contains(11))
-
-      assertRoute(tc)
-      assertNode1001(tc)
-      assertNode1002(tc)
-      assertRouteChange(tc)
-      assertNodeChange1001(tc)
-      assertNodeChange1002(tc)
-      assertOrphanNode1001(tc)
-      assertOrphanNode1002(tc)
+      assertRoute()
+      assertNode1001()
+      assertNode1002()
+      assertRouteChange()
+      assertNodeChange1001()
+      assertNodeChange1002()
+      assertOrphanNode1001()
+      assertOrphanNode1002()
       assert(database.orphanRoutes.isEmpty)
-      assertChangeSetSummary(tc)
+      assertChangeSetSummary()
     }
   }
 
-  private def assertRoute(tc: IntegrationTestContext): Unit = {
-    val routeInfo = tc.findRouteById(11)
+  private def assertRoute(): Unit = {
+    val routeInfo = findRouteById(11)
     routeInfo.id should equal(11)
     assert(!routeInfo.active)
   }
 
-  private def assertNode1001(tc: IntegrationTestContext): Unit = {
-    tc.findNodeById(1001) should matchTo {
+  private def assertNode1001(): Unit = {
+    findNodeById(1001) should matchTo {
       newNodeDoc(
         1001,
         labels = Seq(
@@ -89,8 +86,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNode1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeById(1002) should matchTo {
+  private def assertNode1002(): Unit = {
+    findNodeById(1002) should matchTo {
       newNodeDoc(
         1002,
         labels = Seq(
@@ -113,8 +110,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         routeChanges = Seq(
@@ -144,8 +141,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
-    tc.findRouteChangeById("123:1:11") should matchTo(
+  private def assertRouteChange(): Unit = {
+    findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Delete,
@@ -189,8 +186,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange1001(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo {
+  private def assertNodeChange1001(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo {
       newNodeChange(
         newChangeKey(elementId = 1001),
         ChangeType.Update,
@@ -213,8 +210,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1002") should matchTo {
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo {
       newNodeChange(
         newChangeKey(elementId = 1002),
         ChangeType.Update,
@@ -237,8 +234,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertOrphanNode1001(tc: IntegrationTestContext): Unit = {
-    tc.findOrphanNodeById("nl:hiking:1001") should matchTo(
+  private def assertOrphanNode1001(): Unit = {
+    findOrphanNodeById("nl:hiking:1001") should matchTo(
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,
@@ -248,8 +245,8 @@ class RouteDeleteTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertOrphanNode1002(tc: IntegrationTestContext): Unit = {
-    tc.findOrphanNodeById("nl:hiking:1002") should matchTo(
+  private def assertOrphanNode1002(): Unit = {
+    findOrphanNodeById("nl:hiking:1002") should matchTo(
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,

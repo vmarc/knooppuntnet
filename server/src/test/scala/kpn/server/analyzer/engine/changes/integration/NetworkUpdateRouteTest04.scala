@@ -1,8 +1,6 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.core.test.TestSupport.withDatabase
-
-class NetworkUpdateRouteTest04 extends AbstractIntegrationTest {
+class NetworkUpdateRouteTest04 extends IntegrationTest {
 
   test("delete route that is part of network") {
 
@@ -10,9 +8,6 @@ class NetworkUpdateRouteTest04 extends AbstractIntegrationTest {
     // TODO CHANGE assert gets delete from the database ?? or better: do we keep for future reference as link from changeset histories ???
 
     pending
-
-    withDatabase { database =>
-    }
   }
 
 }

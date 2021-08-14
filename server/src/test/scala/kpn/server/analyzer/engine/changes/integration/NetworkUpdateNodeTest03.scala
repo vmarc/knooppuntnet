@@ -2,19 +2,18 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest03 extends AbstractIntegrationTest {
+class NetworkUpdateNodeTest03 extends IntegrationTest {
 
   test("network update - node that is no longer part of the network after update, does not become orphan node if still referenced in another network") {
 
@@ -58,84 +57,117 @@ class NetworkUpdateNodeTest03 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      val network2 = findNetworkById(2)
+      val networkInfo2 = findNetworkInfoById(2)
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(!tc.analysisContext.watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(watched.networks.contains(1))
+      assert(watched.networks.contains(2))
 
-      val networkDoc = tc.findNetworkById(1)
-      networkDoc._id should equal(1)
+      assert(database.orphanNodes.isEmpty)
 
-      val networkInfoDoc = tc.findNetworkInfoById(1)
-      networkInfoDoc._id should equal(1)
+      // network 2 has not changed
+      findNetworkById(2) should matchTo(network2)
+      findNetworkInfoById(2) should matchTo(networkInfo2)
 
-      assert(database.nodes.isEmpty)
+      assertNetwork1()
+      assertNetworkInfo1()
+      assertNetworkInfoChange1()
+      assertNodeChange1002()
+      assertChangeSetSummary()
+    }
+  }
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
-        newChangeSetSummary(
-          subsets = Seq(Subset.nlHiking),
-          networkChanges = NetworkChanges(
-            updates = Seq(
-              newChangeSetNetwork(
-                Some(Country.nl),
-                NetworkType.hiking,
-                1,
-                "name",
-                nodeChanges = ChangeSetElementRefs(
-                  removed = Seq(
-                    newChangeSetElementRef(1002, "02", investigate = true)
-                  )
-                ),
-                investigate = true
+  private def assertNetwork1(): Unit = {
+    val networkDoc = findNetworkById(1)
+    networkDoc._id should equal(1)
+  }
+
+  private def assertNetworkInfo1(): Unit = {
+    val networkInfoDoc = findNetworkInfoById(1)
+    networkInfoDoc._id should equal(1)
+  }
+
+  private def assertNetworkInfoChange1(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
+      newNetworkInfoChange(
+        newChangeKey(elementId = 1),
+        ChangeType.Update,
+        Some(Country.nl),
+        NetworkType.hiking,
+        1,
+        "name",
+        networkDataUpdate = None,
+        networkNodes = RefDiffs(
+          removed = Seq(
+            Ref(1002, "02")
+          )
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
+      newNodeChange(
+        key = newChangeKey(elementId = 1002),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        name = "02",
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromNetwork = Seq(Ref(1, "name")),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          updates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "name",
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(1002, "02", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1002, "02", investigate = true)
               )
             )
-          ),
-          subsetAnalyses = Seq(
-            ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-          ),
-          investigate = true
-        )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
       )
-
-      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
-        newNetworkInfoChange(
-          newChangeKey(elementId = 1),
-          ChangeType.Update,
-          Some(Country.nl),
-          NetworkType.hiking,
-          1,
-          "name",
-          networkDataUpdate = Some(
-            NetworkDataUpdate(
-              newNetworkData(name = "name"),
-              newNetworkData(name = "name")
-            )
-          ),
-          networkNodes = RefDiffs(Seq(Ref(1002, "02")), Seq.empty, Seq.empty),
-          investigate = true
-        )
-      )
-
-      tc.findNodeChangeById("123:1:1001") should matchTo(
-        newNodeChange(
-          key = newChangeKey(elementId = 1002),
-          changeType = ChangeType.Update,
-          subsets = Seq(Subset.nlHiking),
-          name = "02",
-          before = Some(
-            newMetaData()
-          ),
-          after = Some(
-            newMetaData()
-          ),
-          removedFromNetwork = Seq(Ref(1, "name")),
-          investigate = true,
-          impact = true
-        )
-      )
-    }
+    )
   }
 }

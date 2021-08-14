@@ -11,9 +11,8 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
+class OrphanNodeCreateTest01 extends IntegrationTest {
 
   test("create orphan node") {
 
@@ -21,22 +20,20 @@ class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
     val dataAfter = OverpassData()
       .networkNode(1001, "01", version = 1)
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 
-      tc.process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
+      assert(watched.nodes.contains(1001))
 
-      assert(tc.analysisContext.watched.nodes.contains(1001))
-
-      assertNode(tc)
-      assertNodeChange(tc)
-      assertChangeSetSummary(tc)
+      assertNode()
+      assertNodeChange()
+      assertChangeSetSummary()
     }
   }
 
-  private def assertNode(tc: IntegrationTestContext) = {
-    tc.findNodeById(1001) should matchTo(
+  private def assertNode() = {
+    findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
         labels = Seq(
@@ -59,8 +56,8 @@ class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext) = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary() = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         nodeChanges = Seq(
@@ -79,8 +76,8 @@ class OrphanNodeCreateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange(tc: IntegrationTestContext) = {
-    tc.findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange() = {
+    findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Create,

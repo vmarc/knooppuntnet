@@ -14,9 +14,8 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest08 extends AbstractIntegrationTest {
+class NetworkUpdateNodeTest08 extends IntegrationTest {
 
   test("network update - an orphan node that is added to the network is no longer orphan") {
 
@@ -44,21 +43,19 @@ class NetworkUpdateNodeTest08 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      assert(!watched.nodes.contains(1002))
 
-      assert(!tc.analysisContext.watched.nodes.contains(1002))
-
-      val networkDoc = tc.findNetworkById(1)
+      val networkDoc = findNetworkById(1)
       networkDoc._id should equal(1)
 
-      val networkInfoDoc = tc.findNetworkInfoById(1)
+      val networkInfoDoc = findNetworkInfoById(1)
       networkInfoDoc._id should equal(1)
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
+      findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
           subsets = Seq(Subset.nlHiking),
           networkChanges = NetworkChanges(
@@ -82,7 +79,7 @@ class NetworkUpdateNodeTest08 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+      findNetworkInfoChangeById("123:1:1") should matchTo(
         newNetworkInfoChange(
           newChangeKey(elementId = 1),
           ChangeType.Update,
@@ -106,7 +103,7 @@ class NetworkUpdateNodeTest08 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNodeChangeById("123:1:1001") should matchTo(
+      findNodeChangeById("123:1:1001") should matchTo(
         newNodeChange(
           key = newChangeKey(elementId = 1002),
           changeType = ChangeType.Update,

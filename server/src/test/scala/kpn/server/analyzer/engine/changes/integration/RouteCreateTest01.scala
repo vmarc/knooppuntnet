@@ -12,9 +12,8 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class RouteCreateTest01 extends AbstractIntegrationTest {
+class RouteCreateTest01 extends IntegrationTest {
 
   test("create route") {
 
@@ -30,36 +29,34 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Create, dataAfter.rawRelationWithId(11))
 
-      tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(11))
+      assert(watched.routes.contains(11))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
 
-      assert(tc.analysisContext.watched.routes.contains(11))
-      assert(tc.analysisContext.watched.nodes.contains(1001))
-      assert(tc.analysisContext.watched.nodes.contains(1002))
-
-      assertRoute(tc)
-      assertOrphanRoute(tc)
-      assertNode1001(tc)
-      assertNode1002(tc)
-      assertRouteChange(tc)
-      assertNodeChange1001(tc)
-      assertNodeChange1002(tc)
-      assertChangeSetSummary(tc)
+      assertRoute()
+      assertOrphanRoute()
+      assertNode1001()
+      assertNode1002()
+      assertRouteChange()
+      assertNodeChange1001()
+      assertNodeChange1002()
+      assertChangeSetSummary()
 
       assert(database.orphanNodes.isEmpty)
     }
   }
 
-  private def assertRoute(tc: IntegrationTestContext): Unit = {
-    val routeInfo = tc.findRouteById(11L)
+  private def assertRoute(): Unit = {
+    val routeInfo = findRouteById(11L)
     routeInfo.summary.name should equal("01-02")
   }
 
-  private def assertOrphanRoute(tc: IntegrationTestContext): Unit = {
-    tc.findOrphanRouteById(11L) should matchTo(
+  private def assertOrphanRoute(): Unit = {
+    findOrphanRouteById(11L) should matchTo(
       newOrphanRouteDoc(
         11L,
         country = Country.nl,
@@ -69,8 +66,8 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNode1001(tc: IntegrationTestContext): Unit = {
-    tc.findNodeById(1001) should matchTo {
+  private def assertNode1001(): Unit = {
+    findNodeById(1001) should matchTo {
       newNodeDoc(
         1001,
         labels = Seq(
@@ -91,8 +88,8 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNode1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeById(1002) should matchTo {
+  private def assertNode1002(): Unit = {
+    findNodeById(1002) should matchTo {
       newNodeDoc(
         1002,
         labels = Seq(
@@ -113,8 +110,8 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo {
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo {
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         routeChanges = Seq(
@@ -144,8 +141,8 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
-    tc.findRouteChangeById("123:1:11") should matchTo {
+  private def assertRouteChange(): Unit = {
+    findRouteChangeById("123:1:11") should matchTo {
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Create,
@@ -188,8 +185,8 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNodeChange1001(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo {
+  private def assertNodeChange1001(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo {
       newNodeChange(
         newChangeKey(elementId = 1001),
         ChangeType.Create,
@@ -210,8 +207,8 @@ class RouteCreateTest01 extends AbstractIntegrationTest {
     }
   }
 
-  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1002") should matchTo {
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo {
       newNodeChange(
         newChangeKey(elementId = 1002),
         ChangeType.Create,

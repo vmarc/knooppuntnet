@@ -16,9 +16,8 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
+class OrphanNodeUpdateTest01 extends IntegrationTest {
 
   test("update orphan node") {
 
@@ -40,22 +39,20 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
       )
     )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
+      assert(watched.nodes.contains(1001))
 
-      assert(tc.analysisContext.watched.nodes.contains(1001))
-
-      assertNode(tc)
-      assertNodeChange(tc)
-      assertChangeSetSummary(tc)
+      assertNode()
+      assertNodeChange()
+      assertChangeSetSummary()
     }
   }
 
-  private def assertNode(tc: IntegrationTestContext): Unit = {
-    tc.findNodeById(1001) should matchTo(
+  private def assertNode(): Unit = {
+    findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
         labels = Seq(
@@ -84,8 +81,8 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         nodeChanges = Seq(
@@ -105,8 +102,8 @@ class OrphanNodeUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,

@@ -17,9 +17,8 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class RouteDeleteTest03 extends AbstractIntegrationTest {
+class RouteDeleteTest03 extends IntegrationTest {
 
   test("route looses route tags") {
 
@@ -47,36 +46,34 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
-
-      assert(tc.analysisContext.watched.routes.contains(11))
+      assert(watched.routes.contains(11))
       assert(database.orphanNodes.isEmpty)
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      assert(!tc.analysisContext.watched.routes.contains(11))
+      assert(!watched.routes.contains(11))
 
-      assertRoute(tc)
-      assertRouteChange(tc)
-      assertNodeChange1001(tc)
-      assertNodeChange1002(tc)
-      assertOrphanNode1001(tc)
-      assertOrphanNode1002(tc)
+      assertRoute()
+      assertRouteChange()
+      assertNodeChange1001()
+      assertNodeChange1002()
+      assertOrphanNode1001()
+      assertOrphanNode1002()
       assert(database.orphanRoutes.isEmpty)
-      assertChangeSetSummary(tc)
+      assertChangeSetSummary()
     }
   }
 
-  private def assertRoute(tc: IntegrationTestContext): Unit = {
-    val routeInfo = tc.findRouteById(11)
+  private def assertRoute(): Unit = {
+    val routeInfo = findRouteById(11)
     routeInfo.id should equal(11)
     assert(!routeInfo.active)
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         routeChanges = Seq(
@@ -108,8 +105,8 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
-    tc.findRouteChangeById("123:1:11") should matchTo(
+  private def assertRouteChange(): Unit = {
+    findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -173,8 +170,8 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange1001(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange1001(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         newChangeKey(elementId = 1001),
         ChangeType.Update,
@@ -197,8 +194,8 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1002") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         newChangeKey(elementId = 1002),
         ChangeType.Update,
@@ -221,8 +218,8 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertOrphanNode1001(tc: IntegrationTestContext): Unit = {
-    tc.findOrphanNodeById("nl:hiking:1001") should matchTo(
+  private def assertOrphanNode1001(): Unit = {
+    findOrphanNodeById("nl:hiking:1001") should matchTo(
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,
@@ -232,8 +229,8 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertOrphanNode1002(tc: IntegrationTestContext): Unit = {
-    tc.findOrphanNodeById("nl:hiking:1002") should matchTo(
+  private def assertOrphanNode1002(): Unit = {
+    findOrphanNodeById("nl:hiking:1002") should matchTo(
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,

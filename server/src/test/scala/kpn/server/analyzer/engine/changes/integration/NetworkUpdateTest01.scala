@@ -23,9 +23,8 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateTest01 extends AbstractIntegrationTest {
+class NetworkUpdateTest01 extends IntegrationTest {
 
   test("network update - node and route name changed") {
 
@@ -67,36 +66,34 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Modify, dataAfter.rawNodeWithId(1002))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawNodeWithId(1002))
+      assert(watched.networks.contains(1))
 
-      assert(tc.analysisContext.watched.networks.contains(1))
-
-      assertNetwork(tc)
-      assertNetworkInfo(tc)
-      assertNetworkInfoChange(tc)
-      assertRouteChange(tc)
+      assertNetwork()
+      assertNetworkInfo()
+      assertNetworkInfoChange()
+      assertRouteChange()
       database.nodeChanges.stringIds() should equal(Seq("123:1:1002")) // 1001 not changed
-      assertNodeChange1002(tc)
-      assertChangeSetSummary(tc)
+      assertNodeChange1002()
+      assertChangeSetSummary()
     }
   }
 
-  private def assertNetwork(tc: IntegrationTestContext): Unit = {
-    val networkDoc = tc.findNetworkById(1)
+  private def assertNetwork(): Unit = {
+    val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(tc: IntegrationTestContext): Unit = {
-    val networkInfoDoc = tc.findNetworkInfoById(1)
+  private def assertNetworkInfo(): Unit = {
+    val networkInfoDoc = findNetworkInfoById(1)
     networkInfoDoc._id should equal(1)
   }
 
-  private def assertNetworkInfoChange(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -119,8 +116,8 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
-    tc.findRouteChangeById("123:1:11") should matchTo(
+  private def assertRouteChange(): Unit = {
+    findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -247,8 +244,8 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1002") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -282,8 +279,8 @@ class NetworkUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

@@ -1,21 +1,20 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class RouteDeleteTest02 extends AbstractIntegrationTest with SharedTestObjects {
+class RouteDeleteTest02 extends IntegrationTest {
 
   test("delete orphan route, and 'before' situation cannot be found in overpass database") {
 
-    withDatabase { database =>
+    val dataBefore = OverpassData.empty
+    val dataAfter = OverpassData.empty
 
-      val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
+    testIntegration(dataBefore, dataAfter) {
 
-      tc.process(ChangeAction.Delete, newRawRelation(11))
+      process(ChangeAction.Delete, newRawRelation(11))
 
-      assert(!tc.analysisContext.watched.routes.contains(11))
+      assert(!watched.routes.contains(11))
 
       assert(database.routes.isEmpty)
       assert(database.changeSetSummaries.isEmpty)

@@ -12,10 +12,11 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.core.mongo.Database
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
+class NetworkUpdateNodeTest01 extends IntegrationTest {
 
   test("network update - node that is no longer part of the network after update, becomes orphan node if also not referenced in any other network or orphan route") {
 
@@ -43,38 +44,37 @@ class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
         )
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      val node1001 = findNodeById(1001)
+      val node1002 = findNodeById(1002)
 
-      val node1001 = tc.findNodeById(1001)
-      val node1002 = tc.findNodeById(1002)
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
-
-      assert(tc.analysisContext.watched.nodes.contains(1001))
-      assert(tc.analysisContext.watched.nodes.contains(1002))
-      assert(tc.analysisContext.watched.networks.contains(1))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(watched.networks.contains(1))
 
       assert(database.routes.isEmpty)
-      tc.findNodeById(1001) should matchTo(node1001)
-      tc.findNodeById(1002) should matchTo(node1002)
+      findNodeById(1001) should matchTo(node1001)
+      findNodeById(1002) should matchTo(node1002)
+      database.orphanNodes.stringIds() should equal(Seq("nl:hiking:1002"))
 
-      assertNetworkInfo(tc)
-      tc.assertNoNodeChange(1001)
-      assertNodeChange1002(tc)
-      assertNetworkInfoChange(tc)
-      assertChangeSetSummary(tc)
+      assertNetworkInfo()
+      assertNoNodeChange(1001)
+      assertNodeChange1002()
+      assertNetworkInfoChange()
+      assertChangeSetSummary()
     }
   }
 
-  private def assertNetworkInfo(tc: IntegrationTestContext): Unit = {
-    val networkInfoDoc = tc.findNetworkInfoById(1)
+  private def assertNetworkInfo(): Unit = {
+    val networkInfoDoc = findNetworkInfoById(1)
     networkInfoDoc._id should equal(1)
   }
 
-  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1002") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -94,8 +94,8 @@ class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -104,9 +104,9 @@ class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
         1,
         "name",
         orphanNodes = RefChanges(
-          //          newRefs = Seq(
-          //            Ref(1002, "02")
-          //          )
+          //   newRefs = Seq( TODO MONGO
+          //     Ref(1002, "02")
+          //   )
         ),
         networkDataUpdate = None,
         networkNodes = RefDiffs(removed = Seq(Ref(1002, "02"))),
@@ -115,8 +115,8 @@ class NetworkUpdateNodeTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

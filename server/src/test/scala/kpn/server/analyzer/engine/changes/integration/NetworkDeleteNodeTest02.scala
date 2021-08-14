@@ -11,7 +11,7 @@ import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkDeleteNodeTest02 extends AbstractIntegrationTest {
+class NetworkDeleteNodeTest02 extends IntegrationTest {
 
   test("network delete - node still referenced in other network does not become orphan") {
 
@@ -24,17 +24,15 @@ class NetworkDeleteNodeTest02 extends AbstractIntegrationTest {
       .networkNode(1001, "01")
       .networkRelation(2, "network2", Seq(newMember("node", 1001)))
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Delete, newRawRelation(1))
 
-      tc.process(ChangeAction.Delete, newRawRelation(1))
+      assert(!watched.networks.contains(1))
+      assert(watched.networks.contains(2))
+      assert(!watched.nodes.contains(1001))
 
-      assert(!tc.analysisContext.watched.networks.contains(1))
-      assert(tc.analysisContext.watched.networks.contains(2))
-      assert(!tc.analysisContext.watched.nodes.contains(1001))
-
-      tc.findNetworkInfoById(1) should matchTo(
+      findNetworkInfoById(1) should matchTo(
         newNetworkInfoDoc(
           1,
           active = false, // <--- !!!
@@ -50,7 +48,7 @@ class NetworkDeleteNodeTest02 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
+      findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
           subsets = Seq(Subset.nlHiking),
           networkChanges = NetworkChanges(
@@ -71,7 +69,7 @@ class NetworkDeleteNodeTest02 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+      findNetworkInfoChangeById("123:1:1") should matchTo(
         newNetworkInfoChange(
           newChangeKey(elementId = 1),
           ChangeType.Delete,
@@ -85,7 +83,7 @@ class NetworkDeleteNodeTest02 extends AbstractIntegrationTest {
 
       assert(database.routeChanges.isEmpty)
 
-      tc.findNodeChangeById("123:1:1001") should matchTo(
+      findNodeChangeById("123:1:1001") should matchTo(
         newNodeChange(
           key = newChangeKey(elementId = 1001),
           changeType = ChangeType.Update,

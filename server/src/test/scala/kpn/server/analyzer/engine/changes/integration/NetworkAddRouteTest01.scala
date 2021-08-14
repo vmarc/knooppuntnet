@@ -21,51 +21,43 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-class NetworkAddRouteTest01 extends AbstractIntegrationTest {
+class NetworkAddRouteTest01 extends IntegrationTest {
 
   test("network add route") {
 
-    pending
-
-    withDatabase { database =>
-
-      val dataBefore = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .networkRelation(
-          1,
-          "network",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002)
-          )
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .networkRelation(
+        1,
+        "network",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002)
         )
+      )
 
-      val dataAfter = OverpassData()
-        .networkNode(1001, "01")
-        .networkNode(1002, "02")
-        .way(101, 1001, 1002)
-        .route(11, "01-02", Seq(newMember("way", 101)))
-        .networkRelation(
-          1,
-          "network",
-          Seq(
-            newMember("node", 1001),
-            newMember("node", 1002),
-            newMember("relation", 11)
-          )
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(11, "01-02", Seq(newMember("way", 101)))
+      .networkRelation(
+        1,
+        "network",
+        Seq(
+          newMember("node", 1001),
+          newMember("node", 1002),
+          newMember("relation", 11)
         )
+      )
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+    testIntegration(dataBefore, dataAfter) {
 
-      tc.analysisContext.watched.networks.add(1)
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
-
-      tc.findNetworkInfoById(1) // TODO should matchTo(
+      findNetworkInfoById(1) // TODO should matchTo(
       newNetworkInfo(
         newNetworkAttributes(
           1,
@@ -140,7 +132,7 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
       )
       //)
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
+      findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
           subsets = Seq(Subset.nlHiking),
           networkChanges = NetworkChanges(
@@ -190,7 +182,7 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+      findNetworkInfoChangeById("123:1:1") should matchTo(
         newNetworkInfoChange(
           newChangeKey(elementId = 1),
           ChangeType.Update,
@@ -253,7 +245,7 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findRouteChangeById("123:1:11") should matchTo(
+      findRouteChangeById("123:1:11") should matchTo(
         newRouteChange(
           newChangeKey(elementId = 11),
           ChangeType.Create,
@@ -270,7 +262,7 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
 
       // TODO (tc.nodeRepository.nodeRouteReferences _).verify(*, *).never()
 
-      tc.findNodeChangeById("123:1:1001") should matchTo(
+      findNodeChangeById("123:1:1001") should matchTo(
         newNodeChange(
           key = newChangeKey(elementId = 1001),
           changeType = ChangeType.Update,
@@ -290,7 +282,7 @@ class NetworkAddRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findNodeChangeById("123:1:1002") should matchTo(
+      findNodeChangeById("123:1:1002") should matchTo(
         newNodeChange(
           key = newChangeKey(elementId = 1002),
           changeType = ChangeType.Update,

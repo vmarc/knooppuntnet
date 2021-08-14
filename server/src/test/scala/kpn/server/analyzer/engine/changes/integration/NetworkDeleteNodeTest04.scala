@@ -13,10 +13,8 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
+class NetworkDeleteNodeTest04 extends IntegrationTest {
 
   test("network delete - node looses node tag") {
 
@@ -27,15 +25,13 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
     val dataAfter = OverpassData()
       .node(1001)
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Delete, newRawRelation(1))
 
-      tc.process(ChangeAction.Delete, newRawRelation(1))
+      assert(!watched.networks.contains(1))
 
-      assert(!tc.analysisContext.watched.networks.contains(1))
-
-      tc.findNetworkInfoById(1) should matchTo(
+      findNetworkInfoById(1) should matchTo(
         newNetworkInfoDoc(
           1,
           active = false, // <--- !!!
@@ -51,7 +47,7 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
         )
       )
 
-      tc.findChangeSetSummaryById("123:1") should matchTo(
+      findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(
           subsets = Seq(Subset.nlHiking),
           networkChanges = NetworkChanges(
@@ -72,9 +68,9 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
         )
       )
 
-      val nodeDoc = tc.findNodeById(1001)
+      val nodeDoc = findNodeById(1001)
 
-      tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+      findNetworkInfoChangeById("123:1:1") should matchTo(
         newNetworkInfoChange(
           newChangeKey(elementId = 1),
           ChangeType.Delete,
@@ -88,7 +84,7 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
 
       assert(database.routeChanges.isEmpty)
 
-      tc.findNodeChangeById("123:1:1001") should matchTo(
+      findNodeChangeById("123:1:1001") should matchTo(
         newNodeChange(
           key = newChangeKey(elementId = 1001),
           changeType = ChangeType.Update,

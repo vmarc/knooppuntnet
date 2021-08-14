@@ -2,20 +2,19 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.changes.ChangeAction
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
-import kpn.server.analyzer.engine.context.ElementIds
 
-class NetworkDeleteTest02 extends AbstractIntegrationTest {
+class NetworkDeleteTest02 extends IntegrationTest {
 
   test("network delete - no info saved when before sitution cannot be loaded") {
 
-    withDatabase { database =>
+    val dataBefore = OverpassData.empty
+    val dataAfter = OverpassData.empty
 
-      val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
+    testIntegration(dataBefore, dataAfter) {
 
-      tc.process(ChangeAction.Delete, newRawRelation(1))
+      process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!tc.analysisContext.watched.networks.contains(1))
+      assert(!watched.networks.contains(1))
 
       assert(database.networks.isEmpty)
       assert(database.networkInfos.isEmpty)

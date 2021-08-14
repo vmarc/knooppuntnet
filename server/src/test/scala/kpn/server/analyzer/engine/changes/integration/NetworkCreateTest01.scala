@@ -6,7 +6,6 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFacts
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
@@ -22,9 +21,8 @@ import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkNodeMember
 import kpn.core.mongo.doc.NetworkRelationMember
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects {
+class NetworkCreateTest01 extends IntegrationTest {
 
   test("network create - added to watched list in memory and added to repository") {
 
@@ -61,35 +59,33 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
         )
       )
 
-    withDatabase { database =>
-
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+    testIntegration(dataBefore, dataAfter) {
 
       assert(database.orphanNodes.isEmpty)
       assert(database.orphanRoutes.findAll().size == 1)
 
-      tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
+      process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
-      assert(tc.analysisContext.watched.networks.contains(1))
-      assert(tc.analysisContext.watched.routes.contains(11))
-      assert(tc.analysisContext.watched.nodes.contains(1001))
-      assert(tc.analysisContext.watched.nodes.contains(1002))
+      assert(watched.networks.contains(1))
+      assert(watched.routes.contains(11))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
 
-      assertNetworkDoc(tc)
-      assertNetworkInfoDoc(tc)
-      assertNetworkChange(tc)
-      assertRouteChange(tc)
-      assertNodeChange1001(tc)
-      assertNodeChange1002(tc)
-      assertChangeSetSummary(tc)
+      assertNetworkDoc()
+      assertNetworkInfoDoc()
+      assertNetworkChange()
+      assertRouteChange()
+      assertNodeChange1001()
+      assertNodeChange1002()
+      assertChangeSetSummary()
 
       assert(database.orphanNodes.isEmpty)
       assert(database.orphanRoutes.isEmpty)
     }
   }
 
-  private def assertNetworkDoc(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkById(1) should matchTo(
+  private def assertNetworkDoc(): Unit = {
+    findNetworkById(1) should matchTo(
       NetworkDoc(
         1,
         active = true,
@@ -113,8 +109,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-  private def assertNetworkInfoDoc(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkInfoById(1) should matchTo(
+  private def assertNetworkInfoDoc(): Unit = {
+    findNetworkInfoById(1) should matchTo(
       newNetworkInfoDoc(
         1,
         summary = newNetworkSummary(
@@ -176,8 +172,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -231,8 +227,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-  private def assertNetworkChange(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkChangeById("123:1:1") should matchTo(
+  private def assertNetworkChange(): Unit = {
+    findNetworkChangeById("123:1:1") should matchTo(
       newNetworkChange(
         newChangeKey(elementId = 1),
         networkName = "name",
@@ -243,8 +239,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
-    tc.findRouteChangeById("123:1:11") should matchTo(
+  private def assertRouteChange(): Unit = {
+    findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -317,8 +313,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-  private def assertNodeChange1001(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange1001(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
@@ -339,8 +335,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
     )
   }
 
-  private def assertNodeChange1002(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1002") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,

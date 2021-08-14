@@ -14,7 +14,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 
-class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
+class NetworkDeleteNodeTest01 extends IntegrationTest {
 
   test("network delete - node becomes orphan") {
 
@@ -31,29 +31,27 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
     val dataAfter = OverpassData()
       .networkNode(1001, "01")
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Delete, newRawRelation(1))
 
-      tc.process(ChangeAction.Delete, newRawRelation(1))
-
-      assert(!tc.analysisContext.watched.networks.contains(1))
-      assert(tc.analysisContext.watched.nodes.contains(1001))
+      assert(!watched.networks.contains(1))
+      assert(watched.nodes.contains(1001))
 
       assert(database.routeChanges.isEmpty)
 
-      assertNetwork(tc)
-      assertNetworkInfo(tc)
-      assertNetworkChange(tc)
-      assertNodeChange(tc)
-      assertChangeSetSummary(tc)
+      assertNetwork()
+      assertNetworkInfo()
+      assertNetworkChange()
+      assertNodeChange()
+      assertChangeSetSummary()
 
       // TODO database.orphanNodes.findByStringId()
     }
   }
 
-  private def assertNetwork(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkById(1) should matchTo(
+  private def assertNetwork(): Unit = {
+    findNetworkById(1) should matchTo(
       newNetwork(
         1,
         active = false,
@@ -67,8 +65,8 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNetworkInfo(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkInfoById(1) should matchTo(
+  private def assertNetworkInfo(): Unit = {
+    findNetworkInfoById(1) should matchTo(
       newNetworkInfoDoc(
         1,
         active = false,
@@ -88,8 +86,8 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -111,8 +109,8 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNetworkChange(tc: IntegrationTestContext): Unit = {
-    tc.findNetworkInfoChangeById("123:1:1") should matchTo(
+  private def assertNetworkChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Delete,
@@ -133,8 +131,8 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertNodeChange(tc: IntegrationTestContext): Unit = {
-    tc.findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange(): Unit = {
+    findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,

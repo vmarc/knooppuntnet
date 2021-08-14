@@ -15,9 +15,8 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
-class RouteUpdateTest01 extends AbstractIntegrationTest {
+class RouteUpdateTest01 extends IntegrationTest {
 
   test("update route") {
 
@@ -43,30 +42,28 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
         Tags.from("key" -> "value2")
       )
 
-    withDatabase { database =>
+    testIntegration(dataBefore, dataAfter) {
 
-      val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
+      assert(watched.routes.contains(11))
 
-      assert(tc.analysisContext.watched.routes.contains(11))
-
-      assertRoute(tc)
-      assertRouteChange(tc)
-      assertOrphanRoute(tc)
+      assertRoute()
+      assertRouteChange()
+      assertOrphanRoute()
       assert(database.nodeChanges.isEmpty)
-      assertChangeSetSummary(tc)
+      assertChangeSetSummary()
     }
   }
 
-  private def assertRoute(tc: IntegrationTestContext): Unit = {
-    val routeInfo = tc.findRouteById(11)
+  private def assertRoute(): Unit = {
+    val routeInfo = findRouteById(11)
     routeInfo.id should equal(11)
     assert(routeInfo.active)
   }
 
-  private def assertChangeSetSummary(tc: IntegrationTestContext): Unit = {
-    tc.findChangeSetSummaryById("123:1") should matchTo(
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         routeChanges = Seq(
@@ -84,8 +81,8 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertRouteChange(tc: IntegrationTestContext): Unit = {
-    tc.findRouteChangeById("123:1:11") should matchTo(
+  private def assertRouteChange(): Unit = {
+    findRouteChangeById("123:1:11") should matchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -183,8 +180,8 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
     )
   }
 
-  private def assertOrphanRoute(tc: IntegrationTestContext): Unit = {
-    tc.findOrphanRouteById(11L) should matchTo(
+  private def assertOrphanRoute(): Unit = {
+    findOrphanRouteById(11L) should matchTo(
       newOrphanRouteDoc(
         11L,
         country = Country.nl,

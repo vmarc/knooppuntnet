@@ -2,11 +2,10 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.ReplicationId
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.integration.AbstractIntegrationTest
+import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkInfoChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
@@ -14,21 +13,20 @@ import kpn.server.analyzer.engine.changes.orphan.route.OrphanRouteChangeProcesso
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.repository.ChangeSetRepository
 
-class ChangeProcessorTest extends AbstractIntegrationTest {
+class ChangeProcessorTest extends IntegrationTest {
 
   test("changeset not saved when there are no relevant changes") {
 
-    withDatabase { database =>
-      val tc = new IntegrationTestContext(database, OverpassData.empty, OverpassData.empty)
+    testIntegration(OverpassData.empty, OverpassData.empty) {
 
-      val context: ChangeSetContext = {
+      val changeSetContext: ChangeSetContext = {
         val replicationId = ReplicationId(1)
         val changeSet = newChangeSet()
         val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
         ChangeSetContext(replicationId, changeSet, elementIds)
       }
 
-      tc.changeProcessor.process(context)
+      context.changeProcessor.process(changeSetContext)
 
       assert(database.changeSetSummaries.isEmpty)
       assert(database.nodeChanges.isEmpty)
@@ -65,8 +63,8 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
 
     t.changeProcessor.process(context)
 
-//    (t.changeSetInfoUpdater.changeSetInfo _).verify(changeSetId).once()
-//    (t.changeSaver.save _).verify(ReplicationId(1), context.changeSet, networkChanges).once()
+    //    (t.changeSetInfoUpdater.changeSetInfo _).verify(changeSetId).once()
+    //    (t.changeSaver.save _).verify(ReplicationId(1), context.changeSet, networkChanges).once()
 
   }
 
@@ -112,7 +110,7 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
 
     t.changeProcessor.process(context)
 
-//    (t.changeSaver.save _).verify(ReplicationId(1), context.changeSet, mergedChanges).once()
+    //    (t.changeSaver.save _).verify(ReplicationId(1), context.changeSet, mergedChanges).once()
   }
 
   class TestSetup() {
