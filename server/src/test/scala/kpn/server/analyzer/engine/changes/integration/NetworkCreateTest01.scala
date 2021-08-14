@@ -65,7 +65,7 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
 
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
-      assert(database.orphanNodes.findAll().isEmpty)
+      assert(database.orphanNodes.isEmpty)
       assert(database.orphanRoutes.findAll().size == 1)
 
       tc.process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
@@ -83,8 +83,8 @@ class NetworkCreateTest01 extends AbstractIntegrationTest with SharedTestObjects
       assertNodeChange1002(tc)
       assertChangeSetSummary(tc)
 
-      assert(database.orphanNodes.findAll().isEmpty)
-      assert(database.orphanRoutes.findAll().isEmpty)
+      assert(database.orphanNodes.isEmpty)
+      assert(database.orphanRoutes.isEmpty)
     }
   }
 

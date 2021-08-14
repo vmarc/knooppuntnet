@@ -70,13 +70,14 @@ class NetworkUpdateRouteTest06 extends AbstractIntegrationTest {
 
       assert(!tc.analysisContext.watched.routes.contains(11))
 
+      assert(database.nodes.isEmpty)
+      assert(database.nodeChanges.isEmpty)
+
       assertNetwork(tc)
       assertNetworkInfo(tc)
       assertRoute(tc)
-      assert(database.nodes.findAll().isEmpty)
       assertNetworkInfoChange(tc)
       assertRouteChange(tc)
-      assert(database.nodeChanges.findAll().isEmpty)
       assertChangeSetSummary(tc)
     }
   }

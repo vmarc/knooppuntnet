@@ -54,7 +54,7 @@ class RouteUpdateTest01 extends AbstractIntegrationTest {
       assertRoute(tc)
       assertRouteChange(tc)
       assertOrphanRoute(tc)
-      assert(database.nodeChanges.findAll().isEmpty)
+      assert(database.nodeChanges.isEmpty)
       assertChangeSetSummary(tc)
     }
   }

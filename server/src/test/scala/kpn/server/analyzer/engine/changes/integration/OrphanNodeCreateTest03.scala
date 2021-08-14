@@ -30,10 +30,10 @@ class OrphanNodeCreateTest03 extends AbstractIntegrationTest {
 
       assert(!tc.analysisContext.watched.nodes.contains(1001))
 
-      assert(database.nodes.findAll().isEmpty)
-      assert(database.nodeChanges.findAll().isEmpty)
-      assert(database.changeSetSummaries.findAll().isEmpty)
-      assert(database.locationChangeSetSummaries.findAll().isEmpty)
+      assert(database.nodes.isEmpty)
+      assert(database.nodeChanges.isEmpty)
+      assert(database.changeSetSummaries.isEmpty)
+      assert(database.locationChangeSetSummaries.isEmpty)
     }
   }
 }

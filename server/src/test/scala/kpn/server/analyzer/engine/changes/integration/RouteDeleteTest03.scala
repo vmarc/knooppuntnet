@@ -52,7 +52,7 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
       val tc = new IntegrationTestContext(database, dataBefore, dataAfter)
 
       assert(tc.analysisContext.watched.routes.contains(11))
-      assert(database.orphanNodes.findAll().isEmpty)
+      assert(database.orphanNodes.isEmpty)
 
       tc.process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
@@ -64,7 +64,7 @@ class RouteDeleteTest03 extends AbstractIntegrationTest {
       assertNodeChange1002(tc)
       assertOrphanNode1001(tc)
       assertOrphanNode1002(tc)
-      assert(database.orphanRoutes.findAll().isEmpty)
+      assert(database.orphanRoutes.isEmpty)
       assertChangeSetSummary(tc)
     }
   }

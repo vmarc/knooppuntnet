@@ -86,7 +86,7 @@ class NetworkDeleteNodeTest04 extends AbstractIntegrationTest {
         )
       )
 
-      assert(database.routeChanges.findAll().isEmpty)
+      assert(database.routeChanges.isEmpty)
 
       tc.findNodeChangeById("123:1:1001") should matchTo(
         newNodeChange(

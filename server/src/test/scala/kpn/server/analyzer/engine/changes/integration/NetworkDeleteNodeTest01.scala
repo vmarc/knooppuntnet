@@ -40,7 +40,7 @@ class NetworkDeleteNodeTest01 extends AbstractIntegrationTest {
       assert(!tc.analysisContext.watched.networks.contains(1))
       assert(tc.analysisContext.watched.nodes.contains(1001))
 
-      assert(database.routeChanges.findAll().isEmpty)
+      assert(database.routeChanges.isEmpty)
 
       assertNetwork(tc)
       assertNetworkInfo(tc)

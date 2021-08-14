@@ -290,7 +290,7 @@ class NetworkUpdateRouteTest01 extends AbstractIntegrationTest {
         )
       )
 
-      assert(database.nodeChanges.findAll().isEmpty)
+      assert(database.nodeChanges.isEmpty)
     }
   }
 }

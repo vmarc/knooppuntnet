@@ -9,12 +9,8 @@
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
-<!--        <logger name="org.mongodb" level="trace"/>-->
-<!--        <logger name="org.mongodb.driver.protocol.command" level="trace"/>-->
+        <logger name="org.mongodb" level="warn"/>
+        <logger name="kpn.server" level="warn"/>
         <logger name="kpn.core.mongo" level="info"/>
-        <logger name="kpn.core.mongo.actions.networks.NetworkInfoUpdater" level="debug"/>
-        <logger name="kpn.core.mongo.actions.statistics" level="debug"/>
-        <logger name="kpn.server.analyzer.engine.analysis.post" level="debug"/>
-
     </Loggers>
 </Configuration>

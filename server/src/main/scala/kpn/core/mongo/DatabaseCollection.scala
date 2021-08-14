@@ -19,6 +19,10 @@ trait DatabaseCollection[T] {
 
   def name: String = native.namespace.getCollectionName
 
+  def isEmpty: Boolean = {
+    countDocuments(collectionLog) == 0
+  }
+
   def aggregate[R: ClassTag](
     pipeline: Seq[Bson],
     log: Log = collectionLog,

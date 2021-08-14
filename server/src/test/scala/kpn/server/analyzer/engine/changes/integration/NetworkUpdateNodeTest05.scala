@@ -61,7 +61,7 @@ class NetworkUpdateNodeTest05 extends AbstractIntegrationTest {
       val networkInfoDoc = tc.findNetworkInfoById(1)
       networkInfoDoc._id should equal(1)
 
-      assert(database.routes.findAll().isEmpty)
+      assert(database.routes.isEmpty)
 
       tc.findNodeById(1002) should matchTo(
             newNodeDoc(

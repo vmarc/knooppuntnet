@@ -72,7 +72,7 @@ class NetworkUpdateNodeTest03 extends AbstractIntegrationTest {
       val networkInfoDoc = tc.findNetworkInfoById(1)
       networkInfoDoc._id should equal(1)
 
-      assert(database.nodes.findAll().isEmpty)
+      assert(database.nodes.isEmpty)
 
       tc.findChangeSetSummaryById("123:1") should matchTo(
         newChangeSetSummary(

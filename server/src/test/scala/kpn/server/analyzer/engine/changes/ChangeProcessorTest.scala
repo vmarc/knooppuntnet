@@ -30,13 +30,13 @@ class ChangeProcessorTest extends AbstractIntegrationTest {
 
       tc.changeProcessor.process(context)
 
-      assert(database.changeSetSummaries.findAll().isEmpty)
-      assert(database.nodeChanges.findAll().isEmpty)
-      assert(database.routeChanges.findAll().isEmpty)
-      assert(database.networkInfoChanges.findAll().isEmpty)
-      assert(database.nodes.findAll().isEmpty)
-      assert(database.routes.findAll().isEmpty)
-      assert(database.networks.findAll().isEmpty)
+      assert(database.changeSetSummaries.isEmpty)
+      assert(database.nodeChanges.isEmpty)
+      assert(database.routeChanges.isEmpty)
+      assert(database.networkInfoChanges.isEmpty)
+      assert(database.nodes.isEmpty)
+      assert(database.routes.isEmpty)
+      assert(database.networks.isEmpty)
     }
   }
 

@@ -17,11 +17,11 @@ class NetworkDeleteTest02 extends AbstractIntegrationTest {
 
       assert(!tc.analysisContext.watched.networks.contains(1))
 
-      assert(database.networks.findAll().isEmpty)
-      assert(database.networkInfos.findAll().isEmpty)
-      assert(database.changeSetSummaries.findAll().isEmpty)
-      assert(database.networkInfoChanges.findAll().isEmpty)
-      assert(database.routeChanges.findAll().isEmpty)
+      assert(database.networks.isEmpty)
+      assert(database.networkInfos.isEmpty)
+      assert(database.changeSetSummaries.isEmpty)
+      assert(database.networkInfoChanges.isEmpty)
+      assert(database.routeChanges.isEmpty)
     }
   }
 }

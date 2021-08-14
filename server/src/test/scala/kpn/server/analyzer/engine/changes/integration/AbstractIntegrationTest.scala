@@ -519,6 +519,10 @@ abstract class AbstractIntegrationTest extends UnitTest with MockFactory with Sh
       }
     }
 
+    def assertNoNodeChange(nodeId: Long): Unit = {
+      !database.nodeChanges.findAll().exists(_.id == nodeId)
+    }
+
     def beforeNodeWithId(nodeId: Long): Node = {
       before.nodes.getOrElse(
         nodeId,
