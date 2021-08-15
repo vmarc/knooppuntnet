@@ -19,6 +19,8 @@ class NetworkUpdateRouteTest06 extends IntegrationTest {
 
   test("network update - an ignored route that is added to the network is no longer ignored") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

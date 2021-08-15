@@ -22,6 +22,8 @@ class NetworkCreateTest06 extends IntegrationTest {
 
   test("network create - with new route") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

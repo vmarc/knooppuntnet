@@ -1,6 +1,5 @@
 package kpn.server.analyzer.full.network
 
-import kpn.api.common.NetworkFacts
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.doc.NetworkDoc
@@ -103,7 +102,6 @@ class FullNetworkAnalyzerImpl(
       nodeMembers,
       wayMembers,
       relationMembers,
-      NetworkFacts(),
       rawRelation.tags
     )
   }

@@ -25,7 +25,7 @@ class FullAnalyzerImpl(
       val context2 = fullNetworkAnalyzer.analyze(context1)
       val context3 = fullRouteAnalyzer.analyze(context2)
       val context4 = fullNodeAnalyzer.analyze(context3)
-      postProcessor.process(context4.networkIds)
+      postProcessor.process(timestamp, context4.networkIds)
       ("full analysis completed", ())
     }
   }

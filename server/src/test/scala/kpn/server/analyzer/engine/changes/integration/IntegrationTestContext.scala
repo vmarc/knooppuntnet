@@ -9,11 +9,11 @@ import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFactAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoTagAnalyzer
-import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
@@ -182,6 +182,7 @@ class IntegrationTestContext(val database: Database, dataBefore: OverpassData, d
   private val networkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
   private val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
   private val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
+  private val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
   private val networkInfoMasterAnalyzer = new NetworkInfoMasterAnalyzer(
     database,
@@ -190,7 +191,8 @@ class IntegrationTestContext(val database: Database, dataBefore: OverpassData, d
     networkInfoNodeAnalyzer,
     networkInfoFactAnalyzer,
     networkInfoChangeAnalyzer,
-    networkCountryAnalyzer
+    networkCountryAnalyzer,
+    networkInfoExtraAnalyzer
   )
 
   private val networkInfoChangeProcessor = new NetworkInfoChangeProcessorImpl(

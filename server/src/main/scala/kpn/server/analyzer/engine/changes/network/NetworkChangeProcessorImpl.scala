@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.network
 
-import kpn.api.common.NetworkFacts
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.IdDiffs
@@ -11,7 +10,6 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAna
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
 
@@ -110,7 +108,6 @@ class NetworkChangeProcessorImpl(
         Seq.empty,
         Seq.empty,
         Seq.empty,
-        NetworkFacts(),
         before.tags
       )
     )

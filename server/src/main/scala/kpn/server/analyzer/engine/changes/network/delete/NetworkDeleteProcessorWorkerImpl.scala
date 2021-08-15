@@ -84,9 +84,9 @@ class NetworkDeleteProcessorWorkerImpl(
             networkDataUpdate = None,
             networkNodes = RefDiffs.empty,
             routes = RefDiffs.empty,
-            nodes = IdDiffs.empty,
-            ways = IdDiffs.empty,
-            relations = IdDiffs.empty,
+            extraNodes = IdDiffs.empty,
+            extraWays = IdDiffs.empty,
+            extraRelations = IdDiffs.empty,
             happy = false,
             investigate = true,
             impact = true

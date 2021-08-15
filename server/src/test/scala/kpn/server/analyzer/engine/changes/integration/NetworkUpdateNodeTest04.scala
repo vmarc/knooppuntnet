@@ -17,6 +17,8 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
 
   test("network update - node that is no longer part of the network after update, does not become orphan node if still referenced in an orphan route") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

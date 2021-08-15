@@ -22,6 +22,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   test("network update - route no longer part of the network after deletion") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

@@ -209,9 +209,9 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
         networkDataUpdate = None,
         networkNodes = RefDiffs(added = nodeRefs),
         routes = RefDiffs(added = routeRefs),
-        nodes = IdDiffs(),
-        ways = IdDiffs(),
-        relations = IdDiffs(),
+        extraNodes = IdDiffs(),
+        extraWays = IdDiffs(),
+        extraRelations = IdDiffs(),
         happy = true,
         investigate = network.facts.nonEmpty,
         impact = true

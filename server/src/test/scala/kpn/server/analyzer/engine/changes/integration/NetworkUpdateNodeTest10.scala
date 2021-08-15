@@ -18,6 +18,8 @@ class NetworkUpdateNodeTest10 extends IntegrationTest {
 
   test("network update - node role 'connection' added") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkRelation(

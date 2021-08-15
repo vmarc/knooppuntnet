@@ -24,6 +24,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
 
   test("network update - removed node that looses required tags, but still has tags of other networkType does not become inactive") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .node(1002, tags = Tags.from("rwn_ref" -> "02", "rcn_ref" -> "03", "network:type" -> "node_network"))

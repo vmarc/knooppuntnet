@@ -19,6 +19,8 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
 
   test("network delete - route still referenced in other network does not become orphan") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

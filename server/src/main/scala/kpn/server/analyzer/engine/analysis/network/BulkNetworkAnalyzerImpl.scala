@@ -55,7 +55,6 @@ class BulkNetworkAnalyzerImpl(
       nodeMembers,
       wayMembers,
       relationMembers,
-      NetworkFacts(),
       rawRelation.tags
     )
   }

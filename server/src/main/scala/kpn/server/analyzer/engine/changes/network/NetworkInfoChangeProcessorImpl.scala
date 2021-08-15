@@ -21,30 +21,30 @@ class NetworkInfoChangeProcessorImpl(
   networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer
 ) extends NetworkInfoChangeProcessor {
 
-  def analyze(context: ChangeSetContext): ChangeSetContext = {
+  def analyze(changeSetContext: ChangeSetContext): ChangeSetContext = {
 
-    val impactedNetworkIds = analyzeImpact(context)
+    val impactedNetworkIds = analyzeImpact(changeSetContext)
 
     val networkChanges = impactedNetworkIds.flatMap { networkId =>
       val beforeOption = database.networkInfos.findById(networkId)
-      val afterOption = networkInfoMasterAnalyzer.updateNetwork(networkId)
+      val afterOption = networkInfoMasterAnalyzer.updateNetwork(changeSetContext.timestampAfter, networkId)
       beforeOption match {
         case None =>
           afterOption match {
             case None => None // TODO message ?
             case Some(after) =>
-              processCreate(context, after, networkId)
+              processCreate(changeSetContext, after, networkId)
           }
         case Some(before) =>
           afterOption match {
-            case None => processDelete(context, before, networkId)
-            case Some(after) => processUpdate(context, before, after, networkId)
+            case None => processDelete(changeSetContext, before, networkId)
+            case Some(after) => processUpdate(changeSetContext, before, after, networkId)
           }
       }
     }
 
-    context.copy(
-      changes = context.changes.copy(
+    changeSetContext.copy(
+      changes = changeSetContext.changes.copy(
         networkInfoChanges = networkChanges
       )
     )
@@ -92,6 +92,10 @@ class NetworkInfoChangeProcessorImpl(
       }
     }
 
+    val nodes = IdDiffs(added = after.extraNodeIds)
+    val ways = IdDiffs(added = after.extraWayIds)
+    val relations = IdDiffs(added = after.extraRelationIds)
+
     val key = context.buildChangeKey(networkId)
     Some(
       NetworkInfoChange(
@@ -115,9 +119,9 @@ class NetworkInfoChangeProcessorImpl(
         routes = RefDiffs(
           added = after.routes.map(_.toRef)
         ),
-        nodes = networkChangeOption.map(_.nodes).getOrElse(IdDiffs.empty),
-        ways = networkChangeOption.map(_.ways).getOrElse(IdDiffs.empty),
-        relations = networkChangeOption.map(_.relations).getOrElse(IdDiffs.empty),
+        extraNodes = nodes,
+        extraWays = ways,
+        extraRelations = relations,
         happy = true,
         investigate = false,
         impact = true
@@ -155,6 +159,10 @@ class NetworkInfoChangeProcessorImpl(
       }
     }
 
+    val nodes = IdDiffs(removed = before.extraNodeIds)
+    val ways = IdDiffs(removed = before.extraWayIds)
+    val relations = IdDiffs(removed = before.extraRelationIds)
+
     val key = context.buildChangeKey(networkId)
     Some(
       NetworkInfoChange(
@@ -178,9 +186,9 @@ class NetworkInfoChangeProcessorImpl(
         routes = RefDiffs(
           removed = before.routes.map(_.toRef)
         ),
-        nodes = networkChangeOption.map(_.nodes).getOrElse(IdDiffs.empty),
-        ways = networkChangeOption.map(_.ways).getOrElse(IdDiffs.empty),
-        relations = networkChangeOption.map(_.relations).getOrElse(IdDiffs.empty),
+        extraNodes = nodes,
+        extraWays = ways,
+        extraRelations = relations,
         happy = false,
         investigate = true,
         impact = true
@@ -204,24 +212,50 @@ class NetworkInfoChangeProcessorImpl(
         val nodeDiffs = analyzeNodeDiffs(before, after)
         val routeDiffs = analyzeRouteDiffs(before, after)
 
-        val nodes = IdDiffs.empty // TODO
-        val ways = IdDiffs.empty // TODO
-        val relations = IdDiffs.empty // TODO
+
+        val extraNodeIdsBefore = before.extraNodeIds.toSet
+        val extraNodeIdsAfter = after.extraNodeIds.toSet
+        val extraNodeIdsRemoved = (extraNodeIdsBefore -- extraNodeIdsAfter).toSeq.sorted
+        val extraNodeIdsAdded = (extraNodeIdsAfter -- extraNodeIdsBefore).toSeq.sorted
+        val extraNodes = IdDiffs(
+          removed = extraNodeIdsRemoved,
+          added = extraNodeIdsAdded
+        )
+
+
+        val extraWayIdsBefore = before.extraWayIds.toSet
+        val extraWayIdsAfter = after.extraWayIds.toSet
+        val extraWayIdsRemoved = (extraWayIdsBefore -- extraWayIdsAfter).toSeq.sorted
+        val extraWayIdsAdded = (extraWayIdsAfter -- extraWayIdsBefore).toSeq.sorted
+        val ways = IdDiffs(
+          removed = extraWayIdsRemoved,
+          added = extraWayIdsAdded
+        )
+
+
+        val extraRelationIdsBefore = before.extraRelationIds.toSet
+        val extraRelationIdsAfter = after.extraRelationIds.toSet
+        val extraRelationIdsRemoved = (extraRelationIdsBefore -- extraRelationIdsAfter).toSeq.sorted
+        val extraRelationIdsAdded = (extraRelationIdsAfter -- extraRelationIdsBefore).toSeq.sorted
+        val relations = IdDiffs(
+          removed = extraRelationIdsRemoved,
+          added = extraRelationIdsAdded
+        )
 
         val happy = nodeDiffs.added.nonEmpty || routeDiffs.added.nonEmpty
 
         val investigate = nodeDiffs.removed.nonEmpty ||
           routeDiffs.removed.nonEmpty ||
-          nodes.added.nonEmpty ||
+          extraNodes.added.nonEmpty ||
           ways.added.nonEmpty ||
           relations.added.nonEmpty
 
         val impact = happy || investigate
 
-        //        case class NetworkDataUpdate(
-        //          before: NetworkData,
-        //          after: NetworkData
-        //        )
+        //  case class NetworkDataUpdate(
+        //    before: NetworkData,
+        //    after: NetworkData
+        //  )
 
         val key = context.buildChangeKey(networkId)
         Some(
@@ -242,9 +276,9 @@ class NetworkInfoChangeProcessorImpl(
             networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
             networkNodes = nodeDiffs,
             routes = routeDiffs,
-            nodes = nodes,
-            ways = ways,
-            relations = relations,
+            extraNodes = extraNodes,
+            extraWays = ways,
+            extraRelations = relations,
             happy = happy,
             investigate = investigate,
             impact = impact

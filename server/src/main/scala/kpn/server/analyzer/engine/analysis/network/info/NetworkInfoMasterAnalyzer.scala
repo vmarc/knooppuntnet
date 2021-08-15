@@ -1,11 +1,13 @@
 package kpn.server.analyzer.engine.analysis.network.info
 
+import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFactAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
@@ -27,7 +29,8 @@ class NetworkInfoMasterAnalyzer(
   networkInfoNodeAnalyzer: NetworkInfoNodeAnalyzer,
   networkInfoFactAnalyzer: NetworkInfoFactAnalyzer,
   networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer,
-  networkCountryAnalyzer: NetworkCountryAnalyzer
+  networkCountryAnalyzer: NetworkCountryAnalyzer,
+  networkInfoExtraAnalyzer: NetworkInfoExtraAnalyzer
 ) {
 
   private val log = Log(classOf[NetworkInfoMasterAnalyzer])
@@ -42,6 +45,7 @@ class NetworkInfoMasterAnalyzer(
     networkInfoFactAnalyzer,
     networkInfoChangeAnalyzer,
     networkCountryAnalyzer,
+    networkInfoExtraAnalyzer,
     NetworkLastUpdatedAnalyzer
     // TODO MONGO create network shape
     // database.networkShapes.save(doc, log)
@@ -49,31 +53,31 @@ class NetworkInfoMasterAnalyzer(
     // database.networkGpxs.save(doc, log)
   )
 
-  def updateAll(): Unit = {
+  def updateAll(analysisTimestamp: Timestamp): Unit = {
     log.infoElapsed {
       val networkIds = database.networks.ids(log)
       networkIds.zipWithIndex.foreach { case (networkDoc, index) =>
         Log.context(s"${index + 1}/${networkIds.size}") {
-          updateNetwork(networkDoc)
+          updateNetwork(analysisTimestamp, networkDoc)
         }
       }
       ("done", ())
     }
   }
 
-  def updateNetworks(networkIds: Seq[Long]): Unit = {
+  def updateNetworks(analysisTimestamp: Timestamp, networkIds: Seq[Long]): Unit = {
     networkIds.zipWithIndex.foreach { case (networkId, index) =>
       Log.context(s"${index + 1}/${networkIds.size}") {
-        updateNetwork(networkId)
+        updateNetwork(analysisTimestamp, networkId)
       }
     }
   }
 
-  def updateNetwork(networkId: Long): Option[NetworkInfoDoc] = {
+  def updateNetwork(analysisTimestamp: Timestamp, networkId: Long): Option[NetworkInfoDoc] = {
     Log.context(networkId.toString) {
       log.infoElapsed {
         val networkInfoDoc = database.networks.findById(networkId, log).flatMap { networkDoc =>
-          val context = NetworkInfoAnalysisContext(networkDoc)
+          val context = NetworkInfoAnalysisContext(analysisTimestamp, networkDoc)
           doAnalyze(analyzers, context) match {
             case Some(doc) =>
               database.networkInfos.save(doc, log)

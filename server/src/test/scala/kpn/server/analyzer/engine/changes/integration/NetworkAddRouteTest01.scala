@@ -27,6 +27,8 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
   test("network add route") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

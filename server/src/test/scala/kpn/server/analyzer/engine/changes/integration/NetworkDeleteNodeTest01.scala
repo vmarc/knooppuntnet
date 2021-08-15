@@ -105,9 +105,6 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         networkNodes = RefDiffs(
           removed = Seq(Ref(1001, "01"))
         ),
-        nodes = IdDiffs( // TODO MONGO should not have this
-          removed = Seq(1001)
-        ),
         investigate = true
       )
     )

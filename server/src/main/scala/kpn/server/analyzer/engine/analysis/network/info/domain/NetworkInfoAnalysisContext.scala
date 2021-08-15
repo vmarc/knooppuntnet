@@ -15,6 +15,7 @@ import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NodeDoc
 
 case class NetworkInfoAnalysisContext(
+  analysisTimestamp: Timestamp,
   networkDoc: NetworkDoc,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
@@ -25,6 +26,9 @@ case class NetworkInfoAnalysisContext(
   nodeDetails: Seq[NetworkNodeDetail] = Seq.empty,
   routeDetails: Seq[NetworkRouteDetail] = Seq.empty,
   routes: Seq[NetworkRouteRow] = Seq.empty, // TODO MONGO use better name
+  extraNodeIds: Seq[Long] = Seq.empty,
+  extraWayIds: Seq[Long] = Seq.empty,
+  extraRelationIds: Seq[Long] = Seq.empty,
   nodeIds: Seq[Long] = Seq.empty, // contains both ids of nodes in network relation and route relations and ways // TODO MONGO still needed after NetworkUpdater implementation?
   changeCount: Long = 0,
   km: Long = 0,

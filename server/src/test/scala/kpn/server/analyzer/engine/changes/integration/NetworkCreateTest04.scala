@@ -18,6 +18,8 @@ class NetworkCreateTest04 extends IntegrationTest {
 
   test("network create - investigate flag is set when issue in added network") {
 
+    pending
+
     val dataBefore = OverpassData.empty
     val dataAfter = OverpassData()
       .networkNode(1001, "01")
@@ -113,7 +115,7 @@ class NetworkCreateTest04 extends IntegrationTest {
         "name",
         networkNodes = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
         routes = RefDiffs(added = Seq(Ref(11, "01-02"))),
-        ways = IdDiffs(
+        extraWays = IdDiffs(
           added = Seq(
             102
           )

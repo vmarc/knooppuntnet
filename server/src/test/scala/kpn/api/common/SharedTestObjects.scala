@@ -757,9 +757,9 @@ trait SharedTestObjects extends MockFactory {
     networkDataUpdate: Option[NetworkDataUpdate] = None,
     networkNodes: RefDiffs = RefDiffs.empty,
     routes: RefDiffs = RefDiffs.empty,
-    nodes: IdDiffs = IdDiffs.empty,
-    ways: IdDiffs = IdDiffs.empty,
-    relations: IdDiffs = IdDiffs.empty,
+    extraNodes: IdDiffs = IdDiffs.empty,
+    extraWays: IdDiffs = IdDiffs.empty,
+    extraRelations: IdDiffs = IdDiffs.empty,
     happy: Boolean = false,
     investigate: Boolean = false
   ): NetworkInfoChange = {
@@ -776,9 +776,9 @@ trait SharedTestObjects extends MockFactory {
       networkDataUpdate,
       networkNodes,
       routes,
-      nodes,
-      ways,
-      relations,
+      extraNodes,
+      extraWays,
+      extraRelations,
       happy,
       investigate,
       happy || investigate
@@ -1102,7 +1102,6 @@ trait SharedTestObjects extends MockFactory {
     nodeMembers: Seq[NetworkNodeMember] = Seq.empty,
     wayMembers: Seq[NetworkWayMember] = Seq.empty,
     relationMembers: Seq[NetworkRelationMember] = Seq.empty,
-    networkFacts: NetworkFacts = NetworkFacts(),
     tags: Tags = Tags.empty
   ): NetworkDoc = {
     NetworkDoc(
@@ -1112,7 +1111,6 @@ trait SharedTestObjects extends MockFactory {
       nodeMembers,
       wayMembers,
       relationMembers,
-      networkFacts,
       tags
     )
   }
@@ -1127,6 +1125,9 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[NetworkFact] = Seq.empty,
     nodes: Seq[NetworkNodeDetail] = Seq.empty,
     routes: Seq[NetworkRouteRow] = Seq.empty,
+    extraNodeIds: Seq[Long] = Seq.empty,
+    extraWayIds: Seq[Long] = Seq.empty,
+    extraRelationIds: Seq[Long] = Seq.empty,
     nodeIds: Seq[Long] = Seq.empty
   ): NetworkInfoDoc = {
     NetworkInfoDoc(
@@ -1138,6 +1139,9 @@ trait SharedTestObjects extends MockFactory {
       facts,
       nodes,
       routes,
+      extraNodeIds,
+      extraWayIds,
+      extraRelationIds,
       nodeIds
     )
   }

@@ -21,6 +21,8 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
 
   test("network update - node that looses required tags and is removed from network becomes inactive") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")

@@ -98,7 +98,6 @@ class NetworkCreateTest01 extends IntegrationTest {
         relationMembers = Seq(
           NetworkRelationMember(11L, None)
         ),
-        networkFacts = NetworkFacts(),
         tags = Tags.from(
           "network:type" -> "node_network",
           "type" -> "network",

@@ -7,7 +7,6 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
@@ -75,9 +74,6 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
         "network",
         networkNodes = RefDiffs(
           removed = Seq(Ref(1001, "01"))
-        ),
-        nodes = IdDiffs( // TODO MONGO should not be here
-          removed = Seq(1001)
         ),
         investigate = true
       )

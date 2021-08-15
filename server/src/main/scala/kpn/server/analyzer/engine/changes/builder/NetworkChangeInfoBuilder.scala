@@ -27,9 +27,9 @@ class NetworkChangeInfoBuilder {
       change.networkDataUpdate.isDefined,
       change.networkNodes,
       change.routes,
-      change.nodes,
-      change.ways,
-      change.relations,
+      change.extraNodes,
+      change.extraWays,
+      change.extraRelations,
       change.happy,
       change.investigate
     )

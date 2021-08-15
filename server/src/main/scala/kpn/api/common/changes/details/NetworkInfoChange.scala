@@ -24,9 +24,9 @@ case class NetworkInfoChange(
   networkDataUpdate: Option[NetworkDataUpdate],
   networkNodes: RefDiffs,
   routes: RefDiffs,
-  nodes: IdDiffs,
-  ways: IdDiffs,
-  relations: IdDiffs,
+  extraNodes: IdDiffs,
+  extraWays: IdDiffs,
+  extraRelations: IdDiffs,
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean

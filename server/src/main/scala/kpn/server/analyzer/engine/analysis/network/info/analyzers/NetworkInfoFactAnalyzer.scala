@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.common.Check
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
 import kpn.api.custom.Fact
@@ -77,44 +76,20 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
 
   private def collectNetworkFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
 
-    val networkInfoDocFacts: Seq[NetworkFact] = Seq(
-      context.networkDoc.networkFacts.networkExtraMemberNode.toSeq.map { facts =>
-        NetworkFact(
-          Fact.NetworkExtraMemberNode.name,
-          elementType = Some("node"),
-          elementIds = Some(facts.map(fact => fact.memberId))
-        )
-      },
-      context.networkDoc.networkFacts.networkExtraMemberWay.toSeq.map { facts =>
-        NetworkFact(
-          Fact.NetworkExtraMemberWay.name,
-          elementType = Some("way"),
-          elementIds = Some(facts.map(fact => fact.memberId))
-        )
-      },
-      context.networkDoc.networkFacts.networkExtraMemberRelation.toSeq.map { facts =>
-        NetworkFact(
-          Fact.NetworkExtraMemberRelation.name,
-          elementType = Some("relation"),
-          elementIds = Some(facts.map(fact => fact.memberId))
-        )
-      },
-      context.networkDoc.networkFacts.integrityCheckFailed.toSeq.map { integrityCheckFailed =>
-        NetworkFact(
-          Fact.IntegrityCheckFailed.name,
-          checks = Some(
-            integrityCheckFailed.checks.map { c =>
-              Check(c.nodeId, c.nodeName, c.actual, c.expected)
-            }
-          )
-        )
-      },
-      context.networkDoc.networkFacts.nameMissing.toSeq.map { x =>
-        NetworkFact(Fact.NameMissing.name)
-      }
-    ).flatten
+    //  context.networkDoc.networkFacts.integrityCheckFailed.toSeq.map { integrityCheckFailed =>
+    //    NetworkFact(
+    //      Fact.IntegrityCheckFailed.name,
+    //      checks = Some(
+    //        integrityCheckFailed.checks.map { c =>
+    //          Check(c.nodeId, c.nodeName, c.actual, c.expected)
+    //        }
+    //      )
+    //    )
+    //  },
+    //  context.networkDoc.networkFacts.nameMissing.toSeq.map { x =>
+    //    NetworkFact(Fact.NameMissing.name)
+    //  }
 
-    val networkInfoFacts = context.networkFacts.map(f => NetworkFact(f.name))
-    networkInfoFacts ++ networkInfoDocFacts
+    Seq.empty
   }
 }

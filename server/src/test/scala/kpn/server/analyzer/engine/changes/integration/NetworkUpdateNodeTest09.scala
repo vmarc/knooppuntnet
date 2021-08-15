@@ -17,6 +17,8 @@ class NetworkUpdateNodeTest09 extends IntegrationTest {
 
   test("network update - an ignored node that is added to the network is no longer ignored") {
 
+    pending
+
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02") // ignored node, not referenced by the network
