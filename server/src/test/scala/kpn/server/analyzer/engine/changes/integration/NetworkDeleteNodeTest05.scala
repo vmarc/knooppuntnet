@@ -7,7 +7,6 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
@@ -100,7 +99,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!
-        country = None, // TODO Some(Country.nl),
+        country = Some(Country.nl),
         newNetworkSummary(
           name = "network",
           networkType = NetworkType.hiking,

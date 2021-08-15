@@ -55,4 +55,25 @@ case class NodeDoc(
   def networkTypeName(networkType: NetworkType): String = {
     names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
   }
+
+  def isSameAs(other: NodeDoc): Boolean = {
+    _id == other._id &&
+      labels == other.labels &&
+      active == other.active &&
+      country == other.country &&
+      name == other.name &&
+      names == other.names &&
+      //  version == other.version &&
+      //  changeSetId == other.changeSetId &&
+      latitude == other.latitude &&
+      longitude == other.longitude &&
+      //  lastUpdated == other.lastUpdated &&
+      lastSurvey == other.lastSurvey &&
+      tags == other.tags &&
+      facts == other.facts
+    //  locations == other.locations &&
+    //  tiles == other.tiles &&
+    //  integrity == other.integrity &&
+    //  routeReferences == other.routeReferences
+  }
 }

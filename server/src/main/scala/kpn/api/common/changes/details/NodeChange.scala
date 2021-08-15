@@ -28,8 +28,8 @@ case class NodeChange(
   nodeMoved: Option[NodeMoved],
   addedToRoute: Seq[Ref],
   removedFromRoute: Seq[Ref],
-  addedToNetwork: Seq[Ref],
-  removedFromNetwork: Seq[Ref],
+  addedToNetwork: Seq[Ref], // added to network relation (not included when only added to route within network)
+  removedFromNetwork: Seq[Ref], // removed from network relation (not included when only removed to route within network)
   factDiffs: FactDiffs,
   facts: Seq[Fact],
   tiles: Seq[String],

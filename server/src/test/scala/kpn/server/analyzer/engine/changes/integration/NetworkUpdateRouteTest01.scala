@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.common.TrackPath
@@ -13,24 +13,20 @@ import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.RouteData
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.server.analyzer.engine.context.ElementIds
 
 class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   test("network update - route that is no longer part of the network after update, becomes orphan route if also not referenced in any other network") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -50,7 +46,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           newMember("node", 1001),
           newMember("node", 1002),
           newMember("relation", 11)
-        )
+        ),
+        version = 1
       )
 
     val dataAfter = OverpassData()
@@ -71,7 +68,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           newMember("node", 1001),
           newMember("node", 1002)
           // route member is no longer included here
-        )
+        ),
+        version = 2
       )
 
     testIntegration(dataBefore, dataAfter) {
@@ -188,6 +186,10 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         nodeRefs = Seq(
           1001,
           1002
+        ),
+        elementIds = ElementIds(
+          nodeIds = Set(1001, 1002),
+          wayIds = Set(101)
         )
       )
     )
@@ -202,23 +204,18 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        orphanRoutes = RefChanges(
-          Seq.empty,
-          Seq(Ref(11, "01-02")
-          )
-        ),
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
-        networkNodes = RefDiffs(
-          updated = Seq(
-            Ref(1001, "01"),
-            Ref(1002, "02")
-          )
-        ),
+        //  orphanRoutes = RefChanges( TODO MONGO
+        //    Seq.empty,
+        //    Seq(Ref(11, "01-02")
+        //    )
+        //  ),
+        networkDataUpdate = None,
+        //  Some( TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         routes = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
@@ -229,7 +226,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertRouteChange() = {
+  private def assertRouteChange(): Unit = {
 
     val routeData = newRouteData(
       Some(Country.nl),
@@ -267,7 +264,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "name")),
         before = Some(routeData),
         after = Some(routeData),
-        facts = Seq(Fact.BecomeOrphan),
+        // TODO MONGO facts = Seq(Fact.BecomeOrphan),
+        impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true
       )
@@ -290,13 +288,17 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                   newChangeSetElementRef(11, "01-02", investigate = true)
                 )
               ),
-              nodeChanges = ChangeSetElementRefs(
-                updated = Seq(
-                  newChangeSetElementRef(1001, "01"),
-                  newChangeSetElementRef(1002, "02")
-                )
-              ),
               investigate = true
+            )
+          )
+        ),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(11, "01-02", investigate = true)
+              )
             )
           )
         ),

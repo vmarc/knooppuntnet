@@ -2,15 +2,13 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -18,8 +16,6 @@ import kpn.core.test.OverpassData
 class NetworkUpdateNodeTest08 extends IntegrationTest {
 
   test("network update - an orphan node that is added to the network is no longer orphan") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -47,14 +43,26 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
+      findOrphanNodeById("nl:hiking:1002") should matchTo(
+        newOrphanNodeDoc(
+          country = Country.nl,
+          networkType = NetworkType.hiking,
+          nodeId = 1002,
+          name = "02"
+        )
+      )
+
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(!watched.nodes.contains(1002))
+      // TODO MONGO assert(database.orphanNodes.isEmpty)
+
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
 
       assertNetwork()
       assertNetworkInfo()
       assertNetworkInfoChange()
-      assertNodeChange()
+      assertNodeChange1002()
       assertChangeSetSummary()
     }
   }
@@ -78,15 +86,16 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        orphanNodes = RefChanges(
-          oldRefs = Seq(Ref(1002, "02"))
-        ),
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
+        //  orphanNodes = RefChanges( TODO MONGO
+        //    oldRefs = Seq(Ref(1002, "02"))
+        //  ),
+        networkDataUpdate = None,
+        //  Some( TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         networkNodes = RefDiffs(
           added = Seq(Ref(1002, "02"))
         ),
@@ -95,8 +104,8 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
     )
   }
 
-  private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -109,7 +118,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
           newMetaData()
         ),
         addedToNetwork = Seq(Ref(1, "name")),
-        facts = Seq(Fact.WasOrphan),
+        // TODO MONGO facts = Seq(Fact.WasOrphan),
         happy = true,
         impact = true
       )
@@ -131,6 +140,16 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
                 added = Seq(newChangeSetElementRef(1002, "02", happy = true))
               ),
               happy = true
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1002, "02", happy = true)
+              )
             )
           )
         ),

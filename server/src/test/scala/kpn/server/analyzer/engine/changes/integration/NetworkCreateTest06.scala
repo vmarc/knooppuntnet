@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
@@ -21,8 +22,6 @@ import kpn.core.test.OverpassData
 class NetworkCreateTest06 extends IntegrationTest {
 
   test("network create - with new route") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -68,40 +67,6 @@ class NetworkCreateTest06 extends IntegrationTest {
     //      )
     //    )
     //  )
-  }
-
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        networkChanges = NetworkChanges(
-          creates = Seq(
-            newChangeSetNetwork(
-              Some(Country.nl),
-              NetworkType.hiking,
-              1,
-              "name",
-              routeChanges = ChangeSetElementRefs(
-                added = Seq(
-                  ChangeSetElementRef(11, "01-02", happy = true, investigate = false)
-                )
-              ),
-              nodeChanges = ChangeSetElementRefs(
-                added = Seq(
-                  ChangeSetElementRef(1001, "01", happy = true, investigate = false),
-                  ChangeSetElementRef(1002, "02", happy = true, investigate = false)
-                )
-              ),
-              happy = true
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
-        ),
-        happy = true
-      )
-    )
   }
 
   private def assertNetworkInfoChange(): Unit = {
@@ -157,6 +122,7 @@ class NetworkCreateTest06 extends IntegrationTest {
             )
           )
         ),
+        impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
         locationHappy = true,
@@ -180,9 +146,6 @@ class NetworkCreateTest06 extends IntegrationTest {
         ),
         addedToRoute = Seq(
           Ref(11, "01-02")
-        ),
-        addedToNetwork = Seq(
-          Ref(1, "name")
         ),
         happy = true,
         impact = true,
@@ -219,13 +182,65 @@ class NetworkCreateTest06 extends IntegrationTest {
         addedToRoute = Seq(
           Ref(11, "01-02")
         ),
-        addedToNetwork = Seq(
-          Ref(1, "name")
-        ),
         happy = true,
         impact = true,
         locationHappy = true,
         locationImpact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          creates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "name",
+              routeChanges = ChangeSetElementRefs(
+                added = Seq(
+                  ChangeSetElementRef(11, "01-02", happy = true, investigate = false)
+                )
+              ),
+              nodeChanges = ChangeSetElementRefs(
+                added = Seq(
+                  ChangeSetElementRef(1001, "01", happy = true, investigate = false),
+                  ChangeSetElementRef(1002, "02", happy = true, investigate = false)
+                )
+              ),
+              happy = true
+            )
+          )
+        ),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(11, "01-02", happy = true)
+              )
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+                newChangeSetElementRef(1002, "02", happy = true)
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
+        ),
+        happy = true
       )
     )
   }

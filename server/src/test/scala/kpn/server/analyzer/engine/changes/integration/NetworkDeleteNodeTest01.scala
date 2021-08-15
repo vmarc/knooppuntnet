@@ -8,7 +8,6 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
@@ -72,7 +71,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
       newNetworkInfoDoc(
         1,
         active = false,
-        country = None, // TODO Some(Country.nl),
+        country = Some(Country.nl),
         summary = newNetworkSummary(
           name = "network-name"
         ),

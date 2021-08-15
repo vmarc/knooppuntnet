@@ -60,7 +60,6 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
   def process(action: ChangeAction, element: RawElement): Unit = {
     val changes = Seq(Change(action, Seq(element)))
     process(changes)
-    context.postProcessor.processPhase2()
   }
 
   def process(changes: Seq[Change]): Unit = {
@@ -72,6 +71,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
       elementIds
     )
     context.changeProcessor.process(changeSetContext)
+    context.postProcessor.processPhase2()
   }
 
   def findRouteById(routeId: Long): RouteInfo = {

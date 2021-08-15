@@ -7,7 +7,6 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
@@ -57,7 +56,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!
-        country = None, // TODO Some(Country.nl),
+        country = Some(Country.nl),
         newNetworkSummary(
           name = "network",
           networkType = NetworkType.hiking,
@@ -122,9 +121,9 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
             )
           )
         ),
-        // removedFromNetwork = Seq( // TODO MONGO should be here?
-        //   Ref(1, "network")
-        // ),
+        removedFromNetwork = Seq(
+          Ref(1, "network")
+        ),
         facts = Seq(Fact.LostHikingNodeTag),
         investigate = true,
         impact = true,

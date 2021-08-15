@@ -137,7 +137,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRawRelation(
     id: Long = 0,
-    version: Int = 1,
+    version: Long = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 1,
     members: Seq[RawMember] = Seq.empty,
@@ -908,7 +908,7 @@ trait SharedTestObjects extends MockFactory {
     active: Boolean = true,
     orphan: Boolean = false,
     proposed: Boolean = false,
-    version: Int = 1,
+    version: Int = 0,
     changeSetId: Long = 1,
     lastUpdated: Timestamp = defaultTimestamp,
     tags: Tags = Tags.empty,

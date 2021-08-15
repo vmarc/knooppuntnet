@@ -37,7 +37,7 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
       hasNodeBefore && !hasNodeAfter
     }.map(_.toRef)
 
-    if (before == after && addedToNetwork.isEmpty && removedFromNetwork.isEmpty && addedToRoute.isEmpty && removedFromRoute.isEmpty) {
+    if (before.isSameAs(after) && addedToNetwork.isEmpty && removedFromNetwork.isEmpty && addedToRoute.isEmpty && removedFromRoute.isEmpty) {
       None
     }
     else {

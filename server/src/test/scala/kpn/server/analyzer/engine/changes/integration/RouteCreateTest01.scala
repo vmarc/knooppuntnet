@@ -5,6 +5,8 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
+import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
@@ -83,7 +85,10 @@ class RouteCreateTest01 extends IntegrationTest {
             "01"
           )
         ),
-        tags = newNodeTags("01")
+        tags = newNodeTags("01"),
+        routeReferences = Seq(
+          Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02")
+        )
       )
     }
   }
@@ -105,7 +110,10 @@ class RouteCreateTest01 extends IntegrationTest {
             "02"
           )
         ),
-        tags = newNodeTags("02")
+        tags = newNodeTags("02"),
+        routeReferences = Seq(
+          Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02")
+        )
       )
     }
   }
@@ -166,7 +174,7 @@ class RouteCreateTest01 extends IntegrationTest {
           newMetaData()
         ),
         addedToRoute = Seq(
-          // TODO Ref(11, "01-02")
+          Ref(11, "01-02")
         ),
         happy = true,
         impact = true,
@@ -188,7 +196,7 @@ class RouteCreateTest01 extends IntegrationTest {
           newMetaData()
         ),
         addedToRoute = Seq(
-          // TODO Ref(11, "01-02")
+          Ref(11, "01-02")
         ),
         happy = true,
         impact = true,

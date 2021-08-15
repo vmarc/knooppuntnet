@@ -18,6 +18,7 @@ case class NetworkInfoAnalysisContext(
   analysisTimestamp: Timestamp,
   networkDoc: NetworkDoc,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
+  previousKnownCountry: Option[Country] = None,
   country: Option[Country] = None,
   name: String = "",
   nodes: Seq[NodeDoc] = Seq.empty,

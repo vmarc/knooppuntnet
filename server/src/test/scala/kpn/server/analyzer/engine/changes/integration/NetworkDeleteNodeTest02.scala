@@ -48,7 +48,7 @@ class NetworkDeleteNodeTest02 extends IntegrationTest {
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!
-        country = None, // TODO Some(Country.nl),
+        country = Some(Country.nl),
         newNetworkSummary(
           name = "network1",
           networkType = NetworkType.hiking,

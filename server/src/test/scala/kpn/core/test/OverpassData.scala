@@ -52,8 +52,8 @@ case class OverpassData(
     copy(ways = ways :+ w)
   }
 
-  def relation(id: Long, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): OverpassData = {
-    val relation = newRawRelation(id, members = members, tags = tags)
+  def relation(id: Long, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty, version: Long = 0): OverpassData = {
+    val relation = newRawRelation(id, members = members, tags = tags, version = version)
     copy(relations = relations :+ relation)
   }
 
@@ -61,8 +61,8 @@ case class OverpassData(
     relation(id, members, newRouteTags(name) ++ tags)
   }
 
-  def networkRelation(id: Long, name: String, members: Seq[RawMember] = Seq.empty): OverpassData = {
-    relation(id, members, newNetworkTags(name))
+  def networkRelation(id: Long, name: String, members: Seq[RawMember] = Seq.empty, version: Long = 0): OverpassData = {
+    relation(id, members, newNetworkTags(name), version)
   }
 
   def rawData: RawData = {

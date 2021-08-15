@@ -2,14 +2,16 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
@@ -21,8 +23,6 @@ import kpn.core.test.OverpassData
 class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   test("network update - route no longer part of the network after deletion") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -56,22 +56,14 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(12))
+      val node1003 = findNodeById(1003)
 
-      //  watched.networks.get(1) match {
-      //    case None => fail()
-      //    case Some(elementIds) =>
-      //
-      //      elementIds.relationIds should contain(11)
-      //      elementIds.relationIds should not contain 12
-      //
-      //      elementIds.wayIds should contain(101)
-      //      elementIds.wayIds should not contain 102
-      //
-      //      elementIds.nodeIds should contain(1001)
-      //      elementIds.nodeIds should contain(1002)
-      //      elementIds.nodeIds should not contain 1003
-      //  }
+      process(
+        Seq(
+          Change(ChangeAction.Modify, Seq(dataAfter.rawRelationWithId(1))),
+          Change(ChangeAction.Delete, Seq(newRawRelation(12)))
+        )
+      )
 
       assertNetwork()
       assertNetworkInfo()
@@ -112,8 +104,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       newNodeDoc(
         1003,
         labels = Seq(
-          "facts",
-          "fact-Deleted",
+          //  "facts", TODO MONGO
+          //  "fact-Deleted",
           "network-type-hiking"
         ),
         active = false,
@@ -128,7 +120,10 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           )
         ),
         tags = newNodeTags("03"),
-        facts = Seq(Fact.Deleted)
+        // TODO MONGO facts = Seq(Fact.Deleted)
+        routeReferences = Seq(
+          Reference(NetworkType.hiking, NetworkScope.regional, 12, "02-03")
+        )
       )
     )
   }
@@ -142,18 +137,16 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
+        networkDataUpdate = None,
+        //  Some( TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         networkNodes = RefDiffs(
           removed = Seq(
             Ref(1003, "03")
-          ),
-          updated = Seq(
-            Ref(1002, "02")
           )
         ),
         routes = RefDiffs(
@@ -167,7 +160,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    findRouteChangeById("123:1:11") should matchTo(
+    findRouteChangeById("123:1:12") should matchTo(
       newRouteChange(
         newChangeKey(elementId = 12),
         ChangeType.Delete,
@@ -201,6 +194,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           )
         ),
         facts = Seq(Fact.Deleted),
+        impactedNodeIds = Seq(1002, 1003),
         investigate = true,
         impact = true,
         locationInvestigate = true,
@@ -243,7 +237,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         ),
         after = None,
         removedFromRoute = Seq(Ref(12, "02-03")),
-        removedFromNetwork = Seq(Ref(1, "name")),
         facts = Seq(Fact.Deleted),
         investigate = true,
         impact = true,
@@ -268,10 +261,33 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
                 removed = Seq(newChangeSetElementRef(12, "02-03", investigate = true))
               ),
               nodeChanges = ChangeSetElementRefs(
-                removed = Seq(newChangeSetElementRef(1003, "03", investigate = true)),
-                updated = Seq(newChangeSetElementRef(1002, "02"))
+                removed = Seq(newChangeSetElementRef(1003, "03", investigate = true))
               ),
               investigate = true
+            )
+          )
+        ),
+
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(12, "02-03", investigate = true)
+              )
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1003, "03", investigate = true)
+              ),
+              updated = Seq(
+                newChangeSetElementRef(1002, "02", investigate = true)
+              )
             )
           )
         ),

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
@@ -22,8 +23,6 @@ import kpn.core.test.OverpassData
 class NetworkCreateTest07 extends IntegrationTest {
 
   test("network create - containing existing route with update") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -63,12 +62,12 @@ class NetworkCreateTest07 extends IntegrationTest {
 
       assert(watched.networks.contains(1))
 
+      assert(database.nodeChanges.isEmpty)
+
       assertNetwork()
       assertNetworkInfo()
       assertNetworkInfoChange()
       assertRouteChange()
-      assertNodeChange1001()
-      assertNodeChange1002()
       assertChangeSetSummary()
     }
   }
@@ -92,39 +91,6 @@ class NetworkCreateTest07 extends IntegrationTest {
     //  )
   }
 
-  private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
-      newChangeSetSummary(
-        subsets = Seq(Subset.nlHiking),
-        networkChanges = NetworkChanges(
-          creates = Seq(
-            newChangeSetNetwork(
-              Some(Country.nl),
-              NetworkType.hiking,
-              1,
-              "name",
-              routeChanges = ChangeSetElementRefs(
-                added = Seq(
-                  ChangeSetElementRef(11, "01-02", happy = true, investigate = false)
-                )
-              ),
-              nodeChanges = ChangeSetElementRefs(
-                added = Seq(
-                  ChangeSetElementRef(1001, "01", happy = true, investigate = false),
-                  ChangeSetElementRef(1002, "02", happy = true, investigate = false)
-                )
-              ),
-              happy = true
-            )
-          )
-        ),
-        subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
-        ),
-        happy = true
-      )
-    )
-  }
 
   private def assertNetworkInfoChange(): Unit = {
     findNetworkInfoChangeById("123:1:1") should matchTo(
@@ -223,6 +189,7 @@ class NetworkCreateTest07 extends IntegrationTest {
             )
           )
         ),
+        impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
         locationHappy = true,
@@ -231,46 +198,46 @@ class NetworkCreateTest07 extends IntegrationTest {
     )
   }
 
-  private def assertNodeChange1001(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
-      newNodeChange(
-        key = newChangeKey(elementId = 1001),
-        changeType = ChangeType.Update,
+  private def assertChangeSetSummary(): Unit = {
+    findChangeSetSummaryById("123:1") should matchTo(
+      newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
-        name = "01",
-        before = Some(
-          newMetaData()
+        networkChanges = NetworkChanges(
+          creates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              NetworkType.hiking,
+              1,
+              "name",
+              routeChanges = ChangeSetElementRefs(
+                added = Seq(
+                  ChangeSetElementRef(11, "01-02", happy = true, investigate = false)
+                )
+              ),
+              nodeChanges = ChangeSetElementRefs(
+                added = Seq(
+                  ChangeSetElementRef(1001, "01", happy = true, investigate = false),
+                  ChangeSetElementRef(1002, "02", happy = true, investigate = false)
+                )
+              ),
+              happy = true
+            )
+          )
         ),
-        after = Some(
-          newMetaData()
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(11, "01-02", happy = true)
+              )
+            )
+          )
         ),
-        addedToNetwork = Seq(
-          Ref(1, "name")
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
         ),
-        happy = true,
-        impact = true
-      )
-    )
-  }
-
-  private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002") should matchTo(
-      newNodeChange(
-        key = newChangeKey(elementId = 1002),
-        changeType = ChangeType.Update,
-        subsets = Seq(Subset.nlHiking),
-        name = "02",
-        before = Some(
-          newMetaData()
-        ),
-        after = Some(
-          newMetaData()
-        ),
-        addedToNetwork = Seq(
-          Ref(1, "name")
-        ),
-        happy = true,
-        impact = true
+        happy = true
       )
     )
   }

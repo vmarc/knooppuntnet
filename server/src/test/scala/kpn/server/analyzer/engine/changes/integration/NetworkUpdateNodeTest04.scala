@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
@@ -16,8 +16,6 @@ import kpn.core.test.OverpassData
 class NetworkUpdateNodeTest04 extends IntegrationTest {
 
   test("network update - node that is no longer part of the network after update, does not become orphan node if still referenced in an orphan route") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -36,7 +34,8 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
         Seq(
           newMember("node", 1001),
           newMember("node", 1002)
-        )
+        ),
+        version = 1
       )
 
     val dataAfter = OverpassData()
@@ -56,21 +55,38 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
         Seq(
           newMember("node", 1001)
           // node 02 no longer part of the network
-        )
+        ),
+        version = 2
       )
 
     testIntegration(dataBefore, dataAfter) {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(!watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(watched.routes.contains(11))
+      assert(watched.networks.contains(1))
+      assert(database.orphanNodes.isEmpty)
 
+      assertOrphanRoute()
       assertNetwork()
       assertNetworkInfo()
       assertNetworkInfoChange()
-      assertNodeChange()
+      assertNodeChange1002()
       assertChangeSetSummary()
     }
+  }
+
+  private def assertOrphanRoute(): Unit = {
+    findOrphanRouteById(11) should matchTo(
+      newOrphanRouteDoc(
+        11,
+        Country.nl,
+        NetworkType.hiking,
+        "01-02",
+      )
+    )
   }
 
   private def assertNetwork(): Unit = {
@@ -92,20 +108,21 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
+        networkDataUpdate = None,
+        //  Some( TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         networkNodes = RefDiffs(removed = Seq(Ref(1002, "02"))),
         investigate = true
       )
     )
   }
 
-  private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -139,6 +156,16 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
                 removed = Seq(newChangeSetElementRef(1002, "02", investigate = true))
               ),
               investigate = true
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1002, "02", investigate = true)
+              )
             )
           )
         ),

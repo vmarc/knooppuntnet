@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
@@ -20,8 +20,6 @@ import kpn.core.test.OverpassData
 class NetworkUpdateNodeTest05 extends IntegrationTest {
 
   test("network update - node that looses required tags and is removed from network becomes inactive") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -49,18 +47,25 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
+      val node1001 = findNodeById(1001)
+
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(!watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1001))
+      assert(!watched.nodes.contains(1002))
+      assert(watched.networks.contains(1))
+
+      assert(database.orphanNodes.isEmpty)
+      assert(database.routes.isEmpty)
+
+      findNodeById(1001) should equal(node1001)
+      assertNode1002()
 
       assertNetwork()
       assertNetworkInfo()
-
-      assert(database.routes.isEmpty)
-
-      assertNode()
       assertNetworkInfoChange()
-      assertNodeChange()
+      assertNoNodeChange(1001)
+      assertNodeChange1002()
       assertChangeSetSummary()
     }
   }
@@ -75,7 +80,7 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
     networkInfoDoc._id should equal(1)
   }
 
-  private def assertNode(): Unit = {
+  private def assertNode1002(): Unit = {
     findNodeById(1002) should matchTo(
       newNodeDoc(
         1002,
@@ -94,12 +99,13 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
+        networkDataUpdate = None,
+        //  Some( // TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         networkNodes = RefDiffs(
           removed = Seq(Ref(1002, "02"))
         ),
@@ -108,11 +114,11 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
     )
   }
 
-  private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
+  private def assertNodeChange1002(): Unit = {
+    findNodeChangeById("123:1:1002") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
-        changeType = ChangeType.Update,
+        changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
         name = "02",
         before = Some(
@@ -157,6 +163,16 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
                 )
               ),
               investigate = true
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1002, "02", investigate = true)
+              )
             )
           )
         ),

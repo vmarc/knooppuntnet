@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info
 
+import kpn.api.custom.Country
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.doc.NetworkInfoDoc
@@ -73,11 +74,15 @@ class NetworkInfoMasterAnalyzer(
     }
   }
 
-  def updateNetwork(analysisTimestamp: Timestamp, networkId: Long): Option[NetworkInfoDoc] = {
+  def updateNetwork(analysisTimestamp: Timestamp, networkId: Long, previousKnownCountry: Option[Country] = None): Option[NetworkInfoDoc] = {
     Log.context(networkId.toString) {
       log.infoElapsed {
         val networkInfoDoc = database.networks.findById(networkId, log).flatMap { networkDoc =>
-          val context = NetworkInfoAnalysisContext(analysisTimestamp, networkDoc)
+          val context = NetworkInfoAnalysisContext(
+            analysisTimestamp,
+            networkDoc,
+            previousKnownCountry = previousKnownCountry
+          )
           doAnalyze(analyzers, context) match {
             case Some(doc) =>
               database.networkInfos.save(doc, log)

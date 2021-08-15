@@ -27,13 +27,18 @@ class NetworkInfoChangeProcessorImpl(
 
     val networkChanges = impactedNetworkIds.flatMap { networkId =>
       val beforeOption = database.networkInfos.findById(networkId)
-      val afterOption = networkInfoMasterAnalyzer.updateNetwork(changeSetContext.timestampAfter, networkId)
+      val previousKnownCountry = beforeOption.flatMap(_.country)
+      val afterOption = networkInfoMasterAnalyzer.updateNetwork(
+        changeSetContext.timestampAfter,
+        networkId,
+        previousKnownCountry
+      )
+
       beforeOption match {
         case None =>
           afterOption match {
+            case Some(after) => processCreate(changeSetContext, after, networkId)
             case None => None // TODO message ?
-            case Some(after) =>
-              processCreate(changeSetContext, after, networkId)
           }
         case Some(before) =>
           afterOption match {
@@ -96,6 +101,8 @@ class NetworkInfoChangeProcessorImpl(
     val ways = IdDiffs(added = after.extraWayIds)
     val relations = IdDiffs(added = after.extraRelationIds)
 
+    val investigate = nodes.added.nonEmpty || ways.added.nonEmpty || relations.added.nonEmpty
+
     val key = context.buildChangeKey(networkId)
     Some(
       NetworkInfoChange(
@@ -112,7 +119,7 @@ class NetworkInfoChangeProcessorImpl(
         orphanNodes = RefChanges(
           oldRefs = oldOrphanNodeRefs
         ),
-        networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
+        networkDataUpdate = None,
         networkNodes = RefDiffs(
           added = after.nodes.map(_.toRef)
         ),
@@ -123,7 +130,7 @@ class NetworkInfoChangeProcessorImpl(
         extraWays = ways,
         extraRelations = relations,
         happy = true,
-        investigate = false,
+        investigate = investigate,
         impact = true
       )
     )
@@ -179,7 +186,7 @@ class NetworkInfoChangeProcessorImpl(
         orphanNodes = RefChanges(
           newRefs = newOrphanNodeRefs
         ),
-        networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
+        networkDataUpdate = None,
         networkNodes = RefDiffs(
           removed = before.nodes.map(_.toRef)
         ),
@@ -252,10 +259,30 @@ class NetworkInfoChangeProcessorImpl(
 
         val impact = happy || investigate
 
+        //  val networkDataBefore = NetworkData(
+        //      MetaData(
+        //        version: Long,
+        //        timestamp: Timestamp,
+        //        changeSetId: Long
+        //      ),
+        //      before.summary.name
+        //  )
+
+        //  val networkDataAfter = NetworkData(
+        //      MetaData(
+        //        version: Long,
+        //        timestamp: Timestamp,
+        //        changeSetId: Long
+        //      ),
+        //      after.summary.name
+        //  )
+
         //  case class NetworkDataUpdate(
         //    before: NetworkData,
         //    after: NetworkData
         //  )
+
+        val networkDataUpdate = None
 
         val key = context.buildChangeKey(networkId)
         Some(
@@ -273,7 +300,7 @@ class NetworkInfoChangeProcessorImpl(
             orphanNodes = RefChanges(
               // TODO oldRefs = oldOrphanNodeRefs
             ),
-            networkDataUpdate = None, // TODO Option[NetworkDataUpdate],
+            networkDataUpdate = networkDataUpdate,
             networkNodes = nodeDiffs,
             routes = routeDiffs,
             extraNodes = extraNodes,

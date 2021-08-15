@@ -49,7 +49,7 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!
-        country = None, // TODO MONGO Some(Country.nl),
+        country = Some(Country.nl),
         newNetworkSummary(
           name = "network",
           networkType = NetworkType.hiking,

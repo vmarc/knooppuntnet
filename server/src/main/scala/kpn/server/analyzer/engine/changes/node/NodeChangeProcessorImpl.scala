@@ -141,6 +141,8 @@ class NodeChangeProcessorImpl(
 
   private def processUpdate(context: ChangeSetContext, nodeDocBefore: NodeDoc, nodeDocAfter: NodeDoc): Option[NodeChange] = {
 
+    val nodeId = nodeDocBefore._id
+
     val lostNodeTagFacts: Seq[Fact] = Seq(
       lostNodeTag(NetworkType.hiking, nodeDocBefore, nodeDocAfter, Fact.LostHikingNodeTag),
       lostNodeTag(NetworkType.cycling, nodeDocBefore, nodeDocAfter, Fact.LostBicycleNodeTag),
@@ -151,7 +153,7 @@ class NodeChangeProcessorImpl(
     ).flatten
 
     if (!TagInterpreter.isNetworkNode(nodeDocAfter.tags)) {
-      analysisContext.watched.nodes.delete(nodeDocBefore._id)
+      analysisContext.watched.nodes.delete(nodeId)
       val deletedNodeDoc = nodeDocAfter.copy(
         active = false,
         labels = nodeDocAfter.labels.filterNot(label =>
@@ -168,6 +170,14 @@ class NodeChangeProcessorImpl(
       }
 
       val tagDiffs = new NodeTagDiffAnalyzer(nodeDocBefore, nodeDocAfter).diffs
+
+      val addedToNetwork = context.changes.networkChanges.filter { networkChange =>
+        networkChange.nodes.added.contains(nodeId)
+      }.map(_.toRef)
+
+      val removedFromNetwork = context.changes.networkChanges.filter { networkChange =>
+        networkChange.nodes.removed.contains(nodeId)
+      }.map(_.toRef)
 
       Some(
         analyzed(
@@ -187,8 +197,8 @@ class NodeChangeProcessorImpl(
             nodeMoved = None,
             addedToRoute = Seq.empty,
             removedFromRoute = nodeDocBefore.routeReferences.map(_.toRef),
-            addedToNetwork = Seq.empty,
-            removedFromNetwork = Seq.empty,
+            addedToNetwork = addedToNetwork,
+            removedFromNetwork = removedFromNetwork,
             factDiffs = FactDiffs(),
             facts = lostNodeTagFacts,
             tiles = nodeDocBefore.tiles // TODO + nodeDocAfter.tiles

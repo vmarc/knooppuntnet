@@ -19,7 +19,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerNoop
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
@@ -64,7 +64,11 @@ import org.scalamock.scalatest.MockFactory
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
 
-class IntegrationTestContext(val database: Database, dataBefore: OverpassData, dataAfter: OverpassData) extends MockFactory {
+class IntegrationTestContext(
+  val database: Database,
+  dataBefore: OverpassData,
+  dataAfter: OverpassData
+) extends MockFactory {
 
   val before: Data = dataBefore.data
   val after: Data = dataAfter.data
@@ -104,13 +108,15 @@ class IntegrationTestContext(val database: Database, dataBefore: OverpassData, d
   (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
   (oldNodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
 
+  val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
+
   private val nodeAnalyzer: NodeAnalyzer = {
     val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(countryAnalyzer)
     new NodeAnalyzerImpl(
       nodeCountryAnalyzer,
       new NodeTileAnalyzerNoop,
       new NodeLocationsAnalyzerNoop,
-      new NodeRouteReferencesAnalyzerNoop
+      nodeRouteReferencesAnalyzer
     )
   }
 

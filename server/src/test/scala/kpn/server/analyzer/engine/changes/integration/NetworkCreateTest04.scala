@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
@@ -17,8 +18,6 @@ import kpn.core.test.OverpassData
 class NetworkCreateTest04 extends IntegrationTest {
 
   test("network create - investigate flag is set when issue in added network") {
-
-    pending
 
     val dataBefore = OverpassData.empty
     val dataAfter = OverpassData()
@@ -92,6 +91,28 @@ class NetworkCreateTest04 extends IntegrationTest {
               ),
               happy = true,
               investigate = true
+            )
+          )
+        ),
+
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(11, "01-02", happy = true)
+              )
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+                newChangeSetElementRef(1002, "02", happy = true)
+              )
             )
           )
         ),

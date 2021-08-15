@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component
 @Component
 class NetworkCountryAnalyzer(countryAnalyzer: CountryAnalyzer) extends NetworkInfoAnalyzer {
   def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    val country = countryAnalyzer.country(context.nodeDetails)
+    val country = countryAnalyzer.country(context.nodeDetails) match {
+      case None => context.previousKnownCountry
+      case Some(country) => Some(country)
+    }
     context.copy(
       country = country
     )

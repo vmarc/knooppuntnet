@@ -2,16 +2,14 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -20,8 +18,6 @@ import kpn.core.test.OverpassData
 class NetworkUpdateRouteTest05 extends IntegrationTest {
 
   test("network update - an orphan route that is added to the network is no longer orphan") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -69,14 +65,13 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(!watched.routes.contains(11))
+      assert(watched.routes.contains(11))
+      assert(database.nodeChanges.isEmpty)
 
       assertNetwork()
       assertNetworkInfo()
-      assert(database.nodes.isEmpty)
       assertNetworkInfoChange()
       assertRouteChange()
-      assert(database.nodeChanges.isEmpty)
       assertChangeSetSummary()
     }
   }
@@ -100,21 +95,16 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        orphanRoutes = RefChanges(
-          oldRefs = Seq(Ref(11, "01-02"))
-        ),
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
-        networkNodes = RefDiffs(
-          updated = Seq(
-            Ref(1001, "01"),
-            Ref(1002, "02")
-          )
-        ),
+        //  orphanRoutes = RefChanges( TODO MONGO
+        //    oldRefs = Seq(Ref(11, "01-02"))
+        //  ),
+        networkDataUpdate = None,
+        //  Some( TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         routes = RefDiffs(
           added = Seq(
             Ref(11, "01-02")
@@ -164,7 +154,8 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
         ),
         before = Some(routeData),
         after = Some(routeData),
-        facts = Seq(Fact.WasOrphan),
+        // TODO MONGO facts = Seq(Fact.WasOrphan),
+        impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
         locationHappy = true,
@@ -187,13 +178,17 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
               routeChanges = ChangeSetElementRefs(
                 added = Seq(newChangeSetElementRef(11, "01-02", happy = true))
               ),
-              nodeChanges = ChangeSetElementRefs(
-                updated = Seq(
-                  newChangeSetElementRef(1001, "01"),
-                  newChangeSetElementRef(1002, "02")
-                )
-              ),
               happy = true
+            )
+          )
+        ),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(11, "01-02", happy = true)
+              )
             )
           )
         ),

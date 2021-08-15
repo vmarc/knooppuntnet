@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
-import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
@@ -18,8 +18,6 @@ import kpn.core.test.OverpassData
 class NetworkUpdateRouteTest02 extends IntegrationTest {
 
   test("network update - route that is no longer part of the network after update, does not become an orphan route if still referenced in another network") {
-
-    pending
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -81,12 +79,13 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(!watched.routes.contains(11))
+      assert(watched.routes.contains(11))
+
+      assert(database.orphanNodes.isEmpty)
+      assert(database.orphanRoutes.isEmpty)
 
       assertNetwork()
       assertNetworkInfo()
-      assert(database.routes.isEmpty)
-      assert(database.nodes.isEmpty)
       assertNetworkInfoChange()
       assertRouteChange()
       assert(database.nodeChanges.isEmpty)
@@ -113,18 +112,13 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkDataUpdate = Some(
-          NetworkDataUpdate(
-            newNetworkData(name = "name"),
-            newNetworkData(name = "name")
-          )
-        ),
-        networkNodes = RefDiffs(
-          updated = Seq(
-            Ref(1001, "01"),
-            Ref(1002, "02")
-          )
-        ),
+        networkDataUpdate = None,
+        //  Some( TODO MONGO
+        //    NetworkDataUpdate(
+        //      newNetworkData(name = "name"),
+        //      newNetworkData(name = "name")
+        //    )
+        //  ),
         routes = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
@@ -171,6 +165,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "name")),
         before = Some(routeData),
         after = Some(routeData),
+        impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true
       )
@@ -193,13 +188,17 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
                   newChangeSetElementRef(11, "01-02", investigate = true)
                 )
               ),
-              nodeChanges = ChangeSetElementRefs(
-                updated = Seq(
-                  newChangeSetElementRef(1001, "01"),
-                  newChangeSetElementRef(1002, "02")
-                )
-              ),
               investigate = true
+            )
+          )
+        ),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(11, "01-02", investigate = true)
+              )
             )
           )
         ),
