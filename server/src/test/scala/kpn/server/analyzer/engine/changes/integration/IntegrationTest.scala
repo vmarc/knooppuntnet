@@ -21,19 +21,51 @@ import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.Watched
 import org.scalamock.scalatest.MockFactory
 
+object IntegrationTest {
+
+  private var countryAnalyzerOption: Option[CountryAnalyzer] = None
+
+  def countryAnalyzer: CountryAnalyzer = {
+    if (countryAnalyzerOption.isEmpty) {
+      countryAnalyzerOption = Some(new CountryAnalyzerImpl())
+    }
+    countryAnalyzerOption.get
+  }
+}
+
 class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
 
   private var contextOption: Option[IntegrationTestContext] = None
 
+  def simulate(dataBefore: OverpassData, dataAfter: OverpassData)(f: => Unit): Unit = {
+    doTestIntegration(
+      dataBefore,
+      dataAfter,
+      IntegrationTest.countryAnalyzer
+    )(f)
+  }
+
   def testIntegration(dataBefore: OverpassData, dataAfter: OverpassData)(f: => Unit): Unit = {
+    val countryAnalyzer = new CountryAnalyzerMock()
+    doTestIntegration(dataBefore, dataAfter, countryAnalyzer)(f)
+  }
+
+  private def doTestIntegration(
+    dataBefore: OverpassData,
+    dataAfter: OverpassData,
+    countryAnalyzer: CountryAnalyzer
+  )(f: => Unit): Unit = {
     withDatabase { database =>
-      contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter))
+      contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, countryAnalyzer))
       try {
         context.fullAnalyzer.analyze(timestampBeforeValue)
         context.analysisDataInitializer.load()

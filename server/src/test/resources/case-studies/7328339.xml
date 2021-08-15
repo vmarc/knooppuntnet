@@ -4,6 +4,7 @@
 <meta osm_base="2019-05-22T07:33:03Z"/>
 
   <node id="271381484" lat="50.7156749" lon="4.6118491" version="8" timestamp="2017-05-01T09:25:44Z" changeset="48301526" uid="425006" user="music">
+    <tag k="network:type" v="node_network"/>
     <tag k="rcn_ref" v="60"/>
   </node>
   <node id="271381485" lat="50.7158271" lon="4.6121237" version="3" timestamp="2009-03-06T14:41:05Z" changeset="746503" uid="90654" user="Jean Cayron"/>
@@ -15,6 +16,7 @@
   <node id="271381493" lat="50.7172738" lon="4.6146700" version="6" timestamp="2019-02-16T17:39:48Z" changeset="67258775" uid="3401173" user="Anakil"/>
   <node id="271381494" lat="50.7174861" lon="4.6148732" version="6" timestamp="2009-03-24T11:36:02Z" changeset="853510" uid="9796" user="Ben VdA"/>
   <node id="347343802" lat="50.7191905" lon="4.6161314" version="4" timestamp="2017-05-01T09:25:43Z" changeset="48301526" uid="425006" user="music">
+    <tag k="network:type" v="node_network"/>
     <tag k="highway" v="mini_roundabout"/>
     <tag k="rcn_ref" v="61"/>
   </node>
@@ -114,6 +116,7 @@
     <member type="way" ref="31821464" role="forward"/>
     <member type="way" ref="37740759" role="backward"/>
     <tag k="direction" v="backward"/>
+    <tag k="network:type" v="node_network"/>
     <tag k="network" v="rcn"/>
     <tag k="note" v="60-61"/>
     <tag k="route" v="bicycle"/>

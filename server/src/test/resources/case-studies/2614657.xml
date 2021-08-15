@@ -8,6 +8,7 @@
   <node id="1018280725" version="1" lat="50.9295927" lon="4.9075891" timestamp="2010-12-03T14:09:33Z" changeset="6526755" uid="15188" user="Polyglot"/>
   <node id="1018280749" version="2" lat="50.9293715" lon="4.9081758" timestamp="2013-12-17T19:18:45Z" changeset="19503935" uid="911613" user="StijnRR"/>
   <node id="1018280784" version="3" lat="50.9300577" lon="4.9071882" timestamp="2013-12-17T19:18:45Z" changeset="19503935" uid="911613" user="StijnRR">
+    <tag k="network:type" v="node_network"/>
     <tag k="rwn_ref" v="26"/>
   </node>
   <node id="1018280800" version="1" lat="50.9294093" lon="4.9080284" timestamp="2010-12-03T14:09:36Z" changeset="6526755" uid="15188" user="Polyglot"/>
@@ -21,6 +22,7 @@
   <node id="1116726844" version="2" lat="50.9316918" lon="4.9051774" timestamp="2013-10-26T09:57:33Z" changeset="18549080" uid="138772" user="lodde1949"/>
   <node id="1116726860" version="2" lat="50.9320776" lon="4.9045853" timestamp="2013-10-26T09:57:33Z" changeset="18549080" uid="138772" user="lodde1949"/>
   <node id="1116726883" version="3" lat="50.9328389" lon="4.9014648" timestamp="2013-05-09T13:30:57Z" changeset="16047872" uid="579178" user="GuyVV">
+    <tag k="network:type" v="node_network"/>
     <tag k="rwn_ref" v="25"/>
   </node>
   <node id="1116726891" version="3" lat="50.9324908" lon="4.9041433" timestamp="2013-12-17T19:18:46Z" changeset="19503935" uid="911613" user="StijnRR"/>
@@ -41,6 +43,7 @@
   <node id="2584090947" version="1" lat="50.9329146" lon="4.9017132" timestamp="2013-12-17T19:18:10Z" changeset="19503935" uid="911613" user="StijnRR"/>
   <node id="393868988" version="4" lat="50.9299078" lon="4.9066514" timestamp="2013-12-17T19:18:50Z" changeset="19503935" uid="911613" user="StijnRR"/>
   <node id="563030317" version="5" lat="50.9250337" lon="4.9103578" timestamp="2013-12-17T19:18:50Z" changeset="19503935" uid="911613" user="StijnRR">
+    <tag k="network:type" v="node_network"/>
     <tag k="rwn_ref" v="203"/>
   </node>
   <node id="747902760" version="2" lat="50.931066" lon="4.9059594" timestamp="2013-12-17T19:18:51Z" changeset="19503935" uid="911613" user="StijnRR"/>
@@ -193,6 +196,7 @@
     <member type="way" ref="146276274" role=""/>
     <member type="way" ref="87531128" role=""/>
     <member type="way" ref="252355524" role=""/>
+    <tag k="network:type" v="node_network"/>
     <tag k="network" v="rwn"/>
     <tag k="note" v="25-203"/>
     <tag k="route" v="foot"/>

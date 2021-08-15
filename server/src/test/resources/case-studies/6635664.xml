@@ -4,6 +4,7 @@
     <meta osm_base="2019-05-23T13:05:02Z"/>
 
     <node id="246197659" lat="50.6274329" lon="3.7761420" version="7" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy">
+        <tag k="network:type" v="node_network"/>
         <tag k="rcn_ref" v="84"/>
     </node>
     <node id="247306935" lat="50.6274592" lon="3.7755860" version="4" timestamp="2016-05-14T19:00:59Z" changeset="39318097" uid="77947" user="Roman Guy"/>
@@ -21,6 +22,7 @@
     <node id="1771833381" lat="50.6275428" lon="3.7730910" version="2" timestamp="2016-04-07T19:10:01Z" changeset="38389318" uid="77947" user="Roman Guy"/>
     <node id="1771833385" lat="50.6275527" lon="3.7730042" version="1" timestamp="2012-05-31T20:42:38Z" changeset="11762000" uid="77947" user="Roman Guy"/>
     <node id="2417824219" lat="50.6266522" lon="3.7724210" version="4" timestamp="2018-06-22T12:58:53Z" changeset="60075581" uid="7412463" user="Tommy Cmoi">
+        <tag k="network:type" v="node_network"/>
         <tag k="rcn_ref" v="86"/>
     </node>
     <node id="4105933922" lat="50.6274633" lon="3.7752881" version="2" timestamp="2016-05-17T17:59:28Z" changeset="39383277" uid="77947" user="Roman Guy"/>
@@ -144,6 +146,7 @@
         <member type="way" ref="408693839" role=""/>
         <member type="way" ref="24148039" role=""/>
         <tag k="description" v="Route signed in one direction. Forward (84 to 86) is via 74."/>
+        <tag k="network:type" v="node_network"/>
         <tag k="network" v="rcn"/>
         <tag k="note" v="84-86"/>
         <tag k="oneway" v="yes"/>

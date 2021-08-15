@@ -28,11 +28,13 @@
   <node id="1284732768" version="2" lat="51.4573563" lon="5.9425748" timestamp="2012-12-15T19:54:44Z" changeset="14285266" uid="15188" user="Polyglot"/>
   <node id="1284732782" version="2" lat="51.4529103" lon="5.9477112" timestamp="2012-12-15T19:54:44Z" changeset="14285266" uid="15188" user="Polyglot"/>
   <node id="1537314305" version="2" lat="51.4493706" lon="5.9520565" timestamp="2012-12-15T19:54:42Z" changeset="14285266" uid="15188" user="Polyglot">
+    <tag k="network:type" v="node_network"/>
     <tag k="gpsfietsroute_nl_ref" v="52D42"/>
     <tag k="rcn_ref" v="42"/>
   </node>
   <node id="1537314310" version="1" lat="51.4494287" lon="5.9519731" timestamp="2011-12-08T21:09:04Z" changeset="10068784" uid="424172" user="JanWandelaar"/>
   <node id="1537314313" version="3" lat="51.4494423" lon="5.9523084" timestamp="2012-12-15T19:54:42Z" changeset="14285266" uid="15188" user="Polyglot">
+    <tag k="network:type" v="node_network"/>
     <tag k="gpsfietsroute_nl_ref" v="52D42"/>
     <tag k="rcn_ref" v="42"/>
   </node>
@@ -43,6 +45,7 @@
   <node id="1537314324" version="2" lat="51.4496387" lon="5.9524036" timestamp="2012-12-15T19:54:44Z" changeset="14285266" uid="15188" user="Polyglot"/>
   <node id="1537314325" version="1" lat="51.4497012" lon="5.9515967" timestamp="2011-12-08T21:09:04Z" changeset="10068784" uid="424172" user="JanWandelaar"/>
   <node id="1537314333" version="2" lat="51.4497465" lon="5.9524522" timestamp="2012-12-15T19:54:42Z" changeset="14285266" uid="15188" user="Polyglot">
+    <tag k="network:type" v="node_network"/>
     <tag k="gpsfietsroute_nl_ref" v="52D42"/>
     <tag k="rcn_ref" v="42"/>
   </node>
@@ -61,6 +64,7 @@
   <node id="2068750813" version="1" lat="51.4565687" lon="5.9432834" timestamp="2012-12-15T19:53:09Z" changeset="14285266" uid="15188" user="Polyglot"/>
   <node id="2068750815" version="1" lat="51.4574402" lon="5.9430734" timestamp="2012-12-15T19:53:09Z" changeset="14285266" uid="15188" user="Polyglot"/>
   <node id="247742405" version="4" lat="51.4535499" lon="5.972774" timestamp="2014-04-13T16:40:17Z" changeset="21668776" uid="424172" user="JanWandelaar">
+    <tag k="network:type" v="node_network"/>
     <tag k="gpsfietsroute_nl_ref" v="52D41"/>
     <tag k="network" v="rcn"/>
     <tag k="rcn_ref" v="41"/>
@@ -313,6 +317,7 @@
     <member type="way" ref="274080278" role="forward"/>
     <member type="way" ref="140305353" role="forward"/>
     <member type="way" ref="140305346" role="forward"/>
+    <tag k="network:type" v="node_network"/>
     <tag k="network" v="rcn"/>
     <tag k="note" v="41-42"/>
     <tag k="route" v="bicycle"/>

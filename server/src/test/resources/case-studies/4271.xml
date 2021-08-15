@@ -99,6 +99,7 @@
     <node id="27590309" lat="51.1959481" lon="4.4614318" version="6" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
     <node id="34912427" lat="51.1954845" lon="4.4605598" version="3" timestamp="2018-02-07T11:47:53Z" changeset="56146316" uid="138772" user="lodde1949"/>
     <node id="178918537" lat="51.1931965" lon="4.4821661" version="9" timestamp="2016-07-01T20:48:15Z" changeset="40427709" uid="436365" user="escada">
+        <tag k="network:type" v="node_network"/>
         <tag k="rcn_ref" v="05"/>
     </node>
     <node id="178918971" lat="51.1932573" lon="4.4822297" version="5" timestamp="2016-07-01T20:48:15Z" changeset="40427709" uid="436365" user="escada"/>
@@ -193,6 +194,7 @@
         <tag k="highway" v="crossing"/>
     </node>
     <node id="2693278503" lat="51.1760720" lon="4.4528675" version="3" timestamp="2017-10-16T17:27:04Z" changeset="52988756" uid="138772" user="lodde1949">
+        <tag k="network:type" v="node_network"/>
         <tag k="rcn_ref" v="08"/>
     </node>
     <node id="2812570241" lat="51.1958747" lon="4.4807412" version="2" timestamp="2018-01-19T17:08:25Z" changeset="55583501" uid="138772" user="lodde1949"/>
@@ -1029,6 +1031,7 @@
         <member type="way" ref="20465172" role=""/>
         <member type="way" ref="41421316" role=""/>
         <member type="way" ref="24311589" role=""/>
+        <tag k="network:type" v="node_network"/>
         <tag k="network" v="rcn"/>
         <tag k="note" v="05-08"/>
         <tag k="route" v="bicycle"/>

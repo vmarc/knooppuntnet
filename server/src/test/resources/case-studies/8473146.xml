@@ -13,12 +13,14 @@
     <node id="528785529" lat="51.9462814" lon="4.4930986" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
     <node id="528785531" lat="51.9459822" lon="4.4912892" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
     <node id="5781967201" lat="51.9457953" lon="4.4906006" version="3" timestamp="2018-07-25T15:05:21Z" changeset="61059777" uid="553736" user="A67-A67">
+        <tag k="network:type" v="node_network"/>
         <tag k="operator:rmn" v="De Rotte"/>
         <tag k="operator:rpn" v="De Rotte"/>
         <tag k="rmn_ref" v="8"/>
         <tag k="rpn_ref" v="8"/>
     </node>
     <node id="5832934452" lat="51.9502312" lon="4.4998123" version="2" timestamp="2018-08-14T19:40:03Z" changeset="61668132" uid="2812529" user="multimodaal">
+        <tag k="network:type" v="node_network"/>
         <tag k="rpn_ref" v="39"/>
     </node>
     <way id="610553223" version="2" timestamp="2018-08-14T19:29:59Z" changeset="61667853" uid="2812529" user="multimodaal">
@@ -42,6 +44,7 @@
         <member type="way" ref="610553223" role=""/>
         <tag k="colour" v="green"/>
         <tag k="comment" v="Er wordt een doorvaarthoogte van 0,80 m gegarandeerd op deze route of anders een overdraagvoorziening."/>
+        <tag k="network:type" v="node_network"/>
         <tag k="network" v="rpn"/>
         <tag k="note" v="8-39; canoe"/>
         <tag k="route" v="canoe"/>

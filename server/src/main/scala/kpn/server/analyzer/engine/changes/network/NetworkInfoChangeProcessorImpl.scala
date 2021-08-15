@@ -282,6 +282,33 @@ class NetworkInfoChangeProcessorImpl(
         //    after: NetworkData
         //  )
 
+
+        val oldOrphanRouteRefs = after.routes.map(_.id).flatMap { routeId =>
+          context.changes.routeChanges.find(_.id == routeId) match {
+            case None => None
+            case Some(routeChange) =>
+              if (routeChange.facts.contains(Fact.WasOrphan)) {
+                Some(routeChange.toRef)
+              }
+              else {
+                None
+              }
+          }
+        }
+
+        val oldOrphanNodeRefs = after.nodes.map(_.id).flatMap { nodeId =>
+          context.changes.nodeChanges.find(_.id == nodeId) match {
+            case None => None
+            case Some(nodeChange) =>
+              if (nodeChange.facts.contains(Fact.WasOrphan)) {
+                Some(nodeChange.toRef)
+              }
+              else {
+                None
+              }
+          }
+        }
+
         val networkDataUpdate = None
 
         val key = context.buildChangeKey(networkId)
@@ -295,10 +322,10 @@ class NetworkInfoChangeProcessorImpl(
             networkId = networkId,
             networkName = after.summary.name,
             orphanRoutes = RefChanges(
-              // TODO oldRefs = oldOrphanRouteRefs
+              oldRefs = oldOrphanRouteRefs
             ),
             orphanNodes = RefChanges(
-              // TODO oldRefs = oldOrphanNodeRefs
+              oldRefs = oldOrphanNodeRefs
             ),
             networkDataUpdate = networkDataUpdate,
             networkNodes = nodeDiffs,

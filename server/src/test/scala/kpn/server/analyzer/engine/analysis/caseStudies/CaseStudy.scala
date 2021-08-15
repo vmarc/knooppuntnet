@@ -18,7 +18,7 @@ import scala.xml.XML
 
 object CaseStudy {
 
-  def routeAnalysis(name: String, oldTagging: Boolean = false): RouteAnalysis = {
+  def routeAnalysis(name: String): RouteAnalysis = {
     val filename = s"/case-studies/$name.xml"
     val routeRelation = load(filename)
     val analysisContext = new AnalysisContext()

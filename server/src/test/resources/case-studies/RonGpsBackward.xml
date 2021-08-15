@@ -26,6 +26,7 @@
     <tag k="population" v="1000"/>
     <tag k="AND_nodes" v="594241"/>
     <tag k="is_in:continent" v="Europe"/>
+    <tag k="network:type" v="node_network"/>
     <tag k="rwn_ref" v="89"/>
     <tag k="is_in" v="NL"/>
     <tag k="is_in:province" v="North Brabant"/>
@@ -53,6 +54,7 @@
     <tag k="name" v="Schotsheuvel"/>
     <tag k="source" v="AND"/>
     <tag k="AND_nodes" v="593791"/>
+    <tag k="network:type" v="node_network"/>
     <tag k="rwn_ref" v="91"/>
     <tag k="is_in" v="NL"/>
     <tag k="postal_code" v="5391"/>
@@ -231,6 +233,7 @@
     <member type="way" ref="6944582" role=""/>
     <member type="way" ref="6944561" role=""/>
     <member type="way" ref="280366196" role=""/>
+    <tag k="network:type" v="node_network"/>
     <tag k="network" v="rwn"/>
     <tag k="note" v="89-91"/>
     <tag k="route" v="foot"/>

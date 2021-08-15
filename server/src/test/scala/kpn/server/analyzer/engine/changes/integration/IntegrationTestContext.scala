@@ -4,8 +4,7 @@ import kpn.core.data.Data
 import kpn.core.mongo.Database
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
-import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
@@ -67,7 +66,8 @@ import scala.concurrent.ExecutionContext
 class IntegrationTestContext(
   val database: Database,
   dataBefore: OverpassData,
-  dataAfter: OverpassData
+  dataAfter: OverpassData,
+  countryAnalyzer: CountryAnalyzer
 ) extends MockFactory {
 
   val before: Data = dataBefore.data
@@ -77,8 +77,6 @@ class IntegrationTestContext(
 
   private val overpassRepository = new OverpassRepositoryMock(before, after)
   private implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
-
-  private val countryAnalyzer = new CountryAnalyzerMock()
 
   private val changeSetRepository = new ChangeSetRepositoryImpl(database, null)
   private val nodeRepository = new NodeRepositoryImpl(database)
@@ -103,10 +101,6 @@ class IntegrationTestContext(
   )
 
   private val elementIdAnalyzer = new ElementIdAnalyzerImpl
-
-  private val oldNodeLocationAnalyzer = stub[OldNodeLocationAnalyzer]
-  (oldNodeLocationAnalyzer.locations _).when(*, *).returns(Seq.empty)
-  (oldNodeLocationAnalyzer.oldLocate _).when(*, *).returns(None)
 
   val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
 
@@ -182,24 +176,28 @@ class IntegrationTestContext(
     nodeRepository
   )
 
-  private val networkInfoTagAnalyzer = new NetworkInfoTagAnalyzer()
-  private val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
-  private val networkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
-  private val networkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
-  private val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
-  private val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
-  private val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
-  private val networkInfoMasterAnalyzer = new NetworkInfoMasterAnalyzer(
-    database,
-    networkInfoTagAnalyzer,
-    networkInfoRouteAnalyzer,
-    networkInfoNodeAnalyzer,
-    networkInfoFactAnalyzer,
-    networkInfoChangeAnalyzer,
-    networkCountryAnalyzer,
-    networkInfoExtraAnalyzer
-  )
+  private val networkInfoMasterAnalyzer = {
+
+    val networkInfoTagAnalyzer = new NetworkInfoTagAnalyzer()
+    val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
+    val networkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
+    val networkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
+    val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
+    val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
+    val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
+
+    new NetworkInfoMasterAnalyzer(
+      database,
+      networkInfoTagAnalyzer,
+      networkInfoRouteAnalyzer,
+      networkInfoNodeAnalyzer,
+      networkInfoFactAnalyzer,
+      networkInfoChangeAnalyzer,
+      networkCountryAnalyzer,
+      networkInfoExtraAnalyzer
+    )
+  }
 
   private val networkInfoChangeProcessor = new NetworkInfoChangeProcessorImpl(
     database,

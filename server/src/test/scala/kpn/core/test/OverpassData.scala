@@ -10,10 +10,26 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
+import kpn.core.loadOld.Parser
+
+import scala.xml.InputSource
+import scala.xml.XML
 
 object OverpassData {
   def empty: OverpassData = {
     OverpassData()
+  }
+
+  def load(filename: String): OverpassData = {
+    val stream = getClass.getResourceAsStream(filename)
+    val inputSource = new InputSource(stream)
+    val xml = XML.load(inputSource)
+    val rawData = new Parser().parse(xml.head)
+    OverpassData(
+      rawData.nodes,
+      rawData.ways,
+      rawData.relations
+    )
   }
 }
 

@@ -11,13 +11,12 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
 
   test("analyzeRoute") {
 
-    pending // old tagging is not supported anymore
     val taskRepository = stub[TaskRepository]
     val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())
 
     val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileCalculator)
 
-    val routeAnalysis = CaseStudy.routeAnalysis("1029885", oldTagging = true)
+    val routeAnalysis = CaseStudy.routeAnalysis("1029885")
 
     tileChangeAnalyzer.analyzeRoute(routeAnalysis)
 
@@ -56,14 +55,12 @@ class TileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects 
 
   test("tile tasks when change with impact") {
 
-    pending // old tagging is not supported anymore
-
     val taskRepository = stub[TaskRepository]
     val routeTileCalculator = new RouteTileCalculatorImpl(new TileCalculatorImpl())
 
     val tileChangeAnalyzer: TileChangeAnalyzer = new TileChangeAnalyzerImpl(taskRepository, routeTileCalculator)
 
-    val routeAnalysis = CaseStudy.routeAnalysis("1029885", oldTagging = true)
+    val routeAnalysis = CaseStudy.routeAnalysis("1029885")
 
     val modifiedTags = routeAnalysis.route.tags ++ Tags.from("survey:date" -> "2019-11-08")
     val modifiedRoute = routeAnalysis.route.copy(tags = modifiedTags)

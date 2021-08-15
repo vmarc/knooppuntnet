@@ -7,6 +7,7 @@
     <node id="43482951" lat="51.6790035" lon="4.9429333" version="3" timestamp="2013-06-09T07:27:44Z" changeset="16477440" uid="334075" user="eggie"/>
     <node id="43483876" lat="51.6792800" lon="4.9459100" version="2" timestamp="2009-12-23T17:46:34Z" changeset="3436279" uid="12946" user="AND"/>
     <node id="43484555" lat="51.6793560" lon="4.9480628" version="6" timestamp="2019-04-18T18:26:31Z" changeset="69355279" uid="1987570" user="FrankOverman">
+        <tag k="network:type" v="node_network"/>
         <tag k="rcn_ref" v="48"/>
         <tag k="rwn_ref" v="78"/>
     </node>
@@ -24,6 +25,7 @@
     <node id="43499520" lat="51.6834217" lon="4.9339394" version="3" timestamp="2013-06-09T07:29:32Z" changeset="16477440" uid="334075" user="eggie"/>
     <node id="43500681" lat="51.6836700" lon="4.9343100" version="2" timestamp="2009-12-23T17:44:05Z" changeset="3436279" uid="12946" user="AND"/>
     <node id="253352556" lat="51.6837672" lon="4.9343912" version="3" timestamp="2019-04-18T18:39:43Z" changeset="69355630" uid="1987570" user="FrankOverman">
+        <tag k="network:type" v="node_network"/>
         <tag k="rwn_ref" v="72b"/>
     </node>
     <node id="2337857421" lat="51.6790334" lon="4.9427193" version="1" timestamp="2013-06-09T07:27:44Z" changeset="16477440" uid="334075" user="eggie"/>
@@ -76,6 +78,7 @@
         <member type="way" ref="7119890" role=""/>
         <member type="way" ref="7119891" role=""/>
         <member type="node" ref="43484555" role=""/>
+        <tag k="network:type" v="node_network"/>
         <tag k="network" v="rwn"/>
         <tag k="note" v="72b-78"/>
         <tag k="route" v="foot"/>

@@ -36,8 +36,8 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     database.routes.save(routeInfo, log)
   }
 
-  override def bulkSave(routeInfo: Seq[RouteInfo]): Unit = {
-    database.routes.bulkSave(routeInfo, log)
+  override def bulkSave(routeInfos: Seq[RouteInfo]): Unit = {
+    database.routes.bulkSave(routeInfos, log)
   }
 
   override def delete(routeId: Long): Unit = {

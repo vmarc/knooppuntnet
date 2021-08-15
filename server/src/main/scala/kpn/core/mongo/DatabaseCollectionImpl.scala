@@ -100,11 +100,16 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   }
 
   override def findByIds(ids: Seq[Long], log: Log): Seq[T] = {
-    log.debugElapsed {
-      val filter = in("_id", ids: _*)
-      val future = collection.find[T](filter).toFuture()
-      val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"findByIds - collection: '${collection.namespace.getCollectionName}', ids: ${ids.mkString(", ")}", docs)
+    if (ids.nonEmpty) {
+      log.debugElapsed {
+        val filter = in("_id", ids: _*)
+        val future = collection.find[T](filter).toFuture()
+        val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
+        (s"findByIds - collection: '${collection.namespace.getCollectionName}', ids: ${ids.mkString(", ")}", docs)
+      }
+    }
+    else {
+      Seq.empty
     }
   }
 
@@ -130,16 +135,18 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   }
 
   override def bulkSave(docs: Seq[T], log: Log): Unit = {
-    val requests = docs.map { doc =>
-      val filter = doc match {
-        case withId: WithId => equal("_id", withId._id)
-        case withStringId: WithStringId => equal("_id", withStringId._id)
-        case _ => throw new IllegalArgumentException("document does not have een id")
+    if (docs.nonEmpty) {
+      val requests = docs.map { doc =>
+        val filter = doc match {
+          case withId: WithId => equal("_id", withId._id)
+          case withStringId: WithStringId => equal("_id", withStringId._id)
+          case _ => throw new IllegalArgumentException("document does not have een id")
+        }
+        ReplaceOneModel[T](filter, doc, ReplaceOptions().upsert(true))
       }
-      ReplaceOneModel[T](filter, doc, ReplaceOptions().upsert(true))
+      val future = native.bulkWrite(requests).toFuture()
+      Await.result(future, Duration(2, TimeUnit.MINUTES))
     }
-    val future = native.bulkWrite(requests).toFuture()
-    Await.result(future, Duration(2, TimeUnit.MINUTES))
   }
 
   override def delete(_id: Long, log: Log): Unit = {

@@ -5,8 +5,7 @@ import kpn.core.util.UnitTest
 class RoundaboutTest extends UnitTest {
 
   test("roundabout in the middle") {
-    pending // old tagging is not supported anymore
-    val analysis = CaseStudy.routeAnalysis("1193198", oldTagging = true)
+    val analysis = CaseStudy.routeAnalysis("1193198")
     analysis.route.facts shouldBe empty
   }
 }

@@ -39,14 +39,17 @@
   <node id="666328706" version="2" lat="51.1538225" lon="2.9617529" timestamp="2011-06-01T21:21:33Z" changeset="8314404" uid="170722" user="JosV"/>
   <node id="666328709" version="2" lat="51.1521762" lon="2.9637755" timestamp="2011-06-01T21:21:34Z" changeset="8314404" uid="170722" user="JosV"/>
   <node id="667398267" version="3" lat="51.1512551" lon="2.9651461" timestamp="2011-06-06T18:28:03Z" changeset="8362953" uid="170722" user="JosV">
+    <tag k="network:type" v="node_network"/>
     <tag k="rcn_ref" v="31"/>
   </node>
   <node id="748742106" version="2" lat="51.1534862" lon="2.962104" timestamp="2011-01-27T11:07:12Z" changeset="7102430" uid="233248" user="zors1843"/>
   <node id="794636840" version="5" lat="51.1787878" lon="2.9389032" timestamp="2010-12-29T09:34:11Z" changeset="6795524" uid="233248" user="zors1843">
+    <tag k="network:type" v="node_network"/>
     <tag k="rcn_ref" v="53"/>
   </node>
   <node id="794636842" version="4" lat="51.1796061" lon="2.9386491" timestamp="2014-04-18T17:37:07Z" changeset="21773266" uid="170722" user="JosV"/>
   <node id="794636844" version="5" lat="51.1796084" lon="2.9385976" timestamp="2014-04-18T17:37:07Z" changeset="21773266" uid="170722" user="JosV">
+    <tag k="network:type" v="node_network"/>
     <tag k="rcn_ref" v="53"/>
   </node>
   <node id="864703697" version="3" lat="51.1556918" lon="2.9600433" timestamp="2011-08-04T08:11:55Z" changeset="8917312" uid="233248" user="zors1843"/>
@@ -221,6 +224,7 @@
     <member type="way" ref="51674175" role=""/>
     <member type="way" ref="79430742" role=""/>
     <member type="way" ref="79430744" role="forward"/>
+    <tag k="network:type" v="node_network"/>
     <tag k="network" v="rcn"/>
     <tag k="note" v="31-53"/>
     <tag k="route" v="bicycle"/>
