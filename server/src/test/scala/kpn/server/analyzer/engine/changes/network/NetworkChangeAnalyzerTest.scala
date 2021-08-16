@@ -18,8 +18,6 @@ import kpn.server.analyzer.engine.changes.data.BlackListEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.MockBlackListRepository
 
-import scala.language.reflectiveCalls
-
 class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   val d = new AnalysisTestData()

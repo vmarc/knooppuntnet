@@ -98,29 +98,6 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
     }
   }
 
-  private def loadNetwork(networkId: Long): Unit = {
-    try {
-      config.networkLoader.load(Some(config.timestamp), networkId) match {
-        case None => log.error(s"Failed to load network $networkId")
-        case Some(loadedNetwork) =>
-          log.info(s"""Analyze "${loadedNetwork.name}"""")
-          val networkRelationAnalysis = config.networkRelationAnalyzer.analyze(loadedNetwork.relation)
-          val network = config.networkAnalyzer.analyze(networkRelationAnalysis, loadedNetwork)
-          config.analysisRepository.saveNetwork(network)
-          config.analysisContext.watched.networks.add(loadedNetwork.networkId)
-          loadNetworkChange(network)
-          loadNetworkRouteChanges(network)
-          loadNetworkNodeChanges(network)
-      }
-    }
-    catch {
-      case e: Exception =>
-        val message = s"Could not load network $networkId"
-        log.error(message, e)
-        throw new RuntimeException(message, e)
-    }
-  }
-
   private def loadOrphanRoutes(): Unit = {
     //  config.analysisDatabaseIndexer.index(true)
     //  Log.context("orphan-routes") {

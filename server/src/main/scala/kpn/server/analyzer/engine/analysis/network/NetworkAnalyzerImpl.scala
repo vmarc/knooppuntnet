@@ -16,7 +16,6 @@ import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.load.data.LoadedNetwork
 import org.springframework.stereotype.Component
 

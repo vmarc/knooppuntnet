@@ -47,11 +47,6 @@ import kpn.server.analyzer.engine.context.Watched
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.NetworkInitialLoader
-import kpn.server.analyzer.load.NetworkInitialLoaderImpl
-import kpn.server.analyzer.load.NetworkInitialLoaderWorker
-import kpn.server.analyzer.load.NetworkInitialLoaderWorkerImpl
-import kpn.server.analyzer.load.NetworkLoaderImpl
 import kpn.server.analyzer.load.NodeLoaderImpl
 import kpn.server.analyzer.load.OldRouteLoader
 import kpn.server.analyzer.load.OldRouteLoaderImpl
@@ -160,7 +155,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     routeTileAnalyzer
   )
 
-  val networkLoader = new NetworkLoaderImpl(cachingExecutor)
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
 
   val oldNodeLocationAnalyzer = new OldNodeLocationAnalyzerImpl(locationConfiguration, true)
@@ -177,20 +171,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   )
 
   val networkAnalyzer = new NetworkAnalyzerImpl(networkNodeAnalyzer, networkRouteAnalyzer)
-
-  private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
-    analysisContext,
-    analysisRepository,
-    networkLoader,
-    networkRelationAnalyzer,
-    networkAnalyzer,
-    blackListRepository
-  )
-
-  val networkInitialLoader: NetworkInitialLoader = new NetworkInitialLoaderImpl(
-    analysisExecutor,
-    networkInitialLoaderWorker
-  )
 
   val replicationId: ReplicationId = ReplicationId(1)
   private val beginOsmChange = osmChangeRepository.get(replicationId)
