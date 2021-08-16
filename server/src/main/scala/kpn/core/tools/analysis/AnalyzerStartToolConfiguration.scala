@@ -17,7 +17,6 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
@@ -169,8 +168,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     countryAnalyzer,
     routeAnalyzer
   )
-
-  val networkAnalyzer = new NetworkAnalyzerImpl(networkNodeAnalyzer, networkRouteAnalyzer)
 
   val replicationId: ReplicationId = ReplicationId(1)
   private val beginOsmChange = osmChangeRepository.get(replicationId)

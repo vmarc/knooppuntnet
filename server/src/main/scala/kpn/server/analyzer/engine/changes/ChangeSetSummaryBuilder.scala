@@ -51,15 +51,15 @@ class ChangeSetSummaryBuilder() {
     changeTypeNetworkChanges.map { networkChange =>
 
       val routeChanges = ChangeSetElementRefs(
-        removed = networkChange.routes.removed.map(ref => toRef(ref, happy = false, investigate = true)),
-        added = networkChange.routes.added.map(ref => toRef(ref, happy = true, investigate = false)),
-        updated = networkChange.routes.updated.map(ref => toRef(ref, happy = false, investigate = false))
+        removed = networkChange.routeDiffs.removed.map(ref => toRef(ref, happy = false, investigate = true)),
+        added = networkChange.routeDiffs.added.map(ref => toRef(ref, happy = true, investigate = false)),
+        updated = networkChange.routeDiffs.updated.map(ref => toRef(ref, happy = false, investigate = false))
       )
 
       val nodeChanges = ChangeSetElementRefs(
-        removed = networkChange.networkNodes.removed.map(ref => toRef(ref, happy = false, investigate = true)),
-        added = networkChange.networkNodes.added.map(ref => toRef(ref, happy = true, investigate = false)),
-        updated = networkChange.networkNodes.updated.map(ref => toRef(ref, happy = false, investigate = false))
+        removed = networkChange.nodeDiffs.removed.map(ref => toRef(ref, happy = false, investigate = true)),
+        added = networkChange.nodeDiffs.added.map(ref => toRef(ref, happy = true, investigate = false)),
+        updated = networkChange.nodeDiffs.updated.map(ref => toRef(ref, happy = false, investigate = false))
       )
 
       ChangeSetNetwork(

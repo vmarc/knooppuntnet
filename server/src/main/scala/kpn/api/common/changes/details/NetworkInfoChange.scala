@@ -19,14 +19,14 @@ case class NetworkInfoChange(
   networkType: NetworkType,
   networkId: Long,
   networkName: String,
-  orphanRoutes: RefChanges,
-  orphanNodes: RefChanges,
+  orphanRouteDiffs: RefChanges,
+  orphanNodeDiffs: RefChanges,
   networkDataUpdate: Option[NetworkDataUpdate],
-  networkNodes: RefDiffs,
-  routes: RefDiffs,
-  extraNodes: IdDiffs,
-  extraWays: IdDiffs,
-  extraRelations: IdDiffs,
+  nodeDiffs: RefDiffs,
+  routeDiffs: RefDiffs,
+  extraNodeDiffs: IdDiffs,
+  extraWayDiffs: IdDiffs,
+  extraRelationDiffs: IdDiffs,
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean
@@ -35,15 +35,15 @@ case class NetworkInfoChange(
   def referencedElements: ReferencedElements = {
 
     val nodeIds: Set[Long] = (
-      orphanNodes.oldRefs.map(_.id) ++
-        orphanNodes.newRefs.map(_.id) ++
-        networkNodes.ids
+      orphanNodeDiffs.oldRefs.map(_.id) ++
+        orphanNodeDiffs.newRefs.map(_.id) ++
+        nodeDiffs.ids
       ).toSet
 
     val routeIds: Set[Long] = (
-      orphanRoutes.oldRefs.map(_.id) ++
-        orphanRoutes.newRefs.map(_.id) ++
-        routes.ids
+      orphanRouteDiffs.oldRefs.map(_.id) ++
+        orphanRouteDiffs.newRefs.map(_.id) ++
+        routeDiffs.ids
       ).toSet
 
     ReferencedElements(nodeIds, routeIds)
