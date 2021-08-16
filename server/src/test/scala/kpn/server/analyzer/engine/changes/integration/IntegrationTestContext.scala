@@ -34,8 +34,8 @@ import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.BlackList
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.networkInfo.NetworkInfoChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.networkInfo.NetworkInfoImpactAnalyzer
+import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.network.info.NetworkInfoImpactAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer

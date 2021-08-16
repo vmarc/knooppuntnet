@@ -1,6 +1,7 @@
 package kpn.core.mongo.tools
 
 import kpn.core.mongo.Database
+import kpn.core.mongo.DatabaseCollection
 import kpn.core.mongo.tools.CreateIndexesTool.Index
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
@@ -13,15 +14,16 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 object CreateIndexesTool {
+
   object Index {
     def apply(
-      collectionName: String,
+      collection: DatabaseCollection[_],
       indexName: String,
       fieldNames: String*
     ): Index = {
       val index = Indexes.ascending(fieldNames: _*)
       Index(
-        collectionName: String,
+        collection: DatabaseCollection[_],
         indexName: String,
         index
       )
@@ -29,229 +31,14 @@ object CreateIndexesTool {
   }
 
   case class Index(
-    collectionName: String,
+    collection: DatabaseCollection[_],
     indexName: String,
     index: Bson
   )
 
-  private val indexes = Seq(
-    Index(
-      "networks",
-      "network-name",
-      "active",
-      "attributes.name"
-    ),
-    Index(
-      "networks",
-      "network-node-references",
-      "active",
-      "nodeRefs"
-    ),
-    Index(
-      "networks",
-      "subset-networks",
-      "attributes.country",
-      "attributes.networkType",
-      "active"
-    ),
-    Index(
-      "nodes",
-      "labels",
-      "labels"
-    ),
-    Index(
-      "nodes",
-      "tiles",
-      "tiles"
-    ),
-    Index(
-      "node-route-refs",
-      "nodeId-networkType",
-      "nodeId",
-      "networkType"
-    ),
-    Index(
-      "routes",
-      "labels",
-      "labels",
-      "_id"
-    ),
-    Index(
-      "routes",
-      "tiles",
-      "tiles"
-    ),
-    Index(
-      "routes",
-      "route-node-references",
-      "active",
-      "nodeRefs"
-    ),
-    Index(
-      "route-edges",
-      "network-type",
-      "networkType"
-    ),
-    Index(
-      "nodeRouteRefs",
-      "nodeId",
-      "nodeId",
-      "routeName"
-    ),
-    Index(
-      "network-changes",
-      "time",
-      "key.time"
-    ),
-    Index(
-      "network-changes",
-      "impact",
-      "impact"
-    ),
-    Index(
-      "network-changes",
-      "changeSetId",
-      "key.replicationNumber",
-      "key.changeSetId"
-    ),
-    Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
-      "network-changes",
-      "impact-timestamp",
-      Indexes.compoundIndex(
-        Indexes.ascending(
-          "networkId",
-          "impact",
-        ),
-        Indexes.descending(
-          "key.timestamp"
-        )
-      )
-    ),
-    Index(
-      "network-changes",
-      "impact-time",
-      Indexes.compoundIndex(
-        Indexes.ascending(
-          "networkId",
-          "impact",
-        ),
-        Indexes.descending(
-          "key.time"
-        )
-      )
-    ),
-    Index(
-      "network-changes",
-      "networkId-time-impact",
-      Indexes.descending(
-        "networkId",
-        "key.time.year",
-        "key.time.month",
-        "key.time.day",
-        "impact"
-      )
-    ),
-
-    Index(
-      "route-changes",
-      "time",
-      "key.time"
-    ),
-    Index(
-      "route-changes",
-      "impact",
-      "impact"
-    ),
-    Index(
-      "route-changes",
-      "changeSetId",
-      "key.replicationNumber",
-      "key.changeSetId"
-    ),
-    Index(
-      "node-changes",
-      "time",
-      "key.time"
-    ),
-    Index(
-      "node-changes",
-      "impact",
-      "impact"
-    ),
-    Index(
-      "node-changes",
-      "changeSetId",
-      "key.replicationNumber",
-      "key.changeSetId"
-    ),
-    Index(
-      "changeset-summaries",
-      "impact-time",
-      "impact",
-      "key.time.year",
-      "key.time.month",
-      "key.time.day"
-    ),
-    Index(
-      "changeset-summaries",
-      "changeSetId",
-      "key.replicationNumber",
-      "key.changeSetId"
-    ),
-    Index(
-      "change-location-summaries",
-      "time",
-      "key.time"
-    ),
-    Index(
-      "change-location-summaries",
-      "impact",
-      "impact"
-    ),
-    Index(
-      "change-location-summaries",
-      "changeSetId",
-      "key.replicationNumber",
-      "key.changeSetId"
-    ),
-    Index(
-      "route-changes",
-      "routeId-time-impact",
-      Indexes.descending(
-        "key.elementId",
-        "key.time.year",
-        "key.time.month",
-        "key.time.day",
-        "impact"
-      )
-    ),
-    Index(
-      "node-changes",
-      "nodeId-time-impact",
-      Indexes.descending(
-        "key.elementId",
-        "key.time.year",
-        "key.time.month",
-        "key.time.day",
-        "impact"
-      )
-    ),
-    Index(
-      "pois",
-      "type-id",
-      "elementType",
-      "elementId"
-    ),
-    Index(
-      "pois",
-      "tiles",
-      "tiles"
-    )
-  )
-
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
-      new CreateIndexesTool(database).createIndexes(indexes)
+    Mongo.executeIn("kpn-test-1") { database =>
+      new CreateIndexesTool(database).createIndexes()
     }
   }
 }
@@ -260,20 +47,21 @@ class CreateIndexesTool(database: Database) {
 
   private val log = Log(classOf[CreateIndexesTool])
 
-  def createIndexes(indexes: Seq[Index]): Unit = {
+  def createIndexes(): Unit = {
+    val indexes = indexConfiguration(database)
     log.info(s"Create ${indexes.size} indexes")
     indexes.foreach(createIndex)
     log.info("Done")
   }
 
   private def createIndex(index: Index): Unit = {
-    Log.context(s"collection: '${index.collectionName}', index: '${index.indexName}'") {
+    Log.context(s"collection: '${index.collection.name}', index: '${index.indexName}'") {
       if (hasIndex(index)) {
         log.info("Index already exists")
       }
       else {
         log.infoElapsed {
-          val collection = database.getCollection(index.collectionName)
+          val collection = database.getCollection(index.collection.name)
           val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
           Await.result(future, Duration(25, TimeUnit.MINUTES))
           ("Created", ())
@@ -283,9 +71,225 @@ class CreateIndexesTool(database: Database) {
   }
 
   private def hasIndex(index: Index): Boolean = {
-    val collection = database.getCollection(index.collectionName)
-    val future = collection.listIndexes[MongoIndexDefinition]().toFuture()
+    val future = index.collection.listIndexes().toFuture()
     val indexDefinitions = Await.result(future, Duration(25, TimeUnit.MINUTES))
     indexDefinitions.exists(_.name == index.indexName)
+  }
+
+  private def indexConfiguration(database: Database): Seq[Index] = {
+    Seq(
+      Index(
+        database.networks,
+        "network-name",
+        "active",
+        "attributes.name"
+      ),
+      Index(
+        database.networks,
+        "network-node-references",
+        "active",
+        "nodeRefs"
+      ),
+      Index(
+        database.networks,
+        "subset-networks",
+        "attributes.country",
+        "attributes.networkType",
+        "active"
+      ),
+      Index(
+        database.nodes,
+        "labels",
+        "labels"
+      ),
+      Index(
+        database.nodes,
+        "tiles",
+        "tiles"
+      ),
+      Index(
+        database.nodeRouteRefs,
+        "nodeId-networkType",
+        "nodeId",
+        "networkType"
+      ),
+      Index(
+        database.routes,
+        "labels",
+        "labels",
+        "_id"
+      ),
+      Index(
+        database.routes,
+        "tiles",
+        "tiles"
+      ),
+      Index(
+        database.routes,
+        "route-node-references",
+        "active",
+        "nodeRefs"
+      ),
+      Index(
+        database.routeEdges,
+        "network-type",
+        "networkType"
+      ),
+      Index(
+        database.nodeRouteRefs,
+        "nodeId",
+        "nodeId",
+        "routeName"
+      ),
+      Index(
+        database.networkChanges,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.networkChanges,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.networkChanges,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
+        database.networkChanges,
+        "impact-timestamp",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "networkId",
+            "impact",
+          ),
+          Indexes.descending(
+            "key.timestamp"
+          )
+        )
+      ),
+      Index(
+        database.networkChanges,
+        "impact-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "networkId",
+            "impact",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.networkChanges,
+        "networkId-time-impact",
+        Indexes.descending(
+          "networkId",
+          "key.time.year",
+          "key.time.month",
+          "key.time.day",
+          "impact"
+        )
+      ),
+
+      Index(
+        database.routeChanges,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.routeChanges,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.routeChanges,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.nodeChanges,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.nodeChanges,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.nodeChanges,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.changeSetSummaries,
+        "impact-time",
+        "impact",
+        "key.time.year",
+        "key.time.month",
+        "key.time.day"
+      ),
+      Index(
+        database.changeSetSummaries,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.locationChangeSetSummaries,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.locationChangeSetSummaries,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.locationChangeSetSummaries,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.routeChanges,
+        "routeId-time-impact",
+        Indexes.descending(
+          "key.elementId",
+          "key.time.year",
+          "key.time.month",
+          "key.time.day",
+          "impact"
+        )
+      ),
+      Index(
+        database.nodeChanges,
+        "nodeId-time-impact",
+        Indexes.descending(
+          "key.elementId",
+          "key.time.year",
+          "key.time.month",
+          "key.time.day",
+          "impact"
+        )
+      ),
+      Index(
+        database.pois,
+        "type-id",
+        "elementType",
+        "elementId"
+      ),
+      Index(
+        database.pois,
+        "tiles",
+        "tiles"
+      )
+    )
   }
 }

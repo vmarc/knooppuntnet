@@ -1,7 +1,9 @@
 package kpn.core.mongo
 
 import kpn.core.mongo.DatabaseCollection.collectionLog
+import kpn.core.mongo.tools.MongoIndexDefinition
 import kpn.core.util.Log
+import org.mongodb.scala.ListIndexesObservable
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
 
@@ -21,6 +23,10 @@ trait DatabaseCollection[T] {
 
   def isEmpty: Boolean = {
     countDocuments(collectionLog) == 0
+  }
+
+  def listIndexes(): ListIndexesObservable[MongoIndexDefinition] = {
+    native.listIndexes()
   }
 
   def aggregate[R: ClassTag](

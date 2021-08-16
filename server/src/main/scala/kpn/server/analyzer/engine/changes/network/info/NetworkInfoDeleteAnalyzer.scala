@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.networkInfo
+package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -9,33 +9,29 @@ import kpn.api.custom.Fact
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
-class NetworkInfoCreateAnalyzer(context: ChangeSetContext, after: NetworkInfoDoc, networkId: Long) {
+class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkInfoDoc, networkId: Long) {
 
   def analyze(): NetworkInfoChange = {
 
     val orphanRouteDiffs = analyzeOrphanRouteDiffs()
     val orphanNodeDiffs = analyzeOrphanNodeDiffs()
 
-    val nodeDiffs = RefDiffs(added = after.nodes.map(_.toRef))
-    val routeDiffs = RefDiffs(added = after.routes.map(_.toRef))
+    val nodeDiffs = RefDiffs(removed = before.nodes.map(_.toRef))
+    val routeDiffs = RefDiffs(removed = before.routes.map(_.toRef))
 
-    val extraNodeDiffs = IdDiffs(added = after.extraNodeIds)
-    val extraWayDiffs = IdDiffs(added = after.extraWayIds)
-    val extraRelationDiffs = IdDiffs(added = after.extraRelationIds)
-
-    val investigate = extraNodeDiffs.added.nonEmpty ||
-      extraWayDiffs.added.nonEmpty ||
-      extraRelationDiffs.added.nonEmpty
+    val extraNodeDiffs = IdDiffs(removed = before.extraNodeIds)
+    val extraWayDiffs = IdDiffs(removed = before.extraWayIds)
+    val extraRelationDiffs = IdDiffs(removed = before.extraRelationIds)
 
     val key = context.buildChangeKey(networkId)
     NetworkInfoChange(
       key.toId,
       key,
-      changeType = ChangeType.Create,
-      country = after.country,
-      networkType = after.scopedNetworkType.networkType,
-      networkId = after._id,
-      networkName = after.summary.name,
+      changeType = ChangeType.Delete,
+      country = before.country,
+      networkType = before.scopedNetworkType.networkType,
+      networkId = networkId,
+      networkName = before.summary.name,
       orphanRouteDiffs,
       orphanNodeDiffs,
       networkDataUpdate = None,
@@ -44,18 +40,18 @@ class NetworkInfoCreateAnalyzer(context: ChangeSetContext, after: NetworkInfoDoc
       extraNodeDiffs,
       extraWayDiffs,
       extraRelationDiffs,
-      happy = true,
-      investigate = investigate,
+      happy = false,
+      investigate = true,
       impact = true
     )
   }
 
   private def analyzeOrphanRouteDiffs(): RefChanges = {
-    val oldOrphanRouteRefs = after.routes.map(_.id).flatMap { routeId =>
+    val newOrphanRouteRefs = before.routes.map(_.id).flatMap { routeId =>
       context.changes.routeChanges.find(_.id == routeId) match {
         case None => None
         case Some(routeChange) =>
-          if (routeChange.facts.contains(Fact.WasOrphan)) {
+          if (routeChange.facts.contains(Fact.BecomeOrphan)) {
             Some(routeChange.toRef)
           }
           else {
@@ -64,16 +60,16 @@ class NetworkInfoCreateAnalyzer(context: ChangeSetContext, after: NetworkInfoDoc
       }
     }
     RefChanges(
-      oldRefs = oldOrphanRouteRefs
+      newRefs = newOrphanRouteRefs
     )
   }
 
   private def analyzeOrphanNodeDiffs(): RefChanges = {
-    val oldOrphanNodeRefs = after.nodes.map(_.id).flatMap { nodeId =>
+    val newOrphanNodeRefs = before.nodes.map(_.id).flatMap { nodeId =>
       context.changes.nodeChanges.find(_.id == nodeId) match {
         case None => None
         case Some(nodeChange) =>
-          if (nodeChange.facts.contains(Fact.WasOrphan)) {
+          if (nodeChange.facts.contains(Fact.BecomeOrphan)) {
             Some(nodeChange.toRef)
           }
           else {
@@ -82,7 +78,7 @@ class NetworkInfoCreateAnalyzer(context: ChangeSetContext, after: NetworkInfoDoc
       }
     }
     RefChanges(
-      oldRefs = oldOrphanNodeRefs
+      newRefs = newOrphanNodeRefs
     )
   }
 }

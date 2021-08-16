@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.networkInfo
+package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.SharedTestObjects
 import kpn.core.util.UnitTest

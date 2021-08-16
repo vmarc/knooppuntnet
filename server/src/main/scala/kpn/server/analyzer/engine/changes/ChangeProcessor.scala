@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.networkInfo.NetworkInfoChangeProcessor
+import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import org.springframework.stereotype.Component

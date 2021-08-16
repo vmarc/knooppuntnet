@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.networkInfo
+package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
