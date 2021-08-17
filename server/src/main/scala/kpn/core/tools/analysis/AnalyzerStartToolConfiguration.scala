@@ -17,11 +17,8 @@ import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzer
@@ -62,12 +59,9 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   private val mongoDatabase = Mongo.database(Mongo.client, "kpn-test")
 
   private val couchConfig = Couch.config
-  private val analysisDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.analysisDatabaseName))
   private val changeDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.changeDatabaseName))
 
   val analysisContext = new AnalysisContext()
-
-  val oldNodeAnalyzer: OldNodeAnalyzer = new OldNodeAnalyzerImpl()
 
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val routeLocator = new RouteLocatorImpl(locationConfiguration)
@@ -130,11 +124,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   )
 
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-
-  val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
-    countryAnalyzer,
-    routeAnalyzer
-  )
 
   val replicationId: ReplicationId = ReplicationId(1)
   private val beginOsmChange = osmChangeRepository.get(replicationId)

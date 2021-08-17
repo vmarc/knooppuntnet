@@ -4,9 +4,11 @@ import kpn.api.common.NodeName
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
-import kpn.server.analyzer.engine.analysis.node.Name
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
+
+case class Name(name: String, proposed: Boolean)
 
 object NodeNameAnalyzer extends NodeAspectAnalyzer {
 
@@ -24,23 +26,10 @@ object NodeNameAnalyzer extends NodeAspectAnalyzer {
     )
   }
 
-  def analyze(analysis: NodeAnalysis): NodeAnalysis = {
-    new NodeNameAnalyzer(analysis).analyze
-  }
-}
-
-class NodeNameAnalyzer(analysis: NodeAnalysis) {
-
-  def analyze: NodeAnalysis = {
-    val name = findName()
-    val nodeNames = findNodeNames()
-    analysis.copy(name = name, nodeNames = nodeNames)
-  }
-
-  private def findNodeNames(): Seq[NodeName] = {
+  def findNodeNames(tags: Tags): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      determineScopedName(scopedNetworkType).map { name =>
-        val longName = determineScopedLongName(scopedNetworkType)
+      determineScopedName(tags, scopedNetworkType).map { name =>
+        val longName = determineScopedLongName(tags, scopedNetworkType)
         NodeName(
           scopedNetworkType.networkType,
           scopedNetworkType.networkScope,
@@ -52,31 +41,31 @@ class NodeNameAnalyzer(analysis: NodeAnalysis) {
     }
   }
 
-  private def findName(): String = {
+  def findName(tags: Tags): String = {
     NetworkType.all.flatMap { networkType =>
       NetworkScope.all.flatMap { networkScope =>
-        scopedName(ScopedNetworkType.from(networkScope, networkType))
+        scopedName(tags, ScopedNetworkType.from(networkScope, networkType))
       }.distinct
     }.mkString(" / ")
   }
 
-  private def scopedName(scopedNetworkType: ScopedNetworkType): Option[String] = {
-    determineScopedName(scopedNetworkType).map(_.name)
+  private def scopedName(tags: Tags, scopedNetworkType: ScopedNetworkType): Option[String] = {
+    determineScopedName(tags, scopedNetworkType).map(_.name)
   }
 
-  private def determineScopedName(scopedNetworkType: ScopedNetworkType): Option[Name] = {
-    val nameOption = analysis.node.tags(scopedNetworkType.nodeRefTagKey) match {
-      case Some(name) => Some(Name(name, proposed = stateProposed()))
+  private def determineScopedName(tags: Tags, scopedNetworkType: ScopedNetworkType): Option[Name] = {
+    val nameOption = tags(scopedNetworkType.nodeRefTagKey) match {
+      case Some(name) => Some(Name(name, proposed = stateProposed(tags)))
       case None =>
-        analysis.node.tags(scopedNetworkType.proposedNodeRefTagKey) match {
+        tags(scopedNetworkType.proposedNodeRefTagKey) match {
           case Some(name) => Some(Name(name, proposed = true))
-          case None => determineScopedLongName(scopedNetworkType)
+          case None => determineScopedLongName(tags, scopedNetworkType)
         }
     }
     nameOption.map(n => n.copy(name = NodeUtil.normalize(n.name)))
   }
 
-  private def determineScopedLongName(scopedNetworkType: ScopedNetworkType): Option[Name] = {
+  private def determineScopedLongName(tags: Tags, scopedNetworkType: ScopedNetworkType): Option[Name] = {
     val prefix = scopedNetworkType.key
     val nameTagKeys = Seq(
       s"${prefix}_name",
@@ -88,16 +77,32 @@ class NodeNameAnalyzer(analysis: NodeAnalysis) {
       s"proposed:$prefix:name",
       s"proposed:name:${prefix}_ref"
     )
-    analysis.node.tags.tags.find(tag => nameTagKeys.contains(tag.key)).map(_.value) match {
-      case Some(name) => Some(Name(name, stateProposed()))
+    tags.tags.find(tag => nameTagKeys.contains(tag.key)).map(_.value) match {
+      case Some(name) => Some(Name(name, stateProposed(tags)))
       case None =>
-        analysis.node.tags.tags.find(tag => proposedNameTagKeys.contains(tag.key)).map(_.value).map { name =>
+        tags.tags.find(tag => proposedNameTagKeys.contains(tag.key)).map(_.value).map { name =>
           Name(name, proposed = true)
         }
     }
   }
 
-  private def stateProposed(): Boolean = {
-    analysis.node.tags.has("state", "proposed")
+  private def stateProposed(tags: Tags): Boolean = {
+    tags.has("state", "proposed")
+  }
+
+  def analyze(analysis: NodeAnalysis): NodeAnalysis = {
+    new NodeNameAnalyzer(analysis).analyze
+  }
+}
+
+class NodeNameAnalyzer(analysis: NodeAnalysis) {
+
+  def analyze: NodeAnalysis = {
+    val name = NodeNameAnalyzer.findName(analysis.node.tags)
+    val nodeNames = NodeNameAnalyzer.findNodeNames(analysis.node.tags)
+    analysis.copy(
+      name = name,
+      nodeNames = nodeNames
+    )
   }
 }

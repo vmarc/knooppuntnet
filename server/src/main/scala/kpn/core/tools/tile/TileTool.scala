@@ -4,7 +4,6 @@ import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -38,8 +37,7 @@ object TileTool {
 
           Mongo.executeIn(options.analysisDatabaseName) { database =>
 
-            val oldNodeAnalyzer = new OldNodeAnalyzerImpl()
-            val tileDataNodeBuilder = new TileDataNodeBuilderImpl(oldNodeAnalyzer)
+            val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
             val tileAnalyzer = {
               val networkRepository = new NetworkRepositoryImpl(database)
               val orphanRepository = new OrphanRepositoryImpl(database)

@@ -9,7 +9,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.mongo.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import org.springframework.stereotype.Component
 
@@ -17,7 +17,7 @@ import scala.util.Failure
 import scala.util.Success
 
 @Component
-class TileDataNodeBuilderImpl(nodeAnalyzer: OldNodeAnalyzer) extends TileDataNodeBuilder {
+class TileDataNodeBuilderImpl() extends TileDataNodeBuilder {
 
   private val prioritizedScopes = Seq(
     NetworkScope.regional, // prefer regional over local
@@ -60,8 +60,7 @@ class TileDataNodeBuilderImpl(nodeAnalyzer: OldNodeAnalyzer) extends TileDataNod
     val orphan = false
 
     val nodeNameOption: Option[NodeName] = {
-      val unprioritizedNames = nodeAnalyzer
-        .names(tags)
+      val unprioritizedNames = NodeNameAnalyzer.findNodeNames(tags)
         .filter(_.networkType == networkType)
         .filterNot(_.name == "o")
       prioritizedScopes.flatMap { scope =>

@@ -6,7 +6,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 
 class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
@@ -217,6 +216,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   }
 
   private def tileDataNodeBuilder: TileDataNodeBuilder = {
-    new TileDataNodeBuilderImpl(new OldNodeAnalyzerImpl())
+    new TileDataNodeBuilderImpl()
   }
 }

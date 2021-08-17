@@ -9,7 +9,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.analysis.node.Name
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.node.domain.NodeTagAnalysis
 
@@ -20,7 +19,6 @@ import scala.util.Success
 object NodeTagAnalyzer {
 
   def analyze(node: Node): Option[NodeTagAnalysis] = {
-
     if (node.tags.has("network:type", "node_network")) {
       analyzeTags(node.tags)
     }
@@ -122,5 +120,4 @@ object NodeTagAnalyzer {
   private def stateProposed(tags: Tags): Boolean = {
     tags.has("state", "proposed")
   }
-
 }
