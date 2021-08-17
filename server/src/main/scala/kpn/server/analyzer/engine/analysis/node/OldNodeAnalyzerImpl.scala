@@ -12,24 +12,6 @@ case class Name(name: String, proposed: Boolean)
 @Component
 class OldNodeAnalyzerImpl extends OldNodeAnalyzer {
 
-  override def name(tags: Tags): String = {
-    NetworkType.all.flatMap { networkType =>
-      NetworkScope.all.flatMap { networkScope =>
-        scopedName(ScopedNetworkType.from(networkScope, networkType), tags)
-      }.distinct
-    }.mkString(" / ")
-  }
-
-  override def longName(tags: Tags): Option[String] = {
-    val longNames = ScopedNetworkType.all.flatMap(scopedNetworkType => scopedLongName(scopedNetworkType, tags))
-    if (longNames.nonEmpty) {
-      Some(longNames.mkString(" / "))
-    }
-    else {
-      None
-    }
-  }
-
   override def names(tags: Tags): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
       determineScopedName(scopedNetworkType, tags).map { name =>
@@ -43,14 +25,6 @@ class OldNodeAnalyzerImpl extends OldNodeAnalyzer {
         )
       }
     }
-  }
-
-  override def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String] = {
-    determineScopedName(scopedNetworkType, tags).map(_.name)
-  }
-
-  override def scopedLongName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String] = {
-    determineScopedLongName(scopedNetworkType, tags).map(_.name)
   }
 
   private def determineScopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[Name] = {

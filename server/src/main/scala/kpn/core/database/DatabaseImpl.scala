@@ -1,16 +1,9 @@
 package kpn.core.database
 
 import kpn.core.database.doc.CouchDoc
-import kpn.core.database.implementation.DatabaseAllIds
-import kpn.core.database.implementation.DatabaseBulkSave
 import kpn.core.database.implementation.DatabaseContext
-import kpn.core.database.implementation.DatabaseDeleteDocWithId
-import kpn.core.database.implementation.DatabaseDeleteDocsWithIds
 import kpn.core.database.implementation.DatabaseDocWithId
-import kpn.core.database.implementation.DatabaseDocsWithIds
-import kpn.core.database.implementation.DatabaseKeysWithIds
 import kpn.core.database.implementation.DatabaseQuery
-import kpn.core.database.implementation.DatabaseRevision
 import kpn.core.database.implementation.DatabaseSave
 import kpn.core.database.query.Query
 import org.springframework.http.HttpEntity
@@ -25,43 +18,15 @@ class DatabaseImpl(context: DatabaseContext) extends Database {
     new DatabaseDocWithId(context).docWithId(docId, docType)
   }
 
-  override def docsWithIds[T](docIds: Seq[String], docType: Class[T]): T = {
-    new DatabaseDocsWithIds(context).docsWithIds(docIds, docType)
-  }
-
-  override def allIds(): Seq[String] = {
-    new DatabaseAllIds(context).execute()
-  }
-
   override def save[T](doc: CouchDoc): Unit = {
     new DatabaseSave(context).save(doc)
   }
 
-  override def bulkSave[T](docs: Seq[CouchDoc]): Unit = {
-    new DatabaseBulkSave(context).bulkSave[T](docs)
-  }
-
   override def deleteDocWithId(docId: String): Unit = {
-    revision(docId) match {
-      case Some(rev) => new DatabaseDeleteDocWithId(context).deleteDocWithId(docId, rev)
-      case _ => // ignore, do not have to delete document because it does not exist
-    }
-  }
-
-  override def deleteDocsWithIds(docIds: Seq[String]): Unit = {
-    new DatabaseDeleteDocsWithIds(context).deleteDocsWithIds(docIds)
-  }
-
-  override def revision(docId: String): Option[String] = {
-    new DatabaseRevision(context).revision(docId)
   }
 
   override def execute[T](query: Query[T]): T = {
     new DatabaseQuery(context).execute(query)
-  }
-
-  override def keysWithIds(docIds: Seq[String]): Seq[String] = {
-    new DatabaseKeysWithIds(context).keysWithIds(docIds)
   }
 
   override def post[T](query: Query[T], body: String, docType: Class[T]): T = {

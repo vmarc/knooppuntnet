@@ -14,10 +14,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 
-/*
-  Determines the route differences outside of the context of a network definition.
-  Used for analyzing changes to orphan routes.
- */
 class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
 
   private val log = Log(classOf[RouteDiffAnalyzer])

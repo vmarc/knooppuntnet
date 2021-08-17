@@ -15,9 +15,7 @@ import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
-import kpn.server.analyzer.engine.analysis.location.OldNodeLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
-import kpn.server.analyzer.engine.analysis.network.NetworkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRelationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.network.NetworkRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
@@ -32,7 +30,6 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAna
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldMainNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
@@ -46,13 +43,9 @@ import kpn.server.analyzer.engine.context.Watched
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.load.NodeLoaderImpl
-import kpn.server.analyzer.load.OldRouteLoader
-import kpn.server.analyzer.load.OldRouteLoaderImpl
 import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
-import kpn.server.repository.BlackListRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
@@ -102,13 +95,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
   private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
 
-  val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(
-    mongoDatabase,
-    networkRepository,
-    routeRepository,
-    nodeRepository,
-    nodeAnalyzer
-  )
+  val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(mongoDatabase)
 
   val statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
 
@@ -124,21 +111,9 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val changeSetRepository = new ChangeSetRepositoryImpl(mongoDatabase, changeDatabase)
 
-  private val blackListRepository = new BlackListRepositoryImpl(null, analysisDatabase, false)
-
   val orphanRepository = new OrphanRepositoryImpl(mongoDatabase)
 
   val factRepository = new FactRepositoryImpl(mongoDatabase)
-
-  val nodeLoader = new NodeLoaderImpl(
-    nonCachingExecutor,
-    countryAnalyzer,
-    oldNodeAnalyzer
-  )
-
-  val routeLoader: OldRouteLoader = new OldRouteLoaderImpl(
-    cachingExecutor
-  )
 
   val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
 
@@ -155,14 +130,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   )
 
   val networkRelationAnalyzer = new NetworkRelationAnalyzerImpl(countryAnalyzer)
-
-  val oldNodeLocationAnalyzer = new OldNodeLocationAnalyzerImpl(locationConfiguration, true)
-  val oldMainNodeAnalyzer = new OldMainNodeAnalyzerImpl(
-    countryAnalyzer,
-    oldNodeLocationAnalyzer
-  )
-
-  val networkNodeAnalyzer = new NetworkNodeAnalyzerImpl(oldMainNodeAnalyzer, oldNodeAnalyzer)
 
   val networkRouteAnalyzer = new NetworkRouteAnalyzerImpl(
     countryAnalyzer,

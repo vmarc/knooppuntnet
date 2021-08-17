@@ -115,30 +115,30 @@ class AnalyzerStartTool(config: AnalyzerStartToolConfiguration) {
 
   private def loadOrphanRoute(routeId: Long): Unit = {
 
-    val loadedRouteOption = config.routeLoader.loadRoute(config.timestamp, routeId)
-    loadedRouteOption match {
-      case None => log.info(s"Could not load route $routeId")
-      case Some(loadedRoute) =>
-
-        val analysis = config.routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/).get
-        val route = analysis.route.copy(/*orphan = true*/)
-        config.routeRepository.save(route)
-        loadOrphanRouteChange(analysis)
-
-        val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
-
-        allNodes.values.foreach { networkNode =>
-          config.nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw)) match {
-            case None => // TODO message?
-            case Some(nodeAnalysis) =>
-              config.nodeRepository.save(nodeAnalysis.toNodeDoc)
-              loadNodeChange(nodeAnalysis)
-          }
-        }
-
-        val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
-        config.analysisContext.watched.routes.add(loadedRoute.id, elementIds)
-    }
+//    val loadedRouteOption = config.routeLoader.loadRoute(config.timestamp, routeId)
+//    loadedRouteOption match {
+//      case None => log.info(s"Could not load route $routeId")
+//      case Some(loadedRoute) =>
+//
+//        val analysis = config.routeAnalyzer.analyze(loadedRoute.relation /*, orphan = true*/).get
+//        val route = analysis.route.copy(/*orphan = true*/)
+//        config.routeRepository.save(route)
+//        loadOrphanRouteChange(analysis)
+//
+//        val allNodes = config.networkNodeAnalyzer.analyze(loadedRoute.scopedNetworkType, loadedRoute.data)
+//
+//        allNodes.values.foreach { networkNode =>
+//          config.nodeAnalyzer.analyze(NodeAnalysis(networkNode.node.raw)) match {
+//            case None => // TODO message?
+//            case Some(nodeAnalysis) =>
+//              config.nodeRepository.save(nodeAnalysis.toNodeDoc)
+//              loadNodeChange(nodeAnalysis)
+//          }
+//        }
+//
+//        val elementIds = RelationAnalyzer.toElementIds(loadedRoute.relation)
+//        config.analysisContext.watched.routes.add(loadedRoute.id, elementIds)
+//    }
   }
 
   private def loadOrphanNodes(): Unit = {

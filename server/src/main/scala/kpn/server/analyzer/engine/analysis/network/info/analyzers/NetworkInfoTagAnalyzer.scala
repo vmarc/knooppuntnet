@@ -15,7 +15,14 @@ class NetworkInfoTagAnalyzer extends NetworkInfoAnalyzer {
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     val facts = ListBuffer[Fact]()
     // TODO MONGO other tag related analysis
-    context
+
+    if(!context.networkDoc.tags.has("name")) {
+      facts += Fact.NameMissing
+    }
+
+    context.copy(
+      facts = context.facts ++ facts
+    )
   }
 
 }
