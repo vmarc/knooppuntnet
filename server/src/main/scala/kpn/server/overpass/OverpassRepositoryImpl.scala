@@ -23,7 +23,7 @@ import scala.xml.XML
 
 @Component
 class OverpassRepositoryImpl(
-  nonCachingOverpassQueryExecutor: OverpassQueryExecutor
+  overpassQueryExecutor: OverpassQueryExecutor
 ) extends OverpassRepository {
 
   private val log = Log(classOf[OverpassRepositoryImpl])
@@ -51,7 +51,7 @@ class OverpassRepositoryImpl(
       val query = QueryNodes("nodes", nodeIds)
 
       val xmlString: String = log.debugElapsed {
-        val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), query)
+        val xml = overpassQueryExecutor.executeQuery(Some(timestamp), query)
         (s"Load ${nodeIds.size} nodes at ${timestamp.iso}", xml)
       }
 
@@ -82,7 +82,7 @@ class OverpassRepositoryImpl(
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Seq[Long] = {
-    parseIds(elementTag, nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), query))
+    parseIds(elementTag, overpassQueryExecutor.executeQuery(Some(timestamp), query))
   }
 
   private def parseIds(elementTag: String, xmlString: String): Seq[Long] = {
@@ -101,7 +101,7 @@ class OverpassRepositoryImpl(
     }
     else {
       val xmlString: String = log.debugElapsed {
-        val xml = nonCachingOverpassQueryExecutor.executeQuery(Some(timestamp), query)
+        val xml = overpassQueryExecutor.executeQuery(Some(timestamp), query)
         (s"Load ${relationIds.size} relations at ${timestamp.iso}", xml)
       }
 
@@ -116,5 +116,4 @@ class OverpassRepositoryImpl(
       new Parser().parse(xml.head)
     }
   }
-
 }

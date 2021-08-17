@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class OverpassController(nonCachingOverpassQueryExecutor: OverpassQueryExecutor) {
+class OverpassController(overpassQueryExecutor: OverpassQueryExecutor) {
 
   private val log = Log(classOf[OverpassController])
 
@@ -15,7 +15,7 @@ class OverpassController(nonCachingOverpassQueryExecutor: OverpassQueryExecutor)
   def mapNodeDetail(@RequestBody queryString: String): String = {
     log.infoElapsed {
       val xml = try {
-        nonCachingOverpassQueryExecutor.execute(queryString)
+        overpassQueryExecutor.execute(queryString)
       }
       catch {
         case e: Exception =>
@@ -38,5 +38,4 @@ class OverpassController(nonCachingOverpassQueryExecutor: OverpassQueryExecutor)
       string
     }
   }
-
 }

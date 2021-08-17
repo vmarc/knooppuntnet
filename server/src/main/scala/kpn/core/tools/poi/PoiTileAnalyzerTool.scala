@@ -27,8 +27,8 @@ object PoiTileAnalyzerTool {
 
         Mongo.executeIn(options.poiDatabaseName) { poiDatabase =>
           val poiLoader = {
-            val nonCachingExecutor = new OverpassQueryExecutorImpl()
-            new PoiLoaderImpl(nonCachingExecutor)
+            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+            new PoiLoaderImpl(overpassQueryExecutor)
           }
           val poiRepository = new PoiRepositoryImpl(poiDatabase)
           val poiScopeAnalyzer = {

@@ -8,7 +8,6 @@ import kpn.core.database.DatabaseImpl
 import kpn.core.database.implementation.DatabaseContextImpl
 import kpn.core.db.couch.Couch
 import kpn.core.mongo.util.Mongo
-import kpn.core.overpass.CachingOverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
@@ -95,9 +94,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val changeSetInfoApi = new ChangeSetInfoApiImpl(dirs.changeSets)
 
-  val nonCachingExecutor = new OverpassQueryExecutorImpl()
-
-  val cachingExecutor = new CachingOverpassQueryExecutor(dirs.cache, nonCachingExecutor)
+  val overpassQueryExecutor = new OverpassQueryExecutorImpl()
 
   val osmChangeRepository = new OsmChangeRepository(dirs.replicate)
 

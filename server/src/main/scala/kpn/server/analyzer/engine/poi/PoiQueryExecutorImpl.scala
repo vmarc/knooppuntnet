@@ -10,12 +10,12 @@ import scala.xml.SAXParseException
 import scala.xml.XML
 
 @Component
-class PoiQueryExecutorImpl(cachingOverpassQueryExecutor: OverpassQueryExecutor) extends PoiQueryExecutor {
+class PoiQueryExecutorImpl(overpassQueryExecutor: OverpassQueryExecutor) extends PoiQueryExecutor {
 
   override def center(poiRef: PoiRef): Option[LatLon] = {
 
     val query = PoiCenterQuery(poiRef)
-    val xmlString = cachingOverpassQueryExecutor.executeQuery(None, query)
+    val xmlString = overpassQueryExecutor.executeQuery(None, query)
 
     val xml = try {
       XML.loadString(xmlString)
