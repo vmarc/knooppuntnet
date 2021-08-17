@@ -23,17 +23,13 @@ import { ChangeSetNetworkAction } from './components/change-set-network.componen
         ></kpn-change-set-network>
       </div>
 
-      <div
-        *ngFor="let orphanNodeChanges of changeSet.summary.orphanNodeChanges"
-      >
+      <div *ngFor="let orphanNodeChanges of changeSet.summary.nodeChanges">
         <kpn-change-set-orphan-nodes
           [subsetElementRefs]="orphanNodeChanges"
         ></kpn-change-set-orphan-nodes>
       </div>
 
-      <div
-        *ngFor="let orphanRouteChanges of changeSet.summary.orphanRouteChanges"
-      >
+      <div *ngFor="let orphanRouteChanges of changeSet.summary.routeChanges">
         <kpn-change-set-orphan-routes
           [subsetElementRefs]="orphanRouteChanges"
         ></kpn-change-set-orphan-routes>

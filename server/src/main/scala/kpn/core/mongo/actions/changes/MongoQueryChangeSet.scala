@@ -1,6 +1,7 @@
 package kpn.core.mongo.actions.changes
 
 import kpn.api.common.ChangeSetSummary
+import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -27,8 +28,22 @@ class MongoQueryChangeSet(database: Database) {
       val networkChanges = findNetworkChanges(changeSetId, replicationNumber)
       val routeChanges = findRouteChanges(changeSetId, replicationNumber)
       val nodeChanges = findNodeChanges(changeSetId, replicationNumber)
+
+      val locationChangeSetSummary = findLocationChangeSetSummary(changeSetId, replicationId).getOrElse(
+        LocationChangeSetSummary(
+          changeSetSummary._id,
+          changeSetSummary.key,
+          changeSetSummary.timestampFrom,
+          changeSetSummary.timestampUntil,
+          trees = Seq.empty,
+          changeSetSummary.happy,
+          changeSetSummary.investigate,
+          changeSetSummary.impact
+        )
+      )
       ChangeSetData(
         changeSetSummary,
+        locationChangeSetSummary,
         networkChanges,
         routeChanges,
         nodeChanges
@@ -54,6 +69,27 @@ class MongoQueryChangeSet(database: Database) {
     log.debugElapsed {
       val summaries = database.changeSetSummaries.aggregate[ChangeSetSummary](pipeline)
       (s"${summaries.size} changeset summaries", summaries)
+    }
+  }
+
+  private def findLocationChangeSetSummary(changeSetId: Long, replicationId: Option[ReplicationId]): Option[LocationChangeSetSummary] = {
+
+    val filterElements = Seq(
+      Some(equal("key.changeSetId", changeSetId)),
+      replicationId.map(id => equal("key.replicationNumber", id.number))
+    ).flatten
+
+    val pipeline = Seq(
+      filter(and(filterElements: _*))
+    )
+
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
+
+    log.debugElapsed {
+      val summaryOption = database.locationChangeSetSummaries.optionAggregate[LocationChangeSetSummary](pipeline)
+      (s"${summaryOption.size} location changeset summaries", summaryOption)
     }
   }
 

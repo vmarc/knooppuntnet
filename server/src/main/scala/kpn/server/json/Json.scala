@@ -69,7 +69,7 @@ object Json {
     b.deserializerByType(classOf[WayDirection], new WayDirectionJsonDeserializer())
     b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())
 
-    b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
+    //b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
     b.deserializerByType(classOf[Geometry], new GeometryJsonDeserializer())
 
     b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())

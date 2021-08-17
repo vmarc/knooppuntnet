@@ -1,6 +1,7 @@
 package kpn.api.common.changes
 
 import kpn.api.common.ChangeSetSummary
+import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -8,6 +9,7 @@ import kpn.api.common.common.ReferencedElements
 
 case class ChangeSetData(
   summary: ChangeSetSummary,
+  locationSummary: LocationChangeSetSummary,
   networkChanges: Seq[NetworkInfoChange],
   routeChanges: Seq[RouteChange],
   nodeChanges: Seq[NodeChange]

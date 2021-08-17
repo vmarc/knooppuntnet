@@ -8,6 +8,4 @@ case class LocationChangesTree(
   happy: Boolean,
   investigate: Boolean,
   children: Seq[LocationChangesTreeNode]
-) {
-}
-
+)

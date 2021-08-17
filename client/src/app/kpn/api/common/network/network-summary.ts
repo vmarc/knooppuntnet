@@ -11,5 +11,4 @@ export interface NetworkSummary {
   readonly nodeCount: number;
   readonly routeCount: number;
   readonly changeCount: number;
-  readonly active: boolean;
 }

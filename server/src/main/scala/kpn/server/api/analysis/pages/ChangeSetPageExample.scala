@@ -49,6 +49,7 @@ object ChangeSetPageExample {
     ChangeSetPage(
       summary = changeSetSummary(),
       changeSetInfo = Some(changeSetInfo()),
+      trees = Seq.empty,
       networkChanges = networkChanges(),
       routeChanges = routeChanges(),
       nodeChanges = nodeChanges(),

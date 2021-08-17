@@ -12,10 +12,7 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
   selector: 'kpn-change-set-orphan-route-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngFor="let refs of page.summary.orphanRouteChanges"
-      class="kpn-level-1"
-    >
+    <div *ngFor="let refs of page.summary.routeChanges" class="kpn-level-1">
       <div class="kpn-level-1-header kpn-line">
         <kpn-network-type-icon
           [networkType]="refs.subset.networkType"

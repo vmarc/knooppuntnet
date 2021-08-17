@@ -12,10 +12,7 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
   selector: 'kpn-change-set-orphan-node-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngFor="let refs of page.summary.orphanNodeChanges"
-      class="kpn-level-1"
-    >
+    <div *ngFor="let refs of page.summary.nodeChanges" class="kpn-level-1">
       <div class="kpn-level-1-header kpn-line">
         <kpn-network-type-icon
           [networkType]="refs.subset.networkType"

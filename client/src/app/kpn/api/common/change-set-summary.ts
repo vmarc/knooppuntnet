@@ -14,8 +14,8 @@ export interface ChangeSetSummary {
   readonly timestampFrom: Timestamp;
   readonly timestampUntil: Timestamp;
   readonly networkChanges: NetworkChanges;
-  readonly orphanRouteChanges: ChangeSetSubsetElementRefs[];
-  readonly orphanNodeChanges: ChangeSetSubsetElementRefs[];
+  readonly routeChanges: ChangeSetSubsetElementRefs[];
+  readonly nodeChanges: ChangeSetSubsetElementRefs[];
   readonly subsetAnalyses: ChangeSetSubsetAnalysis[];
   readonly happy: boolean;
   readonly investigate: boolean;

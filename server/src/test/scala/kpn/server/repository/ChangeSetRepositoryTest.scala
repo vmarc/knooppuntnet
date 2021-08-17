@@ -66,6 +66,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         Seq(
           ChangeSetData(
             changeSetSummary1,
+            null,
             Seq(networkChange1),
             Seq(routeChange1),
             Seq(nodeChange1)
@@ -77,6 +78,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         Seq(
           ChangeSetData(
             changeSetSummary2,
+            null,
             Seq(networkChange2),
             Seq(routeChange2),
             Seq(nodeChange2)
@@ -88,12 +90,14 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         Seq(
           ChangeSetData(
             changeSetSummary1,
+            null,
             Seq(networkChange1),
             Seq(routeChange1),
             Seq(nodeChange1)
           ),
           ChangeSetData(
             changeSetSummary2,
+            null,
             Seq(networkChange2),
             Seq(routeChange2),
             Seq(nodeChange2)

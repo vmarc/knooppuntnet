@@ -95,6 +95,7 @@ class ChangeSetDatasJsonDeserializer extends JsonDeserializer[ChangeSetDatas] {
 
     ChangeSetData(
       changeSetSummaries.head,
+      null,
       networkChanges.toSeq,
       routeChanges.toSeq,
       nodeChanges.toSeq
