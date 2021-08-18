@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2021-08-18T12:36:03Z"/>
+
+    <node id="29683356" lat="52.0177987" lon="8.5337009" version="10" timestamp="2021-08-15T05:38:18Z" changeset="109688562" uid="8499661" user="segubi"/>
+    <node id="33766414" lat="52.0216168" lon="8.5342522" version="10" timestamp="2021-05-04T17:10:33Z" changeset="104137858" uid="8499661" user="segubi">
+        <tag k="expected_rcn_route_relations" v="5"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="note" v="Wenn der Jahnplatz-Umbau abgeschlossen ist, wird dies auch von der Funktion wieder zum Knoten. (aus Richtung KP 6)"/>
+        <tag k="rcn_ref" v="22"/>
+    </node>
+    <node id="33766416" lat="52.0214828" lon="8.5343110" version="5" timestamp="2012-03-07T13:40:10Z" changeset="10899830" uid="461103" user="nomatrix"/>
+    <node id="33766468" lat="52.0213485" lon="8.5343560" version="16" timestamp="2021-05-04T17:10:33Z" changeset="104137858" uid="8499661" user="segubi">
+        <tag k="crossing" v="marked"/>
+        <tag k="expected_rcn_route_relations" v="5"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="22"/>
+        <tag k="tactile_paving" v="yes"/>
+    </node>
+    <node id="33766560" lat="52.0208587" lon="8.5344267" version="5" timestamp="2012-03-07T13:40:10Z" changeset="10899830" uid="461103" user="nomatrix"/>
+    <node id="33766596" lat="52.0203322" lon="8.5344052" version="5" timestamp="2012-02-07T09:58:52Z" changeset="10610573" uid="461103" user="nomatrix"/>
+    <node id="33766622" lat="52.0201747" lon="8.5343758" version="8" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <tag k="crossing" v="marked"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="tactile_paving" v="no"/>
+    </node>
+    <node id="33766683" lat="52.0189631" lon="8.5338306" version="6" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="38414162" lat="52.0171596" lon="8.5323827" version="16" timestamp="2021-05-08T22:38:24Z" changeset="104380507" uid="8499661" user="segubi">
+        <tag k="expected_rcn_route_relations" v="4"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="56"/>
+    </node>
+    <node id="259564136" lat="52.0205389" lon="8.5347058" version="5" timestamp="2019-04-02T18:45:13Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="259564142" lat="52.0197573" lon="8.5344966" version="7" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="276305209" lat="52.0213500" lon="8.5346604" version="18" timestamp="2021-08-09T22:25:31Z" changeset="109430854" uid="13445186" user="DeFra85">
+        <tag k="crossing" v="marked"/>
+        <tag k="expected_rcn_route_relations" v="5"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="22"/>
+        <tag k="tactile_paving" v="yes"/>
+    </node>
+    <node id="297788142" lat="52.0211859" lon="8.5343937" version="6" timestamp="2015-05-17T13:01:41Z" changeset="31226282" uid="15046" user="tabris"/>
+    <node id="297790027" lat="52.0200962" lon="8.5346290" version="8" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <tag k="crossing" v="marked"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="tactile_paving" v="no"/>
+    </node>
+    <node id="297792760" lat="52.0170510" lon="8.5328578" version="3" timestamp="2012-02-07T09:58:51Z" changeset="10610573" uid="461103" user="nomatrix"/>
+    <node id="297799489" lat="52.0171200" lon="8.5325671" version="2" timestamp="2012-02-07T09:58:51Z" changeset="10610573" uid="461103" user="nomatrix"/>
+    <node id="339370782" lat="52.0196278" lon="8.5341747" version="2" timestamp="2012-02-07T09:58:52Z" changeset="10610573" uid="461103" user="nomatrix"/>
+    <node id="409686588" lat="52.0172173" lon="8.5329787" version="12" timestamp="2021-05-08T22:38:24Z" changeset="104380507" uid="8499661" user="segubi">
+        <tag k="crossing" v="marked"/>
+        <tag k="expected_rcn_route_relations" v="4"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="56"/>
+        <tag k="tactile_paving" v="no"/>
+    </node>
+    <node id="409686589" lat="52.0171550" lon="8.5332044" version="13" timestamp="2021-05-08T22:38:24Z" changeset="104380507" uid="8499661" user="segubi">
+        <tag k="crossing" v="marked"/>
+        <tag k="expected_rcn_route_relations" v="4"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rcn_ref" v="56"/>
+        <tag k="tactile_paving" v="no"/>
+    </node>
+    <node id="409686591" lat="52.0171731" lon="8.5331389" version="6" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <tag k="railway" v="crossing"/>
+    </node>
+    <node id="729858911" lat="52.0187291" lon="8.5340094" version="2" timestamp="2012-02-07T09:58:54Z" changeset="10610573" uid="461103" user="nomatrix"/>
+    <node id="1248453513" lat="52.0172190" lon="8.5326312" version="5" timestamp="2019-04-30T17:53:56Z" changeset="69745164" uid="9584964" user="BImoBielJH"/>
+    <node id="1343735113" lat="52.0171948" lon="8.5330605" version="6" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <tag k="railway" v="crossing"/>
+    </node>
+    <node id="1343735126" lat="52.0212785" lon="8.5346820" version="3" timestamp="2019-04-02T18:45:13Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="1530050227" lat="52.0189262" lon="8.5340661" version="3" timestamp="2015-05-17T13:01:40Z" changeset="31226282" uid="15046" user="tabris"/>
+    <node id="1621355761" lat="52.0178115" lon="8.5334280" version="2" timestamp="2019-06-25T10:39:51Z" changeset="71594672" uid="9584964" user="BImoBielJH"/>
+    <node id="1621355764" lat="52.0190211" lon="8.5341033" version="1" timestamp="2012-02-07T09:58:36Z" changeset="10610573" uid="461103" user="nomatrix"/>
+    <node id="1621355765" lat="52.0198977" lon="8.5342939" version="2" timestamp="2019-04-02T18:45:13Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="1621363476" lat="52.0196635" lon="8.5344515" version="3" timestamp="2021-05-31T11:24:40Z" changeset="105620151" uid="9584964" user="BImoBielJH">
+        <tag k="crossing:barrier" v="no"/>
+        <tag k="railway" v="level_crossing"/>
+    </node>
+    <node id="1664277019" lat="52.0204598" lon="8.5344237" version="1" timestamp="2012-03-07T13:40:02Z" changeset="10899830" uid="461103" user="nomatrix"/>
+    <node id="1664277033" lat="52.0205964" lon="8.5344318" version="1" timestamp="2012-03-07T13:40:03Z" changeset="10899830" uid="461103" user="nomatrix"/>
+    <node id="1664277046" lat="52.0209632" lon="8.5347173" version="4" timestamp="2020-04-05T09:03:41Z" changeset="83091330" uid="6215979" user="Maze4Bi2">
+        <tag k="crossing" v="unmarked"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="tactile_paving" v="yes"/>
+    </node>
+    <node id="1664277047" lat="52.0209906" lon="8.5344182" version="4" timestamp="2020-04-05T09:04:08Z" changeset="83091330" uid="6215979" user="Maze4Bi2">
+        <tag k="crossing" v="unmarked"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="tactile_paving" v="no"/>
+    </node>
+    <node id="1664277051" lat="52.0210965" lon="8.5347106" version="1" timestamp="2012-03-07T13:40:03Z" changeset="10899830" uid="461103" user="nomatrix"/>
+    <node id="1742070273" lat="52.0171840" lon="8.5330994" version="9" timestamp="2020-08-21T23:10:46Z" changeset="89766885" uid="8499661" user="segubi">
+        <tag k="cycle_network" v="Bielefeld"/>
+        <tag k="highway" v="traffic_signals"/>
+        <tag k="traffic_signals" v="blinker"/>
+    </node>
+    <node id="1742070279" lat="52.0180101" lon="8.5338318" version="6" timestamp="2020-07-05T20:02:32Z" changeset="87565326" uid="10048267" user="John_mapper">
+        <tag k="crossing" v="traffic_signals"/>
+        <tag k="highway" v="traffic_signals"/>
+        <tag k="traffic_signals" v="signal"/>
+        <tag k="traffic_signals:direction" v="forward"/>
+    </node>
+    <node id="1755156198" lat="52.0203704" lon="8.5346855" version="1" timestamp="2012-05-16T19:33:28Z" changeset="11617204" uid="461103" user="nomatrix"/>
+    <node id="1813696469" lat="52.0182949" lon="8.5339255" version="3" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <tag k="crossing" v="traffic_signals"/>
+        <tag k="highway" v="crossing"/>
+    </node>
+    <node id="1813696481" lat="52.0183185" lon="8.5336352" version="4" timestamp="2020-07-05T20:02:32Z" changeset="87565326" uid="10048267" user="John_mapper">
+        <tag k="crossing" v="traffic_signals"/>
+        <tag k="highway" v="traffic_signals"/>
+        <tag k="traffic_signals" v="signal"/>
+        <tag k="traffic_signals:direction" v="forward"/>
+    </node>
+    <node id="2362975966" lat="52.0202460" lon="8.5346650" version="2" timestamp="2019-04-02T18:45:13Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="3406278335" lat="52.0171998" lon="8.5324903" version="1" timestamp="2015-03-18T22:56:41Z" changeset="29581828" uid="461103" user="nomatrix"/>
+    <node id="3499392069" lat="52.0213486" lon="8.5343839" version="4" timestamp="2020-06-19T19:36:16Z" changeset="86891599" uid="10048267" user="John_mapper"/>
+    <node id="3499392070" lat="52.0213488" lon="8.5344278" version="4" timestamp="2020-06-19T19:36:16Z" changeset="86891599" uid="10048267" user="John_mapper"/>
+    <node id="3499392071" lat="52.0213490" lon="8.5345878" version="6" timestamp="2021-08-09T22:25:31Z" changeset="109430854" uid="13445186" user="DeFra85"/>
+    <node id="3499392072" lat="52.0213495" lon="8.5346268" version="6" timestamp="2021-08-09T22:25:31Z" changeset="109430854" uid="13445186" user="DeFra85"/>
+    <node id="3523495594" lat="52.0199114" lon="8.5345674" version="1" timestamp="2015-05-17T13:01:35Z" changeset="31226282" uid="15046" user="tabris"/>
+    <node id="3734059845" lat="52.0197098" lon="8.5344745" version="2" timestamp="2021-05-31T11:24:40Z" changeset="105620151" uid="9584964" user="BImoBielJH">
+        <tag k="crossing:barrier" v="no"/>
+        <tag k="railway" v="level_crossing"/>
+    </node>
+    <node id="3734059846" lat="52.0198043" lon="8.5345182" version="3" timestamp="2019-06-28T14:19:57Z" changeset="71710050" uid="6215979" user="Maze4Bi2">
+        <tag k="crossing:barrier" v="no"/>
+        <tag k="railway" v="level_crossing"/>
+    </node>
+    <node id="3734059847" lat="52.0198466" lon="8.5345380" version="4" timestamp="2019-06-28T14:19:59Z" changeset="71710050" uid="6215979" user="Maze4Bi2">
+        <tag k="crossing:barrier" v="no"/>
+        <tag k="railway" v="level_crossing"/>
+    </node>
+    <node id="4646727194" lat="52.0175730" lon="8.5335268" version="3" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="4734190677" lat="52.0180540" lon="8.5335506" version="6" timestamp="2021-06-19T17:59:21Z" changeset="106641648" uid="6215979" user="Maze4Bi2">
+        <tag k="crossing" v="traffic_signals"/>
+        <tag k="highway" v="crossing"/>
+        <tag k="tactile_paving" v="yes"/>
+        <tag k="traffic_signals:sound" v="yes"/>
+    </node>
+    <node id="6379239277" lat="52.0200059" lon="8.5343340" version="1" timestamp="2019-04-02T18:45:09Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="6379240310" lat="52.0207422" lon="8.5344332" version="1" timestamp="2019-04-02T18:45:10Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="6379240311" lat="52.0207480" lon="8.5347163" version="1" timestamp="2019-04-02T18:45:10Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="6379240316" lat="52.0211747" lon="8.5347048" version="1" timestamp="2019-04-02T18:45:10Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="6379240318" lat="52.0201816" lon="8.5346511" version="1" timestamp="2019-04-02T18:45:10Z" changeset="68808142" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373478" lat="52.0172317" lon="8.5327170" version="1" timestamp="2019-04-30T17:53:54Z" changeset="69745164" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373483" lat="52.0171649" lon="8.5331685" version="3" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373484" lat="52.0172057" lon="8.5330207" version="2" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373685" lat="52.0172332" lon="8.5329211" version="2" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373686" lat="52.0180606" lon="8.5338561" version="1" timestamp="2019-04-30T17:53:54Z" changeset="69745164" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373688" lat="52.0181405" lon="8.5338850" version="1" timestamp="2019-04-30T17:53:54Z" changeset="69745164" uid="9584964" user="BImoBielJH"/>
+    <node id="6439373693" lat="52.0182015" lon="8.5335992" version="2" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6513306005" lat="52.0187627" lon="8.5337598" version="1" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6513306006" lat="52.0191548" lon="8.5339249" version="1" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6513306039" lat="52.0177081" lon="8.5333527" version="2" timestamp="2019-06-25T10:39:51Z" changeset="71594672" uid="9584964" user="BImoBielJH"/>
+    <node id="6513306040" lat="52.0178999" lon="8.5337674" version="1" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH"/>
+    <node id="6513306065" lat="52.0195770" lon="8.5344062" version="1" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <tag k="highway" v="traffic_signals"/>
+        <tag k="traffic_signals" v="tram_priority"/>
+        <tag k="traffic_signals:direction" v="forward"/>
+    </node>
+    <node id="6569834188" lat="52.0179576" lon="8.5335166" version="1" timestamp="2019-06-25T10:39:51Z" changeset="71594672" uid="9584964" user="BImoBielJH"/>
+    <node id="6569834196" lat="52.0178937" lon="8.5334830" version="1" timestamp="2019-06-25T10:39:51Z" changeset="71594672" uid="9584964" user="BImoBielJH"/>
+    <node id="7636325026" lat="52.0213490" lon="8.5345064" version="5" timestamp="2021-05-01T17:59:54Z" changeset="103968278" uid="8499661" user="segubi"/>
+    <node id="7685730174" lat="52.0188214" lon="8.5340321" version="1" timestamp="2020-07-05T20:02:32Z" changeset="87565326" uid="10048267" user="John_mapper"/>
+    <way id="73849972" version="18" timestamp="2020-12-01T10:48:36Z" changeset="95090533" uid="1207217" user="Geoinfo3BI">
+        <nd ref="4646727194"/>
+        <nd ref="29683356"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="3"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="108918562" version="16" timestamp="2021-08-09T17:38:52Z" changeset="109421740" uid="8499661" user="segubi">
+        <nd ref="38414162"/>
+        <nd ref="3406278335"/>
+        <nd ref="1248453513"/>
+        <nd ref="6439373478"/>
+        <nd ref="6439373685"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="designated"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="oneway:bicycle" v="yes"/>
+        <tag k="segregated" v="no"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="111423162" version="13" timestamp="2020-07-06T07:48:56Z" changeset="87584905" uid="29639" user="bielebog">
+        <nd ref="33766468"/>
+        <nd ref="297788142"/>
+        <nd ref="1664277047"/>
+        <nd ref="33766560"/>
+        <nd ref="6379240310"/>
+        <nd ref="1664277033"/>
+        <nd ref="1664277019"/>
+        <nd ref="33766596"/>
+        <nd ref="33766622"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="111423183" version="18" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <nd ref="33766622"/>
+        <nd ref="6379239277"/>
+        <nd ref="1621355765"/>
+        <nd ref="339370782"/>
+        <tag k="cycleway" v="right"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="157113038" version="17" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <nd ref="259564142"/>
+        <nd ref="3734059846"/>
+        <nd ref="3734059847"/>
+        <nd ref="3523495594"/>
+        <nd ref="297790027"/>
+        <nd ref="6379240318"/>
+        <nd ref="2362975966"/>
+        <nd ref="1755156198"/>
+        <nd ref="259564136"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk:right" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="170212759" version="13" timestamp="2020-07-05T20:02:32Z" changeset="87565326" uid="10048267" user="John_mapper">
+        <nd ref="6439373688"/>
+        <nd ref="1813696469"/>
+        <nd ref="729858911"/>
+        <nd ref="7685730174"/>
+        <nd ref="1530050227"/>
+        <nd ref="1621355764"/>
+        <nd ref="6513306065"/>
+        <nd ref="1621363476"/>
+        <nd ref="3734059845"/>
+        <nd ref="259564142"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="170212778" version="10" timestamp="2020-08-21T21:52:23Z" changeset="89765366" uid="8499661" user="segubi">
+        <nd ref="6439373483"/>
+        <nd ref="409686589"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="crossing" v="marked"/>
+        <tag k="foot" v="designated"/>
+        <tag k="footway" v="crossing"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="segregated" v="no"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="333984553" version="4" timestamp="2021-03-15T15:23:41Z" changeset="101059361" uid="12257836" user="andywlan">
+        <nd ref="38414162"/>
+        <nd ref="297799489"/>
+        <nd ref="297792760"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lit" v="no"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Neustädter Straße"/>
+        <tag k="sidewalk" v="none"/>
+        <tag k="source:maxspeed" v="de:zone30"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="338952214" version="13" timestamp="2020-12-01T10:48:36Z" changeset="95090533" uid="1207217" user="Geoinfo3BI">
+        <nd ref="6439373693"/>
+        <nd ref="4734190677"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="smoothness" v="excellent"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="489070738" version="6" timestamp="2020-08-21T21:26:58Z" changeset="89764653" uid="8499661" user="segubi">
+        <nd ref="1664277046"/>
+        <nd ref="1664277051"/>
+        <nd ref="6379240316"/>
+        <nd ref="1343735126"/>
+        <nd ref="276305209"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lit" v="yes"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="574771661" version="5" timestamp="2020-08-21T21:26:58Z" changeset="89764653" uid="8499661" user="segubi">
+        <nd ref="3499392072"/>
+        <nd ref="276305209"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="crossing" v="marked"/>
+        <tag k="footway" v="crossing"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="590444239" version="4" timestamp="2020-12-01T10:48:36Z" changeset="95090533" uid="1207217" user="Geoinfo3BI">
+        <nd ref="409686589"/>
+        <nd ref="4646727194"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="2"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="604854323" version="4" timestamp="2019-06-28T14:19:52Z" changeset="71710022" uid="6215979" user="Maze4Bi2">
+        <nd ref="339370782"/>
+        <nd ref="6513306006"/>
+        <nd ref="33766683"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="right"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="681223097" version="3" timestamp="2020-06-19T19:36:16Z" changeset="86891599" uid="10048267" user="John_mapper">
+        <nd ref="3499392069"/>
+        <nd ref="3499392070"/>
+        <nd ref="7636325026"/>
+        <nd ref="3499392071"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="686940032" version="6" timestamp="2021-08-09T17:38:52Z" changeset="109421740" uid="8499661" user="segubi">
+        <nd ref="6439373685"/>
+        <nd ref="409686588"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="crossing" v="marked"/>
+        <tag k="foot" v="designated"/>
+        <tag k="footway" v="crossing"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="oneway:bicycle" v="yes"/>
+        <tag k="segregated" v="no"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="686940033" version="3" timestamp="2020-06-06T16:00:52Z" changeset="86283924" uid="10048267" user="John_mapper">
+        <nd ref="6439373484"/>
+        <nd ref="1343735113"/>
+        <nd ref="1742070273"/>
+        <nd ref="409686591"/>
+        <nd ref="6439373483"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="foot" v="designated"/>
+        <tag k="highway" v="path"/>
+        <tag k="lit" v="yes"/>
+        <tag k="segregated" v="no"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="693747747" version="3" timestamp="2020-12-01T10:48:36Z" changeset="95090533" uid="1207217" user="Geoinfo3BI">
+        <nd ref="29683356"/>
+        <nd ref="6513306040"/>
+        <nd ref="1742070279"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="no"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="3"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+        <tag k="turn:lanes" v="left|through|right"/>
+    </way>
+    <way id="693747749" version="2" timestamp="2020-12-01T10:48:36Z" changeset="95090533" uid="1207217" user="Geoinfo3BI">
+        <nd ref="1742070279"/>
+        <nd ref="6439373686"/>
+        <nd ref="6439373688"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="3"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+        <tag k="turn:lanes" v="left|through|right"/>
+    </way>
+    <way id="693747750" version="1" timestamp="2019-05-31T13:58:14Z" changeset="70809531" uid="9584964" user="BImoBielJH">
+        <nd ref="33766683"/>
+        <nd ref="6513306005"/>
+        <nd ref="1813696481"/>
+        <nd ref="6439373693"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="3"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+        <tag k="turn:lanes:forward" v="left|through|right"/>
+    </way>
+    <way id="699620994" version="4" timestamp="2021-03-07T18:42:40Z" changeset="100587344" uid="12257836" user="andywlan">
+        <nd ref="4734190677"/>
+        <nd ref="6569834188"/>
+        <nd ref="6569834196"/>
+        <nd ref="1621355761"/>
+        <nd ref="6513306039"/>
+        <nd ref="409686588"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="none"/>
+        <tag k="smoothness" v="excellent"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="800661250" version="2" timestamp="2020-06-19T19:36:16Z" changeset="86891599" uid="10048267" user="John_mapper">
+        <nd ref="3499392071"/>
+        <nd ref="3499392072"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="812445112" version="1" timestamp="2020-06-03T09:12:41Z" changeset="86124829" uid="12448" user="Hartmut Holzgraefe">
+        <nd ref="259564136"/>
+        <nd ref="6379240311"/>
+        <nd ref="1664277046"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lit" v="yes"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="823352660" version="3" timestamp="2021-02-01T09:38:10Z" changeset="98498524" uid="9584964" user="BImoBielJH">
+        <nd ref="33766414"/>
+        <nd ref="33766416"/>
+        <nd ref="33766468"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="maxspeed" v="30"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="839428579" version="1" timestamp="2020-08-21T19:04:50Z" changeset="89760667" uid="8499661" user="segubi">
+        <nd ref="33766468"/>
+        <nd ref="3499392069"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="crossing" v="marked"/>
+        <tag k="footway" v="crossing"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="surface" v="paving_stones"/>
+    </way>
+    <way id="839489995" version="1" timestamp="2020-08-21T21:52:23Z" changeset="89765366" uid="8499661" user="segubi">
+        <nd ref="409686588"/>
+        <nd ref="6439373484"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="crossing" v="marked"/>
+        <tag k="foot" v="designated"/>
+        <tag k="footway" v="crossing"/>
+        <tag k="highway" v="footway"/>
+        <tag k="lit" v="yes"/>
+        <tag k="segregated" v="no"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="839489996" version="3" timestamp="2021-03-15T15:23:43Z" changeset="101059361" uid="12257836" user="andywlan">
+        <nd ref="409686588"/>
+        <nd ref="297792760"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:bicycle" v="designated"/>
+        <tag k="cycleway:right:oneway" v="yes"/>
+        <tag k="cycleway:right:segregated" v="yes"/>
+        <tag k="highway" v="residential"/>
+        <tag k="lanes" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="lit:mount" v="overhead_line"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Niederwall"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="none"/>
+        <tag k="smoothness" v="excellent"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <relation id="11527464" version="10" timestamp="2021-08-08T12:41:52Z" changeset="109344481" uid="8499661" user="segubi">
+        <member type="way" ref="823352660" role=""/>
+        <member type="way" ref="111423162" role=""/>
+        <member type="way" ref="111423183" role=""/>
+        <member type="way" ref="604854323" role=""/>
+        <member type="way" ref="693747750" role=""/>
+        <member type="way" ref="338952214" role=""/>
+        <member type="way" ref="699620994" role=""/>
+
+
+        <member type="way" ref="839428579" role=""/>
+        <member type="way" ref="681223097" role=""/>
+        <member type="way" ref="800661250" role=""/>
+        <member type="way" ref="574771661" role=""/>
+        <member type="way" ref="489070738" role=""/>
+        <member type="way" ref="812445112" role=""/>
+        <member type="way" ref="157113038" role=""/>
+        <member type="way" ref="170212759" role=""/>
+        <member type="way" ref="693747749" role=""/>
+        <member type="way" ref="693747747" role=""/>
+        <member type="way" ref="73849972" role=""/>
+        <member type="way" ref="590444239" role=""/>
+        <member type="way" ref="170212778" role=""/>
+        <member type="way" ref="686940033" role=""/>
+        <member type="way" ref="839489995" role=""/>
+
+        <member type="way" ref="686940032" role="forward"/>
+        <member type="way" ref="108918562" role="forward"/>
+
+        <member type="way" ref="839489996" role="forward"/>
+        <member type="way" ref="333984553" role="backward"/>
+
+        <tag k="fixme" v="... das braucht noch einmal eine vor Ort Inspektion für die Rollen und genaue Wegführung..."/>
+        <tag k="from" v="22"/>
+        <tag k="name" v="22-56"/>
+        <tag k="network" v="rcn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="ref" v="22-56"/>
+        <tag k="route" v="bicycle"/>
+        <tag k="to" v="56"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
