@@ -11,11 +11,12 @@ case class GeoJsonPointGeometry(`type`: String, coordinates: Array[Double]) exte
 case class GeoJsonLineStringGeometry(`type`: String, coordinates: Array[Array[Double]]) extends GeoJsonGeometry
 
 case class GeoJsonProperties(
-  id: Option[String],
-  name: Option[String],
-  begin_geoid: Option[String],
-  end_geoid: Option[String],
-  distance: Option[String]
+  id: Option[String] = None,
+  name: Option[String] = None,
+  begin_geoid: Option[String] = None,
+  end_geoid: Option[String] = None,
+  distance: Option[String] = None,
+  stroke: Option[String] = None,
 )
 
 object GeoJson {
