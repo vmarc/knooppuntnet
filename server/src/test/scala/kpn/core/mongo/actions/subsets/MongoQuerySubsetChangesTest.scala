@@ -53,7 +53,7 @@ class MongoQuerySubsetChangesTest extends UnitTest with SharedTestObjects {
   }
 
   private def changeSet(database: Database, changeSetId: Long, timestamp: Timestamp, subset: Subset, impact: Boolean): Unit = {
-    database.changeSetSummaries.save(
+    database.changes.save(
       newChangeSetSummary(
         key = newChangeKey(
           changeSetId = changeSetId,

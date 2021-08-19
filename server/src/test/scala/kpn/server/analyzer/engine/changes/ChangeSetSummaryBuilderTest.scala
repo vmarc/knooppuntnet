@@ -2,9 +2,12 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
-import kpn.api.common.LocationChangeSetSummary
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LocationChangesTree
 import kpn.api.common.LocationChangesTreeNode
+import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.location.Location
@@ -20,7 +23,7 @@ import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.context.ElementIds
 
-class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
+class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
   test("node and routes removed/added/updated") {
 
@@ -122,14 +125,55 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
       changes
     )
 
-    val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(context)
+    val changeSetSummary = new ChangeSetSummaryBuilder().build(context)
 
-    locationChangeSetSummary should matchTo(
-      LocationChangeSetSummary(
+    changeSetSummary should matchTo(
+      ChangeSetSummary(
         _id = newChangeKey().toShortId,
         key = newChangeKey(),
+        subsets = Seq(Subset.nlHiking),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
+        networkChanges = NetworkChanges(),
+        routeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(11, "01-02", investigate = true)
+              ),
+              added = Seq(
+                newChangeSetElementRef(12, "02-03", happy = true)
+              ),
+              updated = Seq(
+                newChangeSetElementRef(13, "03-04")
+              )
+            )
+          )
+        ),
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true)
+              ),
+              added = Seq(
+                newChangeSetElementRef(1002, "02", happy = true)
+              ),
+              updated = Seq(
+                newChangeSetElementRef(1003, "03")
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(
+            Subset.nlHiking,
+            happy = true,
+            investigate = true
+          )
+        ),
         trees = Seq(
           LocationChangesTree(
             networkType = NetworkType.hiking,
@@ -264,14 +308,53 @@ class LocationChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
       changes
     )
 
-    val locationChangeSetSummary = new LocationChangeSetSummaryBuilder().build(context)
+    val changeSetSummary = new ChangeSetSummaryBuilder().build(context)
 
-    locationChangeSetSummary should matchTo(
-      LocationChangeSetSummary(
+    changeSetSummary should matchTo(
+      ChangeSetSummary(
         _id = newChangeKey().toShortId,
         key = newChangeKey(),
+        subsets = Seq(
+          Subset.beBicycle,
+          Subset.beHiking,
+          Subset.nlHiking
+        ),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
+        networkChanges = NetworkChanges(),
+        routeChanges = Seq.empty,
+        nodeChanges = Seq(
+          ChangeSetSubsetElementRefs(
+            Subset.beBicycle,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1004, "04")
+              )
+            )
+          ),
+          ChangeSetSubsetElementRefs(
+            Subset.beHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1003, "03")
+              )
+            )
+          ),
+          ChangeSetSubsetElementRefs(
+            Subset.nlHiking,
+            ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+                newChangeSetElementRef(1002, "02"),
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.beBicycle),
+          ChangeSetSubsetAnalysis(Subset.beHiking),
+          ChangeSetSubsetAnalysis(Subset.nlHiking)
+        ),
         trees = Seq(
           LocationChangesTree(
             networkType = NetworkType.hiking,

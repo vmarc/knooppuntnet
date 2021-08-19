@@ -17,7 +17,7 @@ class RouteDeleteTest02 extends IntegrationTest {
       assert(!watched.routes.contains(11))
 
       assert(database.routes.isEmpty)
-      assert(database.changeSetSummaries.isEmpty)
+      assert(database.changes.isEmpty)
       assert(database.routeChanges.isEmpty)
     }
   }

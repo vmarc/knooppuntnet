@@ -2,7 +2,6 @@ package kpn.core.mongo
 
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.Poi
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -97,12 +96,8 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[ChangeSetComment]("changeset-comments"))
   }
 
-  override def changeSetSummaries: DatabaseCollection[ChangeSetSummary] = {
-    new DatabaseCollectionImpl(database.getCollection[ChangeSetSummary]("changeset-summaries"))
-  }
-
-  override def locationChangeSetSummaries: DatabaseCollection[LocationChangeSetSummary] = {
-    new DatabaseCollectionImpl(database.getCollection[LocationChangeSetSummary]("change-location-summaries"))
+  override def changes: DatabaseCollection[ChangeSetSummary] = {
+    new DatabaseCollectionImpl(database.getCollection[ChangeSetSummary]("changes"))
   }
 
   override def nodeNetworkRefs: DatabaseCollection[NodeNetworkRef] = {

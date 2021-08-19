@@ -29,8 +29,7 @@ class OrphanNodeCreateTest03 extends IntegrationTest {
 
       assert(database.nodes.isEmpty)
       assert(database.nodeChanges.isEmpty)
-      assert(database.changeSetSummaries.isEmpty)
-      assert(database.locationChangeSetSummaries.isEmpty)
+      assert(database.changes.isEmpty)
     }
   }
 }

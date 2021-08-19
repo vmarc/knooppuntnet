@@ -19,6 +19,6 @@ class AnalysisRepositoryImpl(database: Database) extends AnalysisRepository {
   }
 
   override def saveLastUpdated(timestamp: Timestamp): Unit = {
-    database.status.save(AnalysisStatus(Timestamp.redaction))
+    database.status.save(AnalysisStatus(timestamp))
   }
 }

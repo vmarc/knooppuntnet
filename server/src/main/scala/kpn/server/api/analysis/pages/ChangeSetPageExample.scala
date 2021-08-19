@@ -49,7 +49,6 @@ object ChangeSetPageExample {
     ChangeSetPage(
       summary = changeSetSummary(),
       changeSetInfo = Some(changeSetInfo()),
-      trees = Seq.empty,
       networkChanges = networkChanges(),
       routeChanges = routeChanges(),
       nodeChanges = nodeChanges(),
@@ -385,6 +384,7 @@ object ChangeSetPageExample {
         )
       ),
       subsetAnalyses = Seq.empty,
+      trees = Seq.empty,
       happy = true,
       investigate = true,
       impact = true

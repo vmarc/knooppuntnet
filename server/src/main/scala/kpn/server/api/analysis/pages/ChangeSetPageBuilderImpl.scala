@@ -44,7 +44,6 @@ class ChangeSetPageBuilderImpl(
             val page = ChangeSetPage(
               changeSetData.summary,
               changeSetInfo,
-              changeSetData.locationSummary.trees,
               changeSetData.networkChanges.map(toNetworkChangeInfo),
               changeSetData.routeChanges.map(toRouteChangeInfo),
               changeSetData.nodeChanges.map(toNodeChangeInfo),

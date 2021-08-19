@@ -228,7 +228,7 @@ class CreateIndexesTool(database: Database) {
         "key.changeSetId"
       ),
       Index(
-        database.changeSetSummaries,
+        database.changes,
         "impact-time",
         "impact",
         "key.time.year",
@@ -236,23 +236,7 @@ class CreateIndexesTool(database: Database) {
         "key.time.day"
       ),
       Index(
-        database.changeSetSummaries,
-        "changeSetId",
-        "key.replicationNumber",
-        "key.changeSetId"
-      ),
-      Index(
-        database.locationChangeSetSummaries,
-        "time",
-        "key.time"
-      ),
-      Index(
-        database.locationChangeSetSummaries,
-        "impact",
-        "impact"
-      ),
-      Index(
-        database.locationChangeSetSummaries,
+        database.changes,
         "changeSetId",
         "key.replicationNumber",
         "key.changeSetId"

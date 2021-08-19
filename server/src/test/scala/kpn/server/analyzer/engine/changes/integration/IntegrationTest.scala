@@ -179,8 +179,8 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   def findChangeSetSummaryById(id: String): ChangeSetSummary = {
-    database.changeSetSummaries.findByStringId(id).getOrElse {
-      val ids = database.changeSetSummaries.stringIds()
+    database.changes.findByStringId(id).getOrElse {
+      val ids = database.changes.stringIds()
       if (ids.isEmpty) {
         fail(s"Could not find changeSetSummary $id, no changeSetSummaries in database")
       }

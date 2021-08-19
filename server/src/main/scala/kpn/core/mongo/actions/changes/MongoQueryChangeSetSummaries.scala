@@ -76,7 +76,7 @@ class MongoQueryChangeSetSummaries(database: Database) {
     }
 
     log.debugElapsed {
-      val summaries = database.changeSetSummaries.aggregate[ChangeSetSummary](pipeline)
+      val summaries = database.changes.aggregate[ChangeSetSummary](pipeline)
       (s"${summaries.size} changeset summaries", summaries)
     }
   }

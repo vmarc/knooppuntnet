@@ -1,7 +1,6 @@
 package kpn.server.repository
 
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -41,11 +40,7 @@ class ChangeSetRepositoryImpl(
   private val log = Log(classOf[ChangeSetRepositoryImpl])
 
   override def saveChangeSetSummary(changeSetSummary: ChangeSetSummary): Unit = {
-    database.changeSetSummaries.save(changeSetSummary, log)
-  }
-
-  override def saveLocationChangeSetSummary(locationChangeSetSummary: LocationChangeSetSummary): Unit = {
-    database.locationChangeSetSummaries.save(locationChangeSetSummary, log)
+    database.changes.save(changeSetSummary, log)
   }
 
   override def saveNetworkChange(networkChange: NetworkChange): Unit = {

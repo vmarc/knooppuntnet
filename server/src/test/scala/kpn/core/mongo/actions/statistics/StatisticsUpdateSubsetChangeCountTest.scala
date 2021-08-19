@@ -46,7 +46,7 @@ class StatisticsUpdateSubsetChangeCountTest extends UnitTest with SharedTestObje
   }
 
   private def buildChangeSetSummary(database: Database, changeSetId: Long, subsets: Seq[Subset]): Unit = {
-    database.changeSetSummaries.save(
+    database.changes.save(
       newChangeSetSummary(
         newChangeKey(changeSetId = changeSetId),
         subsets

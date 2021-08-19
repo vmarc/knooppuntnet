@@ -824,6 +824,7 @@ trait SharedTestObjects extends MockFactory {
     routeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     nodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq.empty,
+    trees: Seq[LocationChangesTree] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
@@ -837,6 +838,7 @@ trait SharedTestObjects extends MockFactory {
       routeChanges,
       nodeChanges,
       subsetAnalyses,
+      trees,
       happy,
       investigate,
       happy || investigate

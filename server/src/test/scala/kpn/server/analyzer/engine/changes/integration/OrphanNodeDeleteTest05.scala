@@ -28,7 +28,7 @@ class OrphanNodeDeleteTest05 extends IntegrationTest {
       assert(!watched.nodes.contains(1001))
       assert(database.nodes.isEmpty)
       assert(database.nodeChanges.isEmpty)
-      assert(database.changeSetSummaries.isEmpty)
+      assert(database.changes.isEmpty)
     }
   }
 }

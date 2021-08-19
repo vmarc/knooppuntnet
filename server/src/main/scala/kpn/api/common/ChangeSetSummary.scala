@@ -13,7 +13,8 @@ object ChangeSetSummary {
     timestampUntil: Timestamp,
     networkChanges: NetworkChanges,
     routeChanges: Seq[ChangeSetSubsetElementRefs],
-    nodeChanges: Seq[ChangeSetSubsetElementRefs]
+    nodeChanges: Seq[ChangeSetSubsetElementRefs],
+    trees: Seq[LocationChangesTree]
   ): ChangeSetSummary = {
 
     val subsets = (networkChanges.subsets ++ routeChanges.map(_.subset) ++ nodeChanges.map(_.subset)).toSeq.sorted
@@ -47,6 +48,7 @@ object ChangeSetSummary {
       routeChanges,
       nodeChanges,
       subsetAnalyses,
+      trees,
       happy,
       investigate,
       happy || investigate
@@ -64,6 +66,7 @@ case class ChangeSetSummary(
   routeChanges: Seq[ChangeSetSubsetElementRefs],
   nodeChanges: Seq[ChangeSetSubsetElementRefs],
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
+  trees: Seq[LocationChangesTree],
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean

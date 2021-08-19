@@ -22,7 +22,8 @@ object ChangeSetSummarySubsetFilter {
       changeSetSummary.timestampUntil,
       filteredNetworkChanges,
       filteredOrphanRouteChanges,
-      filteredOrphanNodeChanges
+      filteredOrphanNodeChanges,
+      Seq.empty
     )
   }
 }

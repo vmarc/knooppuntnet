@@ -137,7 +137,8 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
       timestampUntil = Timestamp(2015, 8, 11),
       networkChanges,
       orphanRouteChanges,
-      orphanNodeChanges
+      orphanNodeChanges,
+      Seq.empty
     )
   }
 

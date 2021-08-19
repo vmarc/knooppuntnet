@@ -2,14 +2,12 @@ package kpn.core.mongo
 
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.LocationChangeSetSummary
 import kpn.api.common.Poi
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
-import kpn.api.common.network.NetworkInfo
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.gpx.GpxFile
@@ -69,9 +67,7 @@ trait Database {
 
   def changeSetComments: DatabaseCollection[ChangeSetComment]
 
-  def changeSetSummaries: DatabaseCollection[ChangeSetSummary]
-
-  def locationChangeSetSummaries: DatabaseCollection[LocationChangeSetSummary]
+  def changes: DatabaseCollection[ChangeSetSummary]
 
   def nodeNetworkRefs: DatabaseCollection[NodeNetworkRef]
 

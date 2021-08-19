@@ -56,7 +56,7 @@ class MongoQuerySubsetChanges(database: Database) {
     )
 
     log.debugElapsed {
-      val changes = database.changeSetSummaries.aggregate[ChangeSetSummary](pipeline, log)
+      val changes = database.changes.aggregate[ChangeSetSummary](pipeline, log)
       val result = s"subset ${subset.name} changes: ${changes.size}"
       (result, changes)
     }

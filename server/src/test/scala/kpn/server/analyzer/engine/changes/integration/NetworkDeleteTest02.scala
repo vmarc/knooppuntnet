@@ -18,7 +18,7 @@ class NetworkDeleteTest02 extends IntegrationTest {
 
       assert(database.networks.isEmpty)
       assert(database.networkInfos.isEmpty)
-      assert(database.changeSetSummaries.isEmpty)
+      assert(database.changes.isEmpty)
       assert(database.networkInfoChanges.isEmpty)
       assert(database.routeChanges.isEmpty)
     }

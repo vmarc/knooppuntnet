@@ -29,7 +29,7 @@ class StatisticsUpdateSubsetChangeCount(database: Database) {
         )
       )
       val pipeline = select ++ groupValues(database, "ChangeCount")
-      val values = database.changeSetSummaries.aggregate[StatisticValues](pipeline)
+      val values = database.changes.aggregate[StatisticValues](pipeline)
       (s"${values.size} values", ())
     }
   }
