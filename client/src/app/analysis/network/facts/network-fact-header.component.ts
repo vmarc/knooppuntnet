@@ -12,15 +12,11 @@ import { Facts } from '../../fact/facts';
       <span class="kpn-thick">
         <kpn-fact-name [fact]="fact.name"></kpn-fact-name>
       </span>
-      <span *ngIf="fact.elements && fact.elements.length > 0">
-        ({{ fact.elements.length }})
-      </span>
-      <span *ngIf="fact.elementIds && fact.elementIds.length > 0">
-        ({{ fact.elementIds.length }})
-      </span>
-      <span *ngIf="fact.checks && fact.checks.length > 0">
-        ({{ fact.checks.length }})
-      </span>
+      <span
+        *ngIf="fact.elements && fact.elements.length > 0"
+        class="kpn-brackets"
+        >{{ factCount() }}</span
+      >
       <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>
     </div>
     <div class="description">
@@ -40,5 +36,17 @@ export class NetworkFactHeaderComponent {
 
   factLevel(): FactLevel {
     return Facts.factLevels.get(this.fact.name);
+  }
+
+  factCount(): number {
+    if (this.fact.elements && this.fact.elements.length > 0) {
+      return this.fact.elements.length;
+    }
+    if (this.fact.elementIds && this.fact.elementIds.length > 0) {
+      return this.fact.elementIds.length;
+    }
+    if (this.fact.checks) {
+      return this.fact.checks.length;
+    }
   }
 }

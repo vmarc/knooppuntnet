@@ -31,6 +31,7 @@ object StatisticsUpdateSubsetFactCount extends MongoQuery {
 }
 
 class StatisticsUpdateSubsetFactCount(database: Database) {
+
   def execute(): Unit = {
     log.debugElapsed {
       val pipeline = Seq(
@@ -39,7 +40,6 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
         Seq(unionWith(database.routes.name, routeFactCountPipeline(): _*)),
         combineFactCounts()
       ).flatten
-
 
       val values = database.networkInfos.aggregate[StatisticValue](pipeline)
       (s"${values.size} values", ())
