@@ -251,6 +251,11 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             )
           )
         ),
+        locations = Seq(
+          "North Brabant",
+          "Roosendaal",
+          "nl"
+        ),
         happy = true,
         investigate = true,
         impact = true
@@ -482,6 +487,15 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
               )
             )
           )
+        ),
+        locations = Seq(
+          "Antwerp arrondissement",
+          "Antwerp province",
+          "Essen BE",
+          "North Brabant",
+          "Roosendaal",
+          "be",
+          "nl"
         ),
         happy = false,
         investigate = false,

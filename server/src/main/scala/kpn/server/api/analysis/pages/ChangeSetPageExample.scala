@@ -385,6 +385,7 @@ object ChangeSetPageExample {
       ),
       subsetAnalyses = Seq.empty,
       trees = Seq.empty,
+      locations = Seq.empty,
       happy = true,
       investigate = true,
       impact = true

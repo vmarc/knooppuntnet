@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine
 import kpn.api.common.ReplicationId
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.node.NodeRouteUpdater
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
@@ -28,7 +27,6 @@ class AnalyzerEngineImpl(
   tileUpdater: TileUpdater,
   poiChangeAnalyzer: PoiChangeAnalyzer,
   poiTileUpdater: PoiTileUpdater,
-  nodeRouteUpdater: NodeRouteUpdater,
   analyzerReload: Boolean
 ) extends AnalyzerEngine {
 
@@ -46,7 +44,7 @@ class AnalyzerEngineImpl(
     if (analyzerReload) {
       fullAnalyzer.analyze(timestampAfter)
     }
-      analysisDataInitializer.load()
+    analysisDataInitializer.load()
   }
 
   def process(replicationId: ReplicationId): Unit = {
@@ -69,7 +67,6 @@ class AnalyzerEngineImpl(
         }
 
         if (!analyzerHistory) {
-          // nodeRouteUpdater.update() TODO MONGO remove when sure no longer needed
         }
 
         if (analyzerTileUpdateEnabled) {

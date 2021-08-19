@@ -38,6 +38,8 @@ object ChangeSetSummary {
       ChangeSetSubsetAnalysis(subset, happy, investigate)
     }
 
+    val locations = locationsIn(trees)
+
     ChangeSetSummary(
       key.toShortId,
       key,
@@ -49,10 +51,23 @@ object ChangeSetSummary {
       nodeChanges,
       subsetAnalyses,
       trees,
+      locations,
       happy,
       investigate,
       happy || investigate
     )
+  }
+
+  private def locationsIn(trees: Seq[LocationChangesTree]): Seq[String] = {
+    trees.flatMap { tree =>
+      locationsInTreeNodes(tree.children) :+ tree.locationName
+    }.distinct.sorted
+  }
+
+  private def locationsInTreeNodes(treeNodes: Seq[LocationChangesTreeNode]): Seq[String] = {
+    treeNodes.flatMap { treeNode =>
+      locationsInTreeNodes(treeNode.children) :+ treeNode.locationName
+    }
   }
 }
 
@@ -67,8 +82,8 @@ case class ChangeSetSummary(
   nodeChanges: Seq[ChangeSetSubsetElementRefs],
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
   trees: Seq[LocationChangesTree],
+  locations: Seq[String],
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean
-) extends WithStringId {
-}
+) extends WithStringId
