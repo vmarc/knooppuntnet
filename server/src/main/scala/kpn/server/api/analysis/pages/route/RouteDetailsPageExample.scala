@@ -83,6 +83,7 @@ object RouteDetailsPageExample {
         )
       ),
       expectedName = "01-02",
+      nameDerivedFromNodes = true,
       map = RouteMap(
         startNodes = Seq[RouteNetworkNodeInfo](
           RouteNetworkNodeInfo(

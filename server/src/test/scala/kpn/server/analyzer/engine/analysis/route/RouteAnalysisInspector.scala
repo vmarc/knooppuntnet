@@ -53,12 +53,16 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
   def structure(segmentString: String): Unit = structureBuffer.append(segmentString)
 
   def analyze(d: RouteTestData): Unit = {
-    val tags = Tags.from(
-      "type" -> "route",
-      "network" -> d.scopedNetworkType.key,
-      "route" -> d.scopedNetworkType.networkType.routeTagValues.head,
-      "note" -> d.routeName
-    ) ++ d.routeTags
+
+    val tagValues = Seq(
+      Some("type" -> "route"),
+      Some("network" -> d.scopedNetworkType.key),
+      Some("route" -> d.scopedNetworkType.networkType.routeTagValues.head),
+      if (d.routeName.nonEmpty) Some("note" -> d.routeName) else None
+    ).flatten
+
+    val tags = Tags.from(tagValues: _*) ++ d.routeTags
+
     val rr: RawRelation = newRawRelation(10, members = d.members, tags = tags)
     val rawData = RawData(None, d.nodes, d.ways, Seq(rr))
     val data = new DataBuilder(rawData).data

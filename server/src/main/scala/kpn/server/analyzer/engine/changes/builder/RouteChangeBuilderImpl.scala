@@ -156,6 +156,7 @@ class RouteChangeBuilderImpl(
               unexpectedNodeIds = Seq.empty,
               members = Seq.empty,
               expectedName = "",
+              nameDerivedFromNodes = false,
               map = RouteMap(),
               structureStrings = Seq.empty,
               geometryDigest = "",

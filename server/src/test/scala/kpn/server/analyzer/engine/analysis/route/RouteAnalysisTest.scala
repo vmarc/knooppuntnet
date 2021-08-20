@@ -33,7 +33,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-02 via +<01-02 10>)")
       structure("backward=(02-01 via -<01-02 10>)")
 
-      fact(Fact.RouteNodeNameMismatch)
     }.analyze(d)
   }
 
@@ -771,6 +770,28 @@ class RouteAnalysisTest extends UnitTest {
     }
 
     new RouteAnalysisInspector() {
+    }.analyze(d)
+  }
+
+  test("derive routename from start- and end-nodes") {
+    val d = new RouteTestData("") {
+
+      node(1, "01")
+      node(3, "02")
+
+      memberWay(10, "", 1, 2, 3)
+    }
+
+    new RouteAnalysisInspector() {
+
+      startNode(1)
+      endNode(3)
+      forward(1, 2, 3)
+      backward(3, 2, 1)
+
+      structure("forward=(01-02 via +<01-02 10>)")
+      structure("backward=(02-01 via -<01-02 10>)")
+
     }.analyze(d)
   }
 

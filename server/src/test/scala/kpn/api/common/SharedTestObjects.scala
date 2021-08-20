@@ -579,6 +579,7 @@ trait SharedTestObjects extends MockFactory {
       unexpectedNodeIds,
       members,
       expectedName,
+      nameDerivedFromNodes = false,
       map,
       structureStrings,
       geometryDigest,

@@ -4,7 +4,8 @@ case class RouteNameAnalysis(
   name: Option[String] = None,
   startNodeName: Option[String] = None,
   endNodeName: Option[String] = None,
-  reversed: Boolean = false
+  reversed: Boolean = false,
+  derivedFromNodes: Boolean = false
 ) {
 
   def isStartNodeNameSameAsEndNodeName: Boolean = startNodeName.isDefined && endNodeName.isDefined && startNodeName == endNodeName

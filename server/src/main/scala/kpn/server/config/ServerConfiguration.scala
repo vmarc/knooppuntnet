@@ -136,7 +136,7 @@ class ServerConfiguration() {
   @Bean
   def database(@Value("${mongodb.url:url}") mongodbUrl: String): Database = {
     val mongoClient = MongoClient(mongodbUrl)
-    new DatabaseImpl(mongoClient.getDatabase("kpn-test-1").withCodecRegistry(Mongo.codecRegistry))
+    new DatabaseImpl(mongoClient.getDatabase("kpn-test-2").withCodecRegistry(Mongo.codecRegistry))
   }
 
   private def buildExecutor(name: String, poolSize: Int): Executor = {

@@ -7,9 +7,9 @@ case class RouteInfoAnalysis(
   unexpectedNodeIds: Seq[Long],
   members: Seq[RouteMemberInfo],
   expectedName: String,
+  nameDerivedFromNodes: Boolean,
   map: RouteMap,
   structureStrings: Seq[String],
   geometryDigest: String,
   locationAnalysis: RouteLocationAnalysis
-) {
-}
+)
