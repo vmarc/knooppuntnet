@@ -12,7 +12,11 @@ import kpn.core.data.DataBuilder
 
 import scala.collection.mutable.ListBuffer
 
-class RouteTestData(val routeName: String, val scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn, val routeTags: Tags = Tags.empty) extends SharedTestObjects {
+class RouteTestData(
+   val routeName: String,
+   val scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn,
+   val routeTags: Tags = Tags.empty
+ ) extends SharedTestObjects {
 
   private val nodeBuffer = ListBuffer[RawNode]()
   private val wayBuffer = ListBuffer[RawWay]()

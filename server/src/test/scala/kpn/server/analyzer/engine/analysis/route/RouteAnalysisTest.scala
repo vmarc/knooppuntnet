@@ -1,22 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.custom.Fact
-import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteNotBackward
-import kpn.api.custom.Fact.RouteNotContinious
-import kpn.api.custom.Fact.RouteNotForward
-import kpn.api.custom.Fact.RouteNotOneWay
-import kpn.api.custom.Fact.RouteOneWay
-import kpn.api.custom.Fact.RouteUnusedSegments
-import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom.Fact._
+import kpn.api.custom.{Fact, ScopedNetworkType, Tags}
 import kpn.core.util.UnitTest
 
 class RouteAnalysisTest extends UnitTest {
 
   test("route without ref tag") {
 
-    val d = new RouteTestData("", routeTags=Tags.from("from" -> "01", "to" -> "02")) {
+    val d = new RouteTestData("", routeTags = Tags.from("from" -> "01", "to" -> "02")) {
       node(1, "01")
       node(4, "02")
       memberWay(10, "", 1, 2, 3, 4)
@@ -773,6 +765,29 @@ class RouteAnalysisTest extends UnitTest {
     new RouteAnalysisInspector() {
     }.analyze(d)
   }
+
+  test("derive routename from start- and end-nodes") {
+    val d = new RouteTestData("") {
+
+      node(1, "01")
+      node(3, "02")
+
+      memberWay(10, "", 1, 2, 3)
+    }
+
+    new RouteAnalysisInspector() {
+
+      startNode(1)
+      endNode(3)
+      forward(1, 2, 3)
+      backward(3, 2, 1)
+
+      structure("forward=(01-02 via +<01-02 10>)")
+      structure("backward=(02-01 via -<01-02 10>)")
+
+    }.analyze(d)
+  }
+
 
   private def roundAboutTags = Tags.from("highway" -> "road", "junction" -> "roundabout")
 }

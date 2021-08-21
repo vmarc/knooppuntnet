@@ -116,10 +116,16 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
     val accessible: Boolean = ways.size == routeMemberWays.count(_.accessible)
 
+    val nameDerivedFromNodes = context.routeNameAnalysis match {
+      case Some(routeNameAnalysis) => routeNameAnalysis.derivedFromNodes
+      case None => false
+    }
+
     val routeAnalysis = RouteInfoAnalysis(
       unexpectedNodeIds,
       members,
       expectedName,
+      nameDerivedFromNodes,
       routeMap,
       new RouteStructureFormatter(structure).strings,
       context.geometryDigest.get,

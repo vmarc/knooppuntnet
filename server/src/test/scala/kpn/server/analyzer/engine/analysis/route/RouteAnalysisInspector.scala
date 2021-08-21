@@ -1,19 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.raw.RawData
-import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.common.data.raw.{RawData, RawRelation}
+import kpn.api.custom.{Fact, Tags}
 import kpn.core.data.DataBuilder
 import kpn.server.analyzer.engine.analysis.node.OldNodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeInfoAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.{RouteLocationAnalyzer, RouteLocationAnalyzerMock, RouteNodeInfoAnalyzerImpl, RouteTileAnalyzer}
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.{RouteTileCalculatorImpl, TileCalculatorImpl}
 import kpn.server.analyzer.load.data.LoadedRoute
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.Assertions
@@ -54,12 +48,16 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
   def structure(segmentString: String): Unit = structureBuffer.append(segmentString)
 
   def analyze(d: RouteTestData): Unit = {
-    val tags = Tags.from(
-      "type" -> "route",
-      "network" -> d.scopedNetworkType.key,
-      "route" -> d.scopedNetworkType.networkType.routeTagValues.head,
-      "note" -> d.routeName
-    ) ++ d.routeTags
+
+    val tagValues = Seq(
+      Some("type" -> "route"),
+      Some("network" -> d.scopedNetworkType.key),
+      Some("route" -> d.scopedNetworkType.networkType.routeTagValues.head),
+      if (d.routeName.nonEmpty) Some("note" -> d.routeName) else None
+    ).flatten
+
+    val tags = Tags.from(tagValues: _*) ++ d.routeTags
+
     val rr: RawRelation = newRawRelation(10, members = d.members, tags = tags)
     val rawData = RawData(None, d.nodes, d.ways, Seq(rr))
     val data = new DataBuilder(rawData).data

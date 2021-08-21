@@ -872,7 +872,7 @@
       *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline*skates&quot;*.</source>
         <target>De verplichte *&quot;route&quot;* tag heeft een ongeldige waarde.
 
-Een fietsnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;bicycle&quot;* hebben. 
+Een fietsnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;bicycle&quot;* hebben.
 
 Een wandelnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;foot&quot;*, *&quot;hiking&quot;* of *&quot;walking&quot;* hebben. De waarde *&quot;walking&quot;* wordt vaak gevonden en door de analyse aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki-pagina&apos;s.
 
@@ -9792,6 +9792,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.name-derived-from-nodes" datatype="html">
+        <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
+        <target>De naam van de route is samengesteld op basis van de node namen en niet van tags in de route relatie zelf.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
     </body>

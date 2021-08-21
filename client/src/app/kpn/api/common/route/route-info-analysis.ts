@@ -8,6 +8,7 @@ export interface RouteInfoAnalysis {
   readonly unexpectedNodeIds: number[];
   readonly members: RouteMemberInfo[];
   readonly expectedName: string;
+  readonly nameDerivedFromNodes: boolean;
   readonly map: RouteMap;
   readonly structureStrings: string[];
   readonly geometryDigest: string;
