@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
+import kpn.core.util.Util.isDigits
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.{RouteNameAnalysis, RouteNodeAnalysis}
 
@@ -29,8 +30,14 @@ class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def routeNameFromNodeNames(startNodeName: String, endNodeName: String): RouteAnalysisContext = {
+    val separator = if (isDigits(startNodeName) && isDigits(endNodeName)) {
+      "-"
+    }
+    else {
+      " - "
+    }
     val routeNameAnalysis = RouteNameAnalysis(
-      name = Some(s"$startNodeName-$endNodeName"),
+      name = Some(s"$startNodeName$separator$endNodeName"),
       derivedFromNodes = true
     )
     context.copy(
