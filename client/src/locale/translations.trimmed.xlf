@@ -555,14 +555,14 @@
         <source>Changeset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/_change-set-page.component.ts</context>
-          <context context-type="linenumber">63,71</context>
+          <context context-type="linenumber">67,75</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="changeset.not-found">
         <source>Changeset not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/_change-set-page.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.analysis.happy">
@@ -678,14 +678,14 @@
         <source>Orphan nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-orphan-node-changes.component.ts</context>
-          <context context-type="linenumber">52,56</context>
+          <context context-type="linenumber">49,53</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.orphan-routes.title">
         <source>Free routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-orphan-route-changes.component.ts</context>
-          <context context-type="linenumber">51,55</context>
+          <context context-type="linenumber">48,52</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.network-changes.added-nodes">
@@ -4746,28 +4746,35 @@
         <source>Route definition is incomplete (has tag *"fixme=incomplete"*).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">50,63</context>
+          <context context-type="linenumber">50,59</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.not-active">
         <source>This route is not active anymore.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">78,87</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.meters">
         <source><x equiv-text="{{ route.summary.meters }}" id="INTERPOLATION"/> m</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">76,10</context>
+          <context context-type="linenumber">87,10</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.proposed">
         <source>Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a planning phase and likely not signposted in the field.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="route.name-derived-from-nodes">
+        <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.route-map">

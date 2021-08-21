@@ -33,7 +33,7 @@ class ChangeSetKey {
       <div *ngIf="response.result">
         <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
 
-        <kpn-change-set-location-tree [trees]="response.result.trees">
+        <kpn-change-set-location-tree [trees]="response.result.summary.trees">
         </kpn-change-set-location-tree>
 
         <kpn-change-set-network-changes

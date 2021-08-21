@@ -54,6 +54,13 @@ import { RouteInfo } from '@api/common/route/route-info';
           the field.
         </markdown>
       </p>
+
+      <p *ngIf="isRouteNameDerivedFromNodes()" class="kpn-line">
+        <span i18n="@@route.name-derived-from-nodes">
+          The route name is derived from the route nodes, rather than the tags
+          in the route relation.
+        </span>
+      </p>
     </div>
   `,
 })
@@ -71,5 +78,9 @@ export class RouteSummaryComponent {
   isProposed() {
     const stateTag = this.route.tags.tags.find((t) => t.key === 'state');
     return stateTag && stateTag.value === 'proposed';
+  }
+
+  isRouteNameDerivedFromNodes(): boolean {
+    return this.route.analysis?.nameDerivedFromNodes === true;
   }
 }
