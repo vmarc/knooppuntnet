@@ -4744,7 +4744,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target><x equiv-text="{{route.summary.meters}}" id="INTERPOLATION"/> m</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">76,10</context>
+          <context context-type="linenumber">87,10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.members.title" datatype="html">
@@ -4864,7 +4864,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>De routedefinitie is onvolledig (heeft tag *&quot;fixme=incomplete&quot;*).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">50,63</context>
+          <context context-type="linenumber">50,59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.not-active" datatype="html">
@@ -4872,7 +4872,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Deze route is niet meer actief.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">78,87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.location.none" datatype="html">
@@ -5677,7 +5677,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntwezen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-orphan-node-changes.component.ts</context>
-          <context context-type="linenumber">52,56</context>
+          <context context-type="linenumber">49,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.orphan-routes.title" datatype="html">
@@ -5685,7 +5685,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Vrije routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-orphan-route-changes.component.ts</context>
-          <context context-type="linenumber">51,55</context>
+          <context context-type="linenumber">48,52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-diffs-removed.title" datatype="html">
@@ -6808,7 +6808,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Wijzigingenset</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/_change-set-page.component.ts</context>
-          <context context-type="linenumber">63,71</context>
+          <context context-type="linenumber">67,75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.title" datatype="html">
@@ -9097,7 +9097,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Wijzigingset niet gevonden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/_change-set-page.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.issues" datatype="html">
@@ -9598,7 +9598,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Toekomstig: deze route is nog in de planningfase en mogelijk nog niet aanwezig in het veld.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.proposed.explanation" datatype="html">
@@ -9792,6 +9792,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
           <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.name-derived-from-nodes" datatype="html">
+        <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
+        <target>De naam van de route is samengesteld op basis van de node namen en niet van tags in de route relatie zelf.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
     </body>
