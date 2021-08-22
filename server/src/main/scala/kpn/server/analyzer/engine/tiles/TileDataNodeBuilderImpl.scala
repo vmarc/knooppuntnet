@@ -1,16 +1,13 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.NodeName
-import kpn.api.common.network.NetworkInfoNode
 import kpn.api.custom.Fact
 import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
-import kpn.core.mongo.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import org.springframework.stereotype.Component
 
 import scala.util.Failure
@@ -26,41 +23,10 @@ class TileDataNodeBuilderImpl() extends TileDataNodeBuilder {
     NetworkScope.international
   )
 
-  def build(networkType: NetworkType, node: NodeDoc): Option[TileDataNode] = {
-    doBuild(
-      networkType,
-      node._id,
-      node.latitude,
-      node.longitude,
-      node.facts,
-      node.tags
-    )
-  }
-
-  def build(networkType: NetworkType, node: NetworkInfoNode): Option[TileDataNode] = {
-    doBuild(
-      networkType,
-      node.id,
-      node.latitude,
-      node.longitude,
-      node.facts,
-      node.tags
-    )
-  }
-
-  private def doBuild(
-    networkType: NetworkType,
-    id: Long,
-    latitude: String,
-    longitude: String,
-    facts: Seq[Fact],
-    tags: Tags
-  ): Option[TileDataNode] = {
-
-    val orphan = false
+  def build(networkType: NetworkType, node: NodeTileInfo): Option[TileDataNode] = {
 
     val nodeNameOption: Option[NodeName] = {
-      val unprioritizedNames = NodeNameAnalyzer.findNodeNames(tags)
+      val unprioritizedNames = node.names
         .filter(_.networkType == networkType)
         .filterNot(_.name == "o")
       prioritizedScopes.flatMap { scope =>
@@ -85,38 +51,30 @@ class TileDataNodeBuilderImpl() extends TileDataNodeBuilder {
           }
       }
 
-      val surveyDateTry = SurveyDateAnalyzer.analyze(tags)
+      val surveyDateTry = SurveyDateAnalyzer.analyze(node.tags)
       val surveyDate = surveyDateTry match {
         case Success(surveyDate) => surveyDate
         case Failure(_) => None
       }
 
       val proposed = nodeNameOption.exists(_.proposed) ||
-        tags.has("state", "proposed")
+        node.tags.has("state", "proposed")
 
       TileDataNode(
-        id,
+        node._id,
         ref,
         name,
-        latitude,
-        longitude,
-        layer(orphan, facts),
+        node.latitude,
+        node.longitude,
+        layer(node.facts),
         surveyDate,
         proposed
       )
     }
   }
 
-  private def layer(orphan: Boolean, facts: Seq[Fact]): String = {
-    if (orphan) {
-      if (hasError(facts)) {
-        "error-orphan-node"
-      }
-      else {
-        "orphan-node"
-      }
-    }
-    else if (hasError(facts)) {
+  private def layer(facts: Seq[Fact]): String = {
+    if (hasError(facts)) {
       "error-node"
     }
     else {

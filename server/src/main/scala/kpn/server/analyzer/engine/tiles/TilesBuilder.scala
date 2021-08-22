@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tile.TileFileBuilder
+import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileNodes
@@ -24,10 +23,7 @@ class TilesBuilder(
 
   private val log = Log(classOf[TilesBuilder])
 
-  def build(
-    z: Int,
-    analysis: TileAnalysis
-  ): Unit = {
+  def build(z: Int, analysis: TileAnalysis): Unit = {
 
     val existingVectorTileNames = if (z >= ZoomLevel.vectorTileMinZoom - 1) {
       vectorTileFileRepository.existingTileNames(analysis.networkType.name, z)
@@ -76,9 +72,9 @@ class TilesBuilder(
     }
 
     log.info(s"buildTileNodeMap()")
-    val tileNodes = buildTileNodeMap(analysis.networkType, z, analysis.nodes, analysis.orphanNodes)
+    val tileNodes = buildTileNodeMap(analysis.networkType, z, analysis.nodes)
     log.info(s"buildTileRoutes()")
-    val tileRoutes = buildTileRoutes(z, analysis.routeInfos)
+    val tileRoutes = buildTileRoutes(z, analysis.routes)
     log.info(s"buildTileRouteMap()")
     val tileRoutesMap = buildTileRouteMap(z, tileRoutes)
     val tileNames = (tileNodes.keys ++ tileRoutesMap.keys).toSet.toSeq
@@ -158,16 +154,13 @@ class TilesBuilder(
     }
   }
 
-  private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode], orphanNodes: Seq[NodeDoc]): Map[String, TileNodes] = {
+  private def buildTileNodeMap(networkType: NetworkType, z: Int, nodes: Seq[TileDataNode]): Map[String, TileNodes] = {
     if (z < ZoomLevel.nodeMinZoom) {
       Map.empty
     }
     else {
-      val allNodes = nodes ++ orphanNodes.flatMap(node => tileDataNodeBuilder.build(networkType, node))
-
       val map = scala.collection.mutable.Map[String, TileNodes]()
-
-      allNodes.foreach { node =>
+      nodes.foreach { node =>
         val tiles = nodeTileCalculator.tiles(z, node)
         tiles.foreach { tile =>
           map(tile.name) = map.get(tile.name) match {
@@ -203,7 +196,7 @@ class TilesBuilder(
       .toMap
   }
 
-  private def buildTileRoutes(z: Int, routeInfos: Seq[RouteInfo]): Seq[TileDataRoute] = {
+  private def buildTileRoutes(z: Int, routeInfos: Seq[RouteTileInfo]): Seq[TileDataRoute] = {
     val b = new TileDataRouteBuilder(z)
     routeInfos.flatMap(b.fromRouteInfo)
   }

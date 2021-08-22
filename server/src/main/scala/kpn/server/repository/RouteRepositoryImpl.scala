@@ -4,6 +4,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryKnownRouteIds
 import kpn.core.mongo.actions.routes.MongoQueryRouteElementIds
@@ -11,8 +12,10 @@ import kpn.core.mongo.actions.routes.MongoQueryRouteIds
 import kpn.core.mongo.actions.routes.MongoQueryRouteMapInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNameInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.core.mongo.actions.routes.MongoQueryRouteTileInfo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
+import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import org.springframework.stereotype.Component
 
 @Component
@@ -64,5 +67,13 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {
     // TODO MONGO should implement through lookup elsewhere? probably not
     new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
+  }
+
+  override def routeTileInfosByNetworkType(networkType: NetworkType): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfo(database).findByNetworkType(networkType)
+  }
+
+  override def routeTileInfosById(routeId: Long): Option[RouteTileInfo] = {
+    new MongoQueryRouteTileInfo(database).findById(routeId)
   }
 }

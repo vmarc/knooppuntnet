@@ -1,12 +1,15 @@
 package kpn.server.repository
 
 import kpn.api.common.common.Reference
+import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryKnownNodeIds
 import kpn.core.mongo.actions.nodes.MongoQueryNodeIds
 import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
+import kpn.core.mongo.actions.nodes.MongoQueryNodeTileInfo
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -63,6 +66,14 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
     new MongoQueryKnownNodeIds(database).execute(nodeIds.toSeq).toSet
+  }
+
+  override def nodeTileInfoByNetworkType(networkType: NetworkType): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfo(database).findByNetworkType(networkType)
+  }
+
+  override def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo] = {
+    new MongoQueryNodeTileInfo(database).findById(nodeId)
   }
 
   private def routeReferencesPipeline(nodeId: Long): Seq[Bson] = {

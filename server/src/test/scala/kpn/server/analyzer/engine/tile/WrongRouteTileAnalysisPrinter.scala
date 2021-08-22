@@ -20,7 +20,7 @@ class WrongRouteTileAnalysisPrinter {
     val routeLines = {
       val routeAnalysis = CaseStudy.routeAnalysis("1029885")
       val tileDataRouteBuilder = new TileDataRouteBuilder(13)
-      val tileRoute = tileDataRouteBuilder.fromRouteInfo(routeAnalysis.route).get
+      val tileRoute = tileDataRouteBuilder.fromRouteInfo(routeAnalysis.toRouteTileInfo).get
       tileRoute.segments.flatMap(_.lines)
     }
 

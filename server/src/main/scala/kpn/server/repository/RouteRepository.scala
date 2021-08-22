@@ -4,7 +4,9 @@ import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
+import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
 trait RouteRepository {
 
@@ -29,4 +31,9 @@ trait RouteRepository {
   def networkReferences(routeId: Long): Seq[Reference]
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
+
+  def routeTileInfosByNetworkType(networkType: NetworkType): Seq[RouteTileInfo]
+
+  def routeTileInfosById(routeId: Long): Option[RouteTileInfo]
+
 }

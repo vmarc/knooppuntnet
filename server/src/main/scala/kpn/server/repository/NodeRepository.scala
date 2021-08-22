@@ -1,7 +1,9 @@
 package kpn.server.repository
 
 import kpn.api.common.common.Reference
+import kpn.api.custom.NetworkType
 import kpn.core.mongo.doc.NodeDoc
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 
 trait NodeRepository {
 
@@ -24,4 +26,8 @@ trait NodeRepository {
   def nodeRouteReferences(nodeId: Long): Seq[Reference]
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]
+
+  def nodeTileInfoByNetworkType(networkType: NetworkType): Seq[NodeTileInfo]
+
+  def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo]
 }

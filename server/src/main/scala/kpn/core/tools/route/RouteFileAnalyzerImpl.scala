@@ -4,6 +4,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.custom.NetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -21,6 +22,7 @@ import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.repository.RouteRepository
 
 import java.io.File
@@ -124,6 +126,10 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
       override def filterKnown(routeIds: Set[Long]): Set[Long] = ???
 
       override def activeRouteElementIds(): Seq[ReferencedElementIds] = ???
+
+      override def routeTileInfosByNetworkType(networkType: NetworkType): Seq[RouteTileInfo] = ???
+
+      override def routeTileInfosById(routeId: Long): Option[RouteTileInfo] = ???
     }
   }
 }

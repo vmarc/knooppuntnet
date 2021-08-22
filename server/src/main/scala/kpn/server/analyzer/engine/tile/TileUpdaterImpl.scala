@@ -70,8 +70,8 @@ class TileUpdaterImpl(
       nodeIds.flatMap { nodeId =>
         nodeCache.getOrElseUpdate(
           nodeId,
-          nodeRepository.nodeWithId(nodeId) match {
-            case Some(node) => tileDataNodeBuilder.build(networkType, node)
+          nodeRepository.nodeTileInfoById(nodeId) match {
+            case Some(tileInfoNode) => tileDataNodeBuilder.build(networkType, tileInfoNode)
             case None =>
               log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.name}-${tile.name} not found in database")
               None
@@ -85,8 +85,8 @@ class TileUpdaterImpl(
       routeIds.flatMap { routeId =>
         routeCache.getOrElseUpdate(
           routeId,
-          routeRepository.findById(routeId) match {
-            case Some(routeInfo) => new TileDataRouteBuilder(tile.z).fromRouteInfo(routeInfo)
+          routeRepository.routeTileInfosById(routeId) match {
+            case Some(routeTileInfo) => new TileDataRouteBuilder(tile.z).fromRouteInfo(routeTileInfo)
             case None =>
               log.error(s"Unexpected data integrity problem: route $routeId for tile ${networkType.name}-${tile.name} not found in database")
               None

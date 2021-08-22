@@ -2,6 +2,7 @@ package kpn.core.tools.tile
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
+import kpn.core.mongo.Database
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
@@ -14,16 +15,14 @@ import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
-import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
 /*
   Generates tiles for all nodes and routes in the database.
 
   Example use:
-    kpn.core.tools.tile.TileTool -t /kpn/tiles -a master
+    kpn.core.tools.tile.TileTool -t /kpn/tiles -d kpn-test
  */
 object TileTool {
 
@@ -35,44 +34,8 @@ object TileTool {
       TileToolOptions.parse(args) match {
         case Some(options) =>
 
-          Mongo.executeIn(options.analysisDatabaseName) { database =>
-
-            val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
-            val tileAnalyzer = {
-              val networkRepository = new NetworkRepositoryImpl(database)
-              val orphanRepository = new OrphanRepositoryImpl(database)
-              val nodeRepository = new NodeRepositoryImpl(database)
-              val routeRepository = new RouteRepositoryImpl(database)
-              new TileAnalyzerImpl(
-                networkRepository,
-                orphanRepository,
-                nodeRepository,
-                routeRepository,
-                tileDataNodeBuilder
-              )
-            }
-
-            val tileCalculator = new TileCalculatorImpl()
-            val bitmapTileFileRepository = new TileFileRepositoryImpl(options.tileDir, "png")
-            val vectorTileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
-            val tileFileBuilder: TileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-            val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-            val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
-
-            val tilesBuilder: TilesBuilder = new TilesBuilder(
-              bitmapTileFileRepository,
-              vectorTileFileRepository,
-              tileFileBuilder,
-              nodeTileCalculator,
-              routeTileCalculator,
-              tileDataNodeBuilder
-            )
-
-            val tileTool = new TileTool(
-              tileAnalyzer,
-              tilesBuilder
-            )
-
+          Mongo.executeIn(options.databaseName) { database =>
+            val tileTool = buildTileTool(database, options.tileDir)
             NetworkType.all.foreach(tileTool.make)
           }
 
@@ -94,6 +57,42 @@ object TileTool {
     System.exit(exit)
   }
 
+  private def buildTileTool(database: Database, tileDir: String): TileTool = {
+
+    val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
+
+    val tileAnalyzer = {
+      val nodeRepository = new NodeRepositoryImpl(database)
+      val routeRepository = new RouteRepositoryImpl(database)
+      new TileAnalyzerImpl(
+        nodeRepository,
+        routeRepository,
+        tileDataNodeBuilder
+      )
+    }
+
+    val tilesBuilder: TilesBuilder = {
+      val tileCalculator = new TileCalculatorImpl()
+      val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
+      val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
+      val tileFileBuilder: TileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
+      val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+      val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+      new TilesBuilder(
+        bitmapTileFileRepository,
+        vectorTileFileRepository,
+        tileFileBuilder,
+        nodeTileCalculator,
+        routeTileCalculator,
+        tileDataNodeBuilder
+      )
+    }
+
+    new TileTool(
+      tileAnalyzer,
+      tilesBuilder
+    )
+  }
 }
 
 class TileTool(

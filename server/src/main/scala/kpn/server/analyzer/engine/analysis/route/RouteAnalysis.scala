@@ -11,6 +11,7 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
+import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
 case class RouteAnalysis(
   relation: Relation,
@@ -52,6 +53,22 @@ case class RouteAnalysis(
       ways.map(_.raw),
       Seq[RawRelation](), // TODO CHANGE add unexpected relations
       route.facts
+    )
+  }
+
+  def toRouteTileInfo: RouteTileInfo = {
+    RouteTileInfo(
+      _id = id,
+      name = route.summary.name,
+      proposed = route.proposed,
+      lastSurvey = route.lastSurvey,
+      tags = route.tags,
+      facts = route.facts,
+      freePaths = route.analysis.map.freePaths,
+      forwardPath = route.analysis.map.forwardPath,
+      backwardPath = route.analysis.map.backwardPath,
+      startTentaclePaths = route.analysis.map.startTentaclePaths,
+      endTentaclePaths = route.analysis.map.endTentaclePaths
     )
   }
 }

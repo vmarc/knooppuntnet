@@ -2,14 +2,12 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
-import kpn.api.common.route.RouteInfo
-import kpn.api.common.route.RouteMap
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
+import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
@@ -30,47 +28,29 @@ class TileDataRouteBuilder(z: Int) {
 
   private val geomFactory = new GeometryFactory
 
-  def fromRouteInfo(routeInfo: RouteInfo): Option[TileDataRoute] = {
-    from(
-      routeInfo.id,
-      routeInfo.summary.name,
-      routeInfo.tags,
-      routeInfo.analysis.map,
-      orphan = false,
-      routeInfo.facts
-    )
-  }
+  def fromRouteInfo(route: RouteTileInfo): Option[TileDataRoute] = {
 
-  def from(
-    routeId: Long,
-    routeName: String,
-    tags: Tags,
-    routeMap: RouteMap,
-    orphan: Boolean,
-    facts: Seq[Fact]
-  ): Option[TileDataRoute] = {
-
-    val surveyDateTry = SurveyDateAnalyzer.analyze(tags)
+    val surveyDateTry = SurveyDateAnalyzer.analyze(route.tags)
     val surveyDate = surveyDateTry match {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
     }
 
-    val forwardPathTrackPoints = routeMap.forwardPath.toSeq.flatMap(_.trackPoints)
-    val backwardPathTrackPoints = routeMap.backwardPath.toSeq.flatMap(_.trackPoints)
+    val forwardPathTrackPoints = route.forwardPath.toSeq.flatMap(_.trackPoints)
+    val backwardPathTrackPoints = route.backwardPath.toSeq.flatMap(_.trackPoints)
 
     val mainTileRouteSegments = if (forwardPathTrackPoints == backwardPathTrackPoints.reverse) {
-      routeMap.forwardPath.toSeq.map(_.copy(oneWay = false)).flatMap(toTileRouteSegments)
+      route.forwardPath.toSeq.map(_.copy(oneWay = false)).flatMap(toTileRouteSegments)
     }
     else {
-      routeMap.forwardPath.toSeq.flatMap(toTileRouteSegments) ++
-        routeMap.backwardPath.toSeq.flatMap(toTileRouteSegments)
+      route.forwardPath.toSeq.flatMap(toTileRouteSegments) ++
+        route.backwardPath.toSeq.flatMap(toTileRouteSegments)
     }
 
     val tileRouteSegments = {
-      val freePathSegments = routeMap.freePaths.flatMap(toTileRouteSegments)
-      val startTentacleSegments = routeMap.startTentaclePaths.flatMap(toTileRouteSegments)
-      val endTentacleSegments = routeMap.endTentaclePaths.flatMap(toTileRouteSegments)
+      val freePathSegments = route.freePaths.flatMap(toTileRouteSegments)
+      val startTentacleSegments = route.startTentaclePaths.flatMap(toTileRouteSegments)
+      val endTentacleSegments = route.endTentaclePaths.flatMap(toTileRouteSegments)
       freePathSegments ++ mainTileRouteSegments ++ startTentacleSegments ++ endTentacleSegments
     }
 
@@ -79,13 +59,10 @@ class TileDataRouteBuilder(z: Int) {
     }
     else {
 
-      val layer = if (orphan) {
-        "orphan-route"
-      }
-      else if (facts.contains(Fact.RouteIncomplete)) {
+      val layer = if (route.facts.contains(Fact.RouteIncomplete)) {
         "incomplete-route"
       }
-      else if (facts.exists(_.isError)) {
+      else if (route.facts.exists(_.isError)) {
         "error-route"
       }
       else {
@@ -93,12 +70,12 @@ class TileDataRouteBuilder(z: Int) {
       }
 
       val supportedStates = Seq("proposed")
-      val state = tags("state").filter(supportedStates.contains)
+      val state = route.tags("state").filter(supportedStates.contains)
 
       Some(
         TileDataRoute(
-          routeId,
-          routeName,
+          route._id,
+          route.name,
           layer,
           surveyDate,
           state,
