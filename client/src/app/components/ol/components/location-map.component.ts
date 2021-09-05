@@ -5,6 +5,7 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
+import { NetworkType } from '@api/custom/network-type';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -29,6 +30,7 @@ import { MapService } from '../services/map.service';
   `,
 })
 export class LocationMapComponent implements AfterViewInit, OnDestroy {
+  @Input() networkType: NetworkType;
   @Input() bounds: Bounds;
   @Input() geoJson: string;
 
@@ -48,6 +50,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.mapService.nextNetworkType(this.networkType);
     this.layers = this.buildLayers();
     this.map = new Map({
       target: this.mapId,
