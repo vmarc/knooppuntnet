@@ -18,6 +18,7 @@ import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
+import {NetworkType} from "@api/custom/network-type";
 
 @Component({
   selector: 'kpn-location-map',
@@ -29,6 +30,7 @@ import { MapService } from '../services/map.service';
   `,
 })
 export class LocationMapComponent implements AfterViewInit, OnDestroy {
+  @Input() networkType: NetworkType;
   @Input() bounds: Bounds;
   @Input() geoJson: string;
 
@@ -48,6 +50,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.mapService.nextNetworkType(this.networkType);
     this.layers = this.buildLayers();
     this.map = new Map({
       target: this.mapId,

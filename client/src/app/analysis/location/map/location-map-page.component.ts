@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { actionLocationMapPageInit } from '../store/location.actions';
 import { selectLocationMapPage } from '../store/location.selectors';
+import {selectLocationKey} from "../store/location.selectors";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'kpn-location-map-page',
@@ -22,6 +24,7 @@ import { selectLocationMapPage } from '../store/location.selectors';
     <div *ngIf="response$ | async as response">
       <kpn-location-response [response]="response">
         <kpn-location-map
+          [networkType]="networkType$ | async"
           [geoJson]="response.result.geoJson"
           [bounds]="response.result.bounds"
         >
@@ -32,6 +35,9 @@ import { selectLocationMapPage } from '../store/location.selectors';
 })
 export class LocationMapPageComponent implements OnInit {
   readonly response$ = this.store.select(selectLocationMapPage);
+  readonly networkType$ = this.store
+    .select(selectLocationKey)
+    .pipe(map((key) => key.networkType));
 
   constructor(private store: Store<AppState>) {}
 

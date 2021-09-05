@@ -8,22 +8,22 @@ PROXY_CONFIG = {
     secure: false,
   },
   '/tiles/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+    target: 'https://knooppuntnet.nl',
     changeOrigin: true,
     secure: false,
   },
   '/tiles-experimental/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+    target: 'https://knooppuntnet.nl',
     changeOrigin: true,
     secure: false,
   },
   '/images/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+    target: 'https://knooppuntnet.nl',
     changeOrigin: true,
     secure: false,
   },
   '/videos/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+    target: 'https://knooppuntnet.nl',
     changeOrigin: true,
     secure: false,
   },
