@@ -9,7 +9,6 @@ import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.fields
@@ -38,9 +37,12 @@ class MongoQueryNodeTileInfo(database: Database) {
   def findByNetworkType(networkType: NetworkType): Seq[NodeTileInfo] = {
     log.debugElapsed {
       val pipeline = Seq(
-        filter(equal("labels", "active")),
-        unwind("names"),
-        filter(equal("names.networkType", networkType.name)),
+        filter(
+          and(
+            equal("labels", "active"),
+            equal("labels", s"network-type-${networkType.name}")
+          )
+        ),
         projectNodeTileInfo
       )
       val nodes = database.nodes.aggregate[NodeTileInfo](pipeline, log)
