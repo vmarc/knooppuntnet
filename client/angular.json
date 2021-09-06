@@ -5,16 +5,18 @@
   "projects": {
     "knooppuntnet": {
       "i18n": {
-        "sourceLocale": "en",
         "locales": {
           "nl": {
-            "translation": "src/locale/translations.nl.xlf"
+            "translation": "src/locale/translations.nl.xlf",
+            "baseHref": ""
           },
           "fr": {
-            "translation": "src/locale/translations.fr.xlf"
+            "translation": "src/locale/translations.fr.xlf",
+            "baseHref": ""
           },
           "de": {
-            "translation": "src/locale/translations.de.xlf"
+            "translation": "src/locale/translations.de.xlf",
+            "baseHref": ""
           }
         }
       },
@@ -40,7 +42,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist/knooppuntnet",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -66,7 +67,13 @@
             ],
             "scripts": [
               "node_modules/marked/lib/marked.js"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -85,16 +92,12 @@
               "localize": true,
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "serviceWorker": true
             },
             "nl": {
-              "aot": true,
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -107,7 +110,6 @@
               "i18nMissingTranslation": "error"
             },
             "fr": {
-              "aot": true,
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -120,7 +122,6 @@
               "i18nMissingTranslation": "error"
             },
             "de": {
-              "aot": true,
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -132,7 +133,8 @@
               "i18nLocale": "de",
               "i18nMissingTranslation": "error"
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
