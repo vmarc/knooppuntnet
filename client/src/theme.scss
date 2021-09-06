@@ -1,13 +1,13 @@
-@import '~@angular/material/theming';
-@include mat-core();
+@use '~@angular/material' as mat;
+@include mat.core();
 
-$app-primary: mat-palette($mat-indigo);
-$app-accent: mat-palette($mat-pink, A200, A100, A400);
-$background-color: map_get($mat-grey, A100);
+$app-primary: mat.define-palette(mat.$indigo-palette);
+$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$background-color: map_get(mat.$grey-palette, A100);
 
-$app-warn: mat-palette($mat-red);
+$app-warn: mat.define-palette(mat.$red-palette);
 
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+$app-theme: mat.define-light-theme($app-primary, $app-accent, $app-warn);
 
 $background: map-get($app-theme, background);
 $background: map_merge(
@@ -23,4 +23,4 @@ $app-theme: map_merge(
   )
 );
 
-@include angular-material-theme($app-theme);
+@include mat.all-component-themes($app-theme);
