@@ -33,7 +33,7 @@ export class NetworkNodesMapStyle {
     };
   }
 
-  private nodeStyle(feature: FeatureLike): Style {
+  private nodeStyle(feature: FeatureLike): Style | Style[] {
     const zoom = this.map.getView().getZoom();
     const nodeId = +feature.get('id');
     if (zoom >= 13) {

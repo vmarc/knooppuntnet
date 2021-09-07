@@ -3,9 +3,11 @@ import { NetworkType } from '@api/custom/network-type';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { List, Map as ImmutableMap } from 'immutable';
+import { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
+import VectorSource from 'ol/source/Vector';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
@@ -30,7 +32,7 @@ import { PlannerService } from '../../planner.service';
 export class PlannerLayerService {
   standardLayers: List<MapLayer>;
   layerSwitcherMapLayers$: Observable<MapLayers>;
-  gpxVectorLayer: VectorLayer;
+  gpxVectorLayer: VectorLayer<VectorSource<Geometry>>;
   private _layerSwitcherMapLayers$ = new ReplaySubject<MapLayers>();
   private networkLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
@@ -132,7 +134,9 @@ export class PlannerLayerService {
     this.tile512NameLayer = this.mapLayerService.tile512NameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
     this.gpxLayer = this.mapLayerService.gpxLayer();
-    this.gpxVectorLayer = this.gpxLayer.layer as VectorLayer;
+    this.gpxVectorLayer = this.gpxLayer.layer as VectorLayer<
+      VectorSource<Geometry>
+    >;
 
     this.bitmapLayersSurface = this.buildBitmapLayers(MapMode.surface);
     this.bitmapLayersSurvey = this.buildBitmapLayers(MapMode.survey);

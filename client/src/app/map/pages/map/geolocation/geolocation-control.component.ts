@@ -80,7 +80,7 @@ export class GeolocationControlComponent {
           ]);
           this.action.emit(center);
         },
-        (positionError: PositionError) => {
+        (positionError: GeolocationPositionError) => {
           if (positionError.code === 1) {
             this.dialog.open(GeolocationPermissionDeniedDialogComponent, {
               maxWidth: 600,

@@ -28,7 +28,7 @@ export class MapClickService {
 
   private buildInteraction(): Interaction {
     return new Interaction({
-      handleEvent: (event: MapBrowserEvent) => {
+      handleEvent: (event: MapBrowserEvent<UIEvent>) => {
         const ctrlState = platformModifierKeyOnly(event);
         if (ctrlState === true || ctrlState === false) {
           this.ctrl = ctrlState;
@@ -44,7 +44,7 @@ export class MapClickService {
     });
   }
 
-  private handleSingleClickEvent(evt: MapBrowserEvent): boolean {
+  private handleSingleClickEvent(evt: MapBrowserEvent<UIEvent>): boolean {
     const features = this.getFeatures(evt);
     const nodeFeature = this.findFeature(features, this.isNode);
     if (nodeFeature) {
@@ -59,7 +59,7 @@ export class MapClickService {
     return true; // propagate event
   }
 
-  private handleMoveEvent(evt: MapBrowserEvent): boolean {
+  private handleMoveEvent(evt: MapBrowserEvent<UIEvent>): boolean {
     let cursorStyle = 'default';
     if (this.isHooveringOverNodeOrRoute(evt)) {
       cursorStyle = 'pointer';
@@ -68,7 +68,7 @@ export class MapClickService {
     return true; // propagate event
   }
 
-  private getFeatures(evt: MapBrowserEvent): Array<FeatureLike> {
+  private getFeatures(evt: MapBrowserEvent<UIEvent>): Array<FeatureLike> {
     return evt.map.getFeaturesAtPixel(evt.pixel, { hitTolerance: 10 });
   }
 
@@ -123,7 +123,7 @@ export class MapClickService {
     }
   }
 
-  private isHooveringOverNodeOrRoute(evt: MapBrowserEvent): boolean {
+  private isHooveringOverNodeOrRoute(evt: MapBrowserEvent<UIEvent>): boolean {
     const features = this.getFeatures(evt);
     if (features) {
       for (const feature of features) {

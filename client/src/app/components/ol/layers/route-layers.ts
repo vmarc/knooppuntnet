@@ -6,6 +6,8 @@ import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info'
 import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
+import { Geometry } from 'ol/geom';
+import { Point } from 'ol/geom';
 import LineString from 'ol/geom/LineString';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -162,7 +164,7 @@ export class RouteLayers {
       'yellow',
       '@@map.redundant-node'
     );
-    const markers: Feature[] = freeNodeMarkers
+    const markers: Feature<Point>[] = freeNodeMarkers
       .concat(startNodeMarkers)
       .concat(endNodeMarkers)
       .concat(startTentacleNodeMarkers)
@@ -186,7 +188,7 @@ export class RouteLayers {
     nodes: RouteNetworkNodeInfo[],
     color: string,
     nodeType: string
-  ): Feature[] {
+  ): Feature<Point>[] {
     const translatedNodeType = this.i18nService.translation(nodeType);
     return nodes.map((node) => {
       const coordinate = Util.toCoordinate(node.lat, node.lon);
@@ -196,7 +198,11 @@ export class RouteLayers {
     });
   }
 
-  private pathToFeature(title: string, color: Color, path: TrackPath): Feature {
+  private pathToFeature(
+    title: string,
+    color: Color,
+    path: TrackPath
+  ): Feature<Geometry> {
     const trackPointArray: Array<TrackPoint> = [];
     trackPointArray.push(path.segments[0].source);
     path.segments.forEach((segment) => {
@@ -212,7 +218,7 @@ export class RouteLayers {
     title: string,
     color: Color,
     segment: TrackSegment
-  ): Feature {
+  ): Feature<Geometry> {
     let trackPoints = List<TrackPoint>([segment.source]);
     trackPoints = trackPoints.concat(
       segment.fragments.map((fragment) => fragment.trackPoint)
@@ -224,7 +230,7 @@ export class RouteLayers {
     title: string,
     color: Color,
     trackPoints: List<TrackPoint>
-  ): Feature {
+  ): Feature<Geometry> {
     const coordinates = trackPoints.map((trackPoint) =>
       Util.toCoordinate(trackPoint.lat, trackPoint.lon)
     );

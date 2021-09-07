@@ -1,5 +1,6 @@
 import { FeatureLike } from 'ol/Feature';
 import Feature from 'ol/Feature';
+import { Geometry } from 'ol/geom';
 import GeometryType from 'ol/geom/GeometryType';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
@@ -85,7 +86,7 @@ export class PlannerHighlightLayer {
     };
   }
 
-  highlightFeature(feature: Feature): void {
+  highlightFeature(feature: Feature<Geometry>): void {
     this.source.clear(true);
     this.source.addFeature(feature);
     this.layer.changed();

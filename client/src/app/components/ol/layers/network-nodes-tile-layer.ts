@@ -52,7 +52,7 @@ export class NetworkNodesTileLayer {
     return new MapLayer(`network-nodes-${networkType}-layer`, layer, applyMap);
   }
 
-  private static buildBitmapLayer(networkType: NetworkType): TileLayer {
+  private static buildBitmapLayer(networkType: NetworkType): TileLayer<XYZ> {
     return new TileLayer({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,

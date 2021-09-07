@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BoundsI } from '@api/common/bounds-i';
 import { Store } from '@ngrx/store';
 import { GeoJSON } from 'ol/format';
+import { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
@@ -42,10 +43,10 @@ export class MonitorRouteMapService {
 
   private readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
-  private readonly gpxLayer: VectorLayer;
-  private readonly gpxOkLayer: VectorLayer;
-  private readonly gpxNokLayer: VectorLayer;
-  private readonly osmRelationLayer: VectorLayer;
+  private readonly gpxLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly gpxOkLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly gpxNokLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
   private readonly subscriptions = new Subscriptions();
 
@@ -87,7 +88,7 @@ export class MonitorRouteMapService {
     }
   }
 
-  layers(): VectorLayer[] {
+  layers(): VectorLayer<VectorSource<Geometry>>[] {
     return [
       this.gpxLayer,
       this.gpxOkLayer,
@@ -191,7 +192,7 @@ export class MonitorRouteMapService {
     );
   }
 
-  private buildGpxLayer(): VectorLayer {
+  private buildGpxLayer(): VectorLayer<VectorSource<Geometry>> {
     const layerStyle = this.fixedStyle('blue', 4);
     return new VectorLayer({
       zIndex: 50,
@@ -200,7 +201,7 @@ export class MonitorRouteMapService {
     });
   }
 
-  private buildGpxOkLayer(): VectorLayer {
+  private buildGpxOkLayer(): VectorLayer<VectorSource<Geometry>> {
     const layerStyle = this.fixedStyle('green', 4);
     return new VectorLayer({
       zIndex: 60,
@@ -209,7 +210,7 @@ export class MonitorRouteMapService {
     });
   }
 
-  private buildGpxNokLayer(): VectorLayer {
+  private buildGpxNokLayer(): VectorLayer<VectorSource<Geometry>> {
     const layerStyle = this.fixedStyle('red', 4);
     return new VectorLayer({
       zIndex: 70,
@@ -218,7 +219,7 @@ export class MonitorRouteMapService {
     });
   }
 
-  private buildOsmRelationLayer(): VectorLayer {
+  private buildOsmRelationLayer(): VectorLayer<VectorSource<Geometry>> {
     const self = this;
     const thinStyle = this.fixedStyle('yellow', 4);
     const thickStyle = this.fixedStyle('yellow', 10);

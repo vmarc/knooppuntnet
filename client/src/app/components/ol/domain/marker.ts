@@ -7,7 +7,7 @@ import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import Style from 'ol/style/Style';
 
 export class Marker {
-  public static create(color: string, coordinate: Coordinate): Feature {
+  public static create(color: string, coordinate: Coordinate): Feature<Point> {
     const style = this.createStyle(color);
     const feature = new Feature(new Point(coordinate));
     feature.setStyle(style);

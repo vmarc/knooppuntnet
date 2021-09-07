@@ -33,7 +33,7 @@ export class PlannerInteraction {
 
   private buildInteraction(): Interaction {
     return new Interaction({
-      handleEvent: (evt: MapBrowserEvent) => {
+      handleEvent: (evt: MapBrowserEvent<UIEvent>) => {
         this.eventDebugLog(
           evt.type + ', platformModifierKeyOnly=' + platformModifierKeyOnly(evt)
         );
@@ -118,7 +118,7 @@ export class PlannerInteraction {
     });
   }
 
-  private getFeaturesAt(evt: MapBrowserEvent): List<MapFeature> {
+  private getFeaturesAt(evt: MapBrowserEvent<UIEvent>): List<MapFeature> {
     const features = evt.map.getFeaturesAtPixel(evt.pixel);
     if (features) {
       return List(

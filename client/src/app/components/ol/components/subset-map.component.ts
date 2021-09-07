@@ -96,7 +96,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
 
   private buildInteraction(): Interaction {
     return new Interaction({
-      handleEvent: (event: MapBrowserEvent) => {
+      handleEvent: (event: MapBrowserEvent<MouseEvent>) => {
         if (MapBrowserEventType.SINGLECLICK === event.type) {
           return this.handleSingleClickEvent(event);
         }
@@ -108,7 +108,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private handleSingleClickEvent(evt: MapBrowserEvent): boolean {
+  private handleSingleClickEvent(evt: MapBrowserEvent<MouseEvent>): boolean {
     const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {
       hitTolerance: 10,
     });
@@ -127,7 +127,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     return true; // propagate event
   }
 
-  private handleMoveEvent(evt: MapBrowserEvent): boolean {
+  private handleMoveEvent(evt: MapBrowserEvent<MouseEvent>): boolean {
     const features: FeatureLike[] = evt.map.getFeaturesAtPixel(evt.pixel, {
       hitTolerance: 10,
     });

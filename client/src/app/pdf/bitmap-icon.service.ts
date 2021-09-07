@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class BitmapIconService {
-  icons: Map<string, string> = Map();
+  icons: Map<string, string> = Map<string, string>();
 
   constructor(private iconRegistry: MatIconRegistry) {}
 

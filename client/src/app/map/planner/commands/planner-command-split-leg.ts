@@ -51,7 +51,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.markerLayer.addFlag(this.oldLeg.sinkFlag);
     context.routeLayer.addPlanLeg(this.oldLeg);
 
-    const newLegs = context.plan.legs.flatMap((leg) => {
+    const newLegs: List<PlanLeg> = context.plan.legs.flatMap((leg) => {
       if (leg.featureId === this.newLeg1.featureId) {
         return List([this.oldLeg]);
       }
