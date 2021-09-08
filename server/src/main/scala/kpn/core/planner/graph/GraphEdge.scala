@@ -8,5 +8,4 @@ case class GraphEdge(
   meters: Long,
   proposed: Boolean,
   pathKey: TrackPathKey
-) {
-}
+)

@@ -27,7 +27,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       routeRepository.save(routeAnalysis2.route)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
-      val graphRepository = new GraphRepositoryImpl(database, null, graphLoadEnabled = true)
+      val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
       graphRepository.loadGraphs()
 
       val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
@@ -80,7 +80,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       routeRepository.save(routeAnalysis2.route)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
-      val graphRepository = new GraphRepositoryImpl(database, null, graphLoadEnabled = true)
+      val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
       graphRepository.loadGraphs()
 
       val graph: NodeNetworkGraph = graphRepository.graph(NetworkType.cycling).get

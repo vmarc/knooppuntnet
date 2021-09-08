@@ -9,6 +9,7 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.EdgeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
@@ -83,6 +84,7 @@ class MasterRouteAnalyzerImpl(
         RouteLastSurveyAnalyzer,
         RouteElementsAnalyzer,
         routeTileAnalyzer,
+        EdgeRouteAnalyzer,
         RouteLabelsAnalyzer // this always should be the last analyzer
       )
 

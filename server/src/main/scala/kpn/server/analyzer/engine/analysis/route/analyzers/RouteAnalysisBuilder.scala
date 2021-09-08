@@ -172,7 +172,8 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       routeAnalysis,
       context.tiles,
       routeAnalysis.map.nodeIds,
-      context.elementIds
+      context.elementIds,
+      context.edges
     )
   }
 }

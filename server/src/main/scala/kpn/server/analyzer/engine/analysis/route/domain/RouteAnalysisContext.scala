@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
+import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Country
 import kpn.api.custom.Day
@@ -46,6 +47,7 @@ case class RouteAnalysisContext(
   labels: Seq[String] = Seq.empty,
   tiles: Seq[String] = Seq.empty,
   elementIds: ElementIds = ElementIds(),
+  edges: Seq[RouteEdge] = Seq.empty,
   abort: Boolean = false
 ) {
 

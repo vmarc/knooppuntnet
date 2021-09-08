@@ -412,7 +412,8 @@ trait SharedTestObjects extends MockFactory {
       analysis,
       tiles,
       analysis.map.nodeIds,
-      elementIds
+      elementIds,
+      Seq.empty
     )
   }
 
@@ -938,7 +939,8 @@ trait SharedTestObjects extends MockFactory {
       analysis,
       tiles,
       nodeRefs,
-      elementIds
+      elementIds,
+      Seq.empty
     )
   }
 

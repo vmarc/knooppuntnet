@@ -25,7 +25,8 @@ case class RouteInfo(
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],
   nodeRefs: Seq[Long],
-  elementIds: ElementIds
+  elementIds: ElementIds,
+  edges: Seq[RouteEdge]
 ) extends Tagable with WithId {
 
   def id: Long = summary.id

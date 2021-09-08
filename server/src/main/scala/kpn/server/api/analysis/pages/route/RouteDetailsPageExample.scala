@@ -222,7 +222,8 @@ object RouteDetailsPageExample {
       analysis,
       Seq.empty,
       analysis.map.nodeIds,
-      ElementIds()
+      ElementIds(),
+      Seq.empty
     )
   }
 }
