@@ -72,10 +72,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[OrphanRouteDoc]("orphan-routes"))
   }
 
-  override def routeEdges: DatabaseCollection[GraphEdge] = {
-    new DatabaseCollectionImpl(database.getCollection[GraphEdge]("route-edges"))
-  }
-
   override def networkChanges: DatabaseCollection[NetworkChange] = {
     new DatabaseCollectionImpl(database.getCollection[NetworkChange]("new-network-changes"))
   }

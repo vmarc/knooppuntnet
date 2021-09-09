@@ -131,9 +131,15 @@ class CreateIndexesTool(database: Database) {
         "nodeRefs"
       ),
       Index(
-        database.routeEdges,
-        "network-type",
-        "networkType"
+        database.routes,
+        "route-edges",
+        "summary.networkType",
+        "proposed",
+        "_id",
+        "edges.pathId",
+        "edges.sourceNodeId",
+        "edges.sinkNodeId",
+        "edges.meters"
       ),
       Index(
         database.nodeRouteRefs,

@@ -18,7 +18,6 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
-import kpn.core.planner.graph.GraphEdge
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -54,8 +53,6 @@ trait Database {
   def routes: DatabaseCollection[RouteInfo]
 
   def orphanRoutes: DatabaseCollection[OrphanRouteDoc]
-
-  def routeEdges: DatabaseCollection[GraphEdge]
 
   def networkChanges: DatabaseCollection[NetworkChange]
 
