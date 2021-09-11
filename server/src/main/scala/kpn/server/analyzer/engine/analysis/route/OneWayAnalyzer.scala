@@ -14,7 +14,7 @@ object OneWayAnalyzer {
       Seq("oneway", "oneway:bicycle", "bicycle:oneway").contains(key) ||
         (key == "junction" && value == "roundabout") ||
         (key == "cycleway" && value == "opposite") ||
-        (key == "cyclewhay" && value == "opposite_lane") ||
+        (key == "cycleway" && value == "opposite_lane") ||
         (key == "cycleway" && value == "opposite_track") ||
         (key == "cycleway:left" && value == "lane") ||
         (key == "cycleway:left" && value == "track") ||
