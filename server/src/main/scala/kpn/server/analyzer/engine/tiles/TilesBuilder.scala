@@ -17,8 +17,7 @@ class TilesBuilder(
   vectorTileFileRepository: TileFileRepository,
   tileFileBuilder: TileFileBuilder,
   nodeTileCalculator: NodeTileCalculator,
-  routeTileCalculator: RouteTileCalculator,
-  tileDataNodeBuilder: TileDataNodeBuilder
+  routeTileCalculator: RouteTileCalculator
 ) {
 
   private val log = Log(classOf[TilesBuilder])
@@ -177,13 +176,13 @@ class TilesBuilder(
 
     val map = scala.collection.mutable.Map[String, TileRoutes]()
 
-    var progress: Int = 0
+    var progress = 0
     tileRoutes.zipWithIndex.foreach { case (tileRoute, index) =>
       val tiles = routeTileCalculator.tiles(z, tileRoute)
       val currentProgress = (100d * (index + 1) / tileRoutes.size).round.toInt
       if (currentProgress != progress) {
         progress = currentProgress
-        log.info(s"Build route map ${index + 1}/${tileRoutes.size} $progress% tilecount=${tiles.size}")
+        log.info(s"Build route map ${index + 1}/${tileRoutes.size} $progress% tileCount=${map.size}")
       }
       tiles.foreach { tile =>
         map(tile.name) = map.get(tile.name) match {
@@ -192,8 +191,8 @@ class TilesBuilder(
         }
       }
     }
-    map
-      .toMap
+    log.info(s"Build route map ${tileRoutes.size}/${tileRoutes.size} 100% tileCount=${map.size}")
+    map.toMap
   }
 
   private def buildTileRoutes(z: Int, routeInfos: Seq[RouteTileInfo]): Seq[TileDataRoute] = {

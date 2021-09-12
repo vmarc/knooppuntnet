@@ -9,8 +9,8 @@
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
-        <logger name="org.mongodb" level="warn"/>
-        <logger name="kpn.server" level="warn"/>
+        <logger name="org.mongodb" level="info"/>
+        <logger name="kpn.server" level="info"/>
         <logger name="kpn.core.mongo" level="info"/>
     </Loggers>
 </Configuration>

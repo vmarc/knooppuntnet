@@ -16,29 +16,28 @@ class TileAnalyzerImpl(
   private val log = Log(classOf[TileAnalyzerImpl])
 
   def analysis(networkType: NetworkType): TileAnalysis = {
-
-    log.debugElapsed {
-
+    log.infoElapsed {
       val nodes = findNodes(networkType)
       val routes = findRoutes(networkType)
-
-      (
-        s"Completed analysis for ${networkType.name}",
-        TileAnalysis(
-          networkType,
-          nodes,
-          routes
-        )
-      )
+      val tileAnalysis = TileAnalysis(networkType, nodes, routes)
+      (s"Completed analysis for ${networkType.name}", tileAnalysis)
     }
   }
 
   private def findNodes(networkType: NetworkType): Seq[TileDataNode] = {
-    val nodeTileInfos = nodeRepository.nodeTileInfoByNetworkType(networkType)
-    nodeTileInfos.flatMap(node => tileDataNodeBuilder.build(networkType, node))
+    log.info("Find nodes")
+    log.infoElapsed {
+      val nodeTileInfos = nodeRepository.nodeTileInfoByNetworkType(networkType)
+      val tileDataNode = nodeTileInfos.flatMap(node => tileDataNodeBuilder.build(networkType, node))
+      (s"${nodeTileInfos.size} node tile infos", tileDataNode)
+    }
   }
 
   private def findRoutes(networkType: NetworkType): Seq[RouteTileInfo] = {
-    routeRepository.routeTileInfosByNetworkType(networkType)
+    log.info("Find routes")
+    log.infoElapsed {
+      val routeTileInfos = routeRepository.routeTileInfosByNetworkType(networkType)
+      (s"${routeTileInfos.size} route tile infos", routeTileInfos)
+    }
   }
 }

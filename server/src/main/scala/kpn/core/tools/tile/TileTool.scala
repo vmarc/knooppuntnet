@@ -4,11 +4,11 @@ import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.util.Mongo
+import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzer
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
@@ -75,7 +75,7 @@ object TileTool {
       val tileCalculator = new TileCalculatorImpl()
       val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
       val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
-      val tileFileBuilder: TileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
+      val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
       val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
       val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
       new TilesBuilder(
@@ -83,8 +83,7 @@ object TileTool {
         vectorTileFileRepository,
         tileFileBuilder,
         nodeTileCalculator,
-        routeTileCalculator,
-        tileDataNodeBuilder
+        routeTileCalculator
       )
     }
 
@@ -102,6 +101,7 @@ class TileTool(
 
   def make(networkType: NetworkType): Unit = {
     Log.context(networkType.name) {
+      log.info("Start tile analysis")
       val tileAnalysis = tileAnalyzer.analysis(networkType)
       (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
         Log.context(s"$z") {
