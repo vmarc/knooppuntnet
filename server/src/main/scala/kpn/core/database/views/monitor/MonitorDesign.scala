@@ -7,7 +7,6 @@ object MonitorDesign extends Design {
 
   val views: Seq[View] = Seq(
     MonitorChangesView,
-    MonitorRouteView,
     MonitorRouteReferenceView
   )
 }
