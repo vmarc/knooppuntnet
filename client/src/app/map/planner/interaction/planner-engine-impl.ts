@@ -149,36 +149,36 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
     if (this.isDraggingNode()) {
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (!this.context.planProposed && networkNodeFeature.proposed) {
-        // ignore this feature
-      } else {
-        if (
-          networkNodeFeature != null &&
-          networkNodeFeature.node.nodeName !== '*'
-        ) {
-          this.context.highlighter.highlightNode(networkNodeFeature.node);
-          // snap to node position
-          this.context.markerLayer.updateFlagCoordinate(
-            this.nodeDrag.planFlag.featureId,
-            networkNodeFeature.node.coordinate
-          );
-          this.context.elasticBand.updatePosition(
-            networkNodeFeature.node.coordinate
-          );
-          return false;
+      if (networkNodeFeature != null) {
+        if (!this.context.planProposed && networkNodeFeature.proposed) {
+          // ignore this feature
+        } else {
+          if (networkNodeFeature.node.nodeName !== '*') {
+            this.context.highlighter.highlightNode(networkNodeFeature.node);
+            // snap to node position
+            this.context.markerLayer.updateFlagCoordinate(
+              this.nodeDrag.planFlag.featureId,
+              networkNodeFeature.node.coordinate
+            );
+            this.context.elasticBand.updatePosition(
+              networkNodeFeature.node.coordinate
+            );
+            return false;
+          }
         }
       }
 
       if (!this.isDraggingStartNode()) {
         const routeFeature = Features.findRoute(features);
-        if (!this.context.planProposed && routeFeature.proposed) {
-          // ignore this feature
-        } else {
-          if (routeFeature != null) {
-            this.context.highlighter.highlightRoute(routeFeature);
-          } else {
+        if (routeFeature != null) {
+          if (!this.context.planProposed && routeFeature.proposed) {
+            // ignore this feature
             this.context.highlighter.reset();
+          } else {
+            this.context.highlighter.highlightRoute(routeFeature);
           }
+        } else {
+          this.context.highlighter.reset();
         }
       }
 

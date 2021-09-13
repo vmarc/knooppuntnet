@@ -10,7 +10,7 @@ import { MapLayers } from '../layers/map-layers';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="switcher">
-      <div *ngIf="open" (mouseleave)="closePanel()">
+      <div *ngIf="open && this.mapLayers != null" (mouseleave)="closePanel()">
         <div *ngFor="let layer of namedLayers()">
           <mat-checkbox
             (click)="$event.stopPropagation()"
