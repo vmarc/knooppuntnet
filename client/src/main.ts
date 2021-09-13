@@ -33,6 +33,7 @@ if (environment.production) {
     dsn:
       'https://7c2405aac72d47e9b5e5d3fd2ca97a66@o458355.ingest.sentry.io/5455899',
     maxBreadcrumbs: 12,
+    maxValueLength: 500,
     beforeBreadcrumb,
     beforeSend,
   });

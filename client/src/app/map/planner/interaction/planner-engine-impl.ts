@@ -3,11 +3,11 @@ import * as Sentry from '@sentry/angular';
 import { Severity } from '@sentry/types/dist/severity';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
-import { NodeClick } from '../../../components/ol/domain/node-click';
-import { PoiClick } from '../../../components/ol/domain/poi-click';
-import { PoiId } from '../../../components/ol/domain/poi-id';
-import { RouteClick } from '../../../components/ol/domain/route-click';
-import { Util } from '../../../components/shared/util';
+import { NodeClick } from '@app/components/ol/domain/node-click';
+import { PoiClick } from '@app/components/ol/domain/poi-click';
+import { PoiId } from '@app/components/ol/domain/poi-id';
+import { RouteClick } from '@app/components/ol/domain/route-click';
+import { Util } from '@app/components/shared/util';
 import { PlannerCommandAddStartPoint } from '../commands/planner-command-add-start-point';
 import { PlannerCommandMoveStartPoint } from '../commands/planner-command-move-start-point';
 import { PlannerContext } from '../context/planner-context';
@@ -149,36 +149,36 @@ export class PlannerEngineImpl implements PlannerEngine {
   handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
     if (this.isDraggingNode()) {
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (!this.context.planProposed && networkNodeFeature.proposed) {
-        // ignore this feature
-      } else {
-        if (
-          networkNodeFeature != null &&
-          networkNodeFeature.node.nodeName !== '*'
-        ) {
-          this.context.highlighter.highlightNode(networkNodeFeature.node);
-          // snap to node position
-          this.context.markerLayer.updateFlagCoordinate(
-            this.nodeDrag.planFlag.featureId,
-            networkNodeFeature.node.coordinate
-          );
-          this.context.elasticBand.updatePosition(
-            networkNodeFeature.node.coordinate
-          );
-          return false;
+      if (networkNodeFeature != null) {
+        if (!this.context.planProposed && networkNodeFeature.proposed) {
+          // ignore this feature
+        } else {
+          if (networkNodeFeature.node.nodeName !== '*') {
+            this.context.highlighter.highlightNode(networkNodeFeature.node);
+            // snap to node position
+            this.context.markerLayer.updateFlagCoordinate(
+              this.nodeDrag.planFlag.featureId,
+              networkNodeFeature.node.coordinate
+            );
+            this.context.elasticBand.updatePosition(
+              networkNodeFeature.node.coordinate
+            );
+            return false;
+          }
         }
       }
 
       if (!this.isDraggingStartNode()) {
         const routeFeature = Features.findRoute(features);
-        if (!this.context.planProposed && routeFeature.proposed) {
-          // ignore this feature
-        } else {
-          if (routeFeature != null) {
-            this.context.highlighter.highlightRoute(routeFeature);
-          } else {
+        if (routeFeature != null) {
+          if (!this.context.planProposed && routeFeature.proposed) {
+            // ignore this feature
             this.context.highlighter.reset();
+          } else {
+              this.context.highlighter.highlightRoute(routeFeature);
           }
+        } else {
+          this.context.highlighter.reset();
         }
       }
 
