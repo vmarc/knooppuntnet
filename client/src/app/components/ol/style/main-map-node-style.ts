@@ -143,18 +143,6 @@ export class MainMapNodeStyle {
         } else {
           style = NodeStyle.largeBlue;
         }
-      } else if ('orphan-node' === layer) {
-        if (proposed) {
-          style = NodeStyle.proposedLargeDarkGreen;
-        } else {
-          style = NodeStyle.largeDarkGreen;
-        }
-      } else if ('error-orphan-node' === layer) {
-        if (proposed) {
-          style = NodeStyle.proposedLargeDarkBlue;
-        } else {
-          style = NodeStyle.largeDarkBlue;
-        }
       } else {
         if (proposed) {
           style = NodeStyle.proposedLargeGreen;
@@ -196,10 +184,6 @@ export class MainMapNodeStyle {
     let style: Style;
     if ('error-node' === layer) {
       style = NodeStyle.smallRed;
-    } else if ('orphan-node' === layer) {
-      style = NodeStyle.smallDarkGreen;
-    } else if ('error-orphan-node' === layer) {
-      style = NodeStyle.smallDarkRed;
     } else {
       style = NodeStyle.smallGreen;
     }

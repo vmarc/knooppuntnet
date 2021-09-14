@@ -100,8 +100,6 @@ export class MainMapRouteStyle {
     let color = gray;
     if ('route' === layer) {
       color = green;
-    } else if ('orphan-route' === layer) {
-      color = darkGreen;
     } else if ('incomplete-route' === layer) {
       color = red;
     } else if ('error-route' === layer) {
