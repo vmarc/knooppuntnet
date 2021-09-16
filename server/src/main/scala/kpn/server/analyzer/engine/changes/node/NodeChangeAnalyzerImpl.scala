@@ -10,13 +10,13 @@ import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.BlackListRepository
+import kpn.server.repository.BlacklistRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodeChangeAnalyzerImpl(
   analysisContext: AnalysisContext,
-  blackListRepository: BlackListRepository
+  blacklistRepository: BlacklistRepository
 ) extends NodeChangeAnalyzer {
 
   private val log = Log(classOf[NodeChangeAnalyzerImpl])
@@ -87,6 +87,6 @@ class NodeChangeAnalyzerImpl(
   }
 
   private def isBlackListed(node: RawNode): Boolean = {
-    blackListRepository.get.containsNode(node.id)
+    blacklistRepository.get().containsNode(node.id)
   }
 }

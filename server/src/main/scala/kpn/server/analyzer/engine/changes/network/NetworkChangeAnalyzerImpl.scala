@@ -11,13 +11,13 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.BlackListRepository
+import kpn.server.repository.BlacklistRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkChangeAnalyzerImpl(
   analysisContext: AnalysisContext,
-  blackListRepository: BlackListRepository
+  blacklistRepository: BlacklistRepository
 ) extends NetworkChangeAnalyzer {
 
   private val log = Log(classOf[NetworkChangeAnalyzerImpl])
@@ -68,7 +68,7 @@ class NetworkChangeAnalyzerImpl(
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {
-    blackListRepository.get.containsNetwork(relation.id)
+    blacklistRepository.get().containsNetwork(relation.id)
   }
 
 }

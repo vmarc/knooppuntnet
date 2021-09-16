@@ -13,11 +13,11 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.changes.data.BlackList
-import kpn.server.analyzer.engine.changes.data.BlackListEntry
+import kpn.server.analyzer.engine.changes.data.Blacklist
+import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.repository.MockBlackListRepository
+import kpn.server.repository.MockBlacklistRepository
 
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
@@ -90,21 +90,21 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("Ignore 'Create' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListRoute(11L)
+    setup.blacklistRoute(11L)
     val change = Change(Create, Seq(buildRoute(11L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Modify' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListRoute(11L)
+    setup.blacklistRoute(11L)
     val change = Change(Modify, Seq(buildRoute(11L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Delete' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListRoute(11L)
+    setup.blacklistRoute(11L)
     val change = Change(Delete, Seq(buildRoute(11L)))
     assert(setup.analyze(change).isEmpty)
   }
@@ -141,10 +141,10 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    private val blackListRepository = new MockBlackListRepository()
+    private val blacklistRepository = new MockBlacklistRepository()
 
-    def blackListRoute(routeId: Long): Unit = {
-      blackListRepository.save(BlackList(routes = Seq(BlackListEntry(routeId, "", ""))))
+    def blacklistRoute(routeId: Long): Unit = {
+      blacklistRepository.save(Blacklist(routes = Seq(BlacklistEntry(routeId, "", ""))))
     }
 
     implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
@@ -158,7 +158,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
         changeSet,
         elementIds
       )
-      new RouteChangeAnalyzer(analysisContext, blackListRepository, elementIdAnalyzer).analyze(context)
+      new RouteChangeAnalyzer(analysisContext, blacklistRepository, elementIdAnalyzer).analyze(context)
     }
   }
 }

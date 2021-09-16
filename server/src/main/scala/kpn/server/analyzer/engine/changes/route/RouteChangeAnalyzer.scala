@@ -11,13 +11,13 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.BlackListRepository
+import kpn.server.repository.BlacklistRepository
 import org.springframework.stereotype.Component
 
 @Component
 class RouteChangeAnalyzer(
   analysisContext: AnalysisContext,
-  blackListRepository: BlackListRepository,
+  blacklistRepository: BlacklistRepository,
   elementIdAnalyzer: ElementIdAnalyzer
 ) {
 
@@ -76,6 +76,6 @@ class RouteChangeAnalyzer(
   }
 
   private def isBlackListed(routeId: Long): Boolean = {
-    blackListRepository.get.containsRoute(routeId)
+    blacklistRepository.get().containsRoute(routeId)
   }
 }

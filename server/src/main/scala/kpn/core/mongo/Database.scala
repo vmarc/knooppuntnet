@@ -18,6 +18,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
+import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -93,4 +94,6 @@ trait Database {
   def statistics: DatabaseCollection[StatisticValues]
 
   def status: DatabaseCollection[WithStringId]
+
+  def blacklists: DatabaseCollection[Blacklist]
 }

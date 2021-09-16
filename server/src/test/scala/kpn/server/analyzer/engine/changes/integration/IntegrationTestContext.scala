@@ -31,7 +31,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
-import kpn.server.analyzer.engine.changes.data.BlackList
+import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessorImpl
@@ -52,7 +52,7 @@ import kpn.server.analyzer.full.node.FullNodeAnalyzerImpl
 import kpn.server.analyzer.full.route.FullRouteAnalyzerImpl
 import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.analyzer.load.AnalysisDataInitializerImpl
-import kpn.server.repository.BlackListRepository
+import kpn.server.repository.BlacklistRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
@@ -86,8 +86,8 @@ class IntegrationTestContext(
   private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
 
   private val taskRepository = stub[TaskRepository]
-  private val blackListRepository = stub[BlackListRepository]
-  (() => blackListRepository.get).when().returns(BlackList())
+  private val blacklistRepository = stub[BlacklistRepository]
+  (blacklistRepository.get _).when(*).returns(Blacklist())
 
   private val tileCalculator = new TileCalculatorImpl()
   private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
@@ -124,7 +124,7 @@ class IntegrationTestContext(
 
     val networkChangeAnalyzer = new NetworkChangeAnalyzerImpl(
       analysisContext,
-      blackListRepository
+      blacklistRepository
     )
 
     new NetworkChangeProcessorImpl(
@@ -144,7 +144,7 @@ class IntegrationTestContext(
 
     val routeChangeAnalyzer = new RouteChangeAnalyzer(
       analysisContext,
-      blackListRepository,
+      blacklistRepository,
       elementIdAnalyzer
     )
 
@@ -161,7 +161,7 @@ class IntegrationTestContext(
 
   private val nodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
     analysisContext,
-    blackListRepository
+    blacklistRepository
   )
 
   private val bulkNodeAnalyzer = new BulkNodeAnalyzerImpl(

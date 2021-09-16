@@ -18,7 +18,7 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.migration.ChangeSetComment
-import kpn.core.planner.graph.GraphEdge
+import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -152,4 +152,7 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[WithStringId]("status"))
   }
 
+  override def blacklists: DatabaseCollection[Blacklist] = {
+    new DatabaseCollectionImpl(database.getCollection[Blacklist]("blacklists"))
+  }
 }

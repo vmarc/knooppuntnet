@@ -13,10 +13,10 @@ import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.changes.data.BlackList
-import kpn.server.analyzer.engine.changes.data.BlackListEntry
+import kpn.server.analyzer.engine.changes.data.Blacklist
+import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.MockBlackListRepository
+import kpn.server.repository.MockBlacklistRepository
 
 class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -88,21 +88,21 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("Ignore 'Create' of blacklisted network") {
     val setup = new Setup()
-    setup.blackListNetwork(1L)
+    setup.blacklistNetwork(1L)
     val change = Change(Create, Seq(buildNetwork(1L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Modify' of blacklisted network") {
     val setup = new Setup()
-    setup.blackListNetwork(1L)
+    setup.blacklistNetwork(1L)
     val change = Change(Modify, Seq(buildNetwork(1L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Delete' of blacklisted network") {
     val setup = new Setup()
-    setup.blackListNetwork(1L)
+    setup.blacklistNetwork(1L)
     val change = Change(Delete, Seq(buildNetwork(1L)))
     assert(setup.analyze(change).isEmpty)
   }
@@ -139,10 +139,10 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    private val blackListRepository = new MockBlackListRepository()
+    private val blacklistRepository = new MockBlacklistRepository()
 
-    def blackListNetwork(networkId: Long): Unit = {
-      blackListRepository.save(BlackList(networks = Seq(BlackListEntry(networkId, "", ""))))
+    def blacklistNetwork(networkId: Long): Unit = {
+      blacklistRepository.save(Blacklist(networks = Seq(BlacklistEntry(networkId, "", ""))))
     }
 
     def analyze(change: Change): ElementChanges = {
@@ -153,7 +153,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
         changeSet,
         elementIds
       )
-      new NetworkChangeAnalyzerImpl(analysisContext, blackListRepository).analyze(context)
+      new NetworkChangeAnalyzerImpl(analysisContext, blacklistRepository).analyze(context)
     }
   }
 

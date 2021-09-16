@@ -9,10 +9,10 @@ import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.analyzer.engine.changes.data.BlackList
-import kpn.server.analyzer.engine.changes.data.BlackListEntry
+import kpn.server.analyzer.engine.changes.data.Blacklist
+import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.MockBlackListRepository
+import kpn.server.repository.MockBlacklistRepository
 
 class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -76,21 +76,21 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("Ignore 'Create' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListNode(1001L)
+    setup.blacklistNode(1001L)
     val change = Change(Create, Seq(createNode(1001L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Modify' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListNode(1001L)
+    setup.blacklistNode(1001L)
     val change = Change(Modify, Seq(createNode(1001L)))
     assert(setup.analyze(change).isEmpty)
   }
 
   test("Ignore 'Delete' of blacklisted route") {
     val setup = new Setup()
-    setup.blackListNode(1001L)
+    setup.blacklistNode(1001L)
     val change = Change(Delete, Seq(createNode(1001L)))
     assert(setup.analyze(change).isEmpty)
   }
@@ -126,15 +126,15 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    private val blackListRepository = new MockBlackListRepository()
+    private val blacklistRepository = new MockBlacklistRepository()
 
-    def blackListNode(nodeId: Long): Unit = {
-      blackListRepository.save(BlackList(nodes = Seq(BlackListEntry(nodeId, "", ""))))
+    def blacklistNode(nodeId: Long): Unit = {
+      blacklistRepository.save(Blacklist(nodes = Seq(BlacklistEntry(nodeId, "", ""))))
     }
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))
-      new NodeChangeAnalyzerImpl(analysisContext, blackListRepository).analyze(changeSet)
+      new NodeChangeAnalyzerImpl(analysisContext, blacklistRepository).analyze(changeSet)
     }
   }
 }
