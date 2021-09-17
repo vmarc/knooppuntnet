@@ -4,9 +4,6 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
-import kpn.core.database.DatabaseImpl
-import kpn.core.database.implementation.DatabaseContextImpl
-import kpn.core.db.couch.Couch
 import kpn.core.mongo.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
@@ -39,7 +36,6 @@ import kpn.server.analyzer.engine.context.Watched
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.json.Json
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
@@ -56,9 +52,6 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
   val dirs: Dirs = Dirs()
 
   private val mongoDatabase = Mongo.database(Mongo.client, "kpn-test")
-
-  private val couchConfig = Couch.config
-  private val changeDatabase = new DatabaseImpl(DatabaseContextImpl(couchConfig, Json.objectMapper, options.changeDatabaseName))
 
   val analysisContext = new AnalysisContext()
 
@@ -100,7 +93,7 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
 
   val analysisData: Watched = Watched()
 
-  val changeSetRepository = new ChangeSetRepositoryImpl(mongoDatabase, changeDatabase)
+  val changeSetRepository = new ChangeSetRepositoryImpl(mongoDatabase)
 
   val orphanRepository = new OrphanRepositoryImpl(mongoDatabase)
 

@@ -16,11 +16,6 @@ class CouchConfiguration(
   @Value("${couch.port:5984}") port: String,
   @Value("${couch.user:user}") user: String,
   @Value("${couch.password:password}") password: String,
-  @Value("${couch.database.analysis:analysis}") analysisDatabaseName: String,
-  @Value("${couch.database.changes:changes}") changeDatabaseName: String,
-  @Value("${couch.database.changesets:changesets}") changesetDatabaseName: String,
-  @Value("${couch.database.pois:pois}") poiDatabaseName: String,
-  @Value("${couch.database.tasks:tasks}") taskDatabaseName: String,
   @Value("${couch.database.backend-actions:backend-actions}") backendActionsDatabaseName: String,
   @Value("${couch.database.frontend-actions:frontend-actions}") frontendActionsDatabaseName: String
 ) {
@@ -36,31 +31,6 @@ class CouchConfiguration(
   }
 
   @Bean
-  def analysisDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, analysisDatabaseName))
-  }
-
-  @Bean
-  def changeDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, changeDatabaseName))
-  }
-
-  @Bean
-  def changesetDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, changesetDatabaseName))
-  }
-
-  @Bean
-  def poiDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, poiDatabaseName))
-  }
-
-  @Bean
-  def taskDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, taskDatabaseName))
-  }
-
-  @Bean
   def backendActionsDatabase(couchConfig: CouchConfig): Database = {
     new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, backendActionsDatabaseName))
   }
@@ -68,15 +38,5 @@ class CouchConfiguration(
   @Bean
   def frontendActionsDatabase(couchConfig: CouchConfig): Database = {
     new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, frontendActionsDatabaseName))
-  }
-
-  @Bean
-  def monitorDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "monitor"))
-  }
-
-  @Bean
-  def monitorAdminDatabase(couchConfig: CouchConfig): Database = {
-    new DatabaseImpl(DatabaseContextImpl(couchConfig, objectMapper, "monitor"))
   }
 }

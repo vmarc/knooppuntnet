@@ -11,7 +11,6 @@ import kpn.api.common.changes.filter.ChangesFilterPeriod
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.core.common.Time
-import kpn.core.database.views.changes.ChangesView
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.changes.MongoQueryChangeSet
 import kpn.core.mongo.actions.changes.MongoQueryChangeSetDirectCounts
@@ -31,11 +30,7 @@ import kpn.server.analyzer.engine.changes.network.NetworkChange
 import org.springframework.stereotype.Component
 
 @Component
-class ChangeSetRepositoryImpl(
-  database: Database,
-  // old
-  changeDatabase: kpn.core.database.Database
-) extends ChangeSetRepository {
+class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
 
   private val log = Log(classOf[ChangeSetRepositoryImpl])
 
@@ -154,7 +149,8 @@ class ChangeSetRepositoryImpl(
   }
 
   private def changesFilterPeriod(suffixLength: Int, keys: Seq[String]): Seq[ChangesFilterPeriod] = {
-    ChangesView.queryPeriod(changeDatabase, suffixLength, keys)
+    // ChangesView.queryPeriod(changeDatabase, suffixLength, keys)
+    Seq.empty
   }
 
   override def subsetChanges(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary] = {

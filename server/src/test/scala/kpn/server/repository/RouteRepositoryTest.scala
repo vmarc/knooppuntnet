@@ -4,15 +4,16 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.core.test.TestSupport.withCouchDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
 class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
-  test("routeWithId") {
-    withCouchDatabase { database =>
+  test("save/findById") {
 
-      val routeRepository = new RouteRepositoryImpl(null)
+    withDatabase { database =>
+
+      val routeRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
@@ -23,36 +24,36 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("routeReferences") {
+  test("networkReferences") {
 
-    withCouchDatabase { database =>
+    withDatabase { database =>
 
-      new NetworkRepositoryImpl(null).oldSaveNetworkInfo(
-        newNetworkInfo(
-          newNetworkAttributes(1,
+      database.networkInfos.save(
+        newNetworkInfoDoc(
+          1L,
+          summary = newNetworkSummary(
             name = "network-name"
           ),
-          detail = Some(
-            newNetworkInfoDetail(
-              routes = Seq(
-                newNetworkInfoRoute(10, "01-02")
-              )
+          routes = Seq(
+            newNetworkRouteRow(
+              10
             )
           )
         )
       )
 
-      val routeRepository = new RouteRepositoryImpl(null)
+      val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.networkReferences(10) should equal(
         Seq(Reference(NetworkType.hiking, NetworkScope.regional, 1, "network-name"))
       )
     }
   }
 
-  test("save") {
-    withCouchDatabase { database =>
+  test("save/update/delete") {
 
-      val routeRepository = new RouteRepositoryImpl(null)
+    withDatabase { database =>
+
+      val routeRepository = new RouteRepositoryImpl(database)
 
       // first save
       routeRepository.save(newRoute(10, name = "01-02"))
@@ -84,13 +85,23 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
       routeRepository.findById(10) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
       routeRepository.findById(20) should equal(Some(newRoute(20, name = "02-05"))) // updated
       routeRepository.findById(30) should equal(None)
+
+      // delete
+      routeRepository.delete(10)
+      routeRepository.delete(20)
+      routeRepository.delete(30) // delete non-existing route
+
+      routeRepository.findById(10) should equal(None)
+      routeRepository.findById(20) should equal(None)
+      routeRepository.findById(30) should equal(None)
     }
   }
 
   test("filterKnown") {
-    withCouchDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(null)
+    withDatabase { database =>
+
+      val routeRepository = new RouteRepositoryImpl(database)
 
       routeRepository.save(newRoute(10))
       routeRepository.save(newRoute(20))
