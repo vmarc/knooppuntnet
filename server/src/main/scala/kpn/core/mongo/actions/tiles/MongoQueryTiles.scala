@@ -3,7 +3,6 @@ package kpn.core.mongo.actions.tiles
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.tiles.MongoQueryTiles.log
 import kpn.core.mongo.util.Id
-import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
@@ -14,22 +13,7 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
 object MongoQueryTiles {
-
   private val log = Log(classOf[MongoQueryTiles])
-
-  def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
-      val query = new MongoQueryTiles(database)
-      query.nodeIds("cycling-9-265-168")
-      query.routeIds("cycling-9-265-168")
-      query.nodeIds("hiking-10-527-368")
-      query.routeIds("hiking-10-527-368")
-      query.nodeIds("hiking-12-2106-1351")
-      query.routeIds("hiking-12-2106-1351")
-      // println("node ids: " + query.nodeIds("cycling-9-265-168").mkString(", "))
-      // println("route ids: " + query.nodeIds("cycling-9-265-168").mkString(", "))
-    }
-  }
 }
 
 class MongoQueryTiles(database: Database) {
