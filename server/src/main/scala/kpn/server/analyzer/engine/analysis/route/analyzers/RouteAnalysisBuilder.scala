@@ -161,7 +161,6 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       summary.id,
       context.labels,
       summary,
-      active = true,
       proposed = context.proposed,
       context.relation.version,
       context.relation.changeSetId,

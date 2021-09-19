@@ -197,7 +197,6 @@ object RouteDetailsPageExample {
           "key5" -> "value5"
         )
       ),
-      active = false,
       proposed = true,
       version = 1,
       changeSetId = 1,

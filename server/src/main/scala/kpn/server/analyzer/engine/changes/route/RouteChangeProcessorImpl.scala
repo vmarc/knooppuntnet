@@ -330,7 +330,6 @@ class RouteChangeProcessorImpl(
 
     val updatedRoute = routeAnalysisBefore.route.copy(
       labels = routeAnalysisBefore.route.labels.filterNot(_ == Label.active),
-      active = false,
       facts = Seq(Fact.LostRouteTags)
     )
 

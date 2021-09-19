@@ -91,12 +91,12 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertRoute1(): Unit = {
     val routeInfo1 = findRouteById(11)
-    routeInfo1.active should equal(true)
+    routeInfo1.isActive should equal(true)
   }
 
   private def assertRoute2(): Unit = {
     val routeInfo2 = findRouteById(12)
-    routeInfo2.active should equal(false)
+    routeInfo2.isActive should equal(false)
   }
 
   private def assertNode1003(): Unit = {

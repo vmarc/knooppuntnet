@@ -15,7 +15,6 @@ case class RouteInfo(
   _id: Long, // routeId
   labels: Seq[String],
   summary: RouteSummary,
-  active: Boolean,
   proposed: Boolean,
   version: Long,
   changeSetId: Long,
@@ -36,8 +35,11 @@ case class RouteInfo(
 
   def deactivated: RouteInfo = {
     copy(
-      labels = labels.filterNot(_ == Label.active),
-      active = false
+      labels = labels.filterNot(label =>
+        label == Label.active || label.startsWith("fact")
+      )
     )
   }
+
+  def isActive: Boolean = labels.contains(Label.active)
 }
