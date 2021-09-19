@@ -68,6 +68,47 @@ class NodeRouteReferenceViewTest extends UnitTest with SharedTestObjects {
     }
   }
 
+  test("free node references in route") {
+
+    withCouchDatabase { database =>
+      val routeRepository = new RouteRepositoryImpl(null, database, false)
+      routeRepository.save(
+        newRoute(
+          id = 10,
+          orphan = true,
+          networkType = NetworkType.hiking,
+          name = "01-02",
+          analysis = newRouteInfoAnalysis(
+            map = newRouteMap(
+              freeNodes = Seq(
+                newRouteNetworkNodeInfo(
+                  id = 1001,
+                  name = "01"
+                ),
+                newRouteNetworkNodeInfo(
+                  id = 1002,
+                  name = "02"
+                )
+              )
+            )
+          )
+        )
+      )
+
+      val expectedReferences = Seq(
+        Reference(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          id = 10,
+          name = "01-02"
+        )
+      )
+
+      queryNode(database, 1001) should matchTo(expectedReferences)
+      queryNode(database, 1002) should matchTo(expectedReferences)
+    }
+  }
+
   test("no node references in orphan routes") {
     withCouchDatabase { database =>
       queryNode(database, 1001) shouldBe empty

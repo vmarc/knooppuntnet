@@ -29,6 +29,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
+import kpn.server.repository.NodeRouteRepository
 
 class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -439,10 +440,14 @@ class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       masterRouteAnalyzer
     )
 
+    val nodeRouteRepository = stub[NodeRouteRepository]
+    (nodeRouteRepository.nodeRouteReferences _).when(*, *, *).returns(Seq.empty)
+
     val networkAnalyzer = new NetworkAnalyzerImpl(
       relationAnalyzer,
       networkNodeAnalyzer,
-      networkRouteAnalyzer
+      networkRouteAnalyzer,
+      nodeRouteRepository
     )
 
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))

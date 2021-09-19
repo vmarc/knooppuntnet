@@ -15,7 +15,7 @@ trait NodeRouteRepository {
 
   def nodeRoutes(scopedNetworkType: ScopedNetworkType): Seq[NodeRoute]
 
-  def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref]
+  def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long, stale: Boolean = true): Seq[Ref]
 
   def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs]
 

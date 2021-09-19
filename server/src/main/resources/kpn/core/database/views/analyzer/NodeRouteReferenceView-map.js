@@ -25,6 +25,7 @@ if (doc && doc.route && doc.route.active === true) {
       name: summary.name
     };
 
+    emitRouteReferences(summary.id, reference, analysis.map.freeNodes);
     emitRouteReferences(summary.id, reference, analysis.map.startNodes);
     emitRouteReferences(summary.id, reference, analysis.map.startTentacleNodes);
     emitRouteReferences(summary.id, reference, analysis.map.endNodes);

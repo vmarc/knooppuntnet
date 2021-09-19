@@ -5,12 +5,29 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
+import kpn.server.repository.NodeRouteRepository
 
-class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysis: NetworkAnalysis, networkNode: NetworkNode) {
+class NodeIntegrityAnalyzer(
+  nodeRouteRepository: NodeRouteRepository,
+  scopedNetworkType: ScopedNetworkType,
+  networkAnalysis: NetworkAnalysis,
+  networkNode: NetworkNode
+) {
 
   def analysis: Option[NodeIntegrityCheck] = {
     if (referencedInNetworkRelation && hasIntegrityCheck) {
-      Some(NodeIntegrityCheck(networkNode.name, networkNode.node.id, routesWithNodeReference.size, expectedRouteRelationCount, failed))
+      val actual = determineRouteReferenceCount()
+      val expected = determineExpectedRouteRelationCount()
+      val failed = actual != expected
+      Some(
+        NodeIntegrityCheck(
+          networkNode.name,
+          networkNode.node.id,
+          actual,
+          expected,
+          failed
+        )
+      )
     }
     else {
       None
@@ -21,15 +38,15 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
     networkNode.node.tags.has(scopedNetworkType.expectedRouteRelationsTag)
   }
 
-  private def expectedRouteRelationCount: Int = {
+  private def determineExpectedRouteRelationCount(): Long = {
     networkNode.node.tags(scopedNetworkType.expectedRouteRelationsTag) match {
       case None => 0
       case Some(value) =>
         if (!value.forall(_.isDigit)) {
-          0
+          0L
         }
         else {
-          value.toInt
+          value.toLong
         }
     }
   }
@@ -38,12 +55,10 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
     networkAnalysis.networkNodesInRelation.map(_.id).contains(networkNode.id)
   }
 
-  private def routesWithNodeReference: Seq[NetworkMemberRoute] = {
-    networkAnalysis.routes.filterNot(hasSpecialState).filter(hasNodeReference)
-  }
-
-  private def failed: Boolean = {
-    routesWithNodeReference.size != expectedRouteRelationCount
+  private def determineRouteReferenceCount(): Long = {
+    val networkRouteRefIds = networkAnalysis.routes.filterNot(hasSpecialState).filter(hasNodeReference).map(_.id)
+    val allRouteRefIds = nodeRouteRepository.nodeRouteReferences(scopedNetworkType, networkNode.id, stale = false).map(_.id)
+    (networkRouteRefIds ++ allRouteRefIds).distinct.size
   }
 
   private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {

@@ -58,12 +58,12 @@ class NodeRouteRepositoryImpl(
     }
   }
 
-  override def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long): Seq[Ref] = {
+  override def nodeRouteReferences(scopedNetworkType: ScopedNetworkType, nodeId: Long, stale: Boolean): Seq[Ref] = {
     if (mongoEnabled) {
       ???
     }
     else {
-      NodeRouteReferenceView.query(analysisDatabase, scopedNetworkType, nodeId, stale = true)
+      NodeRouteReferenceView.query(analysisDatabase, scopedNetworkType, nodeId, stale)
     }
   }
 

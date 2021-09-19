@@ -67,6 +67,7 @@ import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.FactRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.NodeRouteRepositoryImpl
 import kpn.server.repository.OrphanRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
@@ -197,8 +198,18 @@ class AnalyzerStartToolConfiguration(val analysisExecutor: Executor, options: An
     routeAnalyzer
   )
 
+  val nodeRouteRepository = new NodeRouteRepositoryImpl(
+    mongoDatabase,
+    analysisDatabase,
+    mongoEnabled
+  )
 
-  val networkAnalyzer = new NetworkAnalyzerImpl(relationAnalyzer, networkNodeAnalyzer, networkRouteAnalyzer)
+  val networkAnalyzer = new NetworkAnalyzerImpl(
+    relationAnalyzer,
+    networkNodeAnalyzer,
+    networkRouteAnalyzer,
+    nodeRouteRepository
+  )
 
   private val networkInitialLoaderWorker: NetworkInitialLoaderWorker = new NetworkInitialLoaderWorkerImpl(
     analysisContext,

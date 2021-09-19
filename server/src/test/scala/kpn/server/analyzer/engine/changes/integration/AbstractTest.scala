@@ -89,6 +89,7 @@ import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
+import kpn.server.repository.NodeRouteRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
@@ -163,10 +164,14 @@ abstract class AbstractTest extends UnitTest with MockFactory with SharedTestObj
       masterRouteAnalyzer
     )
 
+    private val nodeRouteRepository = stub[NodeRouteRepository]
+    (nodeRouteRepository.nodeRouteReferences _).when(*, *, *).returns(Seq.empty)
+
     private val networkAnalyzer = new NetworkAnalyzerImpl(
       relationAnalyzer,
       networkNodeAnalyzer,
-      networkRouteAnalyzer
+      networkRouteAnalyzer,
+      nodeRouteRepository
     )
 
     private val nodeAnalyzer: NodeAnalyzer = {

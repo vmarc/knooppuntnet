@@ -18,6 +18,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.load.data.LoadedNetwork
+import kpn.server.repository.NodeRouteRepository
 import org.springframework.stereotype.Component
 
 import scala.util.Failure
@@ -27,7 +28,8 @@ import scala.util.Success
 class NetworkAnalyzerImpl(
   relationAnalyzer: RelationAnalyzer,
   networkNodeAnalyzer: NetworkNodeAnalyzer,
-  networkRouteAnalyzer: NetworkRouteAnalyzer
+  networkRouteAnalyzer: NetworkRouteAnalyzer,
+  nodeRouteRepository: NodeRouteRepository
 ) extends NetworkAnalyzer {
 
   def analyze(networkRelationAnalysis: NetworkRelationAnalysis, loadedNetwork: LoadedNetwork): Network = {
@@ -96,7 +98,12 @@ class NetworkAnalyzerImpl(
           None
         }
         else {
-          new NodeIntegrityAnalyzer(loadedNetwork.scopedNetworkType, analysis, networkNode).analysis
+          new NodeIntegrityAnalyzer(
+            nodeRouteRepository,
+            loadedNetwork.scopedNetworkType,
+            analysis,
+            networkNode
+          ).analysis
         }
 
         val connection: Boolean = {

@@ -52,6 +52,7 @@ import kpn.server.analyzer.load.data.LoadedNode
 import kpn.server.analyzer.load.data.LoadedRoute
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.NodeRepository
+import kpn.server.repository.NodeRouteRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -176,10 +177,14 @@ class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObje
         routeAnalyzer
       )
 
+      val nodeRouteRepository = stub[NodeRouteRepository]
+      (nodeRouteRepository.nodeRouteReferences _).when(*, *, *).returns(Seq.empty)
+
       new NetworkAnalyzerImpl(
         relationAnalyzer,
         networkNodeAnalyzer,
-        networkRouteAnalyzer
+        networkRouteAnalyzer,
+        nodeRouteRepository
       )
     }
 

@@ -30,6 +30,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.load.data.LoadedNetwork
+import kpn.server.repository.NodeRouteRepository
 import org.scalamock.scalatest.MockFactory
 
 class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
@@ -469,10 +470,14 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
       masterRouteAnalyzer
     )
 
+    val nodeRouteRepository = stub[NodeRouteRepository]
+    (nodeRouteRepository.nodeRouteReferences _).when(*, *, *).returns(Seq.empty)
+
     val networkAnalyzer = new NetworkAnalyzerImpl(
       relationAnalyzer,
       networkNodeAnalyzer,
-      networkRouteAnalyzer
+      networkRouteAnalyzer,
+      nodeRouteRepository
     )
     val networkRelationAnalysis = networkRelationAnalyzer.analyze(data.relations(1))
     val loadedNetwork = LoadedNetwork(1, ScopedNetworkType.rwn, "name", data, data.relations(1))
