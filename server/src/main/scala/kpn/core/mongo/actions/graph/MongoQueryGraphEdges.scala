@@ -5,6 +5,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.GraphEdges
 import kpn.core.mongo.actions.graph.MongoQueryGraphEdges.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Mongo
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.planner.graph.GraphEdge
@@ -48,7 +49,7 @@ class MongoQueryGraphEdges(database: Database) {
   def execute(): Seq[GraphEdges] = {
 
     val pipeline = Seq(
-      filter(equal("labels", "active")),
+      filter(equal("labels", Label.active)),
       unwind("$edges"),
       project(
         fields(

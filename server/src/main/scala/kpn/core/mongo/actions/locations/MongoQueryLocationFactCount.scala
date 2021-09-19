@@ -4,6 +4,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.mongo.CountResult
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.locations.MongoQueryLocationFactCount.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.bson.BsonDocument
@@ -38,7 +39,7 @@ class MongoQueryLocationFactCount(database: Database) {
     val subPipeline = Seq(
       filter(
         and(
-          equal("labels", "active"),
+          equal("labels", Label.active),
           equal("labels", s"network-type-${networkType.name}"),
           equal("labels", s"location-$locationName"),
           equal("labels", "facts")

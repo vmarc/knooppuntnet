@@ -10,6 +10,7 @@ import kpn.api.custom.Relation
 import kpn.core.analysis.TagInterpreter
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
+import kpn.core.mongo.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
@@ -166,12 +167,7 @@ class RouteChangeProcessorImpl(
 
     masterRouteAnalyzer.analyze(relationBefore).map { before =>
 
-      val routeInfo = before.route.copy(
-        labels = before.route.labels.filterNot(_ == "active"),
-        active = false
-      )
-
-      routeRepository.save(routeInfo)
+      routeRepository.save(before.route.deactivated)
 
       tileChangeAnalyzer.analyzeRoute(before)
       val impactedNodeIds: Seq[Long] = before.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
@@ -333,7 +329,7 @@ class RouteChangeProcessorImpl(
     //    val facts = routeUpdate.facts
 
     val updatedRoute = routeAnalysisBefore.route.copy(
-      labels = routeAnalysisBefore.route.labels.filterNot(_ == "active"),
+      labels = routeAnalysisBefore.route.labels.filterNot(_ == Label.active),
       active = false,
       facts = Seq(Fact.LostRouteTags)
     )

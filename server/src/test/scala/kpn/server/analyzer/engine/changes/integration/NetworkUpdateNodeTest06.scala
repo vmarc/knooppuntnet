@@ -17,6 +17,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkUpdateNodeTest06 extends IntegrationTest {
@@ -103,7 +104,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
       newNodeDoc(
         1002,
         labels = Seq(
-          "active",
+          Label.active,
           "network-type-cycling"
         ),
         country = Some(Country.nl),

@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.post
 
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.util.Id
 import kpn.core.mongo.util.Mongo
@@ -50,7 +51,7 @@ class OrphanNodeUpdater(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             exists("country"),
             exists("names")
           )
@@ -70,7 +71,7 @@ class OrphanNodeUpdater(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("labels", "active")
+          equal("labels", Label.active)
         ),
         unwind("$nodeRefs"),
         project(

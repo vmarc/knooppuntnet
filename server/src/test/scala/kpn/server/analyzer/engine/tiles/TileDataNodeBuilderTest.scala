@@ -13,10 +13,8 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_ref") {
 
-
     val node = newNodeDoc( // TODO TileInfoNode
       id = 1001,
-      labels = Seq("active"),
       names = Seq(
         newNodeName(
           networkType = NetworkType.hiking,
@@ -42,7 +40,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from("proposed:rwn_ref" -> "01")
     )
 
@@ -54,7 +51,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from("rwn_ref" -> "o")
     )
 
@@ -65,7 +61,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from("proposed:rwn_ref" -> "o")
     )
 
@@ -76,7 +71,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "rwn_ref" -> "01",
         "rwn_name" -> "name"
@@ -92,7 +86,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "rwn_name" -> "name"
       )
@@ -107,7 +100,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "proposed:rwn_name" -> "name"
       )
@@ -122,7 +114,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "rwn:name" -> "name"
       )
@@ -137,7 +128,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "proposed:rwn:name" -> "name"
       )
@@ -152,7 +142,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "rwn_name" -> "123"
       )
@@ -167,7 +156,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from("lwn_ref" -> "01")
     )
 
@@ -180,7 +168,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "lwn_ref" -> "01",
         "rwn_ref" -> "02"
@@ -196,7 +183,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from("lwn_name" -> "name")
     )
 
@@ -209,7 +195,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from("lwn:name" -> "name")
     )
 
@@ -222,7 +207,6 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
     val node = newNodeDoc(
       id = 1001,
-      labels = Seq("active"),
       tags = Tags.from(
         "rwn_ref" -> "01",
         "survey:date" -> "2020-08-11"

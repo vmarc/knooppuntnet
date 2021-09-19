@@ -13,9 +13,9 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
     withDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.save(newNodeDoc(1001, labels = Seq("active"), tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeDoc(1002, labels = Seq("active"), tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeDoc(1003, labels = Seq("active"), tiles = Seq("cycling-10-001-002")))
+      nodeRepository.save(newNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1003, tiles = Seq("cycling-10-001-002")))
 
       val query = new MongoQueryTiles(database)
 
@@ -34,8 +34,8 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
     withDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.save(newNodeDoc(1001, labels = Seq("active"), tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001"), active = false))
 
       val query = new MongoQueryTiles(database)
 
@@ -50,8 +50,8 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
     withDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
-      routeRepository.save(newRoute(11, labels = Seq("active"), tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
-      routeRepository.save(newRoute(12, labels = Seq("active"), tiles = Seq("cycling-10-001-001")))
+      routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
+      routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001")))
 
       val query = new MongoQueryTiles(database)
 
@@ -70,8 +70,8 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
     withDatabase { database =>
 
       val routeRepository = new RouteRepositoryImpl(database)
-      routeRepository.save(newRoute(11, labels = Seq("active"), tiles = Seq("cycling-10-001-001")))
-      routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001")))
+      routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001")))
+      routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001"), active = false))
 
       val query = new MongoQueryTiles(database)
 

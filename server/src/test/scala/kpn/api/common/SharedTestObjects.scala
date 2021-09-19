@@ -65,6 +65,7 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkNodeMember
@@ -341,8 +342,7 @@ trait SharedTestObjects extends MockFactory {
 
     NodeDoc(
       id,
-      labels,
-      active,
+      updatedLabels(labels, active),
       country,
       name,
       names,
@@ -399,7 +399,7 @@ trait SharedTestObjects extends MockFactory {
 
     RouteInfo(
       summary.id,
-      labels,
+      updatedLabels(labels, active),
       summary,
       active,
       proposed,
@@ -926,7 +926,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteInfo = {
     RouteInfo(
       summary.id,
-      labels,
+      updatedLabels(labels, active),
       summary,
       active,
       proposed,
@@ -1314,4 +1314,17 @@ trait SharedTestObjects extends MockFactory {
       lastUpdated
     )
   }
+
+  private def updatedLabels(labels: Seq[String], active: Boolean): Seq[String] = {
+    if (active && !labels.contains(Label.active)) {
+      labels :+ Label.active
+    }
+    else if (!active && labels.contains(Label.active)) {
+      labels.filterNot(_ == Label.active)
+    }
+    else {
+      labels
+    }
+  }
+
 }

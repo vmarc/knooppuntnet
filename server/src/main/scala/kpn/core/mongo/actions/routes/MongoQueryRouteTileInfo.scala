@@ -4,6 +4,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryRouteTileInfo.log
 import kpn.core.mongo.actions.routes.MongoQueryRouteTileInfo.projectRouteTileInfo
+import kpn.core.mongo.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import org.mongodb.scala.bson.conversions.Bson
@@ -45,7 +46,7 @@ class MongoQueryRouteTileInfo(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             equal("labels", s"network-type-${networkType.name}")
           )
         ),
@@ -62,7 +63,7 @@ class MongoQueryRouteTileInfo(database: Database) {
         filter(
           and(
             equal("_id", routeId),
-            equal("labels", "active")
+            equal("labels", Label.active)
           )
         ),
         projectRouteTileInfo

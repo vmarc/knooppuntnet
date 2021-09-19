@@ -4,6 +4,7 @@ import kpn.api.common.statistics.StatisticValues
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.MongoQueryStatistics.groupValues
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetNodeCount.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.Document
@@ -26,7 +27,7 @@ class StatisticsUpdateSubsetNodeCount(database: Database) {
       val select = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             exists("country")
           )
         ),

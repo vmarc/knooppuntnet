@@ -5,6 +5,7 @@ import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.locations.MongoQueryLocationRoutes.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
@@ -95,7 +96,7 @@ class MongoQueryLocationRoutes(database: Database) {
 
   private def buildFilter(networkType: NetworkType, location: String, locationRoutesType: LocationRoutesType): Bson = {
     val filters = Seq(
-      Some(equal("labels", "active")),
+      Some(equal("labels", Label.active)),
       Some(equal("labels", s"network-type-${networkType.name}")),
       Some(equal("labels", s"location-$location")),
       locationRoutesType match {

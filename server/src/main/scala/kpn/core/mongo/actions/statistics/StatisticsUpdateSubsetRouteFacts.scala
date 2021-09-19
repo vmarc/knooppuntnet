@@ -3,6 +3,7 @@ package kpn.core.mongo.actions.statistics
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetRouteFacts.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.MongoProjections.concat
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
@@ -38,7 +39,7 @@ class StatisticsUpdateSubsetRouteFacts(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             exists("summary.country"),
             exists("facts")
           )

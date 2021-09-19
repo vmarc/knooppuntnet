@@ -63,7 +63,7 @@ class NodePageBuilderImpl(
         _id = nodeDoc._id,
         id = nodeDoc._id,
         labels = nodeDoc.labels,
-        active = nodeDoc.active,
+        active = nodeDoc.isActive,
         orphan = false,
         country = nodeDoc.country,
         name = nodeDoc.name,

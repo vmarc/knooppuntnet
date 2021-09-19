@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.tiles
 
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.tiles.MongoQueryTiles.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Id
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
@@ -36,7 +37,7 @@ class MongoQueryTiles(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", "active"),
+          equal("labels", Label.active),
           equal("tiles", tileName)
         )
       ),

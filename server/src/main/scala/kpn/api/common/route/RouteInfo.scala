@@ -8,6 +8,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.Label
 import kpn.server.analyzer.engine.context.ElementIds
 
 case class RouteInfo(
@@ -33,4 +34,10 @@ case class RouteInfo(
 
   def toRef: Ref = Ref(summary.id, summary.name)
 
+  def deactivated: RouteInfo = {
+    copy(
+      labels = labels.filterNot(_ == Label.active),
+      active = false
+    )
+  }
 }

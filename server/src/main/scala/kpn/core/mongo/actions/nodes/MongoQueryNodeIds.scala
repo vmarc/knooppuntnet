@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.nodes
 
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeIds.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Id
 import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
@@ -19,7 +20,7 @@ class MongoQueryNodeIds(database: Database) {
   def execute(): Seq[Long] = {
     log.debugElapsed {
       val pipeline = Seq(
-        filter(equal("labels", "active")),
+        filter(equal("labels", Label.active)),
         project(
           fields(
             include("_id")

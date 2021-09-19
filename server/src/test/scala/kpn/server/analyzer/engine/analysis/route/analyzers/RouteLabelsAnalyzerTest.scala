@@ -5,6 +5,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
+import kpn.core.mongo.doc.Label
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -16,7 +17,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = buildContext()
     RouteLabelsAnalyzer.analyze(context).labels should equal(
       Seq(
-        "active",
+        Label.active,
         "broken",
         "fact-RouteBroken",
         "facts",
@@ -31,7 +32,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
   test("active false") {
     val context = buildContext().copy(active = false)
     val labels = RouteLabelsAnalyzer.analyze(context).labels
-    labels should not contain "active"
+    labels should not contain Label.active
   }
 
   test("no survey") {

@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.routes
 
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryRouteNodeIds.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Id
 import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
@@ -27,7 +28,7 @@ class MongoQueryRouteNodeIds(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             in("_id", routeIds: _*),
           )
         ),

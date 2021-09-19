@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.routes
 
 import kpn.api.common.route.RouteNameInfo
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -23,7 +24,7 @@ class MongoQueryRouteNameInfo(database: Database) {
         filter(
           and(
             equal("_id", routeId),
-            equal("labels", "active")
+            equal("labels", Label.active)
           )
         ),
         project(

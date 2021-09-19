@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
+import kpn.core.mongo.doc.Label
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object RouteLabelsAnalyzer extends RouteAnalyzer {
@@ -22,7 +23,7 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
 
   private def buildBasicLabels(): Seq[String] = {
     Seq(
-      if (context.active) Some("active") else None,
+      if (context.active) Some(Label.active) else None,
       if (context.lastSurvey.isDefined) Some("survey") else None,
       if (context.facts.nonEmpty) Some("facts") else None,
       if (context.facts.contains(Fact.RouteBroken)) Some("broken") else None,

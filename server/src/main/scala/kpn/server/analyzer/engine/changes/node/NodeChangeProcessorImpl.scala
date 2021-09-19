@@ -154,13 +154,7 @@ class NodeChangeProcessorImpl(
 
     if (!TagInterpreter.isNetworkNode(nodeDocAfter.tags)) {
       analysisContext.watched.nodes.delete(nodeId)
-      val deletedNodeDoc = nodeDocAfter.copy(
-        active = false,
-        labels = nodeDocAfter.labels.filterNot(label =>
-          label == "active" || label.startsWith("fact")
-        )
-      )
-      nodeRepository.save(deletedNodeDoc)
+      nodeRepository.save(nodeDocAfter.deactivated)
 
       val key = context.buildChangeKey(nodeDocAfter._id)
       val subsets = nodeDocBefore.names.flatMap { nodeName => // TODO also consider nodeDocAfter
@@ -225,14 +219,7 @@ class NodeChangeProcessorImpl(
 
     analysisContext.watched.nodes.delete(nodeDoc._id)
 
-    val deletedNodeDoc = nodeDoc.copy(
-      active = false,
-      labels = nodeDoc.labels.filterNot(label =>
-        label == "active" || label.startsWith("fact")
-      )
-    )
-
-    nodeRepository.save(deletedNodeDoc)
+    nodeRepository.save(nodeDoc.deactivated)
 
     val key = context.buildChangeKey(nodeDoc._id)
     val subsets = nodeDoc.names.flatMap { nodeName =>

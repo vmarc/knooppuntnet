@@ -53,13 +53,7 @@ class StatisticsUpdateSubsetRouteCountTest extends UnitTest with SharedTestObjec
           Some(country),
           networkType,
         ),
-        labels = if (active) {
-          Seq("active")
-        }
-        else {
-          Seq.empty
-        },
-        active
+        active = active
       )
     )
   }

@@ -6,9 +6,9 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType.hiking
+import kpn.core.mongo.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import org.apache.logging.log4j.message.MapMessage.MapFormat.names
 
 class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
@@ -19,7 +19,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-be"
           ),
@@ -33,7 +33,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-be"
           ),
@@ -84,7 +84,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "active",
             "network-type-hiking",
             "location-be"
           ),
@@ -98,6 +97,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeDoc(
           1002L,
+          active = false,
           labels = Seq(
             "network-type-hiking",
             "location-be"
@@ -122,7 +122,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "active",
+            Label.active,
             "survey",
             "network-type-hiking",
             "location-be"
@@ -138,7 +138,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-be"
           ),
@@ -177,7 +177,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-be"
           ),
@@ -191,7 +191,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-nl"
           ),
@@ -215,7 +215,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-be"
           ),
@@ -229,7 +229,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-cycling",
             "location-be"
           ),
@@ -253,7 +253,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "active",
+            Label.active,
             "network-type-hiking",
             "location-be"
           ),
@@ -267,7 +267,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1007L,
           labels = Seq(
-            "active",
+            Label.active,
             "facts",
             "fact-NodeInvalidSurveyDate",
             "network-type-hiking",
@@ -313,7 +313,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           newNodeDoc(
             nodeId,
             labels = Seq(
-              "active",
+              Label.active,
               "network-type-hiking",
               "location-be"
             ),

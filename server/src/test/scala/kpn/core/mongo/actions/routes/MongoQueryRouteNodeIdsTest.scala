@@ -2,6 +2,7 @@ package kpn.core.mongo.actions.routes
 
 import kpn.api.common.SharedTestObjects
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -26,7 +27,7 @@ class MongoQueryRouteNodeIdsTest extends UnitTest with SharedTestObjects {
     database.routes.save(
       newRouteInfo(
         newRouteSummary(routeId),
-        labels = Seq("active"),
+        labels = Seq(Label.active),
         nodeRefs = nodeRefs
       )
     )

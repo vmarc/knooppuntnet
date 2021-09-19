@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.node.NodeIntegrity
+import kpn.core.mongo.doc.Label
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 
@@ -24,7 +25,7 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
 
   private def buildBasicLabels(): Seq[String] = {
     Seq(
-      if (analysis.active) Some("active") else None,
+      if (analysis.active) Some(Label.active) else None,
       if (analysis.orphan) Some("orphan") else None,
       if (analysis.lastSurvey.isDefined) Some("survey") else None,
       if (analysis.facts.nonEmpty) Some("facts") else None,

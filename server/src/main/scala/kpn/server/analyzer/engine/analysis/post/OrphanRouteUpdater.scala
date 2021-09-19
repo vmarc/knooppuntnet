@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.post
 
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.util.Id
 import kpn.core.mongo.util.Mongo
@@ -46,7 +47,7 @@ class OrphanRouteUpdater(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             exists("summary.country")
           )
         ),

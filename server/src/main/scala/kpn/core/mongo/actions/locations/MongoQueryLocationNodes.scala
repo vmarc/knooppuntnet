@@ -13,6 +13,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodes.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
@@ -161,7 +162,7 @@ class MongoQueryLocationNodes(database: Database) {
 
   private def buildFilter(networkType: NetworkType, location: String, locationNodesType: LocationNodesType): Bson = {
     val filters = Seq(
-      Some(equal("labels", "active")),
+      Some(equal("labels", Label.active)),
       Some(equal("labels", s"network-type-${networkType.name}")),
       Some(equal("labels", s"location-$location")),
       locationNodesType match {

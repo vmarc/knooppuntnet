@@ -76,13 +76,10 @@ class FullNodeAnalyzerImpl(
   }
 
   private def deactivateObsoleteNodes(nodeIds: Seq[Long]): Unit = {
-    nodeIds.foreach {
-      nodeId =>
-        database.nodes.findById(nodeId, log).map {
-          nodeInfo =>
-            // TODO log.warn(...)
-            database.nodes.save(nodeInfo.copy(active = false), log)
-        }
+    nodeIds.foreach { nodeId =>
+      database.nodes.findById(nodeId, log).map { nodeDoc =>
+        database.nodes.save(nodeDoc.deactivated, log)
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ package kpn.core.mongo.actions.statistics
 import kpn.api.common.statistics.StatisticValue
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.statistics.StatisticsUpdateSubsetFactCount.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.MongoQuery
 import kpn.core.util.Log
 import org.mongodb.scala.Document
@@ -76,7 +77,7 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", "active"),
+          equal("labels", Label.active),
           exists("summary.country")
         )
       ),
@@ -95,7 +96,7 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", "active")
+          equal("labels", Label.active)
         )
       ),
       unwind("$names"),

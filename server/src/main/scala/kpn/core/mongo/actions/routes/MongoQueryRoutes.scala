@@ -3,6 +3,7 @@ package kpn.core.mongo.actions.routes
 import kpn.api.common.route.RouteInfo
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryRoutes.log
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Count
 import kpn.core.util.Log
 import org.mongodb.scala.model.Accumulators.sum
@@ -29,7 +30,7 @@ class MongoQueryRoutes(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             in("_id", routeIds: _*)
           ),
         )
@@ -44,7 +45,7 @@ class MongoQueryRoutes(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             in("_id", routeIds: _*)
           )
         ),

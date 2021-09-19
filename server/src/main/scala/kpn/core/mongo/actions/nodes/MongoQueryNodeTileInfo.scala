@@ -4,6 +4,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeTileInfo.log
 import kpn.core.mongo.actions.nodes.MongoQueryNodeTileInfo.projectNodeTileInfo
+import kpn.core.mongo.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import org.mongodb.scala.bson.conversions.Bson
@@ -39,7 +40,7 @@ class MongoQueryNodeTileInfo(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             equal("labels", s"network-type-${networkType.name}")
           )
         ),
@@ -56,7 +57,7 @@ class MongoQueryNodeTileInfo(database: Database) {
         filter(
           and(
             equal("_id", nodeId),
-            equal("labels", "active")
+            equal("labels", Label.active)
           )
         ),
         projectNodeTileInfo

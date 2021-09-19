@@ -52,7 +52,6 @@ case class NodeAnalysis(
     NodeDoc(
       node.id,
       labels,
-      active,
       country,
       name,
       nodeNames,

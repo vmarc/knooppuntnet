@@ -21,6 +21,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.mongo.doc.Label
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.context.ElementIds
 
@@ -99,7 +100,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           tags = newRouteTags("01-02")
         ),
         labels = Seq(
-          "active",
+          Label.active,
           "network-type-hiking"
         ),
         orphan = true,

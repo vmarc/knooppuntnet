@@ -10,6 +10,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -54,13 +55,7 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
           networkType,
           meters = meters
         ),
-        labels = if (active) {
-          Seq("active")
-        }
-        else {
-          Seq.empty
-        },
-        active
+        active = active
       )
     )
   }

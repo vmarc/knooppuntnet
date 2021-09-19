@@ -43,7 +43,7 @@ class FindDeletedNodesTool(
     nodeIds.sliding(50, 50).zipWithIndex.foreach { case (ids, index) =>
       println(s"${index * 50}/${nodeIds.size}")
       val nodes = nodeRepository.nodesWithIds(ids)
-      val activeNodeIds = nodes.filter(_.active).map(_._id)
+      val activeNodeIds = nodes.filter(_.isActive).map(_._id)
       val xmlString = executor.executeQuery(None, QueryNodes("nodes", activeNodeIds))
       val xml = try {
         XML.loadString(xmlString)

@@ -7,11 +7,11 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.nodes.MongoQueryNodeRouteReferences
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
-import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.and
@@ -74,7 +74,7 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", "active"),
+            equal("labels", Label.active),
             in("_id", nodeIds: _*)
           ),
         )

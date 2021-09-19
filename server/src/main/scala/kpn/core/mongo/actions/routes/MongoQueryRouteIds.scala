@@ -1,6 +1,7 @@
 package kpn.core.mongo.actions.routes
 
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.mongo.util.Id
 import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
@@ -19,7 +20,7 @@ class MongoQueryRouteIds(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("labels", "active")
+          equal("labels", Label.active)
         ),
         project(
           fields(

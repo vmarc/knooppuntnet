@@ -51,12 +51,7 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
     database.nodes.save(
       newNodeDoc(
         nodeId,
-        labels = if (active) {
-          Seq("active")
-        }
-        else {
-          Seq.empty
-        },
+        active = active,
         country = Some(country),
         names = Seq(
           newNodeName(

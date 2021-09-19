@@ -14,6 +14,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.Label
 import kpn.core.test.OverpassData
 
 class RouteDeleteTest01 extends IntegrationTest {
@@ -67,7 +68,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          "active",
+          Label.active,
           "network-type-hiking"
         ),
         country = Some(Country.nl),
@@ -91,7 +92,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1002,
         labels = Seq(
-          "active",
+          Label.active,
           "network-type-hiking"
         ),
         country = Some(Country.nl),
