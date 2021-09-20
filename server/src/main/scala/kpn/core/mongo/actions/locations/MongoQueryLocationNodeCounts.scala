@@ -47,8 +47,8 @@ class MongoQueryLocationNodeCounts(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", s"location-${country.domain}"),
-          equal("labels", s"network-type-${networkType.name}")
+          equal("labels", Label.location(country.domain)),
+          equal("labels", Label.networkType(networkType))
         )
       ),
       unwind("$locations"),

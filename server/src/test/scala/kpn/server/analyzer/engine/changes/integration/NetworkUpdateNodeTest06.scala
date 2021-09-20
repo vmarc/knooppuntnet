@@ -105,7 +105,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          "network-type-cycling"
+          Label.networkType(NetworkType.cycling)
         ),
         country = Some(Country.nl),
         name = "03",

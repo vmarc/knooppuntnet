@@ -2,9 +2,11 @@ package kpn.core.mongo.actions.locations
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
+import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.hiking
 import kpn.core.mongo.doc.Label
 import kpn.core.test.TestSupport.withDatabase
@@ -20,8 +22,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1001L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -34,8 +36,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1002L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -84,8 +86,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -99,8 +101,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1002L,
           active = false,
           labels = Seq(
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -123,9 +125,9 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1001L,
           labels = Seq(
             Label.active,
-            "survey",
-            "network-type-hiking",
-            "location-be"
+            Label.survey,
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -139,8 +141,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1002L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -178,8 +180,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1001L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -192,8 +194,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1002L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-nl"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.nl.domain)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -216,8 +218,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1001L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -230,8 +232,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1002L,
           labels = Seq(
             Label.active,
-            "network-type-cycling",
-            "location-be"
+            Label.networkType(NetworkType.cycling),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -254,8 +256,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1001L,
           labels = Seq(
             Label.active,
-            "network-type-hiking",
-            "location-be"
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -268,10 +270,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           1007L,
           labels = Seq(
             Label.active,
-            "facts",
-            "fact-NodeInvalidSurveyDate",
-            "network-type-hiking",
-            "location-be"
+            Label.facts,
+            Label.fact(Fact.NodeInvalidSurveyDate),
+            Label.networkType(NetworkType.hiking),
+            Label.location(Country.be.domain)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -314,8 +316,8 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             nodeId,
             labels = Seq(
               Label.active,
-              "network-type-hiking",
-              "location-be"
+              Label.networkType(NetworkType.hiking),
+              Label.location(Country.be.domain)
             ),
             names = Seq(
               newNodeName(name = name)

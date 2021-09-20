@@ -101,7 +101,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         ),
         labels = Seq(
           Label.active,
-          "network-type-hiking"
+          Label.networkType(NetworkType.hiking)
         ),
         orphan = true,
         tags = newRouteTags("01-02"),

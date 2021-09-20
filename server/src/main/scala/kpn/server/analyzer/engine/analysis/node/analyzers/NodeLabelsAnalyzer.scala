@@ -15,10 +15,10 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
 
   def analyze: NodeAnalysis = {
     val basicLabels = buildBasicLabels()
-    val factLabels = analysis.facts.map(fact => s"fact-${fact.name}")
-    val networkTypeLabels = analysis.nodeNames.map(name => s"network-type-${name.networkType.name}")
+    val factLabels = analysis.facts.map(fact => Label.fact(fact))
+    val networkTypeLabels = analysis.nodeNames.map(name => Label.networkType(name.networkType))
     val integrityCheckLabels = buildIntegrityCheckLabels(analysis.integrity)
-    val locationLabels = analysis.locations.map(location => s"location-$location")
+    val locationLabels = analysis.locations.map(location => Label.location(location))
     val labels = basicLabels ++ factLabels ++ networkTypeLabels ++ integrityCheckLabels ++ locationLabels
     analysis.copy(labels = labels)
   }
@@ -27,8 +27,8 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
     Seq(
       if (analysis.active) Some(Label.active) else None,
       if (analysis.orphan) Some("orphan") else None,
-      if (analysis.lastSurvey.isDefined) Some("survey") else None,
-      if (analysis.facts.nonEmpty) Some("facts") else None,
+      if (analysis.lastSurvey.isDefined) Some(Label.survey) else None,
+      if (analysis.facts.nonEmpty) Some(Label.facts) else None,
     ).flatten
   }
 

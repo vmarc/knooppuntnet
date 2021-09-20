@@ -69,7 +69,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          "network-type-hiking"
+          Label.networkType(NetworkType.hiking)
         ),
         country = Some(Country.nl),
         name = "01",
@@ -93,7 +93,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          "network-type-hiking"
+          Label.networkType(NetworkType.hiking)
         ),
         country = Some(Country.nl),
         name = "02",

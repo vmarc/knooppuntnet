@@ -1,6 +1,7 @@
 package kpn.core.mongo.actions.locations
 
 import kpn.api.common.location.LocationRouteInfo
+import kpn.api.custom.Fact
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
 import kpn.core.mongo.Database
@@ -97,12 +98,12 @@ class MongoQueryLocationRoutes(database: Database) {
   private def buildFilter(networkType: NetworkType, location: String, locationRoutesType: LocationRoutesType): Bson = {
     val filters = Seq(
       Some(equal("labels", Label.active)),
-      Some(equal("labels", s"network-type-${networkType.name}")),
-      Some(equal("labels", s"location-$location")),
+      Some(equal("labels", Label.networkType(networkType))),
+      Some(equal("labels", Label.location(location))),
       locationRoutesType match {
-        case LocationRoutesType.inaccessible => Some(equal("labels", s"fact-RouteUnaccessible"))
-        case LocationRoutesType.facts => Some(equal("labels", "facts"))
-        case LocationRoutesType.survey => Some(equal("labels", "survey"))
+        case LocationRoutesType.inaccessible => Some(equal("labels", Label.fact(Fact.RouteUnaccessible)))
+        case LocationRoutesType.facts => Some(equal("labels", Label.facts))
+        case LocationRoutesType.survey => Some(equal("labels", Label.survey))
         case _ => None
       }
     ).flatten

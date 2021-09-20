@@ -14,9 +14,9 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     val basicLabels = buildBasicLabels()
-    val factLabels = context.facts.map(fact => s"fact-${fact.name}")
-    val networkTypeLabels = Seq(s"network-type-${context.scopedNetworkType.networkType.name}")
-    val locationLabels = context.locationAnalysis.toSeq.flatMap(_.locationNames).map(location => s"location-$location")
+    val factLabels = context.facts.map(fact => Label.fact(fact))
+    val networkTypeLabels = Seq(Label.networkType(context.scopedNetworkType.networkType))
+    val locationLabels = context.locationAnalysis.toSeq.flatMap(_.locationNames).map(location => Label.location(location))
     val labels = (basicLabels ++ factLabels ++ networkTypeLabels ++ locationLabels).sorted
     context.copy(labels = labels)
   }
@@ -24,8 +24,8 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
   private def buildBasicLabels(): Seq[String] = {
     Seq(
       if (context.active) Some(Label.active) else None,
-      if (context.lastSurvey.isDefined) Some("survey") else None,
-      if (context.facts.nonEmpty) Some("facts") else None,
+      if (context.lastSurvey.isDefined) Some(Label.survey) else None,
+      if (context.facts.nonEmpty) Some(Label.facts) else None,
       if (context.facts.contains(Fact.RouteBroken)) Some("broken") else None,
     ).flatten
   }

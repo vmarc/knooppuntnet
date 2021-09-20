@@ -74,7 +74,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          "network-type-cycling"
+          Label.networkType(NetworkType.cycling)
         ),
         country = Some(Country.nl),
         name = "02",

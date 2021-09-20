@@ -50,9 +50,9 @@ class MongoQueryLocationFacts(database: Database) {
     val mainFilter = filter(
       and(
         equal("labels", Label.active),
-        equal("labels", s"network-type-${networkType.name}"),
-        equal("labels", s"location-$locationName"),
-        equal("labels", "facts")
+        equal("labels", Label.networkType(networkType)),
+        equal("labels", Label.location(locationName)),
+        equal("labels", Label.facts)
       )
     )
 

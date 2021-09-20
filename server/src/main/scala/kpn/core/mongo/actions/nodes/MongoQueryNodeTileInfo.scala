@@ -41,7 +41,7 @@ class MongoQueryNodeTileInfo(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            equal("labels", s"network-type-${networkType.name}")
+            equal("labels", Label.networkType(networkType))
           )
         ),
         projectNodeTileInfo

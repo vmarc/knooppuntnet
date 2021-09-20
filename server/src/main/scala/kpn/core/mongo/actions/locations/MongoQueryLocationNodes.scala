@@ -163,11 +163,11 @@ class MongoQueryLocationNodes(database: Database) {
   private def buildFilter(networkType: NetworkType, location: String, locationNodesType: LocationNodesType): Bson = {
     val filters = Seq(
       Some(equal("labels", Label.active)),
-      Some(equal("labels", s"network-type-${networkType.name}")),
-      Some(equal("labels", s"location-$location")),
+      Some(equal("labels", Label.networkType(networkType))),
+      Some(equal("labels", Label.location(location))),
       locationNodesType match {
-        case LocationNodesType.facts => Some(equal("labels", "facts"))
-        case LocationNodesType.survey => Some(equal("labels", "survey"))
+        case LocationNodesType.facts => Some(equal("labels", Label.facts))
+        case LocationNodesType.survey => Some(equal("labels", Label.survey))
         case LocationNodesType.integrityCheck => Some(equal("labels", s"integrity-check-${networkType.name}"))
         case LocationNodesType.integrityCheckFailed => Some(equal("labels", s"integrity-check-failed-${networkType.name}"))
         case _ => None

@@ -10,6 +10,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.core.mongo.doc.Label
 import kpn.core.test.OverpassData
 
 class OrphanNodeDeleteTest01 extends IntegrationTest {
@@ -38,7 +39,7 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          "network-type-hiking"
+          Label.networkType(NetworkType.hiking)
         ),
         active = false, // <-- !!
         country = Some(Country.nl),

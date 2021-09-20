@@ -18,6 +18,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkUpdateRouteTest03 extends IntegrationTest {
@@ -104,9 +105,9 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       newNodeDoc(
         1003,
         labels = Seq(
-          //  "facts", TODO MONGO
-          //  "fact-Deleted",
-          "network-type-hiking"
+          // Label.facts, TODO MONGO
+          // "fact-Deleted",
+          Label.networkType(NetworkType.hiking)
         ),
         active = false,
         country = Some(Country.nl),
