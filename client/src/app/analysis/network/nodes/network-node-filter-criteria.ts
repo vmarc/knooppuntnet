@@ -4,7 +4,6 @@ import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
 export class NetworkNodeFilterCriteria {
   constructor(
     readonly definedInNetworkRelation: boolean = null,
-    readonly definedInRouteRelation: boolean = null,
     readonly referencedInRoute: boolean = null,
     readonly connection: boolean = null,
     readonly roleConnection: boolean = null,

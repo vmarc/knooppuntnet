@@ -2,7 +2,7 @@ import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkScope } from '@api/custom/network-scope';
@@ -72,8 +72,8 @@ import { NetworkNodesService } from './network-nodes.service';
         </th>
         <td mat-cell *matCellDef="let node">
           <kpn-link-node
-            [nodeId]="node.id"
-            [nodeName]="node.name"
+            [nodeId]="node.detail.id"
+            [nodeName]="node.detail.name"
           ></kpn-link-node>
         </td>
       </ng-container>
@@ -88,7 +88,7 @@ import { NetworkNodesService } from './network-nodes.service';
           Name
         </th>
         <td mat-cell *matCellDef="let node">
-          {{ node.longName }}
+          {{ node.detail.longName }}
         </td>
       </ng-container>
 
@@ -101,7 +101,7 @@ import { NetworkNodesService } from './network-nodes.service';
           Expected
         </th>
         <td mat-cell *matCellDef="let node">
-          {{ node.expectedRouteCount }}
+          {{ expectedRouteCount(node) }}
         </td>
       </ng-container>
 
@@ -139,7 +139,7 @@ import { NetworkNodesService } from './network-nodes.service';
           Survey
         </th>
         <td mat-cell *matCellDef="let node">
-          {{ node.lastSurvey | day }}
+          {{ node.detail.lastSurvey | day }}
         </td>
       </ng-container>
 
@@ -153,9 +153,9 @@ import { NetworkNodesService } from './network-nodes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.timestamp"></kpn-day>
-          <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
-          <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
+          <kpn-day [timestamp]="node.detail.timestamp"></kpn-day>
+          <kpn-josm-node [nodeId]="node.detail.id"></kpn-josm-node>
+          <kpn-osm-link-node [nodeId]="node.detail.id"></kpn-osm-link-node>
         </td>
       </ng-container>
 
@@ -188,19 +188,18 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() networkScope: NetworkScope;
   @Input() timeInfo: TimeInfo;
   @Input() surveyDateInfo: SurveyDateInfo;
-  @Input() nodes: NetworkNodeDetail[];
+  @Input() nodes: NetworkNodeRow[];
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
-  dataSource: MatTableDataSource<NetworkNodeDetail>;
+  dataSource: MatTableDataSource<NetworkNodeRow>;
   headerColumns1$: Observable<Array<string>>;
   headerColumns2$: Observable<Array<string>>;
   displayedColumns$: Observable<Array<string>>;
 
-  private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> = new BehaviorSubject(
-    new NetworkNodeFilterCriteria()
-  );
+  private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> =
+    new BehaviorSubject(new NetworkNodeFilterCriteria());
 
   constructor(
     private pageWidthService: PageWidthService,
@@ -218,7 +217,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<NetworkNodeDetail>();
+    this.dataSource = new MatTableDataSource<NetworkNodeRow>();
     this.dataSource.paginator = this.paginator.matPaginator;
     this.filterCriteria
       .pipe(
@@ -247,6 +246,12 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
+  }
+
+  expectedRouteCount(node: NetworkNodeRow): string {
+    return node.detail.expectedRouteCount
+      ? node.detail.expectedRouteCount.toString()
+      : '-';
   }
 
   private displayedColumns() {

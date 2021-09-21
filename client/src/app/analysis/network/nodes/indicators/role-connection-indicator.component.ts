@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { RoleConnectionIndicatorDialogComponent } from './role-connection-indicator-dialog.component';
 
 @Component({
@@ -19,13 +20,13 @@ import { RoleConnectionIndicatorDialogComponent } from './role-connection-indica
   `,
 })
 export class RoleConnectionIndicatorComponent implements OnInit {
-  @Input() node: NetworkNodeDetail;
+  @Input() node: NetworkNodeRow;
   color: string;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.color = this.node.roleConnection ? 'blue' : 'gray';
+    this.color = this.node.detail.roleConnection ? 'blue' : 'gray';
   }
 
   onOpenDialog() {

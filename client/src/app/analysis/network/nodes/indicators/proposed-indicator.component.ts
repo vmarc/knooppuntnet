@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.component';
 
 @Component({
@@ -20,13 +20,13 @@ import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.co
   `,
 })
 export class ProposedIndicatorComponent implements OnInit {
-  @Input() node: NetworkNodeDetail;
+  @Input() node: NetworkNodeRow;
   color: string;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.color = this.node.proposed ? 'blue' : 'gray';
+    this.color = this.node.detail.proposed ? 'blue' : 'gray';
   }
 
   onOpenDialog() {

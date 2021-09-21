@@ -7,6 +7,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { ProposedIndicatorDialogComponent } from '@app/analysis/network/nodes/indicators/proposed-indicator-dialog.component';
+import { ProposedIndicatorComponent } from '@app/analysis/network/nodes/indicators/proposed-indicator.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
@@ -41,7 +43,6 @@ import { NetworkIndicatorComponent } from './nodes/indicators/network-indicator.
 import { NodeConnectionIndicatorDialogComponent } from './nodes/indicators/node-connection-indicator-dialog.component';
 import { NodeConnectionIndicatorComponent } from './nodes/indicators/node-connection-indicator.component';
 import { NodeRouteIndicatorDialogComponent } from './nodes/indicators/node-route-indicator-dialog.component';
-import { NodeRouteIndicatorComponent } from './nodes/indicators/node-route-indicator.component';
 import { RoleConnectionIndicatorDialogComponent } from './nodes/indicators/role-connection-indicator-dialog.component';
 import { RoleConnectionIndicatorComponent } from './nodes/indicators/role-connection-indicator.component';
 import { NetworkNodeAnalysisComponent } from './nodes/network-node-analysis.component';
@@ -55,8 +56,6 @@ import { NetworkRoutesSidebarComponent } from './routes/network-routes-sidebar.c
 import { NetworkEffects } from './store/network.effects';
 import { networkReducer } from './store/network.reducer';
 import { networkFeatureKey } from './store/network.state';
-import {ProposedIndicatorDialogComponent} from "@app/analysis/network/nodes/indicators/proposed-indicator-dialog.component";
-import {ProposedIndicatorComponent} from "@app/analysis/network/nodes/indicators/proposed-indicator.component";
 
 @NgModule({
   imports: [
@@ -97,7 +96,6 @@ import {ProposedIndicatorComponent} from "@app/analysis/network/nodes/indicators
     NetworkIndicatorComponent,
     NetworkIndicatorDialogComponent,
     NodeConnectionIndicatorComponent,
-    NodeRouteIndicatorComponent,
     NodeRouteIndicatorDialogComponent,
     NodeConnectionIndicatorDialogComponent,
     RoleConnectionIndicatorComponent,

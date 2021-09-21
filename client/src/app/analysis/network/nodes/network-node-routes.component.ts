@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 
 @Component({
   selector: 'kpn-network-node-routes',
@@ -37,5 +38,5 @@ import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
   ],
 })
 export class NetworkNodeRoutesComponent {
-  @Input() node: NetworkNodeDetail;
+  @Input() node: NetworkNodeRow;
 }

@@ -2,8 +2,6 @@
 
 import { Day } from '../../custom/day';
 import { Fact } from '../../custom/fact';
-import { Reference } from '../common/reference';
-import { Tags } from '../../custom/tags';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface NetworkNodeDetail {
@@ -15,12 +13,9 @@ export interface NetworkNodeDetail {
   readonly connection: boolean;
   readonly roleConnection: boolean;
   readonly definedInRelation: boolean;
-  readonly definedInRoute: boolean;
   readonly proposed: boolean;
   readonly timestamp: Timestamp;
   readonly lastSurvey: Day;
-  readonly expectedRouteCount: string;
-  readonly routeReferences: Reference[];
+  readonly expectedRouteCount: number;
   readonly facts: Fact[];
-  readonly tags: Tags;
 }

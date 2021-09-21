@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { RouteInfo } from '@api/common/route/route-info';
+import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
 
 @Component({
   selector: 'kpn-route-summary',
@@ -65,7 +65,7 @@ import { RouteInfo } from '@api/common/route/route-info';
   `,
 })
 export class RouteSummaryComponent {
-  @Input() route: RouteInfo;
+  @Input() route: RouteDetailsPageData;
 
   isRouteBroken() {
     return this.route.facts.includes('RouteBroken');

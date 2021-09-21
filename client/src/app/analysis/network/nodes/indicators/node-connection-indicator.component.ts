@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { NodeConnectionIndicatorDialogComponent } from './node-connection-indicator-dialog.component';
 
 @Component({
@@ -19,13 +19,13 @@ import { NodeConnectionIndicatorDialogComponent } from './node-connection-indica
   `,
 })
 export class NodeConnectionIndicatorComponent implements OnInit {
-  @Input() node: NetworkNodeDetail;
+  @Input() node: NetworkNodeRow;
   color: string;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.color = this.node.connection ? 'blue' : 'gray';
+    this.color = this.node.detail.connection ? 'blue' : 'gray';
   }
 
   onOpenDialog() {

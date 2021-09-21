@@ -31,15 +31,15 @@ import { NetworkService } from '../network.service';
           ></kpn-situation-on>
         </p>
         <div
-          *ngIf="response.result.nodes.length == 0"
+          *ngIf="response.result.nodes.length === 0"
           i18n="@@network-nodes.no-nodes"
         >
           No network nodes in network
         </div>
         <kpn-network-node-table
           *ngIf="response.result.nodes.length > 0"
-          [networkType]="response.result.networkType"
-          [networkScope]="response.result.networkScope"
+          [networkType]="response.result.summary.networkType"
+          [networkScope]="response.result.summary.networkScope"
           [timeInfo]="response.result.timeInfo"
           [surveyDateInfo]="response.result.surveyDateInfo"
           [nodes]="response.result.nodes"

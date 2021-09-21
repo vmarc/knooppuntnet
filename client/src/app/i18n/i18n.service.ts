@@ -212,10 +212,6 @@ export class I18nService {
       $localize`:@@filter.definedInNetworkRelation:Defined in network relation`,
     ]);
     keysAndValues.push([
-      '@@filter.definedInRouteRelation',
-      $localize`:@@filter.definedInRouteRelation:Defined in route relation`,
-    ]);
-    keysAndValues.push([
       '@@filter.referencedInRoute',
       $localize`:@@filter.referencedInRoute:Referenced in route`,
     ]);
