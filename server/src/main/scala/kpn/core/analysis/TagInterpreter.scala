@@ -138,6 +138,25 @@ object TagInterpreter {
     !isReferencedNetworkNode(scopedNetworkType, node.raw) && !isMap(node)
   }
 
+  def expectedRouteRelationCount(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[Long] = {
+    tags(scopedNetworkType.expectedRouteRelationsTag) match {
+      case None => None
+      case Some(value) =>
+        if (!value.forall(_.isDigit)) {
+          Some(0)
+        }
+        else {
+          Some(value.toLong)
+        }
+    }
+  }
+
+  def isProposedNode(scopedNetworkType: ScopedNetworkType, tags: Tags): Boolean = {
+    tags.has("state", "proposed") ||
+      tags.has(scopedNetworkType.proposedNodeRefTagKey) ||
+      tags.has(scopedNetworkType.proposedNodeNameTagKey)
+  }
+
   private def isMap(node: Node): Boolean = {
     node.tags.has("tourism", "information") &&
       (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))

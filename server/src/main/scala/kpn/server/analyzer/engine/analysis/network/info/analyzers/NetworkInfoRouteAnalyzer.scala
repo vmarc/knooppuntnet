@@ -1,12 +1,14 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkRouteDetail
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -22,12 +24,18 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
     val routeIds = context.networkDoc.relationMembers.map(_.relationId)
     // TODO MONGO create fact for all relations for which no route is found: NetworkExtraMemberRelation
     val routeDetails = queryRouteDetails(routeIds)
-
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)
 
+    val enrichedRouteDetails = routeDetails.map { networkRouteDetail =>
+      context.networkDoc.relationMembers.find(_.relationId == networkRouteDetail.id).flatMap(_.role) match {
+        case Some(role) => networkRouteDetail.copy(role = Some(role))
+        case None => networkRouteDetail
+      }
+    }
+
     context.copy(
-      routeDetails = routeDetails,
+      routeDetails = enrichedRouteDetails,
       meters = meters,
       km = km,
     )
@@ -38,6 +46,7 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
       val pipeline = Seq(
         filter(
           and(
+            equal("labels", Label.active),
             in("_id", routeIds: _*)
           )
         ),
@@ -59,5 +68,4 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
       (s"routeDetails: ${routeDetails.size}", routeDetails)
     }
   }
-
 }

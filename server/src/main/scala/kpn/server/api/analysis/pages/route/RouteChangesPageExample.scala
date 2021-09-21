@@ -30,7 +30,7 @@ object RouteChangesPageExample {
     val route = RouteDetailsPageExample.page.route
     RouteChangesPage(
       RouteNameInfo(
-        route._id,
+        route.id,
         route.summary.name,
         route.summary.networkType
       ),

@@ -4,33 +4,30 @@ import kpn.api.common.NodeIntegrityCheck
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
+import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
 
 class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysis: NetworkAnalysis, networkNode: NetworkNode) {
 
   def analysis: Option[NodeIntegrityCheck] = {
-    if (referencedInNetworkRelation && hasIntegrityCheck) {
-      Some(NodeIntegrityCheck(networkNode.name, networkNode.node.id, routesWithNodeReference.size, expectedRouteRelationCount, failed))
+    if (referencedInNetworkRelation) {
+      TagInterpreter.expectedRouteRelationCount(scopedNetworkType, networkNode.node.tags) match {
+        case None => None
+        case Some(expectedRouteRelationCount) =>
+          val failed = routesWithNodeReference.size != expectedRouteRelationCount
+          Some(
+            NodeIntegrityCheck(
+              networkNode.name,
+              networkNode.node.id,
+              routesWithNodeReference.size,
+              expectedRouteRelationCount,
+              failed
+            )
+          )
+      }
     }
     else {
       None
-    }
-  }
-
-  private def hasIntegrityCheck: Boolean = {
-    networkNode.node.tags.has(scopedNetworkType.expectedRouteRelationsTag)
-  }
-
-  private def expectedRouteRelationCount: Int = {
-    networkNode.node.tags(scopedNetworkType.expectedRouteRelationsTag) match {
-      case None => 0
-      case Some(value) =>
-        if (!value.forall(_.isDigit)) {
-          0
-        }
-        else {
-          value.toInt
-        }
     }
   }
 
@@ -40,10 +37,6 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
 
   private def routesWithNodeReference: Seq[NetworkMemberRoute] = {
     networkAnalysis.routes.filterNot(hasSpecialState).filter(hasNodeReference)
-  }
-
-  private def failed: Boolean = {
-    routesWithNodeReference.size != expectedRouteRelationCount
   }
 
   private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {

@@ -128,7 +128,6 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     analysis(networkAnalysis, node) should equal(Some(NodeIntegrityCheck("01", 1001, 3, 0, failed = true)))
   }
 
-
   private def networkMemberRoute(networkNode: NetworkNode, routeId: Long, role: Option[String] = None, routeTags: Tags = Tags.empty): NetworkMemberRoute = {
 
     NetworkMemberRoute(

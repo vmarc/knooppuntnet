@@ -13,6 +13,7 @@ case class NetworkRouteDetail(
   proposed: Boolean,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
+  role: Option[String],
   tags: Tags,
   nodeRefs: Seq[Long]
 )

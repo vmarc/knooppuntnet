@@ -28,10 +28,6 @@ class SubsetNetworksPageBuilder(
   private val log = Log(classOf[SubsetNetworksPageBuilder])
 
   def build(subset: Subset): SubsetNetworksPage = {
-    buildPage(subset)
-  }
-
-  private def buildPage(subset: Subset): SubsetNetworksPage = {
 
     val subsetInfo = subsetRepository.subsetInfo(subset)
 

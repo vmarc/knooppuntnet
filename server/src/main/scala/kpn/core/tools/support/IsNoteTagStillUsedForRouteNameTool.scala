@@ -5,7 +5,7 @@ import kpn.core.mongo.util.Mongo
 
 object IsNoteTagStillUsedForRouteNameTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test-2") { database =>
+    Mongo.executeIn("kpn-test-3") { database =>
       new IsNoteTagStillUsedForRouteNameTool(database).investigate()
     }
   }

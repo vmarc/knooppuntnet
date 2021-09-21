@@ -16,7 +16,6 @@ class NodeRouteRepositoryImpl(database: Database) extends NodeRouteRepository {
 
   override def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
     val nodeRouteRefs = new MongoQueryNodeRouteReferences(database).execute(nodeIds)
-
     nodeIds.map { nodeId =>
       val references = nodeRouteRefs.filter(_.nodeId == nodeId).map { nodeRouteRef =>
         Reference(

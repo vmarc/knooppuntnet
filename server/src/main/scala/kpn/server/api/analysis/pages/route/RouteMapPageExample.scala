@@ -8,7 +8,7 @@ object RouteMapPageExample {
     val route = RouteDetailsPageExample.page.route
     RouteMapPage(
       RouteMapInfo(
-        route._id,
+        route.id,
         route.summary.name,
         route.summary.networkType,
         route.analysis.map

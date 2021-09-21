@@ -4,6 +4,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteNodeMissingInWays
 import kpn.api.custom.Fact.RouteRedundantNodes
 import kpn.api.custom.Fact.RouteWithoutNodes
+import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
@@ -288,8 +289,6 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def isProposed(routeNodeInfo: RouteNodeInfo): Boolean = {
-    routeNodeInfo.node.tags.has("state", "proposed") ||
-      routeNodeInfo.node.tags.has(context.scopedNetworkType.proposedNodeRefTagKey) ||
-      routeNodeInfo.node.tags.has(context.scopedNetworkType.proposedNodeNameTagKey)
+    TagInterpreter.isProposedNode(context.scopedNetworkType, routeNodeInfo.node.tags)
   }
 }

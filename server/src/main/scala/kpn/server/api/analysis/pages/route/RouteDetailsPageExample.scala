@@ -5,7 +5,7 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteDetailsPage
-import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
@@ -17,7 +17,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.context.ElementIds
 
 object RouteDetailsPageExample {
 
@@ -32,7 +31,7 @@ object RouteDetailsPageExample {
     )
   }
 
-  private def route(): RouteInfo = {
+  private def route(): RouteDetailsPageData = {
     val analysis = RouteInfoAnalysis(
       unexpectedNodeIds = Seq(
         1001
@@ -172,9 +171,9 @@ object RouteDetailsPageExample {
       )
     )
 
-    RouteInfo(
-      _id = 1,
-      labels = Seq.empty,
+    RouteDetailsPageData(
+      id = 1,
+      active = true,
       summary = RouteSummary(
         id = 1,
         country = Some(Country.nl),
@@ -220,9 +219,7 @@ object RouteDetailsPageExample {
       ),
       analysis,
       Seq.empty,
-      analysis.map.nodeIds,
-      ElementIds(),
-      Seq.empty
+      analysis.map.nodeIds
     )
   }
 }

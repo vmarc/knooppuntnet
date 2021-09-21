@@ -4,7 +4,9 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
+import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteMapPage
+import kpn.core.mongo.doc.Label
 import kpn.server.analyzer.engine.analysis.route.RouteHistoryAnalyzer
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
@@ -49,7 +51,22 @@ class RoutePageBuilderImpl(
     routeRepository.findById(routeId).map { route =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
       val networkReferences = routeRepository.networkReferences(routeId)
-      RouteDetailsPage(route, networkReferences, changeCount)
+      val data = RouteDetailsPageData(
+        route._id,
+        route.labels.contains(Label.active),
+        route.summary,
+        route.proposed,
+        route.version,
+        route.changeSetId,
+        route.lastUpdated,
+        route.lastSurvey,
+        route.tags,
+        route.facts,
+        route.analysis,
+        route.tiles,
+        route.nodeRefs
+      )
+      RouteDetailsPage(data, networkReferences, changeCount)
     }
   }
 

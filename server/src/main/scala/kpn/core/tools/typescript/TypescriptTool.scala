@@ -1,6 +1,7 @@
 package kpn.core.tools.typescript
 
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.route.RouteInfo
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -21,6 +22,7 @@ class TypescriptTool() {
   val targetDir = "/home/marcv/wrk/projects1/knooppuntnet/client/src/app"
 
   val ignoredClasses: Seq[String] = Seq(
+    classOf[RouteInfo].getSimpleName
     // following classes have been manually changed in Typescript after changing List to Array, enable again when switching to interfaces
   )
 

@@ -94,4 +94,18 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
     // unexpected
     assert(isUnexpectedNode(Tags.empty))
   }
+
+  test("expected") {
+    val tags = Tags.from(
+      "expected_rwn_route_relations" -> "3",
+      "expected_rcn_route_relations" -> "4",
+      "expected_lwn_route_relations" -> "5",
+      "expected_lpn_route_relations" -> "bla",
+    )
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rwn, tags) should equal(Some(3))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rcn, tags) should equal(Some(4))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lwn, tags) should equal(Some(5))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lcn, tags) should equal(None)
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lpn, tags) should equal(Some(0))
+  }
 }

@@ -7,11 +7,10 @@ import { RouteSummary } from '../route-summary';
 import { Tags } from '../../custom/tags';
 import { Timestamp } from '../../custom/timestamp';
 
-export interface RouteInfo {
-  readonly _id: number;
-  readonly labels: string[];
-  readonly summary: RouteSummary;
+export interface RouteDetailsPageData {
+  readonly id: number;
   readonly active: boolean;
+  readonly summary: RouteSummary;
   readonly proposed: boolean;
   readonly version: number;
   readonly changeSetId: number;

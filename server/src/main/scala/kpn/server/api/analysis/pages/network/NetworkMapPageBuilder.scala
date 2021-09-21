@@ -17,15 +17,15 @@ class NetworkMapPageBuilder(
       Some(NetworkMapPageExample.page)
     }
     else {
-      mongoBuildPage(networkId)
+      buildPage(networkId)
     }
   }
 
-  private def mongoBuildPage(networkId: Long): Option[NetworkMapPage] = {
-    mongoNetworkRepository.networkWithId(networkId).map(mongoBuildPageContents)
+  private def buildPage(networkId: Long): Option[NetworkMapPage] = {
+    mongoNetworkRepository.networkWithId(networkId).map(buildPageContents)
   }
 
-  private def mongoBuildPageContents(networkInfo: NetworkInfoDoc): NetworkMapPage = {
+  private def buildPageContents(networkInfo: NetworkInfoDoc): NetworkMapPage = {
 
     val networkNodeInfos = networkInfo.nodes
     val bounds = Bounds.from(networkNodeInfos)

@@ -1184,7 +1184,7 @@ trait SharedTestObjects extends MockFactory {
     proposed: Boolean = false,
     timestamp: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
-    expectedRouteCount: String = "-",
+    expectedRouteCount: Option[Long] = None,
     routeReferences: Seq[Reference] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
     tags: Tags = Tags.empty
@@ -1198,14 +1198,11 @@ trait SharedTestObjects extends MockFactory {
       connection,
       roleConnection,
       definedInRelation,
-      definedInRoute,
       proposed,
       timestamp,
       lastSurvey,
       expectedRouteCount,
-      routeReferences,
-      facts,
-      tags
+      facts
     )
   }
 
