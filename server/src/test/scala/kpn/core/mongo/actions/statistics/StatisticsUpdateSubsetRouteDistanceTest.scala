@@ -10,7 +10,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
 import kpn.core.mongo.Database
-import kpn.core.mongo.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -19,13 +18,13 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
   test("execute") {
     withDatabase { database =>
 
-      buildRouteInfo(database, 11L, nl, hiking, 1000)
-      buildRouteInfo(database, 12L, nl, hiking, 2000)
-      buildRouteInfo(database, 13L, nl, cycling, 3000)
-      buildRouteInfo(database, 14L, de, hiking, 4000)
-      buildRouteInfo(database, 15L, de, hiking, 5000)
-      buildRouteInfo(database, 16L, de, cycling, 6000)
-      buildRouteInfo(database, 17L, de, cycling, 7000, active = false)
+      buildRoute(database, 11L, nl, hiking, 1000)
+      buildRoute(database, 12L, nl, hiking, 2000)
+      buildRoute(database, 13L, nl, cycling, 3000)
+      buildRoute(database, 14L, de, hiking, 4000)
+      buildRoute(database, 15L, de, hiking, 5000)
+      buildRoute(database, 16L, de, cycling, 6000)
+      buildRoute(database, 17L, de, cycling, 7000, active = false)
 
       new StatisticsUpdateSubsetRouteDistance(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
@@ -46,9 +45,9 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
     }
   }
 
-  private def buildRouteInfo(database: Database, routeId: Long, country: Country, networkType: NetworkType, meters: Int, active: Boolean = true): Unit = {
+  private def buildRoute(database: Database, routeId: Long, country: Country, networkType: NetworkType, meters: Int, active: Boolean = true): Unit = {
     database.routes.save(
-      newRouteInfo(
+      newRouteDoc(
         newRouteSummary(
           routeId,
           Some(country),

@@ -22,13 +22,13 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
   test("execute") {
     withDatabase { database =>
 
-      buildRouteInfo(database, 11L, nl, hiking, Seq(RouteBroken, RouteUnaccessible))
-      buildRouteInfo(database, 12L, nl, hiking, Seq(RouteBroken, RouteFixmetodo))
-      buildRouteInfo(database, 13L, nl, cycling, Seq(RouteBroken))
-      buildRouteInfo(database, 14L, de, hiking, Seq(RouteBroken))
-      buildRouteInfo(database, 15L, de, hiking, Seq(RouteBroken))
-      buildRouteInfo(database, 16L, de, cycling, Seq(RouteBroken))
-      buildRouteInfo(database, 17L, de, cycling, Seq(RouteBroken), active = false)
+      buildRoute(database, 11L, nl, hiking, Seq(RouteBroken, RouteUnaccessible))
+      buildRoute(database, 12L, nl, hiking, Seq(RouteBroken, RouteFixmetodo))
+      buildRoute(database, 13L, nl, cycling, Seq(RouteBroken))
+      buildRoute(database, 14L, de, hiking, Seq(RouteBroken))
+      buildRoute(database, 15L, de, hiking, Seq(RouteBroken))
+      buildRoute(database, 16L, de, cycling, Seq(RouteBroken))
+      buildRoute(database, 17L, de, cycling, Seq(RouteBroken), active = false)
 
       new StatisticsUpdateSubsetRouteFacts(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
@@ -61,9 +61,9 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
     }
   }
 
-  private def buildRouteInfo(database: Database, routeId: Long, country: Country, networkType: NetworkType, facts: Seq[Fact], active: Boolean = true): Unit = {
+  private def buildRoute(database: Database, routeId: Long, country: Country, networkType: NetworkType, facts: Seq[Fact], active: Boolean = true): Unit = {
     database.routes.save(
-      newRouteInfo(
+      newRouteDoc(
         newRouteSummary(
           routeId,
           Some(country),

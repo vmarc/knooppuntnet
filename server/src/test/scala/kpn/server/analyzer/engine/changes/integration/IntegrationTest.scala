@@ -9,7 +9,6 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawElement
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Change
 import kpn.api.custom.Relation
 import kpn.core.mongo.Database
@@ -18,6 +17,7 @@ import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -106,7 +106,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     context.postProcessor.processPhase2()
   }
 
-  def findRouteById(routeId: Long): RouteInfo = {
+  def findRouteById(routeId: Long): RouteDoc = {
     database.routes.findById(routeId).getOrElse {
       val ids = database.routes.ids()
       if (ids.isEmpty) {

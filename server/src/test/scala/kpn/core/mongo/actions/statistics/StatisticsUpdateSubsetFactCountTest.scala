@@ -160,7 +160,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     active: Boolean = true
   ): Unit = {
     database.routes.save(
-      newRouteInfo(
+      newRouteDoc(
         newRouteSummary(
           routeId,
           Some(country),

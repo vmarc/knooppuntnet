@@ -6,16 +6,16 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.RouteData
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
+import kpn.core.mongo.doc.RouteDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
 case class RouteAnalysis(
   relation: Relation,
-  route: RouteInfo,
+  route: RouteDoc,
   structure: RouteStructure = RouteStructure(),
   routeNodeAnalysis: RouteNodeAnalysis = RouteNodeAnalysis(),
   routeMembers: Seq[RouteMember] = Seq.empty,

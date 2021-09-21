@@ -133,7 +133,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     NetworkMemberRoute(
       routeAnalysis = RouteAnalysis(
         relation = null,
-        route = newRouteInfo(
+        route = newRouteDoc(
           newRouteSummary(
             routeId
           ),

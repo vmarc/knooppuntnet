@@ -1,7 +1,6 @@
 package kpn.server.repository
 
 import kpn.api.common.common.Reference
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.NetworkType
@@ -13,6 +12,7 @@ import kpn.core.mongo.actions.routes.MongoQueryRouteMapInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNameInfo
 import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.core.mongo.actions.routes.MongoQueryRouteTileInfo
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
@@ -35,12 +35,12 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteElementIds(database).execute()
   }
 
-  override def save(routeInfo: RouteInfo): Unit = {
-    database.routes.save(routeInfo, log)
+  override def save(routeDoc: RouteDoc): Unit = {
+    database.routes.save(routeDoc, log)
   }
 
-  override def bulkSave(routeInfos: Seq[RouteInfo]): Unit = {
-    database.routes.bulkSave(routeInfos, log)
+  override def bulkSave(routeDocs: Seq[RouteDoc]): Unit = {
+    database.routes.bulkSave(routeDocs, log)
   }
 
   override def delete(routeId: Long): Unit = {
@@ -48,7 +48,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     // TODO MONGO should also delete references, changes, etc?
   }
 
-  override def findById(routeId: Long): Option[RouteInfo] = {
+  override def findById(routeId: Long): Option[RouteDoc] = {
     database.routes.findById(routeId, log)
   }
 

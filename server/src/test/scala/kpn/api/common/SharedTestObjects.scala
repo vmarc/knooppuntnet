@@ -51,7 +51,6 @@ import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
@@ -74,6 +73,7 @@ import kpn.core.mongo.doc.NetworkWayMember
 import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
+import kpn.core.mongo.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -381,7 +381,7 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
     elementIds: ElementIds = ElementIds()
-  ): RouteInfo = {
+  ): RouteDoc = {
 
     val summary = RouteSummary(
       id,
@@ -397,7 +397,7 @@ trait SharedTestObjects extends MockFactory {
       tags = Tags.empty
     )
 
-    RouteInfo(
+    RouteDoc(
       summary.id,
       updatedLabels(labels, active),
       summary,
@@ -907,7 +907,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRouteInfo(
+  def newRouteDoc(
     summary: RouteSummary,
     labels: Seq[String] = Seq.empty,
     active: Boolean = true,
@@ -922,8 +922,8 @@ trait SharedTestObjects extends MockFactory {
     tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
     elementIds: ElementIds = ElementIds()
-  ): RouteInfo = {
-    RouteInfo(
+  ): RouteDoc = {
+    RouteDoc(
       summary.id,
       updatedLabels(labels, active),
       summary,
@@ -1180,14 +1180,11 @@ trait SharedTestObjects extends MockFactory {
     connection: Boolean = false,
     roleConnection: Boolean = false,
     definedInRelation: Boolean = false,
-    definedInRoute: Boolean = false,
     proposed: Boolean = false,
     timestamp: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
     expectedRouteCount: Option[Long] = None,
-    routeReferences: Seq[Reference] = Seq.empty,
-    facts: Seq[Fact] = Seq.empty,
-    tags: Tags = Tags.empty
+    facts: Seq[Fact] = Seq.empty
   ): NetworkNodeDetail = {
     NetworkNodeDetail(
       id,

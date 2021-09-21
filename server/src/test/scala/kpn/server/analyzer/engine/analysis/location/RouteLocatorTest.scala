@@ -4,7 +4,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.api.common.route.RouteInfo
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 
@@ -86,7 +86,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def route(routeId: String): RouteInfo = {
+  private def route(routeId: String): RouteDoc = {
     CaseStudy.routeAnalysis(routeId).route
   }
 

@@ -1,10 +1,9 @@
 package kpn.core.mongo.actions.routes
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.NetworkType.hiking
-import kpn.core.mongo.doc.Label
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -24,8 +23,8 @@ class MongoQueryRouteNameInfoTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def buildRoute(id: Long, name: String, active: Boolean = true): RouteInfo = {
-    newRouteInfo(
+  private def buildRoute(id: Long, name: String, active: Boolean = true): RouteDoc = {
+    newRouteDoc(
       newRouteSummary(
         id,
         networkType = hiking,

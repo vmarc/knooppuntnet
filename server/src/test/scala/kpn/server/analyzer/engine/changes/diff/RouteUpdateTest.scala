@@ -32,7 +32,7 @@ class RouteUpdateTest extends UnitTest with SharedTestObjects {
         ),
         Seq.empty
       ),
-      route = newRouteInfo(
+      route = newRouteDoc(
         summary = newRouteSummary(
           id = 1,
           country = country,

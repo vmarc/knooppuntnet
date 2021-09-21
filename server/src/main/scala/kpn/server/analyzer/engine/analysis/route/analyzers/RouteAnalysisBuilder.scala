@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
 import kpn.api.common.data.Way
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Fact
@@ -12,6 +11,7 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
+import kpn.core.mongo.doc.RouteDoc
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
@@ -73,7 +73,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     expectedName: String,
     structure: RouteStructure,
     routeNodeAnalysis: RouteNodeAnalysis
-  ): RouteInfo = {
+  ): RouteDoc = {
 
     val members: Seq[RouteMemberInfo] = routeMembers.map { member =>
 
@@ -157,7 +157,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.relation.tags
     )
 
-    RouteInfo(
+    RouteDoc(
       summary.id,
       context.labels,
       summary,

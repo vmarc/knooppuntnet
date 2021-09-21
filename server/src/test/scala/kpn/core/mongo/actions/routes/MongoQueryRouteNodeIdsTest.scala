@@ -25,7 +25,7 @@ class MongoQueryRouteNodeIdsTest extends UnitTest with SharedTestObjects {
 
   private def buildRoute(database: Database, routeId: Long, nodeRefs: Seq[Long]): Unit = {
     database.routes.save(
-      newRouteInfo(
+      newRouteDoc(
         newRouteSummary(routeId),
         labels = Seq(Label.active),
         nodeRefs = nodeRefs

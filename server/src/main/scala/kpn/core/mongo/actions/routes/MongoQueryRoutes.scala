@@ -1,9 +1,9 @@
 package kpn.core.mongo.actions.routes
 
-import kpn.api.common.route.RouteInfo
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.routes.MongoQueryRoutes.log
 import kpn.core.mongo.doc.Label
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.mongo.util.Count
 import kpn.core.util.Log
 import org.mongodb.scala.model.Accumulators.sum
@@ -25,7 +25,7 @@ object MongoQueryRoutes {
 // TODO MONGO cleanup - no longer used?
 class MongoQueryRoutes(database: Database) {
 
-  def execute(routeIds: Seq[Long]): Seq[RouteInfo] = {
+  def execute(routeIds: Seq[Long]): Seq[RouteDoc] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -35,7 +35,7 @@ class MongoQueryRoutes(database: Database) {
           ),
         )
       )
-      val routes = database.routes.aggregate[RouteInfo](pipeline, log)
+      val routes = database.routes.aggregate[RouteDoc](pipeline, log)
       (s"routes: ${routes.size}", routes)
     }
   }

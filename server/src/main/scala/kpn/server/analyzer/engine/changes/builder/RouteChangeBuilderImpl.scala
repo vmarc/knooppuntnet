@@ -150,7 +150,7 @@ class RouteChangeBuilderImpl(
           //noinspection SideEffectsInMonadicTransformation
           log.debug(s"OK: route '$routeId' has been deleted from the database.")
 
-          val routeInfo = analysisBefore.route.deactivated.copy(
+          val routeDoc = analysisBefore.route.deactivated.copy(
             analysis = RouteInfoAnalysis(
               unexpectedNodeIds = Seq.empty,
               members = Seq.empty,
@@ -164,7 +164,7 @@ class RouteChangeBuilderImpl(
             lastUpdated = context.changeSetContext.changeSet.timestamp
           )
 
-          routeRepository.save(routeInfo)
+          routeRepository.save(routeDoc)
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
           throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")

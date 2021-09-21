@@ -1,8 +1,8 @@
 package kpn.core.app
 
-import kpn.api.common.route.RouteInfo
+import kpn.core.mongo.doc.RouteDoc
 
-class RouteRenderer(route: RouteInfo, language: String) {
+class RouteRenderer(route: RouteDoc, language: String) {
 
   val drawBoundingBox = true
 

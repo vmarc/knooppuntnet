@@ -1,10 +1,10 @@
 package kpn.server.repository
 
 import kpn.api.common.common.Reference
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.NetworkType
+import kpn.core.mongo.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
@@ -16,13 +16,13 @@ trait RouteRepository {
 
   def activeRouteElementIds(): Seq[ReferencedElementIds]
 
-  def save(route: RouteInfo): Unit
+  def save(route: RouteDoc): Unit
 
-  def bulkSave(routes: Seq[RouteInfo]): Unit
+  def bulkSave(routes: Seq[RouteDoc]): Unit
 
   def delete(routeId: Long): Unit
 
-  def findById(routeId: Long): Option[RouteInfo]
+  def findById(routeId: Long): Option[RouteDoc]
 
   def mapInfo(routeId: Long): Option[RouteMapInfo]
 

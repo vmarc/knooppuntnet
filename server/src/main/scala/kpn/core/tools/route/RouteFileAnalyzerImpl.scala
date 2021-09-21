@@ -1,13 +1,13 @@
 package kpn.core.tools.route
 
 import kpn.api.common.common.Reference
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.NetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -109,13 +109,13 @@ class RouteFileAnalyzerImpl extends RouteFileAnalyzer {
 
       def activeRouteIds(): Seq[Long] = ???
 
-      def bulkSave(routes: Seq[kpn.api.common.route.RouteInfo]): Unit = ???
+      def bulkSave(routes: Seq[RouteDoc]): Unit = ???
 
-      override def save(routes: RouteInfo): Unit = ???
+      override def save(routes: RouteDoc): Unit = ???
 
       override def delete(routeId: Long): Unit = ???
 
-      override def findById(routeId: Long): Option[RouteInfo] = None
+      override def findById(routeId: Long): Option[RouteDoc] = None
 
       override def mapInfo(routeId: Long): Option[RouteMapInfo] = None
 

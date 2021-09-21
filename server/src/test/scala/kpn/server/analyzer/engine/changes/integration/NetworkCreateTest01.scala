@@ -5,15 +5,12 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkFacts
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
-import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -129,36 +126,12 @@ class NetworkCreateTest01 extends IntegrationTest {
           newNetworkNodeDetail(
             1001,
             "01",
-            definedInRelation = true,
-            routeReferences = Seq(
-              Reference(
-                NetworkType.hiking,
-                NetworkScope.regional,
-                11,
-                "01-02"
-              )
-            ),
-            tags = Tags.from(
-              "rwn_ref" -> "01",
-              "network:type" -> "node_network"
-            )
+            definedInRelation = true
           ),
           newNetworkNodeDetail(
             1002,
             "02",
-            definedInRelation = true,
-            routeReferences = Seq(
-              Reference(
-                NetworkType.hiking,
-                NetworkScope.regional,
-                11,
-                "01-02"
-              )
-            ),
-            tags = Tags.from(
-              "rwn_ref" -> "02",
-              "network:type" -> "node_network"
-            )
+            definedInRelation = true
           )
         ),
         routes = Seq(

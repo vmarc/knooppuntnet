@@ -1,7 +1,7 @@
 package kpn.core.mongo.tools
 
-import kpn.api.common.route.RouteInfo
 import kpn.core.mongo.Database
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.mongo.util.Mongo
 import org.mongodb.scala.model.Filters.exists
 
@@ -20,11 +20,11 @@ object UpdateRouteNodeRefsTool {
 class UpdateRouteNodeRefsTool(database: Database) {
 
   def update(): Unit = {
-    val future = database.routes.native.find[RouteInfo](exists("nodeRefs", exists = false)).toFuture()
-    val routeInfos = Await.result(future, Duration(30, TimeUnit.SECONDS))
-    routeInfos.zipWithIndex.foreach { case (routeInfo, index) =>
-      println(s"${index + 1}/${routeInfos.size}")
-      val migrated = routeInfo.copy(nodeRefs = routeInfo.analysis.map.nodeIds)
+    val future = database.routes.native.find[RouteDoc](exists("nodeRefs", exists = false)).toFuture()
+    val routeDocs = Await.result(future, Duration(30, TimeUnit.SECONDS))
+    routeDocs.zipWithIndex.foreach { case (routeDoc, index) =>
+      println(s"${index + 1}/${routeDocs.size}")
+      val migrated = routeDoc.copy(nodeRefs = routeDoc.analysis.map.nodeIds)
       database.routes.save(migrated)
     }
   }

@@ -73,7 +73,7 @@ class FullRouteAnalyzerImpl(
   private def analyzeRouteBatch(timestamp: Timestamp, routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       val relations = overpassRepository.fullRelations(timestamp, routeIds)
-      val routeInfos = relations.flatMap { relation =>
+      val routeDocs = relations.flatMap { relation =>
         Log.context(s"route=${relation.id}") {
           try {
             masterRouteAnalyzer.analyze(relation).map(_.route)
@@ -84,8 +84,8 @@ class FullRouteAnalyzerImpl(
           }
         }
       }
-      routeRepository.bulkSave(routeInfos)
-      val ids = routeInfos.map(_.id)
+      routeRepository.bulkSave(routeDocs)
+      val ids = routeDocs.map(_.id)
       (s"processed ${ids.size} routes: ${ids.mkString(", ")}", ids)
     }
   }
@@ -93,9 +93,9 @@ class FullRouteAnalyzerImpl(
   private def deactivateObsoleteRoutes(routeIds: Seq[Long]): Unit = {
     if (routeIds.nonEmpty) {
       routeIds.foreach { routeId =>
-        routeRepository.findById(routeId).map { routeInfo =>
-          log.warn(s"de-activating route ${routeInfo._id}")
-          routeRepository.save(routeInfo.deactivated)
+        routeRepository.findById(routeId).map { routeDoc =>
+          log.warn(s"de-activating route ${routeDoc._id}")
+          routeRepository.save(routeDoc.deactivated)
         }
       }
     }

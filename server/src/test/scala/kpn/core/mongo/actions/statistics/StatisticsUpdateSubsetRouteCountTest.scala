@@ -18,13 +18,13 @@ class StatisticsUpdateSubsetRouteCountTest extends UnitTest with SharedTestObjec
   test("execute") {
     withDatabase { database =>
 
-      buildRouteInfo(database, 11L, nl, hiking)
-      buildRouteInfo(database, 12L, nl, hiking)
-      buildRouteInfo(database, 13L, nl, cycling)
-      buildRouteInfo(database, 14L, de, hiking)
-      buildRouteInfo(database, 15L, de, hiking)
-      buildRouteInfo(database, 16L, de, cycling)
-      buildRouteInfo(database, 17L, de, cycling, active = false)
+      buildRoute(database, 11L, nl, hiking)
+      buildRoute(database, 12L, nl, hiking)
+      buildRoute(database, 13L, nl, cycling)
+      buildRoute(database, 14L, de, hiking)
+      buildRoute(database, 15L, de, hiking)
+      buildRoute(database, 16L, de, cycling)
+      buildRoute(database, 17L, de, cycling, active = false)
 
       new StatisticsUpdateSubsetRouteCount(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
@@ -45,9 +45,9 @@ class StatisticsUpdateSubsetRouteCountTest extends UnitTest with SharedTestObjec
     }
   }
 
-  private def buildRouteInfo(database: Database, routeId: Long, country: Country, networkType: NetworkType, active: Boolean = true): Unit = {
+  private def buildRoute(database: Database, routeId: Long, country: Country, networkType: NetworkType, active: Boolean = true): Unit = {
     database.routes.save(
-      newRouteInfo(
+      newRouteDoc(
         newRouteSummary(
           routeId,
           Some(country),

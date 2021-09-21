@@ -90,7 +90,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertRoute(): Unit = {
     findRouteById(11) should matchTo(
-      newRouteInfo(
+      newRouteDoc(
         newRouteSummary(
           11,
           name = "01-02",

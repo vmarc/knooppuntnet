@@ -1,9 +1,9 @@
 package kpn.core.analysis
 
 import kpn.api.common.NodeIntegrityCheck
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.core.mongo.doc.RouteDoc
 
 case class NetworkNodeInfo(
   networkNode: NetworkNode,
@@ -12,7 +12,7 @@ case class NetworkNodeInfo(
   definedInRelation: Boolean,
   definedInRoute: Boolean,
   proposed: Boolean,
-  referencedInRoutes: Seq[RouteInfo],
+  referencedInRoutes: Seq[RouteDoc],
   integrityCheck: Option[NodeIntegrityCheck],
   lastSurvey: Option[Day],
   facts: Seq[Fact]

@@ -54,8 +54,8 @@ class RouteCreateTest01 extends IntegrationTest {
   }
 
   private def assertRoute(): Unit = {
-    val routeInfo = findRouteById(11L)
-    routeInfo.summary.name should equal("01-02")
+    val routeDoc = findRouteById(11L)
+    routeDoc.summary.name should equal("01-02")
   }
 
   private def assertOrphanRoute(): Unit = {

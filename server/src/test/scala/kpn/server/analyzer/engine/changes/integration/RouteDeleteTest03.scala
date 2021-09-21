@@ -67,9 +67,9 @@ class RouteDeleteTest03 extends IntegrationTest {
   }
 
   private def assertRoute(): Unit = {
-    val routeInfo = findRouteById(11)
-    routeInfo.id should equal(11)
-    assert(!routeInfo.isActive)
+    val routeDoc = findRouteById(11)
+    routeDoc.id should equal(11)
+    assert(!routeDoc.isActive)
   }
 
   private def assertRouteChange(): Unit = {

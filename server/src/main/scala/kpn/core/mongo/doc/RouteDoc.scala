@@ -1,17 +1,18 @@
-package kpn.api.common.route
+package kpn.core.mongo.doc
 
 import kpn.api.base.WithId
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Tagable
+import kpn.api.common.route.RouteEdge
+import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.Label
 import kpn.server.analyzer.engine.context.ElementIds
 
-case class RouteInfo(
+case class RouteDoc(
   _id: Long, // routeId
   labels: Seq[String],
   summary: RouteSummary,
@@ -33,7 +34,7 @@ case class RouteInfo(
 
   def toRef: Ref = Ref(summary.id, summary.name)
 
-  def deactivated: RouteInfo = {
+  def deactivated: RouteDoc = {
     copy(
       labels = labels.filterNot(label =>
         label == Label.active || label.startsWith("fact")

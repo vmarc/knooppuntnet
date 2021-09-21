@@ -3,7 +3,6 @@ package kpn.core.tools.route
 import com.softwaremill.diffx._
 import com.softwaremill.diffx.generic.auto._
 import kpn.api.common.common.TrackPath
-import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteIncomplete
@@ -14,6 +13,7 @@ import kpn.api.custom.Fact.RouteNodeNameMismatch
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Tags
+import kpn.core.mongo.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 
@@ -21,49 +21,49 @@ class RouteAnalysisComparator {
 
   private val log = Log(classOf[RouteAnalysisComparator])
 
-  def compareRouteInfos(oldRoute: RouteInfo, newRoute: RouteInfo): Unit = {
+  def compareRouteInfos(oldRoute: RouteDoc, newRoute: RouteDoc): Unit = {
 
-    var routeInfoPair = RouteInfoPair(oldRoute, newRoute)
-    routeInfoPair = ignoreSummaryNodeNames(routeInfoPair)
-    routeInfoPair = ignoreStructureStrings(routeInfoPair)
-    routeInfoPair = ignoreNormalization(routeInfoPair)
-    routeInfoPair = ignoreTrackPathIds(routeInfoPair)
+    var routeDocPair = RouteDocPair(oldRoute, newRoute)
+    routeDocPair = ignoreSummaryNodeNames(routeDocPair)
+    routeDocPair = ignoreStructureStrings(routeDocPair)
+    routeDocPair = ignoreNormalization(routeDocPair)
+    routeDocPair = ignoreTrackPathIds(routeDocPair)
 
-    val ok1 = matchingMapNodes(routeInfoPair)
-    val ok2 = matchingPaths(routeInfoPair)
-    routeInfoPair = ignoreFreeRoutePaths(routeInfoPair)
-    val ok3 = matchingMapTentacles(routeInfoPair)
+    val ok1 = matchingMapNodes(routeDocPair)
+    val ok2 = matchingPaths(routeDocPair)
+    routeDocPair = ignoreFreeRoutePaths(routeDocPair)
+    val ok3 = matchingMapTentacles(routeDocPair)
 
-    routeInfoPair = ignoreMapNodes(routeInfoPair)
-    routeInfoPair = normalizeRouteTags(routeInfoPair)
+    routeDocPair = ignoreMapNodes(routeDocPair)
+    routeDocPair = normalizeRouteTags(routeDocPair)
 
-    val ok4 = matchingFacts(routeInfoPair)
-    routeInfoPair = ignoreFacts(routeInfoPair)
+    val ok4 = matchingFacts(routeDocPair)
+    routeDocPair = ignoreFacts(routeDocPair)
 
-    if (!routeInfoPair.isIdentical) {
-      val c = compare(routeInfoPair.oldRoute, routeInfoPair.newRoute)
+    if (!routeDocPair.isIdentical) {
+      val c = compare(routeDocPair.oldRoute, routeDocPair.newRoute)
       log.info("DIFF mismatch\n" + c.show())
     }
 
-    if (ok1 && ok2 && ok3 && ok4 && routeInfoPair.isIdentical) {
+    if (ok1 && ok2 && ok3 && ok4 && routeDocPair.isIdentical) {
       log.info("OK")
     }
   }
 
-  private def ignoreStructureStrings(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
-      newRoute = routeInfoPair.newRoute.copy(
-        analysis = routeInfoPair.newRoute.analysis.copy(
+  private def ignoreStructureStrings(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
+      newRoute = routeDocPair.newRoute.copy(
+        analysis = routeDocPair.newRoute.analysis.copy(
           structureStrings = Seq.empty
         )
       )
     )
   }
 
-  private def ignoreNormalization(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
+  private def ignoreNormalization(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
       oldRoute = {
-        val route = routeInfoPair.oldRoute
+        val route = routeDocPair.oldRoute
         val analysis = route.analysis
         val map = analysis.map
         route.copy(
@@ -91,7 +91,7 @@ class RouteAnalysisComparator {
         )
       },
       newRoute = {
-        val route = routeInfoPair.newRoute
+        val route = routeDocPair.newRoute
         val analysis = route.analysis
         val map = analysis.map
         route.copy(
@@ -115,18 +115,18 @@ class RouteAnalysisComparator {
     )
   }
 
-  private def ignoreSummaryNodeNames(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
+  private def ignoreSummaryNodeNames(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
       oldRoute = {
-        routeInfoPair.oldRoute.copy(
-          summary = routeInfoPair.oldRoute.summary.copy(
+        routeDocPair.oldRoute.copy(
+          summary = routeDocPair.oldRoute.summary.copy(
             nodeNames = Seq.empty
           )
         )
       },
       newRoute = {
-        routeInfoPair.newRoute.copy(
-          summary = routeInfoPair.newRoute.summary.copy(
+        routeDocPair.newRoute.copy(
+          summary = routeDocPair.newRoute.summary.copy(
             nodeNames = Seq.empty
           )
         )
@@ -134,17 +134,17 @@ class RouteAnalysisComparator {
     )
   }
 
-  private def ignoreTrackPathIds(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
-      oldRoute = withoutTrackPathIds(routeInfoPair.oldRoute),
-      newRoute = withoutTrackPathIds(routeInfoPair.newRoute)
+  private def ignoreTrackPathIds(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
+      oldRoute = withoutTrackPathIds(routeDocPair.oldRoute),
+      newRoute = withoutTrackPathIds(routeDocPair.newRoute)
     )
   }
 
-  private def withoutTrackPathIds(routeInfo: RouteInfo): RouteInfo = {
-    val analysis = routeInfo.analysis
+  private def withoutTrackPathIds(routeDoc: RouteDoc): RouteDoc = {
+    val analysis = routeDoc.analysis
     val map = analysis.map
-    routeInfo.copy(
+    routeDoc.copy(
       analysis = analysis.copy(
         map = map.copy(
           freePaths = map.freePaths.map(_.copy(pathId = 0)),
@@ -179,10 +179,10 @@ class RouteAnalysisComparator {
     )
   }
 
-  private def matchingMapNodes(routeInfoPair: RouteInfoPair): Boolean = {
+  private def matchingMapNodes(routeDocPair: RouteDocPair): Boolean = {
 
-    val oldMapNodes = toRouteMapNodes(routeInfoPair.oldRoute)
-    val newMapNodes = toRouteMapNodes(routeInfoPair.newRoute)
+    val oldMapNodes = toRouteMapNodes(routeDocPair.oldRoute)
+    val newMapNodes = toRouteMapNodes(routeDocPair.newRoute)
 
     if (oldMapNodes == newMapNodes) {
       true
@@ -215,11 +215,11 @@ class RouteAnalysisComparator {
     }
   }
 
-  private def matchingPaths(routeInfoPair: RouteInfoPair): Boolean = {
+  private def matchingPaths(routeDocPair: RouteDocPair): Boolean = {
 
-    if (isFreeRoute(routeInfoPair.newRoute)) {
-      val oldTrackPathNodes = trackPathNodess(routeInfoPair.oldRoute)
-      val newTrackPathNodes = trackPathNodess(routeInfoPair.oldRoute)
+    if (isFreeRoute(routeDocPair.newRoute)) {
+      val oldTrackPathNodes = trackPathNodess(routeDocPair.oldRoute)
+      val newTrackPathNodes = trackPathNodess(routeDocPair.oldRoute)
       if (oldTrackPathNodes == newTrackPathNodes) {
         true
       }
@@ -234,8 +234,8 @@ class RouteAnalysisComparator {
     }
   }
 
-  private def trackPathNodess(routeInfo: RouteInfo): Seq[TrackPathNodes] = {
-    val map = routeInfo.analysis.map
+  private def trackPathNodess(routeDoc: RouteDoc): Seq[TrackPathNodes] = {
+    val map = routeDoc.analysis.map
 
     val paths = map.freePaths ++
       map.forwardPath.toSeq ++
@@ -247,27 +247,27 @@ class RouteAnalysisComparator {
   }
 
 
-  private def isFreeRoute(routeInfo: RouteInfo): Boolean = {
-    routeInfo.analysis.map.freeNodes.nonEmpty &&
-      routeInfo.analysis.map.startNodes.isEmpty &&
-      routeInfo.analysis.map.endNodes.isEmpty &&
-      routeInfo.analysis.map.startTentacleNodes.isEmpty &&
-      routeInfo.analysis.map.endTentacleNodes.isEmpty
+  private def isFreeRoute(routeDoc: RouteDoc): Boolean = {
+    routeDoc.analysis.map.freeNodes.nonEmpty &&
+      routeDoc.analysis.map.startNodes.isEmpty &&
+      routeDoc.analysis.map.endNodes.isEmpty &&
+      routeDoc.analysis.map.startTentacleNodes.isEmpty &&
+      routeDoc.analysis.map.endTentacleNodes.isEmpty
   }
 
-  private def matchingMapTentacles(routeInfoPair: RouteInfoPair): Boolean = {
-    matchingMapStartTentacles(routeInfoPair) && matchingMapEndTentacles(routeInfoPair)
+  private def matchingMapTentacles(routeDocPair: RouteDocPair): Boolean = {
+    matchingMapStartTentacles(routeDocPair) && matchingMapEndTentacles(routeDocPair)
   }
 
-  private def matchingMapStartTentacles(routeInfoPair: RouteInfoPair): Boolean = {
-    val oldPaths = routeInfoPair.oldRoute.analysis.map.startTentaclePaths
-    val newPaths = routeInfoPair.newRoute.analysis.map.startTentaclePaths
+  private def matchingMapStartTentacles(routeDocPair: RouteDocPair): Boolean = {
+    val oldPaths = routeDocPair.oldRoute.analysis.map.startTentaclePaths
+    val newPaths = routeDocPair.newRoute.analysis.map.startTentaclePaths
     matchingPaths("start tentacles", oldPaths, newPaths)
   }
 
-  private def matchingMapEndTentacles(routeInfoPair: RouteInfoPair): Boolean = {
-    val oldPaths = routeInfoPair.oldRoute.analysis.map.endTentaclePaths
-    val newPaths = routeInfoPair.newRoute.analysis.map.endTentaclePaths
+  private def matchingMapEndTentacles(routeDocPair: RouteDocPair): Boolean = {
+    val oldPaths = routeDocPair.oldRoute.analysis.map.endTentaclePaths
+    val newPaths = routeDocPair.newRoute.analysis.map.endTentaclePaths
     matchingPaths("end tentacles", oldPaths, newPaths)
   }
 
@@ -298,8 +298,8 @@ class RouteAnalysisComparator {
     }
   }
 
-  private def toRouteMapNodes(routeInfo: RouteInfo): RouteMapNodes = {
-    val routeMap = routeInfo.analysis.map
+  private def toRouteMapNodes(routeDoc: RouteDoc): RouteMapNodes = {
+    val routeMap = routeDoc.analysis.map
     val startNodes = (routeMap.startNodes ++ routeMap.startTentacleNodes).sortBy(_.id)
     val endNodes = (routeMap.endNodes ++ routeMap.endTentacleNodes).sortBy(_.id)
     val redundantNodes = routeMap.redundantNodes.sortBy(_.id)
@@ -311,17 +311,17 @@ class RouteAnalysisComparator {
     )
   }
 
-  private def ignoreMapNodes(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
-      oldRoute = withoutMapNodes(routeInfoPair.oldRoute),
-      newRoute = withoutMapNodes(routeInfoPair.newRoute)
+  private def ignoreMapNodes(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
+      oldRoute = withoutMapNodes(routeDocPair.oldRoute),
+      newRoute = withoutMapNodes(routeDocPair.newRoute)
     )
   }
 
-  private def withoutMapNodes(routeInfo: RouteInfo): RouteInfo = {
-    val map = routeInfo.analysis.map
-    routeInfo.copy(
-      analysis = routeInfo.analysis.copy(
+  private def withoutMapNodes(routeDoc: RouteDoc): RouteDoc = {
+    val map = routeDoc.analysis.map
+    routeDoc.copy(
+      analysis = routeDoc.analysis.copy(
         map = map.copy(
           freeNodes = Seq.empty,
           startNodes = Seq.empty,
@@ -336,22 +336,22 @@ class RouteAnalysisComparator {
     )
   }
 
-  private def ignoreFreeRoutePaths(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    if (isFreeRoute(routeInfoPair.newRoute)) {
-      routeInfoPair.copy(
-        oldRoute = withoutFreeRoutePaths(routeInfoPair.oldRoute),
-        newRoute = withoutFreeRoutePaths(routeInfoPair.newRoute)
+  private def ignoreFreeRoutePaths(routeDocPair: RouteDocPair): RouteDocPair = {
+    if (isFreeRoute(routeDocPair.newRoute)) {
+      routeDocPair.copy(
+        oldRoute = withoutFreeRoutePaths(routeDocPair.oldRoute),
+        newRoute = withoutFreeRoutePaths(routeDocPair.newRoute)
       )
     }
     else {
-      routeInfoPair
+      routeDocPair
     }
   }
 
-  private def withoutFreeRoutePaths(routeInfo: RouteInfo): RouteInfo = {
-    val map = routeInfo.analysis.map
-    routeInfo.copy(
-      analysis = routeInfo.analysis.copy(
+  private def withoutFreeRoutePaths(routeDoc: RouteDoc): RouteDoc = {
+    val map = routeDoc.analysis.map
+    routeDoc.copy(
+      analysis = routeDoc.analysis.copy(
         map = map.copy(
           freePaths = Seq.empty,
           forwardPath = None,
@@ -363,19 +363,19 @@ class RouteAnalysisComparator {
     )
   }
 
-  private def normalizeRouteTags(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
-      oldRoute = normalizeRouteInfoTags(routeInfoPair.oldRoute),
-      newRoute = normalizeRouteInfoTags(routeInfoPair.newRoute)
+  private def normalizeRouteTags(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
+      oldRoute = normalizeRouteDocTags(routeDocPair.oldRoute),
+      newRoute = normalizeRouteDocTags(routeDocPair.newRoute)
     )
   }
 
-  private def normalizeRouteInfoTags(routeInfo: RouteInfo): RouteInfo = {
-    routeInfo.copy(
-      summary = routeInfo.summary.copy(
-        tags = normalizeTags(routeInfo.summary.tags)
+  private def normalizeRouteDocTags(routeDoc: RouteDoc): RouteDoc = {
+    routeDoc.copy(
+      summary = routeDoc.summary.copy(
+        tags = normalizeTags(routeDoc.summary.tags)
       ),
-      tags = normalizeTags(routeInfo.tags)
+      tags = normalizeTags(routeDoc.tags)
     )
   }
 
@@ -383,11 +383,11 @@ class RouteAnalysisComparator {
     Tags(tags.tags.sortBy(_.key))
   }
 
-  private def matchingFacts(routeInfoPair: RouteInfoPair): Boolean = {
+  private def matchingFacts(routeDocPair: RouteDocPair): Boolean = {
     val obsoleteFacts = Seq(RouteInvalidSortingOrder)
 
-    val oldFacts = routeInfoPair.oldRoute.facts.filterNot(obsoleteFacts.contains).sortBy(_.name)
-    val newFacts = routeInfoPair.newRoute.facts.sortBy(_.name)
+    val oldFacts = routeDocPair.oldRoute.facts.filterNot(obsoleteFacts.contains).sortBy(_.name)
+    val newFacts = routeDocPair.newRoute.facts.sortBy(_.name)
 
     if (oldFacts.equals(Seq(RouteBroken, RouteNodeMissingInWays, RouteNotBackward, RouteNotForward)) &&
       newFacts.equals(Seq(RouteBroken, RouteNodeMissingInWays))
@@ -416,12 +416,12 @@ class RouteAnalysisComparator {
     }
   }
 
-  private def ignoreFacts(routeInfoPair: RouteInfoPair): RouteInfoPair = {
-    routeInfoPair.copy(
-      oldRoute = routeInfoPair.oldRoute.copy(
+  private def ignoreFacts(routeDocPair: RouteDocPair): RouteDocPair = {
+    routeDocPair.copy(
+      oldRoute = routeDocPair.oldRoute.copy(
         facts = Seq.empty
       ),
-      newRoute = routeInfoPair.oldRoute.copy(
+      newRoute = routeDocPair.oldRoute.copy(
         facts = Seq.empty
       )
     )

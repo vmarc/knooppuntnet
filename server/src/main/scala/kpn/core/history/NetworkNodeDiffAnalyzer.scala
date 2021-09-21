@@ -5,9 +5,9 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.network.NetworkNodeDiff
 import kpn.api.common.diff.network.NodeIntegrityCheckDiff
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
-import kpn.api.common.route.RouteInfo
 import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNodeInfo
+import kpn.core.mongo.doc.RouteDoc
 
 class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo, after: NetworkNodeInfo) {
 
@@ -70,7 +70,7 @@ class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo,
     }
   }
 
-  private def routeRefs(routes: Seq[RouteInfo], ids: Set[Long]): Seq[Ref] = {
+  private def routeRefs(routes: Seq[RouteDoc], ids: Set[Long]): Seq[Ref] = {
     routes.filter(route => ids.contains(route.id)).map(route => Ref(route.id, route.summary.name))
   }
 
