@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.core.mongo.Database
 import kpn.core.mongo.DatabaseImpl
+import kpn.core.mongo.MetricsDatabase
+import kpn.core.mongo.MetricsDatabaseImpl
 import kpn.core.mongo.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -129,14 +131,21 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def mongoEnabled(@Value("${app.mongo-enabled:false}") value: Boolean): Boolean = {
-    value
+  def database(
+    @Value("${app.database.url}") url: String,
+    @Value("${app.database.name}") name: String,
+  ): Database = {
+    val mongoClient = MongoClient(url)
+    new DatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 
   @Bean
-  def database(@Value("${mongodb.url:url}") mongodbUrl: String): Database = {
-    val mongoClient = MongoClient(mongodbUrl)
-    new DatabaseImpl(mongoClient.getDatabase("kpn-test-3").withCodecRegistry(Mongo.codecRegistry))
+  def metricsDatabase(
+    @Value("${app.metrics-database.url}") url: String,
+    @Value("${app.metrics-database.name}") name: String,
+  ): MetricsDatabase = {
+    val mongoClient = MongoClient(url)
+    new MetricsDatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 
   private def buildExecutor(name: String, poolSize: Int): Executor = {

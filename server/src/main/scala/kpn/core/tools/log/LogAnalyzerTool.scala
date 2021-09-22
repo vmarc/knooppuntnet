@@ -4,7 +4,9 @@ import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
 import kpn.core.action.LogAction
 import kpn.core.action.LogValue
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.MetricsDatabaseImpl
+import kpn.core.mongo.util.Mongo.client
+import kpn.core.mongo.util.Mongo.codecRegistry
 import kpn.core.tools.log.analyzers.AnalysisAnalyzer
 import kpn.core.tools.log.analyzers.ApiAnalyzer
 import kpn.core.tools.log.analyzers.ApplicationAnalyzer
@@ -12,8 +14,8 @@ import kpn.core.tools.log.analyzers.AssetAnalyzer
 import kpn.core.tools.log.analyzers.LogRecordAnalyzer
 import kpn.core.tools.log.analyzers.RobotAnalyzer
 import kpn.core.tools.log.analyzers.TileAnalyzer
-import kpn.server.repository.FrontendMetricsRepository
-import kpn.server.repository.FrontendMetricsRepositoryImpl
+import kpn.server.repository.MetricsRepository
+import kpn.server.repository.MetricsRepositoryImpl
 import nl.basjes.parse.core.Parser
 import nl.basjes.parse.core.exceptions.DissectionFailure
 import nl.basjes.parse.httpdlog.HttpdLoglineParser
@@ -26,17 +28,21 @@ object LogAnalyzerTool {
   def main(args: Array[String]): Unit = {
     // new LogAnalyzerTool().printPossiblePaths()
     // new LogAnalyzerTool().findUserAgents("/kpn/logs/ningx-nl-access.log")
-
-    Couch.executeIn("localhost", "frontend-actions") { database =>
-      val repo = new FrontendMetricsRepositoryImpl(database)
+    val mongoClient = client
+    try {
+      val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
+      val repo = new MetricsRepositoryImpl(database)
       //new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-access.log", "test")
       new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-be-access.log", "be")
       new LogAnalyzerTool(repo).analyze("/kpn/logs/ningx-nl-experimental-access.log", "nl-experimental")
     }
+    finally {
+      mongoClient.close()
+    }
   }
 }
 
-class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
+class LogAnalyzerTool(metricsRepository: MetricsRepository) {
 
   private val LOG_FORMAT = "$remote_addr - $remote_user [$time_local] \"$host\" \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"rt=$request_time uct=\"upstream_connect_time\" uht=\"upstream_header_time\" urt=\"$upstream_response_time\""
 
@@ -152,6 +158,6 @@ class LogAnalyzerTool(frontendMetricsRepository: FrontendMetricsRepository) {
     val actionTimestamp = ActionTimestamp.from(Timestamp.fromLogKey(context.key))
     val values = context.values.toSeq.map { case (key, value) => LogValue(key, value) }
     val logAction = LogAction(actionTimestamp, context.logfile, values)
-    frontendMetricsRepository.saveLogAction(logAction)
+    metricsRepository.saveLogAction(logAction)
   }
 }

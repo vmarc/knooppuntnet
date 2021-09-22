@@ -14,22 +14,20 @@ import kpn.api.common.status.SystemStatusPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.BackendMetricsRepository
-import kpn.server.repository.FrontendMetricsRepository
+import kpn.server.repository.MetricsRepository
 import org.springframework.stereotype.Component
 
 @Component
 class StatusFacadeImpl(
   analysisRepository: AnalysisRepository,
-  backendActionsRepository: BackendMetricsRepository,
-  frontendActionsRepository: FrontendMetricsRepository
+  metricsRepository: MetricsRepository
 ) extends StatusFacade {
 
   override def status(): ApiResponse[Status] = {
 
     val frontEnd = {
-      val used = backendActionsRepository.lastKnownValue("frontend-disk-space-used")
-      val available = backendActionsRepository.lastKnownValue("frontend-disk-space-available")
+      val used = metricsRepository.lastKnownValue("frontend-disk-space-used")
+      val available = metricsRepository.lastKnownValue("frontend-disk-space-available")
       BarChart(
         "day",
         Seq(
@@ -40,8 +38,8 @@ class StatusFacadeImpl(
     }
 
     val database = {
-      val used = backendActionsRepository.lastKnownValue("db-disk-space-used")
-      val available = backendActionsRepository.lastKnownValue("db-disk-space-available")
+      val used = metricsRepository.lastKnownValue("db-disk-space-used")
+      val available = metricsRepository.lastKnownValue("db-disk-space-available")
       BarChart(
         "day",
         Seq(
@@ -52,9 +50,9 @@ class StatusFacadeImpl(
     }
 
     val backEnd = {
-      val used = backendActionsRepository.lastKnownValue("backend-disk-space-used")
-      val available = backendActionsRepository.lastKnownValue("backend-disk-space-available")
-      val overpass = backendActionsRepository.lastKnownValue("backend-disk-space-overpass")
+      val used = metricsRepository.lastKnownValue("backend-disk-space-used")
+      val available = metricsRepository.lastKnownValue("backend-disk-space-available")
+      val overpass = metricsRepository.lastKnownValue("backend-disk-space-overpass")
       BarChart(
         "day",
         Seq(
@@ -85,9 +83,9 @@ class StatusFacadeImpl(
 
   override def replicationStatus(parameters: PeriodParameters): ApiResponse[ReplicationStatusPage] = {
 
-    val replicationDelays = backendActionsRepository.query(parameters, "replication-delay", average = true)
-    val updateDelays = backendActionsRepository.query(parameters, "update-delay", average = true)
-    val analysisDelays = backendActionsRepository.query(parameters, "analysis-delay", average = true)
+    val replicationDelays = metricsRepository.query(parameters, "replication-delay", average = true)
+    val updateDelays = metricsRepository.query(parameters, "update-delay", average = true)
+    val analysisDelays = metricsRepository.query(parameters, "analysis-delay", average = true)
 
     val delay = BarChart2D(
       parameters.period,
@@ -113,9 +111,9 @@ class StatusFacadeImpl(
     val updateDelay = BarChart(parameters.period, updateDelays)
     val replicationDelay = BarChart(parameters.period, replicationDelays)
 
-    val replicationBytes = BarChart(parameters.period, backendActionsRepository.query(parameters, "replication-bytes"))
-    val replicationElements = BarChart(parameters.period, backendActionsRepository.query(parameters, "replication-elements"))
-    val replicationChangeSets = BarChart(parameters.period, backendActionsRepository.query(parameters, "replication-changesets"))
+    val replicationBytes = BarChart(parameters.period, metricsRepository.query(parameters, "replication-bytes"))
+    val replicationElements = BarChart(parameters.period, metricsRepository.query(parameters, "replication-elements"))
+    val replicationChangeSets = BarChart(parameters.period, metricsRepository.query(parameters, "replication-changesets"))
 
     val periodTitle = parameters.period match {
       case "year" => parameters.year.toString
@@ -168,19 +166,19 @@ class StatusFacadeImpl(
 
   override def systemStatus(parameters: PeriodParameters): ApiResponse[SystemStatusPage] = {
 
-    val backendDiskSpaceUsed = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-disk-space-used", average = true))
-    val backendDiskSpaceAvailable = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-disk-space-available", average = true))
-    val backendDiskSpaceOverpass = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-disk-space-overpass", average = true))
+    val backendDiskSpaceUsed = BarChart(parameters.period, metricsRepository.query(parameters, "backend-disk-space-used", average = true))
+    val backendDiskSpaceAvailable = BarChart(parameters.period, metricsRepository.query(parameters, "backend-disk-space-available", average = true))
+    val backendDiskSpaceOverpass = BarChart(parameters.period, metricsRepository.query(parameters, "backend-disk-space-overpass", average = true))
 
-    val analysisDocCount = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-docs", average = true))
-    val analysisDiskSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-disk-size", average = true))
-    val analysisDiskSizeExternal = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-data-size-external", average = true))
-    val analysisDataSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-analysis-data-size", average = true))
+    val analysisDocCount = BarChart(parameters.period, metricsRepository.query(parameters, "backend-analysis-docs", average = true))
+    val analysisDiskSize = BarChart(parameters.period, metricsRepository.query(parameters, "backend-analysis-disk-size", average = true))
+    val analysisDiskSizeExternal = BarChart(parameters.period, metricsRepository.query(parameters, "backend-analysis-data-size-external", average = true))
+    val analysisDataSize = BarChart(parameters.period, metricsRepository.query(parameters, "backend-analysis-data-size", average = true))
 
-    val changesDocCount = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-docs", average = true))
-    val changesDiskSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-disk-size", average = true))
-    val changesDiskSizeExternal = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-data-size-external", average = true))
-    val changesDataSize = BarChart(parameters.period, backendActionsRepository.query(parameters, "backend-changes-data-size", average = true))
+    val changesDocCount = BarChart(parameters.period, metricsRepository.query(parameters, "backend-changes-docs", average = true))
+    val changesDiskSize = BarChart(parameters.period, metricsRepository.query(parameters, "backend-changes-disk-size", average = true))
+    val changesDiskSizeExternal = BarChart(parameters.period, metricsRepository.query(parameters, "backend-changes-data-size-external", average = true))
+    val changesDataSize = BarChart(parameters.period, metricsRepository.query(parameters, "backend-changes-data-size", average = true))
 
     val periodTitle = parameters.period match {
       case "year" => parameters.year.toString
@@ -237,14 +235,14 @@ class StatusFacadeImpl(
 
   override def logStatus(parameters: PeriodParameters): ApiResponse[LogPage] = {
 
-    val tile = BarChart(parameters.period, frontendActionsRepository.query(parameters, "tile", average = false))
-    val tileRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "tile-robot", average = false))
-    val api = BarChart(parameters.period, frontendActionsRepository.query(parameters, "api", average = false))
-    val apiRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "api-robot", average = false))
-    val analysis = BarChart(parameters.period, frontendActionsRepository.query(parameters, "analysis", average = false))
-    val analysisRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "analysis-robot", average = false))
-    val robot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "robot", average = false))
-    val nonRobot = BarChart(parameters.period, frontendActionsRepository.query(parameters, "non-robot", average = false))
+    val tile = BarChart(parameters.period, metricsRepository.query(parameters, "tile", average = false))
+    val tileRobot = BarChart(parameters.period, metricsRepository.query(parameters, "tile-robot", average = false))
+    val api = BarChart(parameters.period, metricsRepository.query(parameters, "api", average = false))
+    val apiRobot = BarChart(parameters.period, metricsRepository.query(parameters, "api-robot", average = false))
+    val analysis = BarChart(parameters.period, metricsRepository.query(parameters, "analysis", average = false))
+    val analysisRobot = BarChart(parameters.period, metricsRepository.query(parameters, "analysis-robot", average = false))
+    val robot = BarChart(parameters.period, metricsRepository.query(parameters, "robot", average = false))
+    val nonRobot = BarChart(parameters.period, metricsRepository.query(parameters, "non-robot", average = false))
 
     val periodTitle = parameters.period match {
       case "year" => parameters.year.toString
@@ -295,5 +293,4 @@ class StatusFacadeImpl(
       )
     )
   }
-
 }

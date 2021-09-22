@@ -1,23 +1,24 @@
 package kpn.core.replicate
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
 import kpn.core.action.UpdateAction
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.MetricsDatabaseImpl
+import kpn.core.mongo.util.Mongo.client
+import kpn.core.mongo.util.Mongo.codecRegistry
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
-import kpn.server.repository.BackendMetricsRepository
-import kpn.server.repository.BackendMetricsRepositoryImpl
+import kpn.server.repository.MetricsRepository
+import kpn.server.repository.MetricsRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
 
+import java.io.File
 import scala.annotation.tailrec
 
 /*
@@ -50,14 +51,18 @@ object UpdaterTool {
       UpdaterToolOptions.parse(args) match {
         case Some(options) =>
 
-          Couch.executeIn(Couch.config.host, options.actionsDatabaseName) { actionsDatabase =>
+          val mongoClient = client
+          try {
             val dirs = Dirs()
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-            val actionsRepository = new BackendMetricsRepositoryImpl(actionsDatabase)
-            val updater = new UpdaterTool(options, statusRepository, actionsRepository, replicationStateRepository)
+            val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
+            val metricsRepository = new MetricsRepositoryImpl(database)
+            val updater = new UpdaterTool(options, statusRepository, metricsRepository, replicationStateRepository)
             updater.launch()
-
+          }
+          finally {
+            mongoClient.close()
           }
           0
 
@@ -79,7 +84,7 @@ object UpdaterTool {
 class UpdaterTool(
   options: UpdaterToolOptions,
   statusRepository: StatusRepository,
-  actionsRepository: BackendMetricsRepository,
+  metricsRepository: MetricsRepository,
   replicationStateRepository: ReplicationStateRepository
 ) {
 
@@ -149,7 +154,7 @@ class UpdaterTool(
       val replicationId = ReplicationId(id)
       val timestamp = replicationStateRepository.read(replicationId)
       val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(id, timestamp)
-      actionsRepository.saveUpdateAction(UpdateAction(minuteDiffInfo))
+      metricsRepository.saveUpdateAction(UpdateAction(minuteDiffInfo))
     }
   }
 

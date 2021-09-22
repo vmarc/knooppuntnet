@@ -3,11 +3,11 @@ package kpn.server.api
 import kpn.api.common.status.ActionTimestamp
 import kpn.core.action.ApiAction
 import kpn.core.util.Log
-import kpn.server.repository.FrontendMetricsRepository
+import kpn.server.repository.MetricsRepository
 import org.springframework.stereotype.Component
 
 @Component
-class ApiImpl(frontendActionsRepository: FrontendMetricsRepository) extends Api {
+class ApiImpl(metricsRepository: MetricsRepository) extends Api {
 
   private val log = Log(classOf[Api])
 
@@ -20,7 +20,7 @@ class ApiImpl(frontendActionsRepository: FrontendMetricsRepository) extends Api 
       val elapsed: Long = (t2 - t1) / 1000000
       log.info(s"$user $action($args) (${elapsed}ms)")
 
-      frontendActionsRepository.saveApiAction(
+      metricsRepository.saveApiAction(
         ApiAction(
           user,
           action,
@@ -31,5 +31,4 @@ class ApiImpl(frontendActionsRepository: FrontendMetricsRepository) extends Api 
       )
     }
   }
-
 }

@@ -1,18 +1,20 @@
 package kpn.core.replicate
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
 import kpn.core.action.ReplicationAction
-import kpn.core.db.couch.Couch
+import kpn.core.mongo.MetricsDatabaseImpl
+import kpn.core.mongo.util.Mongo.client
+import kpn.core.mongo.util.Mongo.codecRegistry
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.OsmChangeReader
-import kpn.server.repository.BackendMetricsRepository
-import kpn.server.repository.BackendMetricsRepositoryImpl
+import kpn.server.repository.MetricsRepository
+import kpn.server.repository.MetricsRepositoryImpl
+
+import java.io.File
 
 object ReplicatorTool {
 
@@ -37,26 +39,32 @@ object ReplicatorTool {
     val exit = ReplicatorToolOptions.parse(args) match {
       case Some(options) =>
 
-        Couch.executeIn(Couch.config.host, options.actionsDatabaseName) { actionsDatabase =>
+        val mongoClient = client
+        try {
+          val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
           val dirs = Dirs()
 
           try {
             val statusRepository = new StatusRepositoryImpl(dirs)
             val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
             val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-            val actionsRepository = new BackendMetricsRepositoryImpl(actionsDatabase)
+            val metricsRepository = new MetricsRepositoryImpl(database)
             new ReplicatorTool(
               dirs.replicate,
               statusRepository,
               replicationStateRepository,
               replicationRequestExecutor,
-              actionsRepository
+              metricsRepository
             ).launch()
           }
           finally {
             log.info("Ended")
           }
         }
+        finally {
+          mongoClient.close()
+        }
+
         0
 
       case None =>
@@ -86,7 +94,7 @@ class ReplicatorTool(
   statusRepository: StatusRepositoryImpl,
   replicationStateRepository: ReplicationStateRepository,
   replicationRequestExecutor: ReplicationRequestExecutor,
-  actionsRepository: BackendMetricsRepository
+  metricsRepository: MetricsRepository
 ) {
 
   private val log = ReplicatorTool.log
@@ -118,7 +126,7 @@ class ReplicatorTool(
               statusRepository.writeReplicationStatus(replicationId)
               val timestamp = replicationStateRepository.read(replicationId)
               val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(replicationId.number, timestamp)
-              actionsRepository.saveReplicationAction(
+              metricsRepository.saveReplicationAction(
                 ReplicationAction(
                   minuteDiffInfo,
                   fileSize,

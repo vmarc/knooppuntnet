@@ -31,8 +31,8 @@ class GrafanaController {
     }
 
     val timeseries1 = GrafanaTimeSeries(
-     target = "een", // query.targets.head.target,
-     datapoints = Seq(
+      target = "een", // query.targets.head.target,
+      datapoints = Seq(
         0f -> time(0),
         50f -> time(100),
         100f -> time(200),
@@ -71,14 +71,14 @@ class GrafanaController {
   }
 
   @PostMapping(value = Array("/grafana/tag-keys"))
-  def tagKeys(@RequestBody parameters: String): Seq[String] = {
+  def tagKeys(@RequestBody parameters: String): String = {
     println(s"tag-keys: $parameters")
-    Seq()
+    ""
   }
 
   @PostMapping(value = Array("/grafana/tag-values"))
-  def tagValues(@RequestBody parameters: String): Seq[String] = {
+  def tagValues(@RequestBody parameters: String): String = {
     println(s"tag-values: $parameters")
-    Seq()
+    ""
   }
 }

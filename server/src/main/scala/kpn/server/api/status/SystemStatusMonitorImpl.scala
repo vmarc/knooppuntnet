@@ -1,12 +1,11 @@
 package kpn.server.api.status
 
-import javax.annotation.PostConstruct
 import kpn.api.common.status.ActionTimestamp
 import kpn.core.action.SystemStatus
 import kpn.core.action.SystemStatusValue
 import kpn.core.util.Log
 import kpn.server.json.Json
-import kpn.server.repository.BackendMetricsRepository
+import kpn.server.repository.MetricsRepository
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 
+import javax.annotation.PostConstruct
 import scala.sys.process.Process
 
 case class DatabaseSampleConfig(
@@ -28,7 +28,7 @@ case class DatabaseSampleConfig(
 @Component
 class SystemStatusMonitorImpl(
   systemMetricsEnabled: Boolean,
-  backendActionsRepository: BackendMetricsRepository
+  metricsRepository: MetricsRepository
 ) extends SystemStatusMonitor {
 
   private val log = Log(classOf[SystemStatusMonitorImpl])
@@ -43,7 +43,7 @@ class SystemStatusMonitorImpl(
   @Scheduled(cron = "0 0/5 * * * *")
   def snapshot(): Unit = {
     if (systemMetricsEnabled) {
-      backendActionsRepository.saveSystemStatus(
+      metricsRepository.saveSystemStatus(
         SystemStatus(
           ActionTimestamp.now(),
           allSystemStatusValues()

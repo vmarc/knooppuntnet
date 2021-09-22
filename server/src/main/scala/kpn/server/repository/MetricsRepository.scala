@@ -3,11 +3,17 @@ package kpn.server.repository
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
 import kpn.core.action.AnalysisAction
+import kpn.core.action.ApiAction
+import kpn.core.action.LogAction
 import kpn.core.action.ReplicationAction
 import kpn.core.action.SystemStatus
 import kpn.core.action.UpdateAction
 
-trait BackendMetricsRepository {
+trait MetricsRepository {
+
+  def saveApiAction(action: ApiAction): Unit
+
+  def saveLogAction(action: LogAction): Unit
 
   def saveReplicationAction(replicationAction: ReplicationAction): Unit
 
