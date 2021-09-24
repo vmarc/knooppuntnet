@@ -6,7 +6,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.tools.export.GeoJsonLineStringGeometry
+import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.api.planner.leg.LegBuilderImpl
 import kpn.server.json.Json

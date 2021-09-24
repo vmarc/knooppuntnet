@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.common.LatLonImpl
 import kpn.api.common.common.TrackSegment
 import kpn.api.custom.Fact
-import kpn.core.tools.`export`.GeoJsonLineStringGeometry
+import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.json.Json
 

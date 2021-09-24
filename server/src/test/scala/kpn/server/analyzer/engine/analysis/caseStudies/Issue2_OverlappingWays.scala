@@ -7,7 +7,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
-import kpn.core.tools.`export`.GeoJsonLineStringGeometry
+import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl

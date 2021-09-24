@@ -5,10 +5,6 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.route.RouteMap
-import kpn.core.tools.`export`.GeoJson
-import kpn.core.tools.`export`.GeoJsonFeature
-import kpn.core.tools.`export`.GeoJsonLineStringGeometry
-import kpn.core.tools.`export`.GeoJsonProperties
 import kpn.server.json.Json
 
 object GeoJsonUtil {
