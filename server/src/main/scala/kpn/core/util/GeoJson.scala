@@ -1,4 +1,4 @@
-package kpn.core.tools.export
+package kpn.core.util
 
 trait GeoJsonGeometry
 

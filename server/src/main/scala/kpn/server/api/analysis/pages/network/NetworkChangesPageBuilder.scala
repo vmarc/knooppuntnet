@@ -7,14 +7,14 @@ import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
-import kpn.server.repository.MongoNetworkRepository
+import kpn.server.repository.NetworkInfoRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkChangesPageBuilder(
   database: Database,
   changeSetInfoRepository: ChangeSetInfoRepository,
-  mongoNetworkRepository: MongoNetworkRepository
+  networkInfoRepository: NetworkInfoRepository
 ) {
 
   private val log = Log(classOf[NetworkDetailsPageBuilder])
@@ -35,10 +35,10 @@ class NetworkChangesPageBuilder(
   }
 
   private def buildNetworkChangesPage(user: Option[String], parameters: ChangesParameters, networkInfoDoc: NetworkInfoDoc): NetworkChangesPage = {
-    val changesFilter = mongoNetworkRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
+    val changesFilter = networkInfoRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
     val totalCount = changesFilter.currentItemCount(parameters.impact)
     val changes = if (user.isDefined) {
-      mongoNetworkRepository.networkChanges(networkInfoDoc._id, parameters)
+      networkInfoRepository.networkChanges(networkInfoDoc._id, parameters)
     }
     else {
       Seq.empty

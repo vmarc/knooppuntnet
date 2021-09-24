@@ -4,12 +4,12 @@ import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkMapNode
 import kpn.api.common.network.NetworkMapPage
 import kpn.core.mongo.doc.NetworkInfoDoc
-import kpn.server.repository.MongoNetworkRepository
+import kpn.server.repository.NetworkInfoRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkMapPageBuilder(
-  mongoNetworkRepository: MongoNetworkRepository
+  networkInfoRepository: NetworkInfoRepository
 ) {
 
   def build(networkId: Long): Option[NetworkMapPage] = {
@@ -22,7 +22,7 @@ class NetworkMapPageBuilder(
   }
 
   private def buildPage(networkId: Long): Option[NetworkMapPage] = {
-    mongoNetworkRepository.networkWithId(networkId).map(buildPageContents)
+    networkInfoRepository.findById(networkId).map(buildPageContents)
   }
 
   private def buildPageContents(networkInfo: NetworkInfoDoc): NetworkMapPage = {
