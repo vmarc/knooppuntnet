@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.monitor.MonitorChangeProcessorImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoaderFileImpl
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
-import kpn.server.repository.MonitorAdminRouteRepositoryImpl
+import kpn.server.repository.MonitorRouteRepositoryImpl
 
 import java.io.File
 
@@ -24,7 +24,7 @@ object MonitorRouteAnalyzerTool {
 
     Mongo.executeIn("kpn-test") { database =>
       val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
-      val monitorAdminRouteRepository = new MonitorAdminRouteRepositoryImpl(database)
+      val monitorAdminRouteRepository = new MonitorRouteRepositoryImpl(database)
       val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
       val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerFileImpl()
       val monitorChangeProcessor = new MonitorChangeProcessorImpl(

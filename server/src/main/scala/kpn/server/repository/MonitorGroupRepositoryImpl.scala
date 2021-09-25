@@ -21,6 +21,14 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
     database.monitorGroups.findAll(log)
   }
 
+  override def saveGroup(routeGroup: MonitorGroup): Unit = {
+    database.monitorGroups.save(routeGroup, log)
+  }
+
+  override def deleteGroup(name: String): Unit = {
+    database.monitorGroups.deleteByStringId(name, log)
+  }
+
   override def groupRoutes(groupName: String): Seq[MonitorRoute] = {
     database.monitorRoutes.find(
       filter(

@@ -9,6 +9,10 @@ trait MonitorGroupRepository {
 
   def groups(): Seq[MonitorGroup]
 
+  def saveGroup(routeGroup: MonitorGroup): Unit
+
+  def deleteGroup(name: String): Unit
+
   def groupRoutes(groupName: String): Seq[MonitorRoute]
 
 }

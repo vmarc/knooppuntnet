@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -8,6 +9,18 @@ import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 
 trait MonitorRouteRepository {
+
+  def allRouteIds: Seq[Long]
+
+  def saveRoute(route: MonitorRoute): Unit
+
+  def saveRouteState(routeState: MonitorRouteState): Unit
+
+  def saveRouteReference(routeReference: MonitorRouteReference): Unit
+
+  def saveRouteChange(routeChange: MonitorRouteChange): Unit
+
+  def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
 
   def route(routeId: Long): Option[MonitorRoute]
 
@@ -32,4 +45,11 @@ trait MonitorRouteRepository {
   def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
   def routes(): Seq[MonitorRoute]
+
+  def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange]
+
+  def routeChangeGeometry(changeKey: ChangeKey): Option[MonitorRouteChangeGeometry]
+
+  def routeReferenceKey(routeId: Long): Option[String]
+
 }

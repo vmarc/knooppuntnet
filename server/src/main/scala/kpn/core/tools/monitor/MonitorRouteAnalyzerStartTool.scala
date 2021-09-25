@@ -9,8 +9,8 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteLoader
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoaderFileImpl
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
-import kpn.server.repository.MonitorAdminRouteRepository
-import kpn.server.repository.MonitorAdminRouteRepositoryImpl
+import kpn.server.repository.MonitorRouteRepository
+import kpn.server.repository.MonitorRouteRepositoryImpl
 import org.locationtech.jts.geom.GeometryFactory
 
 import java.io.File
@@ -20,7 +20,7 @@ object MonitorRouteAnalyzerStartTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { database =>
       val monitorRouteLoader = new MonitorRouteLoaderFileImpl()
-      val monitorRouteRepository = new MonitorAdminRouteRepositoryImpl(database)
+      val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
       new MonitorRouteAnalyzerStartTool(monitorRouteLoader, monitorRouteRepository).buildInitialRouteDocuments()
     }
   }
@@ -28,7 +28,7 @@ object MonitorRouteAnalyzerStartTool {
 
 class MonitorRouteAnalyzerStartTool(
   monitorRouteLoader: MonitorRouteLoader,
-  monitorAdminRouteRepository: MonitorAdminRouteRepository
+  monitorRouteRepository: MonitorRouteRepository
 ) {
 
   private val geomFactory = new GeometryFactory
@@ -39,7 +39,7 @@ class MonitorRouteAnalyzerStartTool(
       monitorRouteLoader.loadInitial(null, routeId).foreach { routeRelation =>
 
         val route = MonitorRouteAnalyzer.toRoute("example", routeRelation)
-        monitorAdminRouteRepository.saveRoute(route)
+        monitorRouteRepository.saveRoute(route)
 
         val segments = MonitorRouteAnalyzer.toRouteSegments(routeRelation)
         val timestamp = Timestamp(2020, 8, 11)
@@ -61,7 +61,7 @@ class MonitorRouteAnalyzerStartTool(
           nokSegments = Seq.empty
         )
 
-        monitorAdminRouteRepository.saveRouteState(routeState)
+        monitorRouteRepository.saveRouteState(routeState)
 
         val routeReference = MonitorRouteReference(
           routeId,
@@ -76,7 +76,7 @@ class MonitorRouteAnalyzerStartTool(
           geometry = geoJson
         )
 
-        monitorAdminRouteRepository.saveRouteReference(routeReference)
+        monitorRouteRepository.saveRouteReference(routeReference)
       }
     }
   }

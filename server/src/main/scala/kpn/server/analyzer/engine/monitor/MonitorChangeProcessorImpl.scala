@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer.toMeters
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.repository.MonitorAdminRouteRepository
+import kpn.server.repository.MonitorRouteRepository
 import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.MultiLineString
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component
 @Component
 class MonitorChangeProcessorImpl(
   analyzerHistory: Boolean,
-  monitorAdminRouteRepository: MonitorAdminRouteRepository,
+  monitorRouteRepository: MonitorRouteRepository,
   monitorRouteLoader: MonitorRouteLoader,
   monitorChangeImpactAnalyzer: MonitorChangeImpactAnalyzer
 ) extends MonitorChangeProcessor {
@@ -40,7 +40,7 @@ class MonitorChangeProcessorImpl(
       Log.context("load") {
         log.info("Start loading monitor routes")
         log.infoElapsed {
-          monitorAdminRouteRepository.allRouteIds.foreach { routeId =>
+          monitorRouteRepository.allRouteIds.foreach { routeId =>
             monitorRouteLoader.loadInitial(timestamp, routeId) match {
               case Some(routeRelation) =>
                 val elementIds = RelationAnalyzerHelper.toElementIds(routeRelation)
@@ -69,11 +69,11 @@ class MonitorChangeProcessorImpl(
   }
 
   private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Unit = {
-    monitorAdminRouteRepository.routeReferenceKey(routeId) match {
+    monitorRouteRepository.routeReferenceKey(routeId) match {
       case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
       case Some(referenceKey) =>
 
-        val referenceOption = monitorAdminRouteRepository.routeReference(routeId, referenceKey)
+        val referenceOption = monitorRouteRepository.routeReference(routeId, referenceKey)
         monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
           case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
           case Some(beforeRelation) =>
@@ -158,7 +158,7 @@ class MonitorChangeProcessorImpl(
         Seq.empty
       }
 
-      val groupName = monitorAdminRouteRepository.route(routeId).map(_.groupName).getOrElse("")
+      val groupName = monitorRouteRepository.route(routeId).map(_.groupName).getOrElse("")
 
       val change = MonitorRouteChange(
         key,
@@ -176,7 +176,7 @@ class MonitorChangeProcessorImpl(
         investigate = newSegments.nonEmpty
       )
 
-      monitorAdminRouteRepository.saveRouteChange(change)
+      monitorRouteRepository.saveRouteChange(change)
 
       val routeChangeGeometry = MonitorRouteChangeGeometry(
         key.toId,
@@ -185,7 +185,7 @@ class MonitorChangeProcessorImpl(
         newSegments,
         resolvedSegments,
       )
-      monitorAdminRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
+      monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
       log.info(message)
     }
