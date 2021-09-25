@@ -5,11 +5,13 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
-class MonitorAdminGroupRepositoryTest extends UnitTest with SharedTestObjects {
+class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("all/add/delete") {
+
     withDatabase { database =>
-      val repository = new MonitorAdminGroupRepositoryImpl(database)
+
+      val repository = new MonitorGroupRepositoryImpl(database)
 
       repository.groups() shouldBe empty
       repository.group("name1") should equal(None)

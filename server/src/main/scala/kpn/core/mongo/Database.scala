@@ -10,6 +10,7 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.gpx.GpxFile
+import kpn.core.mongo.doc.ChangeSetComment
 import kpn.core.mongo.doc.NetworkDoc
 import kpn.core.mongo.doc.NetworkInfoDoc
 import kpn.core.mongo.doc.NetworkShapeDoc
@@ -17,7 +18,6 @@ import kpn.core.mongo.doc.NodeDoc
 import kpn.core.mongo.doc.OrphanNodeDoc
 import kpn.core.mongo.doc.OrphanRouteDoc
 import kpn.core.mongo.doc.RouteDoc
-import kpn.core.mongo.migration.ChangeSetComment
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute

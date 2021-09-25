@@ -1,3 +1,3 @@
-package kpn.core.mongo.migration
+package kpn.core.mongo.doc
 
 case class ChangeSetComment(_id: Long, comment: String)
