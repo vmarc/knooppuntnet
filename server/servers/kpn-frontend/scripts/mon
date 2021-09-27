@@ -1,0 +1,8 @@
+#!/bin/bash
+for (( ; ; ))
+do
+   date
+   free -mh
+   ps aux --sort -vsz | head -10 | cut -c1-120
+   sleep 300
+done

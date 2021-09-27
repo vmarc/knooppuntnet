@@ -1,0 +1,2 @@
+# 09 - Generate tiles for zoom level 13
+nohup /kpn/scripts/script.sh "09-generate-tiles-13" "cd /kpn/openmaptiles;export AREA_DC_CONFIG_FILE=/kpn/conf/tiles-config-13.yml;make generate-tiles;mv data/tiles.mbtiles data/tiles.mbtiles.13" >> /kpn/logs/09-generate-tiles-13.log 2>&1 &

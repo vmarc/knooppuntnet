@@ -182,15 +182,7 @@ Adapt data/all.dc-config.yml, default zoom levels:
 
 Generate tiles:
 
-	/kpn/scripts/08-generate-tiles-12.sh     # 6 hours / last time: 19 hours
-
-Generate zoom level 13:
-
-	/kpn/scripts/09-generate-tiles-13.sh     # 22 hours / last time: 20 hours (swapfile 10G)
-
-Generate zoom level 14:
-
-	/kpn/scripts/10-generate-tiles-14.sh    # almost 3.5 days
+	/kpn/scripts/08-generate-tiles.sh     # 18.5 hours
 
 Copy tiles to kpn server, on kpn server:
 
@@ -202,14 +194,9 @@ On kpn server:
 	cd /kpn/tiles-install
 	/kpn/soft/mbutil/mb-util tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
-	mkdir osm
-	mv t12/? osm
-
 Make productive:
 
     find /kpn/tiles-install/osm -type f | wc -l
     find /kpn/tiles/osm -type f | wc -l
-    nohup rsync -av  --human-readable --progress --delete  \
-      /kpn/tiles-install/osm/ \ # note: the slash at the end is important
-      /kpn/tiles/osm >> /kpn/logs/tiles-rsync.log 2>&1 &
+    nohup rsync -av  --human-readable --progress --delete /kpn/tiles-install/osm/ /kpn/tiles/osm >> /kpn/logs/tiles-rsync.log 2>&1 &
     find /kpn/tiles/osm -type f | wc -l
