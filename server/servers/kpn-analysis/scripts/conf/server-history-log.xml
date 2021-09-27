@@ -2,23 +2,21 @@
 <Configuration status="warn" monitorInterval="30">
     <Appenders>
         <RollingFile name="File" fileName="/kpn/logs/server-history.log"
-            filePattern="/kpn/logs/server-history-%i.log.gz">
+                     filePattern="/kpn/logs/server-history-%i.log.gz">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %20.20t %x %logger{1} - %msg%n"/>
-                <Policies>
-                    <SizeBasedTriggeringPolicy size="10 MB"/>
-                </Policies>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
         </RollingFile>
     </Appenders>
     <Loggers>
-    <root level="debug">
-      <appender-ref ref="File" level="debug"/>
-    </root>    
+        <root level="debug">
+            <appender-ref ref="File" level="debug"/>
+        </root>
 
-        <Logger name="akka" level="info"/>
         <Logger name="kpn" level="info"/>
         <Logger name="org" level="info"/>
-<!--
--->
+
         <Logger name="kpn.core.overpass.OverpassQueryExecutorImpl" level="info"/>
 
         <Logger name="kpn.core.tools.AnalyzerTool" level="debug"/>

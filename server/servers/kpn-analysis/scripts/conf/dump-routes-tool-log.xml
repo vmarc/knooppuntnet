@@ -13,7 +13,6 @@
         <Root level="trace">
             <AppenderRef ref="RollingFile"/>
         </Root>
-        <Logger name="akka" level="info"/>
         <Logger name="kpn" level="info"/>
     </Loggers>
 </Configuration>

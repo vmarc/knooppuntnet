@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" monitorInterval="30">
     <Appenders>
-       <Console name="Console" target="SYSTEM_OUT">
+        <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %20.20t %x %logger{1} - %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>
         <root level="info">
-	      <appender-ref ref="Console" level="debug"/>
-        </root>    
-        <Logger name="akka" level="info"/>
+            <appender-ref ref="Console" level="debug"/>
+        </root>
         <Logger name="kpn" level="info"/>
         <Logger name="org" level="info"/>
         <Logger name="kpn.core.overpass.OverpassQueryExecutorImpl" level="info"/>
