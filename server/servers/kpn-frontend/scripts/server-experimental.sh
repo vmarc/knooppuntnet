@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=server-experimental \
-  -Dlog4j.configurationFile=/kpn/conf/server-experimental-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/server-experimental-log.xml \
   -Xms512M \
   -Xmx2G \
   -Dcom.sun.management.jmxremote.port=5102 \

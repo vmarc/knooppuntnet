@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=change-set-info-tool-2 \
-  -Dlog4j.configurationFile=/kpn/conf/change-set-info-tool-log-2.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/change-set-info-tool-log-2.xml \
   -Xms128M \
   -Xmx512M \
   -Dcom.sun.management.jmxremote.port=5244 \

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=updater \
-  -Dlog4j.configurationFile=/kpn/conf/updater-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/updater-log.xml \
   -Dcom.sun.management.jmxremote.port=5103 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \

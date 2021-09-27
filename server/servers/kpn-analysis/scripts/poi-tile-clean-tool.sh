@@ -3,5 +3,5 @@
   -Dname=poi-tile-clean-tool \
   -Xms512M \
   -Xmx4G \
-  -cp /kpn/bin/dist/server-3.0.0-SNAPSHOT-alpha-4.jar \
+  -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.server.analyzer.engine.tiles.PoiTileCleanTool org.springframework.boot.loader.PropertiesLauncher

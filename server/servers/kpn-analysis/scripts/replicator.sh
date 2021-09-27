@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=replicator \
-  -Dlog4j.configurationFile=/kpn/conf/replicator-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/replicator-log.xml \
   -Dcom.sun.management.jmxremote.port=5102 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=analyzer-start-tool \
-  -Dlog4j.configurationFile=/kpn/conf/analyzer-start-tool-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/analyzer-start-tool-log.xml \
   -Dcom.sun.management.jmxremote.port=5222 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \

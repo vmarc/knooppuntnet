@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=monitor \
-  -Dlog4j.configurationFile=/kpn/conf/monitor-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/monitor-log.xml \
   -Dcom.sun.management.jmxremote.port=5505 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \

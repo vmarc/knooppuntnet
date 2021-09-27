@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=poi-tile-update-tool \
-  -Dlog4j.configurationFile=/kpn/conf/poi-tile-update-tool-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/poi-tile-update-tool-log.xml \
   -Xms128M \
   -Xmx512M \
   -Dcom.sun.management.jmxremote.port=5104 \

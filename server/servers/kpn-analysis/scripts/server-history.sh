@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 nohup /kpn/java/bin/java \
   -Dname=server-history \
-  -Dlog4j.configurationFile=/kpn/conf/server-history-log.xml \
+  -Dlog4j.configurationFile=/kpn/scripts/conf/server-history-log.xml \
   -Xms512M \
   -Xmx4G \
   -Dcom.sun.management.jmxremote.port=5111 \
