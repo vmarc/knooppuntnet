@@ -79,14 +79,6 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("reference") {
-    withDatabase { database =>
-      val routeRepository = new MonitorRouteRepositoryImpl(database)
-      routeRepository.saveRouteState(newMonitorRouteState(101L, referenceKey = Some("20200811000000")))
-      routeRepository.routeReference(101L, "20200811000000") should equal(Some("20200811000000"))
-    }
-  }
-
   private def buildChange(groupName: String, routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
     newMonitorRouteChange(
       newChangeKey(

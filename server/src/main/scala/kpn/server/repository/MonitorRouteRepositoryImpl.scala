@@ -10,6 +10,7 @@ import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
+import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.addFields
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -61,11 +62,9 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def routeReference(routeId: Long, key: String): Option[MonitorRouteReference] = {
     database.monitorRouteReferences.findOne(
-      filter(
-        and(
-          equal("_id", routeId),
-          equal("key", key)
-        )
+      and(
+        equal("_id", routeId),
+        equal("key", key)
       ),
       log
     )
@@ -119,13 +118,12 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def changesCount(parameters: MonitorChangesParameters): Long = {
     if (parameters.impact) {
+      val filter = or(
+        equal("happy", true),
+        equal("investigate", true)
+      )
       database.monitorRouteChanges.countDocuments(
-        filter(
-          or(
-            equal("happy", true),
-            equal("investigate", true)
-          )
-        ),
+        filter,
         log
       )
     }
@@ -151,14 +149,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       },
       Some(sort(orderBy(descending("key.time")))),
       Some(skip((parameters.pageIndex * parameters.itemsPerPage).toInt)),
-      Some(limit(parameters.itemsPerPage.toInt)),
-      Some(
-        addFields()
-      )
+      Some(limit(parameters.itemsPerPage.toInt))
     ).flatten
-
-
-    println(Mongo.pipelineString(pipeline))
 
     log.debugElapsed {
       val changes = database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
@@ -168,73 +160,67 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {
-    val changesFilter = if (parameters.impact) {
-      filter(
-        and(
-          equal("groupName", groupName),
-          equal("impact", parameters.impact)
-        )
-      )
-    }
-    else {
-      filter(
-        equal("groupName", groupName),
-      )
-    }
+    val changesFilter = groupChangesFilter(groupName, parameters)
     database.monitorRouteChanges.countDocuments(changesFilter, log)
   }
 
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
-    // TODO MONGO create query with aggregate
-    val changesFilter = if (parameters.impact) {
+    val pipeline = Seq(
       filter(
-        and(
-          equal("groupName", groupName),
-          equal("impact", parameters.impact)
-        )
-      )
-    }
-    else {
-      filter(
-        equal("groupName", groupName),
-      )
-    }
-    database.monitorRouteChanges.find(changesFilter, log)
+        groupChangesFilter(groupName, parameters)
+      ),
+      sort(orderBy(descending("key.time"))),
+      skip((parameters.pageIndex * parameters.itemsPerPage).toInt),
+      limit(parameters.itemsPerPage.toInt)
+    )
+    database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
   }
 
   override def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long = {
-    val changesFilter = if (parameters.impact) {
-      filter(
-        and(
-          equal("routeId", routeId),
-          equal("impact", parameters.impact)
-        )
-      )
-    }
-    else {
-      filter(
-        equal("routeId", routeId)
-      )
-    }
+    val changesFilter = routeChangesCountFilter(routeId, parameters)
     database.monitorRouteChanges.countDocuments(changesFilter, log)
   }
 
   override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
-    // TODO MONGO create query with aggregate
-    val changesFilter = if (parameters.impact) {
+    val pipeline = Seq(
       filter(
-        and(
-          equal("routeId", routeId),
-          equal("impact", parameters.impact)
+        routeChangesCountFilter(routeId, parameters)
+      ),
+      sort(orderBy(descending("key.time"))),
+      skip((parameters.pageIndex * parameters.itemsPerPage).toInt),
+      limit(parameters.itemsPerPage.toInt)
+    )
+    database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
+  }
+
+  private def groupChangesFilter(groupName: String, parameters: MonitorChangesParameters): Bson = {
+    if (parameters.impact) {
+      and(
+        equal("groupName", groupName),
+        or(
+          equal("happy", true),
+          equal("investigate", true)
         )
       )
     }
     else {
-      filter(
-        equal("routeId", routeId)
+      equal("groupName", groupName)
+    }
+  }
+
+  private def routeChangesCountFilter(routeId: Long, parameters: MonitorChangesParameters): Bson = {
+    if (parameters.impact) {
+      and(
+        equal("key.elementId", routeId),
+        or(
+          equal("happy", true),
+          equal("investigate", true)
+        )
       )
     }
-    database.monitorRouteChanges.find(changesFilter, log)
+    else {
+      equal("key.elementId", routeId)
+    }
   }
 
   override def routes(): Seq[MonitorRoute] = {
