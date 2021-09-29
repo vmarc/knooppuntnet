@@ -11,7 +11,7 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
-import kpn.core.database.views.location.LocationNodeCount
+import kpn.core.database.doc.LocationNodeCount
 
 trait LocationRepository {
 

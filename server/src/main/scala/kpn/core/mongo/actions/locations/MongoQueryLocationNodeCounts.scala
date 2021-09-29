@@ -2,7 +2,7 @@ package kpn.core.mongo.actions.locations
 
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
-import kpn.core.database.views.location.LocationNodeCount
+import kpn.core.database.doc.LocationNodeCount
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodeCounts.log
 import kpn.core.mongo.doc.Label

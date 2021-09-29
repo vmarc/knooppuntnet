@@ -44,17 +44,4 @@ object TestSupport extends Assertions {
       mongoClient.close()
     }
   }
-
-  /**
-   * Perform given function with a freshly created database. The database is deleted
-   * afterwards.
-   */
-  def withCouchDatabase(f: kpn.core.database.Database => Unit): Unit = {
-  }
-
-  /**
-   * Perform given function with a freshly created database.
-   */
-  def withCouchDatabase(keepDatabaseAfterTest: Boolean = false)(f: kpn.core.database.Database => Unit): Unit = {
-  }
 }

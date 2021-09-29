@@ -13,16 +13,16 @@ import kpn.api.custom.Fact.RouteRedundantNodes
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.test.TestSupport.withCouchDatabase
+import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
 class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("routeFacts") {
 
-    withCouchDatabase { database =>
+    withDatabase { database =>
 
-      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null)
+      val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(
@@ -105,9 +105,9 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("nodeFacts") {
 
-    withCouchDatabase { database =>
+    withDatabase { database =>
 
-      val networkRepository: NetworkRepository = new NetworkRepositoryImpl(null)
+      val networkRepository = new NetworkRepositoryImpl(database)
       networkRepository.oldSaveNetworkInfo(
         newNetworkInfo(
           newNetworkAttributes(

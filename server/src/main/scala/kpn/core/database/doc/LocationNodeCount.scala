@@ -1,4 +1,4 @@
-package kpn.core.database.views.location
+package kpn.core.database.doc
 
 case class LocationNodeCount(
   name: String,
