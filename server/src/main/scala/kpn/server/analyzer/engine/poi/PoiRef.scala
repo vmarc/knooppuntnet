@@ -42,7 +42,4 @@ case class PoiRef(elementType: String, elementId: Long) {
   def toId: String = {
     s"$elementType:$elementId"
   }
-  def toCouchId: String = {
-    s"poi:$elementType:$elementId"
-  }
 }
