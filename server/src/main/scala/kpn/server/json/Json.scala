@@ -19,7 +19,6 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.database.doc.ChangeSetDatas
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
@@ -69,7 +68,6 @@ object Json {
     b.deserializerByType(classOf[WayDirection], new WayDirectionJsonDeserializer())
     b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())
 
-    //b.deserializerByType(classOf[ChangeSetDatas], new ChangeSetDatasJsonDeserializer())
     b.deserializerByType(classOf[Geometry], new GeometryJsonDeserializer())
 
     b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
