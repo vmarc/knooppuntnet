@@ -2,8 +2,8 @@ package kpn.core.tools.log
 
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
-import kpn.core.action.LogAction
-import kpn.core.action.LogValue
+import kpn.core.metrics.LogAction
+import kpn.core.metrics.LogValue
 import kpn.core.mongo.MetricsDatabaseImpl
 import kpn.core.mongo.util.Mongo.client
 import kpn.core.mongo.util.Mongo.codecRegistry

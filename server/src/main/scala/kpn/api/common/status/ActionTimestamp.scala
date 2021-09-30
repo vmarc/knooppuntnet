@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 import java.time.temporal.IsoFields
 
 import kpn.api.custom.Timestamp
-import kpn.core.action.MinuteDiffInfo
+import kpn.core.metrics.MinuteDiffInfo
 import kpn.core.common.Time
 
 object ActionTimestamp {

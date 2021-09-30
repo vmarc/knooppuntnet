@@ -1,4 +1,4 @@
-package kpn.core.action
+package kpn.core.metrics
 
 case class ReplicationAction(
   minuteDiff: MinuteDiffInfo,

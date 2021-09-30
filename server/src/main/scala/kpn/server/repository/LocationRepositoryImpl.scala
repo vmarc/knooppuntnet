@@ -11,13 +11,13 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
-import kpn.core.database.doc.LocationNodeCount
 import kpn.core.mongo.Database
 import kpn.core.mongo.actions.locations.MongoQueryLocationFactCount
 import kpn.core.mongo.actions.locations.MongoQueryLocationFacts
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodeCounts
 import kpn.core.mongo.actions.locations.MongoQueryLocationNodes
 import kpn.core.mongo.actions.locations.MongoQueryLocationRoutes
+import kpn.core.mongo.doc.LocationNodeCount
 import org.springframework.stereotype.Component
 
 @Component

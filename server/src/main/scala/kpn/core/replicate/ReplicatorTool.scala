@@ -2,7 +2,7 @@ package kpn.core.replicate
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
-import kpn.core.action.ReplicationAction
+import kpn.core.metrics.ReplicationAction
 import kpn.core.mongo.MetricsDatabaseImpl
 import kpn.core.mongo.util.Mongo.client
 import kpn.core.mongo.util.Mongo.codecRegistry

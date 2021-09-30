@@ -1,8 +1,8 @@
 package kpn.server.api.status
 
 import kpn.api.common.status.ActionTimestamp
-import kpn.core.action.SystemStatus
-import kpn.core.action.SystemStatusValue
+import kpn.core.metrics.SystemStatus
+import kpn.core.metrics.SystemStatusValue
 import kpn.core.util.Log
 import kpn.server.json.Json
 import kpn.server.repository.MetricsRepository

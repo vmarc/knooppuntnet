@@ -1,7 +1,7 @@
 package kpn.server.api
 
 import kpn.api.common.status.ActionTimestamp
-import kpn.core.action.ApiAction
+import kpn.core.metrics.ApiAction
 import kpn.core.util.Log
 import kpn.server.repository.MetricsRepository
 import org.springframework.stereotype.Component

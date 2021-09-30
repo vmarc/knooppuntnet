@@ -1,6 +1,6 @@
 package kpn.core.mongo.actions.metrics
 
-import kpn.core.database.doc.ReplicationActionDoc
+import kpn.core.metrics.ReplicationActionDoc
 import kpn.core.mongo.Database
 import kpn.core.mongo.MetricsDatabase
 import kpn.core.mongo.actions.metrics.MongoQueryMetrics.log

@@ -1,11 +1,11 @@
 package kpn.core.mongo
 
-import kpn.core.database.doc.AnalysisActionDoc
-import kpn.core.database.doc.ApiActionDoc
-import kpn.core.database.doc.LogActionDoc
-import kpn.core.database.doc.ReplicationActionDoc
-import kpn.core.database.doc.SystemStatusDoc
-import kpn.core.database.doc.UpdateActionDoc
+import kpn.core.metrics.AnalysisActionDoc
+import kpn.core.metrics.ApiActionDoc
+import kpn.core.metrics.LogActionDoc
+import kpn.core.metrics.ReplicationActionDoc
+import kpn.core.metrics.SystemStatusDoc
+import kpn.core.metrics.UpdateActionDoc
 
 trait MetricsDatabase {
 

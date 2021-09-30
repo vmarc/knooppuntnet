@@ -2,12 +2,12 @@ package kpn.server.repository
 
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
-import kpn.core.action.AnalysisAction
-import kpn.core.action.ApiAction
-import kpn.core.action.LogAction
-import kpn.core.action.ReplicationAction
-import kpn.core.action.SystemStatus
-import kpn.core.action.UpdateAction
+import kpn.core.metrics.AnalysisAction
+import kpn.core.metrics.ApiAction
+import kpn.core.metrics.LogAction
+import kpn.core.metrics.ReplicationAction
+import kpn.core.metrics.SystemStatus
+import kpn.core.metrics.UpdateAction
 
 trait MetricsRepository {
 

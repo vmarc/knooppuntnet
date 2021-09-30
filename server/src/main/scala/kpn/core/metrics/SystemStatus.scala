@@ -1,4 +1,4 @@
-package kpn.core.action
+package kpn.core.metrics
 
 import kpn.api.common.status.ActionTimestamp
 

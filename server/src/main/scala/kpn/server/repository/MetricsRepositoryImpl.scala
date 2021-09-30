@@ -2,18 +2,18 @@ package kpn.server.repository
 
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
-import kpn.core.action.AnalysisAction
-import kpn.core.action.ApiAction
-import kpn.core.action.LogAction
-import kpn.core.action.ReplicationAction
-import kpn.core.action.SystemStatus
-import kpn.core.action.UpdateAction
-import kpn.core.database.doc.AnalysisActionDoc
-import kpn.core.database.doc.ApiActionDoc
-import kpn.core.database.doc.LogActionDoc
-import kpn.core.database.doc.ReplicationActionDoc
-import kpn.core.database.doc.SystemStatusDoc
-import kpn.core.database.doc.UpdateActionDoc
+import kpn.core.metrics.AnalysisAction
+import kpn.core.metrics.ApiAction
+import kpn.core.metrics.LogAction
+import kpn.core.metrics.ReplicationAction
+import kpn.core.metrics.SystemStatus
+import kpn.core.metrics.UpdateAction
+import kpn.core.metrics.AnalysisActionDoc
+import kpn.core.metrics.ApiActionDoc
+import kpn.core.metrics.LogActionDoc
+import kpn.core.metrics.ReplicationActionDoc
+import kpn.core.metrics.SystemStatusDoc
+import kpn.core.metrics.UpdateActionDoc
 import kpn.core.mongo.MetricsDatabase
 import org.springframework.stereotype.Component
 
