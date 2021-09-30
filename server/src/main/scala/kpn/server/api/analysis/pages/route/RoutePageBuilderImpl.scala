@@ -6,7 +6,7 @@ import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteMapPage
-import kpn.core.mongo.doc.Label
+import kpn.core.doc.Label
 import kpn.server.analyzer.engine.analysis.route.RouteHistoryAnalyzer
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository

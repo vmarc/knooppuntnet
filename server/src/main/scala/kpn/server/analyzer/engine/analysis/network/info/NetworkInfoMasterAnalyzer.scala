@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis.network.info
 
 import kpn.api.custom.Country
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.database.base.Database
+import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoAnalyzer

@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.OrphanRouteInfo
 import kpn.api.custom.Subset
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 
 trait OrphanRepository {
 

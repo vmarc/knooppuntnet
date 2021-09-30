@@ -8,7 +8,7 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.Subset
 import kpn.core.history.NodeTagDiffAnalyzer
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer.analyzed

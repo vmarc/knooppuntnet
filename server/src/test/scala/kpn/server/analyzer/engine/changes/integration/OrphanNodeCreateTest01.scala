@@ -10,7 +10,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.Label
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class OrphanNodeCreateTest01 extends IntegrationTest {

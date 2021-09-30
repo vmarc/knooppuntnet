@@ -3,7 +3,7 @@ package kpn.core.analysis
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 
 case class NetworkNodeInfo(
   networkNode: NetworkNode,

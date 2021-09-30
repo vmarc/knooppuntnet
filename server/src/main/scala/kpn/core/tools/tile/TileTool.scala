@@ -2,8 +2,8 @@ package kpn.core.tools.tile
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.Database
-import kpn.core.mongo.util.Mongo
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl

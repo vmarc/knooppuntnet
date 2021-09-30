@@ -2,7 +2,7 @@ package kpn.core.tools.monitor
 
 import kpn.api.common.BoundsI
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoader

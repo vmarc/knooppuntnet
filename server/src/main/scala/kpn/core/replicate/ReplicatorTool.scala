@@ -2,10 +2,10 @@ package kpn.core.replicate
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
+import kpn.database.base.MetricsDatabaseImpl
 import kpn.core.metrics.ReplicationAction
-import kpn.core.mongo.MetricsDatabaseImpl
-import kpn.core.mongo.util.Mongo.client
-import kpn.core.mongo.util.Mongo.codecRegistry
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile

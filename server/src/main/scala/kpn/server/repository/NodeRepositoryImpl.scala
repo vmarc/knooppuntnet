@@ -2,12 +2,12 @@ package kpn.server.repository
 
 import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.nodes.MongoQueryKnownNodeIds
-import kpn.core.mongo.actions.nodes.MongoQueryNodeIds
-import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
-import kpn.core.mongo.actions.nodes.MongoQueryNodeTileInfo
-import kpn.core.mongo.doc.NodeDoc
+import kpn.database.actions.nodes.MongoQueryKnownNodeIds
+import kpn.database.actions.nodes.MongoQueryNodeIds
+import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
+import kpn.database.actions.nodes.MongoQueryNodeTileInfo
+import kpn.database.base.Database
+import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import org.mongodb.scala.bson.conversions.Bson

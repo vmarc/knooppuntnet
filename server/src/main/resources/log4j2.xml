@@ -11,6 +11,6 @@
         </Root>
         <logger name="org.mongodb" level="info"/>
         <logger name="kpn.server" level="info"/>
-        <logger name="kpn.core.mongo" level="info"/>
+        <logger name="kpn.database" level="info"/>
     </Loggers>
 </Configuration>

@@ -12,7 +12,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 

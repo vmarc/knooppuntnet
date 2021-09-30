@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.api.common.network.NetworkNodeDetail
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.Label
-import kpn.core.mongo.doc.NodeDoc
+import kpn.database.base.Database
+import kpn.core.doc.Label
+import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext

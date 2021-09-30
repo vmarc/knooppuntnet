@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
+import kpn.database.base.MetricsDatabase
 import kpn.core.metrics.AnalysisAction
 import kpn.core.metrics.ApiAction
 import kpn.core.metrics.LogAction
@@ -14,7 +15,6 @@ import kpn.core.metrics.LogActionDoc
 import kpn.core.metrics.ReplicationActionDoc
 import kpn.core.metrics.SystemStatusDoc
 import kpn.core.metrics.UpdateActionDoc
-import kpn.core.mongo.MetricsDatabase
 import org.springframework.stereotype.Component
 
 import scala.util.Random

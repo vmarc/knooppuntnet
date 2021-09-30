@@ -9,7 +9,7 @@ import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.server.repository.GraphRepository

@@ -2,8 +2,8 @@ package kpn.server.repository
 
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
-import kpn.core.mongo.Database
-import kpn.core.mongo.util.Mongo
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import kpn.core.util.Log
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange

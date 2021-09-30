@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.AnalysisStatus
 import org.mongodb.scala.model.Filters.equal
 import org.springframework.stereotype.Component

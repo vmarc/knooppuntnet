@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.post
 
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.Label
-import kpn.core.mongo.doc.OrphanNodeDoc
-import kpn.core.mongo.util.Id
-import kpn.core.mongo.util.Mongo
+import kpn.database.base.Database
+import kpn.database.base.Id
+import kpn.core.doc.Label
+import kpn.core.doc.OrphanNodeDoc
+import kpn.database.util.Mongo
 import kpn.core.util.Log
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Aggregates.filter

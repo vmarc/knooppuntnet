@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
-import kpn.core.mongo.doc.Label
+import kpn.core.doc.Label
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object RouteLabelsAnalyzer extends RouteAnalyzer {

@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 
 trait NodeRepository {

@@ -2,8 +2,8 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkChangesPage
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.database.base.Database
+import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository

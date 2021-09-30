@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NetworkNodeMember
-import kpn.core.mongo.doc.NetworkRelationMember
-import kpn.core.mongo.doc.NetworkWayMember
+import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NetworkNodeMember
+import kpn.core.doc.NetworkRelationMember
+import kpn.core.doc.NetworkWayMember
 import kpn.core.util.Log
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.NetworkRepository

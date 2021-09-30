@@ -1,7 +1,7 @@
 package kpn.server.analyzer.full
 
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.full.network.FullNetworkAnalyzer

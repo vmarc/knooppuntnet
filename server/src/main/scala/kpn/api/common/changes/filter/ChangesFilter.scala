@@ -1,6 +1,6 @@
 package kpn.api.common.changes.filter
 
-import kpn.core.mongo.actions.statistics.ChangeSetCounts
+import kpn.database.actions.statistics.ChangeSetCounts
 
 object ChangesFilter {
   def empty: ChangesFilter = ChangesFilter(Seq.empty)

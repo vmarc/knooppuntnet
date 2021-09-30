@@ -2,11 +2,11 @@ package kpn.server.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
-import kpn.core.mongo.Database
-import kpn.core.mongo.DatabaseImpl
-import kpn.core.mongo.MetricsDatabase
-import kpn.core.mongo.MetricsDatabaseImpl
-import kpn.core.mongo.util.Mongo
+import kpn.database.base.Database
+import kpn.database.base.DatabaseImpl
+import kpn.database.base.MetricsDatabase
+import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileBuilder

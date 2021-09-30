@@ -10,7 +10,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 
 case class NodeAnalysis(
   node: RawNode,

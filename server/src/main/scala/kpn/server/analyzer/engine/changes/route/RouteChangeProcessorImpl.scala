@@ -10,7 +10,7 @@ import kpn.api.custom.Relation
 import kpn.core.analysis.TagInterpreter
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
-import kpn.core.mongo.doc.Label
+import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis

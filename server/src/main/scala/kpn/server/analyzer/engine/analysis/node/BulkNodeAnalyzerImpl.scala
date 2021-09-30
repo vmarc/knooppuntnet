@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NodeDoc
+import kpn.database.base.Database
+import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component

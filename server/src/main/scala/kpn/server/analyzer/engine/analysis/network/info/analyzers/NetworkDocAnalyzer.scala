@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.core.analysis.TagInterpreter
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) {

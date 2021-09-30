@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkFactsPage
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project

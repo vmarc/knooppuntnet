@@ -2,8 +2,8 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetailsPage
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.database.base.Database
+import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 

@@ -2,11 +2,11 @@ package kpn.core.tools.log
 
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
+import kpn.database.base.MetricsDatabaseImpl
 import kpn.core.metrics.LogAction
 import kpn.core.metrics.LogValue
-import kpn.core.mongo.MetricsDatabaseImpl
-import kpn.core.mongo.util.Mongo.client
-import kpn.core.mongo.util.Mongo.codecRegistry
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
 import kpn.core.tools.log.analyzers.AnalysisAnalyzer
 import kpn.core.tools.log.analyzers.ApiAnalyzer
 import kpn.core.tools.log.analyzers.ApplicationAnalyzer

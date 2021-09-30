@@ -1,6 +1,6 @@
 package kpn.core.app
 
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 
 class RouteRenderer(route: RouteDoc, language: String) {
 

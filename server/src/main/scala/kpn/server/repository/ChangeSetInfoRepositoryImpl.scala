@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 

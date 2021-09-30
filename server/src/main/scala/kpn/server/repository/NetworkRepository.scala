@@ -2,8 +2,8 @@ package kpn.server.repository
 
 import kpn.api.common.network.NetworkInfo
 import kpn.core.gpx.GpxFile
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NetworkInfoDoc
 
 trait NetworkRepository {
 

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import org.mongodb.scala.model.Filters.equal

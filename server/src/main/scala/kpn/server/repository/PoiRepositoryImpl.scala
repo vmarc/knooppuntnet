@@ -1,10 +1,10 @@
 package kpn.server.repository
 
 import kpn.api.common.Poi
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.pois.MongoQueryPoiAllTiles
-import kpn.core.mongo.actions.pois.MongoQueryPoiElementIds
-import kpn.core.mongo.actions.pois.MongoQueryTilePois
+import kpn.database.actions.pois.MongoQueryPoiAllTiles
+import kpn.database.actions.pois.MongoQueryPoiElementIds
+import kpn.database.actions.pois.MongoQueryTilePois
+import kpn.database.base.Database
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef

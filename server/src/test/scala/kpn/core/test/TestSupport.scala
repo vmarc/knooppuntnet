@@ -1,7 +1,7 @@
 package kpn.core.test
 
-import kpn.core.mongo.Database
-import kpn.core.mongo.util.Mongo
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import org.mongodb.scala.MongoClient
 import org.scalatest.Assertions
 

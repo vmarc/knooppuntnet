@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.changes.details.NetworkInfoChange
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.database.base.Database
+import kpn.core.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import org.springframework.stereotype.Component

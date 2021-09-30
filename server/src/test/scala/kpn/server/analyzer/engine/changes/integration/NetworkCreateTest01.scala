@@ -14,9 +14,9 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NetworkNodeMember
-import kpn.core.mongo.doc.NetworkRelationMember
+import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NetworkNodeMember
+import kpn.core.doc.NetworkRelationMember
 import kpn.core.test.OverpassData
 
 class NetworkCreateTest01 extends IntegrationTest {

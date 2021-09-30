@@ -9,7 +9,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.TagInterpreter
 import kpn.core.history.NodeTagDiffAnalyzer
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext

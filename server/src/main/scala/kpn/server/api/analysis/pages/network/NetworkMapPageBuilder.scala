@@ -3,7 +3,7 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkMapNode
 import kpn.api.common.network.NetworkMapPage
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkInfoDoc
 import kpn.server.repository.NetworkInfoRepository
 import org.springframework.stereotype.Component
 

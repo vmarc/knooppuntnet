@@ -2,10 +2,10 @@ package kpn.server.repository
 
 import kpn.api.common.network.NetworkInfo
 import kpn.core.gpx.GpxFile
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.networks.MongoQueryNetworkIds
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.database.actions.networks.MongoQueryNetworkIds
+import kpn.database.base.Database
+import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 

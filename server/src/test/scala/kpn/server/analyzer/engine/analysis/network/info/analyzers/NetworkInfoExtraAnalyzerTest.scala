@@ -4,8 +4,8 @@ import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NetworkNodeMember
+import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NetworkNodeMember
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext

@@ -1,0 +1,76 @@
+package kpn.database.actions.locations
+
+import kpn.api.custom.NetworkType
+import kpn.database.actions.locations.MongoQueryLocationFactCount.log
+import kpn.database.base.CountResult
+import kpn.database.base.Database
+import kpn.core.doc.Label
+import kpn.database.util.Mongo
+import kpn.core.util.Log
+import org.mongodb.scala.bson.BsonDocument
+import org.mongodb.scala.model.Accumulators.sum
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.group
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.unionWith
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+
+object MongoQueryLocationFactCount {
+
+  private val log = Log(classOf[MongoQueryLocationFactCount])
+
+  def main(args: Array[String]): Unit = {
+    println("MongoQueryLocationFactCount")
+    Mongo.executeIn("kpn-test") { database =>
+      database.networks.findById(0)
+      val query = new MongoQueryLocationFactCount(database)
+      query.execute(NetworkType.hiking, "de")
+    }
+  }
+}
+
+class MongoQueryLocationFactCount(database: Database) {
+
+  def execute(networkType: NetworkType, locationName: String): Long = {
+
+    val subPipeline = Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          equal("labels", Label.networkType(networkType)),
+          equal("labels", Label.location(locationName)),
+          equal("labels", Label.facts)
+        )
+      ),
+      project(
+        fields(
+          excludeId(),
+          BsonDocument("""{"factCount": { "$size": "$facts" }}""")
+        )
+      ),
+      group(
+        null,
+        sum("count", "$factCount")
+      ),
+      project(
+        fields(
+          excludeId(),
+        )
+      )
+    )
+
+    val pipeline = Seq(
+      subPipeline, // node facts
+      Seq(unionWith("routes", subPipeline: _*))
+    ).flatten
+
+    log.debugElapsed {
+      val countResults = database.nodes.aggregate[CountResult](pipeline, log)
+      val factCount = countResults.map(_.count).sum
+      (s"location '$locationName' fact count: $factCount", factCount)
+    }
+  }
+}

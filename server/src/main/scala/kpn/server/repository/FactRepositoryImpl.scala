@@ -3,7 +3,7 @@ package kpn.server.repository
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import org.springframework.stereotype.Component
 
 @Component

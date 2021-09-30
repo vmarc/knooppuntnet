@@ -1,6 +1,6 @@
 package kpn.core.tools.poi
 
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiTileTask
 import kpn.server.repository.PoiRepository

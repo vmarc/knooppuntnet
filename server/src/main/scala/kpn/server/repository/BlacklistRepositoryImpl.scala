@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import org.springframework.stereotype.Component
 

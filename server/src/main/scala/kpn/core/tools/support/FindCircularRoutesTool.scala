@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
-import kpn.core.mongo.Database
-import kpn.core.mongo.util.Mongo
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
 
 object FindCircularRoutesTool {

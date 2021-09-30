@@ -1,7 +1,7 @@
 package kpn.server.repository
 
-import kpn.core.mongo.Database
-import kpn.core.mongo.Task
+import kpn.database.base.Database
+import kpn.core.doc.Task
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 

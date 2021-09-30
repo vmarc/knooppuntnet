@@ -4,7 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository

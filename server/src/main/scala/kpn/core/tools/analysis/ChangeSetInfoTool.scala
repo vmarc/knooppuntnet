@@ -1,6 +1,6 @@
 package kpn.core.tools.analysis
 
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.replicate.Oper
 import kpn.core.tools.config._
 import kpn.core.util.Log

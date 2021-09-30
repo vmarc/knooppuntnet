@@ -13,7 +13,7 @@ import kpn.api.custom.Fact.RouteNodeNameMismatch
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Tags
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 

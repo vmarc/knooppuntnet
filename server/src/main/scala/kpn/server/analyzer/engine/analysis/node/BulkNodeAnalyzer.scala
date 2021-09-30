@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 
 trait BulkNodeAnalyzer {
 

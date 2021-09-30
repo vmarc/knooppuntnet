@@ -4,7 +4,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 

@@ -6,7 +6,7 @@ import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Fact
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
 class NetworkInfoCreateAnalyzer(context: ChangeSetContext, after: NetworkInfoDoc, networkId: Long) {

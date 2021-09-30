@@ -12,7 +12,7 @@ import kpn.api.common.planner.PlanNode
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.GraphPathSegment
 import kpn.core.planner.graph.NodeNetworkGraph

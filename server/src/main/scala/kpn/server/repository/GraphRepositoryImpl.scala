@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.graph.MongoQueryGraphEdges
+import kpn.database.actions.graph.MongoQueryGraphEdges
+import kpn.database.base.Database
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.Log

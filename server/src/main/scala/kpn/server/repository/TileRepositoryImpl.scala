@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.custom.NetworkType
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.tiles.MongoQueryTiles
+import kpn.database.actions.tiles.MongoQueryTiles
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.springframework.stereotype.Component
 

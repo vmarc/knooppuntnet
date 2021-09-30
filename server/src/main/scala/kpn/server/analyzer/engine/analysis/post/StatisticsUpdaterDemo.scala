@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.post
 
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 
 object StatisticsUpdaterDemo {
   def main(args: Array[String]): Unit = {

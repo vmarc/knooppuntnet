@@ -4,7 +4,7 @@ import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Fact
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.Label
+import kpn.database.base.Database
+import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkRouteDetail

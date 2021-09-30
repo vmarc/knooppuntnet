@@ -3,7 +3,7 @@ package kpn.server.repository
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkInfoDoc
 
 trait NetworkInfoRepository {
 

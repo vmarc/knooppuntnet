@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor
 
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryImpl
 

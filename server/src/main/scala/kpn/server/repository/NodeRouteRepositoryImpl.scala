@@ -4,8 +4,8 @@ import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.nodes.MongoQueryNodeRouteReferences
+import kpn.database.actions.nodes.MongoQueryNodeRouteReferences
+import kpn.database.base.Database
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 

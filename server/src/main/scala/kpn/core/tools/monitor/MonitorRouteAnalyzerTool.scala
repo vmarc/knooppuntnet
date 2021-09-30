@@ -4,7 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds

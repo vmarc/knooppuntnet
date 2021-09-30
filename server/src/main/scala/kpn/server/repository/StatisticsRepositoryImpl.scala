@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.common.statistics.StatisticValues
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.statistics.MongoQueryStatistics
+import kpn.database.actions.statistics.MongoQueryStatistics
+import kpn.database.base.Database
 import org.springframework.stereotype.Component
 
 @Component

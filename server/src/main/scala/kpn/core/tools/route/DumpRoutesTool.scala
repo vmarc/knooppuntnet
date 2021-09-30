@@ -1,9 +1,9 @@
 package kpn.core.tools.route
 
 import kpn.api.custom.Timestamp
+import kpn.database.base.Database
 import kpn.core.loadOld.Parser
-import kpn.core.mongo.Database
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation

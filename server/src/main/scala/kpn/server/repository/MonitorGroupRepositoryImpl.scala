@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.monitor.MonitorGroup
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.util.Log
 import kpn.server.api.monitor.domain.MonitorRoute
 import org.mongodb.scala.model.Aggregates.filter

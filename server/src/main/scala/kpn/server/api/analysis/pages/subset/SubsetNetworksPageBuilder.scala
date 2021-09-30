@@ -3,8 +3,8 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.custom.Subset
-import kpn.core.mongo.Database
-import kpn.core.mongo.doc.NetworkInfoDoc
+import kpn.database.base.Database
+import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
 import kpn.server.repository.SubsetRepository

@@ -7,7 +7,7 @@ import kpn.api.common.diff.network.NodeIntegrityCheckDiff
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNodeInfo
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 
 class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo, after: NetworkNodeInfo) {
 

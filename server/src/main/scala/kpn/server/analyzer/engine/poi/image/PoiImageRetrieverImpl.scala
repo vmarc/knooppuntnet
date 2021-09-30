@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.poi.image
 import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.nio.JpegWriter
 import kpn.api.common.PoiAnalysis
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 import kpn.server.api.analysis.pages.poi.analyzers.PoiImageAnalyzer

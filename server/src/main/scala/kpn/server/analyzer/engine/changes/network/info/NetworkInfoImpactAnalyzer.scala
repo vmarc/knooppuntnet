@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.network.info
 
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.nodes.MongoQueryNodeNetworkReferences
-import kpn.core.mongo.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
+import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import org.springframework.stereotype.Component
 

@@ -15,7 +15,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.Label
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class OrphanNodeUpdateTest01 extends IntegrationTest {

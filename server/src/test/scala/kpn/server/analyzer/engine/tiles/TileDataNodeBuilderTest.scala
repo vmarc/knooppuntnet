@@ -5,7 +5,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NodeDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 

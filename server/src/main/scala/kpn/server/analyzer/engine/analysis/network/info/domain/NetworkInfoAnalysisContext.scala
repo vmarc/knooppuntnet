@@ -11,8 +11,8 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
-import kpn.core.mongo.doc.NetworkDoc
-import kpn.core.mongo.doc.NodeDoc
+import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NodeDoc
 
 case class NetworkInfoAnalysisContext(
   analysisTimestamp: Timestamp,

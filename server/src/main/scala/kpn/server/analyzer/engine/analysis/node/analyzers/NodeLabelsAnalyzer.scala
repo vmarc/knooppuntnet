@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.node.NodeIntegrity
-import kpn.core.mongo.doc.Label
+import kpn.core.doc.Label
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 

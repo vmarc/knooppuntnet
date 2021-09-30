@@ -4,9 +4,9 @@ import kpn.api.common.FactCount
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.statistics.MongoQueryStatistics
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetInfo
+import kpn.database.actions.statistics.MongoQueryStatistics
+import kpn.database.actions.subsets.MongoQuerySubsetInfo
+import kpn.database.base.Database
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 

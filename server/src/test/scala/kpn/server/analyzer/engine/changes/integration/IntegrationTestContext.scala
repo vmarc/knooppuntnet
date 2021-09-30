@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.core.data.Data
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer

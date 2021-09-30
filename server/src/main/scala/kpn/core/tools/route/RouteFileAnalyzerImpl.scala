@@ -7,7 +7,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader

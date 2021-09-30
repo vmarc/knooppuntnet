@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.core.mongo.Database
+import kpn.database.base.Database
 import kpn.core.util.Log
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder

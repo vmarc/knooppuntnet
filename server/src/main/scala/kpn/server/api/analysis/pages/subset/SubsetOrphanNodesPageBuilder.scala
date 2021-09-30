@@ -3,10 +3,10 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.OrphanNodeInfo
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.custom.Subset
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetInfo
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanNodes
-import kpn.core.mongo.doc.OrphanNodeDoc
+import kpn.database.actions.subsets.MongoQuerySubsetInfo
+import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
+import kpn.database.base.Database
+import kpn.core.doc.OrphanNodeDoc
 import kpn.core.util.Log
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import org.springframework.stereotype.Component

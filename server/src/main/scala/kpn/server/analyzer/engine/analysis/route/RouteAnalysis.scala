@@ -10,7 +10,7 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
-import kpn.core.mongo.doc.RouteDoc
+import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
 case class RouteAnalysis(

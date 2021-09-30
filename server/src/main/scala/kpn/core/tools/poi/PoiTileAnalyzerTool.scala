@@ -1,7 +1,7 @@
 package kpn.core.tools.poi
 
 import kpn.api.common.Poi
-import kpn.core.mongo.util.Mongo
+import kpn.database.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition

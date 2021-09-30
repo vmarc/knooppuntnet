@@ -4,10 +4,10 @@ import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.core.mongo.Database
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetInfo
-import kpn.core.mongo.actions.subsets.MongoQuerySubsetOrphanRoutes
-import kpn.core.mongo.doc.OrphanRouteDoc
+import kpn.database.actions.subsets.MongoQuerySubsetInfo
+import kpn.database.actions.subsets.MongoQuerySubsetOrphanRoutes
+import kpn.database.base.Database
+import kpn.core.doc.OrphanRouteDoc
 import kpn.core.util.Log
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import org.springframework.stereotype.Component
