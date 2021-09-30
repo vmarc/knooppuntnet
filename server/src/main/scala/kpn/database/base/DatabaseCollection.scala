@@ -2,6 +2,7 @@ package kpn.database.base
 
 import kpn.database.tools.MongoIndexDefinition
 import kpn.core.util.Log
+import kpn.database.base.DatabaseCollection.collectionLog
 import org.mongodb.scala.ListIndexesObservable
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson

@@ -1,3 +1,5 @@
 package kpn.core.metrics
 
-case class AnalysisActionDoc(_id: String, analysis: AnalysisAction)
+import kpn.api.base.WithStringId
+
+case class AnalysisActionDoc(_id: String, analysis: AnalysisAction) extends WithStringId

@@ -1,3 +1,5 @@
 package kpn.core.metrics
 
-case class ReplicationActionDoc(_id: String, replication: ReplicationAction)
+import kpn.api.base.WithStringId
+
+case class ReplicationActionDoc(_id: String, replication: ReplicationAction) extends WithStringId

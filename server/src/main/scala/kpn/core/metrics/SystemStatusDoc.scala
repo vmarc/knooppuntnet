@@ -1,3 +1,5 @@
 package kpn.core.metrics
 
-case class SystemStatusDoc(_id: String, status: SystemStatus)
+import kpn.api.base.WithStringId
+
+case class SystemStatusDoc(_id: String, status: SystemStatus) extends WithStringId

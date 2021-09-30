@@ -1,3 +1,5 @@
 package kpn.core.metrics
 
-case class LogActionDoc(_id: String, log: LogAction)
+import kpn.api.base.WithStringId
+
+case class LogActionDoc(_id: String, log: LogAction) extends WithStringId
