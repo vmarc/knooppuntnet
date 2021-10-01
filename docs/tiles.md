@@ -140,9 +140,10 @@ Only first time:
 
 Prepare:
 
-    cd /kpn/openmaptiles
+  cd /kpn/openmaptiles
 	rm data/all.osm.pbf
 	rm data/tiles.mbtiles*
+  rm -rf data/borders
 
 	mv /kpn/tile-data/all.osm.pbf data/
 
