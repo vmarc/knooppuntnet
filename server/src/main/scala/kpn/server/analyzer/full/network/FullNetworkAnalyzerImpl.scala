@@ -1,11 +1,7 @@
 package kpn.server.analyzer.full.network
 
-import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Timestamp
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkNodeMember
-import kpn.core.doc.NetworkRelationMember
-import kpn.core.doc.NetworkWayMember
 import kpn.core.util.Log
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
@@ -59,7 +55,7 @@ class FullNetworkAnalyzerImpl(
     val networkIds = overpassNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
       Log.context(s"${index * batchSize}/${overpassNetworkIds.size}") {
         log.infoElapsed {
-          val networkDocs = overpassRepository.relations(context.timestamp, networkIdsBatch).map(toDoc)
+          val networkDocs = overpassRepository.relations(context.timestamp, networkIdsBatch).map(NetworkDoc.from)
           networkRepository.bulkSave(networkDocs)
           val ids = networkDocs.map(_._id)
           (s"analyzed ${ids.size} networks: ${ids.mkString(", ")}", ids)
@@ -79,30 +75,5 @@ class FullNetworkAnalyzerImpl(
         // TODO also deactivate NetworkInfoDoc's in  PostProcessor
       }
     }
-  }
-
-  private def toDoc(rawRelation: RawRelation): NetworkDoc = {
-
-    val nodeMembers = rawRelation.nodeMembers.map { member =>
-      NetworkNodeMember(member.ref, member.role)
-    }
-
-    val wayMembers = rawRelation.wayMembers.map { member =>
-      NetworkWayMember(member.ref, member.role)
-    }
-
-    val relationMembers = rawRelation.relationMembers.map { member =>
-      NetworkRelationMember(member.ref, member.role)
-    }
-
-    NetworkDoc(
-      rawRelation.id,
-      active = true,
-      rawRelation.timestamp,
-      nodeMembers,
-      wayMembers,
-      relationMembers,
-      rawRelation.tags
-    )
   }
 }
