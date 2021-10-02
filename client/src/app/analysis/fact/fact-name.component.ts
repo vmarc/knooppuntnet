@@ -8,211 +8,211 @@ import { Fact } from '@api/custom/fact';
   template: `
     <ng-container [ngSwitch]="fact">
       <ng-container i18n="@@fact.name.added" *ngSwitchCase="'Added'"
-        >Added
+        ><span>Added</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.become-orphan"
         *ngSwitchCase="'BecomeOrphan'"
-        >BecomeOrphan
+        ><span>BecomeOrphan</span>
       </ng-container>
       <ng-container i18n="@@fact.name.deleted" *ngSwitchCase="'Deleted'"
-        >Deleted
+        ><span>Deleted</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.integrity-check"
         *ngSwitchCase="'IntegrityCheck'"
-        >IntegrityCheck
+        ><span>IntegrityCheck</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.integrity-check-failed"
         *ngSwitchCase="'IntegrityCheckFailed'"
-        >IntegrityCheckFailed
+        ><span>IntegrityCheckFailed</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.lost-bicycle-node-tag"
         *ngSwitchCase="'LostBicycleNodeTag'"
-        >LostBicycleNodeTag
+        ><span>LostBicycleNodeTag</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.lost-hiking-node-tag"
         *ngSwitchCase="'LostHikingNodeTag'"
-        >LostHikingNodeTag
+        ><span>LostHikingNodeTag</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.lost-route-tags"
         *ngSwitchCase="'LostRouteTags'"
-        >LostRouteTags
+        ><span>LostRouteTags</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.name-missing"
         *ngSwitchCase="'NameMissing'"
-        >NameMissing
+        ><span>NameMissing</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.network-extra-member-node"
         *ngSwitchCase="'NetworkExtraMemberNode'"
-        >NetworkExtraMemberNode
+        ><span>NetworkExtraMemberNode</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.network-extra-member-relation"
         *ngSwitchCase="'NetworkExtraMemberRelation'"
-        >NetworkExtraMemberRelation
+        ><span>NetworkExtraMemberRelation</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.network-extra-member-way"
         *ngSwitchCase="'NetworkExtraMemberWay'"
-        >NetworkExtraMemberWay
+        ><span>NetworkExtraMemberWay</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.node-member-missing"
         *ngSwitchCase="'NodeMemberMissing'"
-        >NodeMemberMissing
+        ><span>NodeMemberMissing</span>
       </ng-container>
       <ng-container i18n="@@fact.name.orphan-node" *ngSwitchCase="'OrphanNode'"
-        >OrphanNode
+        ><span>OrphanNode</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.orphan-route"
         *ngSwitchCase="'OrphanRoute'"
-        >OrphanRoute
+        ><span>OrphanRoute</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-analysis-failed"
         *ngSwitchCase="'RouteAnalysisFailed'"
-        >RouteAnalysisFailed
+        ><span>RouteAnalysisFailed</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-broken"
         *ngSwitchCase="'RouteBroken'"
-        >RouteBroken
+        ><span>RouteBroken</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-fixmetodo"
         *ngSwitchCase="'RouteFixmetodo'"
-        >RouteFixmetodo
+        ><span>RouteFixmetodo</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-incomplete"
         *ngSwitchCase="'RouteIncomplete'"
-        >RouteIncomplete
+        ><span>RouteIncomplete</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-incomplete-ok"
         *ngSwitchCase="'RouteIncompleteOk'"
-        >RouteIncompleteOk
+        ><span>RouteIncompleteOk</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-name-missing"
         *ngSwitchCase="'RouteNameMissing'"
-        >RouteNameMissing
+        ><span>RouteNameMissing</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-node-missing-in-ways"
         *ngSwitchCase="'RouteNodeMissingInWays'"
-        >RouteNodeMissingInWays
+        ><span>RouteNodeMissingInWays</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-node-name-mismatch"
         *ngSwitchCase="'RouteNodeNameMismatch'"
-        >RouteNodeNameMismatch
+        ><span>RouteNodeNameMismatch</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-not-backward"
         *ngSwitchCase="'RouteNotBackward'"
-        >RouteNotBackward
+        ><span>RouteNotBackward</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-not-continious"
         *ngSwitchCase="'RouteNotContinious'"
-        >RouteNotContinious
+        ><span>RouteNotContinious</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-not-forward"
         *ngSwitchCase="'RouteNotForward'"
-        >RouteNotForward
+        ><span>RouteNotForward</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-not-one-way"
         *ngSwitchCase="'RouteNotOneWay'"
-        >RouteNotOneWay
+        ><span>RouteNotOneWay</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-one-way"
         *ngSwitchCase="'RouteOneWay'"
-        >RouteOneWay
+        ><span>RouteOneWay</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-overlapping-ways"
         *ngSwitchCase="'RouteOverlappingWays'"
-        >RouteOverlappingWays
+        ><span>RouteOverlappingWays</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-redundant-nodes"
         *ngSwitchCase="'RouteRedundantNodes'"
-        >RouteRedundantNodes
+        ><span>RouteRedundantNodes</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-reversed"
         *ngSwitchCase="'RouteReversed'"
-        >RouteReversed
+        ><span>RouteReversed</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-suspicious-ways"
         *ngSwitchCase="'RouteSuspiciousWays'"
-        >RouteSuspiciousWays
+        ><span>RouteSuspiciousWays</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-tag-invalid"
         *ngSwitchCase="'RouteTagInvalid'"
-        >RouteTagInvalid
+        ><span>RouteTagInvalid</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-tag-missing"
         *ngSwitchCase="'RouteTagMissing'"
-        >RouteTagMissing
+        ><span>RouteTagMissing</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-unaccessible"
         *ngSwitchCase="'RouteUnaccessible'"
-        >RouteUnaccessible
+        ><span>RouteUnaccessible</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-unexpected-node"
         *ngSwitchCase="'RouteUnexpectedNode'"
-        >RouteUnexpectedNode
+        ><span>RouteUnexpectedNode</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-unexpected-relation"
         *ngSwitchCase="'RouteUnexpectedRelation'"
-        >RouteUnexpectedRelation
+        ><span>RouteUnexpectedRelation</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-unused-segments"
         *ngSwitchCase="'RouteUnusedSegments'"
-        >RouteUnusedSegments
+        ><span>RouteUnusedSegments</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-without-nodes"
         *ngSwitchCase="'RouteWithoutNodes'"
-        >RouteWithoutNodes
+        ><span>RouteWithoutNodes</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-without-ways"
         *ngSwitchCase="'RouteWithoutWays'"
-        >RouteWithoutWays
+        ><span>RouteWithoutWays</span>
       </ng-container>
       <ng-container i18n="@@fact.name.was-orphan" *ngSwitchCase="'WasOrphan'"
-        >WasOrphan
+        ><span>WasOrphan</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.node-invalid-survey-date"
         *ngSwitchCase="'NodeInvalidSurveyDate'"
-        >NodeInvalidSurveyDate
+        ><span>NodeInvalidSurveyDate</span>
       </ng-container>
       <ng-container
         i18n="@@fact.name.route-invalid-survey-date"
         *ngSwitchCase="'RouteInvalidSurveyDate'"
-        >RouteInvalidSurveyDate
+        ><span>RouteInvalidSurveyDate</span>
       </ng-container>
       <ng-container *ngSwitchDefault>?{{ fact }}?</ng-container>
     </ng-container>
