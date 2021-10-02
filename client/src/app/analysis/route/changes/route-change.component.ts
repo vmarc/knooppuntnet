@@ -16,14 +16,7 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
 
     <div *ngIf="routeChangeInfo.changeKey.changeSetId === 0">
       <p i18n="@@route-change.initial-value">
-        Oldest known state of route (at date of
-        <a
-          class="external"
-          href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License"
-          target="_blank"
-          rel="nofollow noreferrer"
-          >license change</a
-        >).
+        Oldest known state of the route.
       </p>
     </div>
 
