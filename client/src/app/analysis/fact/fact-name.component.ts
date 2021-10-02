@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Fact } from '@api/custom/fact';
@@ -5,219 +6,101 @@ import { Fact } from '@api/custom/fact';
 @Component({
   selector: 'kpn-fact-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <ng-container [ngSwitch]="fact">
-      <ng-container i18n="@@fact.name.added" *ngSwitchCase="'Added'"
-        ><span>Added</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.become-orphan"
-        *ngSwitchCase="'BecomeOrphan'"
-        ><span>BecomeOrphan</span>
-      </ng-container>
-      <ng-container i18n="@@fact.name.deleted" *ngSwitchCase="'Deleted'"
-        ><span>Deleted</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.integrity-check"
-        *ngSwitchCase="'IntegrityCheck'"
-        ><span>IntegrityCheck</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.integrity-check-failed"
-        *ngSwitchCase="'IntegrityCheckFailed'"
-        ><span>IntegrityCheckFailed</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.lost-bicycle-node-tag"
-        *ngSwitchCase="'LostBicycleNodeTag'"
-        ><span>LostBicycleNodeTag</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.lost-hiking-node-tag"
-        *ngSwitchCase="'LostHikingNodeTag'"
-        ><span>LostHikingNodeTag</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.lost-route-tags"
-        *ngSwitchCase="'LostRouteTags'"
-        ><span>LostRouteTags</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.name-missing"
-        *ngSwitchCase="'NameMissing'"
-        ><span>NameMissing</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.network-extra-member-node"
-        *ngSwitchCase="'NetworkExtraMemberNode'"
-        ><span>NetworkExtraMemberNode</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.network-extra-member-relation"
-        *ngSwitchCase="'NetworkExtraMemberRelation'"
-        ><span>NetworkExtraMemberRelation</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.network-extra-member-way"
-        *ngSwitchCase="'NetworkExtraMemberWay'"
-        ><span>NetworkExtraMemberWay</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.node-member-missing"
-        *ngSwitchCase="'NodeMemberMissing'"
-        ><span>NodeMemberMissing</span>
-      </ng-container>
-      <ng-container i18n="@@fact.name.orphan-node" *ngSwitchCase="'OrphanNode'"
-        ><span>OrphanNode</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.orphan-route"
-        *ngSwitchCase="'OrphanRoute'"
-        ><span>OrphanRoute</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-analysis-failed"
-        *ngSwitchCase="'RouteAnalysisFailed'"
-        ><span>RouteAnalysisFailed</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-broken"
-        *ngSwitchCase="'RouteBroken'"
-        ><span>RouteBroken</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-fixmetodo"
-        *ngSwitchCase="'RouteFixmetodo'"
-        ><span>RouteFixmetodo</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-incomplete"
-        *ngSwitchCase="'RouteIncomplete'"
-        ><span>RouteIncomplete</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-incomplete-ok"
-        *ngSwitchCase="'RouteIncompleteOk'"
-        ><span>RouteIncompleteOk</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-name-missing"
-        *ngSwitchCase="'RouteNameMissing'"
-        ><span>RouteNameMissing</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-node-missing-in-ways"
-        *ngSwitchCase="'RouteNodeMissingInWays'"
-        ><span>RouteNodeMissingInWays</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-node-name-mismatch"
-        *ngSwitchCase="'RouteNodeNameMismatch'"
-        ><span>RouteNodeNameMismatch</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-not-backward"
-        *ngSwitchCase="'RouteNotBackward'"
-        ><span>RouteNotBackward</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-not-continious"
-        *ngSwitchCase="'RouteNotContinious'"
-        ><span>RouteNotContinious</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-not-forward"
-        *ngSwitchCase="'RouteNotForward'"
-        ><span>RouteNotForward</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-not-one-way"
-        *ngSwitchCase="'RouteNotOneWay'"
-        ><span>RouteNotOneWay</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-one-way"
-        *ngSwitchCase="'RouteOneWay'"
-        ><span>RouteOneWay</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-overlapping-ways"
-        *ngSwitchCase="'RouteOverlappingWays'"
-        ><span>RouteOverlappingWays</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-redundant-nodes"
-        *ngSwitchCase="'RouteRedundantNodes'"
-        ><span>RouteRedundantNodes</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-reversed"
-        *ngSwitchCase="'RouteReversed'"
-        ><span>RouteReversed</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-suspicious-ways"
-        *ngSwitchCase="'RouteSuspiciousWays'"
-        ><span>RouteSuspiciousWays</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-tag-invalid"
-        *ngSwitchCase="'RouteTagInvalid'"
-        ><span>RouteTagInvalid</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-tag-missing"
-        *ngSwitchCase="'RouteTagMissing'"
-        ><span>RouteTagMissing</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-unaccessible"
-        *ngSwitchCase="'RouteUnaccessible'"
-        ><span>RouteUnaccessible</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-unexpected-node"
-        *ngSwitchCase="'RouteUnexpectedNode'"
-        ><span>RouteUnexpectedNode</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-unexpected-relation"
-        *ngSwitchCase="'RouteUnexpectedRelation'"
-        ><span>RouteUnexpectedRelation</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-unused-segments"
-        *ngSwitchCase="'RouteUnusedSegments'"
-        ><span>RouteUnusedSegments</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-without-nodes"
-        *ngSwitchCase="'RouteWithoutNodes'"
-        ><span>RouteWithoutNodes</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-without-ways"
-        *ngSwitchCase="'RouteWithoutWays'"
-        ><span>RouteWithoutWays</span>
-      </ng-container>
-      <ng-container i18n="@@fact.name.was-orphan" *ngSwitchCase="'WasOrphan'"
-        ><span>WasOrphan</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.node-invalid-survey-date"
-        *ngSwitchCase="'NodeInvalidSurveyDate'"
-        ><span>NodeInvalidSurveyDate</span>
-      </ng-container>
-      <ng-container
-        i18n="@@fact.name.route-invalid-survey-date"
-        *ngSwitchCase="'RouteInvalidSurveyDate'"
-        ><span>RouteInvalidSurveyDate</span>
-      </ng-container>
-      <ng-container *ngSwitchDefault>?{{ fact }}?</ng-container>
-    </ng-container>
-  `,
+  template: `{{ factName }}`,
 })
-export class FactNameComponent {
+export class FactNameComponent implements OnInit {
   @Input() fact: Fact;
+  factName: string;
+
+  ngOnInit(): void {
+    if (this.fact === 'Added') {
+      this.factName = $localize`:@@fact.name.added:Added`;
+    } else if (this.fact === 'BecomeOrphan') {
+      this.factName = $localize`:@@fact.name.become-orphan:BecomeOrphan`;
+    } else if (this.fact === 'Deleted') {
+      this.factName = $localize`:@@fact.name.deleted:Deleted`;
+    } else if (this.fact === 'IntegrityCheck') {
+      this.factName = $localize`:@@fact.name.integrity-check:IntegrityCheck`;
+    } else if (this.fact === 'IntegrityCheckFailed') {
+      this.factName = $localize`:@@fact.name.integrity-check-failed:IntegrityCheckFailed`;
+    } else if (this.fact === 'LostBicycleNodeTag') {
+      this.factName = $localize`:@@fact.name.lost-bicycle-node-tag:LostBicycleNodeTag`;
+    } else if (this.fact === 'LostHikingNodeTag') {
+      this.factName = $localize`:@@fact.name.lost-hiking-node-tag:LostHikingNodeTag`;
+    } else if (this.fact === 'LostRouteTags') {
+      this.factName = $localize`:@@fact.name.lost-route-tags:LostRouteTags`;
+    } else if (this.fact === 'NameMissing') {
+      this.factName = $localize`:@@fact.name.name-missing:NameMissing`;
+    } else if (this.fact === 'NetworkExtraMemberNode') {
+      this.factName = $localize`:@@fact.name.network-extra-member-node:NetworkExtraMemberNode`;
+    } else if (this.fact === 'NetworkExtraMemberRelation') {
+      this.factName = $localize`:@@fact.name.network-extra-member-relation:NetworkExtraMemberRelation`;
+    } else if (this.fact === 'NetworkExtraMemberWay') {
+      this.factName = $localize`:@@fact.name.network-extra-member-way:NetworkExtraMemberWay`;
+    } else if (this.fact === 'NodeMemberMissing') {
+      this.factName = $localize`:@@fact.name.node-member-missing:NodeMemberMissing`;
+    } else if (this.fact === 'OrphanNode') {
+      this.factName = $localize`:@@fact.name.orphan-node:OrphanNode`;
+    } else if (this.fact === 'OrphanRoute') {
+      this.factName = $localize`:@@fact.name.orphan-route:OrphanRoute`;
+    } else if (this.fact === 'RouteAnalysisFailed') {
+      this.factName = $localize`:@@fact.name.route-analysis-failed:RouteAnalysisFailed`;
+    } else if (this.fact === 'RouteBroken') {
+      this.factName = $localize`:@@fact.name.route-broken:RouteBroken`;
+    } else if (this.fact === 'RouteFixmetodo') {
+      this.factName = $localize`:@@fact.name.route-fixmetodo:RouteFixmetodo`;
+    } else if (this.fact === 'RouteIncomplete') {
+      this.factName = $localize`:@@fact.name.route-incomplete:RouteIncomplete`;
+    } else if (this.fact === 'RouteIncompleteOk') {
+      this.factName = $localize`:@@fact.name.route-incomplete-ok:RouteIncompleteOk`;
+    } else if (this.fact === 'RouteNameMissing') {
+      this.factName = $localize`:@@fact.name.route-name-missing:RouteNameMissing`;
+    } else if (this.fact === 'RouteNodeMissingInWays') {
+      this.factName = $localize`:@@fact.name.route-node-missing-in-ways:RouteNodeMissingInWays`;
+    } else if (this.fact === 'RouteNodeNameMismatch') {
+      this.factName = $localize`:@@fact.name.route-node-name-mismatch:RouteNodeNameMismatch`;
+    } else if (this.fact === 'RouteNotBackward') {
+      this.factName = $localize`:@@fact.name.route-not-backward:RouteNotBackward`;
+    } else if (this.fact === 'RouteNotContinious') {
+      this.factName = $localize`:@@fact.name.route-not-continious:RouteNotContinious`;
+    } else if (this.fact === 'RouteNotForward') {
+      this.factName = $localize`:@@fact.name.route-not-forward:RouteNotForward`;
+    } else if (this.fact === 'RouteNotOneWay') {
+      this.factName = $localize`:@@fact.name.route-not-one-way:RouteNotOneWay`;
+    } else if (this.fact === 'RouteOneWay') {
+      this.factName = $localize`:@@fact.name.route-one-way:RouteOneWay`;
+    } else if (this.fact === 'RouteOverlappingWays') {
+      this.factName = $localize`:@@fact.name.route-overlapping-ways:RouteOverlappingWays`;
+    } else if (this.fact === 'RouteRedundantNodes') {
+      this.factName = $localize`:@@fact.name.route-redundant-nodes:RouteRedundantNodes`;
+    } else if (this.fact === 'RouteReversed') {
+      this.factName = $localize`:@@fact.name.route-reversed:RouteReversed`;
+    } else if (this.fact === 'RouteSuspiciousWays') {
+      this.factName = $localize`:@@fact.name.route-suspicious-ways:RouteSuspiciousWays`;
+    } else if (this.fact === 'RouteTagInvalid') {
+      this.factName = $localize`:@@fact.name.route-tag-invalid:RouteTagInvalid`;
+    } else if (this.fact === 'RouteTagMissing') {
+      this.factName = $localize`:@@fact.name.route-tag-missing:RouteTagMissing`;
+    } else if (this.fact === 'RouteUnaccessible') {
+      this.factName = $localize`:@@fact.name.route-unaccessible:RouteUnaccessible`;
+    } else if (this.fact === 'RouteUnexpectedNode') {
+      this.factName = $localize`:@@fact.name.route-unexpected-node:RouteUnexpectedNode`;
+    } else if (this.fact === 'RouteUnexpectedRelation') {
+      this.factName = $localize`:@@fact.name.route-unexpected-relation:RouteUnexpectedRelation`;
+    } else if (this.fact === 'RouteUnusedSegments') {
+      this.factName = $localize`:@@fact.name.route-unused-segments:RouteUnusedSegments`;
+    } else if (this.fact === 'RouteWithoutNodes') {
+      this.factName = $localize`:@@fact.name.route-without-nodes:RouteWithoutNodes`;
+    } else if (this.fact === 'RouteWithoutWays') {
+      this.factName = $localize`:@@fact.name.route-without-ways:RouteWithoutWays`;
+    } else if (this.fact === 'WasOrphan') {
+      this.factName = $localize`:@@fact.name.was-orphan:WasOrphan`;
+    } else if (this.fact === 'NodeInvalidSurveyDate') {
+      this.factName = $localize`:@@fact.name.node-invalid-survey-date:NodeInvalidSurveyDate`;
+    } else if (this.fact === 'RouteInvalidSurveyDate') {
+      this.factName = $localize`:@@fact.name.route-invalid-survey-date:RouteInvalidSurveyDate`;
+    } else {
+      this.factName = this.fact + '?';
+    }
+  }
 }
