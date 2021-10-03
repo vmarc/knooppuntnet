@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes.builder
 
 import kpn.api.common.RouteLocationAnalysis
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.core.analysis.Network
 import kpn.core.history.RouteDiffAnalyzer

@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { ChangeKey } from './change-key';
-import { ChangeType } from './change-type';
+import { ChangeType } from '../../../custom/change-type';
 import { Fact } from '../../../custom/fact';
 import { RawWay } from '../../data/raw/raw-way';
 import { Ref } from '../../common/ref';

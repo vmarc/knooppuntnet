@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes.node
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Subset
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.doc.NodeDoc

@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
@@ -8,6 +7,7 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.util.Log

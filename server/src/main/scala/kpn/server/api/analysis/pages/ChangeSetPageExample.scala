@@ -10,7 +10,6 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
@@ -26,6 +25,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.RouteChangeInfo
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType

@@ -9,12 +9,12 @@ import kpn.api.common.LocationChangesTree
 import kpn.api.common.LocationChangesTreeNode
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.location.Location
+import kpn.api.custom.ChangeType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 

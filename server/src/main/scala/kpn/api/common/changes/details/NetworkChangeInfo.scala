@@ -3,6 +3,7 @@ package kpn.api.common.changes.details
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 

@@ -4,10 +4,10 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset

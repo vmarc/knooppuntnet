@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 
 object NodeChangeStateAnalyzer {

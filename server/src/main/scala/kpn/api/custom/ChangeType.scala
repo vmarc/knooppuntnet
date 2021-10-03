@@ -1,10 +1,9 @@
-package kpn.api.common.changes.details
+package kpn.api.custom
 
 object ChangeType {
 
   /*
-    The change was created while processing the situation right after the redaction in 2012, and as such
-    represents the oldest known situation of the element (if the element existed at that time).
+    The change represents the oldest known situation of the element (if the element existed at that time).
    */
   val InitialValue: ChangeType = ChangeType("InitialValue")
 
@@ -25,6 +24,16 @@ object ChangeType {
    */
   val Delete: ChangeType = ChangeType("Delete")
 
+  private val all = Seq(
+    InitialValue,
+    Create,
+    Update,
+    Delete
+  )
+
+  def withName(name: String): Option[ChangeType] = {
+    all.find(_.name == name)
+  }
 }
 
 case class ChangeType(name: String)

@@ -8,7 +8,6 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefChanges
@@ -18,6 +17,7 @@ import kpn.api.common.changes.filter.ChangesFilterPeriod
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset

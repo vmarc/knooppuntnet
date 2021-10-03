@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 
 object RouteChangeStateAnalyzer {

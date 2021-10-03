@@ -4,7 +4,7 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.details.ChangeType
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope

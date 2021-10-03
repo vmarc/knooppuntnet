@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes.network.info
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.core.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext

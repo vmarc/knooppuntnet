@@ -9,9 +9,9 @@ import kpn.api.common.LocationChangesTree
 import kpn.api.common.LocationChangesTreeNode
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset

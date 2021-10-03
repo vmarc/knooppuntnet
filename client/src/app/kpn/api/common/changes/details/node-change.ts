@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { ChangeKey } from './change-key';
-import { ChangeType } from './change-type';
+import { ChangeType } from '../../../custom/change-type';
 import { Fact } from '../../../custom/fact';
 import { FactDiffs } from '../../diff/common/fact-diffs';
 import { MetaData } from '../../data/meta-data';

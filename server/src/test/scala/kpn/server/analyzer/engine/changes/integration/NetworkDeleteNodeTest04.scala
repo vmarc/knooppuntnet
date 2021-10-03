@@ -5,12 +5,12 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
 import kpn.api.common.diff.TagDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType

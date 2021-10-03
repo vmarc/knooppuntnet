@@ -8,6 +8,7 @@ import kpn.api.common.data.raw.RawWay
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 

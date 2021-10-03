@@ -5,6 +5,7 @@ import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 

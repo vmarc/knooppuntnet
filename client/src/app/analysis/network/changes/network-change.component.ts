@@ -1,20 +1,21 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
+import { ChangeType } from '@api/custom/change-type';
 
 @Component({
   selector: 'kpn-network-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- changeType -->
-    <div *ngIf="networkChangeInfo.changeType.name === 'Create'">
-      <b i18n="@@network-changes.network-created"> Network created </b>
+    <div *ngIf="isCreate()">
+      <b i18n="@@network-changes.network-created">Network created</b>
     </div>
-    <div *ngIf="networkChangeInfo.changeType.name === 'Delete'">
-      <b i18n="@@network-changes.network-deleted"> Network deleted </b>
+    <div *ngIf="isDelete()">
+      <b i18n="@@network-changes.network-deleted">Network deleted</b>
     </div>
 
-    <div *ngIf="networkChangeInfo.changeType.name === 'InitialValue'">
+    <div *ngIf="isInitialValue()">
       <span i18n="@@network-changes.network-initial-value">
         Oldest known state of the network.
       </span>
@@ -23,10 +24,19 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
     <!-- networkNodesAdded -->
     <div
       *ngIf="networkChangeInfo.networkNodes.added.length > 0"
-      class="kpn-line"
+      class="kpn-text-only-line"
     >
-      <span class="kpn-label" i18n="@@network-changes.network-nodes.added"
+      <span
+        *ngIf="!isInitialValue()"
+        class="kpn-label"
+        i18n="@@network-changes.network-nodes.added"
         >Added node(s)</span
+      >
+      <span
+        *ngIf="isInitialValue()"
+        class="kpn-label"
+        i18n="@@network-changes.network-nodes.list"
+        >Nodes</span
       >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
@@ -39,9 +49,21 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
     </div>
 
     <!-- routesAdded -->
-    <div *ngIf="networkChangeInfo.routes.added.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.routes.added"
+    <div
+      *ngIf="networkChangeInfo.routes.added.length > 0"
+      class="kpn-text-only-line"
+    >
+      <span
+        *ngIf="!isInitialValue()"
+        class="kpn-label"
+        i18n="@@network-changes.routes.added"
         >Added route(s)</span
+      >
+      <span
+        *ngIf="isInitialValue()"
+        class="kpn-label"
+        i18n="@@network-changes.routes.list"
+        >Routes</span
       >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.added">
@@ -123,7 +145,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
 
     <!-- waysUpdated -->
     <div *ngIf="networkChangeInfo.ways.updated.length > 0">
-      <span i18n="@@network-changes.ways.updated"> Updated way member(s) </span>
+      <span i18n="@@network-changes.ways.updated">Updated way member(s)</span>
     </div>
 
     <!-- relationsUpdated -->
@@ -190,4 +212,28 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
 })
 export class NetworkChangeComponent {
   @Input() networkChangeInfo: NetworkChangeInfo;
+
+  isCreate(): boolean {
+    return this.isChangeType(ChangeType.create);
+  }
+
+  isUpdate(): boolean {
+    return this.isChangeType(ChangeType.create);
+  }
+
+  isDelete(): boolean {
+    return this.isChangeType(ChangeType.delete);
+  }
+
+  isInitialValue(): boolean {
+    return this.isChangeType(ChangeType.initialValue);
+  }
+
+  private isChangeType(changeType: ChangeType): boolean {
+    console.log(
+      'this.networkChangeInfo.changeType=' + this.networkChangeInfo.changeType
+    );
+
+    return this.networkChangeInfo.changeType === changeType;
+  }
 }

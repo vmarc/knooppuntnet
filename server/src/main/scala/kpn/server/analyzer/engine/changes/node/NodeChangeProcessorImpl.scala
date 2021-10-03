@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.node
 
 import kpn.api.common.changes.ChangeAction.ChangeAction
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset

@@ -5,7 +5,7 @@ import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeType
+import kpn.api.custom.ChangeType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp

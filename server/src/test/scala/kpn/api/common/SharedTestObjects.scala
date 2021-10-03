@@ -2,7 +2,6 @@ package kpn.api.common
 
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
@@ -55,6 +54,7 @@ import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Change
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact

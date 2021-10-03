@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.network
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.IdDiffs
+import kpn.api.custom.ChangeType
 import kpn.database.base.Database
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
