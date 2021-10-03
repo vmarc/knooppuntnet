@@ -1,13 +1,13 @@
 package kpn.core.tools.analysis
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.ChangeType
+import kpn.api.custom.Fact
 import kpn.api.custom.Relation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
-import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -83,25 +83,30 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def saveRouteChange(routeAnalysis: RouteAnalysis): Unit = {
 
     val key = config.changeSetContext.buildChangeKey(routeAnalysis.route.id)
+    val facts = routeAnalysis.route.facts.toSet
+    val locationFacts = facts.filter(Fact.locationFacts.contains)
+
     config.changeSetRepository.saveRouteChange(
-      RouteChangeStateAnalyzer.analyzed(
-        RouteChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.InitialValue,
-          name = routeAnalysis.route.summary.name,
-          locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          before = None,
-          after = Some(routeAnalysis.toRouteData),
-          removedWays = Seq.empty,
-          addedWays = Seq.empty,
-          updatedWays = Seq.empty,
-          diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = routeAnalysis.route.facts.toSet))),
-          facts = routeAnalysis.route.facts,
-          Seq.empty
-        )
+      RouteChange(
+        _id = key.toId,
+        key = key,
+        changeType = ChangeType.InitialValue,
+        name = routeAnalysis.route.summary.name,
+        locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
+        addedToNetwork = Seq.empty,
+        removedFromNetwork = Seq.empty,
+        before = None,
+        after = Some(routeAnalysis.toRouteData),
+        removedWays = Seq.empty,
+        addedWays = Seq.empty,
+        updatedWays = Seq.empty,
+        diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
+        facts = routeAnalysis.route.facts,
+        Seq.empty,
+        investigate = facts.nonEmpty,
+        impact = facts.nonEmpty,
+        locationInvestigate = locationFacts.nonEmpty,
+        locationImpact = locationFacts.nonEmpty
       )
     )
   }

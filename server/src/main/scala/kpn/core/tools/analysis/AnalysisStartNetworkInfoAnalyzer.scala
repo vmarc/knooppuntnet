@@ -1,10 +1,10 @@
 package kpn.core.tools.analysis
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.ChangeType
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 
@@ -27,6 +27,15 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
     val nodeRefs = networkInfoDoc.nodes.map(_.toRef)
     val routeRefs = networkInfoDoc.routes.map(_.toRef)
     val key = config.changeSetContext.buildChangeKey(networkInfoDoc._id)
+
+    val extraNodeDiffs = IdDiffs(added = networkInfoDoc.extraNodeIds)
+    val extraWayDiffs = IdDiffs(added = networkInfoDoc.extraWayIds)
+    val extraRelationDiffs = IdDiffs(added = networkInfoDoc.extraRelationIds)
+
+    val investigate = extraNodeDiffs.added.nonEmpty ||
+      extraWayDiffs.added.nonEmpty ||
+      extraRelationDiffs.added.nonEmpty
+
     config.changeSetRepository.saveNetworkInfoChange(
       NetworkInfoChange(
         _id = key.toId,
@@ -41,12 +50,12 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
         networkDataUpdate = None,
         nodeDiffs = RefDiffs(added = nodeRefs),
         routeDiffs = RefDiffs(added = routeRefs),
-        extraNodeDiffs = IdDiffs(),
-        extraWayDiffs = IdDiffs(),
-        extraRelationDiffs = IdDiffs(),
-        happy = true,
-        investigate = networkInfoDoc.facts.nonEmpty,
-        impact = true
+        extraNodeDiffs = extraNodeDiffs,
+        extraWayDiffs = extraWayDiffs,
+        extraRelationDiffs = extraRelationDiffs,
+        happy = false,
+        investigate = investigate,
+        impact = investigate
       )
     )
   }

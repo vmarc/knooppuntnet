@@ -1,13 +1,13 @@
 package kpn.core.tools.analysis
 
-import kpn.api.common.changes.details.ChangeType
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
+import kpn.api.custom.ChangeType
+import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -41,30 +41,35 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
     }
 
     val key = config.changeSetContext.buildChangeKey(nodeDoc._id)
+    val facts = nodeDoc.facts.toSet
+    val locationFacts = facts.filter(Fact.locationFacts.contains)
+
     config.changeSetRepository.saveNodeChange(
-      NodeChangeStateAnalyzer.analyzed(
-        NodeChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.InitialValue,
-          subsets = subsets,
-          locations = nodeDoc.locations,
-          name = nodeDoc.name,
-          before = None,
-          after = Some(nodeDoc.toMeta),
-          connectionChanges = Seq.empty,
-          roleConnectionChanges = Seq.empty,
-          definedInNetworkChanges = Seq.empty,
-          tagDiffs = None,
-          nodeMoved = None,
-          addedToRoute = Seq.empty,
-          removedFromRoute = Seq.empty,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(remaining = nodeDoc.facts.toSet),
-          facts = Seq.empty,
-          tiles = nodeDoc.tiles
-        )
+      NodeChange(
+        _id = key.toId,
+        key = key,
+        changeType = ChangeType.InitialValue,
+        subsets = subsets,
+        locations = nodeDoc.locations,
+        name = nodeDoc.name,
+        before = None,
+        after = Some(nodeDoc.toMeta),
+        connectionChanges = Seq.empty,
+        roleConnectionChanges = Seq.empty,
+        definedInNetworkChanges = Seq.empty,
+        tagDiffs = None,
+        nodeMoved = None,
+        addedToRoute = Seq.empty,
+        removedFromRoute = Seq.empty,
+        addedToNetwork = Seq.empty,
+        removedFromNetwork = Seq.empty,
+        factDiffs = FactDiffs(remaining = facts),
+        facts = Seq.empty,
+        tiles = nodeDoc.tiles,
+        investigate = facts.nonEmpty,
+        impact = facts.nonEmpty,
+        locationInvestigate = locationFacts.nonEmpty,
+        locationImpact = locationFacts.nonEmpty
       )
     )
   }

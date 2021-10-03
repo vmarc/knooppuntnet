@@ -144,6 +144,16 @@ table.kpn-bordered-table {
   }
 }
 
+.kpn-text-only-line {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+
+  > :not(:last-child) {
+    padding-right: 0.8em;
+  }
+}
+
 .kpn-separated {
   > :not(:last-child) {
     padding-right: 0.8em;
