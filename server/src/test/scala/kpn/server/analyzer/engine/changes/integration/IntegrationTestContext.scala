@@ -55,6 +55,7 @@ import kpn.server.analyzer.load.AnalysisDataInitializerImpl
 import kpn.server.repository.BlacklistRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
+import kpn.server.repository.NetworkInfoRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -84,6 +85,7 @@ class IntegrationTestContext(
   private val routeRepository = new RouteRepositoryImpl(database)
   private val networkRepository = new NetworkRepositoryImpl(database)
   private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
+  private val networkInfoRepository = new NetworkInfoRepositoryImpl(database)
 
   private val taskRepository = stub[TaskRepository]
   private val blacklistRepository = stub[BlacklistRepository]
@@ -238,7 +240,8 @@ class IntegrationTestContext(
   val changeProcessor: ChangeProcessor = {
 
     val changeSaver = new ChangeSaverImpl(
-      changeSetRepository
+      changeSetRepository,
+      networkInfoRepository
     )
 
     new ChangeProcessor(

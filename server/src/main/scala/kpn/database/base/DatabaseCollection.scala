@@ -1,8 +1,8 @@
 package kpn.database.base
 
-import kpn.database.tools.MongoIndexDefinition
 import kpn.core.util.Log
 import kpn.database.base.DatabaseCollection.collectionLog
+import kpn.database.tools.MongoIndexDefinition
 import org.mongodb.scala.ListIndexesObservable
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
@@ -77,5 +77,7 @@ trait DatabaseCollection[T] {
   def countDocuments(log: Log): Long
 
   def countDocuments(filter: Bson, log: Log = collectionLog): Long
+
+  def updateOne(filter: Bson, update: Seq[Bson]): Unit
 
 }

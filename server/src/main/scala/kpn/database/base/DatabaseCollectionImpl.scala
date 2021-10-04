@@ -2,8 +2,8 @@ package kpn.database.base
 
 import kpn.api.base.WithId
 import kpn.api.base.WithStringId
-import kpn.database.util.Mongo
 import kpn.core.util.Log
+import kpn.database.util.Mongo
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Filters.equal
@@ -221,6 +221,13 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       val message = s"countDocuments - collection: '$collectionName' : $count"
       (message, count)
     }
+  }
+
+  override def updateOne(filter: Bson, update: Seq[Bson]): Unit = {
+    val future = collection.updateOne(filter, update).toFuture()
+    val updateResult = Await.result(future, Duration(1, TimeUnit.MINUTES))
+    val message = s"update - collection: '$collectionName' : ${updateResult.getModifiedCount}"
+    (message, ())
   }
 
   private def collectionName: String = collection.namespace.getCollectionName

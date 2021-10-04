@@ -1,11 +1,13 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.NetworkInfoRepository
 import org.springframework.stereotype.Component
 
 @Component
 class ChangeSaverImpl(
-  changeSetRepository: ChangeSetRepository
+  changeSetRepository: ChangeSetRepository,
+  networkInfoRepository: NetworkInfoRepository
 ) extends ChangeSaver {
 
   def save(context: ChangeSetContext): Unit = {
@@ -18,6 +20,7 @@ class ChangeSaverImpl(
 
       context.changes.networkInfoChanges.foreach { networkInfoChange =>
         changeSetRepository.saveNetworkInfoChange(networkInfoChange)
+        networkInfoRepository.updateNetworkChangeCount(networkInfoChange.key.elementId)
       }
 
       context.changes.routeChanges.foreach { routeChange =>

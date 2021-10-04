@@ -19,6 +19,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.NetworkInfoRepository
 import org.scalamock.scalatest.MockFactory
 
 class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
@@ -26,6 +27,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
   test("nothing to save") {
 
     val changeSetRepository = stub[ChangeSetRepository]
+    val networkInfoRepository = stub[NetworkInfoRepository]
 
     val context = ChangeSetContext(
       ReplicationId(1, 2, 3),
@@ -34,7 +36,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
       ChangeSetChanges()
     )
 
-    new ChangeSaverImpl(changeSetRepository).save(context)
+    new ChangeSaverImpl(changeSetRepository, networkInfoRepository).save(context)
 
     (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
@@ -51,8 +53,9 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
+    val networkInfoRepository = stub[NetworkInfoRepository]
 
-    save(changeSetRepository, changeSetChanges)
+    save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
     (changeSetRepository.saveRouteChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
@@ -78,6 +81,13 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
         true
       }
     ).once()
+
+    (networkInfoRepository.updateNetworkChangeCount _).verify(
+      where { networkId: Long =>
+        networkId should equal(1)
+        true
+      }
+    ).once()
   }
 
   test("save route changes") {
@@ -98,11 +108,13 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
+    val networkInfoRepository = stub[NetworkInfoRepository]
 
-    save(changeSetRepository, changeSetChanges)
+    save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
     (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
+    (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
 
     (changeSetRepository.saveRouteChange _).verify(
       where { savedRouteChange: RouteChange =>
@@ -150,11 +162,13 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
+    val networkInfoRepository = stub[NetworkInfoRepository]
 
-    save(changeSetRepository, changeSetChanges)
+    save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
     (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
+    (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
 
     (changeSetRepository.saveNodeChange _).verify(
       where { savedNodeChange: NodeChange =>
@@ -188,13 +202,17 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     ).once()
   }
 
-  private def save(changeSetRepository: ChangeSetRepository, changeSetChanges: ChangeSetChanges): Unit = {
+  private def save(
+    changeSetRepository: ChangeSetRepository,
+    networkInfoRepository: NetworkInfoRepository,
+    changeSetChanges: ChangeSetChanges
+  ): Unit = {
     val context = ChangeSetContext(
       ReplicationId(0, 0, 1),
       newChangeSet(),
       ElementIds(),
       changeSetChanges
     )
-    new ChangeSaverImpl(changeSetRepository).save(context)
+    new ChangeSaverImpl(changeSetRepository, networkInfoRepository).save(context)
   }
 }

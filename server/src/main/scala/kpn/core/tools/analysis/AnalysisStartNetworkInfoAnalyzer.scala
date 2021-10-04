@@ -58,5 +58,6 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
         impact = investigate
       )
     )
+    config.networkInfoRepository.updateNetworkChangeCount(networkInfoDoc._id)
   }
 }

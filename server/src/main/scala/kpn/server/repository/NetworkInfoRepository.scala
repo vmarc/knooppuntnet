@@ -13,4 +13,6 @@ trait NetworkInfoRepository {
 
   def networkChangesFilter(nodeId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter
 
+  def updateNetworkChangeCount(networkId: Long): Unit
+
 }
