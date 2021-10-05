@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer.toMeters
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.repository.MonitorRouteRepository
 import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.GeometryFactory
@@ -186,6 +187,21 @@ class MonitorChangeProcessorImpl(
         resolvedSegments,
       )
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
+
+      val routeState = MonitorRouteState(
+        routeId,
+        afterRoute.relation.timestamp,
+        afterRoute.wayCount,
+        afterRoute.osmDistance,
+        afterRoute.gpxDistance,
+        afterRoute.bounds,
+        Some(reference.key),
+        afterRoute.osmSegments,
+        afterRoute.okGeometry,
+        afterRoute.nokSegments
+      )
+
+      monitorRouteRepository.saveRouteState(routeState)
 
       log.info(message)
     }
