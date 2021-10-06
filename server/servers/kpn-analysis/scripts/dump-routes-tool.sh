@@ -4,4 +4,4 @@ nohup /kpn/java/bin/java \
   -cp /kpn/bin/server.jar \
   -Dlog4j.configurationFile=/kpn/scripts/conf/dump-routes-tool-log.xml \
   -Dloader.main=kpn.core.tools.support.DumpRoutesTool org.springframework.boot.loader.PropertiesLauncher \
-  kpn-database attic-analysis > /kpn/logs/dump-routes-tool-stdout.log 2>&1 &
+  kpn-frontend attic-analysis > /kpn/logs/dump-routes-tool-stdout.log 2>&1 &

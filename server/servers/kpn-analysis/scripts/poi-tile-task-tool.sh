@@ -9,7 +9,7 @@ nohup /kpn/java/bin/java \
   -Dcom.sun.management.jmxremote.ssl=false \
   -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.core.tools.poi.PoiTileTaskTool org.springframework.boot.loader.PropertiesLauncher \
-  --host kpn-database \
+  --host kpn-frontend \
   --poi-database pois4 \
   --task-database tasks-pois \
   > /kpn/logs/poi-tile-task-tool-stdout.log 2>&1 &

@@ -1,6 +1,6 @@
 # Knooppuntnet background tile generation and update
 
-## docker
+## Install docker and tools
 
 Install docker: (instructions from https://docs.docker.com/engine/install/ubuntu/)
 
@@ -153,17 +153,17 @@ Start up the database container:
 
 Import external data:
 
-	/kpn/scripts/02-import-data.sh  # interactive, some minutes
+	/kpn/scripts/02-import-data.sh  # 2 minutes
 
 Import OSM data:
 
-	/kpn/scripts/03-import-osm.sh       # 18 hours
-	/kpn/scripts/04-import-borders.sh   # 6 minutes
-	/kpn/scripts/05-import-wikidata.sh  # 4 minutes
+	/kpn/scripts/03-import-osm.sh       # 2 hours
+	/kpn/scripts/04-import-borders.sh   # 2 minutes
+	/kpn/scripts/05-import-wikidata.sh  # 1 minute
 
 (Re-)Execute sql scripts:
 
-	/kpn/scripts/06-import-sql.sh  # 3 hours   ---> last time 14 hours (TODO increase swap?)
+	/kpn/scripts/06-import-sql.sh  # 4.5 hours
 
 
 Change MIN_ZOOM to 4 and MAX_ZOOM to 12 in
@@ -183,7 +183,7 @@ Adapt data/all.dc-config.yml, default zoom levels:
 
 Generate tiles:
 
-	/kpn/scripts/08-generate-tiles.sh     # 18.5 hours
+	/kpn/scripts/08-generate-tiles.sh     # 8 hours
 
 Copy tiles to kpn server, on kpn server:
 
@@ -193,7 +193,7 @@ Copy tiles to kpn server, on kpn server:
 On kpn server:
 
 	cd /kpn/tiles-install
-	/kpn/soft/mbutil/mb-util tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
+	/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
 Make productive:
 

@@ -10,5 +10,5 @@ nohup /kpn/java/bin/java \
   -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.core.tools.tile.TileTool org.springframework.boot.loader.PropertiesLauncher \
   -t /kpn/tiles \
-  -h kpn-database \
+  -h kpn-frontend \
   -a analysis-experimental >> /kpn/logs/tile-tool-stdout.log 2>&1 &
