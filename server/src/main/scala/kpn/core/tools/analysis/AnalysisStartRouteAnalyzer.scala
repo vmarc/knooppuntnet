@@ -22,7 +22,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
       log.infoElapsed {
         val overpassRouteIds = collectOverpassRouteIds()
         val databaseRouteIds = config.routeRepository.allRouteIds()
-        val routeIds = (databaseRouteIds.toSet -- overpassRouteIds.toSet).toSeq.sorted
+        val routeIds = (overpassRouteIds.toSet -- databaseRouteIds.toSet).toSeq.sorted
         val analyzedRouteIds = analyzeRoutes(routeIds)
         (s"completed (${analyzedRouteIds.size} routes", ())
       }

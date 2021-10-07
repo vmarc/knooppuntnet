@@ -63,7 +63,7 @@ object TimestampUtil {
   }
 
   def parseIso(string: String): Timestamp = {
-    if (string.size == "2020-08-11 12:34:56".size && string(10) == ' ') {
+    if (string.length == "2020-08-11 12:34:56".length && string(10) == ' ') {
       // this was added to support the migration of timestamps in the monitor documents
       // TODO MONGO can be removed after mongodb migration is complete
       val modified = string.replaceAll(" ", "T") + "Z"

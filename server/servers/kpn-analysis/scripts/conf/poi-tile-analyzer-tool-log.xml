@@ -13,7 +13,7 @@
         <Root level="trace">
             <AppenderRef ref="RollingFile"/>
         </Root>
-        <Logger name="be.knooppuntnet" level="info"/>
-        <Logger name="org.springframework" level="info"/>
+        <Logger name="kpn" level="info"/>
+        <Logger name="org" level="info"/>
     </Loggers>
 </Configuration>

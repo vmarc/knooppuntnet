@@ -11,10 +11,12 @@ class PoiLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) extends PoiLoa
 
   private val log = Log(classOf[PoiLoaderImpl])
 
-  override def load(elementType: String,
-                    layer: String,
-                    bbox: String,
-                    condition: String): Seq[Poi] = {
+  override def load(
+    elementType: String,
+    layer: String,
+    bbox: String,
+    condition: String
+  ): Seq[Poi] = {
 
     log.infoElapsed {
       val query = PoiQuery(elementType, layer, bbox, condition)

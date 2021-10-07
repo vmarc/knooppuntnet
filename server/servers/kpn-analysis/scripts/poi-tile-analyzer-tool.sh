@@ -7,8 +7,7 @@ nohup /kpn/java/bin/java \
   -Dcom.sun.management.jmxremote.port=5105 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \
-  -cp /kpn/bin/server.jar \
+  -cp /kpn/bin/dist/server-4.0.0-snapshot.1.jar \
   -Dloader.main=kpn.core.tools.poi.PoiTileAnalyzerTool org.springframework.boot.loader.PropertiesLauncher \
-  --host kpn-frontend \
-  --poi-database pois4 \
+  --poi-database kpn \
   > /kpn/logs/poi-tile-analyzer-tool-stdout.log 2>&1 &

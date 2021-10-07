@@ -14,7 +14,7 @@ import scala.concurrent.duration.Duration
 class AnalysisRepositoryImpl(database: Database) extends AnalysisRepository {
 
   override def lastUpdated(): Option[Timestamp] = {
-    val future = database.status.native.find[AnalysisStatus](equal("_id", AnalysisStatus.id)).headOption
+    val future = database.status.native.find[AnalysisStatus](equal("_id", AnalysisStatus.id)).headOption()
     Await.result(future, Duration(30, TimeUnit.SECONDS)).map(_.timestamp)
   }
 

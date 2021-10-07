@@ -235,14 +235,14 @@ class StatusFacadeImpl(
 
   override def logStatus(parameters: PeriodParameters): ApiResponse[LogPage] = {
 
-    val tile = BarChart(parameters.period, metricsRepository.query(parameters, "tile", average = false))
-    val tileRobot = BarChart(parameters.period, metricsRepository.query(parameters, "tile-robot", average = false))
-    val api = BarChart(parameters.period, metricsRepository.query(parameters, "api", average = false))
-    val apiRobot = BarChart(parameters.period, metricsRepository.query(parameters, "api-robot", average = false))
-    val analysis = BarChart(parameters.period, metricsRepository.query(parameters, "analysis", average = false))
-    val analysisRobot = BarChart(parameters.period, metricsRepository.query(parameters, "analysis-robot", average = false))
-    val robot = BarChart(parameters.period, metricsRepository.query(parameters, "robot", average = false))
-    val nonRobot = BarChart(parameters.period, metricsRepository.query(parameters, "non-robot", average = false))
+    val tile = BarChart(parameters.period, metricsRepository.query(parameters, "tile"))
+    val tileRobot = BarChart(parameters.period, metricsRepository.query(parameters, "tile-robot"))
+    val api = BarChart(parameters.period, metricsRepository.query(parameters, "api"))
+    val apiRobot = BarChart(parameters.period, metricsRepository.query(parameters, "api-robot"))
+    val analysis = BarChart(parameters.period, metricsRepository.query(parameters, "analysis"))
+    val analysisRobot = BarChart(parameters.period, metricsRepository.query(parameters, "analysis-robot"))
+    val robot = BarChart(parameters.period, metricsRepository.query(parameters, "robot"))
+    val nonRobot = BarChart(parameters.period, metricsRepository.query(parameters, "non-robot"))
 
     val periodTitle = parameters.period match {
       case "year" => parameters.year.toString
