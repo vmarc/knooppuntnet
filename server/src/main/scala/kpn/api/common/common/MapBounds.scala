@@ -12,8 +12,8 @@ object MapBounds {
       MapBounds("", "", "", "")
     }
     else {
-      val latitudes = nodes.map(_.latitude.toDouble)
-      val longitudes = nodes.map(_.longitude.toDouble)
+      val latitudes = nodes.map(_.lat)
+      val longitudes = nodes.map(_.lon)
 
       val latMin = latitudes.min
       val latMax = latitudes.max

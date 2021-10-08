@@ -31,11 +31,11 @@ case class Network(
 
     val allNodes: Seq[Node] = nodes.map(_.networkNode.node) ++ routes.flatMap(_.routeAnalysis.ways).flatMap(_.nodes)
 
-    val minLat = if (allNodes.isEmpty) 0 else allNodes.map(_.latitude.toDouble).min
-    val maxLat = if (allNodes.isEmpty) 0 else allNodes.map(_.latitude.toDouble).max
+    val minLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).min
+    val maxLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).max
 
-    val minLon = if (allNodes.isEmpty) 0 else allNodes.map(_.longitude.toDouble).min
-    val maxLon = if (allNodes.isEmpty) 0 else allNodes.map(_.longitude.toDouble).max
+    val minLon = if (allNodes.isEmpty) 0 else allNodes.map(_.lon).min
+    val maxLon = if (allNodes.isEmpty) 0 else allNodes.map(_.lon).max
 
     Bounds(minLat, minLon, maxLat, maxLon)
   }

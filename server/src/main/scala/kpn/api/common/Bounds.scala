@@ -8,8 +8,8 @@ object Bounds {
       Bounds()
     }
     else {
-      val lattitudes = latLons.map(_.latitude.toDouble)
-      val longitudes = latLons.map(_.longitude.toDouble)
+      val lattitudes = latLons.map(_.lat)
+      val longitudes = latLons.map(_.lon)
 
       val latMin = lattitudes.min
       val lonMin = longitudes.min

@@ -48,10 +48,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     )
     val contextBefore = NetworkInfoAnalysisContext(
       analysisTimestamp,
-      networkDoc,
-      nodes = Seq(
-        newNodeDoc(1001)
-      )
+      networkDoc
     )
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
@@ -177,10 +174,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     )
     val contextBefore = NetworkInfoAnalysisContext(
       analysisTimestamp,
-      networkDoc,
-      nodes = Seq(
-        newNodeDoc(1001)
-      )
+      networkDoc
     )
 
     val rawNodes = Seq(
@@ -338,5 +332,4 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     //  node(1005).proposed should equal(true)
     //  node(1006).proposed should equal(true)
   }
-
 }

@@ -21,7 +21,6 @@ case class NetworkInfoAnalysisContext(
   previousKnownCountry: Option[Country] = None,
   country: Option[Country] = None,
   name: String = "",
-  nodes: Seq[NodeDoc] = Seq.empty,
   facts: Seq[Fact] = Seq.empty,
   networkFacts: Seq[NetworkFact] = Seq.empty,
   nodeDetails: Seq[NetworkNodeDetail] = Seq.empty,
@@ -55,5 +54,4 @@ case class NetworkInfoAnalysisContext(
   def withFact(fact: Fact): NetworkInfoAnalysisContext = {
     copy(facts = facts :+ fact)
   }
-
 }

@@ -5,6 +5,7 @@ import kpn.api.custom.Timestamp
 import kpn.database.base.Database
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCenterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
@@ -47,6 +48,7 @@ class NetworkInfoMasterAnalyzer(
     networkInfoChangeAnalyzer,
     networkCountryAnalyzer,
     networkInfoExtraAnalyzer,
+    NetworkCenterAnalyzer,
     NetworkLastUpdatedAnalyzer
     // TODO MONGO create network shape
     // database.networkShapes.save(doc, log)

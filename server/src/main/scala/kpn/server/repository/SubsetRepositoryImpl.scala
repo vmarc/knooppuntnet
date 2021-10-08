@@ -2,12 +2,14 @@ package kpn.server.repository
 
 import kpn.api.common.FactCount
 import kpn.api.common.subset.SubsetInfo
+import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.database.actions.statistics.MongoQueryStatistics
 import kpn.database.actions.subsets.MongoQuerySubsetInfo
 import kpn.database.base.Database
 import kpn.core.util.Log
+import kpn.database.actions.subsets.MongoQuerySubsetMapNetworks
 import org.springframework.stereotype.Component
 
 @Component
@@ -30,5 +32,9 @@ class SubsetRepositoryImpl(database: Database) extends SubsetRepository {
           }
       }
     }
+  }
+
+  def subsetMapNetworks(subset: Subset): Seq[SubsetMapNetwork] = {
+    new MongoQuerySubsetMapNetworks(database).execute(subset, log)
   }
 }
