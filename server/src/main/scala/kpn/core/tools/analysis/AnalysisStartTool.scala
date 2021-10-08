@@ -43,6 +43,7 @@ object AnalysisStartTool {
             configuration.orphanRouteUpdater,
             configuration.statisticsUpdater
           ).analyze()
+          configuration.analysisRepository.saveLastUpdated(configuration.timestamp)
         }
         finally {
           executor.shutdown()

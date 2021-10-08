@@ -4,7 +4,6 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -45,6 +44,8 @@ import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
+import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.AnalysisRepositoryImpl
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkInfoRepository
@@ -66,6 +67,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+  val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
 
   private val locationConfiguration = new LocationConfigurationReader().read()
   private val countryAnalyzer = new CountryAnalyzerImpl()
