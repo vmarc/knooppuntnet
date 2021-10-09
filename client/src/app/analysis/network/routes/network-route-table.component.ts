@@ -87,7 +87,7 @@ import { NetworkRoutesService } from './network-routes.service';
           Distance
         </th>
         <td mat-cell *matCellDef="let route">
-          {{ route.length + 'm' }}
+          <div class="distance">{{ (route.length | integer) + ' m' }}</div>
         </td>
       </ng-container>
 
@@ -153,6 +153,11 @@ import { NetworkRoutesService } from './network-routes.service';
       .mat-column-nr {
         width: 3rem;
       }
+
+      .distance {
+        text-align: right;
+        width: 100%;
+      }
     `,
   ],
 })
@@ -168,9 +173,8 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<NetworkRouteRow>;
   displayedColumns$: Observable<Array<string>>;
 
-  private readonly filterCriteria$: BehaviorSubject<NetworkRouteFilterCriteria> = new BehaviorSubject(
-    new NetworkRouteFilterCriteria()
-  );
+  private readonly filterCriteria$: BehaviorSubject<NetworkRouteFilterCriteria> =
+    new BehaviorSubject(new NetworkRouteFilterCriteria());
 
   constructor(
     private pageWidthService: PageWidthService,

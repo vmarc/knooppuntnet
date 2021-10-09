@@ -7,7 +7,7 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <p i18n="@@route.meters">{{ route.summary.meters }} m</p>
+      <p i18n="@@route.meters">{{ (route.summary.meters | integer) + ' m' }}</p>
 
       <p>
         <kpn-osm-link-relation
