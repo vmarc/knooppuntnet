@@ -133,6 +133,19 @@ object NodeChangesPageExample {
         facts = Seq(
           Fact.WasOrphan
         ),
+        initialTags = Some(
+          Tags.from(
+            "a" -> "1",
+            "b" -> "2",
+            "c" -> "3",
+          )
+        ),
+        initialLatLon = Some(
+          LatLonImpl(
+            latitude = "51.5291600",
+            longitude = "4.297800"
+          )
+        ),
         happy = true,
         investigate = true
       )

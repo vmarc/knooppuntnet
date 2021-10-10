@@ -3,6 +3,7 @@
 import { ChangeKey } from '../changes/details/change-key';
 import { Fact } from '../../custom/fact';
 import { FactDiffs } from '../diff/common/fact-diffs';
+import { LatLonImpl } from '../lat-lon-impl';
 import { MetaData } from '../data/meta-data';
 import { NodeMoved } from '../diff/node/node-moved';
 import { Ref } from '../common/ref';
@@ -29,6 +30,8 @@ export interface NodeChangeInfo {
   readonly removedFromNetwork: Ref[];
   readonly factDiffs: FactDiffs;
   readonly facts: Fact[];
+  readonly initialTags: Tags;
+  readonly initialLatLon: LatLonImpl;
   readonly happy: boolean;
   readonly investigate: boolean;
 }

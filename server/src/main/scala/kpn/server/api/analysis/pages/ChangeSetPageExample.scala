@@ -716,6 +716,8 @@ object ChangeSetPageExample {
         facts = Seq(
           Fact.WasOrphan
         ),
+        initialTags = None,
+        initialLatLon = None,
         happy = true,
         investigate = true
       ),
@@ -755,6 +757,8 @@ object ChangeSetPageExample {
         removedFromNetwork = Seq.empty,
         factDiffs = FactDiffs(),
         facts = Seq.empty,
+        initialTags = None,
+        initialLatLon = None,
         happy = true,
         investigate = true
       ),
@@ -794,10 +798,22 @@ object ChangeSetPageExample {
         removedFromNetwork = Seq.empty,
         factDiffs = FactDiffs(),
         facts = Seq.empty,
+        initialTags = Some(
+          Tags.from(
+            "a" -> "1",
+            "b" -> "2",
+            "c" -> "3",
+          )
+        ),
+        initialLatLon = Some(
+          LatLonImpl(
+            latitude = "51.5291600",
+            longitude = "4.297800"
+          )
+        ),
         happy = true,
         investigate = true
       )
     )
   }
-
 }

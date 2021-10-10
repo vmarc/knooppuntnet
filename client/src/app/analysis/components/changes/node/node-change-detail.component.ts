@@ -1,6 +1,9 @@
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { NodeChangeInfo } from '@api/common/node/node-change-info';
+import { InterpretedTags } from '../../../../components/shared/tags/interpreted-tags';
 import { Util } from '../../../../components/shared/util';
 
 @Component({
@@ -123,10 +126,33 @@ import { Util } from '../../../../components/shared/util';
     <kpn-node-change-moved
       [nodeChangeInfo]="nodeChangeInfo"
     ></kpn-node-change-moved>
+
+    <div *ngIf="nodeChangeInfo.initialTags" class="kpn-detail">
+      <kpn-tags-table [tags]="initialTags"></kpn-tags-table>
+    </div>
+
+    <div *ngIf="nodeChangeInfo.initialLatLon" class="kpn-detail">
+      <kpn-node-moved-map [nodeMoved]="nodeMoved"></kpn-node-moved-map>
+    </div>
   `,
 })
-export class NodeChangeDetailComponent {
+export class NodeChangeDetailComponent implements OnInit {
   @Input() nodeChangeInfo: NodeChangeInfo;
+  initialTags: InterpretedTags;
+  nodeMoved: NodeMoved;
+
+  ngOnInit(): void {
+    this.initialTags = InterpretedTags.nodeTags(
+      this.nodeChangeInfo.initialTags
+    );
+    if (this.nodeChangeInfo.initialLatLon) {
+      this.nodeMoved = {
+        before: this.nodeChangeInfo.initialLatLon,
+        after: this.nodeChangeInfo.initialLatLon,
+        distance: 0,
+      };
+    }
+  }
 
   hasTagDiffs(): boolean {
     return Util.hasTagDiffs(this.nodeChangeInfo.tagDiffs);

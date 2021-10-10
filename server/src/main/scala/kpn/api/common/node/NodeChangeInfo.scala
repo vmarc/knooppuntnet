@@ -1,5 +1,6 @@
 package kpn.api.common.node
 
+import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
@@ -29,6 +30,8 @@ case class NodeChangeInfo(
   removedFromNetwork: Seq[Ref],
   factDiffs: FactDiffs,
   facts: Seq[Fact],
+  initialTags: Option[Tags],
+  initialLatLon: Option[LatLonImpl],
   happy: Boolean,
   investigate: Boolean
 )

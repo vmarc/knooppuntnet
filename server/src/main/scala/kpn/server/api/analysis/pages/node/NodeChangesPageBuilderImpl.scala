@@ -50,6 +50,8 @@ class NodeChangesPageBuilderImpl(
             change.removedFromNetwork,
             change.factDiffs,
             change.facts,
+            change.initialTags,
+            change.initialLatLon,
             change.happy,
             change.investigate
           )
