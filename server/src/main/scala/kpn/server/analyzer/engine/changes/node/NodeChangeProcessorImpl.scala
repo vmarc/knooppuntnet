@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
@@ -8,8 +9,8 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.TagInterpreter
-import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.doc.NodeDoc
+import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -129,6 +130,8 @@ class NodeChangeProcessorImpl(
           removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
           facts = Seq.empty,
+          initialTags = Some(nodeDoc.tags),
+          initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
           tiles = nodeDoc.tiles
         )
       )
@@ -173,6 +176,9 @@ class NodeChangeProcessorImpl(
         networkChange.nodes.removed.contains(nodeId)
       }.map(_.toRef)
 
+      val allTiles = (nodeDocBefore.tiles ++ nodeDocAfter.tiles).distinct.sorted
+      val allLocations = (nodeDocBefore.locations ++ nodeDocAfter.locations).distinct.sorted
+
       Some(
         analyzed(
           NodeChange(
@@ -180,7 +186,7 @@ class NodeChangeProcessorImpl(
             key = key,
             changeType = ChangeType.Delete,
             subsets = subsets,
-            locations = nodeDocBefore.locations, // TODO + nodeDocAfter
+            locations = allLocations,
             name = nodeDocBefore.name,
             before = Some(nodeDocBefore.toMeta),
             after = Some(nodeDocAfter.toMeta),
@@ -195,7 +201,9 @@ class NodeChangeProcessorImpl(
             removedFromNetwork = removedFromNetwork,
             factDiffs = FactDiffs(),
             facts = lostNodeTagFacts,
-            tiles = nodeDocBefore.tiles // TODO + nodeDocAfter.tiles
+            initialTags = None,
+            initialLatLon = None,
+            tiles = allTiles
           )
         )
       )
@@ -250,6 +258,8 @@ class NodeChangeProcessorImpl(
           removedFromNetwork = Seq.empty,
           factDiffs = FactDiffs(),
           facts = Seq(Fact.Deleted),
+          initialTags = None,
+          initialLatLon = None,
           tiles = nodeDoc.tiles
         )
       )

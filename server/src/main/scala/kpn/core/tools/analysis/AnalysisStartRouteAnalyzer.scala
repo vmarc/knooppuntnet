@@ -104,9 +104,9 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         facts = routeAnalysis.route.facts,
         Seq.empty,
         investigate = facts.nonEmpty,
-        impact = facts.nonEmpty,
+        impact = true,
         locationInvestigate = locationFacts.nonEmpty,
-        locationImpact = locationFacts.nonEmpty
+        locationImpact = true
       )
     )
   }

@@ -97,7 +97,6 @@ class RoutePageBuilderImpl(
         routeNameInfo,
         changesFilter,
         history.changes,
-        history.incompleteWarning,
         totalCount,
         changeCount
       )

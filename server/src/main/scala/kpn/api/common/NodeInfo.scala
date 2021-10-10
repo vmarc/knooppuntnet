@@ -1,6 +1,5 @@
 package kpn.api.common
 
-import kpn.api.base.WithId
 import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
@@ -14,9 +13,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
 case class NodeInfo(
-  _id: Long,
-  id: Long, // TODO MONGO remove after migration
-  labels: Seq[String],
+  id: Long,
   active: Boolean,
   orphan: Boolean,
   country: Option[Country],
@@ -32,7 +29,7 @@ case class NodeInfo(
   tiles: Seq[String],
   integrity: Option[NodeIntegrity],
   routeReferences: Seq[Reference]
-) extends Tagable with LatLon with WithId {
+) extends Tagable with LatLon {
 
   def networkTypeName(networkType: NetworkType): String = {
     names.filter(_.networkType == networkType).map(_.name).mkString(" / ")

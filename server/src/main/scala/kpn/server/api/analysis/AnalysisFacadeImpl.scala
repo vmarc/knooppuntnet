@@ -58,7 +58,9 @@ import kpn.server.api.analysis.pages.network.NetworkFactsPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkMapPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkNodesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkRoutesPageBuilder
-import kpn.server.api.analysis.pages.node.NodePageBuilder
+import kpn.server.api.analysis.pages.node.NodeChangesPageBuilder
+import kpn.server.api.analysis.pages.node.NodeDetailsPageBuilder
+import kpn.server.api.analysis.pages.node.NodeMapPageBuilder
 import kpn.server.api.analysis.pages.route.RoutePageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
@@ -79,7 +81,9 @@ class AnalysisFacadeImpl(
   overviewRepository: StatisticsRepository,
   analysisRepository: AnalysisRepository,
   // ---
-  nodePageBuilder: NodePageBuilder,
+  nodeDetailsPageBuilder: NodeDetailsPageBuilder,
+  nodeMapPageBuilder: NodeMapPageBuilder,
+  nodeChangesPageBuilder: NodeChangesPageBuilder,
   routePageBuilder: RoutePageBuilder,
   networkDetailsPageBuilder: NetworkDetailsPageBuilder,
   networkMapPageBuilder: NetworkMapPageBuilder,
@@ -107,19 +111,19 @@ class AnalysisFacadeImpl(
 
   override def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage] = {
     api.execute(user, "node-details", s"$nodeId") {
-      reply(nodePageBuilder.buildDetailsPage(user, nodeId))
+      reply(nodeDetailsPageBuilder.build(user, nodeId))
     }
   }
 
   override def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage] = {
     api.execute(user, "node-map", s"$nodeId") {
-      reply(nodePageBuilder.buildMapPage(user, nodeId))
+      reply(nodeMapPageBuilder.build(user, nodeId))
     }
   }
 
   override def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage] = {
-    api.execute(user, "node-changes", s"$nodeId") { // TODO add parameters in args?
-      reply(nodePageBuilder.buildChangesPage(user, nodeId, parameters))
+    api.execute(user, "node-changes", s"node=$nodeId, ${parameters.toDisplayString}") {
+      reply(nodeChangesPageBuilder.build(user, nodeId, parameters))
     }
   }
 
@@ -136,7 +140,7 @@ class AnalysisFacadeImpl(
   }
 
   override def routeChanges(user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage] = {
-    api.execute(user, "route-changes", s"$routeId") {
+    api.execute(user, "route-changes", s"route=$routeId, ${parameters.toDisplayString}") {
       reply(routePageBuilder.buildChangesPage(user, routeId, parameters))
     }
   }
@@ -305,5 +309,4 @@ class AnalysisFacadeImpl(
     TimestampLocal.localize(response)
     response
   }
-
 }

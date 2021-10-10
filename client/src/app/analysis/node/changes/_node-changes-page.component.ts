@@ -79,10 +79,6 @@ import { NodeChangesService } from './node-changes.service';
             </kpn-item>
           </kpn-items>
         </kpn-changes>
-
-        <div *ngIf="page.incompleteWarning">
-          <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
-        </div>
       </div>
     </div>
   `,

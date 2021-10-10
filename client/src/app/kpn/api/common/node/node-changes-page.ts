@@ -8,7 +8,6 @@ export interface NodeChangesPage {
   readonly nodeName: string;
   readonly filter: ChangesFilter;
   readonly changes: NodeChangeInfo[];
-  readonly incompleteWarning: boolean;
   readonly totalCount: number;
   readonly changeCount: number;
 }

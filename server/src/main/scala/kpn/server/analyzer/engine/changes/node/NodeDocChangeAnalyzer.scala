@@ -7,8 +7,8 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Subset
-import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.doc.NodeDoc
+import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer.analyzed
@@ -47,6 +47,10 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
       val tagDiffs = analyzeTagDiffs
       val nodeMoved = analyzeNodeMoved
       val key = context.buildChangeKey(after._id)
+
+      val allLocations = (before.locations ++ after.locations).distinct.sorted
+      val allTiles = (before.tiles ++ after.tiles).distinct.sorted
+
       Some(
         analyzed(
           NodeChange(
@@ -54,7 +58,7 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
             key = key,
             changeType = ChangeType.Update,
             subsets = subsets,
-            locations = (before.locations ++ after.locations).distinct.sorted,
+            locations = allLocations,
             name = after.name,
             before = Some(before.toMeta),
             after = Some(after.toMeta),
@@ -69,7 +73,9 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
             removedFromNetwork = removedFromNetwork,
             factDiffs = FactDiffs(), // TODO MONGO should do better !!!
             facts = Seq.empty,
-            (before.tiles ++ after.tiles).distinct.sorted
+            initialTags = None,
+            initialLatLon = None,
+            allTiles
           )
         )
       )

@@ -45,6 +45,8 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
           mergedRemovedFromNetwork(),
           mergedFactDiffs(),
           mergedFacts(),
+          None,
+          None,
           tiles = (left.tiles ++ right.tiles).distinct.sorted
         )
       )

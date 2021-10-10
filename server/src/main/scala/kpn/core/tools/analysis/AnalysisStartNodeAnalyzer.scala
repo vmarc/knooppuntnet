@@ -1,5 +1,6 @@
 package kpn.core.tools.analysis
 
+import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.ChangeType
@@ -27,6 +28,36 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
         (s"completed (${analyzedNodeIds.size} nodes", ())
       }
     }
+  }
+
+  private def collectOverpassNodeIds(timestamp: Timestamp): Seq[Long] = {
+    log.info("Collecting overpass node ids")
+    log.infoElapsed {
+      val ids = config.overpassRepository.nodeIds(timestamp)
+      (s"Collected ${ids.size} overpass node ids", ids)
+    }
+  }
+
+  private def analyzeNodes(overpassNodeIds: Seq[Long]): Seq[Long] = {
+    val batchSize = 500
+    val updateFutures = overpassNodeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (nodeIdsBatch, index) =>
+      Future(
+        Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
+          log.infoElapsed {
+            val nodeDocs = config.bulkNodeAnalyzer.analyze(config.timestamp, nodeIdsBatch)
+            nodeDocs.foreach { nodeDoc =>
+              loadNodeChange(nodeDoc)
+            }
+            val ids = nodeDocs.map(_._id)
+            (s"analyzed ${ids.size} nodes: ${ids.mkString(", ")}", ids)
+          }
+        }
+      )
+    }.toSeq
+
+    val loadIdFuturesSeq = Future.sequence(updateFutures)
+    val updateResult = Await.result(loadIdFuturesSeq, Duration(2, TimeUnit.HOURS))
+    updateResult.flatten
   }
 
   private def loadNodeChange(nodeDoc: NodeDoc): Unit = {
@@ -65,42 +96,14 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
         removedFromNetwork = Seq.empty,
         factDiffs = FactDiffs(remaining = facts),
         facts = Seq.empty,
+        initialTags = Some(nodeDoc.tags),
+        initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
         tiles = nodeDoc.tiles,
         investigate = facts.nonEmpty,
-        impact = facts.nonEmpty,
+        impact = true,
         locationInvestigate = locationFacts.nonEmpty,
-        locationImpact = locationFacts.nonEmpty
+        locationImpact = true
       )
     )
-  }
-
-  private def collectOverpassNodeIds(timestamp: Timestamp): Seq[Long] = {
-    log.info("Collecting overpass node ids")
-    log.infoElapsed {
-      val ids = config.overpassRepository.nodeIds(timestamp)
-      (s"Collected ${ids.size} overpass node ids", ids)
-    }
-  }
-
-  private def analyzeNodes(overpassNodeIds: Seq[Long]): Seq[Long] = {
-    val batchSize = 500
-    val updateFutures = overpassNodeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (nodeIdsBatch, index) =>
-      Future(
-        Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
-          log.infoElapsed {
-            val nodeDocs = config.bulkNodeAnalyzer.analyze(config.timestamp, nodeIdsBatch)
-            nodeDocs.foreach { nodeDoc =>
-              loadNodeChange(nodeDoc)
-            }
-            val ids = nodeDocs.map(_._id)
-            (s"analyzed ${ids.size} nodes: ${ids.mkString(", ")}", ids)
-          }
-        }
-      )
-    }.toSeq
-
-    val loadIdFuturesSeq = Future.sequence(updateFutures)
-    val updateResult = Await.result(loadIdFuturesSeq, Duration(2, TimeUnit.HOURS))
-    updateResult.flatten
   }
 }

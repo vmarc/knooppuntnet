@@ -55,7 +55,7 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
         extraRelationDiffs = extraRelationDiffs,
         happy = false,
         investigate = investigate,
-        impact = investigate
+        impact = true
       )
     )
     config.networkInfoRepository.updateNetworkChangeCount(networkInfoDoc._id)

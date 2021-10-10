@@ -8,7 +8,6 @@ export interface RouteChangesPage {
   readonly routeNameInfo: RouteNameInfo;
   readonly filter: ChangesFilter;
   readonly changes: RouteChangeInfo[];
-  readonly incompleteWarning: boolean;
   readonly totalCount: number;
   readonly changeCount: number;
 }

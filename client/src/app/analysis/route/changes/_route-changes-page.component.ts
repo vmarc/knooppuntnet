@@ -73,9 +73,6 @@ import { RouteChangesService } from './route-changes.service';
               </kpn-item>
             </kpn-items>
           </kpn-changes>
-          <div *ngIf="page.incompleteWarning">
-            <kpn-history-incomplete-warning></kpn-history-incomplete-warning>
-          </div>
         </div>
       </div>
     </div>

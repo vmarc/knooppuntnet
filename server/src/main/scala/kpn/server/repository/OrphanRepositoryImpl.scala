@@ -1,13 +1,12 @@
 package kpn.server.repository
 
-import kpn.api.common.NodeInfo
 import kpn.api.common.OrphanRouteInfo
 import kpn.api.custom.Subset
+import kpn.core.doc.NodeDoc
 import kpn.database.actions.nodes.MongoQueryNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanRoutes
 import kpn.database.base.Database
-import kpn.core.doc.NodeDoc
 import org.springframework.stereotype.Component
 
 @Component

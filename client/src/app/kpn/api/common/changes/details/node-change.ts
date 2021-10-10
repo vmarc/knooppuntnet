@@ -4,12 +4,14 @@ import { ChangeKey } from './change-key';
 import { ChangeType } from '../../../custom/change-type';
 import { Fact } from '../../../custom/fact';
 import { FactDiffs } from '../../diff/common/fact-diffs';
+import { LatLonImpl } from '../../lat-lon-impl';
 import { MetaData } from '../../data/meta-data';
 import { NodeMoved } from '../../diff/node/node-moved';
 import { Ref } from '../../common/ref';
 import { RefBooleanChange } from './ref-boolean-change';
 import { Subset } from '../../../custom/subset';
 import { TagDiffs } from '../../diff/tag-diffs';
+import { Tags } from '../../../custom/tags';
 
 export interface NodeChange {
   readonly _id: string;
@@ -31,6 +33,8 @@ export interface NodeChange {
   readonly removedFromNetwork: Ref[];
   readonly factDiffs: FactDiffs;
   readonly facts: Fact[];
+  readonly initialTags: Tags;
+  readonly initialLatLon: LatLonImpl;
   readonly tiles: string[];
   readonly happy: boolean;
   readonly investigate: boolean;

@@ -36,7 +36,6 @@ object RouteChangesPageExample {
       ),
       ChangesFilter(Seq.empty),
       changes(),
-      incompleteWarning = true,
       totalCount = 3,
       changeCount = 3
     )
