@@ -18,7 +18,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNetworkInfoDoc(
       1,
       nodes = Seq(
-        newNetworkNodeDetail(
+        newNetworkInfoNodeDetail(
           1001,
           "01"
         )
@@ -53,7 +53,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newNetworkInfoDoc(
       1,
       nodes = Seq(
-        newNetworkNodeDetail(
+        newNetworkInfoNodeDetail(
           1001,
           "01"
         )
@@ -80,7 +80,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNetworkInfoDoc(
       1,
       nodes = Seq(
-        newNetworkNodeDetail(
+        newNetworkInfoNodeDetail(
           1001,
           "01"
         )
@@ -90,7 +90,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newNetworkInfoDoc(
       1,
       nodes = Seq(
-        newNetworkNodeDetail(
+        newNetworkInfoNodeDetail(
           1001,
           "02"
         )
@@ -117,7 +117,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNetworkInfoDoc(
       1,
       routes = Seq(
-        newNetworkRouteRow(
+        newNetworkInfoRouteDetail(
           11,
           "01-02"
         )
@@ -152,7 +152,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newNetworkInfoDoc(
       1,
       routes = Seq(
-        newNetworkRouteRow(
+        newNetworkInfoRouteDetail(
           11,
           "01-02"
         )
@@ -179,7 +179,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNetworkInfoDoc(
       1,
       routes = Seq(
-        newNetworkRouteRow(
+        newNetworkInfoRouteDetail(
           11,
           "01-02"
         )
@@ -189,7 +189,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newNetworkInfoDoc(
       1,
       routes = Seq(
-        newNetworkRouteRow(
+        newNetworkInfoRouteDetail(
           11,
           "01-03"
         )

@@ -9,6 +9,6 @@ case class MapNodeDetail(
   latitude: String,
   longitude: String,
   lastUpdated: Timestamp,
-  networkReferences: Seq[Reference], // TODO MONGO do we need this???
-  routeReferences: Seq[Reference] // TODO MONGO do we need this???
+  networkReferences: Seq[Reference],
+  routeReferences: Seq[Reference]
 )

@@ -1,10 +1,12 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.database.base.Database
+import kpn.api.custom.Fact
 import kpn.core.doc.Label
+import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.util.Log
+import kpn.core.util.NaturalSorting
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkRouteDetail
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -26,22 +28,30 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
     val routeDetails = queryRouteDetails(routeIds)
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)
-
     val enrichedRouteDetails = routeDetails.map { networkRouteDetail =>
-      context.networkDoc.relationMembers.find(_.relationId == networkRouteDetail.id).flatMap(_.role) match {
-        case Some(role) => networkRouteDetail.copy(role = Some(role))
-        case None => networkRouteDetail
+      val role = context.networkDoc.relationMembers.find(_.relationId == networkRouteDetail.id).flatMap(_.role) match {
+        case Some(role) => Some(role)
+        case None => None
       }
+      val investigate = networkRouteDetail.facts.contains(Fact.RouteBroken)
+      val accessible = !networkRouteDetail.facts.contains(Fact.RouteUnaccessible)
+      val roleConnection = role.contains("connection")
+      networkRouteDetail.copy(
+        role = role,
+        investigate = investigate,
+        accessible = accessible,
+        roleConnection = roleConnection,
+      )
     }
-
+    val sortedRouteDetails = NaturalSorting.sortBy(enrichedRouteDetails)(_.name)
     context.copy(
-      routeDetails = enrichedRouteDetails,
+      routeDetails = sortedRouteDetails,
       meters = meters,
       km = km,
     )
   }
 
-  private def queryRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
+  private def queryRouteDetails(routeIds: Seq[Long]): Seq[NetworkInfoRouteDetail] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -64,7 +74,7 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
           )
         )
       )
-      val routeDetails = database.routes.aggregate[NetworkRouteDetail](pipeline, log)
+      val routeDetails = database.routes.aggregate[NetworkInfoRouteDetail](pipeline, log)
       (s"routeDetails: ${routeDetails.size}", routeDetails)
     }
   }

@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.common.network.NetworkNodeDetail
-import kpn.database.base.Database
 import kpn.core.doc.Label
+import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.and
@@ -31,11 +31,11 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
     )
   }
 
-  private def analyzeNetworkNodes(context: NetworkInfoAnalysisContext, nodeDocs: Seq[NodeDoc]): Seq[NetworkNodeDetail] = {
+  private def analyzeNetworkNodes(context: NetworkInfoAnalysisContext, nodeDocs: Seq[NodeDoc]): Seq[NetworkInfoNodeDetail] = {
     val sortedNodeDocs = NaturalSorting.sortBy(nodeDocs)(_.name(context.scopedNetworkType))
     sortedNodeDocs.map { nodeDoc =>
       val networkDocAnalyzer = new NetworkDocAnalyzer(context, nodeDoc)
-      NetworkNodeDetail(
+      NetworkInfoNodeDetail(
         nodeDoc._id,
         nodeDoc.name(context.scopedNetworkType),
         networkDocAnalyzer.longName,

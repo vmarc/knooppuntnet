@@ -3,8 +3,6 @@ package kpn.core.doc
 import kpn.api.base.WithId
 import kpn.api.common.NetworkFact
 import kpn.api.common.network.NetworkDetail
-import kpn.api.common.network.NetworkNodeDetail
-import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
@@ -16,8 +14,8 @@ case class NetworkInfoDoc(
   summary: NetworkSummary,
   detail: NetworkDetail,
   facts: Seq[NetworkFact],
-  nodes: Seq[NetworkNodeDetail],
-  routes: Seq[NetworkRouteRow], // TODO MONGO use better name
+  nodes: Seq[NetworkInfoNodeDetail],
+  routes: Seq[NetworkInfoRouteDetail],
   extraNodeIds: Seq[Long],
   extraWayIds: Seq[Long],
   extraRelationIds: Seq[Long],

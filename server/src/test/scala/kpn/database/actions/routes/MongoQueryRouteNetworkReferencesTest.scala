@@ -63,7 +63,7 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
         networkScope = regional
       ),
       routes = routeIds.map(routeId =>
-        newNetworkRouteRow(routeId)
+        newNetworkInfoRouteDetail(routeId)
       )
     )
   }

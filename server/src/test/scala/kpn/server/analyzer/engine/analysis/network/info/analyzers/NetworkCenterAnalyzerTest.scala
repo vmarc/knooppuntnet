@@ -13,8 +13,8 @@ class NetworkCenterAnalyzerTest extends UnitTest with SharedTestObjects {
       analysisTimestamp = Timestamp.analysisStart,
       networkDoc = newNetwork(1L),
       nodeDetails = Seq(
-        newNetworkNodeDetail(1001L, latitude = "1", longitude = "1"),
-        newNetworkNodeDetail(1002L, latitude = "3", longitude = "3"),
+        newNetworkInfoNodeDetail(1001L, latitude = "1", longitude = "1"),
+        newNetworkInfoNodeDetail(1002L, latitude = "3", longitude = "3"),
       )
     )
     val context = NetworkCenterAnalyzer.analyze(initialContext)

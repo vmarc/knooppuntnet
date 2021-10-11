@@ -1,8 +1,9 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.database.base.Database
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import org.mongodb.scala.model.Aggregates.filter
@@ -22,11 +23,32 @@ class NetworkRoutesPageBuilder(database: Database) {
       Some(NetworkRoutesPageExample.page)
     }
     else {
-      mongoBuildPage(networkId)
+      query(networkId).map { data =>
+        NetworkRoutesPage(
+          timeInfo = TimeInfoBuilder.timeInfo,
+          surveyDateInfo = SurveyDateInfoBuilder.dateInfo,
+          networkType = data.summary.networkType,
+          summary = data.summary,
+          routes = data.routes.map { route =>
+            NetworkRouteRow(
+              route.id,
+              route.name,
+              route.length,
+              route.role,
+              route.investigate,
+              route.accessible,
+              route.roleConnection,
+              route.lastUpdated,
+              route.lastSurvey,
+              route.proposed
+            )
+          }
+        )
+      }
     }
   }
 
-  private def mongoBuildPage(networkId: Long): Option[NetworkRoutesPage] = {
+  private def query(networkId: Long): Option[NetworkRoutesPageData] = {
     val pipeline = Seq(
       filter(
         equal("_id", networkId)
@@ -38,12 +60,6 @@ class NetworkRoutesPageBuilder(database: Database) {
         )
       )
     )
-    database.networkInfos.optionAggregate[NetworkRoutesPage](pipeline, log).map { page =>
-      page.copy(
-        timeInfo = TimeInfoBuilder.timeInfo,
-        surveyDateInfo = SurveyDateInfoBuilder.dateInfo,
-      )
-    }
+    database.networkInfos.optionAggregate[NetworkRoutesPageData](pipeline, log)
   }
-
 }

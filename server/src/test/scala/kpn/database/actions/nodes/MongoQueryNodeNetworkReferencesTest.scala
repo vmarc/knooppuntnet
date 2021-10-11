@@ -51,7 +51,7 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
         networkScope = regional
       ),
       nodes = nodeIds.map(nodeId =>
-        newNetworkNodeDetail(nodeId)
+        newNetworkInfoNodeDetail(nodeId)
       )
     )
   }

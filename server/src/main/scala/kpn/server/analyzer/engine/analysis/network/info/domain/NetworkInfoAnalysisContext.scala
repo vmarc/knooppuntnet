@@ -3,8 +3,6 @@ package kpn.server.analyzer.engine.analysis.network.info.domain
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkFact
 import kpn.api.common.network.Integrity
-import kpn.api.common.network.NetworkNodeDetail
-import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Country
 import kpn.api.custom.Day
@@ -12,7 +10,8 @@ import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NodeDoc
+import kpn.core.doc.NetworkInfoNodeDetail
+import kpn.core.doc.NetworkInfoRouteDetail
 
 case class NetworkInfoAnalysisContext(
   analysisTimestamp: Timestamp,
@@ -23,9 +22,8 @@ case class NetworkInfoAnalysisContext(
   name: String = "",
   facts: Seq[Fact] = Seq.empty,
   networkFacts: Seq[NetworkFact] = Seq.empty,
-  nodeDetails: Seq[NetworkNodeDetail] = Seq.empty,
-  routeDetails: Seq[NetworkRouteDetail] = Seq.empty,
-  routes: Seq[NetworkRouteRow] = Seq.empty, // TODO MONGO use better name
+  nodeDetails: Seq[NetworkInfoNodeDetail] = Seq.empty,
+  routeDetails: Seq[NetworkInfoRouteDetail] = Seq.empty,
   extraNodeIds: Seq[Long] = Seq.empty,
   extraWayIds: Seq[Long] = Seq.empty,
   extraRelationIds: Seq[Long] = Seq.empty,

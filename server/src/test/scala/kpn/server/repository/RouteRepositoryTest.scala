@@ -35,7 +35,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
             name = "network-name"
           ),
           routes = Seq(
-            newNetworkRouteRow(
+            newNetworkInfoRouteDetail(
               10
             )
           )

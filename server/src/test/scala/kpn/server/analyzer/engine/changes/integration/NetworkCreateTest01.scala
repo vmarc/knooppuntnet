@@ -123,19 +123,19 @@ class NetworkCreateTest01 extends IntegrationTest {
           )
         ),
         nodes = Seq(
-          newNetworkNodeDetail(
+          newNetworkInfoNodeDetail(
             1001,
             "01",
             definedInRelation = true
           ),
-          newNetworkNodeDetail(
+          newNetworkInfoNodeDetail(
             1002,
             "02",
             definedInRelation = true
           )
         ),
         routes = Seq(
-          newNetworkRouteRow(
+          newNetworkInfoRouteDetail(
             11,
             "01-02"
           )

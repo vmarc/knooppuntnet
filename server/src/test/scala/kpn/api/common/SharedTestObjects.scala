@@ -44,8 +44,6 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.common.network.NetworkInfoNode
 import kpn.api.common.network.NetworkInfoRoute
-import kpn.api.common.network.NetworkNodeDetail
-import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
@@ -67,6 +65,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkInfoNodeDetail
+import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.doc.NetworkNodeMember
 import kpn.core.doc.NetworkRelationMember
 import kpn.core.doc.NetworkWayMember
@@ -1132,8 +1132,8 @@ trait SharedTestObjects extends MockFactory {
     summary: NetworkSummary = newNetworkSummary(),
     detail: NetworkDetail = newNetworkDetail(),
     facts: Seq[NetworkFact] = Seq.empty,
-    nodes: Seq[NetworkNodeDetail] = Seq.empty,
-    routes: Seq[NetworkRouteRow] = Seq.empty,
+    nodes: Seq[NetworkInfoNodeDetail] = Seq.empty,
+    routes: Seq[NetworkInfoRouteDetail] = Seq.empty,
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
     extraRelationIds: Seq[Long] = Seq.empty,
@@ -1175,7 +1175,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkNodeDetail(
+  def newNetworkInfoNodeDetail(
     id: Long,
     name: String = "",
     longName: String = "-",
@@ -1189,8 +1189,8 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     expectedRouteCount: Option[Long] = None,
     facts: Seq[Fact] = Seq.empty
-  ): NetworkNodeDetail = {
-    NetworkNodeDetail(
+  ): NetworkInfoNodeDetail = {
+    NetworkInfoNodeDetail(
       id,
       name,
       longName,
@@ -1207,7 +1207,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkRouteRow(
+  def newNetworkInfoRouteDetail(
     id: Long,
     name: String = "",
     length: Long = 0,
@@ -1217,9 +1217,12 @@ trait SharedTestObjects extends MockFactory {
     roleConnection: Boolean = false,
     lastUpdated: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
-    proposed: Boolean = false
-  ): NetworkRouteRow = {
-    NetworkRouteRow(
+    proposed: Boolean = false,
+    facts: Seq[Fact] = Seq.empty,
+    tags: Tags = Tags.empty,
+    nodeRefs: Seq[Long] = Seq.empty
+  ): NetworkInfoRouteDetail = {
+    NetworkInfoRouteDetail(
       id,
       name,
       length,
@@ -1229,7 +1232,10 @@ trait SharedTestObjects extends MockFactory {
       roleConnection,
       lastUpdated,
       lastSurvey,
-      proposed
+      proposed,
+      facts,
+      tags,
+      nodeRefs
     )
   }
 
@@ -1322,5 +1328,4 @@ trait SharedTestObjects extends MockFactory {
       labels
     }
   }
-
 }
