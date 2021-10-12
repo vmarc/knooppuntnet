@@ -1124,7 +1124,6 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-
   def newNetworkInfoDoc(
     _id: Long,
     active: Boolean = true,
@@ -1136,8 +1135,7 @@ trait SharedTestObjects extends MockFactory {
     routes: Seq[NetworkInfoRouteDetail] = Seq.empty,
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
-    extraRelationIds: Seq[Long] = Seq.empty,
-    nodeIds: Seq[Long] = Seq.empty
+    extraRelationIds: Seq[Long] = Seq.empty
   ): NetworkInfoDoc = {
     NetworkInfoDoc(
       _id,
@@ -1150,8 +1148,7 @@ trait SharedTestObjects extends MockFactory {
       routes,
       extraNodeIds,
       extraWayIds,
-      extraRelationIds,
-      nodeIds
+      extraRelationIds
     )
   }
 

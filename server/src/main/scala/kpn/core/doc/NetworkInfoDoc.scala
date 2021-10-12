@@ -18,8 +18,7 @@ case class NetworkInfoDoc(
   routes: Seq[NetworkInfoRouteDetail],
   extraNodeIds: Seq[Long],
   extraWayIds: Seq[Long],
-  extraRelationIds: Seq[Long],
-  nodeIds: Seq[Long] // contains both ids of nodes in network relation and route relations and ways // TODO MONGO still needed after NetworkUpdater implementation?
+  extraRelationIds: Seq[Long]
 ) extends WithId {
 
   def scopedNetworkType: ScopedNetworkType = {

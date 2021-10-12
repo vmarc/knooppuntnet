@@ -8,7 +8,7 @@ object ElementIdSet {
 
 class ElementIdSet {
 
-  private var idSet: scala.collection.concurrent.Map[Long, Unit] = TrieMap()
+  private val idSet: scala.collection.concurrent.Map[Long, Unit] = TrieMap()
 
   def size: Int = idSet.size
 

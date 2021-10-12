@@ -18,7 +18,7 @@ object ZipFile {
     val in = new ZipInputStream(new FileInputStream(filename))
     try {
       var entry = in.getNextEntry
-      var entries = ListBuffer[ZipFileEntry]()
+      val entries = ListBuffer[ZipFileEntry]()
       while (entry != null) {
         val out = new ByteArrayOutputStream()
         val buffer = new Array[Byte](2048)

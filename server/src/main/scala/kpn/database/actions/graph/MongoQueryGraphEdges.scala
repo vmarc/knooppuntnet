@@ -33,7 +33,7 @@ object MongoQueryGraphEdges extends MongoQuery {
 
   def main(args: Array[String]): Unit = {
     println("MongoQueryGraphEdges")
-    Mongo.executeIn("kpn-test-3") { database =>
+    Mongo.executeIn("kpn") { database =>
       val query = new MongoQueryGraphEdges(database)
       database.nodes.findById(0L)
       val t1 = System.currentTimeMillis()

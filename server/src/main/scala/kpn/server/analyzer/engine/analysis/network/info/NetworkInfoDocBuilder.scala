@@ -23,8 +23,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
       context.routeDetails,
       context.extraNodeIds,
       context.extraWayIds,
-      context.extraRelationIds,
-      context.nodeIds
+      context.extraRelationIds
     )
   }
 

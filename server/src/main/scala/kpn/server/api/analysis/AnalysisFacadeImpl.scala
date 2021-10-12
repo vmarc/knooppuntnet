@@ -41,7 +41,6 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.common.TimestampLocal
-import kpn.core.gpx.GpxFile
 import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
@@ -70,14 +69,12 @@ import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.NetworkRepository
 import kpn.server.repository.StatisticsRepository
 import org.springframework.stereotype.Component
 
 @Component
 class AnalysisFacadeImpl(
   api: Api,
-  networkRepository: NetworkRepository,
   overviewRepository: StatisticsRepository,
   analysisRepository: AnalysisRepository,
   // ---
@@ -178,12 +175,6 @@ class AnalysisFacadeImpl(
   override def networkChanges(user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage] = {
     api.execute(user, "network-changes", s"networkId=$networkId, ${parameters.toDisplayString}") {
       reply(networkChangesPageBuilder.build(user, networkId, parameters))
-    }
-  }
-
-  override def gpx(user: Option[String], networkId: Long): Option[GpxFile] = {
-    api.execute(user, "gpx", s"$networkId") {
-      networkRepository.gpx(networkId)
     }
   }
 

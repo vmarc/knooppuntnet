@@ -32,20 +32,20 @@ trait DatabaseCollection[T] {
   def aggregate[R: ClassTag](
     pipeline: Seq[Bson],
     log: Log = collectionLog,
-    duration: Duration = Duration(30, TimeUnit.SECONDS)
+    duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Seq[R]
 
   def optionAggregate[R: ClassTag](
     pipeline: Seq[Bson],
     log: Log = collectionLog,
-    duration: Duration = Duration(30, TimeUnit.SECONDS)
+    duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Option[R]
 
   def stringPipelineAggregate[R: ClassTag](
     pipelineString: String,
     pipelineArgs: Map[String, String],
     log: Log = collectionLog,
-    duration: Duration = Duration(30, TimeUnit.SECONDS)
+    duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Seq[R]
 
   def findOne[R: ClassTag](filter: Bson, log: Log = collectionLog): Option[R]

@@ -1,12 +1,10 @@
 package kpn.server.repository
 
-import kpn.api.common.network.NetworkInfo
-import kpn.core.gpx.GpxFile
-import kpn.database.actions.networks.MongoQueryNetworkIds
-import kpn.database.base.Database
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
+import kpn.database.actions.networks.MongoQueryNetworkIds
+import kpn.database.base.Database
 import org.springframework.stereotype.Component
 
 @Component
@@ -26,10 +24,6 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
     database.networks.findById(networkId, log)
   }
 
-  override def oldSaveNetworkInfo(network: NetworkInfo): Unit = {
-    throw new IllegalStateException("calling obsolete oldSaveNetworkInfo()")
-  }
-
   override def save(networkDoc: NetworkDoc): Unit = {
     database.networks.save(networkDoc, log)
   }
@@ -47,11 +41,4 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
     database.networkInfos.delete(networkId, log)
   }
 
-  override def gpx(networkId: Long): Option[GpxFile] = {
-    database.networkGpxs.findById(networkId, log)
-  }
-
-  override def saveGpxFile(gpxFile: GpxFile): Unit = {
-    database.networkGpxs.save(gpxFile, log)
-  }
 }

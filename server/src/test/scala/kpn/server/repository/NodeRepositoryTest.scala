@@ -1,9 +1,6 @@
 package kpn.server.repository
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.common.Reference
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -111,28 +108,27 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
       pending
 
-      new NetworkRepositoryImpl(database).oldSaveNetworkInfo(
-        newNetworkInfo(
-          newNetworkAttributes(
-            2,
-            name = "network-2"
-          ),
-          nodeRefs = Seq(1001)
-        )
-      )
-
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.nodeNetworkReferences(1001) should matchTo(
-        Seq(
-          Reference(
-            NetworkType.hiking,
-            NetworkScope.regional,
-            2,
-            "network-2"
-          )
-        )
-      )
+      //  new NetworkRepositoryImpl(database).oldSaveNetworkInfo(
+      //    newNetworkInfo(
+      //      newNetworkAttributes(
+      //        2,
+      //        name = "network-2"
+      //      ),
+      //      nodeRefs = Seq(1001)
+      //    )
+      //  )
+      //
+      //  val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+      //  nodeRepository.nodeNetworkReferences(1001) should matchTo(
+      //    Seq(
+      //      Reference(
+      //        NetworkType.hiking,
+      //        NetworkScope.regional,
+      //        2,
+      //        "network-2"
+      //      )
+      //    )
+      //  )
     }
   }
-
 }

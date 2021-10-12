@@ -27,7 +27,6 @@ case class NetworkInfoAnalysisContext(
   extraNodeIds: Seq[Long] = Seq.empty,
   extraWayIds: Seq[Long] = Seq.empty,
   extraRelationIds: Seq[Long] = Seq.empty,
-  nodeIds: Seq[Long] = Seq.empty, // contains both ids of nodes in network relation and route relations and ways // TODO MONGO still needed after NetworkUpdater implementation?
   changeCount: Long = 0,
   km: Long = 0,
   meters: Long = 0,

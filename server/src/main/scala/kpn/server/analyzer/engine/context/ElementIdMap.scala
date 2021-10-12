@@ -8,7 +8,7 @@ object ElementIdMap {
 
 class ElementIdMap {
 
-  private var elementMap: scala.collection.concurrent.Map[Long, ElementIds] = TrieMap()
+  private val elementMap: scala.collection.concurrent.Map[Long, ElementIds] = TrieMap()
 
   def size: Int = elementMap.size
 

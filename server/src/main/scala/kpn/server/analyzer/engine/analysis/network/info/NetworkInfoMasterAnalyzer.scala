@@ -50,10 +50,6 @@ class NetworkInfoMasterAnalyzer(
     networkInfoExtraAnalyzer,
     NetworkCenterAnalyzer,
     NetworkLastUpdatedAnalyzer
-    // TODO MONGO create network shape
-    // database.networkShapes.save(doc, log)
-    // TODO MONGO create network gpx
-    // database.networkGpxs.save(doc, log)
   )
 
   def updateAll(analysisTimestamp: Timestamp): Unit = {
