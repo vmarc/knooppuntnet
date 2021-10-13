@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.analysis.network.info
 
 import kpn.api.custom.Country
 import kpn.api.custom.Timestamp
-import kpn.database.base.Database
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCenterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoAnalyzer
@@ -12,6 +12,8 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoCha
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFactAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeMemberMissingAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoTagAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkLastUpdatedAnalyzer
@@ -26,10 +28,8 @@ import scala.annotation.tailrec
 @Component
 class NetworkInfoMasterAnalyzer(
   database: Database,
-  networkInfoTagAnalyzer: NetworkInfoTagAnalyzer,
   networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer,
   networkInfoNodeAnalyzer: NetworkInfoNodeAnalyzer,
-  networkInfoFactAnalyzer: NetworkInfoFactAnalyzer,
   networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer,
   networkCountryAnalyzer: NetworkCountryAnalyzer,
   networkInfoExtraAnalyzer: NetworkInfoExtraAnalyzer
@@ -41,10 +41,12 @@ class NetworkInfoMasterAnalyzer(
     NetworkTypeAnalyzer,
     NetworkSurveyAnalyzer,
     NetworkNameAnalyzer,
-    networkInfoTagAnalyzer,
+    NetworkInfoTagAnalyzer,
+    NetworkInfoProposedAnalyzer,
     networkInfoRouteAnalyzer,
     networkInfoNodeAnalyzer,
-    networkInfoFactAnalyzer,
+    NetworkInfoFactAnalyzer,
+    NetworkInfoNodeMemberMissingAnalyzer,
     networkInfoChangeAnalyzer,
     networkCountryAnalyzer,
     networkInfoExtraAnalyzer,

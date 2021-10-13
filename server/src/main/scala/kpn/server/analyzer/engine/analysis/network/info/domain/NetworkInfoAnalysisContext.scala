@@ -20,6 +20,7 @@ case class NetworkInfoAnalysisContext(
   previousKnownCountry: Option[Country] = None,
   country: Option[Country] = None,
   name: String = "",
+  proposed: Boolean = false,
   facts: Seq[Fact] = Seq.empty,
   networkFacts: Seq[NetworkFact] = Seq.empty,
   nodeDetails: Seq[NetworkInfoNodeDetail] = Seq.empty,

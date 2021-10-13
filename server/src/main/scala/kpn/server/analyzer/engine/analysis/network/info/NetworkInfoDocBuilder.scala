@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.network.info
 
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
+import kpn.api.custom.Fact
 import kpn.core.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
@@ -12,13 +13,17 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     val summary = buildSummary()
     val detail = buildDetail()
 
+    val facts = Fact.all.flatMap { fact => // use fact sorting order as defined in Fact class
+      context.networkFacts.filter(_.name == fact.name)
+    }
+
     NetworkInfoDoc(
       context.networkDoc._id,
       context.networkDoc.active,
       context.country,
       summary,
       detail,
-      context.networkFacts,
+      facts,
       context.nodeDetails,
       context.routeDetails,
       context.extraNodeIds,

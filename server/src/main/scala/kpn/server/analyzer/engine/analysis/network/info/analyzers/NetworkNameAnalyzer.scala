@@ -47,7 +47,7 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     }
   }
 
-  def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     new NetworkNameAnalyzer(context).analyze
   }
 }

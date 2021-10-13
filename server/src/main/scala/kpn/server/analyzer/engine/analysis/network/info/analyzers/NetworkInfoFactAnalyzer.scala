@@ -3,21 +3,31 @@ package kpn.server.analyzer.engine.analysis.network.info.analyzers
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
 import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotForward
+import kpn.core.util.Formatter
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
-import org.springframework.stereotype.Component
 
-@Component
-class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
-
+object NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+    new NetworkInfoFactAnalyzer(context).analyze()
+  }
+}
+
+class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
+
+  def analyze(): NetworkInfoAnalysisContext = {
+
     if (context.networkDoc.active) {
+
       val nodeFacts = collectNodeFacts(context)
       val routeFacts = collectRouteFacts(context)
       val networkFacts = collectNetworkFacts(context)
-      val facts = networkFacts ++ routeFacts ++ nodeFacts
 
-      val brokenRouteCount: Long = 0 // TODO MONGO
-      val brokenRoutePercentage: String = "-" // TODO MONGO
+      val facts = networkFacts ++ routeFacts ++ nodeFacts
+      val brokenRouteCount = context.routeDetails.count(_.facts.exists(_.isError))
+      val brokenRoutePercentage = Formatter.percentage(brokenRouteCount, context.routeDetails.size)
       val unaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteUnaccessible))
 
       context.copy(
@@ -54,7 +64,7 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
   }
 
   private def collectRouteFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.routeDetails.flatMap(_.facts).distinct.sortBy(_.name)
+    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.name)
     facts.map { fact =>
       val routes = context.routeDetails.filter(_.facts.contains(fact))
       val routeIds = routes.map(_.id)
@@ -69,7 +79,7 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
         Some("route"),
         Some(routeIds),
         Some(refs),
-        None // TODO MONGO checks: Option[Seq[Check]] = None ???
+        None
       )
     }
   }
@@ -91,5 +101,13 @@ class NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
     //  }
 
     Seq.empty
+  }
+
+  private def isIgnoredFact(fact: Fact): Boolean = {
+    Seq(
+      RouteBroken, // already covered by other facts
+      RouteNotForward, // already covered by RouteNotContinious
+      RouteNotBackward // already covered by RouteNotContinious
+    ).contains(fact)
   }
 }

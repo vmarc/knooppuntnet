@@ -1,13 +1,10 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.api.common.LatLonImpl
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 object NetworkCenterAnalyzer extends NetworkInfoAnalyzer {
-  private val log = Log(classOf[NetworkCenterAnalyzer])
-
-  def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     new NetworkCenterAnalyzer(context).analyze
   }
 }

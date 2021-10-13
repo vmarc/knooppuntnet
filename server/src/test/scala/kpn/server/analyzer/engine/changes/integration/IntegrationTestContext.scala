@@ -1,18 +1,16 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.core.data.Data
-import kpn.database.base.Database
 import kpn.core.test.OverpassData
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFactAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoTagAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
@@ -179,23 +177,18 @@ class IntegrationTestContext(
     nodeRepository
   )
 
-
   private val networkInfoMasterAnalyzer = {
 
-    val networkInfoTagAnalyzer = new NetworkInfoTagAnalyzer()
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
     val networkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
-    val networkInfoFactAnalyzer = new NetworkInfoFactAnalyzer()
     val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
     new NetworkInfoMasterAnalyzer(
       database,
-      networkInfoTagAnalyzer,
       networkInfoRouteAnalyzer,
       networkInfoNodeAnalyzer,
-      networkInfoFactAnalyzer,
       networkInfoChangeAnalyzer,
       networkCountryAnalyzer,
       networkInfoExtraAnalyzer

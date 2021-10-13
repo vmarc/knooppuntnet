@@ -1,12 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 object NetworkLastUpdatedAnalyzer extends NetworkInfoAnalyzer {
-  private val log = Log(classOf[NetworkLastUpdatedAnalyzer])
-
-  def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     new NetworkLastUpdatedAnalyzer(context).analyze
   }
 }

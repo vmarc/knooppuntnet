@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalys
 object NetworkTypeAnalyzer extends NetworkInfoAnalyzer {
   private val log = Log(classOf[NetworkTypeAnalyzer])
 
-  def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     new NetworkTypeAnalyzer(context).analyze
   }
 }

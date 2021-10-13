@@ -8,7 +8,7 @@ import scala.util.Failure
 import scala.util.Success
 
 object NetworkSurveyAnalyzer extends NetworkInfoAnalyzer {
-  def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
     new NetworkTypeAnalyzer(context).analyze
   }
 }
