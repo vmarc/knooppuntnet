@@ -1,0 +1,2329 @@
+{
+  "data_format": 1,
+  "data_url": "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/docs/taginfo.json",
+  "data_updated": "20211015T201507Z",
+  "project": {
+    "name": "knooppuntnet",
+    "description": "Route planner and quality analysis for walking and cycling networks",
+    "project_url": "https://github.com/vmarc/knooppuntnet",
+    "icon_url": "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/docs/logo.svg",
+    "contact_name": "Marc Vergouwen",
+    "contact_email": "taginfo@vmarc.be"
+  },
+  "tags": [
+    {
+      "key": "network:type",
+      "value": "node_network",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "node",
+        "relation"
+      ]
+    },
+    {
+      "key": "type",
+      "value": "network",
+      "description": "Used in node network analysis: network definition",
+      "object_types": [
+        "relation"
+      ]
+    },
+    {
+      "key": "type",
+      "value": "route",
+      "description": "Used in node network analysis: route definition",
+      "object_types": [
+        "relation"
+      ]
+    },
+    {
+      "key": "state",
+      "value": "proposed",
+      "description": "Used in node network analysis node definition",
+      "object_types": [
+        "node"
+      ]
+    },
+    {
+      "key": "tourism",
+      "value": "information",
+      "description": "Used in node network analysis node definition",
+      "object_types": [
+        "node"
+      ]
+    },
+    {
+      "key": "information",
+      "value": "map",
+      "description": "Used in node network analysis node definition",
+      "object_types": [
+        "node"
+      ]
+    },
+    {
+      "key": "information",
+      "value": "guidepost",
+      "description": "Used in node network analysis node definition",
+      "object_types": [
+        "node"
+      ]
+    },
+    {
+      "key": "source",
+      "value": "survey",
+      "description": "Used in node network analysis node definition",
+      "object_types": [
+        "node",
+        "relation"
+      ]
+    },
+    {
+      "key": "name",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "node",
+        "relation"
+      ]
+    },
+    {
+      "key": "ref",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "node",
+        "relation"
+      ]
+    },
+    {
+      "key": "state",
+      "value": "connection",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "node",
+        "relation"
+      ]
+    },
+    {
+      "key": "state",
+      "value": "alternate",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "node",
+        "relation"
+      ]
+    },
+    {
+      "key": "fixmetodo",
+      "description": "Used in node network analysis"
+    },
+    {
+      "key": "fixme",
+      "value": "incomplete",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "relation"
+      ]
+    },
+    {
+      "key": "direction",
+      "value": "forward",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "relation"
+      ]
+    },
+    {
+      "key": "direction",
+      "value": "backward",
+      "description": "Used in node network analysis",
+      "object_types": [
+        "relation"
+      ]
+    },
+    {
+      "key": "lwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_lwn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_rwn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_nwn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "iwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "iwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:iwn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:iwn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_iwn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lcn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lcn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lcn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lcn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_lcn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rcn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rcn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rcn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rcn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_rcn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "ncn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "ncn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:ncn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:ncn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_ncn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "icn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "icn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:icn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:icn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_icn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lhn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lhn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lhn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lhn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_lhn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rhn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rhn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rhn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rhn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_rhn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nhn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nhn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nhn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nhn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_nhn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "ihn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "ihn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:ihn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:ihn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_ihn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lpn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lpn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lpn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lpn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_lpn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rpn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rpn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rpn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rpn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_rpn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "npn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "npn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:npn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:npn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_npn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "ipn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "ipn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:ipn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:ipn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_ipn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lmn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lmn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lmn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lmn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_lmn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rmn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rmn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rmn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rmn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_rmn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nmn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nmn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nmn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nmn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_nmn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "imn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "imn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:imn_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:imn_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_imn_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "lin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:lin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_lin_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "rin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:rin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_rin_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "nin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:nin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_nin_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "iin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "iin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:iin_ref",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "proposed:iin_name",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "expected_iin_route_relations",
+      "description": "Used in node network analysis node definition"
+    },
+    {
+      "key": "network",
+      "value": "lwn",
+      "description": "Used in node network analysis - local hiking network"
+    },
+    {
+      "key": "network",
+      "value": "rwn",
+      "description": "Used in node network analysis - regional hiking network"
+    },
+    {
+      "key": "network",
+      "value": "nwn",
+      "description": "Used in node network analysis - national hiking network"
+    },
+    {
+      "key": "network",
+      "value": "iwn",
+      "description": "Used in node network analysis - international hiking network"
+    },
+    {
+      "key": "network",
+      "value": "lcn",
+      "description": "Used in node network analysis - local cycling network"
+    },
+    {
+      "key": "network",
+      "value": "rcn",
+      "description": "Used in node network analysis - regional cycling network"
+    },
+    {
+      "key": "network",
+      "value": "ncn",
+      "description": "Used in node network analysis - national cycling network"
+    },
+    {
+      "key": "network",
+      "value": "icn",
+      "description": "Used in node network analysis - international cycling network"
+    },
+    {
+      "key": "network",
+      "value": "lhn",
+      "description": "Used in node network analysis - local horse-riding network"
+    },
+    {
+      "key": "network",
+      "value": "rhn",
+      "description": "Used in node network analysis - regional horse-riding network"
+    },
+    {
+      "key": "network",
+      "value": "nhn",
+      "description": "Used in node network analysis - national horse-riding network"
+    },
+    {
+      "key": "network",
+      "value": "ihn",
+      "description": "Used in node network analysis - international horse-riding network"
+    },
+    {
+      "key": "network",
+      "value": "lpn",
+      "description": "Used in node network analysis - local canoe network"
+    },
+    {
+      "key": "network",
+      "value": "rpn",
+      "description": "Used in node network analysis - regional canoe network"
+    },
+    {
+      "key": "network",
+      "value": "npn",
+      "description": "Used in node network analysis - national canoe network"
+    },
+    {
+      "key": "network",
+      "value": "ipn",
+      "description": "Used in node network analysis - international canoe network"
+    },
+    {
+      "key": "network",
+      "value": "lmn",
+      "description": "Used in node network analysis - local motorboat network"
+    },
+    {
+      "key": "network",
+      "value": "rmn",
+      "description": "Used in node network analysis - regional motorboat network"
+    },
+    {
+      "key": "network",
+      "value": "nmn",
+      "description": "Used in node network analysis - national motorboat network"
+    },
+    {
+      "key": "network",
+      "value": "imn",
+      "description": "Used in node network analysis - international motorboat network"
+    },
+    {
+      "key": "network",
+      "value": "lin",
+      "description": "Used in node network analysis - local inline-skating network"
+    },
+    {
+      "key": "network",
+      "value": "rin",
+      "description": "Used in node network analysis - regional inline-skating network"
+    },
+    {
+      "key": "network",
+      "value": "nin",
+      "description": "Used in node network analysis - national inline-skating network"
+    },
+    {
+      "key": "network",
+      "value": "iin",
+      "description": "Used in node network analysis - international inline-skating network"
+    },
+    {
+      "key": "oneway",
+      "value": "yes",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "no",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "0",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "false",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "yes",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "1",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "true",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "-1",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "reverse",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "no",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "0",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "false",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "yes",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "1",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "true",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "-1",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "bicyle:oneway",
+      "value": "reverse",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway",
+      "value": "opposite",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway",
+      "value": "opposite_lane",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway",
+      "value": "opposite_track",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:left",
+      "value": "lane",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:left",
+      "value": "track",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:left",
+      "value": "opposite_lane",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:left",
+      "value": "opposite_track",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:right",
+      "value": "lane",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:right",
+      "value": "track",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:right",
+      "value": "opposite_lane",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "cycleway:right",
+      "value": "opposite_track",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "oneway:bicycle",
+      "value": "no",
+      "description": "Used in oneway analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway:virtual",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "waterway",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "waterway:virtual",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "route",
+      "value": "ferry",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "foot",
+      "value": "yes",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "foot",
+      "value": "no",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "horse",
+      "value": "yes",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "horse",
+      "value": "no",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "canoe",
+      "value": "portage",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "canoe",
+      "value": "yes",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "canoe",
+      "value": "no",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "inline_skates",
+      "value": "yes",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "inline_skates",
+      "value": "no",
+      "description": "Used in accessibility analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "paved",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "asphalt",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "asphalt:lanes",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "concrete",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "concrete:lanes",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "concrete:plates",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "paving_stones",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "paving_stones:30",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "paving_stones:lanes",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "sett",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "unhewn_cobblestone",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "cobblestone",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "cobblestone:flattened",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "metal",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "wood",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "unpaved",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "compacted",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "fine_gravel",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "gravel",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "pebblestone",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "dirt",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "earth",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "grass",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "grass_paver",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "gravel_turf",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "ground",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "mud",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "sand",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "woodchips",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "snow",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "ice",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "salt",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "roots",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "shell",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "shells",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "ash",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "bad",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "clay",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "cob",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "compact",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "erde",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "gr",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "loam",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "peb",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "soil",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "shotter",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "rock",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "surface",
+      "value": "turf",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "tracktype",
+      "value": "grade1",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "tracktype",
+      "value": "grade2",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "tracktype",
+      "value": "grade3",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "tracktype",
+      "value": "grade4",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "tracktype",
+      "value": "grade5",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "smoothness",
+      "value": "very_bad",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "smoothness",
+      "value": "horrible",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "smoothness",
+      "value": "very_horrible",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "smoothness",
+      "value": "impassable",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway",
+      "value": "path",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway",
+      "value": "bridleway",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway",
+      "value": "track",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway",
+      "value": "unsurfaced",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "highway",
+      "value": "footway",
+      "description": "surface analysis",
+      "object_types": [
+        "way"
+      ]
+    },
+    {
+      "key": "amenity",
+      "value": "charging_station",
+      "description": "Point of interest hiking-biking/ebike-charging"
+    },
+    {
+      "key": "bicycle",
+      "value": "yes",
+      "description": "Point of interest hiking-biking/ebike-charging"
+    },
+    {
+      "key": "shop",
+      "value": "bicycle",
+      "description": "Point of interest hiking-biking/bicycle"
+    },
+    {
+      "key": "amenity",
+      "value": "bicycle_rental",
+      "description": "Point of interest hiking-biking/bicycle-rental"
+    },
+    {
+      "key": "amenity",
+      "value": "bicycle_parking",
+      "description": "Point of interest hiking-biking/bicycle-parking"
+    },
+    {
+      "key": "tourism",
+      "value": "picnic_site",
+      "description": "Point of interest hiking-biking/picnic"
+    },
+    {
+      "key": "leisure",
+      "value": "picnic_table",
+      "description": "Point of interest hiking-biking/picnic"
+    },
+    {
+      "key": "amenity",
+      "value": "bench",
+      "description": "Point of interest hiking-biking/bench"
+    },
+    {
+      "key": "amenity",
+      "value": "toilets",
+      "description": "Point of interest hiking-biking/toilets"
+    },
+    {
+      "key": "amenity",
+      "value": "drinking_water",
+      "description": "Point of interest hiking-biking/drinking-water"
+    },
+    {
+      "key": "tourism",
+      "value": "information",
+      "description": "Point of interest hiking-biking/information"
+    },
+    {
+      "key": "tourism",
+      "value": "theme_park",
+      "description": "Point of interest hiking-biking/themepark"
+    },
+    {
+      "key": "tourism",
+      "value": "viewpoint",
+      "description": "Point of interest hiking-biking/viewpoint"
+    },
+    {
+      "key": "tourism",
+      "value": "attraction",
+      "description": "Point of interest hiking-biking/attraction"
+    },
+    {
+      "key": "emergency",
+      "value": "defibrillator",
+      "description": "Point of interest hiking-biking/defibrillator"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "description": "Point of interest landmarks/place-of-worship"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "description": "Point of interest landmarks/church"
+    },
+    {
+      "key": "religion",
+      "value": "christian",
+      "description": "Point of interest landmarks/church"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "description": "Point of interest landmarks/mosque"
+    },
+    {
+      "key": "religion",
+      "value": "muslim",
+      "description": "Point of interest landmarks/mosque"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "description": "Point of interest landmarks/buddhist-temple"
+    },
+    {
+      "key": "religion",
+      "value": "buddhist",
+      "description": "Point of interest landmarks/buddhist-temple"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "description": "Point of interest landmarks/hindu-temple"
+    },
+    {
+      "key": "religion",
+      "value": "hindu",
+      "description": "Point of interest landmarks/hindu-temple"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship",
+      "description": "Point of interest landmarks/synagogue"
+    },
+    {
+      "key": "religion",
+      "value": "jewish",
+      "description": "Point of interest landmarks/synagogue"
+    },
+    {
+      "key": "historic",
+      "value": "castle",
+      "description": "Point of interest landmarks/castle"
+    },
+    {
+      "key": "historic",
+      "value": "monument",
+      "description": "Point of interest landmarks/monument-memorial"
+    },
+    {
+      "key": "historic",
+      "value": "memorial",
+      "description": "Point of interest landmarks/monument-memorial"
+    },
+    {
+      "key": "historic",
+      "value": "statue",
+      "description": "Point of interest landmarks/statue"
+    },
+    {
+      "key": "man_made",
+      "value": "windmill",
+      "description": "Point of interest landmarks/windmill"
+    },
+    {
+      "key": "man_made",
+      "value": "watermill",
+      "description": "Point of interest landmarks/watermill"
+    },
+    {
+      "key": "tourism",
+      "value": "zoo",
+      "description": "Point of interest landmarks/zoo"
+    },
+    {
+      "key": "amenity",
+      "value": "bar",
+      "description": "Point of interest restaurants/bar"
+    },
+    {
+      "key": "amenity",
+      "value": "bbq",
+      "description": "Point of interest restaurants/bbq"
+    },
+    {
+      "key": "amenity",
+      "value": "biergarten",
+      "description": "Point of interest restaurants/biergarten"
+    },
+    {
+      "key": "amenity",
+      "value": "cafe",
+      "description": "Point of interest restaurants/cafe"
+    },
+    {
+      "key": "amenity",
+      "value": "fast_food",
+      "description": "Point of interest restaurants/fastfood"
+    },
+    {
+      "key": "amenity",
+      "value": "food_court",
+      "description": "Point of interest restaurants/foodcourt"
+    },
+    {
+      "key": "amenity",
+      "value": "ice_cream",
+      "description": "Point of interest restaurants/icecream"
+    },
+    {
+      "key": "cuisine",
+      "value": "ice_cream",
+      "description": "Point of interest restaurants/icecream"
+    },
+    {
+      "key": "amenity",
+      "value": "pub",
+      "description": "Point of interest restaurants/pub"
+    },
+    {
+      "key": "amenity",
+      "value": "restaurant",
+      "description": "Point of interest restaurants/restaurant"
+    },
+    {
+      "key": "tourism",
+      "value": "alpine_hut",
+      "description": "Point of interest places-to-stay/alpine-hut"
+    },
+    {
+      "key": "tourism",
+      "value": "apartment",
+      "description": "Point of interest places-to-stay/apartment"
+    },
+    {
+      "key": "tourism",
+      "value": "camp_site",
+      "description": "Point of interest places-to-stay/campsite"
+    },
+    {
+      "key": "tourism",
+      "value": "chalet",
+      "description": "Point of interest places-to-stay/chalet"
+    },
+    {
+      "key": "tourism",
+      "value": "guest_house",
+      "description": "Point of interest places-to-stay/guesthouse"
+    },
+    {
+      "key": "tourism",
+      "value": "bed_and_breakfast",
+      "description": "Point of interest places-to-stay/guesthouse"
+    },
+    {
+      "key": "tourism",
+      "value": "hostel",
+      "description": "Point of interest places-to-stay/hostel"
+    },
+    {
+      "key": "tourism",
+      "value": "hotel",
+      "description": "Point of interest places-to-stay/hotel"
+    },
+    {
+      "key": "tourism",
+      "value": "motel",
+      "description": "Point of interest places-to-stay/motel"
+    },
+    {
+      "key": "leisure",
+      "value": "spa",
+      "description": "Point of interest places-to-stay/spa"
+    },
+    {
+      "key": "leisure",
+      "value": "sauna",
+      "description": "Point of interest places-to-stay/sauna"
+    },
+    {
+      "key": "amenity",
+      "value": "arts_centre",
+      "description": "Point of interest tourism/arts-centre"
+    },
+    {
+      "key": "leisure",
+      "value": "casino",
+      "description": "Point of interest tourism/casino"
+    },
+    {
+      "key": "amenity",
+      "value": "casino",
+      "description": "Point of interest tourism/casino"
+    },
+    {
+      "key": "tourism",
+      "value": "gallery",
+      "description": "Point of interest tourism/gallery"
+    },
+    {
+      "key": "natural",
+      "value": "tree",
+      "description": "Point of interest tourism/monumental-tree"
+    },
+    {
+      "key": "monument",
+      "value": "yes",
+      "description": "Point of interest tourism/monumental-tree"
+    },
+    {
+      "key": "tourism",
+      "value": "museum",
+      "description": "Point of interest tourism/museum"
+    },
+    {
+      "key": "landuse",
+      "value": "vineyard",
+      "description": "Point of interest tourism/vineyard"
+    },
+    {
+      "key": "tourism",
+      "value": "yes",
+      "description": "Point of interest tourism/tourism"
+    },
+    {
+      "key": "amenity",
+      "value": "atm",
+      "description": "Point of interest amenity/atm"
+    },
+    {
+      "key": "amenity",
+      "value": "bank",
+      "description": "Point of interest amenity/atm"
+    },
+    {
+      "key": "amenity",
+      "value": "bank",
+      "description": "Point of interest amenity/bank"
+    },
+    {
+      "key": "amenity",
+      "value": "cinema",
+      "description": "Point of interest amenity/cinema"
+    },
+    {
+      "key": "amenity",
+      "value": "clinic",
+      "description": "Point of interest amenity/clinic"
+    },
+    {
+      "key": "amenity",
+      "value": "embassy",
+      "description": "Point of interest amenity/embassy"
+    },
+    {
+      "key": "amenity",
+      "value": "firestation",
+      "description": "Point of interest amenity/firestation"
+    },
+    {
+      "key": "amenity",
+      "value": "fuel",
+      "description": "Point of interest amenity/fuel"
+    },
+    {
+      "key": "amenity",
+      "value": "hospital",
+      "description": "Point of interest amenity/hospital"
+    },
+    {
+      "key": "amenity",
+      "value": "library",
+      "description": "Point of interest amenity/library"
+    },
+    {
+      "key": "amenity",
+      "value": "music_school",
+      "description": "Point of interest amenity/musicschool"
+    },
+    {
+      "key": "amenity",
+      "value": "parking",
+      "description": "Point of interest amenity/parking"
+    },
+    {
+      "key": "amenity",
+      "value": "pharmacy",
+      "description": "Point of interest amenity/pharmacy"
+    },
+    {
+      "key": "amenity",
+      "value": "police",
+      "description": "Point of interest amenity/police"
+    },
+    {
+      "key": "amenity",
+      "value": "post_box",
+      "description": "Point of interest amenity/postbox"
+    },
+    {
+      "key": "amenity",
+      "value": "post_office",
+      "description": "Point of interest amenity/postoffice"
+    },
+    {
+      "key": "amenity",
+      "value": "school",
+      "description": "Point of interest amenity/school-college"
+    },
+    {
+      "key": "amenity",
+      "value": "college",
+      "description": "Point of interest amenity/school-college"
+    },
+    {
+      "key": "amenity",
+      "value": "taxi",
+      "description": "Point of interest amenity/taxi"
+    },
+    {
+      "key": "amenity",
+      "value": "theatre",
+      "description": "Point of interest amenity/theatre"
+    },
+    {
+      "key": "amenity",
+      "value": "university",
+      "description": "Point of interest amenity/university"
+    },
+    {
+      "key": "landuse",
+      "value": "cemetery",
+      "description": "Point of interest amenity/cemetery"
+    },
+    {
+      "key": "highway",
+      "value": "bus_stop",
+      "description": "Point of interest amenity/busstop"
+    },
+    {
+      "key": "shop",
+      "value": "beauty",
+      "description": "Point of interest shops/beauty"
+    },
+    {
+      "key": "shop",
+      "value": "books",
+      "description": "Point of interest shops/books-stationary"
+    },
+    {
+      "key": "shop",
+      "value": "stationary",
+      "description": "Point of interest shops/books-stationary"
+    },
+    {
+      "key": "shop",
+      "value": "car",
+      "description": "Point of interest shops/car"
+    },
+    {
+      "key": "shop",
+      "value": "chemist",
+      "description": "Point of interest shops/chemist"
+    },
+    {
+      "key": "shop",
+      "value": "clothes",
+      "description": "Point of interest shops/clothes"
+    },
+    {
+      "key": "shop",
+      "value": "copyshop",
+      "description": "Point of interest shops/copyshop"
+    },
+    {
+      "key": "shop",
+      "value": "cosmetics",
+      "description": "Point of interest shops/cosmetics"
+    },
+    {
+      "key": "shop",
+      "value": "department_store",
+      "description": "Point of interest shops/departmentstore"
+    },
+    {
+      "key": "shop",
+      "value": "doityourself",
+      "description": "Point of interest shops/diy-hardware"
+    },
+    {
+      "key": "shop",
+      "value": "hardware",
+      "description": "Point of interest shops/diy-hardware"
+    },
+    {
+      "key": "shop",
+      "value": "garden_centre",
+      "description": "Point of interest shops/garden-centre"
+    },
+    {
+      "key": "shop",
+      "value": "general",
+      "description": "Point of interest shops/general"
+    },
+    {
+      "key": "shop",
+      "value": "gift",
+      "description": "Point of interest shops/gift"
+    },
+    {
+      "key": "shop",
+      "value": "hairdresser",
+      "description": "Point of interest shops/hairdresser"
+    },
+    {
+      "key": "shop",
+      "value": "jewelry",
+      "description": "Point of interest shops/jewelry"
+    },
+    {
+      "key": "shop",
+      "value": "jewellery",
+      "description": "Point of interest shops/jewelry"
+    },
+    {
+      "key": "shop",
+      "value": "kiosk",
+      "description": "Point of interest shops/kiosk"
+    },
+    {
+      "key": "shop",
+      "value": "leather",
+      "description": "Point of interest shops/leather"
+    },
+    {
+      "key": "amenity",
+      "value": "marketplace",
+      "description": "Point of interest shops/marketplace"
+    },
+    {
+      "key": "shop",
+      "value": "musical_instrument",
+      "description": "Point of interest shops/musical-instrument"
+    },
+    {
+      "key": "shop",
+      "value": "optician",
+      "description": "Point of interest shops/optician"
+    },
+    {
+      "key": "shop",
+      "value": "pet",
+      "description": "Point of interest shops/pets"
+    },
+    {
+      "key": "shop",
+      "value": "mobile_phone",
+      "description": "Point of interest shops/phone"
+    },
+    {
+      "key": "shop",
+      "value": "photo",
+      "description": "Point of interest shops/photo"
+    },
+    {
+      "key": "shop",
+      "value": "shoes",
+      "description": "Point of interest shops/shoes"
+    },
+    {
+      "key": "shop",
+      "value": "mall",
+      "description": "Point of interest shops/shoppingcentre"
+    },
+    {
+      "key": "shop",
+      "value": "textiles",
+      "description": "Point of interest shops/textiles"
+    },
+    {
+      "key": "shop",
+      "value": "toys",
+      "description": "Point of interest shops/toys"
+    },
+    {
+      "key": "shop",
+      "value": "travel_agency",
+      "description": "Point of interest shops/travelagency"
+    },
+    {
+      "key": "shop",
+      "value": "alcohol",
+      "description": "Point of interest foodshops/alcohol"
+    },
+    {
+      "key": "shop",
+      "value": "bakery",
+      "description": "Point of interest foodshops/bakery"
+    },
+    {
+      "key": "shop",
+      "value": "beverages",
+      "description": "Point of interest foodshops/beverages"
+    },
+    {
+      "key": "shop",
+      "value": "butcher",
+      "description": "Point of interest foodshops/butcher"
+    },
+    {
+      "key": "shop",
+      "value": "cheese",
+      "description": "Point of interest foodshops/cheese"
+    },
+    {
+      "key": "shop",
+      "value": "chocolate",
+      "description": "Point of interest foodshops/chocolate"
+    },
+    {
+      "key": "shop",
+      "value": "confectionery",
+      "description": "Point of interest foodshops/confectionery"
+    },
+    {
+      "key": "shop",
+      "value": "coffee",
+      "description": "Point of interest foodshops/coffee"
+    },
+    {
+      "key": "shop",
+      "value": "dairy",
+      "description": "Point of interest foodshops/dairy"
+    },
+    {
+      "key": "shop",
+      "value": "deli",
+      "description": "Point of interest foodshops/deli"
+    },
+    {
+      "key": "shop",
+      "value": "grocery",
+      "description": "Point of interest foodshops/grocery"
+    },
+    {
+      "key": "shop",
+      "value": "organic",
+      "description": "Point of interest foodshops/organic"
+    },
+    {
+      "key": "shop",
+      "value": "seafood",
+      "description": "Point of interest foodshops/seafood"
+    },
+    {
+      "key": "shop",
+      "value": "supermarket",
+      "description": "Point of interest foodshops/supermarket"
+    },
+    {
+      "key": "shop",
+      "value": "wine",
+      "description": "Point of interest foodshops/wine"
+    },
+    {
+      "key": "sport",
+      "value": "american_football",
+      "description": "Point of interest sports/american-football"
+    },
+    {
+      "key": "sport",
+      "value": "baseball",
+      "description": "Point of interest sports/baseball"
+    },
+    {
+      "key": "sport",
+      "value": "basketball",
+      "description": "Point of interest sports/basketball"
+    },
+    {
+      "key": "sport",
+      "value": "cycling",
+      "description": "Point of interest sports/cycling"
+    },
+    {
+      "key": "sport",
+      "value": "gymnastics",
+      "description": "Point of interest sports/gymnastics"
+    },
+    {
+      "key": "leisure",
+      "value": "golf_course",
+      "description": "Point of interest sports/golf"
+    },
+    {
+      "key": "sport",
+      "value": "golf",
+      "description": "Point of interest sports/golf"
+    },
+    {
+      "key": "sport",
+      "value": "hockey",
+      "description": "Point of interest sports/hockey"
+    },
+    {
+      "key": "sport",
+      "value": "field_hockey",
+      "description": "Point of interest sports/hockey"
+    },
+    {
+      "key": "sport",
+      "value": "horse_racing",
+      "description": "Point of interest sports/horseracing"
+    },
+    {
+      "key": "sport",
+      "value": "equestrian",
+      "description": "Point of interest sports/horseracing"
+    },
+    {
+      "key": "sport",
+      "value": "ice_hockey",
+      "description": "Point of interest sports/icehockey"
+    },
+    {
+      "key": "leisure",
+      "value": "ice_rink",
+      "description": "Point of interest sports/icehockey"
+    },
+    {
+      "key": "sport",
+      "value": "soccer",
+      "description": "Point of interest sports/soccer"
+    },
+    {
+      "key": "leisure",
+      "value": "sports_centre",
+      "description": "Point of interest sports/sportscentre"
+    },
+    {
+      "key": "sport",
+      "value": "surfing",
+      "description": "Point of interest sports/surfing"
+    },
+    {
+      "key": "sport",
+      "value": "swimming",
+      "description": "Point of interest sports/swimming"
+    },
+    {
+      "key": "sport",
+      "value": "tennis",
+      "description": "Point of interest sports/tennis"
+    },
+    {
+      "key": "sport",
+      "value": "volleybal",
+      "description": "Point of interest sports/volleyball"
+    }
+  ]
+}

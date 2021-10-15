@@ -1,13 +1,18 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.data.Way
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.highwayUnpaved
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiSurfacePaved
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiSurfaceUnpaved
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiTracktypePaved
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiTracktypeUnpaved
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiUnpavedSmoothness
 
-
-class SurfaceAnalyzer(way: Way) {
+object SurfaceAnalyzer {
 
   // https://wiki.openstreetmap.org/wiki/Key:surface
 
-  private val wikiSurfacePaved = Seq(
+  val wikiSurfacePaved = Seq(
     "paved",
     "asphalt",
     "asphalt:lanes", // added
@@ -25,7 +30,7 @@ class SurfaceAnalyzer(way: Way) {
     "wood"
   )
 
-  private val wikiSurfaceUnpaved = Seq(
+  val wikiSurfaceUnpaved = Seq(
     "unpaved",
     "compacted",
     "fine_gravel",
@@ -49,23 +54,34 @@ class SurfaceAnalyzer(way: Way) {
   )
 
   // wiki smoothness values not used to determine paved/unpaved: excellent, good, intermediate, bad
-  private val wikiUnpavedSmoothness = Seq(
+  val wikiUnpavedSmoothness = Seq(
     "very_bad",
     "horrible",
     "very_horrible",
     "impassable"
   )
 
-  private val wikiTracktypePaved = Seq(
+  val wikiTracktypePaved = Seq(
     "grade1"
   )
 
-  private val wikiTracktypeUnpaved = Seq(
+  val wikiTracktypeUnpaved = Seq(
     "grade2",
     "grade3",
     "grade4",
     "grade5"
   )
+
+  val highwayUnpaved = Seq(
+    "path",
+    "bridleway",
+    "track",
+    "unsurfaced",
+    "footway"
+  )
+}
+
+class SurfaceAnalyzer(way: Way) {
 
   def surface(): String = {
 
@@ -84,15 +100,11 @@ class SurfaceAnalyzer(way: Way) {
     else if (way.tags.has("smoothness", wikiUnpavedSmoothness: _*)) {
       "unpaved"
     }
-    else if (way.tags.has("highway", "bridleway", "track", "unsurfaced", "footway")) {
-      "unpaved"
-    }
-    else if (way.tags.has("highway", "path")) {
+    else if (way.tags.has("highway", highwayUnpaved: _*)) {
       "unpaved"
     }
     else {
       "paved"
     }
   }
-
 }
