@@ -24,7 +24,7 @@ object LocationRoutesPageExample {
           name = "01-02",
           meters = 100,
           lastUpdated = Timestamp(2018, 8, 11),
-          lastSurvey = Some(Day(2018, 8, None)),
+          lastSurvey = Some(Day(2018, 8)),
           broken = true,
           accessible = false
         ),

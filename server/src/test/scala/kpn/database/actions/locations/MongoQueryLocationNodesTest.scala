@@ -132,7 +132,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           names = Seq(
             newNodeName(name = "01")
           ),
-          lastSurvey = Some(Day(2020, 8, None))
+          lastSurvey = Some(Day(2020, 8))
         )
       )
 
@@ -162,7 +162,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "0",
             "0",
             defaultTimestamp,
-            Some(Day(2020, 8, None)),
+            Some(Day(2020, 8)),
             0,
             "-",
             Seq.empty

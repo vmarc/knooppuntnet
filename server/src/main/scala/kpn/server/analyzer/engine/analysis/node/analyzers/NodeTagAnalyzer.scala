@@ -1,11 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.NodeName
-import kpn.api.common.data.Node
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
@@ -18,9 +15,9 @@ import scala.util.Success
 
 object NodeTagAnalyzer {
 
-  def analyze(node: Node): Option[NodeTagAnalysis] = {
-    if (node.tags.has("network:type", "node_network")) {
-      analyzeTags(node.tags)
+  def analyze(tags: Tags): Option[NodeTagAnalysis] = {
+    if (tags.has("network:type", "node_network")) {
+      analyzeTags(tags)
     }
     else {
       None
@@ -34,7 +31,7 @@ object NodeTagAnalyzer {
       None
     }
     else {
-      val name = findName(tags) // TODO MONGO derive from nodeNames instead of going back to the basics
+      val name = nodeNames.map(_.name).mkString(" / ")
       val lastSurvey = analyzeSurvey(tags, facts)
       Some(
         NodeTagAnalysis(
@@ -52,7 +49,7 @@ object NodeTagAnalyzer {
     surveyDateTry match {
       case Success(v) => v
       case Failure(_) =>
-        facts :+ Fact.NodeInvalidSurveyDate
+        facts.addOne(Fact.NodeInvalidSurveyDate)
         None
     }
   }
@@ -69,19 +66,7 @@ object NodeTagAnalyzer {
           proposed = name.proposed
         )
       }
-    }
-  }
-
-  private def findName(tags: Tags): String = {
-    NetworkType.all.flatMap { networkType =>
-      NetworkScope.all.flatMap { networkScope =>
-        scopedName(ScopedNetworkType.from(networkScope, networkType), tags)
-      }.distinct
-    }.mkString(" / ")
-  }
-
-  private def scopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[String] = {
-    determineScopedName(scopedNetworkType, tags).map(_.name)
+    }.sortBy(_.name)
   }
 
   private def determineScopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[Name] = {

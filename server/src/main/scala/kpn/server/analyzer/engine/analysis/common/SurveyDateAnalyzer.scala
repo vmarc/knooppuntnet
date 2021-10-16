@@ -30,8 +30,7 @@ class SurveyDateAnalyzer(tags: Tags) {
               Some(
                 Day(
                   year.toInt,
-                  month.toInt,
-                  None
+                  month.toInt
                 )
               )
             )

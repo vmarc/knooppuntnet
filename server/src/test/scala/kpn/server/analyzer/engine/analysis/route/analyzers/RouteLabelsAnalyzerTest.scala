@@ -60,7 +60,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       analysisContext = analysisContext,
       relation,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
-      lastSurvey = Some(Day(2020, 8, None)),
+      lastSurvey = Some(Day(2020, 8)),
       facts = Seq(Fact.RouteBroken),
       locationAnalysis = Some(
         RouteLocationAnalysis(

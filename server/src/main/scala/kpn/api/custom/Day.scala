@@ -19,7 +19,7 @@ object Day {
       val yearString = string.substring(0, 4)
       val monthString = string.substring(5, 7)
       if (Util.isDigits(yearString) && Util.isDigits(monthString)) {
-        Some(Day(yearString.toInt, monthString.toInt, None))
+        Some(Day(yearString.toInt, monthString.toInt))
       }
       else {
         None
@@ -31,7 +31,7 @@ object Day {
   }
 }
 
-case class Day(year: Int, month: Int, day: Option[Int]) {
+case class Day(year: Int, month: Int, day: Option[Int] = None) {
 
   def yyyymm: String = f"$year-$month%02d"
 

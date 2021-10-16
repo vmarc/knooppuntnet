@@ -19,11 +19,11 @@ class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("survey month") {
-    testSurveyDate(Some("2020-08")) should equal(Some(Day(2020, 8, None)))
+    testSurveyDate(Some("2020-08")) should equal(Some(Day(2020, 8)))
   }
 
   test("source=survey + source:date=2020-08") {
-    testSourceDate(Some("2020-08")) should equal(Some(Day(2020, 8, None)))
+    testSourceDate(Some("2020-08")) should equal(Some(Day(2020, 8)))
   }
 
   test("invalid syntax") {

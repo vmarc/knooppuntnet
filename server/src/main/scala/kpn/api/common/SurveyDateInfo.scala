@@ -3,9 +3,9 @@ package kpn.api.common
 import kpn.api.custom.Day
 
 case class SurveyDateInfo(
-  now: Day = Day(0, 1, None),
-  lastMonthStart: Day = Day(0, 1, None),
-  lastHalfYearStart: Day = Day(0, 1, None),
-  lastYearStart: Day = Day(0, 1, None),
-  lastTwoYearsStart: Day = Day(0, 1, None)
+  now: Day = Day(0, 1),
+  lastMonthStart: Day = Day(0, 1),
+  lastHalfYearStart: Day = Day(0, 1),
+  lastYearStart: Day = Day(0, 1),
+  lastTwoYearsStart: Day = Day(0, 1)
 )
