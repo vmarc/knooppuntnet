@@ -57,7 +57,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "0",
             defaultTimestamp,
             None,
-            0,
+            Seq.empty,
             "-",
             Seq.empty
           ),
@@ -69,7 +69,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "0",
             defaultTimestamp,
             None,
-            0,
+            Seq.empty,
             "-",
             Seq.empty
           )
@@ -163,7 +163,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "0",
             defaultTimestamp,
             Some(Day(2020, 8)),
-            0,
+            Seq.empty,
             "-",
             Seq.empty
           )
@@ -294,7 +294,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "0",
             defaultTimestamp,
             None,
-            1,
+            Seq(Fact.NodeInvalidSurveyDate),
             "-",
             Seq.empty
           )

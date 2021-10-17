@@ -63,15 +63,7 @@ object TimestampUtil {
   }
 
   def parseIso(string: String): Timestamp = {
-    if (string.length == "2020-08-11 12:34:56".length && string(10) == ' ') {
-      // this was added to support the migration of timestamps in the monitor documents
-      // TODO MONGO can be removed after mongodb migration is complete
-      val modified = string.replaceAll(" ", "T") + "Z"
-      toTimestamp(ZonedDateTime.parse(modified + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
-    }
-    else {
-      toTimestamp(ZonedDateTime.parse(string + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
-    }
+    toTimestamp(ZonedDateTime.parse(string + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
   }
 
   def fromMilliSeconds(milliSeconds: Long): Timestamp = {

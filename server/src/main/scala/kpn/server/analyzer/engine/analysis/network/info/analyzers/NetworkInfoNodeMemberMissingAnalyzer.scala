@@ -30,7 +30,7 @@ class NetworkInfoNodeMemberMissingAnalyzer(context: NetworkInfoAnalysisContext) 
       val fact = NetworkFact(
         Fact.NodeMemberMissing.name,
         Some("node"),
-        Some(missingNodeDetails.map(_.id)),
+        None,
         Some(missingNodeDetails.map(_.toRef)),
         None
       )

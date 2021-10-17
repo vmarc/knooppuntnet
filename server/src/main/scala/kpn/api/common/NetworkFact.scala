@@ -5,6 +5,7 @@ import kpn.api.common.common.Ref
 case class NetworkFact(
   name: String,
   elementType: Option[String] = None,
+  // either 'elementIds' is filled in or 'elements', not both at the same time
   elementIds: Option[Seq[Long]] = None,
   elements: Option[Seq[Ref]] = None,
   checks: Option[Seq[Check]] = None

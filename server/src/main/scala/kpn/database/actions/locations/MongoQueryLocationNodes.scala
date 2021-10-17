@@ -11,11 +11,11 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Label
+import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationNodes.log
 import kpn.database.base.Database
-import kpn.core.doc.Label
 import kpn.database.util.Mongo
-import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -151,8 +151,8 @@ class MongoQueryLocationNodes(database: Database) {
           doc.longitude,
           doc.lastUpdated,
           doc.lastSurvey,
-          doc.facts.size, // TODO MONGO remove? this is not used in the userinterface??
-          expectedRouteCount, // TODO MONGO include in NodeInfo directly??
+          doc.facts,
+          expectedRouteCount,
           doc.routeReferences.filter(_.networkType == networkType)
         )
       }
