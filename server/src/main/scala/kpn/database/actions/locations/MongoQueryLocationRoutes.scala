@@ -4,11 +4,8 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
-import kpn.database.actions.locations.MongoQueryLocationRoutes.log
-import kpn.database.base.Database
 import kpn.core.doc.Label
-import kpn.database.util.Mongo
-import kpn.core.util.Log
+import kpn.database.base.Database
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -23,37 +20,6 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
-
-object MongoQueryLocationRoutes {
-
-  private val log = Log(classOf[MongoQueryLocationRoutes])
-
-  def main(args: Array[String]): Unit = {
-    println("MongoQueryLocationRoutes")
-    Mongo.executeIn("kpn-test") { database =>
-      val query = new MongoQueryLocationRoutes(database)
-      //findNodesByLocation(query)
-      findNodesByLocationBelgium(query)
-    }
-  }
-
-  def findNodesByLocation(query: MongoQueryLocationRoutes): Unit = {
-    val networkType = NetworkType.hiking
-    val locationRouteInfos = query.find(networkType, "Essen BE", LocationRoutesType.all, 0, 3)
-    locationRouteInfos.zipWithIndex.foreach { case (locationNodeInfo, index) =>
-      println(s"  ${index + 1} id: ${locationNodeInfo.id}, name: ${locationNodeInfo.name}, survey: ${locationNodeInfo.lastSurvey}")
-    }
-  }
-
-  def findNodesByLocationBelgium(query: MongoQueryLocationRoutes): Unit = {
-    val networkType = NetworkType.hiking
-    query.find(networkType, "be", LocationRoutesType.all, 0, 1)
-    val locationRouteInfos = query.find(networkType, "be", LocationRoutesType.inaccessible, 0, 50)
-    locationRouteInfos.zipWithIndex.foreach { case (locationRouteInfo, index) =>
-      println(s"  ${index + 1} id: ${locationRouteInfo.id}, name: ${locationRouteInfo.name}, survey: ${locationRouteInfo.lastSurvey}")
-    }
-  }
-}
 
 class MongoQueryLocationRoutes(database: Database) {
 
@@ -83,8 +49,8 @@ class MongoQueryLocationRoutes(database: Database) {
           computed("meters", "$summary.meters"),
           include("lastUpdated"),
           include("lastSurvey"),
-          computed("broken", "$summary.isBroken"), // TODO MONGO $in attributes?
-          computed("accessible", true /*"""$summary.isBroken"""*/), // TODO MONGO $in attributes?
+          computed("broken", "$summary.broken"),
+          computed("unaccessible", "$summary.unaccessible")
         )
       )
     )
@@ -101,7 +67,7 @@ class MongoQueryLocationRoutes(database: Database) {
       Some(equal("labels", Label.networkType(networkType))),
       Some(equal("labels", Label.location(location))),
       locationRoutesType match {
-        case LocationRoutesType.inaccessible => Some(equal("labels", Label.fact(Fact.RouteUnaccessible)))
+        case LocationRoutesType.unaccessible => Some(equal("labels", Label.fact(Fact.RouteUnaccessible)))
         case LocationRoutesType.facts => Some(equal("labels", Label.facts))
         case LocationRoutesType.survey => Some(equal("labels", Label.survey))
         case _ => None

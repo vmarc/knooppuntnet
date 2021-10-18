@@ -29,12 +29,12 @@ class LocationRoutesPageBuilderImpl(locationRepository: LocationRepository) exte
 
     val allRouteCount = locationRepository.routeCount(locationKey, LocationRoutesType.all)
     val factsRouteCount = locationRepository.routeCount(locationKey, LocationRoutesType.facts)
-    val inaccessibleRouteCount = locationRepository.routeCount(locationKey, LocationRoutesType.inaccessible)
+    val unaccessibleRouteCount = locationRepository.routeCount(locationKey, LocationRoutesType.unaccessible)
     val surveyRouteCount = locationRepository.routeCount(locationKey, LocationRoutesType.survey)
     val routeCount = parameters.locationRoutesType match {
       case LocationRoutesType.all => allRouteCount
       case LocationRoutesType.facts => factsRouteCount
-      case LocationRoutesType.inaccessible => inaccessibleRouteCount
+      case LocationRoutesType.unaccessible => unaccessibleRouteCount
       case LocationRoutesType.survey => surveyRouteCount
       case _ => 0
     }
@@ -46,7 +46,7 @@ class LocationRoutesPageBuilderImpl(locationRepository: LocationRepository) exte
         routeCount,
         allRouteCount,
         factsRouteCount,
-        inaccessibleRouteCount,
+        unaccessibleRouteCount,
         surveyRouteCount,
         routes
       )

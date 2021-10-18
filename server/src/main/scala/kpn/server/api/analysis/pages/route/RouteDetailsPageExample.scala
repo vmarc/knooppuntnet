@@ -181,7 +181,8 @@ object RouteDetailsPageExample {
         networkScope = NetworkScope.regional,
         name = "01-02",
         meters = 1234,
-        isBroken = true,
+        broken = true,
+        unaccessible = true,
         wayCount = 10,
         timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
         nodeNames = Seq(
