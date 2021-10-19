@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
-import kpn.api.custom.Fact.RouteUnaccessible
+import kpn.api.custom.Fact.RouteInaccessible
 import kpn.core.analysis.LinkType
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
@@ -24,7 +24,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
     val routeMembers = analyzeRouteMembers(context.routeNodeAnalysis.get)
     if (routeMembers.exists(!_.accessible)) {
-      context.copy(routeMembers = Some(routeMembers)).withFact(RouteUnaccessible)
+      context.copy(routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
     else {
       context.copy(routeMembers = Some(routeMembers))

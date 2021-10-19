@@ -69,7 +69,7 @@ object NetworkDetailsPageExample {
         okRate = "10%",
         nokRate = "20%"
       ),
-      unaccessibleRouteCount = 1,
+      inaccessibleRouteCount = 1,
       connectionCount = 2,
       lastUpdated = Timestamp(2020, 1, 1),
       relationLastUpdated = Timestamp(2019, 1, 1),

@@ -111,9 +111,9 @@ import { Component, Input } from '@angular/core';
       <kpn-fact-route-tag-missing
         *ngSwitchCase="'RouteTagMissing'"
       ></kpn-fact-route-tag-missing>
-      <kpn-fact-route-unaccessible
-        *ngSwitchCase="'RouteUnaccessible'"
-      ></kpn-fact-route-unaccessible>
+      <kpn-fact-route-inaccessible
+        *ngSwitchCase="'RouteInaccessible'"
+      ></kpn-fact-route-inaccessible>
       <kpn-fact-route-unexpected-node
         *ngSwitchCase="'RouteUnexpectedNode'"
       ></kpn-fact-route-unexpected-node>

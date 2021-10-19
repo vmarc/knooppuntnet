@@ -182,7 +182,7 @@ object RouteDetailsPageExample {
         name = "01-02",
         meters = 1234,
         broken = true,
-        unaccessible = true,
+        inaccessible = true,
         wayCount = 10,
         timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
         nodeNames = Seq(

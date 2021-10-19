@@ -50,7 +50,7 @@ import { FactRouteRedundantNodesComponent } from './descriptions/fact-route-redu
 import { FactRouteSuspiciousWaysComponent } from './descriptions/fact-route-suspicious-ways.component';
 import { FactRouteTagInvalidComponent } from './descriptions/fact-route-tag-invalid.component';
 import { FactRouteTagMissingComponent } from './descriptions/fact-route-tag-missing.component';
-import { FactRouteUnaccessibleComponent } from './descriptions/fact-route-unaccessible.component';
+import { FactRouteInaccessibleComponent } from './descriptions/fact-route-inaccessible.component';
 import { FactRouteUnexpectedNodeComponent } from './descriptions/fact-route-unexpected-node.component';
 import { FactRouteUnexpectedRelationComponent } from './descriptions/fact-route-unexpected-relation.component';
 import { FactRouteUnusedSegmentsComponent } from './descriptions/fact-route-unused-segments.component';
@@ -103,7 +103,7 @@ import { FactsComponent } from './facts.component';
     FactOrphanNodeComponent,
     FactRouteIncompleteComponent,
     FactRouteIncompleteOkComponent,
-    FactRouteUnaccessibleComponent,
+    FactRouteInaccessibleComponent,
     FactRouteNodeNameMismatchComponent,
     FactRouteNotForwardComponent,
     FactRouteNotBackwardComponent,

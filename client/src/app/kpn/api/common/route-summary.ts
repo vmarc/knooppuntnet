@@ -13,7 +13,8 @@ export interface RouteSummary {
   readonly networkScope: NetworkScope;
   readonly name: string;
   readonly meters: number;
-  readonly isBroken: boolean;
+  readonly broken: boolean;
+  readonly inaccessible: boolean;
   readonly wayCount: number;
   readonly timestamp: Timestamp;
   readonly nodeNames: string[];

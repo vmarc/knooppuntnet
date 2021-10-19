@@ -28,12 +28,12 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
       val facts = networkFacts ++ routeFacts ++ nodeFacts
       val brokenRouteCount = context.routeDetails.count(_.facts.exists(_.isError))
       val brokenRoutePercentage = Formatter.percentage(brokenRouteCount, context.routeDetails.size)
-      val unaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteUnaccessible))
+      val inaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteInaccessible))
 
       context.copy(
         brokenRouteCount = brokenRouteCount,
         brokenRoutePercentage = brokenRoutePercentage,
-        unaccessibleRouteCount = unaccessibleRouteCount,
+        inaccessibleRouteCount = inaccessibleRouteCount,
         networkFacts = facts
       )
     }

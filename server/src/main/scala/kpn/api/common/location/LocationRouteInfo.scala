@@ -10,5 +10,5 @@ case class LocationRouteInfo(
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   broken: Boolean,
-  unaccessible: Boolean
+  inaccessible: Boolean
 )

@@ -12,7 +12,7 @@ case class SubsetNetworksPage(
   brokenRouteNetworkPercentage: String,
   brokenRouteCount: Long,
   brokenRoutePercentage: String,
-  unaccessibleRouteCount: Long,
+  inaccessibleRouteCount: Long,
   analysisUpdatedTime: String,
   networks: Seq[NetworkAttributes]
 )

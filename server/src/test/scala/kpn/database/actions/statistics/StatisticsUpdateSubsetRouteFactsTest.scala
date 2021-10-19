@@ -9,7 +9,7 @@ import kpn.api.custom.Country.nl
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteFixmetodo
-import kpn.api.custom.Fact.RouteUnaccessible
+import kpn.api.custom.Fact.RouteInaccessible
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
@@ -22,7 +22,7 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
   test("execute") {
     withDatabase { database =>
 
-      buildRoute(database, 11L, nl, hiking, Seq(RouteBroken, RouteUnaccessible))
+      buildRoute(database, 11L, nl, hiking, Seq(RouteBroken, RouteInaccessible))
       buildRoute(database, 12L, nl, hiking, Seq(RouteBroken, RouteFixmetodo))
       buildRoute(database, 13L, nl, cycling, Seq(RouteBroken))
       buildRoute(database, 14L, de, hiking, Seq(RouteBroken))
@@ -51,7 +51,7 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
             )
           ),
           StatisticValues(
-            "RouteUnaccessibleCount",
+            "RouteInaccessibleCount",
             Seq(
               StatisticValue(nl, hiking, 1)
             )

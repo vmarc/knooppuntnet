@@ -459,13 +459,13 @@ export class OverviewService {
 
     configurations.push(
       new StatisticConfiguration(
-        'RouteUnaccessibleCount',
-        'RouteUnaccessible',
+        'RouteInaccessibleCount',
+        'RouteInaccessible',
         true,
         factDetailCounts,
-        $localize`:@@stats.route-unaccessible.name:RouteUnaccessible`,
-        $localize`:@@stats.route-unaccessible.comment:
-          Number of [unaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.`
+        $localize`:@@stats.route-inaccessible.name:RouteInaccessible`,
+        $localize`:@@stats.route-inaccessible.comment:
+          Number of [inaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.`
       )
     );
 

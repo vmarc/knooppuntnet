@@ -151,7 +151,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       title,
       length,
       facts.exists(_.isError),
-      facts.contains(Fact.RouteUnaccessible),
+      facts.contains(Fact.RouteInaccessible),
       routeWays.size,
       context.relation.timestamp,
       nodeNames,

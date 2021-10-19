@@ -5,6 +5,8 @@ import kpn.api.custom.Fact
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
 import kpn.core.doc.Label
+import kpn.core.util.Log
+import kpn.database.actions.locations.MongoQueryLocationRoutes.log
 import kpn.database.base.Database
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
@@ -20,6 +22,10 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
+
+object MongoQueryLocationRoutes {
+  private val log = Log(classOf[MongoQueryLocationRoutes])
+}
 
 class MongoQueryLocationRoutes(database: Database) {
 
@@ -50,7 +56,7 @@ class MongoQueryLocationRoutes(database: Database) {
           include("lastUpdated"),
           include("lastSurvey"),
           computed("broken", "$summary.broken"),
-          computed("unaccessible", "$summary.unaccessible")
+          computed("inaccessible", "$summary.inaccessible")
         )
       )
     )
@@ -67,7 +73,7 @@ class MongoQueryLocationRoutes(database: Database) {
       Some(equal("labels", Label.networkType(networkType))),
       Some(equal("labels", Label.location(location))),
       locationRoutesType match {
-        case LocationRoutesType.unaccessible => Some(equal("labels", Label.fact(Fact.RouteUnaccessible)))
+        case LocationRoutesType.inaccessible => Some(equal("labels", Label.fact(Fact.RouteInaccessible)))
         case LocationRoutesType.facts => Some(equal("labels", Label.facts))
         case LocationRoutesType.survey => Some(equal("labels", Label.survey))
         case _ => None

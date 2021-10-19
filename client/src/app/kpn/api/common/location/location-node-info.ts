@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { Day } from '../../custom/day';
+import { Fact } from '../../custom/fact';
 import { Reference } from '../common/reference';
 import { Timestamp } from '../../custom/timestamp';
 
@@ -12,7 +13,7 @@ export interface LocationNodeInfo {
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
-  readonly factCount: number;
+  readonly facts: Fact[];
   readonly expectedRouteCount: string;
   readonly routeReferences: Reference[];
 }

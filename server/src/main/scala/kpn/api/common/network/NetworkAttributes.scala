@@ -20,7 +20,7 @@ case class NetworkAttributes(
   brokenRouteCount: Long,
   brokenRoutePercentage: String,
   integrity: Integrity,
-  unaccessibleRouteCount: Long,
+  inaccessibleRouteCount: Long,
   connectionCount: Long,
   lastUpdated: Timestamp,
   relationLastUpdated: Timestamp,

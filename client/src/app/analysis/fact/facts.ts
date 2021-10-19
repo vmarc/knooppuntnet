@@ -46,7 +46,7 @@ export class Facts {
     new FactDefinition('RouteSuspiciousWays', FactLevel.error),
     new FactDefinition('RouteTagInvalid', FactLevel.error),
     new FactDefinition('RouteTagMissing', FactLevel.error),
-    new FactDefinition('RouteUnaccessible', FactLevel.info),
+    new FactDefinition('RouteInaccessible', FactLevel.info),
     new FactDefinition('RouteUnexpectedNode', FactLevel.error),
     new FactDefinition('RouteUnexpectedRelation', FactLevel.error),
     new FactDefinition('RouteUnusedSegments', FactLevel.error),

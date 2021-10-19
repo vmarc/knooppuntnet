@@ -14,7 +14,7 @@ class OverpassQueryExecutorRemoteImpl() extends OverpassQueryExecutor {
 
   def execute(queryString: String): String = {
     log.debugElapsed {
-      val url: String = "http://kpn-analysis:9011/api/overpass"
+      val url: String = "http://kpn-analysis:9005/api/overpass"
       val headers = new HttpHeaders()
       headers.setContentType(MediaType.TEXT_PLAIN)
       val entity = new HttpEntity[String](queryString, headers)

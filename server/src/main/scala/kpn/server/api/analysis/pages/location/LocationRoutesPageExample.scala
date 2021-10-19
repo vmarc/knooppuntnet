@@ -26,7 +26,7 @@ object LocationRoutesPageExample {
           lastUpdated = Timestamp(2018, 8, 11),
           lastSurvey = Some(Day(2018, 8)),
           broken = true,
-          unaccessible = false
+          inaccessible = false
         ),
         LocationRouteInfo(
           id = 102,
@@ -35,7 +35,7 @@ object LocationRoutesPageExample {
           lastUpdated = Timestamp(2018, 8, 13),
           lastSurvey = None,
           broken = false,
-          unaccessible = true
+          inaccessible = true
         )
       )
     )

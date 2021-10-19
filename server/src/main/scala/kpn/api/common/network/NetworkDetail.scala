@@ -15,7 +15,7 @@ case class NetworkDetail(
   brokenRouteCount: Long,
   brokenRoutePercentage: String,
   integrity: Integrity,
-  unaccessibleRouteCount: Long,
+  inaccessibleRouteCount: Long,
   connectionCount: Long,
   center: Option[LatLonImpl],
 )

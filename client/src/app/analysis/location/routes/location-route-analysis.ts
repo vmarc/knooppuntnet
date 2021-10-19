@@ -12,7 +12,7 @@ import { NetworkType } from '@api/custom/network-type';
         [investigate]="route.broken"
       ></kpn-route-investigate-indicator>
       <kpn-route-accessible-indicator
-        [accessible]="route.accessible"
+        [accessible]="!route.inaccessible"
         [networkType]="networkType"
       ></kpn-route-accessible-indicator>
     </div>

@@ -37,7 +37,7 @@ export class LocationNodeFactIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color;
-    if (this.node.factCount > 0) {
+    if (this.node.facts.length > 0) {
       color = 'red';
     } else {
       color = 'green';

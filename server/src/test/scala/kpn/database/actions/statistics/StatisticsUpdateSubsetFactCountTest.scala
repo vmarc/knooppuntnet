@@ -142,7 +142,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
   }
 
   private def buildRoutes(database: Database): Unit = {
-    buildRoute(database, 11L, nl, hiking, Seq(Fact.RouteNotForward, Fact.RouteUnaccessible))
+    buildRoute(database, 11L, nl, hiking, Seq(Fact.RouteNotForward, Fact.RouteInaccessible))
     buildRoute(database, 12L, nl, hiking, Seq(Fact.RouteNotForward, Fact.RouteNotBackward))
     buildRoute(database, 13L, nl, hiking, Seq.empty)
     buildRoute(database, 14L, de, hiking, Seq(Fact.RouteNotForward))

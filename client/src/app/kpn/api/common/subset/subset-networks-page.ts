@@ -13,7 +13,7 @@ export interface SubsetNetworksPage {
   readonly brokenRouteNetworkPercentage: string;
   readonly brokenRouteCount: number;
   readonly brokenRoutePercentage: string;
-  readonly unaccessibleRouteCount: number;
+  readonly inaccessibleRouteCount: number;
   readonly analysisUpdatedTime: string;
   readonly networks: NetworkAttributes[];
 }

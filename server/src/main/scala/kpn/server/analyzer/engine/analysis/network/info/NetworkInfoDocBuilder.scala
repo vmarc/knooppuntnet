@@ -55,7 +55,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
       context.brokenRouteCount,
       context.brokenRoutePercentage,
       context.integrity,
-      context.unaccessibleRouteCount,
+      context.inaccessibleRouteCount,
       context.connectionCount,
       context.center
     )

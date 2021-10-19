@@ -44,7 +44,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("not broken") {
-    val context = buildContext().copy(facts = Seq(Fact.RouteUnaccessible))
+    val context = buildContext().copy(facts = Seq(Fact.RouteInaccessible))
     val labels = RouteLabelsAnalyzer.analyze(context).labels
     labels should contain(Label.facts)
     labels should not contain "broken"

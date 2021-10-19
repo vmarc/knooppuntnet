@@ -15,7 +15,7 @@ case class RouteSummary(
   name: String,
   meters: Long,
   broken: Boolean,
-  unaccessible: Boolean,
+  inaccessible: Boolean,
   wayCount: Long,
   timestamp: Timestamp,
   nodeNames: Seq[String],

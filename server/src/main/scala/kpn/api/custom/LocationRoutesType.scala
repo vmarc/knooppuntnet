@@ -8,10 +8,10 @@ object LocationRoutesType {
 
   val all: LocationRoutesType = LocationRoutesType("all")
   val facts: LocationRoutesType = LocationRoutesType("facts")
-  val unaccessible: LocationRoutesType = LocationRoutesType("unaccessible")
+  val inaccessible: LocationRoutesType = LocationRoutesType("inaccessible")
   val survey: LocationRoutesType = LocationRoutesType("survey")
 
-  val allValues: Seq[LocationRoutesType] = Seq(all, facts, unaccessible, survey)
+  val allValues: Seq[LocationRoutesType] = Seq(all, facts, inaccessible, survey)
 }
 
 case class LocationRoutesType(name: String)

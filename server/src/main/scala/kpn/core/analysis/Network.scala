@@ -6,7 +6,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Country
-import kpn.api.custom.Fact.RouteUnaccessible
+import kpn.api.custom.Fact.RouteInaccessible
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
@@ -127,7 +127,7 @@ case class Network(
 
   def integrityCheckNokCount: Int = integrityCheckCount - integrityCheckOkCount
 
-  def unAccessibleRouteCount: Int = routes.count(_.routeAnalysis.route.facts.contains(RouteUnaccessible))
+  def inaccessibleRouteCount: Int = routes.count(_.routeAnalysis.route.facts.contains(RouteInaccessible))
 
   def extraMemberNodeIds: Seq[Long] = {
     facts.networkExtraMemberNode match {

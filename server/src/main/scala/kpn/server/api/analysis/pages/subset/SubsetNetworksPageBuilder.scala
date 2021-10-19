@@ -52,7 +52,7 @@ class SubsetNetworksPageBuilder(
         networkInfoDoc.detail.brokenRouteCount,
         networkInfoDoc.detail.brokenRoutePercentage,
         networkInfoDoc.detail.integrity,
-        networkInfoDoc.detail.unaccessibleRouteCount,
+        networkInfoDoc.detail.inaccessibleRouteCount,
         networkInfoDoc.detail.connectionCount,
         networkInfoDoc.detail.lastUpdated,
         networkInfoDoc.detail.relationLastUpdated,
@@ -70,7 +70,7 @@ class SubsetNetworksPageBuilder(
       brokenRouteNetworkPercentage = brokenRouteNetworkPercentage,
       brokenRouteCount = brokenRouteCount,
       brokenRoutePercentage = brokenRoutePercentage,
-      unaccessibleRouteCount = networks.map(_.detail.unaccessibleRouteCount).sum,
+      inaccessibleRouteCount = networks.map(_.detail.inaccessibleRouteCount).sum,
       analysisUpdatedTime = "TODO",
       networks = xx
     )

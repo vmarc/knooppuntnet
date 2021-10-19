@@ -36,7 +36,7 @@ case class NetworkInfoAnalysisContext(
   brokenRouteCount: Long = 0,
   brokenRoutePercentage: String = "-",
   integrity: Integrity = Integrity(),
-  unaccessibleRouteCount: Long = 0,
+  inaccessibleRouteCount: Long = 0,
   connectionCount: Long = 0,
   center: Option[LatLonImpl] = None,
   shape: Option[NetworkShape] = None,

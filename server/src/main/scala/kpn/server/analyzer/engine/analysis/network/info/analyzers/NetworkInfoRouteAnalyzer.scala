@@ -33,7 +33,7 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
         case None => None
       }
       val investigate = networkRouteDetail.facts.contains(Fact.RouteBroken)
-      val accessible = !networkRouteDetail.facts.contains(Fact.RouteUnaccessible)
+      val accessible = !networkRouteDetail.facts.contains(Fact.RouteInaccessible)
       val roleConnection = role.contains("connection")
       networkRouteDetail.copy(
         role = role,

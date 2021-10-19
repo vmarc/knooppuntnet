@@ -24,7 +24,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
               <th i18n="@@route.members.table.length">Length</th>
               <th i18n="@@route.members.table.node-count">#Nodes</th>
               <th i18n="@@route.members.table.name">Name</th>
-              <th i18n="@@route.members.table.unaccessible">Unaccessible</th>
+              <th i18n="@@route.members.table.inaccessible">Inaccessible</th>
               <th
                 colSpan="2"
                 *ngIf="networkType === 'cycling'"

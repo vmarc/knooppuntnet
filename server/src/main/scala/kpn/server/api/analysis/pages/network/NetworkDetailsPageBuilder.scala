@@ -44,7 +44,7 @@ class NetworkDetailsPageBuilder(database: Database) {
         networkInfoDoc.detail.brokenRouteCount,
         networkInfoDoc.detail.brokenRoutePercentage,
         networkInfoDoc.detail.integrity,
-        networkInfoDoc.detail.unaccessibleRouteCount,
+        networkInfoDoc.detail.inaccessibleRouteCount,
         networkInfoDoc.detail.connectionCount,
         networkInfoDoc.detail.lastUpdated,
         networkInfoDoc.detail.relationLastUpdated,

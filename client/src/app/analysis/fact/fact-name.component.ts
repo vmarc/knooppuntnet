@@ -81,8 +81,8 @@ export class FactNameComponent implements OnInit {
       this.factName = $localize`:@@fact.name.route-tag-invalid:RouteTagInvalid`;
     } else if (this.fact === 'RouteTagMissing') {
       this.factName = $localize`:@@fact.name.route-tag-missing:RouteTagMissing`;
-    } else if (this.fact === 'RouteUnaccessible') {
-      this.factName = $localize`:@@fact.name.route-unaccessible:RouteUnaccessible`;
+    } else if (this.fact === 'RouteInaccessible') {
+      this.factName = $localize`:@@fact.name.route-inaccessible:RouteInaccessible`;
     } else if (this.fact === 'RouteUnexpectedNode') {
       this.factName = $localize`:@@fact.name.route-unexpected-node:RouteUnexpectedNode`;
     } else if (this.fact === 'RouteUnexpectedRelation') {

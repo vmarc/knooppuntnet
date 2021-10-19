@@ -16,7 +16,7 @@ export interface NetworkDetail {
   readonly brokenRouteCount: number;
   readonly brokenRoutePercentage: string;
   readonly integrity: Integrity;
-  readonly unaccessibleRouteCount: number;
+  readonly inaccessibleRouteCount: number;
   readonly connectionCount: number;
   readonly center: LatLonImpl;
 }

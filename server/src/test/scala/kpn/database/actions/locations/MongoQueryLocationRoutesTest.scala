@@ -17,7 +17,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val query = new MongoQueryLocationRoutes(database)
 
       route(database, 11L, "active", "network-type-hiking", "location-essen")
-      route(database, 12L, "active", "network-type-hiking", "location-essen", "facts", "fact-RouteUnaccessible")
+      route(database, 12L, "active", "network-type-hiking", "location-essen", "facts", "fact-RouteInaccessible")
       route(database, 13L, "active", "network-type-hiking", "location-essen", "survey", "facts")
       route(database, 14L, "active", "network-type-hiking", "location-essen", "survey")
       route(database, 15L, "active", "network-type-hiking", "location-essen", "survey")
@@ -33,7 +33,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       countDocuments(query, LocationRoutesType.all) should equal(6)
       countDocuments(query, LocationRoutesType.facts) should equal(2)
       countDocuments(query, LocationRoutesType.survey) should equal(3)
-      countDocuments(query, LocationRoutesType.unaccessible) should equal(1)
+      countDocuments(query, LocationRoutesType.inaccessible) should equal(1)
     }
   }
 
@@ -82,14 +82,14 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             name = "ccc",
             meters = 300,
             broken = true,
-            unaccessible = true
+            inaccessible = true
           ),
           labels = Seq(
             "active",
             "network-type-hiking",
             "location-essen",
             "facts",
-            "fact-RouteUnaccessible",
+            "fact-RouteInaccessible",
           )
         )
       )
@@ -112,7 +112,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             defaultTimestamp,
             None,
             broken = true,
-            unaccessible = false
+            inaccessible = false
           ),
           LocationRouteInfo(
             10L,
@@ -121,7 +121,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             defaultTimestamp,
             Some(Day(2020, 8)),
             broken = false,
-            unaccessible = false
+            inaccessible = false
           ),
           LocationRouteInfo(
             30L,
@@ -130,7 +130,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             defaultTimestamp,
             None,
             broken = true,
-            unaccessible = true
+            inaccessible = true
           )
         )
       )

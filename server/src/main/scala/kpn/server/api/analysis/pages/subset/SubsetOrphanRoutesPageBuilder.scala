@@ -43,7 +43,7 @@ class SubsetOrphanRoutesPageBuilder(
       name = doc.name,
       meters = doc.meters,
       isBroken = doc.facts.contains(Fact.RouteBroken),
-      accessible = !doc.facts.contains(Fact.RouteUnaccessible),
+      accessible = !doc.facts.contains(Fact.RouteInaccessible),
       lastSurvey = doc.lastSurvey.map(_.yyyymmdd).getOrElse("-"),
       lastUpdated = doc.lastUpdated
     )

@@ -8,7 +8,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "node --max_old_space_size=8192 ./node_modules/.bin/ng lint",
-    "extract-i18n": "ng extract-i18n --ivy --output-path src/locale && xliffmerge --profile xliffmerge.json",
+    "extract-i18n": "ng extract-i18n --output-path src/locale && xliffmerge --profile xliffmerge.json",
     "start:nl": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=nl --proxy-config src/proxy.conf.js",
     "start:de": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=de --proxy-config src/proxy.conf.js",
     "start:fr": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=fr --proxy-config src/proxy.conf.js",

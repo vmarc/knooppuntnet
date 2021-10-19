@@ -10,5 +10,5 @@ export interface LocationRouteInfo {
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
   readonly broken: boolean;
-  readonly accessible: boolean;
+  readonly inaccessible: boolean;
 }
