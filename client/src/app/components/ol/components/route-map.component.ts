@@ -6,7 +6,7 @@ import { List } from 'immutable';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -79,7 +79,10 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.pageService.sidebarOpen.subscribe(() => {
         if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
+          setTimeout(() => {
+            this.map.updateSize();
+            this.layers.updateSize();
+          }, 0);
         }
       })
     );

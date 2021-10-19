@@ -7782,10 +7782,10 @@ mapbox-to-css-font@^2.4.0:
   resolved "https://registry.yarnpkg.com/mapbox-to-css-font/-/mapbox-to-css-font-2.4.0.tgz#a23b51664a1ee839beaefade013f2655bee9a390"
   integrity sha512-v674D0WtpxCXlA6E+sBlG1QJWdUkz/s9qAD91bJSXBGuBL5lL4tJXpoJEftecphCh2SVQCjWMS2vhylc3AIQTg==
 
-maplibre-gl@1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-1.14.0.tgz#035663dae6cbaaca5b06024f6c5b51a42db1fc84"
-  integrity sha512-pqr/nsoZHx1rUY2Bpp0EFVcFVgrVOLkDDh2DhZcLVZVHYXdFOH/LyKUoLZda/3/CDTmlZy9ldJeZN8O0g1Ocpg==
+maplibre-gl@1.15.2:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-1.15.2.tgz#7fb47868b62455af916c090903f2154394450f9c"
+  integrity sha512-uPeV530apb4JfX3cRFfE+awFnbcJTOnCv2QvY4mw4huiInbybElWYkNzTs324YLSADq0f4bidRoYcR81ho3aLA==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.0"
     "@mapbox/geojson-types" "^1.0.2"

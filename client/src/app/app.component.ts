@@ -20,7 +20,7 @@ import { Subscriptions } from './util/Subscriptions';
 @Component({
   selector: 'kpn-root',
   template: `
-    <mat-sidenav-container>
+    <mat-sidenav-container [@.disabled]="true">
       <mat-sidenav
         [mode]="smallPage ? 'over' : 'side'"
         [fixedInViewport]="!smallPage"

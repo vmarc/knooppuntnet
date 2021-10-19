@@ -9,21 +9,21 @@ import Map from 'ol/Map';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { MapLayer } from '../../../components/ol/layers/map-layer';
-import { MapLayerChange } from '../../../components/ol/layers/map-layer-change';
-import { MapLayers } from '../../../components/ol/layers/map-layers';
-import { MapLayerService } from '../../../components/ol/services/map-layer.service';
-import { MapMode } from '../../../components/ol/services/map-mode';
-import { MapZoomService } from '../../../components/ol/services/map-zoom.service';
-import { MapService } from '../../../components/ol/services/map.service';
-import { PoiTileLayerService } from '../../../components/ol/services/poi-tile-layer.service';
-import { MainMapStyle } from '../../../components/ol/style/main-map-style';
-import { AppState } from '../../../core/core.state';
-import { selectPreferencesShowProposed } from '../../../core/preferences/preferences.selectors';
-import { selectPreferencesExtraLayers } from '../../../core/preferences/preferences.selectors';
-import { NetworkTypes } from '../../../kpn/common/network-types';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { MapLayerChange } from '@app/components/ol/layers/map-layer-change';
+import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { MapLayerService } from '@app/components/ol/services/map-layer.service';
+import { MapMode } from '@app/components/ol/services/map-mode';
+import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
+import { MapService } from '@app/components/ol/services/map.service';
+import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
+import { MainMapStyle } from '@app/components/ol/style/main-map-style';
+import { AppState } from '@app/core/core.state';
+import { selectPreferencesShowProposed } from '@app/core/preferences/preferences.selectors';
+import { selectPreferencesExtraLayers } from '@app/core/preferences/preferences.selectors';
+import { NetworkTypes } from '@app/kpn/common/network-types';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { PlannerService } from '../../planner.service';
 
 @Injectable()
@@ -159,6 +159,10 @@ export class PlannerLayerService {
       .concat(this.bitmapLayersSurvey.values())
       .concat(this.bitmapLayersAnalysis.values())
       .concat(this.vectorLayers.values());
+  }
+
+  updateSize(): void {
+    this.backgroundLayer.updateSize();
   }
 
   private networkLayerChange(

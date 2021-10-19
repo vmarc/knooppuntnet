@@ -8,7 +8,7 @@
 */
 
 export class OsmLibertyStyle {
-  static readonly osmLibertyStyle = {
+  static readonly osmLibertyStyle: maplibregl.Style = {
     version: 8,
     name: 'OSM Liberty',
     metadata: {
@@ -1852,13 +1852,13 @@ export class OsmLibertyStyle {
         layout: {
           'icon-image': 'default_{ref_length}',
           'icon-rotation-alignment': 'viewport',
-          'symbol-placement': {
-            base: 1,
-            stops: [
-              [10, 'point'],
-              [11, 'line'],
-            ],
-          },
+          // 'symbol-placement': {
+          //   base: 1,
+          //   stops: [
+          //     [10, 'point'],
+          //     [11, 'line'],
+          //   ],
+          // },
           'symbol-spacing': 500,
           'text-field': '{ref}',
           'text-font': ['Roboto Regular'],
@@ -2137,6 +2137,6 @@ export class OsmLibertyStyle {
         },
       },
     ],
-    id: 'osm-liberty',
+    // id: 'osm-liberty',
   };
 }

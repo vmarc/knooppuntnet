@@ -3,7 +3,7 @@ import { Map as MapLibreMap } from 'maplibre-gl';
 import { Layer } from 'ol/layer';
 import { toLonLat } from 'ol/proj';
 import { Source } from 'ol/source';
-import { I18nService } from '../../../i18n/i18n.service';
+import { I18nService } from '@app/i18n/i18n.service';
 import { OsmLibertyStyle } from '../style/osm-liberty-style';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
@@ -38,52 +38,46 @@ export class BackgroundLayer {
       attributions: [openMapTilesAttribution, osmAttribution],
     });
 
+    const renderFunction = (frameState) => {
+      const canvas = mbMap.getCanvas();
+      const viewState = frameState.viewState;
+
+      const visible = layer.getVisible();
+      canvas.style.display = visible ? 'block' : 'none';
+
+      canvas.style.opacity = layer.getOpacity().toString();
+
+      // adjust view parameters in mapbox
+      const rotation = viewState.rotation;
+      if (rotation) {
+        mbMap.rotateTo((-rotation * 180) / Math.PI, {
+          animate: false,
+        });
+      }
+
+      const c = toLonLat(viewState.center);
+      const cc: LngLatLike = { lng: c[0], lat: c[1] };
+
+      mbMap.jumpTo({
+        center: cc,
+        zoom: viewState.zoom - 1,
+      });
+
+      return canvas;
+    };
+
     const layer = new Layer({
       zIndex: Layers.zIndexOsmLayer,
       source,
-      render(frameState) {
-        const canvas = mbMap.getCanvas();
-        const viewState = frameState.viewState;
-
-        const visible = layer.getVisible();
-        canvas.style.display = visible ? 'block' : 'none';
-
-        canvas.style.opacity = layer.getOpacity().toString();
-
-        // adjust view parameters in mapbox
-        const rotation = viewState.rotation;
-        if (rotation) {
-          mbMap.rotateTo((-rotation * 180) / Math.PI, {
-            animate: false,
-          });
-        }
-
-        const c = toLonLat(viewState.center);
-        const cc: LngLatLike = { lng: c[0], lat: c[1] };
-
-        mbMap.jumpTo({
-          center: cc,
-          zoom: viewState.zoom - 1,
-          animate: false,
-        });
-
-        // cancel the scheduled update & trigger synchronous redraw
-        // see https://github.com/mapbox/mapbox-gl-js/issues/7893#issue-408992184
-        // NOTE: THIS MIGHT BREAK WHEN UPDATING MAPBOX
-        if (mbMap._frame) {
-          mbMap._frame.cancel();
-          mbMap._frame = null;
-        }
-        mbMap._render();
-
-        return canvas;
-      },
+      render: renderFunction,
     });
 
     const backgroundLayerName = this.i18nService.translation(
       '@@map.layer.background'
     );
     layer.set('name', backgroundLayerName);
-    return new MapLayer('background-layer', layer);
+    return new MapLayer('background-layer', layer, null, () => {
+      mbMap.resize();
+    });
   }
 }

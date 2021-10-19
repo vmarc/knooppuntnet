@@ -5,6 +5,13 @@ export class MapLayer {
   constructor(
     public name: string,
     public layer: BaseLayer,
-    public applyMap?: (map: Map) => void
+    public applyMap?: (map: Map) => void,
+    public resizeFunction?: () => void
   ) {}
+
+  updateSize(): void {
+    if (this.resizeFunction) {
+      this.resizeFunction();
+    }
+  }
 }

@@ -46,7 +46,7 @@
     "file-saver-es": "^2.0.5",
     "immutable": "^4.0.0-rc.12",
     "jspdf": "^2.3.1",
-    "maplibre-gl": "1.14.0",
+    "maplibre-gl": "1.15.2",
     "ngrx-store-localstorage": "^11.0.0",
     "ngx-clipboard": "^14.0.1",
     "ngx-i18nsupport": "^0.17.1",
