@@ -14,6 +14,12 @@ export class MapLayers {
     });
   }
 
+  updateSize(): void {
+    this.layers.forEach((mapLayer) => {
+      mapLayer.updateSize();
+    });
+  }
+
   toArray(): Array<BaseLayer> {
     return this.layers.map((layer) => layer.layer).toArray();
   }

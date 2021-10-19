@@ -135,9 +135,8 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     );
 
-    this.layerSwitcherMapLayers$ = this.plannerLayerService.layerSwitcherMapLayers$.pipe(
-      delay(0)
-    );
+    this.layerSwitcherMapLayers$ =
+      this.plannerLayerService.layerSwitcherMapLayers$.pipe(delay(0));
   }
 
   mouseleave() {
@@ -223,9 +222,12 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe((state) => {
+      this.pageService.sidebarOpen.subscribe(() => {
         if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
+          setTimeout(() => {
+            this.map.updateSize();
+            this.plannerLayerService.updateSize();
+          }, 0);
         }
       })
     );

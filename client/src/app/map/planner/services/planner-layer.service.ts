@@ -165,6 +165,10 @@ export class PlannerLayerService {
       .concat(this.vectorLayers.values());
   }
 
+  updateSize(): void {
+    this.backgroundLayer.updateSize();
+  }
+
   private networkLayerChange(
     zoomLevel: number,
     networkType: NetworkType,

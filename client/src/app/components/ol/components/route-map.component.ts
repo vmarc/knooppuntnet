@@ -79,7 +79,10 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.pageService.sidebarOpen.subscribe(() => {
         if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
+          setTimeout(() => {
+            this.map.updateSize();
+            this.layers.updateSize();
+          }, 0);
         }
       })
     );

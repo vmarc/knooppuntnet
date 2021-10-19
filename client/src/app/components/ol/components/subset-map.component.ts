@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Input } from '@angular/core';
+import { Output } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { List } from 'immutable';
@@ -70,9 +68,12 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     this.map.addInteraction(this.buildInteraction());
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe((state) => {
+      this.pageService.sidebarOpen.subscribe(() => {
         if (this.map) {
-          setTimeout(() => this.map.updateSize(), 250);
+          setTimeout(() => {
+            this.map.updateSize();
+            this.layers.updateSize();
+          }, 0);
         }
       })
     );

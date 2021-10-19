@@ -1,11 +1,9 @@
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import {
-  RouteConfigLoadEnd,
-  RouteConfigLoadStart,
-  Router,
-} from '@angular/router';
+import { RouteConfigLoadEnd } from '@angular/router';
+import { RouteConfigLoadStart } from '@angular/router';
+import { Router } from '@angular/router';
 import { setTag } from '@sentry/angular';
 import { map } from 'rxjs/operators';
 import { PageWidth } from './components/shared/page-width';
@@ -17,10 +15,16 @@ import { VersionService } from './services/version.service';
 import { SpinnerService } from './spinner/spinner.service';
 import { Subscriptions } from './util/Subscriptions';
 
+/*
+ Note: the [@.disabled]="true" in mat-sidenav-container is to disable the
+ animation when opening/closing the sidebar. We disable the animation because
+ this animation caused a problem with the display of tiles in the MapLibre
+ layers.
+*/
 @Component({
   selector: 'kpn-root',
   template: `
-    <mat-sidenav-container>
+    <mat-sidenav-container [@.disabled]="true">
       <mat-sidenav
         [mode]="smallPage ? 'over' : 'side'"
         [fixedInViewport]="!smallPage"

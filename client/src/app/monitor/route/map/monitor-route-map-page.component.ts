@@ -36,7 +36,8 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   `,
 })
 export class MonitorRouteMapPageComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
   mapLayers: MapLayers;
@@ -92,9 +93,12 @@ export class MonitorRouteMapPageComponent
         this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
 
         this.subscriptions.add(
-          this.pageService.sidebarOpen.subscribe((state) => {
+          this.pageService.sidebarOpen.subscribe(() => {
             if (this.map) {
-              setTimeout(() => this.map.updateSize(), 250);
+              setTimeout(() => {
+                this.map.updateSize();
+                this.mapLayers.updateSize();
+              }, 0);
             }
           })
         );
