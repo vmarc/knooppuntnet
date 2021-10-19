@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2021-10-16T08:51:44Z"/>
+
+    <node id="3781978722" lat="47.1534195" lon="5.5134668" version="3" timestamp="2021-10-08T21:01:06Z" changeset="112282663" uid="220314" user="StC">
+        <tag k="rwn_ref" v="Cr"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_name" v="Croix des Clos"/>
+        <tag k="source" v="open data Grand Dole"/>
+    </node>
+    <node id="5159542363" lat="47.1526319" lon="5.5154532" version="1" timestamp="2017-10-10T18:50:18Z" changeset="52802933" uid="400383" user="Kalaallit Nunaat"/>
+    <node id="5159542364" lat="47.1522904" lon="5.5163062" version="4" timestamp="2021-10-10T20:02:12Z" changeset="112347367" uid="270456" user="pyrog">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_name" v="Carrefour des Planches"/>
+        <tag k="source" v="open data Grand Dole"/>
+    </node>
+    <node id="8349491307" lat="47.1528472" lon="5.5149369" version="1" timestamp="2021-01-22T15:21:34Z" changeset="97983196" uid="270456" user="pyrog"/>
+    <node id="8349491308" lat="47.1532548" lon="5.5139016" version="1" timestamp="2021-01-22T15:21:34Z" changeset="97983196" uid="270456" user="pyrog"/>
+    <way id="991661714" version="2" timestamp="2021-10-10T19:21:01Z" changeset="112346175" uid="270456" user="pyrog">
+        <nd ref="3781978722"/>
+        <nd ref="8349491308"/>
+        <nd ref="8349491307"/>
+        <nd ref="5159542363"/>
+        <nd ref="5159542364"/>
+        <tag k="highway" v="track"/>
+    </way>
+    <relation id="13305500" version="2" timestamp="2021-10-10T11:25:03Z" changeset="112329598" uid="270456" user="pyrog">
+        <member type="way" ref="991661714" role=""/>
+        <tag k="name" v="Carrefour des Planches - Croix des Clos"/>
+        <tag k="ref" v="Cr-Pl"/>
+        <tag k="colour" v="yellow"/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="operator" v="CAGD"/>
+        <tag k="route" v="hiking"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
