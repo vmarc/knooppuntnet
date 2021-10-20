@@ -1,14 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from '../shared/shared.module';
 import { LayerSwitcherComponent } from './components/layer-switcher.component';
+import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog';
+import { LegNotFoundDialogComponent } from './components/leg-not-found-dialog';
 import { LocationMapComponent } from './components/location-map.component';
+import { NetworkControlComponent } from './components/network-control.component';
 import { NetworkMapComponent } from './components/network-map.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
 import { NodeMapComponent } from './components/node-map.component';
 import { NodeMovedMapComponent } from './components/node-moved-map.component';
+import { PoiMapComponent } from './components/poi-map.component';
 import { RouteChangeMapComponent } from './components/route-change-map.component';
 import { RouteControlComponent } from './components/route-control.component';
 import { RouteMapComponent } from './components/route-map.component';
@@ -17,11 +22,8 @@ import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
 import { MapPositionService } from './services/map-position.service';
 import { MapService } from './services/map.service';
+import { NetworkMapPositionService } from './services/network-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
-import { MatDialogModule } from '@angular/material/dialog';
-import { PoiMapComponent } from './components/poi-map.component';
-import { LegNotFoundDialogComponent } from './components/leg-not-found-dialog';
-import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog';
 
 @NgModule({
   imports: [
@@ -41,6 +43,7 @@ import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog'
     LocationMapComponent,
     NetworkMapComponent,
     RouteControlComponent,
+    NetworkControlComponent,
     NoRouteDialogComponent,
     LegNotFoundDialogComponent,
     LegHttpErrorDialogComponent,
@@ -64,6 +67,7 @@ import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog'
     MapClickService,
     PoiTileLayerService,
     MapPositionService,
+    NetworkMapPositionService,
   ],
 })
 export class OlModule {}
