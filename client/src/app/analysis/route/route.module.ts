@@ -14,6 +14,7 @@ import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.co
 import { RouteChangesService } from './changes/route-changes.service';
 import { RoutePageHeaderComponent } from './components/route-page-header.component';
 import { RoutePageComponent } from './details/_route-page.component';
+import { LinkImageComponent } from './details/link-image.component';
 import { RouteEndNodesComponent } from './details/route-end-nodes.component';
 import { RouteFreeNodesComponent } from './details/route-free-nodes.component';
 import { RouteLocationComponent } from './details/route-location.component';
@@ -60,6 +61,7 @@ import { routeFeatureKey } from './store/route.state';
     RouteSummaryComponent,
     RouteChangesSidebarComponent,
     RouteLocationComponent,
+    LinkImageComponent,
   ],
   providers: [RouteChangesService],
 })
