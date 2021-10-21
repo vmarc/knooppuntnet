@@ -5,10 +5,11 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
+import { NetworkType } from '@api/custom/network-type';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { Subscriptions } from '@app/util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -18,7 +19,6 @@ import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
-import {NetworkType} from "@api/custom/network-type";
 
 @Component({
   selector: 'kpn-location-map',
@@ -52,6 +52,10 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.mapService.nextNetworkType(this.networkType);
     this.layers = this.buildLayers();
+    setTimeout(
+      () => this.mapLayerService.restoreMapLayerStates(this.layers),
+      0
+    );
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
@@ -73,7 +77,8 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
           setTimeout(() => {
             this.map.updateSize();
             this.layers.updateSize();
-          }, 0);        }
+          }, 0);
+        }
       })
     );
   }

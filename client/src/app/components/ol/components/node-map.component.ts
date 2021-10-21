@@ -51,6 +51,11 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.layers = this.buildLayers();
+    setTimeout(
+      () => this.mapLayerService.restoreMapLayerStates(this.layers),
+      0
+    );
+
     const center = Util.toCoordinate(
       this.nodeMapInfo.latitude,
       this.nodeMapInfo.longitude

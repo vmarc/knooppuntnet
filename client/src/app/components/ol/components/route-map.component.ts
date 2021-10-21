@@ -2,11 +2,11 @@ import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { RouteMapInfo } from '@api/common/route/route-map-info';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { Subscriptions } from '@app/util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -46,6 +46,10 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.layers = this.buildLayers();
+    setTimeout(
+      () => this.mapLayerService.restoreMapLayerStates(this.layers),
+      0
+    );
 
     this.map = new Map({
       target: this.mapId,
