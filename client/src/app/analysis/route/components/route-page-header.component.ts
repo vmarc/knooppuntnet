@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { NetworkType } from '@api/custom/network-type';
 
 @Component({
   selector: 'kpn-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-header [pageTitle]="routeName" subject="route-page">
+      <span class="header-network-type-icon">
+        <mat-icon [svgIcon]="networkType"></mat-icon>
+      </span>
       <span i18n="@@route.title">Route</span>
       <span *ngIf="routeName">&nbsp;{{ routeName }}</span>
       <span *ngIf="!routeName">&nbsp;{{ routeId }}</span>
@@ -47,6 +51,7 @@ export class RoutePageHeaderComponent {
   @Input() routeName: string;
   @Input() pageName: string;
   @Input() changeCount: number;
+  @Input() networkType: NetworkType;
 
   linkRouteDetails(): string {
     return this.linkRoute('');

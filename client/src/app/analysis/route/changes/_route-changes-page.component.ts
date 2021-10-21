@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { NetworkType } from '@api/custom/network-type';
 import { Store } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 import { combineLatest } from 'rxjs';
@@ -42,6 +43,7 @@ import { RouteChangesService } from './route-changes.service';
       [routeId]="routeId$ | async"
       [routeName]="routeName$ | async"
       [changeCount]="changeCount$ | async"
+      [networkType]="networkType$ | async"
     >
     </kpn-route-page-header>
 
@@ -83,6 +85,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
 
   routeId$ = new ReplaySubject<string>(1);
   routeName$ = new ReplaySubject<string>(1);
+  networkType$ = new ReplaySubject<NetworkType>(1);
   changeCount$ = new ReplaySubject<number>(1);
 
   page: RouteChangesPage;
@@ -135,6 +138,11 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
                       this.routeName$.next(
                         Util.safeGet(
                           () => response.result.routeNameInfo.routeName
+                        )
+                      );
+                      this.networkType$.next(
+                        Util.safeGet(
+                          () => response.result.routeNameInfo.networkType
                         )
                       );
                       this.changeCount$.next(

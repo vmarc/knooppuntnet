@@ -25,6 +25,7 @@ import { PageService } from '../page.service';
     `
       .header {
         display: flex;
+        vertical-align: middle;
       }
 
       .header h1 {

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { NetworkService } from '../network.service';
 
 @Component({
@@ -19,7 +20,12 @@ import { NetworkService } from '../network.service';
       [pageTitle]="networkPageTitle(networkName)"
       subject="network-page"
     >
-      {{ networkService.networkName$ | async }}
+      <span class="header-network-type-icon">
+        <mat-icon [svgIcon]="networkType$ | async"></mat-icon>
+      </span>
+      <span>
+        {{ networkService.networkName$ | async }}
+      </span>
     </kpn-page-header>
 
     <kpn-page-menu *ngIf="networkService.networkSummary$ | async as summary">
@@ -81,6 +87,10 @@ export class NetworkPageHeaderComponent {
   @Input() pageName: string;
   @Input() networkId: number;
   @Input() pageTitle: string;
+
+  networkType$ = this.networkService.networkSummary$.pipe(
+    map((s) => s?.networkType)
+  );
 
   constructor(public networkService: NetworkService) {}
 

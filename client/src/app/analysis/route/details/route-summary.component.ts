@@ -9,6 +9,10 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
     <div>
       <p i18n="@@route.meters">{{ (route.summary.meters | integer) + ' m' }}</p>
 
+      <p *ngIf="route.summary.country">
+        <kpn-country-name [country]="route.summary.country"></kpn-country-name>
+      </p>
+
       <p>
         <kpn-osm-link-relation
           [relationId]="route.summary.id"
@@ -18,14 +22,6 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
             [relationId]="route.summary.id"
           ></kpn-josm-relation>
         </span>
-      </p>
-
-      <kpn-network-type
-        [networkType]="route.summary.networkType"
-      ></kpn-network-type>
-
-      <p *ngIf="route.summary.country">
-        <kpn-country-name [country]="route.summary.country"></kpn-country-name>
       </p>
 
       <p *ngIf="isRouteBroken()" class="kpn-line">

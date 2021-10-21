@@ -6,8 +6,8 @@ import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { fromEvent } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'kpn-link-image',

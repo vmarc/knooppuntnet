@@ -8,25 +8,29 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
   selector: 'kpn-network-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-data title="Situation on" i18n-title="@@network-details.situation-on">
-      <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
-    </kpn-data>
-
     <kpn-data title="Summary" i18n-title="@@network-details.summary">
       <kpn-network-summary [page]="response.result"></kpn-network-summary>
     </kpn-data>
 
-    <kpn-data title="Country" i18n-title="@@network-details.country">
-      <kpn-country-name
-        [country]="response.result.attributes.country"
-      ></kpn-country-name>
-    </kpn-data>
+    <div class="data2">
+      <div class="title">
+        <span i18n="@@network-details.situation-on">Situation on</span>
+      </div>
+      <div class="body">
+        <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+      </div>
+    </div>
 
-    <kpn-data title="Last updated" i18n-title="@@network-details.last-updated">
-      <kpn-timestamp
-        [timestamp]="response.result.attributes.lastUpdated"
-      ></kpn-timestamp>
-    </kpn-data>
+    <div class="data2">
+      <div class="title">
+        <span i18n="@@network-details.last-updated">Last updated</span>
+      </div>
+      <div class="body">
+        <kpn-timestamp
+          [timestamp]="response.result.attributes.lastUpdated"
+        ></kpn-timestamp>
+      </div>
+    </div>
 
     <kpn-data
       title="Relation last updated"
@@ -41,6 +45,7 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
       <kpn-tags-table [tags]="tags"></kpn-tags-table>
     </kpn-data>
   `,
+  styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class NetworkDetailsComponent implements OnInit {
   @Input() response: ApiResponse<NetworkDetailsPage>;

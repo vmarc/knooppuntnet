@@ -5,7 +5,16 @@
     padding-bottom: 20px;
   }
   @media (min-width: $medium-min-width) {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
+  }
+}
+
+.data2 {
+  @media (max-width: $small-max-width) {
+    padding-bottom: 20px;
+  }
+  @media (min-width: $medium-min-width) {
+    margin-bottom: 0.5em;
   }
 }
 
