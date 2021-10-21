@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network/network-map-page';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { Subscriptions } from '@app/util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -15,17 +15,20 @@ import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapZoomService } from '../services/map-zoom.service';
+import { NetworkMapPositionService } from '../services/network-map-position.service';
 
 @Component({
   selector: 'kpn-network-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="network-nodes-map" class="kpn-map">
+      <kpn-network-control (action)="zoomInToNetwork()"></kpn-network-control>
       <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
     </div>
   `,
 })
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {
+  @Input() networkId: number;
   @Input() page: NetworkMapPage;
 
   layers: MapLayers;
@@ -37,7 +40,8 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     private mapLayerService: MapLayerService,
     private mapClickService: MapClickService,
     private mapZoomService: MapZoomService,
-    private pageService: PageService
+    private pageService: PageService,
+    private networkMapPositionService: NetworkMapPositionService
   ) {}
 
   ngAfterViewInit(): void {
@@ -54,7 +58,11 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     });
 
     const view = this.map.getView();
-    view.fit(Util.toExtent(this.page.bounds, 0.1));
+    this.networkMapPositionService.install(
+      view,
+      this.networkId,
+      this.page.bounds
+    );
     this.layers.applyMap(this.map);
     this.mapZoomService.install(view);
     this.mapClickService.installOn(this.map);
@@ -77,6 +85,11 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     if (this.map) {
       this.map.setTarget(null);
     }
+  }
+
+  zoomInToNetwork(): void {
+    const extent = Util.toExtent(this.page.bounds, 0.1);
+    this.map.getView().fit(extent);
   }
 
   private buildLayers(): MapLayers {

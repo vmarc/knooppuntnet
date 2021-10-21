@@ -5,6 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from '../shared/shared.module';
 import { LayerSwitcherComponent } from './components/layer-switcher.component';
 import { LocationMapComponent } from './components/location-map.component';
+import { NetworkControlComponent } from './components/network-control.component';
 import { NetworkMapComponent } from './components/network-map.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
 import { NodeMapComponent } from './components/node-map.component';
@@ -17,6 +18,7 @@ import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
 import { MapPositionService } from './services/map-position.service';
 import { MapService } from './services/map.service';
+import { NetworkMapPositionService } from './services/network-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PoiMapComponent } from './components/poi-map.component';
@@ -41,6 +43,7 @@ import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog'
     LocationMapComponent,
     NetworkMapComponent,
     RouteControlComponent,
+    NetworkControlComponent,
     NoRouteDialogComponent,
     LegNotFoundDialogComponent,
     LegHttpErrorDialogComponent,
@@ -56,6 +59,7 @@ import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog'
     LayerSwitcherComponent,
     NetworkMapComponent,
     RouteControlComponent,
+    NetworkControlComponent,
     PoiMapComponent,
   ],
   providers: [
@@ -64,6 +68,7 @@ import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog'
     MapClickService,
     PoiTileLayerService,
     MapPositionService,
+    NetworkMapPositionService,
   ],
 })
 export class OlModule {}

@@ -27,7 +27,10 @@ import { NetworkService } from '../network.service';
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
-        <kpn-network-map [page]="response.result"></kpn-network-map>
+        <kpn-network-map
+          [networkId]="networkId$ | async"
+          [page]="response.result"
+        ></kpn-network-map>
       </div>
     </div>
   `,

@@ -1,4 +1,3 @@
-import { AfterContentInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
