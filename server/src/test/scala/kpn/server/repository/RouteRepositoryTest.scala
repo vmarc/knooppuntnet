@@ -85,15 +85,6 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
       routeRepository.findById(10) should equal(Some(newRoute(10, name = "01-02"))) // not deleted
       routeRepository.findById(20) should equal(Some(newRoute(20, name = "02-05"))) // updated
       routeRepository.findById(30) should equal(None)
-
-      // delete
-      routeRepository.delete(10)
-      routeRepository.delete(20)
-      routeRepository.delete(30) // delete non-existing route
-
-      routeRepository.findById(10) should equal(None)
-      routeRepository.findById(20) should equal(None)
-      routeRepository.findById(30) should equal(None)
     }
   }
 

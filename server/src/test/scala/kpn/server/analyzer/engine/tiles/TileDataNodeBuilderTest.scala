@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.NetworkScope
@@ -7,79 +8,166 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.doc.NodeDoc
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 
 class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
 
   test("rwn_ref") {
 
-    val node = newNodeDoc( // TODO TileInfoNode
-      id = 1001,
+    val nodeTileInfo = NodeTileInfo(
+      1001L,
       names = Seq(
-        newNodeName(
+        NodeName(
           networkType = NetworkType.hiking,
           networkScope = NetworkScope.regional,
-          name = "01"
+          name = "01",
+          longName = None,
+          proposed = false
         )
       ),
       latitude = "1",
-      longitude = "2"
+      longitude = "2",
+      lastSurvey = None,
+      tags = Tags.from("rwn_ref" -> "01"),
+      facts = Seq.empty
     )
 
-    val tileDataNode = buildTileDataNode(node)
-    tileDataNode.id should equal(1001)
-    tileDataNode.layer should equal("node")
-    tileDataNode.ref should equal(Some("01"))
-    tileDataNode.name should equal(None)
-    tileDataNode.latitude should equal("1")
-    tileDataNode.longitude should equal("2")
-    tileDataNode.surveyDate should equal(None)
+    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(
+      Some(
+        TileDataNode(
+          1001L,
+          ref = Some("01"),
+          name = None,
+          latitude = "1",
+          longitude = "2",
+          layer = "node",
+          surveyDate = None,
+          proposed = false
+        )
+      )
+    )
   }
 
   test("proposed") {
 
-    val node = newNodeDoc(
-      id = 1001,
-      tags = Tags.from("proposed:rwn_ref" -> "01")
+    val nodeTileInfo = NodeTileInfo(
+      1001L,
+      names = Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = true
+        )
+      ),
+      latitude = "1",
+      longitude = "2",
+      lastSurvey = None,
+      tags = Tags.from("proposed:rwn_ref" -> "01"),
+      facts = Seq.empty
     )
 
-    val tileDataNode = buildTileDataNode(node)
-    tileDataNode.ref should equal(Some("01"))
+    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(
+      Some(
+        TileDataNode(
+          1001L,
+          ref = Some("01"),
+          name = None,
+          latitude = "1",
+          longitude = "2",
+          layer = "node",
+          surveyDate = None,
+          proposed = true
+        )
+      )
+    )
   }
 
   test("rwn_ref = 'o'") {
 
-    val node = newNodeDoc(
-      id = 1001,
-      tags = Tags.from("rwn_ref" -> "o")
+    val nodeTileInfo = NodeTileInfo(
+      1001L,
+      names = Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "o",
+          longName = None,
+          proposed = false
+        )
+      ),
+      latitude = "",
+      longitude = "",
+      lastSurvey = None,
+      tags = Tags.from("rwn_ref" -> "o"),
+      facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, null /*node*/) should equal(None)
+    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(None)
   }
 
   test("proposed:rwn_ref = 'o'") {
 
-    val node = newNodeDoc(
-      id = 1001,
-      tags = Tags.from("proposed:rwn_ref" -> "o")
+    val nodeTileInfo = NodeTileInfo(
+      1001L,
+      names = Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "o",
+          longName = None,
+          proposed = false
+        )
+      ),
+      latitude = "",
+      longitude = "",
+      lastSurvey = None,
+      tags = Tags.from("proposed:rwn_ref" -> "o"),
+      facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, null /*node*/) should equal(None)
+    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(None)
   }
 
   test("rwn_ref and rwn_name") {
 
-    val node = newNodeDoc(
-      id = 1001,
+    val nodeTileInfo = NodeTileInfo(
+      1001L,
+      names = Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = Some("name"),
+          proposed = false
+        )
+      ),
+      latitude = "1",
+      longitude = "2",
+      lastSurvey = None,
       tags = Tags.from(
         "rwn_ref" -> "01",
         "rwn_name" -> "name"
-      )
+      ),
+      facts = Seq.empty
     )
 
-    val tileDataNode = buildTileDataNode(node)
-    tileDataNode.ref should equal(Some("01"))
-    tileDataNode.name should equal(Some("name"))
+    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(
+      Some(
+        TileDataNode(
+          1001L,
+          ref = Some("01"),
+          name = Some("name"),
+          latitude = "1",
+          longitude = "2",
+          layer = "node",
+          surveyDate = None,
+          proposed = false
+        )
+      )
+    )
   }
 
   test("rwn_name") {

@@ -20,8 +20,6 @@ trait RouteRepository {
 
   def bulkSave(routes: Seq[RouteDoc]): Unit
 
-  def delete(routeId: Long): Unit
-
   def findById(routeId: Long): Option[RouteDoc]
 
   def mapInfo(routeId: Long): Option[RouteMapInfo]

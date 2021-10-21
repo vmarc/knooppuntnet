@@ -10,174 +10,294 @@ import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("name - single name") {
-    analyzeName(Tags.from("rwn_ref" -> "01")) should equal("01")
-    analyzeName(Tags.from("proposed:rwn_ref" -> "01")) should equal("01")
+  test("rwn_ref") {
+    val nodeAnalysis = analyze(Tags.from("rwn_ref" -> "01"))
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
   }
 
-  test("name - single name - not normalized") {
-    analyzeName(Tags.from("rwn_ref" -> "1")) should equal("01")
+  test("proposed:rwn_ref") {
+    val nodeAnalysis = analyze(Tags.from("proposed:rwn_ref" -> "01"))
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = true
+        )
+      )
+    )
   }
 
-  test("name - multiple names") {
-    analyzeName(Tags.from("rwn_ref" -> "01", "rcn_ref" -> "02")) should equal("01 / 02")
-    analyzeName(Tags.from("rwn_ref" -> "01", "rcn_ref" -> "01")) should equal("01 / 01")
-    analyzeName(Tags.from("proposed:rwn_ref" -> "01", "rcn_ref" -> "02")) should equal("01 / 02")
+  test("rwn_ref and rwn_name") {
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "rwn_ref" -> "01",
+        "rwn_name" -> "01"
+      )
+    )
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
+  }
+
+
+  test("node name not normalized") {
+    val nodeAnalysis = analyze(Tags.from("rwn_ref" -> "1")) // node leading zero in tag
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01", // <- leading zero added
+          longName = None,
+          proposed = false
+        )
+      )
+    )
+  }
+
+  test("multiple names 01 / 02 - different network types") {
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "rwn_ref" -> "01",
+        "rcn_ref" -> "02"
+      )
+    )
+    nodeAnalysis.name should equal("01 / 02")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        ),
+        NodeName(
+          networkType = NetworkType.cycling,
+          networkScope = NetworkScope.regional,
+          name = "02",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
+  }
+
+  test("multiple names - proposed and not proposed") {
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "proposed:rwn_ref" -> "01",
+        "rcn_ref" -> "02"
+      )
+    )
+    nodeAnalysis.name should equal("01 / 02")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = true
+        ),
+        NodeName(
+          networkType = NetworkType.cycling,
+          networkScope = NetworkScope.regional,
+          name = "02",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
   }
 
   test("same name in multiple network scopes") {
-    analyzeName(Tags.from("rwn_ref" -> "01", "lwn_ref" -> "01")) should equal("01")
-    analyzeName(Tags.from("proposed:lwn_ref" -> "01", "rwn_ref" -> "01")) should equal("01")
-    analyzeName(
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "rwn_ref" -> "01",
+        "lwn_ref" -> "01"
+      )
+    )
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.local,
+          name = "01",
+          longName = None,
+          proposed = false
+        ),
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
+  }
+
+  test("same name in multiple network scopes and proposed and not proposed") {
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "proposed:lwn_ref" -> "01",
+        "rwn_ref" -> "01"
+      )
+    )
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.local,
+          name = "01",
+          longName = None,
+          proposed = true
+        ),
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
+  }
+
+  test("same name in multiple network types and scopes") {
+    val nodeAnalysis = analyze(
       Tags.from(
         "rwn_ref" -> "01",
         "lwn_ref" -> "01",
         "rcn_ref" -> "01"
       )
-    ) should equal("01 / 01")
+    )
+    nodeAnalysis.name should equal("01 / 01")
+    nodeAnalysis.nodeNames should equal(
+      Seq(
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.local,
+          name = "01",
+          longName = None,
+          proposed = false
+        ),
+        NodeName(
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        ),
+        NodeName(
+          networkType = NetworkType.cycling,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = None,
+          proposed = false
+        )
+      )
+    )
   }
 
   test("name - empty string when no name") {
-    analyzeName(Tags.empty) should equal("")
+    val nodeAnalysis = analyze(Tags.empty)
+    nodeAnalysis.name should equal("")
+    nodeAnalysis.nodeNames should equal(Seq.empty)
   }
 
-  test("name - ??n_name") {
-    analyzeName(Tags.from("rwn_name" -> "01")) should equal("01")
-    analyzeName(Tags.from("proposed:rwn_name" -> "01")) should equal("01")
-  }
-
-  test("names - single name") {
-    analyzeNames(Tags.from("rwn_ref" -> "01")) should equal(
+  test("rwn_name") {
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "rwn_name" -> "01"
+      )
+    )
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
       Seq(
         NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          None,
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = Some("01"),
           proposed = false
         )
       )
     )
-    analyzeNames(Tags.from("proposed:rwn_ref" -> "01")) should equal(
-      Seq(
-        NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          None,
-          proposed = true
-        )
+  }
+
+  test("proposed:rwn_name") {
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "proposed:rwn_name" -> "01"
       )
     )
-    analyzeNames(Tags.from("rwn_name" -> "01")) should equal(
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
       Seq(
         NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          Some("01"),
-          proposed = false
-        )
-      )
-    )
-    analyzeNames(Tags.from("proposed:rwn_name" -> "01")) should equal(
-      Seq(
-        NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          Some("01"),
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = Some("01"),
           proposed = true
         )
       )
     )
   }
 
-  test("names - single name - not normalized") {
-    val tags = Tags.from("rwn_ref" -> "1")
-    analyzeNames(tags) should equal(
-      Seq(
-        NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          None,
-          proposed = false
-        )
-      )
-    )
-  }
-
-  test("names - multiple names") {
-    val tags = Tags.from("rwn_ref" -> "01", "proposed:rcn_ref" -> "02")
-    analyzeNames(tags) should equal(
-      Seq(
-        NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          None,
-          proposed = false
-        ),
-        NodeName(
-          NetworkType.cycling,
-          NetworkScope.regional,
-          "02",
-          None,
-          proposed = true
-        )
-      )
-    )
-  }
-
-  test("names - empty collection when no names") {
-    analyzeNames(Tags.empty) shouldBe empty
-  }
-
-  test("names - ??n_name") {
-    val tags = Tags.from("rwn_name" -> "01", "proposed:rcn_name" -> "02")
-    analyzeNames(tags) should equal(
-      Seq(
-        NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          Some("01"),
-          proposed = false
-        ),
-        NodeName(
-          NetworkType.cycling,
-          NetworkScope.regional,
-          "02",
-          Some("02"),
-          proposed = true
-        )
-      )
-    )
-  }
 
   test("names - name:rwn_ref") {
-    val tags = Tags.from("rwn_ref" -> "01", "name:rwn_ref" -> "long name")
-    analyzeNames(tags) should equal(
+    val nodeAnalysis = analyze(
+      Tags.from(
+        "rwn_ref" -> "01",
+        "name:rwn_ref" -> "long name"
+      )
+    )
+    nodeAnalysis.name should equal("01")
+    nodeAnalysis.nodeNames should equal(
       Seq(
         NodeName(
-          NetworkType.hiking,
-          NetworkScope.regional,
-          "01",
-          Some("long name"),
+          networkType = NetworkType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+          longName = Some("long name"),
           proposed = false
-        ),
+        )
       )
     )
   }
 
-  private def analyzeName(tags: Tags): String = {
-    val analysis = NodeAnalysis(newRawNode(tags = tags))
-    NodeNameAnalyzer.analyze(analysis).name
-  }
-
-  private def analyzeNames(tags: Tags): Seq[NodeName] = {
-    val analysis = NodeAnalysis(newRawNode(tags = tags))
-    NodeNameAnalyzer.analyze(analysis).nodeNames
+  private def analyze(tags: Tags): NodeAnalysis = {
+    val nodeAnalysis = NodeAnalysis(newRawNode(tags = tags))
+    NodeNameAnalyzer.analyze(nodeAnalysis)
   }
 }

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
@@ -177,6 +178,15 @@ class RouteCreateTest01 extends IntegrationTest {
         addedToRoute = Seq(
           Ref(11, "01-02")
         ),
+        initialTags = Some(
+          Tags.from(
+            "rwn_ref" -> "01",
+            "network:type" -> "node_network"
+          )
+        ),
+        initialLatLon = Some(
+          LatLonImpl("0", "0")
+        ),
         happy = true,
         impact = true,
         locationHappy = true,
@@ -198,6 +208,15 @@ class RouteCreateTest01 extends IntegrationTest {
         ),
         addedToRoute = Seq(
           Ref(11, "01-02")
+        ),
+        initialTags = Some(
+          Tags.from(
+            "rwn_ref" -> "02",
+            "network:type" -> "node_network"
+          )
+        ),
+        initialLatLon = Some(
+          LatLonImpl("0", "0")
         ),
         happy = true,
         impact = true,

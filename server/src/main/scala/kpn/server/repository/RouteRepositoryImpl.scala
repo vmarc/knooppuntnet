@@ -4,6 +4,8 @@ import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.NetworkType
+import kpn.core.doc.RouteDoc
+import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
 import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
@@ -12,8 +14,6 @@ import kpn.database.actions.routes.MongoQueryRouteNameInfo
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteTileInfo
 import kpn.database.base.Database
-import kpn.core.doc.RouteDoc
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import org.springframework.stereotype.Component
@@ -43,11 +43,6 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     database.routes.bulkSave(routeDocs, log)
   }
 
-  override def delete(routeId: Long): Unit = {
-    database.routes.delete(routeId, log)
-    // TODO MONGO should also delete references, changes, etc?
-  }
-
   override def findById(routeId: Long): Option[RouteDoc] = {
     database.routes.findById(routeId, log)
   }
@@ -65,7 +60,6 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   }
 
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {
-    // TODO MONGO should implement through lookup elsewhere? probably not
     new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
   }
 
