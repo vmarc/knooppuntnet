@@ -38,12 +38,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
           <tbody>
             <tr *ngFor="let member of members">
               <td class="image-cell">
-                <div class="image">
-                  <img
-                    [src]="'/assets/images/links/' + member.linkName + '.png'"
-                    [alt]="member.linkName"
-                  />
-                </div>
+                <kpn-link-image [linkName]="member.linkName"></kpn-link-image>
               </td>
               <td>
                 <div class="kpn-comma-list">
@@ -96,13 +91,13 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
               </td>
               <td *ngIf="networkType === 'cycling'">
                 <div
-                  *ngIf="member.oneWay == 'Forward'"
+                  *ngIf="member.oneWay === 'Forward'"
                   i18n="@@route.members.table.one-way.yes"
                 >
                   Yes
                 </div>
                 <div
-                  *ngIf="member.oneWay == 'Backward'"
+                  *ngIf="member.oneWay === 'Backward'"
                   i18n="@@route.members.table.one-way.reverse"
                 >
                   Reverse
@@ -124,15 +119,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
     `
       .image-cell {
         padding: 0;
-        height: 40px;
-        min-height: 40px;
-        max-height: 40px;
-      }
-
-      .image {
-        height: 40px;
-        padding: 0;
-        margin: 0;
+        height: 100%;
       }
     `,
   ],
