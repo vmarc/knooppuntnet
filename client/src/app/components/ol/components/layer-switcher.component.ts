@@ -4,6 +4,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { List } from 'immutable';
 import BaseLayer from 'ol/layer/Base';
 import { MapLayers } from '../layers/map-layers';
+import { MapLayerService } from '../services/map-layer.service';
 
 @Component({
   selector: 'kpn-layer-switcher',
@@ -53,6 +54,8 @@ export class LayerSwitcherComponent {
 
   open = false;
 
+  constructor(private mapLayerService: MapLayerService) {}
+
   namedLayers(): List<BaseLayer> {
     return this.mapLayers.layers
       .map((ml) => ml.layer)
@@ -73,6 +76,7 @@ export class LayerSwitcherComponent {
 
   layerVisibleChanged(layer: BaseLayer, event: MatCheckboxChange): void {
     layer.setVisible(event.checked);
+    this.mapLayerService.storeMapLayerStates(this.mapLayers);
   }
 
   layerName(layer: BaseLayer): string {

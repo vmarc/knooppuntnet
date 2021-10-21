@@ -52,6 +52,10 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.mapService.nextNetworkType(this.networkType);
     this.layers = this.buildLayers();
+    setTimeout(
+      () => this.mapLayerService.restoreMapLayerStates(this.layers),
+      0
+    );
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),

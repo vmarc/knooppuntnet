@@ -12,11 +12,15 @@ import { List } from 'immutable';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import { AppState } from '../../../core/core.state';
 import { I18nService } from '../../../i18n/i18n.service';
+import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { MapLayerState } from '../domain/map-layer-state';
+import { MapLayerStates } from '../domain/map-layer-states';
 import { BackgroundLayer } from '../layers/background-layer';
 import { GpxLayer } from '../layers/gpx-layer';
 import { LocationBoundaryLayer } from '../layers/location-boundary-layer';
 import { MainMapLayer } from '../layers/main-map-layer';
 import { MapLayer } from '../layers/map-layer';
+import { MapLayers } from '../layers/map-layers';
 import { NetworkBitmapTileLayer } from '../layers/network-bitmap-tile-layer';
 import { NetworkMarkerLayer } from '../layers/network-marker-layer';
 import { NetworkNodesMarkerLayer } from '../layers/network-nodes-marker-layer';
@@ -37,11 +41,51 @@ import { MapService } from './map.service';
 
 @Injectable()
 export class MapLayerService {
+  private mapLayerStateKey = 'map-layer-state';
+
   constructor(
     private i18nService: I18nService,
     private mapService: MapService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private browserStorageService: BrowserStorageService
   ) {}
+
+  restoreMapLayerStates(mapLayers: MapLayers): void {
+    const mapLayerStatesString = this.browserStorageService.get(
+      this.mapLayerStateKey
+    );
+    if (mapLayerStatesString == null) {
+      this.storeMapLayerStates(mapLayers);
+    } else {
+      const mapLayerStates: MapLayerStates = JSON.parse(mapLayerStatesString);
+      mapLayers.layers.forEach((mapLayer) => {
+        mapLayerStates.layerStates.forEach((mapLayerState) => {
+          if (mapLayerState.layerName === mapLayer.name) {
+            mapLayer.layer.setVisible(mapLayerState.visible);
+          }
+        });
+      });
+    }
+  }
+
+  storeMapLayerStates(mapLayers: MapLayers): void {
+    const layerStates: MapLayerState[] = mapLayers.layers
+      .toArray()
+      .map((mapLayer) => {
+        const mapLayerState: MapLayerState = {
+          layerName: mapLayer.name,
+          visible: mapLayer.layer.getVisible(),
+        };
+        return mapLayerState;
+      });
+
+    const mapLayerStates: MapLayerStates = { layerStates };
+
+    this.browserStorageService.set(
+      this.mapLayerStateKey,
+      JSON.stringify(mapLayerStates)
+    );
+  }
 
   osmLayer(): MapLayer {
     return new OsmLayer(this.i18nService).build();

@@ -46,7 +46,10 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.layers = this.buildLayers();
-
+    setTimeout(
+      () => this.mapLayerService.restoreMapLayerStates(this.layers),
+      0
+    );
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
