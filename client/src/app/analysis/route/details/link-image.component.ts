@@ -47,8 +47,8 @@ export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private adjustImageHeight(): void {
     if (this.imageRef && this.divRef) {
-      let height = this.divRef.nativeElement.parentElement.parentElement
-        .offsetHeight;
+      let height =
+        this.divRef.nativeElement.parentElement.parentElement.offsetHeight - 1;
       this.renderer.setStyle(
         this.imageRef.nativeElement,
         'height',

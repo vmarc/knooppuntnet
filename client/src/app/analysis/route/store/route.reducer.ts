@@ -30,11 +30,14 @@ export const routeReducer = createReducer(
     const routeId =
       response.result?.route.summary.id.toString() ?? state.routeId;
     const routeName = response.result?.route.summary.name ?? state.routeName;
+    const networkType =
+      response.result?.route.summary.networkType ?? state.networkType;
     const changeCount = response.result?.changeCount ?? state.changeCount;
     return {
       ...state,
       routeId,
       routeName,
+      networkType,
       changeCount,
       detailsPage: response,
     };
@@ -44,11 +47,14 @@ export const routeReducer = createReducer(
       response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
     const routeName =
       response.result?.routeMapInfo.routeName ?? state.routeName;
+    const networkType =
+      response.result?.routeMapInfo.networkType ?? state.networkType;
     const changeCount = response.result?.changeCount ?? state.changeCount;
     return {
       ...state,
       routeId,
       routeName,
+      networkType,
       changeCount,
       mapPage: response,
     };

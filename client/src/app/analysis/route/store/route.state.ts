@@ -2,11 +2,13 @@ import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { NetworkType } from '@api/custom/network-type';
 import { AppState } from '../../../core/core.state';
 
 export const initialState: RouteState = {
   routeId: '',
   routeName: '',
+  networkType: null,
   changeCount: 0,
   detailsPage: null,
   mapPage: null,
@@ -16,6 +18,7 @@ export const initialState: RouteState = {
 export interface RouteState {
   routeId: string;
   routeName: string;
+  networkType: NetworkType;
   changeCount: number;
   detailsPage: ApiResponse<RouteDetailsPage>;
   mapPage: ApiResponse<RouteMapPage>;

@@ -34,6 +34,11 @@ export const selectRouteName = createSelector(
   (state: RouteState) => state.routeName
 );
 
+export const selectRouteNetworkType = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.networkType
+);
+
 export const selectRouteChangeCount = createSelector(
   selectRouteState,
   (state: RouteState) => state.changeCount

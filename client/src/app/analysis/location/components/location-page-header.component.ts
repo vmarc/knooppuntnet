@@ -25,6 +25,9 @@ import { selectLocationKey } from '../store/location.selectors';
         subject="location-page"
         i18n="@@location-page.header"
       >
+        <span class="header-network-type-icon">
+          <mat-icon [svgIcon]="locationKey.networkType"></mat-icon>
+        </span>
         <kpn-network-type-name
           [networkType]="locationKey.networkType"
         ></kpn-network-type-name>

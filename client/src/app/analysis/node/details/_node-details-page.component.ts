@@ -45,9 +45,14 @@ import { selectNodeChangeCount } from '../store/node.selectors';
           <kpn-node-summary [nodeInfo]="page.nodeInfo"></kpn-node-summary>
         </kpn-data>
 
-        <kpn-data title="Situation on" i18n-title="@@node.situation-on">
-          <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
-        </kpn-data>
+        <div class="data2">
+          <div class="title">
+            <span i18n="@@node.situation-on">Situation on</span>
+          </div>
+          <div class="body">
+            <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+          </div>
+        </div>
 
         <kpn-data title="Last updated" i18n-title="@@node.last-updated">
           <kpn-timestamp
@@ -94,6 +99,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
       </div>
     </div>
   `,
+  styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class NodeDetailsPageComponent implements OnInit {
   nodeId$ = this.store.select(selectNodeId);

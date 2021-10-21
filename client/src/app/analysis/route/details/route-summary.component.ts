@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy} from '@angular/core';
-import {Component, Input} from '@angular/core';
-import {RouteInfo} from '@api/common/route/route-info';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RouteInfo } from '@api/common/route/route-info';
 
 @Component({
   selector: 'kpn-route-summary',
@@ -8,6 +8,10 @@ import {RouteInfo} from '@api/common/route/route-info';
   template: `
     <div>
       <p i18n="@@route.meters">{{ route.summary.meters }} m</p>
+
+      <p *ngIf="route.summary.country">
+        <kpn-country-name [country]="route.summary.country"></kpn-country-name>
+      </p>
 
       <p>
         <kpn-osm-link-relation
@@ -20,17 +24,11 @@ import {RouteInfo} from '@api/common/route/route-info';
         </span>
       </p>
 
-      <kpn-network-type
-        [networkType]="route.summary.networkType"
-      ></kpn-network-type>
-
-      <p *ngIf="route.summary.country">
-        <kpn-country-name [country]="route.summary.country"></kpn-country-name>
-      </p>
-
       <p *ngIf="isRouteBroken()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
-        <span i18n="@@route.broken">There seems to be something wrong with this route.</span>
+        <span i18n="@@route.broken"
+          >There seems to be something wrong with this route.</span
+        >
       </p>
 
       <p *ngIf="isRouteIncomplete()" class="kpn-line">
@@ -55,11 +53,10 @@ import {RouteInfo} from '@api/common/route/route-info';
 
       <p *ngIf="isRouteNameDerivedFromNodes()" class="kpn-line">
         <span i18n="@@route.name-derived-from-nodes">
-          The route name is derived from the route nodes,
-          rather than the tags in the route relation.
+          The route name is derived from the route nodes, rather than the tags
+          in the route relation.
         </span>
       </p>
-
     </div>
   `,
 })

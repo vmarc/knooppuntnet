@@ -11,6 +11,7 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
 import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
+import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteDetailsPage } from '../store/route.selectors';
 import { selectRouteChangeCount } from '../store/route.selectors';
 import { selectRouteName } from '../store/route.selectors';
@@ -33,6 +34,7 @@ import { selectRouteId } from '../store/route.selectors';
       [routeId]="routeId$ | async"
       [routeName]="routeName$ | async"
       [changeCount]="changeCount$ | async"
+      [networkType]="networkType$ | async"
     >
     </kpn-route-page-header>
 
@@ -46,13 +48,23 @@ import { selectRouteId } from '../store/route.selectors';
           <kpn-route-summary [route]="page.route"></kpn-route-summary>
         </kpn-data>
 
-        <kpn-data title="Situation on" i18n-title="@@route.situation-on">
-          <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
-        </kpn-data>
+        <div class="data2">
+          <div class="title">
+            <span i18n="@@route.situation-on">Situation on</span>
+          </div>
+          <div class="body">
+            <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+          </div>
+        </div>
 
-        <kpn-data title="Last updated" i18n-title="@@route.last-updated">
-          <kpn-timestamp [timestamp]="page.route.lastUpdated"></kpn-timestamp>
-        </kpn-data>
+        <div class="data2">
+          <div class="title">
+            <span i18n="@@route.last-updated">Last updated</span>
+          </div>
+          <div class="body">
+            <kpn-timestamp [timestamp]="page.route.lastUpdated"></kpn-timestamp>
+          </div>
+        </div>
 
         <kpn-data
           title="Relation last updated"
@@ -143,12 +155,14 @@ import { selectRouteId } from '../store/route.selectors';
       </div>
     </div>
   `,
+  styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class RoutePageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);
   readonly routeName$ = this.store.select(selectRouteName);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
   readonly response$ = this.store.select(selectRouteDetailsPage);
+  readonly networkType$ = this.store.select(selectRouteNetworkType);
 
   showRouteDetails$: Observable<boolean>;
 

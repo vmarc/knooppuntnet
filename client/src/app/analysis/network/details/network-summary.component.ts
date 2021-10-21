@@ -6,22 +6,25 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
   selector: 'kpn-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p class="kpn-km">
-      {{ page.attributes.km }}
+    <p class="kpn-comma-list">
+      <span>
+        {{ page.attributes.km }}
+        <ng-container i18n="@@network-details.km">km</ng-container>
+      </span>
+      <span
+        >{{ page.summary.nodeCount }}
+        <ng-container i18n="@@network-details.nodes">nodes</ng-container>
+      </span>
+      <span>
+        {{ page.summary.routeCount }}
+        <ng-container i18n="@@network-details.routes">routes</ng-container>
+      </span>
     </p>
+
     <p>
-      {{ page.summary.nodeCount }}
-      <ng-container i18n="@@network-details.nodes">nodes</ng-container>
+      <kpn-country-name [country]="page.attributes.country"></kpn-country-name>
     </p>
-    <p>
-      {{ page.summary.routeCount }}
-      <ng-container i18n="@@network-details.routes">routes</ng-container>
-    </p>
-    <p>
-      <kpn-network-type
-        [networkType]="page.attributes.networkType"
-      ></kpn-network-type>
-    </p>
+
     <p class="kpn-line">
       <kpn-osm-link-relation
         [relationId]="page.attributes.id"

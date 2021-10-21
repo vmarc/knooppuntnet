@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { actionRouteMapPageInit } from '../store/route.actions';
+import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteMapPage } from '../store/route.selectors';
 import { selectRouteChangeCount } from '../store/route.selectors';
 import { selectRouteName } from '../store/route.selectors';
@@ -28,6 +29,7 @@ import { selectRouteId } from '../store/route.selectors';
       [routeId]="routeId$ | async"
       [routeName]="routeName$ | async"
       [changeCount]="changeCount$ | async"
+      [networkType]="networkType$ | async"
     >
     </kpn-route-page-header>
 
@@ -52,6 +54,7 @@ export class RouteMapPageComponent implements OnInit, OnDestroy {
   readonly routeName$ = this.store.select(selectRouteName);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
   readonly response$ = this.store.select(selectRouteMapPage);
+  readonly networkType$ = this.store.select(selectRouteNetworkType);
 
   constructor(
     private pageService: PageService,
