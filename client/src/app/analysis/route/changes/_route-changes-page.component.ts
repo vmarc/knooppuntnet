@@ -59,6 +59,11 @@ import { RouteChangesService } from './route-changes.service';
         <div *ngIf="!page" i18n="@@route.route-not-found">Route not found</div>
 
         <div *ngIf="page">
+          <p>
+            <kpn-situation-on
+              [timestamp]="response.situationOn"
+            ></kpn-situation-on>
+          </p>
           <kpn-changes
             [(parameters)]="parameters"
             [totalCount]="page.totalCount"

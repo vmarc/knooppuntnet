@@ -63,6 +63,11 @@ import { NodeChangesService } from './node-changes.service';
     >
       <div *ngIf="!page" i18n="@@node.node-not-found">Node not found</div>
       <div *ngIf="page">
+        <p>
+          <kpn-situation-on
+            [timestamp]="response.situationOn"
+          ></kpn-situation-on>
+        </p>
         <kpn-changes
           [(parameters)]="parameters"
           [totalCount]="page.totalCount"
