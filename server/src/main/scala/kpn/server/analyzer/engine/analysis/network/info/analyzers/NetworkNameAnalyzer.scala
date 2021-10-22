@@ -35,7 +35,9 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Skateroute-netwerk ",
     " (Walcheren)",
     "Réseau Pédestre - ",
-    "Réseau pédestre "
+    "Réseau pédestre de ",
+    "Réseau pédestre du ",
+    "Réseau pédestre ",
   )
 
   def name(tags: Tags): String = {
