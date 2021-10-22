@@ -4,11 +4,13 @@ import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
@@ -71,6 +73,7 @@ class NetworkCreateTest01 extends IntegrationTest {
       assertNetworkDoc()
       assertNetworkInfoDoc()
       assertNetworkChange()
+      assertNetworkInfoChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -112,7 +115,8 @@ class NetworkCreateTest01 extends IntegrationTest {
         summary = newNetworkSummary(
           name = "name",
           nodeCount = 2,
-          routeCount = 1
+          routeCount = 1,
+          changeCount = 1
         ),
         detail = newNetworkDetail(
           tags = Tags.from(
@@ -120,7 +124,8 @@ class NetworkCreateTest01 extends IntegrationTest {
             "type" -> "network",
             "network" -> "rwn",
             "name" -> "name"
-          )
+          ),
+          center = Some(LatLonImpl("0.0", "0.0"))
         ),
         nodes = Seq(
           newNetworkInfoNodeDetail(
@@ -137,7 +142,18 @@ class NetworkCreateTest01 extends IntegrationTest {
         routes = Seq(
           newNetworkInfoRouteDetail(
             11,
-            "01-02"
+            "01-02",
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "note" -> "01-02",
+              "network:type" -> "node_network"
+            ),
+            nodeRefs = Seq(
+              1001,
+              1002
+            )
           )
         )
       )
@@ -205,8 +221,36 @@ class NetworkCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         networkName = "name",
         changeType = ChangeType.Create,
-        nodes = IdDiffs(added = Seq(1001, 1002)),
-        relations = IdDiffs(added = Seq(11))
+        nodes = IdDiffs(
+          added = Seq(1001, 1002)
+        ),
+        relations = IdDiffs(
+          added = Seq(11)
+        )
+      )
+    )
+  }
+
+  private def assertNetworkInfoChange(): Unit = {
+    findNetworkInfoChangeById("123:1:1") should matchTo(
+      newNetworkInfoChange(
+        newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Create,
+        country = Some(Country.nl),
+        networkId = 1,
+        nodeDiffs = RefDiffs(
+          added = Seq(
+            Ref(1001, "01"),
+            Ref(1002, "02")
+          )
+        ),
+        routeDiffs = RefDiffs(
+          added = Seq(
+            Ref(11, "01-02")
+          )
+        ),
+        happy = true
       )
     )
   }

@@ -18,7 +18,7 @@ class NetworkInfoChangeProcessorImpl(
 
     val impactedNetworkIds = networkInfoImpactAnalyzer.analyze(changeSetContext)
 
-    val networkChanges = impactedNetworkIds.flatMap { networkId =>
+    val networkInfoChanges = impactedNetworkIds.flatMap { networkId =>
       val beforeOption = database.networkInfos.findById(networkId)
       val previousKnownCountry = beforeOption.flatMap(_.country)
       val afterOption = networkInfoMasterAnalyzer.updateNetwork(
@@ -43,7 +43,7 @@ class NetworkInfoChangeProcessorImpl(
 
     changeSetContext.copy(
       changes = changeSetContext.changes.copy(
-        networkInfoChanges = networkChanges
+        networkInfoChanges = networkInfoChanges
       )
     )
   }

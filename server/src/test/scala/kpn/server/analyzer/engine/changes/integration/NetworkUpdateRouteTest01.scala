@@ -14,6 +14,7 @@ import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.Both
+import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
@@ -191,6 +192,12 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         elementIds = ElementIds(
           nodeIds = Set(1001, 1002),
           wayIds = Set(101)
+        ),
+        edges = Seq(
+          RouteEdge(1, 1001, 1002, 0),
+          RouteEdge(101, 1002, 1001, 0),
+          RouteEdge(2, 1002, 1001, 0),
+          RouteEdge(102, 1001, 1002, 0)
         )
       )
     )
@@ -217,7 +224,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         //      newNetworkData(name = "name")
         //    )
         //  ),
-        routes = RefDiffs(
+        routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
           )

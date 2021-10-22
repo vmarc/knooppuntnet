@@ -73,7 +73,7 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   override def networkInfoChanges: DatabaseCollection[NetworkInfoChange] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfoChange]("network-changes"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkInfoChange]("network-info-changes"))
   }
 
   override def routeChanges: DatabaseCollection[RouteChange] = {

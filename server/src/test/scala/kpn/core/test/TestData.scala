@@ -63,11 +63,30 @@ class TestData() extends SharedTestObjects {
   }
 
   def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): RawRelation = {
-    relation(id, members, Tags.from("network" -> "rwn", "type" -> "route", "route" -> "foot", "note" -> name, "network:type" -> "node_network") ++ tags)
+    relation(
+      id,
+      members,
+      Tags.from(
+        "network" -> "rwn",
+        "type" -> "route",
+        "route" -> "foot",
+        "note" -> name,
+        "network:type" -> "node_network"
+      ) ++ tags
+    )
   }
 
   def networkRelation(id: Long, name: String, members: Seq[RawMember]): RawRelation = {
-    relation(id, members, Tags.from("network" -> "rwn", "type" -> "network", "name" -> name, "network:type" -> "node_network"))
+    relation(
+      id,
+      members,
+      Tags.from(
+        "network" -> "rwn",
+        "type" -> "network",
+        "name" -> name,
+        "network:type" -> "node_network"
+      )
+    )
   }
 
   def rawData: RawData = {

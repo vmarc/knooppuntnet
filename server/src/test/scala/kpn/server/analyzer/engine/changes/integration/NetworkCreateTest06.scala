@@ -78,8 +78,8 @@ class NetworkCreateTest06 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkNodes = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
-        routes = RefDiffs(added = Seq(Ref(11, "01-02"))),
+        nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
+        routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
         happy = true
       )
     )

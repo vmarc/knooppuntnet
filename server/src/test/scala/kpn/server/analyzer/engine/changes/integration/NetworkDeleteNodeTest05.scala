@@ -104,10 +104,11 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         newNetworkSummary(
           name = "network",
           networkType = NetworkType.hiking,
+          changeCount = 1
         ),
         newNetworkDetail(
-          lastUpdated = defaultTimestamp, // TODO timestampAfterValue,
-          relationLastUpdated = defaultTimestamp, // TODO timestampAfterValue
+          lastUpdated = defaultTimestamp,
+          relationLastUpdated = defaultTimestamp,
           tags = newNetworkTags("network")
         )
       )
@@ -123,7 +124,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "network",
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01")
           )

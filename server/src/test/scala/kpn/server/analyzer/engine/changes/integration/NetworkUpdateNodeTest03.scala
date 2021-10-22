@@ -103,7 +103,7 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
         1,
         "name",
         networkDataUpdate = None,
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1002, "02")
           )

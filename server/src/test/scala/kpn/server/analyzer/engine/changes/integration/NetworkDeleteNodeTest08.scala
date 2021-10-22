@@ -80,10 +80,11 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         newNetworkSummary(
           name = "network1",
           networkType = NetworkType.hiking,
+          changeCount = 1
         ),
         newNetworkDetail(
-          lastUpdated = defaultTimestamp, // TODO MONGO timestampAfterValue,
-          relationLastUpdated = defaultTimestamp, // TODO MONGO timestampAfterValue
+          lastUpdated = defaultTimestamp,
+          relationLastUpdated = defaultTimestamp,
           tags = newNetworkTags("network1")
         )
       )
@@ -99,7 +100,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "network1",
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01")
           )

@@ -73,7 +73,8 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         active = false,
         country = Some(Country.nl),
         summary = newNetworkSummary(
-          name = "network-name"
+          name = "network-name",
+          changeCount = 1
         ),
         detail = newNetworkDetail(
           tags = Tags.from(
@@ -101,7 +102,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
           //    Ref(1001, "01")
           //  )
         ),
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           removed = Seq(Ref(1001, "01"))
         ),
         investigate = true

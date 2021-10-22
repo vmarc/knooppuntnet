@@ -3,12 +3,14 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
@@ -33,7 +35,7 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
     }
   }
 
-  private def assertNode() = {
+  private def assertNode(): Unit = {
     findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
@@ -57,7 +59,7 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNodeChange() = {
+  private def assertNodeChange(): Unit = {
     findNodeChangeById("123:1:1001") should matchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
@@ -67,6 +69,13 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
         after = Some(
           newMetaData(version = 1)
         ),
+        initialTags = Some(
+          Tags.from(
+            "rwn_ref" -> "01",
+            "network:type" -> "node_network"
+          )
+        ),
+        initialLatLon = Some(LatLonImpl("0", "0")),
         happy = true,
         impact = true,
         locationHappy = true,
@@ -75,7 +84,7 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary() = {
+  private def assertChangeSetSummary(): Unit = {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),

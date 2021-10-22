@@ -166,7 +166,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         //      )
         //    )
         //  ),
-        routes = RefDiffs(
+        routeDiffs = RefDiffs(
           added = Seq(
             Ref(11, "01-02")
           )
@@ -176,7 +176,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertRouteChange() = {
+  private def assertRouteChange(): Unit = {
 
     val routeData = newRouteData(
       Some(Country.nl),

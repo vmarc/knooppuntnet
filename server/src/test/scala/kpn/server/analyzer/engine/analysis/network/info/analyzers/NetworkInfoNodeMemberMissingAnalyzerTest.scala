@@ -15,7 +15,7 @@ class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestO
         NetworkFact(
           Fact.NodeMemberMissing.name,
           Some("node"),
-          Some(Seq(1001)),
+          None,
           Some(Seq(Ref(1001, "01"))),
           None
         )

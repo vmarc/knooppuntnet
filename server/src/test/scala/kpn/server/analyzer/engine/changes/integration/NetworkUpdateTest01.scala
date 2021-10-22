@@ -312,12 +312,12 @@ class NetworkUpdateTest01 extends IntegrationTest {
         1,
         "name",
         networkDataUpdate = None,
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           updated = Seq(
             Ref(1002, "03")
           )
         ),
-        routes = RefDiffs(
+        routeDiffs = RefDiffs(
           updated = Seq(
             Ref(11, "01-03")
           )

@@ -8,20 +8,24 @@ class Issue203_NamedRoutes extends UnitTest {
   test("Carrefour des Planches - Croix des Clos") {
     val route = CaseStudy.routeAnalysis("13305500").route
     route.facts should equal(
-      Fact.RouteRedundantNodes,
-      Fact.RouteNotForward,
-      Fact.RouteNotBackward,
-      Fact.RouteNotContinious,
-      Fact.RouteBroken
+      Seq(
+        Fact.RouteRedundantNodes,
+        Fact.RouteNotForward,
+        Fact.RouteNotBackward,
+        Fact.RouteNotContinious,
+        Fact.RouteBroken
+      )
     )
   }
 
   test("Le Villard - Le Villard") {
     val route = CaseStudy.routeAnalysis("12219285").route
     route.facts should equal(
-      Fact.RouteRedundantNodes,
-      Fact.RouteUnusedSegments,
-      Fact.RouteBroken
+      Seq(
+        Fact.RouteRedundantNodes,
+        Fact.RouteUnusedSegments,
+        Fact.RouteBroken
+      )
     )
   }
 }

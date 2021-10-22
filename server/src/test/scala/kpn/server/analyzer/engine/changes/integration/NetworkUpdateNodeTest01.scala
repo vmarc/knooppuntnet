@@ -109,7 +109,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
           //   )
         ),
         networkDataUpdate = None,
-        networkNodes = RefDiffs(removed = Seq(Ref(1002, "02"))),
+        nodeDiffs = RefDiffs(removed = Seq(Ref(1002, "02"))),
         investigate = true
       )
     )

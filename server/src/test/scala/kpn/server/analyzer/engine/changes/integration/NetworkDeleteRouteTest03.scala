@@ -73,10 +73,11 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
         newNetworkSummary(
           name = "network1",
           networkType = NetworkType.hiking,
+          changeCount = 1
         ),
         newNetworkDetail(
-          lastUpdated = defaultTimestamp, // TODO MONGO timestampAfterValue,
-          relationLastUpdated = defaultTimestamp, // TODO MONGO timestampAfterValue
+          lastUpdated = defaultTimestamp,
+          relationLastUpdated = defaultTimestamp,
           tags = newNetworkTags("network1")
         )
       )
@@ -93,14 +94,14 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
         1,
         "network1",
         // TODO MONGO orphanRoutes = RefChanges(newRefs = Seq(Ref(11, "01-02"))),
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01"),
             Ref(1002, "02"),
             Ref(1003, "03")
           )
         ),
-        routes = RefDiffs(
+        routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02"),
             Ref(12, "01-03")

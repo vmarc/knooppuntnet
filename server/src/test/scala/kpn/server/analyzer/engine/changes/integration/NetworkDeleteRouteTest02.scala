@@ -86,7 +86,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
     }
   }
 
-  private def assertNetworkInfo() = {
+  private def assertNetworkInfo(): Unit = {
     findNetworkInfoById(1) should matchTo(
       newNetworkInfoDoc(
         1,
@@ -95,17 +95,18 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
         newNetworkSummary(
           name = "network1",
           networkType = NetworkType.hiking,
+          changeCount = 1
         ),
         newNetworkDetail(
-          lastUpdated = defaultTimestamp, // TODO MONGO timestampAfterValue,
-          relationLastUpdated = defaultTimestamp, // TODO MONGO timestampAfterValue
+          lastUpdated = defaultTimestamp,
+          relationLastUpdated = defaultTimestamp,
           tags = newNetworkTags("network1")
         )
       )
     )
   }
 
-  private def assertNetworkInfoChange() = {
+  private def assertNetworkInfoChange(): Unit = {
     findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
@@ -114,13 +115,13 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "network1",
-        networkNodes = RefDiffs(
+        nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01"),
             Ref(1002, "02")
           )
         ),
-        routes = RefDiffs(
+        routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
           )
@@ -130,7 +131,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
     )
   }
 
-  private def assertRouteChange() = {
+  private def assertRouteChange(): Unit = {
 
     val routeData = newRouteData(
       Some(Country.nl),
@@ -175,7 +176,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
     )
   }
 
-  private def assertChangeSetSummary() = {
+  private def assertChangeSetSummary(): Unit = {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),

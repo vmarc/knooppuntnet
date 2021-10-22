@@ -48,6 +48,7 @@ import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
+import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
@@ -763,8 +764,8 @@ trait SharedTestObjects extends MockFactory {
     orphanRoutes: RefChanges = RefChanges.empty,
     orphanNodes: RefChanges = RefChanges.empty,
     networkDataUpdate: Option[NetworkDataUpdate] = None,
-    networkNodes: RefDiffs = RefDiffs.empty,
-    routes: RefDiffs = RefDiffs.empty,
+    nodeDiffs: RefDiffs = RefDiffs.empty,
+    routeDiffs: RefDiffs = RefDiffs.empty,
     extraNodes: IdDiffs = IdDiffs.empty,
     extraWays: IdDiffs = IdDiffs.empty,
     extraRelations: IdDiffs = IdDiffs.empty,
@@ -782,8 +783,8 @@ trait SharedTestObjects extends MockFactory {
       orphanRoutes,
       orphanNodes,
       networkDataUpdate,
-      networkNodes,
-      routes,
+      nodeDiffs,
+      routeDiffs,
       extraNodes,
       extraWays,
       extraRelations,
@@ -929,7 +930,8 @@ trait SharedTestObjects extends MockFactory {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
-    elementIds: ElementIds = ElementIds()
+    elementIds: ElementIds = ElementIds(),
+    edges: Seq[RouteEdge] = Seq.empty
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -946,7 +948,7 @@ trait SharedTestObjects extends MockFactory {
       tiles,
       nodeRefs,
       elementIds,
-      Seq.empty
+      edges
     )
   }
 
