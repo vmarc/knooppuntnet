@@ -33,7 +33,9 @@ object NetworkNameAnalyzer {
     "Skateroute-netwerk ",
     " (Walcheren)",
     "Réseau Pédestre - ",
-    "Réseau pédestre "
+    "Réseau pédestre de ",
+    "Réseau pédestre du ",
+    "Réseau pédestre ",
   )
 }
 
