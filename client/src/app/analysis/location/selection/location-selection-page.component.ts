@@ -37,6 +37,9 @@ import { LocationSelectionService } from './location-selection.service';
       </ul>
 
       <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
+        <span class="header-network-type-icon">
+          <mat-icon [svgIcon]="networkType"></mat-icon>
+        </span>
         <kpn-network-type-name
           [networkType]="networkType"
         ></kpn-network-type-name>

@@ -20,7 +20,12 @@ import { selectSubsetInfo } from '../store/subset.selectors';
       [pageTitle]="subsetPageTitle$ | async"
       [subject]="'subset-' + pageName + '-page'"
     >
-      {{ subsetName$ | async }}
+      <span class="header-network-type-icon">
+        <mat-icon [svgIcon]="networkType$ | async"></mat-icon>
+      </span>
+      <span>
+        {{ subsetName$ | async }}
+      </span>
     </kpn-page-header>
 
     <kpn-subset-page-menu
@@ -36,6 +41,7 @@ export class SubsetPageHeaderBlockComponent {
 
   readonly subset$ = this.store.select(selectSubset);
   readonly subsetInfo$ = this.store.select(selectSubsetInfo);
+  readonly networkType$ = this.subset$.pipe(map((s) => s.networkType));
 
   readonly subsetName$ = this.subset$.pipe(
     map((subset) => {

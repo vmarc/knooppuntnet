@@ -15,8 +15,11 @@ import { AnalysisModeService } from './analysis-mode.service';
       <li i18n="@@network-type.inline-skating">Inline skating</li>
     </ul>
 
-    <kpn-page-header i18n="@@network-type.inline-skating"
-      >Inline skating
+    <kpn-page-header>
+      <span class="header-network-type-icon">
+        <mat-icon svgIcon="inline-skating"></mat-icon>
+      </span>
+      <span i18n="@@network-type.inline-skating">Inline skating</span>
     </kpn-page-header>
 
     <kpn-analysis-mode></kpn-analysis-mode>
