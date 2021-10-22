@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisRoutingModule } from './analysis-routing.module';
@@ -14,7 +15,13 @@ import { AnalysisMotorboatPageComponent } from './pages/analysis-motorboat-page.
 import { AnalysisPageComponent } from './pages/analysis-page.component';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, AnalysisRoutingModule, MatRadioModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    AnalysisRoutingModule,
+    MatRadioModule,
+    MatIconModule,
+  ],
   declarations: [
     AnalysisPageComponent,
     AnalysisCyclingPageComponent,

@@ -15,8 +15,11 @@ import { AnalysisModeService } from './analysis-mode.service';
       <li i18n="@@network-type.horse-riding">Horse riding</li>
     </ul>
 
-    <kpn-page-header i18n="@@network-type.horse-riding"
-      >Horse riding
+    <kpn-page-header>
+      <span class="header-network-type-icon">
+        <mat-icon svgIcon="horse-riding"></mat-icon>
+      </span>
+      <span i18n="@@network-type.horse-riding">Horse riding</span>
     </kpn-page-header>
 
     <kpn-analysis-mode></kpn-analysis-mode>
