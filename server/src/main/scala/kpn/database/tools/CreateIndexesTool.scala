@@ -108,12 +108,6 @@ class CreateIndexesTool(database: Database) {
         "tiles"
       ),
       Index(
-        database.nodeRouteRefs,
-        "nodeId-networkType",
-        "nodeId",
-        "networkType"
-      ),
-      Index(
         database.routes,
         "labels",
         "labels",
@@ -140,12 +134,6 @@ class CreateIndexesTool(database: Database) {
         "edges.sourceNodeId",
         "edges.sinkNodeId",
         "edges.meters"
-      ),
-      Index(
-        database.nodeRouteRefs,
-        "nodeId",
-        "nodeId",
-        "routeName"
       ),
       Index(
         database.networkChanges,

@@ -69,8 +69,6 @@ trait Database {
 
   def routeNetworkRefs: DatabaseCollection[RouteNetworkRef]
 
-  def nodeRouteRefs: DatabaseCollection[NodeRouteRef]
-
   def changeSets: DatabaseCollection[ChangeSetInfo]
 
   def pois: DatabaseCollection[Poi]

@@ -12,16 +12,13 @@ import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
-import kpn.core.doc.NetworkShapeDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
-import kpn.core.doc.NodeRouteRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
-import kpn.core.gpx.GpxFile
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -98,10 +95,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def routeNetworkRefs: DatabaseCollection[RouteNetworkRef] = {
     new DatabaseCollectionImpl(database.getCollection[RouteNetworkRef]("route-network-refs"))
-  }
-
-  override def nodeRouteRefs: DatabaseCollection[NodeRouteRef] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeRouteRef]("node-route-refs"))
   }
 
   override def changeSets: DatabaseCollection[ChangeSetInfo] = {

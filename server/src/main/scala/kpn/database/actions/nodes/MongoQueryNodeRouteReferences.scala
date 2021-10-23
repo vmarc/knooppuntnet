@@ -1,9 +1,10 @@
 package kpn.database.actions.nodes
 
-import kpn.database.actions.nodes.MongoQueryNodeRouteReferences.log
-import kpn.database.base.Database
+import kpn.core.doc.Label
 import kpn.core.doc.NodeRouteRef
 import kpn.core.util.Log
+import kpn.database.actions.nodes.MongoQueryNodeRouteReferences.log
+import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -19,13 +20,12 @@ object MongoQueryNodeRouteReferences {
 
 class MongoQueryNodeRouteReferences(database: Database) {
 
-  // get the references directly from the route collection instead of a separate collection (see execute2)
   def execute(nodeIds: Seq[Long]): Seq[NodeRouteRef] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
           and(
-            equal("active", true), // because that is in the existing index (should use labels?)
+            equal("labels", Label.active),
             in("nodeRefs", nodeIds: _*),
           )
         ),
@@ -40,24 +40,12 @@ class MongoQueryNodeRouteReferences(database: Database) {
             computed("nodeId", "$nodeRefs"),
             computed("routeId", "$summary.id"),
             computed("networkType", "$summary.networkType"),
-            // computed("networkScope", "$summary.networkScope"),
+            computed("networkScope", "$summary.networkScope"),
             computed("routeName", "$summary.name"),
           )
         )
       )
       val refs = database.routes.aggregate[NodeRouteRef](pipeline, log)
-      (s"node route refs: ${refs.size}", refs)
-    }
-  }
-
-  def execute2(nodeIds: Seq[Long], log: Log = MongoQueryNodeRouteReferences.log): Seq[NodeRouteRef] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          in("_id", nodeIds: _*),
-        )
-      )
-      val refs = database.nodeRouteRefs.aggregate[NodeRouteRef](pipeline, log)
       (s"node route refs: ${refs.size}", refs)
     }
   }
