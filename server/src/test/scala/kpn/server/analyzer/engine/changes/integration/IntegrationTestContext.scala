@@ -79,7 +79,7 @@ class IntegrationTestContext(
   private implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
   private val changeSetRepository = new ChangeSetRepositoryImpl(database)
-  private val nodeRepository = new NodeRepositoryImpl(database)
+  val nodeRepository = new NodeRepositoryImpl(database)
   private val routeRepository = new RouteRepositoryImpl(database)
   private val networkRepository = new NetworkRepositoryImpl(database)
   private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)

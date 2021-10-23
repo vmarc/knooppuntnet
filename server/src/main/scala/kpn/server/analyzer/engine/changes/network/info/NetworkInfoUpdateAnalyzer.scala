@@ -4,6 +4,8 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
@@ -26,29 +28,27 @@ class NetworkInfoUpdateAnalyzer(
     val extraWayDiffs = analyzeExtraWayDiffs()
     val extraRelationDiffs = analyzeExtraRelationDiffs()
 
-    //  val networkDataBefore = NetworkData(
-    //      MetaData(
-    //        version: Long,
-    //        timestamp: Timestamp,
-    //        changeSetId: Long
-    //      ),
-    //      before.summary.name
-    //  )
+    val networkDataBefore = NetworkData(
+      before.detail.toMeta,
+      before.summary.name
+    )
 
-    //  val networkDataAfter = NetworkData(
-    //      MetaData(
-    //        version: Long,
-    //        timestamp: Timestamp,
-    //        changeSetId: Long
-    //      ),
-    //      after.summary.name
-    //  )
+    val networkDataAfter = NetworkData(
+      after.detail.toMeta,
+      after.summary.name
+    )
 
-    //  case class NetworkDataUpdate(
-    //    before: NetworkData,
-    //    after: NetworkData
-    //  )
-    val networkDataUpdate = None
+    val networkDataUpdate = if (networkDataBefore != networkDataAfter) {
+      Some(
+        NetworkDataUpdate(
+          Some(networkDataBefore),
+          Some(networkDataAfter)
+        )
+      )
+    }
+    else {
+      None
+    }
 
     val orphanRouteDiffs = analyzeOrphanRouteDiffs()
     val orphanNodeDiffs = analyzeOrphanNodeDiffs()

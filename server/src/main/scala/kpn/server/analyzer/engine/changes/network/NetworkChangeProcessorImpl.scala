@@ -2,10 +2,12 @@ package kpn.server.analyzer.engine.changes.network
 
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.custom.ChangeType
-import kpn.database.base.Database
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
@@ -54,26 +56,19 @@ class NetworkChangeProcessorImpl(
     val afterRelations = overpassRepository.relations(context.timestampAfter, networkIds)
     networkIds.flatMap { networkId =>
       val changeAction = networkChanges.action(networkId)
-
       val relationBeforeOption = beforeRelations.find(_.id == networkId)
       val relationAfterOption = afterRelations.find(_.id == networkId)
-      // afterRelations.find(_.id == networkId).map(NetworkDoc.from)
 
       relationBeforeOption match {
         case None =>
           relationAfterOption match {
-            case None =>
-              // TODO message ?
-              None
-            case Some(after) =>
-              Some(processCreate(context, after))
+            case Some(after) => Some(processCreate(context, after))
+            case None => None
           }
         case Some(before) =>
           relationAfterOption match {
-            case None =>
-              Some(processDelete(context, before))
-            case Some(after) =>
-              Some(processUpdate(context, before, after))
+            case Some(after) => Some(processUpdate(context, before, after))
+            case None => Some(processDelete(context, before))
           }
       }
     }
@@ -85,13 +80,24 @@ class NetworkChangeProcessorImpl(
     database.networks.save(NetworkDoc.from(after))
 
     val key = context.buildChangeKey(after.id)
+    val networkNameAfter = NetworkNameAnalyzer.name(after.tags)
+    val networkDataUpdate = NetworkDataUpdate(
+      None,
+      Some(
+        NetworkData(
+          after.toMeta,
+          networkNameAfter
+        )
+      )
+    )
 
     NetworkChange(
       _id = key.toId,
       key = key,
       networkId = after.id,
-      networkName = NetworkNameAnalyzer.name(after.tags),
+      networkName = networkNameAfter,
       changeType = ChangeType.Create,
+      networkDataUpdate = Some(networkDataUpdate),
       nodes = IdDiffs(added = after.nodeMembers.map(_.ref)),
       ways = IdDiffs(added = after.wayMembers.map(_.ref)),
       relations = IdDiffs(added = after.relationMembers.map(_.ref))
@@ -99,11 +105,14 @@ class NetworkChangeProcessorImpl(
   }
 
   def processDelete(context: ChangeSetContext, before: RawRelation): NetworkChange = {
+
     analysisContext.watched.networks.delete(before.id)
     database.networks.save(
       NetworkDoc(
         before.id,
         active = false,
+        before.version,
+        before.changeSetId,
         context.changeSet.timestamp,
         Seq.empty,
         Seq.empty,
@@ -111,14 +120,26 @@ class NetworkChangeProcessorImpl(
         before.tags
       )
     )
+
     val key = context.buildChangeKey(before.id)
+    val networkNameBefore = NetworkNameAnalyzer.name(before.tags)
+    val networkDataUpdate = NetworkDataUpdate(
+      Some(
+        NetworkData(
+          before.toMeta,
+          networkNameBefore
+        )
+      ),
+      None
+    )
 
     NetworkChange(
       _id = key.toId,
       key = key,
       networkId = before.id,
-      networkName = NetworkNameAnalyzer.name(before.tags),
+      networkName = networkNameBefore,
       changeType = ChangeType.Create,
+      networkDataUpdate = Some(networkDataUpdate),
       nodes = IdDiffs(removed = before.nodeMembers.map(_.ref)),
       ways = IdDiffs(removed = before.wayMembers.map(_.ref)),
       relations = IdDiffs(removed = before.relationMembers.map(_.ref))
@@ -145,12 +166,40 @@ class NetworkChangeProcessorImpl(
     val relationsAdded = (relationsAfter -- relationsBefore).toSeq.sorted
     val relationsRemoved = (relationsBefore -- relationsAfter).toSeq.sorted
 
+    val networkNameBefore = NetworkNameAnalyzer.name(before.tags)
+    val networkNameAfter = NetworkNameAnalyzer.name(after.tags)
+    val metaBefore = before.toMeta
+    val metaAfter = before.toMeta
+
+    val networkDataUpdate = if (networkNameBefore != networkNameAfter || metaBefore != metaAfter) {
+      Some(
+        NetworkDataUpdate(
+          Some(
+            NetworkData(
+              before.toMeta,
+              networkNameBefore
+            )
+          ),
+          Some(
+            NetworkData(
+              after.toMeta,
+              networkNameAfter
+            )
+          )
+        )
+      )
+    }
+    else {
+      None
+    }
+
     NetworkChange(
       _id = key.toId,
       key = key,
       networkId = after.id,
-      networkName = NetworkNameAnalyzer.name(after.tags),
+      networkName = networkNameAfter,
       changeType = ChangeType.Create,
+      networkDataUpdate = networkDataUpdate,
       nodes = IdDiffs(
         added = nodesAdded,
         removed = nodesRemoved

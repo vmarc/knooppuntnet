@@ -48,6 +48,8 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     NetworkDetail(
       context.km,
       context.meters,
+      context.networkDoc.version,
+      context.networkDoc.changeSetId,
       context.lastUpdated.get,
       context.networkDoc.relationLastUpdated,
       context.lastSurvey,

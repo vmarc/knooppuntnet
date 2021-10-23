@@ -8,8 +8,11 @@ import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
@@ -89,6 +92,8 @@ class NetworkCreateTest01 extends IntegrationTest {
       NetworkDoc(
         1,
         active = true,
+        version = 0,
+        changeSetId = 1,
         relationLastUpdated = defaultTimestamp,
         nodeMembers = Seq(
           NetworkNodeMember(1001, None),
@@ -221,6 +226,17 @@ class NetworkCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         networkName = "name",
         changeType = ChangeType.Create,
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            None,
+            Some(
+              NetworkData(
+                MetaData(0, defaultTimestamp, 1),
+                "name"
+              )
+            )
+          )
+        ),
         nodes = IdDiffs(
           added = Seq(1001, 1002)
         ),

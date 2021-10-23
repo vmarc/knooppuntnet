@@ -20,6 +20,8 @@ object NetworkDoc {
     NetworkDoc(
       rawRelation.id,
       active = true,
+      rawRelation.version,
+      rawRelation.changeSetId,
       rawRelation.timestamp,
       nodeMembers,
       wayMembers,
@@ -32,6 +34,8 @@ object NetworkDoc {
 case class NetworkDoc(
   _id: Long,
   active: Boolean,
+  version: Long,
+  changeSetId: Long,
   relationLastUpdated: Timestamp,
   nodeMembers: Seq[NetworkNodeMember],
   wayMembers: Seq[NetworkWayMember],

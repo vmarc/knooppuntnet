@@ -6,6 +6,9 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MetaData
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
@@ -108,13 +111,22 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        networkDataUpdate = None,
-        //  Some( TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            Some(
+              NetworkData(
+                MetaData(1, defaultTimestamp, 1),
+                "name"
+              )
+            ),
+            Some(
+              NetworkData(
+                MetaData(2, defaultTimestamp, 1),
+                "name"
+              )
+            )
+          )
+        ),
         nodeDiffs = RefDiffs(removed = Seq(Ref(1002, "02"))),
         investigate = true
       )

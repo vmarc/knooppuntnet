@@ -50,6 +50,8 @@ class BulkNetworkAnalyzerImpl(
     NetworkDoc(
       rawRelation.id,
       active = true,
+      rawRelation.version,
+      rawRelation.changeSetId,
       rawRelation.timestamp,
       nodeMembers,
       wayMembers,

@@ -11,7 +11,10 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawMember
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteEdge
@@ -217,13 +220,22 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         //    Seq(Ref(11, "01-02")
         //    )
         //  ),
-        networkDataUpdate = None,
-        //  Some( TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            Some(
+              NetworkData(
+                MetaData(1, defaultTimestamp, 1),
+                name = "name"
+              )
+            ),
+            Some(
+              NetworkData(
+                MetaData(2, defaultTimestamp, 1),
+                name = "name"
+              )
+            ),
+          )
+        ),
         routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")

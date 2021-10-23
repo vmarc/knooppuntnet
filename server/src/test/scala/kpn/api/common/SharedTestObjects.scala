@@ -798,6 +798,7 @@ trait SharedTestObjects extends MockFactory {
     key: ChangeKey = newChangeKey(),
     networkName: String = "",
     changeType: ChangeType,
+    networkDataUpdate: Option[NetworkDataUpdate] = None,
     nodes: IdDiffs = IdDiffs.empty,
     ways: IdDiffs = IdDiffs.empty,
     relations: IdDiffs = IdDiffs.empty,
@@ -808,6 +809,7 @@ trait SharedTestObjects extends MockFactory {
       key.elementId,
       networkName,
       changeType,
+      networkDataUpdate,
       nodes,
       ways,
       relations,
@@ -1113,6 +1115,8 @@ trait SharedTestObjects extends MockFactory {
   def newNetwork(
     _id: Long,
     active: Boolean = true,
+    version: Long = 0,
+    changeSetId: Long = 1,
     relationLastUpdated: Timestamp = defaultTimestamp,
     nodeMembers: Seq[NetworkNodeMember] = Seq.empty,
     wayMembers: Seq[NetworkWayMember] = Seq.empty,
@@ -1122,6 +1126,8 @@ trait SharedTestObjects extends MockFactory {
     NetworkDoc(
       _id,
       active,
+      version,
+      changeSetId,
       relationLastUpdated,
       nodeMembers,
       wayMembers,
@@ -1245,6 +1251,8 @@ trait SharedTestObjects extends MockFactory {
   def newNetworkDetail(
     km: Long = 0,
     meters: Long = 0,
+    version: Long = 0,
+    changeSetId: Long = 1,
     lastUpdated: Timestamp = defaultTimestamp,
     relationLastUpdated: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
@@ -1259,6 +1267,8 @@ trait SharedTestObjects extends MockFactory {
     NetworkDetail(
       km,
       meters,
+      version,
+      changeSetId,
       lastUpdated,
       relationLastUpdated,
       lastSurvey,

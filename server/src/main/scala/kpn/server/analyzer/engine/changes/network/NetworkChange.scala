@@ -4,6 +4,7 @@ import kpn.api.base.WithStringId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.custom.ChangeType
 
 case class NetworkChange(
@@ -12,6 +13,7 @@ case class NetworkChange(
   networkId: Long,
   networkName: String,
   changeType: ChangeType,
+  networkDataUpdate: Option[NetworkDataUpdate],
   nodes: IdDiffs,
   ways: IdDiffs,
   relations: IdDiffs,

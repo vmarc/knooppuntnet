@@ -6,17 +6,21 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkFacts
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.common.Reference
+import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawMember
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
+import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 
 class NetworkAddRouteTest01 extends IntegrationTest {
@@ -59,86 +63,61 @@ class NetworkAddRouteTest01 extends IntegrationTest {
       assertNetworkInfo()
       assertNetworkInfoChange()
       assertRouteChange()
-
-      // TODO (tc.nodeRepository.nodeRouteReferences _).verify(*, *).never()
-
       assertNodeChange1001()
       assertNodeChange1002()
       assertChangeSetSummary()
+      assertNodeRouteReferences()
     }
   }
 
   private def assertNetworkInfo(): Unit = {
-    findNetworkInfoById(1) // TODO should matchTo(
-    newNetworkInfo(
-      newNetworkAttributes(
+    findNetworkInfoById(1) should matchTo(
+      newNetworkInfoDoc(
         1,
-        Some(Country.nl),
-        NetworkType.hiking,
-        name = "network",
-        lastUpdated = defaultTimestamp,
-        relationLastUpdated = defaultTimestamp,
-        nodeCount = 2,
-        routeCount = 1,
-        brokenRoutePercentage = "-",
-        integrity = newIntegrity(
-          isOk = false,
-          coverage = "-",
-          okRate = "-",
-          nokRate = "-"
+        country = Some(Country.nl),
+        summary = newNetworkSummary(
+          name = "network",
+          nodeCount = 2,
+          routeCount = 1,
+          changeCount = 1
         ),
-        center = Some(LatLonImpl("0.0", "0.0"))
-      ),
-      nodeRefs = Seq(
-        1001L,
-        1002L
-      ),
-      routeRefs = Seq(
-        11L
-      ),
-      tags = Tags.from(
-        "network" -> "rwn",
-        "type" -> "network",
-        "name" -> "network",
-        "network:type" -> "node_network"
-      ),
-      detail = Some(
-        NetworkInfoDetail(
-          nodes = Seq(
-            newNetworkInfoNode(
-              1001,
-              "01",
-              latitude = "0",
-              longitude = "0",
-              definedInRelation = true,
-              routeReferences = Seq(Ref(11, "01-02")),
-              tags = Tags.from(
-                "rwn_ref" -> "01",
-                "network:type" -> "node_network"
-              )
+        detail = newNetworkDetail(
+          version = 2,
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "type" -> "network",
+            "network" -> "rwn",
+            "name" -> "network",
+          ),
+          center = Some(LatLonImpl("0.0", "0.0")),
+        ),
+        nodes = Seq(
+          newNetworkInfoNodeDetail(
+            1001,
+            "01",
+            definedInRelation = true,
+          ),
+          newNetworkInfoNodeDetail(
+            1002,
+            "02",
+            definedInRelation = true,
+          )
+        ),
+        routes = Seq(
+          newNetworkInfoRouteDetail(
+            11,
+            "01-02",
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "note" -> "01-02",
+              "network:type" -> "node_network"
             ),
-            newNetworkInfoNode(
-              1002,
-              "02",
-              latitude = "0",
-              longitude = "0",
-              definedInRelation = true,
-              routeReferences = Seq(Ref(11, "01-02")),
-              tags = Tags.from(
-                "rwn_ref" -> "02",
-                "network:type" -> "node_network"
-              )
-            )
-          ),
-          routes = Seq(
-            newNetworkInfoRoute(
-              11,
-              "01-02",
-              wayCount = 1
-            )
-          ),
-          networkFacts = NetworkFacts(),
-          shape = None
+            nodeRefs = Seq(
+              1001,
+              1002)
+          )
         )
       )
     )
@@ -153,19 +132,22 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "network",
-        networkDataUpdate = None,
-        //  Some( // TODO MONGO should contain change from version 1 to 2
-        //    NetworkDataUpdate(
-        //      NetworkData(
-        //        MetaData(1, Timestamp(2015, 8, 11, 0, 0, 0), 1),
-        //        "network"
-        //      ),
-        //      NetworkData(
-        //        MetaData(1, Timestamp(2015, 8, 11, 0, 0, 0), 1),
-        //        "network"
-        //      )
-        //    )
-        //  ),
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            Some(
+              NetworkData(
+                MetaData(1, defaultTimestamp, 1),
+                "network"
+              )
+            ),
+            Some(
+              NetworkData(
+                MetaData(2, defaultTimestamp, 1),
+                "network"
+              )
+            )
+          )
+        ),
         routeDiffs = RefDiffs(
           added = Seq(
             Ref(11, "01-02")
@@ -322,5 +304,18 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         happy = true
       )
     )
+  }
+
+  private def assertNodeRouteReferences(): Unit = {
+    val nodeRouteReferences = Seq(
+      Reference(
+        NetworkType.hiking,
+        NetworkScope.regional,
+        11,
+        "01-02"
+      )
+    )
+    context.nodeRepository.nodeRouteReferences(1001) should equal(nodeRouteReferences)
+    context.nodeRepository.nodeRouteReferences(1002) should equal(nodeRouteReferences)
   }
 }
