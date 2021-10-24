@@ -17,8 +17,6 @@ case class NetworkChangeInfo(
   networkName: String,
   before: Option[MetaData],
   after: Option[MetaData],
-  orphanRoutes: RefChanges,
-  orphanNodes: RefChanges,
   networkDataUpdated: Boolean,
   networkNodes: RefDiffs,
   routes: RefDiffs,

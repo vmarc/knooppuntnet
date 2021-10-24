@@ -89,7 +89,6 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
       nodeChange.removedFromNetwork.nonEmpty ||
       nodeChange.factDiffs.investigate ||
       hasFact(Fact.Deleted) ||
-      hasFact(Fact.BecomeOrphan) ||
       hasLostNodeTag
   }
 

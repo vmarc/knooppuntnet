@@ -15,8 +15,6 @@ export class FactNameComponent implements OnInit {
   ngOnInit(): void {
     if (this.fact === 'Added') {
       this.factName = $localize`:@@fact.name.added:Added`;
-    } else if (this.fact === 'BecomeOrphan') {
-      this.factName = $localize`:@@fact.name.become-orphan:BecomeOrphan`;
     } else if (this.fact === 'Deleted') {
       this.factName = $localize`:@@fact.name.deleted:Deleted`;
     } else if (this.fact === 'IntegrityCheck') {

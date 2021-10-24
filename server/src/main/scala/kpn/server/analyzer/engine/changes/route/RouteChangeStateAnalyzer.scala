@@ -74,7 +74,6 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
     routeChange.removedFromNetwork.nonEmpty ||
       routeChange.diffs.investigate ||
       hasFact(Fact.Deleted) ||
-      hasFact(Fact.BecomeOrphan) ||
       hasFact(Fact.LostRouteTags)
   }
 

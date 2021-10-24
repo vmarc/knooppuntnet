@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 import { SharedModule } from '../../components/shared/shared.module';
 import { FactAddedComponent } from './descriptions/fact-added.component';
-import { FactBecomeOrphanComponent } from './descriptions/fact-become-orphan.component';
 import { FactDeletedComponent } from './descriptions/fact-deleted.component';
 import { FactIntegrityCheckFailedComponent } from './descriptions/fact-integrity-check-failed.component';
 import { FactIntegrityCheckComponent } from './descriptions/fact-integrity-check.component';
@@ -115,7 +114,6 @@ import { FactsComponent } from './facts.component';
     FactRouteNotOneWayComponent,
     FactNameMissingComponent,
     FactAddedComponent,
-    FactBecomeOrphanComponent,
     FactDeletedComponent,
     FactIntegrityCheckComponent,
     FactLostBicycleNodeTagComponent,

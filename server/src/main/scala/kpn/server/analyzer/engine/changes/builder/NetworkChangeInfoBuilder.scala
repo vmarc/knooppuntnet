@@ -22,8 +22,6 @@ class NetworkChangeInfoBuilder {
       change.networkName,
       change.networkDataUpdate.flatMap(_.before.map(_.metaData)),
       change.networkDataUpdate.flatMap(_.after.map(_.metaData)),
-      change.orphanRouteDiffs,
-      change.orphanNodeDiffs,
       change.networkDataUpdate.isDefined,
       change.nodeDiffs,
       change.routeDiffs,

@@ -72,8 +72,7 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRoute(analysisAfter)
 
-          throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-          val impactedNodeIds: Seq[Long] = Seq.empty
+          val impactedNodeIds: Seq[Long] = analysisAfter.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
           val key = context.changeSetContext.buildChangeKey(analysisAfter.id)
           RouteChangeStateAnalyzer.analyzed(
@@ -102,8 +101,8 @@ class RouteChangeBuilderImpl(
 
           tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
 
-          throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-          val impactedNodeIds: Seq[Long] = Seq.empty
+          val impactedNodeIds: Seq[Long] = (analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id) ++
+            analysisAfter.routeNodeAnalysis.routeNodes.map(_.node.id)).distinct.sorted
 
           val key = context.changeSetContext.buildChangeKey(routeId)
           RouteChangeStateAnalyzer.analyzed(
@@ -167,8 +166,7 @@ class RouteChangeBuilderImpl(
           routeRepository.save(routeDoc)
           tileChangeAnalyzer.analyzeRoute(analysisBefore)
 
-          throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-          val impactedNodeIds: Seq[Long] = Seq.empty
+          val impactedNodeIds: Seq[Long] = analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
           val key = context.changeSetContext.buildChangeKey(routeId)
           Some(
@@ -219,8 +217,9 @@ class RouteChangeBuilderImpl(
     //        }
 
     tileChangeAnalyzer.analyzeRouteChange(analysisBefore, analysisAfter)
-    throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-    val impactedNodeIds: Seq[Long] = Seq.empty
+
+    val impactedNodeIds: Seq[Long] = (analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id) ++
+      analysisAfter.routeNodeAnalysis.routeNodes.map(_.node.id)).distinct.sorted
 
     val key = context.changeSetContext.buildChangeKey(routeId)
     Some(
@@ -235,11 +234,11 @@ class RouteChangeBuilderImpl(
           removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
           before = Some(analysisBefore.toRouteData),
           after = Some(analysisAfter.toRouteData),
-          removedWays = Seq.empty, // routeUpdate.removedWays,
-          addedWays = Seq.empty, // routeUpdate.addedWays,
-          updatedWays = Seq.empty, // routeUpdate.updatedWays,
-          diffs = RouteDiff(), // routeUpdate.diffs,
-          facts = facts :+ Fact.BecomeOrphan,
+          removedWays = routeUpdate.removedWays,
+          addedWays = routeUpdate.addedWays,
+          updatedWays = routeUpdate.updatedWays,
+          diffs = routeUpdate.diffs,
+          facts = facts,
           impactedNodeIds
         )
       )
@@ -251,14 +250,14 @@ class RouteChangeBuilderImpl(
     val analysesBefore = routeAnalysesIn(context.networkBefore, routeIds)
     val analysesAfter = routeAnalysesIn(context.networkAfter, routeIds)
 
-    throw new IllegalStateException("Unexpected code execution - would need to calculate impactedNodeIds here")
-    val impactedNodeIds: Seq[Long] = Seq.empty
-
     analysesBefore.flatMap { analysisBefore =>
 
       val routeId = analysisBefore.id
 
       analysesAfter.find(_.id == routeId).flatMap { analysisAfter =>
+
+        val impactedNodeIds: Seq[Long] = (analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id) ++
+          analysisAfter.routeNodeAnalysis.routeNodes.map(_.node.id)).distinct.sorted
 
         val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
 

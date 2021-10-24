@@ -97,11 +97,6 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "network-name",
-        orphanNodes = RefChanges(
-          //  newRefs = Seq( TODO MONGO
-          //    Ref(1001, "01")
-          //  )
-        ),
         nodeDiffs = RefDiffs(
           removed = Seq(Ref(1001, "01"))
         ),

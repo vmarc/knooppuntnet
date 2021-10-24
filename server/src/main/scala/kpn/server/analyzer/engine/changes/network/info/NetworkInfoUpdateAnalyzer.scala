@@ -1,14 +1,12 @@
 package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.changes.details.NetworkInfoChange
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
-import kpn.api.custom.Fact
 import kpn.core.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
@@ -50,9 +48,6 @@ class NetworkInfoUpdateAnalyzer(
       None
     }
 
-    val orphanRouteDiffs = analyzeOrphanRouteDiffs()
-    val orphanNodeDiffs = analyzeOrphanNodeDiffs()
-
     val happy = nodeDiffs.added.nonEmpty ||
       routeDiffs.added.nonEmpty ||
       extraNodeDiffs.removed.nonEmpty ||
@@ -76,8 +71,6 @@ class NetworkInfoUpdateAnalyzer(
       after.scopedNetworkType.networkType,
       networkId,
       after.summary.name,
-      orphanRouteDiffs,
-      orphanNodeDiffs,
       networkDataUpdate,
       nodeDiffs,
       routeDiffs,
@@ -87,42 +80,6 @@ class NetworkInfoUpdateAnalyzer(
       happy,
       investigate,
       impact
-    )
-  }
-
-  private def analyzeOrphanRouteDiffs(): RefChanges = {
-    val oldOrphanRouteRefs = after.routes.map(_.id).flatMap { routeId =>
-      context.changes.routeChanges.find(_.id == routeId) match {
-        case None => None
-        case Some(routeChange) =>
-          if (routeChange.facts.contains(Fact.WasOrphan)) {
-            Some(routeChange.toRef)
-          }
-          else {
-            None
-          }
-      }
-    }
-    RefChanges(
-      oldRefs = oldOrphanRouteRefs
-    )
-  }
-
-  private def analyzeOrphanNodeDiffs(): RefChanges = {
-    val oldOrphanNodeRefs = after.nodes.map(_.id).flatMap { nodeId =>
-      context.changes.nodeChanges.find(_.id == nodeId) match {
-        case None => None
-        case Some(nodeChange) =>
-          if (nodeChange.facts.contains(Fact.WasOrphan)) {
-            Some(nodeChange.toRef)
-          }
-          else {
-            None
-          }
-      }
-    }
-    RefChanges(
-      oldRefs = oldOrphanNodeRefs
     )
   }
 

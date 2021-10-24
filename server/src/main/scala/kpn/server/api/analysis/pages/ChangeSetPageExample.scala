@@ -12,7 +12,6 @@ import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.details.RefBooleanChange
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.KnownElements
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
@@ -434,26 +433,6 @@ object ChangeSetPageExample {
           changeSetId = 1
         )
       ),
-      orphanRoutes = RefChanges(
-        oldRefs = Seq(
-          Ref(routeId1, "01-02"),
-          Ref(routeId3, "03-04")
-        ),
-        newRefs = Seq(
-          Ref(routeId3, "01-02"),
-          Ref(routeId4, "02-03")
-        )
-      ),
-      orphanNodes = RefChanges(
-        oldRefs = Seq(
-          Ref(nodeId1, "01"),
-          Ref(nodeId3, "03")
-        ),
-        newRefs = Seq(
-          Ref(nodeId2, "02"),
-          Ref(nodeId4, "04")
-        )
-      ),
       networkDataUpdated = true,
       networkNodes = RefDiffs(
         removed = Seq(
@@ -531,8 +510,6 @@ object ChangeSetPageExample {
           changeSetId = 1
         )
       ),
-      orphanRoutes = RefChanges(),
-      orphanNodes = RefChanges(),
       networkDataUpdated = true,
       networkNodes = RefDiffs(),
       routes = RefDiffs(),
@@ -566,8 +543,6 @@ object ChangeSetPageExample {
         )
       ),
       after = None,
-      orphanRoutes = RefChanges(),
-      orphanNodes = RefChanges(),
       networkDataUpdated = true,
       networkNodes = RefDiffs(),
       routes = RefDiffs(),

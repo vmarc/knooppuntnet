@@ -10,7 +10,6 @@ import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesFilterPeriod
@@ -135,7 +134,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         repository.changes(parameters).map(_.key.changeSetId)
       }
 
-      changes(ChangesParameters(impact = false)) should equal(Seq(5, 4, 3, 2, 1))
+      changes(ChangesParameters()) should equal(Seq(5, 4, 3, 2, 1))
       changes(ChangesParameters(impact = true)) should equal(Seq(2, 1))
     }
   }
@@ -447,8 +446,6 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       NetworkType.hiking,
       networkId,
       "network" + networkId,
-      RefChanges(),
-      RefChanges(),
       None,
       RefDiffs.empty,
       RefDiffs.empty,

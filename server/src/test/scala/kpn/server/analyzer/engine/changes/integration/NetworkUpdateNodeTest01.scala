@@ -5,16 +5,13 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.database.base.Database
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 
 class NetworkUpdateNodeTest01 extends IntegrationTest {
 
@@ -87,7 +84,6 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
           newMetaData()
         ),
         removedFromNetwork = Seq(Ref(1, "name")),
-        // TODO MONGO facts = Seq(Fact.BecomeOrphan),
         investigate = true,
         impact = true
       )
@@ -103,11 +99,6 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        orphanNodes = RefChanges(
-          //   newRefs = Seq( TODO MONGO
-          //     Ref(1002, "02")
-          //   )
-        ),
         networkDataUpdate = None,
         nodeDiffs = RefDiffs(removed = Seq(Ref(1002, "02"))),
         investigate = true

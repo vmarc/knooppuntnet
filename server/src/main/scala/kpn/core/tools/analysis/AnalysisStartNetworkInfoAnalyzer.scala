@@ -45,8 +45,6 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
         networkInfoDoc.summary.networkType,
         networkInfoDoc._id,
         networkInfoDoc.summary.name,
-        orphanRouteDiffs = RefChanges(),
-        orphanNodeDiffs = RefChanges(),
         networkDataUpdate = None,
         nodeDiffs = RefDiffs(added = nodeRefs),
         routeDiffs = RefDiffs(added = routeRefs),

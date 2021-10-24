@@ -7,9 +7,6 @@ import { Component, Input } from '@angular/core';
   template: `
     <ng-container [ngSwitch]="factName">
       <kpn-fact-added *ngSwitchCase="'Added'"></kpn-fact-added>
-      <kpn-fact-become-orphan
-        *ngSwitchCase="'BecomeOrphan'"
-      ></kpn-fact-become-orphan>
       <kpn-fact-deleted *ngSwitchCase="'Deleted'"></kpn-fact-deleted>
       <kpn-fact-integrity-check-failed
         *ngSwitchCase="'IntegrityCheckFailed'"

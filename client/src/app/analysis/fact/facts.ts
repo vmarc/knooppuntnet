@@ -8,7 +8,6 @@ class FactDefinition {
 export class Facts {
   static readonly facts = List<FactDefinition>([
     new FactDefinition('Added', FactLevel.other),
-    new FactDefinition('BecomeOrphan', FactLevel.other),
     new FactDefinition('Deleted', FactLevel.other),
     new FactDefinition('IntegrityCheck', FactLevel.other),
     new FactDefinition('IntegrityCheckFailed', FactLevel.error),
