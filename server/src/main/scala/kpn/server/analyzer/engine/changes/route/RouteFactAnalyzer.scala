@@ -11,17 +11,12 @@ class RouteFactAnalyzer(
 
   def facts(before: Option[RouteAnalysis], after: RouteAnalysis): Seq[Fact] = {
     Seq(
-      test(Fact.LostRouteTags, hasLostRouteTags(before, after)),
-      test(Fact.WasOrphan, wasOrphan(after))
+      test(Fact.LostRouteTags, hasLostRouteTags(before, after))
     ).flatten
   }
 
   private def hasLostRouteTags(before: Option[RouteAnalysis], after: RouteAnalysis): Boolean = {
     before.nonEmpty && hasRouteTags(before.get) && !hasRouteTags(after)
-  }
-
-  private def wasOrphan(after: RouteAnalysis) = {
-    analysisData.routes.contains(after.id)
   }
 
   private def hasRouteTags(routeAnalysis: RouteAnalysis): Boolean = {

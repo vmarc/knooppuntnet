@@ -130,9 +130,7 @@ object NodeChangesPageExample {
           introduced = Set(Fact.IntegrityCheckFailed),
           remaining = Set(Fact.IntegrityCheck)
         ),
-        facts = Seq(
-          Fact.WasOrphan
-        ),
+        facts = Seq.empty,
         initialTags = Some(
           Tags.from(
             "a" -> "1",

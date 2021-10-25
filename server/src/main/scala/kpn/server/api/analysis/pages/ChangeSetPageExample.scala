@@ -26,7 +26,6 @@ import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -688,9 +687,7 @@ object ChangeSetPageExample {
           // introduced: Set[Fact] = Set.empty,
           // remaining: Set[Fact] = Set.empty
         ),
-        facts = Seq(
-          Fact.WasOrphan
-        ),
+        facts = Seq.empty,
         initialTags = None,
         initialLatLon = None,
         happy = true,

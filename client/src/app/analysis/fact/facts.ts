@@ -51,7 +51,6 @@ export class Facts {
     new FactDefinition('RouteUnusedSegments', FactLevel.error),
     new FactDefinition('RouteWithoutNodes', FactLevel.error),
     new FactDefinition('RouteWithoutWays', FactLevel.error),
-    new FactDefinition('WasOrphan', FactLevel.other),
     new FactDefinition('NodeInvalidSurveyDate', FactLevel.error),
     new FactDefinition('RouteInvalidSurveyDate', FactLevel.error),
   ]);

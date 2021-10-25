@@ -41,8 +41,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
       nodeChange.addedToRoute.nonEmpty ||
       nodeChange.addedToNetwork.nonEmpty ||
       nodeChange.factDiffs.happy ||
-      hasFact(Fact.Added) ||
-      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasLostNodeTag))
+      hasFact(Fact.Added)
   }
 
   private def determineLocationHappy(): Boolean = {

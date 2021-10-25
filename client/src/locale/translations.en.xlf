@@ -831,20 +831,12 @@
           <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fact.name.was-orphan" datatype="html">
-        <source>WasOrphan</source>
-        <target state="final">WasOrphan</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
-          <context context-type="linenumber">95</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="fact.description-missing" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{ factName }}"/> description missing!! </source>
         <target state="final"> <x id="INTERPOLATION" equiv-text="{{ factName }}"/> description missing!! </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -1189,14 +1181,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-lost-inline-skate-node-tag.component.ts</context>
           <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="fact.description.was-orphan" datatype="html">
-        <source>No longer an orphan.</source>
-        <target state="final">No longer an orphan.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
-          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-indicator.orange.title" datatype="html">
@@ -8555,7 +8539,7 @@
         <target state="final">NodeInvalidSurveyDate</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-invalid-survey-date" datatype="html">
@@ -8563,7 +8547,7 @@
         <target state="final">RouteInvalidSurveyDate</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.node-invalid-survey-date" datatype="html">

@@ -59,18 +59,6 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     analyzer.facts(before, after) shouldBe empty
   }
 
-  test("WasOrphan") {
-    val context = new AnalysisContext()
-    context.watched.nodes.add(1)
-    val before = newRawNode()
-    val after = newRawNode()
-
-    val analyzer = new NodeChangeFactAnalyzer(context)
-    analyzer.facts(before, after) should equal(
-      Seq(Fact.WasOrphan)
-    )
-  }
-
   test("Orphan node that remains orphan") {
     val context = new AnalysisContext()
     context.watched.nodes.add(1001)
@@ -80,5 +68,4 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after) shouldBe empty
   }
-
 }

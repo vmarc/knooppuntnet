@@ -102,7 +102,6 @@ object Fact {
   val Deleted: Fact = f.other("Deleted")
   val LostHikingNodeTag: Fact = f.other("LostHikingNodeTag")
   val LostBicycleNodeTag: Fact = f.other("LostBicycleNodeTag")
-  val WasOrphan: Fact = f.other("WasOrphan")
   val LostRouteTags: Fact = f.other("LostRouteTags")
 
   val LostHorseNodeTag: Fact = f.other("LostHorseNodeTag")

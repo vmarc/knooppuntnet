@@ -15,8 +15,7 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
       test(Fact.LostHorseNodeTag, hasLostNodeTag(NetworkType.horseRiding, before, after)),
       test(Fact.LostMotorboatNodeTag, hasLostNodeTag(NetworkType.motorboat, before, after)),
       test(Fact.LostCanoeNodeTag, hasLostNodeTag(NetworkType.canoe, before, after)),
-      test(Fact.LostInlineSkateNodeTag, hasLostNodeTag(NetworkType.inlineSkating, before, after)),
-      test(Fact.WasOrphan, wasOrphan(before, after))
+      test(Fact.LostInlineSkateNodeTag, hasLostNodeTag(NetworkType.inlineSkating, before, after))
     ).flatten
   }
 
@@ -24,11 +23,6 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
     val nodeTagBefore: Boolean = TagInterpreter.isValidNetworkNode(networkType, before)
     val nodeTagAfter: Boolean = TagInterpreter.isValidNetworkNode(networkType, after)
     nodeTagBefore && !nodeTagAfter
-  }
-
-  private def wasOrphan(before: RawNode, after: RawNode) = {
-    !TagInterpreter.isValidNetworkNode(after) &&
-      analysisContext.watched.nodes.contains(before.id)
   }
 
   private def test(fact: Fact, exists: Boolean): Seq[Fact] = {

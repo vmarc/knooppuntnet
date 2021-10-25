@@ -51,15 +51,7 @@ class RouteChangeBuilderImpl(
 
       val routeId = analysisAfter.id
 
-      val extraFacts = Seq(
-        if (analysisContext.watched.routes.contains(routeId)) {
-          analysisContext.watched.routes.delete(routeId)
-          Seq(Fact.WasOrphan)
-        }
-        else {
-          Seq.empty
-        }
-      ).flatten
+      analysisContext.watched.routes.delete(routeId)
 
       context.routeAnalysesBefore.find(_.id == routeId) match {
 
@@ -90,7 +82,7 @@ class RouteChangeBuilderImpl(
               addedWays = Seq.empty,
               updatedWays = Seq.empty,
               diffs = RouteDiff(),
-              facts = extraFacts,
+              facts = Seq.empty,
               impactedNodeIds
             )
           )
@@ -120,7 +112,7 @@ class RouteChangeBuilderImpl(
               addedWays = routeUpdate.addedWays,
               updatedWays = routeUpdate.updatedWays,
               diffs = routeUpdate.diffs,
-              facts = routeUpdate.facts ++ extraFacts,
+              facts = routeUpdate.facts,
               impactedNodeIds
             )
           )

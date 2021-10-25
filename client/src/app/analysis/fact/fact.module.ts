@@ -55,7 +55,6 @@ import { FactRouteUnexpectedRelationComponent } from './descriptions/fact-route-
 import { FactRouteUnusedSegmentsComponent } from './descriptions/fact-route-unused-segments.component';
 import { FactRouteWithoutNodesComponent } from './descriptions/fact-route-without-nodes.component';
 import { FactRouteWithoutWaysComponent } from './descriptions/fact-route-without-ways.component';
-import { FactWasOrphanComponent } from './descriptions/fact-was-orphan.component';
 import { FactDescriptionComponent } from './fact-description.component';
 import { FactLevelComponent } from './fact-level.component';
 import { FactNameComponent } from './fact-name.component';
@@ -123,7 +122,6 @@ import { FactsComponent } from './facts.component';
     FactLostCanoeNodeTagComponent,
     FactLostRouteTagsComponent,
     FactLostInlineSkateNodeTagComponent,
-    FactWasOrphanComponent,
     FactDescriptionComponent,
     FactNodeInvalidSurveyDateComponent,
     FactRouteInvalidSurveyDateComponent,

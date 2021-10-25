@@ -40,7 +40,6 @@ object NodeDetailsPageExample {
       ),
       facts = Seq(
         Fact.NodeInvalidSurveyDate,
-        Fact.WasOrphan,
         Fact.Deleted
       ),
       locations = Seq("NL", "North Brabant", "Roosendaal"),

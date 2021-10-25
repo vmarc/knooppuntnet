@@ -41,8 +41,7 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
 
     routeChange.addedToNetwork.nonEmpty ||
       routeChange.diffs.happy ||
-      hasFact(Fact.Added) ||
-      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasFact(Fact.LostRouteTags)))
+      hasFact(Fact.Added)
   }
 
   private def determineLocationHappy(): Boolean = {
@@ -57,8 +56,7 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
 
     routeChange.addedToNetwork.nonEmpty ||
       routeChange.diffs.happy ||
-      hasFact(Fact.Added) ||
-      (hasFact(Fact.WasOrphan) && !(hasFact(Fact.Deleted) || hasFact(Fact.LostRouteTags)))
+      hasFact(Fact.Added)
   }
 
   private def determineInvestigate(): Boolean = {

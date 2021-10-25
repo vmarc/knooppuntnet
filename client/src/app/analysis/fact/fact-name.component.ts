@@ -91,8 +91,6 @@ export class FactNameComponent implements OnInit {
       this.factName = $localize`:@@fact.name.route-without-nodes:RouteWithoutNodes`;
     } else if (this.fact === 'RouteWithoutWays') {
       this.factName = $localize`:@@fact.name.route-without-ways:RouteWithoutWays`;
-    } else if (this.fact === 'WasOrphan') {
-      this.factName = $localize`:@@fact.name.was-orphan:WasOrphan`;
     } else if (this.fact === 'NodeInvalidSurveyDate') {
       this.factName = $localize`:@@fact.name.node-invalid-survey-date:NodeInvalidSurveyDate`;
     } else if (this.fact === 'RouteInvalidSurveyDate') {

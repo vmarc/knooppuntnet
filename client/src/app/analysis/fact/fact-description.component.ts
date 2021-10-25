@@ -126,7 +126,6 @@ import { Component, Input } from '@angular/core';
       <kpn-fact-route-without-ways
         *ngSwitchCase="'RouteWithoutWays'"
       ></kpn-fact-route-without-ways>
-      <kpn-fact-was-orphan *ngSwitchCase="'WasOrphan'"></kpn-fact-was-orphan>
       <kpn-fact-node-invalid-survey-date
         *ngSwitchCase="'NodeInvalidSurveyDate'"
       ></kpn-fact-node-invalid-survey-date>

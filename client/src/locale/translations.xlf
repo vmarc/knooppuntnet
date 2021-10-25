@@ -2006,18 +2006,11 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fact.description.was-orphan" datatype="html">
-        <source>No longer an orphan.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-was-orphan.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="fact.description-missing" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{ factName }}"/> description missing!! </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">145,137</context>
+          <context context-type="linenumber">144,136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -2293,25 +2286,18 @@
           <context context-type="linenumber">93,94</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fact.name.was-orphan" datatype="html">
-        <source>WasOrphan</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
-          <context context-type="linenumber">95,96</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="fact.name.node-invalid-survey-date" datatype="html">
         <source>NodeInvalidSurveyDate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
-          <context context-type="linenumber">97,98</context>
+          <context context-type="linenumber">95,96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-invalid-survey-date" datatype="html">
         <source>RouteInvalidSurveyDate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">97,98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="facts.none" datatype="html">
