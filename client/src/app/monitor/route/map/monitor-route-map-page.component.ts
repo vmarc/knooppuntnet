@@ -3,11 +3,6 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { List } from 'immutable';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import { filter } from 'rxjs/operators';
 import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { MapControls } from '@app/components/ol/layers/map-controls';
@@ -19,6 +14,12 @@ import { Util } from '@app/components/shared/util';
 import { AppState } from '@app/core/core.state';
 import { I18nService } from '@app/i18n/i18n.service';
 import { Subscriptions } from '@app/util/Subscriptions';
+import { Store } from '@ngrx/store';
+import { List } from 'immutable';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { actionMonitorRouteMapPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 import { MonitorRouteMapService } from './monitor-route-map.service';
@@ -92,17 +93,24 @@ export class MonitorRouteMapPageComponent
         this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
 
         this.subscriptions.add(
-          this.pageService.sidebarOpen.subscribe(() => {
-            if (this.map) {
-              setTimeout(() => {
-                this.map.updateSize();
-                this.mapLayers.updateSize();
-              }, 0);
-            }
-          })
+          this.pageService.sidebarOpen.subscribe(() => this.updateSize())
+        );
+        this.subscriptions.add(
+          fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+            this.updateSize()
+          )
         );
       })
     );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.mapLayers.updateSize();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {

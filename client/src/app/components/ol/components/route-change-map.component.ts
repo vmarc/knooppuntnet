@@ -8,7 +8,9 @@ import View from 'ol/View';
 import { Bounds } from '@api/common/bounds';
 import { RawNode } from '@api/common/data/raw/raw-node';
 import { GeometryDiff } from '@api/common/route/geometry-diff';
+import { fromEvent } from 'rxjs';
 import { UniqueId } from '../../../kpn/common/unique-id';
+import { Subscriptions } from '../../../util/Subscriptions';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
@@ -30,6 +32,7 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   @Input() geometryDiff: GeometryDiff;
   @Input() nodes: RawNode[];
   @Input() bounds: Bounds;
+  private readonly subscriptions = new Subscriptions();
 
   mapId = UniqueId.get();
   layers: MapLayers;
@@ -42,6 +45,7 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
     if (this.map) {
       this.map.setTarget(null);
     }
@@ -60,6 +64,21 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
     });
     this.layers.applyMap(this.map);
     this.map.getView().fit(Util.toExtent(this.bounds, 0.1));
+
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.layers.updateSize();
+      }, 0);
+    }
   }
 
   private buildLayers(): MapLayers {

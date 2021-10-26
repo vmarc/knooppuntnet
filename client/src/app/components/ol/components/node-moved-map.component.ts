@@ -5,7 +5,9 @@ import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { UniqueId } from '../../../kpn/common/unique-id';
+import { Subscriptions } from '../../../util/Subscriptions';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
@@ -24,6 +26,7 @@ import { MapLayerService } from '../services/map-layer.service';
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodeMoved: NodeMoved;
+  private readonly subscriptions = new Subscriptions();
 
   mapId = UniqueId.get();
   layers: MapLayers;
@@ -36,6 +39,7 @@ export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
     if (this.map) {
       this.map.setTarget(null);
     }
@@ -56,6 +60,21 @@ export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
     this.layers.applyMap(this.map);
     const center = Util.latLonToCoordinate(this.nodeMoved.after);
     this.map.getView().setCenter(center);
+
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.layers.updateSize();
+      }, 0);
+    }
   }
 
   private buildLayers(): MapLayers {

@@ -137,7 +137,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "port": 4100,
+            "port": 4000,
             "browserTarget": "knooppuntnet:build"
           },
           "configurations": {

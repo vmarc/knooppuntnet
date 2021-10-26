@@ -7,6 +7,7 @@ import { select } from '@ngrx/store';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AppState } from '@app/core/core.state';
@@ -77,15 +78,22 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
     this.mapClickService.installOn(this.map);
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => {
-        if (this.map) {
-          setTimeout(() => {
-            this.map.updateSize();
-            this.layers.updateSize();
-          }, 0);
-        }
-      })
+      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
     );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.layers.updateSize();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {

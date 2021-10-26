@@ -13,6 +13,7 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
 import { BackgroundLayer } from '../../../components/ol/layers/background-layer';
 import { MapControls } from '../../../components/ol/layers/map-controls';
@@ -75,6 +76,20 @@ export class MonitorRouteChangeMapComponent
     });
 
     this.map.getView().fit(Util.toExtent(this.nokSegment.bounds, 0.05));
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.mapLayers.updateSize();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {

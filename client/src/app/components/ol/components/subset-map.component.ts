@@ -17,6 +17,7 @@ import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
 import { Subscriptions } from '@app/util/Subscriptions';
+import { fromEvent } from 'rxjs';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -74,15 +75,22 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     this.map.addInteraction(this.buildInteraction());
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => {
-        if (this.map) {
-          setTimeout(() => {
-            this.map.updateSize();
-            this.layers.updateSize();
-          }, 0);
-        }
-      })
+      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
     );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.layers.updateSize();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {

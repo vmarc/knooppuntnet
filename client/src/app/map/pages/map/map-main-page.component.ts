@@ -7,6 +7,7 @@ import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { combineLatest, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { AppService } from '@app/app.service';
@@ -223,13 +224,21 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe((state) => {
-        if (this.map) {
-          setTimeout(() => {
-            this.map.updateSize();
-            this.plannerLayerService.updateSize();
-          }, 0);        }
-      })
+      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
     );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.plannerLayerService.updateSize();
+      }, 0);
+    }
   }
 }
