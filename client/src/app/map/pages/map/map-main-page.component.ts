@@ -3,30 +3,31 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PlanParams } from '@api/common/planner/plan-params';
+import { AppService } from '@app/app.service';
+import { LegHttpErrorDialogComponent } from '@app/components/ol/components/leg-http-error.dialog';
+import { LegNotFoundDialogComponent } from '@app/components/ol/components/leg-not-found-dialog';
+import { NoRouteDialogComponent } from '@app/components/ol/components/no-route-dialog.component';
+import { MapGeocoder } from '@app/components/ol/domain/map-geocoder';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { MapControls } from '@app/components/ol/layers/map-controls';
+import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { MapLayerService } from '@app/components/ol/services/map-layer.service';
+import { MapPositionService } from '@app/components/ol/services/map-position.service';
+import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
+import { MapService } from '@app/components/ol/services/map.service';
+import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
+import { PageService } from '@app/components/shared/page.service';
+import { Util } from '@app/components/shared/util';
+import { NetworkTypes } from '@app/kpn/common/network-types';
+import { PoiService } from '@app/services/poi.service';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { combineLatest, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { LegHttpErrorDialogComponent } from '../../../components/ol/components/leg-http-error.dialog';
-import { LegNotFoundDialogComponent } from '../../../components/ol/components/leg-not-found-dialog';
-import { NoRouteDialogComponent } from '../../../components/ol/components/no-route-dialog.component';
-import { MapGeocoder } from '../../../components/ol/domain/map-geocoder';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { MapControls } from '../../../components/ol/layers/map-controls';
-import { MapLayers } from '../../../components/ol/layers/map-layers';
-import { MapLayerService } from '../../../components/ol/services/map-layer.service';
-import { MapPositionService } from '../../../components/ol/services/map-position.service';
-import { MapZoomService } from '../../../components/ol/services/map-zoom.service';
-import { MapService } from '../../../components/ol/services/map.service';
-import { PoiTileLayerService } from '../../../components/ol/services/poi-tile-layer.service';
-import { PageService } from '../../../components/shared/page.service';
-import { Util } from '../../../components/shared/util';
-import { NetworkTypes } from '../../../kpn/common/network-types';
-import { PoiService } from '../../../services/poi.service';
-import { Subscriptions } from '../../../util/Subscriptions';
 import { PlannerService } from '../../planner.service';
 import { PlannerCommandAddPlan } from '../../planner/commands/planner-command-add-plan';
 import { PlannerInteraction } from '../../planner/interaction/planner-interaction';
@@ -58,6 +59,10 @@ import { PlannerLayerService } from '../../planner/services/planner-layer.servic
         bottom: 0;
         background-color: white;
         overflow: hidden;
+      }
+
+      .map:-webkit-full-screen {
+        top: 0;
       }
     `,
   ],
@@ -222,14 +227,21 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => {
-        if (this.map) {
-          setTimeout(() => {
-            this.map.updateSize();
-            this.plannerLayerService.updateSize();
-          }, 0);
-        }
-      })
+      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
     );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.plannerLayerService.updateSize();
+      }, 0);
+    }
   }
 }

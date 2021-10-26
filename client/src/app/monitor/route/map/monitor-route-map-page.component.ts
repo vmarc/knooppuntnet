@@ -3,22 +3,23 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { MapControls } from '@app/components/ol/layers/map-controls';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { OsmLayer } from '@app/components/ol/layers/osm-layer';
+import { PageService } from '@app/components/shared/page.service';
+import { Util } from '@app/components/shared/util';
+import { AppState } from '@app/core/core.state';
+import { I18nService } from '@app/i18n/i18n.service';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { BackgroundLayer } from '../../../components/ol/layers/background-layer';
-import { MapControls } from '../../../components/ol/layers/map-controls';
-import { MapLayer } from '../../../components/ol/layers/map-layer';
-import { MapLayers } from '../../../components/ol/layers/map-layers';
-import { OsmLayer } from '../../../components/ol/layers/osm-layer';
-import { PageService } from '../../../components/shared/page.service';
-import { Util } from '../../../components/shared/util';
-import { AppState } from '../../../core/core.state';
-import { I18nService } from '../../../i18n/i18n.service';
-import { Subscriptions } from '../../../util/Subscriptions';
 import { actionMonitorRouteMapPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 import { MonitorRouteMapService } from './monitor-route-map.service';
@@ -93,17 +94,24 @@ export class MonitorRouteMapPageComponent
         this.map.getView().fit(Util.toExtent(response.result.bounds, 0.05));
 
         this.subscriptions.add(
-          this.pageService.sidebarOpen.subscribe(() => {
-            if (this.map) {
-              setTimeout(() => {
-                this.map.updateSize();
-                this.mapLayers.updateSize();
-              }, 0);
-            }
-          })
+          this.pageService.sidebarOpen.subscribe(() => this.updateSize())
+        );
+        this.subscriptions.add(
+          fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+            this.updateSize()
+          )
         );
       })
     );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.mapLayers.updateSize();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {

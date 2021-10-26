@@ -5,6 +5,7 @@ import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
@@ -71,15 +72,22 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     this.mapClickService.installOn(this.map);
 
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => {
-        if (this.map) {
-          setTimeout(() => {
-            this.map.updateSize();
-            this.layers.updateSize();
-          }, 0);
-        }
-      })
+      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
     );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
+  }
+
+  private updateSize(): void {
+    if (this.map) {
+      setTimeout(() => {
+        this.map.updateSize();
+        this.layers.updateSize();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {
