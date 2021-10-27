@@ -33,7 +33,7 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
             context.relation.tags("route") match {
               case None => facts += RouteTagMissing
               case Some(routeTagValue) =>
-                if (!scopedNetworkType.networkType.routeTagValues.contains(routeTagValue)) {
+                if(!context.relation.tags.has("route", scopedNetworkType.networkType.routeTagValues:_*)) {
                   facts += RouteTagInvalid
                 }
             }

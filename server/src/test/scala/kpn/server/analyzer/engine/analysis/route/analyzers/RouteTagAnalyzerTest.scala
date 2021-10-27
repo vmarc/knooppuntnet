@@ -57,7 +57,11 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
     testValid(regional, inlineSkating, "inline_skates")
   }
 
-  def testValid(networkScope: NetworkScope, networkType: NetworkType, tagValue: String): Unit = {
+  test("ignore additional values") {
+    testValid(NetworkScope.regional, NetworkType.cycling, "bicycle;mtb")
+  }
+
+  private def testValid(networkScope: NetworkScope, networkType: NetworkType, tagValue: String): Unit = {
     val scopedNetworkType = ScopedNetworkType(networkScope, networkType)
     val tags = Tags.from(
       "type" -> "route",
