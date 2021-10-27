@@ -154,7 +154,7 @@ class NodeChangeMerger(left: NodeChange, right: NodeChange) {
     (left.removedFromNetwork ++ right.removedFromNetwork).distinct.sortBy(_.id)
   }
 
-  private def mergedFactDiffs(): FactDiffs = {
+  private def mergedFactDiffs(): Option[FactDiffs] = {
     left.factDiffs
   }
 

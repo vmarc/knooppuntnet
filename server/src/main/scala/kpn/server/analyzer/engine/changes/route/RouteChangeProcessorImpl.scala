@@ -107,7 +107,7 @@ class RouteChangeProcessorImpl(
       val factDiffs = if (after.route.facts.nonEmpty) {
         Some(
           FactDiffs(
-            introduced = after.route.facts.toSet
+            introduced = after.route.facts
           )
         )
       }

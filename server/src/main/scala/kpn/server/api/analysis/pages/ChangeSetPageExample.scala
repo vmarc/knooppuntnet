@@ -17,6 +17,8 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -26,6 +28,7 @@ import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
+import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -659,33 +662,42 @@ object ChangeSetPageExample {
         ),
         tagDiffs = Some(
           TagDiffs(
-            //mainTags: Seq[TagDetail] = Seq.empty, // display above separator line
-            //extraTags: Seq[TagDetail] = Seq.empty // display below separator line
+            mainTags = Seq(
+              TagDetail(TagDetailType.Update, "key1", Some("before"), Some("after"))
+            ),
+            extraTags = Seq(
+              TagDetail(TagDetailType.Add, "key2", None, Some("after")),
+              TagDetail(TagDetailType.Same, "key3", Some("value"), Some("value")),
+              TagDetail(TagDetailType.Update, "key4", Some("before"), Some("after")),
+              TagDetail(TagDetailType.Delete, "key5", Some("before"), None)
+            )
           )
         ),
         nodeMoved = Some(
-          NodeMoved( // TODO take data from actual node
-            before = LatLonImpl("0", "0"),
-            after = LatLonImpl("0", "0"),
+          NodeMoved(
+            before = LatLonImpl("51.46774", "4.46839"),
+            after = LatLonImpl("51.467", "4.468"),
             distance = 10
           )
         ),
         addedToRoute = Seq(
-          // Ref()
+          Ref(11, "01-02")
         ),
         removedFromRoute = Seq(
-          // Ref()
+          Ref(12, "02-03")
         ),
         addedToNetwork = Seq(
-          // Ref()
+          Ref(1, "network-1")
         ),
         removedFromNetwork = Seq(
-          // Ref()
+          Ref(1, "network-2")
         ),
-        factDiffs = FactDiffs(
-          // resolved: Set[Fact] = Set.empty,
-          // introduced: Set[Fact] = Set.empty,
-          // remaining: Set[Fact] = Set.empty
+        factDiffs = Some(
+          FactDiffs(
+            resolved = Seq(Fact.NodeInvalidSurveyDate),
+            introduced = Seq(Fact.LostBicycleNodeTag),
+            remaining = Seq(Fact.LostCanoeNodeTag)
+          )
         ),
         facts = Seq.empty,
         initialTags = None,
@@ -727,7 +739,13 @@ object ChangeSetPageExample {
         removedFromRoute = Seq.empty,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
-        factDiffs = FactDiffs(),
+        factDiffs = Some(
+          FactDiffs(
+            resolved = Seq(Fact.LostCanoeNodeTag),
+            introduced = Seq(Fact.LostHorseNodeTag),
+            remaining = Seq(Fact.LostBicycleNodeTag)
+          )
+        ),
         facts = Seq.empty,
         initialTags = None,
         initialLatLon = None,
@@ -768,7 +786,7 @@ object ChangeSetPageExample {
         removedFromRoute = Seq.empty,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
-        factDiffs = FactDiffs(),
+        factDiffs = None,
         facts = Seq.empty,
         initialTags = Some(
           Tags.from(

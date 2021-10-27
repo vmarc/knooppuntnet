@@ -125,10 +125,12 @@ object NodeChangesPageExample {
           Ref(1, "network three"),
           Ref(1, "network four")
         ),
-        factDiffs = FactDiffs(
-          resolved = Set(Fact.NetworkExtraMemberNode),
-          introduced = Set(Fact.IntegrityCheckFailed),
-          remaining = Set(Fact.IntegrityCheck)
+        factDiffs = Some(
+          FactDiffs(
+            resolved = Seq(Fact.NetworkExtraMemberNode),
+            introduced = Seq(Fact.IntegrityCheckFailed),
+            remaining = Seq(Fact.IntegrityCheck)
+          )
         ),
         facts = Seq.empty,
         initialTags = Some(

@@ -40,7 +40,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
     nodeChange.definedInNetworkChanges.exists(_.after) ||
       nodeChange.addedToRoute.nonEmpty ||
       nodeChange.addedToNetwork.nonEmpty ||
-      nodeChange.factDiffs.happy ||
+      nodeChange.factDiffs.exists(_.happy) ||
       hasFact(Fact.Added)
   }
 
@@ -66,7 +66,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
       return true
     }
 
-    if (nodeChange.factDiffs.resolved.exists(Fact.locationFacts.contains)) {
+    if (nodeChange.factDiffs.exists(_.resolved.exists(Fact.locationFacts.contains))) {
       return true
     }
 
@@ -86,7 +86,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
     nodeChange.definedInNetworkChanges.exists(_.after == false) ||
       nodeChange.removedFromRoute.nonEmpty ||
       nodeChange.removedFromNetwork.nonEmpty ||
-      nodeChange.factDiffs.investigate ||
+      nodeChange.factDiffs.exists(_.investigate) ||
       hasFact(Fact.Deleted) ||
       hasLostNodeTag
   }
@@ -109,7 +109,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
       return true
     }
 
-    if (nodeChange.factDiffs.introduced.filter(_.isError).exists(Fact.locationFacts.contains)) {
+    if (nodeChange.factDiffs.exists(_.introduced.filter(_.isError).exists(Fact.locationFacts.contains))) {
       return true
     }
 

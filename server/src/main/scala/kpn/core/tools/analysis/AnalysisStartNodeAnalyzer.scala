@@ -72,8 +72,19 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
     }
 
     val key = config.changeSetContext.buildChangeKey(nodeDoc._id)
-    val facts = nodeDoc.facts.toSet
+    val facts = nodeDoc.facts
     val locationFacts = facts.filter(Fact.locationFacts.contains)
+
+    val factDiffs = if (facts.nonEmpty) {
+      Some(
+        FactDiffs(
+          remaining = facts
+        )
+      )
+    }
+    else {
+      None
+    }
 
     config.changeSetRepository.saveNodeChange(
       NodeChange(
@@ -94,7 +105,7 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
         removedFromRoute = Seq.empty,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
-        factDiffs = FactDiffs(remaining = facts),
+        factDiffs = factDiffs,
         facts = Seq.empty,
         initialTags = Some(nodeDoc.tags),
         initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),

@@ -6,6 +6,7 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.ChangeType
+import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.NodeDoc
 import kpn.core.history.NodeTagDiffAnalyzer
@@ -13,7 +14,13 @@ import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer.analyzed
 
-class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: NodeDoc) {
+class NodeDocChangeAnalyzer(
+  context: ChangeSetContext,
+  before: NodeDoc,
+  after: NodeDoc,
+  facts: Seq[Fact],
+  changeType: ChangeType
+) {
 
   def analyze(): Option[NodeChange] = {
 
@@ -41,9 +48,11 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
       None
     }
     else {
-      val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
-      val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
-      val subsets = (subsetsBefore ++ subsetsAfter).distinct
+      val subsets = {
+        val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
+        val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
+        (subsetsBefore ++ subsetsAfter).distinct
+      }
       val tagDiffs = analyzeTagDiffs
       val nodeMoved = analyzeNodeMoved
       val key = context.buildChangeKey(after._id)
@@ -51,15 +60,20 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
       val allLocations = (before.locations ++ after.locations).distinct.sorted
       val allTiles = (before.tiles ++ after.tiles).distinct.sorted
 
+      val nodeName = changeType match {
+        case ChangeType.Delete => before.name
+        case _ => after.name
+      }
+
       Some(
         analyzed(
           NodeChange(
             _id = key.toId,
             key = key,
-            changeType = ChangeType.Update,
+            changeType = changeType,
             subsets = subsets,
             locations = allLocations,
-            name = after.name,
+            name = nodeName,
             before = Some(before.toMeta),
             after = Some(after.toMeta),
             connectionChanges = Seq.empty,
@@ -71,8 +85,8 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
             removedFromRoute = removedFromRoute,
             addedToNetwork = addedToNetwork,
             removedFromNetwork = removedFromNetwork,
-            factDiffs = FactDiffs(), // TODO MONGO should do better !!!
-            facts = Seq.empty,
+            factDiffs = factDiffs(),
+            facts = facts,
             initialTags = None,
             initialLatLon = None,
             allTiles
@@ -92,6 +106,29 @@ class NodeDocChangeAnalyzer(context: ChangeSetContext, before: NodeDoc, after: N
       val latLonAfter = LatLonImpl(after.latitude, after.longitude)
       val distance = Haversine.meters(Seq(before, after))
       Some(NodeMoved(latLonBefore, latLonAfter, distance))
+    }
+    else {
+      None
+    }
+  }
+
+  private def factDiffs(): Option[FactDiffs] = {
+
+    val beforeFacts = before.facts.toSet
+    val afterFacts = after.facts.toSet
+
+    val resolvedFacts = (beforeFacts -- afterFacts).toSeq
+    val introducedFacts = (afterFacts -- beforeFacts).toSeq
+    val remainingFacts = (afterFacts intersect beforeFacts).toSeq
+
+    if (resolvedFacts.nonEmpty || introducedFacts.nonEmpty) {
+      Some(
+        FactDiffs(
+          resolvedFacts,
+          introducedFacts,
+          remainingFacts
+        )
+      )
     }
     else {
       None

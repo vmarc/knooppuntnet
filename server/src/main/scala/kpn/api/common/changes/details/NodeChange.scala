@@ -33,7 +33,7 @@ case class NodeChange(
   removedFromRoute: Seq[Ref],
   addedToNetwork: Seq[Ref], // added to network relation (not included when only added to route within network)
   removedFromNetwork: Seq[Ref], // removed from network relation (not included when only removed to route within network)
-  factDiffs: FactDiffs,
+  factDiffs: Option[FactDiffs],
   facts: Seq[Fact],
   initialTags: Option[Tags],
   initialLatLon: Option[LatLonImpl],

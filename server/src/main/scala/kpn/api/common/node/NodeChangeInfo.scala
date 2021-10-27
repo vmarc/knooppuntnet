@@ -28,7 +28,7 @@ case class NodeChangeInfo(
   removedFromRoute: Seq[Ref],
   addedToNetwork: Seq[Ref],
   removedFromNetwork: Seq[Ref],
-  factDiffs: FactDiffs,
+  factDiffs: Option[FactDiffs],
   facts: Seq[Fact],
   initialTags: Option[Tags],
   initialLatLon: Option[LatLonImpl],

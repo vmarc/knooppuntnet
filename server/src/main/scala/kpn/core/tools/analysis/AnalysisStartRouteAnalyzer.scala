@@ -83,7 +83,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def saveRouteChange(routeAnalysis: RouteAnalysis): Unit = {
 
     val key = config.changeSetContext.buildChangeKey(routeAnalysis.route.id)
-    val facts = routeAnalysis.route.facts.toSet
+    val facts = routeAnalysis.route.facts
     val locationFacts = facts.filter(Fact.locationFacts.contains)
 
     config.changeSetRepository.saveRouteChange(

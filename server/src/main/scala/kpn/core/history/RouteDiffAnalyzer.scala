@@ -105,12 +105,18 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
     val beforeFacts = before.route.facts.toSet
     val afterFacts = after.route.facts.toSet
 
-    val resolvedFacts = beforeFacts -- afterFacts
-    val introducedFacts = afterFacts -- beforeFacts
-    val remainingFacts = afterFacts intersect beforeFacts
+    val resolvedFacts = (beforeFacts -- afterFacts).toSeq
+    val introducedFacts = (afterFacts -- beforeFacts).toSeq
+    val remainingFacts = (afterFacts intersect beforeFacts).toSeq
 
     if (resolvedFacts.nonEmpty || introducedFacts.nonEmpty) {
-      Some(FactDiffs(resolvedFacts, introducedFacts, remainingFacts))
+      Some(
+        FactDiffs(
+          resolvedFacts,
+          introducedFacts,
+          remainingFacts
+        ))
+
     }
     else {
       None

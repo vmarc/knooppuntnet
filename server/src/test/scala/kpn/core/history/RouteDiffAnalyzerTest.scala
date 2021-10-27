@@ -279,12 +279,10 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     }
 
     val expectedDiff = FactDiffs(
-      Set(),
-      Set(
+      introduced = Seq(
         Fact.RouteUnexpectedRelation,
         Fact.RouteBroken
-      ),
-      Set()
+      )
     )
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis

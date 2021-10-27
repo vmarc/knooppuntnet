@@ -85,9 +85,9 @@ object RouteChangesPageExample {
 
   private def routeFactDiffs(): FactDiffs = {
     FactDiffs(
-      resolved = Set(Fact.RouteRedundantNodes),
-      introduced = Set(Fact.RouteIncomplete),
-      remaining = Set(Fact.RouteInaccessible)
+      resolved = Seq(Fact.RouteRedundantNodes),
+      introduced = Seq(Fact.RouteIncomplete),
+      remaining = Seq(Fact.RouteInaccessible)
     )
   }
 

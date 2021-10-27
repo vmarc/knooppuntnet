@@ -710,7 +710,7 @@ trait SharedTestObjects extends MockFactory {
     removedFromRoute: Seq[Ref] = Seq.empty,
     addedToNetwork: Seq[Ref] = Seq.empty,
     removedFromNetwork: Seq[Ref] = Seq.empty,
-    factDiffs: FactDiffs = FactDiffs(),
+    factDiffs: Option[FactDiffs] = None,
     facts: Seq[Fact] = Seq.empty,
     initialTags: Option[Tags] = None,
     initialLatLon: Option[LatLonImpl] = None,

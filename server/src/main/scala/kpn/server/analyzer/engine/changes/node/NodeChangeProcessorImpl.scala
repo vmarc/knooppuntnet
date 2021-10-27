@@ -10,7 +10,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.NodeDoc
-import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -108,6 +107,17 @@ class NodeChangeProcessorImpl(
       nodeDoc.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType))
     }
 
+    val factDiffs = if (nodeDoc.facts.nonEmpty) {
+      Some(
+        FactDiffs(
+          introduced = nodeDoc.facts
+        )
+      )
+    }
+    else {
+      None
+    }
+
     Some(
       analyzed(
         NodeChange(
@@ -128,7 +138,7 @@ class NodeChangeProcessorImpl(
           removedFromRoute = Seq.empty,
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
+          factDiffs = factDiffs,
           facts = Seq.empty,
           initialTags = Some(nodeDoc.tags),
           initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
@@ -155,62 +165,24 @@ class NodeChangeProcessorImpl(
       lostNodeTag(NetworkType.inlineSkating, nodeDocBefore, nodeDocAfter, Fact.LostInlineSkateNodeTag)
     ).flatten
 
-    if (!TagInterpreter.isNetworkNode(nodeDocAfter.tags)) {
+    val allNodeTagsLost = !TagInterpreter.isNetworkNode(nodeDocAfter.tags)
+
+    val changeType = if (allNodeTagsLost) {
       analysisContext.watched.nodes.delete(nodeId)
       nodeRepository.save(nodeDocAfter.deactivated)
-
-      val key = context.buildChangeKey(nodeDocAfter._id)
-      val subsets = nodeDocBefore.names.flatMap { nodeName => // TODO also consider nodeDocAfter
-        nodeDocBefore.country.flatMap { country =>
-          Subset.of(country, nodeName.networkType)
-        }
-      }
-
-      val tagDiffs = new NodeTagDiffAnalyzer(nodeDocBefore, nodeDocAfter).diffs
-
-      val addedToNetwork = context.changes.networkChanges.filter { networkChange =>
-        networkChange.nodes.added.contains(nodeId)
-      }.map(_.toRef)
-
-      val removedFromNetwork = context.changes.networkChanges.filter { networkChange =>
-        networkChange.nodes.removed.contains(nodeId)
-      }.map(_.toRef)
-
-      val allTiles = (nodeDocBefore.tiles ++ nodeDocAfter.tiles).distinct.sorted
-      val allLocations = (nodeDocBefore.locations ++ nodeDocAfter.locations).distinct.sorted
-
-      Some(
-        analyzed(
-          NodeChange(
-            _id = key.toId,
-            key = key,
-            changeType = ChangeType.Delete,
-            subsets = subsets,
-            locations = allLocations,
-            name = nodeDocBefore.name,
-            before = Some(nodeDocBefore.toMeta),
-            after = Some(nodeDocAfter.toMeta),
-            connectionChanges = Seq.empty,
-            roleConnectionChanges = Seq.empty,
-            definedInNetworkChanges = Seq.empty,
-            tagDiffs = tagDiffs,
-            nodeMoved = None,
-            addedToRoute = Seq.empty,
-            removedFromRoute = nodeDocBefore.routeReferences.map(_.toRef),
-            addedToNetwork = addedToNetwork,
-            removedFromNetwork = removedFromNetwork,
-            factDiffs = FactDiffs(),
-            facts = lostNodeTagFacts,
-            initialTags = None,
-            initialLatLon = None,
-            tiles = allTiles
-          )
-        )
-      )
+      ChangeType.Delete
     }
     else {
-      new NodeDocChangeAnalyzer(context, nodeDocBefore, nodeDocAfter).analyze()
+      ChangeType.Update
     }
+
+    new NodeDocChangeAnalyzer(
+      context,
+      nodeDocBefore,
+      nodeDocAfter,
+      lostNodeTagFacts,
+      changeType
+    ).analyze()
   }
 
   private def lostNodeTag(networkType: NetworkType, nodeDocBefore: NodeDoc, nodeDocAfter: NodeDoc, fact: Fact): Option[Fact] = {
@@ -256,7 +228,7 @@ class NodeChangeProcessorImpl(
           removedFromRoute = nodeDoc.routeReferences.map(_.toRef),
           addedToNetwork = Seq.empty,
           removedFromNetwork = Seq.empty,
-          factDiffs = FactDiffs(),
+          factDiffs = None,
           facts = Seq(Fact.Deleted),
           initialTags = None,
           initialLatLon = None,

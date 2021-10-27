@@ -13,6 +13,7 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
+import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
@@ -176,12 +177,16 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
             Seq.empty
           )
         ),
-        removedFromNetwork = Seq(Ref(1, "name")),
-        // TODO MONGO facts = Seq(Fact.LostHikingNodeTag),
+        removedFromNetwork = Seq(
+          Ref(1, "name")
+        ),
+        facts = Seq(
+          Fact.LostHikingNodeTag
+        ),
         investigate = true,
         impact = true,
-        // TODO MONGO locationInvestigate = true,
-        // TODO MONGO locationImpact = true
+        locationInvestigate = true,
+        locationImpact = true
       )
     )
   }
