@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact.RouteTagInvalid
 import kpn.api.custom.Fact.RouteTagMissing
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object RouteTagRouteAnalyzer extends RouteAnalyzer {
@@ -16,7 +17,7 @@ class RouteTagRouteAnalyzer(context: RouteAnalysisContext) {
     context.relation.tags("route") match {
       case None => context.withFact(RouteTagMissing)
       case Some(routeTagValue) =>
-        if (!isValid(routeTagValue)) {
+        if (!isValid(context.relation.tags)) {
           context.withFact(RouteTagInvalid)
         }
         else {
@@ -25,8 +26,7 @@ class RouteTagRouteAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def isValid(routeTagValue: String): Boolean = {
-    context.scopedNetworkType.networkType.routeTagValues.contains(routeTagValue)
+  private def isValid(tags: Tags): Boolean = {
+    tags.has("route", context.scopedNetworkType.networkType.routeTagValues:_*)
   }
-
 }
