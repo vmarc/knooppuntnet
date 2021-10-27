@@ -3,11 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ApiResponse } from '@api/custom/api-response';
 import { Statistics } from '@api/custom/statistics';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PageService } from '../../../components/shared/page.service';
+import { OverviewService } from '../overview.service';
 
 @Component({
   selector: 'kpn-overview-page',
@@ -24,8 +23,8 @@ import { PageService } from '../../../components/shared/page.service';
     <kpn-page-header
       subject="overview-in-numbers-page"
       i18n="@@overview-page.title"
-      >Overview</kpn-page-header
-    >
+      >Overview
+    </kpn-page-header>
 
     <kpn-error></kpn-error>
 
@@ -37,7 +36,7 @@ import { PageService } from '../../../components/shared/page.service';
           ></kpn-situation-on>
         </div>
         <ng-content
-          *ngIf="veryLarge$ | async; then table; else list"
+          *ngIf="tableFormat$ | async; then table; else list"
         ></ng-content>
         <ng-template #table>
           <kpn-overview-table [statistics]="stats"></kpn-overview-table>
@@ -57,19 +56,15 @@ import { PageService } from '../../../components/shared/page.service';
   ],
 })
 export class OverviewPageComponent implements OnInit {
-  veryLarge$: Observable<boolean>;
+  readonly tableFormat$ = this.overviewService.tableFormat$;
   response$: Observable<ApiResponse<Statistics>>;
   stats: Statistics;
 
   constructor(
     private appService: AppService,
     private pageService: PageService,
-    private pageWidthService: PageWidthService
-  ) {
-    this.veryLarge$ = pageWidthService.current$.pipe(
-      map(() => pageWidthService.isVeryLarge())
-    );
-  }
+    private overviewService: OverviewService
+  ) {}
 
   ngOnInit(): void {
     this.pageService.defaultMenu();

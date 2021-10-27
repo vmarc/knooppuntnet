@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
 import { MarkdownModule } from 'ngx-markdown';
 import { SharedModule } from '../../components/shared/shared.module';
 import { OverviewPageComponent } from './overview/_overview-page.component';
@@ -10,6 +11,7 @@ import { OverviewListStatRowComponent } from './overview/overview-list-stat-row.
 import { OverviewListStatTableComponent } from './overview/overview-list-stat-table.component';
 import { OverviewListStatComponent } from './overview/overview-list-stat.component';
 import { OverviewListComponent } from './overview/overview-list.component';
+import { OverviewSidebarComponent } from './overview/overview-sidebar.component';
 import { OverviewValueComponent } from './overview/overview-value.component';
 import { OverviewTableHeaderComponent } from './overview/overview-table-header.component';
 import { OverviewTableRowComponent } from './overview/overview-table-row.component';
@@ -24,6 +26,7 @@ import { OverviewService } from './overview/overview.service';
     SharedModule,
     OverviewRoutingModule,
     MatListModule,
+    MatRadioModule,
   ],
   declarations: [
     OverviewListComponent,
@@ -35,6 +38,7 @@ import { OverviewService } from './overview/overview.service';
     OverviewTableComponent,
     OverviewTableHeaderComponent,
     OverviewTableRowComponent,
+    OverviewSidebarComponent,
   ],
   providers: [OverviewService],
 })

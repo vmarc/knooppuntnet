@@ -60,6 +60,10 @@ import { PlannerLayerService } from '../../planner/services/planner-layer.servic
         background-color: white;
         overflow: hidden;
       }
+
+      .map:-webkit-full-screen {
+        top: 0;
+      }
     `,
   ],
 })
